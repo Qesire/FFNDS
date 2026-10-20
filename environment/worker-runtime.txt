@@ -2,7 +2,8 @@
 # historical environment lock. Install torch/vision/audio from cu128 first.
 accelerate==1.14.0
 av==17.1.0
-decord==0.6.0
+# decord is optional for the I2V route; its 0.6.0 wheel embeds a CPython 3.6
+# platform tag and fails uv pip check on Python 3.11, so it is not installed.
 diffusers==0.38.0
 easydict==1.13
 einops==0.8.2
@@ -19,6 +20,7 @@ packaging==26.2
 prometheus_client==0.25.0
 psutil==7.2.2
 pydantic==2.13.4
+pyzmq==27.1.0
 requests==2.34.2
 safetensors==0.8.0
 scipy==1.17.1

@@ -1,8 +1,8 @@
 # worker 续接记录（2026-10-20）
 
 本页记录接手后的实际状态；前八篇文档和归档仍表示原学校服务器的历史快照。
-用户授权整晚推进、整理仓库，并分阶段直接提交**本地 main**。本轮夜间截止暂定北京时间
-2026-10-21 08:00；无需推送远端。
+用户授权整晚推进、整理仓库，并分阶段直接提交、推送 **GitHub main**。
+本轮夜间截止暂定北京时间 2026-10-21 08:00。
 
 ## 当前实测与资产
 
@@ -12,8 +12,9 @@
 - 两端 `/home/xiang` 为共享 NFS。默认 SSH 跳板曾超时，
   `ssh -o ProxyCommand=none worker` 实测可用。
 - 使用独立 `.venv`，Python 3.11.15，目标 torch 2.10.0+cu128；
-  安装阶段的观测不能当作 CUDA 可用性验证。首次提前探测遇到尚未复制完成的
-  `libtorch_global_deps.so`，原始记录保留在 `hardware_during_install.json`；安装完成后重测。
+  安装已完成，CUDA 可用性与 BF16 GEMM/SDPA 检查已通过。首次提前探测遇到尚未复制完成的
+  `libtorch_global_deps.so`，原始记录保留在 `hardware_during_install.json`；重测成功证据为
+  `hardware_torch.json` 与 `torch_smoke.json`。
 - 模型仅进入 HF 缓存，项目目录不复制权重。`tools/fetch_models.py` 固定完整 revision，
   每个大文件核验完整 SHA256，完成清单位于 `.runtime/models.json`。
 - 蒸馏仓库：`lightx2v/Wan2.2-Distill-Models@52699089e1dac804cbedd2400d0d2aea969577de`。
@@ -40,9 +41,12 @@
 bash scripts/setup_worker_env.sh
 .venv/bin/python tools/restore_sources.py
 .venv/bin/python tools/fetch_models.py
+.venv/bin/python tools/prepare_model_view.py
+.venv/bin/python tools/fetch_research_inputs.py
 python3 tools/run_on_worker.py --gpu 0 -- python tools/hardware_probe.py --output runs/hardware.json
 python3 tools/run_on_worker.py --gpu 0 -- bash scripts/build_hif4.sh
 python3 tools/run_on_worker.py --gpu 0 -- python tools/smoke_hif4.py --output runs/hif4_smoke.json
+python3 tools/run_on_worker.py --gpu 0 -- python tools/run_dense_bf16.py --out runs/dense_example
 ```
 
 远程入口只允许 GPU 0/1，使用节点本地 `flock` 防止本项目重叠，并在启动前检查
@@ -53,11 +57,29 @@ python3 tools/run_on_worker.py --gpu 0 -- python tools/smoke_hif4.py --output ru
 `reports/` 只保存必要的小型审计证据；`docs/` 解释结论、失败和下一步。
 不把模型、下载缓存、视频或大张量提交到 Git。
 
+## 新数值与输入核验
+
+- torch 2.10.0+cu128 在驱动 550.54.14 上实际执行 BF16 GEMM 与 SDPA 通过。
+  GEMM 的可精确表示测试输入与 FP64 参考转换结果完全一致；SDPA 对 FP64 参考最大绝对误差约 0.00233。
+- 使用系统 nvcc 12.4、sm80 重新编译 `hifxg_quant` 与 `lowbit_quant` 成功。
+  构建有 CUDA minor-version mismatch 提示，但没有把提示当成兼容性结论：
+  实际原生 HiF4 CUDA 路径和非默认 stream 的四组检查均已通过
+  （FP32/BF16 × hifx4/hifx4_1），本轮 native/force_fp32 输出最大差为 0。
+  扩展哈希与检查范围见 `hif4_smoke.json`；不代表完整模型或其他量化格式已验证。
+- 当前最小依赖 `uv pip check` 通过。旧 decord 0.6.0 wheel 内嵌 CPython 3.6 标签，
+  I2V 路径不依赖它，因此移除；历史快照与首次检查失败记录保留。
+  按真实导入缺失补入同历史版本的 pyzmq 27.1.0，未安装整套上游 requirements。
+- 三个原 V5 来源已从 `BestWishYsh/OpenS2V-Eval@b1e792b1853e5cbffdb7e7cc0d77a2bea7008e9a`
+  恢复 3 张图和 6 个种子记录，提示词、首图路径、图像字节数与交接清单一致。
+  原始图像哈希缺失，因此不能声称已证明旧/新图像逐字节相同；新下载哈希和此限制均写入 manifest。
+- `prepare_model_view.py` 在 HF 缓存内部建立 hardlink 布局，不复制权重字节。
+  这是为了满足旧 adapter 在 resolve 后仍要求 high/low expert 目录名的路径合同，
+  不修改数值 adapter。该工具和 dense runner 须等全部模型下载完成后再实际运行。
+
 ## 下一步及尚未闭合项
 
-1. 安装完成后重新做 torch/GPU 探测与 BF16/SDPA 最小运算验证。
-2. 在 worker 重新编译两个 HiF4 扩展，要求实际 CUDA 路径和非默认 stream 数值检查通过，
-   不允许 Python fallback 冒充编译成功。系统 CUDA 12.4 与 wheel cu128 的组合须实测。
+1. 完成两个精确蒸馏 checkpoint、T5/VAE/tokenizer 的 HF 下载及完整哈希核验。
+2. 完成 LightX2V fresh-process 导入和实际模型运行；torch 与 HiF4 最小算子检查已通过。
 3. 模型下载和哈希完成后，按原四步合同跑一个 D-BF16 dense I2V；记录实际网格、
    scheduler、源码、环境、输入和输出，再扩大采集。
 4. 历史约 56 GB D-Q cache、R1 原始大张量及 canonical W2 没有随归档交付，
@@ -66,4 +88,4 @@ python3 tools/run_on_worker.py --gpu 0 -- python tools/smoke_hif4.py --output ru
    scope 查找 static 支持，task6 会缺键；task0 评分也会使用自己的支持而非对侧 donor。
    新可恢复实现必须按冻结规格绑定到对侧 task0 seed，同时保存分片/恢复点。
 
-目前仅恢复/文件核验通过；尚无新 dense 视频、D-Q 复现、完整 FFN 加速或正式20条质量结果。
+目前恢复/文件核验及最小 GPU 数值检查通过；尚无新 dense 视频、D-Q 复现、完整 FFN 加速或正式20条质量结果。

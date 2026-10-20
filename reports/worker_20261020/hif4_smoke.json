@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "scope": "synthetic native CUDA QDQ/current-stream numerical validation only",
+  "torch": "2.10.0+cu128",
+  "cuda_runtime": "12.8",
+  "device": "NVIDIA A100 80GB PCIe",
+  "modules": {
+    "HiFloat4.hif4_gpu.quant_cy.base.cusrc.hifxg_quant": {
+      "path": "/home/xiang/projects/FFNDS/.runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant.cpython-311-x86_64-linux-gnu.so",
+      "sha256": "95d5e52535a37a04ae696408f313a8f7401664c7c67a6d3cb709bcc3cac8d37e"
+    },
+    "HiFloat4.hif4_gpu.quant_cy.base.cusrc.lowbit_quant": {
+      "path": "/home/xiang/projects/FFNDS/.runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/lowbit_quant.cpython-311-x86_64-linux-gnu.so",
+      "sha256": "241a62ef4ed7c8cc2a1336f93d7017e9450ca38465a1aecf04695ac43e1d2bf1"
+    }
+  },
+  "checks": [
+    {
+      "dtype": "torch.float32",
+      "format": "hifx4",
+      "shape": [
+        257,
+        5120
+      ],
+      "stream_equal": true,
+      "finite": true,
+      "native_vs_force_fp32_max_abs": 0.0
+    },
+    {
+      "dtype": "torch.float32",
+      "format": "hifx4_1",
+      "shape": [
+        257,
+        5120
+      ],
+      "stream_equal": true,
+      "finite": true,
+      "native_vs_force_fp32_max_abs": 0.0
+    },
+    {
+      "dtype": "torch.bfloat16",
+      "format": "hifx4",
+      "shape": [
+        257,
+        5120
+      ],
+      "stream_equal": true,
+      "finite": true,
+      "native_vs_force_fp32_max_abs": 0.0
+    },
+    {
+      "dtype": "torch.bfloat16",
+      "format": "hifx4_1",
+      "shape": [
+        257,
+        5120
+      ],
+      "stream_equal": true,
+      "finite": true,
+      "native_vs_force_fp32_max_abs": 0.0
+    }
+  ]
+}
