@@ -1,0 +1,733 @@
+[
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/config/cluster.local.env",
+    "matches": [
+      {
+        "line": 33,
+        "text": "export PROX_GPU_NODELIST=anode16\\,anode17"
+      },
+      {
+        "line": 34,
+        "text": "export PROX_HEAVY_NODELIST=anode16\\,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/config/experiment.env",
+    "matches": [
+      {
+        "line": 73,
+        "text": "export PROX_ALLOWED_NODELIST=\"anode16,anode17\""
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/config/slurm.profile.env",
+    "matches": [
+      {
+        "line": 6,
+        "text": "export PROX_GPU_NODELIST=anode16,anode17"
+      },
+      {
+        "line": 7,
+        "text": "export PROX_HEAVY_NODELIST=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/scripts/check_node_contract.sh",
+    "matches": [
+      {
+        "line": 4,
+        "text": "allowed='anode16,anode17'"
+      },
+      {
+        "line": 13,
+        "text": "grep -qx \"#SBATCH --nodelist=$allowed\" \"$f\" || { echo \"GPU_NODELIST_BAD stage=$s file=$f\" >&2; exit 2; }"
+      },
+      {
+        "line": 20,
+        "text": "grep -qx \"#SBATCH --nodelist=$allowed\" \"$f\" || { echo \"HEAVY_NODELIST_BAD stage=$s file=$f\" >&2; exit 2; }"
+      },
+      {
+        "line": 27,
+        "text": "grep -q 'PROX_ALLOWED_NODELIST=\"anode16,anode17\"' \"$SUITE/scripts/common.sh\""
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/scripts/check_slurm_profile.sh",
+    "matches": [
+      {
+        "line": 55,
+        "text": "--gres=gpu:1 --nodelist=\"$first_node\" --wrap=/bin/true 2>&1)\""
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/scripts/common.sh",
+    "matches": [
+      {
+        "line": 17,
+        "text": "# Site allocation contract: GPU and large stages may run only on anode16/anode17."
+      },
+      {
+        "line": 27,
+        "text": "PROX_ALLOWED_NODELIST=\"anode16,anode17\"; export PROX_ALLOWED_NODELIST"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/scripts/configure_cluster.sh",
+    "matches": [
+      {
+        "line": 20,
+        "text": "PROX_GPU_NODELIST=\"${PROX_GPU_NODELIST:-anode16,anode17}\""
+      },
+      {
+        "line": 21,
+        "text": "PROX_HEAVY_NODELIST=\"${PROX_HEAVY_NODELIST:-anode16,anode17}\""
+      },
+      {
+        "line": 24,
+        "text": "[[ \"$PROX_GPU_NODELIST\" == \"anode16,anode17\" ]] || { echo \"PROX_GPU_NODELIST is immutable: anode16,anode17\" >&2; exit 16; }"
+      },
+      {
+        "line": 25,
+        "text": "[[ \"$PROX_HEAVY_NODELIST\" == \"anode16,anode17\" ]] || { echo \"PROX_HEAVY_NODELIST is immutable: anode16,anode17\" >&2; exit 17; }"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/scripts/run_stage.sh",
+    "matches": [
+      {
+        "line": 99,
+        "text": "stage_step hif4_gpu_environment \"$PY_HIF4_REAL\" \"$PROX_SUITE_ROOT/tools/python_env_probe.py\" --output \"$d/python_environment.json\" --require-cuda --expected-node anode16 --expected-node anode17 --expected-python \"$PY_HIF4_REAL\""
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/100_preflight.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/120_runtime_fingerprint.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/130_smoke_capture.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/140_dev_capture.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/150_dev_index.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/160_oracle_shards.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/165_oracle_merge.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/170_proxy_shards.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/175_proxy_merge.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/180_threshold_shards.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/190_method_select.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/210_audit_capture.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/220_audit_index.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/230_untouched_audit.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/240_runtime_emulation_smoke.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/250_vbench_generation.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/252_vbench_generation_audit.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/253_vbench_eval_inputs.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/255_vbench9_eval_variant.sbatch",
+    "matches": [
+      {
+        "line": 12,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/slurm/257_vbench9_collect.sbatch",
+    "matches": [
+      {
+        "line": 11,
+        "text": "#SBATCH --nodelist=anode16,anode17"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/tests/test_environment_contract.py",
+    "matches": [
+      {
+        "line": 22,
+        "text": "self.assertIn(\"#SBATCH --nodelist=anode16,anode17\", sbatch)"
+      },
+      {
+        "line": 64,
+        "text": "submit = (self.root / \"scripts/submit_all_anode16_17.sh\").read_text(encoding=\"utf-8\")"
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/tests/test_package_contract.py",
+    "matches": [
+      {
+        "line": 38,
+        "text": "\"scripts/submit_all_anode16_17.sh\","
+      }
+    ]
+  },
+  {
+    "path": "server/artifacts/wan_hif4_prox_dit_v1/tests/test_slurm_node_contract.py",
+    "matches": [
+      {
+        "line": 21,
+        "text": "self.assertIn(\"#SBATCH --nodelist=anode16,anode17\", text, stage)"
+      },
+      {
+        "line": 28,
+        "text": "self.assertIn(\"#SBATCH --nodelist=anode16,anode17\", text, stage)"
+      },
+      {
+        "line": 46,
+        "text": "self.assertIn('PROX_ALLOWED_NODELIST=\"anode16,anode17\"', common)"
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/100_resume_hif4_vllm_tmpfix.sbatch",
+    "matches": [
+      {
+        "line": 23,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"${TORCH_CUDA_ARCH_LIST:-8.0}\""
+      },
+      {
+        "line": 31,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/100_resume_hif4_vllm_tmpfix.sh",
+    "matches": [
+      {
+        "line": 74,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"${TORCH_CUDA_ARCH_LIST:-8.0}\""
+      },
+      {
+        "line": 85,
+        "text": "echo \"[tmpfix] TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/102_build_hifloat4_only.sbatch",
+    "matches": [
+      {
+        "line": 19,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"${TORCH_CUDA_ARCH_LIST:-8.0}\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/102_build_hifloat4_only.sh",
+    "matches": [
+      {
+        "line": 56,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"${TORCH_CUDA_ARCH_LIST:-8.0}\""
+      },
+      {
+        "line": 61,
+        "text": "echo \"[hifloat4] TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/118_build_flash_attn_hif4_sm80.sh",
+    "matches": [
+      {
+        "line": 74,
+        "text": "# FLASH_ATTN_CUDA_ARCHS is used by recent flash-attn setup.py."
+      },
+      {
+        "line": 75,
+        "text": "# TORCH_CUDA_ARCH_LIST is kept for compatibility with older torch extension paths."
+      },
+      {
+        "line": 76,
+        "text": "export FLASH_ATTN_CUDA_ARCHS=\"80\""
+      },
+      {
+        "line": 77,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 105,
+        "text": "echo \"FLASH_ATTN_CUDA_ARCHS=$FLASH_ATTN_CUDA_ARCHS\""
+      },
+      {
+        "line": 106,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/118_build_hifloat4_in_wan_env.sbatch",
+    "matches": [
+      {
+        "line": 61,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"${TORCH_CUDA_ARCH_LIST:-8.0}\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/118_preflight_hif4_flash_attn.sh",
+    "matches": [
+      {
+        "line": 33,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"${TORCH_CUDA_ARCH_LIST:-8.0}\""
+      },
+      {
+        "line": 47,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/119_build_flash_attn_hif4_sm80_setup_py.sh",
+    "matches": [
+      {
+        "line": 58,
+        "text": "export FLASH_ATTN_CUDA_ARCHS=\"80\""
+      },
+      {
+        "line": 59,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 80,
+        "text": "echo \"FLASH_ATTN_CUDA_ARCHS=$FLASH_ATTN_CUDA_ARCHS\""
+      },
+      {
+        "line": 81,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/119_build_hif4_flash_attn.sh",
+    "matches": [
+      {
+        "line": 56,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"${TORCH_CUDA_ARCH_LIST:-8.0}\""
+      },
+      {
+        "line": 75,
+        "text": "echo \"[flash-build] TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/119_build_hif4_flash_attn_sm80.sbatch",
+    "matches": [
+      {
+        "line": 64,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 94,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/120_build_flash_attn_hif4_oldstyle.sh",
+    "matches": [
+      {
+        "line": 66,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 68,
+        "text": "export FLASH_ATTN_CUDA_ARCHS=\"80\""
+      },
+      {
+        "line": 89,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      },
+      {
+        "line": 91,
+        "text": "echo \"FLASH_ATTN_CUDA_ARCHS=$FLASH_ATTN_CUDA_ARCHS\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/120_build_flash_attn_hif4_sm80_legacy_single.sh",
+    "matches": [
+      {
+        "line": 62,
+        "text": "export FLASH_ATTN_CUDA_ARCHS=\"80\""
+      },
+      {
+        "line": 63,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/120_build_hif4_flash_attn_sm80_persistent.sbatch",
+    "matches": [
+      {
+        "line": 65,
+        "text": "# 关键：flash-attn 看的是这个，不只看 TORCH_CUDA_ARCH_LIST。"
+      },
+      {
+        "line": 66,
+        "text": "export FLASH_ATTN_CUDA_ARCHS=\"80\""
+      },
+      {
+        "line": 67,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 96,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      },
+      {
+        "line": 97,
+        "text": "echo \"FLASH_ATTN_CUDA_ARCHS=$FLASH_ATTN_CUDA_ARCHS\""
+      },
+      {
+        "line": 116,
+        "text": "print(\"FLASH_ATTN_CUDA_ARCHS:\", os.environ.get(\"FLASH_ATTN_CUDA_ARCHS\"))"
+      },
+      {
+        "line": 158,
+        "text": "if \"os.environ['FLASH_ATTN_CUDA_ARCHS'] = '80'\" not in s:"
+      },
+      {
+        "line": 161,
+        "text": "\"import os\\nos.environ['FLASH_ATTN_CUDA_ARCHS'] = '80'\\nos.environ['TORCH_CUDA_ARCH_LIST'] = '8.0'\\n\","
+      },
+      {
+        "line": 188,
+        "text": "\"FLASH_ATTN_CUDA_ARCHS\","
+      },
+      {
+        "line": 189,
+        "text": "\"TORCH_CUDA_ARCH_LIST\","
+      },
+      {
+        "line": 190,
+        "text": "\"compute_80\","
+      },
+      {
+        "line": 194,
+        "text": "\"sm_80\","
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/121_build_flash_attn_hif4_oldstyle_isolated_tmp.sh",
+    "matches": [
+      {
+        "line": 58,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 60,
+        "text": "export FLASH_ATTN_CUDA_ARCHS=\"80\""
+      },
+      {
+        "line": 80,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      },
+      {
+        "line": 82,
+        "text": "echo \"FLASH_ATTN_CUDA_ARCHS=$FLASH_ATTN_CUDA_ARCHS\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/121_build_hif4_flash_attn_sm80_only.sh",
+    "matches": [
+      {
+        "line": 59,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 76,
+        "text": "echo \"[fa-sm80] TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      },
+      {
+        "line": 130,
+        "text": "new = 'append_nvcc_threads([\"-gencode\", \"arch=compute_80,code=sm_80\"])'"
+      },
+      {
+        "line": 145,
+        "text": "grep -nE \"append_nvcc_threads|compute_80|compute_90|compute_100|compute_120|CachedWheels\" setup.py | head -120 || true"
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/122_build_flash_attn_hif4_node_local.sh",
+    "matches": [
+      {
+        "line": 81,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 83,
+        "text": "export FLASH_ATTN_CUDA_ARCHS=\"80\""
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/122_build_hif4_flash_attn_sm80_setup_py.sh",
+    "matches": [
+      {
+        "line": 60,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 84,
+        "text": "echo \"[fa122] TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      },
+      {
+        "line": 144,
+        "text": "'append_nvcc_threads([\"-gencode\", \"arch=compute_80,code=sm_80\"])'"
+      },
+      {
+        "line": 157,
+        "text": "grep -nE \"append_nvcc_threads|compute_80|compute_90|compute_100|compute_120|bdist_wheel|CachedWheels\" setup.py | head -200 || true"
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/122_rebuild_flash_attn_hif4_sm80.sbatch",
+    "matches": [
+      {
+        "line": 49,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 51,
+        "text": "export CMAKE_CUDA_ARCHITECTURES=\"80\""
+      },
+      {
+        "line": 77,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      },
+      {
+        "line": 119,
+        "text": "nvcc -arch=sm_80 \"$TMPDIR/nvcc_smoke.cu\" -o \"$TMPDIR/nvcc_smoke\""
+      },
+      {
+        "line": 175,
+        "text": "# Keep only -gencode arch=compute_80,code=sm_80 in flash-attn CUDA build."
+      },
+      {
+        "line": 176,
+        "text": "os.environ[\"TORCH_CUDA_ARCH_LIST\"] = \"8.0\""
+      },
+      {
+        "line": 203,
+        "text": "if not any(\"compute_80\" in str(x) or \"sm_80\" in str(x) for x in cc_flag):"
+      },
+      {
+        "line": 204,
+        "text": "cc_flag += [\"-gencode\", \"arch=compute_80,code=sm_80\"]"
+      },
+      {
+        "line": 222,
+        "text": "grep -nE \"FORCE_SM80_ONLY|compute_80|compute_90|sm_90|compute_100|sm_100|compute_120|sm_120|CUDAExtension\" \"$SRC_DIR/setup.py\" | head -120 || true"
+      },
+      {
+        "line": 236,
+        "text": "grep -nE \"compute_80|sm_80\" \"$BUILD_LOG\" | head -20 || {"
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/123_build_hif4_flash_attn_sm80_robust.sh",
+    "matches": [
+      {
+        "line": 60,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 83,
+        "text": "echo \"[fa123] TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      },
+      {
+        "line": 129,
+        "text": "grep -nE \"cc_flag|append_nvcc_threads|compute_80|compute_90|compute_100|compute_120|CachedWheels|bdist_wheel|ext_modules.append\" setup.py | head -240 || true"
+      },
+      {
+        "line": 150,
+        "text": "cc_flag = [\"-gencode\", \"arch=compute_80,code=sm_80\"]"
+      },
+      {
+        "line": 178,
+        "text": "grep -nE \"FORCE_SM80_ONLY|cc_flag =|append_nvcc_threads|compute_80|compute_90|compute_100|compute_120|bdist_wheel|CachedWheels|ext_modules.append\" setup.py | head -260 || true"
+      }
+    ]
+  },
+  {
+    "path": "server/scripts/124_build_flash_attn_hif4_mktemp.sh",
+    "matches": [
+      {
+        "line": 74,
+        "text": "export TORCH_CUDA_ARCH_LIST=\"8.0\""
+      },
+      {
+        "line": 76,
+        "text": "export FLASH_ATTN_CUDA_ARCHS=\"80\""
+      },
+      {
+        "line": 101,
+        "text": "echo \"TORCH_CUDA_ARCH_LIST=$TORCH_CUDA_ARCH_LIST\""
+      },
+      {
+        "line": 103,
+        "text": "echo \"FLASH_ATTN_CUDA_ARCHS=$FLASH_ATTN_CUDA_ARCHS\""
+      },
+      {
+        "line": 174,
+        "text": "-arch=sm_80 \\"
+      }
+    ]
+  }
+]
