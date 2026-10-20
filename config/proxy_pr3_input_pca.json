@@ -1,0 +1,21 @@
+{
+  "experiment": "PR3_PRE_FFN0_DONOR_INPUT_PCA_C_PROXY_20261021",
+  "registered_after": "PR2 W1-only scores generated; before any donor PCA factors or PR3 scores",
+  "inputs": "actual V1 before FFN0; cached W1 QDQ and known b1/s2/W2/gate; training source task0 only",
+  "factorization": "FP32 full SVD of centered donor V1[512,5120]; P=right singular vectors; B=W1@P; mu=donor mean",
+  "ranks": [32, 64, 128, 256, 512],
+  "prediction": "((V1-mu)@P_r)@B_r.T+W1@mu+b1 in FP32, then BF16/native GELU(tanh), s2 compensation and native HiF4 Q2",
+  "score": "same original-group FP32 C projection and FP64 energy as AR2",
+  "modes": ["raw", "energy_residual"],
+  "energy_residual": "same donor-only weighted groupwise residual-on-input-energy LS as PR2; training scores must use donor own PCA, test scores opposite-seed donor PCA",
+  "donor": "task0 opposite seed, same step/expert/block20; never test PCA or test H/V2/Z/Delta for prediction",
+  "support": "216 original groups64; top108 stable group-ID ties",
+  "gains": ["unit", "input_norm", "policy_crossfit"],
+  "gain_fit": "bias-free actual training V2 signals under donor own PCA predicted supports; target is donor dense FP32 signal",
+  "primary_gate": "proxy<=0.8 random and <=0.9 C_static and <=1.1 true C_dynamic; >=3/4 with both seeds and steps per source",
+  "selection": "minimum rank passing task0 Fit gate, raw preferred at equal rank; task6 Validation only reports this choice, other ranks sensitivity. No Fit pass means route fails.",
+  "controls": ["dense_ffn0_oracle", "captured_V2"],
+  "control_use": "reuse verified PR2 operator controls on identical inputs/weights; excluded from selection",
+  "precision": "GPU FP32 factors/prediction, native CPU BF16 risk primary and matched FP32 control",
+  "deployment_status": "row-wise diagnostic; no tile-sharing, online cost, full sparse FFN or video claim"
+}

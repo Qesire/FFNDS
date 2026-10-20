@@ -1,0 +1,21 @@
+{
+  "experiment": "PR2_PRE_FFN0_W1_SVD_C_PROXY_20261021",
+  "registered_after": "AR2 positive C and negative PR1; before W1 SVD or PR2 scores",
+  "inputs": "actual V1 after Q1 and before FFN0; exact cached W1 QDQ, checkpoint b1, cached s2, W2 and preexisting gate",
+  "factorization": "data-independent randomized SVD of FP32 cached W1[out,in], seed20261020, q544, niter3",
+  "ranks": [64, 128, 256, 512],
+  "prediction": "FP32 V1@V_r@diag(S_r)@U_r.T+b1, cast BF16; GELU(tanh); FP32 divide by s2, cast BF16; native HiF4 Q2(force_fp32=True)",
+  "score": "FP32 per-original-group W2 projection and gate; FP64 squared-energy reduction, as frozen AR2 C",
+  "modes": ["raw", "energy_residual"],
+  "energy_residual": "donor-only groupwise weighted LS of (true_C-raw_C) on e=mean(V1^2)/donor_mean_energy; add e_test*beta, clip nonnegative",
+  "donor": "task0 opposite seed, same step/expert/block20; no test V2/H/Z/Delta enters predictor or calibration",
+  "support": "216 original groups64; top108 with stable group-ID ties",
+  "gains": ["unit", "input_norm", "policy_crossfit"],
+  "gain_fit": "policy-specific bias-free FP32 signal versus dense signal on donor actual V2, never a test target",
+  "primary_gate": "proxy<=0.8 random and <=0.9 C_static and <=1.1 true C_dynamic; >=3/4 scopes with both seeds and steps independently per source",
+  "selection": "minimum rank passing task0 Fit gate; raw preferred if both modes pass that rank; report task6 Validation for this choice. Other validation ranks are sensitivity only. No Fit pass means route fails.",
+  "controls": ["dense_ffn0_oracle", "captured_V2"],
+  "control_use": "operator/score verification only, excluded from candidate and rank selection; dense oracle explicitly computes full FFN0",
+  "precision": "GPU FP32 prediction; native CPU BF16 projection primary and matched FP32 control",
+  "deployment_status": "row-wise diagnostic only; score cost, QDQ, tile sharing, full sparse CUDA FFN and video acceptance remain unmeasured"
+}
