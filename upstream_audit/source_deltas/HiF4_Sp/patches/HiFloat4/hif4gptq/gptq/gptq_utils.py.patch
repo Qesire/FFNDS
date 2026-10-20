@@ -1,0 +1,33 @@
+--- a/HiFloat4/hif4gptq/gptq/gptq_utils.py
++++ b/HiFloat4/hif4gptq/gptq/gptq_utils.py
+@@ -65,7 +65,7 @@
+ 
+ def _get_quant_groups(model, layer=None):
+     model_type = getattr(model.config, "model_type", "")
+-    if model_type not in {"llama", "qwen3", "qwen3_5", "qwen3_5_text"}:
++    if model_type not in {"llama", "qwen2", "qwen3", "qwen3_5", "qwen3_5_text"}:
+         raise NotImplementedError(f"Model type {model_type} is out of scope. Supported: llama, qwen3, qwen3_5.")
+ 
+     mlp_groups = [
+@@ -282,7 +282,12 @@
+         inp = math.sqrt(2 / self.nsamples) * inp.float()
+         self.H += inp.matmul(inp.t())
+ 
+-    def fasterquant(self, blocksize=128, groupsize=-1, percdamp=0.01):
++    def fasterquant(self, blocksize=64, groupsize=-1, percdamp=0.01):
++        _magr_v31_trace = __import__('os').environ.get("MAGR_V31_GPTQ_TRACE_JSONL")
++        if _magr_v31_trace:
++            with open(_magr_v31_trace, "a", encoding="utf-8") as _magr_v31_f:
++                _magr_v31_f.write(__import__('json').dumps({"event":"MAGR_V31_GPTQ_CONFIG","blocksize":int(blocksize),"groupsize":int(groupsize),"percdamp":float(percdamp)}, sort_keys=True) + "\n")
++
+         W = self.layer.weight.data.clone().float()
+         if not self.quantizer.ready():
+             self.quantizer.find_params(W)
+@@ -461,6 +466,7 @@
+ 
+             for block in gptq_blocks.values():
+                 block.fasterquant(
++                    blocksize=getattr(args, "block_size_linear", 64),
+                     percdamp=args.gptq_percdamp,
+                     groupsize=getattr(args, "block_size_linear", 64),
+                 )

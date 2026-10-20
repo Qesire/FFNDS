@@ -1,0 +1,500 @@
+--- a/tools/generate_vbench_i2v_svdquant.py
++++ b/tools/generate_vbench_i2v_svdquant.py
+@@ -9,7 +9,72 @@
+ import os
+ import sys
+ from pathlib import Path
++# BEGIN HIFX4 WAN ADAPTER IMPORT
++from HiFloat4.ptq.adapters.wan_i2v import (
++    add_wan_hif4_preprocess_args,
++    setup_wan_hif4_preprocess_from_args,
++)
++# END HIFX4 WAN ADAPTER IMPORT
+ from typing import Any, Dict, List, Set
++
++def _wan_actstat_mark_module_tree(root, label):
++    """Attach stable actstat root/path labels without touching nn.Module.__setattr__."""
++    try:
++        import torch.nn as nn
++    except Exception:
++        nn = None
++
++    if root is None:
++        return
++
++    if nn is not None and not isinstance(root, nn.Module):
++        return
++
++    try:
++        object.__setattr__(root, "_wan_actstat_root_label", str(label))
++    except Exception:
++        pass
++
++    def rec(m):
++        try:
++            children = list(m.named_children())
++        except Exception:
++            children = []
++        for name, child in children:
++            try:
++                object.__setattr__(child, "_wan_actstat_parent", m)
++                object.__setattr__(child, "_wan_actstat_child_name", str(name))
++            except Exception:
++                pass
++            rec(child)
++
++    rec(root)
++
++
++def _wan_actstat_label_pipeline(pipe):
++    """Best-effort labels for Wan I2V components after pipeline construction."""
++    if not bool(int(__import__("os").environ.get("WAN_ACTSTAT_ENABLE", "0"))):
++        return
++
++    candidates = [
++        ("high_noise_model", ["high_noise_model", "high_noise_dit", "high_model"]),
++        ("low_noise_model", ["low_noise_model", "low_noise_dit", "low_model"]),
++        ("model", ["model", "transformer", "diffusion_model"]),
++        ("vae", ["vae", "first_stage_model"]),
++        ("text_encoder", ["text_encoder", "t5", "text_encoder_model"]),
++    ]
++
++    labeled = []
++    for label, names in candidates:
++        for name in names:
++            if hasattr(pipe, name):
++                obj = getattr(pipe, name)
++                _wan_actstat_mark_module_tree(obj, label)
++                labeled.append(f"{label}<={name}:{obj.__class__.__name__}")
++                break
++
++    print("[WAN_ACTSTAT] explicit pipeline labels: " + ", ".join(labeled), flush=True)
++
+ 
+ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ if PROJECT_ROOT not in sys.path:
+@@ -52,7 +117,7 @@
+     p.add_argument("--dry_run", action="store_true", default=False, help="List planned samples without loading Wan.")
+     p.add_argument("--manifest", type=str, default="", help="JSONL manifest path. Defaults to <output_dir>/generation_manifest.jsonl.")
+ 
+-    p.add_argument("--mode", type=str, default="quant", choices=["bf16", "quant"], help="Run full precision/bf16 or SVDQuant PTQ.")
++    p.add_argument("--mode", type=str, default="quant", choices=["bf16", "quant", "hif4", "mxfp4_rtn", "nvfp4_calibrate", "nvfp4_rtn"], help="Run full precision/bf16, SVDQuant PTQ, or HiF4 W4A4 RTN QDQ.")
+     p.add_argument("--ckpt_dir", type=str, default="../Wan2.2-I2V-A14B-bf16", help="Wan checkpoint directory.")
+     p.add_argument("--ptq_dir", type=str, default="/home/wjh/Wan2.2/outputs/gptq_ptq", help="PTQ artifact path for quant mode.")
+     p.add_argument("--size", type=str, default="480*832", help="Wan size key.")
+@@ -78,6 +143,57 @@
+     p.add_argument("--act_exp_offset", type=int, default=0, help="Override activation exponent offset when nonzero.")
+     p.add_argument("--act_policy_print", action="store_true", default=False, help="Print activation policy setup summary.")
+     p.add_argument("--freeze_condition_latent", action="store_true", default=True, help="Use infer script experiment that resets condition latent only after the final step.")
++
++    # HiF4 W4A4 RTN-QDQ path. This is fake-quant numeric simulation:
++    #   BF16 checkpoint -> one-time HiF4 RTN QDQ weight -> online HiF4 activation QDQ -> BF16 F.linear.
++    p.add_argument("--hif4_main_repo", type=str, default="", help="HiF4_Sp repo root containing HiFloat4.")
++    p.add_argument("--hif4_include_regex", type=str, default="", help="Optional regex selecting Linear modules for HiF4.")
++    p.add_argument("--hif4_exclude_regex", type=str, default="", help="Optional regex excluding Linear modules from HiF4.")
++    p.add_argument("--hif4_no_activation_qdq", action="store_true", default=False, help="Disable online activation QDQ; gives HiF4 W4-only RTN path.")
++    p.add_argument("--hif4_force_fp32", action="store_true", default=True, help="Call HiF4 QDQ with force_fp32=True.")
++    p.add_argument("--hif4_dry_run", action="store_true", default=False, help="Load Wan, select/replace Linear modules, write report, then exit.")
++    p.add_argument("--hif4_setup_only", action="store_true", default=False, help="Actually replace HiF4 Linear modules, write report, then exit before generation.")
++    p.add_argument("--hif4_report_json", type=str, default="", help="Path to write HiF4 setup report JSON.")
++    p.add_argument("--hif4_runtime_report_json", type=str, default="", help="Path to write HiF4 runtime report JSON after generation.")
++
++
++    # MXFP4 RTN W4A4 direct fake-quant baseline.
++    # BF16 checkpoint -> MXFP4 RTN weight QDQ + activation QDQ -> BF16 GEMM.
++    p.add_argument("--mxfp4_rtn_include_regex", type=str, default=None)
++    p.add_argument("--mxfp4_rtn_exclude_regex", type=str, default=None)
++    p.add_argument("--mxfp4_rtn_no_activation_qdq", action="store_true")
++    p.add_argument("--mxfp4_rtn_block_size", type=int, default=32)
++    p.add_argument("--mxfp4_rtn_force_fp32", action="store_true", default=True)
++    p.add_argument("--mxfp4_rtn_no_force_fp32", action="store_true")
++    p.add_argument("--mxfp4_rtn_dry_run", action="store_true")
++    p.add_argument("--mxfp4_rtn_report_json", type=str, default="")
++    p.add_argument("--mxfp4_rtn_weight_scale_method", type=str, default="ocp_floor", choices=["ocp_floor", "safe_ceil"])
++    p.add_argument("--mxfp4_rtn_act_scale_method", type=str, default="safe_ceil", choices=["ocp_floor", "safe_ceil"])
++    p.add_argument("--mxfp4_rtn_runtime_report_json", type=str, default="")
++
++    p.add_argument("--nvfp4_rtn_activation_scales", type=str, default="")
++    p.add_argument("--nvfp4_rtn_include_regex", type=str, default=None)
++    p.add_argument("--nvfp4_rtn_exclude_regex", type=str, default=None)
++    p.add_argument("--nvfp4_rtn_no_activation_qdq", action="store_true")
++    p.add_argument("--nvfp4_rtn_group_size", type=int, default=16)
++    p.add_argument("--nvfp4_rtn_force_fp32", action="store_true", default=True)
++    p.add_argument("--nvfp4_rtn_no_force_fp32", action="store_true")
++    p.add_argument("--nvfp4_rtn_quant_device", type=str, default="cuda:0")
++    p.add_argument("--nvfp4_rtn_chunk_rows", type=int, default=128)
++    p.add_argument("--nvfp4_rtn_dry_run", action="store_true")
++    p.add_argument("--nvfp4_rtn_setup_only", action="store_true")
++    p.add_argument("--nvfp4_rtn_allow_missing_scales", action="store_true")
++    p.add_argument("--nvfp4_rtn_collect_weight_error_stats", action="store_true")
++    p.add_argument("--nvfp4_rtn_report_json", type=str, default="")
++    p.add_argument("--nvfp4_rtn_runtime_report_json", type=str, default="")
++    p.add_argument("--nvfp4_calibration_scales_output", type=str, default="")
++    p.add_argument("--nvfp4_calibration_report_json", type=str, default="")
++    p.add_argument("--nvfp4_calibration_include_regex", type=str, default=None)
++    p.add_argument("--nvfp4_calibration_exclude_regex", type=str, default=None)
++    p.add_argument("--nvfp4_calibration_margin", type=float, default=1.0)
++    p.add_argument("--nvfp4_calibration_allow_unobserved", action="store_true")
++
++    add_wan_hif4_preprocess_args(p)
+     return p.parse_args()
+ 
+ 
+@@ -251,6 +367,110 @@
+         _print_quant_fp_module_summary(pipe.high_noise_model, "high_noise_model")
+ 
+ 
++
++def _setup_hif4_if_needed(pipe: Any, args: argparse.Namespace) -> None:
++    if args.mode != "hif4":
++        return
++
++    import json
++    import os
++    import sys
++    from pathlib import Path
++
++    hif4_repo = args.hif4_main_repo or os.environ.get("HIF4_MAIN_REPO", "")
++    if hif4_repo:
++        hif4_root = Path(hif4_repo).expanduser().resolve()
++        os.environ["HIF4_MAIN_REPO"] = str(hif4_root)
++        for p in [
++            hif4_root,
++            hif4_root / "HiFloat4",
++            hif4_root / "HiFloat4" / "hif4_gpu",
++        ]:
++            if p.exists() and str(p) not in sys.path:
++                sys.path.insert(0, str(p))
++
++    from quant.hif4_backend import (
++        get_hif4_stats,
++        hif4_backend_metadata,
++        reset_hif4_stats,
++    )
++    from quant.hif4_linear import replace_linear_with_hif4
++
++    reset_hif4_stats()
++
++    LOGGER.info("Setting up HiF4 W4A4 RTN-QDQ path")
++    LOGGER.info("HiF4 repo: %s", os.environ.get("HIF4_MAIN_REPO", "<not set>"))
++    LOGGER.info("HiF4 include regex: %s", args.hif4_include_regex or "<default>")
++    LOGGER.info("HiF4 exclude regex: %s", args.hif4_exclude_regex or "<default>")
++    LOGGER.info("HiF4 activation QDQ: %s", not args.hif4_no_activation_qdq)
++    LOGGER.info("HiF4 dry run: %s", args.hif4_dry_run)
++
++    reports = {}
++
++    for label, model in [
++        ("low_noise_model", pipe.low_noise_model),
++        ("high_noise_model", pipe.high_noise_model),
++    ]:
++        LOGGER.info("[%s] move to %s for one-time weight QDQ", label, pipe.device)
++        model.to(pipe.device).eval().requires_grad_(False)
++
++        report = replace_linear_with_hif4(
++            model,
++            include_regex=args.hif4_include_regex or None,
++            exclude_regex=args.hif4_exclude_regex or None,
++            activation_qdq=not args.hif4_no_activation_qdq,
++            force_fp32=bool(args.hif4_force_fp32),
++            dry_run=bool(args.hif4_dry_run and not args.hif4_setup_only),
++            quant_device=str(pipe.device),
++        )
++
++        LOGGER.info(
++            "[%s] HiF4 selected=%d skipped=%d dry_run=%s",
++            label,
++            report["selected_count"],
++            report["skipped_count"],
++            report["dry_run"],
++        )
++
++        reports[label] = {
++            "selected_count": report["selected_count"],
++            "skipped_count": report["skipped_count"],
++            "selected": report["selected"],
++            "skipped": report["skipped"],
++        }
++
++        if args.hif4_setup_only:
++            import torch
++            LOGGER.info("[%s] setup-only: offload model to CPU after replacement", label)
++            model.cpu()
++            torch.cuda.empty_cache()
++
++    payload = {
++        "mode": "hif4",
++        "definition": "HiF4 W4A4 RTN-QDQ fake quant: BF16 checkpoint, one-time HiF4 weight QDQ, online HiF4 activation QDQ, BF16 F.linear",
++        "metadata": hif4_backend_metadata(),
++        "stats_after_setup": get_hif4_stats(),
++        "reports": reports,
++    }
++
++    report_json = args.hif4_report_json
++    if not report_json:
++        report_json = str(Path(args.output_dir) / "hif4_setup_report.json")
++
++    Path(report_json).parent.mkdir(parents=True, exist_ok=True)
++    Path(report_json).write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
++
++    LOGGER.info("HiF4 setup report written to %s", report_json)
++    LOGGER.info("HiF4 stats after setup: %s", get_hif4_stats())
++
++    if args.hif4_dry_run or args.hif4_setup_only:
++        if args.hif4_setup_only:
++            LOGGER.info("HIF4_SETUP_ONLY_DONE")
++        else:
++            LOGGER.info("HIF4_DRY_RUN_DONE")
++        raise SystemExit(0)
++
++
+ def _generate_one(pipe: Any, args: argparse.Namespace, image_path: Path, prompt: str, seed: int) -> Any:
+     from PIL import Image
+     from wan.configs import MAX_AREA_CONFIGS
+@@ -277,6 +497,157 @@
+     )
+ 
+ 
++
++def _setup_mxfp4_rtn_if_needed(pipe: Any, args: argparse.Namespace) -> None:
++    if getattr(args, "mode", None) != "mxfp4_rtn":
++        return
++
++    import json as _json
++    import os as _os
++    from pathlib import Path as _Path
++
++    from quant.mxfp4_rtn_backend import get_mxfp4_rtn_stats, reset_mxfp4_rtn_stats
++    from quant.mxfp4_rtn_linear import replace_linear_with_mxfp4_rtn
++
++    reset_mxfp4_rtn_stats()
++
++    runtime_report = getattr(args, "mxfp4_rtn_runtime_report_json", "")
++    if runtime_report:
++        _os.environ["MXFP4_RTN_RUNTIME_REPORT_JSON"] = str(runtime_report)
++
++    include_regex = getattr(args, "mxfp4_rtn_include_regex", None)
++    exclude_regex = getattr(args, "mxfp4_rtn_exclude_regex", None)
++    activation_qdq = not bool(getattr(args, "mxfp4_rtn_no_activation_qdq", False))
++    block_size = int(getattr(args, "mxfp4_rtn_block_size", 32))
++    force_fp32 = bool(getattr(args, "mxfp4_rtn_force_fp32", True))
++    if bool(getattr(args, "mxfp4_rtn_no_force_fp32", False)):
++        force_fp32 = False
++    weight_scale_method = getattr(args, "mxfp4_rtn_weight_scale_method", "ocp_floor")
++    act_scale_method = getattr(args, "mxfp4_rtn_act_scale_method", "safe_ceil")
++
++    report = {
++        "mode": "mxfp4_rtn",
++        "quant_scheme": "MXFP4_E2M1_E8M0_reference_rtn_qdq",
++        "source_checkpoint": "bf16",
++        "uses_ptq_stats": False,
++        "uses_activation_policy": False,
++        "uses_svd_branch": False,
++        "uses_gptq": False,
++        "compute_backend": "bf16_or_fp16_gemm_after_qdq",
++        "activation_qdq": activation_qdq,
++        "block_size": block_size,
++        "force_fp32": force_fp32,
++        "weight_scale_method": weight_scale_method,
++        "act_scale_method": act_scale_method,
++        "include_regex": include_regex,
++        "exclude_regex": exclude_regex,
++        "experts": {},
++    }
++
++    for attr in ["low_noise_model", "high_noise_model"]:
++        model = getattr(pipe, attr, None)
++        if model is None:
++            report["experts"][attr] = {"present": False}
++            continue
++
++        r = replace_linear_with_mxfp4_rtn(
++            model,
++            prefix=attr,
++            include_regex=include_regex,
++            exclude_regex=exclude_regex,
++            activation_qdq=activation_qdq,
++            block_size=block_size,
++            force_fp32=force_fp32,
++            weight_scale_method=weight_scale_method,
++            act_scale_method=act_scale_method,
++            dry_run=bool(getattr(args, "mxfp4_rtn_dry_run", False)),
++        )
++        r["present"] = True
++        report["experts"][attr] = r
++
++    report["stats_after_setup"] = get_mxfp4_rtn_stats()
++
++    setup_report = getattr(args, "mxfp4_rtn_report_json", "")
++    if setup_report:
++        out = _Path(setup_report)
++        out.parent.mkdir(parents=True, exist_ok=True)
++        out.write_text(_json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
++
++    print("[MXFP4_RTN_SETUP]", _json.dumps(report["stats_after_setup"], ensure_ascii=False), flush=True)
++
++    if bool(getattr(args, "mxfp4_rtn_dry_run", False)):
++        raise SystemExit(0)
++
++
++
++def _setup_nvfp4_calibration_if_needed(pipe: Any, args: argparse.Namespace) -> None:
++    if getattr(args,"mode",None)!="nvfp4_calibrate": return
++    from quant.nvfp4_calibration import NVFP4ActivationCalibrator
++    scales=getattr(args,"nvfp4_calibration_scales_output","") or str(Path(args.output_dir)/"nvfp4_activation_scales.safetensors")
++    report=getattr(args,"nvfp4_calibration_report_json","") or str(Path(args.output_dir)/"nvfp4_calibration_report.json")
++    collector=NVFP4ActivationCalibrator(include_regex=getattr(args,"nvfp4_calibration_include_regex",None),
++        exclude_regex=getattr(args,"nvfp4_calibration_exclude_regex",None),margin=float(getattr(args,"nvfp4_calibration_margin",1.0)))
++    attaches={"low_noise_model":collector.attach(pipe.low_noise_model,prefix="low_noise_model"),
++              "high_noise_model":collector.attach(pipe.high_noise_model,prefix="high_noise_model")}
++    pipe._nvfp4_activation_calibrator=collector; pipe._nvfp4_calibration_scales_output=scales
++    pipe._nvfp4_calibration_report_json=report; pipe._nvfp4_calibration_attach_reports=attaches
++    LOGGER.info("NVFP4 calibration hooks attached: %s",attaches)
++
++
++def _finalize_nvfp4_calibration_if_needed(pipe: Any,args: argparse.Namespace)->None:
++    if getattr(args,"mode",None)!="nvfp4_calibrate": return
++    collector=getattr(pipe,"_nvfp4_activation_calibrator",None)
++    if collector is None: raise RuntimeError("NVFP4 calibration collector missing")
++    report=collector.finalize(scales_output=pipe._nvfp4_calibration_scales_output,
++        report_output=pipe._nvfp4_calibration_report_json,
++        require_all_observed=not bool(getattr(args,"nvfp4_calibration_allow_unobserved",False)))
++    report["attach_reports"]=getattr(pipe,"_nvfp4_calibration_attach_reports",{})
++    Path(pipe._nvfp4_calibration_report_json).write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding="utf-8")
++    LOGGER.info("NVFP4_CALIBRATION_DONE selected=%d observed=%d scales=%d missing=%d",report["selected_count"],report["observed_count"],report["scale_count"],report["missing_count"])
++
++
++def _setup_nvfp4_rtn_if_needed(pipe: Any,args: argparse.Namespace)->None:
++    if getattr(args,"mode",None)!="nvfp4_rtn": return
++    from quant.nvfp4_rtn_backend import get_nvfp4_rtn_stats,nvfp4_backend_metadata,reset_nvfp4_rtn_stats
++    from quant.nvfp4_rtn_linear import load_activation_scale_map,replace_linear_with_nvfp4_rtn
++    reset_nvfp4_rtn_stats(); activation_qdq=not bool(getattr(args,"nvfp4_rtn_no_activation_qdq",False))
++    scales_path=getattr(args,"nvfp4_rtn_activation_scales","")
++    if activation_qdq and not scales_path: raise ValueError("--nvfp4_rtn_activation_scales is required")
++    scales=load_activation_scale_map(scales_path) if scales_path else {}
++    runtime=getattr(args,"nvfp4_rtn_runtime_report_json","")
++    if runtime: os.environ["NVFP4_RTN_RUNTIME_REPORT_JSON"]=runtime
++    force=not bool(getattr(args,"nvfp4_rtn_no_force_fp32",False))
++    report={"mode":"nvfp4_rtn","definition":"NVFP4 W4A4 RTN-QDQ accuracy baseline",
++        "metadata":nvfp4_backend_metadata(),"source_checkpoint":"bf16","uses_ptq_optimization":False,
++        "uses_gptq":False,"activation_qdq":activation_qdq,"activation_scales":scales_path,
++        "activation_scale_count":len(scales),"selection_policy":"exact_match_to_successful_HiF4_selector",
++        "group_size":int(args.nvfp4_rtn_group_size),"force_fp32":force,
++        "quant_device":args.nvfp4_rtn_quant_device,"chunk_rows":int(args.nvfp4_rtn_chunk_rows),"experts":{}}
++    for attr in ["low_noise_model","high_noise_model"]:
++        r=replace_linear_with_nvfp4_rtn(getattr(pipe,attr),prefix=attr,activation_scales=scales,
++            include_regex=args.nvfp4_rtn_include_regex,exclude_regex=args.nvfp4_rtn_exclude_regex,
++            activation_qdq=activation_qdq,group_size=args.nvfp4_rtn_group_size,force_fp32=force,
++            quant_device=args.nvfp4_rtn_quant_device,chunk_rows=args.nvfp4_rtn_chunk_rows,
++            dry_run=args.nvfp4_rtn_dry_run,allow_missing_scales=args.nvfp4_rtn_allow_missing_scales,
++            collect_error_stats=args.nvfp4_rtn_collect_weight_error_stats)
++        report["experts"][attr]=r; LOGGER.info("[%s] NVFP4 selected=%d replaced=%d missing=%d",attr,r["selected"],r["replaced"],len(r["missing_activation_scales"]))
++    report["stats_after_setup"]=get_nvfp4_rtn_stats()
++    rp=args.nvfp4_rtn_report_json or str(Path(args.output_dir)/"nvfp4_rtn_setup_report.json")
++    Path(rp).parent.mkdir(parents=True,exist_ok=True); Path(rp).write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding="utf-8")
++    if args.nvfp4_rtn_dry_run or args.nvfp4_rtn_setup_only:
++        LOGGER.info("NVFP4_SETUP_ONLY_DONE"); raise SystemExit(0)
++
++
++def _write_nvfp4_runtime_report_if_needed(args: argparse.Namespace,*,generated:int,skipped:int,failed:int,manifest_path:Path)->None:
++    if getattr(args,"mode",None)!="nvfp4_rtn": return
++    from quant.nvfp4_rtn_backend import get_nvfp4_rtn_stats,nvfp4_backend_metadata
++    p=args.nvfp4_rtn_runtime_report_json or str(Path(args.output_dir)/"nvfp4_rtn_runtime_report.json")
++    payload={"mode":"nvfp4_rtn","definition":"NVFP4 W4A4 RTN-QDQ fake-quant accuracy baseline",
++        "metadata":nvfp4_backend_metadata(),"stats_after_generation":get_nvfp4_rtn_stats(),"generated":generated,
++        "skipped":skipped,"failed":failed,"manifest":str(manifest_path),"output_dir":str(args.output_dir)}
++    Path(p).parent.mkdir(parents=True,exist_ok=True); Path(p).write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
++    LOGGER.info("NVFP4 runtime report written to %s",p)
++
+ def main() -> None:
+     args = _parse_args()
+     logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+@@ -323,7 +694,24 @@
+         t5_cpu=args.t5_cpu,
+         convert_model_dtype=args.convert_model_dtype,
+     )
++    _wan_actstat_label_pipeline(pipe)
+     _setup_quant_if_needed(pipe, args)
++    hif4_preprocess_result = setup_wan_hif4_preprocess_from_args(
++        pipe, args, logger=LOGGER
++    )
++    if hif4_preprocess_result.get("handled", False):
++        if bool(getattr(args, "hif4_setup_only", False)):
++            LOGGER.info("HiF4 preprocessed setup-only completed; skipping video generation.")
++            raise SystemExit(0)
++    else:
++        _setup_hif4_if_needed(pipe, args)
++    _setup_mxfp4_rtn_if_needed(pipe, args)
++    _setup_nvfp4_calibration_if_needed(pipe, args)
++    _setup_nvfp4_rtn_if_needed(pipe, args)
++    # Quant mode replaces Linear modules after pipeline construction.
++    # Relabel again so newly inserted QuantLinear / QuantLinearWithBranch modules
++    # get stable high_noise_model / low_noise_model paths for actstat.
++    _wan_actstat_label_pipeline(pipe)
+     pipe.low_noise_model.to(pipe.device).eval().requires_grad_(False)
+     pipe.high_noise_model.to(pipe.device).eval().requires_grad_(False)
+ 
+@@ -375,15 +763,19 @@
+                     prompt,
+                 )
+                 video = _generate_one(pipe, args, image_path, prompt, seed)
+-                save_video(
+-                    tensor=video[None],
+-                    save_file=str(save_path),
+-                    fps=cfg.sample_fps,
+-                    nrow=1,
+-                    normalize=True,
+-                    value_range=(-1, 1),
+-                )
+-                record["status"] = "ok"
++                if args.mode == "nvfp4_calibrate":
++                    record["status"] = "calibrated"
++                else:
++                    save_video(
++                        tensor=video[None],
++                        save_file=str(save_path),
++                        fps=cfg.sample_fps,
++                        nrow=1,
++                        normalize=True,
++                        value_range=(-1, 1),
++                    )
++                    record["status"] = "ok"
++                del video
+                 generated += 1
+             except Exception as exc:
+                 LOGGER.exception("Failed generating prompt=%r sample=%d", prompt, sample_idx)
+@@ -394,6 +786,34 @@
+ 
+     LOGGER.info("Finished VBench generation: generated=%d skipped=%d failed=%d manifest=%s", generated, skipped, failed, manifest_path)
+ 
++    _finalize_nvfp4_calibration_if_needed(pipe, args)
++    _write_nvfp4_runtime_report_if_needed(args, generated=generated, skipped=skipped, failed=failed, manifest_path=manifest_path)
++
++    if args.mode == "hif4":
++        from quant.hif4_backend import get_hif4_stats, hif4_backend_metadata
++
++        runtime_report_json = args.hif4_runtime_report_json
++        if not runtime_report_json:
++            runtime_report_json = str(Path(args.output_dir) / "hif4_runtime_report.json")
++
++        payload = {
++            "mode": "hif4",
++            "definition": "HiF4 W4A4 RTN-QDQ fake quant runtime report: BF16 checkpoint, one-time HiF4 weight QDQ, online HiF4 activation QDQ, BF16 F.linear",
++            "metadata": hif4_backend_metadata(),
++            "stats_after_generation": get_hif4_stats(),
++            "generated": generated,
++            "skipped": skipped,
++            "failed": failed,
++            "manifest": str(manifest_path),
++            "output_dir": str(args.output_dir),
++        }
++
++        Path(runtime_report_json).parent.mkdir(parents=True, exist_ok=True)
++        Path(runtime_report_json).write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
++
++        LOGGER.info("HiF4 runtime report written to %s", runtime_report_json)
++        LOGGER.info("HiF4 runtime stats after generation: %s", get_hif4_stats())
++
+ 
+ if __name__ == "__main__":
+     main()

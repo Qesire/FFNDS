@@ -1,0 +1,215 @@
+--- a/tools/ptq_wan_i2v_opens2v_svdquant.py
++++ b/tools/ptq_wan_i2v_opens2v_svdquant.py
+@@ -197,6 +197,15 @@
+     p.add_argument("--gptq_sample_tokens", "--gptq-sample-tokens", type=int, default=0)
+     p.add_argument("--gptq_max_tokens", "--gptq-max-tokens", type=int, default=0)
+     p.add_argument("--no_merge_ptq_stats", "--no-merge-ptq-stats", action="store_true", default=False, help="Deprecated; ptq_stats.pt is always saved. When set, split high/low states are also saved for debugging.")
++    p.add_argument("--ptq_stage", type=str, default="all",
++                   choices=["all", "act_only", "hessian_high", "hessian_low", "export_only"],
++                   help="Pipeline stage to run. all=full pipeline; act_only=collect act stats and exit; "
++                        "hessian_high/hessian_low=collect single-model Hessian (requires --act_stats_path / --hessian_output); "
++                        "export_only=run SVDQuant export from pre-saved artifacts (requires --act_stats_path / --high_gptq_hessian_path / --low_gptq_hessian_path).")
++    p.add_argument("--act_stats_path", type=str, default="",
++                   help="Path to pre-saved act_stats.pt (required for hessian_*/export_only stages).")
++    p.add_argument("--hessian_output", type=str, default="",
++                   help="Path to save collected Hessian dict (required for hessian_high/hessian_low).")
+     return p.parse_args()
+ 
+ 
+@@ -653,6 +662,13 @@
+     args = _parse_args()
+     logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+     _validate_args(args)
++    if args.ptq_stage == "export_only":
++        _run_export_only(args)
++        return
++    if args.ptq_stage in ("hessian_high", "hessian_low"):
++        _run_hessian_only(args)
++        return
++
+     eval_jsons, image_root = _ensure_paths(args)
+ 
+     out_dir = Path(args.output_dir)
+@@ -725,6 +741,15 @@
+         len(act_stats["low_noise_model"]),
+         int(act_stats["__meta__"]["num_calib_samples"]),
+     )
++
++    if args.ptq_stage == "act_only":
++        act_stats_path = out_dir / "act_stats.pt"
++        torch.save(act_stats, act_stats_path)
++        (out_dir / "num_samples.txt").write_text(str(args.num_samples))
++        (out_dir / "sampling_steps.txt").write_text(str(args.sampling_steps))
++        LOGGER.info("[act_only] saved act_stats to %s", act_stats_path)
++        LOGGER.info("[done] act_stats=%s", act_stats_path)
++        return
+ 
+     merged_gptq_hessians = None
+     if args.main_quant_method == "gptq_mxfp4" and args.gptq_hessian_path:
+@@ -867,5 +892,166 @@
+     LOGGER.info("[done] ptq_stats=%s", ptq_stats_path)
+ 
+ 
++def _run_export_only(args: argparse.Namespace) -> None:
++    out_dir = Path(args.output_dir)
++    out_dir.mkdir(parents=True, exist_ok=True)
++    ptq_stats_path = out_dir / "ptq_stats.pt"
++    summary_path = out_dir / "summary.json"
++
++    if not args.act_stats_path:
++        raise ValueError("--act_stats_path is required for export_only stage")
++    act_stats_path = Path(args.act_stats_path)
++    if not act_stats_path.exists():
++        raise FileNotFoundError(f"act_stats not found: {act_stats_path}")
++
++    if args.main_quant_method == "gptq_mxfp4":
++        if not args.high_gptq_hessian_path:
++            raise ValueError("--high_gptq_hessian_path is required for export_only with gptq_mxfp4")
++        if not args.low_gptq_hessian_path:
++            raise ValueError("--low_gptq_hessian_path is required for export_only with gptq_mxfp4")
++
++    LOGGER.info("[export] loading act_stats from %s", act_stats_path)
++    act_stats = torch.load(act_stats_path, map_location="cpu", weights_only=False)
++
++    high_hessian_path = Path(args.high_gptq_hessian_path) if args.high_gptq_hessian_path else None
++    low_hessian_path = Path(args.low_gptq_hessian_path) if args.low_gptq_hessian_path else None
++
++    LOGGER.info("[export] building pipeline")
++    LOGGER.info("[config] method=%s rank=%d steps=%d size=%dx%d output=%s",
++                 args.main_quant_method, int(args.rank), int(args.sampling_steps),
++                 int(args.height), int(args.width), out_dir)
++    pipe = _build_pipe(args)
++    pipe.high_noise_model.to(pipe.device).eval().requires_grad_(False)
++    pipe.low_noise_model.to(pipe.device).eval().requires_grad_(False)
++
++    high_gptq_hessians = None
++    low_gptq_hessians = None
++    if args.main_quant_method == "gptq_mxfp4":
++        LOGGER.info("[export] loading high Hessian: %s", high_hessian_path)
++        high_gptq_hessians = _load_gptq_hessians(str(high_hessian_path))
++        LOGGER.info("[export] loading low Hessian: %s", low_hessian_path)
++        low_gptq_hessians = _load_gptq_hessians(str(low_hessian_path))
++
++    LOGGER.info("[export] generating high PTQ state")
++    high_state, high_summary = _build_one_model_ptq_state(
++        model=pipe.high_noise_model,
++        model_name="high_noise_model",
++        act_stats=act_stats,
++        args=args,
++        gptq_hessians=high_gptq_hessians,
++    )
++    if torch.cuda.is_available():
++        torch.cuda.empty_cache()
++
++    LOGGER.info("[export] generating low PTQ state")
++    low_state, low_summary = _build_one_model_ptq_state(
++        model=pipe.low_noise_model,
++        model_name="low_noise_model",
++        act_stats=act_stats,
++        args=args,
++        gptq_hessians=low_gptq_hessians,
++    )
++    if torch.cuda.is_available():
++        torch.cuda.empty_cache()
++
++    LOGGER.info("[export] saving ptq_stats.pt: %s", ptq_stats_path)
++    final_summary = {
++        "artifact": "wan_dit_ptq_stats",
++        "task": args.task,
++        "quant_scheme": "mxfp4",
++        "weight_format": "fp4_e2m1_packed+e8m0_scale",
++        "activation_qdq_format": "mxfp4_reference",
++        "weight_block_size": int(args.weight_group_size),
++        "activation_block_size": int(args.act_group_size),
++        "device_id": int(args.device_id),
++        "ptq_stage": "export_only",
++        "act_stats_path": str(act_stats_path),
++        "high_gptq_hessian_path": str(high_hessian_path) if high_hessian_path else "",
++        "low_gptq_hessian_path": str(low_hessian_path) if low_hessian_path else "",
++        "sampling_steps": int(args.sampling_steps),
++        "height": int(args.height),
++        "width": int(args.width),
++        "target_frames": int(args.target_frames),
++        "sample_solver": args.sample_solver,
++        "shift": float(args.shift),
++        "smooth_alpha": float(args.smooth_alpha),
++        "smooth_eps": float(args.smooth_eps),
++        "rank": int(args.rank),
++        "weight_group_size": int(args.weight_group_size),
++        "act_group_size": int(args.act_group_size),
++        "weight_clip_ratio": float(args.weight_clip_ratio),
++        "act_clip_ratio": float(args.act_clip_ratio),
++        "compute_dtype": str(args.compute_dtype),
++        "main_quant_method": str(args.main_quant_method),
++        "gptq_damp_percent": float(args.gptq_damp_percent),
++        "gptq_block_size": int(args.gptq_block_size),
++        "gptq_dynamic_group_scale": bool(args.gptq_dynamic_group_scale),
++        "ptq_stats_path": str(ptq_stats_path),
++        "models": [high_summary, low_summary],
++    }
++    artifact = {
++        "__meta__": final_summary,
++        "high_noise_model": high_state,
++        "low_noise_model": low_state,
++    }
++    torch.save(artifact, ptq_stats_path)
++    _write_summary(summary_path, final_summary)
++    LOGGER.info("[done] export_only ptq_stats=%s", ptq_stats_path)
++
++
++def _run_hessian_only(args: argparse.Namespace) -> None:
++    if not args.act_stats_path:
++        raise ValueError("--act_stats_path is required for hessian_high/hessian_low")
++    if not args.hessian_output:
++        raise ValueError("--hessian_output is required for hessian_high/hessian_low")
++
++    act_stats_path = Path(args.act_stats_path)
++    if not act_stats_path.exists():
++        raise FileNotFoundError(f"act_stats not found: {act_stats_path}")
++
++    eval_jsons, image_root = _ensure_paths(args)
++
++    LOGGER.info("[hessian] loading act_stats from %s", act_stats_path)
++    act_stats = torch.load(act_stats_path, map_location="cpu", weights_only=False)
++
++    LOGGER.info("[hessian] loading calibration samples")
++    all_samples = load_eval_samples(eval_jsons, image_root=image_root)
++    samples = select_samples(all_samples, start=int(args.start), limit=int(args.num_samples))
++    if not samples:
++        raise ValueError("No calibration samples selected.")
++    LOGGER.info("[hessian] loaded=%d selected=%d", len(all_samples), len(samples))
++
++    target_model_name = "high_noise_model" if args.ptq_stage == "hessian_high" else "low_noise_model"
++    LOGGER.info(
++        "[config] stage=%s target=%s samples=%d steps=%d size=%dx%d",
++        args.ptq_stage, target_model_name, len(samples),
++        int(args.sampling_steps), int(args.height), int(args.width),
++    )
++
++    LOGGER.info("[hessian] building pipeline")
++    pipe = _build_pipe(args)
++
++    hessian_iter = _iter_opens2v_calib_items(
++        pipe=pipe,
++        samples=samples,
++        target_frames=int(args.target_frames),
++        target_size=(int(args.height), int(args.width)),
++    )
++
++    LOGGER.info("[hessian] collecting %s GPTQ Hessian", target_model_name)
++    hessians = _collect_gptq_hessians(
++        pipe=pipe,
++        calib_samples=hessian_iter,
++        act_stats=act_stats,
++        args=args,
++        target_model_name=target_model_name,
++    )
++
++    hessian_output = Path(args.hessian_output)
++    hessian_output.parent.mkdir(parents=True, exist_ok=True)
++    torch.save(hessians, hessian_output)
++    LOGGER.info("[done] %s saved to %s", args.ptq_stage, hessian_output)
++
++
+ if __name__ == "__main__":
+     main()
