@@ -1,0 +1,16 @@
+{
+  "experiment": "CALIBRATION12_FULL160_NATIVE_DQ_OPERANDS_20261021",
+  "inputs": "exact previously verified original calibration12, seed42+original index; no task0/task6 or formal image fitting",
+  "scope": "all40 blocks at all4 native steps, high0/1 and low2/3",
+  "rows": 512,
+  "sampling": "uniform without replacement over observed rows; deterministic per input, step and block; save actual grid/rows/pi",
+  "operands": ["actual post-Q1 V1", "actual post-Q2 V2", "actual FFN2 Y", "original b2", "actual row-constant gate"],
+  "no_op": "same initialized dense pipeline, fresh seeded plain generation then hooked generation per input; compare all4 FP32 poststep latent byte hashes and video hashes; do not claim fresh-process comparison",
+  "storage": "node-local Hugging Face derived cache, full SHA per scope; 80GiB disk reserve; two disjoint six-input GPU shards",
+  "planned_fit": "per-position C mean with each input equally weighted; static top108 groups64; centered bias-free signal LS gain and mean residual folded into b2 once",
+  "gain": "alpha=max(0,sum((s-mean_s)*gate*(y-mean_y)*gate)/sum(((s-mean_s)*gate)^2)); s/y are FP32 sparse/dense bias-free signals",
+  "bias_correction": "b2_new=BF16(b2+mean_y-alpha*mean_s); apply alpha after Q2 then BF16 before reduced FFN2",
+  "selection": "fixed C-static+centered-gain+bias is the next reference; unit/gain-only/random are controls, no validation selection",
+  "evaluation": "first existing task0/task6 block20 independent-source local diagnostic, then full160 closed loop; all-row/static costs counted in later deployment",
+  "acceptance": "training capture, local risks, sparse numerical checks and video/true full FFN timing are separate; no acceptance claim from this collection"
+}

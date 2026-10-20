@@ -1,0 +1,110 @@
+{
+  "fingerprint": "fe868846db5e742c7495e77b48d417fcf9e1b4762cbefdd6bc4ba9b3ffd0126f",
+  "identity": {
+    "protocol": {
+      "experiment": "PR3_PRE_FFN0_DONOR_INPUT_PCA_C_PROXY_20261021",
+      "registered_after": "PR2 W1-only scores generated; before any donor PCA factors or PR3 scores",
+      "inputs": "actual V1 before FFN0; cached W1 QDQ and known b1/s2/W2/gate; training source task0 only",
+      "factorization": "FP32 full SVD of centered donor V1[512,5120]; P=right singular vectors; B=W1@P; mu=donor mean",
+      "ranks": [
+        32,
+        64,
+        128,
+        256,
+        512
+      ],
+      "prediction": "((V1-mu)@P_r)@B_r.T+W1@mu+b1 in FP32, then BF16/native GELU(tanh), s2 compensation and native HiF4 Q2",
+      "score": "same original-group FP32 C projection and FP64 energy as AR2",
+      "modes": [
+        "raw",
+        "energy_residual"
+      ],
+      "energy_residual": "same donor-only weighted groupwise residual-on-input-energy LS as PR2; training scores must use donor own PCA, test scores opposite-seed donor PCA",
+      "donor": "task0 opposite seed, same step/expert/block20; never test PCA or test H/V2/Z/Delta for prediction",
+      "support": "216 original groups64; top108 stable group-ID ties",
+      "gains": [
+        "unit",
+        "input_norm",
+        "policy_crossfit"
+      ],
+      "gain_fit": "bias-free actual training V2 signals under donor own PCA predicted supports; target is donor dense FP32 signal",
+      "primary_gate": "proxy<=0.8 random and <=0.9 C_static and <=1.1 true C_dynamic; >=3/4 with both seeds and steps per source",
+      "selection": "minimum rank passing task0 Fit gate, raw preferred at equal rank; task6 Validation only reports this choice, other ranks sensitivity. No Fit pass means route fails.",
+      "controls": [
+        "dense_ffn0_oracle",
+        "captured_V2"
+      ],
+      "control_use": "reuse verified PR2 operator controls on identical inputs/weights; excluded from selection",
+      "precision": "GPU FP32 factors/prediction, native CPU BF16 risk primary and matched FP32 control",
+      "deployment_status": "row-wise diagnostic; no tile-sharing, online cost, full sparse FFN or video claim"
+    },
+    "protocol_sha256": "85c92384a6e6702c78095066f20d5534da9f0b9f4eb055d7042ea6df11ebce52",
+    "sources": {
+      "/home/xiang/projects/FFNDS/tools/generate_proxy_pr3.py": "5896db37de0f3fab081aede8c3e0a09ed1048181138db51305ec908a1ff7dc42",
+      "/home/xiang/projects/FFNDS/tools/generate_proxy_pr2.py": "6bcd5959da245c9f6b548c84e3d2d4f40dbe34fb54a89d8c805a18e9623843e0"
+    },
+    "expert": "low_noise_model",
+    "inputs": [
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu1_tasks0_seeds20261001-20261002.json",
+        "matrix_sha256": "9ca04e83cabcc81b2ecfc9dc5cc56d1988001ed110974ad9d11f6bd2494a5995",
+        "run_meta_sha256": "cda3ff5b9264412e875e621f11e39a421beb36adf58100e7c1945d4ca4346f15",
+        "task": 0,
+        "seed": 20261001,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_000_seed_20261001.json",
+        "input_sha256": "f5c6b62d1c6fbe6795128b5dfce94a3635e89fccaac898a6f4ec19c3bcfd125f",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_observed",
+        "capture_manifest_sha256": "511acff4adf4847bfcd2aa6c92024563382d897c62ae65b8db456ed03e5d922b",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_observer_noop.json",
+        "observer_noop_sha256": "252d0e7dad754c400280fc3352af7b56fa70adcd1a9366d4e2bb0368f575b35a"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu1_tasks0_seeds20261001-20261002.json",
+        "matrix_sha256": "9ca04e83cabcc81b2ecfc9dc5cc56d1988001ed110974ad9d11f6bd2494a5995",
+        "run_meta_sha256": "c5c36963404bd86728e41c075b29c5288e7e52eee5aa39226dccd2ef80bd5f75",
+        "task": 0,
+        "seed": 20261002,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_000_seed_20261002.json",
+        "input_sha256": "3bde0f913ccd423d4467d3245d9f45e36c40d416a46fbb9cf93e58f831f31823",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_observed",
+        "capture_manifest_sha256": "c17fc122f7d90d3758cacb51fb6bcefc106c1479d0a61fa25e72081edc459e21",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_observer_noop.json",
+        "observer_noop_sha256": "34c122052fdf5fe9b0483435985a5f861393d37e37fde4ad6670e79fb28eb81a"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu0_tasks6_seeds20261001-20261002.json",
+        "matrix_sha256": "8a4d412f195abc499dbc6f842b561ed5754190c60aaa0f12adc0924349b5851e",
+        "run_meta_sha256": "b1c27120e5e64ee468d8d1d41f2d795a01b200c56f225f53bee74a3f8856d699",
+        "task": 6,
+        "seed": 20261001,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_006_seed_20261001.json",
+        "input_sha256": "d4a832370aad11e31afaa82c54a6b14bb0ef8e7a1fc40fad452b31513bbadad4",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_observed",
+        "capture_manifest_sha256": "57f9cac3b96606e5e2db87ed2ae1a0008e05b0839bda58a46eace1fcb9378de0",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_observer_noop.json",
+        "observer_noop_sha256": "a6f81211f688c33db589df7266a4e98cda89f4e7370250b48f72a7fb271d39ca"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu0_tasks6_seeds20261001-20261002.json",
+        "matrix_sha256": "8a4d412f195abc499dbc6f842b561ed5754190c60aaa0f12adc0924349b5851e",
+        "run_meta_sha256": "d94a56be7858d543910d377b28437ab08f0915c660d46d5fa4f12b2cef573c8d",
+        "task": 6,
+        "seed": 20261002,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_006_seed_20261002.json",
+        "input_sha256": "56961f9d4d739df7a13c21f3ee32a11e11f656a30b799fe4fb769d77ce736a2b",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_observed",
+        "capture_manifest_sha256": "39e75a8c75c54faf3c0603ca02f64262a7595fa38a55f61370d36d61a694a74d",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_observer_noop.json",
+        "observer_noop_sha256": "9fa81a79cca87ac704126d55df5d36e4c6145e450d4a30f492c084b31c3e01fb"
+      }
+    ],
+    "pr2_controls": "063d5a6b69a55c9868374b08d95d10126c6e5c5c71f569c13bbac6ff25eca979",
+    "cache_manifest_sha256": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+    "torch": "2.10.0+cu128",
+    "TF32": false
+  }
+}

@@ -1,4 +1,8 @@
-"""Crossfit W1-SVD supports, choose on Fit only, then report held-out source."""
+"""Evaluate pre-FFN0 low-rank proxies, choosing on Fit before held-out reporting.
+
+PR2's original implementation and completed result are preserved at 918bad2.
+PR3 requires separate own-donor training scores and opposite-donor test scores.
+"""
 import argparse
 import csv
 from dataclasses import asdict
@@ -37,13 +41,14 @@ def main():
     ap.add_argument("--parent", type=Path, required=True)
     ap.add_argument("--scores", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--family", choices=["pr2", "pr3"], default="pr2")
     args = ap.parse_args()
     torch.set_num_threads(8)
     torch.set_float32_matmul_precision("highest")
     args.out.mkdir(parents=True, exist_ok=True)
     lock = (args.out / "JOB.lock").open("w")
     fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-    protocol_path = ROOT / "config/proxy_pr2_w1_svd.json"
+    protocol_path = ROOT / "config" / {"pr2": "proxy_pr2_w1_svd.json", "pr3": "proxy_pr3_input_pca.json"}[args.family]
     protocol = json.loads(protocol_path.read_text())
     parent, parent_meta = verified_store(args.parent, "COMPLETED_LOCAL_DIAGNOSTIC")
     if digest(args.parent / "scope_policy_summary.csv") != parent_meta["final_csv_sha256"]:
@@ -51,7 +56,7 @@ def main():
     generators, generation_meta = {}, {}
     for noise in ["high", "low"]:
         expert = noise + "_noise_model"
-        generators[expert], generation_meta[expert] = verified_store(args.scores / noise, "COMPLETED_PR2_SCORE_GENERATION")
+        generators[expert], generation_meta[expert] = verified_store(args.scores / noise, f"COMPLETED_{args.family.upper()}_SCORE_GENERATION")
         if generation_meta[expert]["protocol_sha256"] != digest(protocol_path):
             raise RuntimeError("Score protocol differs")
     scopes, inputs = load_scopes(args.matrices)
@@ -69,7 +74,7 @@ def main():
     candidates = [(f"rank{r}_{m}", f"rank{r}", m) for r in protocol["ranks"] for m in protocol["modes"]]
     variants = candidates + [(c, c, "raw") for c in protocol["controls"]]
     baseline = list(csv.DictReader((args.parent / "scope_policy_summary.csv").open()))
-    raw, energies, labels, models, gains = {}, {}, {}, {}, {}
+    raw, training_raw, energies, labels, models, gains = {}, {}, {}, {}, {}, {}
     summary, decisions = [], []
     try:
         for key in scopes:
@@ -78,6 +83,12 @@ def main():
                 if part is None:
                     raise RuntimeError("Missing generated score checkpoint")
                 raw[key, variant] = part["arrays"]["C"]
+                if key.task == 0:
+                    if args.family == "pr3" and variant.startswith("rank"):
+                        if ("training_C" not in part["arrays"] or not part["metadata"]["training_uses_own_donor_basis"]
+                                or part["metadata"]["donor"] != asdict(donor_key(key))):
+                            raise RuntimeError("PR3 own-training/opposite-test PCA binding missing")
+                    training_raw[key, variant] = part["arrays"].get("training_C", part["arrays"]["C"])
                 energies[key] = part["arrays"]["input_energy"]
             if key.task == 0:
                 labels[key] = np.concatenate([parent.load("scores", f"{key_name(key)}_row{start:04d}")["arrays"]["C"] for start in range(0, 512, 128)])
@@ -89,8 +100,8 @@ def main():
                 model_key = f"{key_name(key)}_{name}"
                 part = store.load("parameters", model_key)
                 if part is None:
-                    model = fit_energy_residual(raw[key, source], labels[key], energies[key], data["weights"]) if mode == "energy_residual" else {"beta": np.zeros(216), "mean_energy": 1.0}
-                    scores = corrected_scores(raw[key, source], energies[key], model)
+                    model = fit_energy_residual(training_raw[key, source], labels[key], energies[key], data["weights"]) if mode == "energy_residual" else {"beta": np.zeros(216), "mean_energy": 1.0}
+                    scores = corrected_scores(training_raw[key, source], energies[key], model)
                     ids = top_groups(scores, 108)
                     mask = support_mask(ids, rows=512, groups=216, group_size=64)
                     signal = data["projection"].fp32_signal(data["a"], data["gate"], mask).numpy()
@@ -130,7 +141,7 @@ def main():
                                 arrays = {"native_SSE": (native.double() - target).square().sum(1).numpy(),
                                           "fp32_SSE": (fp32.double() - target).square().sum(1).numpy(), "weights": data["weights"][start:start + 128]}
                                 if any(not np.isfinite(value).all() for value in arrays.values()):
-                                    raise FloatingPointError("Nonfinite PR2 risk")
+                                    raise FloatingPointError("Nonfinite proxy risk")
                                 store.save("risks", risk_key, arrays, {"donor": asdict(donor), "gain": gain_name, "variant": name})
                                 part = store.load("risks", risk_key)
                             values = part["arrays"]
@@ -161,7 +172,7 @@ def main():
             writer.writerows(summary)
         if torch.cuda.is_initialized():
             raise RuntimeError("Projection evaluator unexpectedly initialized CUDA")
-        meta.update(status="COMPLETED_PR2_DIAGNOSTIC", elapsed_seconds=time.perf_counter() - started,
+        meta.update(status=f"COMPLETED_{args.family.upper()}_DIAGNOSTIC", elapsed_seconds=time.perf_counter() - started,
                     selection=selection, final_csv_sha256=digest(args.out / "scope_summary.csv"))
     except BaseException as error:
         meta.update(status="FAILED_RESUMABLE", error=str(error))

@@ -49,7 +49,11 @@ def main(arm="D-BF16"):
     ap.add_argument("--capture-rows", type=int, default=512)
     if arm == "D-Q":
         ap.add_argument("--cache-manifest", type=Path, required=True, help="Verified complete rebuilt HiF4 cache manifest")
+        ap.add_argument("--packed-reference-policy", type=Path, help="Explicit static packed operator intervention; separate arm, no acceptance claim")
     args = ap.parse_args()
+    packed_policy = getattr(args, "packed_reference_policy", None)
+    if packed_policy and args.capture_ffn:
+        ap.error("Dense boundary observer requires full hidden width; use a plain packed reference run")
     args.out = args.out.resolve()
     record = None
     if args.input_manifest:
@@ -69,6 +73,9 @@ def main(arm="D-BF16"):
             "python": sys.version, "trajectory": []}
     if record is not None:
         meta["input_record"] = record
+    if packed_policy:
+        meta.update(arm="D-Q-PACKED-REFERENCE", purpose="closed-loop packed operator reference, no speed/formal20 acceptance",
+                    packed_policy_path=str(packed_policy.resolve()), packed_policy_sha256=digest(packed_policy))
     report = args.out / "run_meta.json"
     atomic_json(report, meta)
     try:
@@ -154,7 +161,12 @@ def main(arm="D-BF16"):
                 raise RuntimeError("HiF4 cache file changed")
             cache_identity = {"manifest_path": str(args.cache_manifest.resolve()), "manifest_sha256": digest(args.cache_manifest),
                               "path": str(cache_path), "sha256": cache["sha256"], "identity": cache["identity"]}
-            runtime = adapter.HIF4CacheRuntime(cache_path)
+            if packed_policy:
+                from packed_reference_runtime import create_runtime
+                runtime = create_runtime(cache_path, packed_policy)
+                meta["packed_runtime_source_sha256"] = digest(ROOT / "tools/packed_reference_runtime.py")
+            else:
+                runtime = adapter.HIF4CacheRuntime(cache_path)
             expected_names = {f"blocks.{b}.{name}" for b in range(40) for name in [
                 "self_attn.q", "self_attn.k", "self_attn.v", "self_attn.o", "cross_attn.q", "cross_attn.k",
                 "cross_attn.v", "cross_attn.o", "ffn.0", "ffn.2"]}
@@ -222,6 +234,8 @@ def main(arm="D-BF16"):
             counters = runtime.report()
             if counters["linear_forward_calls"] != 1600 or counters["activation_qdq_calls"] != 1600 or counters["cache_misses"]:
                 raise RuntimeError(f"Incomplete HiF4 runtime coverage: {runtime.counters}")
+            if packed_policy and counters["packed_reference"]["actual_FFN_linear_calls"] != 320:
+                raise RuntimeError("Packed reference failed full 160-position FFN coverage")
         meta.update(status="PASS", video={"path": str(video), "sha256": digest(video), "frames": frames,
                     "fps": info["fps"], "size": info["size"]}, peak_cuda_memory_bytes=torch.cuda.max_memory_allocated(),
                     hif4_runtime_active=getattr(adapter, "_ACTIVE_RUNTIME", None) is not None,
