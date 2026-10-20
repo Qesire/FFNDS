@@ -3,6 +3,7 @@ import argparse
 import contextvars
 import fcntl
 import hashlib
+import importlib.metadata
 import json
 from pathlib import Path
 import shutil
@@ -21,8 +22,9 @@ def tensor_sha(value):
 
 
 class OperandCapture:
-    def __init__(self, runtime, out, index):
+    def __init__(self, runtime, out, index, *, rows=512, sampling_namespace="FFNDS_CALIB12_UNIFORM_V1"):
         self.runtime, self.out, self.index = runtime, out, index
+        self.rows,self.sampling_namespace=rows,sampling_namespace
         self.context = contextvars.ContextVar("ffnds_calibration_ffn", default=None)
         self.samples, self.scopes = {}, []
 
@@ -76,9 +78,9 @@ class OperandCapture:
             if slot == 0:
                 if observer.samples:
                     raise RuntimeError("Previous FFN capture unfinished")
-                salt = f"FFNDS_CALIB12_UNIFORM_V1|{observer.index}|{step_index}|{block_index}|{state['grid']}"
+                salt = f"{observer.sampling_namespace}|{observer.index}|{step_index}|{block_index}|{state['grid']}"
                 seed = int.from_bytes(hashlib.sha256(salt.encode()).digest()[:8], "little")
-                selected = np.sort(np.random.default_rng(seed).choice(count, 512, replace=False)).tolist()
+                selected = np.sort(np.random.default_rng(seed).choice(count, observer.rows, replace=False)).tolist()
                 state.update(selected=selected, indices=torch.tensor(selected, device=value.device), seed=seed)
             state["slot"] = slot
             output = observer.old_apply(mm, value, expert=expert, step_index=step_index, block_index=block_index, module_name=module_name)
@@ -97,8 +99,8 @@ class OperandCapture:
                 save_file(observer.samples, str(temp))
                 temp.replace(path)
                 observer.scopes.append({"step": step_index, "block": block_index, "expert": expert,
-                    "rows": 512, "grid": state["grid"], "selected_rows": state["selected"],
-                    "sampling_seed": state["seed"], "inclusion_probability": 512 / count, "inverse_inclusion_weight": count / 512,
+                    "rows": observer.rows, "grid": state["grid"], "selected_rows": state["selected"],
+                    "sampling_seed": state["seed"], "inclusion_probability": observer.rows / count, "inverse_inclusion_weight": count / observer.rows,
                     "path": str(path), "sha256": digest(path), "bytes": path.stat().st_size})
                 observer.samples.clear()
             return output
@@ -118,6 +120,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--shard", type=int, choices=[0, 1], required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--inputs",type=Path,default=ROOT/".runtime/inputs/calibration12/canonical.json")
+    ap.add_argument("--protocol",type=Path,default=ROOT/"config/calibration_ffn_operands.json")
     ap.add_argument("--raw-root", type=Path, default=Path("/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021"))
     args = ap.parse_args()
     from HiFloat4.ptq.adapters import lightx2v_wan_distill as adapter
@@ -125,15 +129,35 @@ def main():
     args.out.mkdir(parents=True, exist_ok=True)
     lock = (args.out / "JOB.lock").open("w")
     fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-    protocol_path = ROOT / "config/calibration_ffn_operands.json"
-    calibration_path = ROOT / ".runtime/inputs/calibration12/canonical.json"
+    protocol_path = args.protocol
+    protocol=json.loads(protocol_path.read_text())
+    rows=protocol.get('rows_per_scope',protocol.get('rows',512))
+    count=protocol.get('input_count',12)
+    namespace=protocol.get('sampling_namespace','FFNDS_CALIB12_UNIFORM_V1')
+    if (count,rows) not in [(12,512),(24,256)]:
+        raise RuntimeError('Only the two registered calibration geometries are supported')
+    calibration_path = args.inputs
     samples = json.loads(calibration_path.read_text())
-    if len(samples) != 12 or any(s["calibration_seed"] != 42 + i or digest(s["img_paths"][0]) != s["input_provenance"]["image_sha256"] for i, s in enumerate(samples)):
+    if len(samples) != count or any(s["calibration_seed"] != 42 + i or digest(s["img_paths"][0]) != s["input_provenance"]["image_sha256"] for i, s in enumerate(samples)):
         raise RuntimeError("Original calibration inputs changed")
+    if count==24:
+        if not args.raw_root.expanduser().resolve().is_relative_to((Path.home()/'.cache/huggingface/ffnds-derived').resolve()):
+            raise RuntimeError('Calibration24 operands must use the shared home HF derived cache, preserving node root space')
+        recovery_path=calibration_path.parent/'recovery_report.json'
+        recovery=json.loads(recovery_path.read_text())
+        if (recovery['status']!='PASS_SOURCE_DISJOINT_CALIBRATION24_INPUT_RECOVERY'
+                or recovery['canonical_sha256']!=digest(calibration_path) or recovery['protocol_sha256']!=digest(protocol_path)):
+            raise RuntimeError('Disjoint24 input recovery identity changed')
     kwargs, cache, assets = verified_assets()
     identity = {"protocol_sha256": digest(protocol_path), "calibration_sha256": digest(calibration_path),
                 "source_sha256": {str(p): digest(p) for p in [Path(__file__), ROOT / "tools/distill_assets.py"]},
-                "assets": assets, "shard": args.shard, "torch": torch.__version__, "host": "worker"}
+                "assets": assets, "shard": args.shard, "torch": torch.__version__, "host": "worker",
+                'input_count':count,'rows_per_scope':rows,
+                'versions':{n:importlib.metadata.version(n) for n in ['torch','numpy','safetensors','transformers','diffusers','triton']},
+                'native_sources':{str(p):digest(p) for p in [Path(adapter.__file__),
+                    ROOT/'.runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py',
+                    ROOT/'.runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py',
+                    ROOT/'.runtime/code/LightX2V/lightx2v/models/schedulers/wan/scheduler.py']}}
     fingerprint = hashlib.sha256(canonical_json(identity).encode()).hexdigest()
     report = args.out / "RUN.json"
     completed = []
@@ -148,12 +172,12 @@ def main():
         old = json.loads(Path(row["input_report"]).read_text())
         if old["status"] != "PASS_NATIVE_OPERANDS_AND_SAME_PIPELINE_NOOP" or any(digest(s["path"]) != s["sha256"] for s in old["scopes"]):
             raise RuntimeError("Completed operands changed")
-    pending = [i for i in range(12) if i % 2 == args.shard and i not in {r["index"] for r in completed}]
+    pending = [i for i in range(count) if i % 2 == args.shard and i not in {r["index"] for r in completed}]
     meta = {"status": "RUNNING", "identity": identity, "fingerprint": fingerprint, "completed": completed}
     atomic_json(report, meta)
     try:
         args.raw_root.mkdir(parents=True, exist_ok=True)
-        if pending and shutil.disk_usage(args.raw_root).free < (80 + 4.5 * len(pending)) * 2**30:
+        if pending and shutil.disk_usage(args.raw_root).free < (80 + 4.5 * rows / 512 * len(pending)) * 2**30:
             raise RuntimeError("Insufficient disk for this six-input shard plus80GiB reserve")
         if pending:
             pipe = adapter.build_lightx2v_distill_pipeline(**kwargs)
@@ -172,7 +196,7 @@ def main():
                         attempt += 1
                     out = parent / f"attempt{attempt}"
                     out.mkdir()
-                    observed = OperandCapture(runtime, out, index)
+                    observed = OperandCapture(runtime, out, index,rows=rows,sampling_namespace=namespace)
                     trajectories, videos = {}, {}
                     for phase in ["plain", "observed"]:
                         trajectory = []
@@ -220,9 +244,9 @@ def main():
                     print(f"COMMITTED input{index:02d}, 160 scopes, four latent hashes and video no-op PASS", flush=True)
             finally:
                 adapter.deactivate_lightx2v_hooks()
-        if len(completed) != 6 or {r["index"] for r in completed} != {i for i in range(12) if i % 2 == args.shard}:
+        if len(completed) != count//2 or {r["index"] for r in completed} != {i for i in range(count) if i % 2 == args.shard}:
             raise RuntimeError("Incomplete/duplicate calibration input shard")
-        meta["status"] = "PASS_SIX_INPUT_FULL160_OPERANDS_AND_NOOP"
+        meta["status"] = "PASS_SIX_INPUT_FULL160_OPERANDS_AND_NOOP" if count==12 else "PASS_CALIBRATION24_SHARD_FULL160_OPERANDS_AND_NOOP"
     except BaseException as error:
         meta.update(status="FAILED_RESUMABLE", error=str(error))
         raise

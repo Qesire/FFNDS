@@ -34,15 +34,16 @@ def main():
     ap.add_argument('--correction', type=Path, required=True)
     ap.add_argument('--parent', type=Path, required=True)
     ap.add_argument('--out', type=Path, required=True)
+    ap.add_argument('--full-calibration24-fit',action='store_true',help='Descriptive evaluation of the new fixed-hyperparameter all-position fit')
     args = ap.parse_args()
     torch.set_num_threads(8)
     torch.set_float32_matmul_precision('highest')
     args.out.mkdir(parents=True, exist_ok=True)
     lock = (args.out / 'JOB.lock').open('w')
     fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-    protocol_path = ROOT / 'config/residual_rr1.json'
+    protocol_path = ROOT / ('config/residual_cal24_fixed.json' if args.full_calibration24_fit else 'config/residual_rr1.json')
     correction, correction_report, correction_id = open_verified(
-        args.correction, 'COMPLETED_RR1_CV_AND_SELECTED_FINAL_FIT')
+        args.correction, 'COMPLETED_RR1_FULL160_CALIBRATION_FIT' if args.full_calibration24_fit else 'COMPLETED_RR1_CV_AND_SELECTED_FINAL_FIT')
     if correction_id['protocol_sha256'] != digest(protocol_path):
         raise RuntimeError('Frozen RR1 protocol changed')
     base_models, bindings = {}, []
@@ -68,6 +69,7 @@ def main():
             ROOT/'tools/ar2_core.py', ROOT/'tools/run_ar2_restart.py']}})
     meta = {'status': 'RUNNING', 'fingerprint': store.fingerprint,
         'selected': correction_report['selected'], 'test_used_for_fit_or_selection': False,
+        'research_sources_reused_from_prior_experiments':args.full_calibration24_fit,
         'quality_or_speed_acceptance': False}
     atomic_json(args.out / 'run_meta.json', meta)
     started = time.perf_counter()
@@ -77,7 +79,7 @@ def main():
             scope = key_name(key)
             name = f'step{key.step}_block{key.block:02d}'
             base_part = base_models[key.expert].load('positions', name)
-            residual_part = correction.load('final_models', name)
+            residual_part = correction.load('positions' if args.full_calibration24_fit else 'final_models', name)
             if base_part is None or residual_part is None:
                 raise RuntimeError('Missing frozen learned parameters')
             arrays, info = base_part['arrays'], base_part['metadata']

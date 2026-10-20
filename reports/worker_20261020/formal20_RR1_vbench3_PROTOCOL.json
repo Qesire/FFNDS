@@ -1,0 +1,1610 @@
+{
+  "metrics": [
+    "aesthetic_quality",
+    "imaging_quality",
+    "motion_smoothness"
+  ],
+  "unique_generation_count": 20,
+  "materialized_names": 100,
+  "seed": 42,
+  "camera_excluded": true,
+  "generation_suites": [
+    {
+      "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/RUN.json",
+      "sha256": "088ecd7c1c6b6c604a3c7d5f2b7e74d9c6934cb7788cb720f9bc8b677ea53095"
+    }
+  ],
+  "generation_identity": {
+    "assets": {
+      "model_view_sha256": "932bc14ec0cd8d73a13532191ea202b0bc22478d7da26ba5029658329f257df3",
+      "local_view_sha256": "97b2d991f6312ab67ee439ea28a03989bd86b1f68151a6eca11102b949e539d1",
+      "cache_manifest_sha256": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+      "cache_sha256": "bfb400f94ce42760070bab5916721fd942b0864907bb4e4e5207c008dc4c3df3",
+      "contract": {
+        "schema_version": 49212,
+        "artifact": "wan22_i2v_lightx2v_distill_runtime_contract",
+        "model_cls": "wan2.2_moe_distill",
+        "task": "i2v",
+        "scheduler": "Wan22StepDistillScheduler",
+        "infer_steps": 4,
+        "target_video_length": 81,
+        "target_height": 480,
+        "target_width": 832,
+        "fps": 16,
+        "attention": "torch_sdpa",
+        "sample_shift": 5.0,
+        "sample_guide_scale": 1.0,
+        "enable_cfg": false,
+        "seq_parallel": false,
+        "parallel": false,
+        "dim": 5120,
+        "num_heads": 40,
+        "in_dim": 36,
+        "ffn_dim": 13824,
+        "freq_dim": 256,
+        "num_layers": 40,
+        "out_dim": 16,
+        "eps": 1e-06,
+        "model_type": "i2v",
+        "text_len": 512,
+        "use_image_encoder": false,
+        "denoising_step_list": [
+          1000,
+          750,
+          500,
+          250
+        ],
+        "boundary_step_index": 2,
+        "boundary": 0.9,
+        "aspect_ratio": "16:9",
+        "rope_type": "torch",
+        "resize_mode": null,
+        "audio_fps": 24000,
+        "double_precision_rope": true,
+        "norm_modulate_backend": "torch",
+        "distilled_sigma_values": null,
+        "cpu_offload": true,
+        "offload_granularity": "block",
+        "t5_cpu_offload": true,
+        "image_encoder_offload": false,
+        "vae_cpu_offload": false,
+        "high_noise_filename": "wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+        "low_noise_filename": "wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+        "high_noise_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+        "low_noise_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "checkpoint_sha256": {
+        "wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+        "wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      }
+    },
+    "inputs_sha256": "16545be8ec2d951347363211801a375cb0b50d5ac204d8115c5410b35d2e1daa",
+    "input_recovery_sha256": "c92c815a93f8e37aed2784f68f59a5672a7c006db8bcb9f8ae4d688ff3ad4755",
+    "arm": "D-Q-PACKED-TRAINED-REFERENCE",
+    "packed_policy_sha256": "ab4fddc05fc7c7c444016897c1121b6d135e5fe6bab60456669c9e082b44af1f",
+    "sources": {
+      "/home/xiang/projects/FFNDS/tools/generate_formal_suite.py": "09cc7ed8203f2bc12aca473091fc4f38316b7696ee7e9eb110e6fd890963026a",
+      "/home/xiang/projects/FFNDS/tools/distill_assets.py": "9037ef87314c6c5fb00b01397856a9be3ffe6a66adc8402aef8a93271a2130e6"
+    },
+    "versions": {
+      "torch": "2.10.0+cu128",
+      "torchvision": "0.25.0+cu128",
+      "transformers": "5.6.2",
+      "diffusers": "0.38.0",
+      "safetensors": "0.8.0",
+      "numpy": "2.4.6",
+      "triton": "3.6.0"
+    },
+    "native_sources": {
+      "/home/xiang/projects/FFNDS/.runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/schedulers/wan/scheduler.py": "c86af28a3b8d709692fb3a88d67ec441a77624929d397c216e0106f1c0142f4a"
+    },
+    "seed_semantics": "scheduler.generator=None before every native request"
+  },
+  "historical_worker_sha256": "abdf211cb14190118a80aeb52a97cc94e85d600300ae445982e8d2d9f781caad",
+  "full_info_sha256": "816eb67092fb0ea47e032cab2107cbb580a9a5e597b97c261e3ef955cdf620c0",
+  "code": [
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/__init__.py",
+      "sha256": "261d173ad928a1a34e90b2ca4aacb3c7439c68459c7457e768d96cf337b56354"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/aesthetic_quality.py",
+      "sha256": "caf86008a3e56974524d286e5b968a31536e315005d0b20f06fae9d5d37da539"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/appearance_style.py",
+      "sha256": "166b291abe55b0ac28ff4c937469e42cc2aa135c308ab06665518837956deb2a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/background_consistency.py",
+      "sha256": "7def92057819df0dad01c857eecf3b39b8b555c8cdfe881a672cc2b19dc226b4"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/cli/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/cli/evaluate.py",
+      "sha256": "5082854c80e1d586c35c969ea5c04a0cd684eb6ae7c15141fa35f9c8c8d53c95"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/cli/static_filter.py",
+      "sha256": "5fb6dda50a7e310e584ca9ab704ca399cd049398ec61958bfe17d95fabe5fedb"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/cli/vbench.py",
+      "sha256": "d37ad947303a9e16cbe75031777063ed114f81c7135071e8db7a9f960439222d"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/color.py",
+      "sha256": "03baffc12508fd7ce6c70a227d6794bbc7152c24ba2d2c447a816974466db3d7"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/distributed.py",
+      "sha256": "13178b64ac62d71a01339ce6d8e29452163e7a653016a7e2d3af907e0d51f3fe"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/dynamic_degree.py",
+      "sha256": "2e93d3a7af38bfbe459c19c9d127894f687424a0bc534dbf7e6571d17b24dff7"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/human_action.py",
+      "sha256": "4cee71a1e09e0b2f7e1a8126300c9250be19e3866f49004c8b69b4a5a15e8945"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/imaging_quality.py",
+      "sha256": "ac6c648cb4d5e82cd29c63be04977e9288c3540558cf12f979e66bef3e1f9e3a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/launch/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/launch/evaluate.py",
+      "sha256": "f691f91f41be8bb74ea29beba5d3c77ef9cfa6e856351b463799e7793e24d2c0"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/motion_smoothness.py",
+      "sha256": "082ddac8df7962d3a8b23bb999614fae6f3c9c93ebab9fb5c06b09588f109c94"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/multiple_objects.py",
+      "sha256": "fa5047aa560158f017e46dea3ae763ed083df08ece63e47f61a7ea4fc55be672"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/object_class.py",
+      "sha256": "8d4c4a7feee52503e3d27f8aba0ed467cbc356ed75da2598367b572237e05db2"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/overall_consistency.py",
+      "sha256": "325beb4503699b08d441a467710240097c15c2267fe92dbed1ed8cdfaa96103e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/scene.py",
+      "sha256": "f14c423710c812af2be953db619ed6e8b478acdc44f1df775815adfa30171965"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/spatial_relationship.py",
+      "sha256": "26f09a111dac904d1a92ae5bd1c332a029cebd22610d62376a09d7d634950270"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/subject_consistency.py",
+      "sha256": "55f5c9a3e5be543380a709b94712903fa67a76340c3c0cb2414ac090dbd1b78d"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/temporal_flickering.py",
+      "sha256": "c2c892034d1652c9390f213308c18b77ae20a87bd52fc50a125294ce83af4e83"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/temporal_style.py",
+      "sha256": "9f9e950efca4673721d0a07ea83137be9ebdc9aef2364f412300ba979beef57a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/corr.py",
+      "sha256": "f147a59672010c07671802c76e8d3d47e16cddb7573b750298b40639c2411053"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/datasets.py",
+      "sha256": "f809bc29103b71744c8c03f13e95e5a0e9a898a0dad67d9ccd4acfba2e5f2805"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/extractor.py",
+      "sha256": "f6b65d4f4df27001d9c11194f71b84a9799de3231f9d1672cbcf3a052fec79dc"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/raft.py",
+      "sha256": "dfa382fe9d21b22f65db72401d1ee1016b7e9f5aa25610fd112bff78b7957563"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/update.py",
+      "sha256": "7302f91ffc24c85cf739a25feb17d9d1e537f7344a2ddc331daf8ab9db6c3f74"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/utils_core/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/utils_core/augmentor.py",
+      "sha256": "0672da08db6c127ced5d8835381c294d6b7b5b90286916a8f72784bd0e0c8dca"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/utils_core/flow_viz.py",
+      "sha256": "72595c16479265fea80add4f1691b4e35321b898f3da0a0f2ee19f6f8d831d26"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/utils_core/frame_utils.py",
+      "sha256": "ef3b214054e581700451215a72bb4fed202588c8d66483c90249127b6305d9d0"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/RAFT/core/utils_core/utils.py",
+      "sha256": "125ca33c84f60c19359c875002e9301fe0404b3256c6efec718b26589d7fdd5a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/ViCLIP/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/ViCLIP/simple_tokenizer.py",
+      "sha256": "4b5ac7e201ec4b4bd592b4666b61b4c54319b6957ce6d82e9f6832a83b4dfa7c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/ViCLIP/viclip.py",
+      "sha256": "20ce529588ab24c7ebfcbb3caba4f5c7980be8d61a6056dfaeff19a3dc63f20b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/ViCLIP/viclip_text.py",
+      "sha256": "fa942eb215bc8b889f49a03018a51316759dd2ac249d8934f674c891d4887fd9"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/ViCLIP/viclip_vision.py",
+      "sha256": "d945f45db262803115d011debd46418e8d5b462e35a40959c3b7431a8a3a3dbb"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/adobe240.py",
+      "sha256": "96461ab13b01ee83f31986ec0e4a89bba5fc14f75b3aead64b49f3440ad2bea6"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/gopro.py",
+      "sha256": "d48bd6a2f153aa4c11e204e876848144817f2241bd1d2ec60ccf27423e96e0c8"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/snu_film.py",
+      "sha256": "6615faa685a128d0e3ca6c806e7864ee8ddfcf16d57ccade00fb3379bd67dc4c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/speed_parameters.py",
+      "sha256": "2f22a92e57300e32b33b10f08f9da1bfe1dc211118e9a3c922af9678fd1efaed"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/ucf101.py",
+      "sha256": "a8b8fa203ae7a26f69318b20be3ad97d99ddac8e3fd2a01a3100394561528bd6"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/vimeo90k.py",
+      "sha256": "f617d527e0e57942387bd7c71b2fe601cb6fd9cdea29610f3ffad2682f3d727a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/vimeo90k_tta.py",
+      "sha256": "da4eb3c121da8b10cdb00ef36aebb24bef165cde582cf6cd358a8fa8017209d4"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/benchmarks/xiph.py",
+      "sha256": "8e8319bb6ba136c007196a4953f7357671ce5dc2a11dd3e2d7b8c431ee26da7e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/datasets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/datasets/adobe_datasets.py",
+      "sha256": "eb4a0d142af6d4712c991611d1e3a2b392b1851ae653a6b5774e2fb09730fe1c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/datasets/gopro_datasets.py",
+      "sha256": "5199b0faada241c3dfb7b969ae178998421c68686a3ac46ffe850af6f140c53f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/datasets/vimeo_datasets.py",
+      "sha256": "4b7727a4346f1fa6a036bb675906e0e04fce3805e15ac62740c23b43dca45671"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/flow_generation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/flow_generation/gen_flow.py",
+      "sha256": "c13ae9f33f01d01494aa519eb24ffe252fb14489cb1d10c3be044535d46572a8"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/flow_generation/liteflownet/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/flow_generation/liteflownet/run.py",
+      "sha256": "761e39960163a88fd1c54f5fe55f629e2e52a31abae69ea2a7748c2513b55928"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/losses/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/losses/loss.py",
+      "sha256": "2908559c34b109aba843bc9225bc3ac4189ab328145e17b0d5ef6dd8fc1378e9"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/metrics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/metrics/psnr_ssim.py",
+      "sha256": "89726310e995a7bd4b67c985f1f55322222f4a43e34d91ee974f19ac1db04706"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/AMT-G.py",
+      "sha256": "2238e3e6342882414499f5b1ffc3410c59e2daf8d5dccd961b98b05a67f081f5"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/AMT-L.py",
+      "sha256": "4e0ea65e20dd46bbf46785ebc52df600786eda46efe4563eaa6a7763932fbc1e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/AMT-S.py",
+      "sha256": "4f43e4aa0c4feeaa481587f441d924ee4267d7e722dc19bfda8ab15b3c917879"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/IFRNet.py",
+      "sha256": "7422df6bab09c70ca0a4e0ef6ab108392f17367694f9efb9c82135456ae550a8"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/blocks/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/blocks/feat_enc.py",
+      "sha256": "944327e3f6c2b0325370394b11fd114dfe202f9d3793405911b7783d2d1e1122"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/blocks/ifrnet.py",
+      "sha256": "b9b30645c0736dbfaecceb96f0c288087ba7bd69f9d5813fcaf8770cb1de2dda"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/blocks/multi_flow.py",
+      "sha256": "a0eb10747b5f5855f790805f75579f923b75ae1195341bed05d5ed56fd255f37"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/networks/blocks/raft.py",
+      "sha256": "6b0cd578c27f97a8b03ed05f0a77982f426abad1b03173ea72a9529e558f38cd"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/train.py",
+      "sha256": "fe5c248500f3b17b988223bfe7770a69cd0dc176ec94119962d728769029944f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/trainers/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/trainers/base_trainer.py",
+      "sha256": "5427a44c40ea8534f690484736a345dc7ee9240648480c7e7055cd17b66f4751"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/trainers/logger.py",
+      "sha256": "b318b9af49e18c1c5b20368e30bd6ab213f99f86782863fa47f48ff54a76aebd"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/utils/build_utils.py",
+      "sha256": "10cb0a2bb264b9155c2c5b5a0a10b9acb9780859699a7b359baabac3cdb416bd"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/utils/dist_utils.py",
+      "sha256": "cab1ebe516b0a2eb7011aef404971c00fe093cd1eb0131a9983c386aba26c083"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/utils/flow_utils.py",
+      "sha256": "d17e346884de6d0818f1b4d908261fa8642f72a0872295af44421cc2b12e4dbe"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/amt/utils/utils.py",
+      "sha256": "4ad8dab6ef649d30a22567b1018abca372010821e9c3df1d45b21dc73f36a465"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_model.py",
+      "sha256": "2c3d8b3aa498810e7670cb7db3c400ae7f14c9a9f8fc8c1e10d20ead28d36690"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/__init__.py",
+      "sha256": "039f0317ed09ef04e2d666ace2ce73f7f04e02362b23f863435a4be395ea7201"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/config.py",
+      "sha256": "93174727ad38dd792ddc7b17e97c8f723c1daddadd26fa441ee2192ad42a15e7"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/backbone/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/backbone/bifpn.py",
+      "sha256": "71d907741f1c57f09667e690de7750586c79b2bdb9b5096003d1f0f4887e5cc9"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/backbone/bifpn_fcos.py",
+      "sha256": "70f306ea0767d7f3864748217a56f8ac772f39d7315fbc6ea0c40260857eed39"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/backbone/dla.py",
+      "sha256": "7daa1b26c230d561a7009b1bd8d4e987fd1befb9e57142b754265f125034614f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/backbone/dlafpn.py",
+      "sha256": "632335f1af55ec6a7d61f9d335c7ad14b50214ee3012352bc13215dfafd83611"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/backbone/fpn_p5.py",
+      "sha256": "3d3f554fe33680596cceef28c0f5124d8fcda30b4066a1aa5a494b0c690fc4ba"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/backbone/res2net.py",
+      "sha256": "89468a9a8c573a8dd0d92dda97ba38b84f3981a44e344a5359746c30537e4708"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/debug.py",
+      "sha256": "e8c77adc0df9d70ab2fc9001640898e28691175963a7aa61f255b369dbcfd133"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/dense_heads/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/dense_heads/centernet.py",
+      "sha256": "ba2ad34fde7c1a2403be0c2827f81c2aebde4315fa8384fc23d1f6f93c55f4ec"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/dense_heads/centernet_head.py",
+      "sha256": "56b28cc8c0799fd9bff6e2a41d1a2c36e7711385b68052ed233eb8f788c27d2e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/dense_heads/utils.py",
+      "sha256": "3bf22e5311cea542c528db91edd668d476e7303f476915c1792f4fdbfbaa3e19"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/layers/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/layers/deform_conv.py",
+      "sha256": "8ec6b591bc25d8b4093ac99baa2531d1fa6feaf87d074f77a24f721ee41dd496"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/layers/heatmap_focal_loss.py",
+      "sha256": "aeae37f7ef5d9d2f2c9407c9e99945d0d495b526e28ca606242438995d00746d"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/layers/iou_loss.py",
+      "sha256": "96a26361d191ac780c9a9ef4d2c97327a195e79605628a1c11fda2b6eca20300"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/layers/ml_nms.py",
+      "sha256": "53ec4f53609dfa3955b296bdf78420b04f5f885233de85b09e4dbc409795a851"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/meta_arch/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/meta_arch/centernet_detector.py",
+      "sha256": "15d1dec8e6e3ccbf84108be00955a37792b1f333837442c60832f7b0bbc03418"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/roi_heads/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/roi_heads/custom_fast_rcnn.py",
+      "sha256": "6082647e1740c92eb3a8e53083c9e6452c863e36771ef05f3785a540c307f9ee"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/roi_heads/custom_roi_heads.py",
+      "sha256": "d8ffc1c87d54eb3cf92714de4605b166d85b2a8f41110b4d31e4fde9d8d1c1a4"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/centernet/modeling/roi_heads/fed_loss.py",
+      "sha256": "429cd8924c1ea2e965121542c4dc5ae248b75703e199912ffbf682e0a77393af"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/predictor.py",
+      "sha256": "ac3ba62e8a180d83cf449fe34877a0d7e136fe74a3b01f8722428185d6af2ca3"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/centernet2/train_net.py",
+      "sha256": "36a46231772d9f06117e37687baea967d6885c4072adb5b4881c3036c9fb907f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/__init__.py",
+      "sha256": "8c60231f152d1c7d0d68390c9bcae9a6baa15bee855f60ef70649831563c7023"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/config.py",
+      "sha256": "e93cd0d2fecbd04e04af08f5de26f1453edcfcf06035638cef98795ea7d6d9ea"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/custom_solver.py",
+      "sha256": "81918a2128853a861f7f0f2a63d70c420b6005bede426933ec5aaf7643e4ce2c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/custom_build_augmentation.py",
+      "sha256": "b3c8539c9616196dcc1d8e6c6fe3dc2319c37cc27da05f8d4633c50314419889"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/custom_dataset_dataloader.py",
+      "sha256": "e6e764f6a9d204cf06e9194e519912f4b16b0dadafdc696890a5ebdd70b0707d"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/custom_dataset_mapper.py",
+      "sha256": "9ac2e511f8c7f085d4e82ddc24ee9f2930640cac27c04c6f823728a90441c921"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/datasets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/datasets/grit_coco.py",
+      "sha256": "007328629761fa3e571806c69ea6c8f411ad3d5a15e5b7f4fd347b9de88317a6"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/datasets/object365.py",
+      "sha256": "927b108b6cdf3d09d9ad30bac60b2330d1aa37a831e5a6091f16032888f452f2"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/datasets/vg.py",
+      "sha256": "b2cad62c9d4304ba500c6ed9cef1f0f5bb33c682a692200fe10eeb698017ee73"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/transforms/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/transforms/custom_augmentation_impl.py",
+      "sha256": "355e5a3436cda020b110c7f7bb602ec13eac85f258eaf5cce16c53852c6bfdd7"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/data/transforms/custom_transform.py",
+      "sha256": "7f43cdd375413efb004092aa132196aab44de02b362e61309b1355882003b71c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/backbone/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/backbone/utils.py",
+      "sha256": "711d9955377afa748f39d7040bd77fa7e027b0c8cb9bfafe10e59d34a761372f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/backbone/vit.py",
+      "sha256": "8863b73bb2632980afc2a2d43b33e87585cd0aa010fd1b8db62532d771f80b79"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/meta_arch/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/meta_arch/grit.py",
+      "sha256": "404251a321621d0ffd46edbcc77cd59f41c22c778e6387bef850344c1a87b11f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/roi_heads/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/roi_heads/grit_fast_rcnn.py",
+      "sha256": "9db98f44c5b9d39451fd44e604981b791b2cb61f63c34b11df4cae58989ec306"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/roi_heads/grit_roi_heads.py",
+      "sha256": "1114f0e07bbdc27594cef7c37a67c5e85a7e0f4cc6c7a40a912512dbe32b0aea"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/soft_nms.py",
+      "sha256": "5fceff03d8a889aba4a2b1e451fff3c4fce2ae362401ff741be3d6bca9011d01"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/text/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/text/file_utils.py",
+      "sha256": "b4652b542e5d4401b998e3cf32e72871f774a454ec686dee3553c3f751222fda"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/text/load_text_token.py",
+      "sha256": "7acea1b3a51cad396238ba4b1df60b482b3bf211b519488df38f3e04b47da2e2"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/text/modeling_bert.py",
+      "sha256": "2b3f32f6c363f31be32b6fb697d4298fed04cfefed76ab2d4d7754b09aacd709"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/modeling/text/text_decoder.py",
+      "sha256": "92f5c8420af2e8d78ca532094e28d9439c7d61f778a1f94c700768dcda788190"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/grit/predictor.py",
+      "sha256": "7b51a15605e15b10c881fac97c75a543abf7b12f13417663be38ff0fa6e79270"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/grit_src/image_dense_captions.py",
+      "sha256": "ab74a73f0f31256de63512badfb8921804bb48284e1d3c5baa01be8445cf802b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/tag2Text/__init__.py",
+      "sha256": "d7a74aba55dc7151e765db928f61f67e16a5994e59f68529931ba7596517834e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/tag2Text/med.py",
+      "sha256": "2090e14ddc6809ff89b7f833b7b0023a39a67d75fba26b347f54a3c7737c17b7"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/tag2Text/swin_transformer.py",
+      "sha256": "b19a111c4eabd67c634562424a9716fd37ccd181dca04f8a41c7717f5186cb7f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/tag2Text/tag2text.py",
+      "sha256": "04c58678031a138ceadfcf7650d79fac8627a919335562c4638f2205febf16a2"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/tag2Text/tag_class.py",
+      "sha256": "8e33d5653fc4f5f1792bad82e64dcbf4a004dacf633b8e8d6a811ae07b7a73bf"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/tag2Text/vit.py",
+      "sha256": "c16ef04bd471dc4d6ea1cae57982891670949bd9117ad209750bc88622539454"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/__init__.py",
+      "sha256": "d4c81415006ecbd6bf0778ab6a1efdbcb098baec97a6ab32ed01aaab4a00bf4f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/build.py",
+      "sha256": "5a7bace79b3bcae4c3b2d9d9d1f892c110383994334ad8fd78bccfdc9799411e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/kinetics.py",
+      "sha256": "e102493e838f10a6e646f25da81775af0e096a844d738784ad8db6f9cd8ec532"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/kinetics_sparse.py",
+      "sha256": "4b3a38e9666f061e181642c393f69e38070a012f729351335163d7c476ec95f6"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/mae.py",
+      "sha256": "a3699c6f75c951438445d3a6233efc11ff6f21057c764a6a5f27251a9de3c4ad"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/masking_generator.py",
+      "sha256": "2ec5b75f9ca6911fdd1be43a14c0a2ca7466ac760f8259e22a354e13f643f2c9"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/mixup.py",
+      "sha256": "27fb430a79ada615f9ad8ca45252ea61496a0e3f1271ceeda4e7142e6858c5b6"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/rand_augment.py",
+      "sha256": "cb8f92500b26cdc1d740d9206d04e1c7bd2d959f4c24cef4337efce1e183709a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/random_erasing.py",
+      "sha256": "cf7f9c96eb6f486dd144934544ce88b85e2f91e156ab4294b2ab4ae64368d005"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/ssv2.py",
+      "sha256": "c8167c5a1513a3bcaf144624e03eaa2b6722e2a7ed1e6cdc48edbfde3590cb45"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/transforms.py",
+      "sha256": "196347027838bcbd6c954724387cdb87f7fa589ba84677ab43b55260ce853ac9"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/video_transforms.py",
+      "sha256": "c8bf61cc40fc706141011eb21ac09cbc5002ac5a275e5d69882e63b1321c1871"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/datasets/volume_transforms.py",
+      "sha256": "a1d098d4d2cdce75bdc7303fe3d8ad8bf8ccec9025f2a754bd08e2e2271d9219"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/functional.py",
+      "sha256": "19c11a6295729f36f83cb5fd10b1d692c5c50643974fd6e70ebebb4b6f4ca4f7"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/models/__init__.py",
+      "sha256": "852243c874dcbe25336da3fe44948ddb9c0652f7637c7655adc03bf45f74f63b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/models/clip.py",
+      "sha256": "40678428352247dcaf2e3b74558ed1fbdce784780f983fb7ae3b375188fb0463"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/models/modeling_finetune.py",
+      "sha256": "7cc8a963cfc3e36a546b94fa70255d8479d174589830c340117e04cae1509d06"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/models/modeling_pretrain.py",
+      "sha256": "a0b1633e5ceb77d930b9b64376b9f32e280e00da3d388bb2a804768275dfa992"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/third_party/umt/models/modeling_pretrain_umt.py",
+      "sha256": "e055354103c067aa824ab5aff52b4f2cce372721bab97e834a791b328a8c3f13"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench/utils.py",
+      "sha256": "29f1628aaafe15b75aec076fd18ec70070a1e2c0ce182089e37460a17ac6cc38"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench2_beta_i2v/__init__.py",
+      "sha256": "270a3d77e101ec2bbc2834fc8f87346e3fc91f9f1e63b88885e0b24b4e441f63"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench2_beta_i2v/camera_motion.py",
+      "sha256": "de0b9d9b532ffcdbbd8492aea6be8a6606c0be71fda97fa121cb350d565cf41c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench2_beta_i2v/crop_to_diff_ratio.py",
+      "sha256": "b09031f47c4883609de0f110f01f173ac5f667311768d3dfbbe1ebd4739bb219"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench2_beta_i2v/i2v_background.py",
+      "sha256": "fb5335849590ef49772ca4a064e3925eb68a2aa7b1f1fb70f5c2b206d72ab950"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench2_beta_i2v/i2v_subject.py",
+      "sha256": "cf29896eddad3478c0ba91073b621d49cc311d8fbca8079d783115a10e0f7a80"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/vbench2_beta_i2v/utils.py",
+      "sha256": "f26f4c21b32982b975fd250ade7e57b718b3a2415c26b354e24bb7fdb84de4fc"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/__init__.py",
+      "sha256": "a22672c4ba0667bd258334340e80734deea85222f7086f5875ac720440320440"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/api_helpers.py",
+      "sha256": "0157de04b3acf00bc89ec2b1add9ce2c5ebc124369abbf502da01bfe95487ec7"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/__init__.py",
+      "sha256": "7225b908a848f6e540c1afee3eaea7b8769aca074f0c5a594ccd3d56edd88d52"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/ahiq_arch.py",
+      "sha256": "96d87f6f1d298a013387369f93bef4c92f695df365511f6b191f9a9deccf7876"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/arch_util.py",
+      "sha256": "3349d353a7317282746e9ba9eddf2f083b6f61fcf22cbdcda49220b43f8f510a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/brisque_arch.py",
+      "sha256": "41b16ff729660af6e9255e020d84260315f1a59992c02928017d64f43d71627f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/ckdn_arch.py",
+      "sha256": "0a1a15d0ca47b0a0b512ffd748e3ae24ea0a589cf279afefa1e86fbe6707ed94"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/clip_model.py",
+      "sha256": "70bb2b797910afc15bf7f1db711a605333b567307144b7ca2865a84ac5140f8e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/clipiqa_arch.py",
+      "sha256": "76923add50a247d6f3a97e0e04f44f2c2bcee064b403e88d6141bc26d167db31"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/clipscore_arch.py",
+      "sha256": "6a90e70bc7cb1dec46bab073daeb977cd6394c7964c6f6cef42ffb3998c7349b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/cnniqa_arch.py",
+      "sha256": "aa069f7feaa8ed7ae6efbe43efa33727aaa60fc1f5c6016b6c1f07b075d3047a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/constants.py",
+      "sha256": "ff24208d22578529e506f8323085dbd58b25bca4db164d3b1eb7d78ff57e0473"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/dbcnn_arch.py",
+      "sha256": "5f1d4d910d2c96b298c4d91941b2ad79a080e8c1aee9e0da5496ddb6b58c60ed"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/dists_arch.py",
+      "sha256": "4332a6a62d90b15973ca703b58f16efecc5cda591e7fb181d58e36a6101c806a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/entropy_arch.py",
+      "sha256": "f2cec14e1b7647b75d7fb8b0743d7568e48a7cace1532c58aa60be3a02cfb13a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/fid_arch.py",
+      "sha256": "65735f79d4fce1ee7137f830d2de6783e265480b1f8ac92f5c00940e17060132"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/fsim_arch.py",
+      "sha256": "da06653f2d9745eab93b247763e2d5d414247ecf0c6e4daaa2cddf60db31400f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/func_util.py",
+      "sha256": "3e0ea50d455e426fca9565dc7c599ec37648fbdcf7c4d5a0a4b41134a62ec3ab"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/gmsd_arch.py",
+      "sha256": "5cffe72dc4a4bbbe1010901fb8e3d6058b188f531000b0ed2ca7524181e7a942"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/hypernet_arch.py",
+      "sha256": "bec213b1df7185a6ae628a57433e9392a70286a5ef3e1dec5afddfb7c5d94f55"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/inception.py",
+      "sha256": "7b7e4912beca7848baf7f811f95957c39c69d05a26e44fea49e6399373c77f2c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/iqt_arch.py",
+      "sha256": "d1e4f3a9b447e4af72333729647508c65a8c41fe9768f3bedbdb233b5c047dfe"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/laion_aes_arch.py",
+      "sha256": "c9787b6e0f4d5641320e3e77e3cc61deed887a3f8775ec3269c3631ee0dfbc03"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/liqe_arch.py",
+      "sha256": "ff44cdbb435b10cd179f75e1ea28d9e15b097ee81093af47e1b3707c71f95805"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/lpips_arch.py",
+      "sha256": "7ee2ff201a4da4bdd4605ef0a6b539889c4ea4db4ba20a3c4f4831a1b43b1480"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/mad_arch.py",
+      "sha256": "336f28ffbeb99f762dfb826dc1e78ead154208521ba26450e1a7f0e1f1dffa71"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/maniqa_arch.py",
+      "sha256": "e8a812fdfe35b9265fd57f07e7134d7bec2903689fe59c85010e45c9d5f749c9"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/maniqa_swin.py",
+      "sha256": "76e2a6218a774dbafcdada6794de6275176f47a371c507bdcc2cab23a7545998"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/musiq_arch.py",
+      "sha256": "ddab924a5ff529e1668404fa058777a9d00890390166c2b12ef7fffdc0baebb3"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/nima_arch.py",
+      "sha256": "8572527c86817e90efdbe356a3ca897c08a52de235351ddde0a6828d55510960"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/niqe_arch.py",
+      "sha256": "cad3765957607f4ce2a58f76572f75d1d658d68a296d54e7a92e9e062107b7d0"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/nlpd_arch.py",
+      "sha256": "0906866258499a4d1695e771eb3f2720786733a07cf8281a8b90474a78761051"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/nrqm_arch.py",
+      "sha256": "95db162085c70460a0906860730b443584ed2ec2c85b301ab361ffadda8e423d"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/paq2piq_arch.py",
+      "sha256": "16dd3e6d33bf2b77726550d280ae09f77b094f54352b4bb6247b3e73f4a6703e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/pieapp_arch.py",
+      "sha256": "59407ee5bc160aafa7ef39f650be90878bdef65f330e1dd8c4d084685ee6c6bb"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/psnr_arch.py",
+      "sha256": "3fdf71c8e03faac4b15468212165e98a878b24330de5a209a36704eaa0f24927"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/ssim_arch.py",
+      "sha256": "22712fac90daf23c33da46e1a40c59041ac0633a705efb17dffcc68434266e4c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/stlpips_arch.py",
+      "sha256": "dfcea56fda11c63c4e4f19fb1da81308b5f88bb986e2db4bc3e9414bdedea25b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/topiq_arch.py",
+      "sha256": "5e8bf9ae5ffb8d94459ffa80e644a1fd4a9cef0e684d393c22adb4919d73b642"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/topiq_swin.py",
+      "sha256": "a0de9a925b8a16c5f8dc252193e035fb98aa1bc46f50b6d7b8e7e45436441eac"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/tres_arch.py",
+      "sha256": "ae30534d2f0cb34fa333d6aa104c5da7906f3fa36487992066f0b3b7a518885f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/uranker_arch.py",
+      "sha256": "69fab4ddf6e806d7c55aef35f27aa1396599de799ea5b243b50b7c987a3d3d38"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/vif_arch.py",
+      "sha256": "e27f581cb063046c39bd88e64b62d5e80d5b8a81a59f27dd56c4ed706cfdd169"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/vsi_arch.py",
+      "sha256": "5dddc4dca36686b720ea4598d472ac476a158cc5a3e85c88670cb41a736cc732"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/archs/wadiqam_arch.py",
+      "sha256": "9d9cbed49276d3bc14557da18b974fd8ac9b1cc51b2bd2035c7e5803cad3924e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/__init__.py",
+      "sha256": "11bb38f353496c836236172834acf8a5d498e47ba88374149080e426e9b284eb"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/ava_dataset.py",
+      "sha256": "f1df1b048a8bcc4e6016704a53f44b90125eb4109129240fe0081c3c5e2c33bb"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/bapps_dataset.py",
+      "sha256": "68445e2a38378f6a8b5068d8ebec9773e0622d79e04b1cf4f226e8401cb4e47b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/base_iqa_dataset.py",
+      "sha256": "4cd227931c12028a056cf688147a92bb3f29f97b37c72febe81efb1708aac070"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/data_sampler.py",
+      "sha256": "421e5ad448e86a16939c661f46853f97a90921d00f77a70f3d7ed8e0ec133082"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/data_util.py",
+      "sha256": "668ae8db082c82c46f87fd35a202df5f37aeb12a36775e1cda053b5ef85c6d0b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/general_fr_dataset.py",
+      "sha256": "e15af62984b18313ccde5a4f349888e78640ab4365d7d22aaf1e72a99b32077b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/general_nr_dataset.py",
+      "sha256": "a074eeeb711f4e53cec847e681dbb07c485dd047800fd991cab33fd922023b24"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/livechallenge_dataset.py",
+      "sha256": "bdeb4f36e8034167750e95a225b87bf4ef759af33b4b286f94301d3593e18fbf"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/multiscale_trans_util.py",
+      "sha256": "abd25967d917c2d0ea0beff57214a8b10271deb25cb7ed19a89b207d36f3f2c9"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/pieapp_dataset.py",
+      "sha256": "b96c5b26fb27477f97e030f8837a25f7a302c66c250f57c25b3eb4254ef0c27a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/piq_dataset.py",
+      "sha256": "29e773eb93e1f607119095710299602593dd56e1835ef351c75fb04cd54209bb"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/prefetch_dataloader.py",
+      "sha256": "be6ff55db75a22976716df34cefe6a6ad45efede0bf3e92d027f3e8d9e996006"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/data/transforms.py",
+      "sha256": "e72e3dbd427baa18cd193dd55b7aad1bee472ca94da18150d6450158a21e9c6f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/default_model_configs.py",
+      "sha256": "bacb5676a9e870fac71aaaa51ad4597c7ad0660f9c1a94c20d6c2b55f76c444f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/losses/__init__.py",
+      "sha256": "b3e0fdbe6fd9b1f6f90751c32c6e70443dd389a903d5165fafbaf0b09935e557"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/losses/iqa_losses.py",
+      "sha256": "38fb70c237edc419b8f30d1e0a1450d50fe3ada9fcbe172fb256a65fe805e2ec"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/losses/loss_util.py",
+      "sha256": "82f853d6ea416606e7a1871143cda4dc72cf47640eebeca2e96118748d290b59"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/losses/losses.py",
+      "sha256": "aae2ccddf1e6c878e284edb6de1c0977747c9dac39f4b321146dd2e0eec61d21"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/matlab_utils/__init__.py",
+      "sha256": "dcc03a5e43d321ddb688bbd3209648d4c2dd5bb1405974ccb9994532d7ff6318"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/matlab_utils/functions.py",
+      "sha256": "20257b4e2b432b018fa369319dc10a6aa91d75485e7743d7339b6efcec2467fd"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/matlab_utils/math_util.py",
+      "sha256": "be5bdc9d4d15975d17c3c2ea45cbfe4d517b088ed909f4c96fff2052493ad279"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/matlab_utils/padding.py",
+      "sha256": "e2f92917002e8e68020f30dea854c9678532a4d851d9564d6fc2726806fbe02e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/matlab_utils/resize.py",
+      "sha256": "4760eedccf2ba9ccd60ea898cc0b58248157b997660f526ee6d5c080cfea0f84"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/matlab_utils/scfpyr_util.py",
+      "sha256": "3cf3f4f1fad35a5ab409f4f8142b84cf0ff71838564c21c0643467d23bcbcecc"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/metrics/__init__.py",
+      "sha256": "f7a9425b1f5040b5b26c10966bcb5148a3d320317d64393b769bdace1d977672"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/metrics/correlation_coefficient.py",
+      "sha256": "930f6ac1373b23d68b2293f886396b699226404d35d48dc0fa594a7c298dc306"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/metrics/other_metrics.py",
+      "sha256": "6246ce5d89d330a87f064c0e8b21abd28e829a9a2dcc72842d8c6ea00e1f89f3"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/__init__.py",
+      "sha256": "e2d47d54b510b70dd99d5adab0825a9a336df1738bc60298e1e5158d6c46253a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/bapps_model.py",
+      "sha256": "728005c999e89db5c17bc56cf607fe5555a58bb52cf2fae7fac767c64d3dc82d"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/base_model.py",
+      "sha256": "41499d36fee7b3ea04946bbaaf9a61f4b11803a2501c154da0d420f0afc0ac91"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/dbcnn_model.py",
+      "sha256": "24a0a0c6ae7bea4147a48353509989aefe28a9b20fef6057360efb40e9e4421a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/distiqa_model.py",
+      "sha256": "6c564b050e7f84853cfd017498c4830a89e21c2ffbe8e84371c5e2bc2786727d"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/general_iqa_model.py",
+      "sha256": "e238f3fe1fe1d34f3436a466f78c12d8192431b0daa169fb5046f877f9f28e0f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/inference_model.py",
+      "sha256": "29b6d8ad8f67a940aa866f9911ef733632a1cf01f71caf400ba0c818f30dc23a"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/lr_scheduler.py",
+      "sha256": "44b5639fa1ee8a15628134e653a31931d961c4f9650088bb5ec26cb6ae404c34"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/pieapp_model.py",
+      "sha256": "dfc48c588f7689381fe5d9e0544d9be4b22c253821f1ab7dfd78d28a2043b13d"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/models/wadiqam_model.py",
+      "sha256": "580cb1c6cfb6b7c54f7134a5613f6a8e7d5658289315dfa995239b63afb5904b"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/test.py",
+      "sha256": "21fb2ba28ef849d34eea700c985bf3a6f27bda516ba43d6e690e2cd43d6a24fc"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/train.py",
+      "sha256": "72a04bf0fdb5692023c2bc99064683621ab82d830f93636cabfd2bb44c214c2c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/train_nsplits.py",
+      "sha256": "13bb6f3c4b9253ab30c1d5b685e401d6abe123a9163daa261ad99790b2080b4e"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/__init__.py",
+      "sha256": "3317f66da5d7e55d346a72732d7cc68dea22c6707d9ade43d41036c0c2466760"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/color_util.py",
+      "sha256": "0135950633f81ab6f12531c6bed00537fd0071b655215a58ffc19d4e8573e078"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/dist_util.py",
+      "sha256": "e6a6d7fced5146ff2e1f16cb0ce1c922171fe7e8b28c011178695ebed4f477b8"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/download_util.py",
+      "sha256": "33603ebb8cf18348e0830514633e336a3bf4749a144a86472059f7f0b83b2b50"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/file_client.py",
+      "sha256": "0a48e9073e2813651303003dc212579098764e62a2e58fcf889832ddf9c00a25"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/img_util.py",
+      "sha256": "e2ac2782eb1dbc91acfa8a457eb57484dbcb4c8b314d569a4ff73608e6f1bdf7"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/lmdb_util.py",
+      "sha256": "2374b9bfd06813a91cab54f85e29c6a606df20451433aaadeb5e847b09577449"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/logger.py",
+      "sha256": "fe99bbbc35ffab3b396ac718445f164fa12217ad4070c2968ed5002df0200553"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/misc.py",
+      "sha256": "368144804fc23cdd63dac25854973c022a7c7c81fa7424f43ca2c006096704e6"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/options.py",
+      "sha256": "58755ef928daa15c08ebfb2bb892ed0118af14da38ad7eb1484c0600d7e8f5d3"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/utils/registry.py",
+      "sha256": "21c23bd3bf727eb2decd99035120fc47316db92486d73116cca18e9fa8b6c854"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/pyiqa/version.py",
+      "sha256": "33ab02d30023aa2eb71cbf8ae4cb060e851892e8e4e88f273f9e8c9210ea74d5"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/clip/__init__.py",
+      "sha256": "d7930eb290ebed432116795c91473200d098451a94c0aedd4ae0f934f97955e8"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/clip/clip.py",
+      "sha256": "c28fdadfc140ce89c525cd6c29c0dc71c462e8fa45315e6524f080a4dafcdf75"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/clip/model.py",
+      "sha256": "429489552b2610903b82c9c3215cbb50ca8552e60f0b17dfc4233c1ea0f8422c"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/.runtime/envs/vbench_official/lib/python3.10/site-packages/clip/simple_tokenizer.py",
+      "sha256": "d1b09f10ed3d1e2c343619cb98cbfacb92363dd8607526a43aa7fe2d60d15bad"
+    }
+  ],
+  "models_manifest_sha256": "437d1973e0d0566100c18937da2f222703ed104d8af07239e7ae348816d89209",
+  "models": [
+    {
+      "name": "CLIP_ViT_L14",
+      "relative": "clip_model/ViT-L-14.pt",
+      "url": "https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt",
+      "sha_prefix": "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836",
+      "path": "/home/xiang/.cache/huggingface/ffnds-derived/vbench-models/clip_model/ViT-L-14.pt",
+      "bytes": 932768134,
+      "sha256": "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836"
+    },
+    {
+      "name": "LAION_aesthetic_linear",
+      "relative": "aesthetic_model/emb_reader/sa_0_4_vit_l_14_linear.pth",
+      "url": "https://raw.githubusercontent.com/LAION-AI/aesthetic-predictor/6d122adad522ab246644d9dc1c6d7a3810ee255f/sa_0_4_vit_l_14_linear.pth",
+      "source_revision": "6d122adad522ab246644d9dc1c6d7a3810ee255f",
+      "path": "/home/xiang/.cache/huggingface/ffnds-derived/vbench-models/aesthetic_model/emb_reader/sa_0_4_vit_l_14_linear.pth",
+      "bytes": 4071,
+      "sha256": "2cd4e60f4f24ae3bcd57b847b13c1f3ba27edc28cc1a7f9ce74ee9f421243cba"
+    },
+    {
+      "name": "MUSIQ_SPAQ",
+      "relative": "pyiqa_model/musiq_spaq_ckpt-358bb6af.pth",
+      "url": "https://github.com/chaofengc/IQA-PyTorch/releases/download/v0.1-weights/musiq_spaq_ckpt-358bb6af.pth",
+      "sha_prefix": "358bb6af",
+      "path": "/home/xiang/.cache/huggingface/ffnds-derived/vbench-models/pyiqa_model/musiq_spaq_ckpt-358bb6af.pth",
+      "bytes": 108610983,
+      "sha256": "358bb6af275e28ea56821d44fb55c6cb83645db11f394d3ad65b2d149965ab50"
+    },
+    {
+      "name": "AMT_S",
+      "relative": "amt_model/amt-s.pth",
+      "repo": "lalala125/AMT",
+      "file": "amt-s.pth",
+      "revision": "31d0420ef7788f6dc22aad3445148705007141bb",
+      "sha_prefix": "07e7e03405c213fe4405678db9b42d05671e48c56faf6a441b99bb0047d3cf77",
+      "path": "/home/xiang/.cache/huggingface/ffnds-derived/vbench-models/amt_model/amt-s.pth",
+      "bytes": 12038359,
+      "sha256": "07e7e03405c213fe4405678db9b42d05671e48c56faf6a441b99bb0047d3cf77"
+    }
+  ],
+  "versions": {
+    "torch": "2.7.1+cu118",
+    "torchvision": "0.22.1+cu118",
+    "numpy": "1.26.4",
+    "vbench": "0.1.5",
+    "pyiqa": "0.1.10",
+    "openai-clip": "1.0.1",
+    "decord": "0.6.0",
+    "setuptools": "69.5.1"
+  },
+  "python": "3.10.20 (main, Jul 18 2026, 17:02:35) [Clang 22.1.3 ]",
+  "device": "cuda",
+  "local": true,
+  "read_frame": false,
+  "resolution": "16-9",
+  "generation_cases": [
+    {
+      "index": 0,
+      "source_group": "i2v_subject:10",
+      "prompt": "a large rhino grazing in the grass near a bush",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input00/attempt1/output.mp4",
+        "sha256": "d716416b5e119e60f6aa5dc33d1e786c9749438110cf2cc867f503e16381bc00",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 1,
+      "source_group": "i2v_subject:11",
+      "prompt": "a butterfly sits on top of a purple flower",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input01/attempt1/output.mp4",
+        "sha256": "dec7e8f23afe3f7e984d82cf425e822ea18394e7f125cca52c70e401951e6c5d",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 2,
+      "source_group": "i2v_subject:12",
+      "prompt": "an alligator is covered in green plants in the water",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input02/attempt1/output.mp4",
+        "sha256": "a4423e37c69e902a718de662edd954ee8d097b6b2e5821af73a0f407fc4f0f8e",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 3,
+      "source_group": "i2v_subject:13",
+      "prompt": "a red panda eating bamboo in a zoo",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input03/attempt1/output.mp4",
+        "sha256": "66013687689749977c9d4add03b9ed9791960fd9a17f8bd0bd8139a92cdc5d76",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 4,
+      "source_group": "i2v_subject:14",
+      "prompt": "a monochromatic video capturing a cat's gaze into the camera",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input04/attempt1/output.mp4",
+        "sha256": "9cc53c190b819c5ae91bc9a41a7ca0c0f8d85a6d152450cf276047dfab74413e",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 5,
+      "source_group": "i2v_subject:15",
+      "prompt": "a frog sitting on top of water lily leaves",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input05/attempt1/output.mp4",
+        "sha256": "41a044e59998aad9507adc52fcf0d60fa1657b6a55af144ec1e66900fcee6ec8",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 6,
+      "source_group": "i2v_subject:16",
+      "prompt": "a lion is roaring in the wild",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input06/attempt1/output.mp4",
+        "sha256": "eb1483b81a88334c3ff3c1ae17fd99edebe858aeaca32c311ab6d94827aad304",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 7,
+      "source_group": "i2v_subject:17",
+      "prompt": "a seagull is flying towards a person's hand",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input07/attempt1/output.mp4",
+        "sha256": "0328e1362c4037a878deedc25c9247ea12a1d05bf1e1973c29abdd42ba7ede11",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 8,
+      "source_group": "i2v_subject:18",
+      "prompt": "a yellow and white jellyfish is floating in the ocean",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input08/attempt1/output.mp4",
+        "sha256": "2501f88afdd92d222613b25d853666d21969637ae6e6903dad3fee01b4dcfbc2",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 9,
+      "source_group": "i2v_subject:19",
+      "prompt": "a group of jellyfish swimming in an aquarium",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input09/attempt1/output.mp4",
+        "sha256": "b8acb71bb67912455168e93f986c5893783a2ca971c9d090e0a37038a7327822",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 10,
+      "source_group": "i2v_background:10",
+      "prompt": "a bunch of houses that are on a hillside",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input10/attempt1/output.mp4",
+        "sha256": "952facca1a5ad11a04358c079121fd772a37a310137085510664c4fc9c0be8de",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 11,
+      "source_group": "i2v_background:11",
+      "prompt": "a building that is sitting on the side of a pond",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input11/attempt1/output.mp4",
+        "sha256": "31360c376725a86ab35069a7f0516addb4a58edd387b5a9321de7842b8ea9042",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 12,
+      "source_group": "i2v_background:12",
+      "prompt": "an aerial view of a busy city with a bridge in the background",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input12/attempt1/output.mp4",
+        "sha256": "9346ae41849b3a5275294bc0726da811143d5992745629131805fdba0f31a140",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 13,
+      "source_group": "i2v_background:13",
+      "prompt": "a bridge that is over a body of water",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input13/attempt1/output.mp4",
+        "sha256": "e92a016b3e6a9700f78c0b3ef3cf3f2b4312de875e8a95e575db1b194b076e77",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 14,
+      "source_group": "i2v_background:14",
+      "prompt": "a pile of wood sitting next to a log house",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input14/attempt1/output.mp4",
+        "sha256": "a6f11da87377f8f9933802034a6dc673248b03a806d13363c020051f0fca4e55",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 15,
+      "source_group": "i2v_background:15",
+      "prompt": "a view of a snowy mountain side with many buildings",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input15/attempt1/output.mp4",
+        "sha256": "87ddef8c1c82388d01088ec559f2c868a4530d1d8a2332c61208c1ead8f68114",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 16,
+      "source_group": "i2v_background:16",
+      "prompt": "san francisco skyline at sunset",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input16/attempt1/output.mp4",
+        "sha256": "22bcb36c00c2f15879226bc433d47ff81a1e7054796c60769c6f9bcca2408cd8",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 17,
+      "source_group": "i2v_background:17",
+      "prompt": "a castle on top of a hill covered in snow",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input17/attempt1/output.mp4",
+        "sha256": "1d8d7be87a547e9e837666fc27da46693a82373f302c9a17f196493ec40f8639",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 18,
+      "source_group": "i2v_background:18",
+      "prompt": "an aerial view of big ben and the houses of parliament in london",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input18/attempt1/output.mp4",
+        "sha256": "2a2a6db921f1c29bc53538185b8c67daf1a29c55c7732930ce87d170a3d1685e",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    },
+    {
+      "index": 19,
+      "source_group": "i2v_background:19",
+      "prompt": "a beach with a lot of buildings on the side of a cliff",
+      "video": {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_RR1/input19/attempt1/output.mp4",
+        "sha256": "4f996986b1f10b34409b6c91fe733b978fc54c012cd95b07b09568ac594b8823",
+        "frames": 81,
+        "fps": 16.0,
+        "size": [
+          832,
+          464
+        ]
+      },
+      "identical_filename_copies": 5
+    }
+  ],
+  "source_sha256": "60c3996447f06e447e5e0dacc762e946870eacc2b8a1e205e6f38b0a0bdf7aec"
+}

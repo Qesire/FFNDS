@@ -1,6 +1,7 @@
 """Verify resident native inference and collect complete160-position FFN times."""
 import argparse
 import fcntl
+import importlib.metadata
 import json
 from pathlib import Path
 import time
@@ -10,6 +11,7 @@ from safetensors import safe_open
 from safetensors.torch import save_file
 
 from ar2_checkpoint import atomic_json,digest
+from benchmark_resources import ResourceMonitor
 from distill_assets import ROOT,verified_assets
 from resident_ffn_runtime import FullFFNProfiler,make_resident,unused_raw_placeholders
 from run_ar2_restart import tensor_sha
@@ -51,13 +53,17 @@ def main():
         'policy_sha256':digest(args.policy) if args.policy else None,
         'protocol_sha256':digest(ROOT/'config/resident_ffn_benchmark.json'),
         'sources':{str(p):digest(p) for p in [Path(__file__),ROOT/'tools/resident_ffn_runtime.py',
-            ROOT/'tools/trained_packed_runtime.py',ROOT/'tools/reduced_rank_residual.py']},
+            ROOT/'tools/trained_packed_runtime.py',ROOT/'tools/reduced_rank_residual.py',ROOT/'tools/benchmark_resources.py']},
         'torch':torch.__version__,'device':torch.cuda.get_device_name(),'TF32':False,
+        'versions':{n:importlib.metadata.version(n) for n in ['torch','numpy','safetensors','transformers','diffusers','triton']},
+        'cuda_runtime':torch.version.cuda,
         'measured_repeats':args.measured_repeats}
     meta={'status':'RUNNING','identity':identity,'requests':[],'full_project_acceptance':False}
     atomic_json(report,meta)
-    profiler=None
+    profiler=None;monitor=None
     try:
+        if args.measured_repeats:
+            monitor=ResourceMonitor();monitor.start()
         from HiFloat4.ptq.adapters import lightx2v_wan_distill as adapter
         started=time.perf_counter()
         with unused_raw_placeholders(adapter) as audit:
@@ -73,9 +79,10 @@ def main():
         meta['residency']=make_resident(runtime)
         meta['setup_seconds']=time.perf_counter()-started
         adapter.activate_lightx2v_hooks(runtime=runtime)
-        profiler=FullFFNProfiler(adapter);profiler.install()
+        profiler=FullFFNProfiler(adapter);profiler.install();runtime.full_ffn_profiler_active=True
         scheduler=pipe.runner.scheduler;original_post=scheduler.step_post
         for repetition in range(1+args.measured_repeats):
+            if monitor is not None:monitor.check()
             folder=args.out/f'request{repetition:02d}';folder.mkdir()
             trajectory=[];before=dict(runtime.counters)
             if hasattr(runtime,'begin_request'):runtime.begin_request()
@@ -100,6 +107,7 @@ def main():
             finally:
                 scheduler.step_post=original_post
             counters={k:runtime.counters[k]-before[k] for k in before}
+            if monitor is not None:monitor.check()
             if (counters['linear_forward_calls']!=1600 or counters['activation_qdq_calls']!=1600
                     or counters['cache_misses'] or counters['weight_transfers'] or audit['fallback_calls']):
                 raise RuntimeError('Incomplete resident bridge coverage or placeholder fallback')
@@ -121,7 +129,13 @@ def main():
         meta.update(status='FAILED_RESUMABLE',error=str(error));raise
     finally:
         if profiler is not None:profiler.restore()
+        if monitor is not None:
+            monitor.close();meta['resources']=monitor.report()
+            if monitor.violations:
+                meta.update(status='FAILED_RESUMABLE',error='Resource isolation failed; timings unusable')
         atomic_json(report,meta)
+    if meta['status']!='PASS_RESIDENT_FULL160_AND_PAIRED_LATENT_EQUIVALENCE':
+        raise RuntimeError(meta.get('error','Resident benchmark failed'))
     print(json.dumps({k:v for k,v in meta.items() if k not in ['identity','raw_placeholder_audit']},indent=2))
 
 

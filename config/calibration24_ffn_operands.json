@@ -1,0 +1,22 @@
+{
+  "experiment": "CAL24_SOURCE_DISJOINT_DOMAIN_BALANCED_OPERANDS_20261021",
+  "registered_before": "any additional calibration image extraction, video generation or parameter fit",
+  "motivation": "RR1 formal20 failed aesthetic/imaging while motion passed; original12 compression-calibration images are mostly humans/objects, formal20 are animals/architecture; this is a hypothesis, not an established cause",
+  "quantization": "keep the exact original frozen v1 HiF4 cache; additional inputs train sparsity/correction only, never regenerate Smooth stats or quantization weights",
+  "source": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea",
+  "metadata_file": "vbench2_beta_i2v/vbench2_i2v_full_info.json",
+  "metadata_sha256": "8cf4d34dc11779a336c216a1a71d482927cfa24a1bf736ab5c92425609f129f8",
+  "selection": "in source JSON order, first12 i2v_subject entries with image_type animal and first12 i2v_background entries with image_type architecture, excluding every formal20 source/name/prompt; stop if image SHA overlaps or duplicates, do not manually replace",
+  "input_count": 24,
+  "rows_per_scope": 256,
+  "sampling_namespace": "FFNDS_CALIB24_UNIFORM_V1",
+  "training_rows_per_position": 6144,
+  "sampling": "uniform without replacement actual native token rows, local NumPy generator, retain grid/rows/pi/1pi; all160 positions",
+  "seed": "42+calibration_index, clear native scheduler.generator before every plain/observed invocation",
+  "capture": "actual BF16 V1,V2,Y,b2,gate; plain/observed all4 latent-byte hashes and video-file SHA must match before acceptance",
+  "storage": "new large operands in shared home HuggingFace derived cache; keep worker root80GiB reserve, original12 data and all failures untouched",
+  "next_fit": "same C-static108 whole64 groups, centered gain/bias and RR1 rank256 lambda1; no new hyperparameter CV or formal-driven rank/lambda selection; input count24 times rows256 equals old12 times512",
+  "evaluation": "report old research scopes and rerun the same formal20 benchmark; these formal sources were already evaluated for RR1, so this is reused benchmark validation, not a newly untouched test set",
+  "causal_limit": "data composition, image count and within-image row allocation change together, so a gain alone does not isolate the cause; total sampled rows is held fixed",
+  "acceptance": "same full160 actual main GEMM50%, fullFFN>=1.5 and each official formal20 metric<=2% relative drop; no result claimed in advance"
+}

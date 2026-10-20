@@ -14,6 +14,7 @@ def main():
     ap.add_argument('--support',choices=['C','R'],default='C')
     ap.add_argument('--mode',choices=['unit','uncentered_gain','unit_mean','centered_gain_bias'],default='centered_gain_bias')
     ap.add_argument('--output',type=Path,required=True)
+    ap.add_argument('--protocol',type=Path,default=ROOT/'config/cstatic_centered_fit.json')
     args=ap.parse_args()
     fits={}
     cache_path=ROOT/'.runtime/hif4_rebuilt_cache.json'
@@ -24,10 +25,11 @@ def main():
         fits[report['expert']]={'path':str(path.resolve()),'sha256':digest(path),'fingerprint':report['fingerprint']}
     if set(fits)!={'high_noise_model','low_noise_model'}:
         raise RuntimeError('Need both trained experts')
-    policy={'kind':'CALIBRATION_STATIC_PACKED_REFERENCE','experiment':'CALIBRATION12_CSTATIC_CENTERED_GAIN_BIAS_20261021',
+    protocol=json.loads(args.protocol.read_text())
+    policy={'kind':'CALIBRATION_STATIC_PACKED_REFERENCE','experiment':protocol['experiment'],
             'support':args.support,'mode':args.mode,'fit_reports':fits,
             'cache_manifest':{'path':str(cache_path),'sha256':digest(cache_path)},
-            'training_protocol_sha256':digest(ROOT/'config/cstatic_centered_fit.json'),
+            'training_protocol_sha256':digest(args.protocol),
             'fixed_candidate_mode':args.support=='C' and args.mode=='centered_gain_bias',
             'gate_or_quality_acceptance':False,'weight_preparation':'CPU per-position packing before generation'}
     args.output.parent.mkdir(parents=True,exist_ok=True)

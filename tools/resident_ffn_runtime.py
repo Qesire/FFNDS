@@ -86,6 +86,7 @@ def make_resident(runtime):
         if 'packed_reference' in result:
             residual=result['packed_reference']['residual_correction']
             if residual['active']:
+                residual['timing_includes_auxiliary_cost']=bool(getattr(self,'full_ffn_profiler_active',False))
                 # The unchanged mathematical runtime calls .to(cuda), which is
                 # a no-op for these resident parameters. Correct its generic
                 # transfer-byte estimate in this residency-specific report.

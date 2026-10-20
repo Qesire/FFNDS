@@ -67,7 +67,12 @@ def load_evaluation(root):
             values=[float(rows[f'{case["prompt"]}-{copy}.mp4']) for copy in range(5)]
             if any(not math.isfinite(v) for v in values):
                 raise RuntimeError('Nonfinite per-video score')
-            source_scores[case['source_group']]=sum(values)/5
+            # Official imaging_quality.technical_quality retains raw MUSIQ
+            # units per video, then divides only its aggregate by100. Match
+            # aggregate units for paired source tables; official scores stay
+            # exactly as returned by the original worker.
+            divisor=100 if dim=='imaging_quality' else 1
+            source_scores[case['source_group']]=sum(values)/5/divisor
         if not math.isclose(sum(source_scores.values())/20,meta['scores'][dim],rel_tol=1e-6,abs_tol=1e-8):
             raise RuntimeError('Official aggregate differs from20 equally weighted sources')
         per_metric[dim]=source_scores
@@ -111,6 +116,7 @@ def main():
         'candidate_policy_sha256':cp['generation_identity']['packed_policy_sha256'],
         'dense_protocol_sha256':digest(args.dense/'PROTOCOL.json'),'candidate_protocol_sha256':digest(args.candidate/'PROTOCOL.json'),
         'paired_csv_sha256':digest(csv_path),'source_sha256':digest(Path(__file__)),
+        'per_source_units':'official aggregate units; imaging raw per-video MUSIQ divided by100, other metrics unchanged',
         'full_FFN_speed_acceptance':False,'joint_project_acceptance':False}
     atomic_json(args.output,result);print(json.dumps(result,indent=2))
 

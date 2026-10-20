@@ -17,12 +17,13 @@ from generate_proxy_pr2 import contribution_scores
 from run_ar2_restart import ROOT, tensor_sha
 
 
-def load_training_reports(paths):
+def load_training_reports(paths, *, expected_inputs=12, expected_rows=512):
     records, bindings = {}, []
     common = None
     for path in paths:
         run = json.loads(path.read_text())
-        if run["status"] != "PASS_SIX_INPUT_FULL160_OPERANDS_AND_NOOP":
+        expected_status='PASS_SIX_INPUT_FULL160_OPERANDS_AND_NOOP' if expected_inputs==12 else 'PASS_CALIBRATION24_SHARD_FULL160_OPERANDS_AND_NOOP'
+        if (expected_inputs,expected_rows) not in [(12,512),(24,256)] or run["status"] != expected_status:
             raise RuntimeError("All calibration collection shards must complete")
         identity = {k: v for k, v in run["identity"].items() if k != "shard"}
         if common is not None and common != identity:
@@ -41,9 +42,11 @@ def load_training_reports(paths):
                 raise RuntimeError("Input lacks full no-op validation")
             if len(record["scopes"]) != 160 or {(s["step"],s["block"]) for s in record["scopes"]} != {(s,b) for s in range(4) for b in range(40)}:
                 raise RuntimeError("Incomplete/duplicate calibration scopes")
+            if any(s['rows']!=expected_rows for s in record['scopes']):
+                raise RuntimeError('Training row count differs from registered geometry')
             records[row["index"]] = record
-    if set(records) != set(range(12)):
-        raise RuntimeError("Exactly the original calibration12 required")
+    if set(records) != set(range(expected_inputs)):
+        raise RuntimeError("Complete registered calibration input set required")
     return records, bindings, common
 
 
@@ -53,6 +56,9 @@ def main():
     ap.add_argument("--expert", choices=["high_noise_model", "low_noise_model"], required=True)
     ap.add_argument("--out", type=Path, required=True, help="Learned parameter checkpoints inside HF derived cache")
     ap.add_argument("--report", type=Path, required=True)
+    ap.add_argument('--inputs',type=Path,default=ROOT/'.runtime/inputs/calibration12/canonical.json')
+    ap.add_argument('--capture-protocol',type=Path,default=ROOT/'config/calibration_ffn_operands.json')
+    ap.add_argument('--fit-protocol',type=Path,default=ROOT/'config/cstatic_centered_fit.json')
     args = ap.parse_args()
     torch.set_num_threads(8)
     torch.set_float32_matmul_precision("highest")
@@ -61,15 +67,18 @@ def main():
     args.report.parent.mkdir(parents=True, exist_ok=True)
     lock = (args.out / "JOB.lock").open("w")
     fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-    records, bindings, capture_identity = load_training_reports(args.collections)
-    calibration_path = ROOT / '.runtime/inputs/calibration12/canonical.json'
+    capture_protocol=json.loads(args.capture_protocol.read_text())
+    args.input_count=capture_protocol.get('input_count',12)
+    args.rows=capture_protocol.get('rows_per_scope',capture_protocol.get('rows',512))
+    records, bindings, capture_identity = load_training_reports(args.collections,expected_inputs=args.input_count,expected_rows=args.rows)
+    calibration_path = args.inputs
     if (capture_identity['calibration_sha256'] != digest(calibration_path)
-            or capture_identity['protocol_sha256'] != digest(ROOT/'config/calibration_ffn_operands.json')):
+            or capture_identity['protocol_sha256'] != digest(args.capture_protocol)):
         raise RuntimeError('Calibration inputs or strict-seed capture protocol differ')
     canonical = json.loads(calibration_path.read_text())
-    if any(records[i]['input'] != canonical[i] for i in range(12)):
+    if len(canonical)!=args.input_count or any(records[i]['input'] != canonical[i] for i in range(args.input_count)):
         raise RuntimeError('Training input metadata differs from canonical calibration12')
-    protocol_path = ROOT / "config/cstatic_centered_fit.json"
+    protocol_path = args.fit_protocol
     protocol = json.loads(protocol_path.read_text())
     cache_path = ROOT / ".runtime/hif4_rebuilt_cache.json"
     cache = json.loads(cache_path.read_text())
@@ -115,21 +124,21 @@ def fit_positions(args, records, cache, protocol, random_groups, store, meta):
                 continue
             entries, cmean, common_bias, common_gate = [], np.zeros(216), None, None
             den = 0.0
-            for index in range(12):
+            for index in range(args.input_count):
                 scope = next(s for s in records[index]["scopes"] if s["step"] == step and s["block"] == block)
                 if scope["expert"] != args.expert or digest(scope["path"]) != scope["sha256"]:
                     raise RuntimeError("Training scope/weight provenance changed")
-                if scope["rows"] != 512 or len(set(scope["selected_rows"])) != 512:
+                if scope["rows"] != args.rows or len(set(scope["selected_rows"])) != args.rows:
                     raise RuntimeError("Invalid actual uniform training rows")
                 with safe_open(scope["path"], framework="pt", device="cpu") as handle:
                     a, y_native, b2, gate = [handle.get_tensor(n).cuda() for n in ["V2", "Y", "b2", "gate"]]
                 b2, gate = b2.reshape(-1), gate.reshape(1, 5120)
-                if a.dtype != torch.bfloat16 or a.shape != (512, 13824) or y_native.shape != (512, 5120):
+                if a.dtype != torch.bfloat16 or a.shape != (args.rows, 13824) or y_native.shape != (args.rows, 5120):
                     raise RuntimeError("Training native operand geometry changed")
                 if common_bias is not None and (tensor_sha(b2) != tensor_sha(common_bias) or tensor_sha(gate) != tensor_sha(common_gate)):
                     raise RuntimeError("Gate or original b2 varies across training inputs")
                 common_bias, common_gate = b2, gate
-                cmean += contribution_scores(a, w, gate).mean(0) / 12
+                cmean += contribution_scores(a, w, gate).mean(0) / args.input_count
                 dense = F.linear(a.float(), wf, None)
                 native_no_bias = F.linear(a, w, None) * gate
                 den += float(native_no_bias.double().square().sum())
@@ -154,7 +163,7 @@ def fit_positions(args, records, cache, protocol, random_groups, store, meta):
                     yg = (entry["dense"] * common_gate.float()).double()
                     ss += float(sg.square().sum())
                     sy += float((sg * yg).sum())
-                fit = fit_signal_moments(12 * 512, sum_s.cpu().numpy(), sum_y.cpu().numpy(), ss, sy, common_gate.float().cpu().numpy())
+                fit = fit_signal_moments(args.input_count * args.rows, sum_s.cpu().numpy(), sum_y.cpu().numpy(), ss, sy, common_gate.float().cpu().numpy())
                 if fit["centered_alpha"] is None or fit["uncentered_alpha"] is None:
                     raise RuntimeError("Degenerate fixed calibration policy; no silent fallback")
                 arrays[f"{policy}_groups"] = groups

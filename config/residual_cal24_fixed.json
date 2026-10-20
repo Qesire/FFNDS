@@ -1,0 +1,15 @@
+{
+  "experiment": "CALIBRATION24_FIXED_RR1_RESIDUAL_20261021",
+  "registered_before": "any calibration24 parameter fit",
+  "training": "same source-disjoint calibration24,256 uniform rows perimage,6144 total rows each of160 positions",
+  "base": "calibration24 C-static108 whole64 groups, same centered gain/bias formula",
+  "rank": 256,
+  "lambda": 1.0,
+  "selection_report_sha256": "3b8f55fb8dfcbdb42259090617db6bc0ec5886eab51ba6c3ed00343e95130f25",
+  "hyperparameters": "fixed from original12-only RR1 CV; do not rerun CV or select from task0/task6/formal scores",
+  "fit": "identical FP64 whitened reduced-rank ridge and native two-BF16-linear predictor; no pilot reuse from old models because base/data changed",
+  "evaluation": "report old research scopes descriptively, then same20-source benchmark reused after RR1 failure; not an untouched new test set",
+  "precision_and_cost": "main actualGEMM50%, two nativeBF16 auxiliary GEMMs and all transfer/gate costs counted; quantization v1 cache fixed",
+  "storage": "learned parameters remain HFderivedcache, node80GiBreserve maintained",
+  "acceptance": "same full160 isolated>=1.5x and each formal metric<=2% relative drop for the same frozen policy"
+}

@@ -1,0 +1,25 @@
+{
+  "experiment": "CALIBRATION24_CSTATIC_CENTERED_GAIN_BIAS_20261021",
+  "registered_before": "any calibration12 all-position C scores, moments or parameter fits",
+  "training": "24 source-disjoint animal/architecture images,256 rows each; same6144 training rows per position as old12x512; quantization cache unchanged",
+  "supports": {
+    "C": "mean actual post-Q2 C over training inputs/rows, original216 groups64 top108 stable group-ID ties",
+    "R": "frozen random mask0 control"
+  },
+  "modes": [
+    "unit",
+    "uncentered_gain",
+    "unit_mean",
+    "centered_gain_bias"
+  ],
+  "fixed_candidate": "C support with centered_gain_bias; other policies are controls, not validation-selected alternatives",
+  "gain_fit": "bias-free FP32 sparse/dense signals gated in FP32; FP64 sufficient statistics, nonnegative LS alpha; denominator floor D*1e-24",
+  "bias_fit": "original b2 plus mean_dense-alpha_effective_FP32*mean_sparse, computed from training FP64 means and cast once to BF16",
+  "assumption_check": "each position must have byte-identical row-constant gate and original b2 across all12 inputs; otherwise stop",
+  "heldout_local_gate": "fixed C centered_gain_bias <=0.9 same C uncentered_gain native risk in >=3/4 scopes with both seeds/steps, independently for task0/task6; report random and true C controls separately",
+  "centered_vs_uncentered_max_ratio": 0.9,
+  "required_passes_per_source": 3,
+  "selection_limit": "Fixed C centered candidate; no new test-driven support mode or hyperparameter choice; formal20 is reused after RR1 rejection",
+  "precision": "native BF16 gain cast, GEMM, folded b2 once, gate; matched FP32 risk control",
+  "deployment": "static control reference, no claim of dynamic support or acceptance; full closed-loop quality and actual160-position FFN timing remain required"
+}

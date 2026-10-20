@@ -11,6 +11,7 @@ def main():
     ap.add_argument('--base-policy',type=Path,required=True)
     ap.add_argument('--residual-fit',type=Path,required=True)
     ap.add_argument('--output',type=Path,required=True)
+    ap.add_argument('--experiment',default='RR1_CALIBRATION12_CSTATIC_WITH_LOW_RANK_RESIDUAL_20261021')
     args=ap.parse_args()
     policy=json.loads(args.base_policy.read_text())
     report=json.loads(args.residual_fit.read_text())
@@ -19,7 +20,7 @@ def main():
         raise RuntimeError('Requires unmodified fixed C-centered base')
     if report['status']!='COMPLETED_RR1_FULL160_CALIBRATION_FIT' or len(report['positions'])!=160:
         raise RuntimeError('Requires all160 residual fits')
-    policy.update(experiment='RR1_CALIBRATION12_CSTATIC_WITH_LOW_RANK_RESIDUAL_20261021',
+    policy.update(experiment=args.experiment,
         base_policy_sha256=digest(args.base_policy),
         residual_fit={'path':str(args.residual_fit.resolve()),'sha256':digest(args.residual_fit),
             'fingerprint':report['fingerprint']},
