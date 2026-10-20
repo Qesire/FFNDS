@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 
 from ar2_checkpoint import atomic_json,digest
+from compare_ffn_benchmark import validate_candidate_runtime
 
 DIMS=['aesthetic_quality','imaging_quality','motion_smoothness']
 
@@ -43,12 +44,10 @@ def load_evaluation(root):
                     or case['video']['fps']!=16 or case['hif4_counter_delta']['cache_misses']):
                 raise RuntimeError('Incomplete or mismatched native formal video')
             if protocol['generation_identity']['packed_policy_sha256']:
-                packed=runtime['packed_reference'];residual=packed['residual_correction']
-                if (packed['policy_sha256']!=protocol['generation_identity']['packed_policy_sha256']
-                        or packed['actual_FFN_linear_calls']!=320
-                        or any(v['main_GEMM_density']!=.5 for v in packed['coverage'].values())
-                        or not residual['active'] or residual['actual_positions']!=160 or residual['pending_predictions']):
+                packed=runtime['packed_reference']
+                if packed['actual_FFN_linear_calls']!=320:
                     raise RuntimeError('Candidate lacks complete same-policy main/auxiliary coverage')
+                validate_candidate_runtime(packed,protocol['generation_identity']['packed_policy_sha256'],require_timing=False)
     for worker in meta['workers']:
         if digest(worker['report'])!=worker['report_sha256']:
             raise RuntimeError('Official worker report changed')
@@ -116,6 +115,8 @@ def main():
         'candidate_policy_sha256':cp['generation_identity']['packed_policy_sha256'],
         'dense_protocol_sha256':digest(args.dense/'PROTOCOL.json'),'candidate_protocol_sha256':digest(args.candidate/'PROTOCOL.json'),
         'paired_csv_sha256':digest(csv_path),'source_sha256':digest(Path(__file__)),
+        'candidate_runtime_sources':{str(p.resolve()):digest(p) for p in [Path(__file__).with_name(n) for n in
+            ['step_budget_runtime.py','trained_packed_runtime.py','packed_reference_runtime.py','reduced_rank_residual.py']]},
         'per_source_units':'official aggregate units; imaging raw per-video MUSIQ divided by100, other metrics unchanged',
         'full_FFN_speed_acceptance':False,'joint_project_acceptance':False}
     atomic_json(args.output,result);print(json.dumps(result,indent=2))

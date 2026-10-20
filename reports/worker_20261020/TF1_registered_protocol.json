@@ -1,0 +1,14 @@
+{
+  "experiment": "TF1_FIXED_DENSE_STATE_FLOW_DIAGNOSTIC_20261021",
+  "registered_before": "any TF1 flow capture; UB1 videos already generated, official scores still pending",
+  "condition": "run only after UB1 formal quality rejection and its resident check completes; if quality passes, prioritize joint acceptance and skip TF1",
+  "indices": [0, 5, 10, 15],
+  "selection": "fixed quarter positions of the existing formal20 order, two subject and two background; reused development inputs, no untouched-test claim",
+  "baseline": "native D-Q resident execution must first match the existing four saved latent tensors and video bytes for all four sources; capture actual model flow predictions and input latents at every step",
+  "candidates": "frozen C24 and UB1; after each native step_post, replace latent with that source's verified D-Q output for the next step; record candidate output before replacement",
+  "controls": "every candidate step must receive exactly the same input latent bits as its D-Q control; step0 pre-replacement output must also equal its original autoregressive formal output; preserve native sigma, conditioning, RNG reset, QDQ, gate and all160 FFN positions",
+  "measurement": "all four steps: actual flow squared error and relative RMSE at identical dense states, and actual native one-step post-update error before replacement; separately describe normal autoregressive trajectory errors",
+  "scope": "controlled diagnostic of each frozen complete model on D-Q states, not a local FFN Jacobian or an additive causal decomposition of final error; no fitting, no quality evaluation of forced videos, no speed acceptance",
+  "storage": "flow/input/post tensors only in node HF derived cache; compact evidence and identities in repository; preserve80GiB node reserve",
+  "resources": "only idle worker GPUs0/1; D-Q controls complete before the two candidate jobs, no overlap with isolated acceptance timing"
+}

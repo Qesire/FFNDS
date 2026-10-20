@@ -67,21 +67,24 @@ def main():
         if not quality['formal20_quality_pass']:
             meta.update(status='COMPLETED_QUALITY_REJECTED',stage='STOPPED_BEFORE_ADDITIONAL_ACCEPTANCE_WORK');return
         if quality['candidate_policy_sha256']!=digest(args.policy):raise RuntimeError('Quality policy differs')
-        stage('WAIT_FOR_CANDIDATE_FULL20_RESIDENT_EQUIVALENCE')
-        candidate_resident=wait(candidate_resident_path,'PASS_RESIDENT_FORMAL20_ALL_LATENTS_AND_VIDEO_BYTES_EQUIVALENT')
-        if candidate_resident['identity']['packed_policy_sha256']!=quality['candidate_policy_sha256']:
-            raise RuntimeError('Candidate resident/quality identities differ')
-        stage('DENSE_FULL20_RESIDENT_EQUIVALENCE_AND_PAIRED_CANDIDATE_REFERENCE')
+        for path,sha in quality.get('candidate_runtime_sources',{}).items():
+            if digest(path)!=sha:raise RuntimeError('Quality numerical runtime source changed')
+        stage('DENSE_FULL20_IN_PARALLEL_WITH_CANDIDATE_RESIDENT_THEN_PAIRED_REFERENCE')
+        def candidate_reference():
+            resident=wait(candidate_resident_path,'PASS_RESIDENT_FORMAL20_ALL_LATENTS_AND_VIDEO_BYTES_EQUIVALENT')
+            if resident['identity']['packed_policy_sha256']!=quality['candidate_policy_sha256']:
+                raise RuntimeError('Candidate resident/quality identities differ')
+            if read(plain/'run_meta.json').get('status')!='PASS':
+                gpu_job(1,['python','tools/run_dense_hif4.py','--cache-manifest',ROOT/'.runtime/hif4_rebuilt_cache.json',
+                    '--input-manifest',ROOT/'.runtime/inputs/task_006_seed_20261001.json','--packed-reference-policy',args.policy,
+                    '--out',plain],'candidate_paired_reference')
         with ThreadPoolExecutor(max_workers=2) as pool:
-            jobs=[]
+            jobs=[pool.submit(candidate_reference)]
             if read(dense_resident_path).get('status')!='PASS_RESIDENT_DQ_FORMAL20_ALL_LATENTS_AND_VIDEO_BYTES_EQUIVALENT':
                 jobs.append(pool.submit(gpu_job,0,['python','tools/verify_resident_dense_formal.py',
                     '--reference-suite',r/'formal20_dense/RUN.json','--out',dense_resident_path.parent],'dense_resident_full20'))
-            if read(plain/'run_meta.json').get('status')!='PASS':
-                jobs.append(pool.submit(gpu_job,1,['python','tools/run_dense_hif4.py','--cache-manifest',ROOT/'.runtime/hif4_rebuilt_cache.json',
-                    '--input-manifest',ROOT/'.runtime/inputs/task_006_seed_20261001.json','--packed-reference-policy',args.policy,
-                    '--out',plain],'candidate_paired_reference'))
             for job in jobs:job.result()
+        candidate_resident=wait(candidate_resident_path,'PASS_RESIDENT_FORMAL20_ALL_LATENTS_AND_VIDEO_BYTES_EQUIVALENT')
         dense_resident=wait(dense_resident_path,'PASS_RESIDENT_DQ_FORMAL20_ALL_LATENTS_AND_VIDEO_BYTES_EQUIVALENT')
         wait(plain/'run_meta.json','PASS')
         timings={}
@@ -103,6 +106,8 @@ def main():
                 '--candidate',str(timings[label]),'--output',str(comparison)],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True)
         speed=read(comparison)
         if speed['candidate_policy_sha256']!=quality['candidate_policy_sha256']:raise RuntimeError('Timing and quality policies differ')
+        for path,sha in quality.get('candidate_runtime_sources',{}).items():
+            if digest(path)!=sha:raise RuntimeError('Numerical runtime source changed during acceptance')
         meta.update(status='COMPLETED_JOINT_ENGINEERING_CHECKS',stage='COMPLETE',speed=speed,
             joint_engineering_acceptance_pass=bool(speed['full_FFN_speed_pass'] and quality['formal20_quality_pass']),
             resident_equivalence={'candidate_inputs':len(candidate_resident['completed']),'dense_inputs':len(dense_resident['completed'])},

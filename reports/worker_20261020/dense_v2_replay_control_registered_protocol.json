@@ -1,0 +1,11 @@
+{
+  "experiment": "FULL_NATIVE_GEOMETRY_POSTQ1_TO_DENSE_Q2_REPLAY_CONTROL_20261021",
+  "registered_before": "any derived student V2 cache or mask-bank coefficient fitting",
+  "input": "frozen calibration24 and OP1 actual postQ1 V1 sampled256 rows at low-noise steps2/3 block20",
+  "function": "original effective full BF16 W0 and raw b0, GELU tanh, original smooth2 divide+BF16 and native HiF4 activationQDQ, original full BF16 W2 and raw b2",
+  "geometry": "restore the original full Mx5120 contiguous shape and exact sampled row indices; unused rows zero; no cross-row mixing in the FFN",
+  "prerequisite": "first calibration24 dense input0/input1 at both steps: derived sampled V2 and Y must bitwise equal the actual saved native V2/Y, including signed zeros; no tolerance relaxation",
+  "student_check": "all24 OP1 sources at both positions: replayed TeacherY must bitwise equal the saved actual local full-native TeacherY before accepting any derived V2 payload",
+  "scope": "derived native-Q2 activations, not directly observed OP1 student Q2 (it was not saved); numerical replay control only, no model fit, no quality/speed acceptance",
+  "resources": "one idle worker GPU, derived files only in HF cache, retain80GiB node reserve"
+}

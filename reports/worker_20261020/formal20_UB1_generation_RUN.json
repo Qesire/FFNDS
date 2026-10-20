@@ -1,0 +1,229 @@
+{
+  "status": "PASS_FORMAL_GENERATION_SLICE_ONLY",
+  "identity": {
+    "assets": {
+      "model_view_sha256": "932bc14ec0cd8d73a13532191ea202b0bc22478d7da26ba5029658329f257df3",
+      "local_view_sha256": "97b2d991f6312ab67ee439ea28a03989bd86b1f68151a6eca11102b949e539d1",
+      "cache_manifest_sha256": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+      "cache_sha256": "bfb400f94ce42760070bab5916721fd942b0864907bb4e4e5207c008dc4c3df3",
+      "contract": {
+        "schema_version": 49212,
+        "artifact": "wan22_i2v_lightx2v_distill_runtime_contract",
+        "model_cls": "wan2.2_moe_distill",
+        "task": "i2v",
+        "scheduler": "Wan22StepDistillScheduler",
+        "infer_steps": 4,
+        "target_video_length": 81,
+        "target_height": 480,
+        "target_width": 832,
+        "fps": 16,
+        "attention": "torch_sdpa",
+        "sample_shift": 5.0,
+        "sample_guide_scale": 1.0,
+        "enable_cfg": false,
+        "seq_parallel": false,
+        "parallel": false,
+        "dim": 5120,
+        "num_heads": 40,
+        "in_dim": 36,
+        "ffn_dim": 13824,
+        "freq_dim": 256,
+        "num_layers": 40,
+        "out_dim": 16,
+        "eps": 1e-06,
+        "model_type": "i2v",
+        "text_len": 512,
+        "use_image_encoder": false,
+        "denoising_step_list": [
+          1000,
+          750,
+          500,
+          250
+        ],
+        "boundary_step_index": 2,
+        "boundary": 0.9,
+        "aspect_ratio": "16:9",
+        "rope_type": "torch",
+        "resize_mode": null,
+        "audio_fps": 24000,
+        "double_precision_rope": true,
+        "norm_modulate_backend": "torch",
+        "distilled_sigma_values": null,
+        "cpu_offload": true,
+        "offload_granularity": "block",
+        "t5_cpu_offload": true,
+        "image_encoder_offload": false,
+        "vae_cpu_offload": false,
+        "high_noise_filename": "wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+        "low_noise_filename": "wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+        "high_noise_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+        "low_noise_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "checkpoint_sha256": {
+        "wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+        "wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      }
+    },
+    "inputs_sha256": "16545be8ec2d951347363211801a375cb0b50d5ac204d8115c5410b35d2e1daa",
+    "input_recovery_sha256": "c92c815a93f8e37aed2784f68f59a5672a7c006db8bcb9f8ae4d688ff3ad4755",
+    "arm": "D-Q-PACKED-TRAINED-REFERENCE",
+    "packed_policy_sha256": "d8840b9328af18c9f3d07b4570130e58467d0f45cae12d1dd13e8db89ebd7a6a",
+    "sources": {
+      "/home/xiang/projects/FFNDS/tools/generate_formal_suite.py": "09cc7ed8203f2bc12aca473091fc4f38316b7696ee7e9eb110e6fd890963026a",
+      "/home/xiang/projects/FFNDS/tools/distill_assets.py": "9037ef87314c6c5fb00b01397856a9be3ffe6a66adc8402aef8a93271a2130e6"
+    },
+    "versions": {
+      "torch": "2.10.0+cu128",
+      "torchvision": "0.25.0+cu128",
+      "transformers": "5.6.2",
+      "diffusers": "0.38.0",
+      "safetensors": "0.8.0",
+      "numpy": "2.4.6",
+      "triton": "3.6.0"
+    },
+    "native_sources": {
+      "/home/xiang/projects/FFNDS/.runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/schedulers/wan/scheduler.py": "c86af28a3b8d709692fb3a88d67ec441a77624929d397c216e0106f1c0142f4a"
+    },
+    "seed_semantics": "scheduler.generator=None before every native request",
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "completed": [
+    {
+      "index": 0,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input00/attempt1/INPUT.json",
+      "case_report_sha256": "bb1ded2c2ce1bc6242578e04b12d93f882afe1fdcaf23a904fc9699e40552acb"
+    },
+    {
+      "index": 1,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input01/attempt1/INPUT.json",
+      "case_report_sha256": "cbbe5ee0e059ffa4cb1cdf785cf4f19178f2b836e863a7d7f9d0c411564db3fe"
+    },
+    {
+      "index": 2,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input02/attempt1/INPUT.json",
+      "case_report_sha256": "f92c05be05007f04a95e7596e6b953b4a541250f47a597d10d452f8583478d97"
+    },
+    {
+      "index": 3,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input03/attempt1/INPUT.json",
+      "case_report_sha256": "b889873d487dcee9d7695889936cf17beef4929437b10f6395230643164be66b"
+    },
+    {
+      "index": 4,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input04/attempt1/INPUT.json",
+      "case_report_sha256": "15823c029ce8a87529270bf92a89018e55adc330976b4ffb407e6e3b1b830514"
+    },
+    {
+      "index": 5,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input05/attempt1/INPUT.json",
+      "case_report_sha256": "d5e4604cc2ae373424b39719968bf248574a961dfc99ccaf66aa03c0e3bdb5b6"
+    },
+    {
+      "index": 6,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input06/attempt1/INPUT.json",
+      "case_report_sha256": "9f3762ac91d83b1da59ba108bcf47494d2cd01a6082dadb831385e09956e454d"
+    },
+    {
+      "index": 7,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input07/attempt1/INPUT.json",
+      "case_report_sha256": "018b3722a75c84d3b989b72da148a1e538ba22ed32a0ab01af2ccab58489beba"
+    },
+    {
+      "index": 8,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input08/attempt1/INPUT.json",
+      "case_report_sha256": "20783cb34ed0ce8e0cb265a2e0260a3c6c958690d6d32f690fec38e6c552b58b"
+    },
+    {
+      "index": 9,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input09/attempt1/INPUT.json",
+      "case_report_sha256": "25e818b5eca8d95daf28df8a18ddb7c2bd3bda9879284764073464230cd0e3e8"
+    },
+    {
+      "index": 10,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input10/attempt1/INPUT.json",
+      "case_report_sha256": "e235e238d3aa8cf90b2379c80de105e47604a3650e336aa1ce7608331aab04d8"
+    },
+    {
+      "index": 11,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input11/attempt1/INPUT.json",
+      "case_report_sha256": "315f2a927cee0965d9c861dbf6708997ec559385fe87641b94044d10cf29252d"
+    },
+    {
+      "index": 12,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input12/attempt1/INPUT.json",
+      "case_report_sha256": "884a0096f0b16c0653bf3f59470e8f44fd836a7f16844447016353994ece80f3"
+    },
+    {
+      "index": 13,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input13/attempt1/INPUT.json",
+      "case_report_sha256": "b431a31399066e534624e4365722fe16fd30b3a4e3b0cdc94921570257d11332"
+    },
+    {
+      "index": 14,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input14/attempt1/INPUT.json",
+      "case_report_sha256": "ca93596dab09218357c260ba5d9ac4c48fba50b69bc35b9b8fbedd5d556f9353"
+    },
+    {
+      "index": 15,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input15/attempt1/INPUT.json",
+      "case_report_sha256": "d6116eca6c9e1edf29a09780d277b76bfbc6b31e4a5debc20f1474fc15c9b658"
+    },
+    {
+      "index": 16,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input16/attempt1/INPUT.json",
+      "case_report_sha256": "c66ba79d12622cf868617e12866a7aa469d9e50d11e1d43cd787c33c513b684a"
+    },
+    {
+      "index": 17,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input17/attempt1/INPUT.json",
+      "case_report_sha256": "469e0d4e4816af816661e79b2095b637b8de3210782a5385ebe2ddbc9cecf79b"
+    },
+    {
+      "index": 18,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input18/attempt1/INPUT.json",
+      "case_report_sha256": "af6998d4314001334ed2b80292d4335895ff35df3f269ccbc2263459a2c3e264"
+    },
+    {
+      "index": 19,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input19/attempt1/INPUT.json",
+      "case_report_sha256": "217d5b1b4a0ba34ca430047efe7bfe19ca05e6724d84be9d51ce5316bb3a7ca9"
+    }
+  ],
+  "merged_suites": [
+    {
+      "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/RUN.json",
+      "sha256": "411f90de240c46753aec27a405a46f9786c3b1f24ef45e09e028d10ca83df88f"
+    },
+    {
+      "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/RUN.json",
+      "sha256": "b1597386019eb8bcd28f5bdbb4e815fd2f9a0bf77a4fc9a003adef822ed7586e"
+    }
+  ],
+  "merger_source_sha256": "23fd2a6103d0ce606986514a7a665a040f983814a3e2c6991dde45e9d5f01ae9",
+  "quality_or_speed_acceptance": false
+}

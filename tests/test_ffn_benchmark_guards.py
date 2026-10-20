@@ -47,5 +47,43 @@ class FFNBenchmarkGuards(unittest.TestCase):
             with self.subTest(mutation=mutation),self.assertRaises(RuntimeError):
                 validate_candidate_runtime(value,self.sha)
 
+    def budget(self):
+        packed=copy.deepcopy(self.packed)
+        counts=[54,108,108,162]
+        packed['policy'].update(kind='STEP_BUDGET_PACKED_REFERENCE',identity_control=False,groups_by_step=counts)
+        for key,row in packed['coverage'].items():
+            step=int(key.split('_')[0][4:]);width=counts[step]*64
+            row['actual_weight_shape']=[width,5120] if key.endswith('ffn0') else [5120,width]
+            row['main_GEMM_density']=width/13824
+        packed['actual_global_main_MAC_density']=.5
+        return packed
+
+    def test_true_global_budget_is_accepted_but_wrong_shape_is_rejected(self):
+        value=self.budget();validate_candidate_runtime(value,self.sha)
+        value['coverage']['step3_block39_ffn2']['actual_weight_shape']=[5120,6912]
+        with self.assertRaises(RuntimeError):validate_candidate_runtime(value,self.sha)
+
+    def test_unweighted_average_is_not_accepted_as_actual_compute(self):
+        value=self.budget()
+        for key,row in value['coverage'].items():
+            if key.startswith('step0_'):row['rows']*=2
+        for key,row in value['residual_correction']['coverage'].items():
+            if key.startswith('step0_'):row['rows']*=2
+        with self.assertRaises(RuntimeError):validate_candidate_runtime(value,self.sha)
+
+    def test_auxiliary_call_count_cannot_hide_wrong_matrix_shapes(self):
+        value=self.budget()
+        value['residual_correction']['coverage']['step0_block0']['auxiliary_GEMM_shapes'][0]=[128,5120]
+        with self.assertRaises(RuntimeError):validate_candidate_runtime(value,self.sha)
+
+    def test_unprofiled_quality_coverage_never_becomes_timing_evidence(self):
+        value=self.budget()
+        value['residual_correction']['timing_includes_auxiliary_cost']=False
+        validate_candidate_runtime(value,self.sha,require_timing=False)
+        with self.assertRaises(RuntimeError):validate_candidate_runtime(value,self.sha)
+        value['coverage']['step3_block39_ffn2']['actual_weight_shape']=[5120,6912]
+        with self.assertRaises(RuntimeError):
+            validate_candidate_runtime(value,self.sha,require_timing=False)
+
 
 if __name__=='__main__':unittest.main()

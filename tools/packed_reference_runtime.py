@@ -14,6 +14,9 @@ from ar2_checkpoint import digest
 
 def create_runtime(cache_path, policy_path):
     kind = json.loads(Path(policy_path).read_text()).get('kind')
+    if kind == 'STEP_BUDGET_PACKED_REFERENCE':
+        from step_budget_runtime import create_runtime as create_budget_runtime
+        return create_budget_runtime(cache_path, policy_path)
     if kind == 'OUTPUT_VARIANCE_CALIBRATED_REFERENCE':
         from output_variance_runtime import create_runtime as create_variance_runtime
         return create_variance_runtime(cache_path, policy_path)

@@ -1,0 +1,17 @@
+{
+  "experiment": "UB1_FIXED_STEP_BUDGET25_50_50_75_C24_RECIPE_20261021",
+  "registered_after": "OP1/LA1/FA1/FA2 development gates rejected; before any new-width coefficient fitting or video",
+  "hypothesis": "test one fixed redistribution of the same global main compute toward the last denoising step; prior descriptive latent drift motivates this but does not prove causality",
+  "groups_by_step": [54,108,108,162],
+  "original_groups": 216,
+  "group_size": 64,
+  "global_main_MAC_density": 0.5,
+  "scope": "standard step-budget static support control, no input-dynamic or novelty claim; first step25%, middle steps50%, last75%, not50% at every position",
+  "unchanged": "all non-FFN modules/cache, original group coordinates, smooth/QDQ/cast/gain placement, original b0 and raw b2 once, rank256/lambda1 correction architecture; steps1/2 use exact C24 parameters",
+  "fit": "same original24 dense-DQ calibration,256 rows/source, original C_mean ranking, centered scalar gain and folded bias recipe, original whitened RR rank256 lambda1; only step0/3 refit, no new hyperparameter selection",
+  "fit_geometry": "extend frozen C24 recipe: captured dense postQ2 subsets and per-source256-row native FFN2 surrogates; no claim that this approximated training geometry equals deployed reduced FFN0 rounding",
+  "numerical_prerequisite": "each expert's block20 refit at108 groups must reproduce original C24 alpha,b2 and all RR native parameter SHA before its40 new-width fits; new runtime at108/108/108/108 must reproduce C24 all4 task6 latents and video bytes",
+  "evaluation": "tradeoff deliberately permits early local error to rise, so no per-position improvement gate; after numeric controls, directly evaluate frozen formal20 with same official per-metric <=2% relative-drop gate; reused benchmark",
+  "speed": "only same-policy all160 completeFFN sum ratio>=1.5 accepted after quality and all20 resident equivalence; record per-step widths, actual total mainMAC0.5, padding and rank256 auxiliary costs",
+  "resources": "at most idle worker GPUs0/1, HF derived cache for coefficients, retain80GiB node reserve"
+}
