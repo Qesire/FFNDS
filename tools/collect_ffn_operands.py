@@ -118,7 +118,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--shard", type=int, choices=[0, 1], required=True)
     ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--raw-root", type=Path, default=Path("/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_20261021"))
+    ap.add_argument("--raw-root", type=Path, default=Path("/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021"))
     args = ap.parse_args()
     from HiFloat4.ptq.adapters import lightx2v_wan_distill as adapter
     torch.set_num_threads(8)
@@ -190,6 +190,9 @@ def main():
                         started = time.perf_counter()
                         try:
                             from contextlib import nullcontext
+                            # Native prepare_latents otherwise continues the previous
+                            # Generator stream, ignoring this request's seed argument.
+                            pipe.runner.scheduler.generator = None
                             with torch.inference_mode(), observed if phase == "observed" else nullcontext():
                                 pipe.generate(seed=42 + index, image_path=sample["img_paths"][0], prompt=sample["prompt"], negative_prompt="", save_result_path=str(video))
                             torch.cuda.synchronize()
@@ -199,8 +202,12 @@ def main():
                             raise RuntimeError("Incomplete four-step generation")
                         trajectories[phase] = trajectory
                         videos[phase] = {"path": str(video), "sha256": digest(video), "elapsed_including_observation": time.perf_counter() - started}
+                        atomic_json(out / f"PHASE_{phase}.json", {"phase": phase, "seed": 42 + index,
+                            "scheduler_generator_reset": True, "trajectory": trajectory, "video": videos[phase]})
                         print(f"DONE input{index:02d} {phase}", flush=True)
                     if trajectories["plain"] != trajectories["observed"] or videos["plain"]["sha256"] != videos["observed"]["sha256"]:
+                        atomic_json(out / "FAILED_NOOP.json", {"status": "FAILED_NOOP", "trajectories": trajectories,
+                            "videos": videos, "scopes": observed.scopes, "raw_operands_accepted": False})
                         raise RuntimeError("Observer no-op failed; raw operands remain unaccepted")
                     if {(s["step"], s["block"]) for s in observed.scopes} != {(s,b) for s in range(4) for b in range(40)} or len(observed.scopes) != 160:
                         raise RuntimeError("Missing/duplicate native FFN scopes")

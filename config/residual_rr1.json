@@ -1,0 +1,19 @@
+{
+  "experiment": "RR1_PRE_FFN0_LOW_RANK_RESIDUAL_CORRECTION_20261021",
+  "registered_after": "calibration C-centered local improvement but failed full video; before any residual regression/CV",
+  "base": "fixed calibration12 C-static centered gain and folded bias from completed experiment",
+  "features": "actual post-Q1 V1 before FFN0; no test H/V2/Y/Delta enters prediction",
+  "training_label": "(captured dense Y-native sparse-base Y) in FP32, times actual gate in FP32; calibration12 only",
+  "fit": "center X and residual label; one training global X RMS; covariance X.T@X/n + lambda*I; FP64 Cholesky whitening, reduced-rank SVD of L^-1 X.T@R/n",
+  "ranks": [32, 64, 128, 256, 512],
+  "lambdas": [0.01, 0.1, 1.0, 10.0],
+  "svd": "data-independent seed20261021, q=min(max_rank+32,min(matrix.shape)), niter3",
+  "CV": "two correction-only source folds by calibration index parity, six training/six held-out images each; base was pretrained on all12 and is fixed, so this is NOT held-out CV of the entire pipeline",
+  "CV_selection": "minimum rank with native BF16 corrected/base risk <=0.75 in both folds at both block20 steps0/2; among passing lambdas choose lowest mean ratio, tie by lambda",
+  "native_predictor": "two BF16 F.linear calls; fold input centering into first bias, undo constant gate in output factor/bias offline (zero gate gives zero factor), add BF16 predicted Y residual before original BF16 gate/writeback",
+  "test": "evaluate only the single calibration-CV-selected rank/lambda on frozen task0/task6, both seeds, block20 steps0/2",
+  "heldout_gate": "corrected native risk <=0.75 matched fixed C-centered base in >=3/4 scopes with seed/step coverage, independently per source",
+  "precision": "native CPU BF16 primary held-out projection, same dequantized BF16 parameters in matched FP32 control",
+  "deployment": "auxiliary BF16 weights and both auxiliary GEMMs must be reported/counted; main FFN0/FFN2 remain50%; no cheap selector or novel-theory claim",
+  "full_fit_if_passed": "freeze the chosen global rank/lambda; fit every160 position from calibration12 without further validation selection"
+}

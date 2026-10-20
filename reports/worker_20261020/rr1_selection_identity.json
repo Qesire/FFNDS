@@ -1,0 +1,130 @@
+{
+  "fingerprint": "be6b9961c2726bcb2912b215712a47610b67e91a6cbe442c16dfb25add10a6b1",
+  "identity": {
+    "protocol": {
+      "experiment": "RR1_PRE_FFN0_LOW_RANK_RESIDUAL_CORRECTION_20261021",
+      "registered_after": "calibration C-centered local improvement but failed full video; before any residual regression/CV",
+      "base": "fixed calibration12 C-static centered gain and folded bias from completed experiment",
+      "features": "actual post-Q1 V1 before FFN0; no test H/V2/Y/Delta enters prediction",
+      "training_label": "(captured dense Y-native sparse-base Y) in FP32, times actual gate in FP32; calibration12 only",
+      "fit": "center X and residual label; one training global X RMS; covariance X.T@X/n + lambda*I; FP64 Cholesky whitening, reduced-rank SVD of L^-1 X.T@R/n",
+      "ranks": [
+        32,
+        64,
+        128,
+        256,
+        512
+      ],
+      "lambdas": [
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ],
+      "svd": "data-independent seed20261021, q=min(max_rank+32,min(matrix.shape)), niter3",
+      "CV": "two correction-only source folds by calibration index parity, six training/six held-out images each; base was pretrained on all12 and is fixed, so this is NOT held-out CV of the entire pipeline",
+      "CV_selection": "minimum rank with native BF16 corrected/base risk <=0.75 in both folds at both block20 steps0/2; among passing lambdas choose lowest mean ratio, tie by lambda",
+      "native_predictor": "two BF16 F.linear calls; fold input centering into first bias, undo constant gate in output factor/bias offline (zero gate gives zero factor), add BF16 predicted Y residual before original BF16 gate/writeback",
+      "test": "evaluate only the single calibration-CV-selected rank/lambda on frozen task0/task6, both seeds, block20 steps0/2",
+      "heldout_gate": "corrected native risk <=0.75 matched fixed C-centered base in >=3/4 scopes with seed/step coverage, independently per source",
+      "precision": "native CPU BF16 primary held-out projection, same dequantized BF16 parameters in matched FP32 control",
+      "deployment": "auxiliary BF16 weights and both auxiliary GEMMs must be reported/counted; main FFN0/FFN2 remain50%; no cheap selector or novel-theory claim",
+      "full_fit_if_passed": "freeze the chosen global rank/lambda; fit every160 position from calibration12 without further validation selection"
+    },
+    "protocol_sha256": "641fa01a7bf00e56bc4232fdeefcdeba82dbfa8127d20cfda4a0edbdb9da7209",
+    "training_collections": [
+      {
+        "run": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/calibration12_ffn_operands_strictseed/shard0/RUN.json",
+        "sha256": "e07d9704aec9ca7290558e1b2052c5880e42f9d5e130a3b9541ed7f2ae88ff27",
+        "inputs": [
+          {
+            "index": 0,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input00/attempt1/INPUT.json",
+            "input_report_sha256": "863e21127496a28a7e485bc346615e20b06d620fa5d4d6c389954c04ba28ae6c"
+          },
+          {
+            "index": 2,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input02/attempt1/INPUT.json",
+            "input_report_sha256": "488b7a36963943ae9f9eeb927c0ad5beca7ef7cd4a970cd09e80ed56fb3eae4f"
+          },
+          {
+            "index": 4,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input04/attempt1/INPUT.json",
+            "input_report_sha256": "01d53242853b46bd10a7d8746472125a8e8502ac29b37a3ca1ea089ce8b91fca"
+          },
+          {
+            "index": 6,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input06/attempt1/INPUT.json",
+            "input_report_sha256": "6d8abf359574a1991840bc9b320ce67761b1b08d3582ce9f6625bc6b15ddb5dd"
+          },
+          {
+            "index": 8,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input08/attempt1/INPUT.json",
+            "input_report_sha256": "60540f287816b9b3d46487411ea87aa3e47d82fa94365cac671517cd21db63bb"
+          },
+          {
+            "index": 10,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input10/attempt1/INPUT.json",
+            "input_report_sha256": "7c16b7b2aec9aa182c4ca6a0078cb9e76d6987cb11940bd4a65887402b5afa75"
+          }
+        ]
+      },
+      {
+        "run": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/calibration12_ffn_operands_strictseed/shard1/RUN.json",
+        "sha256": "0b728cf70e0859ffbb800387e36bbfcacd6c87ed3cc9ccad55d933fab731d2b9",
+        "inputs": [
+          {
+            "index": 1,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input01/attempt1/INPUT.json",
+            "input_report_sha256": "38ed655205a725acfb86157255bc49e98e9ea6e06d729c6cfc363ada6b21cfeb"
+          },
+          {
+            "index": 3,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input03/attempt1/INPUT.json",
+            "input_report_sha256": "0d5e19f062f20e262b191150c400a090b8927ebd0f0cc436726407a429da7fe1"
+          },
+          {
+            "index": 5,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input05/attempt1/INPUT.json",
+            "input_report_sha256": "32aad3a9b4d9d4d7193441a2f895cb7194847f436311a3a8ab1881b0b02bf02a"
+          },
+          {
+            "index": 7,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input07/attempt1/INPUT.json",
+            "input_report_sha256": "80c426bb6b5540e1c82ad1b442443a4fc1058c7a1fba01b39bb164f2f250b3e4"
+          },
+          {
+            "index": 9,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input09/attempt1/INPUT.json",
+            "input_report_sha256": "eb4d73f00f229eae93f88b3268b494eea04475f9d73196c46a0b56667f522948"
+          },
+          {
+            "index": 11,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input11/attempt1/INPUT.json",
+            "input_report_sha256": "de5b5384c9776457af4cda7b792b8c340bdd2fcefed3f51d76eead628bf6b62f"
+          }
+        ]
+      }
+    ],
+    "base_fits": [
+      {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/cstatic_centered_fit/high_RUN.json",
+        "sha256": "f9a8d06f66ef9eee5784c301ea6bc340ed38d2de9f009a08998010979f4e1bd9",
+        "fingerprint": "c044391e87f1f7750ec98e253dd2cf2c0795b7e2f0b1f608ae5f5a705ec8c290"
+      },
+      {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/cstatic_centered_fit/low_RUN.json",
+        "sha256": "c4bea922a86d67ae11a69f29993b013405bbd1ee4b2c394c2d0c747e23927e62",
+        "fingerprint": "a78099a8ac8e8e82b0d1d458956525d6c3090466d9235c5f5b151ef08443077a"
+      }
+    ],
+    "cache_manifest_sha256": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+    "torch": "2.10.0+cu128",
+    "sources": {
+      "/home/xiang/projects/FFNDS/tools/run_residual_rr1.py": "85e65cfeaf2d3f8c2dfb7e7a36692f68613420e7123d8b9bb2fab068c03488f8",
+      "/home/xiang/projects/FFNDS/tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+      "/home/xiang/projects/FFNDS/tools/fit_cstatic_centered.py": "f249988d1119b51107070bff09d276704878c3d0f63ed292350bf34b11bc76da",
+      "/home/xiang/projects/FFNDS/tools/ar2_checkpoint.py": "e252164ebfe4524de9f60cfb1340654851d01d6d8dca814411ad26913ceaacb3"
+    }
+  }
+}

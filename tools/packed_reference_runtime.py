@@ -13,6 +13,9 @@ from ar2_checkpoint import digest
 
 
 def create_runtime(cache_path, policy_path):
+    if json.loads(Path(policy_path).read_text()).get('kind') == 'CALIBRATION_STATIC_PACKED_REFERENCE':
+        from trained_packed_runtime import create_runtime as create_trained_runtime
+        return create_trained_runtime(cache_path, policy_path)
     from HiFloat4.ptq.adapters.lightx2v_wan_distill import HIF4CacheRuntime
     from HiFloat4.ptq.adapters.wan_i2v import native_hif4_activation_qdq as qdq
 

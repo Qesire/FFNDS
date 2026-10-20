@@ -120,6 +120,9 @@ def main():
                 start = time.perf_counter()
                 try:
                     with torch.inference_mode():
+                        # Match a fresh request: upstream caches its independent
+                        # Generator and otherwise ignores later seed arguments.
+                        pipe.runner.scheduler.generator = None
                         pipe.generate(seed=42 + index, image_path=sample["img_paths"][0], prompt=sample["prompt"],
                                       negative_prompt="", save_result_path=str(video.resolve()))
                 finally:
