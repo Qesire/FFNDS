@@ -8,6 +8,10 @@ unset PYTHONPATH PYTHONHOME
 source "$FFNDS_ROOT/config/worker.env"
 export CUDA_VISIBLE_DEVICES=''
 exec 9>"/tmp/ffnds-${USER}-cpu.lock"
-flock -n 9 || { echo 'Another FFNDS CPU diagnostic is running.' >&2; exit 3; }
+# Serialize independently scheduled diagnostics without failing a completed
+# GPU workflow simply because its CPU audit arrives during a resumable fit.
+flock -w "${FFNDS_CPU_LOCK_WAIT_SECONDS:-1800}" 9 || {
+  echo 'Timed out waiting for the FFNDS CPU diagnostic lock.' >&2; exit 3;
+}
 cd "$FFNDS_ROOT"
 exec "$@"

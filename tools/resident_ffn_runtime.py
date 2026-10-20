@@ -69,6 +69,8 @@ def make_resident(runtime):
             if key in record and torch.is_tensor(record[key]):record[key]=move(record[key])
     for key,parameters in getattr(runtime,'residual_parameters',{}).items():
         runtime.residual_parameters[key]={n:move(v) for n,v in parameters.items()}
+    for key,parameters in getattr(runtime,'output_affine_parameters',{}).items():
+        runtime.output_affine_parameters[key]={n:move(v) for n,v in parameters.items()}
     torch.cuda.synchronize()
     original_report=runtime.report
 
@@ -91,6 +93,9 @@ def make_resident(runtime):
                 # a no-op for these resident parameters. Correct its generic
                 # transfer-byte estimate in this residency-specific report.
                 for row in residual['coverage'].values():row['auxiliary_parameter_H2D_bytes']=0
+            if 'output_affine' in result['packed_reference']:
+                result['packed_reference']['output_affine']['timing_includes_affine_cost']=bool(
+                    getattr(self,'full_ffn_profiler_active',False))
         return result
 
     runtime._weight=types.MethodType(weight,runtime)

@@ -7,6 +7,30 @@ import statistics
 from ar2_checkpoint import atomic_json,digest
 
 
+def validate_candidate_runtime(packed,policy_sha):
+    expected={(s,b) for s in range(4) for b in range(40)}
+    expected_calls={f'step{s}_block{b}_ffn{slot}' for s,b in expected for slot in [0,2]}
+    residual=packed['residual_correction']
+    if (packed['policy_sha256']!=policy_sha or set(packed['coverage'])!=expected_calls
+            or not residual['active'] or residual['actual_positions']!=160 or residual['pending_predictions']
+            or len(residual['coverage'])!=160 or not residual['timing_includes_auxiliary_cost']
+            or any(r['auxiliary_linear_calls']!=2 for r in residual['coverage'].values())):
+        raise RuntimeError('Candidate does not execute all half-width main and auxiliary GEMMs')
+    for key,row in packed['coverage'].items():
+        shape=[6912,5120] if key.endswith('ffn0') else [5120,6912]
+        if row['actual_weight_shape']!=shape or row['main_GEMM_density']!=.5:
+            raise RuntimeError('Actual main GEMM dimensions differ from half width')
+    if packed['policy']['kind']=='OUTPUT_VARIANCE_CALIBRATED_REFERENCE':
+        affine=packed.get('output_affine',{})
+        rows=affine.get('coverage',[])
+        if (affine.get('identity_control',True) or affine.get('actual_positions')!=160 or len(rows)!=160
+                or {(r['step'],r['block']) for r in rows}!=expected
+                or not affine.get('timing_includes_affine_cost',False)
+                or any(r['pointwise_kernel_calls']!=1 or r['coefficient_H2D_bytes']!=0 for r in rows)
+                or affine.get('kernel_source_sha256')!=packed['policy']['kernel_source_sha256']):
+            raise RuntimeError('Output affine candidate lacks full160 frozen native kernel costs')
+
+
 def load_run(path,candidate):
     meta=json.loads(path.read_text())
     if (meta['status']!='PASS_RESIDENT_FULL160_AND_PAIRED_LATENT_EQUIVALENCE'
@@ -32,12 +56,7 @@ def load_run(path,candidate):
                 or request['hif4_counter_delta']['activation_qdq_calls']!=1600):
             raise RuntimeError('Incomplete native bridge coverage')
         if candidate:
-            packed=request['hif4_runtime']['packed_reference'];residual=packed['residual_correction']
-            if (len(packed['coverage'])!=320 or not residual['active'] or residual['actual_positions']!=160
-                    or residual['pending_predictions'] or any(r['main_GEMM_density']!=.5 for r in packed['coverage'].values())
-                    or not residual['timing_includes_auxiliary_cost']
-                    or any(r['auxiliary_linear_calls']!=2 for r in residual['coverage'].values())):
-                raise RuntimeError('Candidate does not execute all half-width main and auxiliary GEMMs')
+            validate_candidate_runtime(request['hif4_runtime']['packed_reference'],meta['identity']['policy_sha256'])
         if index:
             times.append(timing['wall_ms']);peaks.append(request['peak_cuda_memory_bytes'])
     return meta,times,peaks

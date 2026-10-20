@@ -1,0 +1,17 @@
+{
+  "experiment": "VM1_NATIVE_OUTPUT_VARIANCE_AND_MEAN_CALIBRATION_20261021",
+  "registered_before": "any output variance coefficient fit or evaluation",
+  "base": "frozen original12 RR1 rank256 lambda1 full160 policy; do not alter its masks, gains, biases, auxiliary weights or quantized cache",
+  "hypothesis": "conditional-mean residual fitting can leave reduced centered output energy; matching that energy may affect blur even if local SSE rises slightly; this is a mechanism/control baseline, not novelty",
+  "training": "original12 strictseed inputs only, all512 sampled rows perimage, each image equally weighted; actual native BF16 denseY and reconstructed CPU native BF16 candidateY before gate",
+  "moments": "subtract original BF16 b2 explicitly, FP64 means and centered energies weighted by the constant BF16 gate; beta=sqrt(dense_energy/candidate_energy), then one FP32 effective beta and FP32 shift=mean_dense_noBias-beta_effective*mean_candidate_noBias",
+  "native": "after the original BF16 main-plus-residual sum, compute FP32((S-original_b2)*beta+shift+original_b2), cast once to BF16, then unchanged original BF16 gate/residual; original bias removed and reinserted exactly once",
+  "guard": "stop on nonfinite or energy denominator<=5120e-24, or beta outside[0.5,2]; do not clip or retune",
+  "pilot": "fit only block20 steps0/2 first; require native risk<=1.10 originalRR1 in>=3/4 scopes per task0/task6, with both seed/step coverage; these research sources have been used previously, not fresh test sources",
+  "full_fit_if_passed": "same deterministic moment formula at every160 position, no new selection or source targets; all learned coefficients in HF derived cache",
+  "kernel": "one fused pointwise CUDA/Triton affine before the original gate, FP32 operations with fusion disabled, BF16 output; exact identity coefficients return input unchanged; real-value bitwise comparison to explicit PyTorch FP32 reference required before deployment",
+  "precision": "CPU native BF16 moment reconstruction is explicit; deployment still needs actual GPU operator/control and all160 video/timing validation",
+  "evaluation": "same formal20 is reused afterRR1 rejection; report all3 metrics separately and all online affine costs in complete FFN timing; no scalar beta sweep on the formal benchmark",
+  "resources": "CPU8-thread checkpointed fits may yield after20minutes so the primary calibration24 workflow retains its CPU diagnostic window; no goal pause implied",
+  "acceptance": "mainGEMM50%, same frozen implementation fullFFN>=1.5x and all3 formal metrics<=2% relative drop; no acceptance from energy matching alone"
+}
