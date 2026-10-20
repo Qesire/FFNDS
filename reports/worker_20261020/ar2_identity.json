@@ -1,0 +1,149 @@
+{
+  "fingerprint": "825bcc3f64248503ae859dd1fcfe5e703460c154cca94180c43222b33144085d",
+  "identity": {
+    "protocol": {
+      "experiment": "WORKER_AR2_RESTART_UNIFORM512_20261020",
+      "status_at_registration": "FROZEN_BEFORE_NEW_DQ_CAPTURE_OR_RISK_RESULTS",
+      "scope": "CPU local post-Q2 projection diagnostic; no full-model intervention or CUDA speed claim",
+      "arm": "D-Q",
+      "tasks": [
+        0,
+        6
+      ],
+      "seeds": [
+        20261001,
+        20261002
+      ],
+      "steps": [
+        0,
+        2
+      ],
+      "block": 20,
+      "rows_per_scope": 512,
+      "sampling": "new uniform without replacement over actual observed native grid; explicit inclusion probabilities and design weights",
+      "old_R1_byte_identity": false,
+      "group_size": 64,
+      "groups": 216,
+      "keep_groups": 108,
+      "random_masks": "config/ar2_frozen_random_masks.json",
+      "selector_inputs": [
+        "actual captured V2",
+        "actual effective W2",
+        "captured gate",
+        "task0 donor training scores"
+      ],
+      "score_families": [
+        "A",
+        "E",
+        "C"
+      ],
+      "score_precision": "FP32 operands/products/GEMMs; FP64 final energy reductions",
+      "tie_break": "ascending group ID",
+      "static_support": "design-weighted mean training score on task0 opposite seed, same step/expert/block",
+      "gain_donor": "task0 opposite seed for both task0 and task6 tests; same step/expert/block",
+      "gain_anchor": "bias-free FP32 dense linear signal times FP32 gate",
+      "gain_fit": "nonnegative scalar per donor and policy, FP64 weighted least squares; R pools all four frozen masks",
+      "gain_denominator_floor": "D * 1e-24; NA is retained and cannot pass a gate",
+      "native_candidate_order": "V2.float * mask.float * gain.float -> BF16 -> F.linear with effective BF16 W2 and original BF16 bias once -> BF16 gate multiplication",
+      "input_norm_control": "sqrt(sum(V2.double^2) / (sum((V2.double * mask)^2) + 1e-8))",
+      "fp32_control": "same mask and FP32 gain, FP32 linear/bias/gate, no intermediate BF16 cast",
+      "risk_target": "actual captured native GPU Delta_writeback_operand",
+      "risk_normalization": "sum(design_weight * norm2(CPU native BF16 dense projection without bias, times BF16 gate))",
+      "native_cpu_gpu_drift": "report dense CPU projection including bias against captured GPU target separately",
+      "row_chunk_size": 128,
+      "cpu_threads": 8,
+      "gains": [
+        "unit",
+        "input_norm",
+        "policy_crossfit"
+      ],
+      "primary_gate_gain": "policy_crossfit",
+      "dynamic_vs_random_max_ratio": 0.8,
+      "dynamic_vs_static_max_ratio": 0.9,
+      "C_vs_E_max_ratio": 0.9,
+      "E_vs_A_max_ratio": 0.9,
+      "E_vs_A_role": "auxiliary per-scope comparison; not an additional family gate",
+      "per_task_gate": "at least 3/4 scopes, covering each seed and step, assessed independently for task0 Fit and task6 Validation",
+      "independent_sources": 2,
+      "task10_used": false,
+      "observer_noop_requirement": "each of the four inputs must pass all four scheduler latents bitwise against its own separate-process plain run",
+      "checkpoint_granularity": "score scope/row chunk; policy-specific donor gain; test policy/gain/row chunk",
+      "final_acceptance": "local gate outcomes do not imply CUDA speed, 160-position sparsity, or formal20 video quality"
+    },
+    "protocol_sha256": "ae9a1f4003c9acb05716d587373c1f196031dfaad4fbd907ecd3a6c3efcb8379",
+    "inputs": [
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu1_tasks0_seeds20261001-20261002.json",
+        "matrix_sha256": "9ca04e83cabcc81b2ecfc9dc5cc56d1988001ed110974ad9d11f6bd2494a5995",
+        "run_meta_sha256": "cda3ff5b9264412e875e621f11e39a421beb36adf58100e7c1945d4ca4346f15",
+        "task": 0,
+        "seed": 20261001,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_000_seed_20261001.json",
+        "input_sha256": "f5c6b62d1c6fbe6795128b5dfce94a3635e89fccaac898a6f4ec19c3bcfd125f",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_observed",
+        "capture_manifest_sha256": "511acff4adf4847bfcd2aa6c92024563382d897c62ae65b8db456ed03e5d922b",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_observer_noop.json",
+        "observer_noop_sha256": "252d0e7dad754c400280fc3352af7b56fa70adcd1a9366d4e2bb0368f575b35a"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu1_tasks0_seeds20261001-20261002.json",
+        "matrix_sha256": "9ca04e83cabcc81b2ecfc9dc5cc56d1988001ed110974ad9d11f6bd2494a5995",
+        "run_meta_sha256": "c5c36963404bd86728e41c075b29c5288e7e52eee5aa39226dccd2ef80bd5f75",
+        "task": 0,
+        "seed": 20261002,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_000_seed_20261002.json",
+        "input_sha256": "3bde0f913ccd423d4467d3245d9f45e36c40d416a46fbb9cf93e58f831f31823",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_observed",
+        "capture_manifest_sha256": "c17fc122f7d90d3758cacb51fb6bcefc106c1479d0a61fa25e72081edc459e21",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_observer_noop.json",
+        "observer_noop_sha256": "34c122052fdf5fe9b0483435985a5f861393d37e37fde4ad6670e79fb28eb81a"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu0_tasks6_seeds20261001-20261002.json",
+        "matrix_sha256": "8a4d412f195abc499dbc6f842b561ed5754190c60aaa0f12adc0924349b5851e",
+        "run_meta_sha256": "b1c27120e5e64ee468d8d1d41f2d795a01b200c56f225f53bee74a3f8856d699",
+        "task": 6,
+        "seed": 20261001,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_006_seed_20261001.json",
+        "input_sha256": "d4a832370aad11e31afaa82c54a6b14bb0ef8e7a1fc40fad452b31513bbadad4",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_observed",
+        "capture_manifest_sha256": "57f9cac3b96606e5e2db87ed2ae1a0008e05b0839bda58a46eace1fcb9378de0",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_observer_noop.json",
+        "observer_noop_sha256": "a6f81211f688c33db589df7266a4e98cda89f4e7370250b48f72a7fb271d39ca"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu0_tasks6_seeds20261001-20261002.json",
+        "matrix_sha256": "8a4d412f195abc499dbc6f842b561ed5754190c60aaa0f12adc0924349b5851e",
+        "run_meta_sha256": "d94a56be7858d543910d377b28437ab08f0915c660d46d5fa4f12b2cef573c8d",
+        "task": 6,
+        "seed": 20261002,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_006_seed_20261002.json",
+        "input_sha256": "56961f9d4d739df7a13c21f3ee32a11e11f656a30b799fe4fb769d77ce736a2b",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_observed",
+        "capture_manifest_sha256": "39e75a8c75c54faf3c0603ca02f64262a7595fa38a55f61370d36d61a694a74d",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_observer_noop.json",
+        "observer_noop_sha256": "9fa81a79cca87ac704126d55df5d36e4c6145e450d4a30f492c084b31c3e01fb"
+      }
+    ],
+    "source_sha256": {
+      "/home/xiang/projects/FFNDS/tools/run_ar2_restart.py": "90604780375e82dbe6d4f1557941eb4ea052f3b3e704a95536afa7757e43e9fc",
+      "/home/xiang/projects/FFNDS/tools/ar2_core.py": "22fc8f82f4b7b7c6380aa16a142e89246cd6042db4f874cf475d9e10a575c8a0",
+      "/home/xiang/projects/FFNDS/tools/ar2_checkpoint.py": "e252164ebfe4524de9f60cfb1340654851d01d6d8dca814411ad26913ceaacb3"
+    },
+    "random_masks_sha256": "2be668220e9eb8730267a4050603ef2555783f3505679de2456b6b642d42cfa3",
+    "versions": {
+      "torch": "2.10.0+cu128",
+      "numpy": "2.4.6",
+      "safetensors": "0.8.0"
+    },
+    "cpu": "AMD EPYC 7313 16-Core Processor",
+    "cpu_capability": "AVX2",
+    "machine": "x86_64",
+    "host": "worker",
+    "threads": 8
+  }
+}

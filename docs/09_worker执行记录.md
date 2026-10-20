@@ -123,7 +123,8 @@ python3 tools/run_on_worker.py --gpu 0 -- python tools/run_dense_bf16.py --out r
    新可恢复实现必须按冻结规格绑定到对侧 task0 seed，同时保存分片/恢复点。
 
 目前校准、完整新 HiF4 cache、D-BF16 与 D-Q 视频/no-op 已有真实结果；
-尚无新 AR2 风险结论、完整 FFN 加速或正式20条质量结果。
+新 AR2 已完成，C 局部门槛两来源各 4/4 通过；PR1 前 FFN0 核代理未通过。
+详见 [重开结果](12_AR2重开结果与下一步.md)。完整 FFN 加速或正式20条质量仍未通过。
 
 ## 新入口的验证范围
 
@@ -131,7 +132,7 @@ python3 tools/run_on_worker.py --gpu 0 -- python tools/run_dense_bf16.py --out r
 BF16、HiF4 runner、`hif4_observer.py` 和完整缓存构建已完成上述实际核验。
 当前 20 项数值/恢复检查包含：bias-free gain、对侧 donor、FP32 对照、NA 参数恢复，
 以及正零/负零不能被误认成逐位一致。此前成功 no-op 的四步文件 SHA256 本来也均完全相同。
-新 AR2 runner 已实现，仍须等完整四输入矩阵后执行，不能据此预写风险或方法门槛通过。
+新 AR2 runner 和完整矩阵已实际执行；其通过范围限定为局部投影。
 
 ## 本机 HF 缓存与 I/O
 

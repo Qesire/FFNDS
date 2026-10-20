@@ -1,0 +1,109 @@
+{
+  "fingerprint": "394085c97de113bf33904a09ac105fc04e104b512da71331634c01f029b88dee",
+  "identity": {
+    "protocol": {
+      "experiment": "PR1_PRE_FFN0_V1_KERNEL_C_PROXY_20261020",
+      "registered_after": "completed AR2 C diagnostic; before any proxy fits or validation risk",
+      "inputs": "captured native V1 after Q1, before FFN0; no H/V2/test target enters the predictor",
+      "label": "training donor C scores from frozen AR2 checkpoints",
+      "donor": "task0 opposite seed, same step/expert/block20",
+      "kernels": [
+        "static",
+        "linear",
+        "poly2"
+      ],
+      "regularization_grid": [
+        0.0001,
+        0.001,
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ],
+      "hyperparameter_selection": "four training-only folds by observed latent time modulo4; normalized C-score MSE",
+      "input_normalization": "training channel mean, one global centered RMS; kernel dot divided by5120",
+      "kernel_normalization": "training mean kernel diagonal, weighted centering; n*lambda ridge",
+      "clip_predictions_nonnegative": true,
+      "support": "216 original groups64; top108, stable group-ID tie break",
+      "gain": "policy-specific bias-free gain fit only on donor using its predicted supports",
+      "gains": [
+        "unit",
+        "input_norm",
+        "policy_crossfit"
+      ],
+      "primary_gate": "proxy<=0.8 random and <=0.9 C_static and <=1.1 true C_dynamic; >=3/4 with both seeds/steps, independently for task0/task6",
+      "precision": "FP64 kernel fit/prediction diagnostic; native CPU BF16 projection primary, matched FP32 control",
+      "deployment_status": "unmeasured; row-wise support diagnosis does not validate a tile-shared or sparse CUDA implementation"
+    },
+    "protocol_sha256": "3ece2232e0cadc77a9a7c8865166559eb2df5dd8ae63988ba5f8a34ffc4cb17c",
+    "parent_fingerprint": "825bcc3f64248503ae859dd1fcfe5e703460c154cca94180c43222b33144085d",
+    "inputs": [
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu1_tasks0_seeds20261001-20261002.json",
+        "matrix_sha256": "9ca04e83cabcc81b2ecfc9dc5cc56d1988001ed110974ad9d11f6bd2494a5995",
+        "run_meta_sha256": "cda3ff5b9264412e875e621f11e39a421beb36adf58100e7c1945d4ca4346f15",
+        "task": 0,
+        "seed": 20261001,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_000_seed_20261001.json",
+        "input_sha256": "f5c6b62d1c6fbe6795128b5dfce94a3635e89fccaac898a6f4ec19c3bcfd125f",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_observed",
+        "capture_manifest_sha256": "511acff4adf4847bfcd2aa6c92024563382d897c62ae65b8db456ed03e5d922b",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261001_observer_noop.json",
+        "observer_noop_sha256": "252d0e7dad754c400280fc3352af7b56fa70adcd1a9366d4e2bb0368f575b35a"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu1_tasks0_seeds20261001-20261002.json",
+        "matrix_sha256": "9ca04e83cabcc81b2ecfc9dc5cc56d1988001ed110974ad9d11f6bd2494a5995",
+        "run_meta_sha256": "c5c36963404bd86728e41c075b29c5288e7e52eee5aa39226dccd2ef80bd5f75",
+        "task": 0,
+        "seed": 20261002,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_000_seed_20261002.json",
+        "input_sha256": "3bde0f913ccd423d4467d3245d9f45e36c40d416a46fbb9cf93e58f831f31823",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_observed",
+        "capture_manifest_sha256": "c17fc122f7d90d3758cacb51fb6bcefc106c1479d0a61fa25e72081edc459e21",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task000_seed20261002_observer_noop.json",
+        "observer_noop_sha256": "34c122052fdf5fe9b0483435985a5f861393d37e37fde4ad6670e79fb28eb81a"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu0_tasks6_seeds20261001-20261002.json",
+        "matrix_sha256": "8a4d412f195abc499dbc6f842b561ed5754190c60aaa0f12adc0924349b5851e",
+        "run_meta_sha256": "b1c27120e5e64ee468d8d1d41f2d795a01b200c56f225f53bee74a3f8856d699",
+        "task": 6,
+        "seed": 20261001,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_006_seed_20261001.json",
+        "input_sha256": "d4a832370aad11e31afaa82c54a6b14bb0ef8e7a1fc40fad452b31513bbadad4",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_observed",
+        "capture_manifest_sha256": "57f9cac3b96606e5e2db87ed2ae1a0008e05b0839bda58a46eace1fcb9378de0",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261001_observer_noop.json",
+        "observer_noop_sha256": "a6f81211f688c33db589df7266a4e98cda89f4e7370250b48f72a7fb271d39ca"
+      },
+      {
+        "matrix": "runs/worker_restart_20261020/dq_matrix/MATRIX_dq_gpu0_tasks6_seeds20261001-20261002.json",
+        "matrix_sha256": "8a4d412f195abc499dbc6f842b561ed5754190c60aaa0f12adc0924349b5851e",
+        "run_meta_sha256": "d94a56be7858d543910d377b28437ab08f0915c660d46d5fa4f12b2cef573c8d",
+        "task": 6,
+        "seed": 20261002,
+        "input_manifest": "/home/xiang/projects/FFNDS/.runtime/inputs/task_006_seed_20261002.json",
+        "input_sha256": "56961f9d4d739df7a13c21f3ee32a11e11f656a30b799fe4fb769d77ce736a2b",
+        "plain": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_plain",
+        "observed": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_observed",
+        "capture_manifest_sha256": "39e75a8c75c54faf3c0603ca02f64262a7595fa38a55f61370d36d61a694a74d",
+        "observer_noop": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dq_matrix/dq_task006_seed20261002_observer_noop.json",
+        "observer_noop_sha256": "9fa81a79cca87ac704126d55df5d36e4c6145e450d4a30f492c084b31c3e01fb"
+      }
+    ],
+    "source_sha256": {
+      "/home/xiang/projects/FFNDS/tools/run_proxy_pr1.py": "aa04c0527d7576f74ed04a32be3f18754c31f26b936ad5e4de81037a164f4a87",
+      "/home/xiang/projects/FFNDS/tools/proxy_kernel.py": "8a7b049a6a7c3b4d42d470380cbc50fbd099452ae1cdfa99c02e661d0c7e03b9",
+      "/home/xiang/projects/FFNDS/tools/ar2_core.py": "22fc8f82f4b7b7c6380aa16a142e89246cd6042db4f874cf475d9e10a575c8a0"
+    },
+    "versions": {
+      "torch": "2.10.0+cu128",
+      "numpy": "2.4.6"
+    },
+    "cpu_threads": 8
+  }
+}

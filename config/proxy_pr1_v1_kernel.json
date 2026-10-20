@@ -1,0 +1,19 @@
+{
+  "experiment": "PR1_PRE_FFN0_V1_KERNEL_C_PROXY_20261020",
+  "registered_after": "completed AR2 C diagnostic; before any proxy fits or validation risk",
+  "inputs": "captured native V1 after Q1, before FFN0; no H/V2/test target enters the predictor",
+  "label": "training donor C scores from frozen AR2 checkpoints",
+  "donor": "task0 opposite seed, same step/expert/block20",
+  "kernels": ["static", "linear", "poly2"],
+  "regularization_grid": [0.0001, 0.001, 0.01, 0.1, 1.0, 10.0],
+  "hyperparameter_selection": "four training-only folds by observed latent time modulo4; normalized C-score MSE",
+  "input_normalization": "training channel mean, one global centered RMS; kernel dot divided by5120",
+  "kernel_normalization": "training mean kernel diagonal, weighted centering; n*lambda ridge",
+  "clip_predictions_nonnegative": true,
+  "support": "216 original groups64; top108, stable group-ID tie break",
+  "gain": "policy-specific bias-free gain fit only on donor using its predicted supports",
+  "gains": ["unit", "input_norm", "policy_crossfit"],
+  "primary_gate": "proxy<=0.8 random and <=0.9 C_static and <=1.1 true C_dynamic; >=3/4 with both seeds/steps, independently for task0/task6",
+  "precision": "FP64 kernel fit/prediction diagnostic; native CPU BF16 projection primary, matched FP32 control",
+  "deployment_status": "unmeasured; row-wise support diagnosis does not validate a tile-shared or sparse CUDA implementation"
+}
