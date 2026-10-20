@@ -1,0 +1,17 @@
+test_bf16_nonlinear_path_keeps_forward_and_backpropagates_to_both_updates (tests.test_folded_adapter.FoldedAdapterControl.test_bf16_nonlinear_path_keeps_forward_and_backpropagates_to_both_updates) ... ok
+test_ste_has_exact_forward_bits_and_identity_gradient (tests.test_folded_adapter.FoldedAdapterControl.test_ste_has_exact_forward_bits_and_identity_gradient) ... ok
+test_zero_adapter_keeps_original_and_separately_requantizes (tests.test_folded_adapter.FoldedAdapterControl.test_zero_adapter_keeps_original_and_separately_requantizes) ... ok
+test_zero_addition_reference_must_use_identical_effective_zero_bits (tests.test_folded_adapter.FoldedAdapterControl.test_zero_addition_reference_must_use_identical_effective_zero_bits) ... FAIL
+
+======================================================================
+FAIL: test_zero_addition_reference_must_use_identical_effective_zero_bits (tests.test_folded_adapter.FoldedAdapterControl.test_zero_addition_reference_must_use_identical_effective_zero_bits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/xiang/projects/FFNDS/tests/test_folded_adapter.py", line 59, in test_zero_addition_reference_must_use_identical_effective_zero_bits
+    self.assertFalse(torch.equal(actual.view(torch.int16), wrong_reference.view(torch.int16)))
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.423s
+
+FAILED (failures=1)

@@ -1,0 +1,19 @@
+{
+  "experiment": "FA1_FULL_RETAINED_MAIN_WEIGHT_NATIVE_HIF4_QAT_20261021",
+  "registered_after": "OP1 CV rejected and corrected LA1 four CV results rejected; before any FA1 coefficient update",
+  "hypothesis": "test one stronger native-QDQ recovery recipe after rank32 updates did not improve development validation; this changes parameterization and optimizer recipe, not a causal isolation of rank alone",
+  "data": "same accepted24 OP1 student trajectories and local native dense TeacherY, same256 rows, no new/formal/research labels",
+  "frozen": "C24 supports, original selected b0, centered folded b2, smooth2, alpha/casts, old rank256 residual, other modules",
+  "parameters": "all retained W0[6912,5120] and W2[5120,6912] entries, FP32 shadow initialized from the exact original effective BF16 matrices",
+  "forward": "unmodified native weight HiF4 QDQ(force_fp32) then BF16; original BF16 main FFN, GELU(tanh), smooth2 divide+BF16, native activationQDQ, alpha FP32 multiply+BF16, W2+folded b2, BF16 add frozen residual and original BF16 gate",
+  "gradient": "straight-through identity for native QDQ and standard PyTorch cast/GELU gradients",
+  "training": "8 epochs, batch128, AdamW lr0.0001 betas[0.9,0.999] eps1e-8 weight_decay0, global gradient clip1, seed20261021 fixed shuffles, no early stop or hyperparameter sweep",
+  "objective": "native BF16-gated prediction FP32 MSE / training TeacherY gated mean square +0.001 times the mean of the two relative mean-square weight deviations from frozen priors",
+  "controls": "both late positions/all24 original full-shape BaseY/StudentY replays before any fitting; direct STE vs native Q on the identical effective input including signed-zero bits; separately report zero-update requantized baseline, not an identity",
+  "CV": "step2/3 block20, parity12 train12 validation, six animal/six architecture each; reused development calibration, base/student exposed to all24, not whole-pipeline held-out",
+  "gate": "all4 final native full-geometry SSE <=0.80 captured frozen C24 StudentY SSE; any failure stops before full160/video",
+  "full_if_passed": "same fixed recipe all160, native-requantize offline and save exact BF16 effective main weights in shared HF derived cache; no added online GEMMs beyond original rank256 residual; unchanged actual50% main shapes",
+  "acceptance": "same frozen implementation, reused formal20 three official metrics separately <=2% relative drop, full20 resident byte equivalence, then isolated completeFFN>=1.5x including all costs",
+  "resources": "worker GPU0/1 only while idle, retain80GiB node reserve; bulk folded weights in shared home HF cache",
+  "scope": "standard local quantization-aware reconstruction baseline, no input-dynamic or novelty claim"
+}

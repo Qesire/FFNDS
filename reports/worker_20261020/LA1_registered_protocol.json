@@ -1,0 +1,20 @@
+{
+  "experiment": "LA1_FOLDED_RANK32_NATIVE_HIF4_QAT_ON_OP1_CALIBRATION_20261021",
+  "registered_before": "any OP1 CV result or LA1 coefficient fitting; OP1 collection ongoing",
+  "conditional": "run only if OP1 correction-only CV or its formal20 quality is rejected",
+  "question": "Can adapting both retained main weights recover local nonlinear error that changing only a rank256 linear residual cannot?",
+  "scope": "standard local quantization-aware low-rank adaptation control; no novelty or input-dynamic claim",
+  "data": "same frozen OP1 accepted24 student trajectories, V1 and local native dense TeacherY; no formal/research target",
+  "base": "frozen C24 supports, original b0, centered folded b2, original smooth2, alpha and its BF16 cast position, frozen C24 rank256 residual and all non-FFN modules",
+  "parameters": "independent rank32 A/B updates on both actual retained W0[6912,5120] and W2[5120,6912], scaling1, initialized A~N(0,1/sqrt(in)), B=0; seed20261021",
+  "forward": "native weight HiF4 QDQ(force_fp32) on each updated retained matrix then BF16; original BF16 W0+b0, GELU(tanh), original smooth2 divide+BF16, native activation QDQ, alpha FP32 multiply+BF16, BF16 W2+folded b2; BF16 add frozen residual; original BF16 gate",
+  "quantization_gradient": "straight-through identity for native weight and activation QDQ, ordinary PyTorch cast gradients; do not change forward quantizer",
+  "non_idempotence_control": "original cached QDQ weights may change when requantized; separately report unmodified native parent and zero-update requantized parent; do not call the latter an identity or relax the original-parent replay",
+  "training": "8 epochs, batch128, AdamW lr0.002 betas[0.9,0.999] eps1e-8 weight_decay0, grad global norm clip1, fixed shuffles seed20261021, no early stopping; train loss gated FP32 MSE against native BF16-gated TeacherY divided by training target mean square",
+  "CV": "same step2/3 block20 parity12 train12 validation, six animal/six architecture per side; correction-only development CV, student/base used all24 and these sources have been reused across trials",
+  "gate": "all4 native full-geometry candidate SSE <=0.80 captured frozen C24 StudentY SSE; failures stop without full160 fit or video; no rank/lr/epoch sweep",
+  "numerical_prerequisites": "full native V1 shape/stride replay of unchanged packed main BaseY and frozen old residual sum must match actual BaseY/StudentY bitwise before fitting; selected rows only are restored, no cross-row mixing; check native quantizer straight-through forward exactly equals original function",
+  "deployment_if_passed": "fold and native-requantize both updates offline, store exact BF16 effective main weights in HF derived cache; no online LoRA GEMMs, unchanged actual50% main shapes and original two rank256 residual GEMMs; all160 positions required",
+  "acceptance": "reused formal20, three official metrics each relative drop<=2%, then all20 resident byte-equivalence and isolated fullFFN>=1.5x including every online cost",
+  "resources": "worker GPUs0/1 only when idle, keep80GiB node reserve, any full folded weights in shared HF derived cache"
+}
