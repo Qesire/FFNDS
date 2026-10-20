@@ -1,8 +1,10 @@
 # worker 续接记录（2026-10-20）
 
 本页记录接手后的实际状态；前八篇文档和归档仍表示原学校服务器的历史快照。
-用户授权整晚推进、整理仓库，并分阶段直接提交、推送 **GitHub main**。
-本轮夜间截止暂定北京时间 2026-10-21 08:00。
+用户最新目标为持续推进到仓库整体验收，不再以早晨时间为截止。
+有实质性结果再整理并提交 **本地 main**；按最新目标暂不推送远端。
+此前用户曾明确授权直接推送 GitHub main，首两个恢复提交已于 2026-10-20 推送；
+后续提交节奏和远端操作以最新目标为准。
 
 ## 当前实测与资产
 
@@ -19,6 +21,8 @@
   每个大文件核验完整 SHA256，完成清单位于 `.runtime/models.json`。
 - 蒸馏仓库：`lightx2v/Wan2.2-Distill-Models@52699089e1dac804cbedd2400d0d2aea969577de`。
   只下载合同规定的 BF16 high/low 文件；公开 LFS 哈希与交接合同完全一致。
+- 两份蒸馏 checkpoint 与 T5、VAE、tokenizer 等全部 **12 个文件已下载且逐文件完整哈希通过**。
+  `.runtime/models.json` 为 PASS；HF 缓存内 hardlink view 也已实际建立并通过。
 - T5/VAE/tokenizer/config 来源：
   `Wan-AI/Wan2.2-I2V-A14B@206a9ee1b7bfaaf8f7e4d81335650533490646a3`。
   不下载原版 O 的 diffusion 分片。
@@ -74,18 +78,46 @@ python3 tools/run_on_worker.py --gpu 0 -- python tools/run_dense_bf16.py --out r
   原始图像哈希缺失，因此不能声称已证明旧/新图像逐字节相同；新下载哈希和此限制均写入 manifest。
 - `prepare_model_view.py` 在 HF 缓存内部建立 hardlink 布局，不复制权重字节。
   这是为了满足旧 adapter 在 resolve 后仍要求 high/low expert 目录名的路径合同，
-  不修改数值 adapter。该工具和 dense runner 须等全部模型下载完成后再实际运行。
+  不修改数值 adapter。
+- 使用 high expert 的真实 checkpoint，对 blocks 0/20 做原生 MMWeight 加载、
+  FFN0→GELU(tanh)→FFN2、bias 一次及 gate/residual 检查通过。输入为合成 32 行；
+  这是加载/layout/算子检查，不是实际轨迹、质量或速度结果。
+- 原始 12 条 Smooth 校准清单已从归档恢复，源文件 SHA256 与旧 canonical report 一致；
+  12 张公共数据集图像的完整哈希全部匹配旧校准报告，prompt 与固定数据集 revision 一致。
+  原校准集包含 task10 开发图，因而 **task10 不作为独立验证来源**；task0/task6 不重叠。
+  见 `tools/fetch_calibration_inputs.py` 和 `.runtime/inputs/calibration12/recovery_report.json`。
 
 ## 下一步及尚未闭合项
 
-1. 完成两个精确蒸馏 checkpoint、T5/VAE/tokenizer 的 HF 下载及完整哈希核验。
-2. 完成 LightX2V fresh-process 导入和实际模型运行；torch 与 HiF4 最小算子检查已通过。
-3. 模型下载和哈希完成后，按原四步合同跑一个 D-BF16 dense I2V；记录实际网格、
-   scheduler、源码、环境、输入和输出，再扩大采集。
+1. task0/seed20261001 的原生 D-BF16 视频基线已完成：81 帧、16 fps、实际 512×768，
+   四步 latent 均有限，FP32 形状为 `[16,21,96,64]`，sigma 为
+   `[1,0.9375,0.8333333134651184,0.625]`。视频 SHA256 为
+   `05919d785ce0078a4b756b5b92c81cf8e23506cc4cb65cd2e563f680025cc87e`。
+   源码 hash 与提交 `95c0815` 的原 BF16 runner 一致；证据见
+   `reports/worker_20261020/dbf16_task000_seed20261001_plain.json`。
+   生成记录约 71.97 秒，包含观测与保存，不作为速度 benchmark。
+   同输入的 FFN 边界采集也已通过：blocks 0/10/20/38 × 四步共 16 scopes，
+   每个 scope 按实际 `[21,48,32]` 网格均匀无放回抽取 512 行，显式记录 π 与 1/π。
+   两次运行四步 latent **逐位一致、最大误差为 0**，视频 SHA256 也一致。
+   见 `dbf16_observer_noop.json` 和 `dbf16_capture_summary.json`。
+   此结果限定为该输入、种子、原生 BF16 与记录的观测源码，不替代 D-Q 或其他干预的核验。
+2. GPU1 正在按原 12 输入、种子 42..53 采集 Smooth absmax。
+   每条输入保存独立统计、哈希、实际轨迹元数据与恢复点；重启核验完成条目。
+3. 之后用 alpha=0.5、eps=1e-8、BF16 smooth 权重、原生 HiF4 RTN 构建新的完整 W4A4 cache。
+   新 cache 和量化分片仅放 HF 缓存，先完成 800 模块覆盖与文件核验，再执行 D-Q 视频。
 4. 历史约 56 GB D-Q cache、R1 原始大张量及 canonical W2 没有随归档交付，
-   本机也尚未发现。因此旧 AR2 不能直接续算；保持为缺资产状态，不能静默换成 BF16 或新量化缓存。
+   用户已明确这些在另一台服务器，授权按现有 HiF4 重新开始。因此不再等待旧资产，
+   另立 `WORKER_HIF4_SMOOTH_RTN_REBUILD_20261020` 实验；不能冒充原 AR2 的逐字节续算。
 5. AR2 源码阅读发现另一个待修复问题：只为 task0 保存 static 支持，评分阶段却按测试
    scope 查找 static 支持，task6 会缺键；task0 评分也会使用自己的支持而非对侧 donor。
    新可恢复实现必须按冻结规格绑定到对侧 task0 seed，同时保存分片/恢复点。
 
-目前恢复/文件核验及最小 GPU 数值检查通过；尚无新 dense 视频、D-Q 复现、完整 FFN 加速或正式20条质量结果。
+目前模型/输入核验、最小 GPU 数值检查及一条原生 D-BF16 视频/observer no-op 通过，校准正在运行；
+尚无新 D-Q 视频、完整 FFN 加速或正式20条质量结果。
+
+## 新入口的验证范围
+
+`run_dense_bf16.py` 与 `run_dense_hif4.py` 共用 `run_distill.py` 的固定模型/轨迹审计。
+BF16 已完成上述实际运行；HiF4 runner、`hif4_observer.py` 和 `rebuild_hif4_cache.py`
+已实现并通过语法/CLI 检查，仍须等完整新 cache 后做实际运行，不能据此标记 D-Q 成功。
+AR2 原语 16 项合成数据检查通过；它们尚未产生实际新采集资产上的风险结论。

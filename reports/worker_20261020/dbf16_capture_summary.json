@@ -1,0 +1,681 @@
+{
+  "status": "PASS_CAPTURE_STRUCTURE_ONLY",
+  "series": "WORKER_NEW_DBF16_UNIFORM_CAPTURE_20261020",
+  "arm": "D-BF16",
+  "source_id": "validation_000_multihuman_5",
+  "seed": 20261001,
+  "blocks": [
+    0,
+    10,
+    20,
+    38
+  ],
+  "steps": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "expected_scopes": 16,
+  "completed_scopes": 16,
+  "observer_noop": "PASS_OBSERVER_NOOP_THIS_INPUT_SEE_LINKED_REPORT",
+  "original_DQ_R1_replay": false,
+  "capture_points": {
+    "P": "native infer_ffn entry x, after self-attention residual",
+    "C": "native infer_ffn entry cross-attention output, before add_",
+    "R": "native x after original infer_ffn has added C",
+    "U": "native FFN0.apply input, after norm2/modulation",
+    "Z": "native FFN0.apply output including its bias once",
+    "H": "native FFN2.apply input, after native GELU(tanh)",
+    "Y": "native infer_ffn return, including FFN2 bias once",
+    "gate_broadcast": "native post_process gate, required to be row-constant",
+    "Delta_writeback_operand": "sampled Y times gate in native post_process dtype branch",
+    "X_next": "native post_process returned x"
+  },
+  "full_manifest": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/CAPTURE_MANIFEST.json",
+  "full_manifest_sha256": "de652a8575de10c0a742dff9d081c12194d7cbf7ee433051c4446010f4528d4a",
+  "observer_noop_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_observer_noop.json",
+  "scopes": [
+    {
+      "step": 0,
+      "scheduler_timestep": 1000.0,
+      "sigma": 1.0,
+      "expert": "high_noise_model",
+      "block": 0,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.0.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "5a7b1d28044d21ab30dd88cddc8b1ab312d4344095464eff898ce614f88ccd0a",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step0_block00.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 0,
+      "scheduler_timestep": 1000.0,
+      "sigma": 1.0,
+      "expert": "high_noise_model",
+      "block": 10,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.10.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "bd7905b4a021c433521643272deabd83b9387d4771e0943830ec1867329f2365",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step0_block10.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 0,
+      "scheduler_timestep": 1000.0,
+      "sigma": 1.0,
+      "expert": "high_noise_model",
+      "block": 20,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.20.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "93663c13f3b79dfb22d2e9e9376c20a7685208e19cfb119f0f5f29d827317ec5",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step0_block20.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 0,
+      "scheduler_timestep": 1000.0,
+      "sigma": 1.0,
+      "expert": "high_noise_model",
+      "block": 38,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.38.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "c82c2427505a66e05edac6676fb9680b508516cdaaadf386725631b013f2508b",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step0_block38.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 1,
+      "scheduler_timestep": 937.5,
+      "sigma": 0.9375,
+      "expert": "high_noise_model",
+      "block": 0,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.0.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "d61c66546175c0dd4455b03838641b35302110bd423d8924a4b1f5e8eb9350ec",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step1_block00.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 1,
+      "scheduler_timestep": 937.5,
+      "sigma": 0.9375,
+      "expert": "high_noise_model",
+      "block": 10,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.10.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "591f61f2b9cf73efe1d9854391e4bafa4a517c787a6480d4d9554cee0fcd11ad",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step1_block10.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 1,
+      "scheduler_timestep": 937.5,
+      "sigma": 0.9375,
+      "expert": "high_noise_model",
+      "block": 20,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.20.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "044e2d7c177da900615fa3e764dcec4488b7146ecf62151e733225eb560bd33d",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step1_block20.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 1,
+      "scheduler_timestep": 937.5,
+      "sigma": 0.9375,
+      "expert": "high_noise_model",
+      "block": 38,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.38.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "e5b012c70741b4eea6bfbf777bdb322bc40b40c0192d9280176cf7880cdeeacd",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step1_block38.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 2,
+      "scheduler_timestep": 833.3333129882812,
+      "sigma": 0.8333333134651184,
+      "expert": "low_noise_model",
+      "block": 0,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.0.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "6c49655fc03315abdf8a9a33e6e1c76cbe3146e94eddcf0d1c1d821a740d2f1d",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step2_block00.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 2,
+      "scheduler_timestep": 833.3333129882812,
+      "sigma": 0.8333333134651184,
+      "expert": "low_noise_model",
+      "block": 10,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.10.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "57b09cec1e1a9bc5b04ca1159aade492d1f263bb391b5aae9026e4b6656ea634",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step2_block10.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 2,
+      "scheduler_timestep": 833.3333129882812,
+      "sigma": 0.8333333134651184,
+      "expert": "low_noise_model",
+      "block": 20,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.20.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "d9751228d3255614a0b3ad0224f5e84d647aa8f5763b6b5f5224dc383c37e8cb",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step2_block20.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 2,
+      "scheduler_timestep": 833.3333129882812,
+      "sigma": 0.8333333134651184,
+      "expert": "low_noise_model",
+      "block": 38,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.38.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "1ab5dc03fc1028bdaa87cb690bd46b2c1f5d5d48b11fa7b265e757ff6dcfd6f1",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step2_block38.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 3,
+      "scheduler_timestep": 625.0,
+      "sigma": 0.625,
+      "expert": "low_noise_model",
+      "block": 0,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.0.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "2fd6307a6801a8c70f376f86847ab784960a4948541b6fb43bbc14b86b8c0792",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step3_block00.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 3,
+      "scheduler_timestep": 625.0,
+      "sigma": 0.625,
+      "expert": "low_noise_model",
+      "block": 10,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.10.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "a3e1eafe391da4d3648c9c288185841189075b2ca4e942e7c7e5f21b8c1f2ff1",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step3_block10.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 3,
+      "scheduler_timestep": 625.0,
+      "sigma": 0.625,
+      "expert": "low_noise_model",
+      "block": 20,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.20.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "43df3c61da0692a1f6c90234385fbd9c4aa2d1c774a7138870de1cdf0c566652",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step3_block20.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    },
+    {
+      "step": 3,
+      "scheduler_timestep": 625.0,
+      "sigma": 0.625,
+      "expert": "low_noise_model",
+      "block": 38,
+      "grid": [
+        21,
+        48,
+        32
+      ],
+      "row_count": 512,
+      "checks": {
+        "sampled_gelu_tanh_matches_H": true,
+        "sampled_native_P_plus_C_matches_R": true,
+        "cpu_rng_unchanged": true,
+        "cuda_rng_unchanged": true,
+        "sampled_native_post_matches_derived_reference": true
+      },
+      "effective_W2": {
+        "runtime_name": "blocks.0.ffn.2.weight",
+        "runtime_shape": [
+          13824,
+          5120
+        ],
+        "runtime_stride": [
+          1,
+          13824
+        ],
+        "dtype": "torch.bfloat16",
+        "checkpoint_tensor_key": "blocks.38.ffn.2.weight",
+        "checkpoint_to_runtime": "transpose [out,in] to [in,out] by the unmodified native loader",
+        "has_lora_or_diff": false,
+        "bias_status": "OBSERVED_NATIVE_BIAS",
+        "bias_dtype": "torch.bfloat16"
+      },
+      "tensor_sha256": "aa31fb4962f5ed36946bc803aa49af13fadb8b33d5e61002b4cdbc70ce0a20da",
+      "tensor_file": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/dbf16_task000_seed20261001_observed/ffn/step3_block38.safetensors",
+      "coordinate_provenance": "OBSERVED_NEW_WORKER_RUNTIME_GRID_AND_SELECTED_ROWS"
+    }
+  ],
+  "capture_manifest_observer_noop_label": "PENDING_SEPARATE_SAME_INPUT_DENSE_TRAJECTORY_COMPARISON"
+}

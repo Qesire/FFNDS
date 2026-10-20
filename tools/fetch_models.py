@@ -40,6 +40,8 @@ def sha256(path):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--output", type=Path, default=ROOT / ".runtime/models.json")
+    ap.add_argument("--download-only", action="store_true",
+                    help="Prefetch cache blobs without writing the verification manifest")
     args = ap.parse_args()
     # Honor the user's existing cache configuration; the library otherwise uses
     # ~/.cache/huggingface/hub. Never put weight copies in the repository.
@@ -65,6 +67,9 @@ def main():
         path = Path(hf_hub_download(repo, name, revision=rev))
         if path.stat().st_size != meta.size:
             raise RuntimeError(f"Size mismatch: {path}")
+        if args.download_only:
+            print(f"Cached, not SHA256-verified: {name}", flush=True)
+            continue
         actual = sha256(path)
         if expected and actual != expected:
             raise RuntimeError(f"SHA256 mismatch: {path}")
@@ -76,6 +81,9 @@ def main():
         temp.write_text(json.dumps(result, indent=2) + "\n")
         temp.replace(args.output)
         print(f"Verified {name}: {actual}", flush=True)
+    if args.download_only:
+        print(json.dumps({"status": "DOWNLOADED_NOT_HASH_VERIFIED", "files": len(FILES)}), flush=True)
+        return
     result.update(status="PASS", completed_unix=time.time())
     args.output.write_text(json.dumps(result, indent=2) + "\n")
 
