@@ -1,0 +1,18 @@
+{
+  "experiment": "WR1_RETAINED_NONLINEAR_FEATURE_WEIGHT_RECONSTRUCTION_20261021",
+  "registered_before": "any retained-activation ridge fit, CV, quantization or held-out evaluation",
+  "motivation": "RR1 post-Q1 linear correction improves full video but leaves blur; compare a standard reconstruction baseline using already available nonlinear retained features",
+  "base": "same calibration12 C-static108 groups64, centered gain/bias; keep support and native FFN0 weights fixed",
+  "features": "actual retained post-Q2 V2,6912 coordinates, available after the already half-width FFN0; no omitted hidden activations at inference",
+  "training": "original12 strictseed calibration images,512 uniform rows each, equal image weights; pilot block20 steps0/2",
+  "fit": "center retained V2, normalize one global RMS; ridge fit gated FP32(captured denseY-native baseY), FP64 dual Cholesky; full rank correction, no output-rank truncation",
+  "folding": "undo fixed gate offline (zero gate gives zero correction), add correction to alpha_FP32*effective packed W2, fold residual intercept into existing centered b2 exactly once; cast to BF16 then original native_hif4_weight_qdq(force_fp32=True)",
+  "native": "no online gain or auxiliary GEMM: packed FFN0, original native GELU/Q2 over intact64 groups, reconstructed native HiF4-QDQ packed FFN2 and folded BF16 bias, original gate/writeback",
+  "CV": "calibration parity two correction-only folds,6 train6 held-out; base remains fixed and pretrained on all12, so not whole-pipeline held-out CV",
+  "lambdas": [0.01, 0.1, 1.0, 10.0],
+  "selection": "among lambdas with native requantized/base risk<=0.50 on all4 calibration step/fold scopes, choose smallest mean ratio, tie by lambda; if none stop",
+  "heldout": "test only the CV-selected lambda on frozen task0/task6 two seeds; native reconstructed/base<=0.50 in>=3/4 scopes with both seed/step coverage independently per source",
+  "controls": "report unquantized BF16 folded reconstruction vs final native HiF4 requantized reconstruction on CV; CPU native BF16 held-out primary, same final BF16 parameter values in FP32 control",
+  "full_fit_if_passed": "same frozen lambda, all160 positions fromcalibration12 only; weights stay HFcache, store exact BF16uint16 to avoid doubling model bytes; preserve80GiB free-disk reserve",
+  "scope": "standard static weight-reconstruction baseline, no dynamic-selector or novelty claim, no acceptance without complete actual160 timing and formal20 video metrics"
+}

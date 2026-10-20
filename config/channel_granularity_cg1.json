@@ -1,0 +1,13 @@
+{
+  "experiment": "CG1_STATIC_CHANNEL_GRANULARITY_DIAGNOSTIC_20261021",
+  "registered_before": "any channel-granularity score, fit or held-out evaluation",
+  "question": "Does the whole64-group constraint discard much more useful signal than fixed individual channels?",
+  "training": "same original12 strictseed calibration inputs,512 uniform rows each, each image equally weighted; pilot block20 steps0/2 only",
+  "support": "one fixed top6912 of13824 channels by training mean(V2_j^2) times sum_d((W2_dj*gate_d)^2), stable channel-ID ties; no input-dependent routing",
+  "parameters": "nonnegative centered gain and folded original bias, same moments and FP32 gain cast as C-centered base",
+  "comparators": "same-data whole64-group C-centered base, training diagonal-energy retention, matched FP32 control",
+  "heldout": "fixed task0/task6 two seeds, require native candidate/base <=0.75 in >=3/4 with seed/step coverage independently per source; no test-driven alternative support/gain choice",
+  "precision": "CPU native BF16 half-width FFN2 projection using captured post-Q2 V2; no CUDA initialization in this stage",
+  "critical_limit": "This is a post-Q2 operand diagnostic. Arbitrary channel packing does not commute with native64-group QDQ. Before deployment, scatter retained pre-Q2 values into their original coordinates, native QDQ there, then gather. That changes group scales when removed channels held maxima and requires separate actual-QDQ risk/control/full-video checks.",
+  "acceptance": "No FFN0 pruning, deployable-QDQ, full160 speed or formal20 quality claim from this diagnostic"
+}

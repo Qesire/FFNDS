@@ -1,0 +1,15 @@
+{
+  "experiment": "RESIDENT_QDQ_FULL160_FFN_BOUNDARY_20261021",
+  "registered_before": "resident runtime construction, bitwise validation or timing",
+  "mathematics": "unchanged native HiF4 QDQ and BF16 GEMMs; fixed RR1 rank256 lambda1 and its exact cached parameters when selected",
+  "memory": "all actual QDQ weights/scales, per-position packed variants/biases and auxiliary parameters resident on one A10080 before generation; report bytes and peak",
+  "unused_raw_weights": "replace only bridge-covered MMWeight raw checkpoint matrices with BF16 1x1 placeholders during native model construction; preserve all original biases/norm/modulation/non-target tensors; any fallback to a placeholder must raise",
+  "equivalence": "all four post-step raw FP32 latents must equal the matching previously generated input/arm before any timing result is usable; eventual joint formal acceptance additionally requires resident validation of all20 formal sources",
+  "coverage": "all40 blocks at all4 actual steps; full native inference, no shadow path or selected-block extrapolation",
+  "FFN_boundary": "entire native infer_ffn through original post_process gate/residual; conservatively also charge entire shared pre_process and all native raw-placeholder/bias offload prefetch/init calls to FFN, although some serve attention",
+  "included": "norm/modulation, native QDQ, both main GEMMs, GELU, gain/correction, selector/packing if any online, all auxiliary GEMMs/transfers, original gate/residual, synchronization and host overhead",
+  "setup": "one-time model loading, offline weight packing and persistent model residency are reported separately, excluded from repeated steady inference for both arms",
+  "timing": "device synchronize at region boundaries; report both wall and CUDA-event totals; primary speed sum(dense wall)/sum(candidate wall); one warmup request then at least3 measured repeat requests per arm, no best-repeat selection",
+  "resources": "fixed worker GPU0, idle other project GPU work during acceptance timing; no foreign compute process; report versions, clocks and power",
+  "acceptance": "main GEMMs50%, fullFFN wall speed>=1.5, formal20 same frozen method three metrics individually<=2% drop; resident smoke alone is not acceptance"
+}

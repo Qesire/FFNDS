@@ -1,0 +1,123 @@
+{
+  "fingerprint": "1e96f74dc979cdc1c56e797344d5156d387c146e42eccad3942b93a612ff0337",
+  "identity": {
+    "protocol": {
+      "experiment": "WR1_RETAINED_NONLINEAR_FEATURE_WEIGHT_RECONSTRUCTION_20261021",
+      "registered_before": "any retained-activation ridge fit, CV, quantization or held-out evaluation",
+      "motivation": "RR1 post-Q1 linear correction improves full video but leaves blur; compare a standard reconstruction baseline using already available nonlinear retained features",
+      "base": "same calibration12 C-static108 groups64, centered gain/bias; keep support and native FFN0 weights fixed",
+      "features": "actual retained post-Q2 V2,6912 coordinates, available after the already half-width FFN0; no omitted hidden activations at inference",
+      "training": "original12 strictseed calibration images,512 uniform rows each, equal image weights; pilot block20 steps0/2",
+      "fit": "center retained V2, normalize one global RMS; ridge fit gated FP32(captured denseY-native baseY), FP64 dual Cholesky; full rank correction, no output-rank truncation",
+      "folding": "undo fixed gate offline (zero gate gives zero correction), add correction to alpha_FP32*effective packed W2, fold residual intercept into existing centered b2 exactly once; cast to BF16 then original native_hif4_weight_qdq(force_fp32=True)",
+      "native": "no online gain or auxiliary GEMM: packed FFN0, original native GELU/Q2 over intact64 groups, reconstructed native HiF4-QDQ packed FFN2 and folded BF16 bias, original gate/writeback",
+      "CV": "calibration parity two correction-only folds,6 train6 held-out; base remains fixed and pretrained on all12, so not whole-pipeline held-out CV",
+      "lambdas": [
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ],
+      "selection": "among lambdas with native requantized/base risk<=0.50 on all4 calibration step/fold scopes, choose smallest mean ratio, tie by lambda; if none stop",
+      "heldout": "test only the CV-selected lambda on frozen task0/task6 two seeds; native reconstructed/base<=0.50 in>=3/4 scopes with both seed/step coverage independently per source",
+      "controls": "report unquantized BF16 folded reconstruction vs final native HiF4 requantized reconstruction on CV; CPU native BF16 held-out primary, same final BF16 parameter values in FP32 control",
+      "full_fit_if_passed": "same frozen lambda, all160 positions fromcalibration12 only; weights stay HFcache, store exact BF16uint16 to avoid doubling model bytes; preserve80GiB free-disk reserve",
+      "scope": "standard static weight-reconstruction baseline, no dynamic-selector or novelty claim, no acceptance without complete actual160 timing and formal20 video metrics"
+    },
+    "protocol_sha256": "2e69a52bf9d28341e72941567d2812744204498a3cad696b1f76f620c1680aaf",
+    "training_collections": [
+      {
+        "run": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/calibration12_ffn_operands_strictseed/shard0/RUN.json",
+        "sha256": "e07d9704aec9ca7290558e1b2052c5880e42f9d5e130a3b9541ed7f2ae88ff27",
+        "inputs": [
+          {
+            "index": 0,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input00/attempt1/INPUT.json",
+            "input_report_sha256": "863e21127496a28a7e485bc346615e20b06d620fa5d4d6c389954c04ba28ae6c"
+          },
+          {
+            "index": 2,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input02/attempt1/INPUT.json",
+            "input_report_sha256": "488b7a36963943ae9f9eeb927c0ad5beca7ef7cd4a970cd09e80ed56fb3eae4f"
+          },
+          {
+            "index": 4,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input04/attempt1/INPUT.json",
+            "input_report_sha256": "01d53242853b46bd10a7d8746472125a8e8502ac29b37a3ca1ea089ce8b91fca"
+          },
+          {
+            "index": 6,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input06/attempt1/INPUT.json",
+            "input_report_sha256": "6d8abf359574a1991840bc9b320ce67761b1b08d3582ce9f6625bc6b15ddb5dd"
+          },
+          {
+            "index": 8,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input08/attempt1/INPUT.json",
+            "input_report_sha256": "60540f287816b9b3d46487411ea87aa3e47d82fa94365cac671517cd21db63bb"
+          },
+          {
+            "index": 10,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/9b667dc8fa9ee82c5b23a434f506740fccd91aeca4007e18ef0038592f974b96/input10/attempt1/INPUT.json",
+            "input_report_sha256": "7c16b7b2aec9aa182c4ca6a0078cb9e76d6987cb11940bd4a65887402b5afa75"
+          }
+        ]
+      },
+      {
+        "run": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/calibration12_ffn_operands_strictseed/shard1/RUN.json",
+        "sha256": "0b728cf70e0859ffbb800387e36bbfcacd6c87ed3cc9ccad55d933fab731d2b9",
+        "inputs": [
+          {
+            "index": 1,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input01/attempt1/INPUT.json",
+            "input_report_sha256": "38ed655205a725acfb86157255bc49e98e9ea6e06d729c6cfc363ada6b21cfeb"
+          },
+          {
+            "index": 3,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input03/attempt1/INPUT.json",
+            "input_report_sha256": "0d5e19f062f20e262b191150c400a090b8927ebd0f0cc436726407a429da7fe1"
+          },
+          {
+            "index": 5,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input05/attempt1/INPUT.json",
+            "input_report_sha256": "32aad3a9b4d9d4d7193441a2f895cb7194847f436311a3a8ab1881b0b02bf02a"
+          },
+          {
+            "index": 7,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input07/attempt1/INPUT.json",
+            "input_report_sha256": "80c426bb6b5540e1c82ad1b442443a4fc1058c7a1fba01b39bb164f2f250b3e4"
+          },
+          {
+            "index": 9,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input09/attempt1/INPUT.json",
+            "input_report_sha256": "eb4d73f00f229eae93f88b3268b494eea04475f9d73196c46a0b56667f522948"
+          },
+          {
+            "index": 11,
+            "input_report": "/var/tmp/ffnds-xiang/huggingface/ffnds-derived/calibration12_ffn_operands_strictseed_20261021/3e1f824f9a704e50e6c4cbeeb94590ecd178daf1447020998e43033b913230c5/input11/attempt1/INPUT.json",
+            "input_report_sha256": "de5b5384c9776457af4cda7b792b8c340bdd2fcefed3f51d76eead628bf6b62f"
+          }
+        ]
+      }
+    ],
+    "base_fits": [
+      {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/cstatic_centered_fit/high_RUN.json",
+        "sha256": "f9a8d06f66ef9eee5784c301ea6bc340ed38d2de9f009a08998010979f4e1bd9",
+        "fingerprint": "c044391e87f1f7750ec98e253dd2cf2c0795b7e2f0b1f608ae5f5a705ec8c290"
+      },
+      {
+        "path": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/cstatic_centered_fit/low_RUN.json",
+        "sha256": "c4bea922a86d67ae11a69f29993b013405bbd1ee4b2c394c2d0c747e23927e62",
+        "fingerprint": "a78099a8ac8e8e82b0d1d458956525d6c3090466d9235c5f5b151ef08443077a"
+      }
+    ],
+    "cache_manifest_sha256": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+    "torch": "2.10.0+cu128",
+    "TF32": false,
+    "sources": {
+      "/home/xiang/projects/FFNDS/tools/run_weight_reconstruction.py": "4e74b0e67f48787e24b2b1c4d77ed1ffa5189d06086ff063be434a85a0f60536",
+      "/home/xiang/projects/FFNDS/tools/anchored_reconstruction.py": "f9859f1f73104bfc79d1c87ee8c677e81bac530048c51f325045b947e81de14a",
+      "/home/xiang/projects/FFNDS/.runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293"
+    }
+  }
+}
