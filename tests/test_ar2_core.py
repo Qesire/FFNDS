@@ -8,7 +8,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from ar2_core import (NativeProjection, ScopeKey, design_weights, donor_key,
-                      fit_nonnegative_gain, score_families, static_groups,
+                      fit_nonnegative_gain, input_norm_gain, score_families, static_groups,
                       support_mask, top_groups, weighted_quantile)
 
 
@@ -83,6 +83,21 @@ class AR2Invariants(unittest.TestCase):
         self.assertAlmostEqual(fit.alpha, 16 / 13)
         self.assertIsNone(fit_nonnegative_gain(signal * 0, target, [1, 3]).alpha)
         self.assertEqual(fit_nonnegative_gain(-signal, target, [1, 3]).alpha, 0.)
+
+    def test_fp32_control_preserves_gain_without_native_hidden_rounding(self):
+        projection = NativeProjection(torch.tensor([[2.]], dtype=torch.bfloat16),
+                                      torch.tensor([3.], dtype=torch.bfloat16))
+        aa = torch.tensor([[0.75]], dtype=torch.bfloat16)
+        gate = torch.tensor([[0.5]], dtype=torch.bfloat16)
+        fp32 = projection.fp32_candidate(aa, gate, [[1]], 1.1)
+        self.assertAlmostEqual(float(fp32[0, 0]), 2.325, places=6)
+        self.assertNotEqual(float(projection.native(aa, gate, [[1]], 1.1)[0, 0]), float(fp32[0, 0]))
+
+    def test_input_norm_control_handles_zero_and_uses_no_targets(self):
+        aa = torch.tensor([[3., 4.], [0., 0.]], dtype=torch.bfloat16)
+        gains = input_norm_gain(aa, [[1, 0], [0, 1]])
+        self.assertAlmostEqual(gains[0], 5 / 3, places=8)
+        self.assertEqual(gains[1], 0.)
 
     def test_bias_free_gain_anchor_reconstructs_a_biased_dense_output(self):
         weight = torch.tensor([[1.], [1.]], dtype=torch.bfloat16)

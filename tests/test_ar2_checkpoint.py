@@ -10,6 +10,14 @@ from ar2_checkpoint import CheckpointStore
 
 
 class CheckpointIntegrity(unittest.TestCase):
+    def test_gain_metadata_only_checkpoint_preserves_na(self):
+        with tempfile.TemporaryDirectory() as temp:
+            store = CheckpointStore(temp, {"protocol": "synthetic_test"})
+            metadata = {"alpha": None, "status": "NA_DENOM_FLOOR", "donor_seed": 20261002}
+            store.save("gains", "R", {}, metadata)
+            loaded = CheckpointStore(temp, {"protocol": "synthetic_test"}).load("gains", "R")
+            self.assertEqual(loaded, {"arrays": {}, "metadata": metadata})
+
     def test_resume_preserves_finished_parts_but_ignores_interrupted_temp_file(self):
         with tempfile.TemporaryDirectory() as temp:
             identity = {"protocol": "synthetic_test", "rows": 512, "source_sha256": "abc"}

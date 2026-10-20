@@ -12,6 +12,12 @@ import torch
 from safetensors.torch import load_file
 
 
+def same_tensor_bits(aa, bb):
+    return (aa.shape == bb.shape and aa.dtype == bb.dtype
+            and torch.equal(aa.contiguous().reshape(-1).view(torch.uint8),
+                            bb.contiguous().reshape(-1).view(torch.uint8)))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--plain", type=Path, required=True)
@@ -51,7 +57,7 @@ def main():
                 raise RuntimeError(f"Latent artifact hash changed: {path}")
         aa, bb = [load_file(str(path))["latents"] for path in paths]
         finite = bool(torch.isfinite(aa).all() and torch.isfinite(bb).all())
-        equal = finite and aa.shape == bb.shape and aa.dtype == bb.dtype and torch.equal(aa, bb)
+        equal = finite and same_tensor_bits(aa, bb)
         checks.append({"step": step, "finite": finite, "bitwise_equal": equal,
                        "plain_sha256": plain["trajectory"][step]["sha256"],
                        "observed_sha256": observed["trajectory"][step]["sha256"],
@@ -63,6 +69,7 @@ def main():
               "identity_checks": identity, "source_id": plain["source_id"], "seed": plain["seed"],
               "observer_source_sha256": observed["observer_source_sha256"], "checks": checks,
               "cpu_threads": args.threads,
+              "comparison_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               "arm": plain["arm"], "hif4_observer_source_sha256": observed.get("hif4_observer_source_sha256"),
               "video_hash_equal": plain["video"]["sha256"] == observed["video"]["sha256"],
               "scope": "Only this same-input, same-arm native capture and source/environment identity; no candidate intervention equivalence claimed"}

@@ -101,10 +101,20 @@ python3 tools/run_on_worker.py --gpu 0 -- python tools/run_dense_bf16.py --out r
    两次运行四步 latent **逐位一致、最大误差为 0**，视频 SHA256 也一致。
    见 `dbf16_observer_noop.json` 和 `dbf16_capture_summary.json`。
    此结果限定为该输入、种子、原生 BF16 与记录的观测源码，不替代 D-Q 或其他干预的核验。
-2. GPU1 正在按原 12 输入、种子 42..53 采集 Smooth absmax。
-   每条输入保存独立统计、哈希、实际轨迹元数据与恢复点；重启核验完成条目。
-3. 之后用 alpha=0.5、eps=1e-8、BF16 smooth 权重、原生 HiF4 RTN 构建新的完整 W4A4 cache。
-   新 cache 和量化分片仅放 HF 缓存，先完成 800 模块覆盖与文件核验，再执行 D-Q 视频。
+2. 原 12 输入、种子 42..53 的 Smooth absmax 已全部完成，800 模块覆盖检查通过。
+   每条输入保存独立统计、哈希、实际轨迹元数据与恢复点；合并 act SHA256 为
+   `5631d50a1c2575d9ef9e80b65b844c9b56e971f779a11b83bfc0059016debfd3`。
+3. alpha=0.5、eps=1e-8、BF16 smooth 权重、原生 HiF4 RTN 的完整 W4A4 cache 已重建。
+   80 个分片、800 模块与合并文件均通过核验；完整 SHA256 为
+   `bfb400f94ce42760070bab5916721fd942b0864907bb4e4e5207c008dc4c3df3`。
+   文件在 worker 本机 HF 缓存 `/var/tmp/ffnds-xiang/huggingface/ffnds-derived/` 内，
+   共享路径清单为 `.runtime/hif4_rebuilt_cache.json`，小型证据为 `hif4_rebuilt_cache.json`。
+   task0/task6 的首种子 D-Q 视频、16-scope 采集及四步逐位 no-op 均已通过；
+   每条视频 1,600 次目标线性、1,600 次在线 QDQ、cache miss=0。
+   task0 为 512×768，task6 为 624×624，均为 81 帧/16 fps。
+   两来源×两种子的四输入矩阵现已完整完成：64 个采集 scope，四个输入各自四步 latent 文件
+   SHA256 均与独立 plain 运行相同。AR2 子集为新 8 scopes/4,096 行。
+   小型汇总见 `dq_capture_matrix_summary.json`，完整 tensor 路径与 hash 可由汇总定位。
 4. 历史约 56 GB D-Q cache、R1 原始大张量及 canonical W2 没有随归档交付，
    用户已明确这些在另一台服务器，授权按现有 HiF4 重新开始。因此不再等待旧资产，
    另立 `WORKER_HIF4_SMOOTH_RTN_REBUILD_20261020` 实验；不能冒充原 AR2 的逐字节续算。
@@ -112,12 +122,26 @@ python3 tools/run_on_worker.py --gpu 0 -- python tools/run_dense_bf16.py --out r
    scope 查找 static 支持，task6 会缺键；task0 评分也会使用自己的支持而非对侧 donor。
    新可恢复实现必须按冻结规格绑定到对侧 task0 seed，同时保存分片/恢复点。
 
-目前模型/输入核验、最小 GPU 数值检查及一条原生 D-BF16 视频/observer no-op 通过，校准正在运行；
-尚无新 D-Q 视频、完整 FFN 加速或正式20条质量结果。
+目前校准、完整新 HiF4 cache、D-BF16 与 D-Q 视频/no-op 已有真实结果；
+尚无新 AR2 风险结论、完整 FFN 加速或正式20条质量结果。
 
 ## 新入口的验证范围
 
 `run_dense_bf16.py` 与 `run_dense_hif4.py` 共用 `run_distill.py` 的固定模型/轨迹审计。
-BF16 已完成上述实际运行；HiF4 runner、`hif4_observer.py` 和 `rebuild_hif4_cache.py`
-已实现并通过语法/CLI 检查，仍须等完整新 cache 后做实际运行，不能据此标记 D-Q 成功。
-AR2 原语 16 项合成数据检查通过；它们尚未产生实际新采集资产上的风险结论。
+BF16、HiF4 runner、`hif4_observer.py` 和完整缓存构建已完成上述实际核验。
+当前 20 项数值/恢复检查包含：bias-free gain、对侧 donor、FP32 对照、NA 参数恢复，
+以及正零/负零不能被误认成逐位一致。此前成功 no-op 的四步文件 SHA256 本来也均完全相同。
+新 AR2 runner 已实现，仍须等完整四输入矩阵后执行，不能据此预写风险或方法门槛通过。
+
+## 本机 HF 缓存与 I/O
+
+初次分片写共享 NFS 吞吐较低，主动中断自己的量化进程；退出日志保留
+`rebuild_hif4_quantize.log` 的 KeyboardInterrupt，属于 I/O 调整，不是量化数值失败。
+只迁移并逐文件验证了 8 个完成分片，未采用中断的临时文件；之后 high/low 分别在两张卡完成。
+迁移证据见 `hif4_cache_local_staging.json`。
+
+原始 12 个模型文件也以完整 SHA256 校验后镜像到本机 HF hub cache，snapshot 与 view 为本机
+hardlink，不更改逻辑模型身份。见 `node_local_model_view.json`。
+runner 仅在 host、逻辑 manifest SHA、12 个 repo/revision/filename/size/SHA 身份均匹配时采用该 I/O view，
+并记录实际 view/hash。当前初始化记录从 NFS 的约 903 秒降至本机 view 的约 103 秒；不是 FFN benchmark。
+这些 `/var/tmp` 文件仅在 worker 存在；本机清理或节点更换后须重新 staging/构建。

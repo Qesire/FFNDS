@@ -133,8 +133,7 @@ class NativeProjection:
         self.weight_fp32 = weight.float().contiguous()
         self.bias = bias
 
-    @torch.no_grad()
-    def native(self, activation, gate, mask, gain):
+    def _effective_input(self, activation, gate, mask, gain):
         if activation.dtype != torch.bfloat16 or gate.dtype != torch.bfloat16:
             raise ValueError("Native a/gate operands must remain BF16")
         if activation.device.type != "cpu" or gate.device.type != "cpu" or activation.ndim != 2 or activation.shape[1] != self.weight_t.shape[1]:
@@ -156,13 +155,33 @@ class NativeProjection:
             raise ValueError("Gain must be finite and nonnegative")
         if gain.ndim == 1:
             gain = gain[:, None]
-        effective = ((activation.float() * mask) * gain).to(activation.dtype)
-        return F.linear(effective, self.weight_t, self.bias) * gate
+        return (activation.float() * mask) * gain
+
+    @torch.no_grad()
+    def native(self, activation, gate, mask, gain):
+        effective = self._effective_input(activation, gate, mask, gain).to(activation.dtype)
+        return F.linear(effective, self.weight_t, self.bias) * gate.reshape(-1, self.weight_t.shape[0])
+
+    @torch.no_grad()
+    def fp32_candidate(self, activation, gate, mask, gain):
+        effective = self._effective_input(activation, gate, mask, gain)
+        bias = None if self.bias is None else self.bias.float()
+        return F.linear(effective, self.weight_fp32.T, bias) * gate.reshape(-1, self.weight_t.shape[0]).float()
 
     @torch.no_grad()
     def fp32_signal(self, activation, gate, mask):
-        a = activation.float() * torch.as_tensor(mask, dtype=torch.float32)
+        a = self._effective_input(activation, gate, mask, 1.0)
         return (a @ self.weight_fp32) * gate.reshape(-1, self.weight_t.shape[0]).float()
+
+
+def input_norm_gain(activation, mask):
+    if activation.device.type != "cpu" or activation.dtype != torch.bfloat16 or activation.ndim != 2:
+        raise ValueError("Expected actual CPU BF16 activation rows")
+    mask = torch.as_tensor(mask, dtype=torch.float64)
+    if mask.shape != activation.shape or not torch.all((mask == 0) | (mask == 1)):
+        raise ValueError("Input-norm support mask must match the actual rows")
+    aa = activation.double()
+    return (aa.square().sum(1) / ((aa * mask).square().sum(1) + 1e-8)).sqrt().numpy()
 
 
 def weighted_quantile(values, weights, levels):

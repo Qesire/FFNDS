@@ -11,6 +11,7 @@ import hashlib
 import importlib.metadata
 import json
 from pathlib import Path
+import socket
 import sys
 import time
 import traceback
@@ -36,6 +37,7 @@ def main(arm="D-BF16"):
         raise ValueError(arm)
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--model-view", type=Path, default=ROOT / ".runtime/model_view.json")
+    ap.add_argument("--io-model-view", type=Path, help="Exact node-local HF byte mirror; auto-detect the compatible staged view")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--input-manifest", type=Path, help="A single recovered V5 input record")
     ap.add_argument("--seed", type=int, default=42)
@@ -73,13 +75,38 @@ def main(arm="D-BF16"):
         view_info = json.loads(args.model_view.read_text())
         if view_info["status"] != "PASS":
             raise RuntimeError("Model view is not verified")
-        base = Path(view_info["view"])
-        weights = {noise: base / f"{noise}_noise_model" / f"wan2.2_i2v_A14b_{noise}_noise_lightx2v_4step.safetensors"
-                   for noise in ["high", "low"]}
         for row in view_info["files"]:
             path = Path(row["view_path"])
             if path.stat().st_size != row["bytes"] or not path.samefile(row["blob"]):
                 raise RuntimeError(f"Cached model view changed: {path}")
+        io_path = args.io_model_view or ROOT / ".runtime/node_local_model_view.json"
+        io_info = None
+        if io_path.exists():
+            candidate = json.loads(io_path.read_text())
+            compatible = (candidate.get("status") == "PASS"
+                and candidate.get("logical_model_view_sha256") == digest(args.model_view)
+                and candidate.get("host") == socket.gethostname().split(".")[0])
+            if compatible:
+                def asset_id(row):
+                    return tuple(row[name] for name in ["repo", "revision", "filename", "bytes", "sha256"])
+                if len(candidate["files"]) != 12 or {asset_id(row) for row in candidate["files"]} != {asset_id(row) for row in view_info["files"]}:
+                    raise RuntimeError("Local I/O mirror differs from logical model asset identities")
+                for row in candidate["files"]:
+                    path = Path(row["view_path"])
+                    if not row["copy_sha256_verified"] or path.stat().st_size != row["bytes"] or not path.samefile(row["blob"]):
+                        raise RuntimeError(f"Local I/O byte mirror changed: {path}")
+                io_info = candidate
+                meta.update(io_model_view=str(io_path.resolve()), io_model_view_sha256=digest(io_path),
+                            io_view_selection="VERIFIED_NODE_LOCAL_EXACT_BYTES")
+            elif args.io_model_view:
+                raise RuntimeError("Explicit local I/O view is incompatible with this model identity/host")
+        elif args.io_model_view:
+            raise FileNotFoundError(io_path)
+        base = Path((io_info or view_info)["view"])
+        weights = {noise: base / f"{noise}_noise_model" / f"wan2.2_i2v_A14b_{noise}_noise_lightx2v_4step.safetensors"
+                   for noise in ["high", "low"]}
+        if io_info is None:
+            meta["io_view_selection"] = "LOGICAL_HF_MODEL_VIEW"
         image = args.image or base / "examples/i2v_input.JPG"
         if not image.is_file():
             raise FileNotFoundError(image)
