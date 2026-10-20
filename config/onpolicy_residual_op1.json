@@ -1,0 +1,21 @@
+{
+  "experiment": "OP1_LOCAL_DENSE_DQ_FFN_TEACHER_ON_FROZEN_C24_STUDENT_STATES_20261021",
+  "registered_before": "any on-policy teacher collection or coefficient fit; C24 quality rejected, VM1 formal quality still pending",
+  "hypothesis": "late trajectory drift may expose a mismatch between teacher-state residual fitting and deployed student states; test one on-policy residual refit",
+  "student": "frozen C24 rank256 lambda1 policy, all supports, alpha activation cast, folded base biases, quantized cache and other network modules unchanged",
+  "teacher": "only the original full dense D-Q FFN function evaluated at actual student postQ1 V1; this is not a full dense network trajectory or original O model",
+  "teacher_function": "original effective HiF4 QDQ W0 and raw BF16 b0, native GELU tanh, full original smooth2 then BF16 cast and native activationQDQ(force_fp32), original full effective W2 and raw BF16 b2",
+  "numerical_prerequisite": "use unmodified native HIF4CacheRuntime.apply on original full sequence shapes; require Q1/Q2/Y bitwise equal to actual dense FFNs at all160 positions for calibration24 input0/input1, plus all4 native latent hashes and video bytes equal to their prior dense references; do not relax any mismatch",
+  "implementation_control_history": "the first manual fromV1 replay on sampled256-row batches failed bitwise before any collection or fit; its exact source/protocol/log are archived; upgrade to stronger full-native-API/full-sequence checks, not a tolerance change",
+  "collection": "same fixed disjoint24 sources and seeds42+index,256 actual rows perposition, all160 positions, same uniform sampling namespace and coordinates as original calibration24",
+  "observations": "actual student V1, actual native packed main FFN2 output BaseY captured before residual addition, local full teacherY, actual StudentY after the frozen old residual, raw original b2 and gate; no CPU reconstruction of BaseY",
+  "noop": "plain and observed student requests independently reset scheduler.generator=None; all4 latent hashes and video bytes must match perinput; extra teacher GEMMs are offline collection only and separately counted",
+  "training": "replace only the rank256 lambda1 residual using FP32(TeacherY-BaseY)*gate labels and original FP64 whitened reduced-rank ridge; one iteration, no hyperparameter sweep,6144 equal-image rows perposition",
+  "pilot": "correction-only parity CV on the new24,12 train12 validation with six animal/six architecture each; frozen student/base used all24, so not whole-pipeline held-out CV",
+  "CV_scopes": "late low-noise steps2/3 block20, chosen from prior descriptive trajectory drift; maxrank256 q288 niter3 seed20261021",
+  "CV_gate": "new native BF16 sum risk <=0.90 captured frozen StudentY risk in all4 step/fold cases; also report old residual replay and FP32 controls; if any fail stop without full160 refit",
+  "full_fit_if_passed": "same fixed formula all160, base C24 unchanged; fit no formal or research target; parameters in HF derived cache, actual same50% main and2 rank256 auxiliary GEMMs at deployment",
+  "formal": "reused formal20 seed42, three official metrics separately <=2% relative drop, then identical method fullFFN>=1.5x with all online costs",
+  "resources": "bulk collection only if both C24 and VM1 fail formal quality; at most two worker GPUs, avoid foreign PIDs, raw operands in shared home HF cache, retain80GiB node reserve",
+  "scope": "standard on-policy local distillation control; no input-dynamic selector or novelty claim, no teacher FFN at inference"
+}

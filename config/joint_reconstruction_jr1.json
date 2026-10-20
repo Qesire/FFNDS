@@ -1,0 +1,20 @@
+{
+  "experiment": "JR1_COMPLEMENTARY_RETAINED_FEATURE_AND_V1_RESIDUAL_RECONSTRUCTION_20261021",
+  "registered_before": "any joint parameter fit or evaluation; C24 and VM1 are still awaiting formal outcomes",
+  "motivation": "test whether retained nonlinear features explain errors left by the postQ1 low-rank linear predictor, without increasing online GEMMs",
+  "base": "unchanged original12 C-centered108 original64-groups and RR1 rank256 lambda1; isolate this from C24 and VM1",
+  "training": "original12 strictseed inputs,512 actual rows each; pilot onlyblock20 steps0/2; no formal targets",
+  "features": "actual postQ1 V1 and BF16(alpha_FP32*retained_postQ2_V2), preserving RR1 gain/cast location before FFN2",
+  "fixed_parameters": {"rank": 256, "lambda_W": 1.0, "lambda_R": 1.0, "joint_updates": 1, "seed": 20261021},
+  "update": "start from frozen RR1; fit a centered FP64 anchored ridge W2 delta to its actual BF16-sum remaining gated residual; add delta to original packed W2 and fold intercept into existing bias once, cast BF16 then native HiF4 weightQDQ; refit and replace rank256 residual against this updated native main branch",
+  "gain_control": "keep alpha online and its BF16 activation cast; do not commute gain into weight quantization as in oldWR1",
+  "controls": "matched WR-only reconstruction with the same activation gain/cast and lambdaW; unchanged RR1 fold model; preweightQDQ BF16 reconstruction; matched dequantized FP32 evaluation",
+  "CV": "same two correction-only parity folds,6 train6 validation, baseC remains pretrained on all12; reproduce each frozen RR1 CV risk before comparison",
+  "SVD": "preserve originalRR1 convention: CVfit maxrank512 then retain256, fullfit maxrank256, q=maxrank+32, niter3, seed20261021",
+  "CV_gate": "JR1 native SSE <=0.80 frozen RR1 AND <=0.90 matched WR-only in all4 step/fold scopes; no lambda/rank/round sweep; otherwise stop",
+  "heldout_if_passed": "fit full12 pilot models then evaluate frozen task0/task6 two seeds; JR1/RR1<=0.90 in>=3/4 scopes per source with both seed/step coverage; research sources reused, never used for coefficient fit",
+  "deployment_if_passed": "same half-width main FFN0/FFN2 and2 rank256 auxiliary linears asRR1; only packedW2/bias/residual values change; all160 positions retrained before full videos",
+  "identity": "zero-update wiring control must bypass re-quantization and preserve original RR1 weights/bias/residual exactly; not a candidate speed result",
+  "resources": "pilot only on a free worker GPU, all learned weights in HF derived cache, preserve80GiB node free space; never delay C24 or VM1 full validation",
+  "scope": "standard joint reconstruction control, no dynamic-selector or novelty claim; actual all160 fullFFN>=1.5x and all3 formal metrics<=2% drop required on same frozen implementation"
+}

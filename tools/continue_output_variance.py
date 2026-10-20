@@ -90,6 +90,9 @@ def main():
             gpu_job(0,['python','tools/run_dense_hif4.py','--cache-manifest',ROOT/'.runtime/hif4_rebuilt_cache.json',
                 '--input-manifest',ROOT/'.runtime/inputs/task_006_seed_20261001.json',
                 '--packed-reference-policy',control_policy,'--out',control],'identity_video')
+        # A separately scheduled early control may already own GPU0. Presence
+        # of its atomic RUNNING report is not evidence that the control passed.
+        wait(control/'run_meta.json','PASS')
         local(['tools/verify_output_variance_identity.py','--reference',r/'residual_rr1_task006_seed20261001/run_meta.json',
             '--candidate',control/'run_meta.json','--out',r/'output_variance_vm1_identity_verification'],'verify_identity')
         stage('GENERATE_FROZEN_VM1_FORMAL20_IN_TWO_DISJOINT_SLICES')
