@@ -1,0 +1,488 @@
+{
+  "schema_version": "2.1",
+  "research_id": "FFNDS-AUTORESEARCHER-R3-20261021",
+  "description": "AutoResearcher CR/DF/CRL/MNG discrimination of archived R1/R2 against pinned FFNDS source, with static-first and coarsest-effective-granularity hierarchy. Code and previous outputs read; no new Wan GPU experiment.",
+  "research_object": {
+    "id": "Wan22-I2V-Distill-DQ-vs-frozen-UB1-R3",
+    "revision": "FFNDS 10081aafe6c3d975b0ce736b929d5991cc4a0e65; AutoResearcher bb34ea7be50624d47cb26de7c7c49e40882001f1; live worker binding not rechecked",
+    "scope": "Frozen UB1 FFN operator and source-level/tile-level support choice vs quality continuation; actual source FFN subgraph inspected, full external LightX2V live execution not closed",
+    "code_reference": "tools/fit_step_budget.py:fit_position; tools/step_budget_runtime.py:create_runtime/apply; tools/reduced_rank_residual.py:predict_y",
+    "checkpoint": "Historical Wan2.2-I2V-A14B-LightX2V-Distill-4step with previously verified HiF4 effective-weight cache; not reloaded",
+    "inputs": [
+      {
+        "name": "V1",
+        "shape": "M x 5120",
+        "semantics": "True post-Smooth1/QDQ1 input to packed W0; saved calibration uses 256 sampled rows from full M",
+        "dtype": "native BF16"
+      },
+      {
+        "name": "step, block, expert",
+        "shape": "scalar, scalar, category",
+        "semantics": "Four denoise steps, 40 blocks and two step-conditioned experts"
+      },
+      {
+        "name": "K",
+        "shape": "whole original groups of 64; widths=54/108/108/162 groups",
+        "semantics": "Frozen packed W0/W2 support shared by full M at each position"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "StudentY/Delta",
+        "shape": "M x 5120",
+        "semantics": "Matched BF16 candidate FFN output before original downstream gate/writeback"
+      },
+      {
+        "name": "native signed advantage A",
+        "shape": "per row or aggregated source/tile scalar",
+        "semantics": "Difference of squared native teacher-output reconstruction risks for two equal-budget supports"
+      },
+      {
+        "name": "decoded quality",
+        "semantics": "End-to-end aesthetic/imaging/motion metrics and complete FFN timing remain missing for new candidates"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "support_fit",
+        "operation": "C mean rank -> whole64 group K -> centered gain/bias -> R256 fit",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/fit_step_budget.py:fit_position"
+      },
+      {
+        "id": "ffn0",
+        "operation": "native Smooth1/cast/QDQ1; residual predictor receives V1 before packed W0; packed W0 and GELU(tanh)",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/step_budget_runtime.py:apply; tools/reduced_rank_residual.py:predict_y"
+      },
+      {
+        "id": "ffn2",
+        "operation": "native Smooth2/cast/QDQ2 -> alpha/cast -> packed W2/bias -> BF16 residual add",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/step_budget_runtime.py:apply"
+      },
+      {
+        "id": "original_gate_writeback",
+        "operation": "external LightX2V gate/cast/residual",
+        "verification": "UNKNOWN"
+      },
+      {
+        "id": "continuation",
+        "operation": "remaining blocks, flow, scheduler, steps, VAE and official video quality",
+        "verification": "UNKNOWN"
+      },
+      {
+        "id": "dynamic_execution",
+        "operation": "single prepacked K at whole-M position in current source; per-source bank and segmented per-tile bank not implemented as native reference",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/step_budget_runtime.py:apply"
+      }
+    ],
+    "edges": [
+      {
+        "from": "support_fit",
+        "to": "ffn0"
+      },
+      {
+        "from": "ffn0",
+        "to": "ffn2"
+      },
+      {
+        "from": "ffn2",
+        "to": "original_gate_writeback"
+      },
+      {
+        "from": "original_gate_writeback",
+        "to": "continuation"
+      }
+    ],
+    "unknown_edges": [
+      {
+        "description": "Exact live-worker LightX2V code/cache/policy binding and native group QDQ support-preservation outside prior frozen masks",
+        "decision_relevant": true,
+        "resolving_action": "MAP_FLOW/STATIC_CHECK: check live source/policy SHA and native same-state K0/K1 QDQ group behavior before trusting Gram surrogate."
+      },
+      {
+        "description": "Whether limited static whole-group exchanges improve compensated native output risk over C-score controls and matched K0 baseline",
+        "decision_relevant": true,
+        "resolving_action": "Offline Gram/signed proposals from verified OP2 assets, followed by small matched native checks; do not assume source-independent generalization."
+      },
+      {
+        "description": "Whether native signed advantage has useful conditional variation at source and true contiguous tile granularity, predictable before W0",
+        "decision_relevant": true,
+        "resolving_action": "Compare best-static, per-source oracle and genuine tile oracle, with pre-W1 features and full kernel latency accounted."
+      },
+      {
+        "description": "Which FFN perturbations propagate to decoded imaging failures and whether local risk orders native continuation quality",
+        "decision_relevant": true,
+        "resolving_action": "Only if local candidate improves: resume-matched hybrid prefix/suffix diagnostic with strict endpoint and quality controls."
+      }
+    ],
+    "closed_for_scoped_question": false
+  },
+  "derivations": [
+    {
+      "id": "R3D1",
+      "claim": "Actual finite-output support advantage equals -2<e,d>-||d||^2.",
+      "assumptions": [
+        "Same teacher/input/quantization/gate boundary",
+        "y0/y1 are actual candidate outputs on that boundary"
+      ],
+      "steps": [
+        "Let e=y0-yD and d=y1-y0",
+        "Expand ||e||^2-||e+d||^2"
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Algebraic identity for fixed compared native outputs, no quality monotonicity",
+      "implication": "Supports must be ranked on error direction after compensation, then native replayed."
+    },
+    {
+      "id": "R3D2",
+      "claim": "Fixed real-operand support-swap advantage proxy is -2alpha g^T s-alpha^2 s^T G s with G PSD.",
+      "assumptions": [
+        "Frozen alpha/bias/RR and quantization outputs",
+        "Additive fixed real per-group contributions c_b",
+        "Nonnegative fixed source/row weights"
+      ],
+      "steps": [
+        "Define d_lin=alpha sum_b s_b c_b",
+        "Set g_b=E<e,c_b> and G_bc=E<c_b,c_c>",
+        "Insert d_lin into R3D1; observe G is expectation of Gram matrices"
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Offline real-arithmetic proxy; not native-QDQ/packing equality",
+      "implication": "Cross-group correlation and existing residual error can propose static swaps without online routing."
+    },
+    {
+      "id": "R3D3",
+      "claim": "Free oracle benefit at any fixed routing unit is (E|A_U|-|E A_U|)/2; finer free granularity has no smaller attainable total positive advantage under consistent aggregation.",
+      "assumptions": [
+        "Two frozen equal-cost supports",
+        "Sample source/tile weights fixed before looking at outcomes",
+        "No routing/packing/launch cost included"
+      ],
+      "steps": [
+        "Compare E[max(0,A_U)] against max(0,E A_U)",
+        "Apply x_+=(x+|x|)/2",
+        "Apply convexity of positive part to sum of sub-unit advantages"
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Theoretical selection upper bound, not achievable predictor or speed result",
+      "implication": "Test static first, then source-granularity; pay for tile segmentation only if incremental value justifies it."
+    },
+    {
+      "id": "R3D4",
+      "claim": "Source/training native local SSE cannot generally order continuation or decoded quality.",
+      "assumptions": [
+        "Arbitrary continuation map with anisotropic local sensitivity",
+        "No assumption of isotropic downstream response"
+      ],
+      "steps": [
+        "Local cost uses e^Te",
+        "Linearized downstream cost uses e^TJ^TJe",
+        "A non-scalar J^TJ need not preserve local error ordering"
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Counterexample to general quality ordering, not a measured Wan Jacobian",
+      "implication": "Native endpoint and decoded-quality checks cannot be replaced by local MSE."
+    },
+    {
+      "id": "R3D5",
+      "claim": "At historic mean FFN timings, extra unchanged-UB1 overhead permitted before 1.5x is <=202.357198ms.",
+      "assumptions": [
+        "Historical same hardware and timing boundary",
+        "No additional savings elsewhere"
+      ],
+      "steps": [
+        "Require T_new<=T_dense/1.5",
+        "Insert historical T_dense=10177.568613 and T_UB1=6582.688544"
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Historical point estimate; not kernel bound or new timing",
+      "implication": "Any router, repack, bank residency, synchronization and FFN auxiliary work must be costed."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "R3H1",
+      "mechanism": "Compensated residual-support mismatch: C-first selection overlooks cross-group cancellation and directions remaining after alpha/bias/R256.",
+      "status": "CANDIDATE",
+      "prediction": "Native equal-width small support swaps chosen using signed residual/small Gram outperform C-score and random swaps on source-separated native SSE with fixed correction; matched refit controls separate support gains.",
+      "derivation_ids": [
+        "R3D1",
+        "R3D2"
+      ]
+    },
+    {
+      "id": "R3H2",
+      "mechanism": "Input-conditional advantages exist at a coarse full-M support granularity, making segmented tile routing unnecessary.",
+      "status": "CANDIDATE",
+      "prediction": "A_source changes sign across sources with material gain over best fixed K; pre-W1 source-level signal predicts it with sufficiently low overhead to preserve >=1.5x complete FFN.",
+      "derivation_ids": [
+        "R3D3",
+        "R3D5"
+      ]
+    },
+    {
+      "id": "R3H3",
+      "mechanism": "Support risk is misaligned with downstream denoising sensitivity or image-formation features.",
+      "status": "CANDIDATE",
+      "prediction": "Matched native output-SSE improving support variants can fail or reverse ranking under native suffix decoded imaging; hybrid finite interventions reveal which steps propagate error.",
+      "derivation_ids": [
+        "R3D4"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "R3E0",
+      "question": "Is the newest native QDQ/OP2/UB1 source-to-record linkage sufficient for a real static group swap test?",
+      "status": "PLANNED",
+      "empirical_quantity": "Source IDs, code/policy SHA, native V1/TeacherY/StudentY replay and QDQ mask dependence",
+      "why_not_derivable": "Current live cache and source versions cannot be proven from the saved GitHub tree",
+      "controls": [
+        "Read-only pinned code/config/cache index checks",
+        "Source identity and original full-M row-coordinate checks",
+        "K0 pure native replay before editing K"
+      ],
+      "predictions": [
+        {
+          "outcome": "All current bindings and pure-arm native replay match",
+          "decision": "Proceed to minimal same-state support-swap diagnostic only with separate authorization."
+        },
+        {
+          "outcome": "Source or packed-group numerical binding differs",
+          "decision": "MAP_FLOW/REPAIR; do not run Gram proposal as if native."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "tools/step_budget_runtime.py",
+          "kind": "SOURCE"
+        },
+        {
+          "locator": "docs/45_完整原生数据复核与回放控制.md",
+          "kind": "ARTIFACT"
+        }
+      ],
+      "cost_estimate": "Read-only first; no GPU job from this research note",
+      "hypothesis_ids": [
+        "R3H1"
+      ]
+    },
+    {
+      "id": "R3E1",
+      "question": "Does fixed-width static compensated-support repair create incremental native loss improvement against C and matched controls?",
+      "status": "PLANNED",
+      "empirical_quantity": "Native gated BF16 per-source risk advantage from <=4 whole-group swaps at few fixed positions",
+      "why_not_derivable": "C/group covariance and QDQ/packing changes are data dependent",
+      "controls": [
+        "UB1 K0/old correction fixed",
+        "Training-only Gram/signed candidate selection",
+        "C-score swap and random equal-width support controls",
+        "Native K1 output; matched K0/K1 refit only after mechanism screen",
+        "Original source folds not fresh end-to-end tests"
+      ],
+      "predictions": [
+        {
+          "outcome": "Native signed swap beats old K0 and C controls on separated sources",
+          "decision": "Prioritize static fixed support and matching refit before considering any router."
+        },
+        {
+          "outcome": "Algebraic surrogate improves but native candidate does not",
+          "decision": "Reconstruct QDQ/cast group non-additivity and stop this approximation."
+        },
+        {
+          "outcome": "No source-stable improvement over matched C and existing UB1",
+          "decision": "Deprioritize the tested support neighborhood; pivot to downstream mechanism only if actionable."
+        }
+      ],
+      "artifacts": [],
+      "cost_estimate": "Streaming offline subset Gram followed by fixed small native replay; no complete Wan launch yet",
+      "hypothesis_ids": [
+        "R3H1"
+      ]
+    },
+    {
+      "id": "R3E2",
+      "question": "What is the coarsest source/step/tile unit with actionable conditional signed advantage?",
+      "status": "PLANNED",
+      "empirical_quantity": "A_unit sign distribution, best-fixed normalized gain, source-oracle and true-tile oracle, feature conditional regret and deployment timing",
+      "why_not_derivable": "Native signed benefit distribution, true-token locality and router cost depend on data and hardware",
+      "controls": [
+        "Two equal-width K0/K1 frozen",
+        "Source-level before any tile training",
+        "Full-M one-bank baseline/identity",
+        "Actual contiguous token layout not sampled pseudo-tiles",
+        "Existing HP/RB/TC1 negative baselines and source isolation"
+      ],
+      "predictions": [
+        {
+          "outcome": "Mostly same-sign A or better static K1",
+          "decision": "Ship no router, pursue static variant."
+        },
+        {
+          "outcome": "Source-level true conditional value predictable",
+          "decision": "Only then consider one-bank-per-whole-M routing with measured overhead."
+        },
+        {
+          "outcome": "Value only at tile level but segmented implementation exceeds time budget",
+          "decision": "Reject tile execution for >=1.5x target even if mathematical oracle is positive."
+        }
+      ],
+      "artifacts": [],
+      "cost_estimate": "Conditional on R3E1 and genuine full-M continuous layout; defer new GPU/kernel",
+      "hypothesis_ids": [
+        "R3H2"
+      ]
+    },
+    {
+      "id": "R3E3",
+      "question": "Does native support improvement track decoded imaging after full continuation?",
+      "status": "PLANNED",
+      "empirical_quantity": "Paired endpoint and decoded imaging/aesthetic/motion changes from frozen candidate, matched native resume, when needed H1/H2/H3",
+      "why_not_derivable": "Nonlinear denoiser/VAE and quality metrics lack a verified quality-order-preserving theorem",
+      "controls": [
+        "Pure D-Q and UB1 resume equality",
+        "Immutable seed/input/conditioning/RNG/cache",
+        "Frozen candidate before new held-out sources",
+        "No post-hoc density/quality threshold changes"
+      ],
+      "predictions": [
+        {
+          "outcome": "Local and native video improvements align and complete FFN >=1.5x",
+          "decision": "Move to new-source verification and novelty ablations."
+        },
+        {
+          "outcome": "Local loss improves but imaging remains worse",
+          "decision": "Investigate propagation/decoded-quality mismatch before re-optimizing proxy."
+        }
+      ],
+      "artifacts": [],
+      "cost_estimate": "High cost; only after earlier mechanistic screens succeed",
+      "hypothesis_ids": [
+        "R3H3"
+      ]
+    }
+  ],
+  "novelty": {
+    "status": "CANDIDATE",
+    "mechanism_link": "Novelty not established: conditional Wan-specific observation about compensated error direction under original-group QDQ and fastest implementable support granularity must be observed before any claim. Bare Gram/QCQP and routing are prior art.",
+    "nearest_prior_art": [
+      {
+        "reference": "https://proceedings.mlr.press/v151/jeong22a.html",
+        "comparison": "AISTATS 2022 already models quadratic channel coupling/resource-constrained structured selection; generic Gram criterion is not novel."
+      },
+      {
+        "reference": "https://github.com/Alrightlone/OBS-Diff",
+        "comparison": "ICLR 2026 diffusion pruning accounts for denoising-timestep error accumulation; cannot claim trajectory sensitivity alone."
+      },
+      {
+        "reference": "https://arxiv.org/abs/2501.10054",
+        "comparison": "TARDIS uses partially linear FFN folding/nonlinear restoration; R2 affine design is transfer."
+      },
+      {
+        "reference": "https://arxiv.org/abs/2605.28283",
+        "comparison": "PrunePath supplies prior structured FFN routing."
+      },
+      {
+        "reference": "https://arxiv.org/abs/2506.06644",
+        "comparison": "Spark uses predictor-informed activation sparsity, making prediction/router alone non-novel."
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "id": "R3_MAP_NATIVE",
+      "route": "MAP_FLOW",
+      "reason": "Read current numerical QDQ semantics, live binding and OP2 source assets before using Gram surrogate or assuming K1 identity."
+    },
+    {
+      "id": "R3_MATH",
+      "route": "ACCEPT_CONDITIONAL",
+      "reason": "Native signed advantage identity, fixed-operand quadratic proxy, and hierarchy of free oracle granularity are settled conditional algebra.",
+      "derivation_ids": [
+        "R3D1",
+        "R3D2",
+        "R3D3",
+        "R3D4",
+        "R3D5"
+      ]
+    },
+    {
+      "id": "R3_STATIC_FIRST",
+      "route": "DESIGN",
+      "reason": "Frozen UB1 picked K before residual compensation; prioritize equal-budget static support alternatives, no online router before testing their true native value.",
+      "experiment_ids": [
+        "R3E0",
+        "R3E1"
+      ]
+    },
+    {
+      "id": "R3_ROUTER_GATED",
+      "route": "DEFER",
+      "reason": "Do not build tile router until coarse conditional advantage and pre-W1 predictability exist; current runtime uses one packed weight per position.",
+      "experiment_ids": [
+        "R3E2"
+      ]
+    },
+    {
+      "id": "R3_QUALITY_GATED",
+      "route": "DEFER",
+      "reason": "Run native quality continuation only after actual support improvement and exact resume are established.",
+      "experiment_ids": [
+        "R3E3"
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "id": "BO1",
+      "failure": "Two whole-video schedule arms incapable of meeting disjoint20 imaging bound",
+      "lesson": "Does not rule out different supports at same step/block.",
+      "evidence": [
+        {
+          "locator": "docs/48_逐输入预算方案的质量上界与暂停.md",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "TC1",
+      "failure": "Within-tile transport of single-row teacher C support failed protocol",
+      "lesson": "Cannot equate transferred C support with native signed tile aggregate oracle.",
+      "evidence": [
+        {
+          "locator": "docs/42_连续小块的支持迁移诊断.md",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "OP3_NF2",
+      "failure": "Native-state R256 refit and reused hidden nonlinear readout did not beat frozen UB1",
+      "lesson": "Do not re-register unmodified residual-capacity recipes.",
+      "evidence": [
+        {
+          "locator": "docs/46_真实状态重拟合与导入延迟修正.md",
+          "kind": "ARTIFACT"
+        },
+        {
+          "locator": "docs/47_复用残差隐藏量的输出修正.md",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "R2_COST",
+      "failure": "Unverified assumption that same-width per-tile bank routing inherits fixed packed GEMM speed",
+      "lesson": "Tile selection changes physical GEMM scheduling and must pass an independent hardware-cost gate.",
+      "evidence": [
+        {
+          "locator": "tools/step_budget_runtime.py:apply",
+          "kind": "SOURCE"
+        }
+      ]
+    }
+  ]
+}
