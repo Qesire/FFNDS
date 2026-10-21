@@ -38,6 +38,7 @@ def main():
     for name,scope in [('UB2_formal20_COMPARISON.json','original20 observed'),('UB2_disjoint20_COMPARISON.json','supplement20 observed')]:
         if (d/name).exists():definitions.append(('UB2','video',name,scope))
     if (d/'NF1_native_RUN.json').exists():definitions.append(('NF1','native CV','NF1_native_RUN.json','four fixed omitted-group nonlinear readout folds on C24 student states'))
+    if (d/'NP1_proxy_RUN.json').exists():definitions.append(('NP1','C proxy','NP1_proxy_RUN.json','matched512 linear/nonlinear input-basis comparison; no native output-risk or kernel'))
     for trial,stage,name,scope in definitions:
         path=d/name;value=json.loads(path.read_text())
         row={'trial':trial,'stage':stage,'scope':scope,'status':value['status'],

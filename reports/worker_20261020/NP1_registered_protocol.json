@@ -1,0 +1,15 @@
+{
+  "experiment": "NP1_NONLINEAR_OMITTED_GROUP_FEATURE_C_PROFILE_20261021",
+  "registered_after": "NF1 all4 native output-readout folds rejected; before any NP1 head fitting or C-profile score",
+  "question": "do the same actual omitted-group nonlinear features help predict C supports more than equally expanded linear features, even though their NF1 output readout improvement was insufficient?",
+  "data": "same frozen24 OP1 C24-student sources and exact RB1 normalized teacher C profiles, step2/3 block20,12/12 parity folds; frozen reference/residual/main already saw all24, not whole-pipeline held-out",
+  "feature_basis": "reuse each NF1 fold's exactly4 train-C-selected omitted original64 groups, same effective W0/rawb0/Smooth2; prove projection hashes equal frozen NF1 and h256 equals frozen HP1 for all48 scopes",
+  "matched_control": "concat existing BF16 residual h256 with actual BF16 selected W0 pre-GELU z256, giving512 linear features, new fixed FP32 ridge C readout",
+  "candidate": "concat same h256 with actual selected W0->tanhGELU->originalSmooth2->nativeHiF4 activationQDQ hN256, giving512 features; same input-projection budget as control, but extra GELU/QDQ costs are additional",
+  "head": "same train-only per-feature normalization, FP64 covariance/N+1.0I ridge, fold into FP32 projection/bias; original native full-M FP32 inference and stable216-score topk with lowest groupID ties; no rank,lambda,epoch or group-count scan",
+  "comparisons": "matched training-mean static C support, unrestricted per-row C oracle, matched512-linear head, new512-nonlinear head; retain HP1 original256-linear score as context only",
+  "gate": "all4 folds oracle-static>=0.02 absolute retained C, nonlinear head captures>=0.50 of that gain, nonlinear retained C minus matched512-linear>=0.002 absolute; otherwise stop before native sparse FFN risk, packing/kernel or video",
+  "cost": "existing h reused, but the extra256x5120 BF16 input projection is real, plus FP32 head512x216, GELU/QDQ/topk and future packing/padding costs; no cost-free feature or speed claim",
+  "scope": "C proxy only, not native output error or deployable dynamic kernel; fixed future-head recipe separate from rejected NF1 output correction; no UB2 or confirmation video labels enter fitting",
+  "resources": "worker GPU0 only after NF1 terminal and no other isolated timing, all tensors/heads in HF derived cache, preserve80GiB node reserve"
+}
