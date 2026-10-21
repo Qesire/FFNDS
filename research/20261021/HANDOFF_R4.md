@@ -1,3 +1,5 @@
+> **Historical handoff, superseded for execution.** R4E1 completed and rejected its registered neighborhood; R4E2/E3 did not trigger. Read [CURRENT_DECISION](../CURRENT_DECISION.json) and [HANDOFF_R5](HANDOFF_R5.md). Preserve the original snapshot below; do not rerun its old next-action list.
+
 **FFNDS R4 — mechanism-research handoff**
 
 - Evidence base: FFNDS `9227de1f3e391341ff000c15ad805d9ca2db3084`. Read current source, R3, OP3/NF2 compact raw tables, BO1 Decimal certificate, TC1 and OP2 boundaries. This was not a live worker session.

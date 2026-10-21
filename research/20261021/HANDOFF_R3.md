@@ -1,3 +1,5 @@
+> **Historical handoff, superseded for execution.** R4E1 completed and rejected its registered neighborhood; R4E2/E3 did not trigger. Read [CURRENT_DECISION](../CURRENT_DECISION.json) and [HANDOFF_R5](HANDOFF_R5.md). Preserve the original snapshot below; do not rerun its old next-action list.
+
 # FFNDS R3｜AutoResearcher handoff (2026-10-21)
 
 - **Source identity**: FFNDS `10081aafe6c3d975b0ce736b929d5991cc4a0e65`; AutoResearcher `bb34ea7be50624d47cb26de7c7c49e40882001f1` skill/core. This handoff is a research review of saved GitHub files, not a live worker session.
