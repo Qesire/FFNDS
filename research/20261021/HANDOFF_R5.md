@@ -1,5 +1,7 @@
 **FFNDS R5 current handoff — anti-regression audit**
 
+Historical handoff; the model-protocol closure remains valid. Current research continuation: [R7 handoff](HANDOFF_R7.md) and [current decision](../CURRENT_DECISION.json).
+
 - Base: `dceb931ef572e27e6ace9123d85c5b2892813719`; mechanism-research used. Public saved evidence only; no live worker/model operation this turn.
 - Current entry: [CURRENT_DECISION](../CURRENT_DECISION.json), [triage](method_triage.json), [audit](../../docs/54_已淘汰路线防回退审计_20261021.md).
 - Observed history: R4E0 controls passed; R4E1 registered step2/3 block20,8+8 shortlist,q<=2,849 proxy actions/fold, fixed-h matched readout screen rejected all4 native gates. Selected actions, not every proxy action, received native evaluation. Step3 includes identity as best. R4E2/E3 NOT_RUN.

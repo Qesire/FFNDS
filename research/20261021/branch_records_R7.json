@@ -1,0 +1,63 @@
+{
+  "evidence_base_commit": "16e14265b6a8908bc9e6f3fa7fc4fb860c350fb8",
+  "current_decision": "research/CURRENT_DECISION.json",
+  "record_scope": "Mechanism differences and prioritized questions; no automatic model execution or novelty certification",
+  "branches": [
+    {
+      "id": "R7_CROSS_LAYER_OUTPUT_RECOVERY",
+      "nearest_failed_recipes": ["OP3_NATIVE_STATE_REFIT_SAME_R256", "NF2_REUSED_H_GELU_READOUT", "LR2_LATE_TEN_R512", "FA2 local quantized full-main recovery"],
+      "prior_failure": "Independent local correction/refit failed its registered gates or final quality. LR2 supplementary imaging remains3.05058%; this rejection remains intact.",
+      "actual_computation": "Current UB1 full native boundary state -> adjacent-window propagation with unchanged supports/widths -> jointly adjust existing correction readouts -> native downstream window or full-flow target -> candidate rollout and fresh-source quality only after separately passing controls.",
+      "substantive_difference": "Supervision/information is the downstream transported error and cross-layer terms, rather than a sum of independent per-token FFN output SSE. No larger rank or support pool is proposed.",
+      "why_old_obstruction_does_not_transfer": "Local squared errors do not determine e_l^T J_l^T J_m e_m. Existing local/native controls plus new same-state flow geometry and failed moment/rank recovery demonstrate that operator/amplitude accuracy alone does not establish final quality. They justify testing the missing quantity, not claiming that it is favorable.",
+      "prediction": "The fixed native4-arm pair can expose local-error/downstream-benefit ranking differences or measurable cross-layer transport terms. If absent at this pair, do not promote this scoped hypothesis.",
+      "matched_control": "Same data, support/width/rank/parameter count and native boundary, independently fitted local-output objective versus downstream-window objective. Controls not yet implemented; no fit performed.",
+      "cheapest_decisive_test": "DRAFT R7D1 fixed step3 block30/31 four-arm transport test, with original TF2 no-op/identity controls. It measures a new cross-layer quantity and does not re-run R4 support search.",
+      "test_protocol": "research/20261021/R7D1_cross_layer_transport_protocol.json",
+      "all_costs": "Future readout form can preserve existing two R256 projections and50% main MAC, but joint training/suffix evaluation is offline extra work. Native full-M window activations/attention and backward support must be verified; no memory or speed claim. Dense restoration arms are diagnostic, not deployment.",
+      "exposure_and_final_eval": "Old24 calibration and both20 cohorts already exposed. Existing TF2 four sources diagnostic only. Freeze truly new source-separated training/selection/final sets for any candidate; old confirmation conditions cannot be silently reassigned.",
+      "observed_operands": ["All original local failures and matched native controls", "Nine saved candidate/cohort quality comparisons", "16 same-DQ-state flow pairs revalidated and described"],
+      "missing_operands": ["Full-window boundary capture/resume and a reviewed intervention hook", "Native no-op4-arm controls", "Observed transport interaction or candidate recovery"],
+      "novelty": "Known downstream/contiguous/rollout distillation family; proposed quantized frozen-Wan adaptation is untested",
+      "disposition": "RESEARCH_PRIORITY_CAUSAL_TEST_NOT_MODEL_ELIGIBLE",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+    },
+    {
+      "id": "R7_FULL_H_WEIGHT_2OF4",
+      "nearest_failed_recipes": ["HistoricalR19 staticW1/dynamicW2 2of4", "HistoricalR22 SparseGPT W1 recovery", "HistoricalR23 folded calibration", "R1_FULL_W1_THEN_HALF_W2", "FA2 half-width main recovery"],
+      "prior_failure": "Historical2of4 partial results were not full-video acceptance; updated BF16 weights were not necessarily original HiF4 codebook values. Existing half-width recovery and fullW0 cost bounds remain valid in their scopes.",
+      "actual_computation": "FullD post-Q1 input -> 2of4 weight-sparse W0 with allH outputs -> full-H GELU/Q2 -> 2of4 weight-sparse W2 -> original bias/gate. Retain all nonlinear neuron identities but sparsify connections in both linears.",
+      "substantive_difference": "Different action/representation versus deleting hidden neurons; W2 is static weight sparsity rather than the historical dynamic activation mask. Both linears can use A100 sparse Tensor Cores, so main nonzero MAC is50%, not75%. This is not an unexplored family or a novelty claim.",
+      "why_old_cost_bound_does_not_transfer": "The <=4/3 bound assumes full dense W0. Installed BF16 cuSPARSELt supports sparsifying W0 too; the synthetic roundtrip/native-QDQ shape controls actually ran. This says nothing about real-weight2of4 quality.",
+      "prediction_and_control": "Backend must save complete synthetic native-QDQ workload time against matched same-run dense full-H control, with dense-masked control for accumulation. Future real-weight precision would need separate native full-teacher comparison, not assume magnitude masking is good.",
+      "observed_prerequisite": "Default layout0.6949x was slower. A source-derived fused output layout reduced sparse median83.7658ms->47.9577ms; matched same-run dense/sparse1.24034x, plus R256 workload1.22292x. All timing samples and original failure preserved.",
+      "cheapest_next_test": "Decompose remaining native QDQ/GEMM/layout/auxiliary costs before any real-weight fit. No blind mask/algorithm sweep or automatic accuracy escalation.",
+      "all_costs": "Full-H activation/GELU/QDQ retained; sparse packing, padding/output layout and auxiliaries count. Synthetic resident setup/compression excluded from timings and recorded; no original full160, H20 or video speed inheritance.",
+      "exposure_and_final_eval": "Synthetic random values only in this preflight. No actual model data trained/tested; future real-weight source splits and fresh final evaluation still required.",
+      "observed_operands": ["A100 BF16 sparse backend source/capability", "Exact numeric sparse-weight decompression", "Two independent shape runs including original HiF4 activation quantizer", "Fused row-major output strides and matched timing samples"],
+      "missing_operands": ["Complete workload speed>=1.5x", "Native real-weight sparse precision and original frozen controls", "Fitted/candidate implementation", "Fresh-source final quality"],
+      "novelty": "Established2of4/N:M pruning and known sparse epilogue integration; engineering qualification only",
+      "disposition": "DEFERRED_KERNEL_PREFLIGHT_BELOW_REQUIRED_SPEED",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+    },
+    {
+      "id": "R2_ALL_CHANNEL_AFFINE_SPARSE_REMAINDER",
+      "nearest_failed_recipes": ["R2_GELU_HALF_LINEAR_PRUNE", "WR1/JR1 retained-feature reconstruction", "FA2 local main recovery"],
+      "actual_computation": "All-channel folded affine contribution plus a bounded-cost nonlinear remainder; distinct from discarding the GELU remainder or retaining only half of original neurons.",
+      "substantive_difference": "Reallocate computation from explicit full nonlinear features into an all-channel affine backbone and selected nonlinear residual; this is an existing R2 backlog and TARDIS-neighbor operator, not a new R7 proposal.",
+      "why_not_eliminated": "Counterexample to GELU(z)/2 alone does not eliminate a fitted/full contribution plus residual. There is still no positive native evidence, so logical non-exclusion is not eligibility.",
+      "prediction": "Under full-support control, native folding discrepancy must be smaller than any claimed compression gain, and residuals must compress within the original step budgets.",
+      "cheapest_decisive_test": "Native folding control and measured remainder compressibility before runtime/candidate work; not run here.",
+      "all_costs": "Account for foldedD-by-D matrices, bias/quantization boundaries, residual/GEMM work and real full-FFN latency; inherited R2 estimates are not timing.",
+      "exposure_and_final_eval": "Use only declared development operands for initial diagnosis; fresh source-separated final quality remains required.",
+      "observed_operands": ["Exact algebra and original counterexamples", "Pinned original native boundary and coefficients"],
+      "missing_operands": ["Full-support native fold control", "Source-separated nonlinear remainder compression", "Real cost/quality"],
+      "novelty": "Known operator transfer; not original core method",
+      "disposition": "BACKLOG_KNOWN_OPERATOR_TRANSFER",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+    }
+  ],
+  "original_acceptance_unchanged": {"main_MAC_fraction": 0.5, "complete_FFN_speedup_min": 1.5, "each_official_quality_relative_drop_max": 0.02},
+  "new_Wan_models_loaded": 0,
+  "new_Wan_candidate_videos": 0
+}

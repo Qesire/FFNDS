@@ -4,9 +4,11 @@ Wan2.2 I2V / LightX2V四步蒸馏 / HiF4 / FFN动态稀疏研究交接，整理�
 
 **当前决定：R4E1登记的有限支持交换已被拒绝，R4E2路由与R4E3视频/测速未触发。** [原生结果](docs/53_R4补偿感知支持交换的原生筛选.md)中，每折849项代理候选包含单/双交换；选中动作做原生对照后四折均未过门槛。step2匹配补偿后仅改善0.36%–0.52%且逊于冻结UB1和C对照，step3有限池以不交换最优。这里只关闭已登记邻域，不声称所有稀疏支持不可能，也不自动扩大q/pool或切换router。当前没有由该协议准入的下一项模型作业。
 
-**防回退入口：** [当前决定](research/CURRENT_DECISION.json) → [路线表](research/20261021/method_triage.json) → [R5审计](docs/54_已淘汰路线防回退审计_20261021.md) / [当前交接](research/20261021/HANDOFF_R5.md)。根目录[AGENTS.md](AGENTS.md)规定读取顺序；`python tools/check_research_routes.py`检查状态一致性，`--method-id R4E1`或`R4E2`应拒绝继续。R5只核对保存证据和CPU算术，没有新增模型运行。
+**当前研究进展（R7）：** 已完成[全路线复盘与机制优先级](docs/56_全路线复盘与下一步机制优先级_R7.md)，重算9组逐来源质量、读取并核验32份原生flow载荷，整理[21个作者/官方/社区来源](research/20261021/method_search_R7.json)。优先研究下游输出目标与跨层误差传播。单卡合成2:4预检的布局修复把耗时83.77ms降至47.96ms，但相对同轮dense仅1.24×，没有新Wan质量或完整160位置速度通过结论；全部旧拒绝保留。
 
-**本次继续推进：** [跨步FFN复用审计](docs/55_跨步FFN复用的冷启动与配对数据审计.md)核验24来源×160位置元数据，得到3908个真实跨步配对token；block20两组仅58/55对。两步一专家也使50%全层锚点方案缺少在线时间差分所需的第二锚点；缓存Y本身需12.08 GiB。这些是数据/机制约束，没有新的质量或速度成绩。[机制差异记录](research/20261021/temporal_cache_mechanism_record.json)保持deferred，空准入列表及全部旧拒绝不变，未启动模型作业。
+**防回退入口：** [当前决定](research/CURRENT_DECISION.json) → [路线表](research/20261021/method_triage.json) → [R5模型准入审计](docs/54_已淘汰路线防回退审计_20261021.md) / [当前R7交接](research/20261021/HANDOFF_R7.md)。根目录[AGENTS.md](AGENTS.md)规定读取顺序；`python tools/check_research_routes.py`检查状态一致性，`--method-id R4E1`或`R4E2`应拒绝继续。R7的新诊断仍为未运行草案；没有因检索或合成后端结果自动准入模型作业。
+
+**此前R6数据审计：** [跨步FFN复用审计](docs/55_跨步FFN复用的冷启动与配对数据审计.md)得到3908个真实跨步配对token，block20两组仅58/55对，缓存Y约12.08GiB。R7进一步核对到旧R20已有跨步输出复用/仿射，不能将R6称为新算子；R6仅是当前OP2准备审计，保持deferred。
 
 **历史研究索引（不作为执行队列）：** [R1/R2归档](docs/49_20261021_机制演绎与重构R2.md)、[旧淘汰审查](docs/50_研究路线淘汰审查_20261021.md)、[R3](docs/51_AutoResearcher_R3_机制路线重审_20261021.md)、[R4推导](docs/52_机制潜力分辨与可行方向_R4_20261021.md)。其中旧CANDIDATE/PLANNED、首选路线和暂停语句均是当时快照；[实际恢复与闭合记录](reports/worker_20261020/PROJECT_RESUME_R4.json)及当前决定优先。BO1/UB2、RB2/TC1、HP/NP/NF、OP3/LR2等已拒绝配方保持关闭；未测的tile/仿射等不自动升级为下一方向。
 

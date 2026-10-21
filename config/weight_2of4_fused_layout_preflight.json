@@ -1,0 +1,28 @@
+{
+  "id": "R7H1B_FUSED_OUTPUT_LAYOUT_ONLY",
+  "scope": "Synthetic hardware prerequisite, not a model method or accuracy experiment",
+  "evidence_base_commit": "16e14265b6a8908bc9e6f3fa7fc4fb860c350fb8",
+  "M": 31668,
+  "D": 5120,
+  "H": 13824,
+  "rank": 256,
+  "seed": 20261021,
+  "warmups": 3,
+  "repetitions": 5,
+  "backend": "Same installed cuSPARSELt default algorithm, one implementation repair: fused output transpose",
+  "weight_generation": "Synthetic random BF16 weights; native HiF4 QDQ then top2 per contiguous4 input weights, no learned values",
+  "activation_boundary": "FP32 Smooth divide -> BF16 -> native HiF4 QDQ(force_fp32) -> BF16, full-width tanh GELU, original row-major output layout, biases and gate",
+  "arms": [
+    "dense_full",
+    "dense_masked_control",
+    "sparse_2of4",
+    "sparse_2of4_plus_R256_workload"
+  ],
+  "correctness": "Exact numeric sparse-weight decompression; separate FFN0/2 BF16 sparse-vs-dense-masked relative RMSE<=0.01. Complete-chain discrepancy reported separately; no native bitwise equivalence assumed.",
+  "timing": "CUDA events, alternating arm order per repetition, resident weights, preprocessing/compression excluded and reported; sparse layout copies/padding inside timed forward",
+  "go_no_go": "Only decide whether installed backend/shape merits future precision study. Report all timing samples; no candidate acceptance from this preflight.",
+  "resources": "One idle controlled worker GPU; no model loads/downloads, no large tensor outputs; existing environment and original quantizer source unchanged",
+  "forbidden_inference": "No Wan quality, original full160 FFN speed, real-weight2:4 accuracy, original UB1 identity or end-to-end speed claim",
+  "parent_protocol": "config/weight_2of4_shape_preflight.json",
+  "mechanism": "Use existing sparse GEMM transpose epilogue to produce row-major outputs directly and avoid separate full-M layout copies; same2of4 weights, values, shape and QDQ."
+}

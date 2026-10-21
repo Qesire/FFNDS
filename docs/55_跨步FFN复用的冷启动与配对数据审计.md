@@ -1,5 +1,7 @@
 # 跨步FFN复用：冷启动、原生边界与已有数据
 
+> R7历史补核：原交接R20已经测试同专家跨步输出复用与标量/逐通道仿射。下文的新信息区别针对近期R4/NF读出，不代表首次引入此算子；R6的元数据观察不变。见[历史核对](../research/20261021/historical_reconciliation_R7.json)和[总复盘](56_全路线复盘与下一步机制优先级_R7.md)。
+
 基于 `7468a6e5d0be561e4fafc8cddc00c53358dc802e`，遵循项目引用的固定版本 [mechanism-research](https://github.com/Qesire/AutoResearcher/blob/bb34ea7be50624d47cb26de7c7c49e40882001f1/.agents/skills/mechanism-research/SKILL.md)。本次继续处理机制和数据问题，没有重跑已拒绝的支持交换，也没有加载模型、读取大张量数值或启动GPU。
 
 **结论：跨步缓存确实改变可用信息，但当前没有Wan上的正面数值证据。两步一专家导致在线时间差分预测缺少锚点；旧OP2样本也不是现成的256行跨步配对集。该想法登记为未具备执行条件，R5的空准入列表保持不变。** [机制差异记录](../research/20261021/temporal_cache_mechanism_record.json)和[本次原始元数据审计](../research/20261021/cross_step_pairing_audit.json)区分推导、实测元数据及未测数值。

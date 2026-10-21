@@ -1,0 +1,100 @@
+{
+  "status": "COMPLETE_SYNTHETIC_2OF4_SHAPE_PREFLIGHT",
+  "protocol_sha256": "7ef839f7b4f87d741ed6d1c49ea506e62e047e5d615248545883f71c0f2adf62",
+  "source_sha256": "c1b54c788c2865af2f1f0db17fadc40ce70c886f2bc082a507db2d6228ed18bc",
+  "entrypoint_sha256": "09c42049c16c461c3865122ce4909721917343a0c2ed5e23425d482b1212a9b2",
+  "device": "NVIDIA A100 80GB PCIe",
+  "capability": [
+    8,
+    0
+  ],
+  "torch": "2.10.0+cu128",
+  "cuda_build": "12.8",
+  "backend": "SparseSemiStructuredTensorCUSPARSELT",
+  "shape": {
+    "M": 31668,
+    "D": 5120,
+    "H": 13824,
+    "rank": 256
+  },
+  "linear_controls": [
+    {
+      "linear": "FFN0",
+      "relative_RMSE": 1.881028583738953e-05,
+      "all_values_finite": true,
+      "packed_weight_numeric_roundtrip": true,
+      "sparse_raw_output_stride": [
+        13824,
+        1
+      ],
+      "sparse_raw_output_is_contiguous": true
+    },
+    {
+      "linear": "FFN2",
+      "relative_RMSE": 3.1129438866628334e-05,
+      "all_values_finite": true,
+      "packed_weight_numeric_roundtrip": true,
+      "sparse_raw_output_stride": [
+        5120,
+        1
+      ],
+      "sparse_raw_output_is_contiguous": true
+    }
+  ],
+  "complete_chain_sparse_vs_dense_masked_relative_RMSE": 0.0,
+  "milliseconds_samples": {
+    "dense_full": [
+      59.668479919433594,
+      58.48255920410156,
+      59.48371124267578,
+      58.47945785522461,
+      59.66681671142578
+    ],
+    "dense_masked_control": [
+      58.626976013183594,
+      59.58736038208008,
+      59.284000396728516,
+      59.95721435546875,
+      59.32236862182617
+    ],
+    "sparse_2of4": [
+      47.15571212768555,
+      47.957664489746094,
+      48.07823944091797,
+      47.05820846557617,
+      48.190879821777344
+    ],
+    "sparse_2of4_plus_R256_workload": [
+      48.6407356262207,
+      49.524192810058594,
+      48.3012809753418,
+      50.88947296142578,
+      48.38576126098633
+    ]
+  },
+  "median_milliseconds": {
+    "dense_full": 59.48371124267578,
+    "dense_masked_control": 59.32236862182617,
+    "sparse_2of4": 47.957664489746094,
+    "sparse_2of4_plus_R256_workload": 48.6407356262207
+  },
+  "dense_full_over_sparse_median_ratio": 1.2403379496387712,
+  "dense_full_over_sparse_plus_R256_workload_median_ratio": 1.2229196470172208,
+  "maximum_allocated_GPU_bytes": 8395289600,
+  "preparation_seconds_excluded_from_timing": 0.7952486127614975,
+  "external_sources": {
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+    "installed_torch/sparse/semi_structured.py": "adbd51da067c149fa7833383a72910a014bbb0f5e1f816ab0f76b09264a1c3dd"
+  },
+  "models_loaded": 0,
+  "fitted_parameters": 0,
+  "quality_or_speed_acceptance": false,
+  "limitations": [
+    "Synthetic random weights/inputs; not real Wan accuracy or a deployed candidate.",
+    "One shape and installed default sparse algorithm; no full160 benchmark or video speed.",
+    "Full-H native HiF4 activation QDQ, GELU, bias, output layout copies and gate included.",
+    "Smooth scales are ones. R256 arm adds two GEMMs/addition only, not original residual preprocessing or coefficients.",
+    "Resident tensors; compression, transfers and setup excluded. All timing samples retained.",
+    "Sparse BF16 accumulation can differ; full QDQ chain discrepancy is reported, not assumed bitwise equal."
+  ]
+}

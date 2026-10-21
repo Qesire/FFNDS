@@ -1,0 +1,23 @@
+{
+  "status": "REGISTERED_BEFORE_SYNTHETIC_KERNEL_PREFLIGHT",
+  "evidence_base_commit": "16e14265b6a8908bc9e6f3fa7fc4fb860c350fb8",
+  "protocol": {
+    "path": "config/weight_2of4_shape_preflight.json",
+    "sha256": "8c948bb8848e639b8fb5e332bca1812bd6540fc4892943ea4a9f81efdc103027"
+  },
+  "source": {
+    "path": "tools/probe_weight_2of4_shape.py",
+    "sha256": "568946c1292a1f628ad0c4808ad19ffcd94d53a861b600ae93f9586ee56bc682"
+  },
+  "current_decision_sha256": "5c771ca337659d2e1901381ddb3723655b319a5f204896249b933d58a9a57f38",
+  "scope": "Synthetic non-model hardware qualification. No Wan method is selected or made eligible; no model assets, fit, or video run.",
+  "mechanism_to_qualify": "Keep fullH nonlinear features, enforce2of4 connectivity in BOTH W0 andW2. Unlike old fullW0/halfW2, theoretical main nonzero MAC is50%.",
+  "nearest_closed_recipes": [
+    "R1_FULL_W1_THEN_HALF_W2",
+    "FA2 half-width full-main refit",
+    "R4E1_FIXED_H_16GROUP_Q2"
+  ],
+  "why_old_cost_bound_does_not_apply": "Both linears use sparse Tensor Cores, not a full dense W0 with a half W2. Installed backend and dtype/shape support have been read-only checked; speed remains to be measured.",
+  "prediction": "Resident synthetic sparse native-QDQ FFN can have lower elapsed time than the same full-H dense workload; retain complete measurements and stop any accuracy escalation if this backend shows no practical headroom.",
+  "acceptance_unchanged": "50% main MAC, complete FFN>=1.5x and each official quality drop<=2% still required for any future real candidate."
+}

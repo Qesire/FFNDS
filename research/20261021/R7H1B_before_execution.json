@@ -1,0 +1,19 @@
+{
+  "status": "REGISTERED_LAYOUT_REPAIR_BEFORE_EXECUTION",
+  "prior_result": {
+    "path": "research/20261021/weight_2of4_shape_preflight.json",
+    "sha256": "53b680a72a92584b56b543197d5dfe033c6a0fc44178a5b37a307df73a8fab2d"
+  },
+  "original_source_snapshot": {
+    "path": "research/20261021/R7H1_original_probe.py",
+    "sha256": "568946c1292a1f628ad0c4808ad19ffcd94d53a861b600ae93f9586ee56bc682"
+  },
+  "sources": {
+    "tools/probe_weight_2of4_shape.py": "c1b54c788c2865af2f1f0db17fadc40ce70c886f2bc082a507db2d6228ed18bc",
+    "tools/probe_weight_2of4_fused_layout.py": "09c42049c16c461c3865122ce4909721917343a0c2ed5e23425d482b1212a9b2",
+    "config/weight_2of4_fused_layout_preflight.json": "7ef839f7b4f87d741ed6d1c49ea506e62e047e5d615248545883f71c0f2adf62"
+  },
+  "basis": "Installed torch2.10 sparse _mm returns res.t only when fuse_transpose_cusparselt. Default dense@sparse dispatch transposes the result and the native FFN requires row-major; fused epilogue can remove separate full-H copies.",
+  "prediction": "Raw sparse output becomes contiguous; measure if this repairs latency. Same default algorithm, synthetic arrays, seed, controls and all timing samples; no model-method change or quality inference.",
+  "scope": "One structural layout repair for non-model backend prerequisite. Preserve failed first run and do not scan algorithms/thresholds."
+}

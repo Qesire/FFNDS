@@ -1,0 +1,192 @@
+{
+  "date": "2026-10-21",
+  "scope": "Broad search followed by applicability review; not a systematic complete literature survey or a reproduction leaderboard.",
+  "technical_claim_policy": "Use author papers/code or official engineering sources for technical claims. Community first-hand experience is marked anecdotal and used as a diagnostic lead only.",
+  "entries": [
+    {
+      "name": "Dynamic-in-Few-Step",
+      "url": "https://arxiv.org/html/2607.06631",
+      "kind": "paper",
+      "applicability_and_limit": "Joint pruning/few-step rollout-distribution objective; distinct from independent local FFN reconstruction.",
+      "review_depth": "Read method/rollout sections; no implementation reproduced.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "PPCL",
+      "url": "https://arxiv.org/html/2511.16156v2",
+      "kind": "paper",
+      "applicability_and_limit": "Contiguous-layer supervision motivates transported/window target. Does not justify arbitrary Wan layer removal.",
+      "review_depth": "Read contiguous and width sections; no reproduction.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "TinyFusion",
+      "url": "https://github.com/VainF/TinyFusion",
+      "kind": "author_code",
+      "applicability_and_limit": "Recoverability and masked KD; model/scale/training differ from frozen Wan.",
+      "review_depth": "Author README/training recipe inspected, no run.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "OBS-Diff",
+      "url": "https://github.com/Alrightlone/OBS-Diff",
+      "kind": "author_code",
+      "applicability_and_limit": "Diffusion-aware Hessian and N:M/FFN sparsity baseline. Original temporal weighting cannot be assumed right for four steps.",
+      "review_depth": "Author overview/code entry and paper abstract; not ported.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "OBS-Diff paper",
+      "url": "https://arxiv.org/abs/2510.06751",
+      "kind": "paper_abstract",
+      "applicability_and_limit": "Confirms supported pruning granularities; not accuracy evidence for current native HiF4.",
+      "review_depth": "Abstract verified, detailed kernels not audited.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "Ampere sparse Tensor Cores",
+      "url": "https://developer.nvidia.com/blog/accelerating-inference-with-sparsity-using-ampere-and-tensorrt",
+      "kind": "official_engineering_blog",
+      "applicability_and_limit": "A100 BF162of4 hardware supports both FFN matrices; advertised throughput is not full FFN timing.",
+      "review_depth": "Hardware mechanism checked; installed environment also inspected.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "PyTorch semi-structured sparsity",
+      "url": "https://docs.pytorch.org/tutorials/advanced/semi_structured_sparse.html",
+      "kind": "official_documentation",
+      "applicability_and_limit": "Conversion, sparse-linear interface and performance boundary. Online docs version differs from installed2.10; local source governs the probes.",
+      "review_depth": "Local torch2.10 source bound and two synthetic shape runs performed.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "LightWan2.2-A14B",
+      "url": "https://light-ai.top/LightX2V-BLOG/posts/LightWan22-A14B/",
+      "kind": "author_engineering_blog",
+      "applicability_and_limit": "Phased objectives/QAT/kernel co-design. New NVFP4/Blackwell/sparse-attention model differs from current checkpoint.",
+      "review_depth": "Read staged training and quantization sections; no checkpoint substitution.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "SVDQuant/Nunchaku",
+      "url": "https://hanlab.mit.edu/blog/svdquant",
+      "kind": "author_engineering_blog",
+      "applicability_and_limit": "Auxiliary-branch memory traffic/fusion is a real cost. Quantization-error low rank is not proof of pruned-neuron recovery.",
+      "review_depth": "Author mechanism and kernel-fusion sections read; no import of its reported speed.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "TARDIS",
+      "url": "https://arxiv.org/abs/2501.10054",
+      "kind": "paper_abstract",
+      "applicability_and_limit": "Known affine backbone/nonlinear fallback family. LLM acceptance, prediction and numerical boundaries differ; existingR2 backlog.",
+      "review_depth": "Abstract and original method excerpts; no Wan feasibility established.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "DisCa",
+      "url": "https://github.com/Tencent-Hunyuan/DisCa",
+      "kind": "author_code",
+      "applicability_and_limit": "Learnable cached-feature predictor and distillation-compatible training; exposes training requirements.",
+      "review_depth": "Author overview/training mechanism read, Hunyuan implementation not reproduced.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "TeaCache",
+      "url": "https://github.com/ali-vilab/TeaCache",
+      "kind": "author_code",
+      "applicability_and_limit": "Cached historical outputs with content-based decisions; not automatically effective on four-step dual experts.",
+      "review_depth": "Author overview; code/model branches not fully audited.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "TaylorSeer",
+      "url": "https://arxiv.org/abs/2503.06923",
+      "kind": "paper_abstract",
+      "applicability_and_limit": "Temporal forecast requires historical information; scoped expert cold start remains.",
+      "review_depth": "Author abstract/source read during this continuing review, no run.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "AutoTarget",
+      "url": "https://arxiv.org/html/2610.03577v1",
+      "kind": "paper",
+      "applicability_and_limit": "Few-step solver-facing cache targets and valid conversion; different from internal FFN cache.",
+      "review_depth": "Method checked in preceding continuation; no reproduction.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "ConvRot author issue",
+      "url": "https://github.com/pytorch/ao/issues/4695",
+      "kind": "author_community_proposal",
+      "applicability_and_limit": "Author reports AdaLN/fusion and row-outlier caveats in DiT rotation. Do not transfer LLM invariance blindly.",
+      "review_depth": "Proposal inspected as a lead, its measurements not independently verified.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "CentriQ",
+      "url": "https://arxiv.org/abs/2610.06260",
+      "kind": "paper_abstract",
+      "applicability_and_limit": "Mean-centering is a new quantization lead, not evidence that half-width pruning is solved.",
+      "review_depth": "Abstract only; no verified folding implementation or adoption.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "LightX2V cache documentation",
+      "url": "https://github.com/ModelTC/LightX2V/blob/main/docs/ZH_CN/source/method_tutorials/cache_source.md",
+      "kind": "official_documentation",
+      "applicability_and_limit": "Different cache strategies/model/hardware boundaries; documented multi-step speeds cannot serve as current FFN results.",
+      "review_depth": "Documentation reviewed, no new cache run.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "MLX TeaCache distilled schedules",
+      "url": "https://github.com/IonDen/mlx-teacache",
+      "kind": "community_author_implementation",
+      "applicability_and_limit": "Firsthand zero-skip/compile-avoidance discussion shows need to separate algorithm from wrapper speed. Different models and Apple hardware.",
+      "review_depth": "Author README only, anecdotal cross-platform lead, not Wan evidence.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "Wan blurred LoRA workflow",
+      "url": "https://www.reddit.com/r/StableDiffusion/comments/1rhg5cg/wan_22_img2vid_any_lora_you_use_produces_blurred/",
+      "kind": "community_firsthand_discussion",
+      "applicability_and_limit": "Workflow incompatibilities can cause blur; compare against pinned assets/no-op first. No scientific pruning evidence.",
+      "review_depth": "Read firsthand discussion; no tuning adopted.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "Wan4step release/settings discussion",
+      "url": "https://www.reddit.com/r/StableDiffusion/comments/1nshjxg",
+      "kind": "community_firsthand_discussion",
+      "applicability_and_limit": "Different LoRA versions/schedulers/settings must not be pooled; check author recommendations against exact checkpoint.",
+      "review_depth": "Community discussion and official release checked; no candidate-only schedule change.",
+      "reproduced_on_Wan": false
+    },
+    {
+      "name": "Official Wan2.2-Lightning",
+      "url": "https://github.com/ModelTC/Wan2.2-Lightning",
+      "kind": "author_code",
+      "applicability_and_limit": "Release/checkpoint lineage distinguishes four-step generation from sparse-FFN acceleration.",
+      "review_depth": "Author overview/release history read; original model binding retained.",
+      "reproduced_on_Wan": false
+    }
+  ],
+  "local_implementation_work": "Separate two synthetic installed-backend probes; no external method reproduced on actual Wan model weights.",
+  "search_axes": [
+    "few-step pruning/rollout",
+    "contiguous or recovery-aware distillation",
+    "2of4 full-H sparse weights",
+    "Hessian/pruning/merging leads",
+    "quantization/rotation/affine remainder",
+    "cache prediction and cold start",
+    "official kernels and operator fusion",
+    "community four-step blur/LoRA/scheduler reports"
+  ],
+  "search_limitations": [
+    "Search relevance is not evidence of effectiveness.",
+    "Some sources only read at abstract/overview level, explicitly marked.",
+    "No accuracy/speed table comparing incompatible published denominators.",
+    "No automatic eligibility from prior art or hardware support."
+  ]
+}
