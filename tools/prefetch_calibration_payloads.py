@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor,as_completed
 import hashlib
 import json
 from pathlib import Path
-import platform
+from worker_identity import require_worker
 import time
 
 
@@ -21,7 +21,7 @@ def main():
     ap.add_argument('--out',type=Path,required=True)
     ap.add_argument('--start-block',type=int,default=0)
     args=ap.parse_args()
-    if platform.node().split('.')[0]!='worker':raise RuntimeError('Read-ahead must warm the actual GPU host file cache')
+    require_worker()
     if args.start_block not in range(40):ap.error('start-block must be0..39')
     entries=[];bindings=[]
     for path in args.collections:
@@ -47,7 +47,7 @@ def main():
             if i%192==0:print(f'VERIFIED_AND_READ_AHEAD {i}/3840 payloads',flush=True)
     args.out.mkdir(parents=True,exist_ok=True)
     report={'status':'PASS_CALIBRATION24_ALL_PAYLOAD_SHA_AND_HOST_READ_AHEAD','collections':bindings,
-        'files':len(entries),'bytes':total,'source_sha256':sha(Path(__file__)),'host':platform.node(),
+        'files':len(entries),'bytes':total,'source_sha256':sha(Path(__file__)),'host':'worker',
         'IO_workers':4,'GPU_work':False,'extra_disk_copy_bytes':0,'elapsed_seconds':time.perf_counter()-started,
         'quality_or_speed_acceptance':False}
     temp=args.out/'RUN.json.tmp';temp.write_text(json.dumps(report,indent=2)+'\n');temp.replace(args.out/'RUN.json')

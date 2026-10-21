@@ -3,7 +3,7 @@ import csv
 from datetime import datetime,timezone
 import io
 import os
-import socket
+from worker_identity import require_worker
 import subprocess
 import threading
 import time
@@ -28,7 +28,8 @@ class ResourceMonitor:
         self.samples.append(sample)
 
     def start(self):
-        if socket.gethostname().split('.')[0]!='worker' or os.environ.get('CUDA_VISIBLE_DEVICES')!='0':
+        require_worker()
+        if os.environ.get('CUDA_VISIBLE_DEVICES')!='0':
             raise RuntimeError('Formal timing requires the declared physical worker GPU0')
         self.sample();self.check()
         def loop():

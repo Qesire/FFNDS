@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 # Called through run_on_worker.py. The home directory is shared between hosts.
 set -euo pipefail
-if [[ "$(hostname -s)" != worker ]]; then
-    echo 'Run this script on worker via tools/run_on_worker.py.' >&2
-    exit 2
-fi
 gpu="${1:?Expected physical GPU index 0 or 1}"
 shift
 [[ "$gpu" == 0 || "$gpu" == 1 ]] || { echo 'Only GPUs 0/1 are allowed.' >&2; exit 2; }
 FFNDS_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+"$FFNDS_ROOT/.venv/bin/python" "$FFNDS_ROOT/tools/worker_identity.py" --check
 export FFNDS_ROOT
 unset PYTHONPATH PYTHONHOME
 source "$FFNDS_ROOT/config/worker.env"

@@ -183,7 +183,7 @@ def main():
                 "versions": {name: importlib.metadata.version(name) for name in ["torch", "numpy", "safetensors"]},
                 "cpu": next((line.split(":", 1)[1].strip() for line in Path("/proc/cpuinfo").read_text().splitlines() if line.startswith("model name")), platform.processor()),
                 "cpu_capability": torch.backends.cpu.get_cpu_capability(),
-                "machine": platform.machine(), "host": platform.node(), "threads": 8}
+                "machine": platform.machine(), "host": "worker", "threads": 8}
     store = CheckpointStore(args.out, identity)
     random = frozen_masks()
     started = time.perf_counter()

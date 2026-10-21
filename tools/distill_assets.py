@@ -1,7 +1,7 @@
 """Shared strict asset checks for new persistent dense-pipeline experiments."""
 import json
 from pathlib import Path
-import socket
+from worker_identity import matches_worker
 
 from ar2_checkpoint import digest
 
@@ -14,7 +14,7 @@ def verified_assets():
     local_path = ROOT / ".runtime/node_local_model_view.json"
     cache_path = ROOT / ".runtime/hif4_rebuilt_cache.json"
     logical, local, cache = [json.loads(p.read_text()) for p in [logical_path, local_path, cache_path]]
-    if logical["status"] != "PASS" or local["status"] != "PASS" or local["host"] != socket.gethostname().split(".")[0]:
+    if logical["status"] != "PASS" or local["status"] != "PASS" or not matches_worker(local["host"]):
         raise RuntimeError("Need verified model views on their declared node")
     if local["logical_model_view_sha256"] != digest(logical_path):
         raise RuntimeError("Node model mirror belongs to another logical view")

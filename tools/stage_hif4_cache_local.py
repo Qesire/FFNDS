@@ -10,7 +10,7 @@ import json
 import os
 from pathlib import Path
 import shutil
-import socket
+from worker_identity import require_worker
 
 ROOT = Path(__file__).resolve().parents[1]
 SERIES = "WORKER_HIF4_SMOOTH_RTN_REBUILD_20261020"
@@ -30,8 +30,7 @@ def main():
     ap.add_argument("--hf-home", type=Path, default=Path("/var/tmp/ffnds-xiang/huggingface"))
     ap.add_argument("--report", type=Path, default=ROOT / ".runtime/local_hif4_cache.json")
     args = ap.parse_args()
-    if socket.gethostname().split(".")[0] != "worker":
-        ap.error("This staging operation must run on worker")
+    require_worker()
     os.umask(0o077)
     target = args.hf_home / "ffnds-derived" / SERIES
     markers = sorted((args.source / "shards").glob("*.json"))

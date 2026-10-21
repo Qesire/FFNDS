@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Run at most one project CPU diagnostic alongside the two controlled GPU jobs.
 set -euo pipefail
-[[ "$(hostname -s)" == worker ]] || { echo 'CPU diagnostics must run on worker.' >&2; exit 2; }
 FFNDS_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+"$FFNDS_ROOT/.venv/bin/python" "$FFNDS_ROOT/tools/worker_identity.py" --check
 export FFNDS_ROOT
 unset PYTHONPATH PYTHONHOME
 source "$FFNDS_ROOT/config/worker.env"

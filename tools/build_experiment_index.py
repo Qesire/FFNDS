@@ -39,6 +39,7 @@ def main():
         if (d/name).exists():definitions.append(('UB2','video',name,scope))
     if (d/'NF1_native_RUN.json').exists():definitions.append(('NF1','native CV','NF1_native_RUN.json','four fixed omitted-group nonlinear readout folds on C24 student states'))
     if (d/'NP1_proxy_RUN.json').exists():definitions.append(('NP1','C proxy','NP1_proxy_RUN.json','matched512 linear/nonlinear input-basis comparison; no native output-risk or kernel'))
+    if (d/'TC1_coherence_RUN.json').exists():definitions.append(('TC1','C pair-transfer diagnostic','TC1_coherence_RUN.json','native64-row neighbor support transfer on known C24 states; no full-tile oracle or native output risk'))
     for trial,stage,name,scope in definitions:
         path=d/name;value=json.loads(path.read_text())
         row={'trial':trial,'stage':stage,'scope':scope,'status':value['status'],

@@ -10,7 +10,7 @@ import json
 import os
 from pathlib import Path
 import shutil
-import socket
+from worker_identity import require_worker
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -29,8 +29,7 @@ def main():
     ap.add_argument("--hf-home", type=Path, default=Path("/var/tmp/ffnds-xiang/huggingface"))
     ap.add_argument("--output", type=Path, default=ROOT / ".runtime/node_local_model_view.json")
     args = ap.parse_args()
-    if socket.gethostname().split(".")[0] != "worker":
-        ap.error("Local I/O staging must run on worker")
+    require_worker()
     os.umask(0o077)
     original = json.loads(args.model_view.read_text())
     if original["status"] != "PASS" or len(original["files"]) != 12:

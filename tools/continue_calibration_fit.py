@@ -6,6 +6,7 @@ import shlex
 import subprocess
 import sys
 import time
+from run_on_worker import SSH
 
 ROOT=Path(__file__).resolve().parents[1]
 RUN=ROOT/'runs/worker_restart_20261020'
@@ -51,8 +52,7 @@ def main():
         '--matrices',str(RUN/'dq_matrix/MATRIX_dq_gpu1_tasks0_seeds20261001-20261002.json'),str(RUN/'dq_matrix/MATRIX_dq_gpu0_tasks6_seeds20261001-20261002.json'),
         '--fits',str(RUN/'cstatic_centered_fit/high_RUN.json'),str(RUN/'cstatic_centered_fit/low_RUN.json'),
         '--parent',str(RUN/'ar2_uniform512'),'--out',str(RUN/'cstatic_centered_heldout')]
-    ssh=['ssh','-o','ProxyCommand=none','-o','BatchMode=yes','-o','ControlMaster=auto','-o','ControlPersist=600',
-         '-o','ControlPath=/tmp/ffnds-worker-%r-%p','worker',shlex.join(command)]
+    ssh=SSH+[shlex.join(command)]
     with (ROOT/'runs/bootstrap_20261020/cstatic_centered_heldout.log').open('wb') as handle:
         subprocess.run(ssh,stdout=handle,stderr=subprocess.STDOUT,check=True)
     print('COMPLETED fixed-policy held-out evaluation',flush=True)

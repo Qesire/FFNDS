@@ -63,7 +63,7 @@ def main():
     protocol_path=ROOT/'config/output_variance_vm1.json'
     store=CheckpointStore(args.out,{'protocol_sha256':digest(protocol_path),'base_policy_sha256':digest(args.base_policy),
         'training_collections':bindings,'cache_manifest_sha256':digest(cache_path),'base_fits':base_bindings,
-        'residual_fingerprint':residual.fingerprint,'torch':torch.__version__,'host':platform.node(),'threads':8,
+        'residual_fingerprint':residual.fingerprint,'torch':torch.__version__,'host':'worker','threads':8,
         'cpu_capability':torch.backends.cpu.get_cpu_capability(),
         'sources':{str(p):digest(p) for p in [Path(__file__),ROOT/'tools/output_variance.py',ROOT/'tools/reduced_rank_residual.py']}})
     if args.stage=='full':

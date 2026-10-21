@@ -7,9 +7,9 @@ import shlex
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-SSH = ["ssh", "-o", "ProxyCommand=none", "-o", "BatchMode=yes", "-o", "ConnectTimeout=20",
-       "-o", "ServerAliveInterval=30", "-o", "ServerAliveCountMax=3", "-o", "ControlMaster=auto",
-       "-o", "ControlPersist=600", "-o", "ControlPath=/tmp/ffnds-worker-%r-%p", "worker"]
+from worker_identity import ssh_arguments
+
+SSH = ssh_arguments()
 
 
 def wait_for_source_visibility():

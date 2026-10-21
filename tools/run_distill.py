@@ -11,7 +11,7 @@ import hashlib
 import importlib.metadata
 import json
 from pathlib import Path
-import socket
+from worker_identity import matches_worker
 import sys
 import time
 import traceback
@@ -92,7 +92,7 @@ def main(arm="D-BF16"):
             candidate = json.loads(io_path.read_text())
             compatible = (candidate.get("status") == "PASS"
                 and candidate.get("logical_model_view_sha256") == digest(args.model_view)
-                and candidate.get("host") == socket.gethostname().split(".")[0])
+                and matches_worker(candidate.get("host")))
             if compatible:
                 def asset_id(row):
                     return tuple(row[name] for name in ["repo", "revision", "filename", "bytes", "sha256"])

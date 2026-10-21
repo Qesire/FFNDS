@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Called inside the GPU-locked worker_exec.sh wrapper.
 set -euo pipefail
-[[ "$(hostname -s)" == worker ]] || exit 2
 FFNDS_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+"$FFNDS_ROOT/.venv/bin/python" "$FFNDS_ROOT/tools/worker_identity.py" --check
 unset PYTHONPATH PYTHONHOME
 export PATH="$FFNDS_ROOT/.runtime/envs/vbench_official/bin:/usr/bin:/bin:$PATH"
 export PYTHONNOUSERSITE=1
