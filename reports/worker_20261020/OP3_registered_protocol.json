@@ -1,0 +1,19 @@
+{
+  "experiment": "OP3_STATE_MATCHED_UB1_R256_FIXED_RIDGE_20261021",
+  "registered_after": "OP2 all24 collection, OP2A all3840 payload audit, OP2D all24 prefix and state description, OP2R both96-position native replays and all4 exact NF1 risk controls passed; no OP3 fit observed",
+  "question": "Does fitting the same rank256 residual on actual UB1 states improve native error over both frozen UB1 and a source/row/budget-matched old-C24-state refit?",
+  "fixed_main": "original active UB1,25/50/50/75 percent widths, frozen supports/alpha/folded bias; main MAC fraction0.5, same256-rank two-BF16-linear residual architecture",
+  "positions": "block20, all4 steps, both parity source folds; all8 comparisons required, no position selection",
+  "folds": "same24 known calibration sources,12 training/12 validation per fold,6 subject/6 background each; identical source indices and original256 row coordinates in both arms",
+  "candidate": "fit on OP2 actual UB1 V1 and actual teacher-minus-UB1-main target, gated in FP32 exactly as original residual recipe",
+  "matched_control": "fit on original OP1 C24-state V1 and teacher-minus-recomputed-UB1-main target from the same training sources/rows; evaluate on the same held validation UB1 states",
+  "fitter": "unchanged reduced_rank_residual.fit_rrr, rank256,lambda1, FP64 whitening/ridge, original seed20261021,q288,niter3; unchanged native_parameters and fullM/stride BF16 replay",
+  "gate": "all8 finite positive native comparisons: candidate SSE<=0.90*frozen_UB1_SSE and candidate SSE<=0.95*matched_old_state_refit_SSE; no threshold, rank, lambda or seed scan",
+  "secondary": "optional old-state risks remain descriptive, never used to select a different candidate or relax primary gates",
+  "exposure": "the frozen main and baseline residual already saw all24 sources and the same row draw; source folds isolate only new residual fitting, not whole-pipeline or spatial-population held-out generalization",
+  "conditions": "do not fit until all four OP2 stage reports pass; an exact installed-source I/O mirror may be selected only after byte verification and native equivalence controls, with its identity explicitly bound",
+  "if_pass": "register/execute the same fixed rank256 recipe over all160 positions on all24 actual UB1 states, then new-policy native identity, original/supplemental20 quality and same-policy engineering gates; no automatic video pass from local error",
+  "if_fail": "preserve all8 comparisons, stop full fitting and video for this recipe; do not expand a parameter scan",
+  "resources": "one free locked worker GPU; original tensors immutable in HF cache, learned arrays in HF derived cache, retain80GiB node reserve; no isolated timing overlap",
+  "quality_or_speed_acceptance": false
+}

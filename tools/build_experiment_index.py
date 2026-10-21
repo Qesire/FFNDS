@@ -43,6 +43,8 @@ def main():
     if (d/'OP2_native_control_summary.json').exists():definitions.append(('OP2','native teacher control','OP2_native_control_summary.json','two known formal sources, both arms; native identity and teacher no-op only'))
     for trial,stage,name,scope in [('OP2','native teacher collection','OP2_complete_native_collection_controller_RUN.json','24 known calibration sources, actual UB1 states, complete3840 positions'),('OP2A','dataset integrity','OP2A_complete_dataset_integrity_RUN.json','all3840 native payloads, full SHA and BF16 header contract'),('OP2D','paired state description','OP2D_native_state_description_RUN.json','24 known sources,256 sampled rows per fixed position; no spatial-population independence'),('OP2R','native replay control','OP2R_complete_native_replay_RUN.json','96 actual UB1 and96 original C24 positions, four exact frozen NF1 risks')]:
         if (d/name).exists():definitions.append((trial,stage,name,scope))
+    for trial,stage,name,scope in [('SOURCE_VIEW','dependency I/O control','source_view_native_equivalence_CONTROL.json','exact2302-file installed-source view; complete192 native controls byte-identical; no hardware speed claim'),('OP3','native CV','OP3_state_matched_native_RUN.json','all4 steps at block20, paired12/12 source folds of actual UB1 versus old C24 states; new residual fits only'),('NF2','native CV','NF2_reused_hidden_native_RUN.json','all4 steps at block20, one new output GEMM from frozen R256 hidden; source folds of new moments/readouts only'),('BO1','retrospective quality oracle','BO1_schedule_oracle_RUN.json','all2^20 whole-video UB1/UB2 assignments per exposed development cohort; no trained router, new official execution or prospective acceptance')]:
+        if (d/name).exists():definitions.append((trial,stage,name,scope))
     for trial,stage,name,scope in definitions:
         path=d/name;value=json.loads(path.read_text())
         row={'trial':trial,'stage':stage,'scope':scope,'status':value['status'],
@@ -70,7 +72,14 @@ def main():
             active.append({'trial':trial,'stage':name,'status':v['status'],'current_step':v.get('stage'),
                 'evidence':str(path.relative_to(ROOT)),'sha256':digest(path),
                 'scope':'live checkpoint snapshot, no implicit quality or speed acceptance'})
+    pause_path=d/'PROJECT_PAUSE.json'
+    execution={'status':'NO_EXPLICIT_PAUSE_RECORD'}
+    if pause_path.exists():
+        pause=json.loads(pause_path.read_text())
+        execution={'status':pause['status'],'project_complete':pause['project_complete'],
+            'evidence':str(pause_path.relative_to(ROOT)),'sha256':digest(pause_path)}
     atomic_json(args.output,{'status':'BUILT_SCOPED_EXPERIMENT_EVIDENCE_INDEX','source_sha256':digest(Path(__file__)),
+        'execution_state':execution,
         'closed_entries':entries,'active_snapshots':active,
         'scope':'all formal/supplement sources have now informed development; local/proxy controls are separate from full video and engineering gates'})
     print(f'Indexed {len(entries)} closed evidence records and {len(active)} live snapshots')

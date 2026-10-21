@@ -1,0 +1,20 @@
+{
+  "experiment": "BO1_UB1_UB2_PER_SOURCE_SCHEDULE_ORACLE_20261021",
+  "registered_after": "OP3 and NF2 rejected; UB1/UB2 complete cohort aggregates and some paired aesthetic source rows already inspected; both cohorts are development data. Before any oracle assignment optimization or joint feasibility outcome.",
+  "question": "Can even an outcome-aware per-input choice between the two existing50%-main-MAC schedules jointly reach the three quality gates on both development cohorts?",
+  "arms": {
+    "UB1": "d8840b9328af18c9f3d07b4570130e58467d0f45cae12d1dd13e8db89ebd7a6a",
+    "UB2": "b2450ad26fbf1d5f1b54cebeac6852f31b108492d42ec5d70499ff22ba63999d"
+  },
+  "arms_scope": "only already frozen UB1 widths25/50/50/75 and UB2 widths25/25/50/100; both main MAC fraction0.5 per video, UB2 removes last40 residuals. No LR2 or dense fallback, new fit, weight interpolation or hybrid within a video.",
+  "sources": "original20 and supplemental20 separately, each subject10/background10, already observed. Use all official three-metric paired source rows, average five filename copies within each actual independent source; imaging in official aggregate units.",
+  "provenance": "verify complete comparison statuses, CSV SHA, exact source/metric coverage, all60 baseline pairs equal between arms, fixed policy SHAs, same D-Q protocol per cohort, disjoint cohort identities and reproduction of each official aggregate",
+  "decision_unit": "one binary arm choice per entire source video, shared across all3 metrics; do not pick a separate arm per metric or per filename copy",
+  "objective": "exhaustively enumerate all2^20 assignments per cohort in bounded CPU blocks; choose smallest worst relative aggregate drop over the3 metrics; break exact ties by smallest mask with ascending source_group order, bit1 selects UB2",
+  "primary_gate": "both cohorts must have an oracle assignment with each aggregate relative drop<=0.02. These are retrospective oracle estimates, never an official new-policy quality pass or deployable router.",
+  "secondary": "report unconstrained best imaging bound, feasible-assignment count and winning assignments; they never replace joint primary objective. Feasible count is not a probability.",
+  "if_fail": "stop training a router restricted to these two frozen whole-video schedules; even outcome access was insufficient on an observed cohort. This does not rule out other schedules or intra-video policies.",
+  "if_pass": "headroom exists only; register separate calibration-only router training and input-feature controls before any new candidate, then freeze and evaluate on prospective sources with same-policy speed/quality verification",
+  "resources": "CPU only, no CUDA or model loading; original official results unchanged. No FFN speed or resident-equivalence claim for a new mixture.",
+  "quality_or_speed_acceptance": false
+}

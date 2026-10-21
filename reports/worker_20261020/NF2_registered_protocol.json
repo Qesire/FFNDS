@@ -1,0 +1,21 @@
+{
+  "experiment": "NF2_REUSE_FROZEN_R256_HIDDEN_NATIVE_READOUT_20261021",
+  "registered_after": "OP3 all8 source/row-matched state-refit comparisons completed and rejected; no NF2 features, coefficients or outcomes observed",
+  "question": "Can one nonlinear output readout of the already computed frozen UB1 rank256 hidden state reduce native residual error beyond both frozen UB1 and a matched linear readout?",
+  "difference_from_previous": "HP1/HP2 predicted C group scores, not teacher outputs. NF1 used four new omitted groups and two extra GEMMs on old C24 states. NF2 reuses the existing frozen residual hidden state on actual UB1 states and adds only one output GEMM.",
+  "fixed_main_and_residual": "original active UB1 widths3456/6912/6912/10368 and frozen R256; no support, alpha, bias, QDQ, projection or old residual coefficient changes",
+  "positions": "block20, all4 steps, both parity source folds; all8 comparisons required without position selection",
+  "folds": "same24 known calibration sources,12 training/12 validation per fold,6 subject/6 background;256 originally saved rows per source",
+  "train_features": "frozen first residual BF16 linear h; training-only FP64 population mean/std cast to FP32 with std floor1e-4; z=((h.float()-mean_FP32)/std_FP32).BF16; moments identical for both arms",
+  "candidate_features": "GELU(z,approximate=tanh) in BF16, width256, with no new input projection or activation QDQ",
+  "matched_control_features": "z in BF16, width256; same normalization, training rows, target, ridge recipe and one extra output GEMM",
+  "fitter": "unchanged hidden_profile_head.fit_head(features, TeacherY.float()-captured_StudentY.float(), False), centered/scaled FP64 ridge lambda1 then FP32 output parameters cast BF16, including output bias; no gradient or hyperparameter scan",
+  "native_inference": "reconstruct first and second frozen residual GEMMs at original full M/stride; assert split output and BaseY+R bitwise equal capture for all96 cases. Each head evaluates at original full M/shape; captured_StudentY+head_correction uses BF16 addition, then original BF16 gate before FP64 SSE",
+  "gate": "all8 finite positive native comparisons require candidate SSE<=0.90*frozen_UB1_SSE and candidate SSE<=0.95*matched_linear_SSE",
+  "online_cost": "baseline two R256 GEMMs plus one256-to5120 output GEMM, FP32 fixed normalization, BF16 GELU and BF16 addition. No extra first projection. Main MAC fraction0.5; aux fraction rises from0.0185185185185185 to0.0277777777777778 of original two FFN GEMMs if applied at all160 positions. No speed acceptance from this arithmetic.",
+  "exposure": "frozen main and residual saw all24 sources and identical row draws; folds hold out only new moments/output heads, not whole-pipeline or spatial-population generalization",
+  "if_pass": "register a full160 fixed-recipe fit, native identity and full video/engineering gates; no quality or speed acceptance from local error",
+  "if_fail": "preserve all8 comparisons and stop this recipe's full fitting/videos; no activation, width, lambda or training-budget scan",
+  "resources": "one idle locked worker GPU, exact verified Transformers source view, immutable original HF tensors and HF-derived learned arrays,80GiB node reserve; no timing experiment concurrently",
+  "quality_or_speed_acceptance": false
+}
