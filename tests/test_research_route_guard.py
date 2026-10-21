@@ -3,6 +3,7 @@ import contextlib
 import copy
 import importlib.util
 import io
+import json
 from pathlib import Path
 import unittest
 
@@ -21,6 +22,21 @@ class ResearchRouteGuardTests(unittest.TestCase):
 
     def method(self, method_id):
         return next(m for m in self.triage["methods"] if m["id"] == method_id)
+
+    def use_archived_registration(self):
+        """Exercise the real frozen registration independently of live selection."""
+        archive = json.loads((ROOT / 'research/20261021/R8F2_before_execution.json').read_text())
+        self.decision['registered_diagnostic'] = copy.deepcopy(archive['registration'])
+        self.decision['execution_state'] = guard.ENCODING_STATE
+        self.triage['policy']['execution_state'] = guard.ENCODING_STATE
+        self.decision['eligible_model_method_ids'] = [guard.ENCODING_ID]
+        for method in self.triage['methods']:
+            if method.get('model_execution_eligibility') == guard.READY:
+                method['model_execution_eligibility'] = 'NOT_SELECTED_IN_ARCHIVED_FIXTURE'
+        self.decision['closed_method_statuses'].pop(guard.ENCODING_ID, None)
+        self.method(guard.ENCODING_ID)['status'] = 'REGISTERED_FIXED_ENCODING_PENDING'
+        self.method(guard.ENCODING_ID)['model_execution_eligibility'] = guard.READY
+        self.assertEqual(self.errors(), [])
 
     def test_saved_results_and_current_decision_agree(self):
         self.assertEqual(self.errors(), [])
@@ -70,21 +86,30 @@ class ResearchRouteGuardTests(unittest.TestCase):
             self.assertEqual(guard.main(["--root", str(ROOT), "--method-id", "R4E1"]), 2)
 
     def test_diagnostic_cannot_register_a_second_method(self):
+        self.use_archived_registration()
         self.decision['eligible_model_method_ids'].append('UNREVIEWED_TRAINING')
         self.assertTrue(any('Only the fixed causal diagnostic' in e for e in self.errors()))
 
     def test_diagnostic_requires_frozen_source_and_protocol(self):
+        self.use_archived_registration()
         for field in ('protocol_sha256',):
             self.decision['registered_diagnostic'][field] = '0' * 64
         self.assertTrue(any('protocol hash changed' in e for e in self.errors()))
 
     def test_diagnostic_does_not_release_old_closure(self):
+        self.use_archived_registration()
         self.decision['registered_diagnostic']['preserved_model_closure'] = 'REOPEN_EVERYTHING'
         self.assertTrue(any('R4 closure must remain' in e for e in self.errors()))
 
     def test_objective_registration_requires_native_prior(self):
+        self.use_archived_registration()
         self.decision['registered_diagnostic']['prior_diagnostic']['sha256'] = '0' * 64
         self.assertTrue(any('native prerequisite evidence' in e for e in self.errors()))
+
+    def test_unrun_review_drafts_are_not_executable(self):
+        for method_id in (guard.POPULATION_ID,):
+            with self.subTest(method_id=method_id):
+                self.assertFalse(guard.method_eligibility(self.decision, self.triage, method_id)[0])
 
 
 if __name__ == "__main__":

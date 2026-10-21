@@ -1,4 +1,4 @@
-# 当前交接 — R7D2双增益目标对照
+# 已完成交接 — R7D2双增益目标对照
 
 先读CURRENT_DECISION、method_triage、docs/58。旧R4与全部失败配方仍关闭；R7D1已完成24次原生生成，不重复该诊断。
 
@@ -11,3 +11,5 @@ R7D2固定step3/block30、31两个现有R256残差增益，范围[.75,1.25]。�
 代码run_residual_gain_transport.py、residual_gain_transport.py；协议R7D2_residual_gain_protocol.json。模型/视频/大张量留HF缓存，私有worker配置和精确依赖source view保持；公开仅便携小证据。主MAC50%、R256不变，乘法新成本必须计入后续测速；本轮不是官方质量验收。
 
 结果后同步CURRENT_DECISION、method_triage、README、docs/58与本交接；保留全部结果和真正新来源验收要求，按大结果正常快进推送main。
+
+18次已完成；flow目标开发留出未胜local，固定配方拒绝。结果R7D2_results.json；当前交接迁移HANDOFF_R8F1.md。

@@ -1,0 +1,166 @@
+{
+  "id": "R10_FAILURE_SYNTHESIS",
+  "status": "COMPLETED_BROAD_REVIEW_WITH_SAVED_OPERAND_AUDIT",
+  "data_bindings": {
+    "failure_data_audit_R7.json": "42759021b5a1d591a41fad8ea9e38a3e6fd95c3e183b2a66d0e8830a63f8e9ab",
+    "historical_reconciliation_R7.json": "fd237459752c3db4326e26b5df78ac92c12292928ffcb72d47d56dec9e08c958",
+    "R7D1_results.json": "9755df9a251d8a4d6b99e25eb6e05f13c8edf6a0534626befdcc79d2532b31f2",
+    "R7D2_results.json": "bbf63b38f91cad4d5109c67515c6692f89b29a421f24b4bf091bfd68a5883a7a",
+    "R8F1_native_affine_results.json": "1bb9a2c00377995e42be7b4c91a90727748a0743ead10e416ef8625d3637b411",
+    "R8F2_native_hessian_results.json": "6a5c8daf7f51986d6af8305923132413e7153b651d52bc78e9a4b75e680abebd",
+    "R8F2_transfer_audit.json": "20a4adf1e492bcdb948d6756e465728cbef22f56775d82e47dc52ec3453d3db6",
+    "R10_saved_failure_geometry.json": "fa0b6f767865aadeddb5879950a862fab4de4c04d851502e07d71cd62824a77c",
+    "method_search_R10.json": "2a62b6da9ee0fc4df21b4bd6af17260469ff4e0f10efb29ee7004f411c8a9349",
+    "representation_cost_preflight_R10.json": "4b653f8fb887516533444260c4c1a7507646ca2be689540ba3e8570d1550b278"
+  },
+  "quality_scope": {
+    "completed_candidate_recipes_with_current_official20_video_quality": [
+      "RR1",
+      "C24",
+      "VM1",
+      "UB1",
+      "LR2",
+      "UB2"
+    ],
+    "candidate_cohort_comparisons": 9,
+    "new_candidate_quality_runs_in_R7D1_to_R10": 0,
+    "UB1_supplement_imaging_drop_percent": 3.1659676,
+    "UB1_recovery_of_net_imaging_deficit_needed_fraction": 0.3682815988024605,
+    "all_prior_validation_sources_remain_exposed": true
+  },
+  "gain_fit": {
+    "train_predicted_improvement": 2447.6443245656847,
+    "train_observed_improvement": 44.204745795199415,
+    "observed_over_predicted_improvement": 0.018060118192639446,
+    "parameter_gram_condition_number": 2.838869302292976,
+    "flow_native_secant_cosine_range": [
+      0.5723551959375571,
+      0.5751206880335363
+    ],
+    "flow_native_over_secant_change_norm_range": [
+      1.7188801331321604,
+      1.7337397730406165
+    ],
+    "conclusion": "Failure already appears on training nativeforward; not explained by a poorly conditioned2DGram or heldout source shift alone. No isolated quantization-versus-nonlinearity causal claim."
+  },
+  "hessian_transfer": [
+    {
+      "step": 2,
+      "training_ratio": 0.22856289805137744,
+      "validation_ratio": 1.0124587991099105,
+      "weight_error_outside_span_multiplier": 5.352086446158766,
+      "validation_decomposition": {
+        "RTN": {
+          "total_SSE": 7666.35118109524,
+          "in_span_SSE": 6790.039002586394,
+          "outside_span_SSE": 809.364612618172,
+          "cross_term": 66.94756589067262
+        },
+        "Hessian": {
+          "total_SSE": 7761.86471036653,
+          "in_span_SSE": 2810.514436474336,
+          "outside_span_SSE": 4628.441121845321,
+          "cross_term": 322.909152046872
+        }
+      },
+      "validation_in_span_SSE_reduction_fraction": 0.5860827256804,
+      "validation_outside_span_SSE_multiplier": 5.718610685081739
+    },
+    {
+      "step": 3,
+      "training_ratio": 0.2284868693845681,
+      "validation_ratio": 0.9610728627191111,
+      "weight_error_outside_span_multiplier": 5.199578875429605,
+      "validation_decomposition": {
+        "RTN": {
+          "total_SSE": 6963.652938270392,
+          "in_span_SSE": 6204.836439985569,
+          "outside_span_SSE": 705.7979257645625,
+          "cross_term": 53.018572520260626
+        },
+        "Hessian": {
+          "total_SSE": 6692.577864365875,
+          "in_span_SSE": 2494.361494381539,
+          "outside_span_SSE": 3920.660923274644,
+          "cross_term": 277.5554467096914
+        }
+      },
+      "validation_in_span_SSE_reduction_fraction": 0.5979972206346602,
+      "validation_outside_span_SSE_multiplier": 5.554934040118565
+    }
+  ],
+  "representation_cost_algebra": {
+    "original_dense_main_MAC_per_token": 141557760,
+    "full_support_affine_main_MAC_fraction": 1.1851851851851851,
+    "BF16_affine_80_matrices_bytes": 4194304000,
+    "fullH_factorization_GEMMs": 4,
+    "affine_remainder_GEMMs": 3,
+    "rows": [
+      {
+        "target_main_MAC_fraction": 0.25,
+        "factorized_rank_rounded_down64": 896,
+        "factorized_main_MAC_fraction": 0.23981481481481481,
+        "affine_remainder_channels": 896,
+        "affine_remainder_groups": 14,
+        "affine_main_MAC_fraction": 0.25
+      },
+      {
+        "target_main_MAC_fraction": 0.5,
+        "factorized_rank_rounded_down64": 1856,
+        "factorized_main_MAC_fraction": 0.49675925925925923,
+        "affine_remainder_channels": 4352,
+        "affine_remainder_groups": 68,
+        "affine_main_MAC_fraction": 0.5
+      },
+      {
+        "target_main_MAC_fraction": 0.5,
+        "factorized_rank_rounded_down64": 1856,
+        "factorized_main_MAC_fraction": 0.49675925925925923,
+        "affine_remainder_channels": 4352,
+        "affine_remainder_groups": 68,
+        "affine_main_MAC_fraction": 0.5
+      },
+      {
+        "target_main_MAC_fraction": 0.75,
+        "factorized_rank_rounded_down64": 2752,
+        "factorized_main_MAC_fraction": 0.736574074074074,
+        "affine_remainder_channels": 7808,
+        "affine_remainder_groups": 122,
+        "affine_main_MAC_fraction": 0.75
+      }
+    ],
+    "scope": "Algebra only, excludes QDQ/casts/traffic/launches; not speed evidence. A lower aligned rank is a feasibility point, not a postval sweep or eligibility."
+  },
+  "scientific_corrections": [
+    "R8F1/F2 constant0.5 and extraHiF4 arms did not test originalR2 learnedBF16 affine-remainder operator.",
+    "R7D1 dense restoration at two blocks is not a global50%candidate or quality bound.",
+    "R7D2 fixedgain failure does not eliminate native recovery training or terminal objectives.",
+    "R8F2 externalspan decomposition explains a measured transfer gap, not why more tokens/sources would necessarilyfixit."
+  ],
+  "new_model_runs_for_this_review": 0,
+  "new_fits_or_encodings_for_this_review": 0,
+  "CUDA_initialized": false,
+  "execution_disposition": "Active research, no automatically selected model route; drafts require a reviewed frozen protocol.",
+  "representation_hardware_preflight": {
+    "result": "research/20261021/representation_cost_preflight_R10.json",
+    "sha256": "4b653f8fb887516533444260c4c1a7507646ca2be689540ba3e8570d1550b278",
+    "same_run_four_step_speedups": {
+      "dense": 1.0,
+      "affine_remainder": 1.611873252789153,
+      "full_H_factorized": 1.4719892287042373
+    },
+    "native_QDQ_bitwise_controls": 24,
+    "models_loaded": 0,
+    "scope": "One synthetic completechain comparison, allonlineoperations included, mixedBF16derivedweights. Neitheraccuracy norfull160speed acceptance."
+  },
+  "subsequent_native_screen": {
+    "result": "research/20261021/R9A1_native_affine_results.json",
+    "sha256": "aff6357716ea64a6c48935788af5be3b6fcb8f16fedb447323fe8d8468c204df",
+    "full_support_pass": 16,
+    "compressed_pass": 7,
+    "compressed_cases": 16,
+    "new_pipeline_generations": 0,
+    "candidate_quality_evaluation": false,
+    "scope": "SeparatepostreviewR9A1nativecachedstate screen, not CPUreview orsyntheticbenchmark."
+  }
+}

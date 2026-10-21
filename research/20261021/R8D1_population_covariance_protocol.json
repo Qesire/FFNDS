@@ -1,0 +1,79 @@
+{
+  "id": "R8D1_FULL_POPULATION_Q1_COVARIANCE",
+  "status": "DRAFT_NOT_RUN_PRIORITY_DEFERRED_AFTER_R2_SCOPE_RECONCILIATION",
+  "positions": [
+    [
+      2,
+      20
+    ],
+    [
+      3,
+      20
+    ]
+  ],
+  "inputs": {
+    "indices": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      7,
+      9,
+      11,
+      12,
+      13,
+      15,
+      17,
+      18,
+      19,
+      21,
+      23
+    ],
+    "training_indices": [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "validation_indices": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "source": "Same originalOP2 source identities and native UB1 rollout states; original images/prompts/seed42+index. All sources alreadydevelopment-exposed.",
+    "population": "Every original native post-Q1 token, no new random row selection, source/pair/seed changes or teacher-forced state injection"
+  },
+  "execution_plan": {
+    "full_native_steps_per_run": 4,
+    "interventions_require_all_controls": true,
+    "pipeline_generations": 16,
+    "new_encodings_or_candidate_fits": 0,
+    "max_GPUs": 2,
+    "shards": "Training odd12 split alternately6 perGPU; original4validation split alternately2 perGPU;8 originalUB1 requests each",
+    "controls": "Every request: original4 post-latent hashes and original video bytes, original256 sampled V1 bits at both positions, all160 FFN/alllinear counters, observerRNG unchanged. Stop on any mismatch.",
+    "outputs": "Per-role/per-position raw sumX.T@X, per-input rawsumX and rowcounts; <1GiB statistics perGPU, <2GiB total statistics+videos. All inHF-derived cache; reserve80GiB plus2GiB allowance"
+  },
+  "measured_motivation": "R8F2 sampled input covariance reduces train affineSSE77%, heldout affineerrorflat (-1.25%/+3.89%improvement). Encoded weight error norm2 increases2.52-2.57x; validation input energy outside train row span9.62-12.48%. Sampled covariance trace effective dimension~100 despite maximumrank3072. This alone does not prove more rows fixes transfer.",
+  "question": "Do the saved sample-optimized codes lose their training advantage on previously unobserved tokens of the SAME source, or only on different sources? Exact population moments separate sampling artifacts from source shift.",
+  "analysis_after_controls": "Evaluate only saved originalRTN and savedR8F2 encoded matrices under exact full train/validation moments; compare sampled and fullpopulation affine SSE, mean/centered components, covariance distance. No newencoding or parameter changes in this protocol.",
+  "predeclared_interpretation": {
+    "sampling_evidence": "If oldsampled-code fullTRAIN Hessian/RTN affineSSE>=.6 while fullvalidation>=.8, at least about half of the77% training advantage vanishes within same sources; a separately reviewed fullcovariance encoding extension may then be considered. Not automatic eligibility.",
+    "source_shift_evidence": "If fullTRAIN ratio<=.4 and fullvalidation>=.8, substantial training advantage persists within source while transfer fails; do not re-encode merely with more rows.",
+    "otherwise": "Inconclusive; report all numbers, do not select a row count or tune a threshold."
+  },
+  "nearest_closed": "R8F2 sampled-covariance encoding is closed and remains closed. This is a data-readiness diagnostic/recipe-extension investigation, NOT a new mechanism or automatic retry of the failed candidate.",
+  "budget_scope": "Unmodified frozenUB1 inference,50% mainMAC andR256; observationalFP64 moment cost is offline and excluded from any speedclaim. No newcandidate, officialquality or fresh-sourcegeneralization acceptance.",
+  "followup": "Collection alone never authorizes encoding/compression. New decision must explain whether measured source or sampling obstruction actually changed and preserve every failed recipe.",
+  "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+  "defer_reason": "No population model job was launched. Re-reading the originalR2 specification shows learned per-channel affine coefficients, BF16 fold and noR256; strict re-quantization experiments do not test that planned operator. Test the actual operator before a data-size extension."
+}

@@ -1,0 +1,63 @@
+{
+  "id": "R8F1_FULL_SUPPORT_NATIVE_FOLD",
+  "status": "REGISTERED_FULL_SUPPORT_PRECISION_CONTROL",
+  "existing_branch": "R2_ALL_CHANNEL_AFFINE_SPARSE_REMAINDER",
+  "positions": [
+    [
+      2,
+      20
+    ],
+    [
+      3,
+      20
+    ]
+  ],
+  "inputs": {
+    "indices": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "source": "Four fixed evenly spaced original OP2 calibration24 sources; both animal and architecture sources, all development-exposed",
+    "native_geometry": "Restore original fullM/stride and original sampled coordinates; only recorded256 rows have known operands"
+  },
+  "arms": [
+    "BF16_fold_BF16_remainder",
+    "HiF4_fold_BF16_remainder",
+    "HiF4_fold_HiF4_remainder"
+  ],
+  "operators": {
+    "input": "Original actual UB1 post-Q1 BF16 V1",
+    "affine": "A=.5*W2*diag(1/smooth2)*W0, biasA=.5*W2*diag(1/smooth2)*b0; derive inFP64 thenBF16, also same native HiF4 RTN-QDQ weight variant",
+    "remainder": "phi=BF16(original_full_native_Q2(GELU(BF16(V1W0+b0))/smooth2)-.5*z_BF16/smooth2); preserve all13824 neurons",
+    "writeback": "BF16 linear(V1,A,biasA)+BF16 linear(phi,W2,original_b2); b2 exactly once, originalgate",
+    "native_precision_arm": "Quantize folded A and phi using original HiF4 CUDA/QDQ implementation; original W0/W2/native input alreadyHiF4. BF16/mixed arms onlyattribute errors, not nativeW4A4 candidates"
+  },
+  "gates": {
+    "BF16_error_over_UB1_max": 0.01,
+    "HiF4_error_over_UB1_max": 0.1
+  },
+  "execution_plan": {
+    "full_native_steps_per_run": 0,
+    "interventions_require_all_controls": true,
+    "original_UB1_native_controls": 48,
+    "full_teacher_identity_controls": 8,
+    "full_support_comparisons": 8,
+    "representation_arms_per_case": 3,
+    "compression_or_training_runs": 0,
+    "pipeline_generations": 0,
+    "max_GPUs": 1,
+    "stop_on_original_control_failure": true,
+    "source_view": "Exact original dependency view and192 prior native equality controls"
+  },
+  "nearest_closed": "R2_GELU_HALF_LINEAR_PRUNE discards nonlinear remainder, while this test preserves full remainder and original activation-quantization value; does not reopen half-linear pruning or old R4 support search",
+  "scientific_question": "Does this specific full-affine representation keep numerical/HiF4 conversion error much smaller than the current half-budget student error before attempting any compression?",
+  "prediction": "Full-support BF16 folding may be numerically close, but native HiF4 folding can fail from newly quantized affine weights or remainder. Measure andattribute rather than assume algebra survives nativeQDQ.",
+  "decision_rule": "All8 BF16 ratios<=.01 and all8 nativeHiF4 ratios<=.1 required before considering a separately registered remainder-compression test. Any gate rejection closes this fixed representation/control instance, not the whole affine or quantization-aware family. Never tune thresholds or try supports after rejection.",
+  "cost": "Current fullsupport mainMAC is1+40/216=1.185185 of original dense, not a50% candidate. Only future remaindergroups14/68/68/122 plus affine40 group-equivalents would match UB1 mainMAC; every extra QDQ/subtract/add/auxiliary must be included in future fullFFN timing. No speed inheritance.",
+  "storage": "At most2GiB new HF-derived data, retain80GiB node reserve; save BF16/HiF4 folded matrices and checksums outsidegit",
+  "data_exposure": "All OP2 sources alreadydevelopment-exposed; no fitting, source-generalization or quality claim. Truly fresh candidate finalset remains required.",
+  "scope": "Existing R2 known operator-transfer backlog prerequisite, not a new method or positive candidate result",
+  "current_decision": "research/CURRENT_DECISION.json"
+}

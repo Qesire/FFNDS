@@ -1,0 +1,83 @@
+{
+  "id": "R8F2_GROUP64_HESSIAN_AFFINE",
+  "status": "REGISTERED_FIXED_GROUP64_HESSIAN_ENCODING",
+  "positions": [
+    [
+      2,
+      20
+    ],
+    [
+      3,
+      20
+    ]
+  ],
+  "inputs": {
+    "indices": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "training_indices": [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "source": "OriginalOP2 actualUB1 states;12 odd sources only for covariance, same4 even held-out sources asR8F1; all development-exposed",
+    "training_rows_per_position": 3072,
+    "native_rows": "All native replay outputs use original fullM/stride and sampled coordinates"
+  },
+  "encoding": {
+    "group_size": 64,
+    "groups_per_matrix": 80,
+    "damping_fraction": 0.01,
+    "activation_order": false,
+    "covariance": "Uncentered FP64 V1.T@V1/N, train-only. Dead-column rule and relative diagonal damping fixed from originalGPTQ convention.",
+    "weight_target": "Same recordedR8F1 full-affine BF16 matrix; biases/remainder/original weights unchanged",
+    "quantizer": "Original native HiF4 QDQ, forceFP32, BF16-rounded64-column groups; first require groupwiseRTN equals original full-matrixRTN bitwise",
+    "compensation": "U=chol(inv(H+dampI),upper). After jointly quantizing groupg, update futureW -= (Wg-Qg) @ inv(Ugg) @ UgR. FP64 calibration compensation, fixed nativeBF16 encoded output.",
+    "not_canonical_scalar_GPTQ": "HiF4 groups couple64 values, so this is a derived joint-block adaptation, not a copied scalar-column loop or new method claim."
+  },
+  "arms": [
+    "original_RTN_full_HiF4",
+    "group64_Hessian_HiF4_with_BF16_remainder",
+    "group64_Hessian_full_HiF4"
+  ],
+  "execution_plan": {
+    "full_native_steps_per_run": 0,
+    "interventions_require_all_controls": true,
+    "original_UB1_native_controls": 48,
+    "full_teacher_identity_controls": 8,
+    "encoded_matrices": 2,
+    "compression_runs": 0,
+    "pipeline_generations": 0,
+    "max_GPUs": 1,
+    "fixed_encoding_passes_per_position": 1,
+    "baseline": "Original fullsupportRTN native losses reproduced on all8 cases before interpretation",
+    "artifact_budget": "<2GiB newHF matrices; keep80GiB node reserve"
+  },
+  "gates": {
+    "HiF4_error_over_UB1_max": 0.1,
+    "must_improve_RTN_all8": true
+  },
+  "prior_measured_obstruction": "R8F1 BF16fold only0.00081-0.00205 ofUB1 error, fullHiF4 0.1014-0.2685; quantization, not affine algebra, prevents precision gate. All8failed fixedRTN gate; do not relax it.",
+  "substantive_change": "Change offline folded-weight code selection using actual train-only input covariance and conditional error compensation. Same precision, dimensions, biases, full nonlinear support, native interfaces and thresholds; not rank/support/source/bounds expansion.",
+  "nearest_prior": [
+    "R8F1 fullsupportRTN fold rejected",
+    "HistoricalR22 SparseGPT on original W1/masking, not this foldedD-byD matrix and nativeHiF4-coupled group encoding",
+    "ExistingR2 affine-backbone backlog"
+  ],
+  "falsifiable_prediction": "Compensated native encoding may reduce heldout folded-weight error enough that fullHiF4 representation meets unchanged0.1UB1 fullsupport gate. Train-only improvement or improvement that misses the gate does not authorize compression.",
+  "stop": "One fixed encoding perposition, no damping/order/group/threshold or validation-source search. All8held-out fullHiF4 ratios<=.1 and improve originalRTN required. Otherwise close this fixed repair; not a theorem eliminating all Hessian-aware/affine methods.",
+  "scope": "Fullsupport precision prerequisite only: mainMAC1.185185dense, no50%candidate, noquality/video/fullFFN-speed acceptance. Original fresh-source50%/1.5x/eachquality<=2%contract unchanged.",
+  "primary_sources": "research/20261021/R8F2_primary_sources.json"
+}

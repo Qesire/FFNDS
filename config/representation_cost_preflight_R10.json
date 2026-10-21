@@ -1,0 +1,21 @@
+{
+  "id": "R10H1_FIXED_REPRESENTATION_COST",
+  "scope": "Non-model synthetic execution feasibility only; no accuracy or candidate acceptance",
+  "M": 31668,
+  "D": 5120,
+  "H": 13824,
+  "seed": 20261021,
+  "warmups": 3,
+  "repetitions": 7,
+  "affine_remainder_widths": [896, 4352, 4352, 7808],
+  "factor_ranks": [896, 1856, 1856, 2752],
+  "arms": ["dense", "affine_remainder", "full_H_factorized"],
+  "R256_in_candidate_arms": false,
+  "QDQ": "All arms share existing native BF16 entrypoint after FP32 Smooth and BF16 rounding. Every arm/step Q1/Q2 is checked bitwise against original forceFP32 before timing. Stop on any difference.",
+  "precision": "Original effective synthetic W0/W2 use native HiF4; derived affine matrix and factor matrices are BF16 with no extra QDQ. Mixed precision explicitly declared, not an all-W4A4 candidate.",
+  "computation": "Dense has2GEMMs; affine hasDbyDbase plus selected2GEMMs and native nonlinear remainder subtraction, noR256; factorized has4GEMMs and originalfullHGELU/Q2.",
+  "timing": "Resident operands, CUDA events, rotating/reversed balanced ordering of12arm-step calls. All Smooth/cast/QDQ/GELU/bias/remainder/gate inside forward. Offline weight construction excluded. Report all samples and summed per-step medians; no component-median addition.",
+  "stop": "One fixed comparison only, no rank/width/seed/algorithm/precision sweep. A ratio below1.5 disqualifies this unfused synthetic implementation as an immediate full-model fitting priority, not the mathematical family.",
+  "resources": "One controlled idle workerGPU, existing environment, no model download or persistent large tensors. Do not alter original quantizer or model cache.",
+  "interpretation": "Synthetic normal values and unit Smooth. No learned decomposition, real source, full160model speed, or candidate quality. Native-model feasibility remains separate."
+}

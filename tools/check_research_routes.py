@@ -19,6 +19,14 @@ DIAGNOSTIC_STATE = "R4_CLOSED_FIXED_TRANSPORT_DIAGNOSTIC_REGISTERED"
 DIAGNOSTIC_ID = "R7D1_CROSS_LAYER_TRANSPORT"
 GAIN_STATE = "R4_CLOSED_FIXED_GAIN_OBJECTIVE_REGISTERED"
 GAIN_ID = "R7D2_RESIDUAL_GAIN_OBJECTIVE"
+FOLD_STATE = "R4_CLOSED_FULL_SUPPORT_FOLD_CONTROL_REGISTERED"
+FOLD_ID = "R8F1_FULL_SUPPORT_NATIVE_FOLD"
+ENCODING_STATE = "R4_CLOSED_GROUP64_HESSIAN_FOLD_REGISTERED"
+ENCODING_ID = "R8F2_GROUP64_HESSIAN_AFFINE"
+POPULATION_STATE = "R4_CLOSED_UNCHANGED_POPULATION_COLLECTION_REGISTERED"
+POPULATION_ID = "R8D1_FULL_POPULATION_Q1_COVARIANCE"
+LEARNED_STATE = "R4_CLOSED_ORIGINAL_LEARNED_AFFINE_OPERATOR_REGISTERED"
+LEARNED_ID = "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER"
 RECIPE_ID = "R4E1_FIXED_H_16GROUP_Q2"
 RATIO_FIELDS = {
     "K1_matched_over_K0_matched": ("K0_matched", .98),
@@ -50,7 +58,7 @@ def validate_records(decision, triage, summary, execution, root=None):
     index, errors = build_index(triage)
     methods = {m["id"]: m for m in triage["methods"]}
     state = decision["execution_state"]
-    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE):
+    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE):
         errors.append("Current evidence audit requires an explicit migration for a new decision state")
     if triage["policy"]["execution_state"] != decision["execution_state"]:
         errors.append("Policy and current decision disagree")
@@ -70,8 +78,9 @@ def validate_records(decision, triage, summary, execution, root=None):
         errors.append("Eligible methods disagree with canonical decision")
     if canonical and state == CURRENT_STATE:
         errors.append("R5 closure records no eligible model follow-up; update evidence before changing the decision")
-    if state in (DIAGNOSTIC_STATE, GAIN_STATE):
-        selected = DIAGNOSTIC_ID if state == DIAGNOSTIC_STATE else GAIN_ID
+    if state in (DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE):
+        selected = {DIAGNOSTIC_STATE: DIAGNOSTIC_ID, GAIN_STATE: GAIN_ID, FOLD_STATE: FOLD_ID,
+                    ENCODING_STATE: ENCODING_ID, POPULATION_STATE: POPULATION_ID, LEARNED_STATE: LEARNED_ID}[state]
         if canonical != [selected]:
             errors.append("Only the fixed causal diagnostic is registered by this migration")
         registration = decision.get('registered_diagnostic', {})
@@ -86,9 +95,9 @@ def validate_records(decision, triage, summary, execution, root=None):
                 errors.append('Registered diagnostic protocol hash changed')
             protocol = json.loads(path.read_text())
             common = (protocol['id'] == selected
-                    and protocol['positions'] == {'step': 3, 'A_block': 30, 'B_block': 31}
-                    and protocol['inputs']['indices'] == [0, 5, 10, 15]
-                    and protocol['execution_plan']['full_native_steps_per_run'] == 4
+                    and protocol['positions'] == ([[s, 20] for s in range(4)] if selected == LEARNED_ID else [[2, 20], [3, 20]] if selected in (FOLD_ID, ENCODING_ID, POPULATION_ID) else {'step': 3, 'A_block': 30, 'B_block': 31})
+                    and protocol['inputs']['indices'] == (sorted(set(range(1, 24, 2)) | {0, 6, 12, 18}) if selected == POPULATION_ID else [0, 6, 12, 18] if selected in (FOLD_ID, ENCODING_ID, LEARNED_ID) else [0, 5, 10, 15])
+                    and protocol['execution_plan']['full_native_steps_per_run'] == (0 if selected in (FOLD_ID, ENCODING_ID, LEARNED_ID) else 4)
                     and protocol['execution_plan']['interventions_require_all_controls'] is True)
             if selected == DIAGNOSTIC_ID:
                 specific = (protocol['status'] == 'REGISTERED_CONTROLS_THEN_FIXED_ARMS'
@@ -96,7 +105,7 @@ def validate_records(decision, triage, summary, execution, root=None):
                     and protocol['execution_plan']['required_control_runs'] == 12
                     and protocol['execution_plan']['intervention_runs'] == 12)
                 required_sources = {'tools/run_cross_layer_transport.py', 'tools/cross_layer_transport.py'}
-            else:
+            elif selected == GAIN_ID:
                 specific = (protocol['status'] == 'REGISTERED_IDENTITY_DIRECTIONS_FITS_NATIVE_COMPARISON'
                     and protocol['inputs']['training_indices'] == [0, 5, 10]
                     and protocol['inputs']['development_holdout_index'] == 15
@@ -115,6 +124,84 @@ def validate_records(decision, triage, summary, execution, root=None):
                         or evidence['rank_disagreement_source_count'] < 1
                         or evidence['repeated_none_bitwise_equal'] is not True):
                     errors.append('Gain-objective diagnostic lacks its native prerequisite evidence')
+            elif selected == FOLD_ID:
+                specific = (protocol['status'] == 'REGISTERED_FULL_SUPPORT_PRECISION_CONTROL'
+                    and protocol['execution_plan']['original_UB1_native_controls'] == 48
+                    and protocol['execution_plan']['full_teacher_identity_controls'] == 8
+                    and protocol['execution_plan']['compression_or_training_runs'] == 0
+                    and protocol['gates'] == {'BF16_error_over_UB1_max': .01, 'HiF4_error_over_UB1_max': .1}
+                    and len(protocol['arms']) == 3)
+                required_sources = {'tools/probe_native_affine_fold.py', 'tools/native_affine_fold.py'}
+                prior = registration['prior_diagnostic']
+                previous_path = base / prior['result']
+                previous = json.loads(previous_path.read_text())
+                if (hashlib.sha256(previous_path.read_bytes()).hexdigest() != prior['sha256']
+                        or previous['status'] != 'PASS_COMPLETE_FIXED_OBJECTIVE_COMPARISON'
+                        or previous['completed_generations'] != 18
+                        or previous['fits_reproduced_exactly'] is not True):
+                    errors.append('Folding review lacks its completed native prerequisite evidence')
+            elif selected == ENCODING_ID:
+                specific = (protocol['status'] == 'REGISTERED_FIXED_GROUP64_HESSIAN_ENCODING'
+                    and protocol['inputs']['training_indices'] == list(range(1, 24, 2))
+                    and protocol['encoding']['group_size'] == 64
+                    and protocol['encoding']['damping_fraction'] == .01
+                    and protocol['encoding']['activation_order'] is False
+                    and protocol['execution_plan']['encoded_matrices'] == 2
+                    and protocol['execution_plan']['compression_runs'] == 0
+                    and protocol['gates']['HiF4_error_over_UB1_max'] == .1)
+                required_sources = {'tools/probe_hessian_affine_fold.py', 'tools/group_hessian_quant.py'}
+                prior = registration['prior_diagnostic']
+                previous_path = base / prior['result']
+                previous = json.loads(previous_path.read_text())
+                if (hashlib.sha256(previous_path.read_bytes()).hexdigest() != prior['sha256']
+                        or previous['status'] != 'COMPLETED_FULL_SUPPORT_NATIVE_FOLD_CHECK'
+                        or previous['BF16_numerical_gate_all8'] is not True
+                        or previous['HiF4_precision_gate_all8'] is not False
+                        or len(previous['rows']) != 8):
+                    errors.append('Encoding repair lacks its measured native prerequisite evidence')
+            elif selected == POPULATION_ID:
+                specific = (protocol['status'] == 'REGISTERED_UNCHANGED_NATIVE_POPULATION_COLLECTION'
+                    and protocol['inputs']['training_indices'] == list(range(1, 24, 2))
+                    and protocol['inputs']['validation_indices'] == [0, 6, 12, 18]
+                    and protocol['execution_plan']['pipeline_generations'] == 16
+                    and protocol['execution_plan']['new_encodings_or_candidate_fits'] == 0
+                    and protocol['execution_plan']['max_GPUs'] == 2)
+                required_sources = {'tools/collect_q1_population.py'}
+                prior = registration['prior_diagnostic']
+                previous_path = base / prior['result']; previous = json.loads(previous_path.read_text())
+                data = registration['data_audit']
+                audit_path = base / data['result']; audit = json.loads(audit_path.read_text())
+                if (hashlib.sha256(previous_path.read_bytes()).hexdigest() != prior['sha256']
+                        or previous['status'] != 'COMPLETED_FIXED_GROUP64_HESSIAN_NATIVE_CHECK'
+                        or previous['native_precision_gate_all8'] is not False
+                        or len(previous['rows']) != 8):
+                    errors.append('Population diagnosis lacks its completed native prerequisite evidence')
+                if (hashlib.sha256(audit_path.read_bytes()).hexdigest() != data['sha256']
+                        or audit['status'] != 'PASS_CPU_SAVED_HESSIAN_TRANSFER_AUDIT'
+                        or len(audit['positions']) != 2
+                        or any(p['Hessian_over_RTN_affine_SSE']['train'] >= .3
+                               or p['Hessian_over_RTN_affine_SSE']['validation'] <= .9 for p in audit['positions'])):
+                    errors.append('Population diagnosis lacks its frozen transfer data audit')
+            else:
+                specific = (protocol['status'] == 'REGISTERED_LEARNED_AFFINE_FULL_SUPPORT_THEN_FIXED_COMPRESSION'
+                    and protocol['inputs']['training_indices'] == list(range(1, 24, 2))
+                    and protocol['inputs']['validation_indices'] == [0, 6, 12, 18]
+                    and protocol['groups_by_step'] == [14, 68, 68, 122]
+                    and protocol['R256_active'] is False
+                    and protocol['precision']['derived_matrix'] == 'BF16'
+                    and protocol['precision']['extra_remainder_QDQ'] is False
+                    and protocol['gates'] == {'full_support_error_over_UB1_max': .01, 'compressed_error_over_UB1_max': .98})
+                required_sources = {'tools/screen_learned_affine_remainder.py', 'tools/affine_remainder.py'}
+                prior = registration['prior_diagnostic']
+                previous_path = base / prior['result']; previous = json.loads(previous_path.read_text())
+                if (hashlib.sha256(previous_path.read_bytes()).hexdigest() != prior['sha256']
+                        or previous['status'] != 'COMPLETED_FULL_SUPPORT_NATIVE_FOLD_CHECK'
+                        or previous['BF16_numerical_gate_all8'] is not True):
+                    errors.append('Learned affine operator lacks its native prerequisite evidence')
+                reconciliation = registration['scope_reconciliation']
+                design_path = base / reconciliation['original_R2_document']
+                if hashlib.sha256(design_path.read_bytes()).hexdigest() != reconciliation['original_R2_sha256']:
+                    errors.append('Original R2 design/scope reconciliation changed')
             if not common or not specific:
                 errors.append('Fixed diagnostic controls/positions/budget changed')
             bindings = registration['source_sha256']

@@ -1,0 +1,113 @@
+{
+  "id": "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER",
+  "status": "REGISTERED_LEARNED_AFFINE_FULL_SUPPORT_THEN_FIXED_COMPRESSION",
+  "positions": [
+    [
+      0,
+      20
+    ],
+    [
+      1,
+      20
+    ],
+    [
+      2,
+      20
+    ],
+    [
+      3,
+      20
+    ]
+  ],
+  "inputs": {
+    "indices": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "training_indices": [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "validation_indices": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "exposure": "OriginalOP2 calibration24 alreadydevelopment-exposed; same4even validation inputs, no new-source quality claim"
+  },
+  "precision": {
+    "original_weights": "Original HiF4 effectiveW0/W2 unchanged",
+    "original_activation_targets": "Original fullnativeQ1 andGELU/smooth/cast/HiF4Q2",
+    "derived_matrix": "BF16",
+    "slope_intercept": "FP32 from train-only FP64 per-channelOLS",
+    "remainder": "BF16 after nativeQ2 minus learnedaffine; no extraquantizer",
+    "extra_remainder_QDQ": false,
+    "fully_HiF4_candidate": false,
+    "scope": "Explicit BF16 affine/post-Q2 arithmetic, original hardwareBF16GEMM environment; storage andall3 mainGEMMs charged. Do not describe as fullyW4A4."
+  },
+  "R256_active": false,
+  "groups_by_step": [
+    14,
+    68,
+    68,
+    122
+  ],
+  "fit": {
+    "target": "Per-channel nativev2 versus realFP64 zstar/smooth2, slopeCov/Var and interceptmean; exactzero variance->slope0",
+    "sharing": "One learned affine matrix perexpert/block20, pooledtraining data from its2steps;6144native rows perexpert",
+    "matrix": "F=W2 diag(a/s2) W0; totalbias=b2+W2(diag(a/s2)b0+mu), roundedBF16; b2once",
+    "support": "One fixed greedy train-only pass over216 original64groups, fullsigned groupGram andtargetcorrelation; no readout refit/rank/seed/supportswap/q/pool sweep",
+    "packing": "Evaluate actualselectedW0/W2 widths with nativefullM andoriginalQ2; do not assume idealgroup proxyequals BF16packedGEMM"
+  },
+  "gates": {
+    "full_support_error_over_UB1_max": 0.01,
+    "compressed_error_over_UB1_max": 0.98
+  },
+  "execution_plan": {
+    "full_native_steps_per_run": 0,
+    "interventions_require_all_controls": true,
+    "max_GPUs": 2,
+    "original_native_UB1_controls": 96,
+    "original_full_teacher_controls": 96,
+    "learned_full_support_validation_cases": 16,
+    "compressed_validation_cases": 16,
+    "full_support_global_barrier": true,
+    "pipeline_generations": 0,
+    "new_affine_matrices": 2,
+    "compression_only_if_all16_fullsupport_numerical_gates_pass": true
+  },
+  "cost": "All3mainGEMMs d^2+2dK; (40+groups)/216=[.25,.5,.5,.75], average.5. NoR256. ExtraQ1 sharing, originalQ2, GELU, subtract/add,bias,layout,gate andnewmatrix bytes count inlatercompleteFFN timing; no1.5x or qualityacceptance from thispilot. <2GiB newHFartifacts, keep80GiB node reserve.",
+  "nearest_closed": [
+    "R2_GELU_HALF_LINEAR_PRUNE discards remainder; this learns affine andretains bounded nonlinearremainder",
+    "R8F1/F2 fixedhalf-slope strictre-quantized representation; original learnedBF16operator was not tested",
+    "R1 densegreedy fullW0/halfW2 cost; hereboth retainednonlinearlinears shrink andall-affineGEMM ischarged",
+    "OP3/LR2 independentlocalreadout/rank; this changesfunctionrepresentation andremovesR256"
+  ],
+  "falsifiable_prediction": "With originalQDQ targets andlearnedall-channel affine backbone, fixed-budget nonlinearremainder may beat frozenUB1 actualnativeSSE atall4steps. Knownmath/fullsupportaccuracy alone doesnot prove compressibility.",
+  "stop": "Stopcompression onany numericalfoldgate failure. Otherwise runexactlyone predeterminedgreedy support perstep, all4steps regardlessresults. Ifany16nativecompressiongatefails, close thisfixed operator/selectioninstance; no wideninggroups/folds/positions or restoringR256 aftervalidation. Even passrequiresseparaterealruntime/freshsourceevaluation.",
+  "scope_reconciliation": "research/20261021/R9_scope_reconciliation.json",
+  "prior_family": "ExistingR2 all-channel learnedaffine backlog; knownTARDIS-neighbor operatortransfer, no noveltyclaim",
+  "prior_primary_source": "https://arxiv.org/html/2501.10054v1",
+  "final_contract": "Unchanged50%totalmainMAC, completeFFN>=1.5x includingallonlinecosts, trulynew frozen sourceswith aesthetic/imaging/motion each<=2%drop.",
+  "model_execution_eligibility": "ELIGIBLE_REGISTERED_SCREEN",
+  "selection_evidence": {
+    "broad_review": "docs/61_全路线失败归因与组合方案复盘_R10.md",
+    "mechanism_record": "research/20261021/branch_records_R10.json",
+    "synthetic_cost": "research/20261021/representation_cost_preflight_R10.json",
+    "synthetic_cost_sha256": "4b653f8fb887516533444260c4c1a7507646ca2be689540ba3e8570d1550b278",
+    "reason": "Broadreview plus fixedcost comparison: affine_remainder1.61187x, fullHfactorization1.47199x. Only numerical/compressionnativepilot selected, notfullcandidateapproval."
+  }
+}
