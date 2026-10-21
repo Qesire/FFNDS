@@ -1,0 +1,348 @@
+{
+  "schema_version": "2.1",
+  "research_id": "DIFS-WAN-DF-R1-20261021",
+  "description": "Deduction-first assessment using the supplied ZIP and later Oct21 local reports. Historical evidence reread; no new Wan/GPU experiments. No asset hashing performed.",
+  "research_object": {
+    "id": "Wan22-I2V-Distill-DQ-versus-frozen-UB1",
+    "revision": "2026-10-21 local saved source/report snapshot; exact live-server binding not freshly verified",
+    "scope": "FFN local operator, four-step scheduler, rollout diagnostics and complete-FFN cost; full downstream sensitivity remains unknown",
+    "code_reference": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\tools\\step_budget_runtime.py",
+    "checkpoint": "Wan2.2-I2V-A14B-LightX2V-Distill-4step with historical HiF4 smooth/effective-weight cache",
+    "inputs": [
+      {
+        "name": "U",
+        "shape": "M x 5120",
+        "semantics": "modulated FFN input; full M differs from stored sampled rows",
+        "dtype": "native BF16 boundary"
+      },
+      {
+        "name": "step",
+        "shape": "scalar",
+        "semantics": "0/1 high expert; 2/3 low expert"
+      },
+      {
+        "name": "K",
+        "shape": "retained original groups of 64",
+        "semantics": "UB1 group counts 54,108,108,162 per step"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Delta",
+        "shape": "M x 5120",
+        "semantics": "gated FFN writeback operand"
+      },
+      {
+        "name": "H_i",
+        "semantics": "endpoint from dense prefix i and frozen UB1 suffix; planned diagnostic"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "ffn",
+        "operation": "smooth/cast/Q1 -> selected FFN0 -> tanh GELU -> smooth/cast/Q2 -> gain/FFN2/bias/RR",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\tools\\step_budget_runtime.py:apply; transformer_infer.py:366-416"
+      },
+      {
+        "id": "writeback",
+        "operation": "native gate, cast and residual",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\upstream\\contracts\\LightX2V\\lightx2v\\models\\networks\\wan\\infer\\transformer_infer.py:418-429"
+      },
+      {
+        "id": "flow",
+        "operation": "remaining blocks and final head",
+        "verification": "UNKNOWN"
+      },
+      {
+        "id": "scheduler",
+        "operation": "separate FP32 products/additions and observed BF16 latent cast",
+        "expression": "real-arithmetic beta=[-1/16,-5/48,-5/24,-5/8]",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\upstream\\contracts\\LightX2V\\lightx2v\\models\\schedulers\\wan\\step_distill\\scheduler.py:Wan22StepDistillScheduler.step_post"
+      },
+      {
+        "id": "continuation",
+        "operation": "frozen UB1 suffix followed by optional native VAE",
+        "verification": "MODEL_HYPOTHESIS"
+      }
+    ],
+    "edges": [
+      {
+        "from": "ffn",
+        "to": "writeback"
+      },
+      {
+        "from": "writeback",
+        "to": "flow"
+      },
+      {
+        "from": "flow",
+        "to": "scheduler"
+      },
+      {
+        "from": "scheduler",
+        "to": "continuation"
+      }
+    ],
+    "unknown_edges": [
+      {
+        "description": "Native resume state, cache and RNG equivalence for mixed dense/UB1 prefixes",
+        "decision_relevant": true,
+        "resolving_action": "Before any diagnostic, reproduce native pure dense and UB1 endpoints with exact state handling."
+      },
+      {
+        "description": "Finite error propagation and decoded quality ordering under frozen UB1 suffix",
+        "decision_relevant": true,
+        "resolving_action": "Planned H1/H2/H3 hybrid endpoint diagnostic; not executed."
+      }
+    ],
+    "closed_for_scoped_question": false
+  },
+  "derivations": [
+    {
+      "id": "D1",
+      "claim": "Actual shift5 direct flow coefficients are -1/16,-5/48,-5/24,-5/8; last/first magnitude is10.",
+      "assumptions": [
+        "Saved scheduler semantics and schedule",
+        "Real arithmetic for the simplified formula"
+      ],
+      "steps": [
+        "Apply sigma=5q/(1+4q) to q=1,3/4,1/2,1/4.",
+        "Subtract consecutive sigma, with terminal sigma=0.",
+        "Native BF16 execution retains separate casts and products."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Fixed-input direct flow-to-latent coefficient, not FFN or video sensitivity",
+      "implication": "Do not infer optimal step budget from beta alone."
+    },
+    {
+      "id": "D2",
+      "claim": "Local norm ordering and group-energy sorting do not generally order terminal error.",
+      "assumptions": [
+        "Fixed post-Q2 operands for the local identity",
+        "Arbitrary downstream linear map in the counterexample"
+      ],
+      "steps": [
+        "Expand squared norm of sum of removed group contributions, retaining cross terms.",
+        "Set L=diag(100,.01), e1=(.01,0), e2=(0,1): local and final norms have opposite order."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Constructive counterexample; does not assert the actual Wan continuation is L",
+      "implication": "Use actual suffix and decoded metrics."
+    },
+    {
+      "id": "D3",
+      "claim": "Eliminating the largest individual perturbation can increase total error.",
+      "assumptions": [
+        "Two additive output perturbations"
+      ],
+      "steps": [
+        "Let d0=(1,0),d1=(-.9,0).",
+        "Combined norm=.1; removing d0 leaves norm=.9."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Counterexample to independent-gain monotonicity",
+      "implication": "Evaluate interventions jointly at the deployed sparsity."
+    },
+    {
+      "id": "D4",
+      "claim": "H0-H4 equals sum_i(H_i-H_(i+1)) exactly; same for any fixed scalar endpoint score.",
+      "assumptions": [
+        "All relevant state included or matched",
+        "H_i uses i dense prefix steps and a fixed UB1 suffix",
+        "Same endpoint observable"
+      ],
+      "steps": [
+        "Define H_i=Psi(S3 o ... o Si(x_i^D)); H4=Psi(x4^D).",
+        "Expand adjacent differences; all intermediate endpoints cancel.",
+        "Squared endpoint error includes all pairwise inner products of differences."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Order-dependent finite intervention decomposition, valid for nondifferentiable native maps",
+      "implication": "Three intermediate endpoints can diagnose the failure without new training; no Shapley/optimality claim."
+    },
+    {
+      "id": "D5",
+      "claim": "At unchanged UB1 cost, only202.357198ms (3.074081%) added complete-FFN time remains before1.5x is lost.",
+      "assumptions": [
+        "Historical same-boundary point estimates",
+        "No offsetting savings",
+        "No generalization across hardware or inputs"
+      ],
+      "steps": [
+        "Require T_U+T_extra <= T_D/1.5.",
+        "Insert T_D=10177.568613ms,T_U=6582.688544ms."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Conditional engineering budget, not a timing confidence bound",
+      "implication": "Charge all routing, packing and auxiliary cost."
+    },
+    {
+      "id": "D6",
+      "claim": "Optimal rank-r linear prediction cannot remove residual outside the input feature span.",
+      "assumptions": [
+        "Same centered, square-root-weighted X and E",
+        "Unregularized squared Frobenius loss",
+        "Exact rank-constrained optimum"
+      ],
+      "steps": [
+        "Decompose E=P_X E+(I-P_X)E into orthogonal components.",
+        "Approximate P_X E by its best rank-r SVD.",
+        "Minimum risk equals squared orthogonal residual plus singular-value tail."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Ideal least-squares benchmark; not exact for current ridge/approximate-SVD/BF16 implementation",
+      "implication": "Do not recycle small-rank adapters without a distinct feature/state/target mechanism."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "mechanism": "Local step ranking differs from native suffix quality influence",
+      "status": "CANDIDATE",
+      "prediction": "Earlier/middle steps can affect endpoint quality more than their TF2 local-error ranking suggests.",
+      "derivation_ids": [
+        "D1",
+        "D2",
+        "D4"
+      ]
+    },
+    {
+      "id": "H2",
+      "mechanism": "Cross-step interactions affect combined perturbation risk",
+      "status": "CANDIDATE",
+      "prediction": "Pairwise inner products materially contribute to total endpoint SSE or individual restoration worsens decoded quality.",
+      "derivation_ids": [
+        "D3",
+        "D4"
+      ]
+    },
+    {
+      "id": "H3",
+      "mechanism": "Latent-distance proxy fails to order decoded imaging quality",
+      "status": "CANDIDATE",
+      "prediction": "Hybrid endpoints have different rankings under latent SSE and imaging/aesthetic changes.",
+      "derivation_ids": [
+        "D2",
+        "D4"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "E1",
+      "question": "Which of local-ranking mismatch, interactions and metric mismatch limits frozen UB1?",
+      "status": "PLANNED",
+      "empirical_quantity": "H1/H2/H3 endpoints, per-source native suffix differences, pairwise inner products and three original quality metrics",
+      "why_not_derivable": "Actual neural continuation and video quality effects are data-dependent; algebra supplies no ordering.",
+      "controls": [
+        "Frozen D-Q and UB1 endpoints",
+        "Pure-arm native resume reproduction",
+        "Same source/seed/conditioning/runtime and full state",
+        "No refitting; four existing TF2 development sources"
+      ],
+      "predictions": [
+        {
+          "outcome": "A reproducible actionable ordering difference or interaction appears",
+          "decision": "Register a small cost-matched policy exchange before any large search."
+        },
+        {
+          "outcome": "Effects are unstable, within replay/score noise, or no useful ordering difference exists",
+          "decision": "Do not launch broad rollout-guided search from this diagnostic."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-21\\shi-y\\outputs\\Wan_Distill_FFN_Dynamic_in_Few_Step_演绎检验_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Protocol-level proposal only; model outputs not produced."
+        }
+      ],
+      "cost_estimate": "With verified reusable dense states/endpoints:6 new denoiser calls and3 decodes per source;24 calls/12 decodes for4 sources, excluding controls, initialization and scoring.",
+      "hypothesis_ids": [
+        "H1",
+        "H2",
+        "H3"
+      ]
+    }
+  ],
+  "novelty": {
+    "status": "DIAGNOSTIC",
+    "mechanism_link": "Finite telescoping intervention and cost audit are standard mathematical tools; possible future policy remains unvalidated.",
+    "nearest_prior_art": [
+      {
+        "reference": "https://arxiv.org/html/2607.06631v1",
+        "comparison": "Jointly trained step structures and fake-score output rollout; distinct from frozen-model offline evaluation."
+      },
+      {
+        "reference": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\docs\\28_固定步间计算预算对照.md",
+        "comparison": "UB1 already implements step-specific static packing with residual correction; mandatory strong baseline."
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "id": "accept_math",
+      "route": "ACCEPT_CONDITIONAL",
+      "reason": "Scoped algebra and cost constraints resolved under stated assumptions.",
+      "derivation_ids": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ]
+    },
+    {
+      "id": "repair_package",
+      "route": "REPAIR",
+      "reason": "Use latest UB1/UB2/AR2/OD1 results; replace generic dense scan and small-rank replay with one frozen-baseline diagnostic."
+    },
+    {
+      "id": "propose_diagnostic",
+      "route": "DESIGN",
+      "reason": "E1 remains planned; user requested deduction first, not a fresh GPU run.",
+      "experiment_ids": [
+        "E1"
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "id": "late_dense",
+      "failure": "UB2 terminal full FFN passed same-state zero-error control but both imaging cohorts failed.",
+      "lesson": "Zero local terminal error is not terminal-state recovery or a sufficient budget rule.",
+      "evidence": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\reports\\worker_20261020\\UB2_disjoint20_COMPARISON.json",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "capacity_only",
+      "failure": "LR2 local CV passed while supplementary imaging remained above2% drop.",
+      "lesson": "Local residual capacity is insufficient for joint acceptance.",
+      "evidence": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\reports\\worker_20261020\\LR2_disjoint20_COMPARISON.json",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "dynamic_dismissal",
+      "failure": "Stable aggregate channel rankings were previously overinterpreted against dynamic support.",
+      "lesson": "New AR2 C-dynamic beats C-static locally; online cost and quality remain separate.",
+      "evidence": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\reports\\worker_20261020\\ar2_decisions.json",
+          "kind": "ARTIFACT"
+        }
+      ]
+    }
+  ]
+}

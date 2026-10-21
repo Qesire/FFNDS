@@ -1,0 +1,684 @@
+{
+  "schema_version": "2.1",
+  "research_id": "WAN-FFN-CONSTRUCTIVE-R2-20261021",
+  "description": "Constructive continuation of R1: independently derived candidates, counterexamples, nearest prior-art check, and synthetic CPU algebra checks. No new Wan model runs, video scores, or GPU timings. No asset hashing performed.",
+  "research_object": {
+    "id": "Wan22-I2V-Distill-DQ-versus-frozen-UB1",
+    "revision": "2026-10-21 local saved source/report snapshot; exact live-server binding not freshly verified",
+    "scope": "Frozen D-Q/UB1 operator and two proposed replacements: equal-budget support routing on signed native loss advantage; quantization-aware affine folding plus sparse remainder. Deployment effects remain unobserved.",
+    "code_reference": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\tools\\step_budget_runtime.py",
+    "checkpoint": "Wan2.2-I2V-A14B-LightX2V-Distill-4step with historical HiF4 smooth/effective-weight cache",
+    "inputs": [
+      {
+        "name": "U",
+        "shape": "M x 5120",
+        "semantics": "modulated FFN input; full M differs from stored sampled rows",
+        "dtype": "native BF16 boundary"
+      },
+      {
+        "name": "step",
+        "shape": "scalar",
+        "semantics": "0/1 high expert; 2/3 low expert"
+      },
+      {
+        "name": "K",
+        "shape": "retained original groups of 64",
+        "semantics": "UB1 group counts 54,108,108,162 per step"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "Delta",
+        "shape": "M x 5120",
+        "semantics": "gated FFN writeback operand"
+      },
+      {
+        "name": "H_i",
+        "semantics": "endpoint from dense prefix i and frozen UB1 suffix; planned diagnostic"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "ffn",
+        "operation": "smooth/cast/Q1 -> selected FFN0 -> tanh GELU -> smooth/cast/Q2 -> gain/FFN2/bias/RR",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\tools\\step_budget_runtime.py:apply; transformer_infer.py:366-416"
+      },
+      {
+        "id": "writeback",
+        "operation": "native gate, cast and residual",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\upstream\\contracts\\LightX2V\\lightx2v\\models\\networks\\wan\\infer\\transformer_infer.py:418-429"
+      },
+      {
+        "id": "flow",
+        "operation": "remaining blocks and final head",
+        "verification": "UNKNOWN"
+      },
+      {
+        "id": "scheduler",
+        "operation": "separate FP32 products/additions and observed BF16 latent cast",
+        "expression": "real-arithmetic beta=[-1/16,-5/48,-5/24,-5/8]",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\upstream\\contracts\\LightX2V\\lightx2v\\models\\schedulers\\wan\\step_distill\\scheduler.py:Wan22StepDistillScheduler.step_post"
+      },
+      {
+        "id": "continuation",
+        "operation": "frozen UB1 suffix followed by optional native VAE",
+        "verification": "MODEL_HYPOTHESIS"
+      }
+    ],
+    "edges": [
+      {
+        "from": "ffn",
+        "to": "writeback"
+      },
+      {
+        "from": "writeback",
+        "to": "flow"
+      },
+      {
+        "from": "flow",
+        "to": "scheduler"
+      },
+      {
+        "from": "scheduler",
+        "to": "continuation"
+      }
+    ],
+    "unknown_edges": [
+      {
+        "description": "Native resume state, cache and RNG equivalence for mixed dense/UB1 prefixes",
+        "decision_relevant": true,
+        "resolving_action": "Before any diagnostic, reproduce native pure dense and UB1 endpoints with exact state handling."
+      },
+      {
+        "description": "Finite error propagation and decoded quality ordering under frozen UB1 suffix",
+        "decision_relevant": true,
+        "resolving_action": "Planned H1/H2/H3 hybrid endpoint diagnostic; not executed."
+      },
+      {
+        "description": "Whether native tile-level support loss advantage changes sign with material dynamic gain over best fixed support, and is predictable from existing h256.",
+        "decision_relevant": true,
+        "resolving_action": "E2: native candidate output comparison, row upper-screen, true tile aggregation and source-separated linear-head control."
+      },
+      {
+        "description": "Whether per-channel affine fitting leaves a sufficiently compressible output remainder under native QDQ/casts.",
+        "decision_relevant": true,
+        "resolving_action": "E3: full-support native folding control followed by equal-total-MAC sparse reconstruction."
+      },
+      {
+        "description": "True routing/folding implementation time and final decoded quality for either new method.",
+        "decision_relevant": true,
+        "resolving_action": "E4 only after local feasibility: full native candidate, actual continuation, fresh-source quality and complete-FFN timing."
+      }
+    ],
+    "closed_for_scoped_question": false
+  },
+  "derivations": [
+    {
+      "id": "D1",
+      "claim": "Actual shift5 direct flow coefficients are -1/16,-5/48,-5/24,-5/8; last/first magnitude is10.",
+      "assumptions": [
+        "Saved scheduler semantics and schedule",
+        "Real arithmetic for the simplified formula"
+      ],
+      "steps": [
+        "Apply sigma=5q/(1+4q) to q=1,3/4,1/2,1/4.",
+        "Subtract consecutive sigma, with terminal sigma=0.",
+        "Native BF16 execution retains separate casts and products."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Fixed-input direct flow-to-latent coefficient, not FFN or video sensitivity",
+      "implication": "Do not infer optimal step budget from beta alone."
+    },
+    {
+      "id": "D2",
+      "claim": "Local norm ordering and group-energy sorting do not generally order terminal error.",
+      "assumptions": [
+        "Fixed post-Q2 operands for the local identity",
+        "Arbitrary downstream linear map in the counterexample"
+      ],
+      "steps": [
+        "Expand squared norm of sum of removed group contributions, retaining cross terms.",
+        "Set L=diag(100,.01), e1=(.01,0), e2=(0,1): local and final norms have opposite order."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Constructive counterexample; does not assert the actual Wan continuation is L",
+      "implication": "Use actual suffix and decoded metrics."
+    },
+    {
+      "id": "D3",
+      "claim": "Eliminating the largest individual perturbation can increase total error.",
+      "assumptions": [
+        "Two additive output perturbations"
+      ],
+      "steps": [
+        "Let d0=(1,0),d1=(-.9,0).",
+        "Combined norm=.1; removing d0 leaves norm=.9."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Counterexample to independent-gain monotonicity",
+      "implication": "Evaluate interventions jointly at the deployed sparsity."
+    },
+    {
+      "id": "D4",
+      "claim": "H0-H4 equals sum_i(H_i-H_(i+1)) exactly; same for any fixed scalar endpoint score.",
+      "assumptions": [
+        "All relevant state included or matched",
+        "H_i uses i dense prefix steps and a fixed UB1 suffix",
+        "Same endpoint observable"
+      ],
+      "steps": [
+        "Define H_i=Psi(S3 o ... o Si(x_i^D)); H4=Psi(x4^D).",
+        "Expand adjacent differences; all intermediate endpoints cancel.",
+        "Squared endpoint error includes all pairwise inner products of differences."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Order-dependent finite intervention decomposition, valid for nondifferentiable native maps",
+      "implication": "Three intermediate endpoints can diagnose the failure without new training; no Shapley/optimality claim."
+    },
+    {
+      "id": "D5",
+      "claim": "At unchanged UB1 cost, only202.357198ms (3.074081%) added complete-FFN time remains before1.5x is lost.",
+      "assumptions": [
+        "Historical same-boundary point estimates",
+        "No offsetting savings",
+        "No generalization across hardware or inputs"
+      ],
+      "steps": [
+        "Require T_U+T_extra <= T_D/1.5.",
+        "Insert T_D=10177.568613ms,T_U=6582.688544ms."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Conditional engineering budget, not a timing confidence bound",
+      "implication": "Charge all routing, packing and auxiliary cost."
+    },
+    {
+      "id": "D6",
+      "claim": "Optimal rank-r linear prediction cannot remove residual outside the input feature span.",
+      "assumptions": [
+        "Same centered, square-root-weighted X and E",
+        "Unregularized squared Frobenius loss",
+        "Exact rank-constrained optimum"
+      ],
+      "steps": [
+        "Decompose E=P_X E+(I-P_X)E into orthogonal components.",
+        "Approximate P_X E by its best rank-r SVD.",
+        "Minimum risk equals squared orthogonal residual plus singular-value tail."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Ideal least-squares benchmark; not exact for current ridge/approximate-SVD/BF16 implementation",
+      "implication": "Do not recycle small-rank adapters without a distinct feature/state/target mechanism."
+    },
+    {
+      "id": "D7",
+      "claim": "Signed native loss advantage is A=-2<e,d>-||d||^2.",
+      "assumptions": [
+        "Common input, teacher and output boundary",
+        "Squared Euclidean loss on actual candidate outputs"
+      ],
+      "steps": [
+        "Define e=y0-yD and d=y1-y0.",
+        "Expand ||e||^2-||e+d||^2."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Exact finite-output identity; no differentiability required.",
+      "implication": "Construct labels after existing gain/bias/RR and native boundaries, rather than use group energy."
+    },
+    {
+      "id": "D8",
+      "claim": "Perfect dynamic value over the better fixed support equals (E|A|-|EA|)/2; feature-limited optimum uses positive conditional mean.",
+      "assumptions": [
+        "Two fixed, equal-cost candidate policies",
+        "Fixed distribution and nonnegative source/tile weighting",
+        "Measurable binary policies using only Z"
+      ],
+      "steps": [
+        "Oracle chooses alternative iff A>0.",
+        "Best fixed alternative gains max(0,EA).",
+        "Condition E[pi(Z)A] on Z and optimize each conditional decision.",
+        "Oracle regret equals E[|A| times indicator of wrong sign]."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Population identities, not a finite-sample certification.",
+      "implication": "No sign changes means no dynamic gain; noisy feature-based learning may still have zero value despite an oracle gap."
+    },
+    {
+      "id": "D9",
+      "claim": "Shared-tile oracle gain cannot exceed per-row oracle gain at matched weighting.",
+      "assumptions": [
+        "Same fixed support pair across the tile",
+        "Tile loss is sum of nonnegative weighted row losses"
+      ],
+      "steps": [
+        "Use positive-part subadditivity.",
+        "The best-static term is unchanged under consistent aggregation.",
+        "Example row advantages +4,-4 leave zero tile advantage."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Local additive loss only; not a claim about downstream quality.",
+      "implication": "Screen row oracle cheaply; validate true native tiles before a kernel or router."
+    },
+    {
+      "id": "D10",
+      "claim": "Identical C energy profiles can require opposite optimal support choices.",
+      "assumptions": [
+        "Synthetic contribution vectors, same budget and squared output loss"
+      ],
+      "steps": [
+        "Set c1=(1,s),c2=(1,-s),c3=(0,1), s=+/-1.",
+        "C=(2,2,1) and dense=(2,1) in both states.",
+        "Retaining c1 vs c2 produces losses1 and5, with the ordering reversed by s."
+      ],
+      "status": "CHECKED",
+      "scope": "Constructive counterexample; does not establish occurrence in Wan.",
+      "implication": "Actual-risk labels address information discarded by C-only bank construction."
+    },
+    {
+      "id": "D11",
+      "claim": "The identity phi(z)-phi(-z)=z does not guarantee a useful half-linear sparse decomposition.",
+      "assumptions": [
+        "Real tanh-GELU",
+        "Drop the even remainder while keeping z/2"
+      ],
+      "steps": [
+        "Oddness of tanh gives the identity.",
+        "At large negative z, phi(z) approaches0 while z/2 and its even remainder cancel.",
+        "At z=-10 the half-linear-only error is about5 while dropping original activation has near-zero error."
+      ],
+      "status": "CHECKED",
+      "scope": "Counterexample to a universal usefulness guarantee.",
+      "implication": "Reject blind half-slope deployment; calibrate against actual post-Q2 activations."
+    },
+    {
+      "id": "D12",
+      "claim": "With r=v-Lambda S^-1(W0x+b0)-mu, W2v+b2=Fx+b+W2r and sparse error is -W2_D r_D.",
+      "assumptions": [
+        "Fixed effective weights and real matrix arithmetic",
+        "F=W2 Lambda S^-1 W0",
+        "b=b2+W2(Lambda S^-1 b0+mu)"
+      ],
+      "steps": [
+        "Substitute the definition of r.",
+        "Collect x and constant terms.",
+        "Subtract the full output after retaining only K residual coordinates."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Formal decomposition; native rounding/packing contributes a separate numerical discrepancy.",
+      "implication": "A full affine backbone retains all-channel affine terms; full-support native control must pass before sparsification."
+    },
+    {
+      "id": "D13",
+      "claim": "Total GEMM density d/(2m)+K/m permits groups14/68/68/122 at UB1 step budgets.",
+      "assumptions": [
+        "d=5120,m=13824",
+        "Three GEMMs: d^2+2dK",
+        "Remove existing R256 branch",
+        "Same token geometry for cost comparison"
+      ],
+      "steps": [
+        "Divide new cost by dense2dm.",
+        "Solve K=rho*m-d/2 at rho=[.25,.5,.5,.75].",
+        "Obtain K=[896,4352,4352,7808], divisible by64."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "MAC arithmetic, not latency or memory equivalence.",
+      "implication": "Budget can close mathematically, while folding numerics and native latency remain empirical."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "mechanism": "Local step ranking differs from native suffix quality influence",
+      "status": "CANDIDATE",
+      "prediction": "Earlier/middle steps can affect endpoint quality more than their TF2 local-error ranking suggests.",
+      "derivation_ids": [
+        "D1",
+        "D2",
+        "D4"
+      ]
+    },
+    {
+      "id": "H2",
+      "mechanism": "Cross-step interactions affect combined perturbation risk",
+      "status": "CANDIDATE",
+      "prediction": "Pairwise inner products materially contribute to total endpoint SSE or individual restoration worsens decoded quality.",
+      "derivation_ids": [
+        "D3",
+        "D4"
+      ]
+    },
+    {
+      "id": "H3",
+      "mechanism": "Latent-distance proxy fails to order decoded imaging quality",
+      "status": "CANDIDATE",
+      "prediction": "Hybrid endpoints have different rankings under latent SSE and imaging/aesthetic changes.",
+      "derivation_ids": [
+        "D2",
+        "D4"
+      ]
+    },
+    {
+      "id": "H4",
+      "mechanism": "Compensated native error direction supports input-dependent equal-budget swaps missed by C-profile methods.",
+      "status": "CANDIDATE",
+      "prediction": "A-target routing beats C-target and the better fixed support on source-separated native tile loss, using only existing h256.",
+      "derivation_ids": [
+        "D7",
+        "D8",
+        "D9",
+        "D10"
+      ]
+    },
+    {
+      "id": "H5",
+      "mechanism": "All-channel affine contribution is useful and its nonlinear/quantization remainder is more compressible at matched total compute.",
+      "status": "CANDIDATE",
+      "prediction": "A native full-support fold has acceptable error and sparse remainder at groups14/68/68/122 beats frozen UB1 across sources.",
+      "derivation_ids": [
+        "D11",
+        "D12",
+        "D13"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "E1",
+      "question": "Which of local-ranking mismatch, interactions and metric mismatch limits frozen UB1?",
+      "status": "PLANNED",
+      "empirical_quantity": "H1/H2/H3 endpoints, per-source native suffix differences, pairwise inner products and three original quality metrics",
+      "why_not_derivable": "Actual neural continuation and video quality effects are data-dependent; algebra supplies no ordering.",
+      "controls": [
+        "Frozen D-Q and UB1 endpoints",
+        "Pure-arm native resume reproduction",
+        "Same source/seed/conditioning/runtime and full state",
+        "No refitting; four existing TF2 development sources"
+      ],
+      "predictions": [
+        {
+          "outcome": "A reproducible actionable ordering difference or interaction appears",
+          "decision": "Register a small cost-matched policy exchange before any large search."
+        },
+        {
+          "outcome": "Effects are unstable, within replay/score noise, or no useful ordering difference exists",
+          "decision": "Do not launch broad rollout-guided search from this diagnostic."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-21\\shi-y\\outputs\\Wan_Distill_FFN_Dynamic_in_Few_Step_演绎检验_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Protocol-level proposal only; model outputs not produced."
+        }
+      ],
+      "cost_estimate": "With verified reusable dense states/endpoints:6 new denoiser calls and3 decodes per source;24 calls/12 decodes for4 sources, excluding controls, initialization and scoring.",
+      "hypothesis_ids": [
+        "H1",
+        "H2",
+        "H3"
+      ]
+    },
+    {
+      "id": "E2",
+      "question": "Does a small equal-budget support pair offer actionable conditional native-risk value?",
+      "status": "PLANNED",
+      "empirical_quantity": "Signed advantage, oracle gain over best fixed support, tile granularity loss, h256 linear-head weighted regret and actual extra time.",
+      "why_not_derivable": "Native state distribution, support direction and feature information are unknown.",
+      "controls": [
+        "Frozen UB1 including gain/bias/RR",
+        "Same native teacher/input/gate/QDQ/casts",
+        "K0, K1, best-static and C-label controls",
+        "Source-separated correction fitting; original full-pipeline data reuse disclosed",
+        "Actual token adjacency, not concatenated sampled rows"
+      ],
+      "predictions": [
+        {
+          "outcome": "Oracle gap survives true tiling and is predicted by existing h with positive source-separated net value.",
+          "decision": "Freeze and implement a complete candidate; proceed to E4."
+        },
+        {
+          "outcome": "Oracle gap, tile gap, feature value or time budget fails.",
+          "decision": "Reject the specific support pair/granularity/feature implementation; use static improvement only if independently justified."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-21\\shi-y\\outputs\\Wan_Distill_FFN_机制重构_R2_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Proposed mechanisms and gates, not observed model results."
+        }
+      ],
+      "cost_estimate": "Begin at existing step2/3 block20 scopes; teacher outputs offline only. No GPU cost claimed without cache availability.",
+      "hypothesis_ids": [
+        "H4"
+      ]
+    },
+    {
+      "id": "E3",
+      "question": "Does quantization-aware affine folding leave a compressible native remainder?",
+      "status": "PLANNED",
+      "empirical_quantity": "Full-support numeric discrepancy, held-out output risk at fixed total GEMM budget, source stability and folded matrix storage.",
+      "why_not_derivable": "Actual post-Q2 activation distribution, rounding effects and W2-weighted residual geometry depend on data.",
+      "controls": [
+        "Native D-Q and full UB1",
+        "Full-support fold before sparse fold",
+        "Actual post-Q2 calibration target",
+        "Fixed half-slope negative control",
+        "No additional R256 branch",
+        "Source-separated coefficient fitting and fixed original64-group layouts"
+      ],
+      "predictions": [
+        {
+          "outcome": "Full-support fold is numerically adequate and sparse remainder improves on UB1 at matched compute.",
+          "decision": "Consider full-position construction, native timing and E4."
+        },
+        {
+          "outcome": "Fold discrepancy or diffuse remainder removes the potential gain.",
+          "decision": "Stop this TARDIS-style transfer without adding a router or extra residual capacity."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-21\\shi-y\\outputs\\Wan_Distill_FFN_机制重构_R2_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Proposed mechanisms and gates, not observed model results."
+        }
+      ],
+      "cost_estimate": "Start with few positions and available caches; all80 BF16 dxd matrices alone require3.90625GiB if kept resident.",
+      "hypothesis_ids": [
+        "H5"
+      ]
+    },
+    {
+      "id": "E4",
+      "question": "Does a locally feasible frozen candidate pass deployed quality and speed together?",
+      "status": "PLANNED",
+      "empirical_quantity": "Actual four-step continuation, decoded aesthetic/imaging/motion and complete-FFN timing.",
+      "why_not_derivable": "No proven ordering from local loss or latent SSE to decoded quality or latency.",
+      "controls": [
+        "Same native dense and UB1 baseline boundaries",
+        "Frozen candidate and evaluation protocol",
+        "Fresh sources not used in original20/supplementary20 development",
+        "All routing, packing, cast and auxiliary costs"
+      ],
+      "predictions": [
+        {
+          "outcome": "Original quality gates and complete-FFN speed >=1.5x both pass.",
+          "decision": "Accept only the tested candidate and scope."
+        },
+        {
+          "outcome": "Either quality or speed fails.",
+          "decision": "Do not claim project success or splice quality and timing from different variants."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-21\\shi-y\\outputs\\Wan_Distill_FFN_机制重构_R2_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Proposed mechanisms and gates, not observed model results."
+        }
+      ],
+      "hypothesis_ids": [
+        "H4",
+        "H5"
+      ]
+    }
+  ],
+  "novelty": {
+    "status": "CANDIDATE",
+    "mechanism_link": "Independent construction was recorded before prior-art search. Signed native compensated-risk routing is a conditional research candidate, not a proven new invention. Full affine fold plus sparse correction substantially overlaps TARDIS and is treated as transfer.",
+    "nearest_prior_art": [
+      {
+        "reference": "https://arxiv.org/html/2607.06631v1",
+        "comparison": "Jointly trained step structures and fake-score output rollout; distinct from frozen-model offline evaluation."
+      },
+      {
+        "reference": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\docs\\28_固定步间计算预算对照.md",
+        "comparison": "UB1 already implements step-specific static packing with residual correction; mandatory strong baseline."
+      },
+      {
+        "reference": "https://arxiv.org/html/2501.10054v1",
+        "comparison": "TARDIS already folds linear FFN approximations and selectively restores nonlinear outputs. R2 does not claim this operator as novel; Wan QDQ, fixed64-group budget and folding numerics require separate evidence."
+      },
+      {
+        "reference": "https://arxiv.org/abs/2605.28283",
+        "comparison": "PrunePath is a structured routed FFN precedent; generic routing/budget control is not novel. It does not establish the proposed frozen-Wan compensated signed-risk mechanism."
+      },
+      {
+        "reference": "https://arxiv.org/abs/2606.19379",
+        "comparison": "Per-block recoverability is heterogeneous in studied language models. Provides no Wan-specific linearity guarantee."
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "id": "accept_math",
+      "route": "ACCEPT_CONDITIONAL",
+      "reason": "Scoped algebra and cost constraints resolved under stated assumptions.",
+      "derivation_ids": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ]
+    },
+    {
+      "id": "repair_package",
+      "route": "REPAIR",
+      "reason": "Use latest UB1/UB2/AR2/OD1 results; replace generic dense scan and small-rank replay with one frozen-baseline diagnostic."
+    },
+    {
+      "id": "propose_diagnostic",
+      "route": "DESIGN",
+      "reason": "E1 remains planned; user requested deduction first, not a fresh GPU run.",
+      "experiment_ids": [
+        "E1"
+      ]
+    },
+    {
+      "id": "r2_accept_scoped_math",
+      "route": "ACCEPT_CONDITIONAL",
+      "reason": "Exact identities and counterexamples eliminate invalid general guarantees without model experiments.",
+      "derivation_ids": [
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D11",
+        "D12",
+        "D13"
+      ]
+    },
+    {
+      "id": "r2_construct_primary",
+      "route": "DESIGN",
+      "reason": "Change selection target to conditional signed native loss advantage; keep existing cost-constrained features and compare with best static supports.",
+      "experiment_ids": [
+        "E2",
+        "E4"
+      ]
+    },
+    {
+      "id": "r2_repair_affine",
+      "route": "REPAIR",
+      "reason": "Reject blind half-linear GELU. Use calibrated post-Q2 affine decomposition only as a lower-priority known-operator transfer with explicit native discrepancy.",
+      "experiment_ids": [
+        "E3",
+        "E4"
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "id": "late_dense",
+      "failure": "UB2 terminal full FFN passed same-state zero-error control but both imaging cohorts failed.",
+      "lesson": "Zero local terminal error is not terminal-state recovery or a sufficient budget rule.",
+      "evidence": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\reports\\worker_20261020\\UB2_disjoint20_COMPARISON.json",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "capacity_only",
+      "failure": "LR2 local CV passed while supplementary imaging remained above2% drop.",
+      "lesson": "Local residual capacity is insufficient for joint acceptance.",
+      "evidence": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\reports\\worker_20261020\\LR2_disjoint20_COMPARISON.json",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "dynamic_dismissal",
+      "failure": "Stable aggregate channel rankings were previously overinterpreted against dynamic support.",
+      "lesson": "New AR2 C-dynamic beats C-static locally; online cost and quality remain separate.",
+      "evidence": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-20\\qign\\work\\repo_updates_20261021\\files\\reports\\worker_20261020\\ar2_decisions.json",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "half_gelu_guarantee",
+      "failure": "Negative-input cancellation invalidates any unconditional claim that retaining z/2 and sparsifying the even part improves pruning.",
+      "lesson": "An identity does not imply a compressible residual.",
+      "evidence": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-21\\shi-y\\outputs\\constructive_math_checks_R2.json",
+          "kind": "DERIVATION",
+          "note": "Synthetic negative-input illustration, not Wan measurement."
+        }
+      ]
+    },
+    {
+      "id": "compare_only_UB1",
+      "failure": "A router can appear better than UB1 merely because one alternative fixed support is better.",
+      "lesson": "Subtract best-static improvement and require positive conditional value.",
+      "evidence": [
+        {
+          "locator": "<LOCAL_WINDOWS_HOME>\\Documents\\Codex\\2026-10-21\\shi-y\\outputs\\Wan_Distill_FFN_机制重构_R2_20261021.md",
+          "kind": "DERIVATION"
+        }
+      ]
+    },
+    {
+      "id": "fold_novelty",
+      "failure": "Nearest prior art TARDIS already contains folded linear backbone and selective nonlinear correction.",
+      "lesson": "Treat affine candidate as transfer; do not claim a new core operator.",
+      "evidence": [
+        {
+          "locator": "https://arxiv.org/html/2501.10054v1",
+          "kind": "REFERENCE"
+        }
+      ]
+    }
+  ]
+}
