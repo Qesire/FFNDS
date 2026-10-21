@@ -1,0 +1,15 @@
+{
+  "experiment": "NF1_OMITTED_NONLINEAR_FEATURE_RESIDUAL_READOUT_20261021",
+  "registered_before": "any NF1 feature extraction, fitting or CV; UB2 observed videos still generating, no UB2 official scores known",
+  "question": "does an exact small nonlinear basis from omitted native FFN groups predict the frozen UB1 remaining output error better than a new linear readout of its existing residual hidden256?",
+  "data": "same24 OP1 C24-student actual V1/TeacherY rows and frozen teacher C profiles, step2/3 block20,12/12 parity source folds; not UB1 or UB2 own-trajectory capture and not whole-pipeline held-out",
+  "frozen_reference": "UB1 unchanged half-width step2 and three-quarter step3 main plus its originalR256; first prove all48 old C24 native main+R replays and original UB1 split residual feature hashes against HP1",
+  "feature_selection": "for each fold choose exactly4 original whole64 groups outside the frozen UB1 main support, highest training-source mean normalized teacher C, stable lowest groupID ties; never use validation C to select groups",
+  "nonlinear_features": "actual native full-M post-Q1 V1 -> original effective D-Q W0 selected256 rows plus original rawb0 -> tanh GELU -> original selected Smooth2 -> unchanged HiF4 activationQDQ; fit/read out from actual newly computed BF16 features, do not assume packed W0 equals teacher selected hidden bits",
+  "linear_control": "same256 feature width, exact already-computed UB1 residual first-layer hidden h; new ridge output readout of the same remaining error; this control adds one output GEMM, nonlinear branch adds twoGEMMs plus GELU/QDQ, so no equal online-cost claim",
+  "head": "reuse fixed train-only per-feature mean/std floor1e-4, centered FP64 ridge covariance/N+1.0I from HP1, output5120; fold normalization into FP32 coefficients, explicitly cast final weight/bias BF16 and evaluate native F.linear at full original M; no lambda, rank, epoch or support-count scan",
+  "target": "TeacherY.float - frozenUB1StudentY.float, fixed remaining ungated error; native evaluation adds BF16 head output to native frozenUB1StudentY then uses original BF16 D gate multiplication before FP64 SSE",
+  "gate": "all4 folds nonlinear corrected native gated SSE <=0.90*frozenUB1 SSE and <=0.95*linear-readout corrected SSE; otherwise stop this recipe before full160 fitting, videos or timing",
+  "resources": "GPU0 only, after entire UB2 observed quality/equivalence/timing/conditional confirmation pipeline becomes terminal; no overlap isolated timing; tensors and heads only in node HF cache with80GiB reserve",
+  "scope": "standard nonlinear auxiliary-basis feasibility pilot, not input-dynamic routing or methodological novelty; pilot uses fixed frozenUB1 independently of UB2 outcome; never retune UB2 from confirmation results"
+}

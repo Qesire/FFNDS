@@ -1,0 +1,261 @@
+{
+  "status": "PASS_FORMAL_GENERATION_SLICE_ONLY",
+  "identity": {
+    "assets": {
+      "model_view_sha256": "932bc14ec0cd8d73a13532191ea202b0bc22478d7da26ba5029658329f257df3",
+      "local_view_sha256": "97b2d991f6312ab67ee439ea28a03989bd86b1f68151a6eca11102b949e539d1",
+      "cache_manifest_sha256": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+      "cache_sha256": "bfb400f94ce42760070bab5916721fd942b0864907bb4e4e5207c008dc4c3df3",
+      "contract": {
+        "schema_version": 49212,
+        "artifact": "wan22_i2v_lightx2v_distill_runtime_contract",
+        "model_cls": "wan2.2_moe_distill",
+        "task": "i2v",
+        "scheduler": "Wan22StepDistillScheduler",
+        "infer_steps": 4,
+        "target_video_length": 81,
+        "target_height": 480,
+        "target_width": 832,
+        "fps": 16,
+        "attention": "torch_sdpa",
+        "sample_shift": 5.0,
+        "sample_guide_scale": 1.0,
+        "enable_cfg": false,
+        "seq_parallel": false,
+        "parallel": false,
+        "dim": 5120,
+        "num_heads": 40,
+        "in_dim": 36,
+        "ffn_dim": 13824,
+        "freq_dim": 256,
+        "num_layers": 40,
+        "out_dim": 16,
+        "eps": 1e-06,
+        "model_type": "i2v",
+        "text_len": 512,
+        "use_image_encoder": false,
+        "denoising_step_list": [
+          1000,
+          750,
+          500,
+          250
+        ],
+        "boundary_step_index": 2,
+        "boundary": 0.9,
+        "aspect_ratio": "16:9",
+        "rope_type": "torch",
+        "resize_mode": null,
+        "audio_fps": 24000,
+        "double_precision_rope": true,
+        "norm_modulate_backend": "torch",
+        "distilled_sigma_values": null,
+        "cpu_offload": true,
+        "offload_granularity": "block",
+        "t5_cpu_offload": true,
+        "image_encoder_offload": false,
+        "vae_cpu_offload": false,
+        "high_noise_filename": "wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+        "low_noise_filename": "wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+        "high_noise_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+        "low_noise_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "checkpoint_sha256": {
+        "wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+        "wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      }
+    },
+    "inputs_sha256": "656f85c0415f407f0e07972fd1e756e2559062ae2dd7876741ef0ceb6e4b8392",
+    "input_recovery_sha256": "686bc795f52300c402be2302ebfff364a4fd60bd0e2d569bf30cee1be0c601a1",
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "arm": "D-Q-PACKED-TRAINED-REFERENCE",
+    "packed_policy_sha256": "b2450ad26fbf1d5f1b54cebeac6852f31b108492d42ec5d70499ff22ba63999d",
+    "cohort": "disjoint20",
+    "identity_control_proof_sha256": "2c9dc4186a8fb18bf00b8e564244cc6aaafc1fae028b80d42fa5c85f6298e6f4",
+    "terminal_flow_proof_sha256": "5d46c0d954fcc1141ed7d555a1a1ed19bb7ae7c3633e86ee1208cdd7c0d5c0e6",
+    "candidate_protocol_sha256": "79171dd2cb6806fdce7a46f534a90f6e4461a65807e886f58ec1bf96dda173a0",
+    "runtime_sources": {
+      "/home/xiang/projects/FFNDS/tools/terminal_dense_runtime.py": "aa358b65f29ac4987b7f8b929a62db74767912e0c1715c42f03be5ffa4a8e88a",
+      "/home/xiang/projects/FFNDS/tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+      "/home/xiang/projects/FFNDS/tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+      "/home/xiang/projects/FFNDS/tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+      "/home/xiang/projects/FFNDS/tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+      "/home/xiang/projects/FFNDS/.runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+      "/home/xiang/projects/FFNDS/.runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6"
+    },
+    "sources": {
+      "/home/xiang/projects/FFNDS/tools/generate_terminal_dense_suite.py": "edcac8e382922830dd3c8075077316955e21646297a279f0084f76ede3cc623b",
+      "/home/xiang/projects/FFNDS/tools/generate_formal_suite.py": "09cc7ed8203f2bc12aca473091fc4f38316b7696ee7e9eb110e6fd890963026a",
+      "/home/xiang/projects/FFNDS/tools/distill_assets.py": "9037ef87314c6c5fb00b01397856a9be3ffe6a66adc8402aef8a93271a2130e6",
+      "/home/xiang/projects/FFNDS/tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+      "/home/xiang/projects/FFNDS/tools/terminal_dense_runtime.py": "aa358b65f29ac4987b7f8b929a62db74767912e0c1715c42f03be5ffa4a8e88a",
+      "/home/xiang/projects/FFNDS/tools/terminal_dense_validation.py": "458feea9e857da6aadbd8d6583fd9fdc61e0c84f87e37d696323cb0fb6a2dadb"
+    },
+    "native_sources": {
+      "/home/xiang/projects/FFNDS/.runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db",
+      "/home/xiang/projects/FFNDS/.runtime/code/LightX2V/lightx2v/models/schedulers/wan/scheduler.py": "c86af28a3b8d709692fb3a88d67ec441a77624929d397c216e0106f1c0142f4a"
+    },
+    "versions": {
+      "torch": "2.10.0+cu128",
+      "torchvision": "0.25.0+cu128",
+      "numpy": "2.4.6",
+      "triton": "3.6.0",
+      "safetensors": "0.8.0",
+      "transformers": "5.6.2",
+      "diffusers": "0.38.0"
+    },
+    "seed_semantics": "scheduler.generator=None before every native request",
+    "execution": "resident active UB2",
+    "reference_suite_sha256": null
+  },
+  "completed": [
+    {
+      "index": 0,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input00_attempt1_INPUT.json",
+      "case_report_sha256": "e7d0da176ee4f664a69f485cba80b6a28247e40bd84b5bcd93831e0e1ac082fb",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 1,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input01_attempt1_INPUT.json",
+      "case_report_sha256": "903045be48a4b3091833889580d6b51975d79e7ad1f421515cc7a2fb8958b067",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 2,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input02_attempt1_INPUT.json",
+      "case_report_sha256": "cab3a7c03a2d71424cd3395f627528a0e923ee8fc827a38f9cd4259a4fb0b5b8",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 3,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input03_attempt1_INPUT.json",
+      "case_report_sha256": "6b20ab250877b0223e27631460894e72b095d74480e36d4918afd0a51b947a99",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 4,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input04_attempt1_INPUT.json",
+      "case_report_sha256": "1472cdbe41af72b13729739d668005f0f336e4e0524ef40c4320df6165452482",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 5,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input05_attempt1_INPUT.json",
+      "case_report_sha256": "79469ea38a321abffc7b6df97b06555cae96ab25c9338bccd44b04444465ba8c",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 6,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input06_attempt1_INPUT.json",
+      "case_report_sha256": "a05d5193fb187020233d2cd095ebffbcb95d2de70bc8b17b0fb6baf65544a986",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 7,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input07_attempt1_INPUT.json",
+      "case_report_sha256": "39a9a7aecc56524bb5d892049cbb5fa8d9444506db4b5f13fb2a5855f40466db",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 8,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input08_attempt1_INPUT.json",
+      "case_report_sha256": "f4c9dede16b9c52278620239a67bb2fbcab5b68c0591f52d9d74a15ab67a4021",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 9,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input09_attempt1_INPUT.json",
+      "case_report_sha256": "22c3157325b49e19c0734798103dede81d45df9444874cf50af65873104bf703",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 10,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input10_attempt1_INPUT.json",
+      "case_report_sha256": "9f84d58007931f1241385e831069a9e7f7ab96042c05f95d4c8089842fa6eb5a",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 11,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input11_attempt1_INPUT.json",
+      "case_report_sha256": "3a62f756e959ade3ec83e502a63e6fd7177a38a546ee307b0830b2d66f14913c",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 12,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input12_attempt1_INPUT.json",
+      "case_report_sha256": "dec5c6e3f22764084803a471dc0681dfc1876fdcf26bc0b51bab81d26022ef2a",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 13,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input13_attempt1_INPUT.json",
+      "case_report_sha256": "b177dc12ef63f2e6f8ca7b86f5cefa957f54329706322cf99369e62420d9fa3b",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 14,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input14_attempt1_INPUT.json",
+      "case_report_sha256": "f9a4da1689697dbe4ccae3a7bf2e8b699259a81aef773891d5a3796a49a87156",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 15,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input15_attempt1_INPUT.json",
+      "case_report_sha256": "2c7269695409fcf62a90a744d94df6e9ff8f9a8abc36521f80380ac1bcaa640b",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 16,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input16_attempt1_INPUT.json",
+      "case_report_sha256": "f6458184bf90b507b6ceac6b776a59430e17ffcf90ae873f3883a4541fae4dd8",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 17,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input17_attempt1_INPUT.json",
+      "case_report_sha256": "aa8d57605a40e81550b356ae58e4be04e8deda5c888785e009de82f57d80bb1e",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 18,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input18_attempt1_INPUT.json",
+      "case_report_sha256": "ff71506110d3144da96e3ade819ded8c5b1dc7bb2c9c0ca632707874660e6ab6",
+      "paired_latents_and_video_equal": null
+    },
+    {
+      "index": 19,
+      "case_report": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB2/input19_attempt1_INPUT.json",
+      "case_report_sha256": "cd4ec378de814101c50b38d4ad98bcb0218af399f876ee37b63be3f0589e2ea6",
+      "paired_latents_and_video_equal": null
+    }
+  ],
+  "quality_or_speed_acceptance": false,
+  "residency": {
+    "unique_tensor_count": 2720,
+    "parameter_bytes": 56865402880
+  }
+}

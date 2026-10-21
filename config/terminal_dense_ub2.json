@@ -1,0 +1,18 @@
+{
+  "experiment": "UB2_TERMINAL_DENSE_FIXED_HALF_MAIN_BUDGET_20261021",
+  "registered_after": "LR2 supplementary imaging score remains above2%; before any UB2 fit; wait for completed full LR2 quality rejection before GPU fitting",
+  "rationale": "TF2 same-D-Q-state step1 post error was2.56% versus11.68% at step3; move25 main-density points from step1 to step3, instead of another residual-rank scan; test one fixed schedule",
+  "groups_by_step": [54,54,108,216],
+  "main_density_by_step": [0.25,0.25,0.5,1.0],
+  "global_main_MAC_density": 0.5,
+  "frozen": "reuse UB1 step0 quarter and step2 half supports/gain/bias/R256 exactly; same native D-Q model,cache,conditioning,4step scheduler and all attention",
+  "step1_fit": "same frozen C24 dense-state24x256 calibration, whole64-group training-mean C support, centered gain/bias and lambda1 rank256 recipe as UB1; first reproduce old108-group step1 block20 coefficient/native residual bits, then fit exactly40 quarter-width step1 positions; no hyperparameter scan or video-label fitting",
+  "terminal_step": "step3 all40 FFNs use original full-width cached D-Q weights/scales and raw D biases, unit gain, no residual predictor; dense terminal FFN must match the native local D-Q teacher on actual captured student V1 before deployment",
+  "residual": "rank256 only in steps0/1/2,120 positions,240 auxiliary GEMMs; no residual calls or pending correction in terminal step; auxiliary mean192/13824=0.013888888888888888 of dense FFN MAC",
+  "identity_control": "separate explicit mode reproduces original UB1 schedule/parameters and all160 residuals through the new implementation; fixed formal0/10 and supplemental0/10 four latents/video bytes must match before active videos",
+  "terminal_flow_control": "fixed supplemental index0 on verified TF2 D-Q states: unchanged steps0/2 must reproduce frozen UB1 flow/post hashes, terminal step3 flow/post must equal D-Q exactly; forced diagnostic video excluded from quality",
+  "video": "one frozen active policy on original20 and supplementary20, same official per-metric<=2% point gates with separate D-Q references; both cohorts already development feedback; no inherited speed or held-out claim",
+  "speed_if_quality_pass": "all160 actual main FFNs, same frozen policy, full FFN boundary includes all online QDQ/GELU/gain/bias120 residuals,gate,residual and conservative shared prep/prefetch; new isolated measurements required for>=1.5 claim",
+  "scope": "standard static step-allocation baseline with exact dense terminal operator; no input-dynamic novelty claim; retain UB1/LR2 results unchanged",
+  "resources": "worker twoGPUs maximum, GPU0 coefficient fit may overlap separately scoped OD1 GPU1 after LR2 terminal; models/tensors/coefficients in HF caches, preserve80GiB node reserve"
+}

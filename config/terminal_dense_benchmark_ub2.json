@@ -1,0 +1,18 @@
+{
+  "experiment": "UB2_FORMAL00_COMPLETE_FFN_THREE_ARM_BENCHMARK_20261021",
+  "registered_before": "any UB2 video quality outcome or timing; after identity4 completed, before terminal flow outcome",
+  "parent_boundary_protocol_sha256": "6286a09366715c3a1855411fb1f227db9afcc7c8490709cdb6d90ed7ac8f11e1",
+  "input": "fixed original formal20 index0, seed42, exact conditioning/image and geometry shared by D-Q/UB1/UB2",
+  "arms": [
+    "D-Q",
+    "UB1",
+    "UB2"
+  ],
+  "prerequisites": "UB2 must pass both observed-cohort official three-metric gates; active nonresident/resident all4latents and video bytes must match for all20 in each cohort; original D-Q all20 resident proof retained",
+  "mathematics": "D-Q native dense BF16 QDQ reference; frozen UB1 quarter/half/half/threequarter R256; UB2 quarter/quarter/half/full main at exactly0.5 MAC and rank256 residuals only at first120 positions, terminal40 has zero auxiliary calls",
+  "boundary": "unchanged FullFFNProfiler: all160 real native FFNs incl norm/modulation,QDQ,mainGEMMs,GELU,gain/bias,actual auxiliary linears,gate/residual; conservatively entire shared pre_process and all raw-placeholder bias prefetch/init charged",
+  "timing": "each arm one warmup plus3 measured requests, complete wall sum ratio; all arm setup separately reported and excluded consistently; no repeat or input selection",
+  "resources": "physical worker GPU0 only; wait for both GPUs idle and serialize all3 arms, ResourceMonitor must report zero foreign compute violations",
+  "acceptance": "sum(D-Q measured wall)/sum(UB2 measured wall)>=1.5; exact main MAC0.5 and actual row-weighted auxiliaryMAC; also report same-input UB1 result to show incremental cost",
+  "scope": "this fixed formal0 measurement is separate from original UB1 research006 1.546 result; do not compare speeds across input/geometry; no model end-to-end,FP4 hardware,half-memory or dynamic novelty claim"
+}
