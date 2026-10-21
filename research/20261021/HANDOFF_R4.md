@@ -1,0 +1,13 @@
+**FFNDS R4 — mechanism-research handoff**
+
+- Evidence base: FFNDS `9227de1f3e391341ff000c15ad805d9ca2db3084`. Read current source, R3, OP3/NF2 compact raw tables, BO1 Decimal certificate, TC1 and OP2 boundaries. This was not a live worker session.
+- Decision: [R4 report](../../docs/52_机制潜力分辨与可行方向_R4_20261021.md), [current triage](method_triage.json), [R4 state](research_state_R4.json). Preserve historical R1/R2/R3 and exact failed recipes.
+- Resolved conditionally: closed-action convex bound; fixed-feature matched-readout projection; training-only validation delta; finite-neighborhood PSD upper bound; joint-swap counterexample; numeric-discrepancy bound; output-regression/action-value distinction; real linear-head folding.
+- Object coverage: source selection/compensation order and effective input dimensions established. Projection assumes fixed-h exact unregularized real OLS, while deployed R256 uses ridge, approximate factorization and BF16. External native gate/cache binding and end-to-end propagation remain unknown for new candidates.
+- Primary candidate: small equal-budget original64-group support changes whose value survives matched compensation, source separation and native rounding. The cheap linear upper bound only eliminates a proxy neighborhood unless a native discrepancy bound is available.
+- Conditional candidate: one bank shared across full M at a step/block, only if action value exceeds best-static and is predictable before W1 with acceptable full cost. NF2 output failure neither proves nor disproves this.
+- Deferred: tile segmentation, known affine-fold transfer, and optional continuation diagnosis. NF2 linear-head fold is a cost-matched control, not a new main capacity route.
+- Verification actually executed: CPU recomputation of historical summary scalars and synthetic examples; see [r4_deduction_checks.json](r4_deduction_checks.json). Run from repository root: `python tools/check_r4_deductions.py`. No output file is written unless `--output` is passed. Schema validation also passed before publication.
+- Unexecuted: live operand binding, native new supports, new fitting, videos and timing. R4E0-E3 are plans. Current model-experiment pause remains; user authorized this deduction and publication update.
+- Next action when model work resumes: verify existing OP2 operands; finite support proposals plus frozen/matched K0/K1 and C controls; only then consider whole-M action prediction and fresh-source joint quality/speed acceptance. Old24/original20/disjoint20 are development-exposed.
+- Novelty: CANDIDATE. Basic projection/conditional expectation are not inventions; quadratic channel selection, diffusion-aware pruning and affine folding have primary-source precedents linked in R4.

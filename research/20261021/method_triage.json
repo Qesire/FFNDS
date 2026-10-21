@@ -6,7 +6,7 @@
     "research/20261021/research_state.json",
     "research/20261021/research_state_R2.json"
   ],
-  "precedence": "R3 followup_review decision_document/state and existing exact-rejection records govern new actions. Original R1/R2 and historical method status remain preserved.",
+  "precedence": "R4 followup_review and preserved exact-rejection records govern new decisions; R1/R2/R3 snapshots remain historical. R4 refines static-first screening with matched-compensation and action-value distinctions.",
   "policy": {
     "source_evidence": "Existing FFNDS reports plus 2026-10-21 supplied synthetic/deductive research files; no new model experiments.",
     "do_not_extrapolate": [
@@ -21,7 +21,7 @@
     {
       "id": "BO1_WHOLE_VIDEO_UB1_UB2",
       "status": "CLOSED_REJECTED_EXACT",
-      "rationale": "Two frozen UB1/UB2 whole-video arms; on supplementary20 even imaging-only per-input retrospective oracle cannot meet 2% threshold (best 2.909550% drop).",
+      "rationale": "Two frozen UB1/UB2 whole-video arms; on supplementary20 even imaging-only per-input retrospective oracle cannot meet 2% threshold (best 2.909550% drop). R4 extends the fixed-output upper bound to randomized selectors in expectation; not new seeds or within-video changes.",
       "evidence": [
         "docs/48_逐输入预算方案的质量上界与暂停.md"
       ],
@@ -168,9 +168,10 @@
     },
     {
       "id": "R2_SIGNED_NATIVE_TILE_ADVANTAGE",
-      "status": "OPEN_SCREEN_FIRST_NOT_VALIDATED",
+      "status": "DEFERRED_BEHIND_STATIC_AND_WHOLE_M_R4",
       "rationale": "Changed label A is mathematically distinct from C; no native K1 results, true tile-level oracle, h256 predictability, net GPU speed or new-source quality available.",
       "gates": [
+        "Establish incremental value over the coarser whole-M alternative before segmented kernel work",
         "Native same-input/writeback K0/K1 with existing gain/bias/RR",
         "Compare against better fixed support, not only incumbent UB1",
         "Continuous token tiles, never a synthetic tile from 256 sampled rows",
@@ -213,16 +214,18 @@
     },
     {
       "id": "R3_COMPENSATED_STATIC_SUPPORT",
-      "status": "PRIMARY_MECHANISM_SCREEN_ONLY",
+      "status": "REFINED_BY_R4_MATCHED_COMPENSATION_SCREEN",
       "rationale": "UB1 C static supports were chosen before gain/bias/R256; potential corrected residual-direction and cross-group effects, no new online router. Mathematical group Gram surrogate requires native BF16/QDQ confirmation.",
       "evidence": [
         "tools/fit_step_budget.py",
         "tools/step_budget_runtime.py",
-        "docs/51_AutoResearcher_R3_机制路线重审_20261021.md"
+        "docs/51_AutoResearcher_R3_机制路线重审_20261021.md",
+        "docs/52_机制潜力分辨与可行方向_R4_20261021.md"
       ],
       "not_excluded": "A static support improvement not yet measured",
       "gates": [
         "Read-only asset/version binding",
+        "Separate frozen support gain from matched fixed-h readout gain; ideal projection is not native ridge/BF16 equivalence",
         "same-state K0/K1 native loss vs C-score matched swap",
         "independent-source confirmation and equal-cost refit comparison",
         "new video quality and matched full FFN latency"
@@ -231,9 +234,10 @@
     {
       "id": "R3_WHOLE_M_BANK_ROUTING",
       "status": "CONDITIONAL_SOURCE_ORACLE_ONLY",
-      "rationale": "If native signed support advantage varies by source, one bank per step/block and full M is a simpler intermediate than segmented tile; still requires pre-W1 predictor and genuine runtime cost.",
+      "rationale": "If native signed support advantage varies by source, one bank per step/block and full M is a simpler intermediate than segmented tile; still requires pre-W1 predictor and genuine runtime cost. R4 distinguishes action conditional cross-moments from output-regression capacity; NF2 alone cannot reject or validate routing.",
       "evidence": [
-        "docs/51_AutoResearcher_R3_机制路线重审_20261021.md"
+        "docs/51_AutoResearcher_R3_机制路线重审_20261021.md",
+        "docs/52_机制潜力分辨与可行方向_R4_20261021.md"
       ],
       "not_excluded": "Potential conditional benefit not empirically measured",
       "gates": [
@@ -252,6 +256,37 @@
         "docs/51_AutoResearcher_R3_机制路线重审_20261021.md"
       ],
       "not_excluded": "Quality-specific mechanism unobserved"
+    },
+    {
+      "id": "R4_COMPENSATION_NONREDUNDANT_SUPPORT",
+      "status": "PRIMARY_CONDITIONAL_MECHANISM_SCREEN",
+      "rationale": "Search fixed-budget support directions that retain value after matched existing-feature compensation; use finite-neighborhood linear upper bound before Gram/native checks.",
+      "gates": [
+        "Fixed-h projection assumptions explicit",
+        "Training-only matched refit with native K0/K1 controls",
+        "No global claims from finite neighborhood or sampled rows",
+        "Fresh-source video and complete-FFN latency"
+      ],
+      "evidence": [
+        "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+        "research/20261021/research_state_R4.json"
+      ],
+      "not_excluded": "Potential structural gain; no new Wan result"
+    },
+    {
+      "id": "R4_LINEAR_READOUT_FOLD_CONTROL",
+      "status": "CONTROL_ONLY_NOT_MAIN_ROUTE",
+      "rationale": "NF2 linear readout folds algebraically into existing h readout; native BF16 reordering error and retained benefit remain unknown.",
+      "gates": [
+        "Same h and train split",
+        "Native separate-versus-folded control",
+        "No inherited quality/speed claim"
+      ],
+      "evidence": [
+        "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+        "reports/worker_20261020/NF2_summary.json"
+      ],
+      "not_excluded": "Small cost-matched baseline improvement"
     }
   ],
   "acceptance": {
@@ -269,10 +304,21 @@
   },
   "followup_review": {
     "date": "2026-10-21",
-    "skill_source": "Qesire/AutoResearcher@bb34ea7be50624d47cb26de7c7c49e40882001f1",
-    "decision_document": "docs/51_AutoResearcher_R3_机制路线重审_20261021.md",
-    "state": "research/20261021/research_state_R3.json",
-    "override": "R3 prioritizes static compensated support screening first; dynamic only if coarse conditional benefit and cost gates pass. Existing exact failures remain closed. No new execution.",
+    "skill_source": "mechanism-research local SKILL.md and CR/DF/CRL/MNG core",
+    "evidence_base_commit": "9227de1f3e391341ff000c15ad805d9ca2db3084",
+    "decision_document": "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+    "state": "research/20261021/research_state_R4.json",
+    "override": "Prioritize compensation-nonredundant static support; whole-M action routing remains conditional. No new model execution.",
     "execution_status": "PAUSED_NO_GPU"
-  }
+  },
+  "previous_followup_reviews": [
+    {
+      "date": "2026-10-21",
+      "skill_source": "Qesire/AutoResearcher@bb34ea7be50624d47cb26de7c7c49e40882001f1",
+      "decision_document": "docs/51_AutoResearcher_R3_机制路线重审_20261021.md",
+      "state": "research/20261021/research_state_R3.json",
+      "override": "R3 prioritizes static compensated support screening first; dynamic only if coarse conditional benefit and cost gates pass. Existing exact failures remain closed. No new execution.",
+      "execution_status": "PAUSED_NO_GPU"
+    }
+  ]
 }

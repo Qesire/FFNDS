@@ -1,0 +1,501 @@
+{
+  "schema_version": "2.1",
+  "research_id": "FFNDS-MECHANISM-R4-20261021",
+  "description": "Latest-repository deduction, conditional method reconstruction and CPU historical/synthetic checks. No new Wan, GPU, video, tensor replay or timing. Two main candidate mechanisms only.",
+  "research_object": {
+    "id": "Wan22-DQ-UB1-support-compensation-R4",
+    "revision": "FFNDS 9227de1f3e391341ff000c15ad805d9ca2db3084; saved GitHub code/reports inspected; live worker and external model/cache not revalidated",
+    "scope": "Fixed-h compensation subspace, equal-budget support actions and routing value; native QDQ/cast and downstream video transfer remain conditional.",
+    "code_reference": "tools/fit_step_budget.py:fit_position; tools/step_budget_runtime.py:create_runtime/apply; tools/reduced_rank_residual.py:predict_y",
+    "checkpoint": "Historical Wan2.2-I2V-A14B-LightX2V-Distill-4step with previously verified HiF4 effective-weight cache; not reloaded",
+    "inputs": [
+      {
+        "name": "V1",
+        "shape": "M x 5120",
+        "semantics": "True post-Smooth1/QDQ1 input to packed W0; saved calibration uses 256 sampled rows from full M",
+        "dtype": "native BF16"
+      },
+      {
+        "name": "step, block, expert",
+        "shape": "scalar, scalar, category",
+        "semantics": "Four denoise steps, 40 blocks and two step-conditioned experts"
+      },
+      {
+        "name": "K",
+        "shape": "whole original groups of 64; widths=54/108/108/162 groups",
+        "semantics": "Frozen packed W0/W2 support shared by full M at each position"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "StudentY/Delta",
+        "shape": "M x 5120",
+        "semantics": "Matched BF16 candidate FFN output before original downstream gate/writeback"
+      },
+      {
+        "name": "native signed advantage A",
+        "shape": "per row or aggregated source/tile scalar",
+        "semantics": "Difference of squared native teacher-output reconstruction risks for two equal-budget supports"
+      },
+      {
+        "name": "decoded quality",
+        "semantics": "End-to-end aesthetic/imaging/motion metrics and complete FFN timing remain missing for new candidates"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "support_fit",
+        "operation": "C mean rank -> whole64 group K -> centered gain/bias -> R256 fit",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/fit_step_budget.py:fit_position"
+      },
+      {
+        "id": "ffn0",
+        "operation": "native Smooth1/cast/QDQ1; residual predictor receives V1 before packed W0; packed W0 and GELU(tanh)",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/step_budget_runtime.py:apply; tools/reduced_rank_residual.py:predict_y"
+      },
+      {
+        "id": "ffn2",
+        "operation": "native Smooth2/cast/QDQ2 -> alpha/cast -> packed W2/bias -> BF16 residual add",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/step_budget_runtime.py:apply"
+      },
+      {
+        "id": "original_gate_writeback",
+        "operation": "external LightX2V gate/cast/residual",
+        "verification": "UNKNOWN"
+      },
+      {
+        "id": "continuation",
+        "operation": "remaining blocks, flow, scheduler, steps, VAE and official video quality",
+        "verification": "UNKNOWN"
+      },
+      {
+        "id": "dynamic_execution",
+        "operation": "single prepacked K at whole-M position in current source; per-source bank and segmented per-tile bank not implemented as native reference",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/step_budget_runtime.py:apply"
+      }
+    ],
+    "edges": [
+      {
+        "from": "support_fit",
+        "to": "ffn0"
+      },
+      {
+        "from": "ffn0",
+        "to": "ffn2"
+      },
+      {
+        "from": "ffn2",
+        "to": "original_gate_writeback"
+      },
+      {
+        "from": "original_gate_writeback",
+        "to": "continuation"
+      }
+    ],
+    "unknown_edges": [
+      {
+        "description": "Native OP2 large tensors, original effective weights, support and current worker binding not accessed in this turn.",
+        "decision_relevant": true,
+        "resolving_action": "R4E0 read-only binding before any model-dependent screen."
+      },
+      {
+        "description": "Whether same-budget support changes retain useful output directions after matched compensation and native quantization.",
+        "decision_relevant": true,
+        "resolving_action": "R4E1 finite-neighborhood upper screen plus matched K0/K1 readout and native discrepancy controls."
+      },
+      {
+        "description": "Whether whole-M conditional action value is positive and predictable from available pre-W1 features.",
+        "decision_relevant": true,
+        "resolving_action": "R4E2 compare best-static, oracle and source-separated action-value head before tile or kernel work."
+      },
+      {
+        "description": "Whether local improvement transfers to fresh-source decoded quality and complete-FFN >=1.5x.",
+        "decision_relevant": true,
+        "resolving_action": "R4E3 conditional frozen-candidate end-to-end acceptance."
+      }
+    ],
+    "closed_for_scoped_question": false
+  },
+  "derivations": [
+    {
+      "id": "R4D1",
+      "claim": "Any randomized selector over the two frozen BO1 video arms has expected imaging score bounded by the pointwise-max certificate.",
+      "assumptions": [
+        "Fixed saved source scores and two output videos per source",
+        "Nonnegative selection probabilities summing to one"
+      ],
+      "steps": [
+        "Each convex combination is at most the maximum of its two values.",
+        "Average over the same20 sources.",
+        "Saved upper0.705161805847544715 is below required0.71176780898718185530."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Finite exposed cohort and frozen output set, not new seeds or within-video actions.",
+      "implication": "Do not train another UB1/UB2 whole-video selector."
+    },
+    {
+      "id": "R4D2",
+      "claim": "With fixed feature design Phi and matched exact OLS readout, support gain depends only on Qd with Q=I-Phi Phi+.",
+      "assumptions": [
+        "Fixed feature/readout class and gain",
+        "Same weighted vectorized data and gate operator",
+        "Real arithmetic, no regularization, exact minimum-norm OLS"
+      ],
+      "steps": [
+        "Min_theta ||r_K+Phi theta||^2=||Qr_K||^2.",
+        "Expand the difference for K1=K0+d.",
+        "If d is in col(Phi), Qd=0 and matched gain is0."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Ideal diagnostic class; not actual ridge/randomized-SVD/BF16 R256 optimum.",
+      "implication": "Separate compensation-fit slack from support-specific structural value."
+    },
+    {
+      "id": "R4D3",
+      "claim": "Training-only matched OLS refit changes validation output by d_V-Phi_V Phi_T+ d_T.",
+      "assumptions": [
+        "Same fixed feature map",
+        "Minimum-norm OLS solved on training set only",
+        "No validation refit or feature fitting"
+      ],
+      "steps": [
+        "Subtract the two training coefficient solutions.",
+        "Apply the coefficient difference to validation features.",
+        "Expand validation squared-error advantage on the resulting delta."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Exact real-arithmetic matched-refit comparison; old pipeline exposure still limits generalization.",
+      "implication": "Do not project away validation errors using validation labels."
+    },
+    {
+      "id": "R4D4",
+      "claim": "PSD support Gram gives a cheap linear relaxation upper bound over a finite equal-budget swap neighborhood.",
+      "assumptions": [
+        "Fixed real additive projected group contributions",
+        "Nonnegative fixed weights",
+        "At mostq same-count original-group additions/removals"
+      ],
+      "steps": [
+        "A(s)=-2g^Ts-s^TGs with G PSD.",
+        "Drop the nonnegative quadratic term.",
+        "Maximize the remaining linear score via sorted add/remove scores over k=0..q.",
+        "Individual-negative swaps may jointly improve: e=(1,0),d1=(-.75,1),d2=(-.75,-1)."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Proxy neighborhood only; not a native/global impossibility certificate without a discrepancy bound.",
+      "implication": "Prune hopeless proxy neighborhoods before forming a full Gram; keep joint interactions."
+    },
+    {
+      "id": "R4D5",
+      "claim": "For d_native=d_proxy+eta, advantage discrepancy is bounded by2||e+d_proxy||||eta||+||eta||^2.",
+      "assumptions": [
+        "Same fixed baseline error and output metric",
+        "Finite actual discrepancy eta"
+      ],
+      "steps": [
+        "Expand difference of the two squared errors.",
+        "Apply Cauchy-Schwarz and triangle inequality."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Per-candidate bound; uniform claims require a valid uniform eta bound.",
+      "implication": "Compare predicted gain with numerical discrepancy instead of assuming QDQ commutes."
+    },
+    {
+      "id": "R4D6",
+      "claim": "Output regression information and support-action information differ; conditional residual/action cross-moments can predict gains even with E[e|h]=0.",
+      "assumptions": [
+        "Common squared loss",
+        "Action executes a real main-path change d, possibly using information not observed by the router"
+      ],
+      "steps": [
+        "E[A|h]=-2E[e dot d|h]-E[||d||^2|h].",
+        "Independent h,u in +/-1; e=u,d=hu gives zero conditional mean error and exactly predictable A=-2h-1.",
+        "If d is h-measurable and E[e|h]=0, conditional gain is instead nonpositive."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Constructive distinction; NF2 does not establish either condition in Wan.",
+      "implication": "Preserve action-value routing as conditional candidate; do not restart generic output heads."
+    },
+    {
+      "id": "R4D7",
+      "claim": "A linear head on standardized fixed h can be folded into the existing readout in real arithmetic.",
+      "assumptions": [
+        "Frozen h, affine standardization and linear output head",
+        "Real arithmetic"
+      ],
+      "steps": [
+        "Bh+c+A D^-1(h-mu)+a=(B+A D^-1)h+c+a-A D^-1mu."
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Not native BF16/cast equivalence; no new model speed result.",
+      "implication": "Use a cost-matched compensation control, not a third main capacity route."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "R4H1",
+      "mechanism": "Some equal-budget support directions are useful outside the fixed-h readout span.",
+      "status": "CANDIDATE",
+      "prediction": "K1 retains native source-separated gain after K0/K1 matched readout controls; C-only swaps do not explain all of it.",
+      "derivation_ids": [
+        "R4D2",
+        "R4D3",
+        "R4D4",
+        "R4D5"
+      ]
+    },
+    {
+      "id": "R4H2",
+      "mechanism": "Existing pre-W1 features predict conditional support-action value through residual/action correlation despite limited output-regression value.",
+      "status": "CANDIDATE",
+      "prediction": "Whole-M action head beats best static on signed native risk at an acceptable measured incremental cost.",
+      "derivation_ids": [
+        "R4D6"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "R4E0",
+      "question": "Are model-dependent operands ready and bound?",
+      "status": "PLANNED",
+      "empirical_quantity": "Existing OP2 tensors, native geometry, original coefficients and source binding",
+      "why_not_derivable": "Public reports do not prove current private asset accessibility.",
+      "controls": [
+        "Read-only access",
+        "No new model execution"
+      ],
+      "predictions": [
+        {
+          "outcome": "Matching operands accessible",
+          "decision": "Enable a specifically authorized finite screen."
+        },
+        {
+          "outcome": "Unavailable or mismatch",
+          "decision": "Repair binding; do not substitute old sampled-state data."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Plan only; current model-experiment pause remains."
+        }
+      ],
+      "hypothesis_ids": []
+    },
+    {
+      "id": "R4E1",
+      "question": "Is finite static support improvement distinct from readout fitting slack?",
+      "status": "PLANNED",
+      "empirical_quantity": "Proxy upper bound, frozen and matched native K0/K1 advantages, numeric discrepancy",
+      "why_not_derivable": "Real contribution geometry and native casting depend on actual tensors.",
+      "controls": [
+        "Frozen UB1",
+        "Matched K0/K1 fixed-h readout and same training budget",
+        "C-score/random action controls",
+        "Training-only coefficient estimation",
+        "Actual original whole64 QDQ grouping"
+      ],
+      "predictions": [
+        {
+          "outcome": "Native gain survives matched control and source separation",
+          "decision": "Freeze support candidates and assess quality; consider R4E2 only if conditional value exists."
+        },
+        {
+          "outcome": "Only fitting slack, proxy-only effect, or no useful neighborhood bound",
+          "decision": "Classify the specific failure and stop that neighborhood; no claim of universal sparse impossibility."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Plan only; current model-experiment pause remains."
+        }
+      ],
+      "hypothesis_ids": [
+        "R4H1"
+      ]
+    },
+    {
+      "id": "R4E2",
+      "question": "Does whole-M action routing add value over best fixed support?",
+      "status": "PLANNED",
+      "empirical_quantity": "Oracle, feature-conditioned achieved gain, cost-weighted errors and full incremental latency",
+      "why_not_derivable": "NF2 output losses do not determine action-value predictability.",
+      "controls": [
+        "Same frozen support pair",
+        "Best-static comparator",
+        "Pre-W1 features only",
+        "Native whole-M geometry",
+        "No teacher at deployment"
+      ],
+      "predictions": [
+        {
+          "outcome": "Positive source-separated gain and cost fit",
+          "decision": "Test a complete frozen candidate; tile only if independently needed."
+        },
+        {
+          "outcome": "No sign changes, no predictable value or too much cost",
+          "decision": "Use static only or reject that feature/granularity."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Plan only; current model-experiment pause remains."
+        }
+      ],
+      "hypothesis_ids": [
+        "R4H2"
+      ]
+    },
+    {
+      "id": "R4E3",
+      "question": "Does a frozen feasible method meet final quality and speed?",
+      "status": "PLANNED",
+      "empirical_quantity": "Aesthetic/imaging/motion and complete FFN latency",
+      "why_not_derivable": "Local squared error and arithmetic MAC do not order video quality or latency.",
+      "controls": [
+        "Fresh frozen sources",
+        "Same native evaluation boundary",
+        "All auxiliary/routing/packing cost",
+        "Pure-arm controls for any continuation diagnostic"
+      ],
+      "predictions": [
+        {
+          "outcome": "All original quality gates and >=1.5x speed pass together",
+          "decision": "Accept only the tested method/scope."
+        },
+        {
+          "outcome": "Quality or speed fails",
+          "decision": "Do not combine results from different candidates; continuation diagnosis only if decision-relevant."
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+          "kind": "DERIVATION",
+          "note": "Plan only; current model-experiment pause remains."
+        }
+      ],
+      "hypothesis_ids": [
+        "R4H1",
+        "R4H2"
+      ]
+    }
+  ],
+  "novelty": {
+    "status": "CANDIDATE",
+    "mechanism_link": "Projection, conditional expectation and quadratic channel selection are known mathematical/methodological components. Potential Wan-specific support/compensation and action-value effects remain unobserved. Independent derivation recorded before new prior-art lookup.",
+    "nearest_prior_art": [
+      {
+        "reference": "https://proceedings.mlr.press/v151/jeong22a.html",
+        "comparison": "Quadratic channel coupling/resource-aware selection precedes R4; no claim to invent it."
+      },
+      {
+        "reference": "https://github.com/Alrightlone/OBS-Diff",
+        "comparison": "Diffusion timestep-sensitive pruning precedes this review; no transfer guarantee to current fixed Wan object."
+      },
+      {
+        "reference": "https://arxiv.org/html/2501.10054v1",
+        "comparison": "Affine folding plus nonlinear restoration is prior art; kept as backlog transfer."
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "id": "R4_ACCEPT_MATH",
+      "route": "ACCEPT_CONDITIONAL",
+      "reason": "Scoped inequalities, identities and counterexamples settle invalid general claims; synthetic checks are not model evidence.",
+      "derivation_ids": [
+        "R4D1",
+        "R4D2",
+        "R4D3",
+        "R4D4",
+        "R4D5",
+        "R4D6",
+        "R4D7"
+      ]
+    },
+    {
+      "id": "R4_REFINE_STATIC",
+      "route": "REPAIR",
+      "reason": "R3 sequential selection alone does not prove support opportunity; control for compensation redundancy.",
+      "experiment_ids": [
+        "R4E1"
+      ]
+    },
+    {
+      "id": "R4_KEEP_ACTION",
+      "route": "DESIGN",
+      "reason": "Output-readout failure does not logically imply action-value failure, but actual conditional value must be established.",
+      "experiment_ids": [
+        "R4E2"
+      ]
+    },
+    {
+      "id": "R4_PAUSE_MODEL_EXECUTION",
+      "route": "DEFER",
+      "reason": "Current task authorizes deduction and repository publication; model experiments remain paused, and worker binding was not accessed.",
+      "experiment_ids": [
+        "R4E0",
+        "R4E1",
+        "R4E2",
+        "R4E3"
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "id": "BO1_CLOSED_MIXTURE",
+      "failure": "Even the best saved two-arm imaging mixture cannot meet supplementary20 threshold.",
+      "lesson": "A better selector cannot repair an inadequate fixed action set.",
+      "evidence": [
+        {
+          "locator": "reports/worker_20261020/BO1_independent_imaging_certificate.json",
+          "kind": "ARTIFACT"
+        }
+      ]
+    },
+    {
+      "id": "STATIC_SEQUENCE_GUARANTEE",
+      "failure": "Frozen support gain can disappear under matched existing-feature compensation.",
+      "lesson": "Sequential fitting order is a hypothesis source, not proof of untapped structural gain.",
+      "evidence": [
+        {
+          "locator": "research/20261021/r4_deduction_checks.json",
+          "kind": "DERIVATION"
+        }
+      ]
+    },
+    {
+      "id": "NF2_TO_ROUTING_OVERGENERALIZATION",
+      "failure": "A synthetic zero-conditional-mean residual still permits predictable support action gains.",
+      "lesson": "Do not infer action information from output-readout losses alone.",
+      "evidence": [
+        {
+          "locator": "research/20261021/r4_deduction_checks.json",
+          "kind": "DERIVATION"
+        }
+      ]
+    },
+    {
+      "id": "SINGLE_SWAP_FILTER",
+      "failure": "Two individually losing swaps may jointly improve.",
+      "lesson": "Keep interaction-aware finite proposals; do not call singleton failures a global impossibility.",
+      "evidence": [
+        {
+          "locator": "research/20261021/r4_deduction_checks.json",
+          "kind": "DERIVATION"
+        }
+      ]
+    }
+  ]
+}
