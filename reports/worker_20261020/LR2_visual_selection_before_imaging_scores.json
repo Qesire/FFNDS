@@ -1,0 +1,158 @@
+{
+  "selection": [
+    [
+      "formal20",
+      0
+    ],
+    [
+      "formal20",
+      10
+    ],
+    [
+      "disjoint20",
+      0
+    ],
+    [
+      "disjoint20",
+      10
+    ],
+    [
+      "disjoint20",
+      5
+    ]
+  ],
+  "rule": "fixed0/10 from each cohort plus supplemental5, the previously known worst UB1 imaging source; no LR2 imaging/motion score seen; frames0/20/40/60/80",
+  "quality_or_speed_acceptance": false,
+  "commands": [
+    {
+      "cohort": "formal20",
+      "index": 0,
+      "command": [
+        "ssh",
+        "-o",
+        "ProxyCommand=none",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=20",
+        "-o",
+        "ServerAliveInterval=30",
+        "-o",
+        "ServerAliveCountMax=3",
+        "-o",
+        "ControlMaster=auto",
+        "-o",
+        "ControlPersist=600",
+        "-o",
+        "ControlPath=/tmp/ffnds-worker-%r-%p",
+        "worker",
+        "bash /home/xiang/projects/FFNDS/scripts/worker_cpu_exec.sh /home/xiang/projects/FFNDS/.runtime/envs/vbench_official/bin/python tools/render_formal_comparison.py --cases /home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_dense/input00/attempt1/INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu0/input00/attempt1/INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_LR2/input00_attempt1_INPUT.json --labels D-Q UB1 LR2 --output /home/xiang/projects/FFNDS/reports/worker_20261020/LR2_formal20_input00_comparison.jpg"
+      ],
+      "log": "/home/xiang/projects/FFNDS/runs/bootstrap_20261020/LR2_formal20_input00_render.log"
+    },
+    {
+      "cohort": "formal20",
+      "index": 10,
+      "command": [
+        "ssh",
+        "-o",
+        "ProxyCommand=none",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=20",
+        "-o",
+        "ServerAliveInterval=30",
+        "-o",
+        "ServerAliveCountMax=3",
+        "-o",
+        "ControlMaster=auto",
+        "-o",
+        "ControlPersist=600",
+        "-o",
+        "ControlPath=/tmp/ffnds-worker-%r-%p",
+        "worker",
+        "bash /home/xiang/projects/FFNDS/scripts/worker_cpu_exec.sh /home/xiang/projects/FFNDS/.runtime/envs/vbench_official/bin/python tools/render_formal_comparison.py --cases /home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_dense/input10/attempt1/INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_UB1/gpu1/input10/attempt1/INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/formal20_LR2/input10_attempt1_INPUT.json --labels D-Q UB1 LR2 --output /home/xiang/projects/FFNDS/reports/worker_20261020/LR2_formal20_input10_comparison.jpg"
+      ],
+      "log": "/home/xiang/projects/FFNDS/runs/bootstrap_20261020/LR2_formal20_input10_render.log"
+    },
+    {
+      "cohort": "disjoint20",
+      "index": 0,
+      "command": [
+        "ssh",
+        "-o",
+        "ProxyCommand=none",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=20",
+        "-o",
+        "ServerAliveInterval=30",
+        "-o",
+        "ServerAliveCountMax=3",
+        "-o",
+        "ControlMaster=auto",
+        "-o",
+        "ControlPersist=600",
+        "-o",
+        "ControlPath=/tmp/ffnds-worker-%r-%p",
+        "worker",
+        "bash /home/xiang/projects/FFNDS/scripts/worker_cpu_exec.sh /home/xiang/projects/FFNDS/.runtime/envs/vbench_official/bin/python tools/render_formal_comparison.py --cases /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_DQ/input00_attempt1_INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB1/input00_attempt1_INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_LR2/input00_attempt1_INPUT.json --labels D-Q UB1 LR2 --output /home/xiang/projects/FFNDS/reports/worker_20261020/LR2_disjoint20_input00_comparison.jpg"
+      ],
+      "log": "/home/xiang/projects/FFNDS/runs/bootstrap_20261020/LR2_disjoint20_input00_render.log"
+    },
+    {
+      "cohort": "disjoint20",
+      "index": 10,
+      "command": [
+        "ssh",
+        "-o",
+        "ProxyCommand=none",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=20",
+        "-o",
+        "ServerAliveInterval=30",
+        "-o",
+        "ServerAliveCountMax=3",
+        "-o",
+        "ControlMaster=auto",
+        "-o",
+        "ControlPersist=600",
+        "-o",
+        "ControlPath=/tmp/ffnds-worker-%r-%p",
+        "worker",
+        "bash /home/xiang/projects/FFNDS/scripts/worker_cpu_exec.sh /home/xiang/projects/FFNDS/.runtime/envs/vbench_official/bin/python tools/render_formal_comparison.py --cases /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_DQ/input10_attempt1_INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB1/input10_attempt1_INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_LR2/input10_attempt1_INPUT.json --labels D-Q UB1 LR2 --output /home/xiang/projects/FFNDS/reports/worker_20261020/LR2_disjoint20_input10_comparison.jpg"
+      ],
+      "log": "/home/xiang/projects/FFNDS/runs/bootstrap_20261020/LR2_disjoint20_input10_render.log"
+    },
+    {
+      "cohort": "disjoint20",
+      "index": 5,
+      "command": [
+        "ssh",
+        "-o",
+        "ProxyCommand=none",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "ConnectTimeout=20",
+        "-o",
+        "ServerAliveInterval=30",
+        "-o",
+        "ServerAliveCountMax=3",
+        "-o",
+        "ControlMaster=auto",
+        "-o",
+        "ControlPersist=600",
+        "-o",
+        "ControlPath=/tmp/ffnds-worker-%r-%p",
+        "worker",
+        "bash /home/xiang/projects/FFNDS/scripts/worker_cpu_exec.sh /home/xiang/projects/FFNDS/.runtime/envs/vbench_official/bin/python tools/render_formal_comparison.py --cases /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_DQ/input05_attempt1_INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_UB1/input05_attempt1_INPUT.json /home/xiang/projects/FFNDS/runs/worker_restart_20261020/disjoint20_LR2/input05_attempt1_INPUT.json --labels D-Q UB1 LR2 --output /home/xiang/projects/FFNDS/reports/worker_20261020/LR2_disjoint20_input05_comparison.jpg"
+      ],
+      "log": "/home/xiang/projects/FFNDS/runs/bootstrap_20261020/LR2_disjoint20_input05_render.log"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "experiment": "ORIGINAL_O_BLOCK20_FIXED_FUNCTION_ASSET_RECOVERY_20261021",
+  "repo": "Wan-AI/Wan2.2-I2V-A14B",
+  "revision": "206a9ee1b7bfaaf8f7e4d81335650533490646a3",
+  "experts": ["high_noise_model", "low_noise_model"],
+  "block": 20,
+  "keys": ["blocks.20.ffn.0.weight", "blocks.20.ffn.0.bias", "blocks.20.ffn.2.weight", "blocks.20.ffn.2.bias"],
+  "selection": "download pinned configs and safetensors indices, then only complete checkpoint shards containing the four declared tensors; verify full-file SHA256 against official LFS metadata and header shapes/dtypes",
+  "cache": "standard shared home Hugging Face hub cache; no model copies in git or repository, no additional node-root weight copies",
+  "purpose": "prepare the missing original-O arm for a separately registered same-input local FFN comparison; do not alter any active distilled D model/cache/view or claim original-O video inference",
+  "precision": "record actual source dtype from safetensors; do not infer BF16 from an old directory name; any BF16 evaluation cast must be explicit in the later numerical protocol",
+  "scope": "partial original-model assets only, not a complete runnable original-O model or completed O/D experiment",
+  "resources": "CPU/network on worker, no CUDA, two sequential expert downloads; shared HF disk must retain200GiB reserve; GPU LR2 jobs continue independently"
+}

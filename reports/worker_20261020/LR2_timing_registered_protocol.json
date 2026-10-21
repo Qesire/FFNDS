@@ -1,0 +1,18 @@
+{
+  "experiment": "LR2_FORMAL00_COMPLETE_FFN_THREE_ARM_BENCHMARK_20261021",
+  "registered_before": "any LR2 timing or active quality outcome",
+  "parent_boundary_protocol_sha256": "6286a09366715c3a1855411fb1f227db9afcc7c8490709cdb6d90ed7ac8f11e1",
+  "input": "fixed original formal20 index0, seed42, exact conditioning/image and geometry shared by D-Q/UB1/LR2",
+  "arms": [
+    "D-Q",
+    "UB1",
+    "LR2"
+  ],
+  "prerequisites": "LR2 must pass both observed-cohort official three-metric gates; formal20 active nonresident/resident all4latents and video bytes must match for all20; original D-Q all20 resident proof retained",
+  "mathematics": "D-Q dense HiF4 native BF16 reference; frozen UB1 static step budget R256; LR2 same main plus R512 only at step3 blocks30..39, all other150 R256",
+  "boundary": "unchanged FullFFNProfiler: all160 real native FFNs incl norm/modulation,QDQ,mainGEMMs,GELU,gain/bias,actual auxiliary linears,gate/residual; conservatively entire shared pre_process and all raw-placeholder bias prefetch/init charged",
+  "timing": "each arm one warmup plus3 measured requests, complete wall sum ratio; all arm setup separately reported and excluded consistently; no repeat or input selection",
+  "resources": "physical worker GPU0 only; wait for both GPUs idle and serialize all3 arms, ResourceMonitor must report zero foreign compute violations",
+  "acceptance": "sum(D-Q measured wall)/sum(LR2 measured wall)>=1.5; exact main MAC0.5 and actual row-weighted auxiliaryMAC; also report same-input UB1 result to show incremental cost",
+  "scope": "this fixed formal0 measurement is separate from original UB1 research006 1.546 result; do not compare speeds across input/geometry; no model end-to-end,FP4 hardware,half-memory or dynamic novelty claim"
+}

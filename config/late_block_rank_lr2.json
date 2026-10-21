@@ -1,0 +1,14 @@
+{
+  "experiment": "LR2_LAST_TEN_BLOCKS_FINAL_STEP_CAPACITY_20261021",
+  "registered_after": "LR1 failed overall: block10 lost to frozen R256, block30 passed both folds; before fitting any LR2 block31/39",
+  "hypothesis": "extra residual capacity may help the end of the transformer more consistently than earlier blocks; test two fixed additional positions, without rescanning LR1",
+  "pilot": "step3 blocks31 and39, fixed12/12 parity CV, original native fullM geometry, lambda1 and separately fit ranks256/512; same exact C24-student observations, recomputed frozen UB1 main and original bitwise main/residual controls as LR1",
+  "gate": "all4 new cases must satisfy R512 native SSE <=0.95 of matched R256 refit and <=0.95 of original frozen UB1 R256; unchanged LR1 two-arm thresholds; any failure stops this candidate",
+  "candidate_if_pass": "only step3 blocks30..39 use rank512, all other150 positions retain original frozen UB1 rank256; main supports/gain/bias/QDQ unchanged; fit exactly these10 residuals on all24 original OP1 sources with fixed lambda1/rank512",
+  "selection_scope": "the last10 boundary is chosen after LR1 block30 positive/block10 negative, then fixed before31/39 tests; all24 sources were used in main/frozen residual training and earlier pilots, not untouched whole-pipeline validation",
+  "budget": "main MAC density0.5; average residual rank272, auxiliary272/13824=0.019675925925925927 of dense FFN; extra0.0011574074074074073 vsUB1; measure new complete FFN cost rather than inheriting1.546",
+  "native_controls_if_promoted": "new runtime identity mode must reproduce original UB1 four latents/video on fixed formal0/10 and supplemental0/10 before active full generation; actual candidate trace must report rank512 only at the10 declared positions and all160 complete FFNs",
+  "video_if_promoted": "same frozen resulting policy on original20 and supplemental20 with separate D-Q references and unchanged three metric each<=2% gates; both cohorts now development feedback, no claim new held-out generalization; any full speed claim requires same-policy complete isolated repeats",
+  "scope": "static recovery baseline, no dynamic sparsity novelty; do not reinterpret LR1 as passed",
+  "resources": "worker two GPUs maximum, avoid foreign processes, models and coefficient payloads in HF cache, preserve80GiB node disk reserve"
+}

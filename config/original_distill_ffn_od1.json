@@ -1,0 +1,15 @@
+{
+  "experiment": "OD1_COMMON_DBF16_INPUT_NATIVE_LOCAL_FFN_20261021",
+  "registered_before": "any original-O tensor function evaluation or O/D numerical output inspection",
+  "inputs": "existing D-BF16 observer captures, tasks0/6, seeds20261001/20261002, step0 high and step2 low, block20; eight scopes from two independent images with repeated seeds,512 uniform rows each",
+  "common_input": "actual recorded U at native FFN0.apply, after D's norm/modulation and before any Smooth/Q1; restore zeros at unused rows with the original complete M, then gather the declared512 rows",
+  "native_control": "D-BF16 must reproduce actual captured Z/H/Y and gate-applied Delta bitwise at all8 scopes before any O/D result is accepted; original observer four-latent/video no-op and source/payload/weight identities must hold; no tolerance fallback",
+  "arms": "O checkpoint cast explicitly to BF16 if source storage differs; native D-BF16; native D-Q local Smooth/Q1/GG0/GELU/Smooth/Q2/GG2 on exactly the same U, using the frozen rebuilt cache and raw D biases once",
+  "operators": "O and D use native Torch addmm with BF16 operands, explicit output allocation, checkpoint transposition and actual observed W2 runtime stride; GELU(tanh); D-Q uses the unchanged native activation QDQ and cache effective weights; all precision/casts reported",
+  "pairs": "D-BF16 versus O-BF16; D-Q versus D-BF16; D-Q versus O-BF16; per-scope FP64 SSE/reference norm/relativeRMSE for ungated Y and the same observed D gate applied in native BF16",
+  "alignment": "FP64 cosine between D-minus-O and DQ-minus-D errors, ungated and same-D-gated, descriptive only",
+  "concentration": "per-row64-channel-group FP32 contribution C=norm(H_g W2_g^T * sameDgate)^2, exclude bias, normalize in FP64; mean top108 oracle retained fraction and normalized group entropy; per-arm original coordinates, no invariance or deployable selector claim",
+  "sampling": "verify source grid, coordinates, uniform512 sampling probabilities and payload SHA; report per scope and source identity; do not count two seeds or rows as new independent images",
+  "scope": "weight-function comparison conditional on D-BF16 states and shared D gate; no original-O trajectory/scheduler, whole-model O-versus-D quality, sparsity-speed, method acceptance or statistical significance claim",
+  "resources": "one idle worker GPU only after LR2 quality/acceptance controller reaches a terminal state; no overlap with isolated timing; tensors and operator outputs in HF derived cache, original shards remain shared home HF; preserve80GiB node reserve"
+}
