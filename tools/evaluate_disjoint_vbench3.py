@@ -1,7 +1,8 @@
 """Evaluate the frozen source-disjoint20 supplement with the same official workers.
 
 Derived from evaluate_vbench3; metric/model/worker mechanics are unchanged.
-Only the explicit supplemental input manifest and its identity check differ.
+The supplemental source index follows the exact historical stratum-dimension
+rule and checks all100 names per metric before invoking the unchanged worker.
 """
 import argparse
 import hashlib
@@ -14,6 +15,8 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+
+from vbench_input_index import build_full_info, validate_video_name_coverage
 
 ROOT=Path(__file__).resolve().parents[1]
 DIMS=['aesthetic_quality','imaging_quality','motion_smoothness']
@@ -104,6 +107,16 @@ def main():
                             'video':case['video'],'identical_filename_copies':5})
     if len(list(videos.glob('*.mp4')))!=100:
         raise RuntimeError('Expected100 names for20 independent sources')
+    historical_full_info=json.loads((kit/'VBENCH_FULL_INFO.json').read_text())
+    original_inputs=json.loads((ROOT/'.runtime/inputs/formal20/canonical.json').read_text())
+    if build_full_info(original_inputs,historical_full_info)!=historical_full_info:
+        raise RuntimeError('Index rule does not exactly reconstruct the original historical20')
+    full_info=build_full_info(inputs,historical_full_info)
+    full_info_path=args.out/'SUPPLEMENT_FULL_INFO.json'
+    if full_info_path.exists() and json.loads(full_info_path.read_text())!=full_info:
+        raise RuntimeError('Existing supplemental index changed')
+    atomic(full_info_path,full_info)
+    metric_coverage=validate_video_name_coverage(full_info,[p.name for p in videos.glob('*.mp4')])
     code=[]
     for name in ['vbench','vbench2_beta_i2v','pyiqa','clip']:
         spec=importlib.util.find_spec(name)
@@ -112,7 +125,10 @@ def main():
     site=Path(importlib.util.find_spec('vbench').origin).parent.parent
     protocol={'metrics':DIMS,'unique_generation_count':20,'materialized_names':100,'seed':42,'camera_excluded':True,
         'generation_suites':bindings,'generation_identity':next(iter(identities.values())),
-        'historical_worker_sha256':sha(worker),'full_info_sha256':sha(kit/'VBENCH_FULL_INFO.json'),
+        'historical_worker_sha256':sha(worker),'full_info_sha256':sha(full_info_path),
+        'full_info_rule_control':{'historical_original20_exact_reconstruction':True,
+            'historical_index_sha256':sha(kit/'VBENCH_FULL_INFO.json'),
+            'index_rule_source_sha256':sha(ROOT/'tools/vbench_input_index.py'),'metric_filename_coverage':metric_coverage},
         'code':code,'models_manifest_sha256':sha(models_path),'models':models['models'],
         'versions':{n:importlib.metadata.version(n) for n in ['torch','torchvision','numpy','vbench','pyiqa','openai-clip','decord','setuptools']},
         'python':sys.version,'device':'cuda','local':True,'read_frame':False,'resolution':'16-9',
@@ -132,7 +148,7 @@ def main():
             report=folder/'worker_report.json'
             if not report.exists():
                 command=[sys.executable,str(worker),'--worker-dimension',dim,'--vbench-repo',str(site),'--workdir',str(work),
-                    '--full-info',str(kit/'VBENCH_FULL_INFO.json'),'--videos-dir',str(videos),'--output-dir',str(folder/'results'),
+                    '--full-info',str(full_info_path),'--videos-dir',str(videos),'--output-dir',str(folder/'results'),
                     '--name',args.name,'--device','cuda','--resolution','16-9','--local','--allow-trusted-pickle-checkpoints','--output',str(report)]
                 with (folder/'stdout.log').open('wb') as stdout,(folder/'stderr.log').open('wb') as stderr:
                     subprocess.run(command,env=env,stdout=stdout,stderr=stderr,timeout=7200,check=True)

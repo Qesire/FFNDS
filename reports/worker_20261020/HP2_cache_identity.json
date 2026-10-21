@@ -1,0 +1,30 @@
+{
+  "fingerprint": "79897003e190c85e61ac953cae551856ae29c36fcabfa6ba431055842ab66324",
+  "identity": {
+    "protocol_sha256": "a83ef6cae7e798c3717fd67d947b5bae6bba2fc974c540f5017cc3c9915cb6b5",
+    "protocol": {
+      "experiment": "HP2_CROSS_COORDINATE_RESIDUAL_HIDDEN_PROFILE_MLP_20261021",
+      "registered_after": "HP1 completed fourfold rejection: diagonal squares captured22-23% of per-row oracle gains and lost to linear; before any HP2 update",
+      "hypothesis": "cross-coordinate nonlinear features may predict teacher contribution patterns better than HP1 diagonal squares; a single fixed MLP tests this without a model/kernel run",
+      "data": "exact same frozen HP1 BF16 residual h256 and RB1 normalized C profiles, steps2/3 block20,24 source-exposed calibration inputs, fixed12/12 parity folds and108/162 groups; all48 hidden hashes must equal HP1 controls",
+      "model": "FP32 256->128 ReLU->216, no output activation; train-only feature mean/populationStd floor1e-4; fold into first-layer FP32 weight/bias; primary inference at original native fullM using exact BF16 residual hidden and FP32 MLP",
+      "optimization": "fixed seed20261021+100*step+fold, AdamW lr0.001 betas0.9/0.999 eps1e-8 weight_decay0.01; mean squared error against normalized C profile multiplied216; clip gradient norm1, batch256,20epochs240updates; fixed seeded shuffles, no early stopping or hyperparameter scan",
+      "control": "re-evaluate frozen HP1 linear head at same fullM and require same retained C mean; use exactly matched static and unrestricted row-oracle metrics from HP1; compare FP32 folded/unfolded route disagreement without selecting implementation",
+      "gate": "all4 folds oracle-static>=0.02 absolute, native folded MLP captures>=0.50 of oracle gain and retained C minus frozen HP1 linear >=0.002 absolute; otherwise stop before native FFN fitting",
+      "budget": "head MACs(256*128+128*216)=60416,0.0004267939814814815 of original dense FFN MACs; residual first layer is already in UB1; all real topk/packing/padding and kernel costs remain unmeasured",
+      "scope": "C-score screening only, not native FFN error or held-out full-pipeline quality, no new formal videos and no change to frozen UB1",
+      "resources": "worker GPU0 only, HF derived checkpoint cache and80GiB disk reserve; TF2 diagnostic stays on GPU1"
+    },
+    "HP1_report_sha256": "a0c1b3cf8cca83405706e38195f3e8f5fba6d6128bf1477fb3151b1d0bbd6510",
+    "HP1_fingerprint": "e8796a7889d0b1fab8963a02d9999fe3b7e9ebdd5ae963b9b749733fdef04725",
+    "sources": {
+      "/home/xiang/projects/FFNDS/tools/run_hidden_mlp_pilot.py": "f51f3213ccf3bd4abb10fdc7c2182c1802f61abccf4861171073fb68a2e71321",
+      "/home/xiang/projects/FFNDS/tools/hidden_profile_mlp.py": "99588ecabc22e8ced37ecaa5dda71ceb5d0a71924a6b51a4135574ee78e54f00",
+      "/home/xiang/projects/FFNDS/tools/hidden_profile_head.py": "8c6ce9a7d902d571cf3be2ffcd1b36ea14ac0eb5f74af81294a53c8058b340ac",
+      "/home/xiang/projects/FFNDS/tools/run_hidden_profile_pilot.py": "0c2df66a236b4e8000c07ad685ec9eb1464fa6fe80c6a584e1d53cbc1a121fc6"
+    },
+    "torch": "2.10.0+cu128",
+    "numpy": "2.4.6",
+    "TF32": false
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "fingerprint": "f2cc27f265d5897faaf14b1bc5212cefa8556ce6642f220454a9b2f8a047db29",
+  "identity": {
+    "protocol_sha256": "7faa1f4960396ff4bc888a48b0f9e85c1f7877a05a0aa7f1ab453ca70cdbbb30",
+    "protocol": {
+      "experiment": "LR1_UB1_LAST_STEP_RANK512_NATIVE_RISK_PILOT_20261021",
+      "registered_after": "HP1/HP2 fixed feature pilots rejected, first TF2 source shows large final single-update error; before any LR1 fit; wait for all4 TF2 sources",
+      "condition": "TF2 must complete all4 fixed sources with exact D-Q input states, and pooled last-step absolute one-step post SSE must be the largest of four steps; otherwise record NOT_RUN without fitting",
+      "historical_control": "rank512 was already considered in original12 RR1 CV at step0/2 half-width; this separate pilot uses UB1 step3 75%-width main,24 C24-student observed states and two new fixed blocks10/30; no claim rank512 itself is new",
+      "change": "keep frozen UB1 main supports, QDQ, gain/bias and all other steps; compare fixed lambda1 rank512 last-step residual against both matched refit rank256 and frozen UB1 rank256",
+      "data": "OP1 actual V1/TeacherY/gate on24 C24-student states at step3 blocks10/30; recompute frozen UB1 main using actual original fullM/layout and native QDQ, then train residual to actual dense local TeacherY; this is not UB1 own-state collection",
+      "controls": "all48 original C24 packed main and BaseY+old residual must replay actual captured values bitwise before fitting; frozen UB1 groups/alpha/b2/R256 and original effective W0/W2/raw b0/smooth2 must match their bindings; do not relabel new main as an observed UB1 capture",
+      "training": "two fixed12/12 parity source folds,6 animal6 architecture each, no rank/lambda scan; separately run existing fit_rrr(lambda1,maxrank256) control and fit_rrr(lambda1,maxrank512) candidate with original seed20261021 and native BF16 parameter conversion",
+      "evaluation": "original fullM residual linears, BF16 main+residual sum before original BF16 gate; FP64 SSE of gate-applied outputs; same teacher target and frozen main for all3 arms",
+      "gate": "all4 block/fold cases candidate native SSE <=0.95 of matched rank256 refit SSE and <=0.95 of frozen UB1 rank256 SSE; otherwise no full40-position fit or new formal videos",
+      "exposure": "UB1 main and frozen residual used all24 sources; CV restricts only new residual fitting, not whole-pipeline held-out quality; TF2 sources choose this experiment but never enter fitting",
+      "budget": "if promoted, ranks256/256/256/512, main MAC density still0.5; residual MAC density meanRank320/13824=0.023148148148148147, versusUB1's0.018518518518518517; extra work and memory must be included in new complete FFN measurement, no inherited1.546 speed claim",
+      "scope": "static recovery baseline and native local-risk screening only, no input-dynamic novelty or quality acceptance",
+      "resources": "one idle worker GPU0, cache/checkpoints in HF derived cache, preserve80GiB disk reserve"
+    },
+    "TF2_condition_sha256": "c46be71e041a4a5bf4ce17ee517ab10005cfe8aba7d4f6d09339af26c7354204",
+    "UB1_policy_sha256": "d8840b9328af18c9f3d07b4570130e58467d0f45cae12d1dd13e8db89ebd7a6a",
+    "collection_bindings": [
+      {
+        "run": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/onpolicy_calibration24/shard0/RUN.json",
+        "sha256": "37644a278f4543b16ddcfc2b049b3f5d1ac1211821ca88ca3bb00ec64e8829d8",
+        "inputs": [
+          {
+            "index": 0,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input00/attempt1/INPUT.json",
+            "input_report_sha256": "e5a99d9838f8295f83fbc701810bd8cddacdb9849b9e624b10ed5f662074b02c"
+          },
+          {
+            "index": 2,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input02/attempt1/INPUT.json",
+            "input_report_sha256": "ae7e90990461eb2e636e795d4b5782b539a12d2efdd2490c12b89e5dff151995"
+          },
+          {
+            "index": 4,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input04/attempt1/INPUT.json",
+            "input_report_sha256": "25b31446ce9f5d19fd9d62643483c623485b492b3b01009176e408462c9701db"
+          },
+          {
+            "index": 6,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input06/attempt1/INPUT.json",
+            "input_report_sha256": "cb88711fb922db775c1e5fb7e9ad495184a1493b19ade8b61183e2be6e13585e"
+          },
+          {
+            "index": 8,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input08/attempt1/INPUT.json",
+            "input_report_sha256": "4e592b446028bb46ddc68b568d208320eb2cca653c79e2b249f883d4d7fb7701"
+          },
+          {
+            "index": 10,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input10/attempt1/INPUT.json",
+            "input_report_sha256": "74a0c91aa7e20eca86e9800c6b05a6ea90113d83271c87c30fb229392a99aeb6"
+          },
+          {
+            "index": 12,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input12/attempt1/INPUT.json",
+            "input_report_sha256": "7c8ed6f00cb2d314eb12c3f5d3cc153752aa98f06b7f68d7f6e8f1c7de8a6ebc"
+          },
+          {
+            "index": 14,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input14/attempt1/INPUT.json",
+            "input_report_sha256": "772ccc7cddde8287d72adaf84ca391f938b35292906b1cdd36c9ac729e6ecdd5"
+          },
+          {
+            "index": 16,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input16/attempt1/INPUT.json",
+            "input_report_sha256": "963ee01d46d52f7968b6b6065048c407ba2e20fcc0e10f93e3703e7c9df085b2"
+          },
+          {
+            "index": 18,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input18/attempt1/INPUT.json",
+            "input_report_sha256": "b1e857bd95f6a8e0afe2cdb53488acd1af3282ddbbac6bf9c431150cecb8518f"
+          },
+          {
+            "index": 20,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input20/attempt1/INPUT.json",
+            "input_report_sha256": "1777cec0fa9ccde743cec8d7309f4c6bbd9fa232b6b25af2aef4ba5b83ee7fce"
+          },
+          {
+            "index": 22,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/4e0ceb0ad727c6fc745f484fcd2952e7a1f9c9b2cfacc47f940e7bc1d49871f1/input22/attempt1/INPUT.json",
+            "input_report_sha256": "5d278968c7444219c994ee5ba0274dbbe9dd23d691e8c297bec7c1c83821764c"
+          }
+        ]
+      },
+      {
+        "run": "/home/xiang/projects/FFNDS/runs/worker_restart_20261020/onpolicy_calibration24/shard1/RUN.json",
+        "sha256": "c34c08761056d29a157acc3871ac9175a960c05faafe80ace5a7e0dae3e9048d",
+        "inputs": [
+          {
+            "index": 1,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input01/attempt1/INPUT.json",
+            "input_report_sha256": "ff9dbdd10b5f83106f739365e48dbc9cef6978336dada646bc0e637baa604546"
+          },
+          {
+            "index": 3,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input03/attempt1/INPUT.json",
+            "input_report_sha256": "c895161db8d3ecb7f03f27b8030d8ccab3a1fcfebb8cc2833c75546625b1a641"
+          },
+          {
+            "index": 5,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input05/attempt1/INPUT.json",
+            "input_report_sha256": "93131daa8a28a358c8a7ad44ff32d34595ad0aff151b19db53808923f58597c2"
+          },
+          {
+            "index": 7,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input07/attempt1/INPUT.json",
+            "input_report_sha256": "a1942c790dcb69ce70d7086fd7a506191eb6d365ba267c974a5d289ab8bf33ee"
+          },
+          {
+            "index": 9,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input09/attempt1/INPUT.json",
+            "input_report_sha256": "d60405a9da51a63c6524f6793e301d69f625fb3eb028166c7086a41a27b59706"
+          },
+          {
+            "index": 11,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input11/attempt1/INPUT.json",
+            "input_report_sha256": "e7c884df9eb6a51af9928c380373c8f878ce68f58701369ce8c3afcf3b4a8c53"
+          },
+          {
+            "index": 13,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input13/attempt1/INPUT.json",
+            "input_report_sha256": "ed0f31d08016d780187e0489770ad4c9a589c5199b807f32f130b2ea099c7752"
+          },
+          {
+            "index": 15,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input15/attempt1/INPUT.json",
+            "input_report_sha256": "d9fb9a611b6e14d99254dfa660e0d69bb89f2aaf0feecb02f151b209cd9ffe7d"
+          },
+          {
+            "index": 17,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input17/attempt1/INPUT.json",
+            "input_report_sha256": "ff902ba1048c8686d895512d23427370c414c3721e4c03122ea75e6b346c638a"
+          },
+          {
+            "index": 19,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input19/attempt1/INPUT.json",
+            "input_report_sha256": "251ee2e994dfb19ded45a654741da8c0d88e5761d1b94356b0de2a1978af3a0e"
+          },
+          {
+            "index": 21,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input21/attempt1/INPUT.json",
+            "input_report_sha256": "3ba1c148f3d527ec61fe23ca2c6781222b371f4872040833cc85b54b5b1c1cc7"
+          },
+          {
+            "index": 23,
+            "input_report": "/home/xiang/.cache/huggingface/ffnds-derived/onpolicy_c24_ffn_operands_20261021/b220940bdd4c6689eb966a582ccfd09f0f583e643da049be068b54ea51a07c8f/input23/attempt1/INPUT.json",
+            "input_report_sha256": "cd0642911d774966e3ce34e317a7a16ba2b991e9182574b3cc255760564f3ef8"
+          }
+        ]
+      }
+    ],
+    "sources": {
+      "/home/xiang/projects/FFNDS/tools/run_late_rank_pilot.py": "e621a5a5cb5560eddaff6c37216f1c1aa6b383514c1656f2411453f1ae408d09",
+      "/home/xiang/projects/FFNDS/tools/folded_adapter.py": "bd5e333554fa035197d1eb4b1c08af59ebe3a63140ee7175213709e068bb6853",
+      "/home/xiang/projects/FFNDS/tools/run_folded_adapter_cv.py": "25655f4b2d1951f78cde8ecc0e3c4474aeb66794c6b1448ef7cf5adc95976a25",
+      "/home/xiang/projects/FFNDS/tools/onpolicy_residual.py": "3d00ef97defd2df52968eeecaad0cad94ce91e8c0ce23fd4047b95c8f8797267",
+      "/home/xiang/projects/FFNDS/tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+      "/home/xiang/projects/FFNDS/tools/run_residual_rr1.py": "85e65cfeaf2d3f8c2dfb7e7a36692f68613420e7123d8b9bb2fab068c03488f8"
+    },
+    "torch": "2.10.0+cu128",
+    "TF32": false
+  }
+}

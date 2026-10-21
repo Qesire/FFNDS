@@ -1,0 +1,13 @@
+{
+  "experiment": "RB2_EQUAL_SIZE_FOUR_BANK_ROUTER_FEASIBILITY_20261021",
+  "registered_after": "RB1 all4 folds stopped before router training because ordinary kmeans produced banks below128 rows; before any RB2 assignment or router update",
+  "change": "replace ordinary nearest-centroid assignments with deterministic equal-size assignments at every Lloyd iteration; keep the existing128-row minimum, rather than lowering it or reseeding RB1",
+  "assignments": "N=3072, each of4 banks gets768 rows; order points by descending second-nearest minus nearest squared distance, stable ties by training row order; assign each point its nearest bank with remaining capacity, ties lowest bankID;20 Lloyd mean updates and one final equal-size assignment",
+  "initialization": "same kmeans++ and fixed seed20261021+100*step+fold as RB1; stop on degenerate initialization without reseeding",
+  "frozen": "reuse exactly RB1's two normalized teacher C-profile caches and24 observed V1 sources; same12/12 parity CV, keep108/162 groups for steps2/3, same train-only mask means and matched static support",
+  "router": "unchanged5120->32 ReLU->4, train mean/populationStd floor1e-4 folded offline into BF16 first-layer weights/bias; FP32 AdamW lr.001 clip1 batch25620epochs240updates, same seeded shuffles; primary inference at original fullM/native layout with two BF16 linears",
+  "gate": "unchanged: all4 folds oracle-static>=.02 absolute normalized C-score and native router captures>=.50 of oracle gain; no early stop, epoch selection, hyperparameter sweep or altered support budgets",
+  "scope": "separate balanced-clustering feasibility control; RB1 remains rejected, no native FFN reconstruction, deployment, quality or novelty conclusion",
+  "inputs_excluded": "no original or supplemental formal video scores/images used for fitting; only the already source-exposed24 C24-student calibration sources",
+  "resources": "one idle worker GPU, small cache/checkpoints only in node HF derived cache, preserve80GiB reserve"
+}

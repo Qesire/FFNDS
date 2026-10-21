@@ -1,0 +1,20 @@
+{
+  "experiment": "RB1_FOUR_MASK_CPROFILE_ROUTER_FEASIBILITY_20261021",
+  "registered_before": "any RB1 C-profile computation, bank fitting or router update; primary UB1 joint acceptance passed, disjoint20 results pending",
+  "execution_condition": "after frozen source-disjoint20 supplement finishes; one idle worker GPU, do not interrupt either existing arm",
+  "question": "can a cheap postQ1 router select among four whole64-group supports that retain more captured teacher C-score than the matched static support?",
+  "scope": "preliminary C-score proxy feasibility, not native FFN reconstruction error, deployed routing cost, video quality or method novelty; no complete-model change",
+  "data": "only the24 frozen C24-student OP1 sources; derived dense local teacher postQ2 V2 at steps2/3 block20, all48 TeacherY replay checks and4 actual dense V2/Y controls already passed; source-exposed development calibration, not whole-pipeline held-out",
+  "teacher_profile": "per64 group Cg=sum_d((V2_g.float @ effectiveW2_g.float.T)*native_gate.float)^2 with FP32 products and FP64 square/reduce; exclude raw FFN bias, normalize each row by its positive sum over216 groups",
+  "CV": "four folds: step2/3 block20 times parity2;12 train12 validation,6 animal6 architecture each,256 sampled rows/source; no supplemental20 inputs or outputs used",
+  "support_budget": "step2 keep108 and step3 keep162 groups, matching the UB1 per-step widths; all bank and static supports have identical cardinality",
+  "banks": "K4, squared-Euclidean kmeans++ on normalized training C profiles only, exactly20 Lloyd updates, seed20261021+100*step+fold; ties lowest bank ID; any empty cluster or final bank<128 training rows rejects that fold without reseeding",
+  "masks": "each bank selects top normalized training mean Cg within its cluster; matched static selects top global normalized training mean Cg; stable ties lowest original group ID; original whole64 coordinates retained",
+  "labels": "training best bank maximizes retained normalized C-score under the four fixed training masks; validation best-bank energy is an offline teacher oracle only",
+  "router": "5120->32 ReLU ->4 MLP; train-input channelwise mean/populationStd with floor1e-4; FP32 AdamW lr0.001 betas[0.9,0.999] eps1e-8 weight_decay0, clip1, batch256,20 epochs,240 updates, fixed seeded shuffles, no early stop or sweep",
+  "deployment_boundary": "fold input mean/std into first-layer weights/bias in FP32, then BF16 W/b for both linears; primary predictions use actual original fullM/native input layout with unused rows zero, BF16 F.linear/ReLU/F.linear, argmax ties first bank; no online standardization or teacher/full-hidden computation",
+  "primary_proxy": "mean over validation rows of retained normalized C-score; each source has256 rows; record static, offline best-bank oracle and folded-native-router values",
+  "gate": "all4 folds require oracle-static >=0.02 absolute and (nativeRouter-static)/(oracle-static)>=0.50; failure stops before candidate native-FFN fitting or video; this proxy gate cannot replace a future registered native-SSE gate",
+  "next_if_pass": "register a separate actual native-FFN experiment with matched conditional-residual/static-mask ablations, source and bias controls, real packing/routing/padding costs; do not infer success from C-score alone",
+  "storage": "original observations unchanged; C-profile arrays and small router checkpoints only in node HF derived cache, compact evidence in repo; preserve80GiB node reserve"
+}

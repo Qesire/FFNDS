@@ -1,0 +1,15 @@
+{
+  "experiment": "HP1_RESIDUAL_HIDDEN_DIAGONAL_QUADRATIC_C_PROFILE_PILOT_20261021",
+  "registered_after": "RB2 completed all4 folds but all oracle gains were below2 percentage points; before any HP1 feature extraction or fitting",
+  "question": "can the already-computed UB1 residual first-layer hidden256 predict per-row216 normalized teacher C scores, without computing the teacher hidden FFN online?",
+  "features": "exact existing BF16 residual hidden h from full native M/layout; matched linear h control versus diagonal quadratic concat(h,h^2) formed in FP32; no extra5120->hidden projection",
+  "training": "same24 C24-student sources and RB1 teacher C profiles, step2/3 block20,12/12 parity source folds; train-only per-feature mean/populationStd floor1e-4, centered FP64 ridge covariance/N +1.0I; fixed lambda1, no scan; fold mean/scale into one FP32 output projection",
+  "native_inference": "reconstruct original complete M/stride, first residual BF16 F.linear unchanged, FP32 features/projection at original M; stable descending216-score sort with lowest groupID on ties; select108/162 original64-channel groups at steps2/3",
+  "controls": "all48 captured original C24 BaseY+old residual must equal StudentY bitwise; decomposed UB1 first/second linears must equal its frozen full-geometry residual replay; profile source/payload/teacher/weight/gate identities retained",
+  "comparisons": "matched training-mean static support; unrestricted per-row teacher C topk oracle; linear hidden head and quadratic hidden head, no selection between heads",
+  "gate": "all4 folds unrestricted oracle minus static >=0.02 absolute C fraction, quadratic native head captures >=0.50 of that gain, quadratic retained C minus linear retained C >=0.002 absolute; otherwise stop before native FFN fitting",
+  "scope": "C-score pilot only; per-row varying supports are not a deployment kernel, packing/padding/topk costs unmeasured; C24 and frozen residual feature parameters already saw all24 sources, so this is not whole-pipeline held-out generalization",
+  "online_budget": "quadratic FP32 head512x216 MACs is0.00078125 of original dense FFN two linears; h already computed, but feature/topk/packing and resulting main kernel costs must be measured before any speed claim",
+  "excluded": "no video quality labels/images from original20 or supplement20 used in fitting; UB1 runtime and both quality results unchanged",
+  "resources": "worker GPU0 only, independent of TF2 GPU1; checkpoint arrays in node HF derived cache, retain80GiB reserve"
+}
