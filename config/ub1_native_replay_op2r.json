@@ -1,0 +1,12 @@
+{
+  "experiment": "OP2R_FOUR_STEP_UB1_NATIVE_REPLAY_CONTROLS_20261021",
+  "condition": "only after OP2 calibration24 and OP2D native state description complete successfully; one free locked worker GPU, no isolated timing overlaps",
+  "scope": "all24 sources, block20, all4 steps; no fitting, parameter selection or new candidate",
+  "new_states": "reconstruct frozen UB1 main and rank256 residual on original full M/stride, then require BaseY and StudentY bitwise equal to actual OP2 capture at every96 position",
+  "old_states": "first run the original C24 main/residual bitwise replay on every96 original OP1 position; recompute UB1 locally on those states, keeping changed step0/3 outputs explicitly unobserved under UB1; steps1/2 must also equal captured old C24 outputs",
+  "prior_risk_control": "old-state step2/3 block20 and parity validation folds must reproduce the four frozen NF1 baseline native SSE values; relative tolerance1e-12 and absolute1e-9, with exact equality also recorded",
+  "constraints": "unchanged old policy SHA, whole64-group supports, original Q1 inputs, GELU tanh, Smooth2/native Q2/gain/cast/folded bias order, original raw biases and gate, BF16 auxiliary linears and BF16 sum",
+  "limits": "counterfactual local outputs on old states do not establish an actual UB1 trajectory there; no new video, speed, held-out or generalization claim",
+  "storage": "reuse original immutable HF payloads and coefficients; only compact control reports added, keep80GiB node reserve",
+  "quality_or_speed_acceptance": false
+}

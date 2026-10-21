@@ -1,0 +1,11 @@
+{
+  "experiment": "OP2A_COMPLETE_NATIVE_PAYLOAD_INTEGRITY_20261021",
+  "condition": "only after both original24 UB1 calibration shards finish successfully",
+  "required_scope": "24 accepted independent calibration sources, 160 scopes per source, 3840 distinct payload paths",
+  "checks": "same-source producer, protocol, image, seed, all scope coordinates and no-op videos; every payload size and full SHA256; safetensors header BF16 dtype, four256x5120 row tensors, original5120-value bias/gate, exact contiguous non-overlapping body offsets",
+  "finite_values": "the unchanged native producer verified finite BF16 values before each save; full byte SHA and complete producer binding preserve that evidence without another full tensor decode",
+  "resources": "worker CPU only, hide CUDA, at most4 checksum readers, use the shared diagnostic CPU lock; do not copy payloads or change cache files",
+  "publication": "compact per-source lineage and inventory SHA in repo; full payload paths and coordinates remain in original immutable HF input reports",
+  "failure_policy": "preserve any failure and stop; never repair, rewrite, or silently skip a payload",
+  "quality_or_speed_acceptance": false
+}

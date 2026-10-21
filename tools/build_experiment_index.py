@@ -41,6 +41,8 @@ def main():
     if (d/'NP1_proxy_RUN.json').exists():definitions.append(('NP1','C proxy','NP1_proxy_RUN.json','matched512 linear/nonlinear input-basis comparison; no native output-risk or kernel'))
     if (d/'TC1_coherence_RUN.json').exists():definitions.append(('TC1','C pair-transfer diagnostic','TC1_coherence_RUN.json','native64-row neighbor support transfer on known C24 states; no full-tile oracle or native output risk'))
     if (d/'OP2_native_control_summary.json').exists():definitions.append(('OP2','native teacher control','OP2_native_control_summary.json','two known formal sources, both arms; native identity and teacher no-op only'))
+    for trial,stage,name,scope in [('OP2','native teacher collection','OP2_complete_native_collection_controller_RUN.json','24 known calibration sources, actual UB1 states, complete3840 positions'),('OP2A','dataset integrity','OP2A_complete_dataset_integrity_RUN.json','all3840 native payloads, full SHA and BF16 header contract'),('OP2D','paired state description','OP2D_native_state_description_RUN.json','24 known sources,256 sampled rows per fixed position; no spatial-population independence'),('OP2R','native replay control','OP2R_complete_native_replay_RUN.json','96 actual UB1 and96 original C24 positions, four exact frozen NF1 risks')]:
+        if (d/name).exists():definitions.append((trial,stage,name,scope))
     for trial,stage,name,scope in definitions:
         path=d/name;value=json.loads(path.read_text())
         row={'trial':trial,'stage':stage,'scope':scope,'status':value['status'],
@@ -61,7 +63,7 @@ def main():
             row['speed_evidence']={'path':str(speedpath.relative_to(ROOT)),'sha256':digest(speedpath)}
             row['joint_acceptance']=bool(row['official_video_quality_pass'] and speed['full_FFN_speed_pass'])
     active=[]
-    for trial,name in [('UB2',name) for name in ['terminal_dense_ub2_identity','terminal_dense_ub2_flow','terminal_dense_ub2_controller','terminal_dense_ub2_acceptance']]+[('OP2','op2_native_controller'),('OP2D','op2d_distribution_controller')]:
+    for trial,name in [('UB2',name) for name in ['terminal_dense_ub2_identity','terminal_dense_ub2_flow','terminal_dense_ub2_controller','terminal_dense_ub2_acceptance']]+[('OP2','op2_native_controller'),('OP2D','op2d_distribution_controller'),('OP2A','op2a_audit_controller'),('OP2R','op2r_replay_controller')]:
         path=ROOT/'runs/worker_restart_20261020'/name/'RUN.json'
         if path.exists():
             v=json.loads(path.read_text())
