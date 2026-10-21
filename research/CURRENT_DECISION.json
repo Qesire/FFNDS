@@ -2,15 +2,17 @@
   "schema_version": "1.0",
   "review_id": "FFNDS-R5-ANTI-REGRESSION-20261021",
   "evidence_base_commit": "dceb931ef572e27e6ace9123d85c5b2892813719",
-  "decision_document": "docs/54_已淘汰路线防回退审计_20261021.md",
+  "decision_document": "docs/58_局部与下游目标的双参数原生对照.md",
   "research_state": "research/20261021/research_state_R5.json",
-  "handoff": "research/20261021/HANDOFF_R7.md",
+  "handoff": "research/20261021/HANDOFF_R7D2.md",
   "triage": "research/20261021/method_triage.json",
-  "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+  "execution_state": "R4_CLOSED_FIXED_GAIN_OBJECTIVE_REGISTERED",
   "evidence_summary": "reports/worker_20261020/R4E1_summary.json",
   "execution_record": "reports/worker_20261020/PROJECT_RESUME_R4.json",
   "registered_protocol": "reports/worker_20261020/R4E0_E1_registered_protocol.json",
-  "eligible_model_method_ids": [],
+  "eligible_model_method_ids": [
+    "R7D2_RESIDUAL_GAIN_OBJECTIVE"
+  ],
   "closed_method_statuses": {
     "BO1_WHOLE_VIDEO_UB1_UB2": "CLOSED_REJECTED_EXACT",
     "UB2_LATE_DENSE": "CLOSED_REJECTED_EXACT",
@@ -26,7 +28,8 @@
     "R1_DENSE_SINGLE_GROUP_GREEDY": "REJECTED_AS_MAIN_METHOD",
     "R1_FULL_W1_THEN_HALF_W2": "ELIMINATED_BY_COST_LOWER_BOUND",
     "R2_GELU_HALF_LINEAR_PRUNE": "ELIMINATED_AS_GENERAL_GUARANTEE",
-    "R4E1_FIXED_H_16GROUP_Q2": "CLOSED_REJECTED_REGISTERED_NEIGHBORHOOD"
+    "R4E1_FIXED_H_16GROUP_Q2": "CLOSED_REJECTED_REGISTERED_NEIGHBORHOOD",
+    "R7D1_CROSS_LAYER_TRANSPORT": "COMPLETED_FIXED_CAUSAL_DIAGNOSTIC"
   },
   "guarded_current_statuses": {
     "R4_COMPENSATION_NONREDUNDANT_SUPPORT": "REGISTERED_INSTANCE_CLOSED_FAMILY_UNPROVEN",
@@ -65,9 +68,73 @@
     ],
     "scope": "Research reopened by user request: saved-source/tensor analysis and two non-model synthetic GPU shape preflights. No new Wan training/video/accuracy or original full160 timing.",
     "priority": "Cross-layer/downstream objective diagnosis; sparse full-H backend cost; existing affine backbone backlog.",
-    "next_diagnostic": "research/20261021/R7D1_cross_layer_transport_protocol.json",
-    "next_diagnostic_status": "DRAFT_NOT_RUN",
-    "eligibility_note": "R5 finite model-protocol closure and all exact failed recipes preserved; no model route is made eligible from this review.",
+    "next_diagnostic": "research/20261021/R7D2_residual_gain_protocol.json",
+    "next_diagnostic_status": "REGISTERED_IDENTITY_CONTROLS_PENDING",
+    "eligibility_note": "R7D1 native evidence supports a separately fixed two-gain local-vs-flow objective diagnostic; no old recipe or full candidate rollout reopened.",
     "checks": "research/20261021/continuation_checks_R7.json"
+  },
+  "previous_execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+  "registered_diagnostic": {
+    "method_id": "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+    "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+    "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+    "protocol": "research/20261021/R7D2_residual_gain_protocol.json",
+    "protocol_sha256": "af8f5455ed76fb0eb75de8b1af71d1134193ebd1873a1abf3cab1a583a46b1c9",
+    "source_sha256": {
+      "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+      "tools/cross_layer_transport.py": "347ee0ed93a9cb4564c5a7aac69cc9a77834b7d09307b6ba31b1c7b287c45e48",
+      "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+      "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+      "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+      "tools/residual_gain_transport.py": "869d727a3f7d5d4557b3cbdc3ec709014e271ace44a75568131499eca0c60abe",
+      "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+      "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+      "tools/run_residual_gain_transport.py": "fa51378e1ae6cc9b830835920277bbad4cb1cdb7b4fe10028196a71d1fb7d322",
+      "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+      "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+      "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+      "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939"
+    },
+    "document": "docs/58_局部与下游目标的双参数原生对照.md",
+    "prior_diagnostic": {
+      "result": "research/20261021/R7D1_results.json",
+      "sha256": "9755df9a251d8a4d6b99e25eb6e05f13c8edf6a0534626befdcc79d2532b31f2"
+    }
+  },
+  "completed_diagnostics": [
+    {
+      "method_id": "R7D1_CROSS_LAYER_TRANSPORT",
+      "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+      "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+      "protocol": "research/20261021/R7D1_cross_layer_transport_protocol.json",
+      "protocol_sha256": "403f94ff6c1a555ba11d974922e2ef09208d705d0f31b6b660640992b61bb71f",
+      "source_sha256": {
+        "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+        "tools/cross_layer_transport.py": "347ee0ed93a9cb4564c5a7aac69cc9a77834b7d09307b6ba31b1c7b287c45e48",
+        "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939",
+        "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+        "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+        "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+        "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+        "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+        "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+        "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+        "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862"
+      },
+      "document": "docs/57_固定双层恢复的原生传播诊断.md",
+      "result": "research/20261021/R7D1_results.json",
+      "result_sha256": "9755df9a251d8a4d6b99e25eb6e05f13c8edf6a0534626befdcc79d2532b31f2",
+      "status": "COMPLETED_FIXED_CAUSAL_DIAGNOSTIC"
+    }
+  ],
+  "latest_native_diagnostic": {
+    "id": "R7D1_CROSS_LAYER_TRANSPORT",
+    "result": "research/20261021/R7D1_results.json",
+    "controls": "research/20261021/R7D1_controls.json",
+    "native_generations": 24,
+    "status": "COMPLETED_FIXED_CAUSAL_DIAGNOSTIC",
+    "pooled_flow_SSE_reduction_AB": 0.030289806972896384,
+    "local_downstream_rank_disagreement_sources": 3,
+    "official_candidate_acceptance": false
   }
 }

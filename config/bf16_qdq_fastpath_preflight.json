@@ -1,0 +1,28 @@
+{
+  "id": "R7H3_EXISTING_BF16_QDQ_ENTRYPOINT",
+  "scope": "Synthetic hardware prerequisite, not a model method or accuracy experiment",
+  "evidence_base_commit": "5eef3a988c6babf1ad764f340f173cd926576a7c",
+  "M": 31668,
+  "D": 5120,
+  "H": 13824,
+  "rank": 256,
+  "seed": 20261021,
+  "warmups": 3,
+  "repetitions": 5,
+  "backend": "Same installed cuSPARSELt default algorithm, one implementation repair: fused output transpose",
+  "weight_generation": "Synthetic random BF16 weights; native HiF4 QDQ then top2 per contiguous4 input weights, no learned values",
+  "activation_boundary": "FP32 Smooth divide -> BF16 -> native HiF4 QDQ(force_fp32) -> BF16, full-width tanh GELU, original row-major output layout, biases and gate",
+  "arms": [
+    "dense_full",
+    "dense_masked_control",
+    "sparse_2of4",
+    "sparse_2of4_plus_R256_workload"
+  ],
+  "correctness": "All14 initial quantizations (weights, both complete chain controls, every first warmup arm) must match original force-FP32 entrypoint bitwise before timing. Stop on any difference; report14 controls. Shape, native QDQ values, masks, GELU and biases unchanged.",
+  "timing": "CUDA events, alternating arm order per repetition, resident weights, preprocessing/compression excluded and reported; sparse layout copies/padding inside timed forward",
+  "go_no_go": "Only decide whether installed backend/shape merits future precision study. Report all timing samples; no candidate acceptance from this preflight.",
+  "resources": "One idle controlled worker GPU; no model loads/downloads, no large tensor outputs; existing environment and original quantizer source unchanged",
+  "forbidden_inference": "No native model or real calibration correctness, no candidate quality or full160 speed from synthetic equality.",
+  "parent_protocol": "config/weight_2of4_fused_layout_preflight.json",
+  "mechanism": "Use existing BF16-input CUDA quantizer after the unchanged FP32 Smooth divide and BF16 rounding. Its shared inner arithmetic operates in FP32. Avoid input/output FP32 staging only after exact14-call controls; same fastpath supplied to dense and sparse."
+}

@@ -69,6 +69,23 @@ class ResearchRouteGuardTests(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()):
             self.assertEqual(guard.main(["--root", str(ROOT), "--method-id", "R4E1"]), 2)
 
+    def test_diagnostic_cannot_register_a_second_method(self):
+        self.decision['eligible_model_method_ids'].append('UNREVIEWED_TRAINING')
+        self.assertTrue(any('Only the fixed causal diagnostic' in e for e in self.errors()))
+
+    def test_diagnostic_requires_frozen_source_and_protocol(self):
+        for field in ('protocol_sha256',):
+            self.decision['registered_diagnostic'][field] = '0' * 64
+        self.assertTrue(any('protocol hash changed' in e for e in self.errors()))
+
+    def test_diagnostic_does_not_release_old_closure(self):
+        self.decision['registered_diagnostic']['preserved_model_closure'] = 'REOPEN_EVERYTHING'
+        self.assertTrue(any('R4 closure must remain' in e for e in self.errors()))
+
+    def test_objective_registration_requires_native_prior(self):
+        self.decision['registered_diagnostic']['prior_diagnostic']['sha256'] = '0' * 64
+        self.assertTrue(any('native prerequisite evidence' in e for e in self.errors()))
+
 
 if __name__ == "__main__":
     unittest.main()

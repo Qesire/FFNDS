@@ -15,9 +15,9 @@
       "Development-source CV is not independent end-to-end quality.",
       "Negative local loss and native video-quality rankings need not agree."
     ],
-    "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+    "execution_state": "R4_CLOSED_FIXED_GAIN_OBJECTIVE_REGISTERED",
     "current_decision": "research/CURRENT_DECISION.json",
-    "execution_note": "The finite protocol was resumed and completed. This is not a new user pause; its rejection leaves no eligible downstream model stage.",
+    "execution_note": "R7D1 completed with exact native controls. Only fixed R7D2 two-objective identity/direction/comparison stages registered; prior rejected recipes and R4 stages stay closed.",
     "reentry_requirements": [
       "Preserve exact failed recipe ID/status and cite its protocol/result",
       "Explain substantive computation/information/target/action/causal change, not only renamed or enlarged hyperparameters",
@@ -442,7 +442,7 @@
       "id": "R7_CROSS_LAYER_OUTPUT_RECOVERY",
       "status": "RESEARCH_PRIORITY_CAUSAL_TEST_NOT_MODEL_ELIGIBLE",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
-      "rationale": "Supervision/information is the downstream transported error and cross-layer terms, rather than a sum of independent per-token FFN output SSE. No larger rank or support pool is proposed. Native transported target not observed; fixed causal diagnostic still a draft.",
+      "rationale": "R7D1 now observes native transported ranking disagreements. Family is not generally eligible: only fixed R7D2 two-gain local-vs-flow objective test is separately registered; no wider training/candidate success.",
       "evidence": [
         "research/20261021/branch_records_R7.json",
         "docs/56_全路线复盘与下一步机制优先级_R7.md"
@@ -453,12 +453,38 @@
       "id": "R7_FULL_H_WEIGHT_2OF4",
       "status": "DEFERRED_KERNEL_PREFLIGHT_BELOW_REQUIRED_SPEED",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
-      "rationale": "Different action/representation versus deleting hidden neurons; W2 is static weight sparsity rather than the historical dynamic activation mask. Both linears can use A100 sparse Tensor Cores, so main nonzero MAC is50%, not75%. This is not an unexplored family or a novelty claim. Fused backend reaches only1.24034x synthetic same-run dense; real accuracy untested.",
+      "rationale": "H2 full-width activation handling costs about23ms. H3 original BF16 entrypoint passes14 synthetic bitwise controls; with the same optimization for dense and sparse, complete chain reaches1.31061x and plusR2561.20378x. Still below1.5x; real model accuracy untested.",
       "evidence": [
         "research/20261021/branch_records_R7.json",
-        "docs/56_全路线复盘与下一步机制优先级_R7.md"
+        "docs/56_全路线复盘与下一步机制优先级_R7.md",
+        "research/20261021/weight_2of4_component_profile.json",
+        "research/20261021/bf16_qdq_fastpath_preflight.json"
       ],
       "not_excluded": "Prioritized research question or engineering prerequisite only; no automatic model job or novel-method claim."
+    },
+    {
+      "id": "R7D1_CROSS_LAYER_TRANSPORT",
+      "status": "COMPLETED_FIXED_CAUSAL_DIAGNOSTIC",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+      "rationale": "24 native runs complete;12 exact original controls,3/4 local-vs-flow ranking disagreements, AB reduces pooled flowSSE3.029%. Net interaction small after opposite large terms cancel. Dense diagnostic only, no candidate quality acceptance.",
+      "evidence": [
+        "research/20261021/R7D1_cross_layer_transport_protocol.json",
+        "docs/57_固定双层恢复的原生传播诊断.md",
+        "research/20261021/R7D1_results.json"
+      ],
+      "not_excluded": "A result can motivate separately registered output-objective fitting, never automatic deployment or widening."
+    },
+    {
+      "id": "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+      "status": "REGISTERED_IDENTITY_CONTROLS_PENDING",
+      "model_execution_eligibility": "ELIGIBLE_REGISTERED_SCREEN",
+      "rationale": "Same2 bounded residual gains with unchanged supports/rank/main weights; compare independent gated-local and coupled full-flow objectives after original native identity controls.18 fixed native generations,3 training and1 fit-excluded development source; no parameter/position expansion.",
+      "evidence": [
+        "research/20261021/R7D2_residual_gain_protocol.json",
+        "docs/58_局部与下游目标的双参数原生对照.md",
+        "research/20261021/R7D1_results.json"
+      ],
+      "not_excluded": "Small objective diagnostic only; fresh-source full candidate accuracy and complete speed not established."
     }
   ],
   "acceptance": {
@@ -520,6 +546,25 @@
         "Negative local loss and native video-quality rankings need not agree."
       ],
       "execution_state": "PAUSED_NO_NEW_GPU"
+    },
+    {
+      "source_evidence": "R4E0/E1 registered native results and prior saved failures; this R5 turn only audits saved files and CPU arithmetic.",
+      "do_not_extrapolate": [
+        "A stopped recipe does not eliminate its entire method family.",
+        "Synthetic algebra does not establish Wan effects.",
+        "Development-source CV is not independent end-to-end quality.",
+        "Negative local loss and native video-quality rankings need not agree."
+      ],
+      "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+      "current_decision": "research/CURRENT_DECISION.json",
+      "execution_note": "The finite protocol was resumed and completed. This is not a new user pause; its rejection leaves no eligible downstream model stage.",
+      "reentry_requirements": [
+        "Preserve exact failed recipe ID/status and cite its protocol/result",
+        "Explain substantive computation/information/target/action/causal change, not only renamed or enlarged hyperparameters",
+        "State a falsifiable prediction and old obstruction no longer applying",
+        "Record matched controls, all costs, data exposure and stop condition before interpreting new results",
+        "Do not mistake logical non-exclusion or a loose bound for positive evidence or eligibility"
+      ]
     }
   ],
   "latest_static_review": {
@@ -544,9 +589,19 @@
     ],
     "scope": "Research reopened by user request: saved-source/tensor analysis and two non-model synthetic GPU shape preflights. No new Wan training/video/accuracy or original full160 timing.",
     "priority": "Cross-layer/downstream objective diagnosis; sparse full-H backend cost; existing affine backbone backlog.",
-    "next_diagnostic": "research/20261021/R7D1_cross_layer_transport_protocol.json",
-    "next_diagnostic_status": "DRAFT_NOT_RUN",
-    "eligibility_note": "R5 finite model-protocol closure and all exact failed recipes preserved; no model route is made eligible from this review.",
+    "next_diagnostic": "research/20261021/R7D2_residual_gain_protocol.json",
+    "next_diagnostic_status": "REGISTERED_IDENTITY_CONTROLS_PENDING",
+    "eligibility_note": "R7D1 native evidence supports a separately fixed two-gain local-vs-flow objective diagnostic; no old recipe or full candidate rollout reopened.",
     "checks": "research/20261021/continuation_checks_R7.json"
+  },
+  "latest_native_diagnostic": {
+    "id": "R7D1_CROSS_LAYER_TRANSPORT",
+    "result": "research/20261021/R7D1_results.json",
+    "controls": "research/20261021/R7D1_controls.json",
+    "native_generations": 24,
+    "status": "COMPLETED_FIXED_CAUSAL_DIAGNOSTIC",
+    "pooled_flow_SSE_reduction_AB": 0.030289806972896384,
+    "local_downstream_rank_disagreement_sources": 3,
+    "official_candidate_acceptance": false
   }
 }

@@ -6,7 +6,7 @@ Wan2.2 I2V / LightX2V四步蒸馏 / HiF4 / FFN动态稀疏研究交接，整理�
 
 **当前研究进展（R7）：** 已完成[全路线复盘与机制优先级](docs/56_全路线复盘与下一步机制优先级_R7.md)，重算9组逐来源质量、读取并核验32份原生flow载荷，整理[21个作者/官方/社区来源](research/20261021/method_search_R7.json)。优先研究下游输出目标与跨层误差传播。单卡合成2:4预检的布局修复把耗时83.77ms降至47.96ms，但相对同轮dense仅1.24×，没有新Wan质量或完整160位置速度通过结论；全部旧拒绝保留。
 
-**防回退入口：** [当前决定](research/CURRENT_DECISION.json) → [路线表](research/20261021/method_triage.json) → [R5模型准入审计](docs/54_已淘汰路线防回退审计_20261021.md) / [当前R7交接](research/20261021/HANDOFF_R7.md)。根目录[AGENTS.md](AGENTS.md)规定读取顺序；`python tools/check_research_routes.py`检查状态一致性，`--method-id R4E1`或`R4E2`应拒绝继续。R7的新诊断仍为未运行草案；没有因检索或合成后端结果自动准入模型作业。
+**防回退入口：** [当前决定](research/CURRENT_DECISION.json) → [路线表](research/20261021/method_triage.json) → [R5模型准入审计](docs/54_已淘汰路线防回退审计_20261021.md) / [当前R7D2交接](research/20261021/HANDOFF_R7D2.md)。根目录[AGENTS.md](AGENTS.md)规定读取顺序；`python tools/check_research_routes.py`检查状态一致性，`--method-id R4E1`或`R4E2`应拒绝继续。[R7D1固定原生诊断](docs/57_固定双层恢复的原生传播诊断.md)已完成24次生成与全部逐位控制：3/4局部误差排序与下游收益相反，双层dense恢复使flow SSE降低3.029%，未作候选质量验收。[R7D2](docs/58_局部与下游目标的双参数原生对照.md)进一步登记18次固定双增益的局部/flow目标对照，不解封旧失败。
 
 **此前R6数据审计：** [跨步FFN复用审计](docs/55_跨步FFN复用的冷启动与配对数据审计.md)得到3908个真实跨步配对token，block20两组仅58/55对，缓存Y约12.08GiB。R7进一步核对到旧R20已有跨步输出复用/仿射，不能将R6称为新算子；R6仅是当前OP2准备审计，保持deferred。
 
@@ -47,7 +47,7 @@ RR1 aesthetic/imaging分别下降10.63%/5.11%，质量未通过；保持总训�
 
 ## 接手阅读顺序
 
-研究路线先读[当前决定](research/CURRENT_DECISION.json)、[R5审计](docs/54_已淘汰路线防回退审计_20261021.md)和[当前交接](research/20261021/HANDOFF_R5.md)。以下为环境迁移与历史背景阅读顺序。
+研究路线先读[当前决定](research/CURRENT_DECISION.json)、[R5审计](docs/54_已淘汰路线防回退审计_20261021.md)和[当前交接](research/20261021/HANDOFF_R7D2.md)。以下为环境迁移与历史背景阅读顺序。
 
 1. [A100 → H20迁移必读](docs/07_A100到H20迁移必读.md)
 2. [模型与服务器配置](docs/01_模型与服务器配置.md)

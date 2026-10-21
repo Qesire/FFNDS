@@ -1,0 +1,12 @@
+{
+  "id": "R7H2_FIXED_COMPONENT_COST",
+  "scope": "Non-model synthetic cost diagnosis following R7H1B; no accuracy candidate",
+  "M": 31668, "D": 5120, "H": 13824, "rank": 256,
+  "seed": 20261021, "warmups": 3, "repetitions": 7,
+  "layout": "Same installed cuSPARSELt fused output transpose; no algorithm sweep",
+  "components": "Smooth+cast+native HiF4 QDQ at both widths, two GEMMs, GELU, gate, R256 auxiliary",
+  "timing": "CUDA events, alternating component order; also matched same-run complete chains. Separate component medians are descriptive, not an additive latency proof.",
+  "controls": "Exact sparse-weight numeric decompression, finite outputs, sparse/dense-masked GEMM relativeRMSE<=0.01; complete-chain discrepancy reported",
+  "resources": "Only after DQ R7D1 controls release GPU0, while GPU1 completes UB1 controls; one non-model run, no model/download/large-output tensors",
+  "decision": "Identify measured remaining costs before proposing a fused operator; no eligibility or1.5x acceptance from decomposition"
+}

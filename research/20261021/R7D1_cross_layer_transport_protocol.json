@@ -1,15 +1,29 @@
 {
   "id": "R7D1_CROSS_LAYER_TRANSPORT",
-  "status": "DRAFT_NOT_RUN",
-  "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+  "status": "REGISTERED_CONTROLS_THEN_FIXED_ARMS",
+  "model_execution_eligibility": "ELIGIBLE_REGISTERED_SCREEN",
   "parent_research": "R7_CROSS_LAYER_OUTPUT_RECOVERY",
   "scientific_question": "Does a native downstream flow objective expose error transport/cancellation absent from independent per-FFN gated SSE at a fixed adjacent pair?",
-  "nearest_prior": ["TF2 all-FFN same-DQ-state description", "LR1/LR2 local rank recovery", "OP3 independent native-state refit", "R4E1 within-layer support cross terms"],
+  "nearest_prior": [
+    "TF2 all-FFN same-DQ-state description",
+    "LR1/LR2 local rank recovery",
+    "OP3 independent native-state refit",
+    "R4E1 within-layer support cross terms"
+  ],
   "substantive_change": "Four-arm intervention at two distinct layers, with full downstream native flow and cross-layer interaction; no support search, larger q/rank or relabeled local reconstruction.",
-  "positions": {"step": 3, "A_block": 30, "B_block": 31},
+  "positions": {
+    "step": 3,
+    "A_block": 30,
+    "B_block": 31
+  },
   "position_choice": "Fix block30 from the prior LR1 late-layer control and its immediate successor before any new transport outcomes; no search over pairs. This remains a development-informed choice.",
   "inputs": {
-    "indices": [0, 5, 10, 15],
+    "indices": [
+      0,
+      5,
+      10,
+      15
+    ],
     "source": "Same4 original TF2 development-exposed inputs; original image/prompt/seed/config and complete conditioning preserved",
     "state": "Original D-Q per-step input, same native scheduler/RNG/cache state in every arm; never claim teacher-forced video quality"
   },
@@ -19,13 +33,6 @@
     "B": "Replace only B by its same-input native full output; B sees the actual current arm input",
     "AB": "Replace A andB, recomputing B on A-intervened downstream input, no resetting inside the block pair"
   },
-  "required_controls_before_selection": [
-    "Implement/review hook; bind original weights, biases, Smooth/QDQ/GELU/cast, fullM geometry and frozen UB1 policy",
-    "Unmodified observer and none arm reproduce all4 original TF2 inputs/flows/post tensors bitwise",
-    "No mutation of shared cache/conditioning/RNG; pair activation inputs and pre-gate writeback bound independently",
-    "Selected local full teacher reproduces unmodified dense FFN on an identity control at the same input",
-    "Record that dense interventions violate candidate main-MAC budget and are diagnostic only"
-  ],
   "measurements": [
     "Original FP64 gated local FFN SSE at both positions on each arm's actual input",
     "FP64 full flow SSE to the matched original D-Q flow",
@@ -36,11 +43,42 @@
   ],
   "falsifiable_prediction": "Independent local error magnitude may mis-rank downstream restoration benefit, with direction/cross-layer terms exceeding native numerical noise. It is not yet observed. R4E1 same-layer group interactions do not measure this quantity.",
   "decision_rule": "If the scoped pair has no resolved target-ranking difference or interaction, do not promote its joint-recovery hypothesis. A difference motivates a separately registered window-output objective test, not automatic training, candidate quality acceptance or widening the pair search.",
-  "cost_and_stop": "At most4 sources times4 fixed intervention arms; prefer restoring the exact final-step state if complete native resume can be proven, otherwise explicitly budget the full four-step control. Stop on any control failure; no source/pair/threshold sweep.",
+  "cost_and_stop": "Exactly12 control generations (4 DQ identity,4 observed none,4 repeated none), then12 interventions (4 each A/B/AB); every generation executes all4 native steps. Stop on first failed control. Preserve failures; code repairs require a separately frozen attempt, never overwrite. No final-step resume shortcut or source/pair/threshold sweep.",
   "data_exposure": "All original TF2 sources and both old20 quality cohorts are development-exposed; this is causal diagnosis only. New training/validation/final sources would be frozen separately.",
   "deployment_contract": "No change:50% main MAC, complete FFN>=1.5x including every auxiliary operation, independent fresh-source official aesthetic/imaging/motion drops each<=2%.",
-  "unmet_prerequisites": ["Reviewed native intervention hook", "Complete resume/conditioning/RNG control", "Resource and source freeze for an actual model run", "Evidence-linked decision migration for selecting the diagnostic"],
+  "unmet_prerequisites": [],
   "models_loaded": 0,
   "completed_model_runs": 0,
-  "current_decision": "research/CURRENT_DECISION.json"
+  "current_decision": "research/CURRENT_DECISION.json",
+  "registration_base_commit": "5eef3a988c6babf1ad764f340f173cd926576a7c",
+  "execution_plan": {
+    "full_native_steps_per_run": 4,
+    "resume_shortcut": false,
+    "required_control_runs": 12,
+    "control_arms": {
+      "DQ": 4,
+      "none": 4,
+      "none_repeat": 4
+    },
+    "intervention_runs": 12,
+    "intervention_arms": {
+      "A": 4,
+      "B": 4,
+      "AB": 4
+    },
+    "interventions_require_all_controls": true,
+    "total_model_generations": 24,
+    "max_worker_GPUs": 2,
+    "storage": "HF derived cache; preserve80GiB node reserve plus2GiB run allowance",
+    "selection": "Fixed diagnostic only; no training, support/pair/seed/rank search, no quality or speed acceptance"
+  },
+  "control_resolution": "Reviewed implementation uses original full native TeacherRecords.apply on current norm input/raw biases; dense identity tests both selected positions, all4 full flow/input/post hashes are checked against original TF2, selected FFNs must leave RNG unchanged. Scientific controls remain pending and must pass before interventions.",
+  "required_controls_before_selection": [
+    "Implement/review hook; bind original weights, biases, Smooth/QDQ/GELU/cast, fullM geometry and frozen UB1 policy",
+    "Unmodified observer and none arm reproduce all4 original TF2 inputs/flows/post tensors bitwise",
+    "No mutation of shared cache/conditioning/RNG; pair activation inputs and pre-gate writeback bound independently",
+    "Selected local full teacher reproduces unmodified dense FFN on an identity control at the same input",
+    "Record that dense interventions violate candidate main-MAC budget and are diagnostic only"
+  ],
+  "model_execution_scope": "Registration permits controls only initially. Runtime requires complete matching DQ/none/repeated-none certificates before any intervention; registration is not a positive scientific result."
 }

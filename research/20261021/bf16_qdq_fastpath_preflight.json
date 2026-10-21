@@ -1,0 +1,247 @@
+{
+  "status": "COMPLETE_SYNTHETIC_2OF4_SHAPE_PREFLIGHT",
+  "protocol_sha256": "a5d44b74d12866ed53ec42feb6036901fefe6cca183a73af9d7a90142133f731",
+  "source_sha256": "c1b54c788c2865af2f1f0db17fadc40ce70c886f2bc082a507db2d6228ed18bc",
+  "entrypoint_sha256": "55353fd9889c27a2df6cf6dd18835f31f3b825492d8856984a9846bc3cf6c5fa",
+  "device": "NVIDIA A100 80GB PCIe",
+  "capability": [
+    8,
+    0
+  ],
+  "torch": "2.10.0+cu128",
+  "cuda_build": "12.8",
+  "backend": "SparseSemiStructuredTensorCUSPARSELT",
+  "shape": {
+    "M": 31668,
+    "D": 5120,
+    "H": 13824,
+    "rank": 256
+  },
+  "linear_controls": [
+    {
+      "linear": "FFN0",
+      "relative_RMSE": 1.881028583738953e-05,
+      "all_values_finite": true,
+      "packed_weight_numeric_roundtrip": true,
+      "sparse_raw_output_stride": [
+        13824,
+        1
+      ],
+      "sparse_raw_output_is_contiguous": true
+    },
+    {
+      "linear": "FFN2",
+      "relative_RMSE": 3.1129438866628334e-05,
+      "all_values_finite": true,
+      "packed_weight_numeric_roundtrip": true,
+      "sparse_raw_output_stride": [
+        5120,
+        1
+      ],
+      "sparse_raw_output_is_contiguous": true
+    }
+  ],
+  "complete_chain_sparse_vs_dense_masked_relative_RMSE": 0.0,
+  "milliseconds_samples": {
+    "dense_full": [
+      52.66329574584961,
+      50.17011260986328,
+      50.91836929321289,
+      50.936737060546875,
+      51.03955078125
+    ],
+    "dense_masked_control": [
+      50.949249267578125,
+      50.99894332885742,
+      50.68809509277344,
+      50.62083053588867,
+      51.16304016113281
+    ],
+    "sparse_2of4": [
+      37.65235137939453,
+      38.624961853027344,
+      41.33932876586914,
+      38.864864349365234,
+      39.61097717285156
+    ],
+    "sparse_2of4_plus_R256_workload": [
+      39.92646408081055,
+      39.996734619140625,
+      44.13612747192383,
+      42.31398391723633,
+      43.778175354003906
+    ]
+  },
+  "median_milliseconds": {
+    "dense_full": 50.936737060546875,
+    "dense_masked_control": 50.949249267578125,
+    "sparse_2of4": 38.864864349365234,
+    "sparse_2of4_plus_R256_workload": 42.31398391723633
+  },
+  "dense_full_over_sparse_median_ratio": 1.3106114716538,
+  "dense_full_over_sparse_plus_R256_workload_median_ratio": 1.2037802245275733,
+  "maximum_allocated_GPU_bytes": 6645216256,
+  "preparation_seconds_excluded_from_timing": 0.7899946123361588,
+  "external_sources": {
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+    "installed_torch/sparse/semi_structured.py": "adbd51da067c149fa7833383a72910a014bbb0f5e1f816ab0f76b09264a1c3dd"
+  },
+  "models_loaded": 0,
+  "fitted_parameters": 0,
+  "quality_or_speed_acceptance": false,
+  "limitations": [
+    "Synthetic random weights/inputs; not real Wan accuracy or a deployed candidate.",
+    "One shape and installed default sparse algorithm; no full160 benchmark or video speed.",
+    "Full-H native HiF4 activation QDQ, GELU, bias, output layout copies and gate included.",
+    "Smooth scales are ones. R256 arm adds two GEMMs/addition only, not original residual preprocessing or coefficients.",
+    "Resident tensors; compression, transfers and setup excluded. All timing samples retained.",
+    "Sparse BF16 accumulation can differ; full QDQ chain discrepancy is reported, not assumed bitwise equal."
+  ],
+  "bf16_path_controls": [
+    {
+      "shape": [
+        13824,
+        5120
+      ],
+      "elements": 70778880,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        5120,
+        13824
+      ],
+      "elements": 70778880,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "elements": 162140160,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "elements": 437778432,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "elements": 162140160,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "elements": 437778432,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "elements": 162140160,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "elements": 437778432,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "elements": 162140160,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "elements": 437778432,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "elements": 162140160,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "elements": 437778432,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "elements": 162140160,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "elements": 437778432,
+      "bit_mismatches": 0,
+      "finite": true,
+      "same_dtype": true
+    }
+  ],
+  "bf16_controls_complete_before_timing": true,
+  "same_fastpath_used_for_dense_and_sparse": true,
+  "original_quantizer_source_sha256": "ac5061523cfb87c203cb38a250fffc590d2248f4b7e303f671ba36b48d0eaee2",
+  "original_CUDA_inner_source_sha256": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c",
+  "numerical_scope": "Exact observed synthetic inputs, weights and GELU outputs only; no native model path changed or real source validation."
+}

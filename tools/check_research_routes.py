@@ -7,6 +7,7 @@ The R5 evidence audit is deliberately version-scoped. Future decisions must
 preserve this closed recipe and explicitly migrate their evidence checks.
 """
 import argparse
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -14,6 +15,10 @@ from pathlib import Path
 
 READY = "ELIGIBLE_REGISTERED_SCREEN"
 CURRENT_STATE = "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP"
+DIAGNOSTIC_STATE = "R4_CLOSED_FIXED_TRANSPORT_DIAGNOSTIC_REGISTERED"
+DIAGNOSTIC_ID = "R7D1_CROSS_LAYER_TRANSPORT"
+GAIN_STATE = "R4_CLOSED_FIXED_GAIN_OBJECTIVE_REGISTERED"
+GAIN_ID = "R7D2_RESIDUAL_GAIN_OBJECTIVE"
 RECIPE_ID = "R4E1_FIXED_H_16GROUP_Q2"
 RATIO_FIELDS = {
     "K1_matched_over_K0_matched": ("K0_matched", .98),
@@ -41,10 +46,11 @@ def build_index(triage):
     return index, errors
 
 
-def validate_records(decision, triage, summary, execution):
+def validate_records(decision, triage, summary, execution, root=None):
     index, errors = build_index(triage)
     methods = {m["id"]: m for m in triage["methods"]}
-    if decision["execution_state"] != CURRENT_STATE:
+    state = decision["execution_state"]
+    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE):
         errors.append("Current evidence audit requires an explicit migration for a new decision state")
     if triage["policy"]["execution_state"] != decision["execution_state"]:
         errors.append("Policy and current decision disagree")
@@ -62,8 +68,65 @@ def validate_records(decision, triage, summary, execution):
     canonical = decision["eligible_model_method_ids"]
     if len(canonical) != len(set(canonical)) or eligible != set(canonical):
         errors.append("Eligible methods disagree with canonical decision")
-    if canonical:
+    if canonical and state == CURRENT_STATE:
         errors.append("R5 closure records no eligible model follow-up; update evidence before changing the decision")
+    if state in (DIAGNOSTIC_STATE, GAIN_STATE):
+        selected = DIAGNOSTIC_ID if state == DIAGNOSTIC_STATE else GAIN_ID
+        if canonical != [selected]:
+            errors.append("Only the fixed causal diagnostic is registered by this migration")
+        registration = decision.get('registered_diagnostic', {})
+        if (registration.get('method_id') != selected
+                or registration.get('scope') != 'FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE'
+                or registration.get('preserved_model_closure') != CURRENT_STATE):
+            errors.append('Missing scoped diagnostic migration; R4 closure must remain preserved')
+        try:
+            base = root or Path(__file__).resolve().parents[1]
+            path = base / registration['protocol']
+            if hashlib.sha256(path.read_bytes()).hexdigest() != registration['protocol_sha256']:
+                errors.append('Registered diagnostic protocol hash changed')
+            protocol = json.loads(path.read_text())
+            common = (protocol['id'] == selected
+                    and protocol['positions'] == {'step': 3, 'A_block': 30, 'B_block': 31}
+                    and protocol['inputs']['indices'] == [0, 5, 10, 15]
+                    and protocol['execution_plan']['full_native_steps_per_run'] == 4
+                    and protocol['execution_plan']['interventions_require_all_controls'] is True)
+            if selected == DIAGNOSTIC_ID:
+                specific = (protocol['status'] == 'REGISTERED_CONTROLS_THEN_FIXED_ARMS'
+                    and set(protocol['arms']) == {'none', 'A', 'B', 'AB'}
+                    and protocol['execution_plan']['required_control_runs'] == 12
+                    and protocol['execution_plan']['intervention_runs'] == 12)
+                required_sources = {'tools/run_cross_layer_transport.py', 'tools/cross_layer_transport.py'}
+            else:
+                specific = (protocol['status'] == 'REGISTERED_IDENTITY_DIRECTIONS_FITS_NATIVE_COMPARISON'
+                    and protocol['inputs']['training_indices'] == [0, 5, 10]
+                    and protocol['inputs']['development_holdout_index'] == 15
+                    and protocol['execution_plan']['required_control_runs'] == 4
+                    and protocol['execution_plan']['direction_runs'] == 6
+                    and protocol['execution_plan']['native_comparison_runs'] == 8
+                    and protocol['parameters']['gain_bounds'] == [.75, 1.25]
+                    and protocol['parameters']['finite_direction_epsilon'] == .125)
+                required_sources = {'tools/run_residual_gain_transport.py', 'tools/residual_gain_transport.py'}
+                prior = registration['prior_diagnostic']
+                evidence_path = base / prior['result']
+                evidence = json.loads(evidence_path.read_text())
+                if (hashlib.sha256(evidence_path.read_bytes()).hexdigest() != prior['sha256']
+                        or evidence['status'] != 'PASS_COMPLETE_NATIVE_FIXED_PAIR_DIAGNOSTIC'
+                        or evidence['completed_generations'] != 24
+                        or evidence['rank_disagreement_source_count'] < 1
+                        or evidence['repeated_none_bitwise_equal'] is not True):
+                    errors.append('Gain-objective diagnostic lacks its native prerequisite evidence')
+            if not common or not specific:
+                errors.append('Fixed diagnostic controls/positions/budget changed')
+            bindings = registration['source_sha256']
+            if not required_sources.issubset(bindings):
+                errors.append('Missing native intervention implementation bindings')
+            for relative, expected in bindings.items():
+                file = base / relative
+                if (not file.resolve().is_relative_to(base.resolve())
+                        or hashlib.sha256(file.read_bytes()).hexdigest() != expected):
+                    errors.append('Registered diagnostic source changed: ' + relative)
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            errors.append('Invalid diagnostic registration: ' + str(exc))
     for method_id in eligible:
         if (method_id in decision["closed_method_statuses"]
                 or method_id in decision["guarded_current_statuses"]
@@ -136,7 +199,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         decision, triage, summary, execution = load_records(args.root)
-        errors = validate_records(decision, triage, summary, execution)
+        errors = validate_records(decision, triage, summary, execution, args.root)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         print(json.dumps({"status": "INVALID_RECORDS", "error": str(exc)}, ensure_ascii=True))
         return 1

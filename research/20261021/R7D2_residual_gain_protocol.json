@@ -1,0 +1,70 @@
+{
+  "id": "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+  "status": "REGISTERED_IDENTITY_DIRECTIONS_FITS_NATIVE_COMPARISON",
+  "parent": "R7_CROSS_LAYER_OUTPUT_RECOVERY",
+  "prior_evidence": "research/20261021/R7D1_results.json",
+  "positions": {
+    "step": 3,
+    "A_block": 30,
+    "B_block": 31
+  },
+  "inputs": {
+    "indices": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "training_indices": [
+      0,
+      5,
+      10
+    ],
+    "development_holdout_index": 15,
+    "exposure": "All4 original TF2 sources already development-exposed; holdout excludes fit only, not independent final evaluation",
+    "state": "Original complete conditioning/seed42 and full4 native steps, original DQ input to every step"
+  },
+  "parameters": {
+    "number": 2,
+    "operator": "Multiply existing BF16 R256 predicted residual before its original BF16 add at the fixed two positions; no new rank/support/readout",
+    "identity_gains": [
+      1.0,
+      1.0
+    ],
+    "gain_bounds": [
+      0.75,
+      1.25
+    ],
+    "finite_direction_epsilon": 0.125,
+    "gain_one_bypasses_multiply": true
+  },
+  "objectives": {
+    "local": "Sum ideal gated local FFN SSE on identity-arm actual inputs, independent2D diagonal quadratic; original residual directions. Exact convex box solution.",
+    "flow": "Full downstream flow SSE to same-state original DQ; fixed positive0.125 secant for each gain, coupled2D least-squares box solution. No parameter sweep; native candidates validate surrogate approximation."
+  },
+  "execution_plan": {
+    "full_native_steps_per_run": 4,
+    "interventions_require_all_controls": true,
+    "required_control_runs": 4,
+    "direction_runs": 6,
+    "native_comparison_runs": 8,
+    "total_model_generations": 18,
+    "two_worker_shards": "shard0 input00/10, shard1 input05/15; all4 identities before6 training-only directions; all6 directions before both deterministic fits; then local/flow gains applied to all4 inputs",
+    "barriers_abort_on_failure": true,
+    "no_implicit_resume": true,
+    "max_GPUs": 2
+  },
+  "matched_control": "Exactly same2 gain parameters, frozen main/support/bias/R256 parameters, bounds/data/current native operator; only local versus downstream objective differs. Compare both to original UB1.",
+  "nearest_failures": [
+    "Original AR1/C-static local gain/bias",
+    "OP3 local state refit",
+    "LR2 rank increase",
+    "R7D1 dense restoration diagnostic"
+  ],
+  "substantive_change": "Full transported flow target with an off-diagonal directional Gram instead of independent local FFN SSE. Gain parameterization is established and intentionally minimal, not a novelty claim.",
+  "falsifiable_prediction": "Within this fixed gain family the flow-objective fit can improve actual downstream flow SSE beyond a matched local-objective fit on training and/or the fit-excluded development source. It may fail due to tiny residual directions, secant nonlinearity, quantization or source transfer.",
+  "success_rule": "Report every source and exact fitted gains, native versus predicted losses, local errors and heldout flow. No post-result changes to positions/epsilon/bounds/train split. If flow fit does not beat local fit on development holdout, close this fixed gain recipe rather than increase search. Even a win is no fresh-source/video-quality acceptance.",
+  "cost": "18 full4-step native generations plus72 offline full teacher GEMMs. Candidate adds at most2 BF16 multiplications per160 FFNs; mainMAC remains50%, R256 unchanged. No inherited candidate timing acceptance. HF-derived outputs capped2GiB, reserve80GiB.",
+  "deployment_contract": "Unchanged50% mainMAC, completeFFN>=1.5x including all auxiliaries, fresh pre-frozen independent sources with aesthetic/imaging/motion each<=2%drop.",
+  "forbidden": "No repeated layer/rank/support/seed/bounds sweep, no official quality claim from teacher-forced videos, no automatic full candidate rollout after this diagnostic."
+}
