@@ -45,6 +45,8 @@ def main():
         if (d/name).exists():definitions.append((trial,stage,name,scope))
     for trial,stage,name,scope in [('SOURCE_VIEW','dependency I/O control','source_view_native_equivalence_CONTROL.json','exact2302-file installed-source view; complete192 native controls byte-identical; no hardware speed claim'),('OP3','native CV','OP3_state_matched_native_RUN.json','all4 steps at block20, paired12/12 source folds of actual UB1 versus old C24 states; new residual fits only'),('NF2','native CV','NF2_reused_hidden_native_RUN.json','all4 steps at block20, one new output GEMM from frozen R256 hidden; source folds of new moments/readouts only'),('BO1','retrospective quality oracle','BO1_schedule_oracle_RUN.json','all2^20 whole-video UB1/UB2 assignments per exposed development cohort; no trained router, new official execution or prospective acceptance')]:
         if (d/name).exists():definitions.append((trial,stage,name,scope))
+    for trial,stage,name,scope in [('R4E0','current operand binding','R4E0_current_operand_readiness_RUN.json','48 fixed OP2 payloads and original coefficients, CPU only'),('R4E1','native CV','R4E1_finite_compensated_support_RUN.json','two fixed positions,849 finite support actions per training fold; matched fixed-h readout controls on known256-row states'),('R4E1','independent result audit','R4E1_independent_checkpoint_audit_RUN.json','48 teacher V2 payloads,16 readout models,849-action searches and24 native algebra identities; CPU only')]:
+        if (d/name).exists():definitions.append((trial,stage,name,scope))
     for trial,stage,name,scope in definitions:
         path=d/name;value=json.loads(path.read_text())
         row={'trial':trial,'stage':stage,'scope':scope,'status':value['status'],
@@ -78,6 +80,12 @@ def main():
         pause=json.loads(pause_path.read_text())
         execution={'status':pause['status'],'project_complete':pause['project_complete'],
             'evidence':str(pause_path.relative_to(ROOT)),'sha256':digest(pause_path)}
+    resume_path=d/'PROJECT_RESUME_R4.json'
+    if resume_path.exists():
+        resume=json.loads(resume_path.read_text())
+        execution={'status':resume['status'],'project_complete':resume['project_complete'],
+            'evidence':str(resume_path.relative_to(ROOT)),'sha256':digest(resume_path),
+            'historical_pause_evidence':str(pause_path.relative_to(ROOT))}
     atomic_json(args.output,{'status':'BUILT_SCOPED_EXPERIMENT_EVIDENCE_INDEX','source_sha256':digest(Path(__file__)),
         'execution_state':execution,
         'closed_entries':entries,'active_snapshots':active,
