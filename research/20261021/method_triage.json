@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.0",
+  "research_scope": "Wan2.2 I2V LightX2V Distill D-Q / frozen UB1, state of 2026-10-21",
+  "decision_record": "docs/50_研究路线淘汰审查_20261021.md",
+  "input_archives": [
+    "research/20261021/research_state.json",
+    "research/20261021/research_state_R2.json"
+  ],
+  "precedence": "This triage overrides the archived R1/R2 CANDIDATE/PLANNED labels for prospective planning only; archived historical results remain untouched.",
+  "policy": {
+    "source_evidence": "Existing FFNDS reports plus 2026-10-21 supplied synthetic/deductive research files; no new model experiments.",
+    "do_not_extrapolate": [
+      "A stopped recipe does not eliminate its entire method family.",
+      "Synthetic algebra does not establish Wan effects.",
+      "Development-source CV is not independent end-to-end quality.",
+      "Negative local loss and native video-quality rankings need not agree."
+    ],
+    "execution_state": "PAUSED_NO_NEW_GPU"
+  },
+  "methods": [
+    {
+      "id": "BO1_WHOLE_VIDEO_UB1_UB2",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "Two frozen UB1/UB2 whole-video arms; on supplementary20 even imaging-only per-input retrospective oracle cannot meet 2% threshold (best 2.909550% drop).",
+      "evidence": [
+        "docs/48_逐输入预算方案的质量上界与暂停.md"
+      ],
+      "not_excluded": "New support, other schedule, within-video routing"
+    },
+    {
+      "id": "UB2_LATE_DENSE",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "25/25/50/100 static schedule, supplementary imaging drop 4.651736%; zero same-state final-step FFN error was not end-to-end success.",
+      "evidence": [
+        "docs/38_固定预算下恢复末步完整FFN.md"
+      ],
+      "not_excluded": "All other step schedules"
+    },
+    {
+      "id": "RB2_C_PROFILE_FOUR_BANK",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "Four-bank C-profile oracle improved only 0.56–0.79 percentage points; did not meet pre-registered proxy gate.",
+      "evidence": [
+        "docs/31_均衡四模式路由负结果.md"
+      ],
+      "not_excluded": "A-target or different support families"
+    },
+    {
+      "id": "RB1_ORDINARY_KMEANS",
+      "status": "STOPPED_PRECHECK_NOT_EVALUATED",
+      "rationale": "Small clusters violated training minimum; no router trained or tested.",
+      "evidence": [
+        "docs/30_四支持模式路由可行性小试.md"
+      ],
+      "not_excluded": "Trained router performance"
+    },
+    {
+      "id": "TC1_ROW_SUPPORT_TRANSFER",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "Same-64-token-block support transferred from a single row failed four registered C-score gates; learned states reused sampled locations.",
+      "evidence": [
+        "docs/42_连续小块的支持迁移诊断.md"
+      ],
+      "not_excluded": "Tile-aggregated signed-native-loss oracle and its predictable value"
+    },
+    {
+      "id": "HP1_H256_QUADRATIC_C",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "Quadratic C-score head lost to linear h baseline in four folds.",
+      "evidence": [
+        "docs/32_残差隐藏特征贡献预测.md"
+      ],
+      "not_excluded": "A-target predictions or new information"
+    },
+    {
+      "id": "HP2_H256_MLP_C",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "C-score MLP lost to matched linear h control in four folds.",
+      "evidence": [
+        "docs/33_跨特征小网络贡献预测.md"
+      ],
+      "not_excluded": "All nonlinear heads on other targets"
+    },
+    {
+      "id": "NP1_NONLINEAR_C_FEATURES",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "GELU/QDQ additional features underperformed input-matched linear control on C-score.",
+      "evidence": [
+        "docs/41_非线性输入基的贡献预测.md"
+      ],
+      "not_excluded": "Different targets or output-native errors"
+    },
+    {
+      "id": "NF1_MISSING_FEATURE_READER",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "Native gated SSE improvement did not meet pre-registered dual gates with four additional omitted groups.",
+      "evidence": [
+        "docs/40_遗漏非线性特征的残差读出小试.md"
+      ],
+      "not_excluded": "All nonlinear residual methods"
+    },
+    {
+      "id": "NF2_REUSED_H_GELU_READOUT",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "All eight actual-UB1-state gates failed; nonlinear correction inferior to matched linear readout.",
+      "evidence": [
+        "docs/47_复用残差隐藏量的输出修正.md"
+      ],
+      "not_excluded": "Other nonlinear correction function classes"
+    },
+    {
+      "id": "OP3_NATIVE_STATE_REFIT_SAME_R256",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "Eight paired local tests failed versus frozen UB1; source exposure constrains interpretation.",
+      "evidence": [
+        "docs/46_真实状态重拟合与导入延迟修正.md"
+      ],
+      "not_excluded": "Other fit objectives or adequately powered fresh-source refits"
+    },
+    {
+      "id": "LR2_LATE_TEN_R512",
+      "status": "CLOSED_REJECTED_EXACT",
+      "rationale": "Local risk improved but supplementary imaging still dropped 3.050580%, so video-quality gate failed.",
+      "evidence": [
+        "docs/36_末端十层的条件增秩检验.md"
+      ],
+      "not_excluded": "All higher-rank mechanisms"
+    },
+    {
+      "id": "WR1_JR1_LA1_FA1_FA2_CAPACITY",
+      "status": "DEPRIORITIZED_REPEATED_FAILED_RECIPES",
+      "rationale": "Native local-CV gates rejected several retained-feature, joint-reconstruction, quantized adapter and full-weight refit recipes.",
+      "evidence": [
+        "docs/18_保留非线性特征的权重重建.md",
+        "docs/22_保留特征与低秩残差联合重建.md",
+        "docs/25_折叠低秩量化适配小试.md",
+        "docs/26_全主权重量化恢复小试.md",
+        "docs/27_固定长程量化恢复预算检验.md"
+      ],
+      "not_excluded": "Fundamentally different representation, information or objective"
+    },
+    {
+      "id": "R1_DENSE_SINGLE_GROUP_GREEDY",
+      "status": "REJECTED_AS_MAIN_METHOD",
+      "rationale": "Individual C-energy and dense-state finite changes do not capture compensated native error, cross-group interactions or deployed 50%-budget effects.",
+      "evidence": [
+        "research/20261021/Wan_Distill_FFN_Dynamic_in_Few_Step_演绎检验_20261021.md"
+      ],
+      "not_excluded": "Small native-evaluated swaps around UB1"
+    },
+    {
+      "id": "R1_FULL_W1_THEN_HALF_W2",
+      "status": "ELIMINATED_BY_COST_LOWER_BOUND",
+      "rationale": "For equal-cost W1/W2, even zero-cost routing produces ideal main-GEMM speedup <=4/3 and cannot establish >=1.5x complete FFN speed.",
+      "evidence": [
+        "research/20261021/Wan_Distill_FFN_机制重构_R2_20261021.md"
+      ],
+      "not_excluded": "Pre-W1 packed routing"
+    },
+    {
+      "id": "R2_GELU_HALF_LINEAR_PRUNE",
+      "status": "ELIMINATED_AS_GENERAL_GUARANTEE",
+      "rationale": "At strongly negative input, retaining z/2 alone can be much worse than dropping GELU output; exact algebra does not imply sparse remainder.",
+      "evidence": [
+        "research/20261021/constructive_math_checks_R2.json"
+      ],
+      "not_excluded": "Fitted, validated quantized affine remainder"
+    },
+    {
+      "id": "R2_SIGNED_NATIVE_TILE_ADVANTAGE",
+      "status": "OPEN_SCREEN_FIRST_NOT_VALIDATED",
+      "rationale": "Changed label A is mathematically distinct from C; no native K1 results, true tile-level oracle, h256 predictability, net GPU speed or new-source quality available.",
+      "gates": [
+        "Native same-input/writeback K0/K1 with existing gain/bias/RR",
+        "Compare against better fixed support, not only incumbent UB1",
+        "Continuous token tiles, never a synthetic tile from 256 sampled rows",
+        "Feature-conditioned gain using only pre-FFN0 info",
+        "Prepacked support, complete FFN cost and new-source decoded quality"
+      ],
+      "evidence": [
+        "research/20261021/Wan_Distill_FFN_机制重构_R2_20261021.md",
+        "docs/42_连续小块的支持迁移诊断.md"
+      ],
+      "not_excluded": "Potential improvement after those gates"
+    },
+    {
+      "id": "R2_ALL_CHANNEL_AFFINE_SPARSE_REMAINDER",
+      "status": "BACKLOG_KNOWN_OPERATOR_TRANSFER",
+      "rationale": "TARDIS contains similar core operator; native fold QDQ/cast error, remainder compressibility, roughly 3.90625 GiB BF16 folded matrices and 1.5x latency not demonstrated.",
+      "gates": [
+        "Full-support native numerical folding control",
+        "Source-separated residual compressibility under step budgets 14/68/68/122 groups",
+        "Resident memory and actual speed cost before any complete trial"
+      ],
+      "evidence": [
+        "research/20261021/Wan_Distill_FFN_机制重构_R2_20261021.md",
+        "docs/18_保留非线性特征的权重重建.md"
+      ],
+      "not_excluded": "Conditional Wan adaptation, not core novelty"
+    },
+    {
+      "id": "R1_HYBRID_SUFFIX_H1_H2_H3",
+      "status": "DIAGNOSTIC_ONLY_OPTIONAL",
+      "rationale": "Telescoping identity is valid under matched full state; dense-prefix hybrid endpoints violate the static 50%-MAC deployment constraint and are only for isolating mechanisms.",
+      "gates": [
+        "Exact native resume and RNG/cache controls",
+        "Only if rollout mechanism will change a later actionable experiment"
+      ],
+      "evidence": [
+        "research/20261021/Wan_Distill_FFN_Dynamic_in_Few_Step_演绎检验_20261021.md"
+      ],
+      "not_excluded": "Scientific diagnostic utility"
+    }
+  ],
+  "acceptance": {
+    "joint_conditions": [
+      "Main FFN budget baseline 50% where specified; compare total auxiliary work fairly",
+      "Complete FFN speedup >=1.5x under matched runtime boundary",
+      "Aesthetic, imaging, motion each <=2% relative drop on fresh pre-frozen sources"
+    ],
+    "historical_reference": {
+      "UB1_speedup": 1.546111,
+      "UB1_supplemental_imaging_drop_percent": 3.165968,
+      "added_cost_headroom_ms": 202.357198
+    },
+    "warning": "Historical point estimates are not new timing; earlier original20 and disjoint20 both entered development."
+  }
+}
