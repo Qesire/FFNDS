@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "proposed_id": "R6_TEMPORAL_PRE_GATE_FFN",
+  "evidence_base_commit": "7468a6e5d0be561e4fafc8cddc00c53358dc802e",
+  "nearest_closed_method_ids": [
+    "R4E1_FIXED_H_16GROUP_Q2",
+    "NF2_REUSED_H_GELU_READOUT",
+    "UB2_LATE_DENSE"
+  ],
+  "document": "docs/55_跨步FFN复用的冷启动与配对数据审计.md",
+  "metadata_audit": "research/20261021/cross_step_pairing_audit.json",
+  "prior_failure": "R4E1 tested joint single/double swaps in the registered 16-group neighborhood with matched fixed-h readouts at step2/3 block20; all4 native gates failed. NF2 current-state nonlinear h readouts failed all8 gates. UB2 25/25/50/100 failed supplementary imaging. These finite recipes remain closed.",
+  "computation": {
+    "new_information": "Previous complete pre-gate FFN output and projected input from the same request, expert, block and native row coordinate; current post-Q1 input and current outer gate.",
+    "hypothetical_operator": "Dense FFN anchors at steps0/2; steps1/3 estimate Y_anchor + (h(V1_current)-h(V1_anchor)) B. Real arithmetic notation only; native order must be specified before implementation.",
+    "action_family": "Whole-M dense anchor or cached-output correction; no support search or bank router.",
+    "compensation": "A new input-difference low-rank map; not the old fixed-h readout refit. No coefficients fitted here.",
+    "native_boundary": "Cache complete pre-gate teacher Y. Preserve current attention residual, current gate and native writeback. Reset at request/expert boundary; no reuse of old gated residual.",
+    "downstream": "Native same-state errors followed by independently exposed candidate trajectories, full FFN timing and fresh-source official video quality; none run here."
+  },
+  "substantive_difference": "Adds a past complete nonlinear output to the restricted predictor information and changes the main operation from current-input pruning to stateful reuse. Renaming, larger support/rank or another old-state refit is not the proposed distinction.",
+  "old_obstruction_scope": {
+    "established_difference": "Pinned observer and metadata identify a full pre-gate nonlinear teacher output not consumed by the old current-h-only readout. Same-expert pairs bind identical raw biases and teacher weight shards.",
+    "what_this_does_not_establish": "Extra historical information need not be useful across the large four-step gaps. No closeness, gain, quality, feasibility or novelty is established. The old finite rejection remains valid.",
+    "why_not_eligible": "No positive numerical evidence for the new causal hypothesis; metadata confirms sparse matched rows and the strict multi-anchor temporal-difference cold-start obstruction."
+  },
+  "falsifiable_prediction": "A useful learned input-difference correction must outperform zero-order same-expert pre-gate reuse and frozen UB1 on untouched same-state source pairs under the same native gate; permuting anchor histories should remove any advantage attributed to history. This prediction is untested and no thresholds are registered here.",
+  "cheapest_test": {
+    "completed": "CPU metadata alignment audit for all24 sources and40 blocks plus cold-start and storage/MAC arithmetic; no tensor values read.",
+    "result": "Only3908 exact native-coordinate pairs across1920 source/block/step-pairs; block20 has58 and55. Existing source-fold training sets have25-33 rows. Every same-expert gate hash differs.",
+    "stop_condition": "Stop at data/mechanism readiness if old samples are not a dense paired dataset or online temporal derivatives lack same-expert anchors. Both obstacles are observed for the scoped reuse/derivative ideas. No automatic new collection or fit.",
+    "future_prerequisites_not_a_job_queue": "Specify a native implementation/control and a substantive evidence-backed hypothesis, establish matched fresh-source coordinates and cache budget, and independently register any decisive numerical screen before selecting a model route."
+  },
+  "cost": {
+    "main_MAC_fraction": 0.5,
+    "dense_anchor_steps": [
+      0,
+      2
+    ],
+    "reuse_steps": [
+      1,
+      3
+    ],
+    "auxiliary_cost": "Y+h256 caching needs one projection per anchor and two per reuse:3r/(4H) of four dense FFNs=1.388889% at r256,H13824. Full-X caching needs r/(2H)=0.925926%. Quantization, norm, cache traffic and launches extra.",
+    "memory": "At observed M31668,40 blocks: Y12.0803833GiB; X+Y24.1607666GiB; Y+h25612.6844025GiB. Cache arrays only; not peak or reserved memory.",
+    "acceptance": "Unchanged50% global main MAC; all auxiliary work reported; measured complete FFN>=1.5x; fresh-source aesthetic/imaging/motion drops each<=2%. No success claimed."
+  },
+  "data_exposure": "All24 OP2 sources, trajectories and sampled coordinates are development-exposed, including prior baseline fitting. Original20 and supplementary20 are also exposed. No current report is independent final evaluation; a genuinely new frozen final set would be required.",
+  "operands": {
+    "observed": [
+      "3840 accepted OP2 scope metadata with original record/source/video bindings",
+      "Exact intersections and per-file offsets",
+      "Same-expert function metadata and differing outer gates",
+      "Pinned source flow; four-step expert cold-start arithmetic"
+    ],
+    "not_observed": [
+      "Paired tensor values revalidated/read in this audit",
+      "Cross-step native activation or FFN-output differences",
+      "New candidate trajectory",
+      "Dense-anchor same-coordinate calibration dataset",
+      "Fitted correction",
+      "Numerical identity at new hook boundary",
+      "Peak memory, latency or final quality"
+    ]
+  },
+  "novelty_status": "KNOWN_CACHE_REUSE_AND_PREDICTION_FAMILY; specific quantized FFN adaptation unvalidated, no novelty claim",
+  "primary_prior_work": [
+    {
+      "title": "TeaCache",
+      "url": "https://github.com/ali-vilab/TeaCache",
+      "relation": "Historical feature/output reuse is prior work."
+    },
+    {
+      "title": "TaylorSeer",
+      "url": "https://arxiv.org/abs/2503.06923",
+      "relation": "Prediction from cached temporal features is prior work; cold-start needs auditing in four-step two-expert setting."
+    },
+    {
+      "title": "AutoTarget",
+      "url": "https://arxiv.org/html/2610.03577v1",
+      "relation": "Few-step distilled solver-output cache target selection is prior work, distinct from internal per-FFN input-difference correction."
+    }
+  ],
+  "source_bindings": {
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": {
+      "sha256": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+      "locator": "infer_ffn:366-416; post_process:418-432"
+    },
+    ".runtime/code/LightX2V/lightx2v/models/runners/wan/wan_distill_runner.py": {
+      "sha256": "26a2a503137b0125cf4a2f8b2c9fc5dae716121c6e600b7ce85517af5ee62dc3",
+      "locator": "MultiDistillModelStruct.infer:47-78"
+    },
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": {
+      "sha256": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+      "locator": "HIF4CacheRuntime._record/apply:619-702"
+    },
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": {
+      "sha256": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+      "locator": "hif4_qdq_tensor:81-99"
+    },
+    "tools/variable_teacher_capture.py": {
+      "sha256": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939",
+      "locator": "VariableTeacherCapture.observe:156 onward; independent per-step row salt and pre-gate TeacherY"
+    },
+    "tools/ub1_native_data.py": {
+      "sha256": "90c9d238c32c7d6f4a2e96ccfd1130752a227c068899fa2e85d4d0ede23f8c54",
+      "locator": "load_ub1_collections"
+    },
+    "reports/worker_20261020/R4E1_summary.json": {
+      "sha256": "26e5967499fec431d988fb2eb224796d068cb65c9819c150e61c72c23b6e1141",
+      "locator": "all4 rejected native risk records"
+    },
+    "research/20261021/cross_step_pairing_audit.json": {
+      "sha256": "7e5a7a330c4f2519c7d18591670e8ba9888702a91c902939972535d84b677719",
+      "locator": "completed metadata-only audit"
+    }
+  },
+  "current_disposition": "DEFERRED_NO_PAIRED_READINESS_OR_POSITIVE_NATIVE_EVIDENCE",
+  "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+  "current_decision": "research/CURRENT_DECISION.json",
+  "models_loaded": 0,
+  "GPU_jobs_started": 0,
+  "new_video_or_speed_results": false
+}
