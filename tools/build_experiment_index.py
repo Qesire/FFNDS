@@ -40,6 +40,7 @@ def main():
     if (d/'NF1_native_RUN.json').exists():definitions.append(('NF1','native CV','NF1_native_RUN.json','four fixed omitted-group nonlinear readout folds on C24 student states'))
     if (d/'NP1_proxy_RUN.json').exists():definitions.append(('NP1','C proxy','NP1_proxy_RUN.json','matched512 linear/nonlinear input-basis comparison; no native output-risk or kernel'))
     if (d/'TC1_coherence_RUN.json').exists():definitions.append(('TC1','C pair-transfer diagnostic','TC1_coherence_RUN.json','native64-row neighbor support transfer on known C24 states; no full-tile oracle or native output risk'))
+    if (d/'OP2_native_control_summary.json').exists():definitions.append(('OP2','native teacher control','OP2_native_control_summary.json','two known formal sources, both arms; native identity and teacher no-op only'))
     for trial,stage,name,scope in definitions:
         path=d/name;value=json.loads(path.read_text())
         row={'trial':trial,'stage':stage,'scope':scope,'status':value['status'],
@@ -60,11 +61,11 @@ def main():
             row['speed_evidence']={'path':str(speedpath.relative_to(ROOT)),'sha256':digest(speedpath)}
             row['joint_acceptance']=bool(row['official_video_quality_pass'] and speed['full_FFN_speed_pass'])
     active=[]
-    for name in ['terminal_dense_ub2_identity','terminal_dense_ub2_flow','terminal_dense_ub2_controller','terminal_dense_ub2_acceptance']:
+    for trial,name in [('UB2',name) for name in ['terminal_dense_ub2_identity','terminal_dense_ub2_flow','terminal_dense_ub2_controller','terminal_dense_ub2_acceptance']]+[('OP2','op2_native_controller'),('OP2D','op2d_distribution_controller')]:
         path=ROOT/'runs/worker_restart_20261020'/name/'RUN.json'
         if path.exists():
             v=json.loads(path.read_text())
-            active.append({'trial':'UB2','stage':name,'status':v['status'],'current_step':v.get('stage'),
+            active.append({'trial':trial,'stage':name,'status':v['status'],'current_step':v.get('stage'),
                 'evidence':str(path.relative_to(ROOT)),'sha256':digest(path),
                 'scope':'live checkpoint snapshot, no implicit quality or speed acceptance'})
     atomic_json(args.output,{'status':'BUILT_SCOPED_EXPERIMENT_EVIDENCE_INDEX','source_sha256':digest(Path(__file__)),

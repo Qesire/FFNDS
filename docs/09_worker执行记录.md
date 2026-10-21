@@ -12,7 +12,7 @@
   CPU 内存约 503 GiB。不是 H20。首次检查仅有 Xorg、没有计算任务。
 - 本地四张 A100 已有其他计算任务，本项目的 GPU 运算只在 worker 运行。
 - 两端 `/home/xiang` 为共享 NFS。默认 SSH 跳板曾超时，
-  `ssh -o ProxyCommand=none worker` 实测可用。
+  现在通过仓库外的私有SSH配置和`ffnds-worker`别名连接；新入口已实际核验，见[私有执行配置](43_公开元数据与私有执行配置.md)。
 - 使用独立 `.venv`，Python 3.11.15，目标 torch 2.10.0+cu128；
   安装已完成，CUDA 可用性与 BF16 GEMM/SDPA 检查已通过。首次提前探测遇到尚未复制完成的
   `libtorch_global_deps.so`，原始记录保留在 `hardware_during_install.json`；重测成功证据为
