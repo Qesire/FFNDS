@@ -6,6 +6,7 @@ import io
 import json
 from pathlib import Path
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("route_guard", ROOT / "tools/check_research_routes.py")
@@ -110,6 +111,66 @@ class ResearchRouteGuardTests(unittest.TestCase):
         for method_id in (guard.POPULATION_ID,):
             with self.subTest(method_id=method_id):
                 self.assertFalse(guard.method_eligibility(self.decision, self.triage, method_id)[0])
+
+    def use_head_registration(self):
+        archive = json.loads((ROOT / 'research/20261021/R11G1_before_execution.json').read_text())
+        self.decision['registered_diagnostic'] = copy.deepcopy(archive['registration'])
+        self.decision['execution_state'] = self.triage['policy']['execution_state'] = guard.HEAD_STATE
+        self.decision['eligible_model_method_ids'] = [guard.HEAD_ID]
+        self.decision['closed_method_statuses'].pop(guard.HEAD_ID, None)
+        for method in self.triage['methods']:
+            if method.get('model_execution_eligibility') == guard.READY:
+                method['model_execution_eligibility'] = 'NOT_SELECTED_IN_ARCHIVED_FIXTURE'
+        self.method(guard.HEAD_ID).update(status='REGISTERED_FIXED_READINESS_PENDING', model_execution_eligibility=guard.READY)
+        self.assertEqual(self.errors(), [])
+
+    def test_native_head_registration_does_not_release_training(self):
+        self.use_head_registration()
+        self.decision['eligible_model_method_ids'].append('R10_NATIVE_WINDOW_ROLLOUT_RECOVERY')
+        self.assertTrue(any('Only the fixed causal diagnostic' in e for e in self.errors()))
+
+    def test_native_head_update_budget_is_checked(self):
+        self.use_head_registration()
+        original = Path.read_text
+        protocol = ROOT / self.decision['registered_diagnostic']['protocol']
+        altered = json.loads(original(protocol))
+        altered['execution_plan']['gradient_updates'] = 2
+
+        def read(path, *args, **kwargs):
+            return json.dumps(altered) if path == protocol else original(path, *args, **kwargs)
+
+        with mock.patch.object(Path, 'read_text', read):
+            self.assertTrue(any('controls/positions/budget changed' in e for e in self.errors()))
+
+    def use_matched_registration(self):
+        archive = json.loads((ROOT / 'research/20261021/R11T1_before_execution.json').read_text())
+        self.decision['registered_diagnostic'] = copy.deepcopy(archive['registration'])
+        self.decision['execution_state'] = self.triage['policy']['execution_state'] = guard.MATCHED_STATE
+        self.decision['eligible_model_method_ids'] = [guard.MATCHED_ID]
+        self.decision['closed_method_statuses'].pop(guard.MATCHED_ID, None)
+        for method in self.triage['methods']:
+            if method.get('model_execution_eligibility') == guard.READY:
+                method['model_execution_eligibility'] = 'NOT_SELECTED_IN_ARCHIVED_FIXTURE'
+        self.method(guard.MATCHED_ID).update(status='REGISTERED_FIXED_MATCHED_OBJECTIVE_PENDING', model_execution_eligibility=guard.READY)
+        self.assertEqual(self.errors(), [])
+
+    def test_matched_training_requires_verified_gradient_prerequisite(self):
+        self.use_matched_registration()
+        self.decision['registered_diagnostic']['prior_diagnostic']['sha256'] = '0' * 64
+        self.assertTrue(any('exact native gradient/memory' in e for e in self.errors()))
+
+    def test_matched_training_cannot_increase_iterations(self):
+        self.use_matched_registration()
+        original = Path.read_text
+        protocol = ROOT / self.decision['registered_diagnostic']['protocol']
+        altered = json.loads(original(protocol))
+        altered['optimization']['steps_per_arm'] = 21
+
+        def read(path, *args, **kwargs):
+            return json.dumps(altered) if path == protocol else original(path, *args, **kwargs)
+
+        with mock.patch.object(Path, 'read_text', read):
+            self.assertTrue(any('controls/positions/budget changed' in e for e in self.errors()))
 
 
 if __name__ == "__main__":

@@ -2,9 +2,9 @@
   "schema_version": "1.0",
   "review_id": "FFNDS-R10-BROAD-FAILURE-AND-METHOD-REVIEW-20261021",
   "evidence_base_commit": "2df2447d8bcaa919140c8c9399dcc65e88e07a5f",
-  "decision_document": "docs/62_广泛复盘后的学习型仿射表示检验.md",
+  "decision_document": "docs/64_相同部署预算下的局部与真实flow目标对照.md",
   "research_state": "research/20261021/research_state_R5.json",
-  "handoff": "research/20261021/HANDOFF_R9A1.md",
+  "handoff": "research/20261021/HANDOFF_R11T1.md",
   "triage": "research/20261021/method_triage.json",
   "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
   "evidence_summary": "reports/worker_20261020/R4E1_summary.json",
@@ -31,7 +31,9 @@
     "R7D2_RESIDUAL_GAIN_OBJECTIVE": "CLOSED_REJECTED_FIXED_GAIN_OBJECTIVE",
     "R8F1_FULL_SUPPORT_NATIVE_FOLD": "CLOSED_FULL_SUPPORT_RTN_HIF4_PRECISION_REJECTED",
     "R8F2_GROUP64_HESSIAN_AFFINE": "CLOSED_FIXED_GROUP64_HESSIAN_PRECISION_REJECTED",
-    "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER": "CLOSED_FIXED_LEARNED_AFFINE_COMPRESSION_REJECTED"
+    "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER": "CLOSED_FIXED_LEARNED_AFFINE_COMPRESSION_REJECTED",
+    "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE": "CLOSED_FIXED20_MATCHED_HEAD_OBJECTIVE_REJECTED",
+    "R11G1_NATIVE_HEAD_GRADIENT_READINESS": "COMPLETED_READINESS_ONLY_NO_TRAINING_TRIGGER"
   },
   "guarded_current_statuses": {
     "R4_COMPENSATION_NONREDUNDANT_SUPPORT": "REGISTERED_INSTANCE_CLOSED_FAMILY_UNPROVEN",
@@ -74,9 +76,13 @@
     "eligibility_note": "R9A1 fullsupport numerics passed16/16, fixedcompressionpassed7/16; closedfixedinstance. R10broadreview/costdataretained; nextprioritynativeobjective/trajectoryreadiness, no automaticrank/width/coefficientsplit or finalvideo.",
     "checks": "research/20261021/continuation_checks_R10.json",
     "synthetic_representation_cost": "research/20261021/representation_cost_preflight_R10.json",
-    "next_diagnostic": "research/20261021/R9A1_learned_affine_protocol.json"
+    "next_diagnostic": "research/20261021/R9A1_learned_affine_protocol.json",
+    "subsequent_native_results": [
+      "research/20261021/R11G1_native_head_results.json",
+      "research/20261021/R11T1_matched_objective_results.json"
+    ]
   },
-  "previous_execution_state": "R4_CLOSED_ORIGINAL_LEARNED_AFFINE_OPERATOR_REGISTERED",
+  "previous_execution_state": "R4_CLOSED_MATCHED_NATIVE_HEAD_OBJECTIVE_REGISTERED",
   "completed_diagnostics": [
     {
       "method_id": "R7D1_CROSS_LAYER_TRANSPORT",
@@ -224,19 +230,86 @@
       "result": "research/20261021/R9A1_native_affine_results.json",
       "result_sha256": "aff6357716ea64a6c48935788af5be3b6fcb8f16fedb447323fe8d8468c204df",
       "status": "CLOSED_FIXED_LEARNED_AFFINE_COMPRESSION_REJECTED"
+    },
+    {
+      "method_id": "R11G1_NATIVE_HEAD_GRADIENT_READINESS",
+      "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+      "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+      "protocol": "research/20261021/R11G1_native_head_protocol.json",
+      "protocol_sha256": "1b6a81b8a679c485f03dc487aaf15cda707baf04befdd5732c3aceaadc345023",
+      "source_sha256": {
+        "tools/probe_native_head_gradient.py": "26987fcd5e4b40368a79b61bf1a4f04bbf2b1a48204a531e5967014402a7cc4e",
+        "tools/native_head_replay.py": "7ee283a9e756dfb47dcc2751ea681b2d5cbb89860d0e13a4835ae1dfdde1073b",
+        "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+        "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+        "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+        "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+        "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+        "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+        "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+        "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+        "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+        ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+        ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/post_infer.py": "6567c439e2f16f322a9f10cd2ca326d3f924e9da75b3ae2ae442ec1327a327a2",
+        ".runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c",
+        ".runtime/code/LightX2V/lightx2v/common/ops/norm/layer_norm_weight.py": "0dbfed5c94745a58f0993c29fa211822775243f77478e77354cb32e91b2a24a8"
+      },
+      "document": "docs/63_原生输出头梯度与零更新等价检查.md",
+      "prior_diagnostic": {
+        "result": "research/20261021/R7D2_results.json",
+        "sha256": "bbf63b38f91cad4d5109c67515c6692f89b29a421f24b4bf091bfd68a5883a7a"
+      },
+      "result": "research/20261021/R11G1_native_head_results.json",
+      "result_sha256": "83ecefcbbac0ecca81656e9d69152265ea3df81969a2aabb0f75d7a4d6c427e6",
+      "status": "COMPLETED_READINESS_ONLY_NO_TRAINING_TRIGGER"
+    },
+    {
+      "method_id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+      "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+      "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+      "protocol": "research/20261021/R11T1_matched_objective_protocol.json",
+      "protocol_sha256": "420f7f1cb39a9178fbae9c98a81928b1ae339791272dd708a6d37941028dc952",
+      "source_sha256": {
+        "tools/probe_native_head_gradient.py": "26987fcd5e4b40368a79b61bf1a4f04bbf2b1a48204a531e5967014402a7cc4e",
+        "tools/native_head_replay.py": "7ee283a9e756dfb47dcc2751ea681b2d5cbb89860d0e13a4835ae1dfdde1073b",
+        "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+        "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+        "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+        "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+        "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+        "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+        "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+        "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+        "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+        ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+        ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/post_infer.py": "6567c439e2f16f322a9f10cd2ca326d3f924e9da75b3ae2ae442ec1327a327a2",
+        ".runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c",
+        ".runtime/code/LightX2V/lightx2v/common/ops/norm/layer_norm_weight.py": "0dbfed5c94745a58f0993c29fa211822775243f77478e77354cb32e91b2a24a8",
+        "tools/run_native_window_objective.py": "0e9ae3621dea2065bc1b67e146026a095845120412328ef7ccc449e1fd43ce4f",
+        "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939",
+        "tools/verify_native_head_bytes.py": "76157a0121824c134524c32e8d189dad1933bc9c93e1f1b92a42bea1c0d99c35"
+      },
+      "document": "docs/64_相同部署预算下的局部与真实flow目标对照.md",
+      "prior_diagnostic": {
+        "result": "research/20261021/R11G1_native_head_results.json",
+        "sha256": "83ecefcbbac0ecca81656e9d69152265ea3df81969a2aabb0f75d7a4d6c427e6"
+      },
+      "result": "research/20261021/R11T1_matched_objective_results.json",
+      "result_sha256": "1020ee95b358a8fd576ebd4f400679a1745a60477dc5168511edd8f078113f02",
+      "status": "CLOSED_FIXED20_MATCHED_HEAD_OBJECTIVE_REJECTED"
     }
   ],
   "latest_native_diagnostic": {
-    "id": "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER",
-    "result": "research/20261021/R9A1_native_affine_results.json",
-    "status": "CLOSED_FIXED_LEARNED_AFFINE_COMPRESSION_REJECTED",
-    "full_support_gate_all16": true,
-    "full_support_max_error_over_UB1": 0.0008111833694899079,
-    "native_compression_gate_all16": false,
-    "native_compression_pass_count": 7,
+    "id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+    "result": "research/20261021/R11T1_matched_objective_results.json",
+    "status": "CLOSED_FIXED20_MATCHED_HEAD_OBJECTIVE_REJECTED",
+    "complete_native_generations": 6,
+    "development_flow_over_UB1": 0.9850878549835078,
+    "development_flow_over_local": 0.9842613237320661,
+    "development_gate": false,
     "quality_or_speed_acceptance": false
   },
-  "research_work_status": "ACTIVE_RESEARCH_NATIVE_OBJECTIVE_AND_TRAJECTORY_READINESS_NEXT",
+  "research_work_status": "ACTIVE_RESEARCH_FIXED_NATIVE_OBJECTIVE_INSTANCE_CLOSED_NO_AUTOMATIC_EXTENSION",
   "research_review_history": [
     {
       "id": "FFNDS-R7-FAILURE-AND-METHOD-REVIEW",

@@ -1,0 +1,46 @@
+{
+  "id": "R11G1_NATIVE_HEAD_GRADIENT_READINESS",
+  "nearest_closed_method_ids": [
+    "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+    "OP3_NATIVE_STATE_REFIT_SAME_R256",
+    "WR1_JR1_LA1_FA1_FA2_CAPACITY"
+  ],
+  "evidence_base_commit": "76031e37409eb8f6d3d423fea9846d83f40500d7",
+  "evidence": [
+    "research/20261021/R7D2_results.json",
+    "research/20261021/R10_saved_failure_geometry.json",
+    "research/20261021/branch_records_R10.json"
+  ],
+  "prior_failure_scope": "R7D2 two bounded residual gains using a frozen finite secant Gram failed transfer: ~.57 change direction cosine and only1.806% predicted train gain realized. OP3 same-input local teacher R256 refit did not beat frozen UB1. FA2 local improvements did not establish quality. These closures remain.",
+  "actual_computation": "Original post-Q1 input -> existing BF16 R256 -> BF16 addition to unchanged main -> separate BF16 gate multiply and residual add -> original parameter-free torch layernorm eps1e-6 -> separate BF16 head scale multiply and shift add -> original BF16 head addmm -> original unpatchify/FP32 flow",
+  "information": "Complete final-block operands from real native generation and independent DQ fullflow, identical original input/conditioning. Random cached OP2 rows are not used as a fabricated trajectory.",
+  "objective": "Mean squared full final flow error against original independent DQ flow at matched full-step input",
+  "action_set": "Four existing deployed R256 tensors, no new gain/rank/router/support/width. One normalized gradient step only.",
+  "compensation": "Existing UB1 folded main bias/alpha/support and all other positions frozen. R256 same parameter dimensions.",
+  "substantive_difference": "Removes frozen secant surrogate and changes local FFN fit to exact differentiable native downstream head objective, re-evaluated in actual BF16 forward. Readiness only, not full trajectory training or a new architecture.",
+  "why_old_obstruction_does_not_transfer": "The measured surrogate direction error has a concrete source: a frozen approximate response rather than current native forward. Here exact original gate/norm/head is replayed and byte-checked, so no secant-response assumption. This establishes an implementation question, not positive generalization evidence. Last block chosen a priori because no downstream attention backward is needed.",
+  "prediction": "Zero-update complete flow matches original bytes; all existing R256 tensors obtain finite nonzero gradients and one fixed update changes actual deployed BF16 outputs within an A100 memory budget. Loss decrease is measured, not assumed.",
+  "matched_control": "Unchanged full native UB1 at original TF2 DQ states, frozen main and existing parameters; compare byte-identical replay before any gradient. Subsequent local-vs-native training contrast remains unrun.",
+  "cheapest_decisive_test": {
+    "full_native_steps_per_run": 4,
+    "interventions_require_all_controls": true,
+    "pipeline_generations": 1,
+    "gradient_updates": 1,
+    "max_GPUs": 2,
+    "order": "One UB1 full native generation/control capture; separate process verifies exact head replay before autograd, then exactly one fixed update",
+    "full_M": 31668,
+    "complete_tokens": true
+  },
+  "stop": "Any control failure stops before gradient; preserve failed report. Nonfinite/disconnected gradients or no deployed BF16 change stops. Exactly one step regardless loss; no extra LR/epsilon/position/source/step search. Report improvement or regression without candidate acceptance. Any subsequent training/comparison requires its own frozen protocol.",
+  "cost": "One full4step native generation and one fullM final-head backward plus one updated forward. Same deployed R256 rank/width and frozen main support; additional inference parameters0. Saved complete tensors <3GiB in HF cache; preserve80GiB free reserve. Gradient process separated from full model residency. Not full160 timing or >=1.5x acceptance.",
+  "data_exposure_and_fresh_final_plan": "One existing TF2 source00, no train/validation/final claim. Before any recovery conclusion freeze matched local/native optimization on separate train/dev sources and free student rollout, then a genuinely fresh hash/overlap-audited final cohort. No new cohort selected.",
+  "required_operands": "FullM u, mainY, nativeY, residual base, cgate, norm eps, head modulation/weight/bias, original fullflow and independent DQ fullflow. All captured in original pipeline, not inferred from unrelated saved rows.",
+  "observed_vs_planned": "Observed exact source map and small CPU tests; native capture/gradient are pending at registration.",
+  "disposition": "REGISTERED_FIXED_READINESS_ONLY",
+  "decision": "research/CURRENT_DECISION.json",
+  "post_execution_observation": {
+    "result": "research/20261021/R11G1_native_head_results.json",
+    "status": "COMPLETED_READINESS_ONLY_NO_TRAINING_TRIGGER",
+    "followup": "research/20261021/R11T1_matched_objective_results.json"
+  }
+}

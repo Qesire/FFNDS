@@ -27,6 +27,10 @@ POPULATION_STATE = "R4_CLOSED_UNCHANGED_POPULATION_COLLECTION_REGISTERED"
 POPULATION_ID = "R8D1_FULL_POPULATION_Q1_COVARIANCE"
 LEARNED_STATE = "R4_CLOSED_ORIGINAL_LEARNED_AFFINE_OPERATOR_REGISTERED"
 LEARNED_ID = "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER"
+HEAD_STATE = "R4_CLOSED_NATIVE_HEAD_GRADIENT_READINESS_REGISTERED"
+HEAD_ID = "R11G1_NATIVE_HEAD_GRADIENT_READINESS"
+MATCHED_STATE = "R4_CLOSED_MATCHED_NATIVE_HEAD_OBJECTIVE_REGISTERED"
+MATCHED_ID = "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE"
 RECIPE_ID = "R4E1_FIXED_H_16GROUP_Q2"
 RATIO_FIELDS = {
     "K1_matched_over_K0_matched": ("K0_matched", .98),
@@ -58,7 +62,7 @@ def validate_records(decision, triage, summary, execution, root=None):
     index, errors = build_index(triage)
     methods = {m["id"]: m for m in triage["methods"]}
     state = decision["execution_state"]
-    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE):
+    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE):
         errors.append("Current evidence audit requires an explicit migration for a new decision state")
     if triage["policy"]["execution_state"] != decision["execution_state"]:
         errors.append("Policy and current decision disagree")
@@ -78,9 +82,10 @@ def validate_records(decision, triage, summary, execution, root=None):
         errors.append("Eligible methods disagree with canonical decision")
     if canonical and state == CURRENT_STATE:
         errors.append("R5 closure records no eligible model follow-up; update evidence before changing the decision")
-    if state in (DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE):
+    if state in (DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE):
         selected = {DIAGNOSTIC_STATE: DIAGNOSTIC_ID, GAIN_STATE: GAIN_ID, FOLD_STATE: FOLD_ID,
-                    ENCODING_STATE: ENCODING_ID, POPULATION_STATE: POPULATION_ID, LEARNED_STATE: LEARNED_ID}[state]
+                    ENCODING_STATE: ENCODING_ID, POPULATION_STATE: POPULATION_ID, LEARNED_STATE: LEARNED_ID,
+                    HEAD_STATE: HEAD_ID, MATCHED_STATE: MATCHED_ID}[state]
         if canonical != [selected]:
             errors.append("Only the fixed causal diagnostic is registered by this migration")
         registration = decision.get('registered_diagnostic', {})
@@ -94,9 +99,20 @@ def validate_records(decision, triage, summary, execution, root=None):
             if hashlib.sha256(path.read_bytes()).hexdigest() != registration['protocol_sha256']:
                 errors.append('Registered diagnostic protocol hash changed')
             protocol = json.loads(path.read_text())
+            expected_positions = ({'step': 3, 'A_block': 30, 'B_block': 31})
+            expected_indices = [0, 5, 10, 15]
+            if selected == HEAD_ID:
+                expected_positions, expected_indices = [[3, 39]], [0]
+            elif selected == MATCHED_ID:
+                expected_positions = [[3, 39]]
+            elif selected == LEARNED_ID:
+                expected_positions, expected_indices = [[s, 20] for s in range(4)], [0, 6, 12, 18]
+            elif selected in (FOLD_ID, ENCODING_ID, POPULATION_ID):
+                expected_positions = [[2, 20], [3, 20]]
+                expected_indices = sorted(set(range(1, 24, 2)) | {0, 6, 12, 18}) if selected == POPULATION_ID else [0, 6, 12, 18]
             common = (protocol['id'] == selected
-                    and protocol['positions'] == ([[s, 20] for s in range(4)] if selected == LEARNED_ID else [[2, 20], [3, 20]] if selected in (FOLD_ID, ENCODING_ID, POPULATION_ID) else {'step': 3, 'A_block': 30, 'B_block': 31})
-                    and protocol['inputs']['indices'] == (sorted(set(range(1, 24, 2)) | {0, 6, 12, 18}) if selected == POPULATION_ID else [0, 6, 12, 18] if selected in (FOLD_ID, ENCODING_ID, LEARNED_ID) else [0, 5, 10, 15])
+                    and protocol['positions'] == expected_positions
+                    and protocol['inputs']['indices'] == expected_indices
                     and protocol['execution_plan']['full_native_steps_per_run'] == (0 if selected in (FOLD_ID, ENCODING_ID, LEARNED_ID) else 4)
                     and protocol['execution_plan']['interventions_require_all_controls'] is True)
             if selected == DIAGNOSTIC_ID:
@@ -182,7 +198,7 @@ def validate_records(decision, triage, summary, execution, root=None):
                         or any(p['Hessian_over_RTN_affine_SSE']['train'] >= .3
                                or p['Hessian_over_RTN_affine_SSE']['validation'] <= .9 for p in audit['positions'])):
                     errors.append('Population diagnosis lacks its frozen transfer data audit')
-            else:
+            elif selected == LEARNED_ID:
                 specific = (protocol['status'] == 'REGISTERED_LEARNED_AFFINE_FULL_SUPPORT_THEN_FIXED_COMPRESSION'
                     and protocol['inputs']['training_indices'] == list(range(1, 24, 2))
                     and protocol['inputs']['validation_indices'] == [0, 6, 12, 18]
@@ -202,6 +218,43 @@ def validate_records(decision, triage, summary, execution, root=None):
                 design_path = base / reconciliation['original_R2_document']
                 if hashlib.sha256(design_path.read_bytes()).hexdigest() != reconciliation['original_R2_sha256']:
                     errors.append('Original R2 design/scope reconciliation changed')
+            elif selected == HEAD_ID:
+                specific = (protocol['status'] == 'REGISTERED_ONE_NATIVE_CAPTURE_THEN_ONE_GRADIENT_STEP'
+                    and protocol['execution_plan']['pipeline_generations'] == 1
+                    and protocol['execution_plan']['gradient_updates'] == 1
+                    and protocol['execution_plan']['max_GPUs'] == 2
+                    and protocol['update']['relative_global_L2_step'] == .001
+                    and protocol['trainable_parameters'] == 'Existing step3/block39 R256 first/bias_first/second/bias_second only'
+                    and protocol['additional_inference_parameters'] == 0
+                    and protocol['candidate_training_or_quality_acceptance'] is False)
+                required_sources = {'tools/probe_native_head_gradient.py', 'tools/native_head_replay.py'}
+                prior = registration['prior_diagnostic']
+                previous_path = base / prior['result']; previous = json.loads(previous_path.read_text())
+                if (hashlib.sha256(previous_path.read_bytes()).hexdigest() != prior['sha256']
+                        or previous['status'] != 'PASS_COMPLETE_FIXED_OBJECTIVE_COMPARISON'
+                        or previous['completed_generations'] != 18):
+                    errors.append('Native-gradient readiness lacks its completed fixed-secant prerequisite')
+            else:
+                specific = (protocol['status'] == 'REGISTERED_FIXED20_MATCHED_LOCAL_NATIVE_OBJECTIVES'
+                    and protocol['inputs']['training_indices'] == [0, 5, 10]
+                    and protocol['inputs']['development_index'] == 15
+                    and protocol['execution_plan']['capture_generations'] == 4
+                    and protocol['execution_plan']['deployment_validation_generations'] == 2
+                    and protocol['optimization']['steps_per_arm'] == 20
+                    and protocol['optimization']['relative_global_L2_step'] == .001
+                    and protocol['gates'] == {'development_flow_over_UB1_max': .98, 'development_flow_over_local_max': .99}
+                    and protocol['additional_inference_parameters'] == 0
+                    and protocol['fresh_quality_acceptance'] is False)
+                required_sources = {'tools/run_native_window_objective.py', 'tools/native_head_replay.py'}
+                prior = registration['prior_diagnostic']
+                previous_path = base / prior['result']; previous = json.loads(previous_path.read_text())
+                if (hashlib.sha256(previous_path.read_bytes()).hexdigest() != prior['sha256']
+                        or previous['status'] != 'COMPLETED_FIXED_NATIVE_HEAD_GRADIENT_READINESS'
+                        or previous['strict_byte_audit']['status'] != 'PASS_COMPLETE_NATIVE_INTEGER_BYTES'
+                        or previous['gradient_readiness']['additional_inference_parameters'] != 0
+                        or previous['gradient_readiness']['peak_allocated_bytes'] > 8 << 30
+                        or not all(previous['gradient_readiness']['controls'].values())):
+                    errors.append('Matched objectives lack exact native gradient/memory readiness')
             if not common or not specific:
                 errors.append('Fixed diagnostic controls/positions/budget changed')
             bindings = registration['source_sha256']

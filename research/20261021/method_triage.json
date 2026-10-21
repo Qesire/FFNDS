@@ -17,7 +17,7 @@
     ],
     "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
     "current_decision": "research/CURRENT_DECISION.json",
-    "execution_note": "R10broadreview, syntheticcost andR9A1nativepilot completed. Fullsupportnumericalcontrolpassed, compression7/16rejects fixedinstance. Researchcontinues toward actualnativeobjective/trajectoryreadiness; no modeljobcurrentlyselected.",
+    "execution_note": "R11G1 gradients/bytes passed; R11T1 six native runs and equal20step local/native fits completed. Native flow train improves2.460%, development1.491%, beats local1.574% but misses fixed2%overUB1 gate. Close fixedinstance; no LR/steps/window/source extension or automatic rollout/quality.",
     "reentry_requirements": [
       "Preserve exact failed recipe ID/status and cite its protocol/result",
       "Explain substantive computation/information/target/action/causal change, not only renamed or enlarged hyperparameters",
@@ -562,10 +562,12 @@
       "id": "R10_NATIVE_WINDOW_ROLLOUT_RECOVERY",
       "status": "RESEARCH_BACKLOG_PREREQUISITES_UNPROVEN",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
-      "rationale": "Completecomputation/failure/cost/data/prediction record exists; prerequisite/nativefeasibility notcompleted. See R10branchrecord.",
+      "rationale": "Exact final-head nativebytes, actual parameter gradients and lowmemory provenR11G1. R11T1 fixed20step nativeobjective gives real1.491%developmentflow gain vs no localflow gain, but misses registered2%gate. Doesnotclosefullobjective/trajectoryfamily; fullstudentrollout remainsunproven andnoteligible. No unchangedrecipe expansion aftervalidation.",
       "evidence": [
         "research/20261021/branch_records_R10.json",
-        "docs/61_全路线失败归因与组合方案复盘_R10.md"
+        "docs/61_全路线失败归因与组合方案复盘_R10.md",
+        "research/20261021/R11G1_native_head_results.json",
+        "research/20261021/R11T1_matched_objective_results.json"
       ],
       "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
     },
@@ -590,6 +592,31 @@
         "docs/61_全路线失败归因与组合方案复盘_R10.md"
       ],
       "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
+    },
+    {
+      "id": "R11G1_NATIVE_HEAD_GRADIENT_READINESS",
+      "status": "COMPLETED_READINESS_ONLY_NO_TRAINING_TRIGGER",
+      "model_execution_eligibility": "NOT_ELIGIBLE_COMPLETED_DIAGNOSTIC",
+      "rationale": "All12originalstep controls and5strictfulltensorbytechecks pass; existing R256 gradients finite/nonzero andoneactualBF16 update reduces exposed-sourceflowMSE0.291%. Readiness only, no objective superiority or recovery acceptance.",
+      "evidence": [
+        "research/20261021/R11G1_native_head_protocol.json",
+        "research/20261021/R11G1_mechanism_record.json",
+        "docs/63_原生输出头梯度与零更新等价检查.md",
+        "research/20261021/R11G1_native_head_results.json"
+      ]
+    },
+    {
+      "id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+      "status": "CLOSED_FIXED20_MATCHED_HEAD_OBJECTIVE_REJECTED",
+      "model_execution_eligibility": "NOT_ELIGIBLE_COMPLETED_REJECTED",
+      "rationale": "R11G1 gradients/bytes passed; R11T1 six native runs and equal20step local/native fits completed. Native flow train improves2.460%, development1.491%, beats local1.574% but misses fixed2%overUB1 gate. Close fixedinstance; no LR/steps/window/source extension or automatic rollout/quality.",
+      "evidence": [
+        "research/20261021/R11T1_matched_objective_protocol.json",
+        "research/20261021/R11T1_mechanism_record.json",
+        "docs/64_相同部署预算下的局部与真实flow目标对照.md",
+        "research/20261021/R11G1_native_head_results.json",
+        "research/20261021/R11T1_matched_objective_results.json"
+      ]
     }
   ],
   "acceptance": {

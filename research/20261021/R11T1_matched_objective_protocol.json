@@ -1,0 +1,70 @@
+{
+  "id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+  "status": "REGISTERED_FIXED20_MATCHED_LOCAL_NATIVE_OBJECTIVES",
+  "positions": [
+    [
+      3,
+      39
+    ]
+  ],
+  "inputs": {
+    "indices": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "training_indices": [
+      0,
+      5,
+      10
+    ],
+    "development_index": 15,
+    "exposure": "All original TF2 sources already development-exposed in previous research.00 also used for R11G1 readiness.15 is a fixed optimization holdout, not fresh final validation.",
+    "trajectory": "Original DQ full-step input at every step, original UB1 within-step states. DQ post restored only between complete steps; not free student rollout."
+  },
+  "execution_plan": {
+    "full_native_steps_per_run": 4,
+    "interventions_require_all_controls": true,
+    "max_GPUs": 2,
+    "capture_generations": 4,
+    "deployment_validation_generations": 2,
+    "collection_shards": [
+      [
+        0,
+        5
+      ],
+      [
+        10,
+        15
+      ]
+    ],
+    "order": "All4 complete native captures/teacher Q1/zero-update byte controls -> both20step fits frozen to BF16 files -> read development loss -> one full4step native validation perarm at input15, regardless gate result. No final quality or free rollout."
+  },
+  "optimization": {
+    "steps_per_arm": 20,
+    "relative_global_L2_step": 0.001,
+    "optimizer": "Full3source mean gradient, same global parameter-L2 normalized negative step, FP32 masters castBF16 at deployed GEMMs. No momentum/Adam/LR schedule/sweep/early stopping/parameter selection.",
+    "parameters": "Only original step3/block39 first/bias_first/second/bias_second R256 tensors; identical original initialization",
+    "local_target": "Full original dense HiF4 teacher FFN at same actual student norm input, original b0/b2,Q1/GELU/Q2; ideal gated FP32 FFN squared error",
+    "flow_target": "Independent original complete DQ flow at same full-step input/conditioning, exact native gate/norm/modulation/head and BF16 rounding",
+    "same_cost": "Same parameters, iterations, training sources and relative global update norm; target gradient changes, no inference capacity increase. Head adds offline train cost charged."
+  },
+  "gates": {
+    "development_flow_over_UB1_max": 0.98,
+    "development_flow_over_local_max": 0.99
+  },
+  "additional_inference_parameters": 0,
+  "fresh_quality_acceptance": false,
+  "stop": "Any native byte/Q1/coverage control failure stops before fit. Any nonfinite/disconnected gradient stops. Exactly20updates each; both saved BF16 arms and hashes frozen before development losses. Evaluate all4sources once, then2native deployment checks regardless gate. Any development conjunction failure closes fixed instance; no additional LR/steps/rank/layers/sources/threshold/selection after validation. Passing still cannot trigger free-rollout/quality without separate protocol.",
+  "budget": "Original UB1 main supports [54,108,108,162], all160 mainMAC exactly50%, same existing R256 everywhere and same shapes. Only parameter values at one final position change; no extra online operator or readout. No full160 speed acceptance in this screen.",
+  "storage": "At most4 full captures including fullsameinputteacher labels, each below2.25GiB; total below10GiB in HF cache, two finalBF16 parameter files about5MiB each. Start with>=90GiB free and check>=83GiB before each case; preserve80GiB reserve. Original model/cache/environment unchanged.",
+  "nearest_closed": [
+    "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+    "OP3_NATIVE_STATE_REFIT_SAME_R256",
+    "WR1_JR1_LA1_FA1_FA2_CAPACITY"
+  ],
+  "prerequisite": "research/20261021/R11G1_native_head_results.json",
+  "final_contract": "Unchanged50%mainMAC, completeFFN>=1.5x including all auxiliary work, genuinely fresh hash/overlap audited frozen final sources each official quality axis<=2%drop. No new final cohort selected.",
+  "model_execution_eligibility": "ELIGIBLE_REGISTERED_SCREEN"
+}

@@ -1,0 +1,79 @@
+{
+  "id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+  "nearest_closed_method_ids": [
+    "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+    "OP3_NATIVE_STATE_REFIT_SAME_R256",
+    "WR1_JR1_LA1_FA1_FA2_CAPACITY"
+  ],
+  "evidence_base_commit": "76031e37409eb8f6d3d423fea9846d83f40500d7",
+  "evidence": [
+    "research/20261021/R7D2_results.json",
+    "research/20261021/R10_saved_failure_geometry.json",
+    "research/20261021/R11G1_native_head_results.json"
+  ],
+  "prior_failure_scope": "R7D2 fixed2gain secant surrogate failed actual downstream transfer; OP3 R256 local same-inputteacher refit failed; FA2 local improvements did not establish quality. R11G1 is a completed positive implementation prerequisite, not a failed recipe being widened.",
+  "actual_computation": "Real unchanged UB1 last-block fullM Q1 input -> same existingR256+frozen main -> realBF16 gate/residual/norm/head -> complete flow. Same student-input full denseFFN teacher is collected as separate local control; independent DQ flow is downstream target.",
+  "information": {
+    "indices": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "training_indices": [
+      0,
+      5,
+      10
+    ],
+    "development_index": 15,
+    "exposure": "All original TF2 sources already development-exposed in previous research.00 also used for R11G1 readiness.15 is a fixed optimization holdout, not fresh final validation.",
+    "trajectory": "Original DQ full-step input at every step, original UB1 within-step states. DQ post restored only between complete steps; not free student rollout."
+  },
+  "objective": {
+    "steps_per_arm": 20,
+    "relative_global_L2_step": 0.001,
+    "optimizer": "Full3source mean gradient, same global parameter-L2 normalized negative step, FP32 masters castBF16 at deployed GEMMs. No momentum/Adam/LR schedule/sweep/early stopping/parameter selection.",
+    "parameters": "Only original step3/block39 first/bias_first/second/bias_second R256 tensors; identical original initialization",
+    "local_target": "Full original dense HiF4 teacher FFN at same actual student norm input, original b0/b2,Q1/GELU/Q2; ideal gated FP32 FFN squared error",
+    "flow_target": "Independent original complete DQ flow at same full-step input/conditioning, exact native gate/norm/modulation/head and BF16 rounding",
+    "same_cost": "Same parameters, iterations, training sources and relative global update norm; target gradient changes, no inference capacity increase. Head adds offline train cost charged."
+  },
+  "action_set": "Same4existingR256tensors at step3/block39, no supports/width/rank/router gains or new online operators",
+  "compensation": "Originalmainalpha/bias andeveryotherposition unchanged; whole-stepinput matchedDQ, within-step student deviations retained.",
+  "substantive_difference": "Replaces frozen two-direction secant model with the actual differentiable native head objective, and explicitly contrasts local teacher vs independent whole-flow targets with identical parameter/optimization budget. Not a larger local readout.",
+  "why_old_obstruction_no_longer_applies": "Nativehead zero-update complete bytes and actual one BF16 step alreadyverifiedR11G1, with3.109GiBpeak; removes the measuredsecant mismatch and establishes feasible gradients. This doesnotprove optimization/generalization or fullrolloutrecovery.",
+  "falsifiable_prediction": "At same20normalizedupdates the exact-flow objective beats frozenUB1 by>=2%andmatchedlocalfitby>=1%on fixeddevelopment15, and resulting complete-native flows equal savedreplay bytes.",
+  "matched_simpler_control": "FrozenUB1 andmatchedlocalteacherFFN20stepfit; identicalinitial parameters/train3sources/fullM/steps/globalstepnorm andfrozenmain.",
+  "cheapest_decisive_test": {
+    "full_native_steps_per_run": 4,
+    "interventions_require_all_controls": true,
+    "max_GPUs": 2,
+    "capture_generations": 4,
+    "deployment_validation_generations": 2,
+    "collection_shards": [
+      [
+        0,
+        5
+      ],
+      [
+        10,
+        15
+      ]
+    ],
+    "order": "All4 complete native captures/teacher Q1/zero-update byte controls -> both20step fits frozen to BF16 files -> read development loss -> one full4step native validation perarm at input15, regardless gate result. No final quality or free rollout."
+  },
+  "stop": "Any native byte/Q1/coverage control failure stops before fit. Any nonfinite/disconnected gradient stops. Exactly20updates each; both saved BF16 arms and hashes frozen before development losses. Evaluate all4sources once, then2native deployment checks regardless gate. Any development conjunction failure closes fixed instance; no additional LR/steps/rank/layers/sources/threshold/selection after validation. Passing still cannot trigger free-rollout/quality without separate protocol.",
+  "cost": "At most4 full captures including fullsameinputteacher labels, each below2.25GiB; total below10GiB in HF cache, two finalBF16 parameter files about5MiB each. Start with>=90GiB free and check>=83GiB before each case; preserve80GiB reserve. Original model/cache/environment unchanged. Six4stepnativegenerations total; offline20steps/arm; no addeddeploymentcapacity.",
+  "training_selection_validation_exposure": "0/5/10train,15fixeddevelopment afterbothfitsfrozen. All4 previouslyexposed toresearch, notfresh. No hyperparameterselection. Beforefinalqualityfreeze candidate and genuinelyfreshcohortwithSHA/overlap audit; nofinalcohortchosen.",
+  "required_operands": "Complete captured u/main/base/gate/head plus separate native same-inputteacherY and independentDQflow. Teacher Q1 byteequalsactualu, complete unchangedpipelineflow/post andsame0repeatchecked.",
+  "observed_vs_planned": "R11G1readiness observed; matched20step objectivecomparison notyetexecuted atregistration.",
+  "disposition": "REGISTERED_FIXED_MATCHED_OBJECTIVE_DIAGNOSTIC",
+  "decision": "research/CURRENT_DECISION.json",
+  "post_execution_observation": {
+    "result": "research/20261021/R11T1_matched_objective_results.json",
+    "status": "CLOSED_FIXED20_MATCHED_HEAD_OBJECTIVE_REJECTED",
+    "development_flow_over_UB1": 0.9850878549835078,
+    "development_flow_over_local": 0.9842613237320661,
+    "no_automatic_extension": true
+  }
+}

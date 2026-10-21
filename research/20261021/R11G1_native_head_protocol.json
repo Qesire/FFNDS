@@ -1,0 +1,62 @@
+{
+  "id": "R11G1_NATIVE_HEAD_GRADIENT_READINESS",
+  "status": "REGISTERED_ONE_NATIVE_CAPTURE_THEN_ONE_GRADIENT_STEP",
+  "positions": [
+    [
+      3,
+      39
+    ]
+  ],
+  "inputs": {
+    "indices": [
+      0
+    ],
+    "source": "Original TF2 index00, original image/seed42/conditioning SHA bound by original DQ/UB1 controls",
+    "exposure": "Development-exposed; no validation or fresh final claim",
+    "trajectory": "Original DQ post restored only between complete native steps; same fixed states as original TF2 UB1. Not free student rollout."
+  },
+  "trainable_parameters": "Existing step3/block39 R256 first/bias_first/second/bias_second only",
+  "additional_inference_parameters": 0,
+  "execution_plan": {
+    "full_native_steps_per_run": 4,
+    "interventions_require_all_controls": true,
+    "pipeline_generations": 1,
+    "gradient_updates": 1,
+    "max_GPUs": 2,
+    "order": "One UB1 full native generation/control capture; separate process verifies exact head replay before autograd, then exactly one fixed update",
+    "full_M": 31668,
+    "complete_tokens": true
+  },
+  "update": {
+    "relative_global_L2_step": 0.001,
+    "objective": "Mean squared full final flow error against original independent DQ flow at matched full-step input",
+    "optimizer": "One global normalized negative gradient step; all four existing tensors updated; FP32 masters cast BF16 at original GEMMs",
+    "no_sweep": true
+  },
+  "operator": "Original post-Q1 input -> existing BF16 R256 -> BF16 addition to unchanged main -> separate BF16 gate multiply and residual add -> original parameter-free torch layernorm eps1e-6 -> separate BF16 head scale multiply and shift add -> original BF16 head addmm -> original unpatchify/FP32 flow",
+  "gradient": "Autograd through BF16 casts, dense R256 and actual head. Freeze Q1/main and earlier layers; no gradient through HiF4 quantizer or secant surrogate. Native head addmm out= removed only after zero-update byte controls. BF16 rounding itself uses PyTorch cast derivative; one actual rounded update evaluated.",
+  "controls": [
+    "All4 original full-step input/flow/post unchanged",
+    "Complete reconstructed main+R256 equals original FFN Y",
+    "R256 correction equal",
+    "Native gate/writeback equal",
+    "Full head tokens equal",
+    "Full unpatchified flow equal",
+    "Patch/unpatch inverse equal"
+  ],
+  "stop": "Any control failure stops before gradient; preserve failed report. Nonfinite/disconnected gradients or no deployed BF16 change stops. Exactly one step regardless loss; no extra LR/epsilon/position/source/step search. Report improvement or regression without candidate acceptance. Any subsequent training/comparison requires its own frozen protocol.",
+  "cost": "One full4step native generation and one fullM final-head backward plus one updated forward. Same deployed R256 rank/width and frozen main support; additional inference parameters0. Saved complete tensors <3GiB in HF cache; preserve80GiB free reserve. Gradient process separated from full model residency. Not full160 timing or >=1.5x acceptance.",
+  "nearest_closed": [
+    "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+    "OP3_NATIVE_STATE_REFIT_SAME_R256",
+    "WR1_JR1_LA1_FA1_FA2_CAPACITY"
+  ],
+  "candidate_training_or_quality_acceptance": false,
+  "selection_evidence": [
+    "research/20261021/R7D2_results.json",
+    "research/20261021/R10_saved_failure_geometry.json",
+    "research/20261021/branch_records_R10.json"
+  ],
+  "final_contract": "Unchanged50%mainMAC, completeFFN>=1.5x including auxiliaries, fresh frozen source cohort each official quality axis<=2%drop. No final cohort selected.",
+  "model_execution_eligibility": "ELIGIBLE_REGISTERED_SCREEN"
+}
