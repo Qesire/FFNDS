@@ -1,6 +1,7 @@
 """Regression checks for stale plans and already-rejected experiment reentry."""
 import contextlib
 import copy
+import hashlib
 import importlib.util
 import io
 import json
@@ -17,6 +18,29 @@ SPEC.loader.exec_module(guard)
 class ResearchRouteGuardTests(unittest.TestCase):
     def setUp(self):
         self.decision, self.triage, self.summary, self.execution = copy.deepcopy(guard.load_records(ROOT))
+        # These tests exercise policy/registration mutations, not installed model
+        # source identity. Give archived native bindings explicit synthetic bytes
+        # in the IN-MEMORY fixture so the suite also runs in a clean checkout.
+        # The production guard and original archived hashes remain unchanged.
+        self.native_fixture_bytes = {}
+        original_read_bytes = Path.read_bytes
+
+        def read_bytes(path):
+            if path in self.native_fixture_bytes:
+                return self.native_fixture_bytes[path]
+            return original_read_bytes(path)
+
+        patcher = mock.patch.object(Path, 'read_bytes', read_bytes)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def use_native_binding_fixture(self):
+        bindings = self.decision['registered_diagnostic']['source_sha256']
+        for relative in bindings:
+            if Path(relative).parts[0] == '.runtime':
+                data = ('UNIT_TEST_NATIVE_BINDING_ONLY:' + relative).encode()
+                self.native_fixture_bytes[ROOT / relative] = data
+                bindings[relative] = hashlib.sha256(data).hexdigest()
 
     def errors(self):
         return guard.validate_records(self.decision, self.triage, self.summary, self.execution)
@@ -122,12 +146,26 @@ class ResearchRouteGuardTests(unittest.TestCase):
             if method.get('model_execution_eligibility') == guard.READY:
                 method['model_execution_eligibility'] = 'NOT_SELECTED_IN_ARCHIVED_FIXTURE'
         self.method(guard.HEAD_ID).update(status='REGISTERED_FIXED_READINESS_PENDING', model_execution_eligibility=guard.READY)
+        self.use_native_binding_fixture()
         self.assertEqual(self.errors(), [])
 
     def test_native_head_registration_does_not_release_training(self):
         self.use_head_registration()
         self.decision['eligible_model_method_ids'].append('R10_NATIVE_WINDOW_ROLLOUT_RECOVERY')
         self.assertTrue(any('Only the fixed causal diagnostic' in e for e in self.errors()))
+
+    def test_missing_native_source_still_fails_closed(self):
+        self.use_head_registration()
+        missing = next(iter(self.native_fixture_bytes))
+        original = Path.read_bytes
+
+        def read(path):
+            if path == missing:
+                raise FileNotFoundError('Native source unavailable in unit fixture')
+            return original(path)
+
+        with mock.patch.object(Path, 'read_bytes', read):
+            self.assertTrue(any('Invalid diagnostic registration' in e for e in self.errors()))
 
     def test_native_head_update_budget_is_checked(self):
         self.use_head_registration()
@@ -152,6 +190,7 @@ class ResearchRouteGuardTests(unittest.TestCase):
             if method.get('model_execution_eligibility') == guard.READY:
                 method['model_execution_eligibility'] = 'NOT_SELECTED_IN_ARCHIVED_FIXTURE'
         self.method(guard.MATCHED_ID).update(status='REGISTERED_FIXED_MATCHED_OBJECTIVE_PENDING', model_execution_eligibility=guard.READY)
+        self.use_native_binding_fixture()
         self.assertEqual(self.errors(), [])
 
     def test_matched_training_requires_verified_gradient_prerequisite(self):
