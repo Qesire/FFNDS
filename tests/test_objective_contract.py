@@ -40,12 +40,14 @@ class ObjectiveContractTests(unittest.TestCase):
         self.assertIn("D-Q", self.contract["target_system"]["baseline"])
         self.assertIn("undistilled O", self.contract["target_system"]["explicit_non_equivalence"])
 
-    def test_acceptance_requires_joint_native_cost_and_fresh_quality(self):
+    def test_legacy_registered_acceptance_preserves_old_numbers_and_requires_fresh_quality(self):
         gates = self.contract["existing_joint_acceptance"]
         self.assertEqual(gates["main_gemm_MAC_fraction_max"], 0.5)
         self.assertEqual(gates["complete_original_FFN_speedup_min"], 1.5)
         self.assertEqual(gates["per_axis_relative_quality_drop_max"], 0.02)
         self.assertEqual(gates["quality_axes"], ["aesthetic", "imaging", "motion"])
+        self.assertIn("historical registered", gates["scope"].lower())
+        self.assertIn("not a universal", gates["scope"].lower())
         self.assertIn("free-running", gates["quality_population"])
         self.assertIn("routing", gates["cost_scope"].lower())
         self.assertEqual(len(self.contract["evidence_hierarchy"]), 5)

@@ -6,6 +6,11 @@
 
 # FFNDS — Wan2.2 FFN Dynamic Sparsity Handoff
 
+## 2026-10-22 · 用户更新：研究评价以同前提竞争与质量—速度 Pareto 为准
+
+原先约定的 **50% 主GEMM MAC、1.5× 完整FFN加速、2% 三轴质量退化** 是随手设定的参考目标，**并非今后所有新研究路线的硬门槛**。新方法应在**模型/调度/分辨率/量化/硬件/训练投入/来源与评测一致**的前提下，与最强静态方法和最接近的论文方法比较，以真实生成质量与实际FFN/端到端推理速度的 Pareto 改善确定科研价值。已有登记实验的原门槛和拒绝结论保持不变。详见[新的评价与 Agent 执行准则](docs/72_与同前提方法竞争的质量速度评价准则_20261022.md)、[目标契约](research/OBJECTIVE_CONTRACT.json)与[Agent 指引](AGENTS.md)。
+
+
 ## 2026-10-22 · 研究资料库与开放探索入口
 
 已经归档并审阅 [全历史机制图谱 V1、学术先例审查、V3 演绎和 V4 全轨迹构造](research/exploration/20261022/EXPLORATION_INDEX.md)。统一入口是 [研究目标与方法选择说明](docs/67_后训练动态FFN开放探索与质量速度目标_20261022.md)。**这些是可供 agent 主动发散的研究材料，不是排他性的候选路线或已完成的 Wan 结果。** 旧 R12 方案和草案仍可供复用，但不再要求以 block30/31、GBA 或 STB 为唯一实验方向。资料导入时最新证据为 [R12 E0](docs/66_R12等预算动作的操作数与条件粒度审计.md)，导入本身没有批准新 GPU 方法；随后单独批准的固定D0已完成，结果与关闭范围见本文顶部。
@@ -17,18 +22,18 @@
 
 面向以新动态 FFN 方法为核心的顶会论文，研究重点从继续调优固定 mask/R256 转为：**在相同总主 GEMM MAC 下，判断不同输入是否需要不同 FFN 计算动作，并能否用主 W1 之前可得的信号预测这些动作的真实下游收益**。历史 R12 探索最初讨论 step3/block30–31 的固定 162/162 与等预算 216/108、108/216 三种分配；当时只有机制与实验设计，随后获单独授权的固定D0已经完成并拒绝；原草案仍不构成新颖性证明或新GPU作业授权。R7D1 的完整教师恢复不等于等 MAC 动作，不能混为新结果。
 
-**Agent 必须执行 AutoResearcher v2.3 工作流，不止撰写方案**：详见 [本地方法与 skills](research/agent_protocol/README.md)、[研究路线](research/20261022/POST_TRAIN_DYNAMIC_FFN_PAPER_PLAN.md)、[可执行任务交接](research/20261022/AGENT_EXECUTION_HANDOFF.md)、[已存证据复算](research/20261022/R12_E0_SAVED_EVIDENCE_AUDIT.json) 和 [反事实收益分析工具](tools/analyze_counterfactual_actions.py)。正式目标仍为冻结 D-Q 同源主 GEMM≤50%、完整 FFN≥1.5×、独立新来源官方三轴各退化≤2%，UB1是强静态对照。
+**Agent 必须执行 AutoResearcher v2.3 工作流，不止撰写方案**：详见 [本地方法与 skills](research/agent_protocol/README.md)、[研究路线](research/20261022/POST_TRAIN_DYNAMIC_FFN_PAPER_PLAN.md)、[可执行任务交接](research/20261022/AGENT_EXECUTION_HANDOFF.md)、[已存证据复算](research/20261022/R12_E0_SAVED_EVIDENCE_AUDIT.json) 和 [反事实收益分析工具](tools/analyze_counterfactual_actions.py)。历史登记实验使用 D-Q 同源主 GEMM≤50%、完整 FFN≥1.5×、独立新来源三轴各退化≤2% 的固定门槛；**新方法评价以同前提强基线和质量—速度 Pareto 改善为准**，UB1是强静态对照。
 
 
 Wan2.2 I2V / LightX2V四步蒸馏 / HiF4 / FFN动态稀疏研究交接，整理日期 **2026-10-21**。
 
-**研究目标校正（2026-10-22）：** FFNDS 首要任务是研究**四步蒸馏 Wan FFN 的条件冗余与可部署的输入/状态条件动态稀疏**，在原生 HiF4/BF16 执行链下同时实现真实省算与视频质量保持。局部 teacher-FFN/固定完整步骤 flow 拟合只是诊断或小型恢复训练；静态步间 UB1 是强工程基线，**不是**输入条件动态策略，不能把其固定预算或 R11T1 的固定输入 flow SSE 解释成动态创新/新来源视频质量。详见[目标契约](research/OBJECTIVE_CONTRACT.json)和[范围修正与证据层级](docs/65_研究目标层级与R11解释修正_20261022.md)。既有主MAC≤50%、完整FFN≥1.5×、新冻结来源三轴各下降≤2%的最终门槛**不变**；没有新模型作业自动准入。
+**研究目标校正（2026-10-22）：** FFNDS 首要任务是研究**四步蒸馏 Wan FFN 的条件冗余与可部署的输入/状态条件动态稀疏**，在原生 HiF4/BF16 执行链下同时实现真实省算与视频质量保持。局部 teacher-FFN/固定完整步骤 flow 拟合只是诊断或小型恢复训练；静态步间 UB1 是强工程基线，**不是**输入条件动态策略，不能把其固定预算或 R11T1 的固定输入 flow SSE 解释成动态创新/新来源视频质量。详见[目标契约](research/OBJECTIVE_CONTRACT.json)和[范围修正与证据层级](docs/65_研究目标层级与R11解释修正_20261022.md)。历史冻结实验的主MAC≤50%、完整FFN≥1.5×、新来源三轴各下降≤2% 门槛与实测判定**不追溯修改**；未来新研究不以这些随意数值作全局门槛。没有新模型作业自动准入。
 
 **此前模型实测（R11T1，已关闭）：** [相同部署预算的局部与真实flow目标对照](docs/64_相同部署预算下的局部与真实flow目标对照.md)完成六次四步原生生成和两臂各20步。真实flow目标让训练flow误差下降2.460%、开发下降1.491%，比局部目标低1.574%；局部目标自身误差降5.108%却没有改善开发flow。两臂实际原生flow均与重放逐字节一致。开发改善仍低于预设2%门槛，固定实例已关闭，当前没有模型作业准入；未增加步数/窗口追验证，未接受新视频质量或完整速度。
 
 **原生梯度准备：** [R11G1原生输出头梯度](docs/63_原生输出头梯度与零更新等价检查.md)仅固定一个已暴露来源、末层step3/block39；12项原生步骤控制、5项严格字节/SHA核对通过，原R256四组梯度均有限非零；一次固定更新的来源内flow MSE下降0.291%，峰值分配3.109GiB。准备检查已完成，没有新候选或恢复验收。
 
-**防回退入口：** [当前决定](research/CURRENT_DECISION.json) → [路线表](research/20261021/method_triage.json) → [当前R13交接](research/20261022/HANDOFF_R13.md)。根目录[AGENTS.md](AGENTS.md)规定读取顺序；`python tools/check_research_routes.py`检查状态一致性，旧拒绝及未运行草案均不得自动启动。原50%主MAC、完整FFN≥1.5×、真正新冻结来源三项官方质量各下降≤2%的验收不变。
+**防回退入口：** [当前决定](research/CURRENT_DECISION.json) → [路线表](research/20261021/method_triage.json) → [当前R13交接](research/20261022/HANDOFF_R13.md)。根目录[AGENTS.md](AGENTS.md)规定读取顺序；`python tools/check_research_routes.py`检查状态一致性，旧拒绝及未运行草案均不得自动启动。原登记实验的50%主MAC、完整FFN≥1.5×和新来源三轴各≤2%判定不变；未来新方法须依据可比文献基线和 Pareto 评估。
 
 **当前决定：R4E1登记的有限支持交换已被拒绝，R4E2路由与R4E3视频/测速未触发。** [原生结果](docs/53_R4补偿感知支持交换的原生筛选.md)中，每折849项代理候选包含单/双交换；选中动作做原生对照后四折均未过门槛。step2匹配补偿后仅改善0.36%–0.52%且逊于冻结UB1和C对照，step3有限池以不交换最优。这里只关闭已登记邻域，不声称所有稀疏支持不可能，也不自动扩大q/pool或切换router。当前没有由该协议准入的下一项模型作业。
 

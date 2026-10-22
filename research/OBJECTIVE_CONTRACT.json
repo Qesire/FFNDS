@@ -13,12 +13,12 @@
       500,
       250
     ],
-    "sample_shift": 5.0,
+    "sample_shift": 5,
     "observed_native_model_timesteps": [
-      1000.0,
+      1000,
       937.5,
       833.3333129882812,
-      625.0
+      625
     ],
     "schedule_clarification": "The configured list selects coordinates from the shift5 sigma grid; native TF2 timesteps differ from these labels. No schedule or model change; see research/20261022/R12_E0_runtime_reconstruction.json."
   },
@@ -51,7 +51,8 @@
     ],
     "quality_population": "Genuinely new, overlap/hash-audited frozen I2V sources, native free-running four-step sparse student trajectories, same D-Q control and prescribed official metric implementation",
     "cost_scope": "Original complete FFN boundary including native preparation, activation and weight QDQ, dense/sparse GEMMs, GELU, routing/predictor, R256 or other corrections, layout, gate and residual writeback",
-    "interpretation": "Existing hard acceptance contract, not a proof that any proposed dynamic method already satisfies it; keep hardware-specific timing and main-MAC arithmetic separate."
+    "interpretation": "The fixed numeric values 0.5, 1.5 and 0.02 remain exactly as historical registered protocol thresholds. New research is guided by competitive, matched-setting quality-speed Pareto results per research_evaluation_policy; crossing these old numbers is neither necessary nor sufficient for a new paper-quality method. This change never retroactively updates any closed method, protocol or logged result.",
+    "scope": "Legacy/historical jointly preregistered project acceptance vector only. Applicable as originally frozen for those historical evaluations; not a universal scientific admission, promotion or publication threshold for new methods after the user's 2026-10-22 clarification."
   },
   "evidence_hierarchy": [
     {
@@ -92,5 +93,37 @@
     "Use matched original-O vs distilled-D comparisons only in verified common local scopes; current two-image block20 observation does not establish a general distillation-induced sparsity change."
   ],
   "training_policy": "Prefer no large retraining; any small post-training is a means to enable deployable dynamic sparsity and must pay its inference overhead. Do not silently redefine the project as full-model distillation or static teacher-flow reconstruction.",
-  "guardrail": "This file corrects goal interpretation only. It does NOT amend any registered protocol, raw result, validation threshold, historical rejection or eligibility."
+  "guardrail": "User's 2026-10-22 clarification changes only the OPEN research evaluation priority: equal-condition competitive evidence and useful quality-speed Pareto improvements outrank the older arbitrary global numeric values. Previously registered protocols/results/rejections remain immutable. No new model execution authority.",
+  "research_evaluation_policy": {
+    "policy_version": "2026-10-22_USER_CLARIFIED_COMPETITIVE_RESEARCH",
+    "authority": "User's updated project-level goal: the previous 50% main-MAC, 1.5x full-FFN and 2% per-axis quality loss were illustrative estimates, not universal conditions for exploring, advancing or publishing NEW methods. Previously preregistered frozen trials retain their original criteria/results; this update does not retroactively change them.",
+    "goal": "Discover a competitive, publishable, quality-preserving post-training dynamic FFN method that delivers real hardware acceleration on the four-step Wan student, outperforming the strongest reproducible comparable static/dynamic/prior-art approaches under matched assumptions or demonstrating a credible quality-speed Pareto advance.",
+    "old_global_threshold_role": "HISTORICAL_REFERENCE_ONLY_NOT_A_UNIVERSAL_HARD_GATE",
+    "comparators": [
+      "Dense D-Q for absolute fidelity and hardware throughput",
+      "Frozen UB1 as historical engineering comparator",
+      "Strongest relevant fixed or static method optimized for the same hardware/precision/inference configuration",
+      "Closest published dynamic/sparse/FFN/pruning/cache/merge method whose source and adaptation are credible, with training-budget differences stated",
+      "Within a method family, strongest matched-compute and matched-quality versions rather than one arbitrary sparsity ratio"
+    ],
+    "comparison_axes": [
+      "Independent free-running I2V aesthetic, imaging, motion and any visible temporal instability; no proxy-only quality claim",
+      "Complete native FFN latency including QDQ, selectors, layouts, corrections, gate/writeback; whole-pipeline generation wall time, GPU memory and operator kernel resources",
+      "Actual main-GEMM MAC and total extra physical computation, bandwidth and peak VRAM",
+      "Extra post-training compute, data and wall time, not just inference",
+      "Reproducibility across sources/seeds and statistical uncertainty of paired quality/performance"
+    ],
+    "fair_comparison_requirements": [
+      "Same frozen source set and image/prompt/seed manifest for paired evaluation, with genuinely fresh final holdout",
+      "Same I2V architecture/checkpoint, denoising schedule, number of steps, resolution and frames where feasible",
+      "Same hardware and software environment for actual speed claims, report precision and native HiF4 numerical regime",
+      "When prior work differs in model/LoRA/teacher-vs-student/training budget or GPU, state the differences and compare reproducible adapted baselines or normalized matched regimes; do NOT call a cross-regime ratio a head-to-head win",
+      "Show both iso-quality speed and iso-cost quality comparisons when feasible, plus complete Pareto curve across operating points",
+      "Prefer prospective candidate evaluations and fixed final evaluation to post-hoc selected best-source/oracle numbers"
+    ],
+    "decision_policy": "Choose tests by expected scientific and competitive value, not by whether a prototype crosses an illustrative 50%/1.5x/2% line. A 1.35x measured prototype can be promising if quality, end-to-end efficiency, or unique function/operator geometry beats best comparable baselines or creates a real Pareto improvement; a 1.6x proxy without new-source video quality may be unusable. Pursue mathematical or kernel optimizations when they change actual construction, not merely to tune across the old threshold.",
+    "novelty_policy": "Do not claim novelty from router, width schedule, spatial merge, normalization fusion, a speed scalar or a rebranded identity. Independently audit closest literature and demonstrate a distinct compute/information/operator mechanism or experimental effect with paired baselines.",
+    "historical_protocol_precedence": "An immutable, individually registered experiment remains judged by its own frozen thresholds, exact version, data and outcomes; a new evaluation policy is not permission to rerun a closed branch or silently change its win condition.",
+    "execution_authorization": "This is only research guidance. No new model job, budget, experiment registration, or GitHub workflow run beyond this integration is authorized by this change."
+  }
 }

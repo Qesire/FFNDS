@@ -9,3 +9,7 @@ Agent behavior: lead with a scientific insight, generate distinguishable mechani
 ## Exploration-library integration
 
 Agents should open [research exploration index](../exploration/20261022/EXPLORATION_INDEX.md) and [new synthesis](../../docs/67_后训练动态FFN开放探索与质量速度目标_20261022.md) as a **menu of evidence and falsifiable seeds**, not an experiment whitelist. This expands on the historical R12 single-pair candidate. See the current root AGENTS.md before selecting an experiment; avoid blocking genuinely new methods because a different old registered recipe failed.
+
+## Updated candidate evaluation (2026-10-22)
+
+The user clarified that earlier 50% MAC, 1.5× full-FFN speed and 2% per-axis quality values were arbitrary illustrative targets. Read [matched-competitor quality-speed guidance](../../docs/72_与同前提方法竞争的质量速度评价准则_20261022.md) before choosing new work. Do not make global stopping rules out of the former values; do preserve every historical frozen registered protocol/outcome. Scientific performance claims require actually comparable methods/conditions and full native latency + free-video quality, not MAC arithmetic or local flow alone.

@@ -8,7 +8,7 @@
 - Why the specific old obstruction no longer applies; evidence supporting this, not merely “not disproved”:
 - Prediction that differs from the rejected recipe and matched simpler control:
 - Cheapest decisive test and explicit stop condition:
-- Cost including all auxiliary work; original quality/speed acceptance unchanged:
+- Cost including all auxiliary work and expected complete FFN/whole-video latency; **new-study** comparative Pareto and strongest matched prior-art/fixed baseline. Legacy 50%/1.5×/2% thresholds are nonbinding for new methods, but any individually preregistered trial's original gates/results remain unchanged:
 - Training/selection/validation exposure and a genuinely fresh final evaluation plan:
 - Required operands and prerequisite results, distinguishing observed from planned:
 - Current disposition and link to the decision record that establishes it:
