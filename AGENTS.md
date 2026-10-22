@@ -4,7 +4,12 @@ For research review, method proposals, or experiment work, use the available `me
 
 1. `research/CURRENT_DECISION.json` (current decision and evidence pointers).
 2. `research/20261021/method_triage.json` (current route dispositions).
-3. The current decision document and the referenced registered protocol/results.
+3. `research/OBJECTIVE_CONTRACT.json` and `docs/65_研究目标层级与R11解释修正_20261022.md` (primary scientific goal versus auxiliary losses).
+4. The current decision document and the referenced registered protocol/results.
+
+Scientific objective guard: optimize **deployable input-/state-conditioned FFN dynamic sparsity** in four-step distilled Wan, preserving quality and honest hardware speed. Static step-budget UB1 is the matched engineering control, NOT an input-conditioned mechanism. Quantization is the frozen execution regime, not an interchangeable target model. Full-teacher/local FFN error, fixed-step native flow SSE and free-student-rollout official quality are separate evidence tiers. R11T1's 1.49121% held-out (development-exposed) flow SSE improvement is neither official video quality nor dynamic routing. Do not silently pivot the research goal to static compression, large model distillation, or post-hoc teacher-state restoration.
+
+The original three acceptance constraints remain joint: main-GEMM MAC at most 50% of dense, complete FFN speedup at least 1.5x **including selectors/QDQ/auxiliary work**, and aesthetic/imaging/motion each <=2% relative deterioration on genuinely new, audited frozen inputs on the free-running student. Conditional gain must beat the strongest matched fixed support/schedule; pre-W1 availability and inference cost of the signal are mandatory. These objective rules do not register an experiment or re-open a closed method.
 
 Historical R1-R4 `CANDIDATE`, `PLANNED`, primary-route, next-action, pause, and resume statements are snapshots. They do not override later completed evidence or create standing authorization. Preserve original experimental protocols, metrics, and raw records.
 
