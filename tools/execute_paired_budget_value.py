@@ -40,7 +40,7 @@ def stop_own_attempt(out):
     # Interrupt only this exact experiment's Python drivers, after verifying
     # owner, executable script argument and the frozen attempt argument.
     probe = '''import os,pathlib,signal,json
-root=pathlib.Path.cwd();out=root/'runs/r12d0_native_value_attempt1';stopped=[]
+out=pathlib.Path(''' + repr(str(out)) + ''');stopped=[]
 for p in pathlib.Path('/proc').iterdir():
     if not p.name.isdigit():continue
     try:

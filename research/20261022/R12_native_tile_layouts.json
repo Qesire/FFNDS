@@ -1,0 +1,113 @@
+{
+  "id": "R12_NATIVE_TILE_LAYOUT_AND_ROW_BUDGET",
+  "status": "EXACT_INTEGER_LAYOUT_AND_BUDGET_ONLY",
+  "grid": [
+    21,
+    29,
+    52
+  ],
+  "full_native_rows": 31668,
+  "layouts": [
+    {
+      "layout": "left_right_spatial_halves",
+      "rows": [
+        15834,
+        15834
+      ],
+      "contiguous_segments": [
+        609,
+        609
+      ],
+      "segment_row_counts": [
+        [
+          26
+        ],
+        [
+          26
+        ]
+      ],
+      "pair_row_weighted_groups": 162.0,
+      "naive_input_gather_and_output_scatter_extra_traffic_bytes": 1297121280,
+      "traffic_scope": "Copy-based layout with one complete BF16 input gather and output scatter, each read+write. Contiguous views can avoid these copies with an appropriate output API. This is not a lower bound on fused/strided kernels."
+    },
+    {
+      "layout": "per_frame_row_major_halves",
+      "rows": [
+        15834,
+        15834
+      ],
+      "contiguous_segments": [
+        21,
+        21
+      ],
+      "segment_row_counts": [
+        [
+          754
+        ],
+        [
+          754
+        ]
+      ],
+      "pair_row_weighted_groups": 162.0,
+      "naive_input_gather_and_output_scatter_extra_traffic_bytes": 1297121280,
+      "traffic_scope": "Copy-based layout with one complete BF16 input gather and output scatter, each read+write. Contiguous views can avoid these copies with an appropriate output API. This is not a lower bound on fused/strided kernels."
+    },
+    {
+      "layout": "contiguous_sequence_halves",
+      "rows": [
+        15834,
+        15834
+      ],
+      "contiguous_segments": [
+        1,
+        1
+      ],
+      "segment_row_counts": [
+        [
+          15834
+        ],
+        [
+          15834
+        ]
+      ],
+      "pair_row_weighted_groups": 162.0,
+      "naive_input_gather_and_output_scatter_extra_traffic_bytes": 0,
+      "traffic_scope": "Copy-based layout with one complete BF16 input gather and output scatter, each read+write. Contiguous views can avoid these copies with an appropriate output API. This is not a lower bound on fused/strided kernels."
+    }
+  ],
+  "whole_frame_10_vs11_counterexample": [
+    {
+      "wide_frames": 10,
+      "narrow_frames": 11,
+      "widths": [
+        216,
+        108
+      ],
+      "weighted_groups_fraction": "1116/7",
+      "global_main_MAC_fraction": 0.4999255952380952,
+      "within_50pct": true
+    },
+    {
+      "wide_frames": 11,
+      "narrow_frames": 10,
+      "widths": [
+        216,
+        108
+      ],
+      "weighted_groups_fraction": "1152/7",
+      "global_main_MAC_fraction": 0.5000744047619048,
+      "within_50pct": false
+    }
+  ],
+  "arithmetic_only_different_width_example": {
+    "wide_frames": 14,
+    "wide_groups": 216,
+    "narrow_frames": 7,
+    "narrow_groups": 54,
+    "weighted_groups": 162,
+    "status": "Different action, not registered or authorized by D0"
+  },
+  "new_model_generations": 0,
+  "native_tile_identity_or_quality_or_speed_proven": false,
+  "source_sha256": "f58bb7654507a545b81570298ef2f8f8ab8bb1856277552e965d13c6049a9f42"
+}

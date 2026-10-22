@@ -14,9 +14,11 @@ def private_identifiers():
     identifiers = set()
     config = private_config_path()
     if config.exists():
-        host = json.loads(config.read_text()).get('expected_hostname', '')
-        if host:
-            identifiers.update((host.lower(), host.split('.')[0].lower()))
+        private = json.loads(config.read_text())
+        for host in [private.get('expected_hostname', ''), private.get('execution_hostname', ''),
+                     *private.get('additional_private_hostnames', [])]:
+            if host:
+                identifiers.update((host.lower(), host.split('.')[0].lower()))
     ssh_config = Path(os.environ.get('FFNDS_SSH_CONFIG', str(config.with_name('ssh_config'))))
     if ssh_config.exists():
         for line in ssh_config.read_text().splitlines():

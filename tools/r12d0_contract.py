@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 METHOD = 'R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE'
 STATE = 'R4_CLOSED_R12_D0_NATIVE_VALUE_REGISTERED'
-PROTOCOL = ROOT / 'research/20261022/R12_D0_registered_protocol.json'
+PROTOCOL = ROOT / 'research/20261022/R12_D0_registered_protocol_worker_migration.json'
 INDICES = [0, 5, 10, 15]
 ACTIONS = {'N0': [162, 162], 'NA': [216, 108], 'NB': [108, 216]}
 GATES = {'oracle_over_best_fixed_max': .99, 'oracle_over_UB1_max': .99,

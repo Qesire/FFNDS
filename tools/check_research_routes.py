@@ -244,7 +244,9 @@ def validate_records(decision, triage, summary, execution, root=None):
                     and protocol['execution_plan']['required_control_runs'] == 16
                     and protocol['execution_plan']['intervention_runs'] == 8
                     and protocol['execution_plan']['pipeline_generations_max'] == 24
-                    and protocol['execution_plan']['execution_root'] == 'runs/r12d0_native_value_attempt1'
+                    and protocol['execution_plan']['execution_root'] == (
+                        'runs/r12d0_native_value_attempt2' if 'resource_migration' in protocol
+                        else 'runs/r12d0_native_value_attempt1')
                     and protocol['execution_plan']['max_GPUs'] == 2
                     and protocol['execution_plan']['node_free_reserve_GiB'] == 80
                     and protocol['execution_plan']['new_HF_artifact_allowance_GiB'] == .5
@@ -291,6 +293,39 @@ def validate_records(decision, triage, summary, execution, root=None):
                 for relative, expected in preflight['sources'].items():
                     if registration['source_sha256'].get(relative) != expected:
                         errors.append('R12 D0 prepared and registered implementation differ: ' + relative)
+                if 'resource_migration' in protocol:
+                    migration = protocol['resource_migration']
+                    file = base / migration['path']
+                    if hashlib.sha256(file.read_bytes()).hexdigest() != migration['sha256']:
+                        errors.append('R12 D0 resource migration changed')
+                    moved = json.loads(file.read_text())
+                    mirror_binding = protocol['asset_mirror_verification']
+                    mirror_path = base / mirror_binding['path']
+                    mirror = json.loads(mirror_path.read_text())
+                    original_path = base / moved['original_registered_protocol']
+                    original = json.loads(original_path.read_text())
+                    if hashlib.sha256(original_path.read_bytes()).hexdigest() != moved['original_registered_protocol_sha256']:
+                        errors.append('R12 D0 original registration changed during migration')
+                    for field in ('id', 'positions', 'inputs', 'arms', 'pair_correction', 'gates',
+                                  'MAC_ledger', 'supports', 'controls_before_action_measurement'):
+                        if original[field] != protocol[field]:
+                            errors.append('R12 D0 migration changed scientific controls: ' + field)
+                    if (moved['status'] != 'EXPLICIT_USER_DIRECTED_WORKER_MIGRATION'
+                            or moved['prior_native_model_generations'] != 0
+                            or moved['scientific_actions_inputs_and_gates_changed'] is not False
+                            or moved['GPU_count_max'] != 2
+                            or moved['existing_asset_mirror_allowance_GiB'] != 175
+                            or moved['new_experimental_artifact_allowance_GiB'] != .5
+                            or moved['node_free_reserve_GiB'] != 80):
+                        errors.append('R12 D0 migration cannot enlarge the scientific experiment')
+                    if (hashlib.sha256(mirror_path.read_bytes()).hexdigest() != mirror_binding['sha256']
+                            or mirror['status'] != 'PASS_EXACT_MODEL_AND_DQ_CACHE_MIRROR_93_SHA256'
+                            or mirror['verified_files'] != 93 or mirror['new_model_generations'] != 0
+                            or mirror['free_bytes_after'] < (80 << 30) + (1 << 29)
+                            or mirror['verification_source_sha256'] != registration['source_sha256'].get('tools/verify_worker_asset_mirror.py')
+                            or mirror['model_view_manifest_sha256'] != assets['assets']['local_view_sha256']
+                            or mirror['DQ_cache_manifest_sha256'] != assets['assets']['cache_manifest_sha256']):
+                        errors.append('R12 D0 migrated original assets not fully verified')
             else:
                 specific = (protocol['status'] == 'REGISTERED_FIXED20_MATCHED_LOCAL_NATIVE_OBJECTIVES'
                     and protocol['inputs']['training_indices'] == [0, 5, 10]

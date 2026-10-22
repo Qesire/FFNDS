@@ -19,14 +19,26 @@ def expected_hostname():
 
 
 def require_worker():
-    if socket.gethostname().split('.')[0] != expected_hostname():
+    # Keep expected_hostname as the immutable historical source/redaction
+    # origin. A separately configured execution host permits a byte-verified
+    # cache mirror after an explicit user-directed worker migration.
+    config = json.loads(private_config_path().read_text())
+    execution = config.get('execution_hostname', expected_hostname())
+    if not isinstance(execution, str) or not execution.strip() or any(c.isspace() for c in execution):
+        raise RuntimeError('Invalid privately configured execution_hostname')
+    if socket.gethostname().split('.')[0] != execution.split('.')[0]:
         raise RuntimeError('This operation requires the privately configured GPU worker')
 
 
 def matches_worker(recorded_host):
-    """Accept an original private manifest or a neutral public worker label."""
+    """Accept the verified manifest origin or the actual configured executor.
+
+    This checks provenance only. restored_assets still verifies exact source,
+    checkpoint, cache, sizes and hardlink identities on the execution node.
+    """
     require_worker()
-    return recorded_host in ('worker', socket.gethostname().split('.')[0], socket.gethostname())
+    return (isinstance(recorded_host, str) and recorded_host.split('.')[0]
+            in ('worker', expected_hostname(), socket.gethostname().split('.')[0]))
 
 
 def ssh_arguments():
@@ -35,7 +47,7 @@ def ssh_arguments():
     return ['ssh', '-F', str(config), '-o', 'ProxyCommand=none', '-o', 'BatchMode=yes',
             '-o', 'ConnectTimeout=20', '-o', 'ServerAliveInterval=30', '-o', 'ServerAliveCountMax=3',
             '-o', 'ControlMaster=auto', '-o', 'ControlPersist=600',
-            '-o', 'ControlPath=/tmp/ffnds-worker-%r-%p', 'ffnds-worker']
+            '-o', 'ControlPath=/tmp/ffnds-worker-%h-%r-%p', 'ffnds-worker']
 
 
 if __name__ == '__main__':

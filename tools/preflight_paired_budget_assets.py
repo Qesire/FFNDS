@@ -1,5 +1,6 @@
 """Verify original D0 assets/TF2 operands and native signatures without a model."""
 import ast
+import argparse
 import hashlib
 from pathlib import Path
 import time
@@ -15,13 +16,16 @@ def require_argument(relative, function, argument):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=ROOT / 'research/20261022/R12_D0_asset_preflight.json')
+    args = parser.parse_args()
     import torch
     from ar2_checkpoint import atomic_json, digest
     from historical_source_snapshot import HistoricalSources
     from restored_assets import verified_restored_assets
     from run_cross_layer_transport import references
     import paired_budget_runtime, paired_budget_observer, run_paired_budget_value, analyze_paired_budget_value
-    output = ROOT / 'research/20261022/R12_D0_asset_preflight.json'
+    output = args.output
     if output.exists():
         raise RuntimeError('Preserve prior operand check')
     started = time.monotonic()

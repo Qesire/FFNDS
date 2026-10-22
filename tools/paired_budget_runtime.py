@@ -56,7 +56,7 @@ def audited_packs(runtime, cache, dense=False):
 
 def install(runtime, cache, *, dense=False):
     from HiFloat4.ptq.adapters.wan_i2v import native_hif4_activation_qdq as qdq
-    old_apply = runtime.apply
+    old_apply, old_report = runtime.apply, runtime.report
     variants, receipts = audited_packs(runtime, cache, dense=dense)
     runtime.r12_variants, runtime.r12_pack_receipts = variants, receipts
     runtime.r12_quantized, runtime.r12_coverage = {}, {}
@@ -134,7 +134,29 @@ def install(runtime, cache, *, dense=False):
                                  'groups': count, 'raw_zero_correction': raw}
         return result
 
+    def report():
+        result = old_report()
+        coverage = runtime.r12_coverage
+        density = (sum(r['rows'] * r['actual_weight_shape'][0] * r['actual_weight_shape'][1]
+                       for r in coverage.values()) / (2 * 31668 * 5120 * 13824 * 160)
+                   if len(coverage) == 320 else None)
+        result['R12_D0_dispatch'] = {'arm': runtime.r12_arm,
+            'source_sha256': digest(__file__), 'actual_main_linear_calls': len(coverage),
+            'main_coverage': coverage, 'actual_global_main_MAC_fraction': density,
+            'actual_residual_positions': len(getattr(runtime, 'residual_coverage', {})),
+            'expected_residual_positions': residual_count(runtime.r12_arm),
+            'pair_groups': [groups(runtime.r12_arm, 3, b) for b in (30, 31)],
+            'complete_FFN_timing_or_quality_acceptance': False}
+        if 'packed_reference' in result:
+            packed = result['packed_reference']
+            packed.update(actual_FFN_linear_calls=len(coverage), coverage=coverage,
+                          actual_global_main_MAC_density=density,
+                          paired_dispatch=result['R12_D0_dispatch'])
+            packed['residual_correction']['expected_positions'] = residual_count(runtime.r12_arm)
+        return result
+
     runtime.apply = MethodType(apply, runtime)
+    runtime.report = report
     return runtime
 
 

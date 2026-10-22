@@ -1,0 +1,202 @@
+{
+  "id": "R12_HIF4_GROUP_AND_ROW_SEPARABILITY",
+  "status": "PASS_SOURCE_AND_ORIGINAL_PYTHON_REFERENCE_CPU_CHECK",
+  "source_sha256": {
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QTensor.py": "ac5061523cfb87c203cb38a250fffc590d2248f4b7e303f671ba36b48d0eaee2",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QFuncs/hifx.py": "6a8d1f1b8ea49ce099439cff251309b4d9b3eeeab6a7ee0a83bdcf85b24704f7",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c"
+  },
+  "audit_source_sha256": "11498defcf3c1b0457280a123c1cad71d3c592ce629e67cbefb626adabf02ea4",
+  "operand_audit_sha256": "93198fc27b2a4f5e7bbe9ab076d9fd518f8b082474f7d7164bae5ef0ede0ec1f",
+  "CUDA_initialized": false,
+  "new_model_generations": 0,
+  "new_raw_tensor_bytes": 0,
+  "reference_loading": "Original QType and quant_hifx bodies unchanged; only relative QType import resolved directly, no CUDA extension loaded.",
+  "native_source_observation": "hifx_quant_cuda_inner reads/writes exactly thread_idx*64+i, i=0..63. Its4/8/64 hierarchy uses no other group or row. All registered widths are multiples of64.",
+  "derived_property": "For complete ordered64-channel groups S and row selection/partition P, Q(P X[:,S])=P Q(X)[:,S], when the retained input values and group boundaries are identical.",
+  "saved_post_Q1_reference_cases": [
+    {
+      "index": 0,
+      "block": 30,
+      "locator": "HF_DERIVED/op2_ub1_native_states_20261021/calibration/UB1/7d1130d3730e23a05dd53314187f2e2c1d02d30e3fc363b8a10f088bcf4bb6b5/input00/attempt1/step3_block30.safetensors",
+      "payload_sha256": "a80f0b92b99129f696a2195bdad27ccbe0a5531c43cf033173563543c1aeca15",
+      "input_sha256": "9a24441056272d6ab345cad6303a74de5b692310bb3a3a02233f01e36d71f1b0",
+      "input_shape": [
+        256,
+        5120
+      ],
+      "reference_output_sha256": "dd3f4e10044dd545efacf443a10d6ce4a83d2918a60aaf410b035402dab338a4",
+      "checks": {
+        "whole64_group_reordering": true,
+        "whole64_group_selection": true,
+        "row_partition": true,
+        "row_reordering": true
+      }
+    },
+    {
+      "index": 0,
+      "block": 31,
+      "locator": "HF_DERIVED/op2_ub1_native_states_20261021/calibration/UB1/7d1130d3730e23a05dd53314187f2e2c1d02d30e3fc363b8a10f088bcf4bb6b5/input00/attempt1/step3_block31.safetensors",
+      "payload_sha256": "179a8a6f8865ef73ac60aff852e601667329c5c0dc4b722b715cf4a1e4566add",
+      "input_sha256": "6cbd3e600db38a9d8b15d0974c955b1e4d763b8c355c81f520c6ca5bebbfd682",
+      "input_shape": [
+        256,
+        5120
+      ],
+      "reference_output_sha256": "5c391e14f99c87a67943c31240f4508ab8045016c62eb231d75fc7ad8c471317",
+      "checks": {
+        "whole64_group_reordering": true,
+        "whole64_group_selection": true,
+        "row_partition": true,
+        "row_reordering": true
+      }
+    },
+    {
+      "index": 10,
+      "block": 30,
+      "locator": "HF_DERIVED/op2_ub1_native_states_20261021/calibration/UB1/7d1130d3730e23a05dd53314187f2e2c1d02d30e3fc363b8a10f088bcf4bb6b5/input10/attempt1/step3_block30.safetensors",
+      "payload_sha256": "d3350315c9709fbc7b72b07af77aabdad98f5ca861ad5ca55733f066fe0e0ea4",
+      "input_sha256": "e93bc8d9cc32b90e5ec98495d127bcc751d4bb5a5318607a590cd628db9b04e0",
+      "input_shape": [
+        256,
+        5120
+      ],
+      "reference_output_sha256": "75d686bd7c5ba523b174ad579b3ddfb8b53dbc9762ecce4f82196581c587c066",
+      "checks": {
+        "whole64_group_reordering": true,
+        "whole64_group_selection": true,
+        "row_partition": true,
+        "row_reordering": true
+      }
+    },
+    {
+      "index": 10,
+      "block": 31,
+      "locator": "HF_DERIVED/op2_ub1_native_states_20261021/calibration/UB1/7d1130d3730e23a05dd53314187f2e2c1d02d30e3fc363b8a10f088bcf4bb6b5/input10/attempt1/step3_block31.safetensors",
+      "payload_sha256": "5403fadfe7f25f7d32ec6c78432dccee7c5630b896c44f2ad61d306dd5020785",
+      "input_sha256": "2a37a3402dd5abe3214dc59b91ac9577b98191996716680f2452abeba5db8412",
+      "input_shape": [
+        256,
+        5120
+      ],
+      "reference_output_sha256": "6a8e701a395431e9d7a1d553c2b3c015cc09b76bbd2ff768745fcf578ad1d376",
+      "checks": {
+        "whole64_group_reordering": true,
+        "whole64_group_selection": true,
+        "row_partition": true,
+        "row_reordering": true
+      }
+    },
+    {
+      "index": 5,
+      "block": 30,
+      "locator": "HF_DERIVED/op2_ub1_native_states_20261021/calibration/UB1/7b0e8765a3b179c6f08692cab42b3b181986ad2d671b8c52903c5fb21baea588/input05/attempt1/step3_block30.safetensors",
+      "payload_sha256": "9e511d012847a6a30c1483b93f5a559838ca25302cb889abfad5db4eee1bbb1e",
+      "input_sha256": "56abd1ee786e4d0e53006bc24d94edf0290eb348b1415f60ef195c33ab5f49cc",
+      "input_shape": [
+        256,
+        5120
+      ],
+      "reference_output_sha256": "56cce649c41d96c15b49672a3cf9fb5b1e3ec880aff93de815b228cc90b5c53e",
+      "checks": {
+        "whole64_group_reordering": true,
+        "whole64_group_selection": true,
+        "row_partition": true,
+        "row_reordering": true
+      }
+    },
+    {
+      "index": 5,
+      "block": 31,
+      "locator": "HF_DERIVED/op2_ub1_native_states_20261021/calibration/UB1/7b0e8765a3b179c6f08692cab42b3b181986ad2d671b8c52903c5fb21baea588/input05/attempt1/step3_block31.safetensors",
+      "payload_sha256": "644f4bc49bd050cabe91151bdaedc8394c3030c53bc43da4c9539b7012947531",
+      "input_sha256": "d55bfe2bd7231848c7a1819649c66581ed10ed8c5517ef8661ff1774ad7713d0",
+      "input_shape": [
+        256,
+        5120
+      ],
+      "reference_output_sha256": "6b54c1deabf115a4789673fd79b3539250b83188d397b91d70b131cd60afa2b1",
+      "checks": {
+        "whole64_group_reordering": true,
+        "whole64_group_selection": true,
+        "row_partition": true,
+        "row_reordering": true
+      }
+    },
+    {
+      "index": 15,
+      "block": 30,
+      "locator": "HF_DERIVED/op2_ub1_native_states_20261021/calibration/UB1/7b0e8765a3b179c6f08692cab42b3b181986ad2d671b8c52903c5fb21baea588/input15/attempt1/step3_block30.safetensors",
+      "payload_sha256": "53644ef28f8eaf22f47693235806bcb3a3827d1b91b702d26612ca902dbc8114",
+      "input_sha256": "c52fd9ab15e6bb497073e4e4d6a4ae08dd49e4400a0c548aec12252c32deebf2",
+      "input_shape": [
+        256,
+        5120
+      ],
+      "reference_output_sha256": "7ce4b139d5c1d851cda391dc2fb37f270fc71b8149a81ec757c4ea32fea43233",
+      "checks": {
+        "whole64_group_reordering": true,
+        "whole64_group_selection": true,
+        "row_partition": true,
+        "row_reordering": true
+      }
+    },
+    {
+      "index": 15,
+      "block": 31,
+      "locator": "HF_DERIVED/op2_ub1_native_states_20261021/calibration/UB1/7b0e8765a3b179c6f08692cab42b3b181986ad2d671b8c52903c5fb21baea588/input15/attempt1/step3_block31.safetensors",
+      "payload_sha256": "27a0e5ae8a82426cf3e4cf29e294d4aa33d3fbc1add4638edce4c0cbccd7dc0f",
+      "input_sha256": "20dd32396ce742fc723da7c11fce89ca385b7480cbf1651610608c784a726ade",
+      "input_shape": [
+        256,
+        5120
+      ],
+      "reference_output_sha256": "d0754b9a92abab411b9cf023695d859f53b7d85d48dded6077769affee1357c5",
+      "checks": {
+        "whole64_group_reordering": true,
+        "whole64_group_selection": true,
+        "row_partition": true,
+        "row_reordering": true
+      }
+    }
+  ],
+  "synthetic_hidden_pack_cases": [
+    {
+      "block": 30,
+      "groups": 108,
+      "reference_bitwise_equal": true
+    },
+    {
+      "block": 30,
+      "groups": 162,
+      "reference_bitwise_equal": true
+    },
+    {
+      "block": 31,
+      "groups": 108,
+      "reference_bitwise_equal": true
+    },
+    {
+      "block": 31,
+      "groups": 162,
+      "reference_bitwise_equal": true
+    }
+  ],
+  "within64_hierarchy_counterexample": {
+    "input_shape": [
+      3,
+      13824
+    ],
+    "swapped_offsets": [
+      0,
+      4
+    ],
+    "input_sha256": "f56d91a7c7eec14a99487d4b9b6fad0fcc94b6f0a597bf4f9fbe781c2f9e20f6",
+    "reference_original_output_sha256": "2ed20a1512a02d4064d91aee397f07ec2e3d4fe4c48b1f0533650d1fe0b6f4b7",
+    "permuted_back_output_sha256": "20c5d008200ddef1237acaa61bab526faf4be59e4183d59871b49a07a793039b",
+    "BF16_element_mismatches": 401
+  },
+  "scope": "Source deduction plus CPU Python counterpart. Does not prove CUDA/Python equality, packed W1/W2 BF16 GEMM equality, native tile quality or speed. No new method registration.",
+  "elapsed_seconds": 6.103783670812845
+}
