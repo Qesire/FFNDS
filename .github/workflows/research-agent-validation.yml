@@ -78,3 +78,9 @@ jobs:
           python -m unittest discover -s tests -p 'test_r15_records.py' -v
           python -m unittest discover -s tests -p 'test_worker_idle_launcher.py' -v
           python -m unittest discover -s tests -p 'test_paired_rollout_contract.py' -v
+      - name: Verify actual full160 dynamic generation and independent human smoke
+        run: |
+          python tools/check_full160_row_dispatch.py
+          python tools/analyze_full160_row_dispatch.py
+          python -m unittest discover -s tests -p 'test_full160_records.py' -v
+          python -m unittest discover -s tests -p 'test_row_dispatch_contract.py' -v

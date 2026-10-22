@@ -37,6 +37,8 @@ STRIPE_STATE = "R4_CLOSED_FIXED_COMPLETE_STRIPE_VALUE_REGISTERED"
 STRIPE_ID = "R14N0_COMPLETE_STRIPE_NATIVE_VALUE"
 ROLLOUT_ID = "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT"
 ROLLOUT_STATE = "R4_CLOSED_PAIRED_FREE_ROLLOUT_SMOKE_REGISTERED"
+ROW_DISPATCH_ID = "R16V0_FULL160_UB1_DENSE_ROW_DISPATCH"
+ROW_DISPATCH_STATE = "R4_CLOSED_FULL160_ROW_DISPATCH_REGISTERED"
 RECIPE_ID = "R4E1_FIXED_H_16GROUP_Q2"
 RATIO_FIELDS = {
     "K1_matched_over_K0_matched": ("K0_matched", .98),
@@ -122,7 +124,7 @@ def validate_records(decision, triage, summary, execution, root=None):
     index, errors = build_index(triage)
     methods = {m["id"]: m for m in triage["methods"]}
     state = decision["execution_state"]
-    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE, STRIPE_STATE, ROLLOUT_STATE):
+    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE, STRIPE_STATE, ROLLOUT_STATE, ROW_DISPATCH_STATE):
         errors.append("Current evidence audit requires an explicit migration for a new decision state")
     if triage["policy"]["execution_state"] != decision["execution_state"]:
         errors.append("Policy and current decision disagree")
@@ -142,6 +144,12 @@ def validate_records(decision, triage, summary, execution, root=None):
         errors.append("Eligible methods disagree with canonical decision")
     if canonical and state == CURRENT_STATE:
         errors.append("R5 closure records no eligible model follow-up; update evidence before changing the decision")
+    if state == ROW_DISPATCH_STATE:
+        from row_dispatch_contract import validate_registration as validate_row_registration
+        registration = decision.get('registered_row_dispatch', {})
+        if canonical != [ROW_DISPATCH_ID] or registration.get('method_id') != ROW_DISPATCH_ID:
+            errors.append('Only the separately authorized full160 row-dispatch study is eligible')
+        errors.extend(validate_row_registration(registration, root or Path(__file__).resolve().parents[1]))
     if state == ROLLOUT_STATE:
         from rollout_contract import validate_registration as validate_rollout_registration
         registration=decision.get('registered_rollout',{})

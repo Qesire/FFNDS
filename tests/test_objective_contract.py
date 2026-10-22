@@ -21,7 +21,16 @@ class ObjectiveContractTests(unittest.TestCase):
     def test_canonical_contract_referenced_without_releasing_model_jobs(self):
         self.assertEqual(self.current["objective_contract"], "research/OBJECTIVE_CONTRACT.json")
         self.assertEqual(self.triage["policy"]["objective_contract"], self.current["objective_contract"])
-        if self.current['eligible_model_method_ids'] == ['R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT']:
+        if self.current['eligible_model_method_ids'] == ['R16V0_FULL160_UB1_DENSE_ROW_DISPATCH']:
+            registered = record(self.current['registered_row_dispatch']['protocol'])
+            authorization = record(registered['authorization']['path'])
+            self.assertEqual(authorization['status'], 'EXPLICIT_EXACT_SCOPE_USER_AUTHORIZATION')
+            self.assertEqual(authorization['method_id'], registered['id'])
+            self.assertEqual(registered['caps'], {'full_generations': 5, 'standalone_FFN_forwards': 164,
+                                                 'weight_factorizations': 0, 'training_steps': 0})
+            self.assertFalse(registered['automatic_followup'])
+            self.assertFalse(registered['reset_between_steps'])
+        elif self.current['eligible_model_method_ids'] == ['R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT']:
             registered = record(self.current['registered_rollout']['protocol'])
             authorization = record(registered['authorization']['path'])
             self.assertEqual(authorization['status'], 'EXPLICIT_EXACT_SCOPE_USER_AUTHORIZATION')

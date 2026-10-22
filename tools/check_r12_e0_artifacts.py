@@ -120,6 +120,11 @@ def validate(audit, geometry, draft, runtime, current, triage):
             allowed = (draft['status'] == 'DRAFT_ONLY_NOT_REGISTERED_NOT_ELIGIBLE'
                 and current['execution_state'] == STATE
                 and not validate_registration(current.get('registered_rollout', {}), ROOT))
+        if current['eligible_model_method_ids'] == ['R16V0_FULL160_UB1_DENSE_ROW_DISPATCH']:
+            from row_dispatch_contract import STATE, validate_registration
+            allowed = (draft['status'] == 'DRAFT_ONLY_NOT_REGISTERED_NOT_ELIGIBLE'
+                and current['execution_state'] == STATE
+                and not validate_registration(current.get('registered_row_dispatch', {}), ROOT))
         need(allowed, 'E0 cannot grant model eligibility')
     need(current["latest_static_review"] == triage["latest_static_review"], "current/triage E0 mismatch")
     need(current['handoff'] == BASE + 'HANDOFF_R12_E0.md'

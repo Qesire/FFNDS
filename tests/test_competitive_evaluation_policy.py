@@ -22,7 +22,13 @@ class CompetitiveEvaluationPolicy(unittest.TestCase):
 
     def test_decision_and_closed_results_not_reinterpreted(self):
         d=load("research/CURRENT_DECISION.json")
-        if d["eligible_model_method_ids"]:
+        if d['eligible_model_method_ids'] == ['R16V0_FULL160_UB1_DENSE_ROW_DISPATCH']:
+            p = load(d['registered_row_dispatch']['protocol'])
+            auth = load(p['authorization']['path'])
+            self.assertEqual(auth['status'], 'EXPLICIT_EXACT_SCOPE_USER_AUTHORIZATION')
+            self.assertEqual(auth['method_id'], p['id'])
+            self.assertEqual(auth['caps'], p['caps'])
+        elif d["eligible_model_method_ids"]:
             self.assertEqual(d["eligible_model_method_ids"],["R14N0_COMPLETE_STRIPE_NATIVE_VALUE"])
             p=load(d['registered_diagnostic']['protocol'])
             self.assertEqual(load(p['authorization']['path'])['authorized_method_id'],d['eligible_model_method_ids'][0])
