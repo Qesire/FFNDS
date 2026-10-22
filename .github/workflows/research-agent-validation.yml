@@ -43,3 +43,7 @@ jobs:
         run: |
           python tools/analyze_counterfactual_actions.py --input research/20261022/examples/counterfactual_demo.json --output /tmp/ffnds_counterfactual_smoke.json
           python -c "import json; j=json.load(open('/tmp/ffnds_counterfactual_smoke.json')); assert j['evidence_level']=='SYNTHETIC_TEST_ONLY' and abs(j['oracle_gain_over_best_fixed']-5)<1e-9"
+      - name: Verify saved spatial evidence and nonlinear pooling identities
+        run: |
+          python tools/check_r13_artifacts.py
+          python -m unittest discover -s tests -p 'test_spatial*.py' -v

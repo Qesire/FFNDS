@@ -1,0 +1,15 @@
+{
+  "id": "R13S4_THREE_DIRECTION_AFFINE_CONTRAST",
+  "scope": "CPU algebra/rounding diagnostic on already saved post-Q1 inputs and unchanged R9 matrix. No original FFN, QDQ, fit, CUDA or model pipeline.",
+  "opening": "The direct pooled GPU implementation is only1.355x despite49.7677%mainMAC. OwnL-minus-stripe-mean has exactly three independent token directions per four rows; its mean projection and bias cancel.",
+  "position": [2, 20],
+  "source_indices": "All24 original OP2 development sources, fixed before new rounding numbers.",
+  "arithmetic_groups": "Four consecutive offsets in the saved256row array, only for a linear algebra control. These rows are NOT claimed to be true spatial stripes, and no pooled-response quality is measured.",
+  "real_identity": "h1=(x0+x1-x2-x3)/2,h2=(x0-x1+x2-x3)/2,h3=(x0-x1-x2+x3)/2. Project only A*h1,A*h2,A*h3. Recover own centered response as half the signed sum of these3 projected vectors. Affine bias cancels exactly in real arithmetic.",
+  "CPU_rounding_control": "Original frozen BF16 A/bias, CPU BF16 F.linear. Compare the existing fullL+BF16(response-meanL) arithmetic with3-direction projection, inverse and response addition. Use the mean of savedTeacherY as a labelled arithmetic fixture only, never a deployable response or accuracy result.",
+  "precision_screen": "Report all24 discrepancies and total gated rewrite discrepancy divided by original UB1 gated error. Above1% means this rewrite is not numerically justified even as a CPU prototype. Below1% is not native identity or model success.",
+  "cost": "Keep the same7917stripes and3958two-point count. Affine projection rows fall fromM to3M/4; total projection fraction=(3/4)*D/(2H)+(2*7917+3958)/(2M)=0.4513809944844427. Additional transforms/reconstruction still need actual timing.",
+  "new_model_generations": 0,
+  "native_registration": null,
+  "stop": "No neighbour/source/pool/sign search or new native model run. Preserve direct GPU implementation rejection; this tests a new representation of its linear contrast, not its video quality or a faster GPU implementation."
+}

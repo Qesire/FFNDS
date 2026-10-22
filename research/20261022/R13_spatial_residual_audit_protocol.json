@@ -1,0 +1,35 @@
+{
+  "id": "R13S0_SAVED_SPATIAL_RESIDUAL_COHERENCE",
+  "status": "CPU_SAVED_DATA_AUDIT_ONLY_NOT_A_MODEL_REGISTRATION",
+  "evidence_base_commit": "e41116a3acd0bf73fa189721ae7e1df0b26dbe92",
+  "question": "Do actual omitted-output residuals, or innovations remaining after the frozen R256, vary less across real spatial neighbours than across matched distant tokens?",
+  "positions": [[0, 20], [1, 20], [2, 20], [3, 20]],
+  "sources": "All24 original OP2 sources, already development/training exposed; no new source split or quality evaluation.",
+  "data": "Original sampled post-Q1 V1, BaseY, StudentY, TeacherY, gate and actual selected native coordinates; payload SHA256 and decoded tensor geometry required.",
+  "primary_graph": "Undirected right/down cardinal neighbours within the same latent frame; inspect only edges with both endpoints actually sampled. Never join sampled offsets as spatial neighbours.",
+  "secondary_graph": "All observed unordered pairs in the same horizontal1x4 stripe. This is partial pair evidence, not a fully observed four-token action.",
+  "far_control": "For each directed observed near edge, deterministic nearest eligible saved offset at the same source/frame and Manhattan distance>=8 from the target; no labels used to choose it.",
+  "residuals": {
+    "raw_missing": "TeacherY-BaseY",
+    "innovation": "TeacherY-StudentY"
+  },
+  "primary_observables": [
+    "FP64 gated target residual energy, donor residual energy, cross product and unshrunk residual-copy error",
+    "CPU BF16 add/gate-product error from original BF16 outputs, separately from the FP64 identity",
+    "Near/far contrast and per-source coverage; pairwise effective sample size is not token or independent-source count",
+    "Pre-W1 post-Q1 input cosine/L2 difference and its descriptive relation to residual-copy benefit; no predictor fitted"
+  ],
+  "secondary_observables": "Global scalar projection coefficient dot/anchor_energy is descriptive geometry only, not a trained policy or a new model result. Report it without using it to trigger a model job.",
+  "operator_hypothesis": "A calibrated quarter-width backbone on all rows plus full original FFN on one-quarter current-step anchors, sharing only residual innovations. MainMAC=.25+.25=.5 including duplicate backbone work at anchors. Preserve the existing calibration instead of stripping it as D0 did.",
+  "layout_scope": "Observed21x29x52 grid admits exactly7917 horizontal1x4 anchors. A naive2x2 ceil tiling needs8190 anchors and exceeds50% when combined with a quarter backbone.",
+  "important_mismatch": "Only OP2 step0 has the quarter-width backbone. Other steps remain conditional comparisons on their frozen50/50/75% backbones. No claim that a quarter backbone plus anchors is already measured across four steps.",
+  "opposite_results": {
+    "support": "Near residuals are more coherent than far controls and sharing reduces actual saved-output gated error on multiple sources; next question is legal input-conditioned anchor choice and full stripe/native execution.",
+    "reject_this_transfer": "Near residuals are not coherent or copying raises error; do not run a zero-order neighbour-sharing model on that evidence. Examine which component lost coherence before inventing a different operator."
+  },
+  "limits": "No new FFN/model forward, quantizer invocation, fitted weights, rollout, quality or timing. Pair statistics cannot establish four-token coverage, anchor policy value, exact reducedM GEMM identity, or complete FFN speed.",
+  "model_generations": 0,
+  "GPU_jobs": 0,
+  "new_tensor_writes": 0,
+  "model_execution_eligibility_change": false
+}

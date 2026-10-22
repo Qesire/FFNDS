@@ -61,3 +61,7 @@ Nearest methods/codes must be rechecked at novel-algorithm claim time. Recombini
 ## Execution-linked additions after the import
 
 [HiF4 group boundaries and actual tile layouts](../../../docs/69_HiF4分组边界与空间动作的可执行布局.md) and [information/cost discriminators with further primary-source checks](../../../docs/70_条件信号与跨步方法的真实预算.md) preserve executed source/CPU work. The completed D0 rejection closes only its fixed raw action set, not all spatial/information/representation mechanisms. No new model method is registered.
+
+[R13 spatial contrast and pooled nonlinear response](../../../docs/71_空间误差的可共享部分与双点非线性构造.md) adds96 saved-native CPU scopes,193 matched pairs, a finite common-output bound, unchanged R9 affine checks and a joint-quantizer counterexample. A distinct own-affine/two-point mean-response construction has a49.7677% projection-MAC ledger and synthetic support, while native conditional value, quality and speed remain unmeasured. [Current R13 handoff](../../20261022/HANDOFF_R13.md); this addition is an open research seed, not a registered model job.
+
+The direct R13 random-tensor A100 implementation measured only1.355x complete synthetic-chain speed and is not a deployment priority. A derived three-direction centered-affine representation saves one redundant token projection per four, taking the same response-count budget to45.1381%MAC; its saved-input CPU rounding control passed, while GPU/Wan behaviour is untested. This preserves the direct implementation rejection and does not grant model eligibility.

@@ -1,0 +1,24 @@
+{
+  "id": "R13S3_POOLED_NONLINEAR_MOMENT_DISCRIMINATOR",
+  "status": "SYNTHETIC_CPU_SOURCE_PROBE_NOT_MODEL_REGISTRATION",
+  "opening": "A single paid anchor adds sampling error to the irreducible within-stripe remainder contrasts. A mean-response operator could differ scientifically from copying an anchor, provided its information and coupled quantizer cost are real.",
+  "fixed_synthetic_case": "Two four-row,64-channel arrays. Channel amplitudes are2^linspace(-2,2), offsets0.2*sin(channel), latent values[-2,-0.5,0.5,2]. CaseA shares one latent ordering; caseB circularly shifts that ordering by channel modulo4. Per-channel empirical marginals match exactly; cross-channel dependencies differ.",
+  "original_reference": "Run unchanged original hifx4 Python reference from the pinned QType.py/QFuncs/hifx.py, with BF16 tanh-GELU input and full64 grouping. No Wan weights, saved operands, model, native quantizer/CUDA extension, checkpoint forward or fitting.",
+  "competing_explanations": [
+    "Marginal mean/variance is enough for a pooled response. The two arrays must then have equal true mean post-Q2 activations.",
+    "Groupwise scale decisions depend on cross-channel dependence. Identical marginal distributions can then produce different mean post-Q2 activations.",
+    "A common input-space Rademacher contrast can preserve joint information in a two-point cubature. Its covariance is correct in expectation but finite-sample nonlinear/QDQ bias and sketch noise may remain."
+  ],
+  "checks": [
+    "Exact GeLU Gaussian expectation against64-point Gauss-Hermite quadrature on means[-2,-0.5,0,0.5,2], variances[0,0.25,1,4]; report separately the actual tanh-GELU discrepancy.",
+    "Identical channel marginals and differing mean original-Q2 outputs for the fixedA/B arrays, with quantitative mismatch.",
+    "Enumerate all16 Rademacher signs for four centered input rows. Verify E[c c^T] equals their population covariance, and the second moment of the antithetic quadratic response exactly matches the empirical quadratic mean.",
+    "Compare one-point response and antithetic joint two-point response to actual four-row mean post-Q2; report cubature bias AND per-sketch variance without choosing a sign seed after outcomes.",
+    "Exact integer cost: own affine all31668rows, one response per7917horizontal4stripe, two W1 points on3958stripes, one W2 after averaging activation for each stripe. Charge all extra main GEMMs, distinguish remaining QDQ/layout/selection costs."
+  ],
+  "dynamic_seed": "Before W1, form stripe input means and one shared signed centered input contrast from the current post-Q1 inputs. Use its squared norm to allocate two-point versus one-point response under a fixed count. Whether this signal predicts actual incremental benefit over the strongest same-count fixed placement is unmeasured. No router fitted or selected here.",
+  "original_goal_unchanged": "<=50%main GEMM MAC, >=1.5x complete FFN with all overhead, genuinely fresh free-student aesthetic/imaging/motion each <=2% relative drop, plus conditional gain over best same-cost fixed control.",
+  "model_generations": 0,
+  "model_execution_eligibility_change": false,
+  "stop": "This probe cannot promote a Wan candidate. If marginal sufficiency fails, do not substitute the Gaussian formula for original coupledQ2. If cubature is biased/noisy, preserve that failure rather than claiming moment accuracy or tuning signs. Native usefulness remains a separate prospective registration."
+}

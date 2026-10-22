@@ -1,0 +1,222 @@
+{
+  "id": "R13H1_SYNTHETIC_SPATIAL_RESPONSE_COST",
+  "status": "COMPLETED_FIXED_SYNTHETIC_RANDOM_TENSOR_COST",
+  "evidence_level": "SYNTHETIC_A100_FULL_SHAPE_NOT_WAN_MODEL",
+  "protocol_sha256": "d5156f60cd92a5aed73da220ac1efe572eb97de5fb642f7985fbc3593bd601d4",
+  "source_sha256": "5694c369cdd26b5a7060b649175565775901c213ccfa66c0dc4184b237029fe5",
+  "device": "NVIDIA A100 80GB PCIe",
+  "torch": "2.10.0+cu128",
+  "shape": {
+    "M": 31668,
+    "D": 5120,
+    "H": 13824
+  },
+  "QDQ_controls": [
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        6912
+      ],
+      "bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "bit_mismatches": 0
+    },
+    {
+      "shape": [
+        11875,
+        13824
+      ],
+      "bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "bit_mismatches": 0
+    },
+    {
+      "shape": [
+        11875,
+        13824
+      ],
+      "bit_mismatches": 0
+    }
+  ],
+  "all_controls_before_timing": true,
+  "same_QDQ_for_all_arms": true,
+  "samples_ms": {
+    "dense": [
+      54.83110427856445,
+      55.921119689941406,
+      55.8587532043457,
+      55.31523132324219,
+      55.101280212402344,
+      55.63145446777344,
+      55.07183837890625
+    ],
+    "UB1_half_R256": [
+      33.7407341003418,
+      33.28870391845703,
+      33.9917106628418,
+      32.98739242553711,
+      33.841854095458984,
+      33.25516891479492,
+      34.0807991027832
+    ],
+    "pooled_fixed": [
+      40.76793670654297,
+      40.80585479736328,
+      40.180992126464844,
+      41.0211181640625,
+      40.729888916015625,
+      40.8326416015625,
+      40.23478317260742
+    ],
+    "pooled_dynamic": [
+      41.002655029296875,
+      41.573726654052734,
+      40.72636795043945,
+      40.54111862182617,
+      40.816287994384766,
+      41.503265380859375,
+      40.303104400634766
+    ]
+  },
+  "host_samples_ms": {
+    "dense": [
+      54.87142875790596,
+      55.94541132450104,
+      55.88287487626076,
+      55.33922463655472,
+      55.12618273496628,
+      55.656131356954575,
+      55.0968237221241
+    ],
+    "UB1_half_R256": [
+      33.770959824323654,
+      33.314868807792664,
+      34.01624038815498,
+      33.01137313246727,
+      33.86760875582695,
+      33.27988088130951,
+      34.10513326525688
+    ],
+    "pooled_fixed": [
+      40.795132517814636,
+      40.83029925823212,
+      40.205180644989014,
+      41.04464128613472,
+      40.754955261945724,
+      40.85833206772804,
+      40.25905206799507
+    ],
+    "pooled_dynamic": [
+      41.03218764066696,
+      41.598837822675705,
+      40.750447660684586,
+      40.565215051174164,
+      40.84137827157974,
+      41.52829200029373,
+      40.32783582806587
+    ]
+  },
+  "median_ms": {
+    "dense": 55.31523132324219,
+    "UB1_half_R256": 33.7407341003418,
+    "pooled_fixed": 40.76793670654297,
+    "pooled_dynamic": 40.816287994384766
+  },
+  "speedup_over_same_run_dense": {
+    "dense": 1.0,
+    "UB1_half_R256": 1.6394199118116355,
+    "pooled_fixed": 1.3568317602485995,
+    "pooled_dynamic": 1.3552244469377541
+  },
+  "timing_order": [
+    [
+      "dense",
+      "UB1_half_R256",
+      "pooled_fixed",
+      "pooled_dynamic"
+    ],
+    [
+      "dense",
+      "pooled_dynamic",
+      "pooled_fixed",
+      "UB1_half_R256"
+    ],
+    [
+      "pooled_fixed",
+      "pooled_dynamic",
+      "dense",
+      "UB1_half_R256"
+    ],
+    [
+      "pooled_fixed",
+      "UB1_half_R256",
+      "dense",
+      "pooled_dynamic"
+    ],
+    [
+      "dense",
+      "UB1_half_R256",
+      "pooled_fixed",
+      "pooled_dynamic"
+    ],
+    [
+      "dense",
+      "pooled_dynamic",
+      "pooled_fixed",
+      "UB1_half_R256"
+    ],
+    [
+      "pooled_fixed",
+      "pooled_dynamic",
+      "dense",
+      "UB1_half_R256"
+    ]
+  ],
+  "projection_MAC_fraction": {
+    "full_affine": 0.18518518518518517,
+    "pooled_W1": 0.18749210559555388,
+    "pooled_W2": 0.125,
+    "total": 0.497677290780739
+  },
+  "pooled_dynamic_speed_gate": false,
+  "direct_implementation_disposition": "DIRECT_IMPLEMENTATION_BELOW_SYNTHETIC_SPEED_GATE_DO_NOT_SCALE",
+  "max_allocated_bytes": 8837371904,
+  "max_reserved_bytes": 15032385536,
+  "models_loaded": 0,
+  "new_model_generations": 0,
+  "fitted_parameters": 0,
+  "new_tensor_files": 0,
+  "quality_or_native_model_speed_acceptance": false,
+  "limits": "Synthetic full shape is not original160-FFN model timing, model numerical equivalence, selector benefit or video quality. All original model eligibility and closures remain unchanged."
+}

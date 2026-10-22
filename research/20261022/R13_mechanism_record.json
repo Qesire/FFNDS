@@ -1,0 +1,150 @@
+{
+  "id": "R13_SPATIAL_CONTRAST_AND_POOLED_NONLINEAR_RESPONSE",
+  "status": "SAVED_CPU_AND_SYNTHETIC_GPU_COMPLETE_DIRECT_IMPLEMENTATION_TOO_SLOW_THREE_DIRECTION_SEED_OPEN",
+  "evidence_base_commit": "e41116a3acd0bf73fa189721ae7e1df0b26dbe92",
+  "document": "docs/71_空间误差的可共享部分与双点非线性构造.md",
+  "nearest_closed_methods": [
+    {
+      "id": "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER",
+      "preserved_failure": "Original full support16/16 passed; fixed compressed support7/16. No refit or hidden-group search reopened.",
+      "difference": "Reuse exact frozen L, compress spatial rows of its nonlinear remainder, then replace copying with a joint two-point mean-response approximation."
+    },
+    {
+      "id": "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE",
+      "preserved_failure": "Fixed raw pair oracle gain0.231928%,2.574103% above UB1, all24 native cases complete.",
+      "difference": "No raw cross-layer width allocation; a different within-FFN operator using own affine contrasts and same-step pooled responses."
+    },
+    {
+      "id": "TC1_ROW_SUPPORT_TRANSFER",
+      "preserved_failure": "Fixed support-transfer instance failed; sampled row offsets were not spatial neighbours.",
+      "difference": "Original coordinates verified; no transfer of hidden support, no complete observed stripe falsely claimed."
+    },
+    {
+      "id": "R20",
+      "preserved_failure": "Historical same-expert cross-step reuse and affine corrections already exist.",
+      "difference": "Current-step inputs only, no old output or dense temporal cold start."
+    },
+    {
+      "id": "R7D2_and_R11T1",
+      "preserved_failure": "Local/forced-flow objectives are separate from free-video quality; fixed gain/training instances closed.",
+      "difference": "No new fit or proxy flow optimization. Initial evidence is local/CPU only."
+    }
+  ],
+  "strongest_observation": "Full-output neighbouring cosine rises to0.875 while UB1-innovation cosine is only0.121 at step3.193 matched half-budget output-sharing pairs yield0 beneficial raw copies. Preserving affine contrast creates a different ideal mean-remainder opportunity at step2, including ratio0.8101 on old nonfit even sources, despite one-anchor sharing failing.",
+  "actual_source_flow": {
+    "coordinates": "Pinned Wan pre_infer flatten(2).transpose(1,2): true grid[21,29,52], x fastest; use original row IDs.",
+    "inputs": "Original OP2 V1 is post-Q1 BF16[256,5120], actual native full shape[31668,5120], all24 sources already exposed.",
+    "operator": "Original group64Q1, W1/bias, tanh GELU/smooth2/BF16/Q2 group64, W2/bias, current gate and individual residual stream.",
+    "available_before_W1": "Current V1, stripe means and shared signed centered contrasts. Their computation and fullQ1 must be charged. Actual predictive value for the new action is unmeasured.",
+    "missing": "No complete four-row stripe in96 sampled payloads. No full residual stream, native pooled response, signed conditional action value, free rollout or complete FFN timing."
+  },
+  "different_explanations_and_checks": [
+    {
+      "hypothesis": "Full-output smoothness licenses copying remaining errors.",
+      "check": "Compare actual local full/raw-missing/UB1-innovation pair geometry and far same-frame controls.",
+      "result": "Rejected for the fixed one-neighbour copy construction; conditional residual cosine0.093-0.162, error ratios1.675-1.814."
+    },
+    {
+      "hypothesis": "Any common full output can rescue the local two-row equal-budget action.",
+      "check": "Exact variance identity with arbitrary continuous common output.",
+      "result": "Only7/193 lower bounds better than UB1; ideal per-pair choice gain at most0.236315% on this fixed sample."
+    },
+    {
+      "hypothesis": "Keep own affine response, copy a nonlinear remainder.",
+      "check": "96 frozen CPU R9 affine calls, no refit.",
+      "result": "Fixed single-anchor instance unsupported. Decomposing anchor sampling versus ideal mean risk reveals a distinct mean-response question at step0/2."
+    },
+    {
+      "hypothesis": "A per-channel Gaussian moment formula suffices for originalQ2 mean response.",
+      "check": "Same channel marginals, different joint ordering through unchanged original HiF4 Python reference.",
+      "result": "Counterexample:63/64 mean channels differ; marginal information is insufficient."
+    },
+    {
+      "hypothesis": "Shared input-space sign sketches retain useful joint information with two-point evaluation.",
+      "check": "Enumerate all16 signs on fixed synthetic64-channel inputs; exact covariance/quadratic identity and bias-variance decomposition.",
+      "result": "Exact identities pass; expected toy errors41.752/40.037 versus single-point64.769/65.446. Sketch variance remains41.240/39.443; not a Wan result."
+    }
+  ],
+  "construction": {
+    "input": "For four actual rows X_i, mu=mean(X), c=sum_i epsilon_i(X_i-mu)/2, using the same epsilon_i across all channels.",
+    "response": "For selected stripes, two original W1/GELU/Q2 responses at mu+c and mu-c, average post-Q2 then oneW2; other stripes use one response at mu. Subtract mean precomputed L and add own L per token.",
+    "action": "Fixed total3958 of7917 horizontal4 stripes get two-point rather than one-point response. A future policy may rank pre-W1 input contrast norms, but none is fit/tested now.",
+    "why_old_obstruction_changes": "The common-output contrast bound does not apply after ownL contrasts are preserved. Single-anchor sampling noise is not inherent to estimating a pooled mean. Shared signs retain joint variation that independent marginal moments discard. New evidence supports these narrow distinctions, not a successful native method.",
+    "unresolved_obstructions": "Ideal mean still poor at step1/3; joint cubature can be biased and noisy through discontinuousQ2; L storage/QDQ/layout can dominate speed; selector may have no same-cost fixed-control advantage; native BF16/matrix-shape differences untested.",
+    "falsifiable_prediction": "At the initially motivated step2 scope, a coupled pooled mean-response should reduce actual remainder error relative to a one-row anchor, and some before-W1 input statistic must predict incremental two-point value beyond best fixed placement. Failure of either keeps it an unsupported candidate."
+  },
+  "controls_required_before_promotion": [
+    "Frozen UB1 on identical native operands.",
+    "One-point pooled response with ownL.",
+    "Two-point response at strongest training-selected fixed spatial placement with exactly the same count and same calibration/weights.",
+    "Dynamic placement using the identical two operator arms and total count.",
+    "Relevant ToMe/ToMA-style merge/unmerge comparison when making novelty or efficiency claims."
+  ],
+  "cost": {
+    "main_projection_fraction": 0.497677290780739,
+    "all_double_point_fraction": 0.5601851851851851,
+    "ledger": "All-rowD^2 affine + (7917+3958)D*H W1 +7917D*H W2, divided by2M*D*H.",
+    "auxiliary": "All-rowQ1,11875Q2 point rows,pool/sketch/rank,meanV2 andL, mixedBF16 weight residency, layouts, broadcasts, gate/fullwriteback. No hardware speed inferred."
+  },
+  "data_exposure": "All24 original OP2 sources are development-exposed; R9 fit used odd12 only. No fresh quality evaluation occurred. New final quality must use independently audited frozen sources and full free student trajectories after method freezing.",
+  "cheapest_next_discriminator": "Inspect a three-direction projection/reconstruction memory schedule and a prospective fixed synthetic cost comparison before any Wan collection. Only after backend feasibility is positive should complete-stripe native operands and actual conditional gain be separately registered and authorized.",
+  "stop_condition": "Do not promote from ideal mean labels or low ensemble toy bias; do not tune signs, expand neighbours/positions or claim native conditional value. If actual pooled response lacks value or a pre-W1 rule fails the strongest same-count fixed control, stop that fixed instance.",
+  "evidence": [
+    {
+      "path": "research/20261022/R13_spatial_residual_coherence.json",
+      "sha256": "d5173bc7e4d260addcf734b4e8382c28b5f4a449ef0a03187001526d25cf36ab"
+    },
+    {
+      "path": "research/20261022/R13_saved_compression_axis_value.json",
+      "sha256": "1090bbd52264ff1fea7fe105c842415cf9aca4c0375a38125c85748b5e2f2a20"
+    },
+    {
+      "path": "research/20261022/R13_anchored_affine_remainder.json",
+      "sha256": "1f7317e492016e339aa5b6daafdfdb4af80e4973a1b8d8bda0b65655f1b137ac"
+    },
+    {
+      "path": "research/20261022/R13_spatial_sharing_limits.json",
+      "sha256": "7d21c0a593bc867b4245a5dd95239b883d5dd8620f48a6d10c564f018abefe44"
+    },
+    {
+      "path": "research/20261022/R13_pooled_nonlinear_moments.json",
+      "sha256": "fd1c7adfb52f9eba5d7155ae73b0a41b8a98fb582de05b32b214132322feb44c"
+    },
+    {
+      "path": "research/20261022/R13_synthetic_spatial_response_cost.json",
+      "sha256": "fb63455e36b590c7d6283641bb08d12267b167144902decab80a95bad05fccd5"
+    },
+    {
+      "path": "research/20261022/R13_three_direction_contrast.json",
+      "sha256": "3ba723370331200a2fa59c215a0105309b6732ce41b78dd4d05611287db755c0"
+    }
+  ],
+  "native_registration": null,
+  "model_execution_eligibility_change": false,
+  "new_model_generations": 0,
+  "new_training_updates": 0,
+  "next_operand_coordinate_draft": {
+    "path": "research/20261022/R13_complete_stripe_operand_DRAFT.json",
+    "sha256": "7704c306470075426727dcc05ce8ad7e3c21d5c76ff32c6d5fd8fc532d29737c",
+    "status": "PLANNED_COORDINATES_ONLY_ZERO_OPERANDS_NO_REGISTRATION"
+  },
+  "synthetic_cost": {
+    "result": "research/20261022/R13_synthetic_spatial_response_cost.json",
+    "dense_ms": 55.31523132324219,
+    "UB1_proxy_ms": 33.7407341003418,
+    "pooled_dynamic_ms": 40.816287994384766,
+    "pooled_dynamic_speedup": 1.3552244469377541,
+    "disposition": "DIRECT_IMPLEMENTATION_BELOW_SYNTHETIC_SPEED_GATE_DO_NOT_SCALE",
+    "models_loaded": 0,
+    "GPU_jobs": 1
+  },
+  "three_direction_reformulation": {
+    "identity": "L(x_i)-meanL=A(x_i-mu); four centered rows have only3 independent token directions. Use3 Walsh/Haar contrast projections with the same frozenA, inverse and pooled response addition. The affine bias cancels.",
+    "substantive_change": "Remove an exactly redundant affine mean direction and avoid wholeL/meanL/remainder intermediates, keeping the same response-point count. This is an algebraic execution representation change, not q/rank/seed expansion or originality of the Haar transform.",
+    "projection_MAC_fraction": 0.45138099448444274,
+    "CPU_rounding_discrepancy_over_UB1": 0.0002364071686924465,
+    "CPU_scope": "24 saved step2/block20 payloads; arbitrary four-row arithmetic fixtures, not spatial groups; labelled teacher mean is only an arithmetic test addend.",
+    "native_GPU_cost_or_identity_measured": false,
+    "new_obstruction": "Actual mixed-BF16 transform/GEMM/epilogue speed and model behaviour still need controls; the1.355x direct implementation failure remains true."
+  }
+}

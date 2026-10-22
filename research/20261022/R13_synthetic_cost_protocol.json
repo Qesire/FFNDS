@@ -1,0 +1,21 @@
+{
+  "id": "R13H1_SYNTHETIC_SPATIAL_RESPONSE_COST",
+  "scope": "Synthetic random resident tensors only; no Wan weights, model calls, fitting, input images or video. This is not model registration.",
+  "M": 31668,
+  "D": 5120,
+  "H": 13824,
+  "stripes": 7917,
+  "two_point_stripes": 3958,
+  "seed": 20261022,
+  "warmups": 3,
+  "repetitions": 7,
+  "arms": ["dense", "UB1_half_R256", "pooled_fixed", "pooled_dynamic"],
+  "timed_boundary": "Common synthetic LayerNorm/AdaLN, Smooth/cast/Q1, all main and auxiliary GEMMs, tanh GELU/Smooth/cast/Q2, pooling/shared-sign sketch/norm/ranking/layout, post-Q2 averaging, affine mean removal, own-row reconstruction, gate and residual addition. Common LayerNorm/AdaLN is a PyTorch stand-in, not a claim of original fused-kernel identity.",
+  "fixed_control": "Same3958 two-point stripes at fixed first3958 stripe positions; this is a hardware-placement control, not a best-fixed quality policy.",
+  "dynamic_arm": "Top3958 shared-input contrast squared norms, selected before any W1, same count/operator/precision as fixed arm. No learned selector or conditional-quality claim.",
+  "quantizer": "Existing native HiF4 BF16 entry for every arm. Verify all8 Q1/Q2 controls against original forceFP32 before timing; stop on mismatch. Synthetic effective W1/W2 quantized once with original HiF4 offline; new affine and R256 use BF16.",
+  "timing": "One currently idle GPU0 with standard worker lock and environment. Rotate/reverse four-arm timing order; all7 samples saved, CUDA event whole-chain medians and host elapsed samples. No large tensor files.",
+  "stop": "One frozen comparison, no fusion/rank/layout/precision/seed tuning after measurement. If pooled whole-chain speed is below1.5x dense, close this direct implementation as an immediate deployment option; the unmeasured fused/function family is not globally rejected.",
+  "resources": "One standard locked GPU, existing environment and quantizer only, random resident buffers below the80GiB device limit, zero model/cache downloads or persistent tensor output.",
+  "interpretation": "Synthetic full shape is not original160-FFN model timing, model numerical equivalence, selector benefit or video quality. All original model eligibility and closures remain unchanged."
+}

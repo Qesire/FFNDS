@@ -1,0 +1,26 @@
+{
+  "id": "R13S1_SAVED_ANCHORED_AFFINE_REMAINDER",
+  "status": "CPU_SAVED_OPERAND_AUDIT_NOT_A_MODEL_REGISTRATION",
+  "evidence_base_commit": "e41116a3acd0bf73fa189721ae7e1df0b26dbe92",
+  "opening": "Uncorrected output-copy loses all193 matched half-budget neighbour pairs. Test preserving each row's affine contrast and sharing only its remainder, instead of deleting nonlinear hidden groups as R9 did.",
+  "positions": [[0, 20], [1, 20], [2, 20], [3, 20]],
+  "source_indices": "All24 existing OP2 sources; separate original R9 odd training sources from even non-fitting sources. Every source remains development-exposed.",
+  "fixed_representation": "Original two R9 expert-shared matrix_BF16 and bias_total_BF16 tensors, unchanged file/tensorSHA and original odd-only fit. No new fit, coefficient, width or support search.",
+  "operator": "L_i=existing_affine(V1_i); R_i=TeacherY_i-L_i. At a paid same-step full anchor a, reconstruct Yhat_i=L_i+R_a. Preserve the individual residual stream and current row-constant gate.",
+  "new_mechanism": "Compress the spatial rows of the nonlinear remainder while preserving all channel directions in the affine backbone. R9 compressed hidden columns of that remainder and is not reopened.",
+  "CPU_arithmetic": "Evaluate the frozen affine linear map on saved BF16 V1 with CPU BF16 F.linear, then fixed BF16 teacher-minus-affine and affine-plus-anchor operations. Also report ideal FP64 difference geometry. No original FFN forward, original quantizer or CUDA invocation.",
+  "primary_graph": "Same near and horizontal1x4 pair graphs fixed by R13S0; use actual row IDs and both directions. No coordinate or source enlargement after the result.",
+  "baselines": "Frozen UB1 StudentY, uncorrected full-output sharing and the same fixed affine map without an anchor. Preserve original R9 compressed failures and all D0 results.",
+  "stripe_identity": "For a four-row stripe with uniformly random anchor, expected summed ideal gated error is one-half the sum over its six unordered pairwise gated remainder differences. This identity needs no complete observed stripe.",
+  "sampling_weights": "With uniformn=256 ofM=31668 without replacement, row inclusion=n/M and distinct-pair inclusion=n(n-1)/(M(M-1)). Report a descriptive design-reference stripe-risk estimate; independence of old fitted trajectories/row design and uncertainty are not granted by the identity.",
+  "cost": "Full affine on allM rows costsD/(2H)=5120/(2*13824); full original FFN onM/4 anchors costs1/4 dense. Sum=0.4351851851851852 of dense projectionMAC. Count fullQ1, affine, anchor Q1/Q2, gather/layout, residual materialization, selectors and gate in any future real FFN timing. No speed is inferred.",
+  "hypothesis_contrast": {
+    "support": "Affine contrasts remove enough of neighbouring output variation that remaining sharing is competitive with frozen UB1, particularly outside the original R9 fit cohort.",
+    "negative": "Remainder differences remain above UB1; do not run this frozen affine-plus-neighbour-copy model. Distinguish affine representation error from spatial incoherence in the data."
+  },
+  "model_generations": 0,
+  "new_training_updates": 0,
+  "new_large_tensor_writes": 0,
+  "model_execution_eligibility_change": false,
+  "limits": "Original fullM BF16 GEMM identity for reducedM anchors is untested. CPU BF16 affine arithmetic is not a native CUDA control. Pair and reference-weighted stripe diagnostics are not executed full stripes, flow, rollout, quality, speed or deployable dynamic anchor value."
+}

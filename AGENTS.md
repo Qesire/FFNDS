@@ -1,5 +1,7 @@
 # FFNDS research continuity
 
+**Latest source/data update (2026-10-22):** [R13](docs/71_空间误差的可共享部分与双点非线性构造.md) completed96 saved-native CPU scopes,193 matched local pairs, frozen-affine analysis and synthetic joint-quantizer/cubature checks. The current research handoff is [HANDOFF_R13](research/20261022/HANDOFF_R13.md). One synthetic random-tensor A100 check measured only1.355x for the direct implementation; do not scale that implementation. A three-direction affine rewrite reduces projectionMAC to45.1381%, with0.02364%UB1-relative CPU rounding discrepancy. Its GPU cost and Wan behaviour are untested. The construction remains an open mechanism seed, with no native Wan operator, conditional-value, video-quality or original model speed result and no model registration. Read its actual evidence; preserve the separately completed D0 rejection below.
+
 **Current execution update (2026-10-22):** the separately authorized fixed D0 is **complete and rejected**, with24 valid native cases,0.231928% oracle gain over best fixedNA and2.574103% greater flow loss than frozenUB1. See [result](research/20261022/R12_D0_native_results.json), [explanation](docs/68_R12_D0等预算原生动作检验.md) and [current handoff](research/20261022/HANDOFF_R12_D0.md). Model eligibility is empty. The original registration and source bindings are preserved; do not repeat, widen or auto-trigger D1/prediction/rollout. Different low-cost mechanism exploration remains open.
 
 ## Research direction: quality + actual acceleration, with open method discovery (2026-10-22)

@@ -1,0 +1,58 @@
+{
+  "id": "R13_SPATIAL_AND_MOMENT_PRIMARY_SOURCE_REVIEW",
+  "retrieved_on": "2026-10-22",
+  "evidence_base_commit": "e41116a3acd0bf73fa189721ae7e1df0b26dbe92",
+  "sources": [
+    {
+      "title": "ToMeSD",
+      "url": "https://openaccess.thecvf.com/content/CVPR2023W/ECV/html/Bolya_Token_Merging_for_Fast_Stable_Diffusion_CVPRW_2023_paper.html",
+      "accessed_scope": "Official CVF paper page and author implementation context.",
+      "useful_mechanism": "Diffusion token merging predates this work; merging itself is not novel.",
+      "boundary": "Not four-step Wan HiF4 evidence."
+    },
+    {
+      "title": "ToMA",
+      "url": "https://proceedings.mlr.press/v267/lu25v.html",
+      "accessed_scope": "Official ICML2025/PMLR article and method description.",
+      "useful_mechanism": "GPU-friendly attention-style merge/unmerge, facility-location formulation and reuse of merging patterns matter.",
+      "boundary": "Published generation latency and model settings cannot stand in for complete Wan FFN1.5x."
+    },
+    {
+      "title": "ResCa",
+      "url": "https://fanghaipeng.github.io/ResCa/",
+      "accessed_scope": "Author project and official CVF abstract; official code README. Full CVF PDF unavailable in this session.",
+      "useful_mechanism": "Residual-aware proxy tokens depend on dense-step history; same-step pooled input is a different causal setup.",
+      "boundary": "5.5xGFLOPs is not measured Wan complete-FFN wall time; no inferred paper equations beyond accessed source."
+    },
+    {
+      "title": "DaTMe",
+      "url": "https://arxiv.org/html/2610.22370v1",
+      "accessed_scope": "Primary full HTML, method sections.",
+      "useful_mechanism": "Denoising/spatial importance and anchor protection already exist.",
+      "boundary": "Current step output/clean estimate is after whole step, not a free before-W1 signal; no transferred Wan evidence."
+    },
+    {
+      "title": "Statistically Calibrated Scaling",
+      "url": "https://proceedings.mlr.press/v306/zhou26bj.html",
+      "accessed_scope": "Official ICML2026 abstract.",
+      "useful_mechanism": "Token merging can distort both energy and distribution; statistical fixes have prior art.",
+      "boundary": "Attention reconstruction is not coupled HiF4 FFN mean-response accuracy."
+    },
+    {
+      "title": "Exact Gaussian Moment Matching",
+      "url": "https://arxiv.org/html/2601.22307v2",
+      "accessed_scope": "Primary full HTML including formulation/limitations and GeLU appendix pointers;20 mean checks independently computed.",
+      "useful_mechanism": "Gaussian activation moments and covariance propagation are established tools.",
+      "boundary": "Gaussian/smooth activation results do not include group64 discontinuous Q2 or arbitrary four-token empirical distributions."
+    },
+    {
+      "title": "MP-GELU",
+      "url": "https://arxiv.org/abs/2211.13402",
+      "accessed_scope": "Primary arXiv abstract.",
+      "useful_mechanism": "Earlier activation moment-propagation precedent.",
+      "boundary": "Modified BNN activation and regression scope; not a license to replace frozen tanh-GELU/HiF4."
+    }
+  ],
+  "novelty_status": "No originality claim for token merging, conditional anchors, Gaussian moments or cubature. The own-affine/joint-cubature/conditional-placement construction needs native usefulness and nearest-prior-art review.",
+  "new_model_generations": 0
+}
