@@ -1,0 +1,83 @@
+{
+  "id": "R14_CONTINUATION_VALIDATION",
+  "evidence_base_commit": "2d7fcb0",
+  "tested_index_tree_before_validation_summary": "25260ffe90c252017ccf67cc811d83695fbb6019",
+  "focused_tests": {
+    "tests": 94,
+    "new_backend_and_policy_analysis_tests": 8,
+    "status": "PASS"
+  },
+  "clean_export": {
+    "status": "PASS_CLEAN_INDEX_EXPORT",
+    "no_private_runtime_or_runs": true,
+    "cli_checks": [
+      {
+        "command": "python3 tools/check_autoresearcher_binding.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/check_research_routes.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/check_r12_saved_evidence.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/check_r12_e0_artifacts.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/check_r12_d0_artifacts.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/check_r13_artifacts.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 tools/check_r14_backend.py",
+        "exit_code": 0
+      },
+      {
+        "command": "focused_stdlib_suite",
+        "tests": 94,
+        "exit_code": 0
+      }
+    ],
+    "counterfactual_smoke": "PASS_SYNTHETIC_ONLY",
+    "new_tools_syntax": "PASS_AST_WITHOUT_GPU_IMPORTS"
+  },
+  "public_metadata_scan": {
+    "status": "PASS_PUBLIC_METADATA_SCAN",
+    "scope": "git index",
+    "files_checked": 1672,
+    "private_rules": 2,
+    "violations": []
+  },
+  "method_selection_guards": [
+    {
+      "method_id": "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE",
+      "exit_code": 2,
+      "interpretation": "Closed or unregistered; no model execution authority."
+    },
+    {
+      "method_id": "R13_SPATIAL_CONTRAST_AND_POOLED_NONLINEAR_RESPONSE",
+      "exit_code": 2,
+      "interpretation": "Closed or unregistered; no model execution authority."
+    },
+    {
+      "method_id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+      "exit_code": 2,
+      "interpretation": "Closed or unregistered; no model execution authority."
+    }
+  ],
+  "synthetic_GPU_jobs": 1,
+  "models_loaded": 0,
+  "new_model_generations": 0,
+  "new_training_updates": 0,
+  "native_method_acceptance": false,
+  "backend_result": "research/20261022/R14_three_direction_backend_results.json",
+  "interpretation": "Fixed synthetic fused3-direction backend advance,16fusioncontrols/14QDQ/49timing samples. Native value draft unregistered and unexecuted. Original D0/R4/R9/R11 records preserved.",
+  "CPU_preparation_note": "An initial ad-hoc metadata reader used the wrong receipt field and failed before model work. Corrected stdlib-only reproducible reader passed; no model/CUDA imports or inference occurred."
+}

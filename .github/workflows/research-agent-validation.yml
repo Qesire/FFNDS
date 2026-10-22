@@ -49,3 +49,8 @@ jobs:
         run: |
           python tools/check_r13_artifacts.py
           python -m unittest discover -s tests -p 'test_spatial*.py' -v
+      - name: Verify fused synthetic backend evidence and matched native-value analysis
+        run: |
+          python tools/check_r14_backend.py
+          python -m unittest discover -s tests -p 'test_r14*.py' -v
+          python -m unittest discover -s tests -p 'test_stripe_value_analysis.py' -v

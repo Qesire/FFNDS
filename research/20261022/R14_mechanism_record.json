@@ -1,0 +1,132 @@
+{
+  "id": "R14_THREE_DIRECTION_FUSED_BACKEND",
+  "status": "SYNTHETIC_BACKEND_ADVANCE_NATIVE_VALUE_UNMEASURED",
+  "evidence_base_commit": "2d7fcb0",
+  "document": "docs/73_三方向融合算子的实际成本与原生价值下一步.md",
+  "strongest_observation": "The three-direction unfused dynamic implementation is slower despite45.1381% projectionMAC. Fusing its auxiliary boundaries lowers the same synthetic whole-chain median from46.9870ms to28.1745ms,1.913x versus the same-run dense chain.",
+  "nearest_methods": [
+    {
+      "id": "R13_SPATIAL_CONTRAST_AND_POOLED_NONLINEAR_RESPONSE",
+      "preserved_scope": "The direct original random-tensor implementation remains1.355x and fails its historical1.5x screen. CPU three-direction evidence remains an arithmetic fixture, not a native spatial result.",
+      "substantive_change": "Exploit rank3 centered token representation with only3 A projections per4 rows; fuse preparation, point packing, postQ2 pooling and inverse/gate/writeback rather than materializing all auxiliary expressions. Same shapes,seed,point count and quantizer; no tuning sweep."
+    },
+    {
+      "id": "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE",
+      "preserved_scope": "24 native raw three-action cases complete/rejected:0.231928% oracle gain over fixedNA;2.574103% larger SSE thanUB1.",
+      "substantive_change": "Within-FFN own-affine contrasts plus pooled nonlinear response, not cross-layer raw hidden-width allocation. No D0 repeat/extension."
+    },
+    {
+      "id": "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER",
+      "preserved_scope": "Frozen learned BF16 full support passed, fixed hidden-greedy compression closed after7/16. No refit or support expansion.",
+      "substantive_change": "Prospective reuse of original A as spatial contrast, with input-space pooled responses rather than hidden support search. R14 backend uses random synthetic A; actual R9 A is not yet measured in this new operator."
+    }
+  ],
+  "reconstructed_operator": {
+    "input": "Current post-Q1 BF16 rows, original row order. Shared input contrast norm available before W1; actual source availability follows the pinned Q1/FFN hook, actual conditional value unknown.",
+    "algebra": "Three signed half-sums h_j of four rows; inverse signed half-sums of Ah_j give A(x_i-mu). Affine bias cancels. Different BF16 operation order from old direct L-minus-meanL.",
+    "response": "One W1/GELU/smooth2/Q2 response atmu or two atmu+c/mu-c. AveragepostQ2 then oneW2/bias perstripe; add individual affine contrasts, original gate/residual order.",
+    "budget": {
+      "M": 31668,
+      "D": 5120,
+      "H": 13824,
+      "stripes": 7917,
+      "two_point_stripes": 3958,
+      "projection_MAC_fraction": 0.45138099448444274
+    },
+    "synthetic_common_path": "PyTorch LayerNorm/AdaLN stand-in, not the exact Wan norm; same shared stand-in and native BF16 HiF4 entry for all7 arms.",
+    "execution_sources": {
+      "tools/probe_three_direction_backend.py": "4059018759f37a317bd94fc5e1a12cb3c58744c1d5eac29cb88e4effd7408176",
+      "tools/spatial_contrast_kernels.py": "59fc9c76c7574d31dade2dc8943ccfa12068c6734d89de5402384c0b04c8880f"
+    }
+  },
+  "different_explanations_and_checks": [
+    {
+      "explanation": "Removing redundant projection alone ensures lower actual latency.",
+      "check": "Compare unfused3-direction dynamic versus directR13 at the same shapes andpoint count.",
+      "outcome": "Not supported:46.987ms vs39.556ms. Auxiliary execution can dominate lower-MAC representation."
+    },
+    {
+      "explanation": "Fused boundaries have an effect above whole-chain measurement noise.",
+      "check": "Exact fusion cutpoint controls, original QDQ checks,49counterbalanced samples and predeclared noise margin.",
+      "outcome": "Supported in this synthetic scope:18.8125ms saving>1.6865ms margin;fullfixed/dynamic outputsbitwise equal to theirownreferences."
+    },
+    {
+      "explanation": "Cheap input contrast norm identifies where two points are valuable.",
+      "check": "Proposed actual complete-stripe losses, exact training-selected same-count fixed, pre-W1dynamic and labeloracle.",
+      "outcome": "Unknown: original96payloads contain no complete4-rowstripe; no native forward/candidatevideo executed."
+    },
+    {
+      "explanation": "A pooled-response operator is useful but norm ignores output geometry, or single-sketch noise destroys value.",
+      "check": "The same proposed fixed-scope native action values separate oraclevalue, signalvalue and operatorfailure.",
+      "outcome": "Unknown; do not respond to a failure merely by searching signs/seeds/pointcounts."
+    }
+  ],
+  "measured": {
+    "device": "NVIDIA A100 80GB PCIe",
+    "arms": {
+      "dense": 53.8966064453125,
+      "UB1_half_R256": 32.291648864746094,
+      "R13_direct_dynamic": 39.555999755859375,
+      "three_unfused_fixed": 44.198814392089844,
+      "three_unfused_dynamic": 46.98700714111328,
+      "three_fused_fixed": 27.94870376586914,
+      "three_fused_dynamic": 28.174463272094727
+    },
+    "speedup_over_same_run_dense": {
+      "dense": 1.0,
+      "UB1_half_R256": 1.6690571197233997,
+      "R13_direct_dynamic": 1.362539356304068,
+      "three_unfused_fixed": 1.2194129454965255,
+      "three_unfused_dynamic": 1.1470534031556432,
+      "three_fused_fixed": 1.9284116679189554,
+      "three_fused_dynamic": 1.9129594741453038
+    },
+    "same_operator_fusion_saving_ms": 18.812543869018555,
+    "predeclared_noise_margin_ms": 1.686532974243164,
+    "backend_fusion_advance": true,
+    "fusion_controls": 16,
+    "QDQ_controls": 14,
+    "timing_samples": 49,
+    "all_BF16_fusion_bit_mismatches": 0,
+    "dynamic_selected_ids_exact": true,
+    "max_allocated_bytes": 8675549184,
+    "max_reserved_bytes": 16429088768
+  },
+  "strong_baseline_boundary": "FirstK is an efficient hardware fixed-placement control, not best fixed quality. Halfhidden+R256 uses random weights, not deployed UB1. Prior-art/full160FFN/video Pareto comparison absent.",
+  "evidence": [
+    {
+      "path": "research/20261022/R13_mechanism_record.json",
+      "sha256": "6127c4b6c270f6890ef4bee83e3e10a4eeca0e4a7b0adc7ade61358b8ff0ec99"
+    },
+    {
+      "path": "research/20261022/R13_three_direction_contrast.json",
+      "sha256": "3ba723370331200a2fa59c215a0105309b6732ce41b78dd4d05611287db755c0"
+    },
+    {
+      "path": "research/20261022/R14_three_direction_backend_protocol.json",
+      "sha256": "c062c6923f537143931e2089eda9e9f61bb7cff13612e4873eb7ca338019d1c4"
+    },
+    {
+      "path": "research/20261022/R14_three_direction_backend_results.json",
+      "sha256": "648820a7499689ed92def540ce1842a3a205818d0ad007ed9be1cdac4972fb83"
+    },
+    {
+      "path": "research/20261022/R14_native_value_DRAFT.json",
+      "sha256": "eaa7a33116f40cf7cdd3d4aa8074308292e8fef3702029c17073dc12e9ac5d62"
+    },
+    {
+      "path": "research/20261022/R14_native_draft_CPU_readiness.json",
+      "sha256": "11393b74b08dba66e99ee6c5958f39d0aee353d6631e73fbafa2e781ae2f228f"
+    }
+  ],
+  "next_discriminator": "Complete-stripe actual native writeback action values at one fixed position,4oldexposed sources,training-only bestfixed32/64 versus same-count norm andoracle; fixed draft<=4UB1captures and<=32standaloneFFNcalls. Final executable/source bindings and separate direct human authority required before registration/execution.",
+  "data_exposure": "Backend is entirely random resident tensors. Proposed sources0/1/10/11 are already development-exposed,1/11 training for fixedmask,0/10 nonfit old development. No genuinely fresh quality data used.",
+  "native_registration": null,
+  "model_execution_eligibility_change": false,
+  "new_model_generations": 0,
+  "new_training_updates": 0,
+  "new_tensor_files": 0,
+  "synthetic_GPU_jobs": 1,
+  "native_quality_or_model_speed_acceptance": false,
+  "unmeasured": "Actual native complete-stripe operands and operator error; conditionalgain over strongest fixed; native full160FFN and end-to-endvideo speed; free-studentvideo quality; prior-art-adapted competitivePareto."
+}
