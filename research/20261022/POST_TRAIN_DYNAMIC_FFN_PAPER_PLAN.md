@@ -1,3 +1,5 @@
+> **Historical R12 hypothesis, not exclusive present research direction.** Read [open exploration index](../exploration/20261022/EXPLORATION_INDEX.md) and [latest R12 E0 completed audit](../../docs/66_R12等预算动作的操作数与条件粒度审计.md) first. The equal-budget arm described below has not been natively executed; other full-model, tile, representation and information designs remain in scope.
+
 # R12 — post-training dynamic FFN sparsity: mechanism-first paper plan
 Date: 2026-10-22. **Exploration, not an approved GPU protocol or reported Wan result.**
 

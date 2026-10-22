@@ -15,3 +15,5 @@
 调度入口 `python3 tools/execute_paired_budget_value.py` 只排队这一个冻结 attempt。它等 GPU 空闲后再调用既有 worker 锁，逐阶段核对完整对照，不覆盖任何 RUN；遇控制失败保留 STOP 并停止后续生成。执行状态在忽略目录 `runs/r12d0_native_value_attempt1/EXECUTOR.json`。完整结果产生前不自动提交或推送。
 
 补充准备：[原始模型/输入/完整 TF2 张量身份](R12_D0_asset_preflight.json) 在 CPU 上通过，四来源原图与 seed42 完全一致；原生函数签名用源码 AST 检查，未伪造 CPU 上的 CUDA 可用性。[准备检查记录](R12_D0_pre_execution_checks.json)保留一次零模型生成的 CPU import 失败及修复。50 项相关离线测试通过；原生 QDQ/Y/writeback 仍须由实际 GPU 对照证明。
+
+更新同步：已合并远端 `40a5e49` 的开放研究资料库和新指引；D0 不成为后续唯一方向。保留这次先前单独批准的固定诊断，未扩实验。正式模型调用仍为零时，将实际 HiF4 QType/QTensor、Python 层级量化及 CUDA 核心源的哈希补充到执行前绑定；未改变模型、算子、输入、动作或门槛。D0 文档现为 docs/68，以保留远端 docs/67 编号。
