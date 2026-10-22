@@ -6,7 +6,7 @@
 
 The goal is to discover a **new, deployable, post-training input/state-conditioned FFN dynamic-sparsity method** on the frozen Wan2.2 I2V A14B four-step D-Q student, improving real complete FFN/whole-video inference with acceptable *free-running video quality*. The existing joint project criteria remain: main FFN GEMM MAC ≤50% dense D-Q; complete FFN speed ≥1.5× including all auxiliary costs; independent new-source official aesthetic/imaging/motion each ≤2% relative drop. The scientific paper also needs incremental improvement over the strongest matched static or prior-art control. These criteria evaluate final registered candidates, not the imagination stage.
 
-Live status: [CURRENT_DECISION](../../CURRENT_DECISION.json); completed latest [R12 E0](../../../docs/66_R12等预算动作的操作数与条件粒度审计.md) and its [handoff](../../20261022/HANDOFF_R12_E0.md). No equal-budget native R12, native spatial-tile policy, new router, or new video/GPU result was obtained by importing these documents. At the import snapshot: "Model method eligibility remains **empty**." A separate later user approval registered only the fixed [D0 diagnostic](../../20261022/R12_D0_registered_protocol.json); its current status is in CURRENT_DECISION, and no native D0 result has yet been measured. The library itself grants no execution authority.
+Live status: [CURRENT_DECISION](../../CURRENT_DECISION.json); prior completed [R12 E0](../../../docs/66_R12等预算动作的操作数与条件粒度审计.md) and its [historical handoff](../../20261022/HANDOFF_R12_E0.md). No equal-budget native R12, native spatial-tile policy, new router, or new video/GPU result was obtained by importing these documents. At the import snapshot: "Model method eligibility remains **empty**." A separate later user approval registered only the fixed [D0 diagnostic](../../20261022/R12_D0_registered_protocol.json); it completed24 valid cases and the fixed raw three-action diagnostic was rejected:0.231928% oracle gain over best fixedNA, with2.574103% greater loss than frozenUB1. [D0 evidence](../../../docs/68_R12_D0等预算原生动作检验.md) and [current handoff](../../20261022/HANDOFF_R12_D0.md) supersede the import snapshot; model eligibility is empty. The library itself grants no execution authority.
 
 ## Read the imported studies as distinct evidence types
 
@@ -57,3 +57,7 @@ Read [AutoResearcher v2.3](../../agent_protocol/README.md) as the discovery prot
 - [Dynamic-in-Few-Step](https://arxiv.org/abs/2607.06631): distillation-time step-structured computation.
 
 Nearest methods/codes must be rechecked at novel-algorithm claim time. Recombining known router, static width and standard fusion is not automatically novel; neither is a new named loss identity alone.
+
+## Execution-linked additions after the import
+
+[HiF4 group boundaries and actual tile layouts](../../../docs/69_HiF4分组边界与空间动作的可执行布局.md) and [information/cost discriminators with further primary-source checks](../../../docs/70_条件信号与跨步方法的真实预算.md) preserve executed source/CPU work. The completed D0 rejection closes only its fixed raw action set, not all spatial/information/representation mechanisms. No new model method is registered.

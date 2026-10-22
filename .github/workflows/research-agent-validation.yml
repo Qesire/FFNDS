@@ -26,9 +26,10 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_counterfactual_actions.py' -v
       - name: Reproduce saved-evidence R12 E0 ledger
         run: python tools/check_r12_saved_evidence.py
-      - name: Verify completed R12 CPU evidence and its interpretation boundaries
+      - name: Verify saved R12 evidence and its interpretation boundaries
         run: |
           python tools/check_r12_e0_artifacts.py
+          python tools/check_r12_d0_artifacts.py
           python -m unittest discover -s tests -p 'test_objective_contract.py' -v
           python -m unittest discover -s tests -p 'test_r12*.py' -v
           python -m unittest discover -s tests -p 'test_saved_flow_partitions.py' -v

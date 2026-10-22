@@ -1,25 +1,40 @@
-# R12 D0：等预算原生动作价值检验
+# R12 D0 已完成：固定零补偿三动作未过门槛
 
-已完成 E0 后，用户明确批准直接执行固定 D0。CPU 已重新核对原始两层的 108/162/216 支持、实际权重与 Smooth 哈希：三种动作全局主 MAC 均为 358628091494400，严格等于 dense 的一半。这里尚未测得新动作收益。
+当前决定：[CURRENT_DECISION](../CURRENT_DECISION.json)；说明：[docs/68](../../docs/68_R12_D0等预算原生动作检验.md)；原始结果：[native_results](R12_D0_native_results.json)。**模型资格为空；本轮24次已经用完，不能重跑或自动扩大。**
 
-本轮单独登记 [D0 协议](R12_D0_registered_protocol_worker_migration.json) 与 [授权范围](R12_D0_authorization.json)，原 [E0 交接](HANDOFF_R12_E0.md)、[草案](R12_E1_native_value_DRAFT.json) 和旧路线关闭记录保持历史原样。主问题是固定三动作的来源条件 oracle 能否同时胜过最佳固定动作及冻结 UB1，各至少 1%，并超过重复噪声的十倍。
+## 实测结果
 
-原生执行器使用真实 packed GEMM。step3/block30–31 的 N0=162/162、NA=216/108、NB=108/216 全部使用原始偏置、alpha=1、零 R256、零训练；其余 158 个位置保持 UB1 数值路径。冻结 UB1 单独作为带原补偿的工程对照。block31 接收真实改变后的状态，没有中途恢复；只在完整步骤之间恢复原 DQ latent。生成视频因此不是自由学生质量结果。
+四个已暴露TF2来源0/5/10/15，固定step3/block30–31；N0=162/162、NA=216/108、NB=108/216，raw偏置、alpha1、pair零R256/零训练，其余158位置为UB1。三动作真实主GEMM都为dense的50%。完整步骤之间恢复DQ输入，层间不恢复。
 
-严格按三阶段执行：4 DQ + 4 UB1；4 N0 + 4 N0 重复；前 16 项全部通过后执行 4 NA + 4 NB。每个完整四步必须有 1600 次模型 linear/QDQ、320 次真实 FFN 主 GEMM、正确的 0/160/158 补偿位置及零 raw fallback。每次完整 216 支持另做原教师同输入 Y/Q1/Q2 逐位控制，并单独计费。总上限 24 次、最多两卡、HF 新增不超过 0.5GiB、节点始终保留 80GiB；不落盘完整 M 激活或复制权重。
+先8项DQ/UB1，再8项N0/重复，全部通过后执行8项NA/NB。**24/24完成且数值与成本控制通过**：原四步DQ/UB1逐位复现、N0重复逐位相同、16个完整216原教师Y/Q1/Q2身份、每次1600模型linear/QDQ、320个真实主GEMM、正确补偿数量、零raw fallback。32次额外教师linear/QDQ单独计费。
 
-当前两张卡均被其他任务占用；没有抢占、终止或启动 D0 模型任务。执行前通过项目 GPU 锁和原生资源检查；数值控制失败即保留记录并停止本轮。D0 未过门槛只关闭这个零补偿三动作探针，不扩宽、不换来源、不调阈值。即使过关也不自动启动 D1、预测器或 rollout。
+汇总SSE：UB1=181764.492633；N0=187459.333938；NA=186876.716781；NB=188395.528387。最佳固定为NA，逐来源oracle为NB/NA/N0/NA，SSE=186443.298254。条件收益 **0.231928%<1%**；相对UB1反而 **增加2.574103%**。η=0，只通过噪声门槛。不存在新阈值、扩大q/宽度/来源或后续阶段触发。
 
-入口：`tools/run_paired_budget_value.py`；分析：`tools/analyze_paired_budget_value.py`；仅 CPU 的已执行准备：[preflight](R12_D0_CPU_preflight.json)。运行前必须通过 `python tools/check_research_routes.py --method-id R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE`，并核对 [冻结源绑定](R12_D0_before_execution.json)。
+## 失败归因的新增证据
 
-调度入口 `python3 tools/execute_paired_budget_value.py` 只排队这一个冻结 attempt。它等 GPU 空闲后再调用既有 worker 锁，逐阶段核对完整对照，不覆盖任何 RUN；遇控制失败保留 STOP 并停止后续生成。执行状态在忽略目录 `runs/r12d0_native_value_attempt1/EXECUTOR.json`。完整结果产生前不自动提交或推送。
+[预算扣回复算](R12_D0_budget_debit.json)在原R7和新D0的同源原生操作数SHA上核对：NA完整block30输出和随后block31输入完全一致；其将block31改为108组raw的合计代价7954.605357，超过历史完整恢复收益2842.381210。NB合计代价9496.708923，也超过收益2865.673169。代价包含缩宽和移除原偏置/gain/R256组合，不能称为纯宽度效果。N0仅移除两层校准组合已增加5694.841305 SSE。
 
-补充准备：[原始模型/输入/完整 TF2 张量身份](R12_D0_asset_preflight.json) 在 CPU 上通过，四来源原图与 seed42 完全一致；原生函数签名用源码 AST 检查，未伪造 CPU 上的 CUDA 可用性。[准备检查记录](R12_D0_pre_execution_checks.json)保留一次零模型生成的 CPU import 失败及修复。50 项相关离线测试通过；原生 QDQ/Y/writeback 仍须由实际 GPU 对照证明。
+这关闭固定raw实例，未关闭所有补偿、空间、跨步、信息或动态FFN机制。R4/R7/R9/R11的原协议和有限拒绝原样保留。没有新预测器、自由学生质量或完整FFN测速；诊断视频按构造为DQ。
 
-更新同步：已合并远端 `40a5e49` 的开放研究资料库和新指引；D0 不成为后续唯一方向。保留这次先前单独批准的固定诊断，未扩实验。正式模型调用仍为零时，将实际 HiF4 QType/QTensor、Python 层级量化及 CUDA 核心源的哈希补充到执行前绑定；未改变模型、算子、输入、动作或门槛。D0 文档现为 docs/68，以保留远端 docs/67 编号。
+## 节点、存储与执行记录
 
-用户随后明确提供另一个空闲节点。原排队 attempt1 已在零模型调用时终止并保留；新节点4张A10080GB，已检查GPU0/1的原环境CUDA可用。固定24次范围不变，转到 attempt2。正在镜像约172.2GiB原有资产（硬链接保持，允许上限175GiB）；新增实验输出仍限0.5GiB，保留80GiB。迁移校验和新的源绑定完成前资格暂为空；详见迁移记录，不重开旧实例。
+用户另行指定空闲节点后，镜像原模型/HiF4缓存，93项SHA全部通过；原排队attempt1为零模型调用并保留。实际仅在新节点GPU0/1执行attempt2，环境/权重/输入不变，四卡目前均空闲。新实验输出加协调端逐位收据/flow镜像共439223752字节（0.4091GiB），最低记录空闲123.27GiB；峰值GPU分配65.53GiB、保留78.10GiB。见[完整资源账本](R12_D0_completed_resources.json)。
 
-开放探索实做：新增 docs/69、HiF4_group_separability 和 native_tile_layouts。实际CPU原参考函数在8份保存输入上32项组/行边界检查通过，另4个冻结支持合成检查通过；组内0/4通道交换产生401个BF16差异。21个latent frame下10/11帧不是等行数半区；复制式左右tile额外约1.30GB/FFN。均非原生tile或质量/速度结果，不扩D0。
+协调器本地阶段屏障原先读不到节点本地HF收据，因此仅SIGSTOP协调器，保持模型任务运行，逐位镜像已完成JSON/flow后SIGCONT；两个屏障均保持原校验，没有修改冻结源码。最终48份收据/flow镜像校验通过，零额外模型生成。
 
-迁移已完成：93个原始模型/量化缓存文件SHA256全部通过，核验181494376197字节；节点剩余132610121728字节（约123.5GiB）。第二节点原始输入/资产和CPU pack复核通过；当前 active协议为 worker_migration 版本，原协议及零调用排队记录保留。只恢复原24次、最多两卡的资格，现在启动控制。
+私有日志、全部RUN与收据在忽略目录`runs/r12d0_native_value_attempt2`；flow/视频在HF派生缓存，公开结果使用中性相对locator。原执行协议、源码SHA和授权见[R12_D0_before_execution](R12_D0_before_execution.json)及其链接。当前路线检查会拒绝再次启动此方法。
+
+## 已完成的不同方向工作与复核入口
+
+[HiF4完整64组/行边界](../../docs/69_HiF4分组边界与空间动作的可执行布局.md)的实际CPU参考检查与组内重排反例、21帧真实布局算术已经保存。[新增信息/成本复算](R12_information_budget_discriminators.json)构造了相同均值但相反非线性方向的反例，并重核双专家密集冷启动和两GEMM代理成本；[docs/70](../../docs/70_条件信号与跨步方法的真实预算.md)核对Prox、Chipmunk和RAPID³原文。这些是源/数学/CPU结果，不是新原生tile或路由结果。
+
+```
+python3 tools/check_research_routes.py
+python3 tools/check_r12_d0_artifacts.py
+python3 tools/analyze_r12_budget_debit.py --output /tmp/r12_debit_review.json
+python3 tools/analyze_r12_information_budget.py --output /tmp/r12_information_review.json
+```
+
+当前开放研究资料库来自远端`40a5e49`，已合并且不是排他的实验队列。主目标仍为同一冻结D-Q模型的可部署输入/状态条件计算、真实完整FFN速度与新来源自由视频质量联合达标。下一项模型实验需要自己的实质机制、注册和授权；D0拒绝既不自动触发它，也不构成全局不可能结论。
+
+[最终检查记录](continuation_checks_R12_D0.json)：68项相关测试通过；不含`.runtime`/`runs`的干净Git导出再次通过68项、5个证据CLI和合成反事实smoke。公开元数据扫描覆盖两个私有节点标识并通过；关闭后的D0方法选择返回退出码2。

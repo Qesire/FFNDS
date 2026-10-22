@@ -1,0 +1,127 @@
+{
+  "id": "R12_INFORMATION_AND_BUDGET_DISCRIMINATORS",
+  "status": "COMPLETED_STDLIB_SYNTHETIC_AND_EXACT_ARITHMETIC",
+  "source_sha256": "f48b9d5b124a7d44a621a89ed4d3a28750ad4e4e73c5c626328aa8d86feb2a4e",
+  "new_model_generations": 0,
+  "CUDA_initialized": false,
+  "mean_only_selector_counterexample": {
+    "operator": "Synthetic2D W1=W2=identity, zero biases, unit gate, scalar tanh-GELU; no native QDQ/BF16 equivalence claimed.",
+    "inputs": [
+      [
+        [
+          2.0,
+          0.0
+        ],
+        [
+          -2.0,
+          0.0
+        ]
+      ],
+      [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          0.0,
+          -2.0
+        ]
+      ]
+    ],
+    "identical_means": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "tanh_GELU_hidden_energy": [
+      [
+        3.8225135151153946,
+        0.0
+      ],
+      [
+        0.0,
+        3.8225135151153946
+      ]
+    ],
+    "best_hidden_coordinate": [
+      0,
+      1
+    ],
+    "second_moments": [
+      [
+        4.0,
+        0.0
+      ],
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "finding": "Equal tile means can hide opposite useful nonlinear directions. A mean-only signal has no universal sufficient-information guarantee; this is not a Wan empirical failure."
+  },
+  "dense_anchor_delta_budget": {
+    "experts": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "assumption": "One full dense initial cache per expert, followed by sparse hidden updates at fractions rho1/rho3; equalM and widths.",
+    "global_main_MAC_fraction": "(2 + rho1 + rho3)/4",
+    "examples": [
+      {
+        "rho1": 0.0,
+        "rho3": 0.0,
+        "fraction": 0.5
+      },
+      {
+        "rho1": 0.125,
+        "rho3": 0.125,
+        "fraction": 0.5625
+      },
+      {
+        "rho1": 0.25,
+        "rho3": 0.25,
+        "fraction": 0.625
+      },
+      {
+        "rho1": 0.5,
+        "rho3": 0.5,
+        "fraction": 0.75
+      }
+    ],
+    "finding": "Any positive sparse update after both dense cold starts exceeds50% mainMAC. This reconfirms docs/55; partial anchors or a different representation lie outside the assumption."
+  },
+  "two_GEMM_GELU_proxy_budget": {
+    "assumption": "One approximate W1 selector retains input fraction k; exact selected W1/W2 use hidden fraction rho. Equal unit MAC costs; quantized kernel speed factors must be measured separately.",
+    "physical_MAC_fraction_including_proxy": "rho + k/2",
+    "examples": [
+      {
+        "rho": 0.5,
+        "k": 0.0,
+        "all_projection_MAC_fraction": 0.5
+      },
+      {
+        "rho": 0.5,
+        "k": 0.1,
+        "all_projection_MAC_fraction": 0.55
+      },
+      {
+        "rho": 0.5,
+        "k": 0.3,
+        "all_projection_MAC_fraction": 0.65
+      }
+    ],
+    "finding": "A retained50% main path leaves nonzero selector work. Prox SwiGLU three-projection/INT4 GEMV cost constants cannot be copied into this two-GEMM, fullM HiF4 baseline."
+  },
+  "scope": "Mathematical counterexample and source-aligned cost accounting. No rejection of every mean-based empirical router, sparse-delta algorithm or proxy family, and no new model eligibility.",
+  "preliminary_execution": {
+    "change": "Added the explicit synthetic operator assumptions; numerical inputs/results unchanged.",
+    "new_model_generations": 0
+  }
+}
