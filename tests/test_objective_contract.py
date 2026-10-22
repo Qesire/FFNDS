@@ -21,7 +21,13 @@ class ObjectiveContractTests(unittest.TestCase):
     def test_canonical_contract_referenced_without_releasing_model_jobs(self):
         self.assertEqual(self.current["objective_contract"], "research/OBJECTIVE_CONTRACT.json")
         self.assertEqual(self.triage["policy"]["objective_contract"], self.current["objective_contract"])
-        self.assertEqual(self.current["eligible_model_method_ids"], [])
+        if self.current['eligible_model_method_ids']:
+            self.assertEqual(self.current['eligible_model_method_ids'], ['R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE'])
+            registered = record(self.current['registered_diagnostic']['protocol'])
+            authorization = record(registered['authorization']['path'])
+            self.assertEqual(authorization['status'], 'EXPLICIT_USER_AUTHORIZATION')
+            self.assertFalse(registered['fresh_quality_acceptance'])
+            self.assertFalse(registered['automatic_followup_authorization'])
         self.assertIn("NO_EXECUTION_AUTHORIZATION", self.contract["status"])
         self.assertEqual(self.current["latest_objective_alignment"]["eligibility_effect"].split(";")[0], "NONE")
 

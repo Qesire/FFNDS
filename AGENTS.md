@@ -1,5 +1,7 @@
 # FFNDS research continuity
 
+**Current execution update (2026-10-22):** the original R12 agenda below remains exploration-only authority. After completed E0, the user separately approved the fixed D0 native-value diagnostic: [registration](research/20261022/R12_D0_registered_protocol.json), [explicit authorization](research/20261022/R12_D0_authorization.json), [current handoff](research/20261022/HANDOFF_R12_D0.md). Only `R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE` can be selected while its guarded registration is active: at most24 full four-step runs, controls first, no fitting/predictor/rollout or old-route reopening. Current selection and eventual closure still come from `CURRENT_DECISION.json`; this note does not permit a repeat after completion.
+
 ## Mandatory AutoResearcher v2.3 research behavior
 
 **Applies to every research agent.** Activate the locally installed [mechanism-research](.agents/skills/mechanism-research/SKILL.md), [research-expansion](.agents/skills/research-expansion/SKILL.md), and, for the paper agenda, [ffnds-paper-discovery](.agents/skills/ffnds-paper-discovery/SKILL.md) skills. Read the pinned original [AutoResearcher v2.3 AGENTS](research/agent_protocol/AUTORESEARCHER_AGENTS_v2_3.md) and relevant `core/` documents; provenance is in [SOURCE_MANIFEST.json](research/agent_protocol/SOURCE_MANIFEST.json).

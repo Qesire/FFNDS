@@ -1,0 +1,30 @@
+{
+  "id": "R12_D0_PRE_EXECUTION_CHECKS",
+  "status": "PASS_CPU_AND_OFFLINE_PREPARATION_NATIVE_CONTROLS_PENDING",
+  "new_model_generations": 0,
+  "preflight_packs": "research/20261022/R12_D0_CPU_preflight.json",
+  "preflight_assets": "research/20261022/R12_D0_asset_preflight.json",
+  "original_CPU_preflight_receipts": [
+    {
+      "locator": "attempt preparation receipts: CPU_preflight_v1.json",
+      "sha256": "f2b075045fc816c4047e957b5b6f593f08a072f4fe8689613e44fadd3a01fb78"
+    },
+    {
+      "locator": "attempt preparation receipts: CPU_preflight_v2.json",
+      "sha256": "d0162073a2b4b39be75116dff9b7d77c30ceea10b11fd9dbb56e4d5cd1f6933b"
+    },
+    {
+      "locator": "attempt preparation receipts: CPU_preflight_v3.json",
+      "sha256": "fa2595b55c2e998fdab8664d7ca671590ad5481701d1e658e7ebe66b80ea9649"
+    }
+  ],
+  "preserved_non_model_preparation_failure": {
+    "source_sha256": "820843685a585cc6da1826ae7608c1689d2b613f299c9be115abf2fe4e64dba0",
+    "receipt_sha256": "00380ac268e8207af4c66168f21b26a1b406513f986678b2494e46041e76d446",
+    "stage": "CPU-only import smoke, before loading any model",
+    "reason": "Native LightX2V import checks for a CUDA device; CPU wrapper deliberately hides both cards. Replaced the import with source AST signature checks; did not bypass the native device check in the model runner.",
+    "new_model_generations": 0
+  },
+  "original_gates_unchanged": true,
+  "actual_native_value_observed": false
+}

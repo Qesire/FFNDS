@@ -33,6 +33,8 @@ class ResearchRouteGuardTests(unittest.TestCase):
         patcher = mock.patch.object(Path, 'read_bytes', read_bytes)
         patcher.start()
         self.addCleanup(patcher.stop)
+        if self.decision['execution_state'] == guard.PAIRED_STATE:
+            self.use_native_binding_fixture()
 
     def use_native_binding_fixture(self):
         bindings = self.decision['registered_diagnostic']['source_sha256']
@@ -107,8 +109,19 @@ class ResearchRouteGuardTests(unittest.TestCase):
         self.assertEqual(self.errors(), [])
 
     def test_cli_returns_refusal_for_closed_recipe(self):
+        # CLI reads fresh records, unlike the in-memory native-source fixture.
+        # A clean public checkout intentionally lacks ignored native installs;
+        # exercise this policy-only CLI check in its historical closed state.
+        decision = copy.deepcopy(self.decision)
+        triage = copy.deepcopy(self.triage)
+        decision['execution_state'] = triage['policy']['execution_state'] = guard.CURRENT_STATE
+        decision['eligible_model_method_ids'] = []
+        for method in triage['methods']:
+            if method.get('model_execution_eligibility') == guard.READY:
+                method['model_execution_eligibility'] = 'NOT_SELECTED_IN_CLI_FIXTURE'
         with contextlib.redirect_stdout(io.StringIO()):
-            self.assertEqual(guard.main(["--root", str(ROOT), "--method-id", "R4E1"]), 2)
+            with mock.patch.object(guard, 'load_records', return_value=(decision, triage, self.summary, self.execution)):
+                self.assertEqual(guard.main(["--root", str(ROOT), "--method-id", "R4E1"]), 2)
 
     def test_diagnostic_cannot_register_a_second_method(self):
         self.use_archived_registration()

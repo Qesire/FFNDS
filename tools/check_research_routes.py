@@ -31,6 +31,8 @@ HEAD_STATE = "R4_CLOSED_NATIVE_HEAD_GRADIENT_READINESS_REGISTERED"
 HEAD_ID = "R11G1_NATIVE_HEAD_GRADIENT_READINESS"
 MATCHED_STATE = "R4_CLOSED_MATCHED_NATIVE_HEAD_OBJECTIVE_REGISTERED"
 MATCHED_ID = "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE"
+PAIRED_STATE = "R4_CLOSED_R12_D0_NATIVE_VALUE_REGISTERED"
+PAIRED_ID = "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE"
 RECIPE_ID = "R4E1_FIXED_H_16GROUP_Q2"
 RATIO_FIELDS = {
     "K1_matched_over_K0_matched": ("K0_matched", .98),
@@ -62,7 +64,7 @@ def validate_records(decision, triage, summary, execution, root=None):
     index, errors = build_index(triage)
     methods = {m["id"]: m for m in triage["methods"]}
     state = decision["execution_state"]
-    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE):
+    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE):
         errors.append("Current evidence audit requires an explicit migration for a new decision state")
     if triage["policy"]["execution_state"] != decision["execution_state"]:
         errors.append("Policy and current decision disagree")
@@ -82,10 +84,10 @@ def validate_records(decision, triage, summary, execution, root=None):
         errors.append("Eligible methods disagree with canonical decision")
     if canonical and state == CURRENT_STATE:
         errors.append("R5 closure records no eligible model follow-up; update evidence before changing the decision")
-    if state in (DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE):
+    if state in (DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE):
         selected = {DIAGNOSTIC_STATE: DIAGNOSTIC_ID, GAIN_STATE: GAIN_ID, FOLD_STATE: FOLD_ID,
                     ENCODING_STATE: ENCODING_ID, POPULATION_STATE: POPULATION_ID, LEARNED_STATE: LEARNED_ID,
-                    HEAD_STATE: HEAD_ID, MATCHED_STATE: MATCHED_ID}[state]
+                    HEAD_STATE: HEAD_ID, MATCHED_STATE: MATCHED_ID, PAIRED_STATE: PAIRED_ID}[state]
         if canonical != [selected]:
             errors.append("Only the fixed causal diagnostic is registered by this migration")
         registration = decision.get('registered_diagnostic', {})
@@ -234,6 +236,61 @@ def validate_records(decision, triage, summary, execution, root=None):
                         or previous['status'] != 'PASS_COMPLETE_FIXED_OBJECTIVE_COMPARISON'
                         or previous['completed_generations'] != 18):
                     errors.append('Native-gradient readiness lacks its completed fixed-secant prerequisite')
+            elif selected == PAIRED_ID:
+                specific = (protocol['status'] == 'REGISTERED_FIXED_R12_D0_CONTROLS_THEN_ACTIONS'
+                    and protocol['arms'] == {'N0': [162, 162], 'NA': [216, 108], 'NB': [108, 216]}
+                    and protocol['pair_correction'] == {'raw_biases': True, 'alpha': 1,
+                        'R256_positions': 0, 'trainable_parameters': 0, 'fitting_updates': 0}
+                    and protocol['execution_plan']['required_control_runs'] == 16
+                    and protocol['execution_plan']['intervention_runs'] == 8
+                    and protocol['execution_plan']['pipeline_generations_max'] == 24
+                    and protocol['execution_plan']['execution_root'] == 'runs/r12d0_native_value_attempt1'
+                    and protocol['execution_plan']['max_GPUs'] == 2
+                    and protocol['execution_plan']['node_free_reserve_GiB'] == 80
+                    and protocol['execution_plan']['new_HF_artifact_allowance_GiB'] == .5
+                    and protocol['gates'] == {'oracle_over_best_fixed_max': .99,
+                        'oracle_over_UB1_max': .99, 'headroom_over_eta_min_exclusive': 10}
+                    and protocol['fresh_quality_acceptance'] is False
+                    and protocol['automatic_followup_authorization'] is False)
+                required_sources = {'tools/run_paired_budget_value.py', 'tools/paired_budget_runtime.py',
+                    'tools/paired_budget_observer.py', 'tools/r12d0_contract.py',
+                    'tools/analyze_paired_budget_value.py', 'tools/preflight_paired_budget_value.py',
+                    'tools/check_research_routes.py', 'tools/preflight_paired_budget_assets.py',
+                    '.runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py',
+                    '.runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py',
+                    '.runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py',
+                    '.runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py',
+                    '.runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py'}
+                for field in ('authorization', 'operand_audit', 'CPU_preflight', 'original_draft', 'asset_preflight', 'original_pair_identities'):
+                    binding = protocol[field]
+                    record_path = base / binding['path']
+                    if (not record_path.resolve().is_relative_to(base.resolve())
+                            or hashlib.sha256(record_path.read_bytes()).hexdigest() != binding['sha256']):
+                        errors.append('R12 D0 frozen prerequisite changed: ' + field)
+                authorization = json.loads((base / protocol['authorization']['path']).read_text())
+                preflight = json.loads((base / protocol['CPU_preflight']['path']).read_text())
+                audit = json.loads((base / protocol['operand_audit']['path']).read_text())
+                assets = json.loads((base / protocol['asset_preflight']['path']).read_text())
+                if (authorization['status'] != 'EXPLICIT_USER_AUTHORIZATION'
+                        or authorization['method_id'] != PAIRED_ID
+                        or authorization['user_message'] != '直接做！！！加油！！！！'
+                        or authorization['draft_sha256'] != protocol['original_draft']['sha256']
+                        or authorization['scope']['pipeline_generations_max'] != 24
+                        or authorization['scope']['new_training_updates'] != 0
+                        or preflight['status'] != 'PASS_R12_D0_CPU_PREFLIGHT_NOT_NATIVE_PROOF'
+                        or preflight['CUDA_initialized'] is not False
+                        or preflight['new_model_generations'] != 0
+                        or preflight['operand_audit_sha256'] != protocol['operand_audit']['sha256']
+                        or preflight['draft_sha256'] != protocol['original_draft']['sha256']
+                        or preflight['all_pair_weight_variant_bytes'] != 1274019840
+                        or audit['status'] != 'PASS_CPU_SAVED_OPERAND_AUDIT_NO_MODEL_RUN'
+                        or assets['status'] != 'PASS_R12_D0_ORIGINAL_ASSETS_INPUTS_STATIC_SIGNATURES_CPU_ONLY'
+                        or assets['CUDA_initialized'] is not False or assets['new_model_generations'] != 0
+                        or assets['source_sha256'] != registration['source_sha256']['tools/preflight_paired_budget_assets.py']):
+                    errors.append('R12 D0 lacks explicit scoped authorization and actual CPU prerequisites')
+                for relative, expected in preflight['sources'].items():
+                    if registration['source_sha256'].get(relative) != expected:
+                        errors.append('R12 D0 prepared and registered implementation differ: ' + relative)
             else:
                 specific = (protocol['status'] == 'REGISTERED_FIXED20_MATCHED_LOCAL_NATIVE_OBJECTIVES'
                     and protocol['inputs']['training_indices'] == [0, 5, 10]

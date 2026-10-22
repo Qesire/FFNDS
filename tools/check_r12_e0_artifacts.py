@@ -87,9 +87,29 @@ def validate(audit, geometry, draft, runtime, current, triage):
     need(costs["pair_main_MAC_per_video"] == 2 * 31668 * 5120 * 64 * 324, "pair MAC arithmetic changed")
     need(costs["all_dense_main_MAC_per_video"] == 2 * 31668 * 5120 * 13824 * 160, "dense MAC arithmetic changed")
     need(costs["all_UB1_main_MAC_per_video"] * 2 == costs["all_dense_main_MAC_per_video"], "global mainMAC changed")
-    need(current["eligible_model_method_ids"] == [], "E0 cannot grant model eligibility")
+    # E0 is immutable historical evidence. A later, explicitly authorized D0
+    # registration is separate authority; E0 or its original draft cannot grant it.
+    if current['eligible_model_method_ids']:
+        allowed = False
+        try:
+            registration = current['registered_diagnostic']
+            protocol = read(registration['protocol'])
+            authorization = read(protocol['authorization']['path'])
+            allowed = (draft['status'] == 'DRAFT_ONLY_NOT_REGISTERED_NOT_ELIGIBLE'
+                and current['eligible_model_method_ids'] == ['R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE']
+                and current['execution_state'] == 'R4_CLOSED_R12_D0_NATIVE_VALUE_REGISTERED'
+                and protocol['status'] == 'REGISTERED_FIXED_R12_D0_CONTROLS_THEN_ACTIONS'
+                and digest(registration['protocol']) == registration['protocol_sha256']
+                and protocol['operand_audit']['sha256'] == digest(BASE + 'R12_E0_operand_audit.json')
+                and digest(protocol['authorization']['path']) == protocol['authorization']['sha256']
+                and authorization['status'] == 'EXPLICIT_USER_AUTHORIZATION')
+        except (KeyError, OSError, ValueError, TypeError):
+            pass
+        need(allowed, 'E0 cannot grant model eligibility')
     need(current["latest_static_review"] == triage["latest_static_review"], "current/triage E0 mismatch")
-    need(current["handoff"] == BASE + "HANDOFF_R12_E0.md", "current handoff not updated")
+    need(current['handoff'] == BASE + 'HANDOFF_R12_E0.md'
+         or (BASE + 'HANDOFF_R12_E0.md' in current.get('historical_handoffs', [])
+             and (ROOT / current['handoff']).is_file()), 'current handoff not updated')
     return errors
 
 
