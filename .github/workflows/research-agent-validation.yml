@@ -71,3 +71,10 @@ jobs:
           python tools/check_r14_native_value.py
           python -m unittest discover -s tests -p 'test_r14*.py' -v
           python -m unittest discover -s tests -p 'test_stripe*.py' -v
+      - name: Verify four-row backend and guarded paired-video implementation
+        run: |
+          python tools/check_r15_artifacts.py
+          python tools/check_r15_rollout.py
+          python -m unittest discover -s tests -p 'test_r15_records.py' -v
+          python -m unittest discover -s tests -p 'test_worker_idle_launcher.py' -v
+          python -m unittest discover -s tests -p 'test_paired_rollout_contract.py' -v

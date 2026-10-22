@@ -1,3 +1,27 @@
+# R15 handoff — paired videos completed
+
+The actual method now runs through the full native four-step video chain. Read [docs/77](../../docs/77_R15完整四位置响应与配对视频跑通记录.md), the [native result](R15V0_native_rollout_results.json), the [complete decoded-frame review](R15V0_full_duration_review.json), and the candidate registry. Use these actual outputs to guide implementation progress.
+
+R15V0 completed exactly one dense D-Q video and one candidate video on old calibration24 source0, seed42. Both are 832×464,81 frames,16fps. The candidate ran at block20 in all four steps:8 actual boundaries,20 physical candidate linears. Each arm has1600 logical native linear/QDQ boundaries and zero cache misses, weight transfers or placeholder fallbacks. Initial noise SHA matches; each student's states evolve freely without dense resets or output splicing. Two fixed weight-only rank256 factorizations completed, with zero training. Peak allocation was63.026GiB; HF generation/factor/review artifacts total30.11MB.
+
+All81 paired frames, spanning0.000–5.000s, were visually inspected through seven timecoded contact pages, plus full-resolution face/fish crops every8 frames. No obvious additional catastrophic subject, motion, scene or stable-treeline lighting failure was visible. Fish detail drifts in both clips. The review explicitly identifies agent inspection of the complete decoded frame sequence; it does not claim human real-time playback. This is one old-source, four-of160-position generation and agent frame review. The metric catalog requires human full-video review before formal smoke PASS; that review remains pending, so the registry has not promoted the candidate. It does not establish whole-model dynamic routing, population official quality, subtle flicker safety or native speed/Pareto.
+
+The complete playable left-dense/right-candidate video, originals, contact pages and detail page remain under the HF cache. Public receipts contain neutral relative locators and SHA values. Decoder success did not automatically grant visual PASS. The75.333s/55.368s generation wall observations include fixed cold/warm order and observation work: they are not a speed benchmark, and their ratio must not be called method acceleration.
+
+The [direct authority](R15V0_authorization.json) preserves the human reply “跑啊等啥快点啊” to the fixed-pair question. The [registered protocol](R15V0_registered_protocol.json) and approved draft are immutable. The first occupied-card refusal occurred before model Python, with zero generations or factorizations; its [receipt](R15V0_dispatch_preflight_failure.json) is preserved. The idle-card coordinator then completed one model process without retry. Slow startup was installed Transformers/shared-filesystem traversal. A read-only metadata warmup and short read-only syscall trace changed no code, weights or dependencies. Future separately authorized runs should explicitly bind/select the previously verified local source view before imports; this run did not change paths midway.
+
+The fixed budget is spent and model eligibility is empty. There is no automatic repeat, source/rank/position sweep, training, whole-model rollout, official quality model or benchmark. Future empirical work needs its own concrete scope and user authority. Continue source and implementation work from the actual paired outputs; this four-site smoke is not full sparse-method validation.
+
+Offline verification: `python3 tools/check_research_routes.py`, `python3 tools/check_r15_artifacts.py`, `python3 tools/check_r15_rollout.py`, `python3 tools/check_candidate_rollout_gate.py`, and the R15/contract unit tests. Entry points are `tools/run_paired_mean_contrast_rollout.py`, `tools/rollout_mean_contrast.py`, `tools/inspect_paired_rollout_videos.py` and `tools/export_paired_rollout.py`.
+
+Earlier CPU/backend evidence remains separate:256 saved groups, original HiF4 counterexamples,6 fusion controls,12 QDQ controls and42 synthetic timings. The fused four-row chain's34.4184ms versus dense53.1074ms is random-tensor evidence. R14N0, D0 and other original finite closures, protocols and results remain unchanged.
+
+The latest metric runbook and two concurrent upstream commits were reconciled. Its usage verifier passes16 historical scalar checks and the synthetic mathematical fixtures. A subsequent CPU-only analysis of the actual81-frame pair reports pooled RGB MSE280.645667, MAE8.047402, pooled-MSE PSNR23.649220dB and mean per-frame PSNR23.852673dB; worst MSE isframe72 at4.5s. All81 decoded frames and all four free latent states differ. See [actual RGB fidelity](R15V0_decoded_pair_difference.json). This post-hoc F1 observation includes texture and motion divergence; it is not official/perceptual quality, an independent-source result or a success threshold. No additional model/evaluator call was made.
+
+## Preserved metric-library handoff from12015d8
+
+The following is the separately completed metric-review snapshot. Its zero-new-model-run statements describe that review, before the independent native R15V0 result above. Its sources, methods and pending official evaluations remain applicable.
+
 # R15：学术指标族、已存证据复算和跨层证据门禁（2026-10-23）
 
 **研究结论：**指标定义和实测证据必须分开。已建立 10 个指标族、93 条定义/统计方法；这不是 93 次测量，也没有任何新候选视频或原生模型速度。原来 34 条 L0–L5 claim/观测目录仍管理已经观测的数据，新的学术族目录负责指导论文指标选择。

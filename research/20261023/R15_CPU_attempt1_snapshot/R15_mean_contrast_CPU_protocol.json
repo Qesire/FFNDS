@@ -1,0 +1,57 @@
+{
+  "id": "R15_EXACT_MEAN_APPROXIMATE_CONTRAST_CPU",
+  "status": "FROZEN_NON_MODEL_CPU_DISCRIMINATOR",
+  "evidence_base_commit": "14b44e7d0e15c8a523f9e894b13edea53049cd0a",
+  "indices": [
+    1,
+    11,
+    0,
+    10
+  ],
+  "contrast_scales": [
+    0.125,
+    0.0625,
+    0.03125,
+    0.015625,
+    0.0078125,
+    0.00390625,
+    0.001953125,
+    0.0009765625
+  ],
+  "input_sha256": {
+    "research/20261022/R14N0_native_results.json": "2124881b20f80085cc0953cc7d39862beaae43c88723cdd9953648ea44b29dd4",
+    "research/20261022/R14N0_saved_failure_analysis.json": "731c9fa521efd51f03cf3789bda74fd54f9ecdce8db6931571fd692ff3af1890",
+    "tools/audit_hif4_group_separability.py": "11498defcf3c1b0457280a123c1cad71d3c592ce629e67cbefb626adabf02ea4",
+    "tools/analyze_complete_stripe_failure.py": "1ee1cc9eba514548b82df9dc8236b20ee64cae76dba86a40593e0b913d10e32f",
+    "tools/stripe_teacher_capture.py": "6ec6610f722b4598ff23b184288a1bb982369b406a8a43ad2886c1e145328eb9",
+    "tools/r14_stripe_contract.py": "88e7f0ebf57e7c9fde84699e6ca1e6cca50ec2f8f9bf8c74ee210c181f59f4e1",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QFuncs/hifx.py": "6a8d1f1b8ea49ce099439cff251309b4d9b3eeeab6a7ee0a83bdcf85b24704f7"
+  },
+  "capture_receipt_sha256": "51b718971aa7f73f9115f61dd247650d15b450bf0a070d5b15cfbc86bc0bcf7c",
+  "frozen_affine_sha256": "135a941cd13a1cdd76ba6bab2609fe1808ac76dbdcab6882f1fffb7fe9c2276c",
+  "question": "Does exact mean W1 with rank-reduced centered contrasts differ structurally from full-input low-rank compression; does smooth cancellation survive the unchanged group64 HiF4 boundary; how much contrast/group headroom is in saved complete neighborhoods?",
+  "work": "Exact finite scalar quadratic/GELU calculations; 16 unchanged original Python reference Q2 calls on synthetic4x64 arrays; descriptive4saved scopes with4existing-A CPU FP64 projections and original elementwise writeback only. No original W1/W2/model/native pipeline or fitting.",
+  "resources": {
+    "CPUs": 8,
+    "GPUs": 0,
+    "original_W1_W2_calls": 0,
+    "native_FFN_calls": 0,
+    "model_generations": 0,
+    "parameter_fits": 0,
+    "max_public_output_bytes": 524288
+  },
+  "decision_under_alternatives": {
+    "smooth_cancellation_holds_quantizer_breaks": "Keep exact-mean contrast representation as an open mechanism; reject a universal smooth/Gaussian guarantee through HiF4. A future candidate must preserve/check joint four-row Q2 and charge its full cost.",
+    "saved_contrast_energy_not_small": "Do not use small-neighbor-distance as an unmeasured Wan premise; a contrast-aware representation needs actual error evidence.",
+    "some_groups_floor_worse_than_UB1": "A common-response approximation has a scoped intrinsic contrast obstruction in the smooth class. Conditional grouping/de-merging could be a distinct action; no native rule is selected or run."
+  },
+  "limitations": [
+    "Synthetic W/B are fixed manually, not decomposed/fitted Wan weights. Exact real mean identity is not bitwise native BF16 mean preservation.",
+    "All4saved sources and64groups/source are fully old/exposed and one step2/block20; descriptive spectra/correlations are not selector validation.",
+    "The FP64 common-post minimum is exact only in an unrestricted smooth additive reference class. It is not a native BF16 action bound.",
+    "Native four-row GELU/HiF4, contrast factors, full pooled W2, selection, layout and writeback costs are unmeasured. Main MAC is not latency.",
+    "This static representation is an exploratory foundation, not an input-conditioned algorithm or novelty/quality claim. Historical D0 and R14N0 stay closed; no model eligibility change."
+  ],
+  "source_sha256": "4064ad33108b4c531653cfa5d1546d51d4b37b61920a885816e11627de2a9606"
+}

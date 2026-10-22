@@ -18,9 +18,9 @@ SPEC.loader.exec_module(guard)
 class ResearchRouteGuardTests(unittest.TestCase):
     def setUp(self):
         self.decision, self.triage, self.summary, self.execution = copy.deepcopy(guard.load_records(ROOT))
-        if self.decision['execution_state'] == guard.STRIPE_STATE:
+        if self.decision['execution_state'] in (guard.STRIPE_STATE, guard.ROLLOUT_STATE):
             # These legacy policy mutations concern the completed R4/D0 state.
-            # R14N0's live/archived authority is tested independently below.
+            # R14N0 and R15V0 authority have independent registration tests.
             before = json.loads((ROOT / 'research/20261022/R14N0_before_execution.json').read_text())
             self.decision, self.triage = copy.deepcopy((before['decision_before'], before['triage_before']))
         # These tests exercise policy/registration mutations, not installed model

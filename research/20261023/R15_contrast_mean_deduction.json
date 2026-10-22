@@ -1,0 +1,41 @@
+{
+  "id": "R15_EXACT_MEAN_CENTERED_CONTRAST_DEDUCTION",
+  "status": "CONDITIONAL_SMOOTH_PROOF_AND_SOURCE_COUNTEREXAMPLE_NOT_MODEL_METHOD",
+  "operator": {
+    "domain": "Four current original postQ1 rows x_i in a complete horizontal neighborhood; no second Q1 of virtual coordinates.",
+    "coordinates": "mu=mean_i x_i; delta_i=x_i-mu; sum_i delta_i=0. Three Haar directions span these centered four rows.",
+    "preactivations": "z0=W1*mu+b0; zhat_i=z0+B*delta_i; B=U_r*V_r acts only on centered contrasts.",
+    "output": "yhat_i=A*delta_i+W2*mean_j Phi(zhat_j)+b2; Phi is original BF16 tanhGELU/smooth2/group64 HiF4. All four approximate joint hidden rows are evaluated.",
+    "equivalent_form": "zhat_i=B*x_i+b0+(W1-B)*mu. This is a current-group-conditioned bias correction, not an invented generic low-rank identity.",
+    "rounding": "Real arithmetic formulas; implemented BF16 mean/Haar/GEMM/reconstruction and postQ2 pooling define a different rounded path. Native original-model controls remain unrun."
+  },
+  "smooth_theorem": {
+    "assumptions": "phi has an L-Lipschitz Jacobian over every segment z0+u_i+t*e_i, u_i=B*delta_i,e_i=(W1-B)*delta_i,t in[0,1]. Real centered rows, fixed W1/B/b0.",
+    "bound": "norm(mean_i(phi(z0+u_i+e_i)-phi(z0+u_i))) <= L*mean_i(norm(u_i)*norm(e_i))+(L/2)*mean_i(norm(e_i)^2).",
+    "proof": [
+      "Integrate the Jacobian on each segment: phi(z0+u+e)-phi(z0+u)=J_phi(z0)*e + integral_0^1 (J_phi(z0+u+t*e)-J_phi(z0))*e dt.",
+      "Average: sum_i e_i=(W1-B)*sum_i delta_i=0, so the common first-order term vanishes.",
+      "Use the Lipschitz-Jacobian bound L*(norm(u_i)+t*norm(e_i))*norm(e_i) and integrate t."
+    ],
+    "implication": "Scale all deltas by t with fixed mean, operators and local L: pooled smooth error is O(t^2). Full-input low-rank approximation also changes W1*mu, so its mean error need not vanish as t->0.",
+    "boundary": "Not a theorem for discontinuous BF16/HiF4. The recorded synthetic original-quantizer case falsifies transferring the smooth bound across that boundary."
+  },
+  "covariance_obstruction": {
+    "assumptions": "Centered four-row empirical covariance Sigma in input-feature space; any one symmetric two-point rule has covariance c*c^T of rank<=1.",
+    "identity": "min_rank1_projector_P trace((I-P)*Sigma)/trace(Sigma)=1-lambda_max(Sigma)/trace(Sigma).",
+    "saved_input_result": "Across each source median,56%-60% of empirical input contrast variance lies outside even the best one-dimensional subspace. A single two-point pair cannot preserve this covariance in all directions.",
+    "limits": "This is input-space geometry, not a lower bound on Wan nonlinear/output error. W1, Hessians, quantizer cells and gates may weight/annihilate directions. Spatial rank perstripe differs from the global feature rank r of B."
+  },
+  "smooth_common_post_class": {
+    "class": "p_i=Residual_i+gate*A*delta_i+beta_g, unrestricted real common beta_g. Use saved exact native teacher post as target.",
+    "optimum": "beta_g=mean_i(teacherPost_i-Residual_i-gate*A*delta_i); minimum sum_i norm(e_i-mean(e))^2.",
+    "fixed_beta_identity": "SSE(beta)=SSE(beta_opt)+4*norm(beta-beta_opt)^2.",
+    "saved_result": "Development0/10: minimum6773.277601882903 vsnativeUB18183.322743666336,ratio.827692835;16/128groups individually have this smooth-class floor above their ownUB1 loss.",
+    "nested_refinement": "Allow independent common offsets for fixed pairs(0,1),(2,3): the real class contains the four-row class; its minimum cannot increase. This suggests adaptive grouping/refinement as a different action, not an executed policy.",
+    "limits": "The unrestricted real-post class is not the native BF16 before-gate action class. These floors are not native action/original-model/video bounds; no labels are available to deploy the optimum."
+  },
+  "nearest_prior_art": "ICCV2017 SVD bias compensation already derives b_hat=b+(W-B)*mean_x. The proposed changing local-current-group mean, pooled joint Q2, full W2 and own affine contrasts are the specific computation under investigation; no originality claim.",
+  "native_registration": null,
+  "model_execution_eligibility_change": false,
+  "next_discriminator": "First measure actual full four-row Q2/backend cost. Before any new real-weight/operator/fitting study, independently register a narrow comparison with source/precision/input bindings and obtain direct human authority. A static foundation is not yet dynamic sparsity."
+}

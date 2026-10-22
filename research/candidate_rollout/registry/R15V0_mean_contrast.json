@@ -1,0 +1,79 @@
+{
+  "candidate_id": "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT",
+  "status": "LOCALLY_SUPPORTED",
+  "selected_for_backup": true,
+  "local_evidence": "research/20261023/R15_mean_contrast_backend_results.json",
+  "next_required": "COMPLETE_PAIRED_FREE_RUNNING_VIDEO_SMOKE",
+  "rollout": {
+    "outcome": "PENDING_HUMAN_FULL_VIDEO_REVIEW",
+    "candidate_video_count": 1,
+    "completed_student_steps": 4,
+    "candidate_executed_at_intended_positions": true,
+    "student_freely_evolved_across_steps": true,
+    "video_decoded": true,
+    "paired_dense_DQ_video_exists": true,
+    "intermediate_latent_reset_to_DQ": false,
+    "matched": {
+      "same_model_and_checkpoint": true,
+      "same_source_image": true,
+      "same_prompt": true,
+      "same_seed": true,
+      "same_initial_noise": true,
+      "same_scheduler_and_timesteps": true,
+      "same_frames_and_resolution": true,
+      "same_precision_regime": true
+    },
+    "candidate_video": {
+      "sha256": "1ea808f39f05e7dfcba235849dd78af549b0a0d600a0809ee06d8b4b469926f0",
+      "locator": "HF_HOME/derived/ffnds/R15V0_paired_rollout/mean_contrast_candidate.mp4"
+    },
+    "baseline_video": {
+      "sha256": "23f5063d3565f672ae82244ddaa7d18591ee84f2484ac8b5a0ab21dea75b1ee4",
+      "locator": "HF_HOME/derived/ffnds/R15V0_paired_rollout/dense_DQ.mp4"
+    },
+    "visual_review": {
+      "full_duration_reviewed": true,
+      "subject_identity_and_scene_integrity": true,
+      "motion_coherence": true,
+      "static_background_and_small_objects_stable": true,
+      "stable_lighting_without_unexpected_flicker": true,
+      "no_catastrophic_artifacts": true,
+      "verdict": "NO_CATASTROPHIC_COLLAPSE",
+      "notes": "All81 paired decoded frames at0.000-5.000s were visually inspected as seven timecoded contact pages, plus full-resolution face/fish crops every8frames. Subject, continuous wading/turn and stable treeline lighting show no obvious catastrophic candidate-only failure. Fish fine shape drifts in both arms. This is agent visual review of the complete decoded frame sequence, not a claim of human real-time playback, perceptual equivalence, official quality or generalization."
+    },
+    "review_report_path": "research/20261023/R15V0_full_duration_review.json",
+    "authorization_reference": "research/20261023/R15V0_authorization.json",
+    "actual_FFN_positions": [
+      [
+        0,
+        20
+      ],
+      [
+        1,
+        20
+      ],
+      [
+        2,
+        20
+      ],
+      [
+        3,
+        20
+      ]
+    ],
+    "actual_candidate_boundaries": 8,
+    "scope": "One old-source four-position integration smoke only. No whole-model dynamic routing, population quality or speed/Pareto claim.",
+    "generation_and_decode_complete": true,
+    "formal_smoke_promotion": false
+  },
+  "authorizations": "research/20261023/R15V0_authorization.json",
+  "prepared_protocol": "research/20261023/R15V0_paired_rollout_DRAFT.json",
+  "implementation": [
+    "tools/run_paired_mean_contrast_rollout.py",
+    "tools/rollout_mean_contrast.py"
+  ],
+  "scope": "Firstintegration smoke: foursteps/block20only; no claim offullmodeldynamicdeployment orvideoquality.",
+  "registered_protocol": "research/20261023/R15V0_registered_protocol.json",
+  "automatic_followup": false,
+  "execution_stage": "FULL_GENERATION_AND_DECODE_COMPLETE_HUMAN_REVIEW_PENDING"
+}

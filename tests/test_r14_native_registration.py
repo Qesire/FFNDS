@@ -33,12 +33,14 @@ class StripeRegistrationTests(unittest.TestCase):
         self.preflight = json.loads(self.preflight_path.read_text())
         self.auth_path = ROOT / self.protocol['authorization']['path']
         self.auth = json.loads(self.auth_path.read_text())
-        # Native installs are intentionally absent in clean CI. These are
-        # explicit synthetic in-memory source bytes, never production proofs.
+        # Native installs are intentionally absent in clean CI. The shared
+        # route guard also evolves after this historical registration. These
+        # are explicit in-memory fixture bytes, never historical source proofs;
+        # original executed hashes in the actual records remain unchanged.
         synthetic = {}
         bindings = d['registered_diagnostic']['source_sha256']
         for relative in bindings:
-            if relative.startswith('.runtime/'):
+            if relative.startswith('.runtime/') or relative == 'tools/check_research_routes.py':
                 content = ('UNIT_TEST_NATIVE_BINDING_ONLY:' + relative).encode()
                 synthetic[ROOT / relative] = content
                 bindings[relative] = hashlib.sha256(content).hexdigest()

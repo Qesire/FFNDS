@@ -21,7 +21,16 @@ class ObjectiveContractTests(unittest.TestCase):
     def test_canonical_contract_referenced_without_releasing_model_jobs(self):
         self.assertEqual(self.current["objective_contract"], "research/OBJECTIVE_CONTRACT.json")
         self.assertEqual(self.triage["policy"]["objective_contract"], self.current["objective_contract"])
-        if self.current['eligible_model_method_ids']:
+        if self.current['eligible_model_method_ids'] == ['R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT']:
+            registered = record(self.current['registered_rollout']['protocol'])
+            authorization = record(registered['authorization']['path'])
+            self.assertEqual(authorization['status'], 'EXPLICIT_EXACT_SCOPE_USER_AUTHORIZATION')
+            self.assertEqual(authorization['method_id'], registered['id'])
+            self.assertEqual(registered['caps'], {
+                'full_generations': 2, 'offline_weight_factorizations': 2, 'training_steps': 0})
+            self.assertFalse(registered['automatic_followup'])
+            self.assertFalse(registered['reset_between_steps'])
+        elif self.current['eligible_model_method_ids']:
             self.assertIn(self.current['eligible_model_method_ids'],
                           [['R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE'], ['R14N0_COMPLETE_STRIPE_NATIVE_VALUE']])
             registered = record(self.current['registered_diagnostic']['protocol'])

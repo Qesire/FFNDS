@@ -1,0 +1,26 @@
+{
+  "id": "R15_JOINT_QUANTIZER_VS_ROW_LOCAL_ACTIVATION_KERNEL",
+  "status": "FROZEN_SYNTHETIC_CPU_SOURCE_DISCRIMINATOR",
+  "target_post_GELU": 0.125,
+  "other_channel_anchors": [
+    7.0,
+    14.0
+  ],
+  "source_sha256": "d496749b71d0af7a32ba44ca6d77b04ac7eefe1d4a3235f75ae6a71fd3826163",
+  "input_sha256": {
+    "tools/audit_hif4_group_separability.py": "11498defcf3c1b0457280a123c1cad71d3c592ce629e67cbefb626adabf02ea4",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QFuncs/hifx.py": "6a8d1f1b8ea49ce099439cff251309b4d9b3eeeab6a7ee0a83bdcf85b24704f7"
+  },
+  "work": "One unchanged original Python HiF4 call on two synthetic64-channel rows. Same target activation. Only channel63 changes. No Wan weights, W1/W2, model, GPU or fit.",
+  "prediction": "Target output changes from.25to0. A scalar-neuron kernel cannot universally reproduce joint Q2 by replacing only elementwise GELU.",
+  "resources": {
+    "CPUs": 8,
+    "GPUs": 0,
+    "quantizer_reference_calls": 1,
+    "synthetic_rows": 2,
+    "model_generations": 0,
+    "fits": 0
+  },
+  "limits": "Counterexample after synthetic GELU-boundary activation; not actual Wan error or impossibility of a group-aware learned feature map."
+}

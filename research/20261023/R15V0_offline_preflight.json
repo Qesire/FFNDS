@@ -1,0 +1,31 @@
+{
+  "id": "R15V0_PAIRED_IMPLEMENTATION_PREFLIGHT",
+  "status": "PASS_OFFLINE_PREPARATION_NOT_MODEL_EXECUTION",
+  "draft_sha256": "7de653968b4f29f1b0e555bc0d9fb6b761e5da90d4062ff8f6d9777cc97a741e",
+  "source_bindings_verified": 14,
+  "input_metadata_bindings_verified": 6,
+  "guarded_before_torch": true,
+  "new_model_generations": 0,
+  "CUDA_initialized": false,
+  "checks": [
+    {
+      "command": "python3 tools/check_research_routes.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 tools/check_candidate_rollout_gate.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 tools/check_metric_contract.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 tools/check_r14_native_value.py",
+      "exit_code": 0
+    }
+  ],
+  "limitation": "Syntax, source/metadata binding and refusal guards only; original real-weight factors and native hook/video are not yet executed.",
+  "native_epilogue_boundary_checked": "BF16 contrast thenBF16 response add; same intended boundaries as backend reference. Modelhook notyetexecuted.",
+  "focused_stdlib_tests": 142
+}

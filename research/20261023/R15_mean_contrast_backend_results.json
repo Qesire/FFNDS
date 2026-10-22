@@ -1,0 +1,393 @@
+{
+  "id": "R15H0_EXACT_MEAN_CONTRAST_SYNTHETIC_COST",
+  "status": "COMPLETED_FIXED_SYNTHETIC_CONTRAST_REPRESENTATION_COST",
+  "protocol_sha256": "12a0a0a8b03928381863e9ff6cbfd79ee6facebb3196528c85327f7b247a89e0",
+  "source_sha256": {
+    "tools/probe_mean_contrast_backend.py": "a2900f50909efa96edf6c04ccce9c72577cde0f6d516ae0e508e37530dc39a41",
+    "tools/mean_contrast_kernels.py": "2e9971f341536636e7722e067f1dbd779b7c823dae814d308ed79f0870622263",
+    "tools/probe_mean_contrast_representation.py": "31eead5c03de5fc9200debd566b9fefe8d538a2f6fce00e89ada3de93788553d",
+    "tools/spatial_contrast_kernels.py": "59fc9c76c7574d31dade2dc8943ccfa12068c6734d89de5402384c0b04c8880f",
+    "tools/probe_three_direction_backend.py": "4059018759f37a317bd94fc5e1a12cb3c58744c1d5eac29cb88e4effd7408176",
+    "scripts/worker_idle_exec.sh": "7413e56455d04f4a5e2009fa5135e3dab36b074d939e319c5c8a7f1ac4e1191b"
+  },
+  "device": "NVIDIA A100 80GB PCIe",
+  "torch": "2.10.0+cu128",
+  "fusion_controls": [
+    {
+      "name": "prepared_three_contrasts",
+      "shape": [
+        23751,
+        5120
+      ],
+      "BF16_bit_mismatches": 0,
+      "finite": true
+    },
+    {
+      "name": "prepared_mean",
+      "shape": [
+        7917,
+        5120
+      ],
+      "BF16_bit_mismatches": 0,
+      "finite": true
+    },
+    {
+      "name": "four_preactivation_rows",
+      "shape": [
+        31668,
+        13824
+      ],
+      "BF16_bit_mismatches": 0,
+      "finite": true
+    },
+    {
+      "name": "pooled_four_post_Q2_rows",
+      "shape": [
+        7917,
+        13824
+      ],
+      "BF16_bit_mismatches": 0,
+      "finite": true
+    },
+    {
+      "name": "inverse_gate_residual",
+      "shape": [
+        31668,
+        5120
+      ],
+      "BF16_bit_mismatches": 0,
+      "finite": true
+    },
+    {
+      "name": "full_pipeline",
+      "shape": [
+        31668,
+        5120
+      ],
+      "BF16_bit_mismatches": 0,
+      "finite": true
+    }
+  ],
+  "original_QDQ_controls": [
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        6912
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        11875,
+        13824
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        5120
+      ],
+      "BF16_bit_mismatches": 0
+    },
+    {
+      "shape": [
+        31668,
+        13824
+      ],
+      "BF16_bit_mismatches": 0
+    }
+  ],
+  "all_controls_before_timing": true,
+  "samples_ms": {
+    "dense": [
+      52.14924621582031,
+      51.49660873413086,
+      53.10736083984375,
+      53.4738883972168,
+      51.58153533935547,
+      53.743743896484375,
+      54.942047119140625
+    ],
+    "UB1_half_R256_proxy": [
+      33.12793731689453,
+      31.866912841796875,
+      32.03596878051758,
+      32.146400451660156,
+      32.609375,
+      32.30323028564453,
+      32.13324737548828
+    ],
+    "R14_two_point_fused_fixed": [
+      28.26268768310547,
+      27.22118377685547,
+      27.75699234008789,
+      27.98953628540039,
+      27.82080078125,
+      27.62713623046875,
+      27.620576858520508
+    ],
+    "full_input_factors_r1536": [
+      33.8836784362793,
+      32.49817657470703,
+      33.816734313964844,
+      33.04003143310547,
+      34.371009826660156,
+      32.916481018066406,
+      34.0035514831543
+    ],
+    "mean_contrast_r256_unfused": [
+      70.64041900634766,
+      71.24505615234375,
+      70.40239715576172,
+      70.88861083984375,
+      70.47824096679688,
+      72.02191925048828,
+      70.7982406616211
+    ],
+    "mean_contrast_r256_fused": [
+      33.4956169128418,
+      35.743873596191406,
+      33.96748733520508,
+      35.31510543823242,
+      33.579105377197266,
+      36.5206413269043,
+      34.418399810791016
+    ]
+  },
+  "host_samples_ms": {
+    "dense": [
+      52.19528451561928,
+      51.52386054396629,
+      53.13387140631676,
+      53.499944508075714,
+      51.608435809612274,
+      53.76911163330078,
+      54.96762692928314
+    ],
+    "UB1_half_R256_proxy": [
+      33.15724432468414,
+      31.892787665128708,
+      32.062143087387085,
+      32.17202425003052,
+      32.63550251722336,
+      32.3290191590786,
+      32.159656286239624
+    ],
+    "R14_two_point_fused_fixed": [
+      28.29064428806305,
+      27.24672108888626,
+      27.783110737800598,
+      28.015531599521637,
+      27.847357094287872,
+      27.652744203805923,
+      27.64730527997017
+    ],
+    "full_input_factors_r1536": [
+      33.91104191541672,
+      32.52563625574112,
+      33.8430292904377,
+      33.06635841727257,
+      34.39720720052719,
+      32.942306250333786,
+      34.02835503220558
+    ],
+    "mean_contrast_r256_unfused": [
+      70.66803053021431,
+      71.27290964126587,
+      70.42891532182693,
+      70.9153302013874,
+      70.50489634275436,
+      72.04845547676086,
+      70.82437351346016
+    ],
+    "mean_contrast_r256_fused": [
+      33.52261334657669,
+      35.77054664492607,
+      33.99454429745674,
+      35.34083440899849,
+      33.60589221119881,
+      36.5465022623539,
+      34.44431722164154
+    ]
+  },
+  "timing_order": [
+    [
+      "dense",
+      "UB1_half_R256_proxy",
+      "R14_two_point_fused_fixed",
+      "full_input_factors_r1536",
+      "mean_contrast_r256_unfused",
+      "mean_contrast_r256_fused"
+    ],
+    [
+      "dense",
+      "mean_contrast_r256_fused",
+      "mean_contrast_r256_unfused",
+      "full_input_factors_r1536",
+      "R14_two_point_fused_fixed",
+      "UB1_half_R256_proxy"
+    ],
+    [
+      "R14_two_point_fused_fixed",
+      "full_input_factors_r1536",
+      "mean_contrast_r256_unfused",
+      "mean_contrast_r256_fused",
+      "dense",
+      "UB1_half_R256_proxy"
+    ],
+    [
+      "R14_two_point_fused_fixed",
+      "UB1_half_R256_proxy",
+      "dense",
+      "mean_contrast_r256_fused",
+      "mean_contrast_r256_unfused",
+      "full_input_factors_r1536"
+    ],
+    [
+      "mean_contrast_r256_unfused",
+      "mean_contrast_r256_fused",
+      "dense",
+      "UB1_half_R256_proxy",
+      "R14_two_point_fused_fixed",
+      "full_input_factors_r1536"
+    ],
+    [
+      "mean_contrast_r256_unfused",
+      "full_input_factors_r1536",
+      "R14_two_point_fused_fixed",
+      "UB1_half_R256_proxy",
+      "dense",
+      "mean_contrast_r256_fused"
+    ],
+    [
+      "dense",
+      "UB1_half_R256_proxy",
+      "R14_two_point_fused_fixed",
+      "full_input_factors_r1536",
+      "mean_contrast_r256_unfused",
+      "mean_contrast_r256_fused"
+    ]
+  ],
+  "median_ms": {
+    "dense": 53.10736083984375,
+    "UB1_half_R256_proxy": 32.146400451660156,
+    "R14_two_point_fused_fixed": 27.75699234008789,
+    "full_input_factors_r1536": 33.816734313964844,
+    "mean_contrast_r256_unfused": 70.7982406616211,
+    "mean_contrast_r256_fused": 34.418399810791016
+  },
+  "MAD_ms": {
+    "dense": 0.9581146240234375,
+    "UB1_half_R256_proxy": 0.156829833984375,
+    "R14_two_point_fused_fixed": 0.1364154815673828,
+    "full_input_factors_r1536": 0.5542755126953125,
+    "mean_contrast_r256_unfused": 0.31999969482421875,
+    "mean_contrast_r256_fused": 0.8967056274414062
+  },
+  "speedup_over_same_run_dense": {
+    "dense": 1.0,
+    "UB1_half_R256_proxy": 1.6520468884130104,
+    "R14_two_point_fused_fixed": 1.9132966637434894,
+    "full_input_factors_r1536": 1.5704461686565847,
+    "mean_contrast_r256_unfused": 0.7501226067702645,
+    "mean_contrast_r256_fused": 1.5429933155461018
+  },
+  "mean_contrast_MAC_ledger": {
+    "shape": {
+      "M": 31668,
+      "D": 5120,
+      "H": 13824,
+      "rank": 256,
+      "stripes": 7917
+    },
+    "MAC_by_term": {
+      "own_affine_three_directions": 622618214400,
+      "exact_mean_W1": 560356392960,
+      "contrast_factor_first": 31130910720,
+      "contrast_factor_second": 84053458944,
+      "pooled_W2": 560356392960
+    },
+    "main_MAC_fraction": 0.41458333333333336,
+    "Q1_rows": 31668,
+    "GELU_Q2_rows": 31668,
+    "R14_two_point_GELU_Q2_rows": 11875,
+    "Q2_row_count_over_R14": 2.666778947368421,
+    "materialized_full_hidden_BF16_bytes": 875556864,
+    "not_in_MAC_fraction": "Q1,Q2,GELU,smooth casts,pooling,layout,selector,gate,residual writes and weight traffic. All four hidden nonlinear rows remain. No latency estimate."
+  },
+  "full_input_factor_MAC_fraction": 0.4111111111111111,
+  "fused_saving_ms": 36.37984085083008,
+  "noise_margin_ms": 2.8743438720703125,
+  "backend_fusion_effect": true,
+  "max_allocated_bytes": 12118870528,
+  "max_reserved_bytes": 19914555392,
+  "models_loaded": 0,
+  "new_model_generations": 0,
+  "fitted_parameters": 0,
+  "tensor_files_written": 0,
+  "native_model_or_quality_acceptance": false,
+  "model_execution_eligibility_change": false,
+  "limitations": [
+    "Random tensors and factors only; no Wan operator/value/video-quality result. New representation is static and has no trained/deployable adaptive policy.",
+    "Complete synthetic boundary includes norm/AdaLN stand-in,QDQ,GELU,allprojections,fusion/layout,pooling,gate/writeback. It excludesJIT/offlineweight preparation equally. No original160FFN or generation wall-time speed.",
+    "AllfourGELU/Q2 rows remain; lower mainMAC does not establish lower traffic or latency. BF16reconstructedmean identity neednot be exact.",
+    "R14N0/D0/R4/R9/R11 native closures remain unchanged. No original model checkpoint, latent, source data or trainedadapter is loaded."
+  ]
+}

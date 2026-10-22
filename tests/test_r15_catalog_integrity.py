@@ -31,7 +31,11 @@ class R15CatalogIntegrityTests(unittest.TestCase):
         self.assertEqual(d["latest_metric_review"]["new_model_runs"],0)
         self.assertEqual(d["eligible_model_method_ids"],[])
         self.assertTrue((ROOT/d["latest_metric_review"]["handoff"]).is_file())
-        self.assertIn("R14N0",d["review_id"])
+        # Later actual experiments may advance the current review. Preserve
+        # R14N0's recorded finite rejection rather than freezing its name as
+        # the forever-current task.
+        self.assertEqual(d["closed_method_statuses"]["R14N0_COMPLETE_STRIPE_NATIVE_VALUE"],
+                         "CLOSED_FIXED_NATIVE_STRIPE_RESPONSE_AND_NORM_VALUE_REJECTED")
     def test_historical_raw_results_and_metric_layers_remain_separate(self):
         c=load("research/metric_system/catalog.json")
         self.assertEqual(len(c["metrics"]),34)

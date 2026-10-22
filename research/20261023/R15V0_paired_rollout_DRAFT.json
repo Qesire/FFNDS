@@ -1,0 +1,96 @@
+{
+  "id": "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT",
+  "status": "PREPARED_AWAITING_EXACT_SCOPE_USER_AUTHORITY",
+  "self_path": "research/20261023/R15V0_registered_protocol.json",
+  "evidence_base_commit": "aebd37f",
+  "user_priority": "Run the actual method through complete four-step video generation first; novelty assessment is postponed.",
+  "source_index": 0,
+  "source_family": "calibration24",
+  "image_sha256": "bbcf851ef52d17f8e1eccce9d449109e61a35d5548d1556d3b8f57e9830b23df",
+  "seed": 42,
+  "positions": [
+    [
+      0,
+      20
+    ],
+    [
+      1,
+      20
+    ],
+    [
+      2,
+      20
+    ],
+    [
+      3,
+      20
+    ]
+  ],
+  "expected_grid": [
+    21,
+    29,
+    52
+  ],
+  "arms": [
+    "dense_DQ",
+    "mean_contrast_candidate"
+  ],
+  "rank": 256,
+  "factorization": {
+    "algorithm": "torch.svd_lowrank",
+    "q": 256,
+    "niter": 2,
+    "seed": 20261023
+  },
+  "caps": {
+    "full_generations": 2,
+    "offline_weight_factorizations": 2,
+    "training_steps": 0
+  },
+  "max_GPUs": 1,
+  "automatic_followup": false,
+  "reset_between_steps": false,
+  "resources": {
+    "new_output_bytes_max": 268435456,
+    "peak_allocated_bytes_max": 84825604096,
+    "free_disk_reserve_bytes_min": 85899345920,
+    "models_downloaded": 0
+  },
+  "operator": "Original native normalization/Smooth1/Q1;3Haar contrasts and groupmean;fulloriginalW1 onmean+b0,rank256 weight-only W1 factors oncontrast;reconstruct four original token preactivations;native GELU/Smooth2/group64Q2 onall31668rows;poolfourpostQ2rows beforeoriginalW2+b2;addoriginalR9A owncontrast;originalLightX2Vgate/residual. Allother positions denseD-Q.",
+  "scope_and_delivery": "Two complete videos under identical originalcheckpoint/image/prompt/seed/initialnoise/scheduler/frames/resolution/precision. Candidate really runs4positions throughownstudentstates. Decodeandreviewfull paired duration,including motion/background/smallobjects/lighting. One-source integration smoke only; not whole-model compression, video population quality or speed/Pareto proof.",
+  "controls": [
+    "Validateoriginalassetsandimmutablecachedweights. No newmodeldownloads. VerifyA0/A1frozenfilesandmatrixSHA.",
+    "Beforemodelimport requireseparate exact-scope human authority,registeredroute and sourcebindings.",
+    "Preserve RNGaroundtwofixedweightfactorizations. No learnedupdates,ranksweep,source/seedselection.",
+    "OriginalnativeQDQforceFP32,all1600runtimeboundariespervideo,no rawplaceholderfallback. Candidate4W1+4W2hookevents,20physicalFFNlinearsat4sites.",
+    "RecordinitialnoiseSHAandfourfreelatentSHA;pairedinitialnoisemustequal.Nodenseorstudentresetbetweensteps.",
+    "Preservebudgetdebitsbeforeattempts,allfailures,pairedvideosandfactorSHA.Noautofollowup.",
+    "Use explicit BF16 inverse-contrast then BF16 response-add boundaries in the native hook; reference Torch epilogue for integration first. Synthetic fused-chain timing is not an estimate of this real hook latency."
+  ],
+  "publication": "Public scalar receipts and neutral HF locators only; no privateworker names or machine paths. Fullpairedvideosremainreviewable HF artifacts.",
+  "source_sha256": {
+    "tools/run_paired_mean_contrast_rollout.py": "bc7e6ea355b52eb45e040117d52527573451dd540922d1d855da0c93fc482ac8",
+    "tools/rollout_mean_contrast.py": "0c07d2046c01a9420bf490faa2fcd1258a8e9e9eaf0bd18390d3868280d0e703",
+    "tools/rollout_contract.py": "107e3cbbd0add59948dc8617d051d6cb87a6f09ce6688fb5c77a207c40386ff8",
+    "tools/check_research_routes.py": "33510b1bc2dd727146277d2c45849081620611a3e586660afca707e74d99a1a0",
+    "tools/mean_contrast_kernels.py": "2e9971f341536636e7722e067f1dbd779b7c823dae814d308ed79f0870622263",
+    "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+    "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+    "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "scripts/worker_idle_exec.sh": "7413e56455d04f4a5e2009fa5135e3dab36b074d939e319c5c8a7f1ac4e1191b",
+    "config/worker.env": "0dd88ae89887232dc5c50c1bcbed1a0bbcffb7de0ceeea891ce827452f52de66",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+    ".runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db"
+  },
+  "input_sha256": {
+    ".runtime/inputs/calibration24/canonical.json": "3c24f59ca5960c3c3ca9bc69fcb91ccccaf6c01644ede7361877e8733aa4efcb",
+    ".runtime/hif4_rebuilt_cache.json": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+    ".runtime/model_view.json": "932bc14ec0cd8d73a13532191ea202b0bc22478d7da26ba5029658329f257df3",
+    ".runtime/node_local_model_view.json": "97b2d991f6312ab67ee439ea28a03989bd86b1f68151a6eca11102b949e539d1",
+    "research/20261021/R9A1_native_affine_results.json": "aff6357716ea64a6c48935788af5be3b6fcb8f16fedb447323fe8d8468c204df",
+    "research/20261023/R15_mean_contrast_backend_results.json": "a457b5162cb2335a6e8841427231d6be550328d2e92b6ae2801a797cd8e9da5e"
+  },
+  "authorization": null
+}

@@ -1,0 +1,33 @@
+{
+  "id": "R15_JOINT_QUANTIZER_VS_ROW_LOCAL_ACTIVATION_KERNEL",
+  "status": "PASS_ORIGINAL_CPU_JOINT_QUANTIZER_COUNTEREXAMPLE",
+  "protocol_sha256": "e07d85f0cf5c242dd813a970061eaf084523f3ecac0e43f1b986f045eb4398e6",
+  "source_sha256": "d496749b71d0af7a32ba44ca6d77b04ac7eefe1d4a3235f75ae6a71fd3826163",
+  "input_sha256": {
+    "tools/audit_hif4_group_separability.py": "11498defcf3c1b0457280a123c1cad71d3c592ce629e67cbefb626adabf02ea4",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QFuncs/hifx.py": "6a8d1f1b8ea49ce099439cff251309b4d9b3eeeab6a7ee0a83bdcf85b24704f7"
+  },
+  "target_channel_input": [
+    0.125,
+    0.125
+  ],
+  "other_channel_input": [
+    7.0,
+    14.0
+  ],
+  "target_channel_original_HiF4_output": [
+    0.25,
+    0.0
+  ],
+  "unchanged_target_activations_different_quantized_outputs": true,
+  "original_Python_reference_calls": 1,
+  "synthetic_rows": 2,
+  "CUDA_initialized": false,
+  "new_model_generations": 0,
+  "new_W1_W2_calls": 0,
+  "new_fitted_parameters": 0,
+  "conclusion": "A universal scalar activation depending only on the target hidden preactivation cannot reproduce this group64 HiF4 Q2: other hidden channels change the target code. This does not forbid joint-group feature maps or an empirically trained approximation.",
+  "native_registration": null,
+  "model_execution_eligibility_change": false
+}

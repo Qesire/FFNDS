@@ -1,0 +1,62 @@
+{
+  "id": "R15H0_EXACT_MEAN_CONTRAST_SYNTHETIC_COST",
+  "status": "FROZEN_NON_MODEL_RANDOM_TENSOR_COST_ONLY",
+  "evidence_base_commit": "14b44e7d0e15c8a523f9e894b13edea53049cd0a",
+  "M": 31668,
+  "D": 5120,
+  "H": 13824,
+  "stripes": 7917,
+  "two_point_stripes": 3958,
+  "contrast_rank": 256,
+  "full_input_factor_rank": 1536,
+  "seed": 20261022,
+  "warmups": 3,
+  "repetitions": 7,
+  "arms": [
+    "dense",
+    "UB1_half_R256_proxy",
+    "R14_two_point_fused_fixed",
+    "full_input_factors_r1536",
+    "mean_contrast_r256_unfused",
+    "mean_contrast_r256_fused"
+  ],
+  "source_sha256": {
+    "tools/probe_mean_contrast_backend.py": "a2900f50909efa96edf6c04ccce9c72577cde0f6d516ae0e508e37530dc39a41",
+    "tools/mean_contrast_kernels.py": "2e9971f341536636e7722e067f1dbd779b7c823dae814d308ed79f0870622263",
+    "tools/probe_mean_contrast_representation.py": "31eead5c03de5fc9200debd566b9fefe8d538a2f6fce00e89ada3de93788553d",
+    "tools/spatial_contrast_kernels.py": "59fc9c76c7574d31dade2dc8943ccfa12068c6734d89de5402384c0b04c8880f",
+    "tools/probe_three_direction_backend.py": "4059018759f37a317bd94fc5e1a12cb3c58744c1d5eac29cb88e4effd7408176",
+    "scripts/worker_idle_exec.sh": "7413e56455d04f4a5e2009fa5135e3dab36b074d939e319c5c8a7f1ac4e1191b"
+  },
+  "opening": "A distinct candidate representation keeps exact full W1 on each four-token mean and rank256 two-factor W1 on three centered directions. Reconstruct all four full-width preactivations, execute full four-row original GELU/Q2 and pool only after Q2 before full W2. The current native two-point response instance stays closed.",
+  "operator": "OriginalQ1 -> BF16mean/Haar3 -> mean fullW1+b1 and centered rank256 factors; BF16fourrow reconstruction -> originalBF16tanhGELU/smooth2/Q2 -> FP32fourrow mean thenBF16 -> originalfullW2+b2; add existing3-direction Acontrast, explicitBF16gate/residual. Offline random weights andA construction excluded for all arms.",
+  "comparators": "Same-run dense, UB1half/randomR256 proxy, oldR14fixedtwo-point synthetic implementation, and full-input both-projection lowrank at1536. The latter uses41.1111%MAC versus new41.4583%; this is a close slightly smaller aligned hardware comparator, not an exactly equal-compute quality test. No factors are fitted to original/random weights.",
+  "controls_before_timing": [
+    "Six exact BF16-bit comparisons: preparedHaar3,mean,fourrowpreactivations,postQ2pool,inversegate/residual,wholefusedversusunfused output. Stop on any mismatch or nonfinite.",
+    "Twelve original forceFP32 comparisons: originalQ1/Q2 for each of six arms; exactBF16bitidentity required.",
+    "All operators finish before timing; same resident input/weights,3warmups,7rotating/reversing samples,hostwall andCUDAevent time. No autotuning or latency-dependent redesign in this study."
+  ],
+  "kernel_layout": "1024features,4warps,masked tails,FP fusion disabled. Reuse immutableR14finish andoldfixedbaselinekernels; newprepare/reconstruct/pool kernels preserve explicit reference arithmetic.",
+  "decision": "Report actual cost of preserving all four joint nonlinear rows. A noise-adjusted fusion effect requires saving >=max(.5ms,3*largest armMAD). This diagnoses implementation cost only; no old50%/1.5x/2% scientific gate or new-model eligibility.",
+  "resources": {
+    "GPUs": 1,
+    "standard_locked_GPU": 2,
+    "peak_allocated_cap_bytes": 34359738368,
+    "model_downloads": 0,
+    "models_loaded": 0,
+    "parameter_fits": 0,
+    "video_generations": 0,
+    "raw_tensor_files": 0,
+    "expected_new_public_bytes_max": 131072,
+    "launcher": "scripts/worker_idle_exec.sh"
+  },
+  "limitations": [
+    "Random tensors and factors only; no Wan operator/value/video-quality result. New representation is static and has no trained/deployable adaptive policy.",
+    "Complete synthetic boundary includes norm/AdaLN stand-in,QDQ,GELU,allprojections,fusion/layout,pooling,gate/writeback. It excludesJIT/offlineweight preparation equally. No original160FFN or generation wall-time speed.",
+    "AllfourGELU/Q2 rows remain; lower mainMAC does not establish lower traffic or latency. BF16reconstructedmean identity neednot be exact.",
+    "R14N0/D0/R4/R9/R11 native closures remain unchanged. No original model checkpoint, latent, source data or trainedadapter is loaded."
+  ],
+  "native_model_registration": null,
+  "model_execution_eligibility_change": false,
+  "resource_revision": "2: preflight on occupiedGPU0 ran no benchmark; use idleGPU2 with equivalent identity/lock/process guard. Same6arms/seed/shapes/arithmetic/timing."
+}

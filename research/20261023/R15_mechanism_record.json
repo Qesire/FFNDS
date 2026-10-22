@@ -1,0 +1,56 @@
+{
+  "id": "R15_FOUR_ROW_MEAN_CONTRAST_BACKEND_AND_INTEGRATION",
+  "status": "SYNTHETIC_BACKEND_COMPLETE_FULL_VIDEO_IMPLEMENTATION_PREPARED",
+  "user_priority": "Run the implementation through real complete paired video generation first. Novelty review deferred by latest direct user correction.",
+  "document": "docs/77_R15完整四位置响应与配对视频跑通记录.md",
+  "measured_CPU": "Four oldsavedscopes256groups:inputcontrast energy49.26%-53.66%,spatialtop1median39.82%-44.39%;smoothreferencefloor aboveUB1in16/128developmentgroups. OriginalHiF4counterexamples retained; notvideoquality losses.",
+  "measured_backend": "OneA100,42samples/6arms,6fusion/12originalQDQcontrols:fullfour-rowmean/contrastfused34.4184ms vsdense53.1074ms(1.543x),unfused70.7982ms. Near-MACfullinputfactors33.8167ms. Complete syntheticchain only; notnativefullmodel/endtoendspeed.",
+  "next_delivery": "Onepairedfullfour-stepvideo:originaldenseD-Q vsrank256mean/contrast atblock20inall4steps. Sameoldsource0/image/prompt/seed42/initialnoise/config/precision;noresetbetweensteps. Workinghook,runner,finitebudget,sourcebindingsandmediareviewutilityprepared.",
+  "native_registration": null,
+  "model_execution_eligibility_change": false,
+  "preserved_closures": [
+    "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+    "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE",
+    "R4E1_FIXED_H_16GROUP_Q2"
+  ],
+  "evidence": [
+    {
+      "path": "research/20261023/R15_mean_contrast_CPU_protocol.json",
+      "sha256": "8ef0d76a0cf6dde76ab424384d033b78bf94088b86a0ab89323448002ecca8d9"
+    },
+    {
+      "path": "research/20261023/R15_mean_contrast_CPU_results.json",
+      "sha256": "6db98a72859b70b8efe24fc9a83940f6ddcc3bc3d4935f95cf3ec716ea453b3a"
+    },
+    {
+      "path": "research/20261023/R15_mean_contrast_backend_protocol.json",
+      "sha256": "12a0a0a8b03928381863e9ff6cbfd79ee6facebb3196528c85327f7b247a89e0"
+    },
+    {
+      "path": "research/20261023/R15_mean_contrast_backend_results.json",
+      "sha256": "a457b5162cb2335a6e8841427231d6be550328d2e92b6ae2801a797cd8e9da5e"
+    },
+    {
+      "path": "research/20261023/R15_joint_kernel_CPU_results.json",
+      "sha256": "55cce6731e411b40a599a8160640209337924e11dfb2030da131dc4719b24e38"
+    },
+    {
+      "path": "research/20261023/R15_contrast_mean_deduction.json",
+      "sha256": "193ac60dda2d856bc3a75656161adad6efc0636afad26ff766c26aaeeb8e09c5"
+    },
+    {
+      "path": "research/20261023/R15_CPU_attempt1_failure.json",
+      "sha256": "225ab191079c0da371cd20e94ff1f79a0d768638adbabce0efb969b2dd4651e2"
+    },
+    {
+      "path": "research/20261023/R15_backend_preflight_failure.json",
+      "sha256": "27af400235ed8f7c302971a9fe1818effc4fcdb0bf7c53d644dde8a743280ca2"
+    }
+  ],
+  "limits": [
+    "Staticrepresentation/backendandCPUdiagnostics only. Newrealweightfactors,originalnativeFFNhook andcandidatefreevideo are pending separate R15V0execution.",
+    "Allsaved4sourcesalreadyexposedandonescope;noneisfreshpopulationquality.",
+    "OtherGPUs ontheexecutorwerebusy;the syntheticstudyusedoneidlephysicalGPU2withidentitycheck/flock/processguard. Median/MADreported;smalllatencydifferencesdonotproveadvantage.",
+    "No general impossibility or novelty claim. Correctnessandwholevideosnowtakepriority."
+  ]
+}

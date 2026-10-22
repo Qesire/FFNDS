@@ -1,0 +1,162 @@
+{
+  "id": "R15_PRIMARY_SOURCE_AND_OPERATOR_COMPARISON",
+  "status": "SOURCE_AUDIT_NOT_NOVELTY_CERTIFICATE_OR_MODEL_BENCHMARK",
+  "checked_date_UTC": "2026-10-22",
+  "checked_date_JST": "2026-10-23",
+  "papers": [
+    {
+      "work": "SVDtrunc",
+      "primary": "https://arxiv.org/html/2609.04646v1",
+      "checked_sections": [
+        "3.1",
+        "3.2",
+        "3.3",
+        "AppendixA"
+      ],
+      "operator": "Block-importance allocation; truncated factorization of all block projections; full hidden nonlinear width retained; MKD and rectified-flow recovery.",
+      "comparison": "Closest full-input factorized representation. The seed keeps exact group-mean W1, approximates only centered contrasts and pools post-Q2 before fullW2. This is a computational distinction, not proof of originality or quality.",
+      "reproduction_boundary": "Official repository at checked commit contains only README, not an executable reproduction. Parameter-budget results on other DiTs cannot be treated as measured Wan HiF4 FFN latency."
+    },
+    {
+      "work": "cFFN",
+      "primary": "https://arxiv.org/html/2306.10875",
+      "checked_sections": [
+        "3.2",
+        "4.2.3"
+      ],
+      "operator": "Keep the full first FFN projection and hidden nonlinearity; factor only the output projection, with training-time reparameterized branches.",
+      "comparison": "A known alternative to reducing nonlinear width. It retains all W1 rows and does not provide exact-mean/centered-input coupling; architecture-training classification results do not establish post-training Wan behavior."
+    },
+    {
+      "work": "DiffCR",
+      "primary": "https://arxiv.org/html/2412.16822v2",
+      "checked_sections": [
+        "3.2",
+        "3.3",
+        "3.4",
+        "4.1"
+      ],
+      "operator": "Linear+sigmoid token router, learned layer/time keep ratios; selected tokens execute attention and MLP; others bypass the block. T2I LoRA rank32,20samplingsteps; training uses8A100s.",
+      "code_check": "Checked official pseudocode: gather top-k; restore remaining tokens; router gradients multiply selected MLP residual. Omitted PixArt initialization and undefined imported components prevent treating it as a complete runnable baseline.",
+      "comparison": "Conditional routing and trainable ratios are established prior art. A frozen-Wan FFN method needs a different demonstrated operator/value contribution and a matched adaptation, not a new router name."
+    },
+    {
+      "work": "ToCom",
+      "primary": "https://arxiv.org/html/2408.06798",
+      "checked_sections": [
+        "4.1",
+        "4.2"
+      ],
+      "operator": "Parameter-efficient self-distillation of differences between token-compression degrees; add/subtract LoRA products on attention query/value projections.",
+      "code_check": "Official models.py adds q_delta and v_delta while keeping key unchanged; an adapter across source/target compression degrees. This is not an existing approximation of a four-row pooled HiF4 FFN mean.",
+      "comparison": "Known precedent for compensating a merge/compression mismatch. Training and merged-weight quantization must be charged if adapted to frozen D-Q."
+    },
+    {
+      "work": "SVD bias compensation / DALR (ICCV2017)",
+      "primary": "https://arxiv.org/pdf/1709.01041",
+      "author_explanation": "https://lherranz.org/2018/07/28/deep-network-compression-and-adaptation/",
+      "checked_sections": [
+        "bias compensation derivation",
+        "domain adaptive low-rank decomposition"
+      ],
+      "operator": "Known bias correction b_hat=b+(W-B)*mean_x removes the linear output-mean error introduced by a low-rank B; DALR also fits activation-aware rank-constrained regression.",
+      "comparison": "W*mu+B*(x-mu)+b equals B*x+b+(W-B)*mu. The new local-current-group construction is algebraically a group-conditioned bias correction, with real current mean-W1 cost, rather than a new general low-rank identity. Pooled four-row quantized FFN execution and conditional value still need testing.",
+      "novelty_boundary": "Do not claim exact-mean correction, centering or the first-order cancellation as a new general compression idea.",
+      "retrieval_note": "CVF PDF returned403; original arXivv2 PDF opened successfully; author derivation also checked."
+    }
+  ],
+  "official_code": [
+    {
+      "repository": "GATECH-EIC/DiffCR",
+      "commit": "d58bb7bbe07e1efbad9dc7618743ec9dc3625260",
+      "tree_truncated": false,
+      "blob_count": 4,
+      "Python_files": [
+        "diffcr_pseudo.py"
+      ],
+      "tree_blobs": null,
+      "inspected_source": {
+        "url": "https://raw.githubusercontent.com/GATECH-EIC/DiffCR/d58bb7bbe07e1efbad9dc7618743ec9dc3625260/diffcr_pseudo.py",
+        "sha256": "f5767afb80f1c5d92851bd8dccfad5bc476db684e590adc336b583170b35fd6c"
+      }
+    },
+    {
+      "repository": "vislearn/SVDtrunc",
+      "commit": "896e8c72f784d393479e8b6fd8b3e300fb8c63af",
+      "tree_truncated": false,
+      "blob_count": 1,
+      "Python_files": [],
+      "tree_blobs": [
+        "README.md"
+      ],
+      "inspected_source": {
+        "url": "https://raw.githubusercontent.com/vislearn/SVDtrunc/896e8c72f784d393479e8b6fd8b3e300fb8c63af/README.md",
+        "sha256": "fdd1058b482fd5846a6ac175bbc69fba0f47f46f22be9f9a5d60f9b4c9e6d0c0"
+      }
+    },
+    {
+      "repository": "JieShibo/ToCom",
+      "commit": "ee8b0d920f7456476d25387a67b3fba26477039a",
+      "tree_truncated": false,
+      "blob_count": 11,
+      "Python_files": [
+        "augment.py",
+        "cub2011.py",
+        "datasets.py",
+        "engine.py",
+        "losses.py",
+        "main.py",
+        "models.py",
+        "samplers.py",
+        "standford_dogs.py",
+        "utils.py"
+      ],
+      "tree_blobs": null,
+      "inspected_source": {
+        "url": "https://raw.githubusercontent.com/JieShibo/ToCom/ee8b0d920f7456476d25387a67b3fba26477039a/models.py",
+        "sha256": "2ffc6b20003cd7a9d9769309d8297f3ef9582a2794a38e1f053ac8c313c86508"
+      },
+      "matching_line_numbers": [
+        19,
+        62,
+        63,
+        68,
+        69,
+        73,
+        74,
+        75,
+        89,
+        92,
+        93,
+        100,
+        105,
+        106,
+        107,
+        108,
+        110,
+        125,
+        126,
+        127,
+        128,
+        129,
+        131,
+        142
+      ]
+    }
+  ],
+  "nearest_internal_closed_operators": [
+    {
+      "id": "R10_FULL_H_FACTORIZATION",
+      "source": "tools/probe_representation_cost.py",
+      "document": "docs/62_广泛复盘后的学习型仿射表示检验.md",
+      "difference": "R10 factors both projections on all input rows. Newseed preserves exact full W1 of groupmean and exactfull W2 of pooledresponse; factors centeredW1 only and adds original own-Acontrasts. No native R10 factor quality result inferred."
+    },
+    {
+      "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+      "source": "tools/stripe_native_operator.py",
+      "difference": "Closed one/two point sampler changes the joint four-row nonlinear law. Newseed instead preserves four approximate joint preactivation/GELU/Q2 rows; still needs actual Wan accuracy and strongest fixed/dynamic controls."
+    }
+  ],
+  "native_registration": null,
+  "model_execution_eligibility_change": false
+}
