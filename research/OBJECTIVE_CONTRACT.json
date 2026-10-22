@@ -17,7 +17,7 @@
   ],
   "target_mechanism": {
     "policy": "At step/layer/expert and possibly token/tile level, a policy depends on actual runtime-accessible activations/conditions and chooses which expensive FFN channels/groups/operations to execute; purely predefined step schedules do not demonstrate input-conditioned sparsity.",
-    "timing_requirement": "All support decision inputs, gathering, QDQ, active GEMMs, restoration, correction, scattering and writeback must be inside the deployed cost boundary; post-W1 oracle scores are upper-bound diagnostics only, not deployable selectors.",
+    "timing_requirement": "All support-selecting signals MUST be available BEFORE costly main W1/FFN0 execution. All gathering, QDQ, active GEMMs, restoration, correction, scattering, writeback and selector inference cost must be inside the deployed cost boundary; post-W1 oracle scores are upper-bound diagnostics, NOT deployable pre-W1 selectors.",
     "necessary_comparators": [
       "Full dense D-Q",
       "Frozen UB1 static step-budget baseline",
