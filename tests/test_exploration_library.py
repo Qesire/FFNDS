@@ -21,7 +21,7 @@ class ExplorationLibrary(unittest.TestCase):
         agents=(ROOT/"AGENTS.md").read_text(encoding="utf-8")
         skill=(ROOT/".agents/skills/ffnds-paper-discovery/SKILL.md").read_text(encoding="utf-8")
         index=(DIR/"EXPLORATION_INDEX.md").read_text(encoding="utf-8")
-        self.assertIn("not a queue", index)
+        self.assertIn("not a mandatory experiment sequence", index)
         self.assertIn("not individually obligatory", agents)
         self.assertIn("no mandate to begin with block30/31", index)
         self.assertIn("none of those names are privileged", skill)
