@@ -1,3 +1,5 @@
+> **Previous R12 preliminary handoff, now superseded as a general-purpose agent task order.** Latest actually completed work is [R12 E0](HANDOFF_R12_E0.md); use [open exploration index](../exploration/20261022/EXPLORATION_INDEX.md) and root AGENTS.md for open mechanism exploration. The operations below remain useful recipe-specific checks, not a requirement to run R12 or a GPU authorization.
+
 # Mandatory agent execution: R12 dynamic FFN discovery
 
 **E0 completed:** [current result/handoff](HANDOFF_R12_E0.md), [source/operand and CPU-pack audit](R12_E0_operand_audit.json), [historical flow geometry](R12_E0_flow_partitions.json). No model job was run or made eligible. The initial E0 instructions below are preserved as the task record; do not repeat them as missing work. The next native-value collection exists only as a [separate unregistered draft](R12_E1_native_value_DRAFT.json).

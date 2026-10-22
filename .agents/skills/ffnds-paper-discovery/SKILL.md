@@ -1,9 +1,17 @@
 ---
 name: ffnds-paper-discovery
-description: Actively execute mechanism-led, post-training dynamic FFN sparsity research in FFNDS using pinned AutoResearcher v2.3 scientific behavior and original evidence.
+description: Research deployable post-training dynamic FFN methods toward native full-trajectory video quality and real speed, freely expanding beyond any current unverified design.
 ---
-# FFNDS paper discovery
+# FFNDS paper discovery — outcome first, creative alternatives open
 
-Read root AGENTS.md, research/CURRENT_DECISION.json, research/OBJECTIVE_CONTRACT.json, research/20261022/AGENT_EXECUTION_HANDOFF.md and the local mechanism-research/research-expansion skills.
+Read root `AGENTS.md`, live `research/CURRENT_DECISION.json`, `research/OBJECTIVE_CONTRACT.json`, [the current R12 E0 evidence](../../../docs/66_R12等预算动作的操作数与条件粒度审计.md), and [open exploration index](../../../research/exploration/20261022/EXPLORATION_INDEX.md). Activate `mechanism-research` and `research-expansion`.
 
-Explore new computations and mathematical representations freely. Ground the decision-critical Wan native FFN and exact HiF4/BF16 operators, derive signed downstream action value, compare **best fixed equal budget**, choose cheap decisive controls, then actively execute source/CPU checks available in the workspace. Favor new actionable knowledge over generic warnings. Do not re-open a rejected recipe by changing its name, q, rank or seed. A post-W1 oracle is a diagnostic upper bound, not a free pre-W1 selector; a native fixed-input flow result is not independent free-running video quality. Keep speculative seeds separate from registered tests, freeze costs/splits/gates and require authorization for costly model jobs. Leave runnable evidence and a next step.
+**Purpose**: discover one compelling, genuinely dynamic post-training FFN algorithm that achieves a useful video-quality and actual complete-FFN/overall-inference speed frontier. Do not collect mechanisms or combine named ingredients merely to look novel.
+
+On every research task: (1) choose a real explanatory/effectiveness gap; (2) inspect source/known traces and derive the decision-critical algebra; (3) invent non-isomorphic candidates across *action, available information, representation, causal scope or operator design* without regarding V3/V4 as upper limits; (4) run the cheapest currently accessible decisive check; (5) reason from opposite results and record a concrete artifact; (6) escalate promising candidates to registered native tests and free-running video comparison when authorized.
+
+Existing observations: UB1 static 50% main MAC/1.546x historical full FFN but disjoint imaging −3.166%; R12 E0 whole-source post-hoc 0.171%, frame splice 0.315%, token-output splice 5.089% on *full-teacher* R7 actions. **Those splices are not executable tile actions or guaranteed upper bounds**. AdaLN-only same-step features have not shown input-conditioned value; input content already exists in residual/attention/modulated inputs. Old C-score/proxy/compensation failures are limited to their measured recipes.
+
+Any action must target *both* GEMMs or another actual validated reduced-cost FFN, maintain lawful before-W1 information and count selector, QDQ, re-layout, weights, compensation and fusion cost. Compare strongest same-budget static, appropriate prior-art and honestly paired free-student quality; use local SSE/forced flow only as diagnostics. A new method may arise from unexpected results rather than GBA/STB; none of those names are privileged.
+
+Historical model experiment closures and pre-registered criteria remain true. This skill neither licenses new GPU jobs nor blocks creative paper hypotheses. Leave a concise signed scientific finding and an executable next discriminator.
