@@ -1,0 +1,87 @@
+{
+  "id": "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE",
+  "status": "DRAFT_ONLY_NOT_REGISTERED_NOT_ELIGIBLE",
+  "authority": "The R12 agenda authorizes E0 source/CPU work only. This draft neither changes eligibility nor permits GPU execution. A separate reviewed registration and guarded runner are required.",
+  "question": "Does a fixed three-action cross-layer allocation have useful source-dependent native flow value beyond its strongest fixed member, with a literal zero-capacity, zero-fit compensation control?",
+  "scope": {
+    "step": 3,
+    "blocks": [30, 31],
+    "full_native_rows": 31668,
+    "model": "Frozen four-step distilled Wan D-Q; original effective HiF4 weights, original scheduler/conditioning/QDQ/BF16 boundaries; other158 FFNs remain frozen UB1",
+    "inputs": [0, 5, 10, 15],
+    "source_records": "reports/worker_20261020/TF2_DQ_input{00,05,10,15}.json",
+    "exposure": "All four TF2 sources are development-exposed; no source is a fresh quality holdout. No predictor is fitted or evaluated here.",
+    "input_state": "Execute all four native steps, restore original DQ post BETWEEN steps as in TF2, and verify identical complete step inputs. Never reset block31 to a saved baseline input.",
+    "control_cost": "Diagnostic videos remain DQ by construction. They cannot establish candidate video quality or deployment latency."
+  },
+  "supports": {
+    "source": "research/20261022/R12_E0_operand_audit.json observations[family=ORIGINAL_DQ_WEIGHTS].CPU_pack_variants",
+    "108": "Already frozen parent C support, no new support selection",
+    "162": "Already frozen UB1 step3 support, no new support selection",
+    "216": "Original complete support",
+    "nesting": "Both blocks verified S108 subset S162 subset S216; preserve all64 channels in each group, original channel order and original frozen effective weight values",
+    "packing": "Separate native runner dispatches original W1 rows, W2 columns, W2 Smooth scales and raw b0 rows. Do not widen step_budget_runtime.validate_budget. CPU pack hashes are preparation evidence only."
+  },
+  "action_family_D0": {
+    "N0_162_162_raw": [162, 162],
+    "NA_216_108_raw": [216, 108],
+    "NB_108_216_raw": [108, 216],
+    "compensation": "At BOTH selected positions in ALL THREE actions: original raw b0/b2, alpha=1, no learned centered bias/gain, no R256. Trainable correction capacity=0 and fitting updates=0 in every arm. This is a deliberately matched no-correction ablation; N0 is not the frozen UB1 incumbent.",
+    "incumbent": "Separately retain complete original UB1 with its existing gain/bias/R256 at the pair. It is a necessary engineering comparator, not an extra member with purportedly matched correction.",
+    "native_path": "Actual modulated input -> Smooth1 FP32 divide/BF16 cast -> native Q1 -> packed W1/raw b0 BF16 -> GELU(tanh) -> selected Smooth2/native Q2 at the real width -> packed W2/raw b2 BF16 -> original BF16 gate and residual -> all remaining blocks and original native head/FP32 flow"
+  },
+  "controls_before_action_measurement": [
+    "Freeze exact source, original assets, inputs, support IDs and CPU pack hashes before loading a model; preserve every attempted receipt",
+    "Original dense DQ controls on all4 sources; the new216/216 dispatch at the pair must match original complete FFN Y, all4 flow/post and original gate/residual bytes",
+    "Original frozen UB1 controls on all4 sources must match TF2 input/flow/post bytes without any intervention",
+    "Two N0 passes on all4 sources must match exactly and preserve RNG; record noise floor even if zero",
+    "Block30 incoming input/Q1 identical across N0/NA/NB for each source; block31 receives each actual propagated state; all shapes, raw biases and support hashes checked",
+    "No dense-after-masking shortcut; verify actual main GEMM shapes for all320 FFN linears, all1600 native model linear/QDQ calls,158 unchanged R256 positions and zero dense fallback. Report any offline full-teacher control calls in separate counters",
+    "The existing parent runtime hard-checks160 residual positions; D0 needs an explicit158-position accounting path. Do not insert fake coverage or silently relax old runtime checks. Frozen UB1 controls must still retain their original160-position check",
+    "At each full216 selected FFN, native activation QDQ/GELU/raw bias and final Y match the original full teacher; do not infer this from CPU weight slices"
+  ],
+  "execution_cost_cap_proposed": {
+    "full_four_step_generations": 24,
+    "controls": {"DQ": 4, "frozen_UB1": 4, "N0": 4, "N0_repeat": 4},
+    "interventions": {"NA": 4, "NB": 4},
+    "GPU_count_max": 2,
+    "environment": "Existing private worker environment and GPU locks; models remain in existing HF cache; no package/model/cache upgrade",
+    "node_free_reserve_GiB": 80,
+    "new_HF_artifact_allowance_GiB": 0.5,
+    "storage": "Keep complete final-step flows and receipts in HF cache; do not persist new fullM pair activations. Stream checksums and discard activations. No copied raw weights.",
+    "additional_CPU_weight_variant_bytes": 849346560,
+    "all_pair_weight_variants_bytes": 1274019840,
+    "largest_single_BF16_hidden_bytes": 875556864,
+    "VRAM_limit": "Require measured idle cards and projected resident model plus all scratch below device capacity before either launch. Record actual peak allocation/reservation. No latency acceptance from observed diagnostic wall time."
+  },
+  "MAC_ledger": {
+    "groups_per_action_pair": 324,
+    "global_main_MAC_fraction": 0.5,
+    "pair_main_MAC_per_video": 6724276715520,
+    "all_dense_main_MAC_per_video": 717256182988800,
+    "all_UB1_main_MAC_per_video": 358628091494400,
+    "interpretation": "Equal main MAC does not imply equal QDQ, launches, H2D transfer, weight storage, correction or latency. D0 removes pair corrections equally but keeps the other158; all costs must be reported."
+  },
+  "measurements": {
+    "loss": "FP64 sum of squared complete native step3 flow error against the same frozen DQ target; identical shape for each source",
+    "primary_matrix": "Every source x every N0/NA/NB action, plus original UB1 loss; publish all entries and signed gain terms",
+    "best_fixed": "Minimum pooled loss among the exact same three zero-correction actions",
+    "oracle": "Sum over sources of the minimum complete native action loss; offline, nondeployable",
+    "noise_eta": "Maximum per-source absolute repeated-N0 loss difference divided by that source's original UB1 loss",
+    "proposed_promotion_gate": "All numeric/cost controls pass AND oracle loss <=0.99*best_fixed loss AND oracle loss <=0.99*frozen_UB1 loss AND relative headroom exceeds10*eta. These are proposed diagnostic criteria frozen before new action outcomes, not final quality thresholds.",
+    "on_failure": "Close exactly this three-action raw/no-correction D0 probe. Do not tune supports, widths, pair, sources, correction capacity or thresholds after observing its losses. It does not close the unmatched/unrun corrected family or all spatial actions.",
+    "on_pass": "No automatic predictor, rollout or spatial routing. A separately registered, correction-matched E1/E2 protocol is still needed."
+  },
+  "matched_correction_family_D1": {
+    "status": "UNREGISTERED_FUTURE_DESIGN_NOT_TRIGGERED_BY_THIS_DRAFT",
+    "requirement": "For all three allocations use the same two-position R256 capacity, original numerical operator and identical fitting budget; freeze arm-specific fits before development action values. A complete216 arm's local target may have zero residual, but do not silently remove its charged correction operator.",
+    "missing_dependency": "Block31 training operands on each arm's actual block30-altered state. Old OP2 block31 sampled rows are not these inputs. A source-frozen streamed collection/fitting protocol and its full model/storage cost remain to be reviewed.",
+    "not_permitted": "Do not reuse the old162-fitted correction only in the incumbent and call the resulting comparison matched; do not treat D0 as a completed corrected E1."
+  },
+  "final_contract_unchanged": "One frozen deployed dynamic method must jointly have global main MAC<=50%, complete FFN>=1.5x including all routing/QDQ/correction/layout, and genuinely new-source free-student official aesthetic/imaging/motion relative drops each<=2%.",
+  "unmet_before_registration": [
+    "Independent scope review/authorization beyond the E0-only agenda",
+    "New guarded native packed-dispatch runner and explicit full-support/identity controls; no model job is currently eligible",
+    "Final source/asset/pack/input binding and resource preflight; draft thresholds/costs require explicit registration before any model measurement"
+  ]
+}

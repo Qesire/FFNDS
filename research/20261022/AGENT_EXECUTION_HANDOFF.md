@@ -1,4 +1,7 @@
 # Mandatory agent execution: R12 dynamic FFN discovery
+
+**E0 completed:** [current result/handoff](HANDOFF_R12_E0.md), [source/operand and CPU-pack audit](R12_E0_operand_audit.json), [historical flow geometry](R12_E0_flow_partitions.json). No model job was run or made eligible. The initial E0 instructions below are preserved as the task record; do not repeat them as missing work. The next native-value collection exists only as a [separate unregistered draft](R12_E1_native_value_DRAFT.json).
+
 **State:** exploratory; no registered GPU model method. Work immediately on valid source/CPU artifacts. Avoid a response consisting only of proposals.
 
 1. Read `AGENTS.md`, local AutoResearcher skills + `core/PROMPT_PLAYBOOK.md`, `research/CURRENT_DECISION.json`, `research/20261021/method_triage.json`, `research/OBJECTIVE_CONTRACT.json`, `docs/65_研究目标层级与R11解释修正_20261022.md`, and [full plan](POST_TRAIN_DYNAMIC_FFN_PAPER_PLAN.md).

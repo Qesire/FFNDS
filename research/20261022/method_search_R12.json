@@ -1,0 +1,49 @@
+{
+  "id": "R12_MECHANISM_PRIOR_ART_RECHECK",
+  "date": "2026-10-22",
+  "scope": "Four primary-paper rereads, including two outside the R10 ledger; no reproduced performance or novelty claim.",
+  "entries": [
+    {
+      "name": "DiffSparse",
+      "url": "https://arxiv.org/html/2604.03674v1",
+      "kind": "author_paper",
+      "new_vs_R10": true,
+      "sections_read": ["3.2", "4.1", "4.2", "A.5.5", "A.6.1"],
+      "operator_information_objective": "Token feature reuse with a learned (step,layer,rate) cost matrix, offline DP allocation, input-dependent token ranking and multi-step perceptual distillation. The allocation matrix itself is fixed after training.",
+      "transfer_limit": "Wan evaluation is20-step Wan2.1-1.3B; four-step appendix uses FLUX.1-schnell. Neither establishes14B dual-expert native HiF4 or our per-axis quality/FFN cost contract. Four-step cross-expert cache pairing/cold-start obstruction remains.",
+      "resource_caution": "Section4.1 says4-10 elapsed hours on8 MI250 devices; A.5.5 calls4-10 GPU-hours. Keep this denominator inconsistency explicit rather than promising the same cost on two A100s.",
+      "consequence": "Compare against strongest learned fixed allocation and count real token selection/transport; do not call another DP schedule input-conditioned layer allocation."
+    },
+    {
+      "name": "Elastic Diffusion Transformer",
+      "url": "https://arxiv.org/html/2602.13993v1",
+      "kind": "author_paper",
+      "new_vs_R10": false,
+      "sections_read": ["3.2", "3.3"],
+      "operator_information_objective": "A router consumes modulated input latents, pools per-token projected features, predicts sample-dependent block skipping and quarter/half/three-quarter/full MLP widths; end-to-end flow matching plus average gate/width losses; inference slices actual matrices.",
+      "transfer_limit": "Average width penalties are not an exact hard per-video paired budget. Training and inference do not prove frozen Wan HiF4 native equivalence or cheap calibration.",
+      "consequence": "Input-conditioned width routing is already prior art. R12 must demonstrate an actual quantized action/value mechanism and post-training deployment, not claim novelty for the router."
+    },
+    {
+      "name": "Dynamic Diffusion Transformer",
+      "url": "https://arxiv.org/html/2410.03456v1",
+      "kind": "author_paper",
+      "new_vs_R10": false,
+      "sections_read": ["3.2", "3.3", "3.4", "4.4"],
+      "operator_information_objective": "Time-dependent width masks can be precomputed; token bypass uses pre-MLP inputs and real gather/scatter, trained jointly. Sample-conditioned spatial selection is distinct from timestep-only width.",
+      "transfer_limit": "No inference from image DiT training to exact native four-step Wan/HiF4. Token gathering, output placement and complete cost need our own measurements.",
+      "consequence": "Separate conditional granularity from support count. A spatial seed needs actual mixed-action native propagation and a matched fixed spatial control; a hindsight output mosaic supplies neither."
+    },
+    {
+      "name": "Dynamic sparsity in tree-structured feed-forward layers at scale",
+      "url": "https://arxiv.org/html/2604.08565v1",
+      "kind": "author_paper",
+      "new_vs_R10": true,
+      "sections_read": ["3", "5.1", "G.3", "G.4"],
+      "operator_information_objective": "Hard tree traversal integrates routing with node computation; training can collapse input-dependent paths into permanent sparsity. Moving the nonlinearity changes this behavior.",
+      "transfer_limit": "Changes the FFN function/weights and uses language-model training or fine-tuning; not a demonstrated cheap conversion of current frozen quantized Wan. Re-encoding/recovery inherits the R8 full-support precision concern.",
+      "consequence": "Measure whether learned conditional behavior beats a pruned fixed path; a nonconstant router or high sparsity percentage alone does not establish conditional value."
+    }
+  ],
+  "eligible_model_methods_added": []
+}

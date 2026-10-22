@@ -1,4 +1,6 @@
-# 当前交接：R11T1固定20步实例已关闭
+# 历史交接：R11T1固定20步实例已关闭
+
+本文件保留R11T1完成时的状态；现行交接为[R12 E0](../20261022/HANDOFF_R12_E0.md)，以CURRENT_DECISION为准。R11原始协议和结果未改。
 
 先读 CURRENT_DECISION、method_triage、[研究目标契约](../OBJECTIVE_CONTRACT.json)、[目标解释修正](../../docs/65_研究目标层级与R11解释修正_20261022.md)、docs/64与R11T1_matched_objective_results。当前没有登记的下一项模型作业。
 

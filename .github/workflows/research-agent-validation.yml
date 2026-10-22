@@ -19,11 +19,19 @@ jobs:
       - name: Verify pinned agent guidance and current goal
         run: python tools/check_autoresearcher_binding.py
       - name: Verify historical method eligibility and closed evidence
-        run: python tools/check_research_routes.py
+        run: |
+          python tools/check_research_routes.py
+          python -m unittest discover -s tests -p 'test_research_route_guard.py' -v
       - name: Exercise actual counterfactual arithmetic (synthetic inputs only)
         run: python -m unittest discover -s tests -p 'test_counterfactual_actions.py' -v
       - name: Reproduce saved-evidence R12 E0 ledger
         run: python tools/check_r12_saved_evidence.py
+      - name: Verify completed R12 CPU evidence and its interpretation boundaries
+        run: |
+          python tools/check_r12_e0_artifacts.py
+          python -m unittest discover -s tests -p 'test_objective_contract.py' -v
+          python -m unittest discover -s tests -p 'test_r12*.py' -v
+          python -m unittest discover -s tests -p 'test_saved_flow_partitions.py' -v
       - name: Run CLI smoke fixture
         run: |
           python tools/analyze_counterfactual_actions.py --input research/20261022/examples/counterfactual_demo.json --output /tmp/ffnds_counterfactual_smoke.json

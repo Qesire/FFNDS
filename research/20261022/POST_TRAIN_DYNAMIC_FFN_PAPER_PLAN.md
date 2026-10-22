@@ -1,6 +1,8 @@
 # R12 — post-training dynamic FFN sparsity: mechanism-first paper plan
 Date: 2026-10-22. **Exploration, not an approved GPU protocol or reported Wan result.**
 
+**E0 execution update:** [real saved-operand/CPU-pack checks and historical-flow findings](HANDOFF_R12_E0.md) are complete. R7 output partitioning is descriptive, not a new equal-budget action result. [Next native-value draft](R12_E1_native_value_DRAFT.json) remains unregistered; the E1/E2/E3 boundaries below still apply.
+
 ## Central scientific question
 Can a frozen four-step distilled Wan2.2 I2V D-Q model use low-cost information available **before W1/FFN0** to choose an input-conditioned FFN computational action that beats the **best equal-budget fixed action**, retains new-source free-student visual quality and produces measurable full-FFN acceleration? Prefer no full distillation and at most modest offline calibration/selector/recovery training.
 
@@ -14,7 +16,7 @@ AutoResearcher v2.3: generate hypotheses widely, reconstruct true numerical oper
 - OD1 original-vs-distilled two-image block20 contribution concentration nearly matched; it does not establish how distillation changes conditional action regret, cross-layer signed error, or original-O free trajectory.
 
 ## Reconstruct and preserve native compute
-Pin actual `tools/step_budget_runtime.py`, `tools/trained_packed_runtime.py`, `tools/native_head_replay.py`, `docs/08_上游源码校对_20261020.md` and `docs/65_研究目标层级与R11解释修正_20261022.md`. The source-backed path includes modulation, Smooth, native HiF4 activation QDQ, W1, GELU(tanh), Q2, W2, casts, b2, gate/residual and downstream flow. Dimensions: d=5120, h=13824=216×64, 40 blocks, 4 steps [1000,750,500,250], high/high/low/low. The script `step_budget_runtime.py` intentionally accepts frozen UB1/identity only: new packed actions require their *own* native runner and byte controls, not changes presented as already supported.
+Pin actual `tools/step_budget_runtime.py`, `tools/trained_packed_runtime.py`, `tools/native_head_replay.py`, `docs/08_上游源码校对_20261020.md` and `docs/65_研究目标层级与R11解释修正_20261022.md`. The source-backed path includes modulation, Smooth, native HiF4 activation QDQ, W1, GELU(tanh), Q2, W2, casts, b2, gate/residual and downstream flow. Dimensions: d=5120, h=13824=216×64, 40 blocks, 4 configured step coordinates [1000,750,500,250], high/high/low/low. Shift5 produces observed native model timesteps approximately [1000,937.5,833.333313,625]; see [source/record reconstruction](R12_E0_runtime_reconstruction.json). The script `step_budget_runtime.py` intentionally accepts frozen UB1/identity only: new packed actions require their *own* native runner and byte controls, not changes presented as already supported.
 
 ## Proposed R12 action and exact rationale
 First discriminate in step3/block30+31, where UB1 selects 162 groups per block. Use three equal **pair main-MAC** arms: `UB1_162_162`, `A_216_108`, `B_108_216`. Each totals 324 groups. Other FFNs unchanged means nominal all-positions main MAC remains 50%. The same group total does **not** imply equal real latency or storage; account for dense/sparse packed weights, full native QDQ, selector, correction and launches. Match arm-specific correction capacity and fitting budget; also include no-correction ablation. Choose the pair action before block30 W1 from only currently available upstream inputs/conditioning; block31 must receive block30's actual altered state.

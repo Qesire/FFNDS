@@ -1,0 +1,26 @@
+{
+  "id": "R12_E0_SAVED_FLOW_PARTITIONS",
+  "status": "CPU_ONLY_DESCRIPTIVE_NOT_A_MODEL_METHOD",
+  "question": "Does whole-video aggregation hide heterogeneous signed error preferences in existing R7 full-restoration flow fields?",
+  "input": "Original R7D1 A/B full-flow tensors and DQ targets, after the R12 saved-operand SHA audit; sources 00/05/10/15 are all previously development-exposed.",
+  "partitions_fixed_before_new_tensor_analysis": [
+    "One selected historical restoration per entire source video",
+    "One selected historical restoration per native latent frame (21 frames)",
+    "One selected historical restoration per original output token (1x2x2 latent patch, 64 flow values, 31668 tokens)"
+  ],
+  "objective": "FP64 squared error against the same original DQ flow; sum all components with equal source weighting and no pixel/source/partition selection.",
+  "opposing_predictions": {
+    "source_only_preference": "Finer partitions add little reduction beyond the whole-source hindsight choice.",
+    "heterogeneous_direction_preference": "Finer partitions materially lower the error of a post-action output mosaic even when whole-source preferences nearly cancel."
+  },
+  "required_checks": [
+    "Original file and decoded tensor SHA/shape checks; no new quantization or model execution",
+    "Native-patch and frame losses each sum to the original whole-flow SSE",
+    "Best fixed loss >= source-mosaic loss >= frame-mosaic loss >= native-token-mosaic loss",
+    "Report every source and the exact same A/B action outputs, with no tuning"
+  ],
+  "interpretation_boundary": "This is offline target-dependent stitching of ALREADY COMPUTED global restoration outputs. It is NOT the result of executing spatially mixed FFN actions, NOT a bound on such execution, NOT R12 equal-budget conditional action headroom, NOT a deployable selector, and NOT video quality. Both original forwards and the DQ target were needed to construct it.",
+  "stop": "Any identity, finite-value or partition-additivity failure stops the audit. A large mosaic benefit may motivate a distinct tile-action counterfactual, but cannot authorize a model run or widen the old q/pool search.",
+  "new_model_jobs": 0,
+  "new_raw_tensor_storage_bytes": 0
+}

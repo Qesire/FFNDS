@@ -4,11 +4,25 @@
   "status": "ACTIVE_INTERPRETATION_CONTRACT_NO_EXECUTION_AUTHORIZATION",
   "target_system": {
     "identity": "Wan2.2 I2V A14B LightX2V four-step distilled D, HiF4 quantized D-Q execution",
-    "runtime": "Wan22StepDistillScheduler steps [1000,750,500,250], original LightX2V/HiF4 QDQ, effective native operators",
+    "runtime": "Wan22StepDistillScheduler configured coordinates [1000,750,500,250] on sample_shift=5 sigma grid; observed native times approximately [1000,937.5,833.333313,625]; original LightX2V/HiF4 QDQ and effective native operators",
     "baseline": "Frozen dense D-Q for equal model/precision/schedule/hardware comparisons; D-BF16 is a precision control, original undistilled O is a separate comparative model",
-    "explicit_non_equivalence": "D-Q, D-BF16, undistilled O, and a full-model BF16/HiF4 deployment are not interchangeable teacher or quality references"
+    "explicit_non_equivalence": "D-Q, D-BF16, undistilled O, and a full-model BF16/HiF4 deployment are not interchangeable teacher or quality references",
+    "configured_denoising_step_list": [
+      1000,
+      750,
+      500,
+      250
+    ],
+    "sample_shift": 5.0,
+    "observed_native_model_timesteps": [
+      1000.0,
+      937.5,
+      833.3333129882812,
+      625.0
+    ],
+    "schedule_clarification": "The configured list selects coordinates from the shift5 sigma grid; native TF2 timesteps differ from these labels. No schedule or model change; see research/20261022/R12_E0_runtime_reconstruction.json."
   },
-  "primary_scientific_goal": "Explain and exploit input-/state-conditioned FFN computational redundancy in the four-step distilled Wan model to obtain real, quality-preserving dynamic FFN sparsity under deployable operator and hardware constraints.",
+  "primary_scientific_goal": "Explain and exploit input-conditioned or state-conditioned FFN computational redundancy in the four-step distilled Wan model to obtain real, quality-preserving dynamic FFN sparsity under deployable operator and hardware constraints.",
   "scientific_questions": [
     "Where does conditional FFN redundancy remain after few-step distillation, and how does it differ from the original undistilled model under carefully matched input/quantization/operator controls?",
     "Can information available BEFORE costly main W1/FFN0 execution predict a beneficial input-conditioned support/action over the strongest matched static schedule or support, after compensation and overhead?",

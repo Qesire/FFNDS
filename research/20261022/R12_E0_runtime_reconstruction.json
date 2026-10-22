@@ -1,0 +1,174 @@
+{
+  "id": "R12_E0_NATIVE_RUNTIME_RECONSTRUCTION",
+  "status": "SOURCE_AND_SAVED_RECORD_RECONSTRUCTION_ONLY",
+  "configured_denoising_step_list": [
+    1000,
+    750,
+    500,
+    250
+  ],
+  "sample_shift": 5.0,
+  "formula": "sigma=5*(configured_coordinate/1000)/(1+4*(configured_coordinate/1000)); timestep=1000*sigma. Actual source uses FP32 linspace and indexed shifted sigmas.",
+  "observed_TF2": [
+    {
+      "record": "reports/worker_20261020/TF2_DQ_input00.json",
+      "sha256": "06538d1ce5f45d45dda3ffeb7d46a3a7003f12a99dd01742f5c8644973b2cb31",
+      "model_timesteps": [
+        1000.0,
+        937.5,
+        833.3333129882812,
+        625.0
+      ],
+      "sigmas": [
+        1.0,
+        0.9375,
+        0.8333333134651184,
+        0.625
+      ]
+    },
+    {
+      "record": "reports/worker_20261020/TF2_DQ_input05.json",
+      "sha256": "9c7c458da63c838d76630ab80ffeb06de2da0b090a2b22e7d4c6251a6af3ed23",
+      "model_timesteps": [
+        1000.0,
+        937.5,
+        833.3333129882812,
+        625.0
+      ],
+      "sigmas": [
+        1.0,
+        0.9375,
+        0.8333333134651184,
+        0.625
+      ]
+    },
+    {
+      "record": "reports/worker_20261020/TF2_DQ_input10.json",
+      "sha256": "5463691bc4bd33b462e831ddca7b40c1a1051704bcb5a6b0199d33619268d515",
+      "model_timesteps": [
+        1000.0,
+        937.5,
+        833.3333129882812,
+        625.0
+      ],
+      "sigmas": [
+        1.0,
+        0.9375,
+        0.8333333134651184,
+        0.625
+      ]
+    },
+    {
+      "record": "reports/worker_20261020/TF2_DQ_input15.json",
+      "sha256": "2618c24bc8ccf4b488c4a05ee62fe1f5ec5cb1847997189c9d811ca6d51f2946",
+      "model_timesteps": [
+        1000.0,
+        937.5,
+        833.3333129882812,
+        625.0
+      ],
+      "sigmas": [
+        1.0,
+        0.9375,
+        0.8333333134651184,
+        0.625
+      ]
+    },
+    {
+      "record": "reports/worker_20261020/TF2_UB1_input00.json",
+      "sha256": "274adf849a135b0cd98677636ee73197e6c028ad3a816ac0268510b866ff8379",
+      "model_timesteps": [
+        1000.0,
+        937.5,
+        833.3333129882812,
+        625.0
+      ],
+      "sigmas": [
+        1.0,
+        0.9375,
+        0.8333333134651184,
+        0.625
+      ]
+    },
+    {
+      "record": "reports/worker_20261020/TF2_UB1_input05.json",
+      "sha256": "405414ab3d862d5f36530063a2d09b89aa3416bb950845a86d689a97c801fdb5",
+      "model_timesteps": [
+        1000.0,
+        937.5,
+        833.3333129882812,
+        625.0
+      ],
+      "sigmas": [
+        1.0,
+        0.9375,
+        0.8333333134651184,
+        0.625
+      ]
+    },
+    {
+      "record": "reports/worker_20261020/TF2_UB1_input10.json",
+      "sha256": "d30b22139b8d30352ae28fb23c06fe2defffb04329322d61e764f1391f116188",
+      "model_timesteps": [
+        1000.0,
+        937.5,
+        833.3333129882812,
+        625.0
+      ],
+      "sigmas": [
+        1.0,
+        0.9375,
+        0.8333333134651184,
+        0.625
+      ]
+    },
+    {
+      "record": "reports/worker_20261020/TF2_UB1_input15.json",
+      "sha256": "7b36e5ca23b93e43bc8ed4168896a3e84b229ade8f19d367030e41ff7768bc20",
+      "model_timesteps": [
+        1000.0,
+        937.5,
+        833.3333129882812,
+        625.0
+      ],
+      "sigmas": [
+        1.0,
+        0.9375,
+        0.8333333134651184,
+        0.625
+      ]
+    }
+  ],
+  "source_locators": [
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py",
+      "sha256": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db",
+      "lines": "25-33;66-87",
+      "meaning": "Shift full sigma grid before selecting denoising coordinates; native subclass post update"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/pre_infer.py",
+      "sha256": "f3f88ca8ccbbd778206f8f04805c124beb84c19dcd22c4c38a6028b42c1502b5",
+      "lines": "136-164",
+      "meaning": "Timestep embedding feeds modulation; CFG branch is disabled in the frozen runtime"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py",
+      "sha256": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+      "lines": "203-209;366-437",
+      "meaning": "Gate comes from modulation plus timestep embedding; actual FFN preparation and gate/residual boundaries"
+    }
+  ],
+  "native_change": false,
+  "new_model_jobs": 0,
+  "interpretation": "Clarifies configured labels versus observed native inputs; does not change scheduling, cache identity, old protocol bytes or old measured outcomes.",
+  "pre_W1_full_input_metadata": {
+    "source_record": "research/20261021/R7D1_results.json",
+    "distinct_full_norm_input_hashes_by_block": {
+      "30": 4,
+      "31": 4
+    },
+    "scope": "Four R7 sources have distinct FULL modulated FFN input hashes at each block. Hashes do not establish predictability or feature quality.",
+    "OP2_sampling_caution": "The24 distinct OP2 sampled V1 hashes refer to different sampled row IDs; they alone cannot establish full-input diversity, matched spatial variation or predictive value."
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "R12_E0_CONTINUATION_CHECKS",
+  "status": "PASS_SOURCE_CPU_EVIDENCE_AND_OFFLINE_CHECKS",
+  "base_main_commit": "b45ef1c5a06881ff0985084a9f134cc6c6e3d920",
+  "new_model_jobs": 0,
+  "new_original_raw_tensor_bytes": 0,
+  "tests": {
+    "test_research_route_guard.py": 20,
+    "test_objective_contract.py": 5,
+    "test_counterfactual_actions.py": 5,
+    "test_r12_operand_audit.py": 2,
+    "test_r12_e0_artifacts.py": 4,
+    "test_saved_flow_partitions.py": 2,
+    "total": 38
+  },
+  "checks": [
+    "check_autoresearcher_binding.py PASS",
+    "check_research_routes.py CONSISTENT, eligible=[]",
+    "check_r12_saved_evidence.py PASS",
+    "check_r12_e0_artifacts.py PASS",
+    "synthetic counterfactual CLI fixture PASS, not Wan evidence",
+    "D0 unregistered method ID exits2 UNKNOWN_UNREVIEWED_METHOD as required",
+    "git diff --check PASS",
+    "public-metadata scanner PASS; new public artifacts checked for absolute workstation paths"
+  ],
+  "actual_worker_cpu_results": {
+    "saved_operand_and_pack_audit": {
+      "record": "research/20261022/R12_E0_operand_audit.json",
+      "sha256": "93198fc27b2a4f5e7bbe9ab076d9fd518f8b082474f7d7164bae5ef0ede0ec1f",
+      "elapsed_seconds": 20.82074110582471
+    },
+    "post_action_output_partitions": {
+      "record": "research/20261022/R12_E0_flow_partitions.json",
+      "sha256": "97d924a4969803617980c1e3ff116f143347d0f536642d0909853f365f8b23d7",
+      "elapsed_seconds": 0.6004688553512096
+    }
+  },
+  "implementation_repairs_preserved": [
+    {
+      "scope": "CPU audit only, no model job; first attempt stopped while comparing target flow against historical non-target-loss dictionary",
+      "error": "KeyError DQ: historical R7 loss dictionary omits its zero-error reference target",
+      "repair": "Handle DQ target SSE as exactly zero; unchanged original operand paths, bytes and historical measured losses",
+      "original_audit_source_sha256": "893be64e36af42275f8e6fec84b047f8b5e71317e2b80b66a66cb7bc25b73bef",
+      "original_failure_log_sha256": "151663d81ec878dc5234adaf1836b4002b2ece435379993a7ce66fdbbde49c30",
+      "raw_receipts": "Preserved in ignored run directory; no private path/log contents exported"
+    }
+  ],
+  "publication": "Expected-head non-forced main update only; re-read current remote before publishing; no private worker identifiers or historical unredacted snapshots copied."
+}
