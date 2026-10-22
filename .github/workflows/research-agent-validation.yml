@@ -1,0 +1,30 @@
+name: FFNDS research agent integrity
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  offline-research-checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify pinned agent guidance and current goal
+        run: python tools/check_autoresearcher_binding.py
+      - name: Verify historical method eligibility and closed evidence
+        run: python tools/check_research_routes.py
+      - name: Exercise actual counterfactual arithmetic (synthetic inputs only)
+        run: python -m unittest discover -s tests -p 'test_counterfactual_actions.py' -v
+      - name: Reproduce saved-evidence R12 E0 ledger
+        run: python tools/check_r12_saved_evidence.py
+      - name: Run CLI smoke fixture
+        run: |
+          python tools/analyze_counterfactual_actions.py --input research/20261022/examples/counterfactual_demo.json --output /tmp/ffnds_counterfactual_smoke.json
+          python -c "import json; j=json.load(open('/tmp/ffnds_counterfactual_smoke.json')); assert j['evidence_level']=='SYNTHETIC_TEST_ONLY' and abs(j['oracle_gain_over_best_fixed']-5)<1e-9"
