@@ -41,6 +41,10 @@ jobs:
           python -m unittest discover -s tests -p 'test_r15_catalog_integrity.py' -v
           python tools/audit_r15_metric_evidence.py
           python tools/replay_r15_metric_guard_probes.py
+      - name: Verify R15 metric usage against frozen native scalars and synthetic edge-case mathematics
+        run: |
+          python tools/verify_r15_metric_usage.py --check
+          python -m unittest discover -s tests -p 'test_r15_metric_usage.py' -v
       - name: Enforce full free-running video smoke for promoted candidate records
         run: |
           python tools/check_candidate_rollout_gate.py
