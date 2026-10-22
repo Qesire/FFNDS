@@ -13,3 +13,7 @@ Agents should open [research exploration index](../exploration/20261022/EXPLORAT
 ## Updated candidate evaluation (2026-10-22)
 
 The user clarified that earlier 50% MAC, 1.5× full-FFN speed and 2% per-axis quality values were arbitrary illustrative targets. Read [matched-competitor quality-speed guidance](../../docs/72_与同前提方法竞争的质量速度评价准则_20261022.md) before choosing new work. Do not make global stopping rules out of the former values; do preserve every historical frozen registered protocol/outcome. Scientific performance claims require actually comparable methods/conditions and full native latency + free-video quality, not MAC arithmetic or local flow alone.
+
+## Full free-running quality floor for selected backups
+
+A locally promising method must be tested in at least one real four-step free-running candidate video paired with the same-condition dense D-Q video before it is promoted as a viable candidate. Exclude severe subject/motion/scene, small-background-object or stable-light flickering failures by full-duration visual review. No stepwise D-Q restoration, synthetic speed run, local FFN SSE or flow reuse counts. Inspect [docs/75](../../docs/75_备选算法必须完整生成与防止视频质量崩溃_20261022.md) and record in [candidate registry](../candidate_rollout/README.md); first video is a smoke, later fresh sources establish quality/performance. Independent user authorization and historical closed-recipe scopes are unchanged.

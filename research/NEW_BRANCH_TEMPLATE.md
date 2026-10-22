@@ -14,3 +14,12 @@
 - Current disposition and link to the decision record that establishes it:
 
 Changing only names, q/pool/rank/bank count, seeds, thresholds, folds, sample count or scanned positions is a recipe extension. Record it as such; it is not automatically a new mechanism or eligible follow-up. A wider untested set is neither a successful method nor a global impossibility proof.
+
+**Selected backup-method promotion (required):**
+- Date/evidence by which this idea was selected for continued development, distinct from mere exploratory source/CPU reasoning:
+- Candidate registry ID, status and FULL paired free-running four-step video smoke next step:
+- Exact native candidate-active deployment positions and whether student latent progresses freely without D-Q restoration:
+- Matched dense D-Q image/prompt/seed/initial noise/scheduler/steps/frames/resolution/precision:
+- Candidate/baseline full-video artifacts and SHA, human full-duration comparison with motion/subject/background/stable-lighting collapse notes and timecodes:
+- If collapsed: close this concrete version before performance promotion; if passed: plan fresh-source video quality and actual end-to-end latency/Pareto evaluation:
+- Required independent user authorization for any model/GPU job (the smoke requirement does not grant authority):
