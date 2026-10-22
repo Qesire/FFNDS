@@ -1,5 +1,14 @@
 # FFNDS research continuity
 
+## Mandatory AutoResearcher v2.3 research behavior
+
+**Applies to every research agent.** Activate the locally installed [mechanism-research](.agents/skills/mechanism-research/SKILL.md), [research-expansion](.agents/skills/research-expansion/SKILL.md), and, for the paper agenda, [ffnds-paper-discovery](.agents/skills/ffnds-paper-discovery/SKILL.md) skills. Read the pinned original [AutoResearcher v2.3 AGENTS](research/agent_protocol/AUTORESEARCHER_AGENTS_v2_3.md) and relevant `core/` documents; provenance is in [SOURCE_MANIFEST.json](research/agent_protocol/SOURCE_MANIFEST.json).
+
+**Execute, not merely describe:** (1) extract the strongest structural observation; (2) reconstruct the relevant actual Wan/LightX2V/HiF4 computation and derive an equation or counterexample; (3) create scientifically different explanations or operators; (4) perform the cheapest available source, recorded-data, CPU or native check that discriminates them; (5) preserve actual evidence and leave a concrete next reproducible artifact. Do useful source/static work immediately when possible. Do not stop at disclaimers or a gatekeeping checklist. In EXPLORE, bold falsifiable mechanisms can precede complete implementation; in GROUND/TEST/CLAIM, pin exact source, numerical path, data exposure, costs and native results. Use CR/DF/CRL/MNG/GAPI/MEAR as working methods, not decorative tags.
+
+**Paper assignment:** read [R12 research plan](research/20261022/POST_TRAIN_DYNAMIC_FFN_PAPER_PLAN.md) and [execution handoff](research/20261022/AGENT_EXECUTION_HANDOFF.md). Investigate deployable *post-training input/state-conditioned FFN compute*, starting with equal-budget cross-layer native counterfactual action value versus the **best fixed** action, then pre-W1 prediction and hardware execution. R12 is exploratory and currently not a registered GPU method. Original R4E1/R11T1 results, empty model eligibility and frozen quality/compute thresholds remain unchanged. A new mechanism is not an automatic model-job authorization.
+
+
 For research review, method proposals, or experiment work, use the available `mechanism-research` skill and read in this order:
 
 1. `research/CURRENT_DECISION.json` (current decision and evidence pointers).

@@ -1,5 +1,12 @@
 # FFNDS — Wan2.2 FFN Dynamic Sparsity Handoff
 
+## 最新研究任务：后训练条件 FFN 稀疏方法（2026-10-22）
+
+面向以新动态 FFN 方法为核心的顶会论文，研究重点从继续调优固定 mask/R256 转为：**在相同总主 GEMM MAC 下，判断不同输入是否需要不同 FFN 计算动作，并能否用主 W1 之前可得的信号预测这些动作的真实下游收益**。第一轮 R12 探索讨论 step3/block30–31 的固定 162/162 与等预算 216/108、108/216 三种分配；这是新的机制与实验设计，**不是已完成的原生实验、已验证新颖性或自动获准的 GPU 作业**。R7D1 的完整教师恢复不等于等 MAC 动作，不能混为新结果。
+
+**Agent 必须执行 AutoResearcher v2.3 工作流，不止撰写方案**：详见 [本地方法与 skills](research/agent_protocol/README.md)、[研究路线](research/20261022/POST_TRAIN_DYNAMIC_FFN_PAPER_PLAN.md)、[可执行任务交接](research/20261022/AGENT_EXECUTION_HANDOFF.md)、[已存证据复算](research/20261022/R12_E0_SAVED_EVIDENCE_AUDIT.json) 和 [反事实收益分析工具](tools/analyze_counterfactual_actions.py)。正式目标仍为冻结 D-Q 同源主 GEMM≤50%、完整 FFN≥1.5×、独立新来源官方三轴各退化≤2%，UB1是强静态对照。
+
+
 Wan2.2 I2V / LightX2V四步蒸馏 / HiF4 / FFN动态稀疏研究交接，整理日期 **2026-10-21**。
 
 **研究目标校正（2026-10-22）：** FFNDS 首要任务是研究**四步蒸馏 Wan FFN 的条件冗余与可部署的输入/状态条件动态稀疏**，在原生 HiF4/BF16 执行链下同时实现真实省算与视频质量保持。局部 teacher-FFN/固定完整步骤 flow 拟合只是诊断或小型恢复训练；静态步间 UB1 是强工程基线，**不是**输入条件动态策略，不能把其固定预算或 R11T1 的固定输入 flow SSE 解释成动态创新/新来源视频质量。详见[目标契约](research/OBJECTIVE_CONTRACT.json)和[范围修正与证据层级](docs/65_研究目标层级与R11解释修正_20261022.md)。既有主MAC≤50%、完整FFN≥1.5×、新冻结来源三轴各下降≤2%的最终门槛**不变**；没有新模型作业自动准入。

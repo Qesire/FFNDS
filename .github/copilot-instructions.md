@@ -1,0 +1,2 @@
+# FFNDS agent instructions
+The root [AGENTS.md](../AGENTS.md) is binding. Use locally pinned AutoResearcher v2.3 from `research/agent_protocol/`, `.agents/skills/mechanism-research/`, `.agents/skills/research-expansion/` and `.agents/skills/ffnds-paper-discovery/`. Execute the [R12 handoff](../research/20261022/AGENT_EXECUTION_HANDOFF.md) as far as actual local source/saved-data/CPU access allows. Generate a scientific mechanism before cautionary process commentary; accurately mark all claims and preserve closed gates. Do not start unregistered model jobs.
