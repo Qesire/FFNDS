@@ -1,0 +1,2505 @@
+{
+  "schema_version": "1.0",
+  "review": "R15_20261023",
+  "base_commit": "aebd37f749b484f0caaf6224c0a1e507e327cf3f",
+  "purpose": "Academic metric families and executable FFNDS evaluation specification",
+  "family_count": 10,
+  "entry_count": 93,
+  "families": [
+    {
+      "id": "F1",
+      "name": "配对重建与感知保真",
+      "statistic_unit": "paired_aligned_frame",
+      "reference": "same_seed_dense_DQ",
+      "metric_ids": [
+        "paired_mse",
+        "paired_psnr",
+        "paired_ssim",
+        "paired_ms_ssim",
+        "paired_lpips"
+      ]
+    },
+    {
+      "id": "F2",
+      "name": "空间感知质量",
+      "statistic_unit": "frame_then_video",
+      "reference": "no_reference",
+      "metric_ids": [
+        "vbench_aesthetic",
+        "vbench_imaging",
+        "musiq",
+        "dover_aesthetic",
+        "dover_technical",
+        "dover_fused"
+      ]
+    },
+    {
+      "id": "F3",
+      "name": "条件遵循",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "metric_ids": [
+        "i2v_subject",
+        "i2v_background",
+        "i2v_camera_motion",
+        "clipscore",
+        "vbench_object_class",
+        "vbench_multiple_objects",
+        "vbench_human_action",
+        "vbench_color",
+        "vbench_spatial_relationship",
+        "vbench_scene",
+        "vbench_appearance_style",
+        "vbench_temporal_style",
+        "vbench_overall_consistency"
+      ]
+    },
+    {
+      "id": "F4",
+      "name": "时序一致与运动",
+      "statistic_unit": "video_and_valid_frame_pairs",
+      "reference": "within_video_and_paired_DQ",
+      "metric_ids": [
+        "vbench_subject_consistency",
+        "vbench_background_consistency",
+        "vbench_motion_smoothness",
+        "vbench_dynamic_degree",
+        "vbench_temporal_flickering",
+        "warping_error",
+        "stable_roi_temporal_residual"
+      ]
+    },
+    {
+      "id": "F5",
+      "name": "生成分布与多样性",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "metric_ids": [
+        "fvd",
+        "jedi",
+        "fvmd",
+        "frame_fid",
+        "frame_kid",
+        "precision",
+        "recall",
+        "density",
+        "coverage"
+      ]
+    },
+    {
+      "id": "F6",
+      "name": "复杂语义与真实性",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "metric_ids": [
+        "vb2_diversity",
+        "vb2_composition",
+        "vb2_motion_rationality",
+        "vb2_instance_preservation",
+        "vb2_dynamic_spatial_relationship",
+        "vb2_dynamic_attribute",
+        "vb2_motion_order_understanding",
+        "vb2_human_interaction",
+        "vb2_complex_landscape",
+        "vb2_complex_plot",
+        "vb2_camera_motion",
+        "vb2_human_anatomy",
+        "vb2_human_identity",
+        "vb2_human_clothes",
+        "vb2_mechanics",
+        "vb2_thermotics",
+        "vb2_material",
+        "vb2_multi_view_consistency"
+      ]
+    },
+    {
+      "id": "F7",
+      "name": "人类与学习型评价",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "metric_ids": [
+        "human_mos",
+        "human_pairwise",
+        "visible_failure_rate",
+        "videoscore_visual_quality",
+        "videoscore_temporal_consistency",
+        "videoscore_dynamic_degree",
+        "videoscore_text-to-video_alignment",
+        "videoscore_factual_consistency",
+        "videoscore2_visual_quality",
+        "videoscore2_text-to-video_alignment",
+        "videoscore2_physical_common-sense_consistency"
+      ]
+    },
+    {
+      "id": "F8",
+      "name": "数值与机制",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "metric_ids": [
+        "relative_l2",
+        "tensor_nmse",
+        "tensor_cosine",
+        "tensor_mse",
+        "native_equivalence",
+        "spatial_error_decomposition",
+        "action_value_decomposition",
+        "trajectory_error"
+      ]
+    },
+    {
+      "id": "F9",
+      "name": "效率与资源",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "metric_ids": [
+        "complete_ffn_latency",
+        "denoising_latency",
+        "video_generation_latency",
+        "wall_time",
+        "throughput",
+        "speedup",
+        "mac_flops",
+        "vram",
+        "training_cost",
+        "energy",
+        "pareto"
+      ]
+    },
+    {
+      "id": "F10",
+      "name": "统计可靠性",
+      "statistic_unit": "independent_source_cluster",
+      "reference": "paired_candidate_baseline",
+      "metric_ids": [
+        "paired_effect",
+        "cluster_ci",
+        "tails",
+        "agreement",
+        "equivalence"
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "id": "paired_mse",
+      "family": "F1",
+      "name": "MSE",
+      "direction": "min",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_PAIRED_FIDELITY",
+      "statistic_unit": "paired_aligned_frame",
+      "reference": "same_seed_dense_DQ",
+      "definition": "Mean squared paired pixel error; preserve dynamic range.",
+      "source_ids": [
+        "ssim"
+      ],
+      "required_protocol_fields": [
+        "pixel_range",
+        "color_space",
+        "alignment",
+        "frame_aggregation",
+        "backbone"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "paired_psnr",
+      "family": "F1",
+      "name": "PSNR",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_PAIRED_FIDELITY",
+      "statistic_unit": "paired_aligned_frame",
+      "reference": "same_seed_dense_DQ",
+      "definition": "10 log10(L^2/MSE); state framewise versus pooled aggregation and exact-match infinity.",
+      "source_ids": [
+        "ssim"
+      ],
+      "required_protocol_fields": [
+        "pixel_range",
+        "color_space",
+        "alignment",
+        "frame_aggregation",
+        "backbone"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "paired_ssim",
+      "family": "F1",
+      "name": "SSIM",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_PAIRED_FIDELITY",
+      "statistic_unit": "paired_aligned_frame",
+      "reference": "same_seed_dense_DQ",
+      "definition": "Local luminance/contrast/structure similarity; pin window, scale and color channel.",
+      "source_ids": [
+        "ssim"
+      ],
+      "required_protocol_fields": [
+        "pixel_range",
+        "color_space",
+        "alignment",
+        "frame_aggregation",
+        "backbone"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "paired_ms_ssim",
+      "family": "F1",
+      "name": "MS-SSIM",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_PAIRED_FIDELITY",
+      "statistic_unit": "paired_aligned_frame",
+      "reference": "same_seed_dense_DQ",
+      "definition": "Multiscale structural similarity; pin scales and weights.",
+      "source_ids": [
+        "ssim"
+      ],
+      "required_protocol_fields": [
+        "pixel_range",
+        "color_space",
+        "alignment",
+        "frame_aggregation",
+        "backbone"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "paired_lpips",
+      "family": "F1",
+      "name": "LPIPS",
+      "direction": "min",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_PAIRED_FIDELITY",
+      "statistic_unit": "paired_aligned_frame",
+      "reference": "same_seed_dense_DQ",
+      "definition": "Learned weighted normalized deep-feature distance; pin backbone and weights.",
+      "source_ids": [
+        "lpips"
+      ],
+      "required_protocol_fields": [
+        "pixel_range",
+        "color_space",
+        "alignment",
+        "frame_aggregation",
+        "backbone"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_aesthetic",
+      "family": "F2",
+      "name": "VBench aesthetic_quality",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "frame_then_video",
+      "reference": "no_reference",
+      "definition": "Official learned quality score with frozen preprocessing and normalization.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "evaluator_weights",
+        "resize",
+        "frame_sampling",
+        "normalization"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_imaging",
+      "family": "F2",
+      "name": "VBench imaging_quality (MUSIQ)",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "frame_then_video",
+      "reference": "no_reference",
+      "definition": "Official learned quality score with frozen preprocessing and normalization.",
+      "source_ids": [
+        "vbench",
+        "musiq"
+      ],
+      "required_protocol_fields": [
+        "evaluator_weights",
+        "resize",
+        "frame_sampling",
+        "normalization"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "musiq",
+      "family": "F2",
+      "name": "MUSIQ standalone",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "OPTIONAL_REUSES_CORE_EVALUATOR",
+      "statistic_unit": "frame_then_video",
+      "reference": "no_reference",
+      "definition": "Official learned quality score with frozen preprocessing and normalization.",
+      "source_ids": [
+        "musiq"
+      ],
+      "required_protocol_fields": [
+        "evaluator_weights",
+        "resize",
+        "frame_sampling",
+        "normalization"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "dover_aesthetic",
+      "family": "F2",
+      "name": "DOVER aesthetic",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "OPTIONAL",
+      "statistic_unit": "frame_then_video",
+      "reference": "no_reference",
+      "definition": "Official learned quality score with frozen preprocessing and normalization.",
+      "source_ids": [
+        "dover"
+      ],
+      "required_protocol_fields": [
+        "evaluator_weights",
+        "resize",
+        "frame_sampling",
+        "normalization"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "dover_technical",
+      "family": "F2",
+      "name": "DOVER technical",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "OPTIONAL",
+      "statistic_unit": "frame_then_video",
+      "reference": "no_reference",
+      "definition": "Official learned quality score with frozen preprocessing and normalization.",
+      "source_ids": [
+        "dover"
+      ],
+      "required_protocol_fields": [
+        "evaluator_weights",
+        "resize",
+        "frame_sampling",
+        "normalization"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "dover_fused",
+      "family": "F2",
+      "name": "DOVER fused",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "OPTIONAL",
+      "statistic_unit": "frame_then_video",
+      "reference": "no_reference",
+      "definition": "Official learned quality score with frozen preprocessing and normalization.",
+      "source_ids": [
+        "dover"
+      ],
+      "required_protocol_fields": [
+        "evaluator_weights",
+        "resize",
+        "frame_sampling",
+        "normalization"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "i2v_subject",
+      "family": "F3",
+      "name": "i2v_subject",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official input condition consistency; camera uses instructed motion subset.",
+      "source_ids": [
+        "i2v"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "i2v_background",
+      "family": "F3",
+      "name": "i2v_background",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official input condition consistency; camera uses instructed motion subset.",
+      "source_ids": [
+        "i2v"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "i2v_camera_motion",
+      "family": "F3",
+      "name": "camera_motion (I2V)",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official input condition consistency; camera uses instructed motion subset.",
+      "source_ids": [
+        "i2v"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "clipscore",
+      "family": "F3",
+      "name": "CLIPScore / declared video adaptation",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "OPTIONAL_TEXT",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Image-text score; video frame aggregation is a named adaptation.",
+      "source_ids": [
+        "clipscore"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_object_class",
+      "family": "F3",
+      "name": "VBench object_class",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_multiple_objects",
+      "family": "F3",
+      "name": "VBench multiple_objects",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_human_action",
+      "family": "F3",
+      "name": "VBench human_action",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_color",
+      "family": "F3",
+      "name": "VBench color",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_spatial_relationship",
+      "family": "F3",
+      "name": "VBench spatial_relationship",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_scene",
+      "family": "F3",
+      "name": "VBench scene",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_appearance_style",
+      "family": "F3",
+      "name": "VBench appearance_style",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_temporal_style",
+      "family": "F3",
+      "name": "VBench temporal_style",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_overall_consistency",
+      "family": "F3",
+      "name": "VBench overall_consistency",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "condition_video_pair",
+      "reference": "input_image_or_prompt",
+      "definition": "Official dimension on its matching labeled prompt subset.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "dimension_source_manifest",
+        "prompt_labels",
+        "feature_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_subject_consistency",
+      "family": "F4",
+      "name": "VBench subject_consistency",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "video_and_valid_frame_pairs",
+      "reference": "within_video_and_paired_DQ",
+      "definition": "Official per-video temporal/motion score; dynamic_degree interpreted within motion-demand strata.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "FPS",
+        "flow_or_tracking_weights",
+        "occlusion_mask",
+        "static_or_motion_stratum"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_background_consistency",
+      "family": "F4",
+      "name": "VBench background_consistency",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "video_and_valid_frame_pairs",
+      "reference": "within_video_and_paired_DQ",
+      "definition": "Official per-video temporal/motion score; dynamic_degree interpreted within motion-demand strata.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "FPS",
+        "flow_or_tracking_weights",
+        "occlusion_mask",
+        "static_or_motion_stratum"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_motion_smoothness",
+      "family": "F4",
+      "name": "VBench motion_smoothness",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "video_and_valid_frame_pairs",
+      "reference": "within_video_and_paired_DQ",
+      "definition": "Official per-video temporal/motion score; dynamic_degree interpreted within motion-demand strata.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "FPS",
+        "flow_or_tracking_weights",
+        "occlusion_mask",
+        "static_or_motion_stratum"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_dynamic_degree",
+      "family": "F4",
+      "name": "VBench dynamic_degree",
+      "direction": "contextual",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_I2V",
+      "statistic_unit": "video_and_valid_frame_pairs",
+      "reference": "within_video_and_paired_DQ",
+      "definition": "Official per-video temporal/motion score; dynamic_degree interpreted within motion-demand strata.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "FPS",
+        "flow_or_tracking_weights",
+        "occlusion_mask",
+        "static_or_motion_stratum"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vbench_temporal_flickering",
+      "family": "F4",
+      "name": "VBench temporal_flickering",
+      "direction": "max_on_static_subset",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_STATIC_SUBSET",
+      "statistic_unit": "video_and_valid_frame_pairs",
+      "reference": "within_video_and_paired_DQ",
+      "definition": "Official adjacent-frame pixel difference score on static videos.",
+      "source_ids": [
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "FPS",
+        "flow_or_tracking_weights",
+        "occlusion_mask",
+        "static_or_motion_stratum"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "warping_error",
+      "family": "F4",
+      "name": "Optical-flow warping error",
+      "direction": "min_conditionally",
+      "origin": "ACADEMIC_METRIC",
+      "role": "CORE_MOTION_AUXILIARY",
+      "statistic_unit": "video_and_valid_frame_pairs",
+      "reference": "within_video_and_paired_DQ",
+      "definition": "Motion-compensated frame difference with declared flow/visibility/aggregation.",
+      "source_ids": [
+        "evalcrafter"
+      ],
+      "required_protocol_fields": [
+        "FPS",
+        "flow_or_tracking_weights",
+        "occlusion_mask",
+        "static_or_motion_stratum"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "stable_roi_temporal_residual",
+      "family": "F4",
+      "name": "Stable ROI temporal residual",
+      "direction": "min_conditionally",
+      "origin": "PROJECT_DIAGNOSTIC",
+      "role": "TARGETED_DIAGNOSTIC",
+      "statistic_unit": "video_and_valid_frame_pairs",
+      "reference": "within_video_and_paired_DQ",
+      "definition": "Fixed shared ROI and tracking masks; report luminance differences, aligned residual and coverage.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "FPS",
+        "flow_or_tracking_weights",
+        "occlusion_mask",
+        "static_or_motion_stratum"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "fvd",
+      "family": "F5",
+      "name": "FVD",
+      "direction": "min",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DISTRIBUTION_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "Frechet distance between I3D video-feature means and covariances.",
+      "source_ids": [
+        "fvd",
+        "fvd_bias"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "jedi",
+      "family": "F5",
+      "name": "JEDi",
+      "direction": "min",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DISTRIBUTION_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "V-JEPA features plus polynomial-kernel MMD; pin estimator and kernel.",
+      "source_ids": [
+        "jedi"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "fvmd",
+      "family": "F5",
+      "name": "FVMD",
+      "direction": "min",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DISTRIBUTION_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "Frechet distance on keypoint-tracking motion features.",
+      "source_ids": [
+        "fvmd"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "frame_fid",
+      "family": "F5",
+      "name": "Frame-FID",
+      "direction": "min",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DISTRIBUTION_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "Inception frame-distribution Frechet distance with matched frame sampling.",
+      "source_ids": [
+        "fid"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "frame_kid",
+      "family": "F5",
+      "name": "Frame-KID",
+      "direction": "min",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DISTRIBUTION_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "Kernel distance on Inception frame features; unbiased finite estimates may be negative.",
+      "source_ids": [
+        "kid"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "precision",
+      "family": "F5",
+      "name": "precision",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DIVERSITY_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "Feature manifold fidelity. Video-feature adaptation must be named.",
+      "source_ids": [
+        "pr"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "recall",
+      "family": "F5",
+      "name": "recall",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DIVERSITY_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "Reference feature manifold coverage. Video-feature adaptation must be named.",
+      "source_ids": [
+        "pr"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "density",
+      "family": "F5",
+      "name": "density",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DIVERSITY_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "Density with respect to reference neighborhoods. Video-feature adaptation must be named.",
+      "source_ids": [
+        "dc"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "coverage",
+      "family": "F5",
+      "name": "coverage",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "DIVERSITY_EXTENSION",
+      "statistic_unit": "dataset_of_videos",
+      "reference": "matched_real_distribution_or_named_DQ_fidelity",
+      "definition": "Coverage of reference neighborhoods. Video-feature adaptation must be named.",
+      "source_ids": [
+        "dc"
+      ],
+      "required_protocol_fields": [
+        "both_sample_counts",
+        "feature_weights",
+        "clip_sampling",
+        "crop",
+        "kernel_or_covariance_estimator"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_diversity",
+      "family": "F6",
+      "name": "Diversity",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Creativity official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_composition",
+      "family": "F6",
+      "name": "Composition",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Creativity official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_motion_rationality",
+      "family": "F6",
+      "name": "Motion Rationality",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Commonsense official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_instance_preservation",
+      "family": "F6",
+      "name": "Instance Preservation",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Commonsense official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_dynamic_spatial_relationship",
+      "family": "F6",
+      "name": "Dynamic Spatial Relationship",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Controllability official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_dynamic_attribute",
+      "family": "F6",
+      "name": "Dynamic Attribute",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Controllability official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_motion_order_understanding",
+      "family": "F6",
+      "name": "Motion Order Understanding",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Controllability official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_human_interaction",
+      "family": "F6",
+      "name": "Human Interaction",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Controllability official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_complex_landscape",
+      "family": "F6",
+      "name": "Complex Landscape",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Controllability official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_complex_plot",
+      "family": "F6",
+      "name": "Complex Plot",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Controllability official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_camera_motion",
+      "family": "F6",
+      "name": "Camera Motion",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Controllability official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_human_anatomy",
+      "family": "F6",
+      "name": "Human Anatomy",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Human Fidelity official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_human_identity",
+      "family": "F6",
+      "name": "Human Identity",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Human Fidelity official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_human_clothes",
+      "family": "F6",
+      "name": "Human Clothes",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Human Fidelity official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_mechanics",
+      "family": "F6",
+      "name": "Mechanics",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Physics official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_thermotics",
+      "family": "F6",
+      "name": "Thermotics",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Physics official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_material",
+      "family": "F6",
+      "name": "Material",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Physics official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vb2_multi_view_consistency",
+      "family": "F6",
+      "name": "Multi-View Consistency",
+      "direction": "official_dimension_direction",
+      "origin": "ACADEMIC_METRIC",
+      "role": "TASK_EXTENSION",
+      "statistic_unit": "dimension_specific_video_set",
+      "reference": "official_prompt_suite",
+      "definition": "Physics official VBench-2.0 dimension and aggregation.",
+      "source_ids": [
+        "vbench2"
+      ],
+      "required_protocol_fields": [
+        "dimension_prompt_list",
+        "evaluator_weights",
+        "official_aggregation"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "human_mos",
+      "family": "F7",
+      "name": "MOS",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "HUMAN_PROTOCOL_OPTION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Mean opinion score under a fixed scale, environment and full-video viewing protocol.",
+      "source_ids": [
+        "p910"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "human_pairwise",
+      "family": "F7",
+      "name": "Human win/tie/loss",
+      "direction": "report_all",
+      "origin": "ACADEMIC_METHOD_PROJECT_PROTOCOL",
+      "role": "CORE_HUMAN",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Randomized blind full-video paired preference; source-cluster uncertainty.",
+      "source_ids": [
+        "p910",
+        "vbench"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "visible_failure_rate",
+      "family": "F7",
+      "name": "Visible failure rate",
+      "direction": "min",
+      "origin": "PROJECT_DIAGNOSTIC",
+      "role": "CORE_HUMAN",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Named severe failure events divided by all generated clips; retain timecodes.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "videoscore_visual_quality",
+      "family": "F7",
+      "name": "videoscore Visual Quality",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "LEARNED_EVALUATOR_EXTENSION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Frozen evaluator model, frame sampling and prompt; compare with human subset.",
+      "source_ids": [
+        "videoscore"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "videoscore_temporal_consistency",
+      "family": "F7",
+      "name": "videoscore Temporal Consistency",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "LEARNED_EVALUATOR_EXTENSION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Frozen evaluator model, frame sampling and prompt; compare with human subset.",
+      "source_ids": [
+        "videoscore"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "videoscore_dynamic_degree",
+      "family": "F7",
+      "name": "videoscore Dynamic Degree",
+      "direction": "contextual",
+      "origin": "ACADEMIC_METRIC",
+      "role": "LEARNED_EVALUATOR_EXTENSION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Frozen evaluator model, frame sampling and prompt; compare with human subset.",
+      "source_ids": [
+        "videoscore"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "videoscore_text-to-video_alignment",
+      "family": "F7",
+      "name": "videoscore Text-to-Video Alignment",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "LEARNED_EVALUATOR_EXTENSION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Frozen evaluator model, frame sampling and prompt; compare with human subset.",
+      "source_ids": [
+        "videoscore"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "videoscore_factual_consistency",
+      "family": "F7",
+      "name": "videoscore Factual Consistency",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "LEARNED_EVALUATOR_EXTENSION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Frozen evaluator model, frame sampling and prompt; compare with human subset.",
+      "source_ids": [
+        "videoscore"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "videoscore2_visual_quality",
+      "family": "F7",
+      "name": "videoscore2 Visual Quality",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "LEARNED_EVALUATOR_EXTENSION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Frozen evaluator model, frame sampling and prompt; compare with human subset.",
+      "source_ids": [
+        "videoscore2"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "videoscore2_text-to-video_alignment",
+      "family": "F7",
+      "name": "videoscore2 Text-to-Video Alignment",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "LEARNED_EVALUATOR_EXTENSION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Frozen evaluator model, frame sampling and prompt; compare with human subset.",
+      "source_ids": [
+        "videoscore2"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "videoscore2_physical_common-sense_consistency",
+      "family": "F7",
+      "name": "videoscore2 Physical/Common-sense Consistency",
+      "direction": "max",
+      "origin": "ACADEMIC_METRIC",
+      "role": "LEARNED_EVALUATOR_EXTENSION",
+      "statistic_unit": "video_pair_rater_or_evaluator",
+      "reference": "blind_paired_comparison_or_named_scale",
+      "definition": "Frozen evaluator model, frame sampling and prompt; compare with human subset.",
+      "source_ids": [
+        "videoscore2"
+      ],
+      "required_protocol_fields": [
+        "rater_count",
+        "scale",
+        "random_order",
+        "full_duration",
+        "evaluator_weights"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "relative_l2",
+      "family": "F8",
+      "name": "Relative L2",
+      "direction": "min",
+      "origin": "STANDARD_NUMERICAL_STATISTIC",
+      "role": "MECHANISM_DIAGNOSTIC",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "definition": "||candidate-reference||/||reference||; zero denominator separate.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "tensor_location",
+        "denominator",
+        "input_state",
+        "quantization",
+        "source_exposure"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "tensor_nmse",
+      "family": "F8",
+      "name": "Tensor NMSE",
+      "direction": "min",
+      "origin": "STANDARD_NUMERICAL_STATISTIC",
+      "role": "MECHANISM_DIAGNOSTIC",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "definition": "SSE divided by explicitly named reference tensor energy.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "tensor_location",
+        "denominator",
+        "input_state",
+        "quantization",
+        "source_exposure"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "tensor_cosine",
+      "family": "F8",
+      "name": "Cosine similarity",
+      "direction": "contextual",
+      "origin": "STANDARD_NUMERICAL_STATISTIC",
+      "role": "MECHANISM_DIAGNOSTIC",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "definition": "Direction comparison in a specified tensor space.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "tensor_location",
+        "denominator",
+        "input_state",
+        "quantization",
+        "source_exposure"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "tensor_mse",
+      "family": "F8",
+      "name": "Tensor SSE/MSE",
+      "direction": "min",
+      "origin": "STANDARD_NUMERICAL_STATISTIC",
+      "role": "MECHANISM_DIAGNOSTIC",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "definition": "Exact tensor location and dimensions; reduction explicit.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "tensor_location",
+        "denominator",
+        "input_state",
+        "quantization",
+        "source_exposure"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "native_equivalence",
+      "family": "F8",
+      "name": "Native bitwise/max-absolute equivalence",
+      "direction": "min",
+      "origin": "STANDARD_NUMERICAL_STATISTIC",
+      "role": "MECHANISM_DIAGNOSTIC",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "definition": "Compare exact native quantization and writeback implementations.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "tensor_location",
+        "denominator",
+        "input_state",
+        "quantization",
+        "source_exposure"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "spatial_error_decomposition",
+      "family": "F8",
+      "name": "Mean/contrast error decomposition",
+      "direction": "diagnostic",
+      "origin": "PROJECT_DIAGNOSTIC",
+      "role": "MECHANISM_DIAGNOSTIC",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "definition": "Shared mean error and centered within-stripe error.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "tensor_location",
+        "denominator",
+        "input_state",
+        "quantization",
+        "source_exposure"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "action_value_decomposition",
+      "family": "F8",
+      "name": "Action value / oracle / selector decomposition",
+      "direction": "diagnostic",
+      "origin": "PROJECT_DIAGNOSTIC",
+      "role": "MECHANISM_DIAGNOSTIC",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "definition": "Signed benefit; strongest common fixed versus per-input oracle; regret and action-family deficit.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "tensor_location",
+        "denominator",
+        "input_state",
+        "quantization",
+        "source_exposure"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "trajectory_error",
+      "family": "F8",
+      "name": "Flow/latent trajectory error",
+      "direction": "diagnostic",
+      "origin": "PROJECT_DIAGNOSTIC",
+      "role": "MECHANISM_DIAGNOSTIC",
+      "statistic_unit": "tensor_token_stripe_step",
+      "reference": "same_state_native_DQ_and_matched_fixed",
+      "definition": "Label same-state/reset/free path, actual timesteps and propagation.",
+      "source_ids": [
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "tensor_location",
+        "denominator",
+        "input_state",
+        "quantization",
+        "source_exposure"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "complete_ffn_latency",
+      "family": "F9",
+      "name": "Complete FFN latency",
+      "direction": "min",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "All intended locations including routing,QDQ,layout,compensation and writeback.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "denoising_latency",
+      "family": "F9",
+      "name": "Denoising latency",
+      "direction": "min",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "All denoising steps at fixed generation setting.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "video_generation_latency",
+      "family": "F9",
+      "name": "Video generation latency",
+      "direction": "min",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "Denoising plus VAE; explicit GPU/CPU boundary.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "wall_time",
+      "family": "F9",
+      "name": "End-to-end wall time",
+      "direction": "min",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "Explicit loading,compilation,offload,decoding and IO inclusion.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "throughput",
+      "family": "F9",
+      "name": "Throughput",
+      "direction": "max",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "Videos/s at declared batch and concurrency.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "speedup",
+      "family": "F9",
+      "name": "Matched speedup",
+      "direction": "max",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "Baseline latency divided by candidate latency at identical boundary.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "mac_flops",
+      "family": "F9",
+      "name": "MAC/FLOPs and actual skipped work",
+      "direction": "min_conditionally",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "Declare multiply-add convention, main projections and overhead separately.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "vram",
+      "family": "F9",
+      "name": "Peak allocated/reserved VRAM",
+      "direction": "min",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "Both allocator counters with process/device window.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "training_cost",
+      "family": "F9",
+      "name": "Post-training GPU-hours and parameters",
+      "direction": "min_conditionally",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "Trainable/total parameters,updates,data and hardware.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "energy",
+      "family": "F9",
+      "name": "Energy per video",
+      "direction": "min_conditionally",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "OPTIONAL_ENERGY",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "J/video with measured power interval and accounting scope.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "pareto",
+      "family": "F9",
+      "name": "Iso-quality / iso-latency / Pareto",
+      "direction": "multiobjective",
+      "origin": "SYSTEM_MEASUREMENT",
+      "role": "CORE_SYSTEM",
+      "statistic_unit": "deployment_run",
+      "reference": "matched_hardware_and_generation_config",
+      "definition": "Matched quality vector and measured cost at each operating point.",
+      "source_ids": [
+        "timing",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "timing_boundary",
+        "warmup",
+        "repeats",
+        "hardware",
+        "precision",
+        "shape",
+        "software"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "paired_effect",
+      "family": "F10",
+      "name": "Paired mean/median difference",
+      "direction": "report",
+      "origin": "STATISTICAL_METHOD",
+      "role": "CORE_STATISTICAL_REPORT",
+      "statistic_unit": "independent_source_cluster",
+      "reference": "paired_candidate_baseline",
+      "definition": "Within source and seed paired effect; raw scale and direction.",
+      "source_ids": [
+        "bootstrap",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "cluster_definition",
+        "source_seed_counts",
+        "aggregation",
+        "CI_method",
+        "primary_endpoints"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "cluster_ci",
+      "family": "F10",
+      "name": "Source-cluster confidence interval",
+      "direction": "report",
+      "origin": "STATISTICAL_METHOD",
+      "role": "CORE_STATISTICAL_REPORT",
+      "statistic_unit": "independent_source_cluster",
+      "reference": "paired_candidate_baseline",
+      "definition": "Resample independent sources with method pairing; nested seeds/raters as registered.",
+      "source_ids": [
+        "bootstrap",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "cluster_definition",
+        "source_seed_counts",
+        "aggregation",
+        "CI_method",
+        "primary_endpoints"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "tails",
+      "family": "F10",
+      "name": "Source/clip tails and worst cases",
+      "direction": "report",
+      "origin": "STATISTICAL_METHOD",
+      "role": "CORE_STATISTICAL_REPORT",
+      "statistic_unit": "independent_source_cluster",
+      "reference": "paired_candidate_baseline",
+      "definition": "p10 quality or upper error/latency tail at named unit.",
+      "source_ids": [
+        "bootstrap",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "cluster_definition",
+        "source_seed_counts",
+        "aggregation",
+        "CI_method",
+        "primary_endpoints"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "agreement",
+      "family": "F10",
+      "name": "Evaluator-human rank agreement",
+      "direction": "report",
+      "origin": "STATISTICAL_METHOD",
+      "role": "CORE_STATISTICAL_REPORT",
+      "statistic_unit": "independent_source_cluster",
+      "reference": "paired_candidate_baseline",
+      "definition": "Spearman/Kendall and uncertainty on held-out human-rated set.",
+      "source_ids": [
+        "bootstrap",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "cluster_definition",
+        "source_seed_counts",
+        "aggregation",
+        "CI_method",
+        "primary_endpoints"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    },
+    {
+      "id": "equivalence",
+      "family": "F10",
+      "name": "Equivalence / non-inferiority analysis",
+      "direction": "report",
+      "origin": "STATISTICAL_METHOD",
+      "role": "CORE_STATISTICAL_REPORT",
+      "statistic_unit": "independent_source_cluster",
+      "reference": "paired_candidate_baseline",
+      "definition": "Predeclare meaningful margins and primary dimensions; use appropriate confidence test.",
+      "source_ids": [
+        "bootstrap",
+        "ffnds"
+      ],
+      "required_protocol_fields": [
+        "cluster_definition",
+        "source_seed_counts",
+        "aggregation",
+        "CI_method",
+        "primary_endpoints"
+      ],
+      "report_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+      "measurement_status": "DEFINITION_ONLY",
+      "implementation_status": "SPECIFICATION; use official evaluator or explicitly named adaptation"
+    }
+  ],
+  "sources": {
+    "vbench": {
+      "title": "VBench, CVPR 2024",
+      "url": "https://arxiv.org/abs/2311.17982",
+      "accessed": "2026-10-23"
+    },
+    "i2v": {
+      "title": "VBench++ / VBench-I2V",
+      "url": "https://arxiv.org/abs/2411.13503",
+      "accessed": "2026-10-23"
+    },
+    "vbench2": {
+      "title": "VBench-2.0",
+      "url": "https://arxiv.org/abs/2503.21755",
+      "accessed": "2026-10-23"
+    },
+    "ssim": {
+      "title": "SSIM / author implementation and multiscale references",
+      "url": "https://ece.uwaterloo.ca/~z70wang/research/ssim/",
+      "accessed": "2026-10-23"
+    },
+    "lpips": {
+      "title": "LPIPS, CVPR 2018",
+      "url": "https://richzhang.github.io/PerceptualSimilarity/",
+      "accessed": "2026-10-23"
+    },
+    "musiq": {
+      "title": "MUSIQ, ICCV 2021",
+      "url": "https://arxiv.org/abs/2108.05997",
+      "accessed": "2026-10-23"
+    },
+    "dover": {
+      "title": "DOVER, ICCV 2023",
+      "url": "https://github.com/VQAssessment/DOVER",
+      "accessed": "2026-10-23"
+    },
+    "clipscore": {
+      "title": "CLIPScore, EMNLP 2021",
+      "url": "https://aclanthology.org/2021.emnlp-main.595/",
+      "accessed": "2026-10-23"
+    },
+    "evalcrafter": {
+      "title": "EvalCrafter, CVPR 2024",
+      "url": "https://github.com/evalcrafter/EvalCrafter",
+      "accessed": "2026-10-23"
+    },
+    "fvd": {
+      "title": "Towards Accurate Generative Models of Video: A New Metric & Challenges",
+      "url": "https://arxiv.org/abs/1812.01717",
+      "accessed": "2026-10-23"
+    },
+    "jedi": {
+      "title": "Beyond FVD, ICLR 2025",
+      "url": "https://arxiv.org/abs/2410.05203",
+      "accessed": "2026-10-23"
+    },
+    "fvmd": {
+      "title": "Frechet Video Motion Distance",
+      "url": "https://arxiv.org/abs/2407.16124",
+      "accessed": "2026-10-23"
+    },
+    "fid": {
+      "title": "FID / TTUR, NeurIPS 2017",
+      "url": "https://proceedings.neurips.cc/paper/2017/file/8a1d694707eb0fefe65871369074926d-Paper.pdf",
+      "accessed": "2026-10-23"
+    },
+    "kid": {
+      "title": "Demystifying MMD GANs, ICLR 2018",
+      "url": "https://arxiv.org/abs/1801.01401",
+      "accessed": "2026-10-23"
+    },
+    "pr": {
+      "title": "Improved Precision and Recall, NeurIPS 2019",
+      "url": "https://proceedings.neurips.cc/paper/2019/hash/0234c510bc6d908b28c70ff313743079-Abstract.html",
+      "accessed": "2026-10-23"
+    },
+    "dc": {
+      "title": "Reliable Fidelity and Diversity Metrics, ICML 2020",
+      "url": "https://proceedings.mlr.press/v119/naeem20a.html",
+      "accessed": "2026-10-23"
+    },
+    "fvd_bias": {
+      "title": "On the Content Bias in FVD, CVPR 2024",
+      "url": "https://arxiv.org/abs/2404.12391",
+      "accessed": "2026-10-23"
+    },
+    "p910": {
+      "title": "ITU-T P.910 version index; 07/2026 prepublished listed current at retrieval",
+      "url": "https://www.itu.int/rec/T-REC-P.910/en",
+      "accessed": "2026-10-23"
+    },
+    "videoscore": {
+      "title": "VideoScore, EMNLP 2024",
+      "url": "https://github.com/TIGER-AI-Lab/VideoScore",
+      "accessed": "2026-10-23"
+    },
+    "videoscore2": {
+      "title": "VideoScore2",
+      "url": "https://github.com/TIGER-AI-Lab/VideoScore2",
+      "accessed": "2026-10-23"
+    },
+    "timing": {
+      "title": "PyTorch benchmark measurement documentation",
+      "url": "https://docs.pytorch.org/docs/2.14/benchmark_utils.html",
+      "accessed": "2026-10-23"
+    },
+    "bootstrap": {
+      "title": "Efron, Bootstrap Methods, 1979",
+      "url": "https://doi.org/10.1214/aos/1176344552",
+      "accessed": "2026-10-23"
+    },
+    "ffnds": {
+      "title": "FFNDS source and frozen experiment records",
+      "url": "https://github.com/Qesire/FFNDS/tree/aebd37f749b484f0caaf6224c0a1e507e327cf3f",
+      "accessed": "2026-10-23"
+    }
+  },
+  "suite_pin": {
+    "repository": "Vchitect/VBench",
+    "commit": "fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490"
+  },
+  "scope": "Catalog definitions; benchmark scoring functions remain the named official implementations. Per-metric academic origin and project adaptation explicit. No newly generated quality measurements."
+}

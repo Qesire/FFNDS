@@ -1,3 +1,9 @@
+# Academic families and execution profiles
+
+[Chinese reference](../../docs/77_FFNDS学术指标族与评测协议_20261023.md) · [93-entry JSON](academic_metric_families.json) · [CSV](academic_metric_families.csv) · [evaluation protocol template](evaluation_protocol_template.json). These define 10 measurement families; `catalog.json` remains the active 34-metric observation/claim registry. Catalog entries specify academic origin versus project adaptation; official evaluators perform the actual video scoring.
+
+The two records in `records/` map 17 frozen R14N0/R14 observations. Check with `python tools/check_metric_contract.py`; run `python -m unittest discover -s tests -p "test_metric*.py"` and the candidate-rollout tests. A full independent I2V claim uses nine dimensions and linked reviewed rollout; partial suites, failures and synthetic timing have dedicated diagnostic claims.
+
 # FFNDS metric registry
 
 Read [the literature-aligned metric hierarchy](../../docs/76_基于学术文献的FFNDS分层指标体系_20261022.md). `catalog.json` defines measurement levels L0–L5, ordinary video metrics and strict claim separation. `metric_record_template.json` is a **synthetic schema example**, not new experimental evidence.

@@ -1,0 +1,103 @@
+{
+  "status": "PLANNED_NOT_MEASURED",
+  "profile": "FFNDS_PAPER_CORE",
+  "source_document": "docs/77_FFNDS学术指标族与评测协议_20261023.md",
+  "deployment": {
+    "checkpoint_sha256": null,
+    "quantization": null,
+    "scheduler": null,
+    "actual_timesteps": null,
+    "frames": null,
+    "resolution": null,
+    "decode_config": null,
+    "hardware": null,
+    "software_versions": null
+  },
+  "baselines": [
+    "D-Q",
+    "UB1",
+    "strongest_same_cost_fixed",
+    "closest_reproducible_dynamic_prior"
+  ],
+  "sources": {
+    "official_dimension_manifests": {},
+    "project_fresh_source_manifest_sha256": null,
+    "training_development_overlap_audit": null,
+    "motion_strata": [
+      "static",
+      "small_subject_motion",
+      "large_subject_motion",
+      "camera_motion"
+    ],
+    "seeds": null,
+    "source_count": null
+  },
+  "suite": {
+    "repository": "Vchitect/VBench",
+    "revision": "fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490",
+    "required_i2v_dimensions": [
+      "i2v_subject",
+      "i2v_background",
+      "camera_motion",
+      "subject_consistency",
+      "background_consistency",
+      "motion_smoothness",
+      "dynamic_degree",
+      "aesthetic_quality",
+      "imaging_quality"
+    ],
+    "auxiliary": [
+      "official temporal_flickering on static subset",
+      "declared warping error",
+      "LPIPS",
+      "SSIM",
+      "PSNR"
+    ],
+    "optional_modules": []
+  },
+  "human": {
+    "protocol_revision": null,
+    "blinded_pair_order": true,
+    "full_duration": true,
+    "rater_count": null,
+    "ratings_per_video": null,
+    "axes": [
+      "overall_preference",
+      "condition_preservation",
+      "motion",
+      "temporal_stability",
+      "visual_detail"
+    ],
+    "tie_allowed": true
+  },
+  "timing": {
+    "boundaries": [
+      "complete_FFN",
+      "denoising",
+      "generation_including_VAE",
+      "wall_time"
+    ],
+    "warmup": null,
+    "repetitions": null,
+    "raw_samples_required": true
+  },
+  "statistics": {
+    "primary_endpoints": null,
+    "meaningful_margins": null,
+    "bootstrap_outer_unit": "independent source cluster",
+    "method_pairing_preserved": true,
+    "CI_level": 0.95,
+    "multiple_comparison_plan": null,
+    "official_and_source_balanced_aggregates_separate": true
+  },
+  "outputs": [
+    "per_video_dimension_scores",
+    "paired_fidelity_frame_curves",
+    "human_raw_ratings",
+    "failure_event_timecodes",
+    "raw_timing_samples",
+    "source_stratified_CI",
+    "quality_cost_operating_points"
+  ],
+  "measurements": []
+}

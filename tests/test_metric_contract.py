@@ -17,7 +17,7 @@ class MetricContractTests(unittest.TestCase):
           "sample_unit":"64 stripes","source":"SYNTHETIC_TEST_ONLY","spatial_grain":"group of four real-token positions",
           "temporal_grain":"step2 block20","population":"exposed development","aggregation":"sum per group",
           "comparison_reference":"same-state D-Q","execution_mode":"saved_native_same_state",
-          "source_exposure":"development","implementation_sha":"SYNTHETIC_SHA_TEST_ONLY",
+          "source_exposure":"development","implementation_sha":"a"*64,
           "evidence_locator":"SYNTHETIC_TEST_ONLY"}
     def test_catalog_is_well_formed(self):self.assertEqual(validate_catalog(self.cat),[])
     def test_r14n0_cannot_be_renamed_video_loss(self):

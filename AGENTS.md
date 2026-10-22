@@ -1,3 +1,7 @@
+# Current metric-family task and reporting (2026-10-23)
+
+Read [academic metric families and execution profiles](docs/77_FFNDS学术指标族与评测协议_20261023.md) and [saved-evidence audit](docs/78_指标审计与已有实验映射_R15_20261023.md) alongside docs/76. Use literature-defined quality/condition/motion/distribution/perceptual/human metrics, explicit system boundaries and source-cluster statistics. The 10-family organization and FFNDS diagnostic additions have distinct provenance in the catalog. Lead with scientific findings and actionable definitions; use direct, non-defensive language.
+
 # FFNDS research continuity
 
 ## Literature-grounded L0-L5 metrics and claims (user clarification 2026-10-22)

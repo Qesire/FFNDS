@@ -1,3 +1,5 @@
+Current metric reference: [docs/77_FFNDS学术指标族与评测协议_20261023.md](docs/77_FFNDS学术指标族与评测协议_20261023.md); machine-readable families: `research/metric_system/academic_metric_families.json`. Report quality, motion, condition, distribution, fidelity, human preference and system cost with their own units and protocol.
+
 # FFNDS research agent instructions
 
 Root [AGENTS.md](../AGENTS.md) is binding; load local AutoResearcher v2.3 `mechanism-research`, `research-expansion`, `ffnds-paper-discovery` skills. The evidence and open-idea navigator is [exploration index](../research/exploration/20261022/EXPLORATION_INDEX.md), and the outcomes-oriented synthesis is [docs/67](../docs/67_后训练动态FFN开放探索与质量速度目标_20261022.md).

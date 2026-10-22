@@ -3,6 +3,7 @@
 from pathlib import Path
 import json
 import sys
+from metric_evidence_validation import observation_errors, claim_errors, OFFICIAL_I2V, INDEPENDENT_CLAIMS
 ROOT=Path(__file__).resolve().parents[1]
 CAT=ROOT/"research/metric_system/catalog.json"
 RECORDS=ROOT/"research/metric_system/records"
@@ -25,17 +26,20 @@ def validate_catalog(data):
                "vbench_i2v_aesthetic_quality","vbench_i2v_imaging_quality",
                "complete_ffn_latency_ms","generation_gpu_time_s","synthetic_backend_speedup"}
     if not mandatory.issubset(set(ids)):e.append("missing essential metric families")
+    if not OFFICIAL_I2V.issubset(ids):e.append("missing official I2V dimension")
     if data.get("history",{}).get("R14N0",{}).get("level")!="L1":
         e.append("R14N0 historical local metric must stay L1")
     if data.get("history",{}).get("R14",{}).get("metric_id")!="synthetic_backend_speedup":
         e.append("R14 synthetic hardware evidence must not be native model speed")
     for key,item in data.get("claims",{}).items():
         if not item.get("required_levels"):e.append("claim missing levels: "+key)
+        if key in INDEPENDENT_CLAIMS and not OFFICIAL_I2V.issubset(item.get("required_metrics", [])):
+            e.append("full independent claim definition needs all nine I2V dimensions")
         if not set(item.get("required_levels",[])).issubset(levels):e.append("claim has invalid level: "+key)
         for m in item.get("required_metrics",[]):
             if m not in ids:e.append(f"claim {key} requires unknown metric {m}")
     return e
-def validate_record(r,data):
+def validate_record(r,data,root=ROOT):
     e=[]
     if not isinstance(r,dict):return ["record is not an object"]
     if not isinstance(r.get("record_id"),str) or not r["record_id"].strip():e.append("record_id missing")
@@ -51,9 +55,11 @@ def validate_record(r,data):
         if not isinstance(m,dict):e.append("observation is not object");continue
         id=m.get("metric_id")
         if id not in catalogMap:e.append("unknown metric "+str(id));continue
-        if id in seen:e.append("duplicate observation metric "+id)
-        seen.add(id)
+        identity=(id,str(m.get("observation_id", "")))
+        if identity in seen:e.append("duplicate observation identity "+id)
+        seen.add(identity)
         ref=catalogMap[id]
+        e += observation_errors(m,ref)
         if m.get("level")!=ref["level"]:e.append(id+" evidence level does not match catalog")
         if m.get("unit")!=ref["unit"]:e.append(id+" incompatible unit")
         if m.get("value") is None:e.append(id+" marked measured but has null value")
@@ -74,11 +80,7 @@ def validate_record(r,data):
         presentids={m.get("metric_id") for m in entries if isinstance(m,dict)}
         if not set(cl["required_levels"]).issubset(present):e.append("claim exceeds actually measured evidence levels")
         if not set(cl.get("required_metrics",[])).issubset(presentids):e.append("claim missing required metrics")
-        if claim in ("video_noncollapse_smoke","video_speed_quality_pareto","independent_video_quality"):
-            if not r.get("full_student_free_running") or not r.get("paired_baseline_full_video"):
-                e.append("video claim lacks true full free-running paired student evidence")
-        if claim=="video_speed_quality_pareto" and not r.get("matched_prior_art_or_strong_fixed"):
-            e.append("competitive claim lacks matched strong comparison")
+        e += claim_errors(r,entries,root)
     return e
 def main():
     data=catalog()

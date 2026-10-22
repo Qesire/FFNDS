@@ -33,10 +33,14 @@ jobs:
           python -m unittest discover -s tests -p 'test_objective_contract.py' -v
           python -m unittest discover -s tests -p 'test_r12*.py' -v
           python -m unittest discover -s tests -p 'test_saved_flow_partitions.py' -v
-      - name: Check literature-aligned metric levels, evidence claims and preserved historical scopes
+      - name: Validate R15 academic metric families, source keys and scoped saved-data mappings
         run: |
           python tools/check_metric_contract.py
           python -m unittest discover -s tests -p 'test_metric_contract.py' -v
+          python -m unittest discover -s tests -p 'test_metric_evidence_values.py' -v
+          python -m unittest discover -s tests -p 'test_r15_catalog_integrity.py' -v
+          python tools/audit_r15_metric_evidence.py
+          python tools/replay_r15_metric_guard_probes.py
       - name: Enforce full free-running video smoke for promoted candidate records
         run: |
           python tools/check_candidate_rollout_gate.py

@@ -25,3 +25,7 @@ Completed D0 adds24 valid native fixed-step cases: its raw/no-pair-correction th
 Any action must target *both* GEMMs or another actual validated reduced-cost FFN, maintain lawful before-W1 information and count selector, QDQ, re-layout, weights, compensation and fusion cost. Compare strongest same-budget static, appropriate prior-art and honestly paired free-student quality; use local SSE/forced flow only as diagnostics. A new method may arise from unexpected results rather than GBA/STB; none of those names are privileged.
 
 Historical model experiment closures and pre-registered criteria remain true. This skill neither licenses new GPU jobs nor blocks creative paper hypotheses. Leave a concise signed scientific finding and an executable next discriminator.
+
+## Academic measurement families (2026-10-23)
+
+Use [the ten metric families](../../../docs/77_FFNDS学术指标族与评测协议_20261023.md), the JSON/CSV catalog and protocol template. Distinguish official academic metrics, task adaptations, numerical diagnostics and statistical methods through the catalog origin field. Explain findings directly and place assumptions next to the relevant calculation.

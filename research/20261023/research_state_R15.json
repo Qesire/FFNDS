@@ -1,0 +1,209 @@
+{
+  "schema_version": "2.1",
+  "research_id": "FFNDS_R15_ACADEMIC_METRIC_FAMILIES",
+  "description": "Primary-source metric definitions, saved-data arithmetic and executed CPU metadata regressions; no new video measurements.",
+  "research_object": {
+    "id": "ffnds-measurement-chain",
+    "revision": "aebd37f749b484f0caaf6224c0a1e507e327cf3f",
+    "scope": "Metric computation, aggregation and evidence granularity for four-step distilled Wan FFN comparison",
+    "code_reference": "tools/check_metric_contract.py; tools/audit_r15_metric_evidence.py",
+    "inputs": [
+      {
+        "name": "saved_native_losses",
+        "semantics": "R14N0 per-stripe SSE by action and exposed source"
+      },
+      {
+        "name": "official_metric_implementations",
+        "semantics": "Pinned VBench code and primary metric publications"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "metric_families",
+        "semantics": "Literature-grounded definitions and core/extension profiles"
+      },
+      {
+        "name": "audit",
+        "semantics": "Saved scalar decompositions and typed record checks"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "native",
+        "operation": "Frozen native writeback losses",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "research/20261022/R14N0_native_results.json"
+      },
+      {
+        "id": "aggregation",
+        "operation": "Fixed/oracle/shared-mask loss aggregation",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/audit_r15_metric_evidence.py"
+      },
+      {
+        "id": "video_metric",
+        "operation": "Official metric source semantics",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "research/20261023/academic_metric_source_audit_R15.json"
+      },
+      {
+        "id": "claims",
+        "operation": "Validate measured-record value, mode and provenance",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/check_metric_contract.py"
+      }
+    ],
+    "edges": [
+      {
+        "from": "native",
+        "to": "aggregation"
+      },
+      {
+        "from": "video_metric",
+        "to": "claims"
+      }
+    ],
+    "unknown_edges": [
+      {
+        "description": "Predictive strength of local errors for full FFNDS video quality on independent sources",
+        "decision_relevant": false,
+        "resolving_action": "Use paired free-video quality profiles when a distinct candidate is evaluated"
+      }
+    ],
+    "closed_for_scoped_question": true
+  },
+  "derivations": [
+    {
+      "id": "mean_contrast",
+      "claim": "A shared gated response decomposes into mean error and centered contrast error",
+      "assumptions": [
+        "Common fixed gate within stripe",
+        "Exact real arithmetic",
+        "Affine contrast plus common response"
+      ],
+      "steps": [
+        "Write z_i=F(x_i)-Ax_i",
+        "Center z around its average",
+        "Cross term sums to zero"
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Local stripe quadratic error",
+      "implication": "Record mean and centered errors independently; native rounding remains a companion measurement"
+    },
+    {
+      "id": "regret",
+      "claim": "Dynamic-to-UB1 loss gap equals action-family gap plus selector regret",
+      "assumptions": [
+        "Same frozen finite action set and per-source budgets",
+        "Same sampled native-state losses"
+      ],
+      "steps": [
+        "Add and subtract oracle loss",
+        "Recompute 1564.180048+986.084781=2550.264829"
+      ],
+      "status": "CHECKED",
+      "scope": "R14N0 exposed sampled development losses",
+      "implication": "Separately report action quality and routing quality"
+    },
+    {
+      "id": "flicker",
+      "claim": "Identical adjacent frames receive the maximum static pixel-difference flicker score",
+      "assumptions": [
+        "Pinned VBench temporal_flickering implementation",
+        "All adjacent frames identical"
+      ],
+      "steps": [
+        "Adjacent MAE is zero",
+        "(255-MAE)/255 equals one"
+      ],
+      "status": "CHECKED",
+      "scope": "Static-video metric",
+      "implication": "Report motion and condition adherence alongside flicker"
+    }
+  ],
+  "hypotheses": [],
+  "experiments": [
+    {
+      "id": "saved_recalculation",
+      "question": "How much of the observed gap is action-family versus selection, and source-common versus input-conditional?",
+      "status": "OBSERVED",
+      "empirical_quantity": "Saved R14N0 stripe SSE and R14 median backend latency",
+      "why_not_derivable": "The decomposition identity is algebraic; numerical proportions depend on the actual frozen data.",
+      "controls": [
+        "Original source hashes",
+        "Fixed training mask from1/11, development0/10",
+        "Existing common-mask reference crosscheck"
+      ],
+      "predictions": [
+        {
+          "outcome": "Large action-family gap",
+          "decision": "Measure operator quality separately from selector regret"
+        },
+        {
+          "outcome": "Small action-family gap with large regret",
+          "decision": "Prioritize value-sensitive information measurement"
+        }
+      ],
+      "artifacts": [
+        {
+          "kind": "ARTIFACT",
+          "locator": "research/20261023/metric_evidence_recalculation_R15.json"
+        }
+      ]
+    },
+    {
+      "id": "guard_regression",
+      "question": "Does the record guard distinguish typed measured claims from incompatible metadata?",
+      "status": "OBSERVED",
+      "empirical_quantity": "Acceptance or rejection of five synthetic metadata cases",
+      "why_not_derivable": "Requires executing the actual guard implementation and validating the revised behavior.",
+      "controls": [
+        "Synthetic cases explicitly labeled",
+        "Positive metadata unit tests",
+        "Legitimate historical measured records"
+      ],
+      "predictions": [
+        {
+          "outcome": "Invalid claim passes",
+          "decision": "Fix metric-specific values, mode and source bindings"
+        },
+        {
+          "outcome": "Valid measurement rejected",
+          "decision": "Add correctly scoped diagnostic form"
+        }
+      ],
+      "artifacts": [
+        {
+          "kind": "ARTIFACT",
+          "locator": "research/20261023/metric_guard_before_R15.json"
+        },
+        {
+          "kind": "ARTIFACT",
+          "locator": "research/20261023/metric_guard_after_R15.json"
+        }
+      ]
+    }
+  ],
+  "novelty": {
+    "status": "DIAGNOSTIC",
+    "mechanism_link": "Academic metric taxonomy and FFNDS measurement repair; no new model algorithm claimed.",
+    "nearest_prior_art": []
+  },
+  "decisions": [
+    {
+      "id": "adopt_families",
+      "route": "DESIGN",
+      "reason": "Use the academically grounded core and task extensions to evaluate FFNDS quality and efficiency.",
+      "derivation_ids": [
+        "mean_contrast",
+        "regret",
+        "flicker"
+      ],
+      "experiment_ids": [
+        "saved_recalculation",
+        "guard_regression"
+      ]
+    }
+  ],
+  "branches": []
+}
