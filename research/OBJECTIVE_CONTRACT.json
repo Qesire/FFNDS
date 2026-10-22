@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "id": "FFNDS_RESEARCH_OBJECTIVE_20261022",
+  "status": "ACTIVE_INTERPRETATION_CONTRACT_NO_EXECUTION_AUTHORIZATION",
+  "target_system": {
+    "identity": "Wan2.2 I2V A14B LightX2V four-step distilled D, HiF4 quantized D-Q execution",
+    "runtime": "Wan22StepDistillScheduler steps [1000,750,500,250], original LightX2V/HiF4 QDQ, effective native operators",
+    "baseline": "Frozen dense D-Q for equal model/precision/schedule/hardware comparisons; D-BF16 is a precision control, original undistilled O is a separate comparative model",
+    "explicit_non_equivalence": "D-Q, D-BF16, undistilled O, and a full-model BF16/HiF4 deployment are not interchangeable teacher or quality references"
+  },
+  "primary_scientific_goal": "Explain and exploit input-/state-conditioned FFN computational redundancy in the four-step distilled Wan model to obtain real, quality-preserving dynamic FFN sparsity under deployable operator and hardware constraints.",
+  "scientific_questions": [
+    "Where does conditional FFN redundancy remain after few-step distillation, and how does it differ from the original undistilled model under carefully matched input/quantization/operator controls?",
+    "Can information available BEFORE costly main W1/FFN0 execution predict a beneficial input-conditioned support/action over the strongest matched static schedule or support, after compensation and overhead?",
+    "Does any conditional advantage survive original HiF4 QDQ, BF16 casting, bias, GELU, gate/residual writeback and the student's own full denoising trajectory?",
+    "Which error directions propagate into real video degradation, and can a small correction or targeted post-training restore quality without defeating the inference savings?"
+  ],
+  "target_mechanism": {
+    "policy": "At step/layer/expert and possibly token/tile level, a policy depends on actual runtime-accessible activations/conditions and chooses which expensive FFN channels/groups/operations to execute; purely predefined step schedules do not demonstrate input-conditioned sparsity.",
+    "timing_requirement": "All support-selecting signals MUST be available BEFORE costly main W1/FFN0 execution. All gathering, QDQ, active GEMMs, restoration, correction, scattering, writeback and selector inference cost must be inside the deployed cost boundary; post-W1 oracle scores are upper-bound diagnostics, NOT deployable pre-W1 selectors.",
+    "necessary_comparators": [
+      "Full dense D-Q",
+      "Frozen UB1 static step-budget baseline",
+      "Best matched fixed support/schedule of the same MAC and correction mechanism",
+      "Eligible native oracle on the SAME actions to determine whether an input-conditioned policy has real headroom"
+    ],
+    "formal_distinction": "A positive local oracle headroom is not a deployable gain; a trainable predictor is not a dynamic win without measured native action value; a static budget that changes across four steps is still not input-conditioned routing."
+  },
+  "existing_joint_acceptance": {
+    "main_gemm_MAC_fraction_max": 0.5,
+    "complete_original_FFN_speedup_min": 1.5,
+    "per_axis_relative_quality_drop_max": 0.02,
+    "quality_axes": [
+      "aesthetic",
+      "imaging",
+      "motion"
+    ],
+    "quality_population": "Genuinely new, overlap/hash-audited frozen I2V sources, native free-running four-step sparse student trajectories, same D-Q control and prescribed official metric implementation",
+    "cost_scope": "Original complete FFN boundary including native preparation, activation and weight QDQ, dense/sparse GEMMs, GELU, routing/predictor, R256 or other corrections, layout, gate and residual writeback",
+    "interpretation": "Existing hard acceptance contract, not a proof that any proposed dynamic method already satisfies it; keep hardware-specific timing and main-MAC arithmetic separate."
+  },
+  "evidence_hierarchy": [
+    {
+      "tier": "STRUCTURAL",
+      "proves": "Source-reconstructed computation, cost constraints, algebraic identities and counterexamples",
+      "not_proves": "Wan sparsity efficacy or quality"
+    },
+    {
+      "tier": "LOCAL_NATIVE",
+      "proves": "Actual input/quantization/operator boundary and matched native correction or action benefit",
+      "not_proves": "Free student rollout, official video quality or complete speed"
+    },
+    {
+      "tier": "FIXED_INPUT_FLOW",
+      "proves": "Native downstream flow response at a fixed matched full-step input",
+      "not_proves": "Free student trajectory, official video quality or fresh-source generalization"
+    },
+    {
+      "tier": "FREE_ROLLOUT",
+      "proves": "Closed-loop student behavior on the evaluated trajectories",
+      "not_proves": "Independent fresh-source quality unless the sources and metric audit are clean"
+    },
+    {
+      "tier": "JOINT_FINAL",
+      "proves": "Joint main MAC, full-FFN timing and all three quality axes on frozen independent sources under same deployment"
+    }
+  ],
+  "current_evidence_interpretation": {
+    "UB1": "A strong STATIC baseline: historical original formal20 joint performance 50% main MAC and 1.546x FFN, but supplementary20 imaging drop 3.166%; not a passing generalized dynamic method.",
+    "R11G1": "Native final head gradient/byte-replay readiness at fixed step3/block39; not new dynamic selection or quality.",
+    "R11T1": "Matched 20-step existing-R256 local/native-flow objective probe at fixed step3/block39; development flow SSE improves 1.49121% vs frozen UB1 and 1.57387% vs local, misses registered 2% flow gate; not a candidate, dynamic support, free student rollout or official quality.",
+    "status": "No model method currently eligible. Do not re-open closed exact recipes or launch model experiments from this contract."
+  },
+  "next_cheapest_mechanism_checks": [
+    "Offline, using already saved actual-UB1 operands and the full prior rejection ledger, separate fixed step-budget effects from conditional support headroom under the SAME compensation, budget and native writeback; identify an actually new information/action mechanism before any GPU proposal.",
+    "For positive headroom only, test the incremental predictive value of PRE-W1 available signals against the best matched fixed policy while fully charging their collection and routing cost. Reject post-W1 oracle leakage.",
+    "If conditional headroom is absent, report that particular action family as unsupported and research alternative representations/precision/operation granularity without relabeling static compression as dynamic sparsity.",
+    "Use matched original-O vs distilled-D comparisons only in verified common local scopes; current two-image block20 observation does not establish a general distillation-induced sparsity change."
+  ],
+  "training_policy": "Prefer no large retraining; any small post-training is a means to enable deployable dynamic sparsity and must pay its inference overhead. Do not silently redefine the project as full-model distillation or static teacher-flow reconstruction.",
+  "guardrail": "This file corrects goal interpretation only. It does NOT amend any registered protocol, raw result, validation threshold, historical rejection or eligibility."
+}
