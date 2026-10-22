@@ -28,7 +28,7 @@ class ExplorationLibrary(unittest.TestCase):
 
     def test_status_labels_and_scoped_facts(self):
         index=(DIR/"EXPLORATION_INDEX.md").read_text(encoding="utf-8")
-        self.assertIn("not a feasible pre-W1 policy", index)
+        self.assertIn("neither a feasible pre-W1 policy", index)
         self.assertIn("not equal-budget R12 actions", index)
         self.assertIn("Model method eligibility remains **empty**", index)
 
