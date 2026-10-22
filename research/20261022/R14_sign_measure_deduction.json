@@ -1,0 +1,28 @@
+{
+  "id": "R14_SIGN_MEASURE_QUADRATIC_VARIANCE_AND_DISCONTINUITY",
+  "status": "EXACT_FINITE_MATH_AND_SYNTHETIC_CPU_ONLY_UNREGISTERED",
+  "hypothesis": "Independent4signs spend1/8 probability on all-identical signs, giving zero contrast for centered rows. Excluding those2signs and scaling the retained contrast bysqrt(7/8) keeps covariance but changes the cubature law.",
+  "theorem": "For any centered four-row inputs, E_old(ccT)=empirical_covariance=E_new(ccT). For any homogeneous quadraticq, E_newq=E_oldq and Var_oldq-Var_newq=E_old(q^2)/8. The two excluded events haveq=0; conditioning and quadratic scaling prove the identities.",
+  "original_signs": 16,
+  "conditioned_signs": 14,
+  "synthetic_covariance_max_error": 0.0,
+  "quadratic": {
+    "original_mean": 2.5,
+    "conditioned_mean": 2.5,
+    "original_variance": 7.875,
+    "conditioned_variance": 6.109375,
+    "predicted_variance_drop": 1.765625
+  },
+  "discontinuity_counterexample": {
+    "function": "indicator(norm2>2.8)",
+    "true_four_row_mean": 1.0,
+    "original_two_point_MSE": 0.125,
+    "conditioned_two_point_MSE": 0.5714285714285714,
+    "interpretation": "Quadratic variance reduction is not a universal improvement for discontinuous responses. This is not native HiF4 data or a Wan effect."
+  },
+  "registered_scope_unchanged": true,
+  "new_model_generations": 0,
+  "new_native_FFN_calls": 0,
+  "native_registration": null,
+  "next_question": "If registered original signs show operator-limited value, separate curvature/quantizer bias from sampler variance. This deduction does not permit changing signs or automatically rerunning the fixed native instance."
+}

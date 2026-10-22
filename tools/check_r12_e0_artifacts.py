@@ -87,8 +87,8 @@ def validate(audit, geometry, draft, runtime, current, triage):
     need(costs["pair_main_MAC_per_video"] == 2 * 31668 * 5120 * 64 * 324, "pair MAC arithmetic changed")
     need(costs["all_dense_main_MAC_per_video"] == 2 * 31668 * 5120 * 13824 * 160, "dense MAC arithmetic changed")
     need(costs["all_UB1_main_MAC_per_video"] * 2 == costs["all_dense_main_MAC_per_video"], "global mainMAC changed")
-    # E0 is immutable historical evidence. A later, explicitly authorized D0
-    # registration is separate authority; E0 or its original draft cannot grant it.
+    # E0 is immutable historical evidence. A separately authorized later native
+    # registration cannot be inferred from E0 or its original draft.
     if current['eligible_model_method_ids']:
         allowed = False
         try:
@@ -103,6 +103,14 @@ def validate(audit, geometry, draft, runtime, current, triage):
                 and protocol['operand_audit']['sha256'] == digest(BASE + 'R12_E0_operand_audit.json')
                 and digest(protocol['authorization']['path']) == protocol['authorization']['sha256']
                 and authorization['status'] == 'EXPLICIT_USER_AUTHORIZATION')
+            if current['eligible_model_method_ids'] == ['R14N0_COMPLETE_STRIPE_NATIVE_VALUE']:
+                allowed = (draft['status'] == 'DRAFT_ONLY_NOT_REGISTERED_NOT_ELIGIBLE'
+                    and current['execution_state'] == 'R4_CLOSED_FIXED_COMPLETE_STRIPE_VALUE_REGISTERED'
+                    and protocol['status'] == 'REGISTERED_FIXED_COMPLETE_STRIPE_NATIVE_VALUE'
+                    and digest(registration['protocol']) == registration['protocol_sha256']
+                    and digest(protocol['authorization']['path']) == protocol['authorization']['sha256']
+                    and authorization['status'] == 'EXPLICIT_USER_AUTHORIZATION'
+                    and authorization['authorized_method_id'] == 'R14N0_COMPLETE_STRIPE_NATIVE_VALUE')
         except (KeyError, OSError, ValueError, TypeError):
             pass
         need(allowed, 'E0 cannot grant model eligibility')

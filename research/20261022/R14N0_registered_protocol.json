@@ -1,0 +1,129 @@
+{
+  "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+  "status": "REGISTERED_FIXED_COMPLETE_STRIPE_NATIVE_VALUE",
+  "self_path": "research/20261022/R14N0_registered_protocol.json",
+  "question": "Do own-affine contrasts with one/two pooled responses have actual native local value, and does a fixed pre-W1 norm allocation beat the exactly best training-fixed same-count mask?",
+  "positions": [
+    [
+      2,
+      20
+    ]
+  ],
+  "inputs": {
+    "indices": [
+      1,
+      11,
+      0,
+      10
+    ],
+    "training_indices": [
+      1,
+      11
+    ],
+    "development_indices": [
+      0,
+      10
+    ],
+    "all_development_exposed": true,
+    "seed": "Original42+index; exact originalOP2 input/trajectory/video bytes"
+  },
+  "caps": {
+    "model_generations": 4,
+    "standalone_FFN_forwards": 32,
+    "extra_linear_calls": 104
+  },
+  "max_GPUs": 1,
+  "local_two_point_count": 32,
+  "local_stripes": 64,
+  "global_shape": [
+    31668,
+    5120,
+    13824,
+    7917,
+    3958
+  ],
+  "new_fitted_parameters": 0,
+  "new_candidate_rollouts": 0,
+  "fresh_quality_acceptance": false,
+  "automatic_followup_authorization": false,
+  "resources": {
+    "output_bytes_max": 536870912,
+    "node_free_reserve_bytes_min": 85899345920,
+    "standalone_FFN_allocated_bytes_max": 34359738368
+  },
+  "HF_derived_run_relative": "r14n0_complete_stripe_value_20261022/attempt1",
+  "process_boundary": "Capture exits and releases complete pipeline/CUDA context before separate standalone evaluation; standard GPU0/1 exclusive lock, only one idle device.",
+  "native_sequence": "4originalUB1 observational generations only. Standalone teacher replay2linears,UB1replay4,complementA/B3each,fixed/dynamic/oracle/repeat3each per source; source1/11 control+complements before sealingfixedmask; no source0/10 payload/labels opened until seal. Exact totals4gens/32FFN/104extra linears.",
+  "native_operator": "Exact original frozen R9expert1 A and originalW1/W2/rawb0/b2/smooth2. Post-Q1 V1 padded only in unobserved rows to preserve fullM/GEMM shape; full3958point scaffold outside64groups. OriginalQ2 optimizedBF16 boundary compared bitwise withforceFP32 on every candidate call. SharedCUDA generatorseed20261022, once identical per source, no sign search.",
+  "controls": [
+    "Every original target256sample V1/BaseY/StudentY/TeacherY/b2/gate/rawb0 and teacher-shard matches oldOP2; new shared64complete stripes saved separately.",
+    "Actual post-attention residual copied before post_process; exact source sensitive-dtype/native writeback validated; observerRNG unchanged.",
+    "All4originalUB1 post-step latent SHA and encoded video SHA equal oldOP2,1600native model linear/QDQ and320mainFFN/160Rpositions.",
+    "Standalone fullshape teacher and frozenUB1 outputs bitwise equal new capture; actual native inputprepare/pointpack/postQ2pool/outputwriteback controls.",
+    "Two complementary32-of64 schedules give one/two-point local values; finalfixed/dynamic/oracle physically executed and theirY/post checked bitwise against independently measured local values.",
+    "Repeatdynamic outputs bitwise equal; otherwise stop as non-reproducible. Record observed absoluteSSEdifference eta, zero if exact.",
+    "Persistent debits beforework and actual F.linear shapes/counts; failures consume budget, no implicit retries or search."
+  ],
+  "metrics": {
+    "primary": "FP64 sum actual native residual-writeback squared difference from same-input fullTeacher, pergroup/allsource; retain originalresidual/gate/sensitive dtype.",
+    "secondary": "Original gated-Y SSE for same physically executed masks; never flow or video quality.",
+    "best_fixed": "Exactly top32 by sum_training(onepointSSE-twopointSSE), sources1/11only, ties bylocalgroupid. Freeze SHA before opening0/10payloads/labels.",
+    "dynamic": "Top32 current post-Q1 shared contrast squared norms, ties bylocalgroupid; no learned router.",
+    "oracle": "Top32 byactualone-minus-two loss, diagnosticlabels only, physically executed withsamepointcount.",
+    "eta": "Sum over development0/10 of absolute repeateddynamic SSE differences. Exact repeat is a required control; reporteta evenwhen0.",
+    "finite_local_support": "All controls valid and pooleddevelopmentdynamicSSE < min(bestfixedSSE,UB1SSE)-3eta. No universal legacy1.5x/50%/2% criterion and no automaticpaper/videoacceptance."
+  },
+  "stop": "Any identity/noop/replay/fusion/quantizer/composition/repeat/resource mismatch stops this fixedinstance; preserve receipts/counters. After4sources/32FFNcalls finish regardless of outcome. No sign/point/position/source expansion, training, candidate rollout or D0/D1 repeat.",
+  "authorization": {
+    "path": "research/20261022/R14N0_authorization.json",
+    "sha256": "6394f5e1c3a5901062e9934fee5c159dcc0aa037c9b3199d0532c61ddc539141"
+  },
+  "CPU_preflight": {
+    "path": "research/20261022/R14N0_CPU_preflight.json",
+    "sha256": "9003e80eab7830e539857dda2c45c4d3f40230bc298e6e6857e888cf8fac949d"
+  },
+  "draft": {
+    "path": "research/20261022/R14_native_value_DRAFT.json",
+    "sha256": "eaa7a33116f40cf7cdd3d4aa8074308292e8fef3702029c17073dc12e9ac5d62"
+  },
+  "backend_evidence": {
+    "path": "research/20261022/R14_three_direction_backend_results.json",
+    "sha256": "648820a7499689ed92def540ce1842a3a205818d0ad007ed9be1cdac4972fb83"
+  },
+  "asset_readiness": {
+    "path": "research/20261022/R14_native_draft_CPU_readiness.json",
+    "sha256": "11393b74b08dba66e99ee6c5958f39d0aee353d6631e73fbafa2e781ae2f228f"
+  },
+  "source_sha256": {
+    "tools/run_complete_stripe_value.py": "98ecba20f44347c2c8397c4c3dc3a31f9d468625406f597aca6666b71efa2275",
+    "tools/stripe_native_operator.py": "108ff9bfed8b7e68e8400c44da86ff06483c86eb2a19598f1646c26977a5e52d",
+    "tools/stripe_teacher_capture.py": "6ec6610f722b4598ff23b184288a1bb982369b406a8a43ad2886c1e145328eb9",
+    "tools/r14_stripe_contract.py": "88e7f0ebf57e7c9fde84699e6ca1e6cca50ec2f8f9bf8c74ee210c181f59f4e1",
+    "tools/preflight_complete_stripe_value.py": "0af840445cf16c81d309c15983a15fc4dce06fee352ad5cb6a5386eab97fc46d",
+    "tools/check_research_routes.py": "7731a4508ac7b38981eecb22acb50eddb76e570a3b331727bd722af242ab772e",
+    "tools/analyze_stripe_native_values.py": "8185971bf62e9aa6780bfb16731c4d9e3f08fa623e562a40f7de3e9db5257e93",
+    "tools/spatial_contrast_kernels.py": "59fc9c76c7574d31dade2dc8943ccfa12068c6734d89de5402384c0b04c8880f",
+    "tools/probe_three_direction_backend.py": "4059018759f37a317bd94fc5e1a12cb3c58744c1d5eac29cb88e4effd7408176",
+    "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939",
+    "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+    "tools/ub1_native_data.py": "90c9d238c32c7d6f4a2e96ccfd1130752a227c068899fa2e85d4d0ede23f8c54",
+    "tools/ub1_native_replay.py": "38c4a2bfb526f5a88eec18580eab8947bcbbc036d663ce8fb5066a974763c44c",
+    "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+    "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+    "tools/folded_adapter.py": "bd5e333554fa035197d1eb4b1c08af59ebe3a63140ee7175213709e068bb6853",
+    "tools/onpolicy_residual.py": "3d00ef97defd2df52968eeecaad0cad94ce91e8c0ce23fd4047b95c8f8797267",
+    "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+    "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+    "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+    "tools/run_ar2_restart.py": "6b456a7c4cde6fd393248ab7a5b55ee2fa70a0f3e0aeeb5b3b89323a0e31b34f",
+    "tools/ar2_checkpoint.py": "e252164ebfe4524de9f60cfb1340654851d01d6d8dca814411ad26913ceaacb3",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "config/worker.env": "0dd88ae89887232dc5c50c1bcbed1a0bbcffb7de0ceeea891ce827452f52de66",
+    "scripts/worker_exec.sh": "6daadc920fba38373850fe77052768ff950e9a033b7d72270e5ba69dee98c338",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+    ".runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db",
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6"
+  }
+}

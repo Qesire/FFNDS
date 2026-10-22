@@ -33,6 +33,8 @@ MATCHED_STATE = "R4_CLOSED_MATCHED_NATIVE_HEAD_OBJECTIVE_REGISTERED"
 MATCHED_ID = "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE"
 PAIRED_STATE = "R4_CLOSED_R12_D0_NATIVE_VALUE_REGISTERED"
 PAIRED_ID = "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE"
+STRIPE_STATE = "R4_CLOSED_FIXED_COMPLETE_STRIPE_VALUE_REGISTERED"
+STRIPE_ID = "R14N0_COMPLETE_STRIPE_NATIVE_VALUE"
 RECIPE_ID = "R4E1_FIXED_H_16GROUP_Q2"
 RATIO_FIELDS = {
     "K1_matched_over_K0_matched": ("K0_matched", .98),
@@ -60,11 +62,65 @@ def build_index(triage):
     return index, errors
 
 
+def validate_stripe_registration(registration, base):
+    """The separately authorized R14N0 is a finite diagnostic, not D0 reuse."""
+    errors = []
+    path = base / registration['protocol']
+    protocol = json.loads(path.read_text())
+    if hashlib.sha256(path.read_bytes()).hexdigest() != registration['protocol_sha256']:
+        errors.append('R14N0 frozen protocol changed')
+    expected_caps = {'model_generations': 4, 'standalone_FFN_forwards': 32, 'extra_linear_calls': 104}
+    if (protocol['id'] != STRIPE_ID or protocol['status'] != 'REGISTERED_FIXED_COMPLETE_STRIPE_NATIVE_VALUE'
+            or protocol['positions'] != [[2, 20]] or protocol['inputs']['indices'] != [1, 11, 0, 10]
+            or protocol['inputs']['training_indices'] != [1, 11]
+            or protocol['inputs']['development_indices'] != [0, 10]
+            or protocol['caps'] != expected_caps or protocol['max_GPUs'] != 1
+            or protocol['fresh_quality_acceptance'] is not False
+            or protocol['automatic_followup_authorization'] is not False
+            or protocol['local_two_point_count'] != 32 or protocol['local_stripes'] != 64
+            or protocol['global_shape'] != [31668, 5120, 13824, 7917, 3958]
+            or protocol['new_fitted_parameters'] != 0 or protocol['new_candidate_rollouts'] != 0
+            or protocol['resources'] != {'output_bytes_max': 1 << 29, 'node_free_reserve_bytes_min': 80 << 30,
+                                        'standalone_FFN_allocated_bytes_max': 32 << 30}):
+        errors.append('R14N0 fixed controls/positions/budget changed')
+    for field in ('authorization', 'CPU_preflight', 'draft', 'backend_evidence', 'asset_readiness'):
+        binding = protocol[field]
+        file = base / binding['path']
+        if (not file.resolve().is_relative_to(base.resolve())
+                or hashlib.sha256(file.read_bytes()).hexdigest() != binding['sha256']):
+            errors.append('R14N0 frozen prerequisite changed: ' + field)
+    auth = json.loads((base / protocol['authorization']['path']).read_text())
+    preflight = json.loads((base / protocol['CPU_preflight']['path']).read_text())
+    backend = json.loads((base / protocol['backend_evidence']['path']).read_text())
+    if (auth['status'] != 'EXPLICIT_USER_AUTHORIZATION' or auth['authorized_method_id'] != STRIPE_ID
+            or auth['user_answer'] != '授权该固定范围，继续执行' or auth['caps'] != expected_caps
+            or auth['draft_sha256'] != protocol['draft']['sha256']
+            or preflight['status'] != 'PASS_R14N0_CPU_PREFLIGHT_NOT_NATIVE_PROOF'
+            or preflight['CUDA_initialized'] is not False or preflight['new_model_generations'] != 0
+            or backend['backend_fusion_advance'] is not True or backend['models_loaded'] != 0):
+        errors.append('R14N0 lacks separate authority and actual non-model prerequisites')
+    bindings = registration['source_sha256']
+    required = {'tools/run_complete_stripe_value.py', 'tools/stripe_native_operator.py',
+                'tools/stripe_teacher_capture.py', 'tools/r14_stripe_contract.py',
+                'tools/preflight_complete_stripe_value.py', 'tools/check_research_routes.py',
+                '.runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py',
+                '.runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py',
+                '.runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py'}
+    if not required.issubset(bindings) or bindings != protocol['source_sha256'] or bindings != preflight['source_sha256']:
+        errors.append('R14N0 source/preparation/registration bindings disagree')
+    for relative, expected in bindings.items():
+        file = base / relative
+        if (not file.resolve().is_relative_to(base.resolve())
+                or hashlib.sha256(file.read_bytes()).hexdigest() != expected):
+            errors.append('Registered diagnostic source changed: ' + relative)
+    return errors
+
+
 def validate_records(decision, triage, summary, execution, root=None):
     index, errors = build_index(triage)
     methods = {m["id"]: m for m in triage["methods"]}
     state = decision["execution_state"]
-    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE):
+    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE, STRIPE_STATE):
         errors.append("Current evidence audit requires an explicit migration for a new decision state")
     if triage["policy"]["execution_state"] != decision["execution_state"]:
         errors.append("Policy and current decision disagree")
@@ -84,6 +140,18 @@ def validate_records(decision, triage, summary, execution, root=None):
         errors.append("Eligible methods disagree with canonical decision")
     if canonical and state == CURRENT_STATE:
         errors.append("R5 closure records no eligible model follow-up; update evidence before changing the decision")
+    if state == STRIPE_STATE:
+        registration = decision.get('registered_diagnostic', {})
+        if canonical != [STRIPE_ID]:
+            errors.append('Only the fixed causal diagnostic is registered by this migration')
+        if (registration.get('method_id') != STRIPE_ID
+                or registration.get('scope') != 'FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE'
+                or registration.get('preserved_model_closure') != CURRENT_STATE):
+            errors.append('Missing scoped diagnostic migration; R4 closure must remain preserved')
+        try:
+            errors.extend(validate_stripe_registration(registration, root or Path(__file__).resolve().parents[1]))
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            errors.append('Invalid diagnostic registration: ' + str(exc))
     if state in (DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE):
         selected = {DIAGNOSTIC_STATE: DIAGNOSTIC_ID, GAIN_STATE: GAIN_ID, FOLD_STATE: FOLD_ID,
                     ENCODING_STATE: ENCODING_ID, POPULATION_STATE: POPULATION_ID, LEARNED_STATE: LEARNED_ID,

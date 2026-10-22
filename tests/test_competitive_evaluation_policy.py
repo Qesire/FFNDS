@@ -22,10 +22,15 @@ class CompetitiveEvaluationPolicy(unittest.TestCase):
 
     def test_decision_and_closed_results_not_reinterpreted(self):
         d=load("research/CURRENT_DECISION.json")
-        self.assertEqual(d["eligible_model_method_ids"],[])
+        if d["eligible_model_method_ids"]:
+            self.assertEqual(d["eligible_model_method_ids"],["R14N0_COMPLETE_STRIPE_NATIVE_VALUE"])
+            p=load(d['registered_diagnostic']['protocol'])
+            self.assertEqual(load(p['authorization']['path'])['authorized_method_id'],d['eligible_model_method_ids'][0])
         self.assertEqual(d["research_goal_update_20261022"]["eligibility_effect"],"NONE")
-        self.assertEqual(d["latest_research_review"]["disposition"],"CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED")
-        self.assertEqual(d["review_id"],"FFNDS-R12-D0-COMPLETED-NATIVE-VALUE-REJECTED-20261022")
+        reviews=[d['latest_research_review'],*d.get('previous_research_reviews',[])]
+        old=next(r for r in reviews if r['id']=='R12_D0_EQUAL_BUDGET_NATIVE_VALUE_AND_DEBIT')
+        self.assertEqual(old['disposition'],"CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED")
+        self.assertEqual(d['closed_method_statuses']['R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE'],old['disposition'])
 
     def test_guides_and_skills_explicitly_nonbinding(self):
         for path in ("AGENTS.md",".agents/skills/ffnds-paper-discovery/SKILL.md","README.md",

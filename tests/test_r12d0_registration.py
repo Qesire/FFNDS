@@ -29,7 +29,10 @@ class D0RegistrationTests(unittest.TestCase):
         self.bindings = decision['registered_diagnostic']['source_sha256']
         synthetic = {}
         for relative in self.bindings:
-            if relative.startswith('.runtime/'):
+            # The old protocol bound the then-current route checker too.
+            # This in-memory historical fixture is not a claim that its bytes
+            # equal the later checker that supports a separately authorized route.
+            if relative.startswith('.runtime/') or relative == 'tools/check_research_routes.py':
                 value = ('UNIT_TEST_ONLY_NATIVE_SOURCE:' + relative).encode()
                 synthetic[ROOT / relative] = value
                 self.bindings[relative] = hashlib.sha256(value).hexdigest()

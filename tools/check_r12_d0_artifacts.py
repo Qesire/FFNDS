@@ -106,7 +106,7 @@ def validate(result, current, triage, historical):
     status = ('COMPLETED_FIXED_R12_D0_VALUE_GATE_PASSED_NO_FOLLOWUP_AUTHORIZATION' if expected['diagnostic_gate_pass']
               else 'CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED')
     method = next(m for m in triage['methods'] if m['id'] == METHOD)
-    need(current['eligible_model_method_ids'] == [] and method['model_execution_eligibility'] != 'ELIGIBLE_REGISTERED_SCREEN',
+    need(METHOD not in current['eligible_model_method_ids'] and method['model_execution_eligibility'] != 'ELIGIBLE_REGISTERED_SCREEN',
          'Completed D0 cannot auto-authorize another model job')
     need(current['closed_method_statuses'][METHOD] == method['status'] == status,
          'Current decision/triage result disposition differs')
@@ -133,7 +133,8 @@ def main():
             or result['protocol_sha256'] != archive['protocol_sha256']):
         errors.append('Executed source/protocol identities differ from the pre-execution archive')
     current = read('research/CURRENT_DECISION.json')
-    review = current['latest_research_review']
+    reviews = [current['latest_research_review'], *current.get('previous_research_reviews', [])]
+    review = next(r for r in reviews if r['id'] == 'R12_D0_EQUAL_BUDGET_NATIVE_VALUE_AND_DEBIT')
     for key in ('budget_debit', 'resources'):
         if sha(review[key]) != review[key + '_sha256']:
             errors.append('Completed supporting evidence SHA changed: ' + key)

@@ -22,7 +22,8 @@ class ObjectiveContractTests(unittest.TestCase):
         self.assertEqual(self.current["objective_contract"], "research/OBJECTIVE_CONTRACT.json")
         self.assertEqual(self.triage["policy"]["objective_contract"], self.current["objective_contract"])
         if self.current['eligible_model_method_ids']:
-            self.assertEqual(self.current['eligible_model_method_ids'], ['R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE'])
+            self.assertIn(self.current['eligible_model_method_ids'],
+                          [['R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE'], ['R14N0_COMPLETE_STRIPE_NATIVE_VALUE']])
             registered = record(self.current['registered_diagnostic']['protocol'])
             authorization = record(registered['authorization']['path'])
             self.assertEqual(authorization['status'], 'EXPLICIT_USER_AUTHORIZATION')
