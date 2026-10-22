@@ -1,0 +1,1 @@
+Metric observations go here as per-record JSON after actual measured experiments. `catalog.json` and `metric_record_template.json` are policy/schema, not measurements. R14N0 legacy results stay at their original paths, unchanged.

@@ -15,3 +15,5 @@ Do not create an accepted record from only flow, synthetic output, local/standal
 Run python3 tools/check_candidate_rollout_gate.py to validate honest metadata invariants. It validates schema/evidence locators, not the visual truth or genuineness of video. The artifacts can remain in verified HF cache with sanitized relative locators; committed metadata includes SHA, full paired configuration and a report with timecodes. The candidate may select an initial low-cost representative source; independent sources and comparable published baselines follow.
 
 Policy: ../../docs/75_备选算法必须完整生成与防止视频质量崩溃_20261022.md.
+
+**Metric levels:** [docs/76](../../docs/76_基于学术文献的FFNDS分层指标体系_20261022.md) makes the paired-video requirement an L3 claim. L0/L1/L2 numerical or local performance is not an alternative. To claim literature-comparable quality or real speed, supply L4 VBench-I2V per-dimension evidence and L5 measured native/system throughput with comparable prior-art conditions. Optional measured metric records use [catalog](../metric_system/catalog.json) and `tools/check_metric_contract.py`.

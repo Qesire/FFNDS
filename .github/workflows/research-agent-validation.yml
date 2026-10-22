@@ -33,6 +33,10 @@ jobs:
           python -m unittest discover -s tests -p 'test_objective_contract.py' -v
           python -m unittest discover -s tests -p 'test_r12*.py' -v
           python -m unittest discover -s tests -p 'test_saved_flow_partitions.py' -v
+      - name: Check literature-aligned metric levels, evidence claims and preserved historical scopes
+        run: |
+          python tools/check_metric_contract.py
+          python -m unittest discover -s tests -p 'test_metric_contract.py' -v
       - name: Enforce full free-running video smoke for promoted candidate records
         run: |
           python tools/check_candidate_rollout_gate.py

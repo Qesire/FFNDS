@@ -1,0 +1,461 @@
+{
+  "schema_version": "1.0",
+  "version": "2026-10-22_LITERATURE_ALIGNED_METRIC_GRAIN",
+  "document": "docs/76_基于学术文献的FFNDS分层指标体系_20261022.md",
+  "task": "four-step distilled Wan2.2 I2V D-Q post-training dynamic FFN",
+  "principles": [
+    "measurements must retain spatial/time/source sample unit and actual computation mode",
+    "one native local SSE must not be relabelled as generated-video quality",
+    "free-running candidate smoke precedes paper-level promotion",
+    "historical per-trial metrics and gates immutable",
+    "historical arbitrary 50%/1.5x/2% are not new universal criteria",
+    "avoid forced extra measurements when a mechanism can be discriminated cheaply"
+  ],
+  "tiers": [
+    {
+      "id": "L0",
+      "name": "Numerical and operator correctness",
+      "unit": "native FFN invocation / quantization boundary",
+      "evidence": "recorded operands + native replay",
+      "claim": "this tested operator computes the specified values",
+      "not_claim": "downstream propagation or generated-video fidelity"
+    },
+    {
+      "id": "L1",
+      "name": "Spatial local diagnostics",
+      "unit": "token / 4-token stripe / spatial patch / region",
+      "evidence": "matched D-Q state, actual candidate and fixed control",
+      "claim": "local response/error mechanism in sampled region",
+      "not_claim": "full frame or full trajectory; true spatial density"
+    },
+    {
+      "id": "L2",
+      "name": "Denoising propagation",
+      "unit": "block / diffusion step / full step flow and latent",
+      "evidence": "native same-state or actual continuation with fixed reference",
+      "claim": "downstream response at its stated horizon",
+      "not_claim": "free-running full-video quality when reset or teacher-forced"
+    },
+    {
+      "id": "L3",
+      "name": "Complete paired free-running video smoke",
+      "unit": "full four-step generated and decoded clip",
+      "evidence": "candidate true rollout and same-setting dense D-Q control + review",
+      "claim": "observed stability/collapse in this entire clip",
+      "not_claim": "independent distribution or publication-level quality"
+    },
+    {
+      "id": "L4",
+      "name": "Dataset and video-quality evaluation",
+      "unit": "per-video, then independent prompt/source strata",
+      "evidence": "paired full clips with official suite version and human review",
+      "claim": "population video quality for evaluated setting",
+      "not_claim": "actual deployment speed or cross-model blanket wins"
+    },
+    {
+      "id": "L5",
+      "name": "System and competitive performance",
+      "unit": "operator kernel / full FFN / full-video generation / device",
+      "evidence": "timed full native execution and matched strongest baselines",
+      "claim": "quality-speed-resource Pareto position at same conditions",
+      "not_claim": "novelty or model-independent performance"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "native_qdq_equivalence",
+      "level": "L0",
+      "unit": "bit_mismatches",
+      "direction": "minimize",
+      "statistic_unit": "same-input quantization boundary",
+      "reference": "native original QDQ",
+      "status": "core_when_changing_quantization"
+    },
+    {
+      "id": "native_writeback_equivalence",
+      "level": "L0",
+      "unit": "bit_mismatches",
+      "direction": "minimize",
+      "statistic_unit": "same-input FFN residual writeback",
+      "reference": "native source branch",
+      "status": "core_when_changing_operator"
+    },
+    {
+      "id": "post_writeback_sse",
+      "level": "L1",
+      "unit": "squared output units",
+      "direction": "minimize",
+      "statistic_unit": "sampled token/stripe",
+      "reference": "same-state dense D-Q complete FFN",
+      "status": "diagnostic_not_video_quality"
+    },
+    {
+      "id": "post_writeback_mse",
+      "level": "L1",
+      "unit": "squared output units/channel",
+      "direction": "minimize",
+      "statistic_unit": "sampled token/stripe",
+      "reference": "same-state dense D-Q complete FFN",
+      "status": "diagnostic"
+    },
+    {
+      "id": "post_writeback_nmse",
+      "level": "L1",
+      "unit": "ratio",
+      "direction": "minimize",
+      "statistic_unit": "sampled token/stripe",
+      "reference": "same-state dense D-Q native post tensor energy",
+      "status": "diagnostic_with_denominator"
+    },
+    {
+      "id": "ffn_only_nmse",
+      "level": "L1",
+      "unit": "ratio",
+      "direction": "minimize",
+      "statistic_unit": "sampled token/stripe",
+      "reference": "same-state dense D-Q FFN output energy",
+      "status": "diagnostic_with_denominator"
+    },
+    {
+      "id": "local_error_tail",
+      "level": "L1",
+      "unit": "same as base error",
+      "direction": "minimize",
+      "statistic_unit": "per token or stripe distribution within source",
+      "reference": "same-state D-Q",
+      "status": "p50_p95_p99_max_and_failure_locations"
+    },
+    {
+      "id": "regional_error",
+      "level": "L1",
+      "unit": "same as base error",
+      "direction": "minimize",
+      "statistic_unit": "foreground/background/texture/stable illumination ROI",
+      "reference": "paired dense D-Q spatial labels/masks",
+      "status": "optional_requires_real_region_masks"
+    },
+    {
+      "id": "flow_native_sse",
+      "level": "L2",
+      "unit": "squared model flow units",
+      "direction": "minimize",
+      "statistic_unit": "native full step or block",
+      "reference": "explicit same-state dense D-Q step",
+      "status": "diagnostic_propagation_mode_mandatory"
+    },
+    {
+      "id": "flow_error_direction_cosine",
+      "level": "L2",
+      "unit": "cosine",
+      "direction": "diagnostic_no_universal_order",
+      "statistic_unit": "step/block downstream error vector",
+      "reference": "native D-Q step and prior student-state error",
+      "status": "diagnostic"
+    },
+    {
+      "id": "free_rollout_completed",
+      "level": "L3",
+      "unit": "boolean",
+      "direction": "true",
+      "statistic_unit": "complete four-step generated video",
+      "reference": "same-input same-seed dense D-Q full clip",
+      "status": "mandatory_for_selected_candidate"
+    },
+    {
+      "id": "visual_collapse_review",
+      "level": "L3",
+      "unit": "review+timecodes",
+      "direction": "no_catastrophic_collapse",
+      "statistic_unit": "full decoded clip and temporal segments",
+      "reference": "paired D-Q and conditioning image",
+      "status": "mandatory_for_selected_candidate"
+    },
+    {
+      "id": "paired_frame_lpips",
+      "level": "L3",
+      "unit": "perceptual distance",
+      "direction": "minimize_conditionally",
+      "statistic_unit": "matched frame/ROI",
+      "reference": "paired D-Q frame",
+      "status": "optional_motion_alignment_caveat"
+    },
+    {
+      "id": "stable_roi_temporal_flicker",
+      "level": "L3",
+      "unit": "temporal residual",
+      "direction": "minimize_conditionally",
+      "statistic_unit": "static mask across frames",
+      "reference": "paired D-Q static ROI; camera/motion aligned if needed",
+      "status": "project_defined_not_official_vbench"
+    },
+    {
+      "id": "vbench_i2v_i2v_subject",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_i2v_i2v_background",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_i2v_camera_motion",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_i2v_subject_consistency",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_i2v_background_consistency",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_i2v_motion_smoothness",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_i2v_dynamic_degree",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "report_contextual_not_monotone",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_i2v_aesthetic_quality",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_i2v_imaging_quality",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize",
+      "statistic_unit": "per video and official dimension-specific source set",
+      "reference": "matched D-Q + frozen independent test suite",
+      "status": "core_official_if_in_scope"
+    },
+    {
+      "id": "vbench_temporal_flickering",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "maximize_when_official",
+      "statistic_unit": "per video/official protocol",
+      "reference": "matched D-Q",
+      "status": "optional_versioned_and_not_stable_roi_proxy"
+    },
+    {
+      "id": "vbench2_intrinsic_faithfulness",
+      "level": "L4",
+      "unit": "official suite dimension score",
+      "direction": "report_by_subdimension",
+      "statistic_unit": "dimension-specific multi-video subset",
+      "reference": "corresponding VBench-2.0 protocol",
+      "status": "optional"
+    },
+    {
+      "id": "fvd_dataset",
+      "level": "L4",
+      "unit": "distance",
+      "direction": "minimize",
+      "statistic_unit": "video distribution",
+      "reference": "real distribution with matched feature/sampling/preprocessing",
+      "status": "optional_large_sample_not_smoke"
+    },
+    {
+      "id": "jedi_dataset",
+      "level": "L4",
+      "unit": "distance",
+      "direction": "minimize",
+      "statistic_unit": "video distribution",
+      "reference": "real video distribution matching paper protocol",
+      "status": "optional_distribution"
+    },
+    {
+      "id": "main_ffn_mac_fraction",
+      "level": "L5",
+      "unit": "ratio",
+      "direction": "minimize_conditional_on_quality",
+      "statistic_unit": "all FFN main GEMMs",
+      "reference": "same-setting full dense D-Q",
+      "status": "bookkeeping_not_hardware_speed"
+    },
+    {
+      "id": "synthetic_backend_speedup",
+      "level": "L5",
+      "unit": "ratio",
+      "direction": "maximize_conditional_on_equivalence",
+      "statistic_unit": "resident random-tensor backend",
+      "reference": "same-run synthetic dense backend",
+      "status": "synthetic_only_not_model_e2e"
+    },
+    {
+      "id": "complete_ffn_latency_ms",
+      "level": "L5",
+      "unit": "ms",
+      "direction": "minimize_conditional_on_quality",
+      "statistic_unit": "complete original FFN across intended native locations",
+      "reference": "same-hardware same-setting D-Q / strongest fixed",
+      "status": "core_for_native_performance_claim"
+    },
+    {
+      "id": "generation_gpu_time_s",
+      "level": "L5",
+      "unit": "seconds",
+      "direction": "minimize_conditional_on_quality",
+      "statistic_unit": "complete four-step GPU generation",
+      "reference": "same-hardware same-setting D-Q",
+      "status": "core_for_model_speed_claim"
+    },
+    {
+      "id": "generation_wall_time_s",
+      "level": "L5",
+      "unit": "seconds",
+      "direction": "minimize_conditional_on_quality",
+      "statistic_unit": "full run clearly stating decoder / I/O / startup inclusion",
+      "reference": "same-hardware same-setting D-Q",
+      "status": "core_for_walltime_claim"
+    },
+    {
+      "id": "peak_allocated_vram_gib",
+      "level": "L5",
+      "unit": "GiB",
+      "direction": "minimize",
+      "statistic_unit": "device + protocol + process window",
+      "reference": "same hardware and run",
+      "status": "supporting"
+    },
+    {
+      "id": "training_gpu_hours",
+      "level": "L5",
+      "unit": "GPU-hours",
+      "direction": "minimize",
+      "statistic_unit": "additional post-training to deploy candidate",
+      "reference": "same-setting prior work",
+      "status": "supporting"
+    }
+  ],
+  "evidence_modes": [
+    "synthetic",
+    "saved_native_same_state",
+    "native_standalone",
+    "teacher_forced_same_state",
+    "step_native_with_reset",
+    "full_student_free_running",
+    "official_multi_video",
+    "measured_hardware_full_pipeline"
+  ],
+  "claims": {
+    "native_operator_correctness": {
+      "required_levels": [
+        "L0"
+      ],
+      "warning": "does not imply video performance"
+    },
+    "local_quality_diagnostic": {
+      "required_levels": [
+        "L1"
+      ],
+      "warning": "never interpret SSE percent as VBench or perceptual quality loss"
+    },
+    "downstream_propagation": {
+      "required_levels": [
+        "L2"
+      ],
+      "warning": "must disclose reset/free propagation mode"
+    },
+    "video_noncollapse_smoke": {
+      "required_levels": [
+        "L3"
+      ],
+      "required_metrics": [
+        "free_rollout_completed",
+        "visual_collapse_review"
+      ],
+      "warning": "one clip only; human review and evidence required"
+    },
+    "independent_video_quality": {
+      "required_levels": [
+        "L4"
+      ],
+      "required_metrics": [
+        "vbench_i2v_subject",
+        "vbench_i2v_background",
+        "vbench_i2v_motion_smoothness",
+        "vbench_i2v_aesthetic_quality",
+        "vbench_i2v_imaging_quality"
+      ],
+      "warning": "all nine preferred; disclose any unavailable official dimensions"
+    },
+    "native_speedup": {
+      "required_levels": [
+        "L5"
+      ],
+      "required_metrics": [
+        "complete_ffn_latency_ms"
+      ],
+      "warning": "synthetic_backend_speedup does not count"
+    },
+    "video_speed_quality_pareto": {
+      "required_levels": [
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "required_metrics": [
+        "visual_collapse_review",
+        "complete_ffn_latency_ms",
+        "generation_gpu_time_s"
+      ],
+      "warning": "same-setting strongest fixed/prior art and independent videos required"
+    }
+  },
+  "history": {
+    "R14N0": {
+      "level": "L1",
+      "metric_id": "post_writeback_sse",
+      "scope": "256 real rows, step2 block20, 4 previously exposed sources; not 160 FFN or free video",
+      "result": "dynamic +31.1642% SSE against UB1 on exposed development0/10; preserve original trial conclusion"
+    },
+    "R14": {
+      "level": "L5",
+      "metric_id": "synthetic_backend_speedup",
+      "scope": "random A100 full-shape synthetic operator chain",
+      "result": "1.913x compared with same-run synthetic dense; not native Wan inference"
+    }
+  }
+}
