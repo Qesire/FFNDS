@@ -51,3 +51,7 @@ python .agents/skills/mechanism-research/scripts/validate.py research/20261023/r
 
 第一条只使用Python标准库及已提交R16/R17摘要。第二条检查研究状态格式与引用一致性。数学例子与历史模型测量在结果文件中分别标记。评价指标沿用学术指标族，实验时按问题选用，保留来源聚合、配对参考、实际计时边界。
 
+
+## TACR v2 sampled net-action experiment, evidence reuse and next practical move
+
+The updated forward method and experimental scope are in [docs/84](../../docs/84_TACR_净动作价值与修正采样_20261023.md), [the sampling plan](TACR_sampling_scope_v2.json), and [real interrupted R17 source audit](TACR_sampling_evidence_v2.json). Saved R17 quality evidence has five complete paired subject source groups (source indices 0..4), plus only dense/stride for subject source5; 27 source-level media files are not independent video-source samples. No background or camera source has full five-arm quality; official VBench calls are zero. R16 time bin0 receives 66.97% dense rows versus 22.90% later20; investigate benefit, do not assert cause. New TACR source-disjoint native intervention phases across four steps, layer depth and temporal zones are prospective, with pilot 12/expansion 24 positions illustrative, not rigid pass/fail conditions. Use full compensation-aware native action, true downstream finite response and actual W1/pre-step observable for value prediction. Reuse old artifacts before authorizing selected new full-free video. No modification of R17 caps or execution eligibility.
