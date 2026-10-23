@@ -106,3 +106,9 @@ jobs:
         run: |
           python tools/analyze_coupling_pivot.py --check
           python tools/check_c0_norm_statistics_record.py
+      - name: Verify finite C1 native evidence and diagnostic accounting when present
+        run: |
+          python -m pip install 'numpy>=1.26,<3'
+          if [ -f research/20261023/C1N0_native_results.json ]; then python tools/check_c1_native_results.py; fi
+          python -m unittest discover -s tests -p 'test_c1_contract.py' -v
+          python -m unittest discover -s tests -p 'test_c1_analysis.py' -v
