@@ -1,0 +1,149 @@
+{
+  "id": "TACR_CPU_DEDUCTIONS_20261023",
+  "status": "COMPLETED",
+  "schema_version": 1,
+  "source_commit": "27f86cd3f8821b2771f1be633baf32d4cc79ebb0",
+  "provenance": "Ten synthetic algebra checks plus one saved-summary scalar recomputation; zero new model calls.",
+  "check_count": 11,
+  "new_model_calls": 0,
+  "training_steps": 0,
+  "input_sha256": {
+    "research/20261023/R16V0_analysis.json": "a024a645b1f1e0ef4113cea01eb78b179aaf3d5242249bafdf3bfa9641b56d1b",
+    "research/20261023/R17E0_system_timing_prefix.json": "ccdc2f33bf954d006c9693eb5a4131c2f7dcaa2b4580bd1aa2a5309119d65663"
+  },
+  "checks": [
+    {
+      "id": "net_action_sign",
+      "raw_predicted_loss": 0,
+      "actual_net_loss": 4,
+      "baseline_loss": 1
+    },
+    {
+      "id": "signed_pair_quadratic",
+      "cases": [
+        {
+          "mask": [
+            0,
+            0
+          ],
+          "loss": 1.0
+        },
+        {
+          "mask": [
+            0,
+            1
+          ],
+          "loss": 10.0
+        },
+        {
+          "mask": [
+            1,
+            0
+          ],
+          "loss": 5.0
+        },
+        {
+          "mask": [
+            1,
+            1
+          ],
+          "loss": 0.0
+        }
+      ],
+      "pair_gain_interaction": 14.0
+    },
+    {
+      "id": "mask_compensation_nonadditive",
+      "pair_delta": -1.0,
+      "sum_single_deltas": 2.0
+    },
+    {
+      "id": "conditional_covariance",
+      "baseline": 1.0,
+      "after": 0.0,
+      "true_gain": 1.0,
+      "mean_vector_plugin_gain": 0.0
+    },
+    {
+      "id": "zero_mean_conditional_risk_router",
+      "best_fixed_loss": 0.5,
+      "conditional_loss": 0.0,
+      "conditional_action_means": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "projection_nullspace",
+      "projected_losses": [
+        0.0,
+        0.0
+      ],
+      "full_losses": [
+        0.0,
+        4.0
+      ]
+    },
+    {
+      "id": "finite_response_interaction",
+      "jacobian_at_anchor": 0,
+      "single_responses": [
+        1,
+        1
+      ],
+      "pair_response": 0,
+      "interaction": -2
+    },
+    {
+      "id": "compensation_quotient",
+      "profiled_losses": [
+        4.0,
+        1.0
+      ],
+      "eliminated_axis": "span((1,0)); toy offline optimum"
+    },
+    {
+      "id": "action_value_regret",
+      "uniform_error_bound": 0.1,
+      "selected": 1,
+      "regret": 0.09999999999999998,
+      "regret_bound": 0.2
+    },
+    {
+      "id": "projection_MAC_accounting",
+      "actual_base_groups_by_step": [
+        54,
+        108,
+        108,
+        162
+      ],
+      "weighted_base_fraction": 0.5,
+      "illustrative_extra_groups_per_site": 27,
+      "illustrative_augmented_main_fraction": 0.625,
+      "R256_two_projection_fraction": 0.018518518518518517,
+      "augmented_plus_R256_fraction": 0.6435185185185185,
+      "BF16_per_token_all216_r16_prediction_MiB": 208.7490234375,
+      "h256_to_all216_r16_linear_MAC_fraction": 0.00625
+    },
+    {
+      "id": "saved_R16_R17_recalculation",
+      "scope": "one old source; five R17 technical repeats per arm",
+      "independent_sources": 1,
+      "R16_local_gain": 0.061275701903671154,
+      "R16_RGB_MSE_ratio": 1.0822574970618422,
+      "R17_median_seconds": {
+        "dense_DQ": 50.85823553428054,
+        "UB1": 47.27993056923151,
+        "fixed_stride": 48.64648102223873,
+        "fixed_hash": 48.644632056355476,
+        "dynamic_residual": 48.68239039555192
+      },
+      "dense_over_dynamic": 1.0446947062592766,
+      "dense_over_UB1": 1.0756833802835086,
+      "dynamic_over_UB1": 1.0296628994466648,
+      "dense_FFN_CUDA_ms_to_wall_fraction": 0.19495167946808561,
+      "conditional_Amdahl_infinite_FFN_speedup": 1.2421614634749831,
+      "Amdahl_assumption": "Illustrative serial additive decomposition; CUDA/wall measurement is not an identified causal split."
+    }
+  ]
+}
