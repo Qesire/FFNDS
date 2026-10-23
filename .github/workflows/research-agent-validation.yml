@@ -102,3 +102,7 @@ jobs:
       - name: Verify completed fresh quality and actual system results when present
         run: |
           if [ -f research/20261023/R17E0_analysis.json ]; then python tools/check_fresh_quality_results.py; fi
+      - name: Reproduce coupling algebra and saved native scalar readouts without models
+        run: |
+          python tools/analyze_coupling_pivot.py --check
+          python tools/check_c0_norm_statistics_record.py

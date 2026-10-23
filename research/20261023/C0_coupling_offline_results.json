@@ -1,0 +1,599 @@
+{
+  "id": "C0_COUPLING_PREW1_OFFLINE_DISCRIMINATORS",
+  "status": "COMPLETE_SOURCE_SAVED_DATA_AND_CPU_ONLY",
+  "source_sha256": "50f8958191d10130a900b1f6d963ee04af224ad71f752e515ef6a054947f7750",
+  "scale_counterexample": {
+    "evidence": "SYNTHETIC_FINITE_RESIDUAL_PLUS_LAYER_NORM_COUNTEREXAMPLE",
+    "u": [
+      1.0,
+      -1.0,
+      1.0,
+      -1.0
+    ],
+    "v": [
+      1.0,
+      1.0,
+      -1.0,
+      -1.0
+    ],
+    "fixed_gated_FFN_outputs": {
+      "dense": [
+        1.0,
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "A": [
+        2.0,
+        0.0,
+        0.0,
+        -2.0
+      ],
+      "B": [
+        1.5,
+        1.5,
+        -1.5,
+        -1.5
+      ]
+    },
+    "epsilon": 1e-06,
+    "rows": [
+      {
+        "residual_scale": 1.0,
+        "current_normalized_BF16_bits": [
+          16256,
+          49024,
+          16256,
+          49024
+        ],
+        "next_normalized_SSE": {
+          "A": 0.41053347190926903,
+          "B": 0.1553545317333463
+        },
+        "best_action": "B"
+      },
+      {
+        "residual_scale": 4.0,
+        "current_normalized_BF16_bits": [
+          16256,
+          49024,
+          16256,
+          49024
+        ],
+        "next_normalized_SSE": {
+          "A": 0.009054897764046724,
+          "B": 0.05173861580954622
+        },
+        "best_action": "A"
+      }
+    ],
+    "common_scalar_metric_negative_control": [
+      {
+        "scale": 1.0,
+        "A": 4.0,
+        "B": 1.0
+      },
+      {
+        "scale": 4.0,
+        "A": 0.25,
+        "B": 0.0625
+      }
+    ],
+    "scope": "Same BF16 normalized input at unit modulation/smoothing; hence any deterministic Q1/R256 sees identical input. Changed pre-norm scale plus a fixed residual update changes the next norm direction and reverses finite-action ranking. No Wan frequency, predictor advantage or full-video observation."
+  },
+  "compensation_controls": {
+    "evidence": "SYNTHETIC_EXACT_FIXED_PROJECTION_ALGEBRA",
+    "fixed_projection_output_mixed_difference": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "squared_loss_interaction": -4.0,
+    "negative_twice_action_inner_product": -4.0,
+    "nonlinear_set_compensation_control_Xi_norm2": 9.0,
+    "deduction": "A fixed-feature exact OLS refit remains additive: Y(S)=P*T+(I-P)*D_S. Mask-dependent compensation alone does not imply nonadditivity. Mask-dependent features/alpha/bias, coefficient encoding and native accumulation can break this identity.",
+    "sign_convention": "Native Y=M+R; increment=D_g+R_new-R_old. TACR C denotes compensation REMOVED from frozen UB1, so C=R_old-R_new and increment=D_g-delta(C)."
+  },
+  "R7_scalar_reanalysis": {
+    "evidence": "NEW_SCALAR_REANALYSIS_OF_PUBLISHED_NATIVE_R7_NOT_NEW_FORWARD",
+    "source_path": "research/20261021/R7D1_results.json",
+    "source_sha256": "9755df9a251d8a4d6b99e25eb6e05f13c8edf6a0534626befdcc79d2532b31f2",
+    "rows": [
+      {
+        "source_index": 0,
+        "gain_A_plus_gain_B": 808.3095981469887,
+        "gain_AB": 789.3866478950513,
+        "interaction_advantage": -18.922950251937436,
+        "linear_cross_term": -2221.4797018732584,
+        "finite_nonlinear_transport_term": 2202.556751621304,
+        "curvature_norm2": 4331.710500791273,
+        "additive_response_norm2": 7764.829029112079,
+        "curvature_norm2_over_additive_response_norm2": 0.5578629593196093,
+        "absolute_interaction_over_sum_single_gains": 0.023410522769143655,
+        "cross_and_curvature_cancellation_fraction": 0.9957226956760252,
+        "local_downstream_rank_disagreement": true,
+        "identity_residual": 1.6825651982799172e-11
+      },
+      {
+        "source_index": 5,
+        "gain_A_plus_gain_B": 1668.3931616570844,
+        "gain_AB": 1568.8389142461092,
+        "interaction_advantage": -99.55424741097522,
+        "linear_cross_term": -3153.3720688957483,
+        "finite_nonlinear_transport_term": 3053.8178214847776,
+        "curvature_norm2": 5858.957305232649,
+        "additive_response_norm2": 11610.182161588,
+        "curvature_norm2_over_additive_response_norm2": 0.5046395675527696,
+        "absolute_interaction_over_sum_single_gains": 0.059670735710817574,
+        "cross_and_curvature_cancellation_fraction": 0.9839614625669415,
+        "local_downstream_rank_disagreement": false,
+        "identity_residual": -4.547473508864641e-12
+      },
+      {
+        "source_index": 10,
+        "gain_A_plus_gain_B": 539.4744841767315,
+        "gain_AB": 557.5279104185611,
+        "interaction_advantage": 18.053426241829584,
+        "linear_cross_term": -2305.6810822634848,
+        "finite_nonlinear_transport_term": 2323.734508505314,
+        "curvature_norm2": 4570.481233685682,
+        "additive_response_norm2": 7529.124769168489,
+        "curvature_norm2_over_additive_response_norm2": 0.6070401771533456,
+        "absolute_interaction_over_sum_single_gains": 0.03346483804397187,
+        "cross_and_curvature_cancellation_fraction": 0.9961002796383569,
+        "local_downstream_rank_disagreement": true,
+        "identity_residual": 4.547473508864641e-13
+      },
+      {
+        "source_index": 15,
+        "gain_A_plus_gain_B": 2691.8771350956595,
+        "gain_AB": 2589.8579238277816,
+        "interaction_advantage": -102.01921126787784,
+        "linear_cross_term": -4179.0054986036785,
+        "finite_nonlinear_transport_term": 4076.9862873358215,
+        "curvature_norm2": 7798.867653514875,
+        "additive_response_norm2": 15063.18040586885,
+        "curvature_norm2_over_additive_response_norm2": 0.5177437595101971,
+        "absolute_interaction_over_sum_single_gains": 0.03789891074068373,
+        "cross_and_curvature_cancellation_fraction": 0.9876430095967873,
+        "local_downstream_rank_disagreement": true,
+        "identity_residual": -2.091837814077735e-11
+      }
+    ],
+    "pooled": {
+      "gain_A_plus_gain_B": 5708.054379076464,
+      "gain_AB": 5505.611396387503,
+      "interaction_advantage": -202.4429826889609,
+      "linear_cross_term": -11859.538351636169,
+      "finite_nonlinear_transport_term": 11657.095368947217,
+      "curvature_norm2": 22560.01669322448,
+      "additive_response_norm2": 41967.31636573742,
+      "curvature_norm2_over_additive_response_norm2": 0.5375615752176789,
+      "interaction_over_sum_single_gains": -0.03546619727924092,
+      "cross_and_curvature_cancellation_fraction": 0.9913914982435701
+    },
+    "scope": "Four already exposed sources, step3 blocks30/31, full-teacher restorations with dense resets BETWEEN steps. No affordable group action, free student video, infinitesimal Jacobian or cross-step claim."
+  },
+  "asset_audit": {
+    "evidence": "ACTUAL_SAVED_ASSET_HEADER_AND_RECEIPT_AUDIT",
+    "OP2_run_bindings": [
+      {
+        "record": "runs/worker_restart_20261020/op2_ub1_calibration24/shard0/RUN.json",
+        "sha256": "607ac9adbd1be9c921d71c6a0e9944244ddb4a7bb49804c8238cacdafc28ffcb"
+      },
+      {
+        "record": "runs/worker_restart_20261020/op2_ub1_calibration24/shard1/RUN.json",
+        "sha256": "0919e1bab346a477a6cebb7d977d09ef7ae8451e43d62ffbaa5d874e282fcdd0"
+      }
+    ],
+    "case_receipts_hash_checked": 24,
+    "declared_scopes": 3840,
+    "payload_headers_inspected": 3840,
+    "missing_payloads": 0,
+    "unique_schemas": [
+      {
+        "schema": {
+          "BaseY": {
+            "dtype": "BF16",
+            "shape": [
+              256,
+              5120
+            ]
+          },
+          "StudentY": {
+            "dtype": "BF16",
+            "shape": [
+              256,
+              5120
+            ]
+          },
+          "TeacherY": {
+            "dtype": "BF16",
+            "shape": [
+              256,
+              5120
+            ]
+          },
+          "V1": {
+            "dtype": "BF16",
+            "shape": [
+              256,
+              5120
+            ]
+          },
+          "b2": {
+            "dtype": "BF16",
+            "shape": [
+              5120
+            ]
+          },
+          "gate": {
+            "dtype": "BF16",
+            "shape": [
+              1,
+              5120
+            ]
+          }
+        },
+        "count": 3840
+      }
+    ],
+    "full_OP2_payload_hashes_replayed": false,
+    "pre_norm_residual_or_attention_update_saved": false,
+    "new_complete_group_action_finite_continuation_labels_saved": false,
+    "E1_native_conditional_information_result": null,
+    "R7_raw_payload_availability": [
+      {
+        "source_index": 0,
+        "arm": "DQ",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "51cbd0a92e6ab63c1a35811243d299ccd725c641eef542be8ca5764853701a97"
+      },
+      {
+        "source_index": 0,
+        "arm": "none",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "0b0e365f4e2d871db573ee1f7ad86ced73eac5691e3a1e32eba0f3329e7f2ff4"
+      },
+      {
+        "source_index": 0,
+        "arm": "none_repeat",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "0b0e365f4e2d871db573ee1f7ad86ced73eac5691e3a1e32eba0f3329e7f2ff4"
+      },
+      {
+        "source_index": 0,
+        "arm": "A",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "dfbe805a696617070f12aa2314ac24d6daae7f4f1c4f7f6aa76814ae24a06f6c"
+      },
+      {
+        "source_index": 0,
+        "arm": "B",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "2df1ea642e48f73c7c8d024ed81da2ccfd44e097f98d8d254348dbcd5870d761"
+      },
+      {
+        "source_index": 0,
+        "arm": "AB",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "b60bb4aa87998478c31037e0f78eaab0e6e476380f97d8f2d27fdeda63a6a54a"
+      },
+      {
+        "source_index": 5,
+        "arm": "DQ",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "329992c7fa799d35a87530aa44289b611c97a8b9063e62c14b17859545a4f1d9"
+      },
+      {
+        "source_index": 5,
+        "arm": "none",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "0d1d23d80870c2e6c13d73b55a0f505d8604142c0c95f47b82cc726ff14ceded"
+      },
+      {
+        "source_index": 5,
+        "arm": "none_repeat",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "0d1d23d80870c2e6c13d73b55a0f505d8604142c0c95f47b82cc726ff14ceded"
+      },
+      {
+        "source_index": 5,
+        "arm": "A",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "e9f4dc618e22972e6e0d8e7cf060185e07133dbd2e7af6c5e05fa188dbbd57b3"
+      },
+      {
+        "source_index": 5,
+        "arm": "B",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "03ec2c4e834214f0c64db6fdd121e1ec5ff00208a8acc4ecc2d0f6c6e45d34b7"
+      },
+      {
+        "source_index": 5,
+        "arm": "AB",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "cfb289facaf57804062e0549e3d75091c3353836f4f860d4530abfe5bad0d4c6"
+      },
+      {
+        "source_index": 10,
+        "arm": "DQ",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "3eef20566a4e53c3a2bc3133308dc2230239e1a3e7441b4f09f8cbb40fd2cec4"
+      },
+      {
+        "source_index": 10,
+        "arm": "none",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "bcdf9ad7e9674ded85d5ee2b5a52bb6530a163a6902e4b0e7ffec78494de6442"
+      },
+      {
+        "source_index": 10,
+        "arm": "none_repeat",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "bcdf9ad7e9674ded85d5ee2b5a52bb6530a163a6902e4b0e7ffec78494de6442"
+      },
+      {
+        "source_index": 10,
+        "arm": "A",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "824fee63b67180b3d81f59356c523731b554091f7cf7b9d63527564e2215e19b"
+      },
+      {
+        "source_index": 10,
+        "arm": "B",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "8aed1796ff1aa49609d1a835687c3d1dc8da6184f41551c6ed397c7185a8e1d8"
+      },
+      {
+        "source_index": 10,
+        "arm": "AB",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "43c1cf8a4f3ceefc35a9683d54ddfd014324fd47a8d544b1ea89acff24602df2"
+      },
+      {
+        "source_index": 15,
+        "arm": "DQ",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "8fa9f0a12b50ee704be7972d0c3ab96376c0dba1154591233212dacc9ed098d6"
+      },
+      {
+        "source_index": 15,
+        "arm": "none",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "5e503f079bf7844a0372535e58a174f4ce16f05fdac4040aba694adea672e5a8"
+      },
+      {
+        "source_index": 15,
+        "arm": "none_repeat",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "5e503f079bf7844a0372535e58a174f4ce16f05fdac4040aba694adea672e5a8"
+      },
+      {
+        "source_index": 15,
+        "arm": "A",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "4c5182c2c283039dfead06a4016b62ccbf1952a0d1a72e069e82510443687558"
+      },
+      {
+        "source_index": 15,
+        "arm": "B",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "b4d4912e9856457d784a0edefa38279be0c5ef44564bb2d59d6e530791adce11"
+      },
+      {
+        "source_index": 15,
+        "arm": "AB",
+        "available_in_audited_HF_roots": false,
+        "original_sha256": "508cc83117b0d4694a0f4730935fdd416ed3df47604f3c075216b2bc3b5b542e"
+      }
+    ],
+    "R7_four_arm_vector_replay_performed": false
+  },
+  "fresh_subject_mask_readout": {
+    "evidence": "NEW_CPU_READOUT_OF_FIVE_EXECUTED_FRESH_SUBJECT_ROUTING_TRACES",
+    "source_count": 5,
+    "per_source": [
+      {
+        "source_index": 0,
+        "stratum": "i2v_subject",
+        "request_sha256": "5e92522161327df7c43b84b5ba7a464a6aabf392575433075c2364a15b1ee451",
+        "trace_sha256": "92f3dd0bd415315576c8d4d971785fd14308660a9b60a2f238bce97d7e9c2c2e",
+        "first_bin_dense_fraction": 0.8749088196286472,
+        "later20_dense_fraction": 0.21875455901856763,
+        "first_bin_by_step": [
+          0.8316976127320956,
+          0.8564820954907162,
+          0.9198938992042439,
+          0.8915616710875331
+        ],
+        "adjacent_time_bin_flip_fraction": 0.2484393650530504
+      },
+      {
+        "source_index": 1,
+        "stratum": "i2v_subject",
+        "request_sha256": "c1ef0be2402309b330b38373b83033be4fe2b5c7c4afb2f87685d4c2305997c2",
+        "trace_sha256": "e14dc94e7870f13429eb06ebb6db63757685ebb11b7db8471a575302bd616e59",
+        "first_bin_dense_fraction": 0.8376947944297081,
+        "later20_dense_fraction": 0.2206152602785146,
+        "first_bin_by_step": [
+          0.7759946949602122,
+          0.8072281167108754,
+          0.9031664456233421,
+          0.8643899204244031
+        ],
+        "adjacent_time_bin_flip_fraction": 0.2624535809018568
+      },
+      {
+        "source_index": 2,
+        "stratum": "i2v_subject",
+        "request_sha256": "42c9af7c073ece92f783a19aae00fd6bd0d74c0463110ff33256f70cb823e8c9",
+        "trace_sha256": "e8344b686fb639110587452090242a1b128cf0250a41721a773a133d409fb9ad",
+        "first_bin_dense_fraction": 0.7561049403183024,
+        "later20_dense_fraction": 0.2246947529840849,
+        "first_bin_by_step": [
+          0.6806863395225464,
+          0.661737400530504,
+          0.8598640583554378,
+          0.8221319628647216
+        ],
+        "adjacent_time_bin_flip_fraction": 0.25705860411140585
+      },
+      {
+        "source_index": 3,
+        "stratum": "i2v_subject",
+        "request_sha256": "9753058516f116762b555df6f1b0ca5edd2617149a8382f952b21ffc225bc61d",
+        "trace_sha256": "fa8725d924676f0ea3533e767b0d08c467ede00ea41b0acd0c14531559be99b2",
+        "first_bin_dense_fraction": 0.790376326259947,
+        "later20_dense_fraction": 0.22298118368700265,
+        "first_bin_by_step": [
+          0.7269562334217505,
+          0.7156167108753315,
+          0.8870358090185675,
+          0.8318965517241381
+        ],
+        "adjacent_time_bin_flip_fraction": 0.27800542937665784
+      },
+      {
+        "source_index": 4,
+        "stratum": "i2v_subject",
+        "request_sha256": "baec3433be0a956d5499ea36b1de0a87253c8e7a09ce2dbe421f6cbfbc59f65c",
+        "trace_sha256": "5001ee4ea788d99dccc9d8835cc3ec95c1a115ac400e2ae611bc79d77ccd4f55",
+        "first_bin_dense_fraction": 0.7433438328912466,
+        "later20_dense_fraction": 0.22533280835543767,
+        "first_bin_by_step": [
+          0.6135775862068965,
+          0.6484913793103448,
+          0.8818136604774536,
+          0.8294927055702918
+        ],
+        "adjacent_time_bin_flip_fraction": 0.26337574602122016
+      }
+    ],
+    "source_pairs": [
+      {
+        "source_pair": [
+          0,
+          1
+        ],
+        "dense_mask_Jaccard": 0.3316037230072513,
+        "dense_set_replaced_fraction": 0.5019483390173045,
+        "independent_per_time_marginal_expected_Jaccard": 0.21842619045930423
+      },
+      {
+        "source_pair": [
+          0,
+          2
+        ],
+        "dense_mask_Jaccard": 0.2735558108145471,
+        "dense_set_replaced_fraction": 0.5704062460527978,
+        "independent_per_time_marginal_expected_Jaccard": 0.2143784009037367
+      },
+      {
+        "source_pair": [
+          0,
+          3
+        ],
+        "dense_mask_Jaccard": 0.292771940137654,
+        "dense_set_replaced_fraction": 0.5470632815460401,
+        "independent_per_time_marginal_expected_Jaccard": 0.2160770723138953
+      },
+      {
+        "source_pair": [
+          0,
+          4
+        ],
+        "dense_mask_Jaccard": 0.26115829193257734,
+        "dense_set_replaced_fraction": 0.5858437539472022,
+        "independent_per_time_marginal_expected_Jaccard": 0.2023105272311178
+      },
+      {
+        "source_pair": [
+          1,
+          2
+        ],
+        "dense_mask_Jaccard": 0.2563295266498425,
+        "dense_set_replaced_fraction": 0.5919390236200581,
+        "independent_per_time_marginal_expected_Jaccard": 0.20107940219532225
+      },
+      {
+        "source_pair": [
+          1,
+          3
+        ],
+        "dense_mask_Jaccard": 0.2773893949210783,
+        "dense_set_replaced_fraction": 0.565693286598459,
+        "independent_per_time_marginal_expected_Jaccard": 0.20523068912824913
+      },
+      {
+        "source_pair": [
+          1,
+          4
+        ],
+        "dense_mask_Jaccard": 0.26390843568481914,
+        "dense_set_replaced_fraction": 0.5823931097637994,
+        "independent_per_time_marginal_expected_Jaccard": 0.2012429447030889
+      },
+      {
+        "source_pair": [
+          2,
+          3
+        ],
+        "dense_mask_Jaccard": 0.26841714213617823,
+        "dense_set_replaced_fraction": 0.5767683465959328,
+        "independent_per_time_marginal_expected_Jaccard": 0.20471245455823864
+      },
+      {
+        "source_pair": [
+          2,
+          4
+        ],
+        "dense_mask_Jaccard": 0.255794587092297,
+        "dense_set_replaced_fraction": 0.5926171529619806,
+        "independent_per_time_marginal_expected_Jaccard": 0.19488189581891227
+      },
+      {
+        "source_pair": [
+          3,
+          4
+        ],
+        "dense_mask_Jaccard": 0.2718557535327653,
+        "dense_set_replaced_fraction": 0.5725053681950234,
+        "independent_per_time_marginal_expected_Jaccard": 0.19798023792996772
+      }
+    ],
+    "quality_or_action_value_labels": null,
+    "new_masks_executed": 0,
+    "limits": "Already exposed subject images only. Mask differences are decision variability, not beneficial conditional computation. Native21 latent bins are not81 decoded frames; no causal video-flicker conclusion."
+  },
+  "native_source_bindings": [
+    {
+      "source_relative_path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py",
+      "sha256": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+      "also_bound_in_original_R17_protocol": true
+    },
+    {
+      "source_relative_path": ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py",
+      "sha256": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+      "also_bound_in_original_R17_protocol": true
+    },
+    {
+      "source_relative_path": ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py",
+      "sha256": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+      "also_bound_in_original_R17_protocol": false
+    }
+  ],
+  "repository_source_bindings": {
+    "tools/compensated_support.py": "42a3c2c5dbc21eb8307aa4cbbb6141f714ef9e1b7f4b180bda8ba07698d41b60",
+    "tools/cross_layer_transport.py": "347ee0ed93a9cb4564c5a7aac69cc9a77834b7d09307b6ba31b1c7b287c45e48",
+    "tools/ub1_row_dispatch.py": "f60e62da9c118c118233f8cad5893f9d8e9c4d57453f463fd23d7317801432b2",
+    "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939",
+    "research/20261023/TACR_sampling_evidence_v2.json": "9f147c2105b6f5f9ed6868fec57e0e6919e28b213d8f4455f784f4ac6fbc215a"
+  },
+  "new_model_calls": 0,
+  "new_training_updates": 0,
+  "new_GPU_jobs": 0,
+  "model_eligibility_changed": false,
+  "new_official_quality_result": null
+}
