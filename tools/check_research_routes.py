@@ -43,6 +43,8 @@ FRESH_QUALITY_ID = "R17E0_FRESH23_NINE_METRICS_AND_SYSTEM_TIMING"
 FRESH_QUALITY_STATE = "R4_CLOSED_FRESH23_QUALITY_SYSTEM_REGISTERED"
 C1_ID = "C1N0_PREW1_COMPLETE_GROUP_FINITE_RESPONSE"
 C1_STATE = "R4_CLOSED_C1_NET_ACTION_DIAGNOSTIC_REGISTERED"
+C2_ID = "C2N0_NORM_SCALED_ENERGY_PAIRED_SMOKE"
+C2_STATE = "R4_CLOSED_C2_NORM_SCALED_SMOKE_REGISTERED"
 RECIPE_ID = "R4E1_FIXED_H_16GROUP_Q2"
 RATIO_FIELDS = {
     "K1_matched_over_K0_matched": ("K0_matched", .98),
@@ -128,7 +130,7 @@ def validate_records(decision, triage, summary, execution, root=None):
     index, errors = build_index(triage)
     methods = {m["id"]: m for m in triage["methods"]}
     state = decision["execution_state"]
-    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE, STRIPE_STATE, ROLLOUT_STATE, ROW_DISPATCH_STATE, FRESH_QUALITY_STATE, C1_STATE):
+    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE, STRIPE_STATE, ROLLOUT_STATE, ROW_DISPATCH_STATE, FRESH_QUALITY_STATE, C1_STATE, C2_STATE):
         errors.append("Current evidence audit requires an explicit migration for a new decision state")
     if triage["policy"]["execution_state"] != decision["execution_state"]:
         errors.append("Policy and current decision disagree")
@@ -148,6 +150,12 @@ def validate_records(decision, triage, summary, execution, root=None):
         errors.append("Eligible methods disagree with canonical decision")
     if canonical and state == CURRENT_STATE:
         errors.append("R5 closure records no eligible model follow-up; update evidence before changing the decision")
+    if state == C2_STATE:
+        from c2_contract import validate_registration as validate_c2_registration
+        registration = decision.get('registered_c2_smoke', {})
+        if canonical != [C2_ID] or registration.get('method_id') != C2_ID:
+            errors.append('Only separately authorized C2 paired smoke eligible')
+        errors.extend(validate_c2_registration(registration, root or Path(__file__).resolve().parents[1]))
     if state == C1_STATE:
         from c1_contract import validate_registration as validate_c1_registration
         registration = decision.get('registered_c1_diagnostic', {})

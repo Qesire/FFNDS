@@ -112,3 +112,8 @@ jobs:
           if [ -f research/20261023/C1N0_native_results.json ]; then python tools/check_c1_native_results.py; fi
           python -m unittest discover -s tests -p 'test_c1_contract.py' -v
           python -m unittest discover -s tests -p 'test_c1_analysis.py' -v
+      - name: Verify saved C2 reference and pending native implementation without model calls
+        run: |
+          python tools/check_c2_saved_proxy.py
+          python -m unittest discover -s tests -p 'test_c2_contract.py' -v
+          python -m unittest discover -s tests -p 'test_norm_scaled_row_dispatch.py' -v
