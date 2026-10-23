@@ -4,6 +4,8 @@ description: Research deployable post-training dynamic FFN methods toward native
 ---
 # FFNDS paper discovery — outcome first, creative alternatives open
 
+**Current successor research:** use installed `mechanism-research`, `research-expansion` and `problem-reformulation` with [docs/88](../../../docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md) and [current handoff](../../../research/20261023/HANDOFF_PRD_SUCCESSOR.md). C1 closes its two whole-site swaps; C2 remains the prepared video discriminator. Explore residual identity plus normalized-branch finite value, then state-dependent budget allocation. Retire exact R16/R17 as active routes, preserve credited baselines and original evidence. Use source/scene-disjoint, seed-aware and rotated-depth designs from [sampling revision](../../../research/20261023/PRD_sampling_revision.json). Prior S0/E0/E1 and C0 sections are completed history, not a request to repeat them.
+
 **Earlier R15 execution priority (2026-10-23): run and inspect the complete paired video for an explicitly authorized selected candidate without a novelty gate. This milestone has since been completed for R15/R16; the current next-research priority is the coupling pivot below. Keep model authorization and truthful evidence boundaries.**
 
 ## Active conditional discovery pivot — coupling/pre-W1 information (2026-10-23)

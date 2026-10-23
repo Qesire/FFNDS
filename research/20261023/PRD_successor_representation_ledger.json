@@ -1,0 +1,179 @@
+{
+  "schema_version": "1.0",
+  "research_object": "Four-step Wan/HiF4 FFN: C1 actual finite labels and C2 prepared successor",
+  "source_revision": "7c7019ec66835e740b3573d5572a8da59f0efa69",
+  "representations": [
+    {
+      "id": "native_finite_action",
+      "description": "Native complete compensated FFN and paired finite successor",
+      "expression_or_reduction": "w_a=native_writeback(r,gate,F_a(Q1(modulate(norm2(r))))); label_h(a)=L(Phi_h(w_U),Phi_h(w_D))-L(Phi_h(w_a),Phi_h(w_D))",
+      "relation_to_source": "EXACT",
+      "assumptions": [
+        "Native operations, casts, QDQ, original alpha, folded bias and R256 retained",
+        "C1 observed h=nextnorm only"
+      ],
+      "dependencies": [
+        "pre-W1 r,gate,h256",
+        "action",
+        "offline dense reference",
+        "specified downstream horizon"
+      ],
+      "freedoms": [
+        "observation horizon",
+        "complete action",
+        "available policy information"
+      ],
+      "provenance": {
+        "status": "SOURCE_VERIFIED",
+        "locator": "tools/c1_native_probe.py"
+      }
+    },
+    {
+      "id": "norm_quotient",
+      "description": "Centered norm direction and radial sensitivity",
+      "expression_or_reduction": "n(w)=Pw/sqrt(||Pw||^2/D+eps); Jn=(P-uu^T/(D sigma^2))/sigma",
+      "relation_to_source": "CONDITIONAL",
+      "assumptions": [
+        "Real arithmetic un-affined LayerNorm",
+        "eps retained; radial invariance exact only at eps=0 with nonzero variance"
+      ],
+      "dependencies": [
+        "nextnorm input w (offline for pre-W1 routing)",
+        "eps"
+      ],
+      "freedoms": [
+        "mean, radial and tangential error decomposition"
+      ],
+      "provenance": {
+        "status": "DERIVED",
+        "locator": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md"
+      },
+      "next_discriminator": "Check finite identity and residual-bypass counterexample in analyze_prd_successor.py"
+    },
+    {
+      "id": "residual_two_path",
+      "description": "Identity transport plus normalized nonlinear branch",
+      "expression_or_reduction": "T(w)=w+B(n(w)); JT=I+JB Jn; QT=JT^T M JT",
+      "relation_to_source": "APPROXIMATE",
+      "assumptions": [
+        "Local differentiable approximation with fixed conditioning",
+        "One residual sublayer; complete Wan/HiF4 successor requires native finite continuation"
+      ],
+      "dependencies": [
+        "base state",
+        "branch Jacobian",
+        "normalization Jacobian",
+        "target metric"
+      ],
+      "freedoms": [
+        "signed direct/branch interaction",
+        "finite downstream action-value target"
+      ],
+      "provenance": {
+        "status": "DERIVED",
+        "locator": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md"
+      },
+      "next_discriminator": "Compare nextnorm vs complete-block action rankings at the same native prefix"
+    },
+    {
+      "id": "causal_budget",
+      "description": "Sequential state-dependent allocation of physical dense fractions",
+      "expression_or_reduction": "q_i=pi(z_i,step_i,block_i,b_i); b_(i+1)=b_i-c_i(q_i)",
+      "relation_to_source": "TASK_REDUCTION",
+      "assumptions": [
+        "Measured legal native cost table",
+        "Only current/past features online",
+        "Reserve remaining mandatory compute; finite trajectory interactions measured"
+      ],
+      "dependencies": [
+        "pre-W1 state",
+        "remaining budget",
+        "learned conditional value",
+        "measured native costs"
+      ],
+      "freedoms": [
+        "compute amount and placement, beyond fixed 25 percent at every site"
+      ],
+      "provenance": {
+        "status": "CONJECTURE",
+        "locator": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md"
+      },
+      "next_discriminator": "Conditional marginal gains versus train-selected best fixed position allocation"
+    }
+  ],
+  "connections": [
+    {
+      "from": "native_finite_action",
+      "to": "norm_quotient",
+      "relation": "CONDITIONAL_EQUIVALENCE",
+      "reason": "Real-arithmetic nextnorm part isolates directional geometry; native rounding remains explicit"
+    },
+    {
+      "from": "norm_quotient",
+      "to": "residual_two_path",
+      "relation": "DESIGN_EXTENSION",
+      "reason": "Extend the observed causal horizon to include the bypass and successor computation"
+    },
+    {
+      "from": "native_finite_action",
+      "to": "causal_budget",
+      "relation": "TASK_REDUCTION",
+      "reason": "Jointly choose where and how much native computation using causal remaining-budget state"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "C2N0_NORM_SCALED_ENERGY_PAIRED_SMOKE",
+      "representation_ids": [
+        "native_finite_action",
+        "norm_quotient"
+      ],
+      "mechanism": "Reuse original energy and currentnorm2 inverse variance for dense/UB1 row choice",
+      "different_prediction": "Improved exposed single-boundary selection may or may not preserve complete free-video content/motion",
+      "cheap_check": "Existing saved reanalysis complete; keep prepared paired six-video draft as next native discriminator",
+      "status": "SEED",
+      "artifact_locator": "research/20261023/C2N0_native_smoke_DRAFT.json",
+      "nearest_prior_art": [
+        "R16 original physical row dispatch",
+        "PulseQuant",
+        "LayerNorm geometry"
+      ]
+    },
+    {
+      "id": "PRD_RESIDUAL_TWO_PATH_VALUE",
+      "representation_ids": [
+        "native_finite_action",
+        "norm_quotient",
+        "residual_two_path"
+      ],
+      "mechanism": "Predict complete finite downstream action value including identity transport and normalized branch using cheap pre-W1 state",
+      "different_prediction": "Matched nextnorm loss and rstd can coexist with different complete-block risk; state-conditioned regret improves over strongest position-static policy",
+      "cheap_check": "Synthetic bypass reversal completed; freeze paired complete-block/step finite-label design with source-disjoint fitting",
+      "status": "SEED",
+      "artifact_locator": "research/20261023/PRD_successor_reanalysis.json",
+      "nearest_prior_art": [
+        "PulseQuant propagation-guided calibration",
+        "TACR conditional net action value",
+        "R7 propagation diagnostics",
+        "Gupta et al LayerNorm geometry"
+      ]
+    },
+    {
+      "id": "PRD_CAUSAL_COMPUTE_ALLOCATION",
+      "representation_ids": [
+        "native_finite_action",
+        "causal_budget"
+      ],
+      "mechanism": "Choose legal dense fractions from current-state marginal finite value while carrying remaining native cost budget",
+      "different_prediction": "Within-position state-dependent allocation beats train-selected best fixed location budgets at equal measured cost",
+      "cheap_check": "Conditional-allocation toy completed; measure marginal gains before designing a learned allocator",
+      "status": "SEED",
+      "artifact_locator": "research/20261023/PRD_successor_reanalysis.json",
+      "nearest_prior_art": [
+        "Repository V4/GBA exploration",
+        "FastForward layer scheduler",
+        "Classical sequential resource allocation"
+      ]
+    }
+  ]
+}
