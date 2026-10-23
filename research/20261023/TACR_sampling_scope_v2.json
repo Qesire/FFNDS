@@ -1,0 +1,164 @@
+{
+  "id": "TACR_V2_NET_ACTION_BALANCED_SAMPLING",
+  "status": "EXPLORATORY_SAMPLING_AND_METHOD_NOT_REGISTERED",
+  "base_method": "docs/TACR_FFN_查重与机制推导_20261023.md",
+  "revised_method": "docs/84_TACR_净动作价值与修正采样_20261023.md",
+  "model": {
+    "steps": 4,
+    "blocks_per_step": 40,
+    "latent_grid": [
+      21,
+      29,
+      52
+    ],
+    "rows": 31668,
+    "input_dim": 5120,
+    "hidden_channels": 13824,
+    "group_width": 64,
+    "groups": 216,
+    "UB1_step_base_groups": [
+      54,
+      108,
+      108,
+      162
+    ]
+  },
+  "sampling": {
+    "step_ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "depth": {
+      "early": [
+        4,
+        10
+      ],
+      "middle": [
+        17,
+        23
+      ],
+      "late": [
+        30,
+        37
+      ]
+    },
+    "pilot_blocks": [
+      4,
+      17,
+      30
+    ],
+    "extension_blocks": [
+      10,
+      23,
+      37
+    ],
+    "conditioned_time_bins": [
+      0
+    ],
+    "remaining_time_bins": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "spatial_semantics": [
+      "indexed_spatial_baseline",
+      "foreground_if_labelled",
+      "stable_background_if_labelled",
+      "high_motion_if_labelled"
+    ],
+    "source_strata": [
+      "i2v_subject",
+      "i2v_background",
+      "camera_motion"
+    ],
+    "source_unit": "independent original image+source_group; same-image prompts, seeds, frames and times are dependent observations",
+    "training_and_test": "freeze disjoint source_group/image families before fitting; stratify motion/background/camera, record exposure; R17 already selected all23, five subject full-pairs only",
+    "sampling_effort": "Pilot 4 steps x 3 depth blocks; optionally expand to all 24 sampled positions according to observed mechanisms; no requirement to perform a large Cartesian product before a valid video",
+    "old_R17": "Reuse R17 completed video media for diagnostics with EXPOSED label; do not treat 27 clips as 27 independent sources, or 25 timing repeats as independent sources"
+  },
+  "action": {
+    "pre_w1_features": "native post-Q1 x and R256 first projection only if faithfully exposed; no teacher/oracle online",
+    "native_bundle": "Complete Q1/W1/GELU/Q2(alpha BF16)/W2(folded bias)/gate and adjusted compensation for each ordered64 group action; keep original calibration grouping",
+    "net_increment": "D_g - (C(z,S+g)-C(z,S))",
+    "objective": "A(a|z)=E[L(y_U,y_D)-L(y_a,y_D)|z] where y_a is actual matched-prefix finite continuation of the COMPLETE compensated action",
+    "comparison": [
+      "UB1",
+      "Dense D-Q",
+      "trained strongest fixed native group action under equal runtime budget",
+      "R16 dynamic row dispatch when meaningful",
+      "direct conditional action gain vs R256 magnitude and layer-only policy"
+    ],
+    "evaluation": [
+      "native numeric L0/L1 with true BF16 and group boundaries",
+      "same-prefix physical downstream response L2",
+      "once selected full four-step free student paired video content/motion identity L3",
+      "fresh source-level nine official I2V plus real GPU end-to-end time L4/L5"
+    ],
+    "note": "Local loss and propagated signed response may rank actions differently; conditional mean plug-in omits covariances. Test small finite complete-action bank, not arbitrary per-token masks."
+  },
+  "asset_plan": [
+    {
+      "id": "native_operands",
+      "output": "Frozen original Q1, W1 and Q2 boundaries by step/block and source; coordinate+precision+model version"
+    },
+    {
+      "id": "compensated_bundles",
+      "output": "Executable whole64-channel group native action, alpha+bias+correction definition and true cost"
+    },
+    {
+      "id": "finite_continuations",
+      "output": "Paired same-prefix action and UB1/Dense continuation and downstream observable; not local splice"
+    },
+    {
+      "id": "source_aware_routes",
+      "output": "Real per-latent-bin and area selection masks with stats and actual native latency"
+    },
+    {
+      "id": "paired_videos",
+      "output": "Full free-student decoded clips with source-group, event, ROI, official dimension and timing evidence"
+    }
+  ],
+  "steps": [
+    {
+      "stage": "S0",
+      "status": "EXISTING_METADATA_VERIFIABLE",
+      "work": "Replay R17 57/27/5 exposure and R16 first time-bin imbalance; identify reusable 5-paired subject clips."
+    },
+    {
+      "stage": "S1",
+      "status": "PROPOSED",
+      "work": "Define few complete native compensated group actions; sampled actual 4xdepthxlatent time causal finite-response value not just post-writeback SSE."
+    },
+    {
+      "stage": "S2",
+      "status": "PROPOSED",
+      "work": "Source-group-disjoint validation covering all subject/background/camera and true online decision advantage over equal-cost fixed."
+    },
+    {
+      "stage": "S3",
+      "status": "PROPOSED",
+      "work": "Run selected action through at least one full native four-step free video, then independent source quality and system timing."
+    }
+  ],
+  "no_new_GPU_authority": true,
+  "previous_trials_unchanged": true
+}
