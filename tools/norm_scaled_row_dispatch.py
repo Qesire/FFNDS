@@ -31,7 +31,7 @@ class NormScaledEnergy:
             if owner.active['score_calls'] or owner.active['rstd'].numel() != residual.shape[0]:
                 raise RuntimeError('Expected one matched score per full native FFN')
             owner.active['score_calls'] += 1
-            # Same R16 kernel and reductions; only two FP32 pointwise ops added.
+            # Same R16 reductions; FP32 statistics cast/square/multiply charged.
             return owner.old_energy(residual, gate) * owner.active['rstd'].square()
 
         def ffn(infer, phase, x, attention, shift, scale, gate=None):
@@ -49,7 +49,9 @@ class NormScaledEnergy:
                     sensitive_layer_dtype=infer.sensitive_layer_dtype, weight=phase.norm2._get_actual_weight(),
                     bias=phase.norm2._get_actual_bias(), eps=phase.norm2.eps)
                 scope['norm_calls'] += 1
-                scope['rstd'] = rstd.reshape(-1)
+                # native_layer_norm can return statistics in the input dtype.
+                # The registered score arithmetic explicitly requires FP32.
+                scope['rstd'] = rstd.reshape(-1).float()
                 return y
 
             phase.norm2.apply = norm
@@ -66,7 +68,8 @@ class NormScaledEnergy:
                 if owner.mode == 'scaled':
                     event['pre_W1_signal'] = 'gated_R256_energy_times_current_norm2_rstd_squared'
                 owner.events.append({'step': step, 'block': block, 'norm_calls': 1,
-                                     'scaled_score_calls': expected_calls, 'CPU_tensor_transfers': 0})
+                                     'scaled_score_calls': expected_calls, 'CPU_tensor_transfers': 0,
+                                     'score_statistics_dtype': str(scope['rstd'].dtype)})
                 return result
             finally:
                 phase.norm2.apply = original_norm

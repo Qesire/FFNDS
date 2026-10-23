@@ -91,20 +91,22 @@ def main():
         with budget.call('norm_with_statistics', 'standalone_normalization_calls'):
             observed, _, rstd = layer_norm_with_statistics(probe, infer_dtype=torch.bfloat16, sensitive_layer_dtype=torch.bfloat16)
         if not torch.equal(expected, observed): raise RuntimeError('GPU normalization bit control failed')
+        rstd32 = rstd.reshape(-1).float()
         from row_dispatch_kernels import gated_energy
         gate = ((torch.arange(5120, device='cuda') % 31) / 31).bfloat16()
         with budget.call('direct_energy_reference', 'standalone_selector_calls'):
             direct = ((probe.float() * gate.float()) ** 2).sum(1)
         with budget.call('old_energy', 'standalone_selector_calls'): original = gated_energy(probe, gate)
         with budget.call('scaled_energy', 'standalone_selector_calls'):
-            scaled = gated_energy(probe, gate) * rstd.reshape(-1).square()
+            scaled = gated_energy(probe, gate) * rstd32.square()
         error = float(((original - direct).abs() / direct.clamp_min(1)).max())
-        scaled_error = float(((scaled - direct * rstd.reshape(-1).square()).abs() /
-                              (direct * rstd.reshape(-1).square()).clamp_min(1)).max())
+        scaled_error = float(((scaled - direct * rstd32.square()).abs() /
+                              (direct * rstd32.square()).clamp_min(1)).max())
         if max(error, scaled_error) > 1e-6: raise RuntimeError('Selector numeric control failed')
         report['GPU_numeric_controls'] = {'norm_bitwise_equal': True, 'old_energy_max_relative_error': error,
-                                          'scaled_energy_max_relative_error': scaled_error}
-        del probe, gate, direct, original, scaled, observed, expected, rstd
+                                          'scaled_energy_max_relative_error': scaled_error,
+                                          'native_statistics_dtype': str(rstd.dtype), 'score_statistics_dtype': str(rstd32.dtype)}
+        del probe, gate, direct, original, scaled, observed, expected, rstd, rstd32
         fresh = read(ROOT / '.runtime/inputs/r17_fresh23/canonical.json')[6]
         old = read(ROOT / '.runtime/inputs/calibration24/canonical.json')[0]
         old_reference = next(r for r in read(ROOT / 'research/20261023/R16V0_native_results.json')['requests'] if r['arm'] == 'UB1')

@@ -1,0 +1,37 @@
+{
+  "status": "PRELAUNCH_PRECISION_FIX_ZERO_NATIVE_EXPOSURE",
+  "old_registration_path": "research/20261023/C2N0_registered_protocol.json",
+  "old_registration_sha256": "7570b6bc9f0fbe9f40dc0660270bce486411db98b0c15b5c1216786dc48a174b",
+  "new_registration_path": "research/20261023/C2N0_registered_protocol_v1.json",
+  "new_registration_sha256": "e430f48b12ce7fe2cdc72d143c774b8e8a2d1c5adb32d95d0fd7a2e98dd51c5f",
+  "source_changes": {
+    "tools/norm_scaled_row_dispatch.py": {
+      "before_sha256": "d7372c84d478b6efc0aba71cae88d117e0807dac252de34e861829ab742c3d45",
+      "after_sha256": "2f08c6e89afb75038478e31641afbd4dabd26f3fd73ea658fda13fde3610094f"
+    },
+    "tools/run_c2_norm_scaled_smoke.py": {
+      "before_sha256": "06a1eddf310c357c50ba1a23c958e1f1c1fb21931ee10299a7b6ff4da26dfc4f",
+      "after_sha256": "c5b613cbfec6ff96f6cff59a32c2ea2e2414c75deb5fc0760cdbb08e465f2f53"
+    }
+  },
+  "reason": "Native norm statistics may retain BF16; cast to FP32 before square as originally specified. FP32 dtype now asserted in synthetic hook tests and recorded pernativeFFN.",
+  "model_dependency_receipt_existed": false,
+  "model_output_root_existed": false,
+  "original_model_or_GPU_calls_for_fix": 0,
+  "native_attempt_retried": false,
+  "CPU_publication_watcher_restart_only": true,
+  "caps_unchanged": {
+    "full_generations": 6,
+    "standalone_FFN_forwards": 0,
+    "standalone_normalization_calls": 2,
+    "standalone_selector_calls": 3,
+    "training_steps": 0,
+    "weight_factorizations": 0,
+    "official_evaluator_calls": 0
+  },
+  "old_registration_bytes_preserved": true,
+  "CPU_dtype_evidence": {
+    "path": "research/20261023/C2N0_prelaunch_CPU_precision.json",
+    "sha256": "44343ae02449e8475bc1c535ef2375e5c4ba91ad468fb21892233a130b453084"
+  }
+}

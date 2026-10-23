@@ -9,10 +9,13 @@ from norm_scaled_row_dispatch import NormScaledEnergy
 
 
 class Vec:
-    def __init__(self, values): self.values = list(values)
+    def __init__(self, values, dtype='torch.float32'): self.values, self.dtype = list(values), dtype
     def numel(self): return len(self.values)
     def reshape(self, *shape): return self
-    def square(self): return Vec([x * x for x in self.values])
+    def float(self): return Vec(self.values, 'torch.float32')
+    def square(self):
+        assert self.dtype == 'torch.float32', 'Registered arithmetic must upcast BF16 statistics before square'
+        return Vec([x * x for x in self.values])
     def __mul__(self, other): return Vec([a * b for a, b in zip(self.values, other.values)])
 
 
@@ -38,7 +41,7 @@ class ScaledEnergyHooks(unittest.TestCase):
             return score
         cls = type('WanTransformerInfer', (), {'infer_ffn': original})
         modules[name].WanTransformerInfer = cls
-        helper = lambda value, **kw: (value, None, Vec([.5, 2.]))
+        helper = lambda value, **kw: (value, None, Vec([.5, 2.], 'torch.bfloat16'))
         return modules, kernel, dispatch, phase, infer, cls, helper
 
     def test_actual_new_information_changes_the_old_score(self):
@@ -50,6 +53,7 @@ class ScaledEnergyHooks(unittest.TestCase):
                 self.assertEqual(score.values, [.5, 20.])
                 self.assertEqual(observer.events[0]['scaled_score_calls'], 1)
                 self.assertEqual(observer.events[0]['CPU_tensor_transfers'], 0)
+                self.assertEqual(observer.events[0]['score_statistics_dtype'], 'torch.float32')
                 self.assertEqual(dispatch.events[0]['pre_W1_signal'], 'gated_R256_energy_times_current_norm2_rstd_squared')
         self.assertIs(cls.infer_ffn, previous_ffn); self.assertIs(phase.norm2.apply, previous_norm)
         self.assertIs(kernel.gated_energy, previous_energy)

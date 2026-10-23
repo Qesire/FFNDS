@@ -122,3 +122,9 @@ jobs:
           python tools/check_c2_saved_proxy.py
           python -m unittest discover -s tests -p 'test_c2_contract.py' -v
           python -m unittest discover -s tests -p 'test_norm_scaled_row_dispatch.py' -v
+      - name: Verify idle-only execution and C2 media evidence without models
+        run: |
+          python -m unittest discover -s tests -p 'test_idle_queue_launcher.py' -v
+          python -m unittest discover -s tests -p 'test_c2_media_math.py' -v
+          python -m unittest discover -s tests -p 'test_c2_publisher_snapshot.py' -v
+          if [ -f research/20261023/C2N0_native_results.json ]; then python tools/check_c2_native_results.py; fi
