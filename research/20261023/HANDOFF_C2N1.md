@@ -1,13 +1,9 @@
-# C2N1：启动修复已备妥，未获独立重试授权
+# C2N1已结束：CUDA占用通过，项目导入路径失败，零视频
 
-原C2N0在GPU准备阶段检测到同卡外部计算而停止，视频、FFN、额外归一化、选择器均为0次。算法质量/速度未测；[原始结果](C2N0_native_results.json)、[故障解释](C2N0_startup_failure_analysis.json)和[技术修复](../../docs/89_C2启动竞争与同进程占用修复_20261023.md)可直接核对。
+本轮一次真实启动已结束，退出码1；视频、FFN、额外norm、selector均为0，算法质量和速度未测。错误是Agent额外套用`worker_eval_env.sh`清除了项目`PYTHONPATH`，导致`HiFloat4`缺失。见[原结果](C2N1_native_results.json)、[预算](C2N1_budget.json)、[退出与资源](C2N1_completed_resources.json)及[完整解释](../../docs/91_C2N1导入路径故障与环境修复验收_20261024.md)。
 
-修复只改变资源取得顺序：NVML UUID绑定、同一模型PID提前建立CUDA占用、资产加载前确认NVML可见、准备期间持续隔离监控。新增CUDA上下文的实际显存和准备时间会计入报告。六视频生成循环与原版AST相同，原物理动作、评分、补偿、全160位置和数据均不变；不是新的算法创新或旧路由扫描。
+实际早期CUDA占用成功：UUID匹配、模型自身PID可见，初始自身显存416MiB，取得占用0.801105秒；有限采样无外部计算。没有执行后续数值控制、完整FFN或视频。53份实际源码保存在原HF结果目录，原始协议v1/v2、退出凭证和错误均保持。C2N1固定单次授权已结束，不自动重试；C2N0原失败也不覆盖。
 
-[固定草案](C2N1_reserved_smoke_DRAFT.json)：一张空闲GPU；旧calibration0 UB1身份对照1条，source6/seed42的dense、UB1、fixed_stride、原动态、新尺度动态5条；另2次norm、3次selector，零独立FFN/训练/新分解/官方评分。HF新增结果≤0.5GiB，磁盘保留80GiB，分配峰值≤79GiB；单次尝试，失败保留扣账，无自动重试。输出使用新目录，保留原失败记录。
+用户新授权的七个节点已清点，在空闲A100上完成约128GB既有HF资产复制；12模型SHA256通过，随后CPU环境修复又核对了组合D-Q缓存完整SHA256和全部160处参数。修复只改变启动环境，下一份[独立C2N2草案与交接](HANDOFF_C2N2.md)等待新授权；当前模型资格为空。
 
-[CPU前检](C2N1_startup_CPU_preflight.json)和[486合成帧处理夹具](C2N1_media_CPU_fixture.json)通过，新的GPU执行数为0。GPU上的早期占用、数值控制和真实视频仍未验证。原C2N0注册不重开，当前模型资格为空；草案、候选记录和这些CPU检查均不授予重试权限。
-
-入口：[新执行器](../../tools/run_c2_reserved_smoke.py)、[同进程占用](../../tools/startup_gpu_reservation.py)、[新授权与预算检查](../../tools/c2_reserved_contract.py)、[UUID排队器](../../scripts/worker_wait_uuid_idle_exec.sh)。完成后用[CPU媒体处理与导出](../../tools/process_c2_reserved_results.py)和[离线结果检查](../../tools/check_c2_reserved_results.py)，再核对完整视频与真实单次耗时。无视频时不要求人工审阅；有完整配对后才请求全程播放结论。
-
-正式运行前仍需新的用户授权、正式协议及代码/资产SHA绑定。新实例固定范围与原科学假设相同，原C2的未使用额度不能自动用于它。R16/R17保持退役，C1交换动作保持关闭；后续科学主线仍见[残差完整动作价值交接](HANDOFF_PRD_SUCCESSOR.md)。
+[保存标签的目标边界审计](../../docs/90_原生残差写回与下一归一化的目标错位审计_20261024.md)是另外完成的只读数据分析，72处前25%风险行重合78.30%，不是本轮模型或视频结果。后继科学方向保留[PRD残差完整动作价值](HANDOFF_PRD_SUCCESSOR.md)。

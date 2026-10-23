@@ -115,6 +115,7 @@ jobs:
         run: |
           python -m pip install 'numpy>=1.26,<3'
           if [ -f research/20261023/C1N0_native_results.json ]; then python tools/check_c1_native_results.py; fi
+          python tools/check_saved_c1_target_audit.py
           python -m unittest discover -s tests -p 'test_c1_contract.py' -v
           python -m unittest discover -s tests -p 'test_c1_analysis.py' -v
       - name: Verify saved C2 reference and pending native implementation without model calls
@@ -129,6 +130,14 @@ jobs:
           python -m unittest discover -s tests -p 'test_c2_publisher_snapshot.py' -v
           python -m unittest discover -s tests -p 'test_c2_reserved_contract.py' -v
           python -m unittest discover -s tests -p 'test_startup_gpu_reservation.py' -v
+          python -m unittest discover -s tests -p 'test_c2_single_attempt_claim.py' -v
           python tools/check_c2_reserved_preflight.py --check
           if [ -f research/20261023/C2N1_native_results.json ]; then python tools/check_c2_reserved_results.py; fi
           if [ -f research/20261023/C2N0_native_results.json ]; then python tools/check_c2_native_results.py; fi
+
+      - name: Verify preserved model environment and pending C2 repair without models
+        run: |
+          python -m unittest discover -s tests -p 'test_c2_model_environment.py' -v
+          python -m unittest discover -s tests -p 'test_c2_environment_contract.py' -v
+          python tools/check_c2_environment_preparation.py --check
+          if [ -f research/20261023/C2N2_native_results.json ]; then python tools/check_c2_environment_results.py; fi

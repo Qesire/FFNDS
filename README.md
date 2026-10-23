@@ -4,9 +4,13 @@ Read [the new AutoResearcher reanalysis](docs/88_AutoResearcher再探索_残差�
 
 **R16/R17 are retired as active research at the user's request.** Preserve their historical outcomes and comparator implementations. C1's two zero-headroom whole-site swaps are closed for further router/q expansion. This update preserves C2's prepared scope and all execution records. Run `python tools/analyze_prd_successor.py --check` and the `test_prd_successor.py` suite. Earlier dated sections below are historical context where superseded by this entry.
 
-## C2N0：启动因资源竞争停止，零视频；启动修复已备妥
+## C2N1：启动因导入路径错误停止；修复已通过CPU验收
 
-锁到空闲卡后，准备阶段检测到同GPU外部计算，程序在任何前向前退出。**视频、FFN、额外norm、selector均为0；没有算法质量或速度结果，也没有人工视频审阅对象。** 已保留原始证据并上传。C2N1只修复早期CUDA占用、UUID绑定和准备期间监控，生成循环与评分不变；CPU验收通过，GPU复验仍需新授权。见[故障与修复](docs/89_C2启动竞争与同进程占用修复_20261023.md)、[原结果](research/20261023/C2N0_native_results.json)和[新固定草案](research/20261023/HANDOFF_C2N1.md)。
+本轮在空闲A100完成早期CUDA占用，随后因Agent启动命令中的环境脚本清除了项目路径，出现`HiFloat4`导入失败。**视频、FFN、norm、selector均为0，算法质量与速度未测。** 原始失败已保存，固定范围关闭。新的专用启动器已通过真实CPU正反核验：模型包可导入、D-Q缓存完整SHA256与160处参数校验通过，GPU始终隐藏；实际模型保留正常设备检查。约128GB既有HF资产及12模型载荷SHA256已就位。见[失败与修复](docs/91_C2N1导入路径故障与环境修复验收_20261024.md)、[实际结果](research/20261023/C2N1_native_results.json)与[独立固定C2N2草案](research/20261023/HANDOFF_C2N2.md)。C2N2尚无执行授权，不自动重跑。
+
+## 旧原生数据的新发现：误差目标改变行优先级
+
+C1的72处同前缀原生标量标签显示，残差写回与下一norm误差的前25%高风险行平均重合78.30%，六来源均有差异；早步差异更大，不能直接解释C2晚步负值。这里只读旧数据，新增模型调用为0；需要完整下游价值和实际视频来判断算法。见[目标错位审计](docs/90_原生残差写回与下一归一化的目标错位审计_20261024.md)。
 
 ## C1N0：原生诊断完成，转向 dense 行的净价值预测
 

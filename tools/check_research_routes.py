@@ -47,6 +47,8 @@ C2_ID = "C2N0_NORM_SCALED_ENERGY_PAIRED_SMOKE"
 C2_STATE = "R4_CLOSED_C2_NORM_SCALED_SMOKE_REGISTERED"
 C2_RESERVED_ID = "C2N1_UUID_RESERVED_NORM_SCALED_SMOKE"
 C2_RESERVED_STATE = "R4_CLOSED_C2_UUID_RESERVED_SMOKE_REGISTERED"
+C2_ENVIRONMENT_ID = "C2N2_ENVIRONMENT_PRESERVED_NORM_SCALED_SMOKE"
+C2_ENVIRONMENT_STATE = "R4_CLOSED_C2_ENVIRONMENT_SMOKE_REGISTERED"
 RECIPE_ID = "R4E1_FIXED_H_16GROUP_Q2"
 RATIO_FIELDS = {
     "K1_matched_over_K0_matched": ("K0_matched", .98),
@@ -132,7 +134,7 @@ def validate_records(decision, triage, summary, execution, root=None):
     index, errors = build_index(triage)
     methods = {m["id"]: m for m in triage["methods"]}
     state = decision["execution_state"]
-    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE, STRIPE_STATE, ROLLOUT_STATE, ROW_DISPATCH_STATE, FRESH_QUALITY_STATE, C1_STATE, C2_STATE, C2_RESERVED_STATE):
+    if state not in (CURRENT_STATE, DIAGNOSTIC_STATE, GAIN_STATE, FOLD_STATE, ENCODING_STATE, POPULATION_STATE, LEARNED_STATE, HEAD_STATE, MATCHED_STATE, PAIRED_STATE, STRIPE_STATE, ROLLOUT_STATE, ROW_DISPATCH_STATE, FRESH_QUALITY_STATE, C1_STATE, C2_STATE, C2_RESERVED_STATE, C2_ENVIRONMENT_STATE):
         errors.append("Current evidence audit requires an explicit migration for a new decision state")
     if triage["policy"]["execution_state"] != decision["execution_state"]:
         errors.append("Policy and current decision disagree")
@@ -164,6 +166,12 @@ def validate_records(decision, triage, summary, execution, root=None):
         if canonical != [C2_RESERVED_ID] or registration.get('method_id') != C2_RESERVED_ID:
             errors.append('Only separately authorized C2 startup repair eligible')
         errors.extend(validate_reserved_registration(registration, root or Path(__file__).resolve().parents[1]))
+    if state == C2_ENVIRONMENT_STATE:
+        from c2_environment_contract import validate_registration as validate_environment_registration
+        registration = decision.get('registered_c2_environment_smoke', {})
+        if canonical != [C2_ENVIRONMENT_ID] or registration.get('method_id') != C2_ENVIRONMENT_ID:
+            errors.append('Only separately authorized C2 environment repair eligible')
+        errors.extend(validate_environment_registration(registration, root or Path(__file__).resolve().parents[1]))
     if state == C1_STATE:
         from c1_contract import validate_registration as validate_c1_registration
         registration = decision.get('registered_c1_diagnostic', {})
