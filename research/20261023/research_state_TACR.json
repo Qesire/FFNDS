@@ -1,0 +1,363 @@
+{
+  "schema_version": "2.1",
+  "research_id": "FFNDS-TACR-REVIEW-20261023",
+  "description": "Primary-source novelty review, native computation inspection, ten synthetic algebra checks and one saved R16/R17 scalar recomputation. No new model calls. Exploratory method review, not an execution registration.",
+  "research_object": {
+    "id": "compensated-native-channel-action",
+    "revision": "27f86cd3f8821b2771f1be633baf32d4cc79ebb0",
+    "scope": "Frozen four-step Wan FFN, pre-W1 information, complete compensation-aware group actions and conditional downstream value",
+    "code_reference": "tools/ub1_row_dispatch.py; tools/compensated_support.py; tools/trained_packed_runtime.py; tools/reduced_rank_residual.py",
+    "inputs": [
+      {
+        "name": "post_Q1",
+        "shape": "31668 x 5120",
+        "dtype": "BF16",
+        "semantics": "Original Smooth1/Q1 output before W1"
+      },
+      {
+        "name": "B_s",
+        "shape": "54/108/108/162 groups by step",
+        "semantics": "Frozen contiguous ordered 64-channel groups"
+      },
+      {
+        "name": "z",
+        "semantics": "Prospective affordable pre-W1 features; shared h256 is present inside the existing residual computation"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "native_writeback",
+        "semantics": "Actual original gate/residual writeback after base and compensated selected computation"
+      },
+      {
+        "name": "downstream_response",
+        "semantics": "Finite response under explicitly paired prefix/continuation and observation phi"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "q1",
+        "operation": "Original Smooth1, BF16, HiF4 Q1",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/ub1_row_dispatch.py:RowDispatch.apply"
+      },
+      {
+        "id": "rr",
+        "operation": "Frozen R256 two projections; full correction currently computed before selection",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/reduced_rank_residual.py:predict_y; tools/ub1_row_dispatch.py:RowDispatch.apply"
+      },
+      {
+        "id": "base",
+        "operation": "Physical reduced W1, GELU, Q2, alpha cast, W2 with folded bias, plus correction",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/ub1_row_dispatch.py:RowDispatch.apply"
+      },
+      {
+        "id": "net",
+        "operation": "Complete selected group action including compensation change",
+        "expression": "d_g(S)=D_g-[C(z,S+g)-C(z,S)]",
+        "verification": "MODEL_HYPOTHESIS"
+      },
+      {
+        "id": "value",
+        "operation": "Conditional downstream loss reduction",
+        "expression": "A(a|z)=E[2 e^T Q v-v^T Q v|z]",
+        "verification": "MODEL_HYPOTHESIS"
+      }
+    ],
+    "edges": [
+      {
+        "from": "q1",
+        "to": "rr"
+      },
+      {
+        "from": "q1",
+        "to": "base"
+      },
+      {
+        "from": "rr",
+        "to": "base"
+      },
+      {
+        "from": "base",
+        "to": "net"
+      },
+      {
+        "from": "net",
+        "to": "value"
+      }
+    ],
+    "unknown_edges": [
+      {
+        "description": "Actual per-mask correction and native group accumulation are not constructed by the proposal",
+        "decision_relevant": true,
+        "resolving_action": "Freeze complete operators including alpha, bias, casts and R256 handling before intervention labels"
+      },
+      {
+        "description": "Conditional value, finite-response interaction and low-dimensional action ranking for new native group actions are unmeasured",
+        "decision_relevant": true,
+        "resolving_action": "Use a finite matched action bank with actual downstream responses; evaluate held-out source decision regret"
+      },
+      {
+        "description": "Runtime for regional group execution and online value prediction",
+        "decision_relevant": true,
+        "resolving_action": "Count both GEMMs and all selector, correction, QDQ, grouping and transport in native complete timings"
+      }
+    ],
+    "closed_for_scoped_question": false
+  },
+  "derivations": [
+    {
+      "id": "D1",
+      "claim": "The propagated action includes the compensation increment",
+      "assumptions": [
+        "Proposal executes F_U+sum(D)-C"
+      ],
+      "steps": [
+        "Take the difference F_(S+g)-F_S",
+        "Obtain D_g-[C(S+g)-C(S)]",
+        "Scalar e=1,D=1,deltaC=2 changes expected zero loss to actual loss4"
+      ],
+      "status": "CHECKED",
+      "scope": "Exact algebra of the stated operator; toy counterexample",
+      "implication": "Label complete net actions"
+    },
+    {
+      "id": "D2",
+      "claim": "Conditional expected quadratic risk depends on cross moments, not only conditional mean vectors",
+      "assumptions": [
+        "Fixed PSD Q conditional on z",
+        "Finite second moments",
+        "For matrix expression only: v=Vb"
+      ],
+      "steps": [
+        "Expand E[(e-Vb)^T Q(e-Vb)|z]",
+        "Identify a=E[V^T Qe|z],H=E[V^T QV|z]",
+        "e=v=+-1 yields means0 and actual expected improvement1"
+      ],
+      "status": "CHECKED",
+      "scope": "Conditional-risk identity and synthetic zero-mean examples",
+      "implication": "Predict action value or conditional second moments"
+    },
+    {
+      "id": "D3",
+      "claim": "General compensation and finite downstream dynamics invalidate fixed additive group effects",
+      "assumptions": [
+        "C may depend on the full selected set",
+        "Downstream map may be nonlinear"
+      ],
+      "steps": [
+        "A nonadditive C with C(empty)=0 yields pair delta-1 but singleton sum2",
+        "Finite f(x)=x^2 yields pair interaction-2 while derivative at zero is0"
+      ],
+      "status": "CHECKED",
+      "scope": "Constructive counterexamples; actual Wan interaction remains empirical"
+    },
+    {
+      "id": "D4",
+      "claim": "Low-dimensional projection can reverse or erase meaningful action distinctions",
+      "assumptions": [
+        "Projection has a nontrivial nullspace"
+      ],
+      "steps": [
+        "Project e=(0,1),v_good=(0,1),v_bad=(0,-1) onto first axis",
+        "Projected losses0/0, full losses0/4"
+      ],
+      "status": "CHECKED",
+      "scope": "Counterexample to unconditional ranking preservation"
+    },
+    {
+      "id": "D5",
+      "claim": "Uniform action-utility prediction error epsilon implies selection regret at most2epsilon",
+      "assumptions": [
+        "Same finite action set and cost definition",
+        "Uniform pointwise error bound"
+      ],
+      "steps": [
+        "Compare true optimal action to predicted optimal action",
+        "Insert and subtract the two predicted utilities",
+        "Predicted utility difference is nonpositive, other two terms at most epsilon each"
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Per-state decision regret; existence of a useful error bound is empirical"
+    },
+    {
+      "id": "D6",
+      "claim": "Current weighted UB1 base is50% main MAC, not a uniform108group support at each step",
+      "assumptions": [
+        "Equal M and40blocks per step",
+        "Both main projections D=5120,H=13824",
+        "R256 computed on all rows"
+      ],
+      "steps": [
+        "Average54/108/108/162 over216 groups gives0.5",
+        "Illustrative27 additional groups gives0.625",
+        "R256 two linear MAC fraction is256/13824=0.0185185"
+      ],
+      "status": "CHECKED",
+      "scope": "Projection MAC accounting; excludes layout and auxiliary costs"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "mechanism": "Complete compensated group actions have source-dependent downstream conditional value available before W1",
+      "status": "CANDIDATE",
+      "prediction": "A source-held-out conditional action-value predictor improves matched fixed actions after actual cost accounting",
+      "derivation_ids": [
+        "D1",
+        "D2",
+        "D5"
+      ]
+    },
+    {
+      "id": "H2",
+      "mechanism": "Compensation innovations retain useful conditional error correlation even when mean propagated directions are small",
+      "status": "CANDIDATE",
+      "prediction": "Conditional value or cross-moment models explain action gains better than conditional mean-vector and magnitude controls",
+      "derivation_ids": [
+        "D2"
+      ]
+    },
+    {
+      "id": "H3",
+      "mechanism": "Few regular action bundles retain useful quality-compute tradeoffs while reducing routing overhead",
+      "status": "CANDIDATE",
+      "prediction": "A small native bundle bank yields a favorable video-quality/time point against equal-cost fixed support and row dispatch",
+      "derivation_ids": [
+        "D6"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "CPU_SAVED_SCALAR_READOUT",
+      "question": "Do the saved R16/R17 arrays support the stated ranking mismatch and current speed scale?",
+      "status": "OBSERVED",
+      "empirical_quantity": "R16 summed native SSE, decoded RGB MSE ratio and medians of25 saved R17 timing values",
+      "why_not_derivable": "Recorded hardware times and output errors are empirical inputs; this run recomputes their reductions without new model execution.",
+      "controls": [
+        "Exact pinned saved input files",
+        "Recompute medians from all five values per arm",
+        "Recompute R16 totals from per-position values"
+      ],
+      "predictions": [
+        {
+          "outcome": "Reductions reproduce saved summaries",
+          "decision": "Use them with one-source scope in TACR triage"
+        },
+        {
+          "outcome": "Mismatch",
+          "decision": "Resolve data/reduction mismatch before the comparison"
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "research/20261023/TACR_cpu_deductions.json",
+          "kind": "ARTIFACT",
+          "note": "11 checks:10 synthetic and1 saved-summary recomputation; all completed"
+        }
+      ],
+      "cost_estimate": "Python standard library CPU only;0 new model calls"
+    }
+  ],
+  "novelty": {
+    "status": "CANDIDATE",
+    "mechanism_link": "Conditional trajectory value of complete compensation-aware native channel actions. The quadratic identity, low-rank compensation and finite action routing are established ingredients.",
+    "nearest_prior_art": [
+      {
+        "reference": "https://arxiv.org/html/2609.33384",
+        "comparison": "PulseQuant already joins video propagation profiling and response-subspace correction; candidate differs through input-conditioned physical FFN group computation."
+      },
+      {
+        "reference": "https://arxiv.org/html/2602.00397v1",
+        "comparison": "FastForward combines predictive FFN sparsity and compensation; trajectory net-action value is the candidate distinction."
+      },
+      {
+        "reference": "https://proceedings.mlr.press/v306/liu26fv.html",
+        "comparison": "TCEC studies diffusion quantization propagation and compensation; trajectory compensation alone is not novel."
+      },
+      {
+        "reference": "https://arxiv.org/abs/2006.07701",
+        "comparison": "Conditional acquisition value is established decision theory; the native compensated action structure must carry the contribution."
+      },
+      {
+        "reference": "docs/53_R4补偿感知支持交换的原生筛选.md",
+        "comparison": "R4 already includes compensation projection and signed joint Gram terms; reopening its finite local neighborhood is not proposed."
+      },
+      {
+        "reference": "docs/31_均衡四模式路由负结果.md",
+        "comparison": "RB2 already tested four support banks and routing; finite banks themselves are an implementation device, not novelty."
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "id": "repair",
+      "route": "REPAIR",
+      "reason": "Replace raw-group propagation labels with complete net actions and conditional action risk",
+      "derivation_ids": [
+        "D1",
+        "D2",
+        "D3"
+      ]
+    },
+    {
+      "id": "explore",
+      "route": "DESIGN",
+      "reason": "Prioritize finite action-value exploration; investigate conditional innovation covariance as the distinctive explanatory mechanism"
+    },
+    {
+      "id": "use_evidence",
+      "route": "STATIC_CHECK",
+      "reason": "R16/R17 numerical summaries reproduce with source scope retained",
+      "experiment_ids": [
+        "CPU_SAVED_SCALAR_READOUT"
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "id": "R4E1_FIXED_H_16GROUP_Q2",
+      "failure": "Registered16group,q<=2,local-objective matched-readout screen failed all four folds",
+      "lesson": "Signed pair synergy and compensator projection were already tested; do not expand the old search under a new name"
+    },
+    {
+      "id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+      "failure": "Fixed20-update flow-target instance improved1.49121%,below its registered2% criterion",
+      "lesson": "Merely refitting the same R256 to a downstream objective repeats that recipe"
+    },
+    {
+      "id": "RB2_C_PROFILE_FOUR_BANK",
+      "failure": "Four-bank C-score oracle gain0.56-0.79 percentage points; registered criteria failed",
+      "lesson": "Use new complete net-action response targets; bank count or re-clustering does not establish a new mechanism"
+    },
+    {
+      "id": "HP1_H256_QUADRATIC_C",
+      "failure": "Quadratic h head lost to the matched linear control in four folds",
+      "lesson": "Second moments of downstream action value are not equivalent to adding h-squared input features"
+    },
+    {
+      "id": "TC1_ROW_SUPPORT_TRANSFER",
+      "failure": "Single-row support transfer within64token blocks lost to static",
+      "lesson": "Evaluate whole-region response directly"
+    }
+  ],
+  "exploration_seeds": [
+    {
+      "id": "TACR_NET_VALUE",
+      "observation": "R16 local native improvement coexists with worse pooled full-video RGB fidelity",
+      "question": "Do available pre-W1 features predict conditional trajectory value of compensated channel computations?",
+      "possible_mechanism": "Freeze a small native action bank; directly predict loss reduction rather than activation or direction means",
+      "possible_falsifier": "Held-out conditional policy fails to improve strongest same-budget fixed after overhead, or all native actions are dominated by UB1",
+      "next_inspection": "Construct complete compensation-aware operators and identify available finite-response operands",
+      "status": "REFINED",
+      "related_prior_branch_id": "R4E1_FIXED_H_16GROUP_Q2",
+      "reference_locators": [
+        "docs/TACR_FFN_查重与机制推导_20261023.md",
+        "research/20261023/TACR_cpu_deductions.json"
+      ]
+    }
+  ]
+}
