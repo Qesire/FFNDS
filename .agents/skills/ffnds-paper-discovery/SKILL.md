@@ -4,7 +4,11 @@ description: Research deployable post-training dynamic FFN methods toward native
 ---
 # FFNDS paper discovery — outcome first, creative alternatives open
 
-**Latest user priority (2026-10-23 JST): first get the implementation running through actual complete paired video generation.** Defer novelty discussion; do not add originality/literature gates before executing an explicitly authorized scoped implementation. Code, real output and practical debugging take priority now. Separate model authorization and truthful evidence still apply.
+**Earlier R15 execution priority (2026-10-23): run and inspect the complete paired video for an explicitly authorized selected candidate without a novelty gate. This milestone has since been completed for R15/R16; the current next-research priority is the coupling pivot below. Keep model authorization and truthful evidence boundaries.**
+
+## Active conditional discovery pivot — coupling/pre-W1 information (2026-10-23)
+
+Follow [docs/85](../../../docs/85_耦合机制_前置信息_积极查重_结果不佳转向任务_20261023.md) and [COUPLING_PIVOT_TASK](../../../research/20261023/COUPLING_PIVOT_TASK.json). R17 is interrupted/incomplete (official quality unknown), and R16 does not demonstrate an independent quality-speed Pareto lead; therefore start S0/E0/E1 constructive research from source and saved evidence now. If the newest completed candidate is quality-degrading, Pareto-dominated, shows no real native conditional action gain, or remains incomplete with no eligible follow-up, route the next research move to this task rather than repeating uninformative mask/q/rank/bank sweeps. Positively search for reusable published methods and assemble credible adapted controls; **only avoid claiming a substantively identical whole mechanism as an original standalone contribution**. Similarity or shared ingredients are not an exploration gate. Preserve executed/video gates, original user-authorized work, and explicit separate authority for future model jobs.
 
 Read root `AGENTS.md`, live `research/CURRENT_DECISION.json`, `research/OBJECTIVE_CONTRACT.json`, [the completed D0 evidence](../../../docs/68_R12_D0等预算原生动作检验.md), [prior E0 evidence](../../../docs/66_R12等预算动作的操作数与条件粒度审计.md), and [open exploration index](../../../research/exploration/20261022/EXPLORATION_INDEX.md). Activate `mechanism-research` and `research-expansion`.
 
