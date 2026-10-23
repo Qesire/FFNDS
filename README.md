@@ -4,9 +4,9 @@ Read [the new AutoResearcher reanalysis](docs/88_AutoResearcher再探索_残差�
 
 **R16/R17 are retired as active research at the user's request.** Preserve their historical outcomes and comparator implementations. C1's two zero-headroom whole-site swaps are closed for further router/q expansion. This update preserves C2's prepared scope and all execution records. Run `python tools/analyze_prd_successor.py --check` and the `test_prd_successor.py` suite. Earlier dated sections below are historical context where superseded by this entry.
 
-## C2N0：固定尝试已结束，按实际媒体继续审阅
+## C2N0：启动因资源竞争停止，零视频；启动修复已备妥
 
-固定原生尝试已停止，无自动重试。尚无完整媒体审阅结果。见[实际执行](research/20261023/C2N0_execution_summary.json)和[当前交接](research/20261023/HANDOFF_C2N0.md)。
+锁到空闲卡后，准备阶段检测到同GPU外部计算，程序在任何前向前退出。**视频、FFN、额外norm、selector均为0；没有算法质量或速度结果，也没有人工视频审阅对象。** 已保留原始证据并上传。C2N1只修复早期CUDA占用、UUID绑定和准备期间监控，生成循环与评分不变；CPU验收通过，GPU复验仍需新授权。见[故障与修复](docs/89_C2启动竞争与同进程占用修复_20261023.md)、[原结果](research/20261023/C2N0_native_results.json)和[新固定草案](research/20261023/HANDOFF_C2N1.md)。
 
 ## C1N0：原生诊断完成，转向 dense 行的净价值预测
 

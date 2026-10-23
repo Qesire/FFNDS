@@ -1,0 +1,45 @@
+{
+  "id": "C2N0_STARTUP_FAILURE_INTERPRETATION",
+  "status": "RESOURCE_STARTUP_STOPPED_ALGORITHM_NOT_MEASURED",
+  "locked_idle_card_at_Beijing": "2026-10-23T23:14:34.265381+08:00",
+  "supervisor_finished_at_Beijing": "2026-10-23T23:17:31.621024+08:00",
+  "elapsed_lock_to_supervisor_finish_seconds": 177.35564255714417,
+  "source_view_child_seconds": 166.9731770977378,
+  "completed_videos": 0,
+  "actual_forward_budget": {
+    "full_generations": 0,
+    "standalone_FFN_forwards": 0,
+    "standalone_normalization_calls": 0,
+    "standalone_selector_calls": 0,
+    "training_steps": 0,
+    "weight_factorizations": 0,
+    "official_evaluator_calls": 0
+  },
+  "GPU_setup_occurred": true,
+  "resident_parameter_bytes": 56222842880,
+  "resident_auxiliary_bytes": 851066880,
+  "GPU_isolation_violations": [
+    "Foreign compute appeared on the assigned physical GPU"
+  ],
+  "algorithm_quality_or_speed_verdict": "NOT_MEASURED",
+  "human_full_video_review_required": false,
+  "automatic_model_retry": false,
+  "observed_evidence": [
+    "Queue source and receipt show a locked card with no compute occupant before exec.",
+    "The native process completed CPU cache verification/model loading and GPU parameter residency before its first isolation sample.",
+    "That sample detected one foreign compute process; no generation, FFN, normalization or selector forward had been debited.",
+    "A post-exit read-only audit still observed a compute process on that physical card."
+  ],
+  "engineering_obstruction": "The file lock is cooperative only; long CPU preparation preceded the model CUDA context and the isolation monitor. Another launcher could see apparent idleness during that interval.",
+  "repair_scope": "Claim a tiny same-process CUDA allocation and verify its own NVML PID before CPU assets, bind visibility by GPU UUID, monitor through preparation. Preserve all scientific operators and data.",
+  "limits": "No stored foreign-process start time or identity; no live CUDA validation of the repair yet. Early visibility reduces the startup window but cannot prevent noncooperating GPU users; retain fail-closed isolation.",
+  "export_label_correction": "The original completed_resources receipt has a generic PENDING_VIDEO_REVIEW string. It is historical exporter wording; zero videos means there is no full-video review obligation. Original receipt and raw numbers remain unchanged.",
+  "evidence_sha256": {
+    "C2N0_launch_receipt.json": "74915203bb31fdb3bf617b6489fed5c71b067cd04fb88f891cd81bfbd06d76c4",
+    "C2N0_native_results.json": "9dc381e0f57ef15140d4c2e42a3724b111f3d82d0142c6521f0c876ca6639129",
+    "C2N0_budget.json": "22e16fe61435df77e65027e76f801bfb3201f06450fbfce935175b3695957996",
+    "C2N0_execution_summary.json": "14b1f53ba108116b2e90df1122d85ae1619dda5fa3a57ba941ddfb43fec0d7d5",
+    "C2N0_completed_resources.json": "879788dfbdb629ead94b7fc483dab052ca72fe161ed9f1e192ac1405188c56ca",
+    "C2N0_postexit_resource_audit.json": "3ede3e9ebf5a120a99994164f45a1bace673affd54f250da5ac0de778ef1b7ed"
+  }
+}

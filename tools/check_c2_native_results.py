@@ -3,10 +3,11 @@ from pathlib import Path
 from c2_contract import ARMS, CAPS, ROOT, read, sha
 
 
-def main():
+def main(*, prefix='C2N0', registration_key='registered_c2_smoke',
+         complete_status='COMPLETE_C2_NATIVE_VIDEOS_PENDING_FULL_REVIEW'):
     base = ROOT / 'research/20261023'
-    run, budget, resources = [read(base / f'C2N0_{n}.json') for n in ('native_results', 'budget', 'completed_resources')]
-    registration = read(ROOT / 'research/CURRENT_DECISION.json')['registered_c2_smoke']
+    run, budget, resources = [read(base / f'{prefix}_{n}.json') for n in ('native_results', 'budget', 'completed_resources')]
+    registration = read(ROOT / 'research/CURRENT_DECISION.json')[registration_key]
     p = read(ROOT / registration['protocol'])
     assert run['budget'] == budget and resources['actual_budget'] == budget['used']
     assert run['protocol_sha256'] == sha(ROOT / registration['protocol'])
@@ -14,8 +15,13 @@ def main():
     for k, used in budget['used'].items(): assert len([d for d in budget['debits'] if d['kind'] == k]) == used
     assert len({d['name'] for d in budget['debits']}) == len(budget['debits'])
     assert [r['name'] for r in run['requests']] == ARMS[:len(run['requests'])]
-    if run['status'] == 'COMPLETE_C2_NATIVE_VIDEOS_PENDING_FULL_REVIEW':
+    if run['status'] == complete_status:
         assert resources['actual_native_child_exit_code'] == 0 and budget['used'] == CAPS and len(run['requests']) == 6
+        assert resources['GPU_isolation_violations'] == [] and run['resources']['sampled_isolation_pass'] is True
+        if prefix == 'C2N1':
+            lease = run['early_CUDA_reservation']
+            assert lease['before_CPU_asset_loading'] and lease['same_model_process']
+            assert lease['NVML_UUID_matches_locked_GPU'] and lease['own_process_visible_to_NVML']
         assert all(d['status'] == 'COMPLETED' for d in budget['debits'])
         control = run['requests'][0]
         expected = next(r for r in read(base / 'R16V0_native_results.json')['requests'] if r['arm'] == 'UB1')
@@ -35,7 +41,7 @@ def main():
     assert resources['logical_output_bytes_at_export'] <= p['new_output_bytes_max']
     for row in resources['path_transform_receipts']:
         assert sha(ROOT / row['public_path']) == row['public_sha256'] and row['numeric_values_unchanged']
-    media_path = base / 'C2N0_video_review.json'
+    media_path = base / (prefix + '_video_review.json')
     if media_path.exists():
         media = read(media_path)
         assert media['frames_per_video'] == 81 and media['videos_decoded'] == 6 and media['total_decoded_frames'] == 486

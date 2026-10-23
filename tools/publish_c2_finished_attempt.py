@@ -104,7 +104,9 @@ def render_result():
                  'Inspect actual paired videos and preserve all earlier closures.'))
     p = BASE / 'HANDOFF_C2N0.md'; lines = ['\n## 本次固定尝试的实际结束状态', '',
         '`' + s['status'] + '`。实际扣账：`' + json.dumps(s['actual_budget'], sort_keys=True) + '`。', '', text, '',
-        '模型固定范围已经闭合，资格为空。完整配对预览和全部帧接触表留在HF缓存；人工完整播放结论仍待确认，没有自动质量通过。']
+        '模型固定范围已经闭合，资格为空。' + (
+        '完整配对预览和全部帧接触表留在HF缓存；人工完整播放结论仍待确认，没有自动质量通过。' if complete else
+        '没有完成完整视频配对，不存在本轮完整视频人工审阅结论；读取实际扣账和失败记录。')]
     if media_path.exists():
         m = read(media_path); lines += ['', '| 方案 | pooled RGB MSE（0–255） |', '|---|---:|']
         for arm, v in m['RGB_fidelity_to_dense'].items(): lines.append(f'| {arm} | {v["pooled_RGB_MSE_0_255"]:.6f} |')
@@ -179,7 +181,10 @@ if (root/'RUN.json').exists():
         subprocess.run(['git', 'commit', '-m', 'Run authorized norm-scaled routing pair and preserve complete native evidence'], cwd=ROOT, check=True)
         ssh = 'ssh -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=15 -o ServerAliveCountMax=2 -o HostKeyAlias=github.com -p 443 -o Hostname=ssh.github.com'
         subprocess.run(['git', '-c', 'core.sshCommand=' + ssh, 'push', 'origin', 'HEAD:refs/heads/main'], cwd=ROOT, check=True)
-        result.update(status='PUBLISHED_ONE_C2_RESULT_BATCH_PENDING_HUMAN_REVIEW', commit=git('rev-parse', 'HEAD'))
+        finished = read(BASE / 'C2N0_execution_summary.json')
+        result.update(status=('PUBLISHED_ONE_C2_RESULT_BATCH_PENDING_HUMAN_REVIEW'
+                              if finished['status'] == 'COMPLETE_C2_NATIVE_VIDEOS_PENDING_FULL_REVIEW'
+                              else 'PUBLISHED_C2_STOPPED_ATTEMPT_NO_COMPLETE_VIDEO_REVIEW'), commit=git('rev-parse', 'HEAD'))
     except BaseException as error:
         result.update(status='PUBLICATION_DEFERRED_RESULTS_PRESERVED', error_type=type(error).__name__, reason=str(error)); raise
     finally: atomic(result_path, result)

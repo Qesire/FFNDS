@@ -19,15 +19,16 @@ def pixel_summary(sse, sae, frame_psnr, channels):
             'exact_match_frames': sum(v is None for v in frame_psnr)}
 
 
-def main():
+def main(*, root_relative='derived/ffnds/C2N0_norm_scaled_smoke',
+         complete_status='COMPLETE_C2_NATIVE_VIDEOS_PENDING_FULL_REVIEW', method_id=METHOD):
     from worker_identity import require_worker
     require_worker()
     import imageio_ffmpeg
     from PIL import Image, ImageDraw
     import numpy as np
-    hf = Path(os.environ['HF_HOME']); root = hf / 'derived/ffnds/C2N0_norm_scaled_smoke'
+    hf = Path(os.environ['HF_HOME']); root = hf / root_relative
     run = read(root / 'RUN.json')
-    if (run['status'] != 'COMPLETE_C2_NATIVE_VIDEOS_PENDING_FULL_REVIEW' or run['budget']['used'] != CAPS
+    if (run['status'] != complete_status or run['budget']['used'] != CAPS or run.get('id', method_id) != method_id
             or [r['name'] for r in run['requests']] != ARMS):
         raise RuntimeError('Require complete authorized C2 scope')
     out = root / 'review'; out.mkdir(exist_ok=False)
@@ -91,7 +92,7 @@ def main():
                         'conditioned_t0_dense_fraction': float(selected[:, :1508].mean()),
                         'later20_dense_fraction': float(selected[:, 1508:].mean())}
     overlap = (bits['dynamic_residual'] & bits['norm_scaled_energy']).sum(1) / 7917
-    result = {'id': METHOD, 'status': 'COMPLETE_C2_CPU_MEDIA_PREPARATION_PENDING_FULL_REVIEW',
+    result = {'id': method_id, 'status': 'COMPLETE_C2_CPU_MEDIA_PREPARATION_PENDING_FULL_REVIEW',
               'raw_run_sha256': sha(root / 'RUN.json'), 'source_sha256': sha(__file__),
               'videos_decoded': 6, 'frames_per_video': 81, 'total_decoded_frames': 486,
               'fps': fps, 'size': [width, height], 'duration_seconds': 81 / fps,

@@ -4,9 +4,9 @@ Read [the new AutoResearcher reanalysis](docs/88_AutoResearcher再探索_残差�
 
 **R16/R17 are retired as active research at the user's request.** Preserve their historical outcomes and comparator implementations. C1's two zero-headroom whole-site swaps are closed for further router/q expansion. This update preserves C2's prepared scope and all execution records. Run `python tools/analyze_prd_successor.py --check` and the `test_prd_successor.py` suite. Earlier dated sections below are historical context where superseded by this entry.
 
-# C2N0 fixed attempt finished; no automatic model followup
+# C2N0 startup stopped before any forward; C2N1 repair pending authority
 
-Read [actual execution](research/20261023/C2N0_execution_summary.json) and [current handoff](research/20261023/HANDOFF_C2N0.md). The registered attempt has completed or stopped. Model eligibility is empty; no retry/expansion. Media decode and RGB diagnostics never grant human full-duration smoke PASS, official quality or repeated system speed. Inspect actual paired videos and preserve all earlier closures.
+Read [actual zero-forward failure](research/20261023/C2N0_startup_failure_analysis.json), [current C2 handoff](research/20261023/HANDOFF_C2N0.md) and [startup-repaired draft](research/20261023/HANDOFF_C2N1.md). The locked card acquired foreign compute during preparation; C2N0 stopped with0videos/0FFNs/0extra norms/0selectors,exit1. GPU parameter loading occurred and its cost is retained. Algorithm quality/speed is NOT_MEASURED; there is no video to review. Original raw results/protocols stay unchanged, eligibility is empty and no automatic retry is permitted. C2N1 adds same-process CUDA ownership before CPU assets, UUID binding and early monitoring; original scientific generation loop/score/actions/data are unchanged. CPU/source tests passed, no C2N1 GPU execution or independent retry authority yet. Preserve the original closures and the PRD residual-complete agenda.
 
 # C1N0 native diagnostic completed (2026-10-23)
 
