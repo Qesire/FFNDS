@@ -19,3 +19,8 @@ Adaptive routes: MAP_FLOW, DERIVE, STATIC_CHECK, EXPERIMENT, DESIGN, REPAIR, PIV
 ## Current TACR action-value study (2026-10-23)
 
 Read [sampling and native net action](../../../docs/84_TACR_净动作价值与修正采样_20261023.md) and [actual exposure](../../../research/20261023/TACR_sampling_evidence_v2.json). Run python tools/check_tacr_sampling_scope.py --check. Discover the cheapest discriminating complete compensated 64-group intervention and true same-prefix downstream effect. Compare available pre-W1 conditional gain, strong cost-matched fixed channels, magnitude and layer-only predictions. R17 five quality-complete source groups are ONLY subjects, not fully tested subject/background/camera; latent t0 is 21-bin conditioned position, not video frame 0 of 81. Use 4 steps, early/middle/late and later20 bins as thoughtful sampling coverage, not mandatory hurdles. Creativity and rapid experimental discriminators first, matched real evidence for final claims; do not indefinitely delay the first selected candidate's full free-running paired video. Do not silently reopen interrupted R17 or auto-launch GPU.
+
+
+## New PRD extension — AutoResearcher 0684b560
+
+Use [problem-reformulation](../problem-reformulation/SKILL.md) to change the mathematical/causal unit instead of retuning an unchanged hidden-channel score. Pin claims through the [FFNDS representation ledger](../../../research/20261023/FFNDS_PRD_representation_ledger.json) and [report](../../../docs/86_PRD_表示发现_耦合新自由度与支持实验_20261023.md). Original R4/R7/HP/TACR scopes remain exact; no GPU/model permissions change.
