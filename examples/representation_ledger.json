@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "research_object": "Illustrative causal attention head (not a model trace or measured experiment)",
+  "source_revision": "PAPER_EXAMPLE_NOT_A_PINNED_COMMIT",
+  "representations": [
+    {
+      "id": "attn",
+      "description": "Single-head causal query-key-value computation",
+      "expression_or_reduction": "o=softmax(x Wq (X Wk)^T/sqrt(dk)) X Wv Wo",
+      "relation_to_source": "EXACT",
+      "assumptions": [
+        "One attention head, prefix-only causal mask",
+        "Identical projection ordering and scales"
+      ],
+      "dependencies": [
+        "current input x",
+        "prefix X",
+        "learned projections"
+      ],
+      "freedoms": [],
+      "provenance": {
+        "status": "DERIVED",
+        "locator": "examples/PAPER_DISCOVERY_CASES.md",
+        "note": "Illustrative algebra, not verified against a model's actual source"
+      }
+    },
+    {
+      "id": "dynamic_mlp",
+      "description": "Context-conditioned softmax two-layer representation",
+      "expression_or_reduction": "o=softmax(x A(X)) B(X); A=Wq Wk^T X^T/sqrt(dk); B=X Wv Wo",
+      "relation_to_source": "EXACT",
+      "assumptions": [
+        "Same head and prefix; softmax remains coupled across historical coordinates"
+      ],
+      "dependencies": [
+        "current input when x is included in X",
+        "prefix X",
+        "Wq",
+        "Wk",
+        "Wv",
+        "Wo"
+      ],
+      "freedoms": [
+        "history-coordinate basis",
+        "conditional memory construction",
+        "routing/readout decomposition"
+      ],
+      "provenance": {
+        "status": "DERIVED",
+        "locator": "https://proceedings.mlr.press/v306/lu26aq.html"
+      },
+      "next_discriminator": "Check one-head random tensors at identical precision before proposing learned mixing"
+    },
+    {
+      "id": "sequence_mixed",
+      "description": "Learned mixing across history coordinates",
+      "expression_or_reduction": "o=sigma(x L1 X^T R1) R2^T X L2^T",
+      "relation_to_source": "UNRESOLVED",
+      "assumptions": [
+        "Choice of activation and learned mixing specified"
+      ],
+      "dependencies": [
+        "prefix X",
+        "learned L1,L2,R1,R2",
+        "current input x"
+      ],
+      "freedoms": [
+        "learned sequence basis",
+        "separate routing and readout"
+      ],
+      "provenance": {
+        "status": "PAPER_CLAIM",
+        "locator": "https://proceedings.mlr.press/v306/lu26aq.html"
+      },
+      "next_discriminator": "Compare with position-tied attention at matched budgets"
+    }
+  ],
+  "connections": [
+    {
+      "from": "attn",
+      "to": "dynamic_mlp",
+      "relation": "EXACT_EQUIVALENCE",
+      "reason": "Matrix regrouping with identical softmax normalization"
+    },
+    {
+      "from": "dynamic_mlp",
+      "to": "sequence_mixed",
+      "relation": "DESIGN_EXTENSION",
+      "reason": "Learned sequence mixing and activation can change the computed function"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "basis",
+      "representation_ids": [
+        "dynamic_mlp",
+        "sequence_mixed"
+      ],
+      "mechanism": "Learning a sequence-mixed history basis may separate useful context features from individual positions",
+      "different_prediction": "Learned versus identity mixing differs on matched sequence tasks",
+      "cheap_check": "Small ablation and counterexample to fixed position basis",
+      "status": "SEED",
+      "nearest_prior_art": [
+        "HyperMLP ICML 2026"
+      ]
+    }
+  ]
+}
