@@ -84,3 +84,11 @@ jobs:
           python tools/analyze_full160_row_dispatch.py
           python -m unittest discover -s tests -p 'test_full160_records.py' -v
           python -m unittest discover -s tests -p 'test_row_dispatch_contract.py' -v
+      - name: Verify fresh-source separation, finite scope and paired statistics without models
+        run: |
+          python tools/check_fresh_i2v_inputs.py
+          python -m unittest discover -s tests -p 'test_fresh_quality*.py' -v
+          python -m unittest discover -s tests -p 'test_native_ffn_events.py' -v
+      - name: Verify completed fresh quality and actual system results when present
+        run: |
+          if [ -f research/20261023/R17E0_analysis.json ]; then python tools/check_fresh_quality_results.py; fi

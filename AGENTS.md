@@ -1,3 +1,7 @@
+# R17E0 fixed validation scope finished (2026-10-23 CST)
+
+STOPPED_FIXED_SCOPE_FAILURE_NO_AUTOMATIC_RETRY. Read [execution summary](research/20261023/R17E0_execution_summary.json) and [current handoff](research/20261023/HANDOFF_R17E0.md). Model eligibility is empty; no retry or expanded model scope. Actual quality/timing interpretation and publication require reading the saved evidence.
+
 # Latest actual full160 dynamic execution — R16V0 completed (2026-10-23 CST)
 
 The separately authorized fixed scope completed exactly5fullvideos/164standaloneFFNs,zero training/factorization/official-qualitymodels ononeidleGPU. Input-conditioned dense/UB1 row compaction actually ran atall160FFNs. Original UB1 bitcontrols anddensefourlatentidentity passed. All81frames decoded;thehuman fullyplayedthepair andreported noobviouscollapse,so registry status is ROLLOUT_PASSED_SMOKE. Read [actual results](research/20261023/R16V0_native_results.json), [analysis](research/20261023/R16V0_analysis.json), [human verdict](research/20261023/R16V0_human_review.json), [construction/result](docs/81_全层动态行分派的可执行构造_20261023.md) and [current handoff](research/20261023/HANDOFF_R16V0.md).

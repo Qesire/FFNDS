@@ -1,0 +1,48 @@
+{
+  "id": "R17E0_ACTUAL_OLD_SOURCE_TIME_ALLOCATION_READOUT",
+  "status": "RECORDED_NATIVE_MASK_AND_EXACT_SOURCE_CPU_RECONSTRUCTION",
+  "mask_analysis_sha256": "4c088e4802d12fd829002fb3fd8cbaf7e39b660f380147b538f9d4a71b4bb827",
+  "source_exposure": "one_old_source0_seed42_warmup_not_fresh_quality",
+  "native_layout": [
+    21,
+    29,
+    52
+  ],
+  "native_positions": 160,
+  "first_latent_time_dense_fraction_mean": 0.6696742374005306,
+  "other20_latent_time_dense_fraction_mean": 0.22901628812997346,
+  "fraction_of_all_dense_row_budget_used_by_first_time_bin": 0.12755699760010106,
+  "first_bin_density_over_uniform_density": 2.6786969496021222,
+  "positions_first_time_density_above_half": 104,
+  "positions_first_time_density_above_quarter": 128,
+  "per_step_first_time_density_mean": [
+    0.5142407161803714,
+    0.582393899204244,
+    0.8299237400530505,
+    0.7521385941644563
+  ],
+  "mean_adjacent_latent_time_flip_fraction": {
+    "dynamic_residual": 0.2718086870026525,
+    "fixed_stride": 0.0,
+    "fixed_hash": 0.18514588859416445
+  },
+  "source_sha256": {
+    ".runtime/code/LightX2V/lightx2v/models/runners/wan/wan_runner.py": "e12bf49dfa76a3c5bde0d284952d7f8c2dcee2043737b310d51d46e7ff3d0f69",
+    ".runtime/code/LightX2V/lightx2v/models/runners/wan/wan_distill_runner.py": "26a2a503137b0125cf4a2f8b2c9fc5dae716121c6e600b7ce85517af5ee62dc3",
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/pre_infer.py": "f3f88ca8ccbbd778206f8f04805c124beb84c19dcd22c4c38a6028b42c1502b5"
+  },
+  "exact_source_findings": [
+    "WanDistillRunner inherits WanRunner. I2V condition mask is one at the first input frame and zero later; the first entry is repeated4times before the time/channel reshape. Condition video contains the input image followed by zeros before VAE encoding.",
+    "Wan pre-infer records(t,h,w),then flatten(2).transpose(1,2). Native row masks therefore reshape in t-major/h/w order.21latent time bins are not81decoded frames."
+  ],
+  "mathematical_budget_identity": "q_first +20*mean(q_later)=21/4. This is redistribution at fixed total dense rows, not an additional MAC saving.",
+  "falsifiable_explanations": [
+    "Conditioning-induced score scale may attract global RR-energy ranking to the first time bin without proportional marginal FFN error reduction.",
+    "State/attention dynamics may make this first-time allocation truly useful; its density alone does not diagnose waste or motion damage.",
+    "Spatiotemporal error coherence may matter beyond same-input SSE; a more variable native mask is not by itself video flicker."
+  ],
+  "current_action": "Keep all145generations/45metrics unchanged. Await the frozen fresh-source joint condition/motion/quality and actual speed results. No altered quota, normalization, temporal grouping or extra model call is triggered.",
+  "new_model_forwards": 0,
+  "algorithm_or_parameter_change": false,
+  "causal_motion_failure_established": false
+}

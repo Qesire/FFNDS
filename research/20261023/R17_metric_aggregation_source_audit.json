@@ -1,0 +1,114 @@
+{
+  "id": "R17_OFFICIAL_NINE_AGGREGATION_SOURCE_AUDIT",
+  "status": "EXACT_ORIGINAL_SOURCE_RECONSTRUCTION_NO_EVALUATOR_EXECUTION",
+  "audit_source_sha256": "f1a60ac352e9dd019f6db2f24e1e71919d572f643e2006099a4dad8908830f14",
+  "CPU_import_receipt_sha256": "9624f30d1597025368492dd13925fdbfd98909ec96bf9dec5a7669cb556d3dd9",
+  "dimensions": [
+    {
+      "dimension": "i2v_subject",
+      "module": "vbench2_beta_i2v.i2v_subject",
+      "module_sha256": "cf29896eddad3478c0ba91073b621d49cc311d8fbca8079d783115a10e0f7a80",
+      "function": "i2v_subject",
+      "source_first_line": 19,
+      "source_last_line": 64,
+      "original_aggregate": "equal_video_mean",
+      "downstream_detail_scale": 1,
+      "official_scoring_modified": false
+    },
+    {
+      "dimension": "i2v_background",
+      "module": "vbench2_beta_i2v.i2v_background",
+      "module_sha256": "fb5335849590ef49772ca4a064e3925eb68a2aa7b1f1fb70f5c2b206d72ab950",
+      "function": "i2v_background",
+      "source_first_line": 20,
+      "source_last_line": 65,
+      "original_aggregate": "equal_video_mean",
+      "downstream_detail_scale": 1,
+      "official_scoring_modified": false
+    },
+    {
+      "dimension": "camera_motion",
+      "module": "vbench2_beta_i2v.camera_motion",
+      "module_sha256": "de0b9d9b532ffcdbbd8492aea6be8a6606c0be71fda97fa121cb350d565cf41c",
+      "function": "camera_motion",
+      "source_first_line": 171,
+      "source_last_line": 197,
+      "original_aggregate": "equal_video_mean",
+      "downstream_detail_scale": 1,
+      "official_scoring_modified": false
+    },
+    {
+      "dimension": "subject_consistency",
+      "module": "vbench.subject_consistency",
+      "module_sha256": "55f5c9a3e5be543380a709b94712903fa67a76340c3c0cb2414ac090dbd1b78d",
+      "function": "subject_consistency",
+      "source_first_line": 30,
+      "source_last_line": 69,
+      "original_aggregate": "sum_video_frame_pair_similarity / sum_video_frame_pairs",
+      "downstream_detail_scale": 1,
+      "official_scoring_modified": false
+    },
+    {
+      "dimension": "background_consistency",
+      "module": "vbench.background_consistency",
+      "module_sha256": "7def92057819df0dad01c857eecf3b39b8b555c8cdfe881a672cc2b19dc226b4",
+      "function": "background_consistency",
+      "source_first_line": 23,
+      "source_last_line": 65,
+      "original_aggregate": "sum_video_frame_pair_similarity / sum_video_frame_pairs",
+      "downstream_detail_scale": 1,
+      "official_scoring_modified": false
+    },
+    {
+      "dimension": "motion_smoothness",
+      "module": "vbench.motion_smoothness",
+      "module_sha256": "082ddac8df7962d3a8b23bb999614fae6f3c9c93ebab9fb5c06b09588f109c94",
+      "function": "motion_smoothness",
+      "source_first_line": 171,
+      "source_last_line": 179,
+      "original_aggregate": "equal_video_mean",
+      "downstream_detail_scale": 1,
+      "official_scoring_modified": false
+    },
+    {
+      "dimension": "dynamic_degree",
+      "module": "vbench.dynamic_degree",
+      "module_sha256": "2e93d3a7af38bfbe459c19c9d127894f687424a0bc534dbf7e6571d17b24dff7",
+      "function": "dynamic_degree",
+      "source_first_line": 141,
+      "source_last_line": 149,
+      "original_aggregate": "equal_video_mean",
+      "downstream_detail_scale": 1,
+      "official_scoring_modified": false
+    },
+    {
+      "dimension": "aesthetic_quality",
+      "module": "vbench.aesthetic_quality",
+      "module_sha256": "caf86008a3e56974524d286e5b968a31536e315005d0b20f06fae9d5d37da539",
+      "function": "laion_aesthetic",
+      "source_first_line": 47,
+      "source_last_line": 78,
+      "original_aggregate": "mean(per_video_mean_frame_predictor_score / 10)",
+      "downstream_detail_scale": 1,
+      "official_scoring_modified": false
+    },
+    {
+      "dimension": "imaging_quality",
+      "module": "vbench.imaging_quality",
+      "module_sha256": "ac6c648cb4d5e82cd29c63be04977e9288c3540558cf12f979e66bef3e1f9e3a",
+      "function": "technical_quality",
+      "source_first_line": 39,
+      "source_last_line": 56,
+      "original_aggregate": "mean(raw_per_video_MUSIQ) / 100",
+      "downstream_detail_scale": 0.01,
+      "official_scoring_modified": false
+    }
+  ],
+  "i2v_similarity_formula": ".4*max(input_frame_similarity) + .3*mean(consecutive_similarity) + .3*min(consecutive_similarity)",
+  "consistency_weights": "Actual decoded frame count minus one; equal-source statistical summaries reported separately from raw official frame-pair aggregation.",
+  "MUSIQ_warning": "Original per-video details are in raw score units; original aggregate divides their mean by100. Never compare these units directly.",
+  "statistical_unit": "Underlying conditioning image, with the original dimension-specific source subset.",
+  "new_model_generations": 0,
+  "new_metric_model_forwards": 0,
+  "actual_video_quality_scores": null
+}

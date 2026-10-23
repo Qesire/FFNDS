@@ -125,6 +125,11 @@ def validate(audit, geometry, draft, runtime, current, triage):
             allowed = (draft['status'] == 'DRAFT_ONLY_NOT_REGISTERED_NOT_ELIGIBLE'
                 and current['execution_state'] == STATE
                 and not validate_registration(current.get('registered_row_dispatch', {}), ROOT))
+        if current['eligible_model_method_ids'] == ['R17E0_FRESH23_NINE_METRICS_AND_SYSTEM_TIMING']:
+            from fresh_quality_contract import STATE, validate_registration
+            allowed = (draft['status'] == 'DRAFT_ONLY_NOT_REGISTERED_NOT_ELIGIBLE'
+                and current['execution_state'] == STATE
+                and not validate_registration(current.get('registered_fresh_quality', {}), ROOT))
         need(allowed, 'E0 cannot grant model eligibility')
     need(current["latest_static_review"] == triage["latest_static_review"], "current/triage E0 mismatch")
     need(current['handoff'] == BASE + 'HANDOFF_R12_E0.md'

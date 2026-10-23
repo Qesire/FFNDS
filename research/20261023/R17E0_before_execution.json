@@ -1,0 +1,1818 @@
+{
+  "decision": {
+    "schema_version": "1.0",
+    "review_id": "FFNDS-R16V0-FULL160-DYNAMIC-ROLLOUT-SMOKE-PASSED-20261023",
+    "evidence_base_commit": "aebd37f749b484f0caaf6224c0a1e507e327cf3f",
+    "decision_document": "docs/81_\u5168\u5c42\u52a8\u6001\u884c\u5206\u6d3e\u7684\u53ef\u6267\u884c\u6784\u9020_20261023.md",
+    "research_state": "research/20261021/research_state_R5.json",
+    "handoff": "research/20261023/HANDOFF_R16V0.md",
+    "triage": "research/20261021/method_triage.json",
+    "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+    "evidence_summary": "reports/worker_20261020/R4E1_summary.json",
+    "execution_record": "reports/worker_20261020/PROJECT_RESUME_R4.json",
+    "registered_protocol": "reports/worker_20261020/R4E0_E1_registered_protocol.json",
+    "exploratory_paper_agenda_20261022": {
+      "status": "EXPLORATION_ONLY_NOT_REGISTERED",
+      "guidance_source_commit": "d24f18091e0ee1f75e5f7ce7fddb7c2f16d6b818",
+      "north_star": "Post-training input-/state-conditioned FFN dynamic compute in four-step distilled Wan, with measured signed downstream action value and real full FFN speed",
+      "plan": "research/20261022/POST_TRAIN_DYNAMIC_FFN_PAPER_PLAN.md",
+      "agent_handoff": "research/20261022/AGENT_EXECUTION_HANDOFF.md",
+      "e0_saved_evidence": "research/20261022/R12_E0_SAVED_EVIDENCE_AUDIT.json",
+      "model_execution_eligibility_change": false,
+      "e0_completed_result": "research/20261022/R12_E0_operand_audit.json",
+      "current_handoff": "research/20261022/HANDOFF_R12_E0.md",
+      "next_native_draft": "research/20261022/R12_E1_native_value_DRAFT.json",
+      "snapshot_scope": "Historical imported agenda/E0 preparation pointers; top-level handoff/latest_native_diagnostic record the later completed D0. This object grants no execution authority."
+    },
+    "eligible_model_method_ids": [],
+    "closed_method_statuses": {
+      "BO1_WHOLE_VIDEO_UB1_UB2": "CLOSED_REJECTED_EXACT",
+      "UB2_LATE_DENSE": "CLOSED_REJECTED_EXACT",
+      "RB2_C_PROFILE_FOUR_BANK": "CLOSED_REJECTED_EXACT",
+      "TC1_ROW_SUPPORT_TRANSFER": "CLOSED_REJECTED_EXACT",
+      "HP1_H256_QUADRATIC_C": "CLOSED_REJECTED_EXACT",
+      "HP2_H256_MLP_C": "CLOSED_REJECTED_EXACT",
+      "NP1_NONLINEAR_C_FEATURES": "CLOSED_REJECTED_EXACT",
+      "NF1_MISSING_FEATURE_READER": "CLOSED_REJECTED_EXACT",
+      "NF2_REUSED_H_GELU_READOUT": "CLOSED_REJECTED_EXACT",
+      "OP3_NATIVE_STATE_REFIT_SAME_R256": "CLOSED_REJECTED_EXACT",
+      "LR2_LATE_TEN_R512": "CLOSED_REJECTED_EXACT",
+      "R1_DENSE_SINGLE_GROUP_GREEDY": "REJECTED_AS_MAIN_METHOD",
+      "R1_FULL_W1_THEN_HALF_W2": "ELIMINATED_BY_COST_LOWER_BOUND",
+      "R2_GELU_HALF_LINEAR_PRUNE": "ELIMINATED_AS_GENERAL_GUARANTEE",
+      "R4E1_FIXED_H_16GROUP_Q2": "CLOSED_REJECTED_REGISTERED_NEIGHBORHOOD",
+      "R7D1_CROSS_LAYER_TRANSPORT": "COMPLETED_FIXED_CAUSAL_DIAGNOSTIC",
+      "R7D2_RESIDUAL_GAIN_OBJECTIVE": "CLOSED_REJECTED_FIXED_GAIN_OBJECTIVE",
+      "R8F1_FULL_SUPPORT_NATIVE_FOLD": "CLOSED_FULL_SUPPORT_RTN_HIF4_PRECISION_REJECTED",
+      "R8F2_GROUP64_HESSIAN_AFFINE": "CLOSED_FIXED_GROUP64_HESSIAN_PRECISION_REJECTED",
+      "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER": "CLOSED_FIXED_LEARNED_AFFINE_COMPRESSION_REJECTED",
+      "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE": "CLOSED_FIXED20_MATCHED_HEAD_OBJECTIVE_REJECTED",
+      "R11G1_NATIVE_HEAD_GRADIENT_READINESS": "COMPLETED_READINESS_ONLY_NO_TRAINING_TRIGGER",
+      "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE": "CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED",
+      "R14N0_COMPLETE_STRIPE_NATIVE_VALUE": "CLOSED_FIXED_NATIVE_STRIPE_RESPONSE_AND_NORM_VALUE_REJECTED"
+    },
+    "guarded_current_statuses": {
+      "R4_COMPENSATION_NONREDUNDANT_SUPPORT": "REGISTERED_INSTANCE_CLOSED_FAMILY_UNPROVEN",
+      "R3_COMPENSATED_STATIC_SUPPORT": "SUPERSEDED_BY_R4E1_FINITE_REJECTION",
+      "R3_WHOLE_M_BANK_ROUTING": "NOT_TRIGGERED_PREREQUISITE_REJECTED",
+      "R2_SIGNED_NATIVE_TILE_ADVANTAGE": "DEFERRED_NO_ELIGIBLE_SUPPORT_PAIR",
+      "R3_END_TO_END_CONTINUATION": "DIAGNOSTIC_ONLY_NO_AUTOMATIC_TRIGGER",
+      "R2_ALL_CHANNEL_AFFINE_SPARSE_REMAINDER": "FIXED_LEARNED_OLS_GREEDY_INSTANCE_REJECTED_FAMILY_UNPROVEN",
+      "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT": "COMPLETED_FIXED_PAIRED_GENERATION_HUMAN_REVIEW_PENDING",
+      "R16V0_FULL160_UB1_DENSE_ROW_DISPATCH": "COMPLETED_SCOPED_FULL160_ROW_DISPATCH_SMOKE_PASSED"
+    },
+    "blocked_stages": {
+      "R4E2": "R3_WHOLE_M_BANK_ROUTING",
+      "R4E3": "R4_FINAL_VIDEO_SPEED"
+    },
+    "historical_snapshots_do_not_authorize_execution": true,
+    "new_branch_template": "research/NEW_BRANCH_TEMPLATE.md",
+    "guard_command": "python tools/check_research_routes.py",
+    "guard_scope": "Recorded-state consistency and ID/alias eligibility only, not semantic novelty detection or a universal process launcher blockade.",
+    "latest_static_review": {
+      "id": "R15_FOUR_ROW_MEAN_CONTRAST_BACKEND_AND_INTEGRATION",
+      "document": "docs/77_R15\u5b8c\u6574\u56db\u4f4d\u7f6e\u54cd\u5e94\u4e0e\u914d\u5bf9\u89c6\u9891\u8dd1\u901a\u8bb0\u5f55.md",
+      "result": "research/20261023/R15_mechanism_record.json",
+      "result_sha256": "e0c3c106de39d97377435d11a0f40a3ac2a35fe3708e404b6294b07ae8ffff99",
+      "status": "SYNTHETIC_BACKEND_COMPLETE_FULL_VIDEO_IMPLEMENTATION_PREPARED",
+      "new_model_generations": 0,
+      "scope": "4savedCPUscopes/256groups and42randomtensorGPUchain samples. Pairedoriginal-modelvideoimplementationprepared;notyetexecuted.",
+      "next_discriminator": "Execute separately authorized R15V0completepairedfreevideo before more local/synthetic refinement. Novelty discussion deferred.",
+      "subsequent_separately_authorized_native_result": "research/20261023/R15V0_native_rollout_results.json"
+    },
+    "latest_research_review": {
+      "id": "R16V0_FULL160_NATIVE_ROW_DISPATCH_AND_HUMAN_SMOKE",
+      "status": "COMPLETED_SCOPED_FULL160_ROW_DISPATCH_SMOKE_PASSED",
+      "disposition": "ONE_SOURCE_FULL160_DYNAMIC_OPERATOR_AND_HUMAN_NONCOLLAPSE_ESTABLISHED_NOT_POPULATION_QUALITY",
+      "result": "research/20261023/R16V0_native_results.json",
+      "analysis": "research/20261023/R16V0_analysis.json",
+      "human_review": "research/20261023/R16V0_human_review.json",
+      "review": "research/20261023/R16V0_full_duration_review.json",
+      "resources": "research/20261023/R16V0_completed_resources.json",
+      "full_generations": 5,
+      "standalone_FFN_forwards": 164,
+      "training_steps": 0,
+      "weight_factorizations": 0,
+      "actual_dynamic_FFN_sites": 160,
+      "main_MAC_fraction": 0.625,
+      "R256_MAC_fraction": 0.018518518518518517,
+      "dynamic_local_gain_over_best_of_two_fixed": 0.061275701903671154,
+      "native_4position_core_speed_ratio": 1.2627314021685656,
+      "dynamic_pooled_RGB_MSE_over_best_pixel_fixed": 1.0822574970618422,
+      "scope": "One oldsource; actualpreW1rowrouting,all160nativeFFNs,fullfree4stepvideos,all81framesdecoded,humanfullplaybacknoobviouscollapse. Nativebitcontrols anddensefourlatentidentity pass. Motiondiffers;fidelityrankingdoesnotmatchlocalSSE;noofficialfreshquality,norepeatedsystembenchmark.",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT"
+    },
+    "previous_execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+    "completed_diagnostics": [
+      {
+        "method_id": "R7D1_CROSS_LAYER_TRANSPORT",
+        "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+        "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "protocol": "research/20261021/R7D1_cross_layer_transport_protocol.json",
+        "protocol_sha256": "403f94ff6c1a555ba11d974922e2ef09208d705d0f31b6b660640992b61bb71f",
+        "source_sha256": {
+          "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+          "tools/cross_layer_transport.py": "347ee0ed93a9cb4564c5a7aac69cc9a77834b7d09307b6ba31b1c7b287c45e48",
+          "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939",
+          "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+          "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+          "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+          "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+          "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+          "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+          "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+          "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862"
+        },
+        "document": "docs/57_\u56fa\u5b9a\u53cc\u5c42\u6062\u590d\u7684\u539f\u751f\u4f20\u64ad\u8bca\u65ad.md",
+        "result": "research/20261021/R7D1_results.json",
+        "result_sha256": "9755df9a251d8a4d6b99e25eb6e05f13c8edf6a0534626befdcc79d2532b31f2",
+        "status": "COMPLETED_FIXED_CAUSAL_DIAGNOSTIC"
+      },
+      {
+        "method_id": "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+        "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+        "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "protocol": "research/20261021/R7D2_residual_gain_protocol.json",
+        "protocol_sha256": "af8f5455ed76fb0eb75de8b1af71d1134193ebd1873a1abf3cab1a583a46b1c9",
+        "source_sha256": {
+          "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+          "tools/cross_layer_transport.py": "347ee0ed93a9cb4564c5a7aac69cc9a77834b7d09307b6ba31b1c7b287c45e48",
+          "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+          "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+          "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+          "tools/residual_gain_transport.py": "869d727a3f7d5d4557b3cbdc3ec709014e271ace44a75568131499eca0c60abe",
+          "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+          "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+          "tools/run_residual_gain_transport.py": "fa51378e1ae6cc9b830835920277bbad4cb1cdb7b4fe10028196a71d1fb7d322",
+          "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+          "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+          "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+          "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939"
+        },
+        "document": "docs/58_\u5c40\u90e8\u4e0e\u4e0b\u6e38\u76ee\u6807\u7684\u53cc\u53c2\u6570\u539f\u751f\u5bf9\u7167.md",
+        "prior_diagnostic": {
+          "result": "research/20261021/R7D1_results.json",
+          "sha256": "9755df9a251d8a4d6b99e25eb6e05f13c8edf6a0534626befdcc79d2532b31f2"
+        },
+        "result": "research/20261021/R7D2_results.json",
+        "result_sha256": "bbf63b38f91cad4d5109c67515c6692f89b29a421f24b4bf091bfd68a5883a7a",
+        "status": "CLOSED_REJECTED_FIXED_GAIN_OBJECTIVE"
+      },
+      {
+        "method_id": "R8F1_FULL_SUPPORT_NATIVE_FOLD",
+        "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+        "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "protocol": "research/20261021/R8F1_native_affine_protocol.json",
+        "protocol_sha256": "0f11e89169afecd13f6f85f91b163b9e613cbae3962ca0ddb6f631d59afcbe28",
+        "source_sha256": {
+          "tools/probe_native_affine_fold.py": "d116dec6ebfcc0e07806fb61dfbd9539758d7f6dcc645b3e40ab3f6d899a71a5",
+          "tools/native_affine_fold.py": "b3557fb4334aa9d01eec8604fbd67995e4a978c0552a7547469dfa01fb18f6b9",
+          "tools/r4_native_support.py": "808a51f6c81960a1b68775090bd9dbebeafff9955e44ed4bae86697a4c0272bc",
+          "tools/ub1_native_data.py": "90c9d238c32c7d6f4a2e96ccfd1130752a227c068899fa2e85d4d0ede23f8c54",
+          "tools/ub1_native_replay.py": "38c4a2bfb526f5a88eec18580eab8947bcbbc036d663ce8fb5066a974763c44c",
+          "tools/onpolicy_residual.py": "3d00ef97defd2df52968eeecaad0cad94ce91e8c0ce23fd4047b95c8f8797267",
+          "tools/folded_adapter.py": "bd5e333554fa035197d1eb4b1c08af59ebe3a63140ee7175213709e068bb6853",
+          "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+          "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839"
+        },
+        "document": "docs/59_\u4eff\u5c04\u9aa8\u5e72\u7684\u5b8c\u6574\u652f\u6301\u539f\u751f\u7cbe\u5ea6\u68c0\u67e5.md",
+        "prior_diagnostic": {
+          "result": "research/20261021/R7D2_results.json",
+          "sha256": "bbf63b38f91cad4d5109c67515c6692f89b29a421f24b4bf091bfd68a5883a7a",
+          "scope": "Prior completed research integrity; not positive evidence for affine folding"
+        },
+        "result": "research/20261021/R8F1_native_affine_results.json",
+        "result_sha256": "1bb9a2c00377995e42be7b4c91a90727748a0743ead10e416ef8625d3637b411",
+        "status": "CLOSED_FULL_SUPPORT_RTN_HIF4_PRECISION_REJECTED"
+      },
+      {
+        "method_id": "R8F2_GROUP64_HESSIAN_AFFINE",
+        "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+        "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "protocol": "research/20261021/R8F2_group64_hessian_protocol.json",
+        "protocol_sha256": "bdb0778aaaf35776cdfe008f72edeecd69fd86a0b88d2d9d85c66cefb59e2ae4",
+        "source_sha256": {
+          "tools/folded_adapter.py": "bd5e333554fa035197d1eb4b1c08af59ebe3a63140ee7175213709e068bb6853",
+          "tools/group_hessian_quant.py": "e2c4d56c1a28a96cd30aa243f51cb888842141678c5a8f6d7558f26a791056aa",
+          "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+          "tools/native_affine_fold.py": "b3557fb4334aa9d01eec8604fbd67995e4a978c0552a7547469dfa01fb18f6b9",
+          "tools/onpolicy_residual.py": "3d00ef97defd2df52968eeecaad0cad94ce91e8c0ce23fd4047b95c8f8797267",
+          "tools/probe_hessian_affine_fold.py": "f1b628a933bbe464efc42e8018a8fb6c3c24014f644801e1e1eaa6a17499a2de",
+          "tools/probe_native_affine_fold.py": "d116dec6ebfcc0e07806fb61dfbd9539758d7f6dcc645b3e40ab3f6d899a71a5",
+          "tools/r4_native_support.py": "808a51f6c81960a1b68775090bd9dbebeafff9955e44ed4bae86697a4c0272bc",
+          "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+          "tools/ub1_native_data.py": "90c9d238c32c7d6f4a2e96ccfd1130752a227c068899fa2e85d4d0ede23f8c54",
+          "tools/ub1_native_replay.py": "38c4a2bfb526f5a88eec18580eab8947bcbbc036d663ce8fb5066a974763c44c"
+        },
+        "document": "docs/60_HiF4\u4eff\u5c04\u77e9\u9635\u7684\u5206\u7ec4Hessian\u91cf\u5316\u4fee\u590d.md",
+        "prior_diagnostic": {
+          "result": "research/20261021/R8F1_native_affine_results.json",
+          "sha256": "1bb9a2c00377995e42be7b4c91a90727748a0743ead10e416ef8625d3637b411",
+          "scope": "Measured native quantization obstruction; BF16 gate passed and nativeRTN gate rejected"
+        },
+        "result": "research/20261021/R8F2_native_hessian_results.json",
+        "result_sha256": "6a5c8daf7f51986d6af8305923132413e7153b651d52bc78e9a4b75e680abebd",
+        "status": "CLOSED_FIXED_GROUP64_HESSIAN_PRECISION_REJECTED"
+      },
+      {
+        "method_id": "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER",
+        "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+        "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "protocol": "research/20261021/R9A1_learned_affine_protocol.json",
+        "protocol_sha256": "06997a14f38e0556e92d5f14b8ab37a0a411f1a34564c7a91fbb5b6bd928b68e",
+        "source_sha256": {
+          "tools/screen_learned_affine_remainder.py": "89b02582ede31018f631daa7e7557d9f4da8c23e0af9271ead3e100b3e69ba52",
+          "tools/affine_remainder.py": "2247ac204f331923f0450393276f59cde95fba34a7a674ebf6061b49c57b44c7",
+          "tools/r4_native_support.py": "808a51f6c81960a1b68775090bd9dbebeafff9955e44ed4bae86697a4c0272bc",
+          "tools/ub1_native_data.py": "90c9d238c32c7d6f4a2e96ccfd1130752a227c068899fa2e85d4d0ede23f8c54",
+          "tools/ub1_native_replay.py": "38c4a2bfb526f5a88eec18580eab8947bcbbc036d663ce8fb5066a974763c44c",
+          "tools/onpolicy_residual.py": "3d00ef97defd2df52968eeecaad0cad94ce91e8c0ce23fd4047b95c8f8797267",
+          "tools/folded_adapter.py": "bd5e333554fa035197d1eb4b1c08af59ebe3a63140ee7175213709e068bb6853",
+          "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+          "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839"
+        },
+        "document": "docs/62_\u5e7f\u6cdb\u590d\u76d8\u540e\u7684\u5b66\u4e60\u578b\u4eff\u5c04\u8868\u793a\u68c0\u9a8c.md",
+        "prior_diagnostic": {
+          "result": "research/20261021/R8F1_native_affine_results.json",
+          "sha256": "1bb9a2c00377995e42be7b4c91a90727748a0743ead10e416ef8625d3637b411",
+          "scope": "ObservedBF16fullsupportnumerics only; notcompressedquality evidence."
+        },
+        "scope_reconciliation": {
+          "original_R2_document": "research/20261021/Wan_Distill_FFN_\u673a\u5236\u91cd\u6784_R2_20261021.md",
+          "original_R2_sha256": "eb221bfa11372c3ba6965ed8fb9c76e197f6b1120a902b9338b09c534f13a1d0",
+          "original_last_commit": "4df7d6bb0ddcfba3ad60eb4a6b947d6a120bdd94",
+          "correction": "R2 already specified learned per-channel slope/intercept, original nativeQ2 targets, BF16 derivedmatrix and noR256. R8F1/F2 fixed0.5+extraHiF4 were stricter exploratory variants. Their rejection cannot close the untested original learnedBF16 operator. Prior protocols/results remain unchanged."
+        },
+        "representation_cost": {
+          "result": "research/20261021/representation_cost_preflight_R10.json",
+          "sha256": "4b653f8fb887516533444260c4c1a7507646ca2be689540ba3e8570d1550b278"
+        },
+        "result": "research/20261021/R9A1_native_affine_results.json",
+        "result_sha256": "aff6357716ea64a6c48935788af5be3b6fcb8f16fedb447323fe8d8468c204df",
+        "status": "CLOSED_FIXED_LEARNED_AFFINE_COMPRESSION_REJECTED"
+      },
+      {
+        "method_id": "R11G1_NATIVE_HEAD_GRADIENT_READINESS",
+        "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+        "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "protocol": "research/20261021/R11G1_native_head_protocol.json",
+        "protocol_sha256": "1b6a81b8a679c485f03dc487aaf15cda707baf04befdd5732c3aceaadc345023",
+        "source_sha256": {
+          "tools/probe_native_head_gradient.py": "26987fcd5e4b40368a79b61bf1a4f04bbf2b1a48204a531e5967014402a7cc4e",
+          "tools/native_head_replay.py": "7ee283a9e756dfb47dcc2751ea681b2d5cbb89860d0e13a4835ae1dfdde1073b",
+          "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+          "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+          "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+          "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+          "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+          "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+          "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+          "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+          "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+          ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+          ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/post_infer.py": "6567c439e2f16f322a9f10cd2ca326d3f924e9da75b3ae2ae442ec1327a327a2",
+          ".runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c",
+          ".runtime/code/LightX2V/lightx2v/common/ops/norm/layer_norm_weight.py": "0dbfed5c94745a58f0993c29fa211822775243f77478e77354cb32e91b2a24a8"
+        },
+        "document": "docs/63_\u539f\u751f\u8f93\u51fa\u5934\u68af\u5ea6\u4e0e\u96f6\u66f4\u65b0\u7b49\u4ef7\u68c0\u67e5.md",
+        "prior_diagnostic": {
+          "result": "research/20261021/R7D2_results.json",
+          "sha256": "bbf63b38f91cad4d5109c67515c6692f89b29a421f24b4bf091bfd68a5883a7a"
+        },
+        "result": "research/20261021/R11G1_native_head_results.json",
+        "result_sha256": "83ecefcbbac0ecca81656e9d69152265ea3df81969a2aabb0f75d7a4d6c427e6",
+        "status": "COMPLETED_READINESS_ONLY_NO_TRAINING_TRIGGER"
+      },
+      {
+        "method_id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+        "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+        "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "protocol": "research/20261021/R11T1_matched_objective_protocol.json",
+        "protocol_sha256": "420f7f1cb39a9178fbae9c98a81928b1ae339791272dd708a6d37941028dc952",
+        "source_sha256": {
+          "tools/probe_native_head_gradient.py": "26987fcd5e4b40368a79b61bf1a4f04bbf2b1a48204a531e5967014402a7cc4e",
+          "tools/native_head_replay.py": "7ee283a9e756dfb47dcc2751ea681b2d5cbb89860d0e13a4835ae1dfdde1073b",
+          "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+          "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+          "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+          "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+          "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+          "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+          "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+          "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+          "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+          ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+          ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/post_infer.py": "6567c439e2f16f322a9f10cd2ca326d3f924e9da75b3ae2ae442ec1327a327a2",
+          ".runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c",
+          ".runtime/code/LightX2V/lightx2v/common/ops/norm/layer_norm_weight.py": "0dbfed5c94745a58f0993c29fa211822775243f77478e77354cb32e91b2a24a8",
+          "tools/run_native_window_objective.py": "0e9ae3621dea2065bc1b67e146026a095845120412328ef7ccc449e1fd43ce4f",
+          "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939",
+          "tools/verify_native_head_bytes.py": "76157a0121824c134524c32e8d189dad1933bc9c93e1f1b92a42bea1c0d99c35"
+        },
+        "document": "docs/64_\u76f8\u540c\u90e8\u7f72\u9884\u7b97\u4e0b\u7684\u5c40\u90e8\u4e0e\u771f\u5b9eflow\u76ee\u6807\u5bf9\u7167.md",
+        "prior_diagnostic": {
+          "result": "research/20261021/R11G1_native_head_results.json",
+          "sha256": "83ecefcbbac0ecca81656e9d69152265ea3df81969a2aabb0f75d7a4d6c427e6"
+        },
+        "result": "research/20261021/R11T1_matched_objective_results.json",
+        "result_sha256": "1020ee95b358a8fd576ebd4f400679a1745a60477dc5168511edd8f078113f02",
+        "status": "CLOSED_FIXED20_MATCHED_HEAD_OBJECTIVE_REJECTED"
+      },
+      {
+        "method_id": "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE",
+        "scope": "FIXED_CAUSAL_DIAGNOSTIC_NOT_CANDIDATE",
+        "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "protocol": "research/20261022/R12_D0_registered_protocol_worker_migration.json",
+        "protocol_sha256": "274d50a0145ec6bd3431ce139c149ec78f8716c84ec635b71e3ca4d15b5196da",
+        "source_sha256": {
+          "tools/r12d0_contract.py": "d362e82cdaf75a6784a8e7780a1a1a99f09f7a5f5b3440e82063a3a6aa7af87f",
+          "tools/paired_budget_runtime.py": "0d61199618d31b7ffd7a45a6350d8b08da50d3e31d684c8fb9d71438e02ffa82",
+          "tools/paired_budget_observer.py": "3e86ac51d05c21e4c9090ba821c974dbce635a8cd05db954d1550c03163451a0",
+          "tools/run_paired_budget_value.py": "49a6fccbf583ef33dac28701b01cec829541d476c0402c1e35c8bca2e24541c3",
+          "tools/analyze_paired_budget_value.py": "879d640595ed52b3c29649b7038334828965ca229dc9f0db8d2797801203c70c",
+          "tools/preflight_paired_budget_value.py": "9bb13bbf5022d8e998b5d521d49b85836ace0fac4c04b9ba5e22e854d36b5ee7",
+          "tools/check_research_routes.py": "a346f91bdc0e14c279670f8b0c2d086a3aba699ee13c2fb52cbe04b32986dde9",
+          "tools/native_teacher_capture.py": "1fe2ee30871c4c47d5f2800b24414d483d9c88d72a47205785f8960909040f50",
+          "tools/run_cross_layer_transport.py": "5fc84e5198ecdfa7ba346238956c1b0efce28d509047040b9da8f827c6b0bb21",
+          "tools/cross_layer_transport.py": "347ee0ed93a9cb4564c5a7aac69cc9a77834b7d09307b6ba31b1c7b287c45e48",
+          "tools/variable_teacher_capture.py": "9f5b384665ac7b94865f2db2b8c1c5092a18d1b95e4b5022e9ea60a98bee0939",
+          "tools/run_supplement_teacher_flow.py": "3831ec83f988e7314ed0ff7567fdcaad8838cf192d46e585bf5eff00fcd9d68d",
+          "tools/collect_ub1_native_states.py": "0ba6ff39e60e9e8621b73769e336458159d8eb75084546c86cd68823b5ee637e",
+          "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+          "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+          "tools/resident_ffn_runtime.py": "0c80b40ef28f2a04ee67c6a7d8fa0d55bef124972a0d3b6dd684e76a11df5c1b",
+          "tools/step_budget_runtime.py": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c",
+          "tools/trained_packed_runtime.py": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c",
+          "tools/reduced_rank_residual.py": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862",
+          "tools/run_ar2_restart.py": "6b456a7c4cde6fd393248ab7a5b55ee2fa70a0f3e0aeeb5b3b89323a0e31b34f",
+          "tools/ar2_checkpoint.py": "e252164ebfe4524de9f60cfb1340654851d01d6d8dca814411ad26913ceaacb3",
+          "tools/with_transformers_source_view.py": "85df726d8a98cc4570731a3767cb998cee08e85dca1496734a1f71111b686198",
+          "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+          "tools/run_on_worker.py": "4b68f30e95504fb520d46546c9e2aaf24aba9da83587bc3f3ab7d5900c6ca284",
+          "scripts/worker_exec.sh": "6daadc920fba38373850fe77052768ff950e9a033b7d72270e5ba69dee98c338",
+          "config/worker.env": "0dd88ae89887232dc5c50c1bcbed1a0bbcffb7de0ceeea891ce827452f52de66",
+          ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+          ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/pre_infer.py": "f3f88ca8ccbbd778206f8f04805c124beb84c19dcd22c4c38a6028b42c1502b5",
+          ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/post_infer.py": "6567c439e2f16f322a9f10cd2ca326d3f924e9da75b3ae2ae442ec1327a327a2",
+          ".runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db",
+          ".runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c",
+          ".runtime/code/LightX2V/lightx2v/common/ops/norm/layer_norm_weight.py": "0dbfed5c94745a58f0993c29fa211822775243f77478e77354cb32e91b2a24a8",
+          ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+          ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+          ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+          "tools/preflight_paired_budget_assets.py": "5a156f81e56a2463decf0d93e0399495a2d667210104122e0d83f19aa4bf3144",
+          ".runtime/code/LightX2V/lightx2v/models/schedulers/wan/scheduler.py": "c86af28a3b8d709692fb3a88d67ec441a77624929d397c216e0106f1c0142f4a",
+          "tools/execute_paired_budget_value.py": "c7cbbbde84d4c50c9c5c7f3ac73d961fb71889c7988b8b5198f9ca2801b43c6c",
+          ".runtime/code/HiF4_Sp/HiFloat4/main.py": "d88fb06cc6d805b4a350552ef61a0ac9b7dd32f5b94f6174bf4eccbc632105be",
+          ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+          ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QTensor.py": "ac5061523cfb87c203cb38a250fffc590d2248f4b7e303f671ba36b48d0eaee2",
+          ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QFuncs/hifx.py": "6a8d1f1b8ea49ce099439cff251309b4d9b3eeeab6a7ee0a83bdcf85b24704f7",
+          ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c",
+          ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant.cpp": "78527d3f635e4de6f69c80bf4db6c318788358b0f14f02b4e683826f47a8e0ac",
+          "tools/verify_worker_asset_mirror.py": "22cc67a4ce0a4882a260e1296cac80410fccae2eb63e25059d5df2e39509ac20",
+          "tools/check_public_metadata.py": "56fdd30845d09993835db6d86dc7537e1d53ad332707ea4972051d309fae32d7"
+        },
+        "prior_diagnostic": {
+          "result": "research/20261022/R12_E0_operand_audit.json",
+          "sha256": "93198fc27b2a4f5e7bbe9ab076d9fd518f8b082474f7d7164bae5ef0ede0ec1f"
+        },
+        "authorization": {
+          "path": "research/20261022/R12_D0_authorization.json",
+          "sha256": "8386d5cc4685fc12fb63390081e8e9312285bed34a703391ca4de1886b83ac6d"
+        },
+        "document": "docs/68_R12_D0\u7b49\u9884\u7b97\u539f\u751f\u52a8\u4f5c\u68c0\u9a8c.md",
+        "result": "research/20261022/R12_D0_native_results.json",
+        "result_sha256": "00f34436ca7c1cca73f8abb104e37c60c60415df95c5284a4aed0c229af54a8c",
+        "status": "CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED"
+      },
+      {
+        "method_id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+        "status": "CLOSED_FIXED_NATIVE_STRIPE_RESPONSE_AND_NORM_VALUE_REJECTED",
+        "result": "research/20261022/R14N0_native_results.json",
+        "result_sha256": "2124881b20f80085cc0953cc7d39862beaae43c88723cdd9953648ea44b29dd4",
+        "protocol_sha256": "ac2131d1f14a112888813fcdfc29b294194825c7729d244ed123813958045030",
+        "native_generations": 4,
+        "standalone_FFN_forwards": 32,
+        "extra_linear_calls": 104,
+        "automatic_followup_authorization": false
+      }
+    ],
+    "latest_native_diagnostic": {
+      "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+      "result": "research/20261022/R14N0_native_results.json",
+      "status": "CLOSED_FIXED_NATIVE_STRIPE_RESPONSE_AND_NORM_VALUE_REJECTED",
+      "complete_native_generations": 4,
+      "standalone_FFN_forwards": 32,
+      "extra_linears": 104,
+      "finite_local_dynamic_support": false,
+      "evaluation_dynamic_gain_over_fixed": -0.05165930479770209,
+      "evaluation_dynamic_gain_over_UB1": -0.31164172660792255,
+      "oracle_gain_over_fixed": 0.044955664646034954,
+      "oracle_gain_over_UB1": -0.19114241208730243,
+      "all_controls_valid": true,
+      "quality_or_speed_acceptance": false
+    },
+    "research_work_status": "TWO_FULL_VIDEOS_AND_AGENT_FRAME_REVIEW_COMPLETE_FORMAL_HUMAN_SMOKE_VERDICT_PENDING_NO_MODEL_FOLLOWUP",
+    "research_review_history": [
+      {
+        "id": "FFNDS-R7-FAILURE-AND-METHOD-REVIEW",
+        "evidence_base_commit": "16e14265b6a8908bc9e6f3fa7fc4fb860c350fb8",
+        "document": "docs/56_\u5168\u8def\u7ebf\u590d\u76d8\u4e0e\u4e0b\u4e00\u6b65\u673a\u5236\u4f18\u5148\u7ea7_R7.md",
+        "data_audit": "research/20261021/failure_data_audit_R7.json",
+        "historical_reconciliation": "research/20261021/historical_reconciliation_R7.json",
+        "method_search": "research/20261021/method_search_R7.json",
+        "branch_records": "research/20261021/branch_records_R7.json",
+        "synthetic_backend_results": [
+          "research/20261021/weight_2of4_shape_preflight.json",
+          "research/20261021/weight_2of4_fused_layout_preflight.json"
+        ],
+        "scope": "Research reopened by user request: saved-source/tensor analysis and two non-model synthetic GPU shape preflights. No new Wan training/video/accuracy or original full160 timing.",
+        "priority": "Cross-layer/downstream objective diagnosis; sparse full-H backend cost; existing affine backbone backlog.",
+        "next_diagnostic": "research/20261021/R8F2_group64_hessian_protocol.json",
+        "next_diagnostic_status": "REGISTERED_FIXED_ENCODING_PENDING",
+        "eligibility_note": "One fixed nativegroup64 Hessian encoding addresses the measured new-affine quantization error; same validation sources/positions/threshold, no compressed candidate or hyperparameter search.",
+        "checks": "research/20261021/continuation_checks_R7.json"
+      }
+    ],
+    "objective_contract": "research/OBJECTIVE_CONTRACT.json",
+    "latest_objective_alignment": {
+      "id": "FFNDS_GOAL_SEMANTICS_20261022",
+      "document": "docs/65_\u7814\u7a76\u76ee\u6807\u5c42\u7ea7\u4e0eR11\u89e3\u91ca\u4fee\u6b63_20261022.md",
+      "primary_goal": "Input-/state-conditioned deployable FFN dynamic sparsity with jointly verified speed and genuine free-student video quality",
+      "frozen_baseline": "D-Q full dense; UB1 matched STATIC engineering comparator, not dynamic evidence",
+      "R11T1_scope": "Fixed-step same-input final native flow objective training diagnostic only; 1.49121% development-exposed flow SSE reduction, fails frozen 2% gate, NOT quality or dynamic-support evidence",
+      "quality_scope": "Official video quality requires genuinely fresh source-audited FULL FREE STUDENT ROLLOUT; DQ post forced between steps yields DQ trajectory",
+      "cost_scope": "50% main MAC plus complete FFN >=1.5x including route overhead, QDQ and corrections on same deployment",
+      "eligibility_effect": "NONE; closed IDs and [] eligibility remain unchanged"
+    },
+    "previous_static_reviews": [
+      {
+        "id": "R6_TEMPORAL_PRE_GATE_FFN",
+        "document": "docs/55_\u8de8\u6b65FFN\u590d\u7528\u7684\u51b7\u542f\u52a8\u4e0e\u914d\u5bf9\u6570\u636e\u5ba1\u8ba1.md",
+        "mechanism_record": "research/20261021/temporal_cache_mechanism_record.json",
+        "metadata_audit": "research/20261021/cross_step_pairing_audit.json",
+        "disposition": "DEFERRED_NO_PAIRED_READINESS_OR_POSITIVE_NATIVE_EVIDENCE",
+        "scope": "CPU metadata plus structural deductions only; no activation-value screen or model execution. R5 closure and empty eligibility unchanged."
+      },
+      {
+        "id": "R12_E0_SIGNED_VALUE_AND_CONDITIONAL_GRANULARITY",
+        "document": "docs/66_R12\u7b49\u9884\u7b97\u52a8\u4f5c\u7684\u64cd\u4f5c\u6570\u4e0e\u6761\u4ef6\u7c92\u5ea6\u5ba1\u8ba1.md",
+        "operand_audit": "research/20261022/R12_E0_operand_audit.json",
+        "saved_flow_geometry": "research/20261022/R12_E0_flow_partitions.json",
+        "runtime_reconstruction": "research/20261022/R12_E0_runtime_reconstruction.json",
+        "mechanism_record": "research/20261022/R12_mechanism_record.json",
+        "method_search": "research/20261022/method_search_R12.json",
+        "draft": "research/20261022/R12_E1_native_value_DRAFT.json",
+        "disposition": "E0_COMPLETED_DRAFT_ONLY_NO_MODEL_ELIGIBILITY",
+        "scope": "CPU/source audit and historical output geometry;0 new model jobs. Whole-source historical restore-only oracle gain0.171022%; output mosaics frame0.314848% and native-token5.089427% are NOT executed R12 action values.",
+        "next_action": "Independent scope review/registration of the fixed native equal-budget value collection, controls first; no router or old recipe extension."
+      },
+      {
+        "id": "R12_HIF4_GROUP_SEPARABILITY_AND_NATIVE_TILE_LAYOUT",
+        "document": "docs/69_HiF4\u5206\u7ec4\u8fb9\u754c\u4e0e\u7a7a\u95f4\u52a8\u4f5c\u7684\u53ef\u6267\u884c\u5e03\u5c40.md",
+        "source_CPU_result": "research/20261022/R12_HiF4_group_separability.json",
+        "layout_arithmetic": "research/20261022/R12_native_tile_layouts.json",
+        "status": "SOURCE_DERIVATION_AND_ORIGINAL_PYTHON_REFERENCE_CPU_ONLY",
+        "new_model_generations": 0,
+        "scope": "Whole64 groups/row partitions preserve the quantizer boundary; inside64 hierarchy can break it. Actual CUDA GEMM, tile quality/speed and conditional action value remain untested. This does not change the approved D0 scope or authorize a new method."
+      },
+      {
+        "id": "R12_INFORMATION_AND_BUDGET_DISCRIMINATORS",
+        "document": "docs/70_\u6761\u4ef6\u4fe1\u53f7\u4e0e\u8de8\u6b65\u65b9\u6cd5\u7684\u771f\u5b9e\u9884\u7b97.md",
+        "result": "research/20261022/R12_information_budget_discriminators.json",
+        "result_sha256": "af683785342a9913fe09deaab0b3a486443f82af61a65218098b602f83980776",
+        "status": "SYNTHETIC_MATH_SOURCE_REVIEW_AND_EXACT_BUDGET_ONLY",
+        "new_model_generations": 0,
+        "scope": "Mean-only cancellation counterexample, reconfirmed two-expert dense-anchor cost and actual two-GEMM proxy cost. No native tile/predictor/delta performance and no new execution authority."
+      },
+      {
+        "id": "R13_SPATIAL_CONTRAST_AND_POOLED_NONLINEAR_RESPONSE",
+        "document": "docs/71_\u7a7a\u95f4\u8bef\u5dee\u7684\u53ef\u5171\u4eab\u90e8\u5206\u4e0e\u53cc\u70b9\u975e\u7ebf\u6027\u6784\u9020.md",
+        "result": "research/20261022/R13_mechanism_record.json",
+        "result_sha256": "6127c4b6c270f6890ef4bee83e3e10a4eeca0e4a7b0adc7ade61358b8ff0ec99",
+        "status": "SAVED_CPU_AND_SYNTHETIC_GPU_COMPLETE_DIRECT_IMPLEMENTATION_TOO_SLOW_THREE_DIRECTION_SEED_OPEN",
+        "new_model_generations": 0,
+        "scope": "96 saved OP2 scopes;193 pair comparisons; frozen affine CPU checks; finite sharing bounds; original HiF4 joint-dependence counterexample. One synthetic A100 full-shape cost check rejects direct implementation at1.355x; three-direction affine rewrite has45.1381%MAC and0.02364%UB1-relative CPU rounding discrepancy. No new Wan forward, conditional policy, free video or original model speed result.",
+        "next_discriminator": "Inspect a three-direction projection/reconstruction memory schedule and a prospective fixed synthetic cost comparison before any Wan collection. Only after backend feasibility is positive should complete-stripe native operands and actual conditional gain be separately registered and authorized."
+      },
+      {
+        "id": "R14_THREE_DIRECTION_FUSED_BACKEND",
+        "document": "docs/73_\u4e09\u65b9\u5411\u878d\u5408\u7b97\u5b50\u7684\u5b9e\u9645\u6210\u672c\u4e0e\u539f\u751f\u4ef7\u503c\u4e0b\u4e00\u6b65.md",
+        "result": "research/20261022/R14_mechanism_record.json",
+        "result_sha256": "0681f8c093044f2eb101ab36f61b2a1f8a34abb694e3da23a17e95f452ba6cf7",
+        "status": "SYNTHETIC_BACKEND_ADVANCE_NATIVE_VALUE_UNMEASURED",
+        "new_model_generations": 0,
+        "scope": "One fixed random-tensor A100 comparison:7arms,49samples,16fusioncontrols,14originalQDQchecks. Fused3-direction dynamic28.1745ms/1.913x,45.1381%MAC;unfuseddynamic46.9870ms. No Wan/nativevalue/video/original160FFN speed result.",
+        "next_discriminator": "Complete-stripe actual native writeback action values at one fixed position,4oldexposed sources,training-only bestfixed32/64 versus same-count norm andoracle; fixed draft<=4UB1captures and<=32standaloneFFNcalls. Final executable/source bindings and separate direct human authority required before registration/execution."
+      }
+    ],
+    "previous_research_reviews": [
+      {
+        "id": "R10_BROAD_REVIEW",
+        "evidence_base_commit": "2df2447",
+        "document": "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md",
+        "data_audit": "research/20261021/failure_synthesis_R10.json",
+        "saved_operand_analysis": "research/20261021/R10_saved_failure_geometry.json",
+        "method_search": "research/20261021/method_search_R10.json",
+        "branch_records": "research/20261021/branch_records_R10.json",
+        "scope": "Historical full-route synthesis plus25 author/paper/blog/community references and CPU-only saved-tensor decompositions; no newfit,encoding or modelgeneration in this broadreview. PriorcompletednativeR7D2/R8F1/R8F2evidence preserved.",
+        "priority": "Compare functional representations and fullchaincost before selecting nativewindow/studenttrajectoryrecovery. OriginalR2scope correction explicit.",
+        "next_diagnostic_status": "FIXED_NATIVE_REPRESENTATION_SCREEN_COMPLETED_REJECTED",
+        "drafts": [
+          "research/20261021/R8D1_population_covariance_protocol.json"
+        ],
+        "eligibility_note": "R9A1 fullsupport numerics passed16/16, fixedcompressionpassed7/16; closedfixedinstance. R10broadreview/costdataretained; nextprioritynativeobjective/trajectoryreadiness, no automaticrank/width/coefficientsplit or finalvideo.",
+        "checks": "research/20261021/continuation_checks_R10.json",
+        "synthetic_representation_cost": "research/20261021/representation_cost_preflight_R10.json",
+        "next_diagnostic": "research/20261021/R9A1_learned_affine_protocol.json",
+        "subsequent_native_results": [
+          "research/20261021/R11G1_native_head_results.json",
+          "research/20261021/R11T1_matched_objective_results.json"
+        ]
+      },
+      {
+        "id": "R12_E0_SIGNED_VALUE_AND_CONDITIONAL_GRANULARITY",
+        "document": "docs/66_R12\u7b49\u9884\u7b97\u52a8\u4f5c\u7684\u64cd\u4f5c\u6570\u4e0e\u6761\u4ef6\u7c92\u5ea6\u5ba1\u8ba1.md",
+        "operand_audit": "research/20261022/R12_E0_operand_audit.json",
+        "saved_flow_geometry": "research/20261022/R12_E0_flow_partitions.json",
+        "runtime_reconstruction": "research/20261022/R12_E0_runtime_reconstruction.json",
+        "mechanism_record": "research/20261022/R12_mechanism_record.json",
+        "method_search": "research/20261022/method_search_R12.json",
+        "draft": "research/20261022/R12_E1_native_value_DRAFT.json",
+        "disposition": "E0_COMPLETED_DRAFT_ONLY_NO_MODEL_ELIGIBILITY",
+        "scope": "CPU/source audit and historical output geometry;0 new model jobs. Whole-source historical restore-only oracle gain0.171022%; output mosaics frame0.314848% and native-token5.089427% are NOT executed R12 action values.",
+        "next_action": "Independent scope review/registration of the fixed native equal-budget value collection, controls first; no router or old recipe extension."
+      },
+      {
+        "id": "R12_D0_EQUAL_BUDGET_NATIVE_VALUE_AND_DEBIT",
+        "document": "docs/68_R12_D0\u7b49\u9884\u7b97\u539f\u751f\u52a8\u4f5c\u68c0\u9a8c.md",
+        "native_result": "research/20261022/R12_D0_native_results.json",
+        "native_result_sha256": "00f34436ca7c1cca73f8abb104e37c60c60415df95c5284a4aed0c229af54a8c",
+        "protocol": "research/20261022/R12_D0_registered_protocol_worker_migration.json",
+        "budget_debit": "research/20261022/R12_D0_budget_debit.json",
+        "budget_debit_sha256": "d5e90603a5647ddf69deb092e6260506975c54acd00600d65b6a4cee5454ef45",
+        "resources": "research/20261022/R12_D0_completed_resources.json",
+        "resources_sha256": "ecf4cf51d8ec8be011494e0acd52635a319bebc2b96e5a16595be2a4e725f416",
+        "disposition": "CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED",
+        "scope": "Completed24 native cases on4 development-exposed fixed-step sources; raw pair zero correction. Oracle conditional gain0.231928% over best fixedNA; oracle loss2.574103% above frozenUB1. All numerical/cost controls pass, N0 repeats exact. No policy, free student quality or full FFN speed result.",
+        "next_action": "Close only this fixed raw/no-correction three-action D0; no width/source/threshold expansion, D1, predictor or rollout is triggered. Keep mathematically distinct source/data exploration open."
+      },
+      {
+        "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+        "document": "docs/74_\u5b8c\u6574\u7a7a\u95f4\u90bb\u57df\u7684\u539f\u751f\u503c\u4e0e\u56fa\u5b9a\u53cc\u70b9\u6784\u9020\u62d2\u7edd.md",
+        "native_result": "research/20261022/R14N0_native_results.json",
+        "native_result_sha256": "2124881b20f80085cc0953cc7d39862beaae43c88723cdd9953648ea44b29dd4",
+        "protocol": "research/20261022/R14N0_registered_protocol.json",
+        "budget_debit": "research/20261022/R14N0_budget_debit.json",
+        "budget_debit_sha256": "d0cacf7475d33938a6e7fd7583d3b12ef8d5e317e912224ca20c1431edbf5bac",
+        "resources": "research/20261022/R14N0_completed_resources.json",
+        "resources_sha256": "336afc4c92353245b3e72a4523e0845224a3de40ed828ccf618dc4c6a9fce594",
+        "disposition": "CLOSED_FIXED_NATIVE_STRIPE_RESPONSE_AND_NORM_VALUE_REJECTED",
+        "scope": "Complete4originalUB1observations/32standaloneFFN/104extra linears;allcontrolsvalid. Olddevelopment0/10dynamicwritebackSSE31.1642%aboveUB1,5.1659%abovebesttrainingfixed;oracle19.1142%aboveUB1 despite4.4956%gainoverfixed. eta0. No freecandidatevideo/nativefullmodel speed result.",
+        "next_action": "Close exactly this fixedresponse/sign/position/sampledactioninstance. Analyze saveddata/CPU contrast-versus-mean response error and availableinformation. No sign/source/point/position search,newfit,candidaterollout or automaticmodel followup.",
+        "mechanism_record": "research/20261022/R14N0_mechanism_record.json",
+        "mechanism_record_sha256": "9f507326db1e75d91ced31c56110421f9e61af804ca64655b613fedc91f5116c",
+        "saved_CPU_analysis": "research/20261022/R14N0_saved_failure_analysis.json"
+      },
+      {
+        "id": "R15_FOUR_ROW_MEAN_CONTRAST_BACKEND_AND_INTEGRATION",
+        "document": "docs/77_R15\u5b8c\u6574\u56db\u4f4d\u7f6e\u54cd\u5e94\u4e0e\u914d\u5bf9\u89c6\u9891\u8dd1\u901a\u8bb0\u5f55.md",
+        "result": "research/20261023/R15_mechanism_record.json",
+        "result_sha256": "e0c3c106de39d97377435d11a0f40a3ac2a35fe3708e404b6294b07ae8ffff99",
+        "status": "SYNTHETIC_BACKEND_COMPLETE_FULL_VIDEO_IMPLEMENTATION_PREPARED",
+        "new_model_generations": 0,
+        "scope": "4savedCPUscopes/256groups and42randomtensorGPUchain samples. Pairedoriginal-modelvideoimplementationprepared;notyetexecuted.",
+        "next_discriminator": "Execute separately authorized R15V0completepairedfreevideo before more local/synthetic refinement. Novelty discussion deferred."
+      },
+      {
+        "id": "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT",
+        "status": "FULL_NATIVE_PAIR_COMPLETE_AGENT_FRAME_REVIEW_DONE_HUMAN_REVIEW_PENDING",
+        "result": "research/20261023/R15V0_native_rollout_results.json",
+        "result_sha256": "5b17ec7cf013c5cf07276a9cda707f76b8380eb267b149ccb2a0072c75186fc1",
+        "decode_result": "research/20261023/R15V0_video_inspection.json",
+        "review": "research/20261023/R15V0_full_duration_review.json",
+        "review_sha256": "23fb97b0fc8e60443b07e0636d7394664395915f2d7330562b95b25a625a84a4",
+        "candidate_record": "research/candidate_rollout/registry/R15V0_mean_contrast.json",
+        "protocol": "research/20261023/R15V0_registered_protocol.json",
+        "resources": "research/20261023/R15V0_completed_resources.json",
+        "evidence_level": "L3_FULL_GENERATION_COMPLETE_AGENT_FRAME_REVIEW_ONLY_HUMAN_SMOKE_VERDICT_PENDING",
+        "automatic_followup": false,
+        "decoded_pixel_fidelity": {
+          "path": "research/20261023/R15V0_decoded_pair_difference.json",
+          "sha256": "5839b5a66f78ec72b20b70572a035e3358b35a21cb8585b7ba4df719f4c3220f",
+          "family": "F1_PAIRED_RGB_TRAJECTORY_FIDELITY",
+          "scope": "Post-hoc one old exposed source0/seed42; not perceptual or official quality."
+        },
+        "HF_output_bytes_after_CPU_fidelity": 30139286,
+        "document": "docs/77_R15\u5b8c\u6574\u56db\u4f4d\u7f6e\u54cd\u5e94\u4e0e\u914d\u5bf9\u89c6\u9891\u8dd1\u901a\u8bb0\u5f55.md",
+        "new_model_generations": 2,
+        "scope": "One exact authorized four-step native video pair on old source0/seed42;4of160FFNsites. Complete decode and agent frame review plus actual decoded RGB fidelity. Human whole-video smoke verdict pending;no official/population quality or native speed claim.",
+        "next_action": "Preserve complete paired video for human whole-duration review. Fixed model budget spent; no automatic further generation or benchmark."
+      }
+    ],
+    "historical_handoffs": [
+      "research/20261022/HANDOFF_R12_E0.md",
+      "research/20261022/HANDOFF_R12_D0.md",
+      "research/20261022/HANDOFF_R13.md",
+      "research/20261022/HANDOFF_R14.md",
+      "research/20261023/HANDOFF_R15.md"
+    ],
+    "latest_native_registration": {
+      "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+      "status": "HISTORICAL_COMPLETED_FIXED_R14N0_NO_REPEAT_AUTHORIZATION",
+      "protocol": "research/20261022/R14N0_registered_protocol.json",
+      "authorization": "research/20261022/R14N0_authorization.json",
+      "CPU_preflight": "research/20261022/R14N0_CPU_preflight.json",
+      "active": false,
+      "scope": "Only4originalUB1observations and32standaloneFFNcalls; exacttrainingfixed32/64 vsnorm/oracle. No training/candidatevideo/followup.",
+      "completed_result": "research/20261022/R14N0_native_results.json"
+    },
+    "latest_open_research_library": {
+      "remote_commit": "40a5e4955e91cbd5b40a7c9a0cd4f359664de4fc",
+      "index": "research/exploration/20261022/EXPLORATION_INDEX.md",
+      "synthesis": "docs/67_\u540e\u8bad\u7ec3\u52a8\u6001FFN\u5f00\u653e\u63a2\u7d22\u4e0e\u8d28\u91cf\u901f\u5ea6\u76ee\u6807_20261022.md",
+      "execution_authorization_effect": "NONE; D0 has separate prior explicit user approval, fixed scope preserved. No GBA/STB preference or exclusive pair-first sequence."
+    },
+    "research_goal_update_20261022": {
+      "user_clarification": "50% main MAC / 1.5x full FFN / 2% per-quality-axis were illustrative, not perpetual research-hard gates",
+      "active_evaluation_source": "research/OBJECTIVE_CONTRACT.json#research_evaluation_policy",
+      "details": "docs/72_\u4e0e\u540c\u524d\u63d0\u65b9\u6cd5\u7ade\u4e89\u7684\u8d28\u91cf\u901f\u5ea6\u8bc4\u4ef7\u51c6\u5219_20261022.md",
+      "status": "GUIDANCE_ONLY_NO_RETROACTIVE_PROTOCOL_CHANGE",
+      "eligibility_effect": "NONE",
+      "latest_provenance": "R12 D0 closed and R13 source/CPU/synthetic work unchanged. No new method job is enabled."
+    },
+    "metric_framework_update_20261022": {
+      "status": "EVALUATION_GUIDANCE_ONLY",
+      "document": "docs/76_\u57fa\u4e8e\u5b66\u672f\u6587\u732e\u7684FFNDS\u5206\u5c42\u6307\u6807\u4f53\u7cfb_20261022.md",
+      "catalog": "research/metric_system/catalog.json",
+      "measured_experiment_reinterpretation": "NONE",
+      "model_eligibility_change": "NONE",
+      "next_action": "new method evidence claims choose metrics at correct granularity; full student video required on selection"
+    },
+    "pending_paired_rollout": {
+      "method_id": "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT",
+      "draft": "research/20261023/R15V0_paired_rollout_DRAFT.json",
+      "candidate_record": "research/candidate_rollout/registry/R15V0_mean_contrast.json",
+      "status": "GENERATED_AND_DECODED_FIXED_BUDGET_SPENT_HUMAN_REVIEW_PENDING",
+      "model_execution_authority": {
+        "path": "research/20261023/R15V0_authorization.json",
+        "sha256": "531ef51329fe48e807a6769b40ce5ef795eaa9cf10c238bb59132cdbceea6550"
+      },
+      "dispatch_receipt": "research/20261023/R15V0_dispatch_preflight_failure.json",
+      "completed_result": "research/20261023/R15V0_native_rollout_results.json"
+    },
+    "registered_rollout": {
+      "method_id": "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT",
+      "protocol": "research/20261023/R15V0_registered_protocol.json",
+      "protocol_sha256": "d462706b051eb1661fd8eed038fa73867a712d8bb55f8052e5a6e61280bdab79",
+      "authorization": {
+        "path": "research/20261023/R15V0_authorization.json",
+        "sha256": "531ef51329fe48e807a6769b40ce5ef795eaa9cf10c238bb59132cdbceea6550"
+      },
+      "preserved_historical_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+      "caps": {
+        "full_generations": 2,
+        "offline_weight_factorizations": 2,
+        "training_steps": 0
+      },
+      "active": false,
+      "completed_result": "research/20261023/R15V0_native_rollout_results.json"
+    },
+    "latest_paired_rollout": {
+      "id": "R16V0_FULL160_NATIVE_ROW_DISPATCH_AND_HUMAN_SMOKE",
+      "status": "COMPLETED_SCOPED_FULL160_ROW_DISPATCH_SMOKE_PASSED",
+      "disposition": "ONE_SOURCE_FULL160_DYNAMIC_OPERATOR_AND_HUMAN_NONCOLLAPSE_ESTABLISHED_NOT_POPULATION_QUALITY",
+      "result": "research/20261023/R16V0_native_results.json",
+      "analysis": "research/20261023/R16V0_analysis.json",
+      "human_review": "research/20261023/R16V0_human_review.json",
+      "review": "research/20261023/R16V0_full_duration_review.json",
+      "resources": "research/20261023/R16V0_completed_resources.json",
+      "full_generations": 5,
+      "standalone_FFN_forwards": 164,
+      "training_steps": 0,
+      "weight_factorizations": 0,
+      "actual_dynamic_FFN_sites": 160,
+      "main_MAC_fraction": 0.625,
+      "R256_MAC_fraction": 0.018518518518518517,
+      "dynamic_local_gain_over_best_of_two_fixed": 0.061275701903671154,
+      "native_4position_core_speed_ratio": 1.2627314021685656,
+      "dynamic_pooled_RGB_MSE_over_best_pixel_fixed": 1.0822574970618422,
+      "scope": "One oldsource; actualpreW1rowrouting,all160nativeFFNs,fullfree4stepvideos,all81framesdecoded,humanfullplaybacknoobviouscollapse. Nativebitcontrols anddensefourlatentidentity pass. Motiondiffers;fidelityrankingdoesnotmatchlocalSSE;noofficialfreshquality,norepeatedsystembenchmark.",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT"
+    },
+    "latest_metric_review": {
+      "id": "R15_ACADEMIC_METRIC_FAMILIES_20261023",
+      "base_commit": "aebd37f749b484f0caaf6224c0a1e507e327cf3f",
+      "document": "docs/77_FFNDS\u5b66\u672f\u6307\u6807\u65cf\u4e0e\u8bc4\u6d4b\u534f\u8bae_20261023.md",
+      "audit": "docs/78_\u6307\u6807\u5ba1\u8ba1\u4e0e\u5df2\u6709\u5b9e\u9a8c\u6620\u5c04_R15_20261023.md",
+      "catalog": "research/metric_system/academic_metric_families.json",
+      "protocol_template": "research/metric_system/evaluation_protocol_template.json",
+      "research_state": "research/20261023/research_state_R15.json",
+      "handoff": "research/20261023/HANDOFF_R15.md",
+      "status": "PRIMARY_SOURCE_REVIEW_SAVED_DATA_RECALCULATION_AND_OFFLINE_GUARD_FIX",
+      "family_count": 10,
+      "catalog_entries": 93,
+      "new_model_runs": 0
+    },
+    "metric_usage_verification_20261023": {
+      "status": "OFFLINE_REAL_SAVED_SCALARS_PLUS_SYNTHETIC_MATH_VERIFIED",
+      "guide": "docs/80_R15\u6307\u6807\u5b9e\u9645\u4f7f\u7528\u9a8c\u6536\u4e0eAgent\u6267\u884c\u6307\u5f15_20261023.md",
+      "report": "research/20261023/R16_metric_usage_acceptance.json",
+      "script": "tools/verify_r15_metric_usage.py --check",
+      "model_method_eligibility_change": "NONE",
+      "new_model_generations": 0,
+      "official_video_scores": 0
+    },
+    "current_handoff": "research/20261023/HANDOFF_R16V0.md",
+    "registered_row_dispatch": {
+      "method_id": "R16V0_FULL160_UB1_DENSE_ROW_DISPATCH",
+      "active": false,
+      "protocol": "research/20261023/R16V0_registered_protocol.json",
+      "protocol_sha256": "ab6c2ab375ffb74176b5796c9e570a6dc6ef8b32b133801bc2320922d4502fd9",
+      "authorization": "research/20261023/R16V0_authorization.json",
+      "caps": {
+        "full_generations": 5,
+        "standalone_FFN_forwards": 164,
+        "weight_factorizations": 0,
+        "training_steps": 0
+      },
+      "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+      "automatic_followup": false,
+      "budget_spent": true,
+      "result": "research/20261023/R16V0_native_results.json"
+    },
+    "previous_paired_rollouts": [
+      {
+        "id": "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT",
+        "status": "FULL_NATIVE_PAIR_COMPLETE_AGENT_FRAME_REVIEW_DONE_HUMAN_REVIEW_PENDING",
+        "result": "research/20261023/R15V0_native_rollout_results.json",
+        "result_sha256": "5b17ec7cf013c5cf07276a9cda707f76b8380eb267b149ccb2a0072c75186fc1",
+        "decode_result": "research/20261023/R15V0_video_inspection.json",
+        "review": "research/20261023/R15V0_full_duration_review.json",
+        "review_sha256": "23fb97b0fc8e60443b07e0636d7394664395915f2d7330562b95b25a625a84a4",
+        "candidate_record": "research/candidate_rollout/registry/R15V0_mean_contrast.json",
+        "protocol": "research/20261023/R15V0_registered_protocol.json",
+        "resources": "research/20261023/R15V0_completed_resources.json",
+        "evidence_level": "L3_FULL_GENERATION_COMPLETE_AGENT_FRAME_REVIEW_ONLY_HUMAN_SMOKE_VERDICT_PENDING",
+        "automatic_followup": false,
+        "decoded_pixel_fidelity": {
+          "path": "research/20261023/R15V0_decoded_pair_difference.json",
+          "sha256": "5839b5a66f78ec72b20b70572a035e3358b35a21cb8585b7ba4df719f4c3220f",
+          "family": "F1_PAIRED_RGB_TRAJECTORY_FIDELITY",
+          "scope": "Post-hoc one old exposed source0/seed42; not perceptual or official quality."
+        },
+        "HF_output_bytes_after_CPU_fidelity": 30139286
+      }
+    ],
+    "next_preparation": {
+      "id": "R17_FROZEN_METHOD_FRESH23_VALIDATION_PREPARATION",
+      "status": "FRESH23_ASSETS_SOURCE_STATISTICS_READY_AWAITING_SEPARATE_MODEL_AUTHORITY",
+      "input_audit": "research/20261023/R17_fresh23_input_audit.json",
+      "metric_CPU_imports": "research/20261023/R17_metric_import_preflight.json",
+      "source_supplement": "research/20261023/R17_metric_source_supplement.json",
+      "prepared_scope": "research/20261023/R17E0_fresh_quality_DRAFT.json",
+      "document": "docs/82_\u65b0\u6765\u6e90\u4e5d\u7ef4\u8bc4\u6d4b\u4e0e\u91cd\u590d\u539f\u751f\u6d4b\u901f_20261023.md",
+      "new_model_generations": 0,
+      "model_execution_eligibility_change": false,
+      "exclusion_proof": "research/20261023/R17_fresh23_exclusion_manifest.json",
+      "metric_assets": "research/20261023/R17_metric_asset_preparation.json",
+      "metric_aggregation_source_audit": "research/20261023/R17_metric_aggregation_source_audit.json",
+      "preparation_checks": "research/20261023/R17_preparation_checks.json"
+    }
+  },
+  "triage": {
+    "schema_version": "1.0",
+    "research_scope": "Wan2.2 I2V LightX2V Distill D-Q / frozen UB1, R12 E0 update2026-10-22",
+    "decision_record": "docs/54_\u5df2\u6dd8\u6c70\u8def\u7ebf\u9632\u56de\u9000\u5ba1\u8ba1_20261021.md",
+    "input_archives": [
+      "research/20261021/research_state.json",
+      "research/20261021/research_state_R2.json"
+    ],
+    "precedence": "research/CURRENT_DECISION.json and the latest completed native evidence govern current actions. R5 reconciles R4E1 rejection; prior theoretical snapshots are historical. No eligible follow-up is implied by an untested method family.",
+    "policy": {
+      "source_evidence": "All prior fixednative failures plus completedR7D1/R7D2/R8F1/R8F2 and R10savedvalueanalysis; detailedscope at currentdecision.",
+      "do_not_extrapolate": [
+        "A stopped recipe does not eliminate its entire method family.",
+        "Synthetic algebra does not establish Wan effects.",
+        "Development-source CV is not independent end-to-end quality.",
+        "Negative local loss and native video-quality rankings need not agree."
+      ],
+      "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+      "current_decision": "research/CURRENT_DECISION.json",
+      "execution_note": "R16V0spentexact5fullvideos/164standaloneFFNs;all160dynamicFFNs executed,originalcontrols passed,humanfullplaybacknoobviouscollapse. Oneoldsourceonly;motion/fidelitymismatchpreserved.Noofficialqualityorrepeatedsystemspeed. Model eligibilityempty;noretry/followup.Oldclosures unchanged.",
+      "reentry_requirements": [
+        "Preserve exact failed recipe ID/status and cite its protocol/result",
+        "Explain substantive computation/information/target/action/causal change, not only renamed or enlarged hyperparameters",
+        "State a falsifiable prediction and old obstruction no longer applying",
+        "Record matched controls, all costs, data exposure and stop condition before interpreting new results",
+        "Do not mistake logical non-exclusion or a loose bound for positive evidence or eligibility"
+      ],
+      "objective_contract": "research/OBJECTIVE_CONTRACT.json",
+      "goal_semantics": [
+        "The scientific end goal is deployable input-/state-conditioned dynamic FFN execution in four-step distilled D, not only static step scheduling or a lower teacher/flow loss.",
+        "UB1 25/50/50/75 is a static engineering baseline; dynamic policy must show native incremental advantage over the best matched fixed policy at identical compute/compensation and account for pre-W1 feature/routing cost.",
+        "R11T1 fixed-step native-flow objective compares small post-training objectives at one position; development SSE is not free-rollout video quality or a new dynamic support method.",
+        "Original O, distilled D-BF16 and distilled D-Q have different roles; teacher labels, native QDQ baseline and attribution of distillation-induced sparsity must not be conflated.",
+        "Frozen eligibility and rejection ledger cannot be relaxed by this semantics correction."
+      ],
+      "non_model_progress": "Source/CPU HiF4 group and spatial layout checks, compact budget debit accounting, new primary-source comparisons and information/cost counterexamples are saved separately from native D0."
+    },
+    "methods": [
+      {
+        "id": "BO1_WHOLE_VIDEO_UB1_UB2",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "Two frozen UB1/UB2 whole-video arms; on supplementary20 even imaging-only per-input retrospective oracle cannot meet 2% threshold (best 2.909550% drop). R4 extends the fixed-output upper bound to randomized selectors in expectation; not new seeds or within-video changes.",
+        "evidence": [
+          "docs/48_\u9010\u8f93\u5165\u9884\u7b97\u65b9\u6848\u7684\u8d28\u91cf\u4e0a\u754c\u4e0e\u6682\u505c.md"
+        ],
+        "not_excluded": "New support, other schedule, within-video routing",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "UB2_LATE_DENSE",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "25/25/50/100 static schedule, supplementary imaging drop 4.651736%; zero same-state final-step FFN error was not end-to-end success.",
+        "evidence": [
+          "docs/38_\u56fa\u5b9a\u9884\u7b97\u4e0b\u6062\u590d\u672b\u6b65\u5b8c\u6574FFN.md"
+        ],
+        "not_excluded": "All other step schedules",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "RB2_C_PROFILE_FOUR_BANK",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "Four-bank C-profile oracle improved only 0.56\u20130.79 percentage points; did not meet pre-registered proxy gate.",
+        "evidence": [
+          "docs/31_\u5747\u8861\u56db\u6a21\u5f0f\u8def\u7531\u8d1f\u7ed3\u679c.md"
+        ],
+        "not_excluded": "A-target or different support families",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "RB1_ORDINARY_KMEANS",
+        "status": "STOPPED_PRECHECK_NOT_EVALUATED",
+        "rationale": "Small clusters violated training minimum; no router trained or tested.",
+        "evidence": [
+          "docs/30_\u56db\u652f\u6301\u6a21\u5f0f\u8def\u7531\u53ef\u884c\u6027\u5c0f\u8bd5.md"
+        ],
+        "not_excluded": "Trained router performance",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "TC1_ROW_SUPPORT_TRANSFER",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "Same-64-token-block support transferred from a single row failed four registered C-score gates; learned states reused sampled locations.",
+        "evidence": [
+          "docs/42_\u8fde\u7eed\u5c0f\u5757\u7684\u652f\u6301\u8fc1\u79fb\u8bca\u65ad.md"
+        ],
+        "not_excluded": "Tile-aggregated signed-native-loss oracle and its predictable value",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "HP1_H256_QUADRATIC_C",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "Quadratic C-score head lost to linear h baseline in four folds.",
+        "evidence": [
+          "docs/32_\u6b8b\u5dee\u9690\u85cf\u7279\u5f81\u8d21\u732e\u9884\u6d4b.md"
+        ],
+        "not_excluded": "A-target predictions or new information",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "HP2_H256_MLP_C",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "C-score MLP lost to matched linear h control in four folds.",
+        "evidence": [
+          "docs/33_\u8de8\u7279\u5f81\u5c0f\u7f51\u7edc\u8d21\u732e\u9884\u6d4b.md"
+        ],
+        "not_excluded": "All nonlinear heads on other targets",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "NP1_NONLINEAR_C_FEATURES",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "GELU/QDQ additional features underperformed input-matched linear control on C-score.",
+        "evidence": [
+          "docs/41_\u975e\u7ebf\u6027\u8f93\u5165\u57fa\u7684\u8d21\u732e\u9884\u6d4b.md"
+        ],
+        "not_excluded": "Different targets or output-native errors",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "NF1_MISSING_FEATURE_READER",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "Native gated SSE improvement did not meet pre-registered dual gates with four additional omitted groups.",
+        "evidence": [
+          "docs/40_\u9057\u6f0f\u975e\u7ebf\u6027\u7279\u5f81\u7684\u6b8b\u5dee\u8bfb\u51fa\u5c0f\u8bd5.md"
+        ],
+        "not_excluded": "All nonlinear residual methods",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "NF2_REUSED_H_GELU_READOUT",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "All eight actual-UB1-state gates failed; nonlinear correction inferior to matched linear readout.",
+        "evidence": [
+          "docs/47_\u590d\u7528\u6b8b\u5dee\u9690\u85cf\u91cf\u7684\u8f93\u51fa\u4fee\u6b63.md"
+        ],
+        "not_excluded": "Other nonlinear correction function classes",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "OP3_NATIVE_STATE_REFIT_SAME_R256",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "Eight paired local tests failed versus frozen UB1; source exposure constrains interpretation.",
+        "evidence": [
+          "docs/46_\u771f\u5b9e\u72b6\u6001\u91cd\u62df\u5408\u4e0e\u5bfc\u5165\u5ef6\u8fdf\u4fee\u6b63.md"
+        ],
+        "not_excluded": "Other fit objectives or adequately powered fresh-source refits",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "LR2_LATE_TEN_R512",
+        "status": "CLOSED_REJECTED_EXACT",
+        "rationale": "Local risk improved but supplementary imaging still dropped 3.050580%, so video-quality gate failed.",
+        "evidence": [
+          "docs/36_\u672b\u7aef\u5341\u5c42\u7684\u6761\u4ef6\u589e\u79e9\u68c0\u9a8c.md"
+        ],
+        "not_excluded": "All higher-rank mechanisms",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "WR1_JR1_LA1_FA1_FA2_CAPACITY",
+        "status": "DEPRIORITIZED_REPEATED_FAILED_RECIPES",
+        "rationale": "Native local-CV gates rejected several retained-feature, joint-reconstruction, quantized adapter and full-weight refit recipes.",
+        "evidence": [
+          "docs/18_\u4fdd\u7559\u975e\u7ebf\u6027\u7279\u5f81\u7684\u6743\u91cd\u91cd\u5efa.md",
+          "docs/22_\u4fdd\u7559\u7279\u5f81\u4e0e\u4f4e\u79e9\u6b8b\u5dee\u8054\u5408\u91cd\u5efa.md",
+          "docs/25_\u6298\u53e0\u4f4e\u79e9\u91cf\u5316\u9002\u914d\u5c0f\u8bd5.md",
+          "docs/26_\u5168\u4e3b\u6743\u91cd\u91cf\u5316\u6062\u590d\u5c0f\u8bd5.md",
+          "docs/27_\u56fa\u5b9a\u957f\u7a0b\u91cf\u5316\u6062\u590d\u9884\u7b97\u68c0\u9a8c.md"
+        ],
+        "not_excluded": "Fundamentally different representation, information or objective",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R1_DENSE_SINGLE_GROUP_GREEDY",
+        "status": "REJECTED_AS_MAIN_METHOD",
+        "rationale": "Individual C-energy and dense-state finite changes do not capture compensated native error, cross-group interactions or deployed 50%-budget effects.",
+        "evidence": [
+          "research/20261021/Wan_Distill_FFN_Dynamic_in_Few_Step_\u6f14\u7ece\u68c0\u9a8c_20261021.md"
+        ],
+        "not_excluded": "Small native-evaluated swaps around UB1",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R1_FULL_W1_THEN_HALF_W2",
+        "status": "ELIMINATED_BY_COST_LOWER_BOUND",
+        "rationale": "For equal-cost W1/W2, even zero-cost routing produces ideal main-GEMM speedup <=4/3 and cannot establish >=1.5x complete FFN speed.",
+        "evidence": [
+          "research/20261021/Wan_Distill_FFN_\u673a\u5236\u91cd\u6784_R2_20261021.md"
+        ],
+        "not_excluded": "Pre-W1 packed routing",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R2_GELU_HALF_LINEAR_PRUNE",
+        "status": "ELIMINATED_AS_GENERAL_GUARANTEE",
+        "rationale": "At strongly negative input, retaining z/2 alone can be much worse than dropping GELU output; exact algebra does not imply sparse remainder.",
+        "evidence": [
+          "research/20261021/constructive_math_checks_R2.json"
+        ],
+        "not_excluded": "Fitted, validated quantized affine remainder",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R2_SIGNED_NATIVE_TILE_ADVANTAGE",
+        "status": "DEFERRED_NO_ELIGIBLE_SUPPORT_PAIR",
+        "rationale": "No qualifying support pair or whole-M stage emerged from R4E1. TC1 old transport remains rejected; true tile aggregate remains untested.",
+        "gates": [
+          "Establish incremental value over the coarser whole-M alternative before segmented kernel work",
+          "Native same-input/writeback K0/K1 with existing gain/bias/RR",
+          "Compare against better fixed support, not only incumbent UB1",
+          "Continuous token tiles, never a synthetic tile from 256 sampled rows",
+          "Feature-conditioned gain using only pre-FFN0 info",
+          "Prepacked support, complete FFN cost and new-source decoded quality"
+        ],
+        "evidence": [
+          "research/20261021/Wan_Distill_FFN_\u673a\u5236\u91cd\u6784_R2_20261021.md",
+          "docs/42_\u8fde\u7eed\u5c0f\u5757\u7684\u652f\u6301\u8fc1\u79fb\u8bca\u65ad.md",
+          "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+          "reports/worker_20261020/R4E1_summary.json"
+        ],
+        "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
+        "historical_dispositions": [
+          {
+            "status": "DEFERRED_BEHIND_STATIC_AND_WHOLE_M_R4",
+            "rationale": "Changed label A is mathematically distinct from C; no native K1 results, true tile-level oracle, h256 predictability, net GPU speed or new-source quality available."
+          }
+        ],
+        "related_closed_recipe": "R4E1_FIXED_H_16GROUP_Q2",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R2_ALL_CHANNEL_AFFINE_SPARSE_REMAINDER",
+        "status": "FIXED_LEARNED_OLS_GREEDY_INSTANCE_REJECTED_FAMILY_UNPROVEN",
+        "rationale": "R9A1 testedoriginalR2learnedBF16 operatorandfixedsupportchoiceafterbroadreview: numerical16/16passes, compressed7/16passes; stage1/3worsevsUB1. Syntheticcost1.6119xalonecannotacceptmodel. No further localparameter/supportrouting expansion authorizedbythisevidence.",
+        "gates": [
+          "Full-support native numerical folding control",
+          "Source-separated residual compressibility under step budgets 14/68/68/122 groups",
+          "Resident memory and actual speed cost before any complete trial"
+        ],
+        "evidence": [
+          "research/20261021/Wan_Distill_FFN_\u673a\u5236\u91cd\u6784_R2_20261021.md",
+          "docs/18_\u4fdd\u7559\u975e\u7ebf\u6027\u7279\u5f81\u7684\u6743\u91cd\u91cd\u5efa.md",
+          "research/20261021/R9_scope_reconciliation.json",
+          "research/20261021/branch_records_R10.json",
+          "research/20261021/R9A1_native_affine_results.json"
+        ],
+        "not_excluded": "Conditional Wan adaptation, not core novelty",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R1_HYBRID_SUFFIX_H1_H2_H3",
+        "status": "DIAGNOSTIC_ONLY_OPTIONAL",
+        "rationale": "Telescoping identity is valid under matched full state; dense-prefix hybrid endpoints violate the static 50%-MAC deployment constraint and are only for isolating mechanisms.",
+        "gates": [
+          "Exact native resume and RNG/cache controls",
+          "Only if rollout mechanism will change a later actionable experiment"
+        ],
+        "evidence": [
+          "research/20261021/Wan_Distill_FFN_Dynamic_in_Few_Step_\u6f14\u7ece\u68c0\u9a8c_20261021.md"
+        ],
+        "not_excluded": "Scientific diagnostic utility",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R3_COMPENSATED_STATIC_SUPPORT",
+        "status": "SUPERSEDED_BY_R4E1_FINITE_REJECTION",
+        "rationale": "The registered R4 successor was executed and rejected; do not repeat the archived static-first plan.",
+        "evidence": [
+          "tools/fit_step_budget.py",
+          "tools/step_budget_runtime.py",
+          "docs/51_AutoResearcher_R3_\u673a\u5236\u8def\u7ebf\u91cd\u5ba1_20261021.md",
+          "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
+          "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+          "reports/worker_20261020/R4E1_summary.json"
+        ],
+        "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
+        "gates": [
+          "Read-only asset/version binding",
+          "Separate frozen support gain from matched fixed-h readout gain; ideal projection is not native ridge/BF16 equivalence",
+          "same-state K0/K1 native loss vs C-score matched swap",
+          "independent-source confirmation and equal-cost refit comparison",
+          "new video quality and matched full FFN latency"
+        ],
+        "historical_dispositions": [
+          {
+            "status": "REFINED_BY_R4_MATCHED_COMPENSATION_SCREEN",
+            "rationale": "UB1 C static supports were chosen before gain/bias/R256; potential corrected residual-direction and cross-group effects, no new online router. Mathematical group Gram surrogate requires native BF16/QDQ confirmation."
+          }
+        ],
+        "related_closed_recipe": "R4E1_FIXED_H_16GROUP_Q2",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R3_WHOLE_M_BANK_ROUTING",
+        "status": "NOT_TRIGGERED_PREREQUISITE_REJECTED",
+        "rationale": "R4E2 did not trigger because the registered R4E1 native gate failed. Saved-row oracle is tiny and is not a whole-M success.",
+        "evidence": [
+          "docs/51_AutoResearcher_R3_\u673a\u5236\u8def\u7ebf\u91cd\u5ba1_20261021.md",
+          "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
+          "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+          "reports/worker_20261020/R4E1_summary.json"
+        ],
+        "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
+        "gates": [
+          "Positive source-level oracle over best static",
+          "pre-W1 predictor vs static/C controls",
+          "one-packed-bank native equality and full FFN measured cost"
+        ],
+        "historical_dispositions": [
+          {
+            "status": "CONDITIONAL_SOURCE_ORACLE_ONLY",
+            "rationale": "If native signed support advantage varies by source, one bank per step/block and full M is a simpler intermediate than segmented tile; still requires pre-W1 predictor and genuine runtime cost. R4 distinguishes action conditional cross-moments from output-regression capacity; NF2 alone cannot reject or validate routing."
+          }
+        ],
+        "related_closed_recipe": "R4E1_FIXED_H_16GROUP_Q2",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "aliases": [
+          "R4E2"
+        ]
+      },
+      {
+        "id": "R3_END_TO_END_CONTINUATION",
+        "status": "DIAGNOSTIC_ONLY_NO_AUTOMATIC_TRIGGER",
+        "rationale": "There is no newly passing native candidate from R4E1 whose decoded-quality mismatch requires this diagnostic.",
+        "evidence": [
+          "docs/34_\u76f8\u540c\u72b6\u6001\u4e0b\u7684\u539f\u751f\u6d41\u8bef\u5dee.md",
+          "docs/38_\u56fa\u5b9a\u9884\u7b97\u4e0b\u6062\u590d\u672b\u6b65\u5b8c\u6574FFN.md",
+          "docs/51_AutoResearcher_R3_\u673a\u5236\u8def\u7ebf\u91cd\u5ba1_20261021.md",
+          "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+          "reports/worker_20261020/R4E1_summary.json"
+        ],
+        "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
+        "historical_dispositions": [
+          {
+            "status": "DIAGNOSTIC_IF_PROXY_FAILS",
+            "rationale": "Only if locally improved native candidates fail decoded quality, resume controlled H1/H2/H3 to discriminate propagation and quality mismatch."
+          }
+        ],
+        "related_closed_recipe": "R4E1_FIXED_H_16GROUP_Q2",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R4_COMPENSATION_NONREDUNDANT_SUPPORT",
+        "status": "REGISTERED_INSTANCE_CLOSED_FAMILY_UNPROVEN",
+        "rationale": "Registered R4E1 instance rejected. Wider supports remain untested, not a queued primary route.",
+        "gates": [
+          "Fixed-h projection assumptions explicit",
+          "Training-only matched refit with native K0/K1 controls",
+          "No global claims from finite neighborhood or sampled rows",
+          "Fresh-source video and complete-FFN latency"
+        ],
+        "evidence": [
+          "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
+          "research/20261021/research_state_R4.json",
+          "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+          "reports/worker_20261020/R4E1_summary.json"
+        ],
+        "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
+        "historical_dispositions": [
+          {
+            "status": "PRIMARY_CONDITIONAL_MECHANISM_SCREEN",
+            "rationale": "Search fixed-budget support directions that retain value after matched existing-feature compensation; use finite-neighborhood linear upper bound before Gram/native checks."
+          }
+        ],
+        "related_closed_recipe": "R4E1_FIXED_H_16GROUP_Q2",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R4_LINEAR_READOUT_FOLD_CONTROL",
+        "status": "CONTROL_ONLY_NOT_MAIN_ROUTE",
+        "rationale": "NF2 linear readout folds algebraically into existing h readout; native BF16 reordering error and retained benefit remain unknown.",
+        "gates": [
+          "Same h and train split",
+          "Native separate-versus-folded control",
+          "No inherited quality/speed claim"
+        ],
+        "evidence": [
+          "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
+          "reports/worker_20261020/NF2_summary.json"
+        ],
+        "not_excluded": "Small cost-matched baseline improvement",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
+      },
+      {
+        "id": "R4E1_FIXED_H_16GROUP_Q2",
+        "aliases": [
+          "R4E1",
+          "R4E0_E1_FIXED_H_COMPENSATED_EQUAL_BUDGET_GROUP_SWAPS_20261021"
+        ],
+        "status": "CLOSED_REJECTED_REGISTERED_NEIGHBORHOOD",
+        "model_execution_eligibility": "CLOSED_RECIPE",
+        "rationale": "All four predeclared native gates rejected; step2 small matched gains lost to frozen UB1 and C, step3 proxy pool prefers identity.",
+        "recipe_scope": {
+          "positions": [
+            [
+              2,
+              20
+            ],
+            [
+              3,
+              20
+            ]
+          ],
+          "groups_by_step": [
+            108,
+            162
+          ],
+          "group_width": 64,
+          "shortlist_out": 8,
+          "shortlist_in": 8,
+          "max_swaps": 2,
+          "proxy_candidates_per_fold": 849,
+          "native_actions": "selected best nonzero, C, random, each with frozen/matched compensation",
+          "feature": "existing BF16 h256 plus intercept",
+          "readout": "train-only FP64 minimum-norm OLS then BF16",
+          "data": "known24 OP2 sources,12/12 folds,256 exposed sampled rows",
+          "fixed": "alpha, main bias, R first projection"
+        },
+        "evidence": [
+          "reports/worker_20261020/R4E0_E1_registered_protocol.json",
+          "reports/worker_20261020/R4E1_summary.json",
+          "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md"
+        ],
+        "not_excluded": "Full216 native global search, other positions or genuinely changed mechanisms were not tested; do not auto-widen after rejection."
+      },
+      {
+        "id": "R4_FINAL_VIDEO_SPEED",
+        "aliases": [
+          "R4E3"
+        ],
+        "status": "NOT_TRIGGERED_PREREQUISITE_REJECTED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "The finite native support prerequisite failed; no new full160 fit, video or speed candidate stage.",
+        "related_closed_recipe": "R4E1_FIXED_H_16GROUP_Q2",
+        "evidence": [
+          "reports/worker_20261020/PROJECT_RESUME_R4.json"
+        ],
+        "not_excluded": "Future independently justified and registered candidate."
+      },
+      {
+        "id": "R6_TEMPORAL_PRE_GATE_FFN",
+        "status": "DEFERRED_NO_PAIRED_READINESS_OR_POSITIVE_NATIVE_EVIDENCE",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "Past pre-gate full FFN output is new information versus current-h support/readout methods, but useful cross-step accuracy is unmeasured. Online same-expert temporal differences lack two anchors under the scoped50% all-layer schedule. Existing OP2 paired rows are sparse; no data readiness or positive native evidence for fitting.",
+        "evidence": [
+          "docs/55_\u8de8\u6b65FFN\u590d\u7528\u7684\u51b7\u542f\u52a8\u4e0e\u914d\u5bf9\u6570\u636e\u5ba1\u8ba1.md",
+          "research/20261021/temporal_cache_mechanism_record.json",
+          "research/20261021/cross_step_pairing_audit.json"
+        ],
+        "not_excluded": "Input-difference correction is logically distinct but remains unvalidated known-operator adaptation, not an eligible successor or novelty claim.",
+        "historical_reconciliation": "OriginalR20 already studied same-expert output reuse/currentgate/scalar/channel affine. R6 is a current OP2 readiness audit, not a newly introduced operator; see research/20261021/historical_reconciliation_R7.json."
+      },
+      {
+        "id": "R7_CROSS_LAYER_OUTPUT_RECOVERY",
+        "status": "RESEARCH_PRIORITY_CAUSAL_TEST_NOT_MODEL_ELIGIBLE",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "R7D1native rankingdisagreement observed; R7D2fixedtwo-gainflowobjective rejected. R10actualvssecantdirectioncos~0.57and1.806%predictedbenefitrealization motivate actualnativeforward/windowtrainingreadiness, not widergainfit.",
+        "evidence": [
+          "research/20261021/branch_records_R7.json",
+          "docs/56_\u5168\u8def\u7ebf\u590d\u76d8\u4e0e\u4e0b\u4e00\u6b65\u673a\u5236\u4f18\u5148\u7ea7_R7.md",
+          "research/20261021/R7D2_results.json",
+          "research/20261021/R10_saved_failure_geometry.json",
+          "research/20261021/branch_records_R10.json"
+        ],
+        "not_excluded": "Prioritized research question or engineering prerequisite only; no automatic model job or novel-method claim."
+      },
+      {
+        "id": "R7_FULL_H_WEIGHT_2OF4",
+        "status": "DEFERRED_KERNEL_PREFLIGHT_BELOW_REQUIRED_SPEED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "H2 full-width activation handling costs about23ms. H3 original BF16 entrypoint passes14 synthetic bitwise controls; with the same optimization for dense and sparse, complete chain reaches1.31061x and plusR2561.20378x. Still below1.5x; real model accuracy untested.",
+        "evidence": [
+          "research/20261021/branch_records_R7.json",
+          "docs/56_\u5168\u8def\u7ebf\u590d\u76d8\u4e0e\u4e0b\u4e00\u6b65\u673a\u5236\u4f18\u5148\u7ea7_R7.md",
+          "research/20261021/weight_2of4_component_profile.json",
+          "research/20261021/bf16_qdq_fastpath_preflight.json"
+        ],
+        "not_excluded": "Prioritized research question or engineering prerequisite only; no automatic model job or novel-method claim."
+      },
+      {
+        "id": "R7D1_CROSS_LAYER_TRANSPORT",
+        "status": "COMPLETED_FIXED_CAUSAL_DIAGNOSTIC",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "24 native runs complete;12 exact original controls,3/4 local-vs-flow ranking disagreements, AB reduces pooled flowSSE3.029%. Net interaction small after opposite large terms cancel. Dense diagnostic only, no candidate quality acceptance.",
+        "evidence": [
+          "research/20261021/R7D1_cross_layer_transport_protocol.json",
+          "docs/57_\u56fa\u5b9a\u53cc\u5c42\u6062\u590d\u7684\u539f\u751f\u4f20\u64ad\u8bca\u65ad.md",
+          "research/20261021/R7D1_results.json"
+        ],
+        "not_excluded": "A result can motivate separately registered output-objective fitting, never automatic deployment or widening."
+      },
+      {
+        "id": "R7D2_RESIDUAL_GAIN_OBJECTIVE",
+        "status": "CLOSED_REJECTED_FIXED_GAIN_OBJECTIVE",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "18 native generations and deterministic fits completed. Flow-fit train gain0.0357% vs predicted1.98%; development holdout gain0.0770% loses local-fit0.1655%. Close fixed two-gain recipe under pre-registered rule, no bounds/epsilon/pair sweep.",
+        "evidence": [
+          "research/20261021/R7D2_residual_gain_protocol.json",
+          "docs/58_\u5c40\u90e8\u4e0e\u4e0b\u6e38\u76ee\u6807\u7684\u53cc\u53c2\u6570\u539f\u751f\u5bf9\u7167.md",
+          "research/20261021/R7D1_results.json",
+          "research/20261021/R7D2_results.json"
+        ],
+        "not_excluded": "Small objective diagnostic only; fresh-source full candidate accuracy and complete speed not established."
+      },
+      {
+        "id": "R8F1_FULL_SUPPORT_NATIVE_FOLD",
+        "status": "CLOSED_FULL_SUPPORT_RTN_HIF4_PRECISION_REJECTED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "48 UB1/8 fullteacher controls pass; BF16fold ratios0.00081-0.00205UB1, but fullHiF4RTN0.1014-0.2685 fails all8 fixed0.1 gate. No compression follows; quantization obstruction measured, not global affine impossibility.",
+        "evidence": [
+          "research/20261021/R8F1_native_affine_protocol.json",
+          "docs/59_\u4eff\u5c04\u9aa8\u5e72\u7684\u5b8c\u6574\u652f\u6301\u539f\u751f\u7cbe\u5ea6\u68c0\u67e5.md",
+          "research/20261021/branch_records_R7.json",
+          "research/20261021/R8F1_native_affine_results.json"
+        ],
+        "not_excluded": "Only8-case fullsupport boundary prerequisite. No compression, fitting, video or speed acceptance."
+      },
+      {
+        "id": "R8F2_GROUP64_HESSIAN_AFFINE",
+        "status": "CLOSED_FIXED_GROUP64_HESSIAN_PRECISION_REJECTED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_COMPLETED_REJECTED",
+        "rationale": "Fixedgroup64encoding trainaffineSSE improves77%, but all8fullHiF4nativeprecisionchecks exceed0.1UB1 and only3/8beatRTN. SavedCPUdecomposition locateslargeunobserved-spanerrorgrowth. No damp/order/group/supportsweep.",
+        "evidence": [
+          "research/20261021/R8F2_group64_hessian_protocol.json",
+          "research/20261021/R8F1_native_affine_results.json",
+          "docs/60_HiF4\u4eff\u5c04\u77e9\u9635\u7684\u5206\u7ec4Hessian\u91cf\u5316\u4fee\u590d.md",
+          "research/20261021/R8F2_primary_sources.json",
+          "research/20261021/R8F2_native_hessian_results.json",
+          "research/20261021/R8F2_transfer_audit.json",
+          "research/20261021/R10_saved_failure_geometry.json"
+        ],
+        "not_excluded": "Only fixedextraHiF4encodinginstance closed. SubsequentoriginalR2learnedBF16testhasitsownfiniteR9A1negative; neitherclosesallaffine/recoverymethods."
+      },
+      {
+        "id": "R8D1_FULL_POPULATION_Q1_COVARIANCE",
+        "status": "DRAFT_NOT_RUN_BROAD_REVIEW_ONLY",
+        "model_execution_eligibility": "NOT_ELIGIBLE_DRAFT",
+        "rationale": "Prepared draft, not executed; currentbroadreview prioritizes representation/cost/goal/datareconciliation before selecting a fixedmodelprotocol.",
+        "evidence": [
+          "research/20261021/branch_records_R10.json"
+        ],
+        "not_excluded": "Researchreadiness only, no positivecandidateacceptance or automaticreentry."
+      },
+      {
+        "id": "R9A1_LEARNED_AFFINE_NATIVE_REMAINDER",
+        "status": "CLOSED_FIXED_LEARNED_AFFINE_COMPRESSION_REJECTED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_COMPLETED_REJECTED",
+        "rationale": "Nativefullsupport16/16passes withmax0.000811UB1error. Fixedbudget compression7/16passes: step0pooled0.9684,step1=1.1624,step2=.7498,step3=1.1544. Closes fixedlearnedperchannelOLS+greedyremainder, not allaffinefunctions. No R256/width/source/coefficientsplit extension aftervalidation.",
+        "evidence": [
+          "research/20261021/R9A1_learned_affine_protocol.json",
+          "research/20261021/R9_scope_reconciliation.json",
+          "research/20261021/representation_cost_preflight_R10.json",
+          "docs/62_\u5e7f\u6cdb\u590d\u76d8\u540e\u7684\u5b66\u4e60\u578b\u4eff\u5c04\u8868\u793a\u68c0\u9a8c.md",
+          "research/20261021/R9A1_native_affine_results.json"
+        ],
+        "not_excluded": "Researchreadiness only, no positivecandidateacceptance or automaticreentry."
+      },
+      {
+        "id": "R10_FULL_H_FACTORIZED_PROJECTIONS",
+        "status": "DEFERRED_FIXED_SYNTHETIC_COST_BELOW_REQUIRED_SPEED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "R10H1same-runfullHfactorizedsyntheticchain1.47199x vsdense, below1.5xwithslightlyunder50%MAC. No modelSVDsoraccuracyrun; noteligiblewithoutjustifiednewexecutionevidence.",
+        "evidence": [
+          "research/20261021/branch_records_R10.json",
+          "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md",
+          "research/20261021/representation_cost_preflight_R10.json"
+        ],
+        "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
+      },
+      {
+        "id": "R10_NATIVE_WINDOW_ROLLOUT_RECOVERY",
+        "status": "RESEARCH_BACKLOG_PREREQUISITES_UNPROVEN",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "Exact final-head nativebytes, actual parameter gradients and lowmemory provenR11G1. R11T1 fixed20step nativeobjective gives real1.491%developmentflow gain vs no localflow gain, but misses registered2%gate. Doesnotclosefullobjective/trajectoryfamily; fullstudentrollout remainsunproven andnoteligible. No unchangedrecipe expansion aftervalidation.",
+        "evidence": [
+          "research/20261021/branch_records_R10.json",
+          "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md",
+          "research/20261021/R11G1_native_head_results.json",
+          "research/20261021/R11T1_matched_objective_results.json"
+        ],
+        "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
+      },
+      {
+        "id": "R10_ROBUST_CALIBRATION_GEOMETRY",
+        "status": "RESEARCH_BACKLOG_PREREQUISITES_UNPROVEN",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "Completecomputation/failure/cost/data/prediction record exists; prerequisite/nativefeasibility notcompleted. See R10branchrecord.",
+        "evidence": [
+          "research/20261021/branch_records_R10.json",
+          "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md"
+        ],
+        "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
+      },
+      {
+        "id": "R10_SPATIAL_CONDITIONAL_INFORMATION",
+        "status": "RESEARCH_BACKLOG_PREREQUISITES_UNPROVEN",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
+        "rationale": "Completecomputation/failure/cost/data/prediction record exists; prerequisite/nativefeasibility notcompleted. See R10branchrecord.",
+        "evidence": [
+          "research/20261021/branch_records_R10.json",
+          "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md"
+        ],
+        "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
+      },
+      {
+        "id": "R11G1_NATIVE_HEAD_GRADIENT_READINESS",
+        "status": "COMPLETED_READINESS_ONLY_NO_TRAINING_TRIGGER",
+        "model_execution_eligibility": "NOT_ELIGIBLE_COMPLETED_DIAGNOSTIC",
+        "rationale": "All12originalstep controls and5strictfulltensorbytechecks pass; existing R256 gradients finite/nonzero andoneactualBF16 update reduces exposed-sourceflowMSE0.291%. Readiness only, no objective superiority or recovery acceptance.",
+        "evidence": [
+          "research/20261021/R11G1_native_head_protocol.json",
+          "research/20261021/R11G1_mechanism_record.json",
+          "docs/63_\u539f\u751f\u8f93\u51fa\u5934\u68af\u5ea6\u4e0e\u96f6\u66f4\u65b0\u7b49\u4ef7\u68c0\u67e5.md",
+          "research/20261021/R11G1_native_head_results.json"
+        ]
+      },
+      {
+        "id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+        "status": "CLOSED_FIXED20_MATCHED_HEAD_OBJECTIVE_REJECTED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_COMPLETED_REJECTED",
+        "rationale": "R11G1 gradients/bytes passed; R11T1 six native runs and equal20step local/native fits completed. Native flow train improves2.460%, development1.491%, beats local1.574% but misses fixed2%overUB1 gate. Close fixedinstance; no LR/steps/window/source extension or automatic rollout/quality.",
+        "evidence": [
+          "research/20261021/R11T1_matched_objective_protocol.json",
+          "research/20261021/R11T1_mechanism_record.json",
+          "docs/64_\u76f8\u540c\u90e8\u7f72\u9884\u7b97\u4e0b\u7684\u5c40\u90e8\u4e0e\u771f\u5b9eflow\u76ee\u6807\u5bf9\u7167.md",
+          "research/20261021/R11G1_native_head_results.json",
+          "research/20261021/R11T1_matched_objective_results.json"
+        ]
+      },
+      {
+        "id": "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE",
+        "status": "CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_COMPLETED_FIXED_DIAGNOSTIC",
+        "rationale": "All24 native cases valid; conditional oracle reduces best fixedNA loss by0.231928%, below1%, and exceeds frozenUB1 loss by2.574103%. Close exactly this fixed no-correction 162/162,216/108,108/216 diagnostic; no automatic extension.",
+        "evidence": [
+          "research/20261022/R12_D0_registered_protocol.json",
+          "research/20261022/R12_D0_authorization.json",
+          "research/20261022/R12_D0_CPU_preflight.json",
+          "research/20261022/R12_mechanism_record.json",
+          "research/20261022/R12_D0_native_results.json",
+          "research/20261022/R12_D0_budget_debit.json",
+          "research/20261022/R12_D0_completed_resources.json"
+        ]
+      },
+      {
+        "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+        "status": "CLOSED_FIXED_NATIVE_STRIPE_RESPONSE_AND_NORM_VALUE_REJECTED",
+        "model_execution_eligibility": "NOT_ELIGIBLE_COMPLETED_FIXED_DIAGNOSTIC",
+        "rationale": "Complete4originalUB1observations/32standaloneFFN/104extra linears;allcontrolsvalid. Olddevelopment0/10dynamicwritebackSSE31.1642%aboveUB1,5.1659%abovebesttrainingfixed;oracle19.1142%aboveUB1 despite4.4956%gainoverfixed. eta0. No freecandidatevideo/nativefullmodel speed result.",
+        "evidence": [
+          "research/20261022/R14N0_registered_protocol.json",
+          "research/20261022/R14N0_authorization.json",
+          "research/20261022/R14N0_CPU_preflight.json",
+          "research/20261022/R14_native_draft_CPU_readiness.json",
+          "research/20261022/R14N0_native_results.json",
+          "research/20261022/R14N0_capture_receipt.json",
+          "research/20261022/R14N0_budget_debit.json",
+          "research/20261022/R14N0_completed_resources.json"
+        ]
+      },
+      {
+        "id": "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT",
+        "status": "COMPLETED_FIXED_PAIRED_GENERATION_HUMAN_REVIEW_PENDING",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_PAIRED_SCOPE_COMPLETED",
+        "rationale": "Userdirected implementation-first pairedfullvideointegration;preparedrank256mean/contrast hookatfourstep/block20,onesource/twovideos. No novelty gate orpromotionclaim.",
+        "evidence": [
+          "research/20261023/R15V0_paired_rollout_DRAFT.json",
+          "research/20261023/R15V0_offline_preflight.json",
+          "research/20261023/R15V0_native_rollout_results.json",
+          "research/20261023/R15V0_video_inspection.json",
+          "research/20261023/R15V0_full_duration_review.json"
+        ]
+      },
+      {
+        "id": "R16V0_FULL160_UB1_DENSE_ROW_DISPATCH",
+        "status": "COMPLETED_SCOPED_FULL160_ROW_DISPATCH_SMOKE_PASSED",
+        "rationale": "One oldsource; actualpreW1rowrouting,all160nativeFFNs,fullfree4stepvideos,all81framesdecoded,humanfullplaybacknoobviouscollapse. Nativebitcontrols anddensefourlatentidentity pass. Motiondiffers;fidelityrankingdoesnotmatchlocalSSE;noofficialfreshquality,norepeatedsystembenchmark.",
+        "evidence": [
+          "research/20261023/R16V0_native_results.json",
+          "research/20261023/R16V0_analysis.json",
+          "research/20261023/R16V0_human_review.json",
+          "research/20261023/R16V0_full_duration_review.json",
+          "research/20261023/R16V0_completed_resources.json"
+        ],
+        "registered_protocol": "research/20261023/R16V0_registered_protocol.json",
+        "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT"
+      },
+      {
+        "id": "R17E0_FRESH23_NINE_METRICS_AND_SYSTEM_TIMING",
+        "status": "PREPARATION_ONLY_NO_MODEL_AUTHORITY",
+        "rationale": "Prospective fresh23officialnine and properbalanced systemtiming of the alreadyhuman-smoked frozenR16V0operator. Not a renamed reopening of rejected R14N0/D0/R4, not a new algorithm sweep. Fixed145generation/45metric proposal only; separate human authority and phase bindings required.",
+        "evidence": [
+          "research/20261023/R17_fresh23_input_audit.json",
+          "research/20261023/R17_metric_import_preflight.json"
+        ],
+        "model_execution_eligibility": "NOT_ELIGIBLE_AWAITING_SEPARATE_AUTHORITY"
+      }
+    ],
+    "acceptance": {
+      "joint_conditions": [
+        "Main FFN budget baseline 50% where specified; compare total auxiliary work fairly",
+        "Complete FFN speedup >=1.5x under matched runtime boundary",
+        "Aesthetic, imaging, motion each <=2% relative drop on fresh pre-frozen sources"
+      ],
+      "historical_reference": {
+        "UB1_speedup": 1.546111,
+        "UB1_supplemental_imaging_drop_percent": 3.165968,
+        "added_cost_headroom_ms": 202.357198
+      },
+      "warning": "Historical point estimates are not new timing; earlier original20 and disjoint20 both entered development."
+    },
+    "followup_review": {
+      "date": "2026-10-21",
+      "skill_source": "mechanism-research SKILL.md; computational reconstruction, deduction first, constructive resolution, novelty gate",
+      "evidence_base_commit": "dceb931ef572e27e6ace9123d85c5b2892813719",
+      "decision_document": "docs/54_\u5df2\u6dd8\u6c70\u8def\u7ebf\u9632\u56de\u9000\u5ba1\u8ba1_20261021.md",
+      "state": "research/20261021/research_state_R5.json",
+      "override": "R4E1 finite recipe closed; dependent R4E2/E3 not triggered. No automatic next model job.",
+      "execution_status": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP"
+    },
+    "previous_followup_reviews": [
+      {
+        "date": "2026-10-21",
+        "skill_source": "Qesire/AutoResearcher@bb34ea7be50624d47cb26de7c7c49e40882001f1",
+        "decision_document": "docs/51_AutoResearcher_R3_\u673a\u5236\u8def\u7ebf\u91cd\u5ba1_20261021.md",
+        "state": "research/20261021/research_state_R3.json",
+        "override": "R3 prioritizes static compensated support screening first; dynamic only if coarse conditional benefit and cost gates pass. Existing exact failures remain closed. No new execution.",
+        "execution_status": "PAUSED_NO_GPU"
+      },
+      {
+        "date": "2026-10-21",
+        "skill_source": "mechanism-research local SKILL.md and CR/DF/CRL/MNG core",
+        "evidence_base_commit": "9227de1f3e391341ff000c15ad805d9ca2db3084",
+        "decision_document": "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
+        "state": "research/20261021/research_state_R4.json",
+        "override": "Prioritize compensation-nonredundant static support; whole-M action routing remains conditional. No new model execution.",
+        "execution_status": "PAUSED_NO_GPU"
+      }
+    ],
+    "live_execution_override": {
+      "status": "R4_FINITE_SCREEN_COMPLETE_NATIVE_GATE_REJECTED",
+      "evidence": "reports/worker_20261020/PROJECT_RESUME_R4.json",
+      "note": "Registered R4E0/E1 recovery and finite closure are observed. Main current entries now agree; prior paused/primary labels are historical.",
+      "evidence_document": "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+      "scope": "Only the registered16-group shortlist at two fixed positions was tested. Other supports remain untested; R4E2/E3 not triggered.",
+      "current_decision": "research/CURRENT_DECISION.json"
+    },
+    "policy_history": [
+      {
+        "source_evidence": "Existing FFNDS reports plus 2026-10-21 supplied synthetic/deductive research files; no new model experiments.",
+        "do_not_extrapolate": [
+          "A stopped recipe does not eliminate its entire method family.",
+          "Synthetic algebra does not establish Wan effects.",
+          "Development-source CV is not independent end-to-end quality.",
+          "Negative local loss and native video-quality rankings need not agree."
+        ],
+        "execution_state": "PAUSED_NO_NEW_GPU"
+      },
+      {
+        "source_evidence": "R4E0/E1 registered native results and prior saved failures; this R5 turn only audits saved files and CPU arithmetic.",
+        "do_not_extrapolate": [
+          "A stopped recipe does not eliminate its entire method family.",
+          "Synthetic algebra does not establish Wan effects.",
+          "Development-source CV is not independent end-to-end quality.",
+          "Negative local loss and native video-quality rankings need not agree."
+        ],
+        "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+        "current_decision": "research/CURRENT_DECISION.json",
+        "execution_note": "The finite protocol was resumed and completed. This is not a new user pause; its rejection leaves no eligible downstream model stage.",
+        "reentry_requirements": [
+          "Preserve exact failed recipe ID/status and cite its protocol/result",
+          "Explain substantive computation/information/target/action/causal change, not only renamed or enlarged hyperparameters",
+          "State a falsifiable prediction and old obstruction no longer applying",
+          "Record matched controls, all costs, data exposure and stop condition before interpreting new results",
+          "Do not mistake logical non-exclusion or a loose bound for positive evidence or eligibility"
+        ]
+      },
+      {
+        "execution_state": "R4_CLOSED_GROUP64_HESSIAN_FOLD_REGISTERED",
+        "disposition": "R8F2 completedandclosed; broaduser-requestedreview beforeselectinganothermodeljob."
+      }
+    ],
+    "latest_static_review": {
+      "id": "R15_FOUR_ROW_MEAN_CONTRAST_BACKEND_AND_INTEGRATION",
+      "document": "docs/77_R15\u5b8c\u6574\u56db\u4f4d\u7f6e\u54cd\u5e94\u4e0e\u914d\u5bf9\u89c6\u9891\u8dd1\u901a\u8bb0\u5f55.md",
+      "result": "research/20261023/R15_mechanism_record.json",
+      "result_sha256": "e0c3c106de39d97377435d11a0f40a3ac2a35fe3708e404b6294b07ae8ffff99",
+      "status": "SYNTHETIC_BACKEND_COMPLETE_FULL_VIDEO_IMPLEMENTATION_PREPARED",
+      "new_model_generations": 0,
+      "scope": "4savedCPUscopes/256groups and42randomtensorGPUchain samples. Pairedoriginal-modelvideoimplementationprepared;notyetexecuted.",
+      "next_discriminator": "Execute separately authorized R15V0completepairedfreevideo before more local/synthetic refinement. Novelty discussion deferred.",
+      "subsequent_separately_authorized_native_result": "research/20261023/R15V0_native_rollout_results.json"
+    },
+    "latest_research_review": {
+      "id": "R16V0_FULL160_NATIVE_ROW_DISPATCH_AND_HUMAN_SMOKE",
+      "status": "COMPLETED_SCOPED_FULL160_ROW_DISPATCH_SMOKE_PASSED",
+      "disposition": "ONE_SOURCE_FULL160_DYNAMIC_OPERATOR_AND_HUMAN_NONCOLLAPSE_ESTABLISHED_NOT_POPULATION_QUALITY",
+      "result": "research/20261023/R16V0_native_results.json",
+      "analysis": "research/20261023/R16V0_analysis.json",
+      "human_review": "research/20261023/R16V0_human_review.json",
+      "review": "research/20261023/R16V0_full_duration_review.json",
+      "resources": "research/20261023/R16V0_completed_resources.json",
+      "full_generations": 5,
+      "standalone_FFN_forwards": 164,
+      "training_steps": 0,
+      "weight_factorizations": 0,
+      "actual_dynamic_FFN_sites": 160,
+      "main_MAC_fraction": 0.625,
+      "R256_MAC_fraction": 0.018518518518518517,
+      "dynamic_local_gain_over_best_of_two_fixed": 0.061275701903671154,
+      "native_4position_core_speed_ratio": 1.2627314021685656,
+      "dynamic_pooled_RGB_MSE_over_best_pixel_fixed": 1.0822574970618422,
+      "scope": "One oldsource; actualpreW1rowrouting,all160nativeFFNs,fullfree4stepvideos,all81framesdecoded,humanfullplaybacknoobviouscollapse. Nativebitcontrols anddensefourlatentidentity pass. Motiondiffers;fidelityrankingdoesnotmatchlocalSSE;noofficialfreshquality,norepeatedsystembenchmark.",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT"
+    },
+    "latest_native_diagnostic": {
+      "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+      "result": "research/20261022/R14N0_native_results.json",
+      "status": "CLOSED_FIXED_NATIVE_STRIPE_RESPONSE_AND_NORM_VALUE_REJECTED",
+      "complete_native_generations": 4,
+      "standalone_FFN_forwards": 32,
+      "extra_linears": 104,
+      "finite_local_dynamic_support": false,
+      "evaluation_dynamic_gain_over_fixed": -0.05165930479770209,
+      "evaluation_dynamic_gain_over_UB1": -0.31164172660792255,
+      "oracle_gain_over_fixed": 0.044955664646034954,
+      "oracle_gain_over_UB1": -0.19114241208730243,
+      "all_controls_valid": true,
+      "quality_or_speed_acceptance": false
+    },
+    "previous_static_reviews": [
+      {
+        "id": "R6_TEMPORAL_PRE_GATE_FFN",
+        "document": "docs/55_\u8de8\u6b65FFN\u590d\u7528\u7684\u51b7\u542f\u52a8\u4e0e\u914d\u5bf9\u6570\u636e\u5ba1\u8ba1.md",
+        "mechanism_record": "research/20261021/temporal_cache_mechanism_record.json",
+        "metadata_audit": "research/20261021/cross_step_pairing_audit.json",
+        "disposition": "DEFERRED_NO_PAIRED_READINESS_OR_POSITIVE_NATIVE_EVIDENCE",
+        "scope": "CPU metadata plus structural deductions only; no activation-value screen or model execution. R5 closure and empty eligibility unchanged."
+      },
+      {
+        "id": "R12_E0_SIGNED_VALUE_AND_CONDITIONAL_GRANULARITY",
+        "document": "docs/66_R12\u7b49\u9884\u7b97\u52a8\u4f5c\u7684\u64cd\u4f5c\u6570\u4e0e\u6761\u4ef6\u7c92\u5ea6\u5ba1\u8ba1.md",
+        "operand_audit": "research/20261022/R12_E0_operand_audit.json",
+        "saved_flow_geometry": "research/20261022/R12_E0_flow_partitions.json",
+        "runtime_reconstruction": "research/20261022/R12_E0_runtime_reconstruction.json",
+        "mechanism_record": "research/20261022/R12_mechanism_record.json",
+        "method_search": "research/20261022/method_search_R12.json",
+        "draft": "research/20261022/R12_E1_native_value_DRAFT.json",
+        "disposition": "E0_COMPLETED_DRAFT_ONLY_NO_MODEL_ELIGIBILITY",
+        "scope": "CPU/source audit and historical output geometry;0 new model jobs. Whole-source historical restore-only oracle gain0.171022%; output mosaics frame0.314848% and native-token5.089427% are NOT executed R12 action values.",
+        "next_action": "Independent scope review/registration of the fixed native equal-budget value collection, controls first; no router or old recipe extension."
+      },
+      {
+        "id": "R12_INFORMATION_AND_BUDGET_DISCRIMINATORS",
+        "document": "docs/70_\u6761\u4ef6\u4fe1\u53f7\u4e0e\u8de8\u6b65\u65b9\u6cd5\u7684\u771f\u5b9e\u9884\u7b97.md",
+        "result": "research/20261022/R12_information_budget_discriminators.json",
+        "result_sha256": "af683785342a9913fe09deaab0b3a486443f82af61a65218098b602f83980776",
+        "status": "SYNTHETIC_MATH_SOURCE_REVIEW_AND_EXACT_BUDGET_ONLY",
+        "new_model_generations": 0,
+        "scope": "Mean-only cancellation counterexample, reconfirmed two-expert dense-anchor cost and actual two-GEMM proxy cost. No native tile/predictor/delta performance and no new execution authority."
+      },
+      {
+        "id": "R13_SPATIAL_CONTRAST_AND_POOLED_NONLINEAR_RESPONSE",
+        "document": "docs/71_\u7a7a\u95f4\u8bef\u5dee\u7684\u53ef\u5171\u4eab\u90e8\u5206\u4e0e\u53cc\u70b9\u975e\u7ebf\u6027\u6784\u9020.md",
+        "result": "research/20261022/R13_mechanism_record.json",
+        "result_sha256": "6127c4b6c270f6890ef4bee83e3e10a4eeca0e4a7b0adc7ade61358b8ff0ec99",
+        "status": "SAVED_CPU_AND_SYNTHETIC_GPU_COMPLETE_DIRECT_IMPLEMENTATION_TOO_SLOW_THREE_DIRECTION_SEED_OPEN",
+        "new_model_generations": 0,
+        "scope": "96 saved OP2 scopes;193 pair comparisons; frozen affine CPU checks; finite sharing bounds; original HiF4 joint-dependence counterexample. One synthetic A100 full-shape cost check rejects direct implementation at1.355x; three-direction affine rewrite has45.1381%MAC and0.02364%UB1-relative CPU rounding discrepancy. No new Wan forward, conditional policy, free video or original model speed result.",
+        "next_discriminator": "Inspect a three-direction projection/reconstruction memory schedule and a prospective fixed synthetic cost comparison before any Wan collection. Only after backend feasibility is positive should complete-stripe native operands and actual conditional gain be separately registered and authorized."
+      },
+      {
+        "id": "R14_THREE_DIRECTION_FUSED_BACKEND",
+        "document": "docs/73_\u4e09\u65b9\u5411\u878d\u5408\u7b97\u5b50\u7684\u5b9e\u9645\u6210\u672c\u4e0e\u539f\u751f\u4ef7\u503c\u4e0b\u4e00\u6b65.md",
+        "result": "research/20261022/R14_mechanism_record.json",
+        "result_sha256": "0681f8c093044f2eb101ab36f61b2a1f8a34abb694e3da23a17e95f452ba6cf7",
+        "status": "SYNTHETIC_BACKEND_ADVANCE_NATIVE_VALUE_UNMEASURED",
+        "new_model_generations": 0,
+        "scope": "One fixed random-tensor A100 comparison:7arms,49samples,16fusioncontrols,14originalQDQchecks. Fused3-direction dynamic28.1745ms/1.913x,45.1381%MAC;unfuseddynamic46.9870ms. No Wan/nativevalue/video/original160FFN speed result.",
+        "next_discriminator": "Complete-stripe actual native writeback action values at one fixed position,4oldexposed sources,training-only bestfixed32/64 versus same-count norm andoracle; fixed draft<=4UB1captures and<=32standaloneFFNcalls. Final executable/source bindings and separate direct human authority required before registration/execution."
+      }
+    ],
+    "previous_research_reviews": [
+      {
+        "id": "FFNDS-R7-FAILURE-AND-METHOD-REVIEW",
+        "evidence_base_commit": "16e14265b6a8908bc9e6f3fa7fc4fb860c350fb8",
+        "document": "docs/56_\u5168\u8def\u7ebf\u590d\u76d8\u4e0e\u4e0b\u4e00\u6b65\u673a\u5236\u4f18\u5148\u7ea7_R7.md",
+        "data_audit": "research/20261021/failure_data_audit_R7.json",
+        "historical_reconciliation": "research/20261021/historical_reconciliation_R7.json",
+        "method_search": "research/20261021/method_search_R7.json",
+        "branch_records": "research/20261021/branch_records_R7.json",
+        "synthetic_backend_results": [
+          "research/20261021/weight_2of4_shape_preflight.json",
+          "research/20261021/weight_2of4_fused_layout_preflight.json"
+        ],
+        "scope": "Research reopened by user request: saved-source/tensor analysis and two non-model synthetic GPU shape preflights. No new Wan training/video/accuracy or original full160 timing.",
+        "priority": "Cross-layer/downstream objective diagnosis; sparse full-H backend cost; existing affine backbone backlog.",
+        "next_diagnostic": "research/20261021/R8F2_group64_hessian_protocol.json",
+        "next_diagnostic_status": "REGISTERED_FIXED_ENCODING_PENDING",
+        "eligibility_note": "One fixed nativegroup64 Hessian encoding addresses the measured new-affine quantization error; same validation sources/positions/threshold, no compressed candidate or hyperparameter search.",
+        "checks": "research/20261021/continuation_checks_R7.json"
+      },
+      {
+        "id": "R12_E0_SIGNED_VALUE_AND_CONDITIONAL_GRANULARITY",
+        "document": "docs/66_R12\u7b49\u9884\u7b97\u52a8\u4f5c\u7684\u64cd\u4f5c\u6570\u4e0e\u6761\u4ef6\u7c92\u5ea6\u5ba1\u8ba1.md",
+        "operand_audit": "research/20261022/R12_E0_operand_audit.json",
+        "saved_flow_geometry": "research/20261022/R12_E0_flow_partitions.json",
+        "runtime_reconstruction": "research/20261022/R12_E0_runtime_reconstruction.json",
+        "mechanism_record": "research/20261022/R12_mechanism_record.json",
+        "method_search": "research/20261022/method_search_R12.json",
+        "draft": "research/20261022/R12_E1_native_value_DRAFT.json",
+        "disposition": "E0_COMPLETED_DRAFT_ONLY_NO_MODEL_ELIGIBILITY",
+        "scope": "CPU/source audit and historical output geometry;0 new model jobs. Whole-source historical restore-only oracle gain0.171022%; output mosaics frame0.314848% and native-token5.089427% are NOT executed R12 action values.",
+        "next_action": "Independent scope review/registration of the fixed native equal-budget value collection, controls first; no router or old recipe extension."
+      },
+      {
+        "id": "R12_D0_EQUAL_BUDGET_NATIVE_VALUE_AND_DEBIT",
+        "document": "docs/68_R12_D0\u7b49\u9884\u7b97\u539f\u751f\u52a8\u4f5c\u68c0\u9a8c.md",
+        "native_result": "research/20261022/R12_D0_native_results.json",
+        "native_result_sha256": "00f34436ca7c1cca73f8abb104e37c60c60415df95c5284a4aed0c229af54a8c",
+        "protocol": "research/20261022/R12_D0_registered_protocol_worker_migration.json",
+        "budget_debit": "research/20261022/R12_D0_budget_debit.json",
+        "budget_debit_sha256": "d5e90603a5647ddf69deb092e6260506975c54acd00600d65b6a4cee5454ef45",
+        "resources": "research/20261022/R12_D0_completed_resources.json",
+        "resources_sha256": "ecf4cf51d8ec8be011494e0acd52635a319bebc2b96e5a16595be2a4e725f416",
+        "disposition": "CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED",
+        "scope": "Completed24 native cases on4 development-exposed fixed-step sources; raw pair zero correction. Oracle conditional gain0.231928% over best fixedNA; oracle loss2.574103% above frozenUB1. All numerical/cost controls pass, N0 repeats exact. No policy, free student quality or full FFN speed result.",
+        "next_action": "Close only this fixed raw/no-correction three-action D0; no width/source/threshold expansion, D1, predictor or rollout is triggered. Keep mathematically distinct source/data exploration open."
+      },
+      {
+        "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+        "document": "docs/74_\u5b8c\u6574\u7a7a\u95f4\u90bb\u57df\u7684\u539f\u751f\u503c\u4e0e\u56fa\u5b9a\u53cc\u70b9\u6784\u9020\u62d2\u7edd.md",
+        "native_result": "research/20261022/R14N0_native_results.json",
+        "native_result_sha256": "2124881b20f80085cc0953cc7d39862beaae43c88723cdd9953648ea44b29dd4",
+        "protocol": "research/20261022/R14N0_registered_protocol.json",
+        "budget_debit": "research/20261022/R14N0_budget_debit.json",
+        "budget_debit_sha256": "d0cacf7475d33938a6e7fd7583d3b12ef8d5e317e912224ca20c1431edbf5bac",
+        "resources": "research/20261022/R14N0_completed_resources.json",
+        "resources_sha256": "336afc4c92353245b3e72a4523e0845224a3de40ed828ccf618dc4c6a9fce594",
+        "disposition": "CLOSED_FIXED_NATIVE_STRIPE_RESPONSE_AND_NORM_VALUE_REJECTED",
+        "scope": "Complete4originalUB1observations/32standaloneFFN/104extra linears;allcontrolsvalid. Olddevelopment0/10dynamicwritebackSSE31.1642%aboveUB1,5.1659%abovebesttrainingfixed;oracle19.1142%aboveUB1 despite4.4956%gainoverfixed. eta0. No freecandidatevideo/nativefullmodel speed result.",
+        "next_action": "Close exactly this fixedresponse/sign/position/sampledactioninstance. Analyze saveddata/CPU contrast-versus-mean response error and availableinformation. No sign/source/point/position search,newfit,candidaterollout or automaticmodel followup.",
+        "mechanism_record": "research/20261022/R14N0_mechanism_record.json",
+        "mechanism_record_sha256": "9f507326db1e75d91ced31c56110421f9e61af804ca64655b613fedc91f5116c",
+        "saved_CPU_analysis": "research/20261022/R14N0_saved_failure_analysis.json"
+      },
+      {
+        "id": "R15_FOUR_ROW_MEAN_CONTRAST_BACKEND_AND_INTEGRATION",
+        "document": "docs/77_R15\u5b8c\u6574\u56db\u4f4d\u7f6e\u54cd\u5e94\u4e0e\u914d\u5bf9\u89c6\u9891\u8dd1\u901a\u8bb0\u5f55.md",
+        "result": "research/20261023/R15_mechanism_record.json",
+        "result_sha256": "e0c3c106de39d97377435d11a0f40a3ac2a35fe3708e404b6294b07ae8ffff99",
+        "status": "SYNTHETIC_BACKEND_COMPLETE_FULL_VIDEO_IMPLEMENTATION_PREPARED",
+        "new_model_generations": 0,
+        "scope": "4savedCPUscopes/256groups and42randomtensorGPUchain samples. Pairedoriginal-modelvideoimplementationprepared;notyetexecuted.",
+        "next_discriminator": "Execute separately authorized R15V0completepairedfreevideo before more local/synthetic refinement. Novelty discussion deferred."
+      }
+    ],
+    "latest_native_registration": {
+      "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
+      "status": "HISTORICAL_COMPLETED_FIXED_R14N0_NO_REPEAT_AUTHORIZATION",
+      "protocol": "research/20261022/R14N0_registered_protocol.json",
+      "authorization": "research/20261022/R14N0_authorization.json",
+      "CPU_preflight": "research/20261022/R14N0_CPU_preflight.json",
+      "active": false,
+      "scope": "Only4originalUB1observations and32standaloneFFNcalls; exacttrainingfixed32/64 vsnorm/oracle. No training/candidatevideo/followup.",
+      "completed_result": "research/20261022/R14N0_native_results.json"
+    },
+    "latest_open_research_library": {
+      "remote_commit": "40a5e4955e91cbd5b40a7c9a0cd4f359664de4fc",
+      "index": "research/exploration/20261022/EXPLORATION_INDEX.md",
+      "synthesis": "docs/67_\u540e\u8bad\u7ec3\u52a8\u6001FFN\u5f00\u653e\u63a2\u7d22\u4e0e\u8d28\u91cf\u901f\u5ea6\u76ee\u6807_20261022.md",
+      "execution_authorization_effect": "NONE; D0 has separate prior explicit user approval, fixed scope preserved. No GBA/STB preference or exclusive pair-first sequence."
+    },
+    "native_registration_history": [
+      {
+        "id": "R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE",
+        "status": "REGISTERED_SECONDARY_WORKER_CONTROLS_READY",
+        "protocol": "research/20261022/R12_D0_registered_protocol_worker_migration.json",
+        "authorization": "research/20261022/R12_D0_authorization.json",
+        "CPU_preflight": "research/20261022/R12_D0_CPU_preflight_secondary.json",
+        "scope": "Second worker verified:93 original model/cache SHA256 checks, same assets and source; original attempt0 model calls. Same fixed24-case D0, controls first on GPU0/1. No training, new action, threshold or rollout.",
+        "resource_migration": "research/20261022/R12_D0_worker_migration.json",
+        "asset_preflight": "research/20261022/R12_D0_asset_preflight_secondary.json"
+      }
+    ],
+    "pending_paired_rollout": {
+      "method_id": "R15V0_MEAN_CONTRAST_PAIRED_ROLLOUT",
+      "draft": "research/20261023/R15V0_paired_rollout_DRAFT.json",
+      "candidate_record": "research/candidate_rollout/registry/R15V0_mean_contrast.json",
+      "status": "GENERATED_AND_DECODED_FIXED_BUDGET_SPENT_HUMAN_REVIEW_PENDING",
+      "model_execution_authority": {
+        "path": "research/20261023/R15V0_authorization.json",
+        "sha256": "531ef51329fe48e807a6769b40ce5ef795eaa9cf10c238bb59132cdbceea6550"
+      },
+      "dispatch_receipt": "research/20261023/R15V0_dispatch_preflight_failure.json",
+      "completed_result": "research/20261023/R15V0_native_rollout_results.json"
+    },
+    "latest_paired_rollout": {
+      "id": "R16V0_FULL160_NATIVE_ROW_DISPATCH_AND_HUMAN_SMOKE",
+      "status": "COMPLETED_SCOPED_FULL160_ROW_DISPATCH_SMOKE_PASSED",
+      "disposition": "ONE_SOURCE_FULL160_DYNAMIC_OPERATOR_AND_HUMAN_NONCOLLAPSE_ESTABLISHED_NOT_POPULATION_QUALITY",
+      "result": "research/20261023/R16V0_native_results.json",
+      "analysis": "research/20261023/R16V0_analysis.json",
+      "human_review": "research/20261023/R16V0_human_review.json",
+      "review": "research/20261023/R16V0_full_duration_review.json",
+      "resources": "research/20261023/R16V0_completed_resources.json",
+      "full_generations": 5,
+      "standalone_FFN_forwards": 164,
+      "training_steps": 0,
+      "weight_factorizations": 0,
+      "actual_dynamic_FFN_sites": 160,
+      "main_MAC_fraction": 0.625,
+      "R256_MAC_fraction": 0.018518518518518517,
+      "dynamic_local_gain_over_best_of_two_fixed": 0.061275701903671154,
+      "native_4position_core_speed_ratio": 1.2627314021685656,
+      "dynamic_pooled_RGB_MSE_over_best_pixel_fixed": 1.0822574970618422,
+      "scope": "One oldsource; actualpreW1rowrouting,all160nativeFFNs,fullfree4stepvideos,all81framesdecoded,humanfullplaybacknoobviouscollapse. Nativebitcontrols anddensefourlatentidentity pass. Motiondiffers;fidelityrankingdoesnotmatchlocalSSE;noofficialfreshquality,norepeatedsystembenchmark.",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT"
+    },
+    "next_preparation": {
+      "id": "R17_FROZEN_METHOD_FRESH23_VALIDATION_PREPARATION",
+      "status": "FRESH23_ASSETS_SOURCE_STATISTICS_READY_AWAITING_SEPARATE_MODEL_AUTHORITY",
+      "input_audit": "research/20261023/R17_fresh23_input_audit.json",
+      "metric_CPU_imports": "research/20261023/R17_metric_import_preflight.json",
+      "source_supplement": "research/20261023/R17_metric_source_supplement.json",
+      "prepared_scope": "research/20261023/R17E0_fresh_quality_DRAFT.json",
+      "document": "docs/82_\u65b0\u6765\u6e90\u4e5d\u7ef4\u8bc4\u6d4b\u4e0e\u91cd\u590d\u539f\u751f\u6d4b\u901f_20261023.md",
+      "new_model_generations": 0,
+      "model_execution_eligibility_change": false,
+      "exclusion_proof": "research/20261023/R17_fresh23_exclusion_manifest.json",
+      "metric_assets": "research/20261023/R17_metric_asset_preparation.json",
+      "metric_aggregation_source_audit": "research/20261023/R17_metric_aggregation_source_audit.json",
+      "preparation_checks": "research/20261023/R17_preparation_checks.json"
+    }
+  }
+}

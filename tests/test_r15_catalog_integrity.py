@@ -29,7 +29,19 @@ class R15CatalogIntegrityTests(unittest.TestCase):
         d=load("research/CURRENT_DECISION.json")
         self.assertEqual(d["latest_metric_review"]["catalog_entries"],93)
         self.assertEqual(d["latest_metric_review"]["new_model_runs"],0)
-        self.assertEqual(d["eligible_model_method_ids"],[])
+        if d["eligible_model_method_ids"]:
+            # A later separately authorized native validation does not turn
+            # the historical catalog import into model authority/results.
+            self.assertEqual(d["eligible_model_method_ids"], ["R17E0_FRESH23_NINE_METRICS_AND_SYSTEM_TIMING"])
+            registration = d["registered_fresh_quality"]
+            protocol = load(registration["protocol"])
+            authority = load(protocol["authorization"]["path"])
+            self.assertEqual(authority["status"], "EXPLICIT_EXACT_SCOPE_USER_AUTHORIZATION")
+            self.assertEqual(authority["method_id"], protocol["id"])
+            self.assertEqual(authority["caps"], protocol["caps"])
+            self.assertTrue(authority["user_reply"].strip())
+        else:
+            self.assertEqual(d["eligible_model_method_ids"],[])
         self.assertTrue((ROOT/d["latest_metric_review"]["handoff"]).is_file())
         # Later actual experiments may advance the current review. Preserve
         # R14N0's recorded finite rejection rather than freezing its name as
