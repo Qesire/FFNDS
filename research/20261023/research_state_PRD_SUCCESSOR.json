@@ -1,0 +1,302 @@
+{
+  "schema_version": "2.1",
+  "research_id": "FFNDS_PRD_SUCCESSOR_20261023",
+  "description": "C1/C2 saved-evidence reanalysis, residual-bypass mechanism discovery and source-aware sampling redesign",
+  "research_object": {
+    "id": "compensated-native-channel-action",
+    "revision": "7c7019ec66835e740b3573d5572a8da59f0efa69",
+    "scope": "Actual C1 nextnorm labels; C2 saved CPU scoring; proposed residual-complete finite continuation",
+    "code_reference": "tools/ub1_row_dispatch.py; tools/compensated_support.py; tools/trained_packed_runtime.py; tools/reduced_rank_residual.py",
+    "inputs": [
+      {
+        "name": "post_Q1",
+        "shape": "31668 x 5120",
+        "dtype": "BF16",
+        "semantics": "Original Smooth1/Q1 output before W1"
+      },
+      {
+        "name": "B_s",
+        "shape": "54/108/108/162 groups by step",
+        "semantics": "Frozen contiguous ordered 64-channel groups"
+      },
+      {
+        "name": "z",
+        "semantics": "Prospective affordable pre-W1 features; shared h256 is present inside the existing residual computation"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "native_writeback",
+        "semantics": "Actual original gate/residual writeback after base and compensated selected computation"
+      },
+      {
+        "name": "downstream_response",
+        "semantics": "Finite response under explicitly paired prefix/continuation and observation phi"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "native",
+        "operation": "C1 complete compensated native writeback",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "tools/c1_native_probe.py"
+      },
+      {
+        "id": "nextnorm",
+        "operation": "Actual successor norm1 finite labels",
+        "verification": "SOURCE_VERIFIED",
+        "locator": "research/20261023/C1N0_native_results.json"
+      },
+      {
+        "id": "full_successor",
+        "operation": "Complete residual block / remaining-step finite action value",
+        "verification": "MODEL_HYPOTHESIS",
+        "locator": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md"
+      }
+    ],
+    "edges": [
+      {
+        "from": "native",
+        "to": "nextnorm"
+      },
+      {
+        "from": "native",
+        "to": "full_successor"
+      }
+    ],
+    "unknown_edges": [
+      {
+        "description": "State-dependent complete-successor action values and actual pre-W1 cost",
+        "decision_relevant": true,
+        "resolving_action": "Finite matched physical interventions and source-disjoint cheap value readout"
+      },
+      {
+        "description": "C2 complete candidate video and full160 generalization",
+        "decision_relevant": true,
+        "resolving_action": "Preserve prepared paired-video scope and complete-video evaluation"
+      }
+    ],
+    "closed_for_scoped_question": false
+  },
+  "derivations": [
+    {
+      "id": "D1",
+      "claim": "Pointwise dominance gives zero empirical policy headroom in a fixed action set",
+      "assumptions": [
+        "Same states, action costs and measured loss"
+      ],
+      "steps": [
+        "L(a0,w)<=L(a,w) for each state and action",
+        "Substitute any policy and average"
+      ],
+      "status": "CHECKED",
+      "scope": "C1 fixed whole-site nextnorm action set"
+    },
+    {
+      "id": "D2",
+      "claim": "LayerNorm finite distance separates mean, radial and directional geometry",
+      "assumptions": [
+        "Real arithmetic no affine transform",
+        "eps retained"
+      ],
+      "steps": [
+        "Center both inputs",
+        "Expand squared normalized distance",
+        "Differentiate centered normalization"
+      ],
+      "status": "CHECKED",
+      "scope": "40 synthetic identity and finite-difference checks"
+    },
+    {
+      "id": "D3",
+      "claim": "A small nextnorm error can retain a large residual-complete error",
+      "assumptions": [
+        "Residual sublayer T(w)=w+B(n(w))",
+        "Local Jacobian only for smooth interpretation"
+      ],
+      "steps": [
+        "Derivative I+JB Jn retains identity term",
+        "Radial perturbation survives bypass",
+        "Finite synthetic residual example reverses action ranking"
+      ],
+      "status": "CHECKED",
+      "scope": "Exact synthetic finite counterexample; actual Wan successor remains empirical"
+    },
+    {
+      "id": "D4",
+      "claim": "Conditional allocation can beat best fixed position allocation",
+      "assumptions": [
+        "Toy additive equal-cost gains",
+        "Context available before decision"
+      ],
+      "steps": [
+        "Two equally likely contexts swap marginal gain curves",
+        "Best fixed11 versus conditional19"
+      ],
+      "status": "CONDITIONAL",
+      "scope": "Synthetic resource-allocation example"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "mechanism": "Predict complete finite downstream action value including identity transport and normalized branch using cheap pre-W1 state",
+      "status": "CANDIDATE",
+      "prediction": "Matched nextnorm loss and rstd can coexist with different complete-block risk; state-conditioned regret improves over strongest position-static policy",
+      "derivation_ids": [
+        "D2",
+        "D3"
+      ]
+    },
+    {
+      "id": "H2",
+      "mechanism": "Choose legal dense fractions from current-state marginal finite value while carrying remaining native cost budget",
+      "status": "CANDIDATE",
+      "prediction": "Within-position state-dependent allocation beats train-selected best fixed location budgets at equal measured cost",
+      "derivation_ids": [
+        "D4"
+      ]
+    }
+  ],
+  "experiments": [
+    {
+      "id": "SAVED_C1_C2_REANALYSIS",
+      "question": "How is C2 gain distributed over sources and positions?",
+      "status": "OBSERVED",
+      "empirical_quantity": "Capture differences from72 saved finite scopes clustered in6sources",
+      "why_not_derivable": "Native labels and CPU scoring outputs are empirical receipts; only reductions are recomputed",
+      "controls": [
+        "All72 paired records",
+        "Source macro and pooled ratios",
+        "Source leave-one-out descriptive checks"
+      ],
+      "predictions": [
+        {
+          "outcome": "Uniform positive positions",
+          "decision": "Prioritize simple scale rule"
+        },
+        {
+          "outcome": "Heterogeneous positional signs",
+          "decision": "Inspect directional/bypass risk and validate generalization"
+        }
+      ],
+      "artifacts": [
+        {
+          "locator": "research/20261023/PRD_successor_reanalysis.json",
+          "kind": "ARTIFACT"
+        }
+      ],
+      "cost_estimate": "CPU standard library; no new model/GPU calls"
+    }
+  ],
+  "novelty": {
+    "status": "CANDIDATE",
+    "mechanism_link": "Predict complete finite downstream action value including identity transport and normalized branch using cheap pre-W1 state",
+    "nearest_prior_art": [
+      {
+        "reference": "https://arxiv.org/abs/2409.12951",
+        "comparison": "Existing LayerNorm geometry supplies representation, not a new theorem claim"
+      },
+      {
+        "reference": "https://arxiv.org/abs/2609.33384",
+        "comparison": "Existing propagation-guided video quantization; candidate changes online physical FFN compute decision"
+      },
+      {
+        "reference": "https://arxiv.org/abs/2602.00397",
+        "comparison": "Predictive FFN sparsity, compensation and layer scheduling are established components"
+      },
+      {
+        "reference": "research/exploration/20261022/EXPLORATION_INDEX.md",
+        "comparison": "Cross-position budget research already exists; refine rather than rename as novel"
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "id": "retire",
+      "route": "PIVOT",
+      "reason": "Retire exact R16/R17 active study and C1 zero-headroom swaps; preserve all raw outcomes"
+    },
+    {
+      "id": "main",
+      "route": "DESIGN",
+      "reason": "Prioritize residual-complete conditional action value alongside existing C2 video discriminator",
+      "derivation_ids": [
+        "D2",
+        "D3"
+      ]
+    },
+    {
+      "id": "sampling",
+      "route": "REPAIR",
+      "reason": "Source/scene disjointness, rotated depth coverage, multiple seeds, crossed camera design and precision-based final N"
+    }
+  ],
+  "branches": [
+    {
+      "id": "R4E1_FIXED_H_16GROUP_Q2",
+      "failure": "Registered16group,q<=2,local-objective matched-readout screen failed all four folds",
+      "lesson": "Signed pair synergy and compensator projection were already tested; do not expand the old search under a new name"
+    },
+    {
+      "id": "R11T1_MATCHED_NATIVE_HEAD_OBJECTIVE",
+      "failure": "Fixed20-update flow-target instance improved1.49121%,below its registered2% criterion",
+      "lesson": "Merely refitting the same R256 to a downstream objective repeats that recipe"
+    },
+    {
+      "id": "RB2_C_PROFILE_FOUR_BANK",
+      "failure": "Four-bank C-score oracle gain0.56-0.79 percentage points; registered criteria failed",
+      "lesson": "Use new complete net-action response targets; bank count or re-clustering does not establish a new mechanism"
+    },
+    {
+      "id": "HP1_H256_QUADRATIC_C",
+      "failure": "Quadratic h head lost to the matched linear control in four folds",
+      "lesson": "Second moments of downstream action value are not equivalent to adding h-squared input features"
+    },
+    {
+      "id": "TC1_ROW_SUPPORT_TRANSFER",
+      "failure": "Single-row support transfer within64token blocks lost to static",
+      "lesson": "Evaluate whole-region response directly"
+    },
+    {
+      "id": "C1N0_SWAP_A_B_WHOLE_SITE",
+      "failure": "UB1 wins all72 whole-site nextnorm comparisons",
+      "lesson": "Train no router or expanded swap shortlist for this exact action set"
+    }
+  ],
+  "exploration_seeds": [
+    {
+      "id": "C2N0_NORM_SCALED_ENERGY_PAIRED_SMOKE",
+      "question": "Improved exposed single-boundary selection may or may not preserve complete free-video content/motion",
+      "possible_mechanism": "Reuse original energy and currentnorm2 inverse variance for dense/UB1 row choice",
+      "next_inspection": "Existing saved reanalysis complete; keep prepared paired six-video draft as next native discriminator",
+      "status": "REFINED",
+      "reference_locators": [
+        "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md",
+        "research/20261023/PRD_successor_reanalysis.json"
+      ]
+    },
+    {
+      "id": "PRD_RESIDUAL_TWO_PATH_VALUE",
+      "question": "Matched nextnorm loss and rstd can coexist with different complete-block risk; state-conditioned regret improves over strongest position-static policy",
+      "possible_mechanism": "Predict complete finite downstream action value including identity transport and normalized branch using cheap pre-W1 state",
+      "next_inspection": "Synthetic bypass reversal completed; freeze paired complete-block/step finite-label design with source-disjoint fitting",
+      "status": "REFINED",
+      "reference_locators": [
+        "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md",
+        "research/20261023/PRD_successor_reanalysis.json"
+      ]
+    },
+    {
+      "id": "PRD_CAUSAL_COMPUTE_ALLOCATION",
+      "question": "Within-position state-dependent allocation beats train-selected best fixed location budgets at equal measured cost",
+      "possible_mechanism": "Choose legal dense fractions from current-state marginal finite value while carrying remaining native cost budget",
+      "next_inspection": "Conditional-allocation toy completed; measure marginal gains before designing a learned allocator",
+      "status": "REFINED",
+      "reference_locators": [
+        "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md",
+        "research/20261023/PRD_successor_reanalysis.json"
+      ]
+    }
+  ]
+}

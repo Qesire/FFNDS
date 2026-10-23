@@ -1,0 +1,110 @@
+{
+  "id": "PRD_SUCCESSOR_SAMPLING_REVISION",
+  "status": "DESIGN_NOT_MODEL_REGISTRATION",
+  "supersedes_future_design": "research/20261023/TACR_sampling_scope_v2.json",
+  "historical_protocols_unchanged": true,
+  "design_source": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md",
+  "independent_unit": "Original image plus parent scene/asset family; seeds/prompts/frames/steps/layers nested",
+  "exposure": "All R17 selected metadata and C1/C2 inspected labels are discovery-exposed; final method selection uses separate scene groups",
+  "development_slots": {
+    "sources": 24,
+    "strata": [
+      "subject",
+      "background",
+      "camera"
+    ],
+    "per_stratum": 8,
+    "fit_per_stratum": 6,
+    "validation_per_stratum": 2,
+    "selection": "Seeded sampling within strata before outcomes, exact hash and parent scene disjointness, near-duplicate review; no actual image manifest selected here"
+  },
+  "coverage_pilot": {
+    "fit_source_slots": 12,
+    "source_slots_per_stratum": 4,
+    "seeds_per_source": 2,
+    "steps": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "depth_bands": [
+      [
+        0,
+        9
+      ],
+      [
+        10,
+        19
+      ],
+      [
+        20,
+        29
+      ],
+      [
+        30,
+        39
+      ]
+    ],
+    "contexts": 96,
+    "allocation": "Rotate one band per step per source; three sources and two seeds per step-band cell; randomize actual source-to-slot and block-to-stratum mapping before outcomes",
+    "generator": "tools/analyze_prd_successor.py:coverage_schedule",
+    "claim": "Coverage budget, not power or precision guarantee"
+  },
+  "latent_and_space": {
+    "latent_bins": 21,
+    "decoded_frames": 81,
+    "report": [
+      "conditioned_t0",
+      "later20"
+    ],
+    "spatial_units": "Probability-sampled complete native tiles; store inclusion probabilities and deployment geometry; weighted aggregation",
+    "oracle_scope": "Top84 of sampled336 is only a sample oracle, not full31668 deployment bound"
+  },
+  "camera_optional_diagnostic": {
+    "images": 14,
+    "commands": 7,
+    "commands_per_image": 3,
+    "images_per_command": 6,
+    "images_per_command_pair": 2,
+    "seeds": 2,
+    "videos_per_arm": 84,
+    "generator": "tools/analyze_prd_successor.py:camera_blocks",
+    "official_protocol": "Separate from unchanged official I2V metadata"
+  },
+  "final_quality": {
+    "source_count": null,
+    "reason": "Determine from independent pilot source-paired variance, prespecified effect and precision; no current power claim",
+    "formula": "max(((z_(1-alpha/(2J))+z_power)*sD/delta)^2,(z_(1-alpha/(2J))*sD/w)^2)",
+    "finite_sample": "t iteration or source-cluster simulation with pilot variance uncertainty and multiplicity",
+    "official_seeds_per_image_prompt": 5,
+    "seeds": "Random and recorded, paired across methods; no cherry-picking",
+    "targets": [
+      "prespecified official condition/motion/visual quality dimensions",
+      "dense fidelity separately",
+      "full-video blinded preference"
+    ],
+    "population_weights": "Prespecified usage weights and per-stratum summaries; report balanced macro separately"
+  },
+  "runtime": {
+    "coverage_source_slots": 12,
+    "technical_repeats": 3,
+    "geometry": "Primary original832x464/81frames; external geometry separately",
+    "cost": "Both GEMMs, QDQ, compensation, routing, norms, compaction, restore, and complete video wall",
+    "inference": "Source-level paired times; technical repeats do not increase independent N"
+  },
+  "order": "Complete paired source blocks, round-robin strata, counterbalanced arm order; report missing blocks",
+  "budget_units": [
+    "baseline captures",
+    "counterfactual FFNs",
+    "each successor block/step replay",
+    "training updates",
+    "full videos",
+    "official evaluator calls"
+  ],
+  "references": [
+    "https://www.itl.nist.gov/div898/handbook/prc/section2/prc222.htm",
+    "https://jmlr.org/papers/v11/cawley10a.html",
+    "https://github.com/Vchitect/VBench/blob/master/vbench2_beta_i2v/README.md"
+  ]
+}

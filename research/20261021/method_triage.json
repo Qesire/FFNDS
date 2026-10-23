@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "research_scope": "Wan2.2 I2V LightX2V Distill D-Q / frozen UB1, R12 E0 update2026-10-22",
-  "decision_record": "docs/54_\u5df2\u6dd8\u6c70\u8def\u7ebf\u9632\u56de\u9000\u5ba1\u8ba1_20261021.md",
+  "decision_record": "docs/54_已淘汰路线防回退审计_20261021.md",
   "input_archives": [
     "research/20261021/research_state.json",
     "research/20261021/research_state_R2.json"
@@ -17,7 +17,7 @@
     ],
     "execution_state": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
     "current_decision": "research/CURRENT_DECISION.json",
-    "execution_note": "C1 finite native information diagnostic completed or stopped; no automatic retry/followup. All earlier closures preserved.",
+    "execution_note": "C1 completed; original R16/R17 retired as active research. C2 prepared scope preserved. PRD residual-two-path value is current exploration; no new model eligibility.",
     "reentry_requirements": [
       "Preserve exact failed recipe ID/status and cite its protocol/result",
       "Explain substantive computation/information/target/action/causal change, not only renamed or enlarged hyperparameters",
@@ -33,7 +33,11 @@
       "Original O, distilled D-BF16 and distilled D-Q have different roles; teacher labels, native QDQ baseline and attribution of distillation-induced sparsity must not be conflated.",
       "Frozen eligibility and rejection ledger cannot be relaxed by this semantics correction."
     ],
-    "non_model_progress": "Source/CPU HiF4 group and spatial layout checks, compact budget debit accounting, new primary-source comparisons and information/cost counterexamples are saved separately from native D0."
+    "non_model_progress": "Source/CPU HiF4 group and spatial layout checks, compact budget debit accounting, new primary-source comparisons and information/cost counterexamples are saved separately from native D0.",
+    "retired_research_method_ids": [
+      "R16V0_FULL160_UB1_DENSE_ROW_DISPATCH",
+      "R17E0_FRESH23_NINE_METRICS_AND_SYSTEM_TIMING"
+    ]
   },
   "methods": [
     {
@@ -41,7 +45,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "Two frozen UB1/UB2 whole-video arms; on supplementary20 even imaging-only per-input retrospective oracle cannot meet 2% threshold (best 2.909550% drop). R4 extends the fixed-output upper bound to randomized selectors in expectation; not new seeds or within-video changes.",
       "evidence": [
-        "docs/48_\u9010\u8f93\u5165\u9884\u7b97\u65b9\u6848\u7684\u8d28\u91cf\u4e0a\u754c\u4e0e\u6682\u505c.md"
+        "docs/48_逐输入预算方案的质量上界与暂停.md"
       ],
       "not_excluded": "New support, other schedule, within-video routing",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -51,7 +55,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "25/25/50/100 static schedule, supplementary imaging drop 4.651736%; zero same-state final-step FFN error was not end-to-end success.",
       "evidence": [
-        "docs/38_\u56fa\u5b9a\u9884\u7b97\u4e0b\u6062\u590d\u672b\u6b65\u5b8c\u6574FFN.md"
+        "docs/38_固定预算下恢复末步完整FFN.md"
       ],
       "not_excluded": "All other step schedules",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -59,9 +63,9 @@
     {
       "id": "RB2_C_PROFILE_FOUR_BANK",
       "status": "CLOSED_REJECTED_EXACT",
-      "rationale": "Four-bank C-profile oracle improved only 0.56\u20130.79 percentage points; did not meet pre-registered proxy gate.",
+      "rationale": "Four-bank C-profile oracle improved only 0.56–0.79 percentage points; did not meet pre-registered proxy gate.",
       "evidence": [
-        "docs/31_\u5747\u8861\u56db\u6a21\u5f0f\u8def\u7531\u8d1f\u7ed3\u679c.md"
+        "docs/31_均衡四模式路由负结果.md"
       ],
       "not_excluded": "A-target or different support families",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -71,7 +75,7 @@
       "status": "STOPPED_PRECHECK_NOT_EVALUATED",
       "rationale": "Small clusters violated training minimum; no router trained or tested.",
       "evidence": [
-        "docs/30_\u56db\u652f\u6301\u6a21\u5f0f\u8def\u7531\u53ef\u884c\u6027\u5c0f\u8bd5.md"
+        "docs/30_四支持模式路由可行性小试.md"
       ],
       "not_excluded": "Trained router performance",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -81,7 +85,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "Same-64-token-block support transferred from a single row failed four registered C-score gates; learned states reused sampled locations.",
       "evidence": [
-        "docs/42_\u8fde\u7eed\u5c0f\u5757\u7684\u652f\u6301\u8fc1\u79fb\u8bca\u65ad.md"
+        "docs/42_连续小块的支持迁移诊断.md"
       ],
       "not_excluded": "Tile-aggregated signed-native-loss oracle and its predictable value",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -91,7 +95,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "Quadratic C-score head lost to linear h baseline in four folds.",
       "evidence": [
-        "docs/32_\u6b8b\u5dee\u9690\u85cf\u7279\u5f81\u8d21\u732e\u9884\u6d4b.md"
+        "docs/32_残差隐藏特征贡献预测.md"
       ],
       "not_excluded": "A-target predictions or new information",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -101,7 +105,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "C-score MLP lost to matched linear h control in four folds.",
       "evidence": [
-        "docs/33_\u8de8\u7279\u5f81\u5c0f\u7f51\u7edc\u8d21\u732e\u9884\u6d4b.md"
+        "docs/33_跨特征小网络贡献预测.md"
       ],
       "not_excluded": "All nonlinear heads on other targets",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -111,7 +115,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "GELU/QDQ additional features underperformed input-matched linear control on C-score.",
       "evidence": [
-        "docs/41_\u975e\u7ebf\u6027\u8f93\u5165\u57fa\u7684\u8d21\u732e\u9884\u6d4b.md"
+        "docs/41_非线性输入基的贡献预测.md"
       ],
       "not_excluded": "Different targets or output-native errors",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -121,7 +125,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "Native gated SSE improvement did not meet pre-registered dual gates with four additional omitted groups.",
       "evidence": [
-        "docs/40_\u9057\u6f0f\u975e\u7ebf\u6027\u7279\u5f81\u7684\u6b8b\u5dee\u8bfb\u51fa\u5c0f\u8bd5.md"
+        "docs/40_遗漏非线性特征的残差读出小试.md"
       ],
       "not_excluded": "All nonlinear residual methods",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -131,7 +135,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "All eight actual-UB1-state gates failed; nonlinear correction inferior to matched linear readout.",
       "evidence": [
-        "docs/47_\u590d\u7528\u6b8b\u5dee\u9690\u85cf\u91cf\u7684\u8f93\u51fa\u4fee\u6b63.md"
+        "docs/47_复用残差隐藏量的输出修正.md"
       ],
       "not_excluded": "Other nonlinear correction function classes",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -141,7 +145,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "Eight paired local tests failed versus frozen UB1; source exposure constrains interpretation.",
       "evidence": [
-        "docs/46_\u771f\u5b9e\u72b6\u6001\u91cd\u62df\u5408\u4e0e\u5bfc\u5165\u5ef6\u8fdf\u4fee\u6b63.md"
+        "docs/46_真实状态重拟合与导入延迟修正.md"
       ],
       "not_excluded": "Other fit objectives or adequately powered fresh-source refits",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -151,7 +155,7 @@
       "status": "CLOSED_REJECTED_EXACT",
       "rationale": "Local risk improved but supplementary imaging still dropped 3.050580%, so video-quality gate failed.",
       "evidence": [
-        "docs/36_\u672b\u7aef\u5341\u5c42\u7684\u6761\u4ef6\u589e\u79e9\u68c0\u9a8c.md"
+        "docs/36_末端十层的条件增秩检验.md"
       ],
       "not_excluded": "All higher-rank mechanisms",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -161,11 +165,11 @@
       "status": "DEPRIORITIZED_REPEATED_FAILED_RECIPES",
       "rationale": "Native local-CV gates rejected several retained-feature, joint-reconstruction, quantized adapter and full-weight refit recipes.",
       "evidence": [
-        "docs/18_\u4fdd\u7559\u975e\u7ebf\u6027\u7279\u5f81\u7684\u6743\u91cd\u91cd\u5efa.md",
-        "docs/22_\u4fdd\u7559\u7279\u5f81\u4e0e\u4f4e\u79e9\u6b8b\u5dee\u8054\u5408\u91cd\u5efa.md",
-        "docs/25_\u6298\u53e0\u4f4e\u79e9\u91cf\u5316\u9002\u914d\u5c0f\u8bd5.md",
-        "docs/26_\u5168\u4e3b\u6743\u91cd\u91cf\u5316\u6062\u590d\u5c0f\u8bd5.md",
-        "docs/27_\u56fa\u5b9a\u957f\u7a0b\u91cf\u5316\u6062\u590d\u9884\u7b97\u68c0\u9a8c.md"
+        "docs/18_保留非线性特征的权重重建.md",
+        "docs/22_保留特征与低秩残差联合重建.md",
+        "docs/25_折叠低秩量化适配小试.md",
+        "docs/26_全主权重量化恢复小试.md",
+        "docs/27_固定长程量化恢复预算检验.md"
       ],
       "not_excluded": "Fundamentally different representation, information or objective",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -175,7 +179,7 @@
       "status": "REJECTED_AS_MAIN_METHOD",
       "rationale": "Individual C-energy and dense-state finite changes do not capture compensated native error, cross-group interactions or deployed 50%-budget effects.",
       "evidence": [
-        "research/20261021/Wan_Distill_FFN_Dynamic_in_Few_Step_\u6f14\u7ece\u68c0\u9a8c_20261021.md"
+        "research/20261021/Wan_Distill_FFN_Dynamic_in_Few_Step_演绎检验_20261021.md"
       ],
       "not_excluded": "Small native-evaluated swaps around UB1",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -185,7 +189,7 @@
       "status": "ELIMINATED_BY_COST_LOWER_BOUND",
       "rationale": "For equal-cost W1/W2, even zero-cost routing produces ideal main-GEMM speedup <=4/3 and cannot establish >=1.5x complete FFN speed.",
       "evidence": [
-        "research/20261021/Wan_Distill_FFN_\u673a\u5236\u91cd\u6784_R2_20261021.md"
+        "research/20261021/Wan_Distill_FFN_机制重构_R2_20261021.md"
       ],
       "not_excluded": "Pre-W1 packed routing",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -213,9 +217,9 @@
         "Prepacked support, complete FFN cost and new-source decoded quality"
       ],
       "evidence": [
-        "research/20261021/Wan_Distill_FFN_\u673a\u5236\u91cd\u6784_R2_20261021.md",
-        "docs/42_\u8fde\u7eed\u5c0f\u5757\u7684\u652f\u6301\u8fc1\u79fb\u8bca\u65ad.md",
-        "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+        "research/20261021/Wan_Distill_FFN_机制重构_R2_20261021.md",
+        "docs/42_连续小块的支持迁移诊断.md",
+        "docs/53_R4补偿感知支持交换的原生筛选.md",
         "reports/worker_20261020/R4E1_summary.json"
       ],
       "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
@@ -238,8 +242,8 @@
         "Resident memory and actual speed cost before any complete trial"
       ],
       "evidence": [
-        "research/20261021/Wan_Distill_FFN_\u673a\u5236\u91cd\u6784_R2_20261021.md",
-        "docs/18_\u4fdd\u7559\u975e\u7ebf\u6027\u7279\u5f81\u7684\u6743\u91cd\u91cd\u5efa.md",
+        "research/20261021/Wan_Distill_FFN_机制重构_R2_20261021.md",
+        "docs/18_保留非线性特征的权重重建.md",
         "research/20261021/R9_scope_reconciliation.json",
         "research/20261021/branch_records_R10.json",
         "research/20261021/R9A1_native_affine_results.json"
@@ -256,7 +260,7 @@
         "Only if rollout mechanism will change a later actionable experiment"
       ],
       "evidence": [
-        "research/20261021/Wan_Distill_FFN_Dynamic_in_Few_Step_\u6f14\u7ece\u68c0\u9a8c_20261021.md"
+        "research/20261021/Wan_Distill_FFN_Dynamic_in_Few_Step_演绎检验_20261021.md"
       ],
       "not_excluded": "Scientific diagnostic utility",
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD"
@@ -268,9 +272,9 @@
       "evidence": [
         "tools/fit_step_budget.py",
         "tools/step_budget_runtime.py",
-        "docs/51_AutoResearcher_R3_\u673a\u5236\u8def\u7ebf\u91cd\u5ba1_20261021.md",
-        "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
-        "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+        "docs/51_AutoResearcher_R3_机制路线重审_20261021.md",
+        "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+        "docs/53_R4补偿感知支持交换的原生筛选.md",
         "reports/worker_20261020/R4E1_summary.json"
       ],
       "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
@@ -295,9 +299,9 @@
       "status": "NOT_TRIGGERED_PREREQUISITE_REJECTED",
       "rationale": "R4E2 did not trigger because the registered R4E1 native gate failed. Saved-row oracle is tiny and is not a whole-M success.",
       "evidence": [
-        "docs/51_AutoResearcher_R3_\u673a\u5236\u8def\u7ebf\u91cd\u5ba1_20261021.md",
-        "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
-        "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+        "docs/51_AutoResearcher_R3_机制路线重审_20261021.md",
+        "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
+        "docs/53_R4补偿感知支持交换的原生筛选.md",
         "reports/worker_20261020/R4E1_summary.json"
       ],
       "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
@@ -323,10 +327,10 @@
       "status": "DIAGNOSTIC_ONLY_NO_AUTOMATIC_TRIGGER",
       "rationale": "There is no newly passing native candidate from R4E1 whose decoded-quality mismatch requires this diagnostic.",
       "evidence": [
-        "docs/34_\u76f8\u540c\u72b6\u6001\u4e0b\u7684\u539f\u751f\u6d41\u8bef\u5dee.md",
-        "docs/38_\u56fa\u5b9a\u9884\u7b97\u4e0b\u6062\u590d\u672b\u6b65\u5b8c\u6574FFN.md",
-        "docs/51_AutoResearcher_R3_\u673a\u5236\u8def\u7ebf\u91cd\u5ba1_20261021.md",
-        "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+        "docs/34_相同状态下的原生流误差.md",
+        "docs/38_固定预算下恢复末步完整FFN.md",
+        "docs/51_AutoResearcher_R3_机制路线重审_20261021.md",
+        "docs/53_R4补偿感知支持交换的原生筛选.md",
         "reports/worker_20261020/R4E1_summary.json"
       ],
       "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
@@ -350,9 +354,9 @@
         "Fresh-source video and complete-FFN latency"
       ],
       "evidence": [
-        "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
+        "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
         "research/20261021/research_state_R4.json",
-        "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+        "docs/53_R4补偿感知支持交换的原生筛选.md",
         "reports/worker_20261020/R4E1_summary.json"
       ],
       "not_excluded": "Other hypotheses remain untested; logical non-exclusion is not a scheduled follow-up.",
@@ -375,7 +379,7 @@
         "No inherited quality/speed claim"
       ],
       "evidence": [
-        "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
+        "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
         "reports/worker_20261020/NF2_summary.json"
       ],
       "not_excluded": "Small cost-matched baseline improvement",
@@ -419,7 +423,7 @@
       "evidence": [
         "reports/worker_20261020/R4E0_E1_registered_protocol.json",
         "reports/worker_20261020/R4E1_summary.json",
-        "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md"
+        "docs/53_R4补偿感知支持交换的原生筛选.md"
       ],
       "not_excluded": "Full216 native global search, other positions or genuinely changed mechanisms were not tested; do not auto-widen after rejection."
     },
@@ -443,7 +447,7 @@
       "model_execution_eligibility": "NOT_ELIGIBLE_FROM_CURRENT_RECORD",
       "rationale": "Past pre-gate full FFN output is new information versus current-h support/readout methods, but useful cross-step accuracy is unmeasured. Online same-expert temporal differences lack two anchors under the scoped50% all-layer schedule. Existing OP2 paired rows are sparse; no data readiness or positive native evidence for fitting.",
       "evidence": [
-        "docs/55_\u8de8\u6b65FFN\u590d\u7528\u7684\u51b7\u542f\u52a8\u4e0e\u914d\u5bf9\u6570\u636e\u5ba1\u8ba1.md",
+        "docs/55_跨步FFN复用的冷启动与配对数据审计.md",
         "research/20261021/temporal_cache_mechanism_record.json",
         "research/20261021/cross_step_pairing_audit.json"
       ],
@@ -457,7 +461,7 @@
       "rationale": "R7D1native rankingdisagreement observed; R7D2fixedtwo-gainflowobjective rejected. R10actualvssecantdirectioncos~0.57and1.806%predictedbenefitrealization motivate actualnativeforward/windowtrainingreadiness, not widergainfit.",
       "evidence": [
         "research/20261021/branch_records_R7.json",
-        "docs/56_\u5168\u8def\u7ebf\u590d\u76d8\u4e0e\u4e0b\u4e00\u6b65\u673a\u5236\u4f18\u5148\u7ea7_R7.md",
+        "docs/56_全路线复盘与下一步机制优先级_R7.md",
         "research/20261021/R7D2_results.json",
         "research/20261021/R10_saved_failure_geometry.json",
         "research/20261021/branch_records_R10.json"
@@ -471,7 +475,7 @@
       "rationale": "H2 full-width activation handling costs about23ms. H3 original BF16 entrypoint passes14 synthetic bitwise controls; with the same optimization for dense and sparse, complete chain reaches1.31061x and plusR2561.20378x. Still below1.5x; real model accuracy untested.",
       "evidence": [
         "research/20261021/branch_records_R7.json",
-        "docs/56_\u5168\u8def\u7ebf\u590d\u76d8\u4e0e\u4e0b\u4e00\u6b65\u673a\u5236\u4f18\u5148\u7ea7_R7.md",
+        "docs/56_全路线复盘与下一步机制优先级_R7.md",
         "research/20261021/weight_2of4_component_profile.json",
         "research/20261021/bf16_qdq_fastpath_preflight.json"
       ],
@@ -484,7 +488,7 @@
       "rationale": "24 native runs complete;12 exact original controls,3/4 local-vs-flow ranking disagreements, AB reduces pooled flowSSE3.029%. Net interaction small after opposite large terms cancel. Dense diagnostic only, no candidate quality acceptance.",
       "evidence": [
         "research/20261021/R7D1_cross_layer_transport_protocol.json",
-        "docs/57_\u56fa\u5b9a\u53cc\u5c42\u6062\u590d\u7684\u539f\u751f\u4f20\u64ad\u8bca\u65ad.md",
+        "docs/57_固定双层恢复的原生传播诊断.md",
         "research/20261021/R7D1_results.json"
       ],
       "not_excluded": "A result can motivate separately registered output-objective fitting, never automatic deployment or widening."
@@ -496,7 +500,7 @@
       "rationale": "18 native generations and deterministic fits completed. Flow-fit train gain0.0357% vs predicted1.98%; development holdout gain0.0770% loses local-fit0.1655%. Close fixed two-gain recipe under pre-registered rule, no bounds/epsilon/pair sweep.",
       "evidence": [
         "research/20261021/R7D2_residual_gain_protocol.json",
-        "docs/58_\u5c40\u90e8\u4e0e\u4e0b\u6e38\u76ee\u6807\u7684\u53cc\u53c2\u6570\u539f\u751f\u5bf9\u7167.md",
+        "docs/58_局部与下游目标的双参数原生对照.md",
         "research/20261021/R7D1_results.json",
         "research/20261021/R7D2_results.json"
       ],
@@ -509,7 +513,7 @@
       "rationale": "48 UB1/8 fullteacher controls pass; BF16fold ratios0.00081-0.00205UB1, but fullHiF4RTN0.1014-0.2685 fails all8 fixed0.1 gate. No compression follows; quantization obstruction measured, not global affine impossibility.",
       "evidence": [
         "research/20261021/R8F1_native_affine_protocol.json",
-        "docs/59_\u4eff\u5c04\u9aa8\u5e72\u7684\u5b8c\u6574\u652f\u6301\u539f\u751f\u7cbe\u5ea6\u68c0\u67e5.md",
+        "docs/59_仿射骨干的完整支持原生精度检查.md",
         "research/20261021/branch_records_R7.json",
         "research/20261021/R8F1_native_affine_results.json"
       ],
@@ -523,7 +527,7 @@
       "evidence": [
         "research/20261021/R8F2_group64_hessian_protocol.json",
         "research/20261021/R8F1_native_affine_results.json",
-        "docs/60_HiF4\u4eff\u5c04\u77e9\u9635\u7684\u5206\u7ec4Hessian\u91cf\u5316\u4fee\u590d.md",
+        "docs/60_HiF4仿射矩阵的分组Hessian量化修复.md",
         "research/20261021/R8F2_primary_sources.json",
         "research/20261021/R8F2_native_hessian_results.json",
         "research/20261021/R8F2_transfer_audit.json",
@@ -550,7 +554,7 @@
         "research/20261021/R9A1_learned_affine_protocol.json",
         "research/20261021/R9_scope_reconciliation.json",
         "research/20261021/representation_cost_preflight_R10.json",
-        "docs/62_\u5e7f\u6cdb\u590d\u76d8\u540e\u7684\u5b66\u4e60\u578b\u4eff\u5c04\u8868\u793a\u68c0\u9a8c.md",
+        "docs/62_广泛复盘后的学习型仿射表示检验.md",
         "research/20261021/R9A1_native_affine_results.json"
       ],
       "not_excluded": "Researchreadiness only, no positivecandidateacceptance or automaticreentry."
@@ -562,7 +566,7 @@
       "rationale": "R10H1same-runfullHfactorizedsyntheticchain1.47199x vsdense, below1.5xwithslightlyunder50%MAC. No modelSVDsoraccuracyrun; noteligiblewithoutjustifiednewexecutionevidence.",
       "evidence": [
         "research/20261021/branch_records_R10.json",
-        "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md",
+        "docs/61_全路线失败归因与组合方案复盘_R10.md",
         "research/20261021/representation_cost_preflight_R10.json"
       ],
       "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
@@ -574,7 +578,7 @@
       "rationale": "Exact final-head nativebytes, actual parameter gradients and lowmemory provenR11G1. R11T1 fixed20step nativeobjective gives real1.491%developmentflow gain vs no localflow gain, but misses registered2%gate. Doesnotclosefullobjective/trajectoryfamily; fullstudentrollout remainsunproven andnoteligible. No unchangedrecipe expansion aftervalidation.",
       "evidence": [
         "research/20261021/branch_records_R10.json",
-        "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md",
+        "docs/61_全路线失败归因与组合方案复盘_R10.md",
         "research/20261021/R11G1_native_head_results.json",
         "research/20261021/R11T1_matched_objective_results.json"
       ],
@@ -587,7 +591,7 @@
       "rationale": "Completecomputation/failure/cost/data/prediction record exists; prerequisite/nativefeasibility notcompleted. See R10branchrecord.",
       "evidence": [
         "research/20261021/branch_records_R10.json",
-        "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md"
+        "docs/61_全路线失败归因与组合方案复盘_R10.md"
       ],
       "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
     },
@@ -598,7 +602,7 @@
       "rationale": "Completecomputation/failure/cost/data/prediction record exists; prerequisite/nativefeasibility notcompleted. See R10branchrecord.",
       "evidence": [
         "research/20261021/branch_records_R10.json",
-        "docs/61_\u5168\u8def\u7ebf\u5931\u8d25\u5f52\u56e0\u4e0e\u7ec4\u5408\u65b9\u6848\u590d\u76d8_R10.md"
+        "docs/61_全路线失败归因与组合方案复盘_R10.md"
       ],
       "not_excluded": "Knownmethodtransfer or newinformation/objectivequestion; no noveltyor performanceclaim."
     },
@@ -610,7 +614,7 @@
       "evidence": [
         "research/20261021/R11G1_native_head_protocol.json",
         "research/20261021/R11G1_mechanism_record.json",
-        "docs/63_\u539f\u751f\u8f93\u51fa\u5934\u68af\u5ea6\u4e0e\u96f6\u66f4\u65b0\u7b49\u4ef7\u68c0\u67e5.md",
+        "docs/63_原生输出头梯度与零更新等价检查.md",
         "research/20261021/R11G1_native_head_results.json"
       ]
     },
@@ -622,7 +626,7 @@
       "evidence": [
         "research/20261021/R11T1_matched_objective_protocol.json",
         "research/20261021/R11T1_mechanism_record.json",
-        "docs/64_\u76f8\u540c\u90e8\u7f72\u9884\u7b97\u4e0b\u7684\u5c40\u90e8\u4e0e\u771f\u5b9eflow\u76ee\u6807\u5bf9\u7167.md",
+        "docs/64_相同部署预算下的局部与真实flow目标对照.md",
         "research/20261021/R11G1_native_head_results.json",
         "research/20261021/R11T1_matched_objective_results.json"
       ]
@@ -683,7 +687,10 @@
         "research/20261023/R16V0_completed_resources.json"
       ],
       "registered_protocol": "research/20261023/R16V0_registered_protocol.json",
-      "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT"
+      "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT",
+      "research_disposition": "RETIRED_AS_ACTIVE_RESEARCH",
+      "retirement_reason": "User redirects active research to new methods; preserve original result and allow credited comparator reuse",
+      "retirement_document": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md"
     },
     {
       "id": "R17E0_FRESH23_NINE_METRICS_AND_SYSTEM_TIMING",
@@ -696,7 +703,10 @@
       "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_SCOPE_FINISHED",
       "authorization": "research/20261023/R17E0_authorization.json",
       "protocol": "research/20261023/R17E0_registered_protocol.json",
-      "result": "research/20261023/R17E0_execution_summary.json"
+      "result": "research/20261023/R17E0_execution_summary.json",
+      "research_disposition": "RETIRED_AS_ACTIVE_RESEARCH",
+      "retirement_reason": "User redirects active research to new methods; preserve original result and allow credited comparator reuse",
+      "retirement_document": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md"
     },
     {
       "id": "C1N0_PREW1_COMPLETE_GROUP_FINITE_RESPONSE",
@@ -715,6 +725,32 @@
       "protocol_draft": "research/20261023/C2N0_native_smoke_DRAFT.json",
       "nearest_closed_method": "R16V0_FULL160_UB1_DENSE_ROW_DISPATCH",
       "substantive_change": "Pre-W1 currentnorm2inversevariance rescales existing correction-energy selector to target measuredfinitepropagationrisk; physicalactionsandcostratio frozen. CPUreference improves6/6sources butoriginalR16local/videomismatch not resolved without actualpairedvideo."
+    },
+    {
+      "id": "PRD_RESIDUAL_TWO_PATH_VALUE",
+      "status": "EXPLORATORY_MECHANISM_SEED",
+      "model_execution_eligibility": "NOT_ELIGIBLE_UNREGISTERED",
+      "mechanism": "Predict complete finite downstream action value including identity transport and normalized branch using cheap pre-W1 state",
+      "substantive_change": "Matched nextnorm loss and rstd can coexist with different complete-block risk; state-conditioned regret improves over strongest position-static policy",
+      "next_discriminator": "Synthetic bypass reversal completed; freeze paired complete-block/step finite-label design with source-disjoint fitting",
+      "evidence": [
+        "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md",
+        "research/20261023/PRD_successor_representation_ledger.json",
+        "research/20261023/PRD_successor_reanalysis.json"
+      ]
+    },
+    {
+      "id": "PRD_CAUSAL_COMPUTE_ALLOCATION",
+      "status": "EXPLORATORY_MECHANISM_SEED",
+      "model_execution_eligibility": "NOT_ELIGIBLE_UNREGISTERED",
+      "mechanism": "Choose legal dense fractions from current-state marginal finite value while carrying remaining native cost budget",
+      "substantive_change": "Within-position state-dependent allocation beats train-selected best fixed location budgets at equal measured cost",
+      "next_discriminator": "Conditional-allocation toy completed; measure marginal gains before designing a learned allocator",
+      "evidence": [
+        "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md",
+        "research/20261023/PRD_successor_representation_ledger.json",
+        "research/20261023/PRD_successor_reanalysis.json"
+      ]
     }
   ],
   "acceptance": {
@@ -734,7 +770,7 @@
     "date": "2026-10-21",
     "skill_source": "mechanism-research SKILL.md; computational reconstruction, deduction first, constructive resolution, novelty gate",
     "evidence_base_commit": "dceb931ef572e27e6ace9123d85c5b2892813719",
-    "decision_document": "docs/54_\u5df2\u6dd8\u6c70\u8def\u7ebf\u9632\u56de\u9000\u5ba1\u8ba1_20261021.md",
+    "decision_document": "docs/54_已淘汰路线防回退审计_20261021.md",
     "state": "research/20261021/research_state_R5.json",
     "override": "R4E1 finite recipe closed; dependent R4E2/E3 not triggered. No automatic next model job.",
     "execution_status": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP"
@@ -743,7 +779,7 @@
     {
       "date": "2026-10-21",
       "skill_source": "Qesire/AutoResearcher@bb34ea7be50624d47cb26de7c7c49e40882001f1",
-      "decision_document": "docs/51_AutoResearcher_R3_\u673a\u5236\u8def\u7ebf\u91cd\u5ba1_20261021.md",
+      "decision_document": "docs/51_AutoResearcher_R3_机制路线重审_20261021.md",
       "state": "research/20261021/research_state_R3.json",
       "override": "R3 prioritizes static compensated support screening first; dynamic only if coarse conditional benefit and cost gates pass. Existing exact failures remain closed. No new execution.",
       "execution_status": "PAUSED_NO_GPU"
@@ -752,7 +788,7 @@
       "date": "2026-10-21",
       "skill_source": "mechanism-research local SKILL.md and CR/DF/CRL/MNG core",
       "evidence_base_commit": "9227de1f3e391341ff000c15ad805d9ca2db3084",
-      "decision_document": "docs/52_\u673a\u5236\u6f5c\u529b\u5206\u8fa8\u4e0e\u53ef\u884c\u65b9\u5411_R4_20261021.md",
+      "decision_document": "docs/52_机制潜力分辨与可行方向_R4_20261021.md",
       "state": "research/20261021/research_state_R4.json",
       "override": "Prioritize compensation-nonredundant static support; whole-M action routing remains conditional. No new model execution.",
       "execution_status": "PAUSED_NO_GPU"
@@ -762,7 +798,7 @@
     "status": "R4_FINITE_SCREEN_COMPLETE_NATIVE_GATE_REJECTED",
     "evidence": "reports/worker_20261020/PROJECT_RESUME_R4.json",
     "note": "Registered R4E0/E1 recovery and finite closure are observed. Main current entries now agree; prior paused/primary labels are historical.",
-    "evidence_document": "docs/53_R4\u8865\u507f\u611f\u77e5\u652f\u6301\u4ea4\u6362\u7684\u539f\u751f\u7b5b\u9009.md",
+    "evidence_document": "docs/53_R4补偿感知支持交换的原生筛选.md",
     "scope": "Only the registered16-group shortlist at two fixed positions was tested. Other supports remain untested; R4E2/E3 not triggered.",
     "current_decision": "research/CURRENT_DECISION.json"
   },
@@ -802,37 +838,26 @@
     }
   ],
   "latest_static_review": {
-    "id": "R15_FOUR_ROW_MEAN_CONTRAST_BACKEND_AND_INTEGRATION",
-    "document": "docs/77_R15\u5b8c\u6574\u56db\u4f4d\u7f6e\u54cd\u5e94\u4e0e\u914d\u5bf9\u89c6\u9891\u8dd1\u901a\u8bb0\u5f55.md",
-    "result": "research/20261023/R15_mechanism_record.json",
-    "result_sha256": "e0c3c106de39d97377435d11a0f40a3ac2a35fe3708e404b6294b07ae8ffff99",
-    "status": "SYNTHETIC_BACKEND_COMPLETE_FULL_VIDEO_IMPLEMENTATION_PREPARED",
-    "new_model_generations": 0,
-    "scope": "4savedCPUscopes/256groups and42randomtensorGPUchain samples. Pairedoriginal-modelvideoimplementationprepared;notyetexecuted.",
-    "next_discriminator": "Execute separately authorized R15V0completepairedfreevideo before more local/synthetic refinement. Novelty discussion deferred.",
-    "subsequent_separately_authorized_native_result": "research/20261023/R15V0_native_rollout_results.json"
+    "id": "PRD_SUCCESSOR_20261023",
+    "status": "COMPLETE_SAVED_EVIDENCE_AND_SYNTHETIC_REEXPLORATION",
+    "document": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md",
+    "result": "research/20261023/PRD_successor_reanalysis.json",
+    "result_sha256": "fe7bfe63a42c73320e499be289392f18316cc6d3792adc2d76f2a3e9f14dcb01",
+    "research_state": "research/20261023/research_state_PRD_SUCCESSOR.json",
+    "source_revision": "7c7019ec66835e740b3573d5572a8da59f0efa69",
+    "new_model_calls": 0,
+    "key_result": "C2 gains heterogeneous:15/72negative,12inlate steps; residual-bypass counterexample motivates complete finite action value"
   },
   "latest_research_review": {
-    "id": "R16V0_FULL160_NATIVE_ROW_DISPATCH_AND_HUMAN_SMOKE",
-    "status": "COMPLETED_SCOPED_FULL160_ROW_DISPATCH_SMOKE_PASSED",
-    "disposition": "ONE_SOURCE_FULL160_DYNAMIC_OPERATOR_AND_HUMAN_NONCOLLAPSE_ESTABLISHED_NOT_POPULATION_QUALITY",
-    "result": "research/20261023/R16V0_native_results.json",
-    "analysis": "research/20261023/R16V0_analysis.json",
-    "human_review": "research/20261023/R16V0_human_review.json",
-    "review": "research/20261023/R16V0_full_duration_review.json",
-    "resources": "research/20261023/R16V0_completed_resources.json",
-    "full_generations": 5,
-    "standalone_FFN_forwards": 164,
-    "training_steps": 0,
-    "weight_factorizations": 0,
-    "actual_dynamic_FFN_sites": 160,
-    "main_MAC_fraction": 0.625,
-    "R256_MAC_fraction": 0.018518518518518517,
-    "dynamic_local_gain_over_best_of_two_fixed": 0.061275701903671154,
-    "native_4position_core_speed_ratio": 1.2627314021685656,
-    "dynamic_pooled_RGB_MSE_over_best_pixel_fixed": 1.0822574970618422,
-    "scope": "One oldsource; actualpreW1rowrouting,all160nativeFFNs,fullfree4stepvideos,all81framesdecoded,humanfullplaybacknoobviouscollapse. Nativebitcontrols anddensefourlatentidentity pass. Motiondiffers;fidelityrankingdoesnotmatchlocalSSE;noofficialfreshquality,norepeatedsystembenchmark.",
-    "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT"
+    "id": "PRD_SUCCESSOR_20261023",
+    "status": "COMPLETE_SAVED_EVIDENCE_AND_SYNTHETIC_REEXPLORATION",
+    "document": "docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md",
+    "result": "research/20261023/PRD_successor_reanalysis.json",
+    "result_sha256": "fe7bfe63a42c73320e499be289392f18316cc6d3792adc2d76f2a3e9f14dcb01",
+    "research_state": "research/20261023/research_state_PRD_SUCCESSOR.json",
+    "source_revision": "7c7019ec66835e740b3573d5572a8da59f0efa69",
+    "new_model_calls": 0,
+    "key_result": "C2 gains heterogeneous:15/72negative,12inlate steps; residual-bypass counterexample motivates complete finite action value"
   },
   "latest_native_diagnostic": {
     "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
@@ -852,7 +877,7 @@
   "previous_static_reviews": [
     {
       "id": "R6_TEMPORAL_PRE_GATE_FFN",
-      "document": "docs/55_\u8de8\u6b65FFN\u590d\u7528\u7684\u51b7\u542f\u52a8\u4e0e\u914d\u5bf9\u6570\u636e\u5ba1\u8ba1.md",
+      "document": "docs/55_跨步FFN复用的冷启动与配对数据审计.md",
       "mechanism_record": "research/20261021/temporal_cache_mechanism_record.json",
       "metadata_audit": "research/20261021/cross_step_pairing_audit.json",
       "disposition": "DEFERRED_NO_PAIRED_READINESS_OR_POSITIVE_NATIVE_EVIDENCE",
@@ -860,7 +885,7 @@
     },
     {
       "id": "R12_E0_SIGNED_VALUE_AND_CONDITIONAL_GRANULARITY",
-      "document": "docs/66_R12\u7b49\u9884\u7b97\u52a8\u4f5c\u7684\u64cd\u4f5c\u6570\u4e0e\u6761\u4ef6\u7c92\u5ea6\u5ba1\u8ba1.md",
+      "document": "docs/66_R12等预算动作的操作数与条件粒度审计.md",
       "operand_audit": "research/20261022/R12_E0_operand_audit.json",
       "saved_flow_geometry": "research/20261022/R12_E0_flow_partitions.json",
       "runtime_reconstruction": "research/20261022/R12_E0_runtime_reconstruction.json",
@@ -873,7 +898,7 @@
     },
     {
       "id": "R12_INFORMATION_AND_BUDGET_DISCRIMINATORS",
-      "document": "docs/70_\u6761\u4ef6\u4fe1\u53f7\u4e0e\u8de8\u6b65\u65b9\u6cd5\u7684\u771f\u5b9e\u9884\u7b97.md",
+      "document": "docs/70_条件信号与跨步方法的真实预算.md",
       "result": "research/20261022/R12_information_budget_discriminators.json",
       "result_sha256": "af683785342a9913fe09deaab0b3a486443f82af61a65218098b602f83980776",
       "status": "SYNTHETIC_MATH_SOURCE_REVIEW_AND_EXACT_BUDGET_ONLY",
@@ -882,7 +907,7 @@
     },
     {
       "id": "R13_SPATIAL_CONTRAST_AND_POOLED_NONLINEAR_RESPONSE",
-      "document": "docs/71_\u7a7a\u95f4\u8bef\u5dee\u7684\u53ef\u5171\u4eab\u90e8\u5206\u4e0e\u53cc\u70b9\u975e\u7ebf\u6027\u6784\u9020.md",
+      "document": "docs/71_空间误差的可共享部分与双点非线性构造.md",
       "result": "research/20261022/R13_mechanism_record.json",
       "result_sha256": "6127c4b6c270f6890ef4bee83e3e10a4eeca0e4a7b0adc7ade61358b8ff0ec99",
       "status": "SAVED_CPU_AND_SYNTHETIC_GPU_COMPLETE_DIRECT_IMPLEMENTATION_TOO_SLOW_THREE_DIRECTION_SEED_OPEN",
@@ -892,20 +917,31 @@
     },
     {
       "id": "R14_THREE_DIRECTION_FUSED_BACKEND",
-      "document": "docs/73_\u4e09\u65b9\u5411\u878d\u5408\u7b97\u5b50\u7684\u5b9e\u9645\u6210\u672c\u4e0e\u539f\u751f\u4ef7\u503c\u4e0b\u4e00\u6b65.md",
+      "document": "docs/73_三方向融合算子的实际成本与原生价值下一步.md",
       "result": "research/20261022/R14_mechanism_record.json",
       "result_sha256": "0681f8c093044f2eb101ab36f61b2a1f8a34abb694e3da23a17e95f452ba6cf7",
       "status": "SYNTHETIC_BACKEND_ADVANCE_NATIVE_VALUE_UNMEASURED",
       "new_model_generations": 0,
       "scope": "One fixed random-tensor A100 comparison:7arms,49samples,16fusioncontrols,14originalQDQchecks. Fused3-direction dynamic28.1745ms/1.913x,45.1381%MAC;unfuseddynamic46.9870ms. No Wan/nativevalue/video/original160FFN speed result.",
       "next_discriminator": "Complete-stripe actual native writeback action values at one fixed position,4oldexposed sources,training-only bestfixed32/64 versus same-count norm andoracle; fixed draft<=4UB1captures and<=32standaloneFFNcalls. Final executable/source bindings and separate direct human authority required before registration/execution."
+    },
+    {
+      "id": "R15_FOUR_ROW_MEAN_CONTRAST_BACKEND_AND_INTEGRATION",
+      "document": "docs/77_R15完整四位置响应与配对视频跑通记录.md",
+      "result": "research/20261023/R15_mechanism_record.json",
+      "result_sha256": "e0c3c106de39d97377435d11a0f40a3ac2a35fe3708e404b6294b07ae8ffff99",
+      "status": "SYNTHETIC_BACKEND_COMPLETE_FULL_VIDEO_IMPLEMENTATION_PREPARED",
+      "new_model_generations": 0,
+      "scope": "4savedCPUscopes/256groups and42randomtensorGPUchain samples. Pairedoriginal-modelvideoimplementationprepared;notyetexecuted.",
+      "next_discriminator": "Execute separately authorized R15V0completepairedfreevideo before more local/synthetic refinement. Novelty discussion deferred.",
+      "subsequent_separately_authorized_native_result": "research/20261023/R15V0_native_rollout_results.json"
     }
   ],
   "previous_research_reviews": [
     {
       "id": "FFNDS-R7-FAILURE-AND-METHOD-REVIEW",
       "evidence_base_commit": "16e14265b6a8908bc9e6f3fa7fc4fb860c350fb8",
-      "document": "docs/56_\u5168\u8def\u7ebf\u590d\u76d8\u4e0e\u4e0b\u4e00\u6b65\u673a\u5236\u4f18\u5148\u7ea7_R7.md",
+      "document": "docs/56_全路线复盘与下一步机制优先级_R7.md",
       "data_audit": "research/20261021/failure_data_audit_R7.json",
       "historical_reconciliation": "research/20261021/historical_reconciliation_R7.json",
       "method_search": "research/20261021/method_search_R7.json",
@@ -923,7 +959,7 @@
     },
     {
       "id": "R12_E0_SIGNED_VALUE_AND_CONDITIONAL_GRANULARITY",
-      "document": "docs/66_R12\u7b49\u9884\u7b97\u52a8\u4f5c\u7684\u64cd\u4f5c\u6570\u4e0e\u6761\u4ef6\u7c92\u5ea6\u5ba1\u8ba1.md",
+      "document": "docs/66_R12等预算动作的操作数与条件粒度审计.md",
       "operand_audit": "research/20261022/R12_E0_operand_audit.json",
       "saved_flow_geometry": "research/20261022/R12_E0_flow_partitions.json",
       "runtime_reconstruction": "research/20261022/R12_E0_runtime_reconstruction.json",
@@ -936,7 +972,7 @@
     },
     {
       "id": "R12_D0_EQUAL_BUDGET_NATIVE_VALUE_AND_DEBIT",
-      "document": "docs/68_R12_D0\u7b49\u9884\u7b97\u539f\u751f\u52a8\u4f5c\u68c0\u9a8c.md",
+      "document": "docs/68_R12_D0等预算原生动作检验.md",
       "native_result": "research/20261022/R12_D0_native_results.json",
       "native_result_sha256": "00f34436ca7c1cca73f8abb104e37c60c60415df95c5284a4aed0c229af54a8c",
       "protocol": "research/20261022/R12_D0_registered_protocol_worker_migration.json",
@@ -950,7 +986,7 @@
     },
     {
       "id": "R14N0_COMPLETE_STRIPE_NATIVE_VALUE",
-      "document": "docs/74_\u5b8c\u6574\u7a7a\u95f4\u90bb\u57df\u7684\u539f\u751f\u503c\u4e0e\u56fa\u5b9a\u53cc\u70b9\u6784\u9020\u62d2\u7edd.md",
+      "document": "docs/74_完整空间邻域的原生值与固定双点构造拒绝.md",
       "native_result": "research/20261022/R14N0_native_results.json",
       "native_result_sha256": "2124881b20f80085cc0953cc7d39862beaae43c88723cdd9953648ea44b29dd4",
       "protocol": "research/20261022/R14N0_registered_protocol.json",
@@ -967,13 +1003,35 @@
     },
     {
       "id": "R15_FOUR_ROW_MEAN_CONTRAST_BACKEND_AND_INTEGRATION",
-      "document": "docs/77_R15\u5b8c\u6574\u56db\u4f4d\u7f6e\u54cd\u5e94\u4e0e\u914d\u5bf9\u89c6\u9891\u8dd1\u901a\u8bb0\u5f55.md",
+      "document": "docs/77_R15完整四位置响应与配对视频跑通记录.md",
       "result": "research/20261023/R15_mechanism_record.json",
       "result_sha256": "e0c3c106de39d97377435d11a0f40a3ac2a35fe3708e404b6294b07ae8ffff99",
       "status": "SYNTHETIC_BACKEND_COMPLETE_FULL_VIDEO_IMPLEMENTATION_PREPARED",
       "new_model_generations": 0,
       "scope": "4savedCPUscopes/256groups and42randomtensorGPUchain samples. Pairedoriginal-modelvideoimplementationprepared;notyetexecuted.",
       "next_discriminator": "Execute separately authorized R15V0completepairedfreevideo before more local/synthetic refinement. Novelty discussion deferred."
+    },
+    {
+      "id": "R16V0_FULL160_NATIVE_ROW_DISPATCH_AND_HUMAN_SMOKE",
+      "status": "COMPLETED_SCOPED_FULL160_ROW_DISPATCH_SMOKE_PASSED",
+      "disposition": "ONE_SOURCE_FULL160_DYNAMIC_OPERATOR_AND_HUMAN_NONCOLLAPSE_ESTABLISHED_NOT_POPULATION_QUALITY",
+      "result": "research/20261023/R16V0_native_results.json",
+      "analysis": "research/20261023/R16V0_analysis.json",
+      "human_review": "research/20261023/R16V0_human_review.json",
+      "review": "research/20261023/R16V0_full_duration_review.json",
+      "resources": "research/20261023/R16V0_completed_resources.json",
+      "full_generations": 5,
+      "standalone_FFN_forwards": 164,
+      "training_steps": 0,
+      "weight_factorizations": 0,
+      "actual_dynamic_FFN_sites": 160,
+      "main_MAC_fraction": 0.625,
+      "R256_MAC_fraction": 0.018518518518518517,
+      "dynamic_local_gain_over_best_of_two_fixed": 0.061275701903671154,
+      "native_4position_core_speed_ratio": 1.2627314021685656,
+      "dynamic_pooled_RGB_MSE_over_best_pixel_fixed": 1.0822574970618422,
+      "scope": "One oldsource; actualpreW1rowrouting,all160nativeFFNs,fullfree4stepvideos,all81framesdecoded,humanfullplaybacknoobviouscollapse. Nativebitcontrols anddensefourlatentidentity pass. Motiondiffers;fidelityrankingdoesnotmatchlocalSSE;noofficialfreshquality,norepeatedsystembenchmark.",
+      "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_BUDGET_SPENT"
     }
   ],
   "latest_native_registration": {
@@ -989,7 +1047,7 @@
   "latest_open_research_library": {
     "remote_commit": "40a5e4955e91cbd5b40a7c9a0cd4f359664de4fc",
     "index": "research/exploration/20261022/EXPLORATION_INDEX.md",
-    "synthesis": "docs/67_\u540e\u8bad\u7ec3\u52a8\u6001FFN\u5f00\u653e\u63a2\u7d22\u4e0e\u8d28\u91cf\u901f\u5ea6\u76ee\u6807_20261022.md",
+    "synthesis": "docs/67_后训练动态FFN开放探索与质量速度目标_20261022.md",
     "execution_authorization_effect": "NONE; D0 has separate prior explicit user approval, fixed scope preserved. No GBA/STB preference or exclusive pair-first sequence."
   },
   "native_registration_history": [
@@ -1045,7 +1103,7 @@
     "metric_CPU_imports": "research/20261023/R17_metric_import_preflight.json",
     "source_supplement": "research/20261023/R17_metric_source_supplement.json",
     "prepared_scope": "research/20261023/R17E0_fresh_quality_DRAFT.json",
-    "document": "docs/82_\u65b0\u6765\u6e90\u4e5d\u7ef4\u8bc4\u6d4b\u4e0e\u91cd\u590d\u539f\u751f\u6d4b\u901f_20261023.md",
+    "document": "docs/82_新来源九维评测与重复原生测速_20261023.md",
     "new_model_generations": 0,
     "model_execution_eligibility_change": true,
     "exclusion_proof": "research/20261023/R17_fresh23_exclusion_manifest.json",
@@ -1090,7 +1148,7 @@
     "id": "C0_COUPLING_PREW1_OFFLINE_DISCRIMINATORS",
     "status": "COMPLETE_SOURCE_SAVED_DATA_AND_CPU_ONLY",
     "task": "research/20261023/COUPLING_PIVOT_TASK.json",
-    "document": "docs/86_\u5f52\u4e00\u5316\u524d\u4fe1\u606f\u4e0e\u51c0\u52a8\u4f5c\u8026\u5408\u7684\u79bb\u7ebf\u68c0\u9a8c_20261023.md",
+    "document": "docs/86_归一化前信息与净动作耦合的离线检验_20261023.md",
     "results": "research/20261023/C0_coupling_offline_results.json",
     "prior_art": "research/20261023/C0_positive_prior_art.json",
     "next_discriminator": "research/20261023/C0_next_discriminator.json",

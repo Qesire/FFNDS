@@ -22,6 +22,11 @@ jobs:
           python tools/check_ffnds_prd.py
           python -m unittest discover -s tests -p 'test_problem_reformulation.py' -v
           python -m unittest discover -s tests -p 'test_ffnds_prd.py' -v
+      - name: Reproduce latest PRD successor evidence and source-aware sampling
+        run: |
+          python tools/analyze_prd_successor.py --check
+          python -m unittest discover -s tests -p 'test_prd_successor.py' -v
+          python scripts/validate_representation.py research/20261023/PRD_successor_representation_ledger.json
       - name: Verify TACR scientific sampling against real interrupted R17 evidence
         run: |
           python tools/check_tacr_sampling_scope.py --check

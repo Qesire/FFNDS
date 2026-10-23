@@ -1,3 +1,9 @@
+# Current research: residual-complete action value (2026-10-23)
+
+Read [the new AutoResearcher reanalysis](docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md), [current handoff](research/20261023/HANDOFF_PRD_SUCCESSOR.md), and [sampling revision](research/20261023/PRD_sampling_revision.json). The latest native experiment is C1; C2 is a prepared norm-scaled row successor, not completed TACR channel execution. Reanalysis finds 15/72 negative C2 positions, 12 in the last two steps, despite positive six-source aggregates. A reproducible residual-bypass counterexample shows why nextnorm loss alone can misrank downstream risk. Pursue pre-W1 conditional value of complete residual-block/step actions; retain C2's existing paired-video discriminator and develop causal budget allocation as a secondary seed.
+
+**R16/R17 are retired as active research at the user's request.** Preserve their historical outcomes and comparator implementations. C1's two zero-headroom whole-site swaps are closed for further router/q expansion. This update preserves C2's prepared scope and all execution records. Run `python tools/analyze_prd_successor.py --check` and the `test_prd_successor.py` suite. Earlier dated sections below are historical context where superseded by this entry.
+
 ## C2N0：低成本尺度评分与完整配对视频程序已备妥
 
 继续用保存数据检查原R16评分的CPU参考：乘上当前norm2的rstd²后，25%采样行所捕获的下一norm误差从27.8340%到28.8126%，六来源均提高。全160处原生实现、六条固定范围配对视频程序和数值控制已准备；**待新的独立范围授权，尚无C2候选视频结果**。下一项直接做完整自由视频，与dense、UB1、原动态及fixed_stride比较。见[交接与可执行范围](research/20261023/HANDOFF_C2N0.md)。
