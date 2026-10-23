@@ -400,7 +400,7 @@
     "all_controls_valid": true,
     "quality_or_speed_acceptance": false
   },
-  "research_work_status": "TWO_FULL_VIDEOS_AND_AGENT_FRAME_REVIEW_COMPLETE_FORMAL_HUMAN_SMOKE_VERDICT_PENDING_NO_MODEL_FOLLOWUP",
+  "research_work_status": "PAUSED_BY_USER_ALL_EXPERIMENTS",
   "research_review_history": [
     {
       "id": "FFNDS-R7-FAILURE-AND-METHOD-REVIEW",
@@ -887,11 +887,12 @@
   },
   "next_active_research_task": {
     "id": "C2N2_ENVIRONMENT_PRESERVED_NORM_SCALED_SMOKE",
-    "status": "WAITING_FOR_SEPARATE_EXECUTION_AUTHORITY",
+    "status": "PAUSED_BY_USER_NO_AUTOMATIC_FOLLOWUP",
     "draft": "research/20261023/C2N2_environment_smoke_DRAFT_v2.json",
     "candidate_registry": "research/candidate_rollout/registry/C2N2_environment_preserved_energy.json",
-    "model_execution_authority": "NONE",
-    "automatic_followup": false
+    "model_execution_authority": "EXHAUSTED_FIXED_ATTEMPT_CLOSED",
+    "automatic_followup": false,
+    "protocol": "research/20261023/C2N2_registered_protocol.json"
   },
   "registered_c1_diagnostic": {
     "active": false,
@@ -956,7 +957,8 @@
     "primary_mechanism": "PRD_RESIDUAL_TWO_PATH_VALUE",
     "secondary_seed": "PRD_CAUSAL_COMPUTE_ALLOCATION",
     "model_execution_eligibility_effect": "NONE",
-    "complete_C2_draft_preserved": true
+    "complete_C2_draft_preserved": true,
+    "status": "PAUSED_BY_USER"
   },
   "registered_c2_smoke": {
     "active": false,
@@ -991,12 +993,15 @@
   },
   "pending_engineering_repair": {
     "id": "C2N2_ENVIRONMENT_PRESERVED_NORM_SCALED_SMOKE",
-    "status": "PREPARED_WAITING_FOR_INDEPENDENT_ENVIRONMENT_RETRY_AUTHORITY",
+    "status": "C2N2_FIXED_ATTEMPT_FINISHED_USER_PAUSED_ALL_EXPERIMENTS",
     "draft": "research/20261023/C2N2_environment_smoke_DRAFT_v2.json",
     "CPU_preflight": "research/20261023/C2N2_environment_CPU_preflight.json",
     "handoff": "research/20261023/HANDOFF_C2N2.md",
     "new_GPU_calls": 0,
-    "model_execution_eligibility": "NOT_ELIGIBLE_UNAUTHORIZED"
+    "model_execution_eligibility": "NOT_ELIGIBLE_FIXED_SCOPE_FINISHED",
+    "authorization": "research/20261023/C2N2_authorization.json",
+    "protocol": "research/20261023/C2N2_registered_protocol.json",
+    "result": "research/20261023/C2N2_isolation_failure_analysis.json"
   },
   "registered_c2_reserved_smoke": {
     "active": false,
@@ -1036,5 +1041,43 @@
     "quality_or_Pareto_acceptance": false,
     "protocol_sha256": "fb7b799d9af7841e77726ea084f1b79f1deb1ce80818bc60d9f0705275c2f2b8",
     "error_type": "ModuleNotFoundError"
+  },
+  "registered_c2_environment_smoke": {
+    "active": false,
+    "method_id": "C2N2_ENVIRONMENT_PRESERVED_NORM_SCALED_SMOKE",
+    "protocol": "research/20261023/C2N2_registered_protocol.json",
+    "protocol_sha256": "16ad1a8a44befe757f1c58b09fdc151e350b8f623f457b4f47c178e982aaa89f",
+    "authorization": "research/20261023/C2N2_authorization.json",
+    "preserved_model_closure": "REGISTERED_R4_SEQUENCE_CLOSED_NO_ELIGIBLE_FOLLOWUP",
+    "phase": "CLOSED_AFTER_RESOURCE_ISOLATION_FAILURE_USER_PAUSED",
+    "result": "research/20261023/C2N2_execution_summary.json",
+    "fixed_scope_finished": true
+  },
+  "latest_c2_environment_smoke": {
+    "id": "C2N2_ENVIRONMENT_PRESERVED_NORM_SCALED_SMOKE",
+    "status": "STOPPED_C2N2_FIXED_SCOPE_NO_RETRY",
+    "actual_budget": {
+      "full_generations": 0,
+      "standalone_FFN_forwards": 0,
+      "standalone_normalization_calls": 0,
+      "standalone_selector_calls": 0,
+      "training_steps": 0,
+      "weight_factorizations": 0,
+      "official_evaluator_calls": 0
+    },
+    "completed_videos": 0,
+    "automatic_followup": false,
+    "quality_or_Pareto_acceptance": false,
+    "protocol_sha256": "16ad1a8a44befe757f1c58b09fdc151e350b8f623f457b4f47c178e982aaa89f",
+    "error_type": "KeyboardInterrupt",
+    "failure_analysis": "research/20261023/C2N2_isolation_failure_analysis.json",
+    "algorithm_quality_or_speed_verdict": "NOT_MEASURED",
+    "human_full_video_review_required": false
+  },
+  "experiment_pause": {
+    "status": "PAUSED_BY_EXPLICIT_USER_REQUEST",
+    "record": "research/20261024/EXPERIMENT_PAUSE.json",
+    "all_experiments_paused": true,
+    "resume_requires_explicit_user_instruction": true
   }
 }

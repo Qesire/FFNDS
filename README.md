@@ -1,12 +1,20 @@
+# 全部实验已按用户要求暂停（2026-10-24）
+
+用户要求暂停所有实验。七个获授权节点已核对，本项目实验进程为0；不再启动CPU/GPU/模型实验、等待任务或重试，等待明确恢复。C2N2因选中卡后来出现外来计算而停止，视频及原生前向均为0，算法质量/速度未测。记录和HF资产完整保留，见[暂停记录](research/20261024/EXPERIMENT_PAUSE.json)、[实际结果](research/20261023/C2N2_native_results.json)和[当前交接](research/20261023/HANDOFF_C2N2.md)。下文的研究方向和执行中说明为暂停前历史状态。
+
 # Current research: residual-complete action value (2026-10-23)
 
 Read [the new AutoResearcher reanalysis](docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md), [current handoff](research/20261023/HANDOFF_PRD_SUCCESSOR.md), and [sampling revision](research/20261023/PRD_sampling_revision.json). C1 is the completed native action diagnostic; C2 is the norm-scaled row successor whose current execution status appears below, not completed TACR channel execution. Reanalysis finds 15/72 negative C2 positions, 12 in the last two steps, despite positive six-source aggregates. A reproducible residual-bypass counterexample shows why nextnorm loss alone can misrank downstream risk. Pursue pre-W1 conditional value of complete residual-block/step actions; retain C2's existing paired-video discriminator and develop causal budget allocation as a secondary seed.
 
 **R16/R17 are retired as active research at the user's request.** Preserve their historical outcomes and comparator implementations. C1's two zero-headroom whole-site swaps are closed for further router/q expansion. This update preserves C2's prepared scope and all execution records. Run `python tools/analyze_prd_successor.py --check` and the `test_prd_successor.py` suite. Earlier dated sections below are historical context where superseded by this entry.
 
+## C2N2：用户已授权，固定六视频正在执行
+
+已登记[独立授权](research/20261023/C2N2_authorization.json)和[正式协议](research/20261023/C2N2_registered_protocol.json)，真实启动于一张空闲A100；依赖检查和早期CUDA占用通过，正在加载既有HF缓存。先检查原UB1轨迹，再生成source6五组配对视频；六视频、两次norm、三次selector，失败不自动重试。当前尚无新的视频质量或速度结论，见[当前交接](research/20261023/HANDOFF_C2N2.md)。
+
 ## C2N1：启动因导入路径错误停止；修复已通过CPU验收
 
-本轮在空闲A100完成早期CUDA占用，随后因Agent启动命令中的环境脚本清除了项目路径，出现`HiFloat4`导入失败。**视频、FFN、norm、selector均为0，算法质量与速度未测。** 原始失败已保存，固定范围关闭。新的专用启动器已通过真实CPU正反核验：模型包可导入、D-Q缓存完整SHA256与160处参数校验通过，GPU始终隐藏；实际模型保留正常设备检查。约128GB既有HF资产及12模型载荷SHA256已就位。见[失败与修复](docs/91_C2N1导入路径故障与环境修复验收_20261024.md)、[实际结果](research/20261023/C2N1_native_results.json)与[独立固定C2N2草案](research/20261023/HANDOFF_C2N2.md)。C2N2尚无执行授权，不自动重跑。
+本轮在空闲A100完成早期CUDA占用，随后因Agent启动命令中的环境脚本清除了项目路径，出现`HiFloat4`导入失败。**视频、FFN、norm、selector均为0，算法质量与速度未测。** 原始失败已保存，固定范围关闭。新的专用启动器已通过真实CPU正反核验：模型包可导入、D-Q缓存完整SHA256与160处参数校验通过，GPU始终隐藏；实际模型保留正常设备检查。约128GB既有HF资产及12模型载荷SHA256已就位。见[失败与修复](docs/91_C2N1导入路径故障与环境修复验收_20261024.md)、[实际结果](research/20261023/C2N1_native_results.json)与[独立固定C2N2草案](research/20261023/HANDOFF_C2N2.md)。以上为C2N2启动前的历史准备；其后独立授权及实际执行状态见上节。
 
 ## 旧原生数据的新发现：误差目标改变行优先级
 
