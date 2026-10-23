@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.0",
+  "research_object": "FFNDS native Wan2.2 four-step D-Q HiF4 GELU FFN and its pre-W1 information / downstream compensated computation value",
+  "source_revision": "FFNDS:6e5c2badaedb9b1d5f68b8df31699cd4bbd442b7; AutoResearcher:0684b560f94504cf458c42e594dc6522e6f61e27",
+  "representations": [
+    {
+      "id": "native_ffn",
+      "description": "Observed source operator with Q1, GELU, Q2, alpha, folded bias and R256",
+      "expression_or_reduction": "v1=Q1(x/S1); h=GELU(W1*v1+b1); y_UB1=W2_B*BF16(alpha*Q2(h_B/S2))+folded_b2+R256(v1); native BF16 accumulation matters",
+      "relation_to_source": "CONDITIONAL",
+      "assumptions": [
+        "Specific UB1 64-group branch only, not dense exception",
+        "Native HiF4 force_fp32 QDQ, BF16 conversion and native writeback preserved"
+      ],
+      "dependencies": [
+        "post-Q1 v1 31668x5120",
+        "groups by step 54/108/108/162",
+        "R256, alpha and bias"
+      ],
+      "freedoms": [
+        "Actual complete net action boundary rather than bare hidden value"
+      ],
+      "provenance": {
+        "status": "SOURCE_VERIFIED",
+        "locator": "tools/ub1_row_dispatch.py:RowDispatch.apply; tools/reduced_rank_residual.py:predict_y"
+      },
+      "next_discriminator": "E0: audit exact set-dependent group action before native measurement"
+    },
+    {
+      "id": "ideal_group_sum",
+      "description": "For fixed input, pointwise GELU FFN may be rewritten as hidden-group output contributions",
+      "expression_or_reduction": "F(v)=b2+sum_g W2_g*GELU(W1_g*v+b1_g) in exact real arithmetic",
+      "relation_to_source": "CONDITIONAL",
+      "assumptions": [
+        "Fixed input, unmodified W1/W2, and no group-coupled Q2 or correction update",
+        "Real arithmetic rather than BF16 reduction"
+      ],
+      "dependencies": [
+        "input v",
+        "W1/W2 hidden groups"
+      ],
+      "freedoms": [
+        "Separate intrinsic channel computation from compensation and loss interaction"
+      ],
+      "provenance": {
+        "status": "DERIVED",
+        "locator": "Wan-Video/Wan2.2 wan/modules/model.py:WanAttentionBlock.ffn; docs/TACR_FFN_查重与机制推导_20261023.md"
+      },
+      "next_discriminator": "Synthetic additivity, then native Q2 and set-dependent finite action comparison"
+    },
+    {
+      "id": "shared_rr_latent",
+      "description": "R256 correction is already a 5120-to-256-to-5120 two-stage low-rank operator",
+      "expression_or_reduction": "h256=linear(v1,first,bias_first); correction=linear(h256,second,bias_second)",
+      "relation_to_source": "EXACT",
+      "assumptions": [
+        "Same native BF16 linear inputs, weights, biases and operation sequence as predict_y",
+        "Making h256 observable or routing from it adds retention/readout overhead"
+      ],
+      "dependencies": [
+        "post-Q1 v1",
+        "frozen R256 factors"
+      ],
+      "freedoms": [
+        "Use one representation for correction plus computation selection, with cost and fidelity accounting"
+      ],
+      "provenance": {
+        "status": "SOURCE_VERIFIED",
+        "locator": "tools/reduced_rank_residual.py:predict_y; tools/ub1_row_dispatch.py:RowDispatch.apply"
+      },
+      "next_discriminator": "Source/CPU bit-control for h256 exposure, then held-out utility-vs-C-score comparison"
+    },
+    {
+      "id": "prenorm_scale",
+      "description": "Two distinct raw residual states can have near-identical normalized pre-W1 representations but different future sensitivity",
+      "expression_or_reduction": "LN(r+c*1)=LN(r) exactly; LN(a*r) approximately LN(r) when eps is small and a>0; J=(I-11T/D-uuT/(D*sigma²))/sigma",
+      "relation_to_source": "CONDITIONAL",
+      "assumptions": [
+        "Actual Wan uses LayerNorm and AdaLN; toy math is real-valued",
+        "Scale invariance is approximate for nonzero epsilon",
+        "Downstream FFN perturbation enters residual then subsequent normalization"
+      ],
+      "dependencies": [
+        "pre-norm residual r",
+        "scale sigma",
+        "attention update",
+        "AdaLN gate"
+      ],
+      "freedoms": [
+        "Predict propagation risk from information lost at normalization, beyond current post-Q1"
+      ],
+      "provenance": {
+        "status": "DERIVED",
+        "locator": "Wan-Video/Wan2.2 wan/modules/model.py:WanLayerNorm; tools/ub1_row_dispatch.py:RowDispatch.apply"
+      },
+      "next_discriminator": "E1 deterministic CPU example then source-held-out native compensated action utility"
+    },
+    {
+      "id": "contextual_trajectory",
+      "description": "Recast FFN savings from local hidden error into cost-sensitive finite action selection over later video states",
+      "expression_or_reduction": "a*(Z)=argmax_a E[Gain_downstream(a)-lambda*Cost_native(a)|Z]",
+      "relation_to_source": "TASK_REDUCTION",
+      "assumptions": [
+        "Finite executable 64-channel-group net actions with full compensation and true native costs",
+        "Z observable before W1; downstream labels require same-prefix real continuation",
+        "Already discussed as TACR; not an independent new invention"
+      ],
+      "dependencies": [
+        "step/block/time-bin Z",
+        "real compensated actions",
+        "reference trajectory/ROI"
+      ],
+      "freedoms": [
+        "Separate local activation proxy from causal action value and time consistency"
+      ],
+      "provenance": {
+        "status": "DERIVED",
+        "locator": "docs/TACR_FFN_查重与机制推导_20261023.md; docs/84_TACR_净动作价值与修正采样_20261023.md"
+      },
+      "next_discriminator": "Compare best matched fixed budget, R256 selector, residual-scale feature and source-disjoint action-value policy"
+    }
+  ],
+  "connections": [
+    {
+      "from": "native_ffn",
+      "to": "ideal_group_sum",
+      "relation": "CONDITIONAL_EQUIVALENCE",
+      "reason": "Only ideal real-valued fixed-input and fixed-correction grouped FFN, not native set-sensitive actions."
+    },
+    {
+      "from": "native_ffn",
+      "to": "shared_rr_latent",
+      "relation": "DESIGN_EXTENSION",
+      "reason": "The existing compensation is factored to expose h256 without a second predictor."
+    },
+    {
+      "from": "native_ffn",
+      "to": "prenorm_scale",
+      "relation": "DESIGN_EXTENSION",
+      "reason": "Upstream raw scale erased by LayerNorm can modulate propagation after residual writeback."
+    },
+    {
+      "from": "ideal_group_sum",
+      "to": "contextual_trajectory",
+      "relation": "TASK_REDUCTION",
+      "reason": "Translate grouped output perturbations into native conditional future quality-risk decisions."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "C1_NORM_STATE_NET_VALUE",
+      "representation_ids": [
+        "native_ffn",
+        "prenorm_scale",
+        "contextual_trajectory"
+      ],
+      "mechanism": "Use residual scale and attention increments upstream of Q1 to predict downstream compensated group-action value",
+      "different_prediction": "Source-held-out action selection improves beyond a capacity-matched post-Q1/gate/h256/step-block comparator but not when upstream state features are shuffled",
+      "cheap_check": "E1 synthetic LN counterexample then saved pre-norm operand inventory; freeze new source-disjoint full-action labels if missing",
+      "status": "SEED",
+      "nearest_prior_art": [
+        "Sparse Inter-Layer Dependencies 2607.11990",
+        "PulseQuant 2609.33384"
+      ]
+    },
+    {
+      "id": "C2_R256_DUAL_USE",
+      "representation_ids": [
+        "native_ffn",
+        "shared_rr_latent",
+        "contextual_trajectory"
+      ],
+      "mechanism": "Use h256 already inside correction pass to jointly route physical complete 64-channel-group actions, with selector and correction sharing work",
+      "different_prediction": "Improved genuine utility-vs-extra-proxy latency after identical R256 output vs frozen UB1 and HP1/HP2 C-score controls",
+      "cheap_check": "Source-verified predict_y decomposition; native bit-identical h256 extraction and finite action utility when separately authorized",
+      "status": "SEED",
+      "nearest_prior_art": [
+        "Prox 2607.27591",
+        "MiTA 2602.01219 analogous shared signal",
+        "Closed FFNDS HP1/HP2 C-score predictors"
+      ]
+    },
+    {
+      "id": "C3_TIME_COHERENT_ACTION",
+      "representation_ids": [
+        "prenorm_scale",
+        "contextual_trajectory"
+      ],
+      "mechanism": "Allocate fully compensated group computation to regions/steps using measured temporal propagation risk rather than just activation magnitude",
+      "different_prediction": "At equal native cost, static frame-interleaving, temporal smoothing, and actual conditional action-value schedules separate in stable-light versus motion ROI fidelity",
+      "cheap_check": "Reuse R16 R17 routing/latency/time-bin evidence; design valid ROI response probe before asking for any GPU",
+      "status": "SEED",
+      "nearest_prior_art": [
+        "FIS-DiT 2605.11869",
+        "TAPE 2605.17837",
+        "PulseQuant 2609.33384"
+      ]
+    }
+  ]
+}
