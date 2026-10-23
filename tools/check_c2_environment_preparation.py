@@ -7,14 +7,14 @@ from c2_contract import ARMS, CAPS, ROOT, atomic, read, sha
 from c2_environment_contract import METHOD
 from check_c2_reserved_preflight import generation_loop
 
-OUT = ROOT / 'research/20261023/C2N2_environment_source_preflight.json'
+OUT = ROOT / 'research/20261023/C2N2_environment_source_preflight_v2.json'
 
 
 def analyze():
     parent = read(ROOT / 'research/20261023/C2N1_native_results.json')
     bad = read(ROOT / 'research/20261023/C2N2_bad_launcher_CPU_reproduction.json')
     good = read(ROOT / 'research/20261023/C2N2_environment_CPU_preflight.json')
-    draft_path = ROOT / 'research/20261023/C2N2_environment_smoke_DRAFT.json'
+    draft_path = ROOT / 'research/20261023/C2N2_environment_smoke_DRAFT_v2.json'
     draft = read(draft_path)
     assert parent['requests'] == [] and not any(parent['budget']['used'].values())
     assert parent['error_message'] == "No module named 'HiFloat4'"
@@ -32,8 +32,21 @@ def analyze():
     assert draft['authorization'] is None and draft['automatic_retry'] is False
     assert draft['preserve_project_model_PYTHONPATH'] and draft['native_platform_check_enabled']
     assert 'worker_eval_env.sh' not in draft['launch_chain']
+    original_draft_path = ROOT / 'research/20261023/C2N2_environment_smoke_DRAFT.json'
+    original_draft = read(original_draft_path)
+    original_proof = read(ROOT / 'research/20261023/C2N2_environment_source_preflight.json')
+    assert original_proof['draft_sha256'] == sha(original_draft_path)
+    assert original_proof['source_sha256'] == original_draft['source_sha256']['tools/check_c2_environment_preparation.py']
+    private = {}
     for name, expected in draft['source_sha256'].items():
-        assert sha(ROOT / name) == expected, name
+        if name.startswith('.runtime/'):
+            # The first saved CPU preflight checked these actual local bytes.
+            # Public CI retains that binding; the native registration guard
+            # still verifies every private file on the real worker.
+            assert original_draft['source_sha256'][name] == expected, name
+            private[name] = expected
+        else:
+            assert sha(ROOT / name) == expected, name
     old = generation_loop(ROOT / 'tools/run_c2_reserved_smoke.py')
     new = generation_loop(ROOT / 'tools/run_c2_environment_smoke.py')
     assert old == new
@@ -51,6 +64,9 @@ def analyze():
             'generation_loop_AST_identical': True,
             'generation_loop_AST_sha256': hashlib.sha256(old.encode()).hexdigest(),
             'model_import_guard_before_Torch_and_CUDA': True,
+            'public_checkout_requires_private_runtime': False,
+            'private_runtime_bindings_retained_from_actual_CPU_preflight': private,
+            'native_registration_still_checks_all_private_files': True,
             'native_platform_check_enabled': True,
             'CPU_import_platform_check_explicitly_skipped': True,
             'new_GPU_FFN_norm_selector_generation_calls': 0,
