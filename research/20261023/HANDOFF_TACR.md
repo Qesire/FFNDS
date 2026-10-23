@@ -59,3 +59,8 @@ The updated forward method and experimental scope are in [docs/84](../../docs/84
 ## ACTIVE next-research routing after R17/R16 review (2026-10-23)
 
 The scientific follow-up is now [coupling / pre-W1 information / positive literature synthesis](../../docs/85_耦合机制_前置信息_积极查重_结果不佳转向任务_20261023.md), with executable research checklist [COUPLING_PIVOT_TASK.json](COUPLING_PIVOT_TASK.json). R17's incomplete official evaluation remains UNKNOWN, not a negative quality outcome. Begin source/saved-evidence/CPU S0/E0/E1 now, then decide whether actual compensated whole64-group actions require a separately authorized native capture. Where the newest completed candidate is unsatisfactory against matched Pareto, switch from repeating identical sweeps to the new coupling mechanism task. Compare upstream information conditional on current post-Q1, norm scale and attention residual, with native action-response and time/space coupling. Search similar and complementary papers positively; only substantively complete duplicates become credited baselines instead of new independent claims. No new model execution entitlement.
+
+
+## PRD extension after latest repo check
+
+AutoResearcher source revision `0684b560` has been added as an optional problem-reformulation skill. Start with [docs/86](../../docs/86_PRD_表示发现_耦合新自由度与支持实验_20261023.md), [representation ledger](FFNDS_PRD_representation_ledger.json) and `python tools/check_ffnds_prd.py`. Open C1 residual normalization, C2 dual-use R256 latent, C3 trajectory/time scheduling. Synthetic E0/E1 are mathematical discriminators, NOT Wan quality or speed findings. TACR's native complete-action-value objective remains prior internal work. Next real labels require separately approved native scopes. No R17 restart or GPU allowance.
