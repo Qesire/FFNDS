@@ -1,5 +1,8 @@
 # FFNDS 多 Agent 方法讨论队列
 
+**当前阶段优先事项：** [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 声明的 `E0_OPEN_DISCOVERY`。在 [独立发现记录](discoveries/E0/README.md) 中先追问原生 Wan 的**结构现象、竞争机制与区分性观察**；旧 proposals/ 与 reviews/ 不会因数量或认可自动成为主研究方向。外部 Agent 应随启动任务加载 [E0 锚定提示](../agent_protocol/E0_STAGE_ANCHOR.md)。该安排不禁止大胆算子假说，只禁止由 Agent 自行晋升成新的活跃任务或执行队列。
+
+
 > **只讨论方法。** 本目录不是实验队列、实现任务池或可运行的调度器。Agent 的职责是独立提出可证伪的方法设想、独立推导/反驳别人提出的机制、形成有依据的交叉认可。即使获得多方同意，也不自动生成代码、实验或模型运行权限。
 
 **入口：** [QUEUE.md](QUEUE.md)（便于阅读的队列视图）；实际事实以 `proposals/`、`reviews/` 和 `endorsements/` 中的逐文件记录为准。全局目标/研究权威仍由 [../ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 决定。仓库根 [AGENTS.md](../../AGENTS.md) 是每个 agent 的默认行为规则。
