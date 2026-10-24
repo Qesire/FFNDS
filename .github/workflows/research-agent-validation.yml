@@ -1,143 +1,20 @@
-name: FFNDS research agent integrity
+name: FFNDS research instructions integrity (manual, static)
 
+# Historical automatic synthetic/experimental test queue is retired.
+# No checks or experiments start from a push or pull request.
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  offline-research-checks:
+  active-research-source-check:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Validate AutoResearcher PRD integration and FFNDS synthetic mechanism checks
-        run: |
-          python -m pip install 'jsonschema>=4.18,<5'
-          python tools/check_ffnds_prd.py
-          python -m unittest discover -s tests -p 'test_problem_reformulation.py' -v
-          python -m unittest discover -s tests -p 'test_ffnds_prd.py' -v
-      - name: Reproduce latest PRD successor evidence and source-aware sampling
-        run: |
-          python tools/analyze_prd_successor.py --check
-          python -m unittest discover -s tests -p 'test_prd_successor.py' -v
-          python scripts/validate_representation.py research/20261023/PRD_successor_representation_ledger.json
-      - name: Verify TACR scientific sampling against real interrupted R17 evidence
-        run: |
-          python tools/check_tacr_sampling_scope.py --check
-          python -m unittest discover -s tests -p 'test_tacr_sampling_scope.py' -v
-      - name: Verify pinned agent guidance and current goal
+      - name: Verify current AutoResearcher routing and user experiment pause
         run: python tools/check_autoresearcher_binding.py
-      - name: Verify historical method eligibility and closed evidence
-        run: |
-          python tools/check_research_routes.py
-          python -m unittest discover -s tests -p 'test_research_route_guard.py' -v
-      - name: Exercise actual counterfactual arithmetic (synthetic inputs only)
-        run: python -m unittest discover -s tests -p 'test_counterfactual_actions.py' -v
-      - name: Reproduce saved-evidence R12 E0 ledger
-        run: python tools/check_r12_saved_evidence.py
-      - name: Verify saved R12 evidence and its interpretation boundaries
-        run: |
-          python tools/check_r12_e0_artifacts.py
-          python tools/check_r12_d0_artifacts.py
-          python -m unittest discover -s tests -p 'test_objective_contract.py' -v
-          python -m unittest discover -s tests -p 'test_r12*.py' -v
-          python -m unittest discover -s tests -p 'test_saved_flow_partitions.py' -v
-      - name: Validate R15 academic metric families, source keys and scoped saved-data mappings
-        run: |
-          python tools/check_metric_contract.py
-          python -m unittest discover -s tests -p 'test_metric_contract.py' -v
-          python -m unittest discover -s tests -p 'test_metric_evidence_values.py' -v
-          python -m unittest discover -s tests -p 'test_r15_catalog_integrity.py' -v
-          python tools/audit_r15_metric_evidence.py
-          python tools/replay_r15_metric_guard_probes.py
-      - name: Verify R15 metric usage against frozen native scalars and synthetic edge-case mathematics
-        run: |
-          python tools/verify_r15_metric_usage.py --check
-          python -m unittest discover -s tests -p 'test_r15_metric_usage.py' -v
-      - name: Enforce full free-running video smoke for promoted candidate records
-        run: |
-          python tools/check_candidate_rollout_gate.py
-          python -m unittest discover -s tests -p 'test_candidate_rollout_gate.py' -v
-      - name: Verify user-updated competitive evaluation does not reopen frozen experiments
-        run: python -m unittest discover -s tests -p 'test_competitive_evaluation_policy.py' -v
-      - name: Verify science library provenance and non-prescriptive agent discovery
-        run: python -m unittest discover -s tests -p 'test_exploration_library.py' -v
-      - name: Verify worker migration provenance and exact spatial budgets
-        run: |
-          python -m unittest discover -s tests -p 'test_worker_identity.py' -v
-          python -m unittest discover -s tests -p 'test_native_tile_layouts.py' -v
-      - name: Run CLI smoke fixture
-        run: |
-          python tools/analyze_counterfactual_actions.py --input research/20261022/examples/counterfactual_demo.json --output /tmp/ffnds_counterfactual_smoke.json
-          python -c "import json; j=json.load(open('/tmp/ffnds_counterfactual_smoke.json')); assert j['evidence_level']=='SYNTHETIC_TEST_ONLY' and abs(j['oracle_gain_over_best_fixed']-5)<1e-9"
-      - name: Verify saved spatial evidence and nonlinear pooling identities
-        run: |
-          python tools/check_r13_artifacts.py
-          python -m unittest discover -s tests -p 'test_spatial*.py' -v
-      - name: Verify fused synthetic backend evidence and matched native-value analysis
-        run: |
-          python tools/check_r14_backend.py
-          python tools/check_r14_native_value.py
-          python -m unittest discover -s tests -p 'test_r14*.py' -v
-          python -m unittest discover -s tests -p 'test_stripe*.py' -v
-      - name: Verify four-row backend and guarded paired-video implementation
-        run: |
-          python tools/check_r15_artifacts.py
-          python tools/check_r15_rollout.py
-          python -m unittest discover -s tests -p 'test_r15_records.py' -v
-          python -m unittest discover -s tests -p 'test_worker_idle_launcher.py' -v
-          python -m unittest discover -s tests -p 'test_paired_rollout_contract.py' -v
-      - name: Verify actual full160 dynamic generation and independent human smoke
-        run: |
-          python tools/check_full160_row_dispatch.py
-          python tools/analyze_full160_row_dispatch.py
-          python -m unittest discover -s tests -p 'test_full160_records.py' -v
-          python -m unittest discover -s tests -p 'test_row_dispatch_contract.py' -v
-      - name: Verify fresh-source separation, finite scope and paired statistics without models
-        run: |
-          python tools/check_fresh_i2v_inputs.py
-          python -m unittest discover -s tests -p 'test_fresh_quality*.py' -v
-          python -m unittest discover -s tests -p 'test_native_ffn_events.py' -v
-      - name: Verify completed fresh quality and actual system results when present
-        run: |
-          if [ -f research/20261023/R17E0_analysis.json ]; then python tools/check_fresh_quality_results.py; fi
-      - name: Reproduce coupling algebra and saved native scalar readouts without models
-        run: |
-          python tools/analyze_coupling_pivot.py --check
-          python tools/check_c0_norm_statistics_record.py
-      - name: Verify finite C1 native evidence and diagnostic accounting when present
-        run: |
-          python -m pip install 'numpy>=1.26,<3'
-          if [ -f research/20261023/C1N0_native_results.json ]; then python tools/check_c1_native_results.py; fi
-          python tools/check_saved_c1_target_audit.py
-          python -m unittest discover -s tests -p 'test_c1_contract.py' -v
-          python -m unittest discover -s tests -p 'test_c1_analysis.py' -v
-      - name: Verify saved C2 reference and pending native implementation without model calls
-        run: |
-          python tools/check_c2_saved_proxy.py
-          python -m unittest discover -s tests -p 'test_c2_contract.py' -v
-          python -m unittest discover -s tests -p 'test_norm_scaled_row_dispatch.py' -v
-      - name: Verify idle-only execution and C2 media evidence without models
-        run: |
-          python -m unittest discover -s tests -p 'test_idle_queue_launcher.py' -v
-          python -m unittest discover -s tests -p 'test_c2_media_math.py' -v
-          python -m unittest discover -s tests -p 'test_c2_publisher_snapshot.py' -v
-          python -m unittest discover -s tests -p 'test_c2_reserved_contract.py' -v
-          python -m unittest discover -s tests -p 'test_startup_gpu_reservation.py' -v
-          python -m unittest discover -s tests -p 'test_c2_single_attempt_claim.py' -v
-          python tools/check_c2_reserved_preflight.py --check
-          if [ -f research/20261023/C2N1_native_results.json ]; then python tools/check_c2_reserved_results.py; fi
-          if [ -f research/20261023/C2N0_native_results.json ]; then python tools/check_c2_native_results.py; fi
-
-      - name: Verify preserved model environment and pending C2 repair without models
-        run: |
-          python -m unittest discover -s tests -p 'test_c2_model_environment.py' -v
-          python -m unittest discover -s tests -p 'test_c2_environment_contract.py' -v
-          python tools/check_c2_environment_preparation.py --check
-          if [ -f research/20261023/C2N2_native_results.json ]; then python tools/check_c2_environment_results.py; fi
