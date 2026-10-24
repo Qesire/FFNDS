@@ -1,0 +1,183 @@
+{
+  "schema_version": "1.0",
+  "id": "FFNDS_20261024_GAUGE_HISTORICAL_RETROSPECTIVE",
+  "status": "COMPLETED_SAVED_JSON_REANALYSIS_NO_MODEL_OR_CPU_EXPERIMENT",
+  "evaluated_hypothesis": "Gated post-FFN error quotient P diag(g)delta_F; exact null vs partial fraction/group cancellation/decision utility",
+  "source_repository": "Qesire/FFNDS",
+  "source_git_blobs": {
+    "research/20261023/C1N0_native_results.json": "6e281879327b692f81d8108ec949d6bb97eefca1",
+    "research/20261023/C1N0_geometry.json": "074cef5c5bb9b23e8bce553fbd8b744630ea80a9",
+    "research/20261024/C1_boundary_target_audit.json": "1cf5b7b8e245aaf5cf19bd59e342f3c4871c6cfb",
+    "research/20261022/R12_D0_native_results.json": "e913e274473c452b6f26dc91af5d629d34849602",
+    "research/20261023/R16V0_analysis.json": "732dfd2a81568406d6a25d32064bf6f3db386f51",
+    "research/20261023/R17E0_system_timing_prefix.json": "01dcd7a27c11b3deb4025f7ec9594bbbc12c6a37",
+    "research/20261021/R7D1_results.json": "01fc7229e04bddf278ddf8abf05f513db859d900",
+    "research/20261021/R9A1_native_affine_results.json": "b4f6fcb3065f878ebaef5e565bb00933e3372bd4",
+    "research/20261023/C0_coupling_offline_results.json": "d24d695c56fbdc58050c152073637d3b3e63fa5a",
+    "tools/c1_native_probe.py": "7e359cf0a165f50a2a56802fd34ff09152e86e4f"
+  },
+  "history_population": {
+    "c1_scopes": 72,
+    "c1_sources": [
+      0,
+      2,
+      8,
+      10,
+      16,
+      20
+    ],
+    "c1_rows_per_scope": 31668,
+    "c1_total_row_positions": 2280096,
+    "meaning": "72 scopes from six source groups, not 72 independent scenes or 2.28m independent subjects"
+  },
+  "direct_exact_gauge_test": {
+    "definition": "If each FFN action post residual difference is pure per-token scalar shift, same-prefix next-block LayerNorm outputs must match dense in exact arithmetic",
+    "native_complete_action_nextnorm": {
+      "UB1": {
+        "post_SSE": 72120087.5773915,
+        "nextnorm_SSE": 153187325.30029726,
+        "nonzero_nextnorm_sites": 72,
+        "site_worse_than_UB1": 0
+      },
+      "swap_A": {
+        "post_SSE": 73472625.75691195,
+        "nextnorm_SSE": 156844592.55263072,
+        "nonzero_nextnorm_sites": 72,
+        "site_worse_than_UB1": 72
+      },
+      "swap_B": {
+        "post_SSE": 73382066.62775593,
+        "nextnorm_SSE": 156226328.83266497,
+        "nonzero_nextnorm_sites": 72,
+        "site_worse_than_UB1": 72
+      }
+    },
+    "verdict": "REJECT_PURE_GAUGE_FOR_ALL_THREE_TESTED_FULL_ACTIONS_AT_ALL_72_SCOPES",
+    "interpretation": "Strict positive nextnorm SSE proves tested whole-action differences are not exactly annihilated at that native boundary; does not quantify an unobservable component or test new operator"
+  },
+  "projection_value_test": {
+    "saved_C1_mean_spearman_post_vs_nextnorm": 0.87563493776616,
+    "saved_C1_top25pct_row_overlap": 0.7829758045275287,
+    "per_arm_row_disagreement": {
+      "swap_A": {
+        "rows_observed": 2280096,
+        "post_vs_nextnorm_relative_action_sign_reversed_rows": 161784,
+        "sign_reversal_fraction": 0.0709549071618037,
+        "rows_better_than_UB1_in_nextnorm": 194205,
+        "fraction_better_than_UB1": 0.08517404530335565,
+        "by_step": {
+          "0": {
+            "sites": 18,
+            "ranking_sign_flips": 75308,
+            "rows_nextnorm_better": 100276
+          },
+          "1": {
+            "sites": 18,
+            "ranking_sign_flips": 42130,
+            "rows_nextnorm_better": 58211
+          },
+          "2": {
+            "sites": 18,
+            "ranking_sign_flips": 31025,
+            "rows_nextnorm_better": 26462
+          },
+          "3": {
+            "sites": 18,
+            "ranking_sign_flips": 13321,
+            "rows_nextnorm_better": 9256
+          }
+        }
+      },
+      "swap_B": {
+        "rows_observed": 2280096,
+        "post_vs_nextnorm_relative_action_sign_reversed_rows": 171062,
+        "sign_reversal_fraction": 0.07502403407575821,
+        "rows_better_than_UB1_in_nextnorm": 259996,
+        "fraction_better_than_UB1": 0.11402853213198041,
+        "by_step": {
+          "0": {
+            "sites": 18,
+            "ranking_sign_flips": 72944,
+            "rows_nextnorm_better": 121846
+          },
+          "1": {
+            "sites": 18,
+            "ranking_sign_flips": 45485,
+            "rows_nextnorm_better": 79519
+          },
+          "2": {
+            "sites": 18,
+            "ranking_sign_flips": 33507,
+            "rows_nextnorm_better": 39976
+          },
+          "3": {
+            "sites": 18,
+            "ranking_sign_flips": 19126,
+            "rows_nextnorm_better": 18655
+          }
+        }
+      }
+    },
+    "verdict": "SUPPORTS_LOCAL_TARGET_NON_EQUIVALENCE_NOT_SPECIFIC_GAUGE_EXPLANATION",
+    "unavailable": "C1 NPZ contains scalar post_*/nextnorm_* row SSE plus sampled V1/h256 and norm stats; no signed post difference vectors nor 64-group contributions; cannot evaluate ||P diag(g)delta||² / ||diag(g)delta||² or projected Gram"
+  },
+  "group_compensation_and_cancellation": {
+    "r12_competitor": {
+      "source_count": 4,
+      "original_action_class": "R12 D0 zero-compensation 162/162, 216/108, 108/216 at step3 blocks30-31",
+      "best_fixed": "NA",
+      "fixed_loss": 186876.71678066647,
+      "oracle_loss": 186443.29825374123,
+      "ub1_loss": 181764.49263324644,
+      "same_action_family_oracle_gain": 0.0023192751584667493,
+      "oracle_vs_UB1_gain": -0.025741031995371033
+    },
+    "r9_native_group_gram": {
+      "full216_signed_cross_terms_in_training": true,
+      "matched_width_step1_step2_groups": 68,
+      "support_intersection": 44,
+      "support_union": 92,
+      "jaccard": 0.4782608695652174,
+      "interpretation": "Unprojected gated affine-remainder group-Gram training objective; expert, timestep and distribution change together, no separate gate effect or P projection. Native result closed for its old recipe."
+    },
+    "verdict": "NOT_IDENTIFIABLE_FOR_G2_PROJECTED_GROUP_CANCELLATION; R12 EXACT OLD ACTION SET FAILED"
+  },
+  "actual_quality_latency_constraints": {
+    "r16_exposed_source_groups": 1,
+    "same_input_local_SSE_gain_over_best_fixed": 0.061275701903671154,
+    "full_video_RGB_MSE_dynamic_over_best_fixed": 1.0822574970618422,
+    "r17_original_source_groups": 1,
+    "r17_UB1_FFN_speedup": 1.5333137648965949,
+    "r17_UB1_total_wall_speedup": 1.0756833802835086,
+    "r17_dynamic_FFN_speedup": 1.25665377434151,
+    "r17_dynamic_total_wall_speedup": 1.0446947062592766,
+    "verdict": "LOCAL_PROXY_IMPROVEMENT_NOT_TERMINAL_QUALITY; FULL_FFN_GAIN_NEEDS_NATIVE_AND_TOTAL_WALL_ACCOUNTING"
+  },
+  "contextual_support": {
+    "c0_same_postnorm_BF16_with_scale_rank_reversal": "SYNTHETIC_ONLY",
+    "r7_native_finite_transport_cross_term_vs_nonlinear_term": {
+      "gain_A_plus_gain_B": 5708.054379076464,
+      "gain_AB": 5505.611396387503,
+      "interaction_advantage": -202.4429826889609,
+      "linear_cross_term": -11859.538351636169,
+      "finite_nonlinear_transport_term": 11657.095368947217,
+      "curvature_norm2": 22560.01669322448,
+      "additive_response_norm2": 41967.31636573742,
+      "curvature_norm2_over_additive_response_norm2": 0.5375615752176789,
+      "interaction_over_sum_single_gains": -0.03546619727924092,
+      "cross_and_curvature_cancellation_fraction": 0.9913914982435701
+    },
+    "verdict": "Downstream action consequences are nonlocal and state-dependent, not proof of projected group cancellation"
+  },
+  "specific_unknowns": [
+    "P diag(g) exact and approximate energy shares on historical Wan residual error vectors",
+    "P diag(g) W2_group weighted cross-Gram and real inference distribution of group activations",
+    "All-40-block local runtime optional adapter observability and BF16 shift identity",
+    "No-completion gauge-aware static/conditional operator FFN cost vs full-video quality"
+  ],
+  "requested_new_model_calls": 0,
+  "new_CPU_experiments": 0,
+  "new_GPU_jobs": 0,
+  "new_videos": 0,
+  "experiment_pause_unchanged": "research/20261024/EXPERIMENT_PAUSE.json"
+}
