@@ -18,4 +18,6 @@ No experiments or model execution were started by this navigation update.
 
 ## Discussion-only collaboration
 
+**All discussion agents automatically follow pinned AutoResearcher principles** through [discussion AGENTS.md](method_discussion/AGENTS.md), including proposers, external reviewers and consensus integrators. Use original Wan/source/math/competing-mechanism reasoning to substantiate support and criticism. It is a method of inquiry, not a requirement for every new seed to have an implementation or test result.
+
 For multiple scientific agents, use [the independent method discussion queue](method_discussion/QUEUE.md), [governance](method_discussion/README.md) and [templates](method_discussion/TEMPLATES.md). It is a parallel discussion ledger, **not another active research source, experiment scheduler or approval gate for creativity**. Peer-supported entries reference real external review files; previously authored theory seeded into the queue is explicitly unreviewed until a different agent reviews it. Root AGENTS.md governs behavior; all experimental resource use remains paused.
