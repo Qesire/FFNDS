@@ -110,7 +110,7 @@ class ObjectiveContractTests(unittest.TestCase):
         entry = next(e for e in manifest["entries"] if e["path"] == original_path)
         original = (ROOT / entry["archive"]).read_bytes()
         blob = hashlib.sha1(
-            b"blob " + str(len(original)).encode() + b"\\0" + original
+            b"blob " + str(len(original)).encode() + bytes([0]) + original
         ).hexdigest()
         self.assertEqual(blob, entry["source_blob_sha1"])
         self.assertIn("R11", original.decode("utf-8"))
