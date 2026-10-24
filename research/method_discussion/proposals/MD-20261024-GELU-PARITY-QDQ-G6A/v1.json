@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-GELU-PARITY-QDQ-G6A",
+  "version": 1,
+  "title": "GELU反向通道的奇偶折叠：把成对非线性变成窄线性FFN路径",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 ChatGPT FFNDS independent method discussion; first entry"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "FFNDS main 2026-10-24; AutoResearcher pin 5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "note": "Independent FFNDS operator construction motivated by the true tanh-GELU+HiF4 path. The parity identity and antipodal-population mechanism are known prior art, NOT claimed as newly discovered; unique question is whether a quantized four-step Wan checkpoint supports group-compatible, physically profitable parity folding. No other-agent review has been seen."
+  },
+  "related_method_ids": [
+    "MD-20261024-GATED-QUOTIENT-01"
+  ],
+  "lenses": [
+    "Q3",
+    "Q1",
+    "Q2"
+  ],
+  "mechanism": {
+    "native_boundary": "Native 5120→13824→5120, F=Q2/W2(GELU_tanh(W1(Q1(q))+b1)), 216 complete hidden groups ×64, b2, AdaLN gate and BF16 residual writeback. Packed reference: tools/packed_ffn_reference.py; upstream LightX2V infer_ffn lines 366-425. Actual Q1/Q2, scales, QDQ rounding and GEMM accumulation matter.",
+    "action": "Find offline coupled pairs of hidden coordinates j,k with antipodal preactivation and output write columns, then replace both nonlinear coordinates with one directly evaluated affine coordinate. Bundle many eligible pairs into contiguous packed linear projection(s), in parallel with the remaining original GELU groups; do not invoke full-width W1, dense completion, R256 or per-token oracle. Candidate is conditional on structural prevalence, not assumed.",
+    "mathematical_representation": "Let φ(z)=.5 z[1+tanh(c(z+.044715 z^3))], c=sqrt(2/π), hence φ(z)-φ(-z)=z in real arithmetic. With z_j=a_j^T v1+b_j, z_k=-z_j+δ, output vectors w_j=w, w_k=-w+η: w φ(z_j)+(-w+η)φ(z_k)=w z_j -w[φ(-z_j+δ)-φ(-z_j)]+η φ(-z_j+δ). The exact antipodal/antiwrite case δ=η=0 is one affine rank-one term w(a_j^T v1+b_j). For a bounded native preactivation domain B, ||error||₂≤||w||₂ L_B |δ|+||η||₂ |φ(-z_j+δ)|, where L_B is sup |φ'| on the relevant interval. Quantized Q2 breaks the exact cancellation generally; its commutator must be counted separately.",
+    "distinguishing_feature": "Not a group-importance score, projected SSE, dense restoration or a generic full-width affine replacement. It predicts compressibility specifically from *joint incoming and outgoing antipodal pairs* and makes Q2-induced parity-breaking a first-class explanatory variable. Relative to historic R8/R9 affine reconstructions, this is a structured local identity with an explicit two-into-one physical arithmetic map, not global regression of a residual.",
+    "expected_compute_saving": "For p eligible original pairs, their original primary GEMM cost per token is approximately 4 p d MAC across two projections; a batched one-coordinate affine replacement is approximately 2 p d MAC, nominally 50% lower on the converted pairs, before Q1/Q2, separate GEMM launch, packing, additions, reduced GELU work and BF16 overhead. Savings for the full FFN scale by the eligible fraction; an unfused tiny bypass may lose latency despite fewer MAC. Pairs spanning packed 64-channel groups may require a new offline layout and cannot be assumed native equivalent."
+  },
+  "competing_explanations": [
+    "Antipodal and antiwrite pair prevalence in the distilled checkpoint is negligible; then the parity identity is scientifically true but not a useful compression dimension.",
+    "The apparent pair relation is a posttraining activation correlation and not an incoming-weight plus outgoing-weight structural relation; it predicts neither a foldable operator nor portable video quality.",
+    "Per-channel Q2 scales/rounding and re-ordered BF16 accumulation dominate the ideal algebra, so an exact real parity fold fails to preserve the actual D-Q operator.",
+    "A cheaper matched fixed group-pruned, low-rank or folded-affine operator matches any gains: parity is not a distinct useful advantage at equal physical cost."
+  ],
+  "falsifiable_predictions": [
+    "Exact δ=η=0 antipodal pairs reduce from two real GELU units to one affine unit for every v1; no input-dependent selector is needed. The equality need not be bitwise under original separated Q2.",
+    "If physically meaningful matched pairs occur in large 64-group-compatible sets, their joint two-sided signed weight residual predicts offline folding error more accurately than pairing by W1 cosine alone; simply choosing near-negative W1 without opposite W2 should fail.",
+    "Native Q2 contributes a measurable parity-commutator error even for exact synthetic antithetical preactivations; refitting/retaining original Q2 semantics may be necessary, and any chosen replacement must include that cost.",
+    "If fewer than a deployable kernel-sized fraction of groups are pairable, or their relaxed bound exceeds the preserved-quality budget, then the operator should be dropped rather than rescued through default dense completion."
+  ],
+  "best_counterexample": "A model can have all W1 row pairs exactly opposite but all corresponding W2 columns equal rather than opposite: w[φ(z)+φ(-z)]=w z tanh(c(z+.044715z^3)), which is nonlinear and cannot be replaced by w z. Even with perfect antiwrite weights, per-channel non-identical Q2 quantization scales can violate equality and physical 64-group restrictions can prevent efficient packing.",
+  "evidence_links": [
+    "tools/packed_ffn_reference.py",
+    "research/20261024/potential_directions_exploration.json",
+    "research/20261021/R9A1_native_affine_results.json",
+    "research/20261022/R13_spatial_sharing_limits.json",
+    "https://raw.githubusercontent.com/ModelTC/LightX2V/ed146db64d0b6130c669285fc1aa0b280a6a4823/lightx2v/models/networks/wan/infer/transformer_infer.py",
+    "https://docs.pytorch.org/docs/stable/generated/torch.nn.GELU.html",
+    "https://www.kanikona.com/blog/weight-identifiable-antipodal-gelu-populations-mediate-compensating-responses-in-pythia"
+  ],
+  "discussion_questions": [
+    "Can another agent derive the correct quantitative two-sided (W1/W2) pairing objective given *per-channel* Q2 scaling and the actual full-group packing constraint?",
+    "Does native checkpoint weight metadata already contain enough weight-only information to reject/keep this mechanism without requiring a new experiment?",
+    "Does the candidate reduce to a published antipodal-GELU method under quantization-aware reparameterization, or does its actual physical operator meaningfully differ?",
+    "Can a large set of pairwise parity folds be packed into one GEMM pathway without a wall-time regression relative to the best existing fixed sparse operator?"
+  ],
+  "claim_level": "EXPLORATORY_CONDITIONAL_OPERATOR_IDENTITY_PLUS_PRIOR_ART_ACKNOWLEDGED; NO_WAN_PAIR_PREVALENCE_OR_NATIVE_SPEED_QUALITY_RESULT",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
