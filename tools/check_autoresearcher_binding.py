@@ -154,12 +154,42 @@ def main():
     check_relative_markdown_links("ARCHIVE.md")
     check_relative_markdown_links("archive/20261024/historical_handoffs/README.md")
 
+    # Evidence priority is a read-order aid. It must never authorize model
+    # work or promote a filename-classified report into a native outcome.
+    priority = record("research/experiment_evidence/PRIORITY_RANKING.json")
+    inventory = record("research/experiment_evidence/FILE_INVENTORY.json")
+    ensure(priority["execution_authority"] == "NONE" and
+           active["experimental_evidence_navigation"]["experiment_authority"] == "NONE",
+           "Evidence ranking became an execution queue")
+    rows = priority["ranking"]
+    ensure(priority["ranked_count"] == len(rows) and len(rows) >= 25 and
+           [row["rank"] for row in rows] == list(range(1, len(rows) + 1)),
+           "Curated experiment evidence ranking has duplicate/invalid ranks")
+    ensure(len({row["path"] for row in rows}) == len(rows) and
+           {row["evidence_maturity"] for row in rows} == {"T1", "T2", "T3"},
+           "Evidence ranking lost primary/raw/synthetic/protocol separation")
+    for row in rows:
+        original = ROOT / row["path"]
+        ensure(original.is_file() and
+               original.stat().st_size == row["bytes"] and
+               git_blob_sha1(original.read_bytes()) == row["git_blob_sha1"],
+               "Ranked evidence SHA/path mismatch: " + row["path"])
+    ensure(inventory["file_count"] == len(inventory["files"]) and
+           len(inventory["files"]) > 1000 and
+           inventory["all_unranked_role_labels"].startswith("Filename/extension"),
+           "Experiment inventory incomplete or inferred outcome claims")
+    full_inventory = {row["path"] for row in inventory["files"]}
+    ensure(all(row["path"] in full_inventory for row in rows),
+           "Curated experiment missing from full inventory")
+    check_relative_markdown_links("research/EXPERIMENT_EVIDENCE_INDEX.md")
+    check_relative_markdown_links("research/experiment_evidence/README.md")
+
     ensure(not (ROOT / "docs/94_AutoResearcher_算子优先重新探索_20261024.md").exists() and
            not (ROOT / "research/20261024/operator_first_autoresearcher_reexploration.json").exists(),
            "Superseded algorithm-first task is present")
 
     print("PASS: pinned upstream AutoResearcher source, compact live Q1/Q2/Q3 route,")
-    print("      Markdown links, content-addressed archived handoffs, pause and manual workflow.")
+    print("      Markdown links, source-bound evidence ranking, archived handoffs and pause.")
     print("Scope: static structure only. No numerical experiment or agent behavioral run.")
 
 

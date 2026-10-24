@@ -1,6 +1,6 @@
 # FFNDS — concise decision-specific evidence packet
 
-Live state: [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). Model/source identity and its original hashes: [C0 source bindings](../20261023/C0_coupling_offline_results.json), [runtime reconstruction](../20261022/R12_E0_runtime_reconstruction.json). AutoResearcher principles: [local harness](../../core/AGENT_HARNESS.md). Dated plans are historical observations.
+Live state: [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). Model/source identity and its original hashes: [C0 source bindings](../20261023/C0_coupling_offline_results.json), [runtime reconstruction](../20261022/R12_E0_runtime_reconstruction.json). AutoResearcher principles: [local harness](../../core/AGENT_HARNESS.md). Dated plans are historical observations. Relevant experiment files are prioritized in the [scientific evidence ranking](../EXPERIMENT_EVIDENCE_INDEX.md); follow original source/protocol from the ranked artifact as needed.
 
 ## North star and current scientific opportunity
 
