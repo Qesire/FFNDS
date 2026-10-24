@@ -24,13 +24,12 @@
   },
   "primary_scientific_goal": "Reduce actual measured FFN computation and preserve full four-step Wan I2V video quality at a competitive deployment Pareto frontier; dynamic FFN sparsity, static reduction, direct operator reconstruction, optional compensation and dense completion are alternative means, never prerequisites.",
   "scientific_questions": [
-    "Which parts of the original FFN can be removed, shared, merged, approximated or executed conditionally while preserving native semantics or acceptable full-video quality?",
-    "Which inexpensive runtime signals, if any, select genuinely better cheaper operators than the strongest matched static implementation? Static designs need no selector.",
-    "Does the selected real operator improve end-to-end native computation-versus-video-quality Pareto under original quantization, residual/gating, four-step free-running trajectory and complete overhead?",
-    "Do optional correction, post-training or dense completion paths add sufficient independent quality to justify their actual runtime cost compared with a direct no-recovery implementation?"
+    "Q1 Information existence: which inputs/state already available before a Wan FFN/block can predict local compute or downstream decision value? Separate deterministic local FFN activation (fully specified by post-Q1 q and weights) from residual/attention-dependent future effects.",
+    "Q2 Decision usability: which incremental signals improve cost-adjusted action choice over the best matched static policy after accounting for observation, memory, selector, packing and hardware costs? Use conditional action regret/NetVOI rather than hidden R2 or MI alone.",
+    "Q3 Computation necessity: which actual native FFN operations can be omitted or transformed with a favorable real FFN/generation time versus free-running four-step I2V video-quality Pareto, including native QDQ/GELU/gate/residual propagation?"
   ],
   "target_mechanism": {
-    "policy": "Do not privilege UB1, R256, dense row completion or any chosen channel granularity. First construct a viable low-cost static/dynamic/merged/selective FFN operator. Use a policy only if conditional information improves net real quality/cost over a matched fixed operator.",
+    "policy": "Start from an informative mechanism about the available pre-FFN or pre-block state, the computation, and its downstream causal/physical value. Explore distinct mathematical and executable actions only after specifying what information or structure makes them useful; do not default to UB1, R256, dense completion, low rank or a fixed mask granularity. If static operators win in the same deployment budget, treat that as a meaningful result.",
     "timing_requirement": "No universal pre-W1 action-selection requirement. Record actual decision point and available signals; later routing is valid if previously paid computation is reused and total measured work still decreases. For a specifically claimed pre-W1 design, forbid post-W1 oracle leakage. Charge all GEMMs, QDQ, layout, selectors, correction and completion only when actually performed.",
     "necessary_comparators": [
       "Full Dense D-Q as fidelity/reference and complete compute baseline",
@@ -88,10 +87,10 @@
     "status": "No model method currently eligible. Do not re-open closed exact recipes or launch model experiments from this contract."
   },
   "next_cheapest_mechanism_checks": [
-    "Once experimental work is explicitly resumed, generate executable operators from source/representation analysis without choosing Dense completion or R256 as default; include direct no-recovery variants.",
-    "Distinguish operator-level algebra and quantization boundary from the existing dense/UB1 residual labels; compare full native output and realistic cost for each proposed operator.",
-    "Only if a policy is needed, check conditional headroom against strongest cost-matched static choice using inputs available at its chosen decision point; do not insist on pre-W1 unless claimed.",
-    "Compare full free student videos and actual FFN/whole-generation timing when a candidate becomes viable. Until explicit resume, record designs only and run no experiments."
+    "With all CPU/GPU/model experiments paused, inspect only source, existing evidence and mathematical structure pertinent to the information→decision→compute question.",
+    "Separate known deterministic post-Q1 hidden prediction from residual/attention-dependent finite downstream action value; identify which decision-time signals were actually captured versus missing in old OP2/R17 records.",
+    "Form competing mechanisms and one decision-changing proof/observation; derive conditional action preference and economic NetVOI for a specific feasible action family, not a generic Dense−UB1 restoration label.",
+    "Only after explicit experimental resumption: inspect same-prefix complete native action outcomes, matched best static policies and readout/operator costs; candidate free-running four-step videos and genuine FFN/end-to-end timing are final evidence."
   ],
   "training_policy": "Prefer no large retraining; any small post-training is a means to enable deployable dynamic sparsity and must pay its inference overhead. Do not silently redefine the project as full-model distillation or static teacher-flow reconstruction.",
   "guardrail": "User's 2026-10-22 clarification changes only the OPEN research evaluation priority: equal-condition competitive evidence and useful quality-speed Pareto improvements outrank the older arbitrary global numeric values. Previously registered protocols/results/rejections remain immutable. No new model execution authority.",
@@ -199,17 +198,9 @@
     "execution": "PAUSED"
   },
   "information_first_research_contract_20261024": {
-    "status": "CURRENT_SCIENTIFIC_DISCOVERY_HIERARCHY_NO_EXECUTION_AUTHORITY",
+    "status": "CANONICALIZED_TO_SINGLE_ACTIVE_RESEARCH_ENTRY",
+    "source": "research/ACTIVE_RESEARCH.json",
     "document": "docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md",
-    "question_order": [
-      "Q1_INFORMATION_EXISTS",
-      "Q2_INFORMATION_USABLE",
-      "Q3_IS_COMPUTE_WORTH_SKIPPING"
-    ],
-    "nontrivial_theorem": "Given entire post-Q1 q and exact frozen native theta, current local FFN hidden/output are deterministic; upstream info has zero conditional extra information for that local target, but pre-norm residual/attention may affect downstream action value and help with cheap q sketches.",
-    "NetVOI": "Compare Bayes conditional action risk against best matched static policy and subtract actual signal acquisition, storage, routing and packing cost, not merely MI/correlation/activation prediction.",
-    "allowed_actions": "Open; no forced UB1, R256, dense recovery, static pruning, low rank or MoE",
-    "priority": "Investigate causal upstream information and finite downstream net utility before privileging an algorithm architecture",
-    "CPU_model_experiment_permission": "PAUSED"
+    "experiment_permission": "PAUSED"
   }
 }

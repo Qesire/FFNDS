@@ -8,7 +8,7 @@
 2. **Decision:** Which signals have positive *net* value after observation, routing and physical execution costs over strong static same-cost alternatives?
 3. **Compute:** Which operations are truly removable without degrading four-step I2V quality, after native HiF4/BF16, residual and cross-step propagation?
 
-Read [current live research](research/ACTIVE_RESEARCH.json) and [mechanism & information study](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md). The source-informed C0 residual-scale example is a synthetic construction, not a measured Wan speed/quality win.
+Read [current live research](research/ACTIVE_RESEARCH.json), [short evidence packet](research/agent_protocol/CURRENT_CONTEXT_PACKET.md), [research navigation](research/RESEARCH_NAVIGATION.md) and [mechanism & information study](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md). The source-informed C0 residual-scale example is a synthetic construction, not a measured Wan speed/quality win.
 
 ## Default scientific workflow
 
@@ -22,7 +22,7 @@ Every research agent uses [AutoResearcher](https://github.com/Qesire/AutoResearc
 
 ### Key reproducibility references
 
-- [Native FFN structure and conditional computation evidence](docs/86_归一化前信息与完整动作耦合的离线检验_20261023.md)
+- [Native FFN structure and conditional computation evidence](docs/86_归一化前信息与净动作耦合的离线检验_20261023.md)
 - [Historical objective drift / optional completion analysis](docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md)
 - [Full four-step video quality gate](docs/75_备选算法必须完整生成与防止视频质量崩溃_20261022.md)
 - [Q1/Q2/Q3 competing mechanism record](research/20261024/three_question_information_first_exploration.json)

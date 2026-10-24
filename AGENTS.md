@@ -3,7 +3,7 @@
 **AutoResearcher is the default operating method.** At every substantive scientific decision, automatically apply `Qesire/AutoResearcher@5bd7ec53`: mechanism-first discovery, source reconstruction, PRD representation changes, informative discrimination and concise handoff. No separate user trigger or repeated "use skill" request is required. The linked version is authoritative for research behavior; dated locally copied v2.3 docs are history, not a second prompt authority.
 
 ## Current research: three questions, in order
-Read [active research state](research/ACTIVE_RESEARCH.json), then only the relevant evidence for the current fork in [Q1/Q2/Q3 research](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md).
+Read [active research state](research/ACTIVE_RESEARCH.json) and [compact current evidence packet](research/agent_protocol/CURRENT_CONTEXT_PACKET.md), then only the relevant evidence for the current fork in [Q1/Q2/Q3 research](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md).
 1. **Information** — Before the FFN/block, what useful signal about a computation or its downstream necessity already exists? Distinguish deterministic local hidden prediction from residual/attention-dependent downstream action value.
 2. **Decision** — Can that signal change an actionable choice over the best same-cost static policy? Calculate conditional decision regret/NetVOI including the information-read, selector, memory and physical operator costs.
 3. **Compute** — Which native FFN operations can actually be avoided while retaining free four-step video quality, real complete FFN latency and total generation-time value?

@@ -1,7 +1,11 @@
-# AutoResearcher binding · FFNDS
+# FFNDS · AutoResearcher source and task routing
 
-Research agent behavior is **enabled by default**, rather than opt-in through a prompt. Canonical upstream at [AutoResearcher@5bd7ec53](https://github.com/Qesire/AutoResearcher/tree/5bd7ec537ae63f2b6a6dd579f0e886aff58a177c); [root agent entry](../../AGENTS.md) and [active research](../ACTIVE_RESEARCH.json) are the living instructions.
+The default agent entry is [root AGENTS.md](../../AGENTS.md); the **only live research state** is [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). For a small decision-relevant evidence bundle, read [CURRENT_CONTEXT_PACKET.md](CURRENT_CONTEXT_PACKET.md). The research directory [navigation](../RESEARCH_NAVIGATION.md) separates latest science from old studies.
 
-Load only the relevant specialist (mechanism, expansion or problem reformulation). Default research loop: find the deeper question, reconstruct decision-critical source, derive a discriminating mechanism, positively use nearest prior science, and take the next concrete authorized action. FFNDS's Q1/Q2/Q3 framing prevents architecture-first or dense-completion-first drift.
+The project uses pinned [AutoResearcher current source](ACTIVE_SOURCE_MANIFEST.json) (`5bd7ec53`) with upstream core files and three specialist skills kept **verbatim**. FFNDS-specific application lives in root `AGENTS.md` and `.agents/skills/ffnds-paper-discovery/SKILL.md`; generic AutoResearcher source files should not contain appended FFNDS policies. Choose one relevant specialist naturally from the research question.
 
-The pinned `SOURCE_MANIFEST.json` and v2.3 copied protocol files are **historical integrity artifacts**, not alternative active instructions. Old dated R12/C2/TACR task directions are archived references. All CPU/GPU/model experiments remain explicitly paused.
+Earlier `SOURCE_MANIFEST.json`, `PRD_SOURCE_MANIFEST.json` and `AUTORESEARCHER_AGENTS_v2_3.md` are **archived provenance only**, pinned to their historical revisions. Similarly, old 2026-10-23 `COUPLING_PIVOT_TASK.json` may still say `ACTIVE_DISCOVERY_NOT_REGISTERED` in its original source; it has **zero current task authority**. Do not rewrite its original evidence to hide what occurred.
+
+The content-addressed check `tools/check_autoresearcher_binding.py` confirms local version integrity and active-route agreement. It does not measure scientific creativity; [behavior cases](DEFAULT_BEHAVIOR_CASES.json) supply the separate evaluation corpus for authorized future agent comparisons.
+
+All CPU/GPU/model experiments and automatic followups remain paused per [explicit receipt](../20261024/EXPERIMENT_PAUSE.json).
