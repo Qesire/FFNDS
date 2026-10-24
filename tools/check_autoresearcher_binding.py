@@ -62,6 +62,34 @@ def main():
     ensure(active["autoResearcher"]["active_source_manifest"] ==
            "research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json",
            "Different active upstream source manifest")
+    discussion = active.get("multi_agent_method_discussion", {})
+    method = discussion.get("default_methodology", {})
+    ensure(discussion.get("mode") == "DISCUSSION_ONLY" and
+           method.get("name") == "AutoResearcher" and
+           method.get("automatic") is True and
+           method.get("source_revision") == source["source_commit"] and
+           method.get("source_manifest") ==
+           "research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json" and
+           method.get("scoped_instructions") ==
+           "research/method_discussion/AGENTS.md",
+           "All discussion agents must inherit pinned AutoResearcher defaults")
+    ensure(set(method.get("apply_to_all_roles", [])) ==
+           {"PROPOSER", "INDEPENDENT_REVIEWER", "CHALLENGER",
+            "REFORMULATOR", "INTEGRATOR"},
+           "An agent discussion role lost default AutoResearcher guidance")
+    ensure(discussion.get("execution") ==
+           "NO_IMPLEMENTATION_NO_CPU_GPU_MODEL_EXPERIMENTS_NO_TASK_SCHEDULING",
+           "Method discussion was promoted into experimental execution")
+    discussion_agents = text("research/method_discussion/AGENTS.md")
+    ensure("AutoResearcher" in discussion_agents and
+           "source manifest" in discussion_agents and
+           "all roles" in discussion_agents.lower() and
+           "do not" in discussion_agents.lower(),
+           "Discussion-scoped AutoResearcher instructions are incomplete")
+    for required in ("AGENTS.md", "README.md", "TEMPLATES.md", "QUEUE.md"):
+        ensure((ROOT / "research/method_discussion" / required).is_file(),
+               "Method discussion entrypoint missing: " + required)
+
     for path, expected_sha in source["git_blob_sha1"].items():
         full = ROOT / path
         ensure(full.is_file() and git_blob_sha1(full.read_bytes()) == expected_sha,
@@ -124,7 +152,11 @@ def main():
     for path in ("AGENTS.md", "README.md", ".github/copilot-instructions.md",
                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
                  "research/agent_protocol/README.md", "research/RESEARCH_NAVIGATION.md",
-                 "research/agent_protocol/CURRENT_CONTEXT_PACKET.md"):
+                 "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+                 "research/method_discussion/AGENTS.md",
+                 "research/method_discussion/README.md",
+                 "research/method_discussion/QUEUE.md",
+                 "research/method_discussion/TEMPLATES.md"):
         check_relative_markdown_links(path)
     for linked in (active["active_document"], active["context_packet"],
                    active["research_navigation"]):
