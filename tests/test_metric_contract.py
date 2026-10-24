@@ -57,6 +57,6 @@ class MetricContractTests(unittest.TestCase):
         self.assertTrue((ROOT/d["metric_evaluation_framework"]["catalog"]).is_file())
         self.assertTrue((ROOT/"docs/76_基于学术文献的FFNDS分层指标体系_20261022.md").is_file())
         self.assertTrue((ROOT/"docs/77_FFNDS学术指标族与评测协议_20261023.md").is_file())
-        self.assertIn("actual", active["questions"][2]["focus"].lower())
+        self.assertIn("native", active["questions"][2]["focus"].lower())
         self.assertEqual(active["experiment_authority"]["eligible_model_method_ids"], [])
 if __name__=="__main__":unittest.main()
