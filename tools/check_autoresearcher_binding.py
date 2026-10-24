@@ -133,7 +133,7 @@ def main():
     # navigation stub; results/protocols/raw data are never moved by this rule.
     archive_manifest = record("archive/20261024/historical_handoffs/MANIFEST.json")
     archived_entries = archive_manifest["entries"]
-    ensure(len(archived_entries) >= 10 and
+    ensure(len(archived_entries) >= 14 and
            len({entry["path"] for entry in archived_entries}) == len(archived_entries),
            "Archive has duplicate paths or unexpected missing entries")
     for entry in archived_entries:
