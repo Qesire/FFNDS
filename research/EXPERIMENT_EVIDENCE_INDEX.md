@@ -1,0 +1,43 @@
+# Experiment file importance — FFNDS
+
+**Current scientific priority, not historical execution authority.** Start with [curated evidence ranking](experiment_evidence/PRIORITY_RANKING.json). Search the [complete experimental file inventory](experiment_evidence/FILE_INVENTORY.json) only when you need a specific source or protocol. The inventory's automated filename roles are **not** a scientific evaluation of unread files.
+
+## Core evidence in priority order
+
+| Rank | Native/source file | Why it matters / boundary |
+| --- | --- | --- |
+| 1 | [`UB1_joint_engineering_acceptance_RUN.json`](../reports/worker_20261020/UB1_joint_engineering_acceptance_RUN.json) | Original static UB1 D-Q full-video formal20 three-metric evaluation and native FFN timing: accepted in its historical engineering criteria **Scope:** Original static UB1 includes rank256 correction and full original protocol |
+| 2 | [`R16V0_analysis.json`](../research/20261023/R16V0_analysis.json) | Paired native-local FFN and one-source full free-running RGB evidence: dynamic policy has better local writeback SSE than two fixed patterns, yet pooled decoded RGB MSE i **Scope:** Pixel fidelity versus dense is not human or official perceptual quality |
+| 3 | [`R17E0_system_timing_prefix.json`](../research/20261023/R17E0_system_timing_prefix.json) | True counterbalanced full160 FFN and complete-generation wall measurements on one old source, five technical repeats per arm **Scope:** One-source speed prefix, not full fresh 145-generation quality protocol or independent population performance. |
+| 4 | [`R7D1_results.json`](../research/20261021/R7D1_results.json) | Paired native two-block finite transport response and rank disagreement under original dense and selected restoration interventions **Scope:** Four exposed development sources and fixed restoration pair |
+| 5 | [`C1N0_native_results.json`](../research/20261023/C1N0_native_results.json) | Native same-prefix complete FFN action captures across 72 scopes / six original source clusters **Scope:** Compensated historical action vocabulary |
+| 6 | [`C1N0_analysis.json`](../research/20261023/C1N0_analysis.json) | Whole-FFN-site action-value and source-held-out offline decision analysis **Scope:** Six independent source clusters, not 72 independent scenes |
+| 7 | [`C0_coupling_offline_results.json`](../research/20261023/C0_coupling_offline_results.json) | Source SHA bindings, synthetic BF16 same-q residual-scale action-rank reversal and R7 saved scalar interaction reanalysis **Scope:** Synthetic counterexample is not measured Wan action utility |
+| 8 | [`C1_boundary_target_audit.json`](../research/20261024/C1_boundary_target_audit.json) | 72 previously captured complete FFN native scopes comparing post-writeback and actual nextnorm labels **Scope:** Post-hoc scalar top rows, not a feasible selector, whole-site action choice or video oracle. |
+| 9 | [`R16V0_native_results.json`](../research/20261023/R16V0_native_results.json) | Large underlying R16 native observations supporting 160-site dispatch, complete generation and four-position comparisons. **Scope:** Must interpret through R16 analysis/protocol |
+| 10 | [`UB1_quality_evidence_manifest.json`](../reports/worker_20261020/UB1_quality_evidence_manifest.json) | Original 20 distinct-source formal quality references and accounting for non-independent file copies. **Scope:** Metadata/locator supporting UB1 results rather than a new metric measurement. |
+| 11 | [`BO1_schedule_oracle_RUN.json`](../reports/worker_20261020/BO1_schedule_oracle_RUN.json) | Retrospective source-aware selection oracle for historical two full-video budget arms **Scope:** Only two archived UB1/UB2 schedule arms |
+| 12 | [`R7D2_results.json`](../research/20261021/R7D2_results.json) | Same-prefix native finite flow/residual objective diagnostics and fit comparison, clarifying where local and downstream effects disagree. **Scope:** Exposed source fit/holdout, not independent end-to-end model quality or speed. |
+| 13 | [`UB1_complete_FFN_speed.json`](../reports/worker_20261020/UB1_complete_FFN_speed.json) | Full160 FFN native wall comparison artifact, 1.5461× original complete FFN wall ratio. **Scope:** End-to-end model speed claim explicitly false |
+| 14 | [`R17_metric_aggregation_source_audit.json`](../research/20261023/R17_metric_aggregation_source_audit.json) | Reconstructed original evaluation metric aggregation and scientific sampling unit, supporting valid interpretation of later independent quality. **Scope:** Source audit only |
+| 15 | [`R14N0_native_results.json`](../research/20261022/R14N0_native_results.json) | Native complete-stripe sampled action values and runtime/protocol bindings **Scope:** Exposed local scope only, no full-video/generation speed acceptance. |
+| 16 | [`R12_D0_native_results.json`](../research/20261022/R12_D0_native_results.json) | Actual native equal-budget historical action diagnostics, including zero-pair correction results. **Scope:** Only four development sources and old action class |
+
+Read the structured list for all **28 verified, individually ranked** artifacts, evidence maturity, original Git blobs and exact limitations. Original files are **not moved**. A native result has higher empirical maturity than a synthetic example, but an information-theoretic counterexample may still be more important for the current mechanism decision.
+
+### Read by question, not just one fixed top-to-bottom ladder
+
+- **Q1 — Information and propagation:** R7D1 finite transport, C0 synthetic same-q scale interaction, C1N0 same-prefix native actions, C1 post/nextnorm target audit.
+- **Q2 — Is conditional information worth acting on?** C1N0 analysis, BO1 historical two-arm oracle, R16 local-vs-video ranking mismatch, native runtime/readout charges.
+- **Q3 — What work truly disappears?** UB1 formal quality/FFN timing controls, R17 complete generation timing prefix, R16 160-site native/video, R14 fused synthetic backend and R14N0 native rejection.
+
+**Evidence rules:** UB1 formal engineering acceptance is a valid *static baseline*, not a dynamic-method success. R17 old-source technical repetitions do not establish new-source video quality. R16 pixel difference is not a substitute for official perceptual quality. C0 mathematical/synthetic result is not a Wan measurement. C2 aborted starts carry environment data, not candidate quality results. A method stopped at one exact action definition can still suggest a new operator/representation.
+
+### Retrieval and preservation
+
+1. Read the smallest top-ranked result related to the scientific fork; follow its exact protocol, source hash and original payload locator when a claim depends on reproduction.
+2. Where two results disagree, keep their source populations, horizons, available input state and action operators separate. Compare at matched physical costs and terminal evidence level.
+3. The remaining experimental inventory is ordered by **curated rank first**, then by experimental family/name. Its role classifier is a retrieval aid, not an automatic negative/positive verdict.
+4. [Archive](../ARCHIVE.md) applies to superseded task directives and duplicate handoffs. Native result JSON, frozen protocols, media, raw receipts and independent source metadata stay at original paths. Model experiments and automatic retries remain paused.
+
+Related: [active research](ACTIVE_RESEARCH.json), [current evidence packet](agent_protocol/CURRENT_CONTEXT_PACKET.md), [academic metrics](../docs/77_FFNDS学术指标族与评测协议_20261023.md).
