@@ -1,0 +1,9 @@
+# Historical handoff archive — 2026-10-24
+
+These are **dated instructions, progress summaries and operations notes** that had no live research authority after [FFNDS scientific objective reset](../../../research/ACTIVE_RESEARCH.json). They are kept for provenance and investigation; each original document was copied byte-for-byte as a Git blob into `docs/` under this directory, with its original SHA recorded in [MANIFEST.json](MANIFEST.json).
+
+The original `docs/<filename>` location is a short stable redirect, so old links remain reachable and the active documentation directory is less likely to suggest obsolete jobs. Some relative Markdown links *inside unchanged archived copies* may resolve in their historical directory instead; use the source commit permalink in the manifest to inspect the original document with original link context.
+
+The archive **does not change original experiment status, source hashes, registered protocols, model assets, numerical outcomes or the user's pause**. Current research, quality/speed goals and prompt behavior are defined only in [active research state](../../../research/ACTIVE_RESEARCH.json) and [AGENTS](../../../AGENTS.md). Archived action text such as “run”, “retry”, “eligible”, “next” or “current” describes its former date, never today's instructions.
+
+The older `research/agent_protocol/SOURCE_MANIFEST.json`, `PRD_SOURCE_MANIFEST.json` and `AUTORESEARCHER_AGENTS_v2_3.md` are frozen historical upstream provenance and stay at their original paths because they are part of the provenance contracts.
