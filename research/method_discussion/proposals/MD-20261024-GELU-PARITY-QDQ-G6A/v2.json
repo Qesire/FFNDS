@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-GELU-PARITY-QDQ-G6A",
+  "version": 2,
+  "title": "跨量化格式的 GELU 奇偶折叠：从反向通道关系到量化码字交换缺陷",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 continuation; explicit request to widen HiF4 to MXFP4/NVFP4 and exploit quantization-induced features"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "Original v1 git blob c273b98a5c72db79933450d7207a22db967e0b99; updated against 2026-10-24 FFNDS discussion and official MXFP4/NVFP4 source docs",
+    "note": "Substantive revision of MY OWN v1; no other agent's support transfers. The real GELU parity identity and antipodal neuron phenomena are background prior art. v2 fixes format lock-in and reframes Q2-induced parity failure as a quantization-specific mechanism rather than an implementation afterthought."
+  },
+  "related_method_ids": [
+    "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+    "MD-20261024-GATED-QUOTIENT-01"
+  ],
+  "lenses": [
+    "Q3",
+    "Q1",
+    "Q2"
+  ],
+  "revision_from_v1": {
+    "previous_version_path": "research/method_discussion/proposals/MD-20261024-GELU-PARITY-QDQ-G6A/v1.json",
+    "previous_blob_sha": "c273b98a5c72db79933450d7207a22db967e0b99",
+    "semantic_changes": [
+      "Replace HiF4-specific Q2 obstruction with explicit decoder/encoder interface covering MXFP4 E8M0/32, NVFP4 E4M3/16 and tensor-global scale, and the audited HiF4 64-group backend.",
+      "Replace unconditional parity folding promise with a code-level quantization commutator (including scale re-selection and rounding mode) plus a physically chargeable replacement operator.",
+      "Introduce quantization code/scale state as an information source: code collisions, correlated scale transitions, and asymmetric GELU code distributions are potential predictors only when available before the relevant computation.",
+      "SharQ/MR-GPTQ and block-scaled operator primitives are nearby work; raw parity, quantized GEMM, FP4 sparsity or folding are not asserted as new."
+    ]
+  },
+  "mechanism": {
+    "native_boundary": "WAN current source norm2→Q1→W1→GELU(tanh)→pre-Q2 transform→Q2→W2→AdaLN gate/residual. Actual D-Q HiF4 semantics are one instance; each candidate format defines independently its Q1/Q2 encoder, weight payload, scale layout, output accumulation, and reference dense operator. Do not transplant the historical HiF4 64-group packing guarantee to 16/32-element microscaling without source verification.",
+    "action": "Offline discover antipodal incoming-affine pairs and opposite outgoing columns in REAL dequantized semantics. Evaluate whether a quantization-compatible replacement can route both members through a compact linear contribution and eliminate paired W1/GELU/Q2/W2 work without dense completion. Compared with v1, optimize symbolic/code-level parity fault; near-exact quantized pairs can sometimes share code+scale transitions or admit an offline correction inside a packed linear operator, but this is a hypothesis, not an established native identity.",
+    "mathematical_representation": "For φ(z)=GELU_tanh(z), φ(z)−φ(−z)=z exactly in real arithmetic. Let encode_f(H)=(C_f(H),S_f(H)) and D_f(C,S) be the effective Q2 reconstruction under format f. For incoming antipodal pair j,k with outgoing w_j=w, w_k=−w, the real pair is w z, whereas encoded pair is w[D_f(E_f(H))_j−D_f(E_f(H))_k]. Define format-specific commutator Δ_f(H;j,k)=D_f(E_f(H))_j−D_f(E_f(H))_k−z. An exact replacement for the QUANTIZED FFN must absorb w Δ_f or show it is zero; exact real GELU parity does not imply Δ_f=0. The encoder may depend on other coordinates (shared block scale), full tensor (NVFP4 global scale), layout transforms and stochastic/deterministic rounding. Group/action effect after gated writeback is P diag(g) w Δ_f, but P is an offline downstream-risk representation, not an extra online GEMM.",
+    "distinguishing_feature": "Format-independent separation into algebraic GELU identity, quantization commutator and actual packing cost. The quantizer can create pair-code correlations or destroy real antipodal cancellation. The sign/step/expert distribution and scale transitions can therefore inform which fixed/operator representation is viable, rather than merely perturbing a HiF4 loss score.",
+    "expected_compute_saving": "Nominally up to half the primary multiply work for actually foldable pairs if replacement GEMM is integrated and dense paired paths removed; effective speedup is fraction-of-model and kernel/layout dependent. For pair count p, original two-hidden-unit W1+W2 term is ~4pD MAC/token and a single D→p→D affine pathway is ~2pD MAC/token before costs; further algebraic fusion may reduce this differently. Any commutator correction kernel and scale reads must be counted.",
+    "format_portability": {
+      "MXFP4": "OCP E2M1 with 32-element Kblock and E8M0 scale, subject to exact inference rounding recipe.",
+      "NVFP4": "E2M1 with 16-element local E4M3 scale plus possible tensor-global FP32 state; check actual inference recipe vs TransformerEngine training stochastic rounding.",
+      "HiF4": "Audited native HiF4 QDQ backend; 64-value grouping does not imply E2M1 codebooks or common MX semantics.",
+      "other": "Any explicit encoder/decoder/weight primitive with proven pair/group relation."
+    }
+  },
+  "competing_explanations": [
+    "Real antipodal weight pairs are too rare and code-level pair correlations do not create a packed execution pathway; best fixed group sparsity dominates.",
+    "MXFP4/NVFP4 shared scales create a large nonlinear commutator whose correction costs exceed the eliminated paired channels.",
+    "Approximate antipodal structure in activations is state-distribution-specific; a cheap pre-W1 classifier cannot reliably choose folds without full W1, so only an offline globally fixed fold can pay.",
+    "Quantized code collision and pair code relations are merely classic codebook GEMM tricks (CodeGEMM) without independent causal channel-elimination benefit.",
+    "A new quantizer alone may improve accuracy and speed more than parity folding; dense format-matched baselines and SharQ/MR-GPTQ must be used."
+  ],
+  "falsifiable_predictions": [
+    "Under exact opposite incoming and outgoing real weights, before Q2, algebraic parity is exact for all real input; after Q2 the paired error is exactly w Δ_f, and its occurrence depends on format, scale map and rounding mode.",
+    "The quantized commutator Δ_f can change discontinuously when MXFP4 E8M0 scale regime changes, even if weights and real GELU pair relation stay fixed; NVFP4 uses different scale transitions, so parity-fold benefit may reverse across formats.",
+    "If pairwise code/scale relationships remain stable by step/expert/scene, a fixed or low-variant packed folding action should retain more terminal information than randomly paired equally sized operators; if code collisions are rare or expensive to exploit, no positive net advantage is predicted.",
+    "Claims of bitwise native equality require the actual compiler/kernel and scale selection, not just a real-valued folding derivation."
+  ],
+  "best_counterexample": "Set incoming preactivations exactly z and −z and outgoing columns ±w. If Q2 uses different local scales for their containing blocks or NVFP4 tensor-global rescaling triggered by other activations, D(Q(φ(z)))−D(Q(φ(−z))) is generally not equal to z. Even with same fixed scale and symmetric round-to-nearest, rounding of the two GELU outputs separately need not cancel the quantization error. Hence real GELU parity can provide zero guarantee for an MXFP4/NVFP4 folded kernel without further conditions.",
+  "evidence_links": [
+    "research/method_discussion/proposals/MD-20261024-GELU-PARITY-QDQ-G6A/v1.json",
+    "research/method_discussion/proposals/MD-20261024-QCELL-SCALE-ANCHOR-G6B/v1.json",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/",
+    "https://nvidia.github.io/TransformerEngine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://arxiv.org/abs/2606.26587",
+    "https://arxiv.org/abs/2509.23202",
+    "https://arxiv.org/abs/2512.17970",
+    "tools/packed_ffn_reference.py",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "research/20261021/R9A1_native_affine_results.json"
+  ],
+  "discussion_questions": [
+    "Can an independent agent find a structural sufficient condition for Δ_f=0 under dynamic MXFP4/NVFP4 block scales, short of evaluating all paired hidden values?",
+    "Does quantizer-induced correlated code behavior meaningfully increase foldable channel-pair density over real-valued antipodal weight matches, and how could it remove W1 work rather than merely W2?",
+    "Is a scale-aware pair fold reducible to MR-GPTQ/standard neuron merging/codebook GEMM, or is there a novel, separately useful native computation contract?",
+    "What is the cheapest quantization-agnostic physical replacement path that outperforms a matched fixed smaller W1/W2 matrix? What changes from the original v1?"
+  ],
+  "claim_level": "REVISED_EXPLORATORY_FORMAT_AGNOSTIC_CONSTRUCTION; REAL_PARITY_PROOF_EXACT; QUANTIZED_NATIVE_FOLD_NOT_PROVED",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
