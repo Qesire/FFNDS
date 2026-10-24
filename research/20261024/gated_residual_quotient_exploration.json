@@ -1,0 +1,89 @@
+{
+  "id": "FFNDS_GATED_RESIDUAL_QUOTIENT_20261024",
+  "status": "EXPLORATORY_MATHEMATICAL_OPERATOR_SEED",
+  "date": "2026-10-24",
+  "parent_revision": "88d07a49230e8f1375124bb80bc172dc6a6bfff2",
+  "document": "docs/96_门控残差商空间_可观测误差与无补算FFN构造_20261024.md",
+  "mission": "Discover genuinely dispensable FFN work for native D-Q HiF4 four-step I2V while preserving full video; no dense-restoration assumption",
+  "construction": {
+    "P": "I - 11^T/d; d=5120",
+    "exact_real_invariance": "LN_eps(x+c*1)=LN_eps(x) for per-token scalar c and arbitrary epsilon>0",
+    "gated_residual_writeback": "x_plus=x+diag(g)F(q)",
+    "conditioned_zero_impact": "P diag(g) delta_F=0; if g nonzero, nullspace is span(diag(g)^(-1)1)",
+    "canonical_action_error": "eta=P diag(g)(F_action(q)-F_dense(q))",
+    "grouping": "216 native 64-channel hidden groups; real additive group representation only with fixed input, independent complete-group QDQ and controlled finite precision",
+    "joint_missing_group_error": "||sum_{g in omitted}P diag(g)v_g||^2 contains cross-group terms",
+    "isotropic_null_energy_fraction": 0.0001953125
+  },
+  "source_bindings": [
+    {
+      "url": "https://github.com/ModelTC/LightX2V/blob/ed146db64d0b6130c669285fc1aa0b280a6a4823/lightx2v/models/networks/wan/infer/transformer_infer.py",
+      "lines": "125-142,217-257,307-329,366-425",
+      "meaning": "norm1/norm3/norm2, gated residual, final norm"
+    },
+    {
+      "url": "https://github.com/Wan-Video/Wan2.2/blob/1ea34ff48f87168174e12956e200b1d908b1c5ff/wan/configs/wan_i2v_A14B.py",
+      "meaning": "cross_attn_norm true, dimension 5120"
+    },
+    {
+      "path": "tools/packed_ffn_reference.py",
+      "meaning": "native HiF4 Q1/W1/GELU/Q2/W2 group boundary"
+    },
+    {
+      "path": "research/20261023/C0_coupling_offline_results.json",
+      "meaning": "pinned frozen runtime source checks"
+    }
+  ],
+  "evidence": {
+    "mathematics": "CONDITIONAL_PROOF",
+    "source": "UPSTREAM_SOURCE_CHECKED_LOCAL_RUNTIME_OPTIONAL_BRANCH_NOT_EXHAUSTIVELY_CHECKED",
+    "prior_LN_kernel": "KNOWN_PRIOR_ART",
+    "native_BF16_bit_identity": "NOT_TESTED",
+    "actual_group_alignment": "UNKNOWN",
+    "FFN_speed": "NOT_MEASURED",
+    "full_video_quality": "NOT_MEASURED"
+  },
+  "competing_mechanisms": [
+    {
+      "id": "G1",
+      "prediction": "Real grouped output difference has material gauge fraction above 1/5120; projected group selection can alter best fixed support",
+      "minimum_check": "Existing gate/W2/activation-vector availability; real contribution requires authorized native data"
+    },
+    {
+      "id": "G2",
+      "prediction": "Pairwise signed cancellation in quotient space matters more than individual group scores",
+      "minimum_check": "Group Gram and joint versus individual support on same source; no old restoration labels as substitute"
+    },
+    {
+      "id": "G3",
+      "prediction": "Step/expert gate rotates the projected physical group importance, enabling metadata-only stepwise operator",
+      "minimum_check": "Actual gate generation and values, frozen dimensional/group mapping"
+    },
+    {
+      "id": "G4",
+      "prediction": "Isotropic-like contribution means rank-1 gauge is negligible for practical compression",
+      "minimum_check": "Measure group/action projected vs full energy on independent native data only if authorized"
+    }
+  ],
+  "nearest_prior": [
+    {
+      "url": "https://arxiv.org/abs/2606.19491",
+      "transfer": "LayerNorm dead direction; not a new identity"
+    },
+    {
+      "url": "https://proceedings.mlr.press/v282/wang26a.html",
+      "transfer": "Transformer parameter gauge symmetry"
+    },
+    {
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/94359ca6e248af69b8b6854668ae9782-Abstract-Conference.html",
+      "transfer": "video quantization/sparsity interactions"
+    }
+  ],
+  "current_next_action": "Perform further source-only inspection of norm3/adapters and inventory available static gate/W2 records; avoid inferring native value from scalar labels",
+  "execution_authority": "NONE",
+  "experiment_pause": "research/20261024/EXPERIMENT_PAUSE.json",
+  "new_model_calls": 0,
+  "new_CPU_experiments": 0,
+  "new_GPU_experiments": 0,
+  "new_videos": 0
+}
