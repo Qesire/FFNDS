@@ -1,198 +1,30 @@
-# AutoResearcher：回到原来的三个问题（2026-10-24）
+# FFNDS · Wan2.2 four-step video FFN research
 
-新的[信息论—决策—完整计算研究](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md)恢复三项主问题：FFN/Block 前的信息是否存在、是否有经济决策价值、哪些真实运算可省而不损害四步视频。采用同前缀真实动作价值、NetVOI、跨层/归一化旁路与时空条件机制来重新探索；旧 A/B/C 分解/剪枝/专家方案退回候选档案，不再自动指定算法。机器研究记录见[three-question study](research/20261024/three_question_information_first_exploration.json)。**仅文献/源码/数学探索恢复，CPU/GPU/模型实验仍暂停。**
+**Goal:** Understand and exploit real FFN computational redundancy in the distilled Wan I2V model, reduce *actual* FFN and end-to-end inference time, and preserve complete free-running video quality. No default dense restoration, R256 compensation, mask family or representation.
 
-# AutoResearcher 理论再探索（2026-10-24）
+## Current scientific questions
 
-本轮按新版 AutoResearcher 将 FFNDS 的探索从“补算哪些 dense 行”切换到实际 FFN 算子：A 双侧低秩保留 GELU、B W1/W2 耦合结构直接删组、C 条件窄算子。近邻 LRCC/SVDtrunc 和旧 R4/R8/R9/R13 明确作为前例及负结果对照。见[新研究文档](docs/94_AutoResearcher_算子优先重新探索_20261024.md)和[机器记录](research/20261024/operator_first_autoresearcher_reexploration.json)。**理论/文献/源码探索恢复，原有全部 CPU/GPU/模型实验仍暂停。**
+1. **Information:** Which already-available signals before FFN/block execution reveal the necessity or downstream value of different computations?
+2. **Decision:** Which signals have positive *net* value after observation, routing and physical execution costs over strong static same-cost alternatives?
+3. **Compute:** Which operations are truly removable without degrading four-step I2V quality, after native HiF4/BF16, residual and cross-step propagation?
 
-# 全部实验已按用户要求暂停（2026-10-24）
+Read [current live research](research/ACTIVE_RESEARCH.json) and [mechanism & information study](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md). The source-informed C0 residual-scale example is a synthetic construction, not a measured Wan speed/quality win.
 
-用户要求暂停所有实验。七个获授权节点已核对，本项目实验进程为0；不再启动CPU/GPU/模型实验、等待任务或重试，等待明确恢复。C2N2因选中卡后来出现外来计算而停止，视频及原生前向均为0，算法质量/速度未测。记录和HF资产完整保留，见[暂停记录](research/20261024/EXPERIMENT_PAUSE.json)、[实际结果](research/20261023/C2N2_native_results.json)和[当前交接](research/20261023/HANDOFF_C2N2.md)。下文的研究方向和执行中说明为暂停前历史状态。
+## Default scientific workflow
 
-# 研究目标正式复位：补算与R256都不是目标（2026-10-24）
+Every research agent uses [AutoResearcher](https://github.com/Qesire/AutoResearcher/tree/5bd7ec537ae63f2b6a6dd579f0e886aff58a177c) automatically through [AGENTS.md](AGENTS.md): discover a mechanism → reconstruct relevant source → derive and discriminate → compare closest published work → implement/measure when authorized → record what was learned. The minimal [FFNDS paper-discovery skill](.agents/skills/ffnds-paper-discovery/SKILL.md) provides domain context. Suggestions and exploratory math are not gated by whether an exact experiment already exists.
 
-**现在的研究目标是减少真正执行的 FFN 计算，同时维持四步视频生成质量**，不是“找哪些行恢复Dense”。直接无补算/无补偿稀疏算子、算子合并与重参数、静态压缩、动态路由，以及有成本的可选恢复路径，都根据真实算子机制、相同部署代价与视频质量选择；不使用旧 Dense/UB1 标签限定新候选。见[正式目标复位](docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md)。仍暂停全部实验。
+## Project state
 
-# Archived research clarification: recovery is optional (2026-10-24)
+**All experimental work remains paused:** [pause receipt](research/20261024/EXPERIMENT_PAUSE.json). CPU/GPU/model experiments, retries and automatic follow-ups are not enabled. Current exploration is source, mathematics and literature only.
 
-The completed [research analysis](docs/92_摆脱补算预设_条件稀疏的目标与算子重构_20261024.md) and [exploration seeds](research/20261024/potential_directions_exploration.json) remove mandatory dense completion/R256 from the research premise. Direct conditional group relations and nonlinear coalescence are prospective alternatives; signed finite action value applies to all actions. The CPU receipts contain no-completion counterexamples, a log-risk/arithmetic-utility reversal, and a costed optional shared-prefix construction. All future checks are paused under the user instruction above. Existing C1/R4/HP1 and other failed recipes remain closed. This archival update adds no execution authority or automatic followup.
+**Frozen evidence is preserved** in [historical decisions](research/CURRENT_DECISION.json), [method outcomes](research/20261021/method_triage.json), `research/`, `reports/`, `docs/` and `upstream_audit/`. These are archives of measured or proposed *past* work, not active tasks. Historical registration rules and results remain unchanged. See [archive guide](ARCHIVE.md) and [metric/quality protocol](docs/77_FFNDS学术指标族与评测协议_20261023.md) for eventual native full-video evaluation.
 
-# Current research: residual-complete action value (2026-10-23)
+### Key reproducibility references
 
-Read [the new AutoResearcher reanalysis](docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md), [current handoff](research/20261023/HANDOFF_PRD_SUCCESSOR.md), and [sampling revision](research/20261023/PRD_sampling_revision.json). C1 is the completed native action diagnostic; C2 is the norm-scaled row successor whose current execution status appears below, not completed TACR channel execution. Reanalysis finds 15/72 negative C2 positions, 12 in the last two steps, despite positive six-source aggregates. A reproducible residual-bypass counterexample shows why nextnorm loss alone can misrank downstream risk. Pursue pre-W1 conditional value of complete residual-block/step actions; retain C2's existing paired-video discriminator and develop causal budget allocation as a secondary seed.
+- [Native FFN structure and conditional computation evidence](docs/86_归一化前信息与完整动作耦合的离线检验_20261023.md)
+- [Historical objective drift / optional completion analysis](docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md)
+- [Full four-step video quality gate](docs/75_备选算法必须完整生成与防止视频质量崩溃_20261022.md)
+- [Q1/Q2/Q3 competing mechanism record](research/20261024/three_question_information_first_exploration.json)
 
-**R16/R17 are retired as active research at the user's request.** Preserve their historical outcomes and comparator implementations. C1's two zero-headroom whole-site swaps are closed for further router/q expansion. This update preserves C2's prepared scope and all execution records. Run `python tools/analyze_prd_successor.py --check` and the `test_prd_successor.py` suite. Earlier dated sections below are historical context where superseded by this entry.
-
-## C2N2：用户已授权，固定六视频正在执行
-
-已登记[独立授权](research/20261023/C2N2_authorization.json)和[正式协议](research/20261023/C2N2_registered_protocol.json)，真实启动于一张空闲A100；依赖检查和早期CUDA占用通过，正在加载既有HF缓存。先检查原UB1轨迹，再生成source6五组配对视频；六视频、两次norm、三次selector，失败不自动重试。当前尚无新的视频质量或速度结论，见[当前交接](research/20261023/HANDOFF_C2N2.md)。
-
-## C2N1：启动因导入路径错误停止；修复已通过CPU验收
-
-本轮在空闲A100完成早期CUDA占用，随后因Agent启动命令中的环境脚本清除了项目路径，出现`HiFloat4`导入失败。**视频、FFN、norm、selector均为0，算法质量与速度未测。** 原始失败已保存，固定范围关闭。新的专用启动器已通过真实CPU正反核验：模型包可导入、D-Q缓存完整SHA256与160处参数校验通过，GPU始终隐藏；实际模型保留正常设备检查。约128GB既有HF资产及12模型载荷SHA256已就位。见[失败与修复](docs/91_C2N1导入路径故障与环境修复验收_20261024.md)、[实际结果](research/20261023/C2N1_native_results.json)与[独立固定C2N2草案](research/20261023/HANDOFF_C2N2.md)。以上为C2N2启动前的历史准备；其后独立授权及实际执行状态见上节。
-
-## 旧原生数据的新发现：误差目标改变行优先级
-
-C1的72处同前缀原生标量标签显示，残差写回与下一norm误差的前25%高风险行平均重合78.30%，六来源均有差异；早步差异更大，不能直接解释C2晚步负值。这里只读旧数据，新增模型调用为0；需要完整下游价值和实际视频来判断算法。见[目标错位审计](docs/90_原生残差写回与下一归一化的目标错位审计_20261024.md)。
-
-## C1N0：原生诊断完成，转向 dense 行的净价值预测
-
-一张 A100 已完成8条基线视频、288次独立FFN、302次额外归一化，覆盖6来源×12位置，全部数值控制通过。两个完整补偿组交换在72处均未胜过 UB1，不继续扩大其路由搜索。保存的原生 dense/UB1 标签却显示可用的信息增量：离线选25%采样行时，523维当前信息控制捕获34.007%的下一层误差，加入8维前置信息后为34.501%，六来源均提高，打乱控制为34.075%。这是暴露来源上的有限边界诊断，尚非视频质量或速度结果。见[实际数值与构造](docs/87_C1原生完整动作与归一化前信息判别_20261023.md)、[结果摘要](research/20261023/C1N0_findings.json)和[当前交接](research/20261023/HANDOFF_C1N0.md)。固定模型预算已用完，GPU已释放，旧 R17 批次保持关闭。
-
-## C0：已执行归一化前信息与完整动作耦合检验
-
-已核查3,840份原生张量文件头，并重用五个主体来源的真实路由。合成反例显示：相同BF16归一化输入、不同残差尺度，可以反转下一归一化后的动作排序；R7实际标量重算显示，微小净交互可由大传播项抵消产生。结果指向补偿后完整动作的条件价值与pre-W1尺度信息，尚无新视频质量或速度成果。见[数值与机制](docs/86_归一化前信息与净动作耦合的离线检验_20261023.md)和[当前交接](research/20261023/HANDOFF_C0.md)。统计读取原语已实现并通过36组CPU逐位控制，尚未接入GPU模型。本轮0模型调用；R17仍关闭，官方质量未知。
-
-完整本轮数值与范围见[新来源官方质量和重复原生速度](docs/83_新来源官方质量与重复原生速度_R17E0_20261023.md)。
-
-## R17E0固定验证批次已结束
-
-状态：`STOPPED_FIXED_SCOPE_FAILURE_NO_AUTOMATIC_RETRY`。实际扣账：`{"full_generations": 57, "metric_evaluator_calls": 0, "standalone_FFN_forwards": 0, "training_steps": 0, "weight_factorizations": 0} `。见[执行实录](research/20261023/R17E0_execution_summary.json)与[当前交接](research/20261023/HANDOFF_R17E0.md)。原始结果留在HF缓存，尚待科学审阅和公开数值整理；没有自动宣称质量或Pareto通过。
-
-## 2026-10-23 · 全160处真实动态FFN已跑通并通过人工视频初筛
-
-**R16V0实际完成：**5条完整81帧视频、164次原生FFN检查/计时；动态与三个压缩对照均覆盖全部160处，W1前实际压行执行。原UB1四项逐位控制及dense四步轨迹控制通过，用户完整播放后判定无明显崩坏。主MAC62.5%＋全行R256约1.85%，一张空闲GPU、零训练/新分解，峰值64.35GiB。
-
-四个真实FFN位置相对两个等主MAC固定对照的局部合并SSE改善6.128%，同四位置原生FFN计时比1.26273×；**不代表端到端测速**。自由视频的动态整体RGB保真反而差于最佳固定方案，且运动节奏不同；保留这一局部—自由轨迹排序差异，下一步转向新来源官方质量和反复系统计时。见[结果与实现](docs/81_全层动态行分派的可执行构造_20261023.md)、[复算](research/20261023/R16V0_analysis.json)、[人工初筛](research/20261023/R16V0_human_review.json)和[当前交接](research/20261023/HANDOFF_R16V0.md)。本轮固定预算用完，模型资格为空，旧试验拒绝不变。
-
-下一轮R17E0已获用户直接执行指令并登记，[23张全新来源、九维子集和正式重复测速](docs/82_新来源九维评测与重复原生测速_20261023.md)正在单张空闲GPU执行固定145条生成范围，评分阶段固定45调用另有不可变绑定。与98张既有输入无重叠；19项评测资产和源码已放入HF缓存，准备期44条离线检查/190项测试通过。见[登记协议](research/20261023/R17E0_registered_protocol.json)、[授权原文](research/20261023/R17E0_authorization.json)及[准备实录](research/20261023/R17_preparation_checks.json)。本轮新来源质量结果仍待完成。
-
-**R17E0正式测速前缀现已完成：**5个真实预热视频和25条轮换测速均通过原四步轨迹逐位控制；旧source0上每臂5次。完整生成中位数dense50.858秒、动态48.682秒，1.04469×，耗时减少4.28%；全160处FFN连同共享调制为1.25646×。两个固定行对照约48.645秒。见[全部重复与计时边界](research/20261023/R17E0_system_timing_prefix.json)。新来源质量仍在生成，整段会话资源审计待生成进程结束；不能把这个单来源技术重复变成总体质量或独立速度样本。
-
-## 2026-10-23 · 真实四步配对视频已跑通
-
-**最新实际结果（2026-10-23 JST）**：R15V0 已跑通真实四步配对视频：dense D-Q 与候选各一条，均832×464、81帧；候选四步block20的8个替换边界全部执行，初始噪声匹配，没有步间重置。全部81帧及脸部/鱼细节已对照审阅，未见新增明显崩坏，完成**单来源、4/160位置视频接入及逐帧审阅**，正式 smoke 结论待人工完整视频审阅。代码、标量记录、视频SHA和整段配对预览均保留；未宣称整网动态部署、总体质量或原生加速。单卡、两次生成、两次固定权重分解的预算已用完，无自动后续模型任务。见[执行记录](docs/77_R15完整四位置响应与配对视频跑通记录.md)、[完整审阅](research/20261023/R15V0_full_duration_review.json)和[当前交接](research/20261023/HANDOFF_R15.md)。 配对成片的[逐帧RGB保真](research/20261023/R15V0_decoded_pair_difference.json)已补充，两个PSNR聚合分别报告，作为轨迹差异描述。
-
-## 2026-10-23 · 学术指标族与可执行评测协议
-
-[完整说明](docs/77_FFNDS学术指标族与评测协议_20261023.md)整理十类、93 个指标/统计条目及 23 组主要来源。论文核心采用 VBench-I2V 九维、时序/运动、配对感知保真、人工偏好、完整 FFN/视频时延与来源分层统计；分布和高级真实性按任务扩展。附 [JSON/CSV 目录](research/metric_system/academic_metric_families.json)、[评测协议模板](research/metric_system/evaluation_protocol_template.json)、[历史数据映射与复算](docs/78_指标审计与已有实验映射_R15_20261023.md)。
-
-## 2026-10-22 · 文献对齐的多粒度研究评价
-
-以 [docs/76：FFNDS L0–L5 分层指标体系](docs/76_基于学术文献的FFNDS分层指标体系_20261022.md) 替代“局部 SSE 一票否决 / 任意三数阈值 / 仅用视频总分”的误读。明确算子数值、token/stripe/区域、单步下游传播、完整自由生成视频烟雾测试、官方九维 VBench-I2V 质量与完整系统加速的独立证据边界；保留 R14N0 +31.1642% 原局部指标作为 L1 历史结果，而非视频质量损失。研究方向广泛探索；被确认值得继续的备选必须先做至少一次真实配对完整视频并排除明显崩溃，再进行多来源质量—速度 Pareto。同前提对照与历史注册约束不变。
-
-见 [机器可读指标目录](research/metric_system/catalog.json)、[指标证据检查工具](tools/check_metric_contract.py)、[Agent 指引](AGENTS.md)。
-
-## 2026-10-22 · Agent 候选算法晋级强制检查
-
-一旦确认某个方法作为正式备选推进，**必须至少完成一次真实 Wan 四步、候选策略实际生效、不中途恢复 dense 的完整自由视频生成**，与同条件 Dense D-Q 配对并审看全片。若主体、运动、背景、光照或细小物体出现明显质量崩溃，不得晋级；若一条视频通过，仍只是质量灾难筛查，须继续多来源质量—速度对照。此规定**不限制早期开放探索，不追溯复活 R14N0 等已关闭实例，也不自行批准 GPU 作业**。
-
-详见[完整生成与防崩溃规范](docs/75_备选算法必须完整生成与防止视频质量崩溃_20261022.md)、[候选跟踪与离线门禁](research/candidate_rollout/README.md)及[Agent 指引](AGENTS.md)。
-
-**此前原生诊断（R14N0，已完成）：** [4次原UB1采集＋32次FFN检查](docs/74_完整空间邻域的原生值与固定双点构造拒绝.md)的全部控制通过；开发动态写回误差比UB1高 **31.16%**，oracle仍高 **19.11%**，固定实例关闭。保存数据的教师均值CPU参考可到UB1误差的 **82.8%**，而范数与实际增量收益负相关，下一问题是平均响应估计。模型资格已恢复为空，GPU已释放。[当前交接](research/20261022/HANDOFF_R14N0.md)。
-
-**此前后端进展（R14）：** [三方向融合算子](docs/73_三方向融合算子的实际成本与原生价值下一步.md)在同次 A100 完整随机张量链路上测得 **1.913×**，主投影 MAC **45.1381%**；相同算法未融合时只有 1.147×。16 项融合控制和 14 项原 HiF4 QDQ 检查通过，49 次计时与冻结源均已保存。此为合成后端进展；后续真实邻域局部值见R14N0，完整模型速度与视频质量仍未测。[当前交接](research/20261022/HANDOFF_R14.md)、[离线证据校验](tools/check_r14_backend.py)及[固定原生值草案](research/20261022/R14_native_value_DRAFT.json)。模型资格仍为空；D0/R13 历史结果保持原样。
-
-**最近原生实验R12 D0已完成：** 在用户新指定的空闲节点上，用两张A100完成全部24次原生四步；数值、逐位重复及真实计算控制全部通过。[完整结果与失败归因](docs/68_R12_D0等预算原生动作检验.md)显示：逐来源事后最优比最佳固定NA仅改善 **0.231928%**，且误差仍比冻结UB1高 **2.574103%**，固定零补偿三动作实例未过门槛。没有自由学生质量或完整FFN测速结果；资格恢复为空，不自动扩实验。见[D0历史交接](research/20261022/HANDOFF_R12_D0.md)及[资源账本](research/20261022/R12_D0_completed_resources.json)。节点名等私有连接信息不进入公开记录。
-
-**开放探索的实际进展：** [HiF4组边界与空间布局](docs/69_HiF4分组边界与空间动作的可执行布局.md)保存8份真实输入的32项CPU reference检查和组内重排反例；[条件信息与真实预算](docs/70_条件信号与跨步方法的真实预算.md)新增原文核对、均值相同但非线性方向相反的构造，以及冷启动/代理计费复算。它们不自动成为新模型路线；D0不是后续唯一方向。
-
-# FFNDS — Wan2.2 FFN Dynamic Sparsity Handoff
-
-## 2026-10-22 · 用户更新：研究评价以同前提竞争与质量—速度 Pareto 为准
-
-原先约定的 **50% 主GEMM MAC、1.5× 完整FFN加速、2% 三轴质量退化** 是随手设定的参考目标，**并非今后所有新研究路线的硬门槛**。新方法应在**模型/调度/分辨率/量化/硬件/训练投入/来源与评测一致**的前提下，与最强静态方法和最接近的论文方法比较，以真实生成质量与实际FFN/端到端推理速度的 Pareto 改善确定科研价值。已有登记实验的原门槛和拒绝结论保持不变。详见[新的评价与 Agent 执行准则](docs/72_与同前提方法竞争的质量速度评价准则_20261022.md)、[目标契约](research/OBJECTIVE_CONTRACT.json)与[Agent 指引](AGENTS.md)。
-
-
-## 2026-10-22 · 研究资料库与开放探索入口
-
-已经归档并审阅 [全历史机制图谱 V1、学术先例审查、V3 演绎和 V4 全轨迹构造](research/exploration/20261022/EXPLORATION_INDEX.md)。统一入口是 [研究目标与方法选择说明](docs/67_后训练动态FFN开放探索与质量速度目标_20261022.md)。**这些是可供 agent 主动发散的研究材料，不是排他性的候选路线或已完成的 Wan 结果。** 旧 R12 方案和草案仍可供复用，但不再要求以 block30/31、GBA 或 STB 为唯一实验方向。资料导入时最新证据为 [R12 E0](docs/66_R12等预算动作的操作数与条件粒度审计.md)，导入本身没有批准新 GPU 方法；随后单独批准的固定D0已完成，结果与关闭范围见本文顶部。
-
-
-## 最新研究任务：后训练条件 FFN 稀疏方法（2026-10-22）
-
-**历史E0准备状态（D0执行前）：** [原生操作数、CPU pack与条件粒度审计](docs/66_R12等预算动作的操作数与条件粒度审计.md)核验了TF2/OP2/R7/R11已有张量及两层量化权重，没有新模型作业。历史R7恢复A/B的整源事后选择相对最佳固定B仅额外降低flow SSE **0.171%**；按帧/原生输出patch事后拼接分别为 **0.315%/5.089%**，这两项仅输出误差结构，**不是执行过的空间动作、R12等预算收益或质量结果**。gate在24个OP2来源上恒定，R7完整调制输入则有差异；抽样V1的不同SHA不等于完整输入或预测信息。真正R12动作flow尚缺。已形成[24次完整四步上限的零补偿原生值采集草案](research/20261022/R12_E1_native_value_DRAFT.json)，匹配R256阶段仍缺自身状态数据，均未登记。当时交接为[R12 E0](research/20261022/HANDOFF_R12_E0.md)；后续实际D0与当前交接见顶部。
-
-面向以新动态 FFN 方法为核心的顶会论文，研究重点从继续调优固定 mask/R256 转为：**在相同总主 GEMM MAC 下，判断不同输入是否需要不同 FFN 计算动作，并能否用主 W1 之前可得的信号预测这些动作的真实下游收益**。历史 R12 探索最初讨论 step3/block30–31 的固定 162/162 与等预算 216/108、108/216 三种分配；当时只有机制与实验设计，随后获单独授权的固定D0已经完成并拒绝；原草案仍不构成新颖性证明或新GPU作业授权。R7D1 的完整教师恢复不等于等 MAC 动作，不能混为新结果。
-
-**Agent 必须执行 AutoResearcher v2.3 工作流，不止撰写方案**：详见 [本地方法与 skills](research/agent_protocol/README.md)、[研究路线](research/20261022/POST_TRAIN_DYNAMIC_FFN_PAPER_PLAN.md)、[可执行任务交接](research/20261022/AGENT_EXECUTION_HANDOFF.md)、[已存证据复算](research/20261022/R12_E0_SAVED_EVIDENCE_AUDIT.json) 和 [反事实收益分析工具](tools/analyze_counterfactual_actions.py)。历史登记实验使用 D-Q 同源主 GEMM≤50%、完整 FFN≥1.5×、独立新来源三轴各退化≤2% 的固定门槛；**新方法评价以同前提强基线和质量—速度 Pareto 改善为准**，UB1是强静态对照。
-
-
-Wan2.2 I2V / LightX2V四步蒸馏 / HiF4 / FFN动态稀疏研究交接，整理日期 **2026-10-21**。
-
-**研究目标校正（2026-10-22）：** FFNDS 首要任务是研究**四步蒸馏 Wan FFN 的条件冗余与可部署的输入/状态条件动态稀疏**，在原生 HiF4/BF16 执行链下同时实现真实省算与视频质量保持。局部 teacher-FFN/固定完整步骤 flow 拟合只是诊断或小型恢复训练；静态步间 UB1 是强工程基线，**不是**输入条件动态策略，不能把其固定预算或 R11T1 的固定输入 flow SSE 解释成动态创新/新来源视频质量。详见[目标契约](research/OBJECTIVE_CONTRACT.json)和[范围修正与证据层级](docs/65_研究目标层级与R11解释修正_20261022.md)。历史冻结实验的主MAC≤50%、完整FFN≥1.5×、新来源三轴各下降≤2% 门槛与实测判定**不追溯修改**；未来新研究不以这些随意数值作全局门槛。没有新模型作业自动准入。
-
-**此前模型实测（R11T1，已关闭）：** [相同部署预算的局部与真实flow目标对照](docs/64_相同部署预算下的局部与真实flow目标对照.md)完成六次四步原生生成和两臂各20步。真实flow目标让训练flow误差下降2.460%、开发下降1.491%，比局部目标低1.574%；局部目标自身误差降5.108%却没有改善开发flow。两臂实际原生flow均与重放逐字节一致。开发改善仍低于预设2%门槛，固定实例已关闭，当前没有模型作业准入；未增加步数/窗口追验证，未接受新视频质量或完整速度。
-
-**原生梯度准备：** [R11G1原生输出头梯度](docs/63_原生输出头梯度与零更新等价检查.md)仅固定一个已暴露来源、末层step3/block39；12项原生步骤控制、5项严格字节/SHA核对通过，原R256四组梯度均有限非零；一次固定更新的来源内flow MSE下降0.291%，峰值分配3.109GiB。准备检查已完成，没有新候选或恢复验收。
-
-**防回退入口：** [当前决定](research/CURRENT_DECISION.json) → [路线表](research/20261021/method_triage.json) → [当前R14N0交接](research/20261022/HANDOFF_R14N0.md)。根目录[AGENTS.md](AGENTS.md)规定读取顺序；`python tools/check_research_routes.py`检查状态一致性，旧拒绝及未运行草案均不得自动启动。原登记实验的50%主MAC、完整FFN≥1.5×和新来源三轴各≤2%判定不变；未来新方法须依据可比文献基线和 Pareto 评估。
-
-**当前决定：R4E1登记的有限支持交换已被拒绝，R4E2路由与R4E3视频/测速未触发。** [原生结果](docs/53_R4补偿感知支持交换的原生筛选.md)中，每折849项代理候选包含单/双交换；选中动作做原生对照后四折均未过门槛。step2匹配补偿后仅改善0.36%–0.52%且逊于冻结UB1和C对照，step3有限池以不交换最优。这里只关闭已登记邻域，不声称所有稀疏支持不可能，也不自动扩大q/pool或切换router。当前没有由该协议准入的下一项模型作业。
-
-**当前研究进展（R10）：** 已完成[全路线失败归因与组合方案复盘](docs/61_全路线失败归因与组合方案复盘_R10.md)，接续[R7历史总审计](docs/56_全路线复盘与下一步机制优先级_R7.md)。新增[25项论文/作者博客/实现/社区检索](research/20261021/method_search_R10.json)，其中19项R7清单外、6项深化；实际CPU分解保存张量，发现flow双增益代理方向与原生变化余弦约0.57、预测训练收益只兑现1.806%，Hessian验证空间内误差降约59%却被空间外5.6倍误差抵消。当前真正完成官方完整视频质量的候选仍是六种；没有把局部控制当成完整候选。
-
-**此前R7—R9实测（历史阶段）：** [R7D1](docs/57_固定双层恢复的原生传播诊断.md)24次与[R7D2](docs/58_局部与下游目标的双参数原生对照.md)18次原生诊断均完成，固定双增益配方拒绝。[R8F1](docs/59_仿射骨干的完整支持原生精度检查.md)BF16数值通过、额外HiF4拒绝；[R8F2](docs/60_HiF4仿射矩阵的分组Hessian量化修复.md)训练误差降77%但八项原生精度仍拒绝，已关闭固定编码。R8D1总体统计仍为未运行草案；R10固定合成成本对照得到仿射余项1.612×、完整宽度投影分解1.472×（24项QDQ逐位控制通过），据此完成[R9A1原R2学习型BF16表示的固定原生检验](docs/62_广泛复盘后的学习型仿射表示检验.md)：完整支持16/16数值通过，压缩后7/16过关；step2汇总误差改善25%，step1/3反而变差，固定OLS＋贪心实例已关闭。该阶段结束时未选择下一项模型作业；后续R11的登记与实测见下方。原R2本就采用学习型BF16骨干，不能被R8附加量化变体的失败一并关闭。表示与完整链成本的复盘据此转向原生窗口目标；不继续扩大q/rank/bank/增益/阻尼搜索。
-
-**此前R6数据审计：** [跨步FFN复用审计](docs/55_跨步FFN复用的冷启动与配对数据审计.md)得到3908个真实跨步配对token，block20两组仅58/55对，缓存Y约12.08GiB。R7进一步核对到旧R20已有跨步输出复用/仿射，不能将R6称为新算子；R6仅是当前OP2准备审计，保持deferred。
-
-**历史研究索引（不作为执行队列）：** [R1/R2归档](docs/49_20261021_机制演绎与重构R2.md)、[旧淘汰审查](docs/50_研究路线淘汰审查_20261021.md)、[R3](docs/51_AutoResearcher_R3_机制路线重审_20261021.md)、[R4推导](docs/52_机制潜力分辨与可行方向_R4_20261021.md)。其中旧CANDIDATE/PLANNED、首选路线和暂停语句均是当时快照；[实际恢复与闭合记录](reports/worker_20261020/PROJECT_RESUME_R4.json)及当前决定优先。BO1/UB2、RB2/TC1、HP/NP/NF、OP3/LR2等已拒绝配方保持关闭；未测的tile/仿射等不自动升级为下一方向。
-
-**历史工程结果：** [UB1静态步间预算基线](docs/28_固定步间计算预算对照.md)在原正式20开发基准通过联合工程验收：全局主GEMM计算50%，完整160位置FFN实测 **1.546×**，三项质量下降 **0.874% / 1.345% / 0.007%**，两臂全20驻留字节等价通过。但[来源分离补充20](docs/29_冻结候选的来源分离补充验证.md)的imaging下降 **3.166%**，超过2%门槛，跨来源质量尚未达标。完整FFN实现和静态基线已经跑通，[相同状态流误差](docs/34_相同状态下的原生流误差.md)已定位到末步较大的单步更新误差；[末端十层增秩LR2](docs/36_末端十层的条件增秩检验.md)已完成两批40条视频，补充imaging仍下降3.051%，被拒绝。[原始O/蒸馏D固定输入局部对照](docs/37_原始与蒸馏权重的固定输入局部对照.md)已完成8个原生逐位控制，贡献集中度几乎一致；范围只有两图、block20，原始O整网仍未测。[UB2末步完整FFN预算](docs/38_固定预算下恢复末步完整FFN.md)也完成40条视频，原始/补充imaging下降2.218%/4.652%，均失败；[小型非线性修正NF1](docs/40_遗漏非线性特征的残差读出小试.md)四项原生误差改善5.7–7.3%，仍未达门槛。全部有限改善、失败和未执行阶段均保留，尚无新的动态候选通过。[晨间总览](docs/24_20261021晨间实验总览.md)保留全部对照和数值证据。
-
-**历史执行记录（以下不是下一步指令）：** worker（实测 **2 × A100 80GB**）已恢复审计源码与独立环境，
-精确模型/校准图像哈希通过，HiF4 Smooth+RTN 缓存已重建；D-BF16 与 D-Q 四输入视频/边界 no-op 已通过。
-新 AR2 的 C 动态支持通过两来源局部门槛；V1 核、W1 SVD、donor PCA 代理未通过。
-全12输入×160位置校准张量已完成且no-op通过；C-static中心化修正在独立输入改善局部误差，
-但完整视频仍退化。RR1低秩残差在两个独立来源各4/4位置通过，完整闭环明显减少纹理块，
-仍有模糊/运动差异；见[视频对照](reports/worker_20261020/RR1_video_comparison.jpg)。
-详见 [AR2结果](docs/12_AR2重开结果与下一步.md) 与 [低秩代理](docs/13_前FFN0低秩代理实验.md)。
-正式20输入已固定，D-Q/RR1三项官方CUDA指标和RR1全20常驻字节等价均完成。
-RR1 aesthetic/imaging分别下降10.63%/5.11%，质量未通过；保持总训练行数及算法超参的新24输入候选正式结果为下降9.26%/3.26%，仍未通过。两候选全20常驻字节等价均通过。
-见[正式结果](docs/19_RR1正式视频与常驻等价结果.md)和[新校准协议](docs/20_来源分离的24输入校准.md)。
-固定旧12输入RR1的[输出方差控制](docs/21_输出方差控制实验.md)已完成全160拟合、GPU逐位/完整恒等控制及正式20评估，仍未通过质量门槛。
-[联合重建](docs/22_保留特征与低秩残差联合重建.md)未达到校准CV门槛，已停止。[原生局部教师OP1](docs/23_学生状态上的原生局部教师.md)已完成24输入、3840文件/48视频审计，OP1残差重拟合未通过开发CV；[低秩适配LA1](docs/25_折叠低秩量化适配小试.md)与[全主权重恢复FA1](docs/26_全主权重量化恢复小试.md)亦未达预登记改善门槛。
-见[正式输入与全位置校准](docs/14_正式输入与全位置校准.md)、
-[随机数状态修正](docs/15_持久管线随机数状态修正.md)和[全位置中心化与残差结果](docs/16_全位置校准与残差修正.md)。
-私有连接与公开脱敏规则见[执行配置](docs/43_公开元数据与私有执行配置.md)。
-
-[真实UB1状态采集OP2](docs/44_UB1真实状态的原生教师采集.md)已通过D-Q/UB1两臂、两个固定输入的全部原生控制；24来源、3840位置的采集及40.35GB整批校验已完成，192位置原生回放通过。旧C24与实际UB1的固定block20输入状态差异约60–92%。[OP3配对重拟合](docs/46_真实状态重拟合与导入延迟修正.md)随后完成全部8项原生比较：新状态拟合略优于匹配旧状态拟合，但均输给冻结UB1，停止该配方全量拟合/视频；尚无新质量或速度结论。精确源码副本已通过192项字节等价控制，避开NFS导入扫描延迟。
-
-新运行状态、入口和未交付资产见 [worker 执行记录](docs/09_worker执行记录.md)。
-下文的 H20 预期与学校服务器路径属于原交接快照。
-
-> **原始设置专门为A100调整。接收方预计使用H20，尚未确认目标设备或验证运行。先阅读 [A100 → H20迁移必读](docs/07_A100到H20迁移必读.md)。不要直接照搬sm80编译目标、学校节点限制或A100性能数字。**
-
-## 下载完整交接包
-
-[完整归档与SHA256校验（GitHub Release）](https://github.com/Qesire/FFNDS/releases/tag/handoff-20261020)
-
-完整包含45,372个服务器配置、量化/运行/hook脚本及证据文件，以及本地报告、紧凑表、环境元数据与来源清单。完整开源仓库、模型权重、量化大缓存、原始数据集、视频和大张量不包含在内；所需外部路径和恢复条件已记录。主分支提供便于浏览的手册与小型元数据，完整代码和历史证据从Release下载。
-
-**2026-10-20 上游校对补充：已补回首版归档遗漏的15个W4A4配置/量化/hook文件。恢复源码时需同时取得 [upstream_audit](upstream_audit/README.md)，新公开提交补丁替代旧ZIP基线补丁。详见 [校对报告](docs/08_上游源码校对_20261020.md)。原Release ZIP未改写。**
-
-## 接手阅读顺序
-
-研究路线先读[目标契约](research/OBJECTIVE_CONTRACT.json)、[当前决定](research/CURRENT_DECISION.json)、[R5审计](docs/54_已淘汰路线防回退审计_20261021.md)和[当前交接](research/20261022/HANDOFF_R13.md)。以下为环境迁移与历史背景阅读顺序。
-
-1. [A100 → H20迁移必读](docs/07_A100到H20迁移必读.md)
-2. [模型与服务器配置](docs/01_模型与服务器配置.md)
-3. [环境与复现入口](docs/02_环境与复现入口.md)
-4. [量化与hook工具地图](docs/03_量化与Hook工具地图.md)
-5. [前期探索与证据边界](docs/04_前期探索与证据边界.md)
-6. [近期竞争文献：14篇机制对照](docs/05_近期竞争文献.md)
-7. [上游源码校对与15个补回文件](docs/08_上游源码校对_20261020.md)
-8. [交接待办与验收](docs/06_交接待办与验收.md)
-
-仓库文档中的`server/`、`evidence/`、`local_analysis_code/`等路径均指完整归档内的文件，不代表这些大目录都已展开到主分支。
-
-## 当前科学状态
-
-- R4E1登记的支持交换原生筛选四折均拒绝；R4E2/R4E3未触发。该有限邻域关闭，不据此扩大为全局不可能，也不自动开启另一条模型路线。
-- D-Q和D-BF16均为**蒸馏模型D**；原始O/D在固定D输入、block20的8个局部作用域已完成，两个图的C贡献集中度几乎一致；O整网/自身轨迹尚未测量。
-- AR1的增益补偿在CPU局部回放有效；不是已验证的A100/H20稀疏加速或完整视频质量。
-- 旧 AR2 作业105138超时；新矩阵独立重开已完整完成，C通过局部门槛，不能当成旧 R1 的复算或整体验收。
-- UB1首次在同一冻结实现上通过完整FFN≥1.5×、全局50%主计算和原正式20三项聚合质量逐项下降≤2%的联合工程验收；四步密度为25%/50%/50%/75%，属于静态强基线。原20输入已复用，来源分离补充因imaging下降3.166%被拒绝，未建立跨来源质量或动态方法创新结论。
-
-## 在同事设备上首先做什么
-
-在实际GPU分配节点运行：
-
-```bash
-python tools/hardware_probe.py --output hardware_target.json
-```
-
-该工具只采集硬件和软件元数据，不加载模型、不计时。先确认实际型号、compute capability和显存，再按迁移手册创建独立环境/构建缓存。探测工具尚未在同事H20上执行。
-
-下载完整归档后，在归档根目录运行 `python tools/verify_package.py` 检查文件SHA256。学校服务器路径和旧安装/提交脚本作为历史证据保留，接手者应在新工作副本调整；本次没有重新提交模型实验或修改历史实验目录。
+The 2026-10-20 release/hardware restoration details remain in [ARCHIVE.md](ARCHIVE.md). Old plans that say `ACTIVE` or `mandatory` remain historical snapshots and do not supersede the active file.

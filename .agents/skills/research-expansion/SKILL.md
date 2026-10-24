@@ -14,15 +14,11 @@ description: Generate original mechanism-level hypotheses from unexpected eviden
 6. **ADVANCE:** promote mature ideas to registered experiments with matched controls, resource costs and original success criteria. Preserve exact closed experiment scopes and truthful evidence levels.
 7. **LEAVE A USEFUL TRACE:** record an optional lightweight exploration_seed; registered research_moves and measured artifacts use their stricter state fields.
 
+When a better representation or alternative task is the opening, use problem-reformulation skill to construct and discriminate, without turning reformulation into a mandatory gate.
+
 For actual implementation, use mechanism-research skill, core/OBJECT_RECONSTRUCTION.md, core/DEDUCTION_FIRST.md, core/GOAL_ALIGNMENT.md, core/EXPANSION_PROTOCOL.md and on-demand core/PROMPT_PLAYBOOK.md. Discovery is broad; external writes and resource-consuming actions remain authorized and measured.
 
 **Preferred response:** novel mechanism/insight first -> one mathematical or causal derivation -> revealing falsifier/next test -> relationship to the research aim. Keep evidence boundaries concise.
 
-## Current TACR action-value study (2026-10-23)
 
-Read [sampling and native net action](../../../docs/84_TACR_净动作价值与修正采样_20261023.md) and [actual exposure](../../../research/20261023/TACR_sampling_evidence_v2.json). Run python tools/check_tacr_sampling_scope.py --check. Discover the cheapest discriminating complete compensated 64-group intervention and true same-prefix downstream effect. Compare available pre-W1 conditional gain, strong cost-matched fixed channels, magnitude and layer-only predictions. R17 five quality-complete source groups are ONLY subjects, not fully tested subject/background/camera; latent t0 is 21-bin conditioned position, not video frame 0 of 81. Use 4 steps, early/middle/late and later20 bins as thoughtful sampling coverage, not mandatory hurdles. Creativity and rapid experimental discriminators first, matched real evidence for final claims; do not indefinitely delay the first selected candidate's full free-running paired video. Do not silently reopen interrupted R17 or auto-launch GPU.
-
-
-## New PRD extension — AutoResearcher 0684b560
-
-When an existing FFNDS method is not Pareto competitive, use [problem-reformulation](../problem-reformulation/SKILL.md) to find a changed representation, information timing or action/trajectory target; use the [FFNDS ledger](../../../research/20261023/FFNDS_PRD_representation_ledger.json) and [report](../../../docs/86_PRD_表示发现_耦合新自由度与支持实验_20261023.md). Reuse adjacent prior art positively and compare real cost-matched native conditions.
+FFNDS local target: [current Q1/Q2/Q3 research](../../../research/ACTIVE_RESEARCH.json). No CPU/GPU/model experiments until explicit user resume.
