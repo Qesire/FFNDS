@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-QMETA-GRAM-PROXY-G6D",
+  "version": 1,
+  "title": "量化原生元数据作为因果可得的粗代理：Q1分块尺度 × 离线权重Gram预测FFN组效用",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 user correction: quantization stored information should provide low-cost rough proxies, explicitly distinguish native FP4 from HiF4 QDQ"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "FFNDS main b2a02b0fa6f503b8e9b9373a99656015fdf7fe25; AutoResearcher pinned 5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "note": "Proposal returns to the user's earlier intent: quantizer-native cheap side information as an imperfect Q1-side ranking proxy, NOT exact code equality, memoization, or a replacement for W1 numerical outputs. Standard quantization-scale statistics, weight norms and routing are prior ingredients; the causal/physical combination and predictive viability are untested."
+  },
+  "related_method_ids": [
+    "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+    "MD-20261024-FP4-CODE-ORBIT-G6C",
+    "MD-20261024-GELU-PARITY-QDQ-G6A",
+    "MD-20261024-QCELL-TILE-01A16D3D"
+  ],
+  "lenses": [
+    "Q1",
+    "Q2",
+    "Q3"
+  ],
+  "mechanism": {
+    "native_flow": "Original source-pinned Wan (D=5120,H=13824) computes modulation + Q1 → W1 + bias → tanh-GELU → Q2 → W2 → current gate + residual. In native reference tools/packed_ffn_reference.py, Q1/Q2 is HiF4 QDQ followed by BF16 F.linear; Q2 is followed by optional per-token gain alpha and BF16 cast before W2. Quantizer-created scale metadata for Q1 is available BEFORE W1 only if the actual operator materializes/exposes it; for Q2 it arrives AFTER W1, making it a potential W2/next-stage signal, not a free pre-W1 signal.",
+    "information_object": "Let x_t^Q=Q1(x_t) and divide its K axis into B blocks I_b of length 32 (MXFP4) or 16 (NVFP4). A native code/scale representation may satisfy x_{t,I_b}^Q=s_{t,b}^{eff}c_{t,b}, with c an E2M1 code vector; MXFP4 s_eff is an E8M0 shared 2^e value; NVFP4 s_eff is E4M3 16-wide local scale times effective FP32 global scale (recipe-dependent, including static versus dynamic and row scaling). HiF4 runtime uses a separate hierarchical 64/8/4 QDQ with BF16 activations, and does NOT currently promise persistent accessible scale bytes. Offline weight scales, norms, codebook occupancy and group matrices can be precomputed outside token inference.",
+    "causal_proxy": "For target W1 hidden group g, let A_{g,b}=W1[g,I_b] be the frozen effective W1 weights after the actual format-specific weight path. Write z_{t,g}-bias_g=Σ_b s_{t,b}^{eff} A_{g,b}c_{t,b}. Build nonnegative offline matrix K_{g,b}=ν_b ||A_{g,b}||_F² for a calibrated, source-separated code second-moment ν_b or a fixed calibrated prior. Online coarse proxy P_scale(t,g)=Σ_b K_{g,b}(s_{t,b}^{eff})². Under conditional zero-mean, block-independent isotropic code E[c_b c_bᵀ | scales]=ν_b I, this equals E[||z_{t,g}-bias_g||₂² | scales]. These statistical premises are NOT exact for correlated code, per-token modulation, GELU or bias. The score ranks potential preactivation energy, not GELU output, quality sensitivity or true net-value. Other targets can be learned/calibrated separately, with strong fixed-score and cheaper scalar baselines.",
+    "low_cost_variant": "Because g is 64-channel contiguous HiF4 hidden groups or another native Q2-compatible packing unit and b is an INPUT Q1 microscale block, they are DIFFERENT axes. For the 64-channel grouping example G=216, MX Q1 B=160 and NV Q1 B=320. Direct score matrix work per token G*B is 34560 / 69120 multiply-adds respectively versus D*H=70,778,880 MAC for W1 (arithmetic counts only, NOT elapsed-time ratios). A low-rank nonnegative or general factorization K≈UVᵀ of rank r changes the estimate to P≈U(Vᵀ s²), O(r(B+G)) arithmetic, e.g. r=8 gives 3008 (MX) or 4288 (NV) scalar ops per token plus reads/decision overhead; rank truncation and numerical distortion must be tested. Static global s² cancels only within-token homogeneous group ranking; it must not be canceled for cross-token thresholds or bias/GELU-dependent decisions.",
+    "quantizer_feature_ladder": [
+      {
+        "tier": "T0",
+        "feature": "metadata-only: effective local scales, exponent-bin occupancy, log-scale spread, dynamic ratio to global scale, saturation/scale transition markers",
+        "availability": "Before W1 only after Q1; score scale-amplitude + weight energy, no packed data scan beyond scale metadata"
+      },
+      {
+        "tier": "T1",
+        "feature": "tiny code samples or packed nibble summary: sign balance, second moment, nonzero fraction, low-bit plane, block code entropy",
+        "availability": "Requires touching Q1 codes (possibly already in adjacent quantizing kernel; read/scan is not free). Can remedy scale-only ambiguity and signed direction to some extent"
+      },
+      {
+        "tier": "T2",
+        "feature": "offline low-rank W1 projection of sampled/pool codes and upstream AdaLN/gate/pre-norm residual cues",
+        "availability": "More specific but strictly charge read/projection/memory/batching; avoid reconstructing hidden z in full"
+      },
+      {
+        "tier": "T3",
+        "feature": "Q2 group scale/code information",
+        "availability": "Only after W1; may inform W2 group decisions or temporal/next-stage cache; NEVER retroactively credit as W1 skip"
+      }
+    ],
+    "candidate_operator": "The earliest candidate physical action is fixed-layout coarse W1 hidden-group selection or a small set of prepacked native Q2-aligned patterns. At equal budget, compare fixed selected groups (including random/frequency/weight-only), simple input norm or scalar scale, T0 weighted scale-Gram proxy, T1 code-enhanced version and a purpose-trained small router. Omitted groups are truly excluded from W1 and the corresponding W2 panels; no mandatory dense fill-in, rank256 recovery or dense oracle. For approximate paths the full-span uncomputed Q2 quantizer coupling / scale recalibration must be modeled; packing entire native scale groups avoids silently breaking backend semantics. No fixed 50% sparsity goal is presumed.",
+    "decision_utility": "Score usefulness is conditional on retained real FFN calculation and target quality. For uncomputed group g, measured action reward ultimately concerns gate-weighted W2 contribution, downstream norm/attention propagation and full free-running I2V, not simply ||W1_g x||². Separate the predictive correlation with hidden energy (easy label), native skip outcome at matched non-restoration budget (harder), real kernel acceleration and full-video quality (future authorized tests).",
+    "format_specific_scope": {
+      "MXFP4": "OCP E2M1 4-bit, local block32 E8M0 exponent-only scale. Effective s² can be represented as 2^(2e) for valid exponent; exponent bins are unusually compact amplitude features. The standard's conversion recipes may vary; encode only quantities actually stored in the selected runtime.",
+      "NVFP4": "16 elements/local FP8 E4M3 factor and FP32 global factor; some inference deployments use static/calibrated global scaling rather than per-token dynamic tensor amax. Weight side may use 2D 16x16 scaling; activation typically 1D 16. Inspect exact engine and its swizzled scale layout before promising cheap access.",
+      "HiF4_QDQ": "Actual audited backend calculates 64-group lv0 scale, 8-subgroup lv1 and 4-subgroup lv2 internally, then writes dequantized values via native_hif4_activation_qdq as BF16 inputs to F.linear. Unless tapping existing quantizer intermediates in a newly engineered fused kernel, the metadata is NOT retained or directly addressable; recomputing max and scales is extra work. This backend is a scientific baseline, not the default platform for claimed metadata free-lunch.",
+      "other": "Abstraction: encoder E(x)=(codes,side_state), side_state available at decision time with audited physical access cost; no specific exponent encoding is required to define the proxy."
+    },
+    "implementation_and_information_timing": "For raw model/source claims, audit where the first quantizer writes metadata, whether a fused MMA overwrites/swizzles it, whether token grouping can be chosen before the main W1 kernel launch, and whether the router forces a synchronization. In QDQ, no exposed scale tensor means T0 is NOT a no-cost feature even if scale is computed inside a quant kernel. Comparisons should use native SAME-format dense reference and record extra kernels, packing and tensor-core utilization.",
+    "analytic_counterexample": "For an input block with amax=1 and effective scale fixed to 1, x_+=(1,1) and x_−=(1,−1) have identical scale and coordinate energies, but for W1 row (1,1), preactivations are 2 and 0. With GELU the output differs strongly; no scale-only function can distinguish these two cases. Likewise x=(6,0,...) and x'=(6,6,...) share amax/scale but have different code energy. Therefore P_scale is only a conditional/statistical proxy and requires signed-code/correlation competitors.",
+    "strongest_competitors": "Static offline W1/W2 block energy/sensitivity, original low-cost Q1 RMS already in earlier FFNDS group selection, group code-balance or scalar input norm, cheap learned router, and generic activation-aware quantization/outlier statistics (AWQ/Agile-Quant) for priority interpretation. Show added value over these before claiming a new algorithm."
+  },
+  "competing_explanations": [
+    "FFN group importance is determined by code SIGN and orientation rather than scale; same scale states induce opposite or cancelling W1 activations, so the scale-Gram score has no useful conditional ranking gain over static group weights.",
+    "Scale metadata is available physically in native FP4 but only after an expensive fused quantization or in a swizzled tensor, and exposing it needs a new launch or global-memory round trip that erases saved time.",
+    "Low-rank K factorization gives cheap ranks but discards highly anisotropic weight/activation covariance; learned code sketches are only as expensive as the original lightweight RMS proxy.",
+    "Strong W1 energy correlation does not predict GELU hidden selection or gate/W2/downstream video importance; a net-cost-aware value metric might reverse rankings.",
+    "Q1 on the actual A100 HiF4 path is QDQ→BF16 dense GEMM. Native MXFP4/NVFP4 may offer metadata cheaply on supported hardware but require separate implementation, format-matched dense baseline and may have different quantization distortions."
+  ],
+  "falsifiable_predictions": [
+    "With an encoded native FP4 input, T0 per-microblock scale features are observable before W1 but will fail to distinguish equal-amax sign/opposition controls; T1 code-sign features may separate them at extra decoding cost.",
+    "Under isotropic block-code null, P_scale rank predicts group W1 preactivation squared norm better than fixed weight-only group norm when block scales vary; conditional dependence or anisotropy can falsify this.",
+    "For small rank r, K=UVᵀ can approximate coarse group-energy ranks with O(r(B+G)) arithmetic, but if actual native group-relevance differences live in small singular directions ranking may collapse.",
+    "Q2 metadata, if exposed, may improve post-W1 W2 decision but cannot improve pre-W1 action without a causal predictor or previous-state carryover; identical Q2 scale does not certify actual group output equality.",
+    "A usable native FP4 proxy must preserve net speed/quality at a held-out source cohort beyond fixed static group selection, a scalar block-RMS baseline and optimized FP4 dense reference, with scale access/packing charged."
+  ],
+  "best_counterexample": "Two Q1 FP4-encoded inputs with x=(1,1) and x'=(1,−1) have identical block shared scale, max, squared energy and weight profile, but W1 row (1,1) sees z=2 versus z'=0. Thus any metadata-only method based on scale and unsigned block energy must rank them equally even though their GELU contributions differ; a code-direction feature is the specific missing information. For QDQ the supposed cheap input s may not even exist as a persistent tensor.",
+  "evidence_links": [
+    "tools/packed_ffn_reference.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/adapters/wan_i2v.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "research/20261024/OFFLINE_SAVED_ASSET_QUANT_STRUCTURE_R1.json",
+    "research/20261024/OFFLINE_FP4_ORBIT_FULL_W1_COST_R1.json",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://ojs.aaai.org/index.php/AAAI/article/view/29860"
+  ],
+  "discussion_questions": [
+    "Would the most useful observable be effective Q1 scale s, scale exponent e, per-block code occupancy, or the increment versus a previous token? How much relative value does each have after conditioning on ordinary Q1 RMS?",
+    "Can W1 output-group ranking be predicted by a rank-r quantizer metadata-Gram map without reading any packed data codes? If not, which ONE nibble statistic supplies the missing orientation?",
+    "Which Q1 scale metadata is physically available before W1 dispatch on selected native MXFP4/NVFP4 inference engines (and for current HiF4 QDQ)? Pin exact producer, memory layout and time/cost; do not use the training recipe as a stand-in for inference.",
+    "Can a proxy be sufficiently accurate for W1 + W2 group removal even if activation-energy labels are weak predictors of video quality? Which archived downstream evidence gives a no-regret or action-margin target?",
+    "Compare against existing Proxy+HWG/RMS selectors and static group choices: is there a causal signal genuinely added by quantization metadata rather than reusing already-known activation magnitude?"
+  ],
+  "claim_level": "EXPLORATORY_CAUSAL_METADATA_PROXY_PLUS_CONDITIONAL_SECOND_MOMENT_IDENTITY; NO_NATIVE_WAN_PROXY_LABELS_OR_SPEED_QUALITY_RESULT",
+  "discussion_authorization": "METHOD_DISCUSSION_AND_SAVED_MATH_ONLY_NO_NEW_MODEL_EXECUTION"
+}
