@@ -43,6 +43,11 @@ def main():
     assert not any(line.strip() in ("push:", "pull_request:") for line in workflow.splitlines())
     assert not (ROOT / "docs/94_AutoResearcher_算子优先重新探索_20261024.md").exists()
     assert not (ROOT / "research/20261024/operator_first_autoresearcher_reexploration.json").exists()
+    for linked in ("core/AGENT_HARNESS.md", "core/PROMPT_EVALUATION.md", "examples/RESEARCH_CONTEXT_PACKET.md", "research/agent_protocol/DEFAULT_BEHAVIOR_CASES.json"):
+        assert (ROOT / linked).is_file(), linked
+    behavior = record("research/agent_protocol/DEFAULT_BEHAVIOR_CASES.json")
+    assert behavior["source_revision"] == sha and len(behavior["cases"]) >= 5
+    assert any(x["id"] == "DEFAULT_RESEARCH_WITHOUT_TRIGGER" for x in behavior["cases"])
     assert (ROOT / active["active_document"]).is_file()
     assert (ROOT / active["context_packet"]).is_file()
     print("PASS: one active AutoResearcher route, matching Q1/Q2/Q3 task and experiment pause.")
