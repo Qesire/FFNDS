@@ -4,6 +4,8 @@
 
 ## Current scientific questions
 
+The three questions are **complementary, not a compulsory sequence**. Discovery may begin with either upstream information, native FFN algebra/physical execution, or downstream video behavior, and revise the others.
+
 1. **Information:** Which already-available signals before FFN/block execution reveal the necessity or downstream value of different computations?
 2. **Decision:** Which signals have positive *net* value after observation, routing and physical execution costs over strong static same-cost alternatives?
 3. **Compute:** Which operations are truly removable without degrading four-step I2V quality, after native HiF4/BF16, residual and cross-step propagation?
