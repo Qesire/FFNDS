@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "review_id": "REV-20261024-GPT6-GAUGE-01",
+  "method_id": "MD-20261024-GATED-QUOTIENT-01",
+  "version": 1,
+  "proposal_git_blob_sha": "741423ec88c915fc3ba58ada583dba938ebae51e",
+  "reviewer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 ChatGPT FFNDS independent method discussion; same agent as GELU-parity proposer, NOT a self-review of that proposal"
+  },
+  "verdict": "SUPPORT",
+  "independent_reconstruction": "From LightX2V infer_ffn/post_process, with fixed q and g a native FFN candidate changes residual x to x+diag(g)F_a(q). For a real-valued tokenwise standard LayerNorm N(x)=γ⊙(Px)/sqrt(||Px||²/d+ε)+β (P=I−11ᵀ/d), N(x+c1)=N(x) exactly. Hence if e=diag(g)(F_a−F_b) lies in span(1), the next normalized queries are equal. For downstream residual blocks of the form x←x+U(N(x),context), induction preserves the shift e=c1 while all normalized-branch U outputs coincide. For complete 64-unit hidden groups and fixed inputs/weights, direct omit-group difference is e=−Σ_{g∉S}diag(g)v_g; its visible quadratic error ||P e||² equals Σ_{g,h∉S}〈Pdiag(gate)v_g,Pdiag(gate)v_h〉. Therefore a jointly selected omitted set can have a very different outcome from independent per-group energy ordering. The above is exact only in stipulated real-arithmetic structure, not a claim of native BF16 or full-video performance.",
+  "decisive_argument": "SUPPORT the proposal's bounded *mathematical equivalence class and joint group-error representation* as a genuinely coherent no-completion hypothesis worth independent discussion. The identity does not rely on R256 or dense restoration, and can change the best candidate operator relative to local SSE ranking when signed group directions cancel. The submitted proposal correctly distinguishes this construction from evidence of actual group prevalence or acceleration. This is not a vote that existing Wan groups have a useful null concentration: in the isotropic counter-model the mean component of random gated error captures only ~1/5120 of expected energy.",
+  "counterexample_or_discriminator": "Strong structural countercase: even when ||P e||=0, a downstream non-LN read of raw x destroys exact equivalence; in BF16, residual additions also need not commute with common shifts. Strong statistical countercase: if the gated contributions have isotropic covariance, mean-gauge savings are negligible. The decisive distinction is a fixed equal-cost grouped support with projected *signed joint Gram* vs a support with unprojected signed Gram and a magnitude-only support. This distinguishes gauge influence from ordinary vector cancellation. Historic 72 C1 nextnorm nonzero cases reject those three executed actions as exact gauge operators, not every operator in the new family.",
+  "constructive_revision": "Keep explicit three-way decomposition for omitted group sum e: mean (exact real gauge), centered radial (only locally weak under ε>0), and tangent (ordinary first-order effect). For x_c=Px and e_c=α x_c+t with x_cᵀt=0, N(x+e) before γ,β equals [(1+α)x_c+t]/sqrt(((1+α)²||x_c||²+||t||²)/d+ε). This exact finite formula shows why small P e alone may understate or overstate the effect of a radial update and yields a stronger counterfactual target. Treat it as a separate physical claim: it does not produce a faster FFN unless the direct operator eliminates original GEMM work. No change to version 1 is required for the bounded exact-gauge claim; any later promoted full-video equivalence claim needs a new version with actual native branch closure.",
+  "evidence_links": [
+    "research/method_discussion/proposals/MD-20261024-GATED-QUOTIENT-01/v1.json",
+    "tools/packed_ffn_reference.py",
+    "research/20261023/C0_coupling_offline_results.json",
+    "research/20261024/gated_residual_quotient_historical_audit.json",
+    "research/20261023/C1N0_findings.json",
+    "https://raw.githubusercontent.com/ModelTC/LightX2V/ed146db64d0b6130c669285fc1aa0b280a6a4823/lightx2v/models/networks/wan/infer/transformer_infer.py"
+  ],
+  "prior_reviews_seen": false,
+  "claim_scope": "CONDITIONAL_REAL_ARITHMETIC_MECHANISM_ONLY_NOT_MEASURED",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
