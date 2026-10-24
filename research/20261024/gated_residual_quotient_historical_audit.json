@@ -52,8 +52,8 @@
         "site_worse_than_UB1": 72
       }
     },
-    "verdict": "REJECT_PURE_GAUGE_FOR_ALL_THREE_TESTED_FULL_ACTIONS_AT_ALL_72_SCOPES",
-    "interpretation": "Strict positive nextnorm SSE proves tested whole-action differences are not exactly annihilated at that native boundary; does not quantify an unobservable component or test new operator"
+    "verdict": "NATIVE_NEXTNORM_ZERO_RESPONSE_NOT_OBSERVED_FOR_UB1_SWAP_A_SWAP_B_72_OF_72_SITES",
+    "interpretation": "All three tested actions have strictly positive nextnorm native SSE at every site, and thus are not operationally zero-effect; finite-precision layernorm can break ideal shift invariance, so scalar losses do not uniquely identify exact real-valued mean-direction geometry."
   },
   "projection_value_test": {
     "saved_C1_mean_spearman_post_vs_nextnorm": 0.87563493776616,
@@ -179,5 +179,18 @@
   "new_CPU_experiments": 0,
   "new_GPU_jobs": 0,
   "new_videos": 0,
-  "experiment_pause_unchanged": "research/20261024/EXPERIMENT_PAUSE.json"
+  "experiment_pause_unchanged": "research/20261024/EXPERIMENT_PAUSE.json",
+  "next_hypothesis_linearized_radial_direction": {
+    "mathematical_identity": "For affine-free LayerNorm, J=P/s - xc xc^T/(d s^3), s^2=||xc||^2/d + epsilon; eigenvalues (mean=0, centered radial=epsilon/s^3, other tangential=1/s).",
+    "status": "MATHEMATICAL_ONLY_WITH_RECORDED_CURRENT_NORM2_STATE_MAGNITUDES",
+    "prior_source": "research/20261023/C1N0_geometry.json",
+    "sample_scope": "336 sampled current norm2-input rows per site, 72 sites / six existing sources; not next-block norm1 states",
+    "min_sampled_current_pre_FFN_std": 0.3764994144439697,
+    "max_sampled_current_pre_FFN_std": 9.645522117614746,
+    "assumed_epsilon": 0.000001,
+    "local_radial_to_tangential_singular_ratio_at_min_std": 0.000007054533920800506,
+    "local_radial_to_tangential_singular_ratio_at_max_std": 1.0748516138809738e-8,
+    "interpretation": "The current LayerNorm radial response is nearly zero at the sampled scales in ideal arithmetic. This is only a local derivative, does not imply large group omission preserves video, and is not a measured downstream nextnorm response."
+  },
+  "document": "docs/97_历史结果检验_门控残差商空间_20261024.md"
 }
