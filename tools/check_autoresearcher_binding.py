@@ -50,6 +50,32 @@ def main():
     triage = record("research/20261021/method_triage.json")
     pause = record("research/20261024/EXPERIMENT_PAUSE.json")
     source = record("research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json")
+
+    # Live-stage routing: static structural consistency, NOT creative grading.
+    stage = active.get("current_stage", {})
+    ensure(stage.get("id") == "E0_OPEN_DISCOVERY" and
+           stage.get("phase") == "PHENOMENON_AND_COMPETING_MECHANISM_EXPLORATION",
+           "Live research was silently promoted beyond the user-selected E0 phase")
+    ensure(active.get("active_document") == stage.get("task_document"),
+           "Active document and sole E0 task disagree")
+    ensure(stage.get("multi_agent_mode") ==
+           "INDEPENDENT_DISCOVERY_AND_CHALLENGE_DISCUSSION_ONLY" and
+           stage.get("new_experiment_authority") == "NONE" and
+           stage.get("transition_authority") ==
+           "EXPLICIT_USER_DIRECTED_SERIALIZED_COORDINATOR_UPDATE_ONLY",
+           "E0 discussion acquired unapproved stage/execution authority")
+    for key in ("task_document", "direction_document", "agent_anchor",
+                "discovery_surface"):
+        rel = stage.get(key, "")
+        ensure(bool(rel) and (ROOT / rel).is_file(),
+               "Missing active E0 instruction/evidence link: " + key)
+    for entry in ("AGENTS.md", ".github/copilot-instructions.md",
+                  "research/method_discussion/AGENTS.md",
+                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
+                  "research/method_discussion/TEMPLATES.md"):
+        ensure(stage["id"] in text(entry),
+               "Agent entrypoint has drifted from live E0 research phase: " + entry)
     # Semantic/creative writing quality is evaluated using blinded case reviews,
     # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")
@@ -145,7 +171,11 @@ def main():
            len(behavior["cases"]) >= 8 and
            {"DEFAULT_RESEARCH_WITHOUT_TRIGGER",
             "OPERATOR_FIRST_DISCOVERY_IS_VALID",
-            "INFORMATION_FIRST_DISCOVERY_IS_VALID"}.issubset(case_ids),
+            "INFORMATION_FIRST_DISCOVERY_IS_VALID",
+            "E0_CONTINUATION_DOES_NOT_PICK_OLD_OPERATOR",
+            "E0_FP4_METADATA_REQUIRES_PHENOMENON_FIRST",
+            "E0_IDEA_CREATIVITY_NOT_CENSORED",
+            "E0_MULTIAGENT_INDEPENDENT_SCIENCE"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
            "Behavior-case answers may be leaked to candidate-agent evaluation")
@@ -183,6 +213,9 @@ def main():
                entry["archive"] in text(entry["path"]),
                "Historical entry is not a concise working redirect: " + entry["path"])
         check_relative_markdown_links(entry["path"])
+    check_relative_markdown_links("research/agent_protocol/E0_STAGE_ANCHOR.md")
+    check_relative_markdown_links("research/method_discussion/discoveries/E0/README.md")
+    check_relative_markdown_links("research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md")
     check_relative_markdown_links("ARCHIVE.md")
     check_relative_markdown_links("archive/20261024/historical_handoffs/README.md")
 

@@ -1,5 +1,10 @@
 # FFNDS — AutoResearcher default research agent
 
+## Current stage: E0_OPEN_DISCOVERY — first understand the phenomenon
+
+For **every new FFNDS scientific turn or continuation**, first read the single live [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json) `current_stage`, then its [E0 task](research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md) and the concise [stage anchor](research/agent_protocol/E0_STAGE_ANCHOR.md). **The live phase is phenomenon/competing-mechanism discovery, not a selected G6D/G6E/G6F operator program.** Start by identifying a source-grounded observation or explicit structural hypothesis, an alternative explanation and a discriminating next observation. Q1/Q2/Q3 still inspire each other and creative operator conjectures are welcome; keep such ideas **unpromoted seeds** until an explicit user-directed phase change. Do not silently turn a candidate into the default research agenda. In method discussion, only discuss; no implementation or CPU/GPU/model tasks.
+
+
 **AutoResearcher is the default operating method** for every scientific FFNDS task: discover a mechanism, reconstruct the decisive real computation, derive an informative representation, distinguish competing predictions, and carry the result into the next useful action. Use the pinned [research harness](core/AGENT_HARNESS.md) and [current study](research/ACTIVE_RESEARCH.json) automatically, including when the user simply says “继续探索” or “继续推进”. The local [evidence packet](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) is a retrieval index, not a substitute for original evidence.
 
 ## Scientific aim and three complementary lenses

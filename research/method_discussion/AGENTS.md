@@ -1,5 +1,10 @@
 # FFNDS method discussion agents — AutoResearcher by default
 
+## E0_OPEN_DISCOVERY active brief for all parallel discussants
+
+Read [the single live stage](../ACTIVE_RESEARCH.json) and [E0 agent anchor](../agent_protocol/E0_STAGE_ANCHOR.md) **before treating an old proposal, review or stale handoff as the current task**. The current discussion is independent scientific discovery of real phenomena, competing mechanisms and one decisive next observation. Prefer an individually owned file under [E0 discoveries](discoveries/E0/README.md) for this stage; an unexpected operator can still be recorded as an unpromoted idea, but **is not an instruction to build it or to change the live research priority**. Reviewers challenge the mechanism with a competing source/math explanation rather than demanding an arbitrary implementation. Only the user can authorize a stage change; serialized coordination avoids shared-file races.
+
+
 > **Applies to every agent and every role in this directory**: independent proposer, external reviewer, challenger, re-formulator, and discussion/consensus integrator. It also applies to agents entering directly through a `proposals/`, `reviews/` or `endorsements/` file. **Do not wait to be asked to use AutoResearcher.** Inherit [root AGENTS.md](../../AGENTS.md), then this local rule.
 
 ## Source of method

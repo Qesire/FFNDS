@@ -1,5 +1,8 @@
 # FFNDS — default AutoResearcher scientific behavior
 
+**Live phase (mandatory first read):** [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) `current_stage=E0_OPEN_DISCOVERY`, [first E0 task](../research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md), and [agent stage anchor](../research/agent_protocol/E0_STAGE_ANCHOR.md). Current deliverable is **real mechanism/phenomenon discovery, not a Q1 K-panel, Q2 W2-panel or hidden-group algorithm**. Record promising new operators as idea seeds without promoting them. Parallel agents write independent [E0 discoveries](../research/method_discussion/discoveries/E0/README.md). Use competition between explanations and primary source checks to make progress, not a list of prohibitions.
+
+
 **Default to AutoResearcher** on every scientific task. Start with the live question and short evidence packet in [AGENTS.md](../AGENTS.md) and [research/ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json). Apply mechanism-research, problem-reformulation and research-expansion **as complementary methods**, selecting the most useful combination for the current discovery.
 
 Treat Q1 information, Q2 net decision value and Q3 native removable compute as **three mutually informative viewpoints**, not a staged approval sequence. A genuine kernel/operator/representation discovery may start at Q3 and reveal which Q1 signals matter. A residual-information discovery may start at Q1 and suggest a new action. Build a concrete mathematical or source-grounded mechanism, contrasting prediction and useful next step. Read the real Wan graph and prior scientific work when needed to sharpen the claim. Treat R4/R8/C1/C2 negative results as scoped observations, not family-wide objections.

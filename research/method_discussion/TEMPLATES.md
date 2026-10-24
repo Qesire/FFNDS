@@ -1,5 +1,10 @@
 # 方法讨论记录模板
 
+## 当前 E0：先记录科学发现，不需要填写算子字段
+
+唯一活跃阶段以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 的 `current_stage` 为准；目前是 **E0_OPEN_DISCOVERY**。在此阶段，**优先用 [发现记录模板](discoveries/E0/README.md)** 独立报告一个真实现象/条件结构、竞争解释和下一项区分性观察。下面的 `proposals/<id>/vN.json` 是**将来的候选方法结构**，其中 `action`、`expected_compute_saving` 不是 E0 发现的必答题。新的算子灵感可以登记，但不能因为填了这个模板就成为默认算法或 GPU 实验任务。
+
+
 复制并替换以下占位符。保存路径与字段规范见 [README.md](README.md)；所有内容只供方法讨论，不代表实际实验/性能结果。禁止使用示例中的占位符制造虚假的独立 reviewer。
 
 ## 所有角色的默认科学方法（AutoResearcher）
