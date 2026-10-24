@@ -33,4 +33,6 @@ The 2026-10-20 release/hardware restoration details remain in [ARCHIVE.md](ARCHI
 
 ## Multi-agent method discussion
 
+**Default research method:** AutoResearcher applies automatically to **every** participating discussion agent (proposer, independent reviewer, challenger or integrator), according to [the nested agent instructions](research/method_discussion/AGENTS.md) and pinned [source manifest](research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json). Apply its substantive discover → source-ground → mathematical reformulation → discriminating prediction → constructive advance principles without making them a creativity gate.
+
 Agents collaborate **only at the scientific method-discussion level**: each independently proposes an operator/mechanism, other agents review and challenge its mathematics and source evidence, and independent agreement is stored with traceable review records. Start at the [method discussion queue](research/method_discussion/QUEUE.md), [rules](research/method_discussion/README.md), and [record templates](research/method_discussion/TEMPLATES.md). A method supported by another agent is not an executed or validated method; reviews cannot resume paused experiments or authorize implementation.
