@@ -1,4 +1,7 @@
 ---
+
+**Stage-sensitive application:** Before using this skill to propose a method, read `research/ACTIVE_RESEARCH.json.current_stage`. During E0_OPEN_DISCOVERY, aim first for source-grounded *phenomena and competing explanations*, not a chosen operator; record any good operator as an unpromoted seed. Read the [E0 stage anchor](../../../research/agent_protocol/E0_STAGE_ANCHOR.md) for the short multi-agent handoff. This adjusts the current task, **not** the upstream pinned AutoResearcher creative/reformulation principles.
+
 name: ffnds-paper-discovery
 description: Automatically apply AutoResearcher mechanism discovery, mathematical reformulation and evidence-grounded science to FFNDS video FFN research.
 ---
