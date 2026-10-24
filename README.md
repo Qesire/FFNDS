@@ -20,7 +20,7 @@ Every research agent uses [AutoResearcher](https://github.com/Qesire/AutoResearc
 
 **All experimental work remains paused:** [pause receipt](research/20261024/EXPERIMENT_PAUSE.json). CPU/GPU/model experiments, retries and automatic follow-ups are not enabled. Current exploration is source, mathematics and literature only.
 
-**Frozen evidence is preserved** in [historical decisions](research/CURRENT_DECISION.json), [method outcomes](research/20261021/method_triage.json), `research/`, `reports/`, `docs/` and `upstream_audit/`. These are archives of measured or proposed *past* work, not active tasks. Historical registration rules and results remain unchanged. See [archive guide](ARCHIVE.md) and [metric/quality protocol](docs/77_FFNDS学术指标族与评测协议_20261023.md) for eventual native full-video evaluation.
+**Frozen evidence is preserved** in [historical decisions](research/CURRENT_DECISION.json), [method outcomes](research/20261021/method_triage.json), `research/`, `reports/`, `docs/` and `upstream_audit/`. These are archives of measured or proposed *past* work, not active tasks. Historical registration rules and results remain unchanged. See [archival lifecycle and redirect index](ARCHIVE.md) and [metric/quality protocol](docs/77_FFNDS学术指标族与评测协议_20261023.md) for eventual native full-video evaluation.
 
 ### Key reproducibility references
 

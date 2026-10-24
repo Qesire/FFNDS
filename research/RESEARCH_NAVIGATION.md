@@ -10,7 +10,7 @@ This page is **navigation**, not another task schedule. Cleanup provenance and v
 | Existing method outcomes | Seeing exactly what failed or passed | [Method triage](20261021/method_triage.json) and [frozen decision](CURRENT_DECISION.json) |
 | Full-video/scientific metrics | Interpreting terminal quality and true execution time | [Metrics](../docs/77_FFNDS学术指标族与评测协议_20261023.md), [candidate video smoke](candidate_rollout/README.md) |
 | AutoResearcher implementation | Checking default scientific behavior and source provenance | [Active upstream SHA manifest](agent_protocol/ACTIVE_SOURCE_MANIFEST.json), [behavior cases](agent_protocol/DEFAULT_BEHAVIOR_CASES.json) |
-| Past tasks/proposals | Looking up historical hypotheses, old authorizations or failures | `research/20261021/`, `research/20261022/`, `research/20261023/`, `research/20261024/`, [archive guide](../ARCHIVE.md) |
+| Past tasks/proposals | Looking up historical hypotheses, old authorizations or failures | [Dated handoff archive](../archive/20261024/historical_handoffs/README.md), `research/20261021/`–`20261024/`, [archive policy](../ARCHIVE.md) |
 
 **Task status precedence:** `research/ACTIVE_RESEARCH.json` → root `AGENTS.md` → project `research/OBJECTIVE_CONTRACT.json` for scientific goals; `research/20261024/EXPERIMENT_PAUSE.json` and the existing eligibility ledger govern whether experiments may run. Every dated `ACTIVE`, `RUN`, `RETRY`, `NEXT` in archived files applies only to its original timestamp and scope. Preserve original result and protocol bytes.
 

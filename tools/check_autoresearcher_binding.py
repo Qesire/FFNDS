@@ -129,12 +129,37 @@ def main():
     for linked in (active["active_document"], active["context_packet"],
                    active["research_navigation"]):
         ensure((ROOT / linked).is_file(), "Broken active research evidence path: " + linked)
+    # Archived prose remains byte-identical, while its former path is a short
+    # navigation stub; results/protocols/raw data are never moved by this rule.
+    archive_manifest = record("archive/20261024/historical_handoffs/MANIFEST.json")
+    archived_entries = archive_manifest["entries"]
+    ensure(len(archived_entries) >= 10 and
+           len({entry["path"] for entry in archived_entries}) == len(archived_entries),
+           "Archive has duplicate paths or unexpected missing entries")
+    for entry in archived_entries:
+        ensure(entry["path"].startswith("docs/") and
+               entry["archive"].startswith("archive/20261024/historical_handoffs/docs/"),
+               "Archive may include a live/experimental path")
+        original_blob = ROOT / entry["archive"]
+        old_entry = ROOT / entry["path"]
+        ensure(original_blob.is_file() and
+               git_blob_sha1(original_blob.read_bytes()) == entry["source_blob_sha1"] and
+               original_blob.stat().st_size == entry["bytes"],
+               "Archive content does not match original Git blob: " + entry["path"])
+        ensure(old_entry.is_file() and
+               len(old_entry.read_bytes()) < 1600 and
+               entry["archive"] in text(entry["path"]),
+               "Historical entry is not a concise working redirect: " + entry["path"])
+        check_relative_markdown_links(entry["path"])
+    check_relative_markdown_links("ARCHIVE.md")
+    check_relative_markdown_links("archive/20261024/historical_handoffs/README.md")
+
     ensure(not (ROOT / "docs/94_AutoResearcher_算子优先重新探索_20261024.md").exists() and
            not (ROOT / "research/20261024/operator_first_autoresearcher_reexploration.json").exists(),
            "Superseded algorithm-first task is present")
 
     print("PASS: pinned upstream AutoResearcher source, compact live Q1/Q2/Q3 route,")
-    print("      Markdown links, behavior corpus, user experiment pause and manual-only workflow.")
+    print("      Markdown links, content-addressed archived handoffs, pause and manual workflow.")
     print("Scope: static structure only. No numerical experiment or agent behavioral run.")
 
 

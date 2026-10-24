@@ -28,7 +28,7 @@ Use the [FFNDS domain skill](.agents/skills/ffnds-paper-discovery/SKILL.md) for 
 
 ## Evidence and execution
 
-Historical runs and closed branches remain source evidence at their original scope: [method/authorization ledger](research/CURRENT_DECISION.json), [triage and archived methods](research/20261021/method_triage.json), [research navigation](research/RESEARCH_NAVIGATION.md). Research priority comes from **one live task**: `research/ACTIVE_RESEARCH.json`. Dated “ACTIVE”, “NEXT”, or “RUN” in old reports describes the historical snapshot.
+Historical runs and closed branches remain source evidence at their original scope: [method/authorization ledger](research/CURRENT_DECISION.json), [triage and archived methods](research/20261021/method_triage.json), [research navigation](research/RESEARCH_NAVIGATION.md). Research priority comes from **one live task**: `research/ACTIVE_RESEARCH.json`. The [dated handoff archive](archive/20261024/historical_handoffs/README.md) retains old agent instructions and run-status narratives as source material. Dated “ACTIVE”, “NEXT”, or “RUN” in old reports describes the historical snapshot.
 
 **Explicit experiment pause remains active:** all FFNDS CPU/GPU/model experiments, queued work, retries and automatic experimental follow-ups are paused in [EXPERIMENT_PAUSE.json](research/20261024/EXPERIMENT_PAUSE.json). Literature/source reading, mathematical derivation and repository documentation/administrative work proceed. Only a new explicit user instruction may resume resource-consuming experiments. Original logs, protocol hashes and results are preserved.
 
