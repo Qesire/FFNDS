@@ -50,9 +50,8 @@ def main():
     triage = record("research/20261021/method_triage.json")
     pause = record("research/20261024/EXPERIMENT_PAUSE.json")
     source = record("research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json")
-    agent = text("AGENTS.md")
-    skill = text(".agents/skills/ffnds-paper-discovery/SKILL.md")
-    copilot = text(".github/copilot-instructions.md")
+    # Semantic/creative writing quality is evaluated using blinded case reviews,
+    # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")
 
     ensure(source["source_commit"] == active["autoResearcher"]["source_revision"],
@@ -68,22 +67,28 @@ def main():
         ensure(full.is_file() and git_blob_sha1(full.read_bytes()) == expected_sha,
                "Pinned AutoResearcher source changed: " + path)
 
-    ensure(all(x in agent for x in (
-           "AutoResearcher is the default", "Information", "Decision", "Compute",
-           "research/ACTIVE_RESEARCH.json", "research/agent_protocol/CURRENT_CONTEXT_PACKET.md")),
-           "Root agent does not route to the default scientific loop")
-    ensure("Default to AutoResearcher" in copilot and
-           "ACTIVE_RESEARCH.json" in copilot,
-           "Copilot does not route to the current science")
-    ensure("information" in skill and "net decision value" in skill,
-           "FFNDS-specific skill lacks Q1/Q2 context")
+    # Presence, source routing and permissions are objectively checkable.
+    # Whether an agent truly discovers mechanisms requires paired trajectories.
+    for entry in ("AGENTS.md", ".github/copilot-instructions.md",
+                  ".agents/skills/ffnds-paper-discovery/SKILL.md"):
+        ensure((ROOT / entry).is_file(), "Missing default agent entry: " + entry)
+    ensure(active.get("question_relationship") ==
+           "COUPLED_LENSES_NON_SEQUENTIAL_INFORMATION_DECISION_COMPUTE",
+           "Information/decision/compute research became an artificial stage gate")
+    interfaces = active.get("research_interfaces", {})
+    ensure(all(interfaces.get(key) for key in
+           ("information_first", "computation_first", "bidirectional_update", "priority_selection")),
+           "Lost a constructive information- or operator-first research entry")
 
     ensure([q["id"] for q in active["questions"]] == ["Q1", "Q2", "Q3"],
            "Research question IDs drifted")
     ensure([q[:2] for q in contract["scientific_questions"]] == ["Q1", "Q2", "Q3"],
            "Objective contract no longer follows information/decision/compute")
-    ensure(triage["policy"]["goal_semantics"][0].startswith("Q1/Q2/Q3"),
-           "Legacy triage policy has recaptured science priority")
+    ensure(contract["information_first_research_contract_20261024"]["status"] ==
+           "COUPLED_QUESTIONS_NO_SEQUENTIAL_GATE",
+           "Objective contract differs from bidirectional science contract")
+    ensure(triage["policy"]["current_decision"] == "research/CURRENT_DECISION.json",
+           "Historical method triage is no longer connected to the decision record")
     ensure(current["current_research_source"] ==
            triage["current_research_source"] == "research/ACTIVE_RESEARCH.json",
            "Multiple competing active research sources")
@@ -107,11 +112,15 @@ def main():
            "Static validation workflow has an automatic trigger")
 
     behavior = record("research/agent_protocol/DEFAULT_BEHAVIOR_CASES.json")
+    case_ids = {case["id"] for case in behavior["cases"]}
     ensure(behavior["source_revision"] == source["source_commit"] and
-           len(behavior["cases"]) >= 5 and
-           any(case["id"] == "DEFAULT_RESEARCH_WITHOUT_TRIGGER"
-               for case in behavior["cases"]),
-           "Behavior corpus is not bound to default AutoResearcher")
+           len(behavior["cases"]) >= 8 and
+           {"DEFAULT_RESEARCH_WITHOUT_TRIGGER",
+            "OPERATOR_FIRST_DISCOVERY_IS_VALID",
+            "INFORMATION_FIRST_DISCOVERY_IS_VALID"}.issubset(case_ids),
+           "Behavior case portfolio lost its symmetric discovery questions")
+    ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
+           "Behavior-case answers may be leaked to candidate-agent evaluation")
     for path in ("AGENTS.md", "README.md", ".github/copilot-instructions.md",
                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
                  "research/agent_protocol/README.md", "research/RESEARCH_NAVIGATION.md",
