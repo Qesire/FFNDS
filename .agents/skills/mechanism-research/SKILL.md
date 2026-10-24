@@ -15,6 +15,3 @@ description: Examine actual computations, derive structural mathematics and buil
 Adaptive routes: MAP_FLOW, DERIVE, STATIC_CHECK, EXPERIMENT, DESIGN, REPAIR, PIVOT, ACCEPT_CONDITIONAL, DEFER. A closed mathematical subquestion does not close unrelated scientific inquiry.
 
 **Answer with the new scientific result or hypothesis first**; then its best evidence or assumptions, the decisive counterexample and next useful move. Actual model jobs and external writes require authorization. See core/GOAL_ALIGNMENT.md, core/EXPANSION_PROTOCOL.md and core/PROMPT_PLAYBOOK.md.
-
-
-FFNDS local target: [current Q1/Q2/Q3 research](../../../research/ACTIVE_RESEARCH.json). No CPU/GPU/model experiments until explicit user resume.

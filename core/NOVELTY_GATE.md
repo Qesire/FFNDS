@@ -11,6 +11,12 @@ A frequently seen failure is to select internet-famous solutions (smoothing, EMA
 6. Find whether the proposed difference lies in the operator, causal pathway, regime, or falsifiable behavior, beyond a renamed combination.
 7. Require ablation, null-mechanism control and equal-budget comparison before claiming a useful new contribution.
 
+## Mechanism-signature comparison (PRD)
+
+After generating an idea, compare its *operator, information timing, representation, state/reuse, action granularity, causal prediction and true cost* against nearest prior art; see [mechanism taxonomy](MECHANISM_TAXONOMY.md). Separate exact algebraic equivalence, shared mechanism with changed regime, and a new falsifiable causal prediction. A renamed formula alone is not a contribution; a known method can nevertheless be a component of a nontrivial verified interaction.
+
+For cross-problem reductions, compare the encoder / borrowed solver / output readout and target objective, not only neural architecture. For a hybrid, predict a distinct interaction against matched components. This refines claims without rationing exploratory invention.
+
 Statuses: DIAGNOSTIC, BASELINE, CANDIDATE, DISTINCT_PREDICTION, AUDITED, VALIDATED. Neither a high metric nor a self-awarded novelty score alone establishes scientific contribution. If the prior-art search is incomplete, use CANDIDATE rather than invent originality.
 
 Existing techniques remain legitimate as controls, building blocks and sometimes the best deployment solution. They simply must not replace mechanism discovery by reflex.

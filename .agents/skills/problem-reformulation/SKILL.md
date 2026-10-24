@@ -17,6 +17,3 @@ description: Discover better mathematical representations, mechanism taxonomies,
 The output shape is: **new viewpoint -> unlocked freedom -> new mechanism -> predicted difference -> cheapest next check**. A mathematical identity, a mechanism analogy and a task transfer have different relation types, without differing in their right to inspire research.
 
 Read core/PROBLEM_REPRESENTATION_DISCOVERY.md and core/MECHANISM_TAXONOMY.md; consult examples/PAPER_DISCOVERY_CASES.md for worked examples. No compulsory number of reformulations. Respect actual compute/authorization and evidential claims when building, not as an ideation barrier.
-
-
-FFNDS local target: [current Q1/Q2/Q3 research](../../../research/ACTIVE_RESEARCH.json). No CPU/GPU/model experiments until explicit user resume.

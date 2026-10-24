@@ -19,6 +19,3 @@ When a better representation or alternative task is the opening, use problem-ref
 For actual implementation, use mechanism-research skill, core/OBJECT_RECONSTRUCTION.md, core/DEDUCTION_FIRST.md, core/GOAL_ALIGNMENT.md, core/EXPANSION_PROTOCOL.md and on-demand core/PROMPT_PLAYBOOK.md. Discovery is broad; external writes and resource-consuming actions remain authorized and measured.
 
 **Preferred response:** novel mechanism/insight first -> one mathematical or causal derivation -> revealing falsifier/next test -> relationship to the research aim. Keep evidence boundaries concise.
-
-
-FFNDS local target: [current Q1/Q2/Q3 research](../../../research/ACTIVE_RESEARCH.json). No CPU/GPU/model experiments until explicit user resume.

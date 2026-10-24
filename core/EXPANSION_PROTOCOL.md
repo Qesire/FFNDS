@@ -23,6 +23,10 @@ Follow the unusual implication that the source or mathematics genuinely supports
 
 Once the question becomes "which test should run?", choose a small group of mechanisms that make **different predictions**. A two- or three-way discriminator is a testing tool, not an upper bound on initial thinking.
 
+### Reformulate constructively when the action space is stale
+
+Use [PRD](PROBLEM_REPRESENTATION_DISCOVERY.md) to try a new algebraic representation, a taxonomy revealing shared information, or a reduction to a better-served task. A useful output is an unlocked degree of freedom and one predicted difference. These are optional generative routes, not a forced number of alternative hypotheses or a compliance checklist.
+
 ## 3. Derive and discriminate
 
 For promising mechanisms:
