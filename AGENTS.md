@@ -36,6 +36,10 @@ For a later authorized empirical contribution, compare the original dense D-Q re
 
 ## Multi-agent method discussion — default repository behavior
 
+**Every participating agent**—proposer, external reviewer, challenger, re-formulator and queue integrator—**must use the pinned AutoResearcher methodology by default, not merely cite its name**. Read the [directory-specific AGENTS.md](research/method_discussion/AGENTS.md) in addition to this root file when working anywhere in the method discussion queue. The methodological behaviors to demonstrate in reasoning are: scientific mechanism discovery, decision-critical native source reconstruction, useful mathematical/problem reformulation, prediction-driven discrimination against alternatives, and constructive advance. Select relevant upstream skills adaptively; a creative seed need not satisfy a bureaucratic checklist before discussion. Reviewer endorsements require an independent mechanism-level argument, not a formulaic approval.
+
+
+
 **For multiple agents working on FFNDS method ideas, use the [method discussion queue](research/method_discussion/QUEUE.md) and its [protocol](research/method_discussion/README.md).** The agents in this workflow **only participate in method discussion**: independent formulation, mathematical/source/historical-evidence reasoning, competing explanations, constructive criticism and independent peer agreement. They are not implementers, evaluators or experiment runners. Existing user experiment pause remains unchanged.
 
 - **PROPOSE:** Each agent owns its own `research/method_discussion/proposals/<method-id>/vN.json`. Derive an operator/mechanism and falsifiable predictions, not just a score tweak. Declare whether the idea is independent or imported; look for competing ideas without suppressing an alternative merely because an older recipe failed. An early conjecture is welcome; no terminal video/latency proof is necessary to submit a proposal.
