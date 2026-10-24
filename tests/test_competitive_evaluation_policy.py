@@ -44,13 +44,19 @@ class CompetitiveEvaluationPolicy(unittest.TestCase):
         self.assertEqual(old['disposition'],"CLOSED_FIXED_R12_D0_RAW_VALUE_GATE_REJECTED")
         self.assertEqual(d['closed_method_statuses']['R12E1_D0_EQUAL_BUDGET_NATIVE_VALUE'],old['disposition'])
 
-    def test_guides_and_skills_explicitly_nonbinding(self):
-        for path in ("AGENTS.md",".agents/skills/ffnds-paper-discovery/SKILL.md","README.md",
-                     "docs/72_与同前提方法竞争的质量速度评价准则_20261022.md"):
-            text=(ROOT/path).read_text(encoding="utf-8").lower()
-            self.assertIn("pareto",text,path)
-            self.assertTrue("1.5" in text and "50%" in text,path)
+    def test_live_science_contract_is_separate_from_frozen_historical_thresholds(self):
+        active = load("research/ACTIVE_RESEARCH.json")
+        historical = load("research/OBJECTIVE_CONTRACT.json")["existing_joint_acceptance"]
+        self.assertIn("compute", active["mission"].lower())
+        self.assertEqual([q["id"] for q in active["questions"]], ["Q1", "Q2", "Q3"])
+        self.assertEqual(active["question_relationship"],
+                         "COUPLED_LENSES_NON_SEQUENTIAL_INFORMATION_DECISION_COMPUTE")
+        self.assertEqual((historical["main_gemm_MAC_fraction_max"],
+                          historical["complete_original_FFN_speedup_min"],
+                          historical["per_axis_relative_quality_drop_max"]), (0.5, 1.5, 0.02))
+        self.assertIn("historical", historical["scope"].lower())
         self.assertIn("new-study", (ROOT/"research/NEW_BRANCH_TEMPLATE.md").read_text(encoding="utf-8"))
+        self.assertTrue((ROOT/"docs/72_与同前提方法竞争的质量速度评价准则_20261022.md").is_file())
 
     def test_historical_r13_and_new_eval_distinct(self):
         h=(ROOT/"research/20261022/HANDOFF_R13.md").read_text(encoding="utf-8")

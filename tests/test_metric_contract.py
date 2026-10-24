@@ -50,10 +50,13 @@ class MetricContractTests(unittest.TestCase):
         old=d["existing_joint_acceptance"]
         self.assertEqual((old["main_gemm_MAC_fraction_max"],old["complete_original_FFN_speedup_min"],old["per_axis_relative_quality_drop_max"]),(0.5,1.5,0.02))
         self.assertEqual(d["research_evaluation_policy"]["old_global_threshold_role"],"HISTORICAL_REFERENCE_ONLY_NOT_A_UNIVERSAL_HARD_GATE")
-    def test_policy_and_agent_are_linked(self):
+    def test_metric_catalog_reachable_without_literal_old_prompt_words(self):
         d=json.loads((ROOT/"research/OBJECTIVE_CONTRACT.json").read_text(encoding="utf-8"))
+        active=json.loads((ROOT/"research/ACTIVE_RESEARCH.json").read_text(encoding="utf-8"))
         self.assertEqual(d["metric_evaluation_framework"]["catalog"],"research/metric_system/catalog.json")
-        for p in ("AGENTS.md",".agents/skills/ffnds-paper-discovery/SKILL.md",
-                  ".github/copilot-instructions.md"):
-            self.assertIn("docs/76_", (ROOT/p).read_text(encoding="utf-8"),p)
+        self.assertTrue((ROOT/d["metric_evaluation_framework"]["catalog"]).is_file())
+        self.assertTrue((ROOT/"docs/76_基于学术文献的FFNDS分层指标体系_20261022.md").is_file())
+        self.assertTrue((ROOT/"docs/77_FFNDS学术指标族与评测协议_20261023.md").is_file())
+        self.assertIn("actual", active["questions"][2]["focus"].lower())
+        self.assertEqual(active["experiment_authority"]["eligible_model_method_ids"], [])
 if __name__=="__main__":unittest.main()
