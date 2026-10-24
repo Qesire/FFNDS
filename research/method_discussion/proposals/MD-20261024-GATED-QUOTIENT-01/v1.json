@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-GATED-QUOTIENT-01",
+  "version": 1,
+  "title": "门控残差在下游归一化商空间中的低响应 FFN 组动作",
+  "proposer": {
+    "agent_id": "repository-import",
+    "session_ref": "FFNDS docs/96 + docs/97, created before discussion queue"
+  },
+  "origin": {
+    "kind": "IMPORTED_RESEARCH_SEED",
+    "source_revision": "5106462b457521175f6da3042a70a2e2fc8020b7",
+    "note": "Imported from already recorded research; no claim of independent agent authorship or independent approval"
+  },
+  "related_method_ids": [],
+  "lenses": [
+    "Q1",
+    "Q2",
+    "Q3"
+  ],
+  "mechanism": {
+    "native_boundary": "Wan I2V D-Q HiF4 FFN, 5120→13824→5120, AdaLN gate, residual writeback and following pre-LN consumers; runtime exception/adapter branches remain scope-specific",
+    "action": "Explore zero-completion 64-hidden-channel grouped FFN operators with loss informed by observable gated residual contribution; compare fixed and conditional group selection including physical packing cost",
+    "mathematical_representation": "P = I - 11^T/5120; e = diag(g)(F_candidate(q)-F_native_DQ(q)); projected error eta=P e. Finite normalizer may also have state-dependent near-null centered radial direction at local scale; score joint group effects, not just per-group norms",
+    "distinguishing_feature": "Changes output-space objective and joint response geometry rather than treating dense-row restoration, R256 compensation, or local FFN SSE as a prerequisite",
+    "expected_compute_saving": "Only if native 64-channel group omissions can eliminate Q2/W2 or larger physical work at acceptable video quality; a mathematical null direction by itself saves no material GEMM"
+  },
+  "competing_explanations": [
+    "Projected mean component fraction is isotropic-like ~1/5120 of expected squared energy, hence practical cancellation too small",
+    "Old C1 row rank disagreement arises from residual scale and finite LayerNorm rather than omitted-group gauge",
+    "Signed group interaction or current residual radial attenuation is more important than the one-dimensional exact null"
+  ],
+  "falsifiable_predictions": [
+    "For any tested action with exact downstream pre-LN gauge cancellation and ideal exact arithmetic, nextnorm must be unchanged; old UB1/swap variants do NOT exhibit such no-change in native results",
+    "If the construction is useful, projected signed group Gram has materially different best equal-cost supports or lower finite nextnorm risk than unprojected group Gram on matched native states",
+    "Gains in math-only projected SSE do not imply wall-time advantage when quantization, packing and routing costs dominate"
+  ],
+  "best_counterexample": "For isotropic per-token error components with fixed g, the ratio of expected mean-direction energy to expected total gated energy is 1/5120. C1 native UB1/swap_A/swap_B have strictly nonzero nextnorm SSE in all 72 historic scopes.",
+  "evidence_links": [
+    "docs/96_门控残差商空间_可观测误差与无补算FFN构造_20261024.md",
+    "docs/97_历史结果检验_门控残差商空间_20261024.md",
+    "research/20261024/gated_residual_quotient_historical_audit.json",
+    "research/20261023/C1N0_geometry.json",
+    "research/20261021/R9A1_native_affine_results.json"
+  ],
+  "discussion_questions": [
+    "Which exact native branches violate the proposed downstream pre-LN invisibility, and is the reformulated method still useful under them?",
+    "Can the true joint 64-group contributions align with a higher-dimensional low-response subspace (or does the isotropic null counterexample dominate)?",
+    "What distinguishes this operator from a previously rejected family in its actual action, information requirement and physical FFN work?"
+  ],
+  "claim_level": "CONDITIONAL_MATH_PLUS_ARCHIVED_NATIVE_TARGET_DISAGREEMENT; NOT_A_TESTED_NEW_OPERATOR",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
