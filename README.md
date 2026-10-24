@@ -1,3 +1,7 @@
+# AutoResearcher 理论再探索（2026-10-24）
+
+本轮按新版 AutoResearcher 将 FFNDS 的探索从“补算哪些 dense 行”切换到实际 FFN 算子：A 双侧低秩保留 GELU、B W1/W2 耦合结构直接删组、C 条件窄算子。近邻 LRCC/SVDtrunc 和旧 R4/R8/R9/R13 明确作为前例及负结果对照。见[新研究文档](docs/94_AutoResearcher_算子优先重新探索_20261024.md)和[机器记录](research/20261024/operator_first_autoresearcher_reexploration.json)。**理论/文献/源码探索恢复，原有全部 CPU/GPU/模型实验仍暂停。**
+
 # 全部实验已按用户要求暂停（2026-10-24）
 
 用户要求暂停所有实验。七个获授权节点已核对，本项目实验进程为0；不再启动CPU/GPU/模型实验、等待任务或重试，等待明确恢复。C2N2因选中卡后来出现外来计算而停止，视频及原生前向均为0，算法质量/速度未测。记录和HF资产完整保留，见[暂停记录](research/20261024/EXPERIMENT_PAUSE.json)、[实际结果](research/20261023/C2N2_native_results.json)和[当前交接](research/20261023/HANDOFF_C2N2.md)。下文的研究方向和执行中说明为暂停前历史状态。
