@@ -1,0 +1,82 @@
+{
+  "id": "OFFLINE_FP4_ORBIT_FULL_W1_COST_FLOOR_20261024",
+  "status": "COMPLETE_EXACT_ANALYTIC_ACCOUNTING_NATIVE_WAN_DIMENSIONS",
+  "execution": "Local JavaScript integer arithmetic, no model/GPU, no synthetic or native activation claims.",
+  "native_contract": {
+    "W1_input_dim": 5120,
+    "W1_output_dim": 13824,
+    "token_tile": 128
+  },
+  "dense_reference_W1_MACs": 9059696640,
+  "method": "For each original input subtile J of k coordinates, each token-output pair must collect a partial unscaled dot and multiply its scale/orbit factor then accumulate. Even if all requested dots were precomputed, the scheme needs T*H*(D/k) contributions (absent a more radical fused/reduced formulation). This is an output reconstruction work count, NOT an unavoidable separate global-memory read or lower bound on physical runtime; compilers can fuse, cache, aggregate, and transform the operator.",
+  "cases": [
+    {
+      "subtile_width": 2,
+      "input_subtiles": 2560,
+      "dense_reference_W1_MACs": 9059696640,
+      "per_output_required_lookup_contributions": 4529848320,
+      "lookup_contributions_per_original_MAC": 0.5,
+      "hypothetical_4_byte_value_read_demand_GB_decimal": 18.11939328,
+      "full_dictionary_entries_for_output_tile128": 5248,
+      "precompute_dictionary_bytes_for_output_tile128": 20992,
+      "forced_nonfirst_orbit_occurrences_per_128_tokens": 87,
+      "interpretation": "Full W1 scalar partial-sum reconstruction count; not native memory transfer measured. Lookup cache may be reused across threads, and actual hardware traffic can be lower."
+    },
+    {
+      "subtile_width": 4,
+      "input_subtiles": 1280,
+      "dense_reference_W1_MACs": 9059696640,
+      "per_output_required_lookup_contributions": 2264924160,
+      "lookup_contributions_per_original_MAC": 0.25,
+      "hypothetical_4_byte_value_read_demand_GB_decimal": 9.05969664,
+      "full_dictionary_entries_for_output_tile128": 2189440,
+      "precompute_dictionary_bytes_for_output_tile128": 8757760,
+      "forced_nonfirst_orbit_occurrences_per_128_tokens": 0,
+      "interpretation": "Full W1 scalar partial-sum reconstruction count; not native memory transfer measured. Lookup cache may be reused across threads, and actual hardware traffic can be lower."
+    },
+    {
+      "subtile_width": 8,
+      "input_subtiles": 640,
+      "dense_reference_W1_MACs": 9059696640,
+      "per_output_required_lookup_contributions": 1132462080,
+      "lookup_contributions_per_original_MAC": 0.125,
+      "hypothetical_4_byte_value_read_demand_GB_decimal": 4.52984832,
+      "full_dictionary_entries_for_output_tile128": null,
+      "precompute_dictionary_bytes_for_output_tile128": null,
+      "forced_nonfirst_orbit_occurrences_per_128_tokens": null,
+      "interpretation": "No guaranteed-orbit-collision bound computed for k>=8; lookup demand purely accounting."
+    },
+    {
+      "subtile_width": 16,
+      "input_subtiles": 320,
+      "dense_reference_W1_MACs": 9059696640,
+      "per_output_required_lookup_contributions": 566231040,
+      "lookup_contributions_per_original_MAC": 0.0625,
+      "hypothetical_4_byte_value_read_demand_GB_decimal": 2.26492416,
+      "full_dictionary_entries_for_output_tile128": null,
+      "precompute_dictionary_bytes_for_output_tile128": null,
+      "forced_nonfirst_orbit_occurrences_per_128_tokens": null,
+      "interpretation": "No guaranteed-orbit-collision bound computed for k>=8; lookup demand purely accounting."
+    },
+    {
+      "subtile_width": 32,
+      "input_subtiles": 160,
+      "dense_reference_W1_MACs": 9059696640,
+      "per_output_required_lookup_contributions": 283115520,
+      "lookup_contributions_per_original_MAC": 0.03125,
+      "hypothetical_4_byte_value_read_demand_GB_decimal": 1.13246208,
+      "full_dictionary_entries_for_output_tile128": null,
+      "precompute_dictionary_bytes_for_output_tile128": null,
+      "forced_nonfirst_orbit_occurrences_per_128_tokens": null,
+      "interpretation": "No guaranteed-orbit-collision bound computed for k>=8; lookup demand purely accounting."
+    }
+  ],
+  "decision": "k=2 has exact guaranteed duplicated projective codes but creates 4.52984832e9 per-token-output-subtile accumulation contributions at T128. A naive memoized scalar-dot lookup cannot be justified from collision count, and likely competes poorly against optimized FP4 GEMM; k>=8 reduces gathers but loses distribution-free collision guarantee. Look for substantial hardware-friendly shared tiles or an operator that avoids per-fragment gather entirely.",
+  "not_measured": [
+    "Original native MXFP4/NVFP4/HiF4 activation code entropy",
+    "real indexed GPU kernel latency",
+    "L1/shared/global physical bytes or coalescing",
+    "whole-Wan GPU performance/video quality"
+  ],
+  "related_method": "MD-20261024-FP4-CODE-ORBIT-G6C"
+}
