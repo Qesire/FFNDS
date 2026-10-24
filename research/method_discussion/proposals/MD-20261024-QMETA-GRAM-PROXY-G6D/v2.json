@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-QMETA-GRAM-PROXY-G6D",
+  "version": 2,
+  "title": "量化尺度双侧异质性与输出风险: 从估计W1能量转向可改变执行组排序的轻量元数据代理",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 G6D reinspection using pinned mechanism-research, problem-reformulation, research-expansion, FFNDS domain skill"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "G6D v1 Git blob fe3047464f3e6f65dd474d5cce8b0750be869c4; main audit base 7905d48b4b8892a6d5c2f9671348e865915a587e; pinned AutoResearcher 5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "note": "This is a substantive author revision of G6D, not an external peer review. Prior v1 remains immutable and reviewer judgments cannot transfer to v2. The second-moment identity is old statistical algebra; novelty of operator/utility is not established."
+  },
+  "related_method_ids": [
+    "MD-20261024-QMETA-GRAM-PROXY-G6D",
+    "MD-20261024-Q2-NATIVE-SCALE-PANEL-G6E",
+    "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+    "MD-20261024-FP4-CODE-ORBIT-G6C"
+  ],
+  "lenses": [
+    "Q1",
+    "Q2",
+    "Q3"
+  ],
+  "skill_routes": [
+    "mechanism-research MAP_FLOW+DERIVE",
+    "problem-reformulation T/E",
+    "research-expansion N2/C5"
+  ],
+  "revision_from_v1": {
+    "previous_version_path": "research/method_discussion/proposals/MD-20261024-QMETA-GRAM-PROXY-G6D/v1.json",
+    "previous_blob_sha": "fe3047464f3e6f65dd474d5cce8b0750be869c4",
+    "substantive_changes": [
+      "The scale-Gram formula was a conditional expectation of W1 preactivation energy, NOT a proof of useful dynamic group routing; explicitly derive the double-heterogeneity and rank-collapse no-dynamicity theorems.",
+      "Demand source-held-out improvement in group selection or net action value over matched static/RMS/HWG, rather than only correlation with W1 energy.",
+      "Introduce a conditional output-geometry target including actual post-Q2 gain/cast, W2, AdaLN gate and signed interactions; distinguish per-group local energy and joint omission error.",
+      "Separate native FP4 Q1 scale bytes/availability from HiF4 QDQ ephemeral 64/8/4 kernel locals and BF16 GEMM, including materialization/fusion/synchronization cost.",
+      "Contrast full block scale-shape vector with cheaper total input norm and conditional code moment/sign sketches, not claim any T1 statistic is free or enough."
+    ]
+  },
+  "mechanism": {
+    "native_flow": "Native D-Q/HiF4: modulate(norm2)→Q1 QDQ→BF16 W1(5120→13824)→GELU_tanh→Q2 QDQ→post-Q2 alpha/cast→W2(13824→5120)→gate+residual. MXFP4/NVFP4 native packed alternatives are distinct reference operators: E2M1 codes with Q1 microscale k=32 E8M0 (MX) / k=16 E4M3 plus tensor-global FP32 (NV), actual weight scale/packing must be pinned. Q2 side state only exists AFTER W1; Q1 side state is useful before W1 only if routing can observe it without an expensive separate kernel/sync. HiF4 64/8/4 lv0/1/2 are CUDA-local values in existing QDQ, not persistent accessible tensor bytes.",
+    "provisional_proxy": "Let B=D/k input Q1 blocks and G hidden group action units. Quantized Q1 decoded x_{t,b}=s_{t,b}c_{t,b}. Let effective W1 subblock A_{g,b}. Under conditional independent zero-mean isotropic FP4 codes E[c_b c_b^T|s]=ν_b I and zero cross-block conditional covariance, the EXACT conditional statistical identity is E[||z_g-b_g||²|s]=Σ_b ν_b ||A_{g,b}||_F² s_b²=:K_g q_t where q_t=s_t²∈R_+^B. It is not actual per-token h_g value, post-GELU energy, downstream signed loss, or speed.",
+    "static_ranking_theorem_1": "For q_t=λ_t q0 with λ_t>0 (same scale SHAPE but varying overall amplitude), rank_g(K_g q_t)=rank_g(K_g q0) for ANY K. Thus arbitrary scale-value temporal variation that is purely radial has ZERO extra group ranking information for per-token fixed-cardinality top-k.",
+    "static_ranking_theorem_2": "If nonnegative matrix K admits K=a b^T+1_G v^T with b≥0, q_t≥0 and b^T q_t>0, then P_{t,g}=a_g(b^T q_t)+v^T q_t. Therefore for all tokens the group order is identical to static order of a_g, regardless of scale SHAPE variation. Special case K=a b^T. A low numeric rank or high correlation is not alone an exact no-go; inspect ranking reversals and margins.",
+    "pairwise_dominance": "For any g,h and q≥0, if K_gb≥K_hb for every b then P_g(q)≥P_h(q) for ALL possible scale patterns. More generally rank reversal g↔h requires realized q vectors on opposite sides of hyperplane (K_g-K_h)^T q=0. Mixed-sign blockwise weight differences are NECESSARY but not SUFFICIENT if feasible q occupy a narrow cone. This is an offline, pre-runtime discriminator from W1 weights plus observed source-separated Q1 scale vectors.",
+    "information_gain_coordinate": "Write q_t=a_t u_t with a_t=1^T q_t>0 and u_t=q_t/(1^T q_t) in simplex. Fixed-budget within-token group rankings depend on K u_t, not a_t. Therefore the genuinely NEW quantizer input to conditional ranking is scale SHAPE u_t interacting with nonseparable inter-group weight profiles. A global NVFP4 positive scale factor and uniform input amplitude do not create ranking changes, though both matter for cross-token thresholds, nonlinear GELU/bias and output quality.",
+    "output_geometry": "Let effective post-Q2/post-gain/cast operand be h_t and W2 columns B_g. If full Q2 operand frozen and an action merely elides chosen W2 input panels S, current writeback error is δ_t(S)=diag(gate_t) Σ_{g∈S} B_g h_{t,g}. Its squared norm includes Σ_g ||δ_g||² + 2Σ_{g<h}〈δ_g,δ_h〉; an independent group-energy score cannot capture signed cancellation. An output-aware conditional proxy would estimate E[||diag(gate) B_g h_g||²|q,upstream]≈tr(M_{t,g}Σ_{h_g|q})+μ_{h_g|q}^T M_{t,g} μ_{h_g|q}, M=B_g^T diag(gate)² B_g. This expression is a conditional moment identity, but h_g distribution and gate conditioning require real saved data; for joint group omission, cross-covariance matters. If omitted groups skip W1 TOO, re-encoding effects and Q2 block coupling are additional terms, not absorbed in this identity.",
+    "operator_choice": "Compare four families rather than presuppose 64-group sparse mask: (A) fixed native packed FFN at same compute; (B) pre-W1 group selector using Q1 scale SHAPE + nonseparable K; (C) minimal cheap nibble SIGN/occupancy moment when scale-shape is insufficient; (D) Q2/W2-only quantizer-native scale/panel selector (G6E), which has a better observation-time match but saves only second projection. Other operator structures remain open; no dense restoration mandatory.",
+    "native_cost": "D=5120,H=13824,G=216. MXFP4 Q1 has B=160 scales (34,560 G×B scalar operations/token), NVFP4 B=320 (69,120), vs W1 D×H=70,778,880 MAC/token. These arithmetic ratios cannot be turned into GPU wall ratios; need metadata visibility timing, layout, swizzling, producer/consumer fusion, kernel launch and real tensor-core occupancy. Low-rank K≈UV^T with r=8 uses r(B+G)=3008/4288 scalar contributions/token but may wash away nonseparable ordering SIGNAL while preserving bulk Frobenius energy.",
+    "format_correctness": "MXFP4 E8M0 exponent-only scale is block32 and may have abrupt scale-bin jumps; NVFP4 is E4M3 block16 + tensor global, swizzled/padded and depends on inference recipe. HiF4 v1 implementation computes lv0,lvs in CUDA locals then returns BF16 QDQ; it cannot inherit native FP4 scale availability. Each alternative requires same-format dense baseline, and native FP4 is not a drop-in model of A100 HiF4 QDQ.",
+    "predicted_behavior": "If K has near-static group rankings or q_t has mostly collinear scale shapes, S1 metadata will add little to fixed group selection; if both possess sufficient nonseparable heterogeneity and action-value labels track the changed group ordering, S1 can add value. T1 signed code sketches can separate equal-scale contradictory W1 input orientations; however they must beat scalar Q1 RMS, old Proxy+HWG and cheap learned controls by NET benefit."
+  },
+  "competing_explanations": [
+    "Code-sign/orientation drives W1 outputs and GELU, so weight×scale covariance still misses the decisive term; sign sketches rather than more scale precision will separate controls.",
+    "Even when K u_t changes ranking, these reversals correspond to small, nearly-tied groups with no material skip outcome; a fixed group choice matches quality at lower cost.",
+    "The nonlinearity and post-Q2 W2/gate can reverse W1-energy rankings; a downstream-risk target could show a different optimum from the energy proxy.",
+    "Native FP4 stored scales are costly to extract before routing and dynamic selection disrupts MMA tile packing; fixed group action or Q2-side direct panel gating dominates net latency.",
+    "Existing RMS/Proxy+HWG already captures nearly all scale SHAPE variation, and the new quantizer metadata is merely a different representation of that information."
+  ],
+  "falsifiable_predictions": [
+    "Pairwise static rank theorem: for two input tokens with q2=λq1 (λ>0), scale-Gram top-k identical; any observed predicted rank change indicates bias/feature/context additions, not Kq itself.",
+    "Weight-matrix-only dominance: if K_g≥K_h elementwise, scale-only Proxy can never reverse the order g versus h on any positive native scale vector, independent of observed tokens.",
+    "To improve over a matched fixed top-k, the joint dataset must contain scale-shape heterogeneity, non-dominated K rows, meaningful rank reversals, and real action utility correlated with those reversals. Correlation with hidden energy alone insufficient.",
+    "Reducing K rank may improve scalar cost while destroying rowwise ranking reversals; preserve change-of-ranking statistics and action regret during SVD/rank tuning.",
+    "In native FP4 the scale field can exist physically without being available for routing before a fused GEMM; in QDQ lv0/lv1/lv2 computed in kernel but discarded, so metadata is a newly exposed side channel and its extraction is not free.",
+    "At equal scales and code energies, swapping code signs along a W1-sensitive direction can change GELU and W2 contribution; T0 must fail that constructed control, while a suitable signed code sketch may distinguish it."
+  ],
+  "best_counterexample": "Let K=a b^T, q_t any strictly positive FP4 microscale vector, including arbitrary changes of relative block scale shapes. P_t=(b^T q_t)a, so all token-dependent score outputs are scalar reweightings of one fixed group order. A strong scale-versus-W1-norm correlation can coexist with exactly ZERO dynamic top-k information; expensive Q1-scale collection then has negative net decision value. Conversely keep q_t shape constant but arbitrary full-rank K: rankings still cannot change. To escape, require interaction of BOTH weight-profile and input scale-shape heterogeneity, then tie it to physical action margins rather than just rank.",
+  "evidence_links": [
+    "research/method_discussion/proposals/MD-20261024-QMETA-GRAM-PROXY-G6D/v1.json",
+    "tools/packed_ffn_reference.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/adapters/wan_i2v.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+    "reports/worker_20261020/HP1_proxy_RUN.json",
+    "reports/worker_20261020/HP2_proxy_RUN.json",
+    "reports/worker_20261020/NP1_proxy_RUN.json",
+    "research/20261024/OFFLINE_SAVED_ASSET_QUANT_STRUCTURE_R1.json",
+    "research/20261023/C0_coupling_offline_results.json",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://proceedings.iclr.cc/paper_files/paper/2026/hash/97ca7168c2c333df5ea61ece3b3276e1-Abstract-Conference.html",
+    "https://pytorch.org/blog/low-precision-flash-attention-4-end-to-end-block-scaled-attention-for-blackwell/"
+  ],
+  "discussion_questions": [
+    "Can another agent independently prove the static-rank/double-heterogeneity propositions, then derive a source-grounded statistic that tests dynamic rank reversals without falsely treating old BF16 V1 cosine as native FP4 metadata?",
+    "Is there a quantizer-specific 1-2 byte aggregate per input subblock that adds genuine downstream group-action value beyond RMS and code energy? Provide equal-scale orientation counterexamples.",
+    "Which group decisions can be batched into native hardware tile-compatible W1/W2 panels with routing overhead below the saved arithmetic? Would Q2's output-side side information (G6E) be the superior physical route?",
+    "Does a conditional output-space moment approximation outperform W1 norm on source-separated real Wan artifacts, or does its dependence on gate/BF16/Q2 make it too expensive?"
+  ],
+  "claim_level": "EXACT_NONNEGATIVE_SCALE_GRAM_RANK_COLLAPSE_AND_CONDITIONAL_SECOND_MOMENT_THEOREMS; EXPLORE_DYNAMIC_ACTION_VALUE; NO_NATIVE_FP4_WAN_MEASUREMENT",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_CPU_GPU_MODEL_EXPERIMENT"
+}
