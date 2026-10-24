@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-Q2-NATIVE-SCALE-PANEL-G6E",
+  "version": 1,
+  "title": "后GELU原生FP4尺度上界驱动的W2面板省算：将量化元数据用在真正及时的决策位置",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 AutoResearcher skill-guided expansion from Q1-metadata proxy rank-collapse"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "FFNDS main 7905d48b4b8892a6d5c2f9671348e865915a587e, pinned AutoResearcher 5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "note": "Distinct timing/operator from Q1→W1 metadata-Gram (G6D): exploit already materialized Q2 native FP4 scale after GELU to omit actual W2 K panels. Norm bounds, block-activation sparsity, sparse panel GEMM and quantized scaling are known ingredients, novelty unestablished. A bounded local output error is not a bound on generated-video quality."
+  },
+  "related_method_ids": [
+    "MD-20261024-QMETA-GRAM-PROXY-G6D",
+    "MD-20261024-QCELL-TILE-01A16D3D",
+    "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+    "MD-20261024-GATED-QUOTIENT-01"
+  ],
+  "lenses": [
+    "Q1",
+    "Q2",
+    "Q3"
+  ],
+  "skill_routes": [
+    "problem-reformulation shift-information-time",
+    "mechanism-research exact W2 operand reconstruction",
+    "research-expansion new physical action/competing assumption"
+  ],
+  "mechanism": {
+    "scientific_opening": "Unlike Q1 scale used before W1, Q2 scale is available AFTER W1+GELU and may be the closest cheap side channel to W2 input panels. Rather than requiring impossible pre-W1 knowledge of Q2, use it to make a DIFFERENT exact-time action: optionally omit W2 products for a whole hardware-aligned Q2 K panel. No dense completion, R256, exact code-cell certificate or copied row is prescribed.",
+    "native_boundary": "Original current D-Q model: 5120→13824 GELU→Q2→optional alpha multiplication followed by BF16 cast→W2→gated residual. Q2 native MXFP4 uses E2M1 codes and E8M0 scale per32 hidden K values; NVFP4 uses E2M1 code and E4M3 local scale per16 and FP32 tensor global state. Actual packed scale layout and 2D W2 weight format must be pinned. Current HiF4 implementation returns dequantized BF16 after QDQ and does NOT store intermediate lv0/lv1/lv2 as persistent metadata. The operation must consume the EXACT W2 input after any alpha/cast; Q2 scale alone does not capture this post-processing unless alpha and rounding are accounted for.",
+    "quantized_operand": "For panel J of k hidden W2 input features, let decoded native Q2 operand a_{t,J}=s^{eff}_{t,J} c_{t,J} (or union of complete Q2 microscale subblocks), E2M1 |c_i|≤6. Let true W2 input h_{t,J}=BF16(α_t a_{t,J}) in the historical reference; define ε_{cast}=h−α a. Let B_J be the effective decoded W2 weight columns and γ_t be actual AdaLN gate. If the panel J is skipped with all other Q2 operands frozen and W2 bias left intact, current gated writeback difference is δ_{t,J}=diag(γ_t) B_J h_{t,J}, exact in real decoded linear arithmetic.",
+    "T0_scale_only_upper_bound": "By Cauchy–Schwarz and operator-to-Frobenius bound: ||δ_{t,J}||₂ ≤ ||γ_t||_∞ ||B_J||_F [6|α_t| s^{eff}_{t,J}√k+||ε_cast,t,J||₂]. For a panel with multiple microscale blocks b, replace the bracket's 6s√k by 6√(Σ_{b⊂J} k_b(s_eff,t,b)^2). A known BF16/FP4 rounding bound may cap ε_cast; without a bound, use a post-cast aggregate or leave certificate conditional. With no alpha path or ideal-real alpha this simplifies to a fully scale-only computable bound using offline W2 group norms. A S1 improvement can read signed-code moment m2_{t,b}=Σ_{i∈b}c_i², giving ||a_J||₂²=Σ_b(s_eff,b)² m2_b, while charging code reads and any rounding. An even tighter output-geometry bound needs signed code×W2 information and competes against performing W2.",
+    "multi_panel_bound": "For omitted panel set S, ||Σ_{J∈S} δ_{t,J}||₂ ≤ Σ_J B_{t,J} by triangle inequality; this is a composable current-writeback budget, not equal to the actual signed error. Cross-panel cancellations might allow much more savings than worst-case bound; estimated signed Gram risk is an optional complementary, non-certified proxy. True LayerNorm/attention propagation and free-running four-step video quality are not certified by this local 2-norm bound.",
+    "physical_action": "A quantization microblock need not equal a tensor-core W2 work unit. Coalesce complete 16/32 K-axis microblocks into physical W2 panels, decide at row-tile/block granularity using an upper bound over all rows in the tile, and launch or select a packed work-sparse GEMM that truly skips K-panel MACs. Retain W2 bias, scale factors for kept panels, and full W1/Q2 (already paid). A token-level mask implemented as a dense FP4 GEMM with zeros has no native arithmetic saving. Uniform tile occupancy and selection/packing overhead determine physical gain. This method targets W2 only, so a 50% reduction in W2 arithmetic saves at most ~25% of the two equal-cost W1+W2 GEMMs before overhead.",
+    "format_cost": "On suitable native FP4 runtime, Q2 local scales are represented for the W2 block-scaled MMA, but exposing/swizzling them to a selector before GEMM may require a new kernel/launch or read. W2 weights may have 2D scales; offline B_J norms must be defined on the exact decoded effective weight matrix. On HiF4 QDQ, the scale values are CUDA locals not passed to the following BF16 F.linear; recovering them is not free and newly exposing them changes the quantization kernel.",
+    "alternative_information_route": "If scale-only B_J is loose and selects no W2 panels, use code occupancy or second moment at Q2, which is more causally aligned than Q1 energy. If the per-panel effective magnitude still poorly predicts actual gated W2 impact, investigate low-rank readout geometry or group relation/cancellation without assuming a dense residual branch.",
+    "non_obvious_distinction": "The condition may be meaningful after an expensive W1 because Q2 side information arrives immediately before a separate expensive W2. Thus G6D's pre-W1 proxy ranking collapse cannot rule out this method; it solves a different decision-time subproblem. Conversely proving Q2 panel skip useful would not prove W1 dynamic sparsity."
+  },
+  "competing_explanations": [
+    "Local shared scales are determined by group maxima and E2M1 first large code, so the upper bound 6s√k||W2_J|| is too pessimistic for nearly every panel and never enables skipping at meaningful local-error budget; cheap occupancy/refined code energy is necessary.",
+    "Most token rows in a physical W2 tile have different scales/needs; a union of 'keep' panels becomes dense, defeating tensor-core work skipping despite low per-token bounds.",
+    "The small Q2 scale vector is packed/swizzled only inside the W2 pipeline; extracting for a pre-dispatch selector adds enough sync/traffic to erase a notional 2nd-GEMM saving.",
+    "Output effect has strong signed cancellation and nontrivial token gate; simple upper-bound rankings are conservative versus a small learned output-risk proxy or fixed group policy.",
+    "HiF4 QDQ path has no persistent scale-side-channel; even if the math is correct on native FP4, rebuilding Q2 scales in historical A100 implementation would not be a free metadata method."
+  ],
+  "falsifiable_predictions": [
+    "For any fixed decoded W2 weight/operand and gate, skipping full Q2-aligned W2 input panel J while leaving other operands/bias unchanged yields exact real-arithmetic δ=diag(gate)B_J h_J; T0 bounds it under the stated |c|≤6 and cast-error condition.",
+    "A native Q2-scale-only upper bound may be highly conservative if blocks each contain a few scale leaders; adding ∑code² tightens the bound while still not evaluating W2, but this consumes Q2 code bandwidth.",
+    "Tile-level union selection can be nearly dense even with high per-token panel sparsity. Compare occupancy of whole physical K panels after coalescing, not token-element masks.",
+    "A safe local bound on gated writeback can coexist with changed nextnorm and video; only actual continuation experiments (separately authorized) can establish fidelity.",
+    "At matched real cost, W2-panel scale metadata should differ from static W2 or zero-code panel decisions when local scale maps vary; if no panels are skipped under reasonable local tolerance, this particular bounded mechanism is not useful, but Q1 and signed proxy routes remain distinct."
+  ],
+  "best_counterexample": "Let every Q2 16-element block have one code c=6 and 15 zero codes, scale s>0; then T0 factor 6s√16=24s exceeds true ||a||₂=6s by 4×. With W2 group norms also overestimating operator effects, the bound may refuse to skip any W2 panel even when real signed contributions are tiny. This establishes exact correctness but potential weak selectivity; it motivates optional cheap Q2 code moment, not a claim that metadata provides a free or effective skip.",
+  "evidence_links": [
+    "tools/packed_ffn_reference.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "research/method_discussion/proposals/MD-20261024-QMETA-GRAM-PROXY-G6D/v2.json",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://pytorch.org/blog/low-precision-flash-attention-4-end-to-end-block-scaled-attention-for-blackwell/",
+    "https://arxiv.org/abs/2606.26587"
+  ],
+  "discussion_questions": [
+    "Can another agent derive a sharper *zero-extra-nibble-read* W2 output bound from Q2 effective scales and offline W2 group norms while preserving actual BF16 alpha/gate semantics?",
+    "Can a physical W2 packed format skip enough whole K panels in realistic row tiles to cover the scale selector and new launch cost, or is output-panel selection structurally memory-bound?",
+    "What extra visible Q2 code statistics (one bitplane/zero fraction/code second moment) yield most decision value beyond the coarse scale-only bound?",
+    "How does the exact scale-only panel bound compare to a fixed W2 group scheme, complete-group output sharing from other agents, and SharQ's sparse-backbone+dense-residual W2 path?"
+  ],
+  "claim_level": "EXACT_CONDITIONAL_REAL_ARITHMETIC_W2_PANEL_SKIP_BOUND_AND_Q2_TIMING; PREVALENCE/SELECTIVITY/PHYSICAL_SPEED_UNMEASURED",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_CPU_GPU_MODEL_EXPERIMENT"
+}
