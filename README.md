@@ -2,6 +2,10 @@
 
 用户要求暂停所有实验。七个获授权节点已核对，本项目实验进程为0；不再启动CPU/GPU/模型实验、等待任务或重试，等待明确恢复。C2N2因选中卡后来出现外来计算而停止，视频及原生前向均为0，算法质量/速度未测。记录和HF资产完整保留，见[暂停记录](research/20261024/EXPERIMENT_PAUSE.json)、[实际结果](research/20261023/C2N2_native_results.json)和[当前交接](research/20261023/HANDOFF_C2N2.md)。下文的研究方向和执行中说明为暂停前历史状态。
 
+# Archived research clarification: recovery is optional (2026-10-24)
+
+The completed [research analysis](docs/92_摆脱补算预设_条件稀疏的目标与算子重构_20261024.md) and [exploration seeds](research/20261024/potential_directions_exploration.json) remove mandatory dense completion/R256 from the research premise. Direct conditional group relations and nonlinear coalescence are prospective alternatives; signed finite action value applies to all actions. The CPU receipts contain no-completion counterexamples, a log-risk/arithmetic-utility reversal, and a costed optional shared-prefix construction. All future checks are paused under the user instruction above. Existing C1/R4/HP1 and other failed recipes remain closed. This archival update adds no execution authority or automatic followup.
+
 # Current research: residual-complete action value (2026-10-23)
 
 Read [the new AutoResearcher reanalysis](docs/88_AutoResearcher再探索_残差双路径价值与取样修订_20261023.md), [current handoff](research/20261023/HANDOFF_PRD_SUCCESSOR.md), and [sampling revision](research/20261023/PRD_sampling_revision.json). C1 is the completed native action diagnostic; C2 is the norm-scaled row successor whose current execution status appears below, not completed TACR channel execution. Reanalysis finds 15/72 negative C2 positions, 12 in the last two steps, despite positive six-source aggregates. A reproducible residual-bypass counterexample shows why nextnorm loss alone can misrank downstream risk. Pursue pre-W1 conditional value of complete residual-block/step actions; retain C2's existing paired-video discriminator and develop causal budget allocation as a secondary seed.
