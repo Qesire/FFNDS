@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+  "version": 2,
+  "title": "非零码字也可证免算：GELU量化单元的非连通原像与稳定尺度证书",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 continued analysis after format-agnostic zero-cell v1"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "Original v1 Git blob 2ce8c28c8be9f050fbe6bbd2b10ca07b600adfa4; AutoResearcher pinned revision 5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "note": "My own substantive v2 revision; the v1 proposal remains immutable and any external reviews of it cannot be transferred automatically. Standard quantization cell certification and GELU turning point are known mathematical properties, not claimed publication novelty."
+  },
+  "related_method_ids": [
+    "MD-20261024-FP4-CODE-ORBIT-G6C",
+    "MD-20261024-GELU-PARITY-QDQ-G6A"
+  ],
+  "lenses": [
+    "Q1",
+    "Q3",
+    "Q2"
+  ],
+  "revision_from_v1": {
+    "previous_version_path": "research/method_discussion/proposals/MD-20261024-QCELL-SCALE-ANCHOR-G6B/v1.json",
+    "previous_blob_sha": "2ce8c28c8be9f050fbe6bbd2b10ca07b600adfa4",
+    "semantic_changes": [
+      "Generalize from ONLY quantized-zero channels to arbitrary certifiably fixed FP4 codes (including nonzero) under preserved exact scale-selection state.",
+      "Replace a naïve globally monotone GELU inversion with a provable piecewise, potentially disconnected preimage of each quantization cell.",
+      "Derive a GELU-negative-lobe whole-halfline zero regime conditional on Q2 effective scale, showing a specific quantization-created phase transition.",
+      "Make candidate selection explicitly pre-W1 (interval/certificate plus quantizer state); a post-W1 code is not legal evidence for W1 savings. Preserve matrix compute versus code-generation distinctions."
+    ]
+  },
+  "mechanism": {
+    "native_boundary": "Actual current Wan2.2 FFN branch is norm2/modulate→Q1→W1+b1→GELU(approximate=tanh)→per-hidden preprocessing→Q2→post-Q2 alpha/cast→W2+b2→AdaLN gated residual and downstream. The proof concerns the frozen exact encoding state of a candidate alternative MXFP4, NVFP4 or HiF4 implementation; it does not assert those backends share a zero-cell, scale-computation rule or rounding semantics. The existing HiF4 packed reference is a source example, not the only allowed target.",
+    "action": "At pre-W1 decision time, bound each candidate channel's preactivation z_j within a certified (possibly union-of-intervals) region from cheap already-computed Q1 information, and determine a target Q2 code c*_j, not restricted to zero. Validate that the *complete* local/global scale and other quantizer state remain exactly the same over every candidate value consistent with the bound. Supply target code c*_j directly to a Q2 compatible representation, skipping the original W1 channel and GELU. This is a new operator only when the certificated channels can be grouped/packed into physically eliminated W1 compute without expensive per-channel routing.",
+    "mathematical_representation": "Define φ(z)=.5 z[1+tanh(√(2/π)(z+0.044715z³))], u_j(z)=postprocess_j(φ(z)), quantizer f with scale state S_f(u), code map C_f(u;S). Let I_j be a certified causal pre-W1 uncertainty set for z_j, let S* be an exact scale state, and let V_f(c*;S*) be the quantizer's deterministic rounding cell for code c*. If (i) for EVERY jointly feasible candidate z in Π_j I_j the full state S_f(u_A,u_J(z))=S*, and (ii) u_j(I_j) ⊂ interior V_f(c*_j;S*) for all omitted j, then E_f(u_A,u_J(z))=E_f(u_A,ĉ_J) for any synthetic values ĉ_J with codes c*_J and the same S*. Thus logical decoded Q2 operands, and real W2 output, are identical; accumulated native output can differ under changed kernel order. For every E2M1 nearest-even recipe with effective scale s and zero/first nonzero cells, the strict zero cell is |u|<s/4, but GENERAL c* cells may also be exploited. For stochastic rounding the deterministic guarantee must be replaced by a coupling of realized random state, not merely an expected-value bound.",
+    "gelu_nonconvexity": "φ(z) is not globally monotonic on z<0: φ(0)=0, lim_{z→−∞}φ(z)=0−, and it has a negative minimum −M_- (roughly 0.17 in usual GELU units). Hence for a sufficiently narrow zero-code interval |u|<τ where 0<τ<M_-, the preimage of the zero cell contains separated intervals: a far negative tail and a neighborhood of z=0. A single monotone threshold on z or a single interval inverse of GELU can miss this structure. If postprocess is identity and scale is fixed with s/4>M_-, then ALL z≤0 map to Q2 zero in deterministic E2M1 nearest rounding. This is a conditional *quantization-induced ReLU-like collapse* for the negative halfline, not a claim that Wan layers have s>4M_- or that negative z can be predicted cheaply.",
+    "scale_stability": "Distinguish (a) code-cell invariance at fixed scale, (b) scale leader/amax preservation at the quantization microblock level, and (c) any NVFP4 tensor-global scale stability. The global and local scales and their rounding create coupled discrete transitions: omitting a single would-be scale leader can alter every code in a block. A cheap certificate must establish these conditions without computing the omitted W1 outputs; just observing full Q2 outputs offline is insufficient.",
+    "constructive_opportunity": "Choose well-separated anchor channels whose verified lower magnitude bounds dominate omitted upper bounds, and group non-anchor channels by code-cell preimages. When this succeeds, fill nonzero codes as well as zeros, creating a smaller direct W1/GELU computation but preserving the ORIGINAL Q2 encoded state. The negative-lobe scale threshold can simplify code proof for one subset. Compare against code-orbit caching (G6C), which eliminates recomputation AFTER Q1 without needing to certify W1 hidden codes.",
+    "physical_cost": "If p hidden rows are certified and W2 remains dense, the W1+W2 projection MAC savings are at most p/2 of the two-projection baseline before all additional certificates/scans/grouping costs, assuming equal D×H costs. A nonzero code in W2 still requires its multiply contribution; Q2 operand equality is not W2 sparsity. A zero-code may additionally help packed W2 only if a layout actually elides those products. Native FP4 baseline, full Q1 cost, certificate probes, scale-state extraction and dynamic packing are mandatory competitors."
+  },
+  "competing_explanations": [
+    "Certified arbitrary FP4 code regions appear more frequent than only zeros but require expensive near-complete W1 projection to identify, so a fixed matrix reduction wins in net work.",
+    "Dynamic FP4 local scale shrinks when all channels are weak, destroying the putative negative-GELU whole-halfline zero regime; having small |φ(z)| is insufficient without a scale-dominant anchor.",
+    "The GELU turning point and code preimage complexity make cheap bounds overly broad and quantized-cell classification unreliable under shift/scale modulation.",
+    "A fixed gate or quantization-friendly reparameterization may improve accuracy but not make the pre-W1 certificate cheaper than the original GEMM; format-matched dense FP4 remains faster.",
+    "Existing conditional-execution and symbolic bound approaches might already encompass the complete method; no novelty is asserted by E2M1 rounding cells or the bounded GELU negative lobe alone."
+  ],
+  "falsifiable_predictions": [
+    "A nonzero code-cell invariance certificate with exact unchanged complete S_f guarantees the SAME ideal decoded Q2 operand as the original W1+GELU path, generalizing v1's zero-only theorem.",
+    "Under deterministic E2M1 nearest rounding, any identity-preprocessed negative GELU value maps to ZERO whenever the effective scale s satisfies s/4>M_-, provided all other values maintain that scale.",
+    "For s/4<M_-, the negative preactivation zero-cell preimage can be disconnected; monotonic preactivation thresholding misses valid intervals or gives false positives.",
+    "Positive predicted code rate by itself cannot establish saved FFN GEMM: only low-cost pre-W1 predicates plus packable omitted channels create physical acceleration.",
+    "An actual MXFP4/NVFP4 implementation can differ strongly from HiF4 in the prevalence of scale-stable codes; each format requires a same-format dense numerical/video reference."
+  ],
+  "best_counterexample": "Let one omitted channel be the unique maximum of an E2M1 microblock, and let all other channels be small enough to produce the same predicted zero code under a *fixed hypothetical* scale. If dropping that channel changes the actual block scale, many non-anchor codes may shift: fixed-cell membership does not imply equality of the joint quantizer. Separately, a cheap interval [−∞,0] for GELU is insufficient to certify zero when s/4<M_- because the negative lobe dips below −s/4; it becomes sufficient only in the explicitly stated scale regime.",
+  "evidence_links": [
+    "research/method_discussion/proposals/MD-20261024-QCELL-SCALE-ANCHOR-G6B/v1.json",
+    "research/method_discussion/proposals/MD-20261024-FP4-CODE-ORBIT-G6C/v1.json",
+    "tools/packed_ffn_reference.py",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://docs.pytorch.org/docs/stable/generated/torch.nn.GELU.html",
+    "https://arxiv.org/abs/2606.26587",
+    "https://arxiv.org/abs/2408.06003"
+  ],
+  "discussion_questions": [
+    "Does the full-scale-invariance certificate survive actual MXFP4 power-of-two scale and NVFP4 rounded E4M3 + global FP32 scale derivations? Derive the strongest sufficient bound on omitted channels and local/global leaders.",
+    "For actual Wan Q1 scales and modulated inputs, is a causal pre-W1 nonzero-code classifier cheaper than directly evaluating the candidate W1 rows at native tensor core throughput?",
+    "Can negative-GELU code collapse be aggregated into a physical 16/32/64-tile W1 omission with a cheap sign certificate, or is it merely a post-W1 software simplification?",
+    "Can Code-Scale-Orbit (G6C) exploit code equivalence more efficiently after Q1 when all pre-W1 hidden certificates fail? Compare cost not just representation.",
+    "What published certified-skip, quantization-cell or sparse activation paper actually subsumes these mechanisms, and at which level (math vs physical operator)?"
+  ],
+  "claim_level": "EXACT_CONDITIONAL_ENCODED_OPERAND_THEOREM_AND_GELU_PREIMAGE_DEDUCTION; FORMAT_AND_RUNTIME_PREVALENCE_UNMEASURED",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-FP4-CODE-ORBIT-G6C",
+  "version": 1,
+  "title": "量化码的尺度轨道与跨Token部分和复用：从离散输入等价类寻找真实GEMM省算",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 FFNDS continuous independent method discussion; quantizer-induced feature exploration"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "FFNDS main at branch creation 218955f16e12dd091379a13933e9976a4bfe92fc; pinned AutoResearcher 5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "note": "An independently proposed activation-code-scale-orbit reuse mechanism, drawing from known lookup GEMM and block quantization but reversing the cached object toward repeated quantized activation code subtiles. CodeGEMM/LUT Tensor Core are prior mechanisms, and no claim of paper novelty, measurable collisions, or speedup is made."
+  },
+  "related_method_ids": [
+    "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+    "MD-20261024-GELU-PARITY-QDQ-G6A"
+  ],
+  "lenses": [
+    "Q1",
+    "Q3",
+    "Q2"
+  ],
+  "mechanism": {
+    "native_boundary": "Current Wan source has norm2/modulation→Q1→W1→GELU→Q2→W2→gate+residual. The proposed operator specifically replaces Q1-to-W1 partial products, so the model's GELU, Q2, W2 and downstream paths need not be approximated. Historical HiF4 QDQ tensors are not equivalent to native W4A4 MXFP4/NVFP4 packed operands; migration requires a format-matched dense baseline and exact source-pinned Q1 and weight scale layouts.",
+    "action": "After a quantizer has emitted Q1 activation codes and effective block scales, canonicalize sub-block code tuples under nonzero scalar multiples, and compute each unique unscaled code–weight partial dot once per output tile. Reconstruct each token's W1 preactivation using its original quantizer scale and the canonical tuple's scalar; retain original W1 bias and the untouched nonlinear/second projection. Search for a sub-block granularity that creates substantial reuse while remaining physical-GEMM/cache efficient. No dense completion, R256, learned pre-W1 selector or changed Q2 semantics are needed at the mathematical level.",
+    "mathematical_representation": "For activation Q1 block b and weight output o, write x^Q_{t,b}=s^x_{t,b}c^x_{t,b}, w^Q_{o,b}=s^w_{o,b}c^w_{o,b}. Then y_{t,o}=Σ_b s^x_{t,b}s^w_{o,b}〈c^x_{t,b},c^w_{o,b}〉+bias_o in ideal decoded arithmetic. Partition b into disjoint subtiles J (all retaining the original WHOLE BLOCK scale). For E2M1, n_{t,b,J}=2c^x_{t,b,J} has integer entries from {0,±1,±2,±3,±4,±6,±8,±12}. For nonzero n, g=gcd_i|n_i|, σ=sign(first nonzero n_i), p=σ n/g; then c^x=(σ g/2)p. Hence 〈x^Q_{t,b,J},w^Q_{o,b,J}〉=[s^x_{t,b} σ g/2] s^w_{o,b}〈p,c^w_{o,b,J}〉. All tokens with the SAME primitive p share the unscaled dot 〈p,c^w〉 despite different scales, signs and common integer factors. The all-zero pattern contributes exactly zero. For MXFP4 this scalar-block form uses E8M0/32 and E2M1, for NVFP4 it uses E4M3/16 plus global FP32 factor folded into s^x; a 2D weight scale can be indexed by output/activation blocks if it is separable on the chosen subtiles. HiF4 applies only after its native algebraic scalar/code factorization is established, not by substituting these E2M1 rules.",
+    "numerical_scope": "Exact identity in a decoded real-valued dot product with frozen input and weight quantization state, known additive subtiles and fixed weight-tiling scales. FP4 MMA accumulation order, saturation, round-to-nearest/stochastic choice at encoder, subnormal behavior, signed zero, fused scale multiplication and BF16/GELU downstream may make a retiled kernel not bitwise identical. Stochastic rounding can be treated if already-realized codes are observed and reused, not if an online predictor claims deterministic future codes.",
+    "information_before_work": "This method uses Q1 code and scale information that exists before W1. It does NOT use post-W1/GELU/Q2 values to claim W1 savings. If the production pipeline fuses Q1 with W1 and never exposes the packed code/scale state, materialization and hashing become new explicit costs. No free telemetry or zero-cost dictionary is assumed.",
+    "combinatorial_occupancy": "An E2M1 scalar has 15 DISTINCT numeric values (signed zero merged). A k-coordinate code tuple has at most 15^k possibilities before projective normalization. For k=3, at most 3375 distinct tuples, so among the 31668 row positions at an audited FFNDS full site at least 31668−3375=28293 occurrences repeat a previously appearing tuple, irrespective of distribution. This is an existential identity on a FULL SITE, not evidence of reusable patterns in hardware-sized local tiles and not speedup. For k=4, 15^4=50625 >31668 so counting alone forces no collisions. The scale-orbit quotient can only reduce the number of unique signatures, but occupancy gain is unmeasured.",
+    "probabilistic_discriminator": "For iid sampled tokens at one block/subtile with code-signature probabilities p_u, pairwise collision probability is Σ_u p_u² = exp(−H_2) where H_2 is order-2 Rényi entropy. Expected distinct signatures U(T)=Σ_u[1−(1−p_u)^T]. Native video tokens are temporally/spatially correlated so iid formulas are descriptive nulls, not claims about real sampling; source-held-out tile-aligned statistics and per-frame/source clustering would eventually be necessary.",
+    "net_physical_work": "With T tokens, N W1 outputs, k subtile width and U unique canonical signatures at the chosen reuse scope, direct decoded dot cost is Θ(TNk) versus cached dot Θ(UNk), but the latter requires Θ(TN) signature→dot gather/scalings/accumulations, Θ(Tk) hashing, cache/table footprint Θ(UN), and launch/packing overhead. A necessary, far from sufficient, favorable inequality is (T−U)Nk·cost_mac > TN·cost_gather_scale + cost_dictionary_hash_traffic. Strong FP4 tensor-core dense GEMM, cache residency and source-independent end-to-end wall time determine the actual frontier. A 3-value pattern may repeat massively yet be physically inefficient because tiny-k tables cannot exploit dense MMA and large global dictionaries overflow on-chip storage.",
+    "distinction_from_nearest_prior": "CodeGEMM precomputes centroid–activation partial sums keyed by QUANTIZED WEIGHT code indices (often weight-only 2-bit); LUT Tensor Core likewise accelerates mixed-precision GEMM with lookup/table architecture. The proposed exact quotient is on already quantized ACTIVATION code subtiles across tokens, with independently varying microscaling factors and canonical integer scale orbits. This is a research transfer and symmetry discovery, not a claim that LUTs or memoization are novel."
+  },
+  "competing_explanations": [
+    "Natural k=16/32 full FP4 microblocks have enormous combinatorial support so U≈T in realistic token tiles, giving no reuse even though short subtiles have many mathematical collisions.",
+    "GPU FP4 Tensor Core already delivers much higher throughput per byte than indexed gathers; dictionary construction, cache spill and non-coalesced accumulation overwhelm saved scalar products.",
+    "Quantized code collisions occur mostly between correlated spatial samples but groups are scattered across SMs; sorting/dispatch costs exceed cross-token partial-product savings.",
+    "General precomputed table/bitsliced codebook GEMM offers the same reuse more cheaply, making the candidate an implementation restatement of prior art without useful new action.",
+    "HiF4 Q1 in the current runtime is fake-quantized/dequantized BF16 and the bit-packed code stream is not resident; extraction/re-encoding can erase any projected benefit."
+  ],
+  "falsifiable_predictions": [
+    "For any fixed quantized input codes/scales and weights satisfying the separable block factorization, code-scale-orbit reconstruction produces the SAME ideal real W1 preactivation, even when source tokens have different scales.",
+    "Two tokens with identical E2M1 codes but different block scales share their unscaled partial dot; requiring scale equality reduces available exact reuse unnecessarily.",
+    "The number of distinct canonical subcodes U(T,k) changes sharply with k and source/tile scope; guaranteed global k=3 collisions do NOT guarantee positive native performance.",
+    "When actual Q1 code entropy is close to maximal within a physical reuse window, or dictionary storage exceeds on-chip budget, an optimized dense W4A4 baseline should dominate despite algebraic reuse.",
+    "If this mechanism is useful, gain must survive comparison against a strong same-format native FP4 GEMM, weight-codebook LUT competitor, simple fixed/group-sparse W1 and full I2V model wall time; GELU/Q2 outputs remain held constant except numerical reorder."
+  ],
+  "best_counterexample": "Take T=128 local tokens where each k=16 input E2M1 tuple is distinct, with independently varying scales. Then U=T, so cached dots perform as many weight products as dense while adding hashing, gathers and launches. Even for the entire 31668-row site and k=3 with ≥28293 repeated code tuples by pigeonhole, a dictionary of U≈3375 times N=13824 W1 outputs occupies ~93 MB at 2 bytes/entry for ONE subtile, far larger than a typical per-SM shared memory cache; repeated patterns are not a physical speed certificate.",
+  "evidence_links": [
+    "research/ACTIVE_RESEARCH.json",
+    "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+    "research/20261024/EXPERIMENT_PAUSE.json",
+    "tools/packed_ffn_reference.py",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://triton-lang.org/main/getting-started/tutorials/gluon/tcgen05-mma-scaled.html",
+    "https://arxiv.org/abs/2512.17970",
+    "https://arxiv.org/abs/2408.06003"
+  ],
+  "discussion_questions": [
+    "Can an independent agent derive a **hardware tile-local** lower bound on reusable code-orbit collisions, not just the full-site pigeonhole bound, using available sources and without new experiments?",
+    "Is there a precision-preserving fused layout that reuses canonical E2M1 code subtiles while remaining compatible with scaled tcgen05 tensor-core ops, or is indexed gather cost a structural no-go?",
+    "Would source-specific spatially correlated code patterns be sufficiently concentrated to make k=8/16 reuse nontrivial, or will code entropy force k so small that tensor core compute is preferable?",
+    "How does this exact activation-side reuse differ formally and in execution scope from CodeGEMM, LUT Tensor Core, and 2026 quantization-aware sparse techniques?",
+    "Is the HiF4 code-and-scale representation actually separable as required, or should it remain a historical control while MXFP4/NVFP4 are the first candidate formats?"
+  ],
+  "claim_level": "MATHEMATICAL_SCALE_ORBIT_FACTORIZATION_AND_COMBINATORIAL_BOUNDS; CONDITIONAL_FORMAT_SUPPORT; NO_NATIVE_CODE_ENTROPY_OR_SPEED_MEASUREMENT",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
