@@ -2,6 +2,10 @@
 
 用户要求暂停所有实验。七个获授权节点已核对，本项目实验进程为0；不再启动CPU/GPU/模型实验、等待任务或重试，等待明确恢复。C2N2因选中卡后来出现外来计算而停止，视频及原生前向均为0，算法质量/速度未测。记录和HF资产完整保留，见[暂停记录](research/20261024/EXPERIMENT_PAUSE.json)、[实际结果](research/20261023/C2N2_native_results.json)和[当前交接](research/20261023/HANDOFF_C2N2.md)。下文的研究方向和执行中说明为暂停前历史状态。
 
+# 研究目标正式复位：补算与R256都不是目标（2026-10-24）
+
+**现在的研究目标是减少真正执行的 FFN 计算，同时维持四步视频生成质量**，不是“找哪些行恢复Dense”。直接无补算/无补偿稀疏算子、算子合并与重参数、静态压缩、动态路由，以及有成本的可选恢复路径，都根据真实算子机制、相同部署代价与视频质量选择；不使用旧 Dense/UB1 标签限定新候选。见[正式目标复位](docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md)。仍暂停全部实验。
+
 # Archived research clarification: recovery is optional (2026-10-24)
 
 The completed [research analysis](docs/92_摆脱补算预设_条件稀疏的目标与算子重构_20261024.md) and [exploration seeds](research/20261024/potential_directions_exploration.json) remove mandatory dense completion/R256 from the research premise. Direct conditional group relations and nonlinear coalescence are prospective alternatives; signed finite action value applies to all actions. The CPU receipts contain no-completion counterexamples, a log-risk/arithmetic-utility reversal, and a costed optional shared-prefix construction. All future checks are paused under the user instruction above. Existing C1/R4/HP1 and other failed recipes remain closed. This archival update adds no execution authority or automatic followup.
