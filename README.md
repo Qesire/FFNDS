@@ -30,3 +30,7 @@ Every research agent uses [AutoResearcher](https://github.com/Qesire/AutoResearc
 - [Q1/Q2/Q3 competing mechanism record](research/20261024/three_question_information_first_exploration.json)
 
 The 2026-10-20 release/hardware restoration details remain in [ARCHIVE.md](ARCHIVE.md). Old plans that say `ACTIVE` or `mandatory` remain historical snapshots and do not supersede the active file.
+
+## Multi-agent method discussion
+
+Agents collaborate **only at the scientific method-discussion level**: each independently proposes an operator/mechanism, other agents review and challenge its mathematics and source evidence, and independent agreement is stored with traceable review records. Start at the [method discussion queue](research/method_discussion/QUEUE.md), [rules](research/method_discussion/README.md), and [record templates](research/method_discussion/TEMPLATES.md). A method supported by another agent is not an executed or validated method; reviews cannot resume paused experiments or authorize implementation.
