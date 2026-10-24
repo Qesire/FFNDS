@@ -15,3 +15,7 @@ This page is **navigation**, not another task schedule. Cleanup provenance and v
 **Task status precedence:** `research/ACTIVE_RESEARCH.json` → root `AGENTS.md` → project `research/OBJECTIVE_CONTRACT.json` for scientific goals; `research/20261024/EXPERIMENT_PAUSE.json` and the existing eligibility ledger govern whether experiments may run. Every dated `ACTIVE`, `RUN`, `RETRY`, `NEXT` in archived files applies only to its original timestamp and scope. Preserve original result and protocol bytes.
 
 No experiments or model execution were started by this navigation update.
+
+## Discussion-only collaboration
+
+For multiple scientific agents, use [the independent method discussion queue](method_discussion/QUEUE.md), [governance](method_discussion/README.md) and [templates](method_discussion/TEMPLATES.md). It is a parallel discussion ledger, **not another active research source, experiment scheduler or approval gate for creativity**. Peer-supported entries reference real external review files; previously authored theory seeded into the queue is explicitly unreviewed until a different agent reviews it. Root AGENTS.md governs behavior; all experimental resource use remains paused.
