@@ -1,28 +1,25 @@
-# FFNDS · current research evidence packet
+# FFNDS — concise decision-specific evidence packet
 
-**Only current research entry:** [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json), source pinned `FFNDS@63f7272916baf997937691ccbc7086a61f55861e` and `AutoResearcher@5bd7ec537ae63f2b6a6dd579f0e886aff58a177c`. Older dated "ACTIVE" handoffs remain past observations, not task selectors.
+Live state: [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). Model/source identity and its original hashes: [C0 source bindings](../20261023/C0_coupling_offline_results.json), [runtime reconstruction](../20261022/R12_E0_runtime_reconstruction.json). AutoResearcher principles: [local harness](../../core/AGENT_HARNESS.md). Dated plans are historical observations.
 
-## North star and actual open scientific fork
+## North star and current scientific opportunity
 
-Lower full FFN plus whole-generation cost under competitive native four-step I2V video-quality constraints. Current questions: **Q1** What useful information exists before a calculation? **Q2** Which information improves cost-adjusted choices? **Q3** Which work is truly disposable after propagation?
+Find lower actual Wan2.2 four-step D-Q/HiF4 FFN and end-to-end cost at preserved free-running video quality. Explore through **Q1 (available information)**, **Q2 (economically useful decisions)** and **Q3 (genuinely reducible operations)** in either direction. The scientifically interesting gap is between a computable local FFN approximation and its state-dependent downstream effect, *and* between a mathematical operation reduction and physically efficient execution.
 
-**Immediate research choice:** Distinguish predicting the deterministic *local* FFN output from predicting the *downstream value* of a low-cost action under pre-normalization residual/attention state. Recover the true decision-boundary variables before inventing a selector or using older dense-restoration labels.
+## Real object and evidence
 
-## Verified source object
+- Wan I2V distilled D-Q/HiF4, FFN width 5120→13824→5120, native quantization/GELU, AdaLN, attention, gate, residual. Check the precise relevant implementation and QDQ boundary against [source bindings](../20261023/C0_coupling_offline_results.json) and [reference operator](../../tools/packed_ffn_reference.py) for any native claim.
+- **Mathematical identity:** given complete quantized post-Q1 `q`, frozen weights and execution semantics, the current *local* deterministic FFN output is fully determined. This says nothing by itself about the state-dependent future value of changing the operator.
+- **Constructive C0 synthetic result:** identical BF16 normalized input but different pre-norm residual scales reverses next-normalization A/B action ranking. Read [numerical record](../20261023/C0_coupling_offline_results.json) for exact scope; a mechanism seed for real Wan.
+- **Older native scopes:** R7 finite two-block interactions, R13 copied-row comparison, R16/R17 routing and incomplete fresh quality. They test specific actions/metrics, not all alternative operators.
+- **Missing historical operands:** the 3,840 old OP2 file headers lack pre-norm residual and attention increment and do not contain same-prefix finite native labels for fresh low-cost operators. The next source inspection can locate existing observables; it need not assume a selector is necessary.
 
-Original LightX2V Wan2.2 I2V 4-step distilled D-Q BF16/HiF4, 5120→13824→5120 FFN, native Q1/GELU/Q2, norm2/AdaLN, attention update, residual/gate. Upstream source-file hashes are bound in [C0 data provenance](../20261023/C0_coupling_offline_results.json). The [FFNDS original operator reference](../../tools/packed_ffn_reference.py) documents one *particular* packed 108/216 group baseline, not the full operator search space. Model time values and sigma schedule require original [runtime audit](../20261022/R12_E0_runtime_reconstruction.json).
+## Two complementary openings
 
-## Evidence used to decide the next source read
+**From information:** derive whether state variables absent from `q` or its cheap sketch alter downstream finite action preference. Contrast residual-scale/attention bypass against geometry or step-only predictors. The conditional `NetVOI` must eventually include observation, policy, layout and native action costs.
 
-- **Math:** With exact fixed weights/quantization and full post-Q1 `q`, local FFN activation is deterministic: upstream signal cannot add conditional information about that local target. It may affect downstream state through residual bypass or help when online selection only sees a cheap sketch of `q`.
-- **Synthetic constructed counterexample:** [C0 finite scale rank reversal](../20261023/C0_coupling_offline_results.json) has equal normalized BF16 inputs at residual scale 1 and 4 but different best next-norm finite-action choices. It establishes logical possibility, not its frequency in Wan.
-- **Scoped native past:** R7 two-action finite downstream scalar interactions and [C0 old R17 mask/exposure](../20261023/TACR_sampling_evidence_v2.json) indicate what *was recorded*, not which new action works. R17 independent full-video official quality remains incomplete.
-- **Unavailable in old saved OP2 headers:** pre-norm residual, already-computed attention increment, matched native *new low-cost action* finite continuation. Do not infer them from V1/dense/UB1 labels.
+**From computation:** inspect FFN/quantization/temporal execution and look for an identity, low-dimensional invariant, repeated work, alternative unit of sharing, or a physically efficient approximation. Define what it saves even with a **fixed** choice; then determine whether input or upstream state can improve the Pareto frontier. Constructive hypotheses are welcome before any empirical permission or full deployment proof.
 
-## Next constructive discriminator (proposal, no experiment started)
+**High-information next step:** choose the opening that most changes the mechanism understanding using a source inspection, algebraic result, or existing saved evidence. For later separately authorized tests, evaluate distinguishable native actions and downstream finite effects, then full four-step free videos and true runtime. Compare against matched static and closest prior-art methods.
 
-Specify at least two different downstream action-value predictions, then audit actual `infer_ffn` data dependencies. First check whether existing norm output/statistics plus attention update can be exposed with cheap readout and where native QDQ makes them available. For a future *authorized* test, compare metadata-only → norm statistic → attention innovation → q sketch, with actions and physical budget held fixed; test whether cost-adjusted action preference actually changes. A signal improving hidden R² without reducing decision regret answers Q1 but not Q2.
-
-The separate physical-operator search starts when the information/decision mechanism gives a reason to select its granularity. In the meantime mathematical explorations may freely propose competing mechanisms. Dense completion and R256 are optional charged candidates, not prerequisites.
-
-**Permissions:** source/math/literature and administrative writes only. [Explicit experiment pause](../20261024/EXPERIMENT_PAUSE.json) forbids CPU/GPU/model experiments, queued retries and automatic experimental followups; eligible model methods empty.
+**Resource boundary:** user explicitly paused all CPU/GPU/model experiments, job retries and automatic follow-ups in [pause receipt](../20261024/EXPERIMENT_PAUSE.json). This packet authorizes source/literature/math and repository administrative work only.

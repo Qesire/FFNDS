@@ -1,20 +1,20 @@
 ---
 name: ffnds-paper-discovery
-description: Default FFNDS research specialization: real Wan FFN information, causal computation value and deployment-cost mechanisms via AutoResearcher.
+description: Automatically apply AutoResearcher mechanism discovery, mathematical reformulation and evidence-grounded science to FFNDS video FFN research.
 ---
-# FFNDS research: information → net decision value → true omitted compute
+# FFNDS — information ↔ net decision value ↔ physical compute
 
-The project-wide [AGENTS.md](../../../AGENTS.md) automatically enables AutoResearcher, with the [current three-question state](../../../research/ACTIVE_RESEARCH.json). This skill is the **FFNDS-specific application**, not an additional checklist. Use it when research touches Wan FFNs, sparsity/quantization, temporal state or prior literature.
+For every research request, use the project [AGENTS.md](../../../AGENTS.md), [live scientific state](../../../research/ACTIVE_RESEARCH.json), and the [compact evidence packet](../../../research/agent_protocol/CURRENT_CONTEXT_PACKET.md). This domain skill is a working scientific lens, not an additional approval process.
 
-Start by identifying which question blocks progress: **Q1 existing useful signal, Q2 positive conditional NetVOI, or Q3 whole-video native action effect**. Lead with an unexpected mechanism/representation and derivation. Read only the relevant frozen Wan checkpoint source/QDQ graph and archived evidence; trace residual, attention, AdaLN, gate, W1, GELU, W2 and four-step propagation at the actual decision boundary.
+**Opening move:** identify a surprising observed behavior, algebraic structure, information bottleneck or deployment mismatch. Form a useful explanatory mechanism and an alternative with a different prediction. Begin from **whichever object is informative**: upstream residual/attention, FFN weights and nonlinearities, temporal propagation, a packed HiF4 kernel, or unexpected full-video behavior.
 
-Examples of generative pivots:
-- Conditioning on entire post-Q1 q makes frozen local FFN output deterministic, but pre-normalization residual/attention can still affect *downstream* action value.
-- Cheap upstream observation may be useful because the selector cannot afford full q, even when it adds no information conditional on complete q.
-- Signed downstream sensitivity, temporal reuse and actually packed GPU work may lead to very different decisions from dense-exception SSE or hidden activation magnitude.
+The three questions work together:
+- **Q1 information:** distinguish what a cheap observer can know from what the full deterministic post-Q1 input `q` already determines locally. Earlier state may still matter for downstream video response via residual bypass.
+- **Q2 net decision value:** ask whether the signal changes a physical action at lower total cost, relative to a matched fixed design; model signed finite-action margin and the observation/selector/packing overhead.
+- **Q3 actual computation:** derive removable/shareable/reparameterizable work from the native graph, then ask what side information this operator would need (perhaps none). Explore static, conditional, merged, cross-step reuse or re-representation mechanisms without designating a default recipe.
 
-Use **one** relevant specialist automatically: [mechanism-research](../mechanism-research/SKILL.md) for computation, [research-expansion](../research-expansion/SKILL.md) for new structures, [problem-reformulation](../problem-reformulation/SKILL.md) for the information/action/operator unit. Compare closest published complete mechanisms constructively; adapt strong literature controls. An exact old rejected instance does not reject related research ideas.
+Choose the most productive scientific method **per question**. Combine [problem-reformulation](../problem-reformulation/SKILL.md) for E/T/R transformations, [research-expansion](../research-expansion/SKILL.md) for wider hypotheses, and [mechanism-research](../mechanism-research/SKILL.md) for real source/shape/QDQ and downstream response. A short task may need only one; an explanatory breakthrough may need all three.
 
-The three-question [source and math study](../../../docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md) and [archived C0 evidence](../../../research/20261023/C0_coupling_offline_results.json) are useful entrypoints. Output **new mechanism → equation/code evidence → contrary prediction → smallest decision-changing next step**. Distinguish synthetic/exact/native/free-video claims without burying exploration under caveats.
+**Research deliverable:** new viewpoint or structural result → mathematical/source support → distinctive prediction against the closest literature/old mechanism → smallest meaningful next action. Include exact scope and proof/measurement status adjacent to the claim; make positive use of older failed trials as mechanism constraints and of published work as reusable primitives. See the [Q1/Q2/Q3 derivation](../../../docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md) and [original C0 evidence](../../../research/20261023/C0_coupling_offline_results.json) as inputs, not a fixed hypothesis list.
 
-All CPU/GPU/model experiments remain paused. Only source/literature/math exploration and administrative edits are currently authorized; no automatic tests/retries. For any future authorized measurement, use full native FFN/generation cost, the correct model and independent free-running video quality. Do not treat historical registration thresholds as universal novelty gates.
+**Execution state:** user-paused FFNDS CPU/GPU/model experimentation, launch queues and automatic retries remain paused; source/literature/math and administrative edits continue. A later approved performance claim uses native HiF4/BF16, true physical cost and independent four-step free-running video.
