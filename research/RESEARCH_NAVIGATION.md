@@ -1,6 +1,6 @@
 # FFNDS research navigation
 
-This page is **navigation**, not another task schedule. A new research turn begins with [AGENTS](../AGENTS.md), [one active research file](ACTIVE_RESEARCH.json) and [current short evidence packet](agent_protocol/CURRENT_CONTEXT_PACKET.md). Use the local AutoResearcher [harness](../core/AGENT_HARNESS.md) to choose one skill at the relevant scientific fork; do not load the entire historical ledger into the prompt.
+This page is **navigation**, not another task schedule. Cleanup provenance and verified static findings are recorded in [2026-10-24 cleanup audit](20261024/RESEARCH_CLEANUP_AUDIT.json). A new research turn begins with [AGENTS](../AGENTS.md), [one active research file](ACTIVE_RESEARCH.json) and [current short evidence packet](agent_protocol/CURRENT_CONTEXT_PACKET.md). Use the local AutoResearcher [harness](../core/AGENT_HARNESS.md) to choose one skill at the relevant scientific fork; do not load the entire historical ledger into the prompt.
 
 | Area | Read when | Canonical reference |
 | --- | --- | --- |
