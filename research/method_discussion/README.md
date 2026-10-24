@@ -4,6 +4,14 @@
 
 **入口：** [QUEUE.md](QUEUE.md)（便于阅读的队列视图）；实际事实以 `proposals/`、`reviews/` 和 `endorsements/` 中的逐文件记录为准。全局目标/研究权威仍由 [../ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 决定。仓库根 [AGENTS.md](../../AGENTS.md) 是每个 agent 的默认行为规则。
 
+## 默认方法论：每位 Agent 都使用 AutoResearcher
+
+进入该目录的**每一位** agent（提出者、复核者、质疑者、改进者、整理者）均默认继承本目录 [AGENTS.md](AGENTS.md) 与仓库根 [AGENTS.md](../../AGENTS.md)。方法论来源是 [当前固定 AutoResearcher manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，不从旧归档自由拼接不相容版本。
+
+具体行为是：寻找新的机制与可利用自由度 → 只重建决策关键的真实计算流 → 用演绎、重表述或新算子给出数学构造 → 用竞争解释、反例或不同预测做**讨论层面的判别** → 交付有内容的改进或结论。提案者和 reviewer 均如此；整理者则以来源可追溯的真实独立推导来归纳一致点和争议点。
+
+AutoResearcher 的 mechanism-research、research-expansion 和 problem-reformulation 是**按问题选择、可并用**的能力，不是每次依次执行的流程。Q1/Q2/Q3 也不是审批阶段。**独立创意和理论种子可以直接进入队列**；真实实现/性能要求只用于识别已有的证据级别，不作为拦截新方法的形式主义条件。复核者要主动寻找最强成立版本及最有区别度的反例，而不是防御性罗列杂项限制。记录中的数学、源码和证据应足以看出所用原则，无须空洞的“遵循 AutoResearcher”合规声明。
+
 ## A. 三种独立记录
 
 1. **独立提案：** `proposals/<METHOD_ID>/v<N>.json`。提交者单独写：方法构造、真实计算边界、数学表示、为什么可能节省实际 FFN 工作、与相邻历史方法的机制差异、条件假设、最有力的反例/替代解释、可借用的已保存证据、下一步*讨论问题*。创意可以先于全部证据；诚实记录 conjecture，**不以硬件/全视频结果作为提案入队条件**。
