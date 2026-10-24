@@ -1,5 +1,8 @@
 # FFNDS — concise decision-specific evidence packet
 
+**Live priority right now:** `ACTIVE_RESEARCH.json.current_stage=E0_OPEN_DISCOVERY`. Open [first E0 phenomenon task](../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md) and [stage/anti-drift anchor](E0_STAGE_ANCHOR.md) before continuing any historical operator seed. We are currently discovering **what real information and FFN/video structure exists**, not selecting a mask, K/N panel, compensation or proxy formula. G6D/G6E/G6F are exploratory candidates, not the next action. Agent deliverable: source-bound phenomenon, contrasting mechanisms, one decisive observation. No method-discussion implementation or model experiments.
+
+
 Live state: [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). Model/source identity and its original hashes: [C0 source bindings](../20261023/C0_coupling_offline_results.json), [runtime reconstruction](../20261022/R12_E0_runtime_reconstruction.json). AutoResearcher principles: [local harness](../../core/AGENT_HARNESS.md). Dated plans are historical observations. Relevant experiment files are prioritized in the [scientific evidence ranking](../EXPERIMENT_EVIDENCE_INDEX.md); follow original source/protocol from the ranked artifact as needed.
 
 ## North star and current scientific opportunity
