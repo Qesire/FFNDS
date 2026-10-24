@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+  "version": 1,
+  "title": "尺度锚定的量化单元证明：在 W1 前识别编码恒为零的 GELU 通道",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 FFNDS independent method discussion, user extension to MXFP4/NVFP4 and quantization-induced structure"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "FFNDS main before branch agent/gpt6-quantization-structure-20261024; pinned AutoResearcher 5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "note": "New operator hypothesis derived from discretization and scale coupling, not a new named quantizer and not a demonstrated Wan runtime speedup. Known quantized zero codes, dynamic block scales, certified bounds and FP4 sparsity are background mechanisms; proposed novelty target is pre-W1 conditional certificate + preservation of the actual activation-Q2 encoded operand + packed physical FFN."
+  },
+  "related_method_ids": [
+    "MD-20261024-GELU-PARITY-QDQ-G6A",
+    "MD-20261024-GATED-QUOTIENT-01"
+  ],
+  "lenses": [
+    "Q1",
+    "Q3",
+    "Q2"
+  ],
+  "mechanism": {
+    "native_boundary": "Current native reference is Wan FFN norm2/modulation→Q1→W1+b1→GELU(tanh)→optional per-hidden pre-Q2 scaling→Q2→optional alpha/cast→W2+b2→gate+residual. Its 5120→13824→5120 shape is source-grounded; existing HiF4 packing tests prove whole64 separability ONLY for that implementation. MXFP4/NVFP4 are proposed replacement execution formats, not currently validated Wan adapters. Their microscaling layout must be re-pinned before a native claim.",
+    "quantizer_abstraction": "For deterministic inference Q2 recipe f, encode a hidden microblock B by E_f(h_B;context)=(codes_B,scale_B,possibly global_scale,rounding_mode). Q2 reconstruction R_f(E_f) defines exact logical inputs to W2. Important: scale_B may depend on all hidden values in B and global_scale may depend on other blocks/tensor, so an apparently tiny hidden channel is not automatically removable.",
+    "action": "Partition each quantization microblock B into evaluated anchor channels A_B and candidate channels J_B. Derive a cheap, causal pre-W1 certificate bounding h_j=GELU(w1_j^T v1+b_j) (after any per-channel pre-Q2 normalization) for all j∈J_B. Compute just anchor preactivations, determine the actual local scale from anchors and certify that (i) all omitted candidates encode ZERO given that scale, and (ii) their bounded values cannot alter any local or global scale-selection rule. Then emit the SAME Q2 code+scale state as the full hidden computation, with omitted channels filled as zero, and skip those W1 rows/GELU. W2 remains physically dense unless a separately justified compressed/sparse K-layout eliminates its work; zeroing output after dense W1 is not a speed mechanism.",
+    "mathematical_representation": "Let v=Q1(modulate(norm2(r))), z_j=w_j·v+b_j, h_j=φ(z_j) adjusted by the real native pre-Q2 transform, φ=GELU_tanh. For an orthonormal cheap sketch U, zhat_j=(U^T w_j)^T(U^T v)+b_j and |z_j−zhat_j|≤||w_j−UU^T w_j||₂ ||(I−UU^T)v||₂. Interval-transform z∈[zhat−eps,zhat+eps] through φ without assuming global monotonicity (GELU has a negative-region turning point). Suppose the full quantizer uses deterministic E2M1 round-to-nearest with nonzero least positive magnitude 0.5*s_B; a strict |h_j|<0.25*s_B implies code_j=0 when the fixed scale is s_B (ties omitted). If all omitted candidate interval bounds are inside this zero cell AND the complete scale chooser S_f(h_B,context) is provably identical to its anchor-only state (including NVFP4 global scale when dynamic), then E_f(h_B)=E_f(h_A,0_J) as encoded operands. Therefore logical W2(Q2(h)) is exactly unchanged at fixed W2, with all original Q2 scales/layout preserved. This is a conditional quantized-operand identity, not a theorem that sparse GEMM accumulates bitwise identically after a different launch/schedule. Other quantizer codebooks use their own strict zero-cell and scale-stability conditions; stochastic rounding may invalidate deterministic near-zero certificates.",
+    "format_specific_predicted_signals": {
+      "MXFP4": "E2M1 codes, standard shared E8M0 exponent-only scale per 32 K-axis values. Scale-bin plateaus and rounding-to-zero windows are discrete; crossing a power-of-two scale boundary can flip many codes together. Anchor bounds must hold in 32-element blocks.",
+      "NVFP4": "E2M1 code; local E4M3 scale per 16 elements plus tensor-level FP32 scale (according to inference recipe). Finer local scale changes zero-cell width; global scale stability is separately necessary. Transformer Engine training examples use stochastic rounding, which must not be silently transferred to deterministic inference claims.",
+      "HiF4": "Native saved HiF4 GPU quant path groups full 64 hidden channels in the audited implementation; the original QDQ codebook and internal 4/8/64 hierarchy are a distinct backend, not an OCP FP4/MXFP4 equivalent. Proof shape depends on exact backend quant_hifx source and may not expose the same shared-scale zero-cell test.",
+      "other_formats": "Any deterministic symmetric/asymmetric low-bit format with known code regions and scale-selection contract can be considered; do not assume all have zero-codes or per-group amax scales."
+    },
+    "quantization_induced_information": "The observable target is not generic magnitude ||h||. Useful data are (a) scale-leader identity/margin, (b) distance from candidate intervals to quantization cell boundaries, (c) scale-bin transitions, (d) conditional zero-code/support stability, and (e) whether post-Q2 value information arrives too late to skip W1. Q1 blocks/scales/metadata are only free when already materialized at decision time; a costly additional preview must be charged.",
+    "expected_compute_saving": "If fraction p of FFN hidden rows can be certified before W1, main projection MAC ratio can improve by at most ~p/2 of dense W1+W2 MAC when W2 is kept unchanged and W1/W2 have equal D×H cost, ignoring extra sketch/dispatch. Savings from W2 require compact/tensor-core-aligned sparse or packed execution, not zeros inside an otherwise dense MMA. Compare full Q1/W1/GELU/Q2/W2, scale extraction, projection sketches, extra GEMM launches, packing, and full wall time to matched fixed baselines.",
+    "what_is_not_claimed": "Not yet measured whether any native Wan tokens/blocks have enough zero-cell occupancy or can be certified cheaply. Strict deterministic numerical equivalence is conditional on complete preserved encoding, scale, and quantizer semantics; switching HiF4→MXFP4/NVFP4 changes reference outputs and may require a separately matched dense baseline."
+  },
+  "competing_explanations": [
+    "Dynamic amax scale ensures a nonzero winner in most nonzero microblocks, preventing whole-block-zero shortcuts; the method can only omit interior candidates and may save W1 but not W2.",
+    "The robust interval certificate is too loose or costs too much: a low-rank sketch/remainder norm may be almost as costly as the skipped W1, leaving no net benefit.",
+    "Most GELU negative values are small, but within locally scaled negative-only microblocks the scale shrinks with them so codes remain nonzero; raw near-zero values do not prove Q2-zero codes.",
+    "Existing structured FP4 sparsity, e.g. SharQ, wins by hardware-friendly N:M while the proposed certified algorithm has poor deployment occupancy; certification alone is not speed.",
+    "Scale and code stability may be high only on training/discovery sources and vanish across changed expert, step and scene; unconditional fixed group pruning could match the net result."
+  ],
+  "falsifiable_predictions": [
+    "The no-change operand theorem is exact for a deterministic quantizer with confirmed stable complete scale state and strict zero-cell-bound candidate channels. It fails by construction if a skipped channel sets any actual scale or rounds to a nonzero code.",
+    "At matched input distributions with isolated large positive GELU scale leaders and weak negative followers, some hidden followers can have nonzero real values but quantized Q2 code zero; a targeted pre-W1 bound can therefore eliminate work without increasing logical Q2 error.",
+    "MXFP4 E8M0 scale boundary transitions can produce discontinuous support and group error when a scale leader moves; NVFP4 finer 16-element scales will change the certificate density and locality, but neither dominance ordering nor prevalence is assumed.",
+    "False positive certificate (skipped candidate outside its zero region) can change multiple Q2 codes if it also changes block/global scale; scale-stability is a causally distinct constraint from value-smallness.",
+    "Native complete FFN speed cannot improve from unchanged dense W2 merely because activation codes become more zero; measurable gain first requires skipped W1 physical tiles and cheap/batched certification, or an explicit compatible W2 sparse packing mechanism."
+  ],
+  "best_counterexample": "Take an E2M1 block with all GELU outputs h_j=10^-5 and scale selected dynamically from their own amax. The largest h_j must still quantize to a nonzero code under a normal amax-based E2M1 recipe, despite every real activation being tiny; inferring zero from |h_j| alone is wrong. Similarly, even tiny residual z_j can change NVFP4 tensor-global scale if it is the unique tensor maximum after other blocks are smaller. Stochastic rounding of nonzero sub-threshold values is not guaranteed zero.",
+  "evidence_links": [
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://developer.nvidia.com/blog/introducing-nvfp4-for-efficient-and-accurate-low-precision-inference/",
+    "https://nvidia.github.io/TransformerEngine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://arxiv.org/abs/2606.26587",
+    "https://arxiv.org/abs/2509.23202",
+    "https://proceedings.mlr.press/v306/shao26g.html",
+    "tools/packed_ffn_reference.py",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/adapters/wan_i2v.py",
+    "research/ACTIVE_RESEARCH.json",
+    "research/20261024/EXPERIMENT_PAUSE.json"
+  ],
+  "discussion_questions": [
+    "Independently derive the exact encoded-operand equivalence theorem for both OCP MXFP4 and NVIDIA NVFP4 inference recipes. What extra NVFP4 tensor/global-scale conditions are necessary?",
+    "Does any useful cheap pre-W1 interval certificate exist once the cost of U projection, residual norms, anchor W1, microblock scale computation, packing and dispatch is fully charged? Can a source-informed alternative replace the conservative U bound?",
+    "Could a quantizer-compatible block-scale-aware reparameterization reduce the number of required anchors without becoming SharQ's sparse-backbone + dense-residual construction?",
+    "What is the strongest countercase for the claim that scale-selected quantization cells provide NEW free FFN compute? Is the best alternative a format-aware fixed compressed GEMM rather than a router?",
+    "Which parts transfer unchanged across HiF4/MXFP4/NVFP4? Which require new native QDQ source identities and packed matmul layout? Does hidden Q2 information arrive too late for W1 and only help W2?"
+  ],
+  "claim_level": "CONDITIONAL_THEOREM_ON_ENCODED_OPERANDS_AND_EXPLORATORY_FORMAT_AGNOSTIC_OPERATOR; NOT_NATIVE_WAN_EXECUTION_OR_SPEED_VALIDATED",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
