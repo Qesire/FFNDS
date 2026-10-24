@@ -4,6 +4,9 @@ description: Research deployable post-training dynamic FFN methods toward native
 ---
 # FFNDS paper discovery — outcome first, creative alternatives open
 
+**New active information-first PRD (2026-10-24):** [three original research questions](../../../docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md) + [three-question record](../../../research/20261024/three_question_information_first_exploration.json) supersede prior A/B/C fixed operator recipe lists. Research conditional local activation sufficiency versus downstream action information, economical NetVOI given actual FFN pre-W1/pre-block observations, and finite video-quality/real-cost gain of omitting operations. Conditional on full post-Q1 q/θ the local deterministic FFN hidden cannot gain information from upstream; pre-LN scale/attention can still affect downstream action value via residual bypass. Use action-margin sign and true observation/physical kernel cost, not generic attention correlations. All CPU/GPU/model experiments and automatic followups remain paused; earlier A/B/C is archived exploration only.
+
+
 **Latest operator-first AutoResearcher (2026-10-24):** [new research](../../../docs/94_AutoResearcher_算子优先重新探索_20261024.md) and [candidate seed record](../../../research/20261024/operator_first_autoresearcher_reexploration.json). Use upstream `5bd7ec53` compact harness; inspect A double-sided low-rank GELU, B structural W1/W2 canceling groups, C conditional narrow operator. Every method starts as a genuinely cheap compute operator, not a dense/UB1 restoration label. Compare SVDtrunc/LRCC and closed R4/R8/R9/R13 actual scopes. CPU/GPU/video experiments and auto-followups still paused.
 
 

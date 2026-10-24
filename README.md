@@ -1,3 +1,7 @@
+# AutoResearcher：回到原来的三个问题（2026-10-24）
+
+新的[信息论—决策—完整计算研究](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md)恢复三项主问题：FFN/Block 前的信息是否存在、是否有经济决策价值、哪些真实运算可省而不损害四步视频。采用同前缀真实动作价值、NetVOI、跨层/归一化旁路与时空条件机制来重新探索；旧 A/B/C 分解/剪枝/专家方案退回候选档案，不再自动指定算法。机器研究记录见[three-question study](research/20261024/three_question_information_first_exploration.json)。**仅文献/源码/数学探索恢复，CPU/GPU/模型实验仍暂停。**
+
 # AutoResearcher 理论再探索（2026-10-24）
 
 本轮按新版 AutoResearcher 将 FFNDS 的探索从“补算哪些 dense 行”切换到实际 FFN 算子：A 双侧低秩保留 GELU、B W1/W2 耦合结构直接删组、C 条件窄算子。近邻 LRCC/SVDtrunc 和旧 R4/R8/R9/R13 明确作为前例及负结果对照。见[新研究文档](docs/94_AutoResearcher_算子优先重新探索_20261024.md)和[机器记录](research/20261024/operator_first_autoresearcher_reexploration.json)。**理论/文献/源码探索恢复，原有全部 CPU/GPU/模型实验仍暂停。**

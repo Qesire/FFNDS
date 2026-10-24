@@ -1,0 +1,223 @@
+{
+  "id": "FFNDS_THREE_QUESTION_INFORMATION_FIRST_20261024",
+  "status": "SOURCE_THEORY_LITERATURE_EXPLORATION_COMPLETE_EXPERIMENTS_PAUSED",
+  "source_pin": {
+    "ffnds": "3c12b37040221ad47b15f2d73016216623e590c3",
+    "autoResearcher": "5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "source_model": "Wan2.2 I2V LightX2V four-step distilled D-Q HiF4 BF16",
+    "native_pin": "research/20261023/C0_coupling_offline_results.json#native_source_bindings"
+  },
+  "user_original_question_series": [
+    {
+      "id": "Q1_INFORMATION_EXISTS",
+      "question": "Does cheap information before an FFN/block contain incremental knowledge about the value/necessity of future FFN operations?",
+      "subquestions": [
+        "local FFN activation predictability",
+        "downstream finite-action importance under residual/attention bypass"
+      ],
+      "mathematical_split": "I(h;Z|full_Q1,theta)=0 for deterministic local FFN; I(action_value;Z|Q1,theta) can be >0 because downstream residual state is not a deterministic function of Q1 alone"
+    },
+    {
+      "id": "Q2_INFORMATION_USABLE",
+      "question": "Can that information change a budget-matched action enough to repay its extraction, routing and physical execution costs?",
+      "criterion": "NetVOI = R(Z0)-R(Z0,S)-incremental_native_observation_routing_cost",
+      "requires": "same candidate action family, same model/precision/input policy, best matched static baseline, source holdout"
+    },
+    {
+      "id": "Q3_IS_COMPUTE_WORTH_SKIPPING",
+      "question": "Can native FFN work actually be omitted with a favorable true video-quality to FFN-time/generation-time Pareto after residual/block/4-step propagation?",
+      "scope": "real full-action finite effect and source-independent free-running video, not local SSE"
+    }
+  ],
+  "discovery": [
+    {
+      "id": "D0_DETERMINISTIC_SUFFICIENCY",
+      "level": "MATH_IDENTITY",
+      "claim": "Complete fixed q and theta determine local FFN activation/output; upstream features have zero incremental local activation MI conditional on full q",
+      "open": "Economic predictor only sees s(q) and extra features may help; downstream action depends on residual bypass"
+    },
+    {
+      "id": "D1_PRENORM_STATE_AMBIGUITY",
+      "level": "ARCHIVED_SYNTHETIC_CONSTRUCTIVE",
+      "claim": "C0 has identical current BF16 norm input with residual scales 1/4 yet finite action A/B nextnorm loss ranks reverse",
+      "source": "research/20261023/C0_coupling_offline_results.json#scale_counterexample",
+      "disposition": "It proves logical possibility, not Wan empirical prevalence or predictor value"
+    },
+    {
+      "id": "D2_NET_VOI_DECISION_MARGIN",
+      "level": "MATH_DECISION_THEORY",
+      "claim": "Information helps only if it changes correct cost-adjusted action choices, and expected benefit exceeds acquisition/dispatch cost; MI/R2 alone insufficient",
+      "binary_policy_formula": "choose a1 iff E[L(a1)-L(a0)+lambda*(C(a1)-C(a0))|Z]<0"
+    },
+    {
+      "id": "D3_DOWNSTREAM_SENSITIVITY_GEOMETRY",
+      "level": "LOCAL_LINEARIZATION_HYPOTHESIS",
+      "claim": "Current discarded-group output interactions must be judged under state-dependent downstream metric K(r)=J_T(r)^T H J_T(r), not only W2 Gram",
+      "source": "research/20261023/C0_coupling_offline_results.json#R7_scalar_reanalysis",
+      "limitation": "Not valid as a finite nonlinearity guarantee"
+    },
+    {
+      "id": "D4_REUSE_COST_CONTROL",
+      "level": "EXPLORATORY_MECHANISM",
+      "claim": "Existing norm-statistics/attention innovation/cached earlier-block signals may produce net actionable upstream VOI with low extra cost, or may add no benefit beyond cheap post-Q1 sketches",
+      "source": "tools/prew1_norm_statistics.py",
+      "limitation": "36 synthetic CPU equivalence cases, native GPU no-op and speed untested"
+    }
+  ],
+  "information_staircase": [
+    {
+      "level": "Z0",
+      "signals": [
+        "step",
+        "expert",
+        "block",
+        "latent time bin",
+        "spatial tile",
+        "AdaLN gate/conditioning if already materialized"
+      ],
+      "cost": "metadata access"
+    },
+    {
+      "level": "Z1",
+      "signals": [
+        "actual pre-norm residual summaries",
+        "native norm2 mean/rstd when exposed without recomputation",
+        "computed attention increment magnitude/direction"
+      ],
+      "cost": "readout+memory lifetime and possibly extra scans"
+    },
+    {
+      "level": "Z2",
+      "signals": [
+        "quantized pre-W1 vector cheap sketch"
+      ],
+      "cost": "sketch matmul/scan and selector"
+    },
+    {
+      "level": "Z3",
+      "signals": [
+        "previous block outputs/attention summary",
+        "latent temporal source memory"
+      ],
+      "cost": "cache storage, read bandwidth, staleness"
+    },
+    {
+      "level": "ORACLE_OFFLINE_ONLY",
+      "signals": [
+        "full W1 hidden",
+        "actual omitted group vectors",
+        "next step/next block outcome",
+        "dense/full-video labels"
+      ],
+      "cost": "unavailable at decision, not allowed in online router"
+    }
+  ],
+  "mechanism_competition": [
+    {
+      "id": "H1_RESIDUAL_BYPASS_INFO",
+      "prediction": "At otherwise matched q/metadata, added residual/attention-scale interaction changes sign of finite downstream action margin",
+      "discriminator": "action-stable native paired same-prefix alternatives with source-held-out margin sign; shuffle residual stats within site/time",
+      "evidence": "synthetic C0, no native"
+    },
+    {
+      "id": "H2_UPSTREAM_CAUSAL_PARENTS",
+      "prediction": "Above Q1-sketch and norm stats, sparse preceding attention/block innovations have incremental net action-VOI",
+      "discriminator": "conditional VOI Z0 vs +norm vs +attention vs +predecessor; compare conditional-margin regret not activations",
+      "nearest_prior": "arxiv:2607.11990"
+    },
+    {
+      "id": "H3_SPATIOTEMPORAL_AMORTIZATION",
+      "prediction": "Grouped latent frame/tile actions exploit conditional coherence while amortizing policy/packing overhead beyond fixed step/layer budget",
+      "discriminator": "source-independent cross-frame/tile split and actual packed-kernel cost, not R17 mask flip alone",
+      "nearest_priors": [
+        "arxiv:2605.11869",
+        "MOD-DiT ICML 2026"
+      ]
+    },
+    {
+      "id": "H4_STATIC_SUFFICIENCY",
+      "prediction": "Best static cost-matched operator matches all feasible conditional policy net regret, or gains < selector cost",
+      "discriminator": "use strongest fixed primitive, do not force dynamic routing; measure net gains"
+    }
+  ],
+  "source_truth": {
+    "saved_OP2_headers": 3840,
+    "saved_OP2_has_pre_norm_or_attention_update": false,
+    "C0_synthetic_counterexample": true,
+    "C0_native_norm_GPU_identity": false,
+    "R17_complete_subject_groups": 5,
+    "R17_official_quality_metric_calls": 0,
+    "known_C1_action_labels": "Dense-vs-UB1 recovery family only",
+    "R7_mechanism": "finite cross-block response for historical teacher-restoration arms, not generic channel actions"
+  },
+  "paper_mechanism_map": [
+    {
+      "paper": "Sparse Inter-Layer Dependencies of Transformer FFN Neurons",
+      "url": "https://arxiv.org/abs/2607.11990",
+      "borrowing": "sparse upstream neural/attention parents",
+      "not_inherited": "native Wan video/net action value"
+    },
+    {
+      "paper": "FIS-DiT",
+      "url": "https://arxiv.org/abs/2605.11869",
+      "borrowing": "few-step latent frame granularity / refreshing",
+      "not_inherited": "FFN channel selector benefit"
+    },
+    {
+      "paper": "MOD-DiT",
+      "url": "https://proceedings.mlr.press/v306/liu26bb.html",
+      "borrowing": "reuse earlier denoising information for future sparsity",
+      "not_inherited": "video FFN conditional value"
+    },
+    {
+      "paper": "MiTA",
+      "url": "https://arxiv.org/abs/2602.01219",
+      "borrowing": "operator-equivalent representation and scalable information-routing taxonomy",
+      "not_inherited": "identical fast-weight mapping of Wan FFN"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "I0_SOURCE_GRAPH",
+      "status": "SOURCE_RECONSTRUCTION_PREPARED",
+      "action": "pin actual attn residual, norm2, gate and Q1 timing; identify free versus paid fields"
+    },
+    {
+      "id": "I1_ACTION_PORTFOLIO",
+      "status": "DESIGNED_NOT_RUN",
+      "action": "define cost-matched full FFN primitive low-compute actions including direct no-recovery; do not reuse C1 restoration as only label"
+    },
+    {
+      "id": "I2_FINITE_LABEL_CAPTURE",
+      "status": "BLOCKED_BY_EXPLICIT_EXPERIMENT_PAUSE",
+      "action": "only after explicit authorization, capture same-prefix finite action value with pre-norm/attention signals and true native identity"
+    },
+    {
+      "id": "I3_STAIRCASE_NET_VOI",
+      "status": "BLOCKED_BY_EXPLICIT_EXPERIMENT_PAUSE",
+      "action": "estimate action-decision regret/NetVOI with source-cluster-held-out and shuffled ablations"
+    },
+    {
+      "id": "I4_FULL_STUDENT_AND_SPEED",
+      "status": "BLOCKED_BY_EXPLICIT_EXPERIMENT_PAUSE",
+      "action": "paired 4-step free video, new source official quality, actual native FFN and full generation latency"
+    }
+  ],
+  "document": "docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md",
+  "provenance": {
+    "record_created": "2026-10-24",
+    "project_local_snapshot": "READ_ONLY_EVIDENCE_NO_EXPERIMENT",
+    "source_web_links_validated": true
+  },
+  "execution": {
+    "theoretical_exploration_resumed": true,
+    "experiment_pause_record": "research/20261024/EXPERIMENT_PAUSE.json",
+    "cpu_experiments_allowed": false,
+    "gpu_model_jobs_allowed": false,
+    "new_model_calls": 0,
+    "new_cpu_tests": 0,
+    "new_videos": 0,
+    "automatic_followup": false,
+    "model_eligible_ids": []
+  }
+}
