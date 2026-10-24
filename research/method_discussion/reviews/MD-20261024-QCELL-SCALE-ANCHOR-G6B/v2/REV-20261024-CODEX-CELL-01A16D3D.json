@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "review_id": "REV-20261024-CODEX-CELL-01A16D3D",
+  "method_id": "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+  "version": 2,
+  "proposal_git_blob_sha": "07af1128f7d43129f1ff8396e592086ce62a661f",
+  "reviewer": {
+    "agent_id": "codex-ffnds-method-01a16d3d",
+    "session_ref": "Codex thread 01a16d3d-579f-74d2-ae9d-e5ece9fb627a; user request 评议新几个的方案; 2026-10-24"
+  },
+  "verdict": "SUPPORT",
+  "independent_reconstruction": "将整个编码器写为E(u)=(C(u;S(u)),S(u))。若原坐标布局和保留分量u_A固定，所有联合可行遗漏分量都保持同一个完整状态S*，且每个遗漏分量始终处于同一确定性code cell内，则C_J恒定，C_A也恒定，因而完整E及其逻辑解码操作数相同。这是充分条件，任意非零码也适用。GELU_tanh的phi(0)=0、负无穷极限为0-且某负数处phi<0，连续性保证负区间有负最小值-M。对0<tau<M，负半轴的零码原像包含尾部和近零邻域，但被至少一个非零码区间分开；无需假定GELU全局单调。固定正effective scale s的确定性nearest E2M1，其零/最小正数间中点是s/4，故s/4>M时所有z≤0为零码。这些结论严格限定identity postprocess与固定状态；Smooth或BF16路径应重新包入u(z)。路线：完整编码函数重建→集合包含证明→负瓣拓扑→尺度锚点反例。",
+  "decisive_argument": "支持v2的条件编码操作数恒等式与负GELU零码原像结论。它已明确把尺度稳定和码单元稳定分开，也没有把post-W1观测冒称pre-W1省算。非零码推广是实质拓宽：省掉的是产生已确定码字的W1/GELU工作，非零W2贡献仍须计算。当前未知是廉价证书和物理省算率，并非该充分条件的数学正确性。这里只确认数值零；如需编码比特相同，±0的符号位也必须保留或证明消费者不区分。",
+  "counterexample_or_discriminator": "尺度leader身份不变并不足以确定尺度值：同一anchor的可能幅度可跨MX scale bin，或在NVFP4中改变global_amax。NVIDIA当前文档写明s_global=global_amax/(448*6)，是FP32状态；仅有同一个最大值坐标的区间下界通常不能确定它。一个可成立的锚点构造是先实际支付保留集合A的W1/GELU，得到其真实amax，并用遗漏集合的上界证明其不会超过该amax；这属于partial-W1之后、遗漏W1之前的条件执行，须与全FFN pre-W1区分。若整个负GELU块没有强anchor，动态scale可随小幅值一起收缩，不能从负瓣有界直接推出所有负值为零。",
+  "constructive_revision": "建议保留数学支持，并明确两个不同信息时机：Q1后且任何W1前的纯证书；已付费anchor行后、候选遗漏行前的证书。后者可借用实际amax，前者对NV全局scale尤其困难。给每个量化配方列scale-bin包含条件，不能以固定leader代替固定state。修正physical_cost记号：若p是省下的hidden行数、总宽为H，两次投影相同成本时的MAC节省比例为p/(2H)；只有p已定义为宽度比例时才是p/2。共同分析记录给出已算anchor的确定性充分条件，并区分真实kernel误差及布局变化。最新TE文档中的随机舍入仅用于gradients；不能从训练特性推定当前forward Q2也是随机的。",
+  "evidence_links": [
+    "research/method_discussion/proposals/MD-20261024-QCELL-SCALE-ANCHOR-G6B/v2.json",
+    "research/method_discussion/reviews/ANALYSIS-20261024-CODEX-NEW3-01A16D3D.md",
+    "tools/packed_ffn_reference.py",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "https://docs.pytorch.org/docs/2.14/generated/torch.nn.GELU.html",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html"
+  ],
+  "prior_reviews_seen": false,
+  "review_independence_note": "本版本评议形成前未读取其已有外部评议。以当前v2正文重新推导；不沿用v1意见。本人相关QCell tile提案不作为支持证据。",
+  "claim_scope": "SUPPORT_CONDITIONAL_LOGICAL_DECODED_OPERAND_EQUALITY_AND_GELU_PREIMAGE_RESULT; NOT_CHEAP_CERTIFICATE_OR_NATIVE_SPEED_PROOF",
+  "source_revision": "b4b666b942ac7511c97ff69e4dcbd24ef1505d1a",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}

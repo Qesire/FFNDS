@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "review_id": "REV-20261024-CODEX-PARITY2-01A16D3D",
+  "method_id": "MD-20261024-GELU-PARITY-QDQ-G6A",
+  "version": 2,
+  "proposal_git_blob_sha": "8f6a47b7a1638292a129405525a25fc5e3e6b0ca",
+  "reviewer": {
+    "agent_id": "codex-ffnds-method-01a16d3d",
+    "session_ref": "Codex thread 01a16d3d-579f-74d2-ae9d-e5ece9fb627a; user request 评议新几个的方案; 2026-10-24"
+  },
+  "verdict": "REVISE",
+  "independent_reconstruction": "独立重建同一原生对象：v=Q1(q/s1)，z=Av+b1，u=D_s2^{-1}phi(z)，a=D_f(E_f(u))，y=Ba+b2，且实际代码在这些步骤间有BF16转换。理想无量化但保留Smooth时，有效输出列是B_j/s2_j；若只指定存储B_j=-B_k，不能推出w[phi(z)-phi(-z)]=wz。另一方面，给定一致坐标及未改变的完整encoder，Delta=D(E(H))_j-D(E(H))_k-z作为诊断定义成立。若折叠会删通道或改变encoder/布局，完整误差必须比较全部输出B a与新算子B' a'，而非仅一个pair的Delta。路线：真实坐标重建→有限码平台证明→全算子误差分解→保留可成立变体。",
+  "decisive_argument": "v2把量化交换缺陷单列是进展，但尚未把真实replacement闭合：①REAL dequantized semantics没有明确是否包含s2的逆缩放，相关pair条件仍有坐标歧义；②原encoder下pair的Delta不是删除/重打包后的全FFN误差；③固定码字和尺度平台上，d=D(E(H))_j-D(E(H))_k是常数，Delta(z)=d-z，因此除孤立z=d外，不可能由未经量化的线性wz在整个非退化区间精确替代该量化pair（w≠0）。这不否定某个有限Q1格点上的精确关系，也不排除更一般的量化阶梯replacement。建议REVISE，原理想GELU恒等式和诊断Delta仍被接受。",
+  "counterexample_or_discriminator": "Smooth反例：s2_j=1,s2_k=2、B_j=w,B_k=-w、z_k=-z_j、Q2暂设identity，实际pair=wz+(w/2)phi(-z)，不等于wz。平台反例：在任一码/尺度不变的区间I中取z1≠z2，量化pair相等而wz1≠wz2。作用域反例：被删坐标原为HiF4块absmax，重算尺度后未删坐标也改码；R12归档已显示组内置换会改变量化结果，该记录不证明本fold失败，但证实不能假定组内局部修改只影响pair。",
+  "constructive_revision": "v3应先给明确的匹配坐标：理想Smooth路径以c_j=B_j/s2_j和c_k配对；若encoder/decoder把Smooth吸收进去，写出完整复合映射并相应改变反向列条件。再把误差拆成pair replacement误差、保留坐标因重编码产生的Σ_{l retained}B_l(a'_l-a_l)、权重/布局变更及原生归约误差；若NV全局scale重选，影响域可能是完整张量。建设性路径之一是把目标从线性wz改为固定完整scale状态下的一维量化pair响应表r_S(z)，保留原非线性code平台；其state读取和表查找需计费。另一条是仅共享反向pair的W1投影，重建正负z后保留两个GELU坐标、原Q2组和W2：理想pair投影MAC由4D降至3D，即25%，比全折叠50%弱但对输出列反向结构的要求更少。两条均只是进一步讨论构造，没有执行。",
+  "evidence_links": [
+    "research/method_discussion/proposals/MD-20261024-GELU-PARITY-QDQ-G6A/v2.json",
+    "research/method_discussion/reviews/ANALYSIS-20261024-CODEX-NEW3-01A16D3D.md",
+    "tools/packed_ffn_reference.py",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/adapters/wan_i2v.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+    "https://docs.pytorch.org/docs/2.14/generated/torch.nn.GELU.html",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf"
+  ],
+  "prior_reviews_seen": false,
+  "review_independence_note": "形成此v2评议前未读其他agent对v2的评议。本人曾独立评议v1（PR9），该历史已知且不算第二位reviewer；本条绑定新blob重新评议，并新增平台不可能性论证。",
+  "claim_scope": "IDEAL_PARITY_AND_FIXED_ENCODER_DIAGNOSTIC_ACCEPTED; NATIVE_REPLACEMENT_COORDINATES_AND_FULL_ERROR_SCOPE_NEED_REVISION",
+  "source_revision": "b4b666b942ac7511c97ff69e4dcbd24ef1505d1a",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
