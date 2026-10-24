@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-QMETA-KPANEL-TRANSITION-G6F",
+  "version": 1,
+  "title": "输入K面板省算与Q2离散跃迁风险：使Q1量化尺度沿真实GEMM轴指导计算，而非只预测通道能量",
+  "proposer": {
+    "agent_id": "gpt6-ffnds-method-agent-20261024-a",
+    "session_ref": "2026-10-24 direction correction; AutoResearcher mechanism-research/problem-reformulation/research-expansion"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "FFNDS main 5ec0788ffab1c21444930bda6a2a865a6c519f93; pinned AutoResearcher 5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+    "note": "New action AXIS (W1 K panels), quality-link (Q2 quantization state/cell transition), and causal signal (existing Q1 scales + off-line weight geometry). Closest predecessors: block-wise input sparsity, structured GEMM skipping, Q1 metadata-Gram G6D, and Q2 fixed code-cell G6B. Known ingredients are not claimed novel; native Wan prevalence, speed and video quality unmeasured."
+  },
+  "related_method_ids": [
+    "MD-20261024-QMETA-GRAM-PROXY-G6D",
+    "MD-20261024-Q2-NATIVE-SCALE-PANEL-G6E",
+    "MD-20261024-QCELL-SCALE-ANCHOR-G6B",
+    "MD-20261024-GATED-QUOTIENT-01",
+    "MD-20261024-FP4-CODE-ORBIT-G6C"
+  ],
+  "lenses": [
+    "Q3",
+    "Q1",
+    "Q2"
+  ],
+  "scientific_opening": "Q1 MXFP4/NVFP4 microscale metadata belongs to the INPUT (W1 K) axis, while G6D uses the same signal to route OUTPUT hidden N groups. Reorient the immediate operator to an aligned K-panel action and assess its effect not only through W1 projection energy but through how W1 perturbations flip downstream GELU/Q2 quantization cells. This simultaneously proposes an execution-aligned action and a new quantizer-specific causal quality target.",
+  "native_boundary": "In pinned Wan/HiF4 reference, q=Q1((AdaLN(norm2(residual+attn)))/Smooth1)∈R^5120; z=W1 q+b1∈R^13824; h=GELU_tanh(z); a=Q2((h/Smooth2)); a_post=BF16(alpha_t*a); y=W2 a_post+b2; then gate/residual and further blocks/steps. The actual W1 K dimension is 5120, divisible by 32 and 16. Original HiF4 is QDQ followed by BF16 F.linear with 64/8/4 ephemeral scale hierarchy; native Blackwell MXFP4 and NVFP4 have distinct persistent packed code/scale operands and effective scale schemes. The proposed native K-panel action is an alternative W1 GEMM, not a claim that the current A100 HiF4 BF16 kernel already skips panels.",
+  "mechanism": {
+    "action": "Q1 quantizer produces original packed activations for token tile T and input blocks b. Based on effective Q1 scale shape, off-line W1 block geometry and inexpensive current upstream state, select a HARDWARE-ALIGNED subset K_keep of input K panels to execute. Run z'=b1+Σ_{b∈K_keep}W1[:,I_b]q[I_b] (with the same original decoder and weight formats), then ordinary GELU→full original-form Q2→full W2→gate/residual. Do not use a per-coordinate zero mask on a dense GEMM as evidence of physical savings. No mandatory complete W1, dense restoration, rank256 correction or hidden-output mask. Optionally coalesce several 16/32 microblocks to one real MMA K panel; token-tile shared K choice affects the union-of-keep work.",
+    "exact_operator_perturbation": "For any fixed decoded Q1 q and effective W1 weights A_b, define Δz=Σ_{b omitted}A_b q_b. Then z'=z−Δz exactly in real decoded arithmetic. W1 componentwise perturbation is not the same as FFN output error; the correct full local perturbation is δy=W2[Cast_alpha(Q2(GELU(z)))−Cast_alpha(Q2(GELU(z−Δz)))] with all prescribed pre/post-Q2 Smooth/gain and Q2 scale recomputation included. Add gate for writeback δr=diag(gate_t)δy. Because Q2 scale may depend jointly on hidden entries within its native block or globally, this is generally NOT a sum of independent per-input-block output deltas.",
+    "scale_bound": "For native E2M1 input microblocks q_b=s_b c_b, |c_i|≤6, ||Δz||₂ ≤ Σ_{b omitted} 6s_b√k_b||A_b||_F (for s_b≥0 and fixed real decoded A_b). This is a cheap conservative T0 amplitude/weight bound; cheaper hardware-aligned per-panel norms may be precomputed. A code-second-moment feature m2_b=Σ c_i² tightens ||A_b q_b||₂ ≤ s_b||A_b||_F√m2_b, but requires extra packed-code inspection; QDQ may have no persistent s_b. The bound alone does not imply a bound on post-Q2 changes without considering quantizer scale and code-cell boundaries.",
+    "q2_transition_risk": "Define original Q2 encoded state E2(h)=({C_j},{S_B},possibly S_global) and new E2(h') from h'=GELU(z−Δz) after actual Smooth2. For a candidate K-panel action, define M_t(S) as actual Q2 code/scale state changes (e.g., number/weighted extent of changed effective decoded W2 input entries, grouped by original Q2 scale coupling). If M_t(S)=0 and post-Q2 alpha/cast path is fixed, the logical W2 input is unchanged and real decoded local FFN is exact; no need to calculate the full FFN for the strict theorem. But M_t(S) is not available pre-W1, so candidate decision must predict E[M_t(S)|Q1-side metadata, already-paid upstream context] or an action-value distribution. This is a MODEL HYPOTHESIS, not a pre-W1 exact certificate. A learned conditional distribution of Q2 scale leaders/rounding margins is a possible cheap bridge; its true incremental information and cost are unknown.",
+    "decision_rule": "For an action a defined by the actual set of GEMM K panels, define D(a)=E[L_downstream(a)−L_downstream(dense)+λ(C_native(a)−C_native(dense)) | Z0, S_Q1]. The policy chooses a only when its expected net cost-adjusted benefit is positive. Direct scoring labels in increasing rigor: (i) source-held-out W1 Δz relative impact, (ii) Q2 code+scale transition and effective pre-W2 operand changes, (iii) current gated output direction / nextnorm whole action, (iv) independent four-step free-run video quality plus measured end-to-end walltime. Q2 exact transition counts are OFFLINE LABELS for this action, not online uncharged features.",
+    "physical_work": "Let p_K be fraction of W1 K panels actually elided after union across a physical token tile and packing. Ideal projection MAC reduction vs two equal-size W1+W2 GEMMs is p_K/2. An N hidden-group action which eliminates the same fraction p_N from both W1 N and W2 K dimensions has ideal projection MAC reduction p_N, but different quantization, data-access, layout and error geometry; it is NOT dominated by K-panel elision. A Q2-side W2-only K-panel action ideally saves p_2/2. Compare all three execution geometries at identical physical cost and quality, and retain a matched native dense and fixed static scheme.",
+    "increment_beyond_prior": "Previous G6D mainly computes K_{g,b}s_b² for N-hidden group importance and may collapse to static ordering when q scale shape or weight profiles are separable. G6F acts directly on the input K microscale panels and explicitly proposes that Q2 discrete state transitions (not preactivation energy) are a better intermediate quality observable. A scale-only threshold is a cheap ablation, not the method's claimed novelty. It differs from G6E: that action uses Q2 metadata to omit W2 K contributions only AFTER W1 has already been paid.",
+    "information_budget": "Quantizer side state is deterministic of the input and selected encoder; it adds no Shannon information conditioned on the full quantizer input, but may reduce OBSERVATION COST relative to scanning q. Native packed MX/NV scale physically exists but may need swizzling/unfusing/synchronization to be observed before W1 dispatch; historical HiF4 local lv0/lv1/lv2 have not been exposed to downstream code. Charge scale capture, static matrix reads, sketch features, K-keep union, prepacking and masked MMA occupancy before attributing any net benefit."
+  },
+  "competing_explanations": [
+    "Even small K-panel W1 norm perturbations cross numerous discontinuous Q2 codes/scale-leader transitions across 13824 output channels; true video perturbation is substantially larger than the conservative W1 energy intuition.",
+    "Q1 scale is an amax-normalization signal rather than actual block energy/orientation; scale-only panel ranking carries no new value over previous block RMS or fixed K schedule; sign/sketch information is required and erases cost advantage.",
+    "At physical tensor-core M/N/K tile size, the union of active K panels across tokens is almost full; scattering previously seen in token/channel masks reappears as no actual K reduction.",
+    "W1 K skipping has at most half-FFN-projection arithmetic leverage; a well-packed N-hidden group or alternative merged/static operator dominates at equal video quality and end-to-end latency.",
+    "FP4-native Q1 scale metadata is written only in a swizzled/producer fused location and cannot be observed in time for the W1 choice cheaply. HiF4 QDQ recomputation/scale export similarly defeats metadata-first advantage.",
+    "The Q2 transition count is not monotonic in long-horizon effect because signed W2 contributions, AdaLN gating, residual bypass and downstream attention introduce directional interactions; a direct finite-action downstream surrogate may be necessary."
+  ],
+  "predictions": [
+    "For a W1 K-panel-aligned action, original decoded W1 preactivation difference equals the sum of omitted W1 input-block products, even though Q2/GELU output changes nonadditively.",
+    "Conditional on fixed Q2 encoding state and same post-Q2 transforms, logical real decoded FFN output is unchanged; its cheap PRE-W1 probability of holding, not post-W1 detection, is the open signal-quality question.",
+    "At a fixed physical cost, K-panel selection may exhibit more coalesced native support than N-group selection in some tile regimes; neither wins by dimensionality alone.",
+    "If Q1 microscale shape is sufficiently diverse, step/expert-conditioned downstream Q2 transition risk can outperform low-scale threshold and full W1 energy proxy; if not, static K panels or direct output geometry can dominate.",
+    "Even perfect prediction of Q2 code flips can fail to rank full-video outcomes, exposing a distinct missing causal bridge in gate/residual sensitivity."
+  ],
+  "best_counterexample": "Let Q1 panel q_b have arbitrarily small norm while z is infinitesimally close to a Q2 code boundary in many hidden channels, including a block scale-leader switch. Omitting that small q_b can change Q2 codes/scales across many outputs; therefore ||W1_b q_b|| small is not sufficient for logical output equality or video stability. Conversely a large q_b can lie in an approximately null W1 subspace and barely change z. This separates plain scale pruning from the proposed predicted quantizer-transition and output-value criterion.",
+  "evidence_links": [
+    "research/ACTIVE_RESEARCH.json",
+    "docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md",
+    "tools/packed_ffn_reference.py",
+    "research/20261022/R12_HiF4_group_separability.json",
+    "research/20261022/R13_spatial_sharing_limits.json",
+    "research/20261024/OFFLINE_SAVED_ASSET_QUANT_STRUCTURE_R1.json",
+    "research/method_discussion/proposals/MD-20261024-QMETA-GRAM-PROXY-G6D/v2.json",
+    "research/method_discussion/proposals/MD-20261024-Q2-NATIVE-SCALE-PANEL-G6E/v1.json",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://arxiv.org/abs/2606.26587"
+  ],
+  "discussion_questions": [
+    "Does K-axis coalescing at the target GEMM's actual MMA tile map produce physically fewer W1 K steps at a fixed T-token scope after union-of-keep, or does activation support become dense?",
+    "Is Q2 code/scale-state transition risk under W1 K-panel omission a better causal intermediate label than ||Δz||², and does it remain useful when conditioned on current residual/attention/gate?",
+    "Can cheap Q1 native metadata (+≤one packed-code moment) predict enough real *full-action* savings versus static/RMS/HWG and a learned q-sketch without expensive full-W1 preview?",
+    "How does K-panel omission on a native MXFP4/NVFP4 engine differ from HiF4 QDQ to BF16 baseline, especially under scale swizzling/global scale, kernel launch and roundoff?",
+    "Can an alternative non-sparse or mixed-basis operator avoid the high physical union-of-keep occupancy if K or N sparsity fails? No default mask should be imposed."
+  ],
+  "claim_level": "SOURCE_BASED_NEW_OPERATOR_AXIS_AND_EXACT_REAL_W1_INPUT_PANEL_PERTURBATION; Q2_TRANSITION_PREDICTION_AND_NATIVE_SPEED_VIDEO_UNMEASURED",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_NEW_MODEL_GPU_EXPERIMENT"
+}
