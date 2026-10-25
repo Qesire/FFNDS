@@ -1,5 +1,8 @@
 # FFNDS 方法讨论 Agent · AutoResearcher 默认原则
 
+**Search-enhanced AutoResearcher v2.4:** Every researcher and independent reviewer inherits the [pinned web-research-discovery Skill](../../.agents/skills/web-research-discovery/SKILL.md), the generic [WARD protocol](../../core/WEB_RESEARCH_DISCOVERY.md) and [FFNDS search specializations](../agent_protocol/DEEP_WEB_RESEARCH.md). Verify closest mechanism-level literature and original source against the exact commit in [source manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json), then derive new independent explanations or strong counterexamples.
+
+
 **阶段：`E0_OPEN_DISCOVERY`。** 先从 [唯一活跃状态](../ACTIVE_RESEARCH.json) 读取任务与权限，结合 [E0 问题及改进目标](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md)、[阶段锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 选择一个有科学价值的开放问题。
 
 ## 所有角色共享的研究动作
