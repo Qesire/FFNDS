@@ -1,49 +1,71 @@
-# E0 — 评议响应与下一轮独立机制探索（2026-10-25）
+# E0 — Skill / Web 复审后的机制研究指引（2026-10-25，修订版）
 
-**依据**：main@1e1a0e054ecc3b93df8b5107114e9154f020fc18；[独立径向评议](../method_discussion/discoveries/E0/gpt6-independent-radial-pairing-judgment-review-20261025.md)；[径向配对](E0_RADIAL_PAIRING.md)；[下一机制引导](E0_NEXT_MECHANISM_GUIDANCE_20261025.md)。
+**独立复审与完整理由：** [E0_SKILL_WEB_REAUDIT_20261025.md](E0_SKILL_WEB_REAUDIT_20261025.md)。依据 `main@1e1a0e0` 的独立评议、源脚本及保存结果，并按 AutoResearcher v2.4 的 mechanism-research、research-expansion、problem-reformulation 和 WARD 原始技能重新检验。保留先前观察值，更新对象精度、竞争机制和讨论分工。
 
-## 研究判断
+## 核心问题
 
-Block0 raw 正确/错排的径向平方比例为 19.794% / 20.542%；跨位置中心化后为 8.839% / 3.590%。两项探针使用的输入点不同；中心化探针不能直接赋予实际原状态 norm 的局部消去率解释。跨六来源公共 residual 方向平均 cosine 0.99645，限于同 seed=42 的现有来源，不代表跨 seed 外推。
+**低成本可观测信息在 Wan FFN 的哪个真实计算边界出现，如何被残差与后续网络读取，是否存在不同于昂贵 dense FFN 的可执行计算路径？** 先从现象提出不同解释和可区别预测，再拓展表示/操作/时序；算子只是可能的研究结果。
 
-**研究问题**：共享方向与位置条件变化究竟承担何种功能，二者的下游价值是否能以低于原 FFN 的信息与执行成本获知？从已观测现象、竞争解释、判别式开始，再推导可能的计算自由度。
+### 三个已观测现象的恰当含义
 
-## Agent A — 六距离与共享参考零模型
+- Block0 的原始理想 LN 径向平方比例：正确配对 **19.794%**，错配 **20.542%**。跨位置去均值后是 **8.839%** 对 **3.590%**，但后者改变了用于 Jacobian 计算的原始 `x` 与 `delta`，是表示探针，并非原生 nextnorm 的消去比例。
+- 其他五来源对当前来源 residual 的均值方向 cosine **0.99645**，是相同 seed42、相同固定 32 行采样及 step/block 设置的六来源内部结果。32行样本均值既不等于全部 patch token 的全局均值，也不是固定网络 bias 的直接证据。
+- 四臂 star-null 距离和不一致是在检查**共同参考、交叉矩为零**的特定二阶模型；不是两组动作非加性的定义，亦无法独立把变化归因于 BF16。
 
-从原始保存的四臂观测、JSON 和计算脚本独立重构六个距离以及三种成对距离和；逐来源、step、真实 writeback 边界和不同张量子空间定位 star-null 失配。分别提出共同参考、量化边界、连续传播三种可区分模型，给出各自的量化预测和现有数据足以检验的条件。严格区分 5120-channel FFN 表示与 16-channel latent-flow 空间。
+## 首先确认真实计算对象
 
-**交付**：可复算等式/残差、分层表、至少两个竞争解释与最有判别力的后续观测。
+当前研究是 LightX2V 绑定的 Wan I2V D-Q/HiF4 四步实现；必须复建其 `norm2→AdaLN→Q1/W1→GELU→Q2/W2→gate→residual`，以及下一 block `norm1→self-attention` 与 bypass 的相关分支。参考实际版本和源 SHA：`research/20261025/E0_RESIDUAL_GEOMETRY.json`、`research/20261022/R12_E0_runtime_reconstruction.json`；[官方 Wan 源码](https://github.com/Wan-Video/Wan2.2/blob/main/wan/modules/model.py) 是交叉检查，不替代本次 LightX2V 绑定。
 
-## Agent B — 固定原状态 Jacobian 下的分量交互
+保存脚本构造的 `delta_{i,g}=diag(gate_i)W2_g q2_{i,g}` 是 **FP64 decoded panel group contribution**，不是完整原生 BF16 有限动作或精确写回增量。所有结论标记这一区别。Block39 为末层，不存在通常意义上的下一个 block norm1。
 
-在相同真实位置 x_i 处固定 J_i = J_norm(x_i)，以保存的 FFN 写回更新 δ_i=μδ+η_i，逐来源/step/组分解
+## 五个互补科学问题（Agent 自选独立切面）
 
-||J_i δ_i||² = ||J_i μδ||² + ||J_i η_i||² + 2〈J_i μδ, J_i η_i〉。
+### A · 四臂交互和数值边界
 
-同时报告有符号内积、平均向量/中心化向量范数、交叉协方差与平方交互。将 fixed-J 结果和原先对 x_i−μx 重新评价 Jacobian 的 centered representation probe 明确并列。使用真实 norm 实现与 epsilon、仿射权重、cast 顺序进行源码级核对；若仅理想 epsilon-LN 可复算，准确标记其对象。检查 pooled 值是否受少量高杠杆样本支配。
+从原始 D/A/B/AB 保存结果出发，先构造 `a=A-D, b=B-D, c=AB-A-B+D`，再报告 `c`、响应 Gram、全部六距离、原 star-null 配对和、非负零模型拟合。做最小反例：`c=0` 不意味着 `S1=S2=S3`；把 **动作非加性**、**误差相关性**和 **BF16/连续传播**分开。检查原生已存 flow/post 是否真的能定位舍入边界；若无法定位，明确需要的最早额外张量边界及其两种机制预测。
 
-**交付**：一组使 raw/centered 排序反转可解释的分量表，复算脚本/公式与原样本字段映射。优先使用已有保存操作数，不扩展模型运行。
+**交付**：精确向量恒等式与跨 source/step/subspace 对照，一个足以推翻混合归因的例子，下一步最短判别观察。
 
-## Agent C — 共享方向的来源与时序功能
+### B · 真实状态的固定 Jacobian 与功能路径
 
-研究固定方向、条件偏置、共同 latent seed / 数据采样协议、时间动态载体等竞争机制。检查已有 pre/post、step、expert、attention/residual 路径字段的证据可识别性；每个机制写出跨 step/source/seed 的不同预测。把 0.99645 严格限定到相同 seed 的六个来源；新 seed / 相机 / checkpoint 仅作为将来单独批准后的实验候选。
+对每个 source/step/block/group 的固定采样位置 `x_i`，令 `delta_i` 为已存 decoded FP64 group contribution；在**原始同一 x_i** 的 ideal `J_i=J_LN(x_i)` 下分解 `delta_i=mu+eta_i`，独立计算 `||J_i mu||², ||J_i eta_i||², 2〈J_i mu,J_i eta_i〉`、signed covariance 与来源异质性。与原 `J_LN(x_i−mu_x)` 的 centered probe 明确区分。
 
-**交付**：带观测字段与预期符号的机制判别表，指出什么结果会改变功能解释。
+在项目固定 LightX2V 真实 norm1/norm2、epsilon、affine、AdaLN、FP32/BF16 cast 顺序下说明 ideal J 的适用边界；针对真实 residual identity、后续 attention/FFN 和四步轨迹构造至少一个与局部 LN 消去不同的预测。下游 finite differences 为另外一层证据，不由理想 J 自动给出。
 
-## Agent D — 信息价值、计算可消去性与先验文献
+**交付**：真实 operand 字段映射、固定 J 三项表、原先 raw/centered 反转的签名解释与反例。
 
-从 Q1 信息是否存在、Q2 额外观测净价值 NetVOI、Q3 是否真实节省可执行 FFN 运算重审 A–C 得出的自由度。对比经典表示各向异性、rogue dimensions、massive activations / attention sinks、条件偏置、量化边界与视频时序计算论文；跨领域广泛深入检索原论文、被引/引用、官方源码并给出最接近的竞争机制。把「纯表示低维」和「可执行计算低成本」单独检验，提出不同于历史 dense completion/R256 的开放方案空间。
+### C · 采样公共方向、seed 与条件时序
 
-**交付**：至少两种竞争性信息/计算解释，具体可区分预测，源文献及真实计算代价账本；不预先选择 proxy、补算或某种 FP4 格式。
+从实际 32 行采样协议、patch 坐标、共同 mean 的构造检查跨来源 cosine 的解释力；比较同/不同 step、expert、gate、AdaLN、pre/post、attention 的可获取字段与结构预测。区分场景固定方向、共享 seed/位置协议、条件驱动的动态分量；以来源为聚类单位。明确不同 seed/相机/checkpoint 所能区分的机制，只有获新实验授权后才执行新采集。
 
-## 多 Agent 协作
+**交付**：机制 × 预测 × 已有字段矩阵，不以“六来源高 cosine”推断功能性或可缓存性。
 
-每个 Agent 仅进行**独立方法讨论、源码/数学核验、已存证据解释和文献调研**，分别写入 research/method_discussion/discoveries/E0/ 下的独立文件。独立挑战应检验实质预测，不以多数意见投票取代证据。汇总时分列：数学恒等式 / 已保存观察 / 机制推断 / 新增实验提案 / 真实性能与视频质量。
+### D · 量化码字/尺度的信息出现时机与执行单元
 
-默认遵循当前已同步的 AutoResearcher v2.4（含 WARD 搜索增强）规范；优先引用原始论文及官方实现，通过多轮 web search 寻找近邻、反例与替代解释。以建设性、现象驱动的科学语言记录，发现新的有效方向时主动扩展研究问题。
+从 HiF4 Q1/Q2 的具体 native QDQ 与 BF16 GEMM 路径，逐层核对 codes、scales、amax、Smooth 参数是在 W1 或 W2 **之前还是之后**产生，哪些读数需要额外遍历、去量化、同步或已完成昂贵计算；与 MXFP4（32组）/NVFP4（16组及两级缩放）官方格式区分。提出定量信息/动作关系或数学可重排结构，指出对应可物理省略的 K/N panel、权重读写或 kernel 次数，以及真实 A100 与未来 Blackwell 的代价差别。
 
-**权限与状态**：维持 E0_OPEN_DISCOVERY；不自动执行 CPU/GPU/模型新增实验，不开新生成或训练，不改变 peer-review 状态与方法优先级。后续单独授权的全视频和真实运行时检验，必须验证相对 dense 的时序、光照、背景细节和实际端到端加速。
+**交付**：信息时间和成本地图，至少两种相互竞争的可执行自由度。探索种子欢迎大胆，但与已实现原生性能分层记载。
 
-## 汇总升级条件
+### E · 开放问题重构、跨领域先例与净信息价值
 
-只有当某项机制同时给出来源可信的计算图关系、至少一个能区分竞争解释的预测、可验证的经济信息来源和可明确列举的实际可消去计算单元时，才从机制发现升级为候选算子评估。此处是工作成果验收口径，而非限制创造性设想。
+从 `Q1` 上游可用信息、`Q2` 净信息价值、`Q3` 实际可省算出发，主动用 WARD 深搜论文/官方代码：包括各向异性/rogue dimensions、massive activations、[SVD-Cache](https://openaccess.thecvf.com/content/CVPR2026/html/Chen_Forecast_the_Principal_Stabilize_the_Residual_Subspace-Aware_Feature_Caching_for_CVPR_2026_paper.html)、[HyCa](https://proceedings.iclr.cc/paper_files/paper/2026/hash/666dd0d92a64396e753c691db93493d4-Abstract-Conference.html)、[RFC](https://proceedings.iclr.cc/paper_files/paper/2026/hash/4019681ef05e8e347c3067d7f973a364-Abstract-Conference.html)、[DiffSparse](https://proceedings.iclr.cc/paper_files/paper/2026/hash/5e66b9f710a8e38351da690f3806cba9-Abstract-Conference.html) 和[官方 NVFP4](https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html)。逐一对比信息何时出现、依赖历史步数、是否训练、所省运算和终端验证。
+
+通过 PRD 尝试比“公共方向 + 局部变化”更有解释力的表示或计算时序重写；保留还未具备完整性能证明、但已有明确可证伪机制的 idea seeds。
+
+**交付**：改变研究决策的一项机制级近邻比较、至少一个新的表示/问题重构、对应分歧预测及最低成本检验。
+
+## 独立讨论与创造性写作
+
+各 Agent 只参与**方法、机理、数学、已存证据及文献讨论**，在 `research/method_discussion/discoveries/E0/` 独立署名记录；审查者独立读源/推导，不能以一致口吻代替实质同意。欢迎超出上述五类的机制解释，每项报告首先给出**新认识或有力假说**，随后是来源、最强竞争机制、区别性观察及潜在计算自由度。
+
+默认使用 pinned AutoResearcher v2.4 的 mechanism-research、research-expansion、problem-reformulation、WARD。多轮 web 搜索包括原论文方程、反例、官方源码与前后向引用，写明已真正阅读的范围。方法讨论可以提出大胆研究种子，无须先证明最终省算；推进原生算子验证时再完整计算部署代价和质量。
+
+**允许的当前工作**：阅读源码/Skill/原文、数学证明、在已有权限范围内复算保存资产的离线 CPU 数值分析。**新范围须单独授权**：模型/GPU/新生成/训练、扩大的原生干预、真实完整视频质量和 speed benchmark。研究阶段保持 `E0_OPEN_DISCOVERY`，候选选择和同行状态不自动改变。
+
+## 下一次分歧判别的优先次序
+
+1. B：先让 fixed-J 与原 centered-probe 的数值对象严丝合缝，不能用新 centered-J 冒充真实网络响应。
+2. A：区分 star-null、`c` 与 Gram，明确哪种非线性归因能用已有边界定位。
+3. D：在真实 Q1/Q2 计算点调查已有低成本元数据，恢复研究起点的量化信息方向。
+
+C/E 同时开展独立开放探索。只有日后进入候选算子验证时，再要求明确计算节省、信息代价、matched competitor、全四步视频质量及真实端到端 latency。
