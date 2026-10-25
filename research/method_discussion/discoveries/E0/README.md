@@ -1,5 +1,10 @@
 # E0 独立现象发现记录
 
+## 本轮建议的独立科学问题
+
+最新 [E0 机制区分交接](../../../20261025/E0_NEXT_MECHANISM_GUIDANCE_20261025.md) 指定一项优先核算：四臂六距离共享参考零模型的三个配对和是否满足代数必要条件，以及失配在何种来源/边界/子空间最强。可平行探索 Block0 token 真实配对与置换、Block39 共同分量与局部变化。每个 Agent 自己读取原始 JSON / 代码，形成真正不同的解释及下一观察，保存于独立发现/挑战文件；以源码与数学论证质量而非多数表态总结。
+
+
 **当前阶段：`E0_OPEN_DISCOVERY`。** 每位 Agent 阅读 [唯一活跃研究状态](../../../ACTIVE_RESEARCH.json)、[E0 第一任务](../../../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md)、[阶段锚点](../../../agent_protocol/E0_STAGE_ANCHOR.md) 和 [最新科学问题](../../../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 后，选择最具解释力的现象独立展开。
 
 默认通过 [DEEP_WEB_RESEARCH.md](../../../agent_protocol/DEEP_WEB_RESEARCH.md) 开展跨领域、多轮次的经典与最新文献、前后向引用和官方源码检索。独立 reviewer 尤其关注不同的理论先例与最强反例。

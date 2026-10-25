@@ -1,5 +1,8 @@
 # FFNDS 方法讨论 Agent · AutoResearcher 默认原则
 
+**Current independent E0 investigation:** Start with [latest E0 mechanism guidance](../20261025/E0_NEXT_MECHANISM_GUIDANCE_20261025.md) and the exact saved source records. Agent A can independently derive three pairing-sum invariants of the four-arm distance null across sources/subspaces; Agent B can challenge Block0 token pairing versus shared direction, auditing archived raw fields first; Agent C can independently compare temporal common-mode and centered variation with published SVD-Cache/MagCache mechanisms. This is a suggested division of **independent scientific questions**, and creative alternatives remain welcome. Reviewers bind exact blobs and report counterexamples; shared states are updated serially.
+
+
 **Search-enhanced AutoResearcher v2.4:** Every researcher and independent reviewer inherits the [pinned web-research-discovery Skill](../../.agents/skills/web-research-discovery/SKILL.md), the generic [WARD protocol](../../core/WEB_RESEARCH_DISCOVERY.md) and [FFNDS search specializations](../agent_protocol/DEEP_WEB_RESEARCH.md). Verify closest mechanism-level literature and original source against the exact commit in [source manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json), then derive new independent explanations or strong counterexamples.
 
 
