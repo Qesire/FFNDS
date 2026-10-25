@@ -1,28 +1,29 @@
-# FFNDS — default AutoResearcher scientific behavior
+# FFNDS · AutoResearcher 默认科研引导
 
-## Current empirical problems require actual remediation
+## 当前阶段与研究任务
 
-Use the [E0 latest gaps and remediation requirements](../research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) **before starting a new FFNDS exploration/review**. Main open issues: Block0 ideal-LN radial alignment has no full downstream finite-action evidence, six sources have 3 subject/3 background/0 camera, quantization metadata and native FP4 remain unmeasured, latest report needs independent other-agent verification, and earlier pause wording must not conceal a later completed bounded E0 user-authorized observation. The first task is an independent source/math-based discriminator, **not** another operator implementation. Discuss clearly what was verified and what would distinguish the strongest contrary mechanism.
+活跃阶段从 [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 读取：`E0_OPEN_DISCOVERY`。结合 [E0 第一任务](../research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md)、[当前科学问题](../research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和 [E0 Agent 锚点](../research/agent_protocol/E0_STAGE_ANCHOR.md) 选择本次最值得研究的现象。
 
+**当前最有价值的入口：** 独立解释 Block 0 真实保存组输出与 residual 的径向对齐，检查理想 LN 局部几何、真实残差旁路和后续传播之间的差别；同时保持量化层级、FFN 内部几何、蒸馏时空和异常 token 作为竞争路线。
 
-## Broad, deep, iterative Internet research is a research default
+**本轮应交付：** 新的结构认识或精确理论命题；源码/数学/已保存证据；最强不同解释与一项决定性观察。任何有启发的新算子均可作为后续探索种子。
 
-For any substantive scientific question, **actively Web Search before narrowing to a solution**, without requiring the user to name “web search”. Follow the [FFNDS comprehensive literature/code search protocol](../research/agent_protocol/DEEP_WEB_RESEARCH.md): find recent and foundational work across complementary keywords and neighboring disciplines, inspect original papers and released code, chase backward/forward citations, search adversarial counterexamples and nearest mechanism-level duplicates. Verify quantization/native-kernel and Wan-specific behavior from first-party specs/source, and clearly distinguish secondary discovery from primary evidence. Summarize what the search actually changed and its time/source coverage; keep E0 phenomenon-first rather than reverting to old G6D/G6E/G6F implementation. When browsing is unavailable, disclose the limitation and do not fabricate citations or assert comprehensive novelty.
+## 默认进行广泛深入的 Web Search
 
+每项实质性科学工作主动执行 [DEEP_WEB_RESEARCH.md](../research/agent_protocol/DEEP_WEB_RESEARCH.md)：从经典到最新论文、相邻学科、不同命名、前后向引用及官方代码/硬件规格扩展；具体阅读论文方程、方法、消融和失败条件。独立 reviewer 寻找最接近的同构机制及最强反例。成果写明检索日期、覆盖范围、原始链接和哪些外部结论改变了研究解释；遇到无网络环境则用真实可达的来源继续数学/源码研究并注明搜索缺口。
 
-**Live phase (mandatory first read):** [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) `current_stage=E0_OPEN_DISCOVERY`, [first E0 task](../research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md), and [agent stage anchor](../research/agent_protocol/E0_STAGE_ANCHOR.md). Current deliverable is **real mechanism/phenomenon discovery, not a Q1 K-panel, Q2 W2-panel or hidden-group algorithm**. Record promising new operators as idea seeds without promoting them. Parallel agents write independent [E0 discoveries](../research/method_discussion/discoveries/E0/README.md). Use competition between explanations and primary source checks to make progress, not a list of prohibitions.
+## 每位 Agent 自动使用 AutoResearcher
 
+继承 [根目录 AGENTS.md](../AGENTS.md)、[FFNDS domain skill](../.agents/skills/ffnds-paper-discovery/SKILL.md) 和固定 [AutoResearcher 来源](../research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json)。按问题组合 mechanism-research、problem-reformulation 与 research-expansion：
 
-**Default to AutoResearcher** on every scientific task. Start with the live question and short evidence packet in [AGENTS.md](../AGENTS.md) and [research/ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json). Apply mechanism-research, problem-reformulation and research-expansion **as complementary methods**, selecting the most useful combination for the current discovery.
+**发现张力 → 复建关键计算 → 推导新表征/机制 → 区分竞争解释 → 交付最有信息量的下一步。**
 
-Treat Q1 information, Q2 net decision value and Q3 native removable compute as **three mutually informative viewpoints**, not a staged approval sequence. A genuine kernel/operator/representation discovery may start at Q3 and reveal which Q1 signals matter. A residual-information discovery may start at Q1 and suggest a new action. Build a concrete mathematical or source-grounded mechanism, contrasting prediction and useful next step. Read the real Wan graph and prior scientific work when needed to sharpen the claim. Treat R4/R8/C1/C2 negative results as scoped observations, not family-wide objections.
+Q1 信息、Q2 净决策价值、Q3 真实计算是相互作用的科学视角。探索允许从任一角度开始；E0 首先把现象解释清楚，再由机制引出可能的算法自由度。
 
-Historical tasks are evidence; `research/ACTIVE_RESEARCH.json` is the only current research priority. The original broad pause receipt in `research/20261024/EXPERIMENT_PAUSE.json` remains immutable; a later explicitly user-authorized six-source E0 passive capture is already **complete** in `research/ACTIVE_RESEARCH.json`. This limited historical exception does **not** authorize new CPU/GPU/model experiments or automatic retries. Continue constructive source/literature/math exploration and repository organization within that scope.
+## 多 Agent 独立讨论与审查
 
-## Multiple agents: discuss methods only
+阅读 [方法讨论 AGENTS](../research/method_discussion/AGENTS.md) 和 [独立 E0 发现目录](../research/method_discussion/discoveries/E0/README.md)。提出者在自己的文件提交新解释；挑战者独立核对数学、真实源码或反例；整理者凭真实审核记录总结争议。旧 G6 提案与 PR 的认可只对应它们各自精确的原始命题。共享 [QUEUE](../research/method_discussion/QUEUE.md) 由串行整理者在相应指令下维护。
 
-**AutoResearcher is automatic for *each* agent role in discussion**, including proposer, independent reviewer, challenger, and synthesis/integration. Load both [root AGENTS](../AGENTS.md) and [discussion-scoped AGENTS](../research/method_discussion/AGENTS.md), grounded in the pinned [source manifest](../research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json). Actively discover, reconstruct decision-critical Wan computation, reformulate mathematics, discriminate competing mechanisms and advance the strongest viable construction; don't mistake those moves for mandatory sequential gates. An independent review must show its own decisive derivation or counterexample, not only claim compliance.
+## 实验记录与权限
 
-
-
-For any parallel FFNDS **method discussion**, treat [the method discussion queue](../research/method_discussion/QUEUE.md) and [rules](../research/method_discussion/README.md) as the default collaboration surface. Each agent separately proposes a concrete scientific mechanism in its own immutable versioned proposal, and *other* agents independently reconstruct and challenge/endorse that exact version via separately authored reviews. One independent, reasoned SUPPORT establishes PEER_SUPPORTED; two different external supporters establish CROSS_CONFIRMED, while unresolved substantive objections are retained as CONTESTED. Record agreement only from existing evidence-linked review files; never impersonate a reviewer, treat approval as model quality proof, or spawn an implementation or experiment task. Only one serialized integrator updates the queue view and review synthesis. The existing experiment pause, active research source, and Q1/Q2/Q3 nonsequential science remain intact.
+[ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 记录 2026-10-25 获用户授权且**已经完成**的六来源 E0 被动采集；早期 [暂停回执](../research/20261024/EXPERIMENT_PAUSE.json) 保留历史状态。当前方法讨论可进行公开论文/源码、数学和获准的已保存资产分析。新 CPU/GPU/model 实验需要用户另行明确指令；Agent 自身的研究论证和支持票仅代表讨论结果。

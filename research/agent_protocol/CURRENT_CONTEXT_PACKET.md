@@ -1,17 +1,12 @@
 # FFNDS — concise decision-specific evidence packet
 
-## Current unresolved evidence gaps — start here
+## Current E0 scientific fork
 
-The latest E0 findings are real observations but **not an actionable FFN reduction yet**. Read the [current issues, required improvements and completion evidence](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) before selecting the next scientific discussion. Prioritize independent challenges to the Block0 residual-radial effect (ideal LN geometry vs actual residual bypass and downstream propagation), native Q1/Q2 format boundaries, non-independent source strata (3 subject/3 background/0 camera), source8 high-leverage row and temporal mean. Existing explicitly authorized six-source E0 capture **finished**; no new model jobs are pending or authorized solely by this handoff. Keep dated pause receipts and completed permission scope as distinct historical facts.
+The six-source [latest E0 discovery](../20261025/E0_DISCOVERY.md) establishes a strong **local** Block 0 gated-output / residual-radial relationship. The next scientific advance is an independent source-based explanation of that relationship versus actual bypass/flow propagation. Use the [specific gap/remedy dossier](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) to choose a meaningful discriminator, while exploring quantizer hierarchies, temporal means and high-leverage tokens as alternative openings.
 
+**Stage:** `ACTIVE_RESEARCH.json.current_stage=E0_OPEN_DISCOVERY`. Read the [current E0 question](../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md) and [agent anchor](E0_STAGE_ANCHOR.md) for its productive next steps. Existing G6 methods remain idea seeds. An E0 result is an explained phenomenon, a competing prediction and one source-justified observation.
 
-## Required active literature scope
-
-For **substantive research tasks**, every agent should conduct broad/deep multi-pass online literature **and original-source** search using [the FFNDS Web Search protocol](DEEP_WEB_RESEARCH.md). Expand across quantization FP4/QDQ, FFN computational geometry, few-step video distillation, time/space propagation, native kernels and neighboring theory, plus opposing papers; use seed-paper backward/forward citations. Verify primary equations/implementations and report real search coverage and strongest nearest prior mechanisms. E0 remains phenomenon-first. Web unavailable ≠ evidence that no similar work exists.
-
-
-**Live priority right now:** `ACTIVE_RESEARCH.json.current_stage=E0_OPEN_DISCOVERY`. Open [first E0 phenomenon task](../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md) and [stage/anti-drift anchor](E0_STAGE_ANCHOR.md) before continuing any historical operator seed. We are currently discovering **what real information and FFN/video structure exists**, not selecting a mask, K/N panel, compensation or proxy formula. G6D/G6E/G6F are exploratory candidates, not the next action. Agent deliverable: source-bound phenomenon, contrasting mechanisms, one decisive observation. No method-discussion implementation or model experiments.
-
+**Research method:** default to pinned AutoResearcher, broad/deep [Web Search](DEEP_WEB_RESEARCH.md) and first-party model source; report the strongest related theory and which part of the new finding it explains. The bounded six-source user-authorized E0 observation has finished, with zero pending jobs. New model runs are authorized by a future explicit user instruction.
 
 Live state: [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). Model/source identity and its original hashes: [C0 source bindings](../20261023/C0_coupling_offline_results.json), [runtime reconstruction](../20261022/R12_E0_runtime_reconstruction.json). AutoResearcher principles: [local harness](../../core/AGENT_HARNESS.md). Dated plans are historical observations. Relevant experiment files are prioritized in the [scientific evidence ranking](../EXPERIMENT_EVIDENCE_INDEX.md); follow original source/protocol from the ranked artifact as needed.
 
@@ -35,4 +30,4 @@ Find lower actual Wan2.2 four-step D-Q/HiF4 FFN and end-to-end cost at preserved
 
 **High-information next step:** choose the opening that most changes the mechanism understanding using a source inspection, algebraic result, or existing saved evidence. For later separately authorized tests, evaluate distinguishable native actions and downstream finite effects, then full four-step free videos and true runtime. Compare against matched static and closest prior-art methods.
 
-**Current resource boundary:** the user explicitly requested renewed task execution on 2026-10-25 and allowed at most four idle GPUs. [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) records the bounded E0 passive-observation scope actually using at most two idle A100s, unchanged dense D-Q, and accompanying CPU descriptions. The old [pause receipt](../20261024/EXPERIMENT_PAUSE.json) remains historical evidence. This retrieval packet and the method discussion queue grant no execution authority by themselves.
+**Execution record:** The 2026-10-25 bounded observation completed with up to two A100s and original dense D-Q, per [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). The earlier [pause receipt](../20261024/EXPERIMENT_PAUSE.json) preserves its historical scope. Future model experiments follow separate user authorization.

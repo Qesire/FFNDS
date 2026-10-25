@@ -150,11 +150,13 @@ def main():
            "NO_IMPLEMENTATION_NO_CPU_GPU_MODEL_EXPERIMENTS_NO_TASK_SCHEDULING",
            "Method discussion was promoted into experimental execution")
     discussion_agents = text("research/method_discussion/AGENTS.md")
+    # Verify real pointers and collaboration architecture, not defensive wording.
     ensure("AutoResearcher" in discussion_agents and
-           "source manifest" in discussion_agents and
-           "all roles" in discussion_agents.lower() and
-           "do not" in discussion_agents.lower(),
-           "Discussion-scoped AutoResearcher instructions are incomplete")
+           "../agent_protocol/ACTIVE_SOURCE_MANIFEST.json" in discussion_agents and
+           "E0_OPEN_DISCOVERY" in discussion_agents and
+           "discoveries/E0/README.md" in discussion_agents and
+           "reviews/<method-id>/vN/<review-id>.json" in discussion_agents,
+           "Discussion-scoped AutoResearcher research routes are incomplete")
     for required in ("AGENTS.md", "README.md", "TEMPLATES.md", "QUEUE.md"):
         ensure((ROOT / "research/method_discussion" / required).is_file(),
                "Method discussion entrypoint missing: " + required)
