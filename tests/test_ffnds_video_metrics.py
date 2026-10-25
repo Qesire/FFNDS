@@ -28,6 +28,8 @@ class MetricContractTest(unittest.TestCase):
            "external_quality":{k:{"status":"NOT_RUN","reason":"Missing actual VBench/manual evaluation"}
                                for k in ("vbench_i2v","vbench2","human_review")},
            "quality_accepted":False}
+        r["per_frame"]=[dict(frame=i, **({"paired_RGB_RMSE_0to1":0.1,
+                      **({"paired_temporal_delta_RGB_RMSE_0to1":0.2} if i>0 else {})} if paired else {})) for i in range(n)]
         if paired:
             r["metrics"].update(paired_spatial={"frames":n,"RGB_RMSE_0to1":stat(n)},
                                 paired_temporal={"adjacent_delta_RGB_RMSE_0to1":stat(n-1)},
@@ -90,6 +92,7 @@ class MetricContractTest(unittest.TestCase):
             self.assertEqual(result["metrics"]["artifact"]["decoded_frames"],4)
             self.assertEqual(result["metrics"]["paired_temporal"]["adjacent_delta_RGB_RMSE_0to1"]["n"],3)
             self.assertFalse(result["quality_accepted"])
+            self.assertEqual(len(result["per_frame"]),4)
 
 
 if __name__=="__main__":
