@@ -1,5 +1,8 @@
 # FFNDS · 深入文献与原始代码检索
 
+**AutoResearcher v2.4 alignment:** This FFNDS-specific protocol extends the upstream [Web Research Discovery / WARD](../../core/WEB_RESEARCH_DISCOVERY.md) and its [pinned Skill](../../.agents/skills/web-research-discovery/SKILL.md). Exact source revision and per-file blob hashes are recorded in [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Follow the shared breadth, depth, citation tracing and primary evidence method; specialize each search to actual Wan numerical/data-flow questions.
+
+
 **适用：** 所有 FFNDS 科研探索、机理推导、方案构想、文献查重、方法评议及科研方向调整。当前阶段由 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 确定为 `E0_OPEN_DISCOVERY`，搜索服务于**发现真实现象和竞争性解释**。
 
 ## 默认科学行为
