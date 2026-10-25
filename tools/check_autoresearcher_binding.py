@@ -51,6 +51,28 @@ def main():
     pause = record("research/20261024/EXPERIMENT_PAUSE.json")
     source = record("research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json")
 
+    # Search-augmented upstream lock: synchronize pinned WARD files, study and agents.
+    required_ward = {"core/WEB_RESEARCH_DISCOVERY.md",
+                     ".agents/skills/web-research-discovery/SKILL.md"}
+    ensure(required_ward.issubset(set(source["git_blob_sha1"])),
+           "Search-augmented upstream files missing from pinned manifest")
+    upstream = active.get("autoResearcher", {})
+    ensure(upstream.get("protocol_version") == "2.4-search-augmented" and
+           upstream.get("web_research_protocol") == "core/WEB_RESEARCH_DISCOVERY.md" and
+           "web-research-discovery" in upstream.get("skills", []) and
+           active.get("web_research", {}).get("upstream_revision") ==
+           source["source_commit"] and
+           active["web_research"].get("upstream_skill") ==
+           ".agents/skills/web-research-discovery/SKILL.md",
+           "Live FFNDS study is not pinned to search-augmented AutoResearcher")
+    ensure("web-research-discovery/SKILL.md" in text("AGENTS.md") and
+           "web-research-discovery/SKILL.md" in text(
+               ".agents/skills/ffnds-paper-discovery/SKILL.md"),
+           "Default and domain agents must inherit the upstream search Skill")
+    ensure("core/WEB_RESEARCH_DISCOVERY.md" in text(
+               "research/agent_protocol/UPSTREAM_SYNC.md"),
+           "Upstream synchronization procedure is missing generic WARD core")
+
     # Broad/deep web-research routing is an instruction integrity property,
     # never evidence that any agent actually performed live searches.
     web = active.get("web_research", {})
@@ -273,7 +295,8 @@ def main():
             "WEB_TOOL_UNAVAILABLE_NO_FICTION",
             "E0_NEW_FINDING_REQUIRES_INDEPENDENT_CHALLENGE",
             "E0_COHORT_AND_FORMAT_NONOVERCLAIM",
-            "E0_COMPLETED_AUTHORIZATION_IS_NOT_FUTURE_RESUME"}.issubset(case_ids),
+            "E0_COMPLETED_AUTHORIZATION_IS_NOT_FUTURE_RESUME",
+             "WARD_PINNED_WEB_RESEARCH_DEFAULT"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
            "Behavior-case answers may be leaked to candidate-agent evaluation")
@@ -312,6 +335,9 @@ def main():
                "Historical entry is not a concise working redirect: " + entry["path"])
         check_relative_markdown_links(entry["path"])
     check_relative_markdown_links("research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md")
+    check_relative_markdown_links("core/WEB_RESEARCH_DISCOVERY.md")
+    check_relative_markdown_links(".agents/skills/web-research-discovery/SKILL.md")
+    check_relative_markdown_links("research/agent_protocol/UPSTREAM_SYNC.md")
     check_relative_markdown_links("research/agent_protocol/DEEP_WEB_RESEARCH.md")
     check_relative_markdown_links("research/agent_protocol/E0_STAGE_ANCHOR.md")
     check_relative_markdown_links("research/method_discussion/discoveries/E0/README.md")
@@ -353,7 +379,7 @@ def main():
            not (ROOT / "research/20261024/operator_first_autoresearcher_reexploration.json").exists(),
            "Superseded algorithm-first task is present")
 
-    print("PASS: pinned upstream AutoResearcher source, compact live Q1/Q2/Q3 route,")
+    print("PASS: exact AutoResearcher v2.4 WARD source, shared skills and live FFNDS route,")
     print("      Markdown links, E0 issues, completed permission scope and historic pause.")
     print("Scope: static structure only. No numerical experiment or agent behavioral run.")
 
