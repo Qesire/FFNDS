@@ -1,0 +1,20 @@
+{
+  "id": "E0_RADIAL_COMMON_DIRECTION_SOURCE_TRANSFER_20261025",
+  "status": "FIXED_AFTER_PAIRING_RESULTS_BEFORE_CROSS_SOURCE_TEMPLATE_STATISTICS",
+  "parent": "config/e0_radial_pairing_saved_20261025.json",
+  "question": "Is the shared residual direction mostly fixed across sources, or does each conditioning source require its own common direction?",
+  "hypotheses": [
+    "A step/block-specific mean direction from the other five sources retains the observed radial geometry, consistent with a transferable common orientation.",
+    "A source-specific common direction is necessary: held-source orientation or radial energy prediction changes substantially. Within-source mismatch controls alone cannot separate this alternative."
+  ],
+  "template": "At each step/block/state, average the 32-row residual means of exactly the other five source clusters. Pre-FFN and actual post-FFN templates kept separate. No held-source output, group label, residual or gate enters template construction.",
+  "evaluation": "For each held source and five fixed groups, compare ideal epsilon-LN radial energy fractions at actual paired rows, own-source common residual and leave-one-source-out common residual. Report cosine of the two common residual vectors and absolute radial-fraction differences. Same six discovery-exposed sources; no fresh holdout claim.",
+  "scope": "Same 96 captured nonfinal-block scopes and 480 decoded group directions. Descriptive saved-data transfer only, not a sparse selector, native action or quality/speed acceptance.",
+  "source_indices": [0, 4, 8, 12, 16, 20],
+  "states": ["pre_FFN_state", "actual_post_FFN_state"],
+  "new_model_generations": 0,
+  "new_GPU_calls": 0,
+  "new_native_FFN_calls": 0,
+  "new_native_norm_calls": 0,
+  "model_training_updates": 0
+}
