@@ -10,6 +10,8 @@
 
 The [complete source-anchored execution graph](docs/98_端到端计算图与证据注解_20261025.md) traces four-step scheduling, self/cross attention, norm2/AdaLN, HiF4 QDQ, W1–GELU–W2, gated residual writeback and propagation into flow/video. Every graph boundary links to a relevant historical or E0 result with an explicit evidence scope. The companion [experiment findings atlas](research/EXPERIMENT_FINDINGS_ATLAS.md) classifies early mask/quantization, group support, R256, temporal reuse, native finite actions, information-value, system timing and current intrinsic-FFN discoveries. They synthesize existing evidence; no paused experiments were resumed.
 
+**Latest mechanism re-evaluation (2026-10-25):** [Open intrinsic FFN discovery after full-hidden and shared-tile studies](research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md). Posterior per-token innovations concentrate in selected channels, while native-layout tile occupancy and shared-column functions behave differently. The active task now investigates competing signed-function, nonlinear, spatiotemporal, downstream-video and physical execution explanations instead of another default top-k/group64 search.
+
 ## Current scientific questions
 
 The three questions are **complementary, not a compulsory sequence**. Discovery may begin with either upstream information, native FFN algebra/physical execution, or downstream video behavior, and revise the others.
