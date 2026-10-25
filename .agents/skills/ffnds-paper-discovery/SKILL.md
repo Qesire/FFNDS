@@ -8,14 +8,14 @@ description: Automatically apply AutoResearcher mechanism discovery, mathematica
 
 # FFNDS — information ↔ net decision value ↔ physical compute
 
-**E0_OPEN_DISCOVERY focus:** Read [latest scientific questions](../../../research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) and [stage anchor](../../../research/agent_protocol/E0_STAGE_ANCHOR.md). The six-source Wan observations expose Block0 gated-output / residual-radial alignment and separate quantization/temporal effects. Independently explain the most interesting structure, develop a competing mechanism and select an informative next observation. Any inspired operator can be recorded as an exploratory seed.
+**E0_OPEN_DISCOVERY focus:** Prefer [intrinsic FFN research reset](../../../research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) and [new first task](../../../research/20261025/E0_FFN_FIRST_TASK_20261025.md). Independently explain W1/GELU/W2 signed contributions, activation vs net output vs downstream causal function vs physically executable work, and token/step/expert dynamics. Existing HiF4/QDQ and MXFP4/NVFP4 metadata are optional low-cost magnitude/numerical representation clues, not a required source of discovery. LayerNorm radial and four-arm geometric results are valuable prior observations; they do not define the whole current agenda.
 
 **Deep cross-domain Web Search:** Follow [DEEP_WEB_RESEARCH.md](../../../research/agent_protocol/DEEP_WEB_RESEARCH.md) on substantive research turns. Explore seminal/recent theory, mathematical analogies, video distillation, FFN/quantization, native hardware, source implementations and strongest counterexamples. Trace key papers' references and follow-ups and state which results actually changed the scientific hypothesis.
 
 
 For every research request, use the project [AGENTS.md](../../../AGENTS.md), [live scientific state](../../../research/ACTIVE_RESEARCH.json), and the [compact evidence packet](../../../research/agent_protocol/CURRENT_CONTEXT_PACKET.md). This domain skill is a working scientific lens, not an additional approval process.
 
-**Opening move:** identify a surprising observed behavior, algebraic structure, information bottleneck or deployment mismatch. Form a useful explanatory mechanism and an alternative with a different prediction. Begin from **whichever object is informative**: upstream residual/attention, FFN weights and nonlinearities, temporal propagation, a packed HiF4 kernel, or unexpected full-video behavior.
+**Opening move:** identify a surprising observed behavior, algebraic structure, information bottleneck or deployment mismatch. Form a useful explanatory mechanism and an alternative with a different prediction. Begin from **whichever intrinsic FFN object is informative**: preactivation/hidden, signed W2 contribution, time/space conditioned innovation, downstream residual/attention function, computation reparameterization or unexpected full-video behavior. A packed HiF4 kernel remains an optional source only where its specifics matter.
 
 The three questions work together:
 - **Q1 information:** distinguish what a cheap observer can know from what the full deterministic post-Q1 input `q` already determines locally. Earlier state may still matter for downstream video response via residual bypass.
