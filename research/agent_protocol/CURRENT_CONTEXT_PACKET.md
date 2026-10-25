@@ -1,5 +1,8 @@
 # FFNDS — concise decision-specific evidence packet
 
+**2026-10-25 Skill/Web 二轮审查结果：** [复审报告](../20261025/E0_SKILL_WEB_REAUDIT_20261025.md) 与 [修订 Agent 指引](../20261025/E0_REVIEW_RESPONSE_AND_AGENT_GUIDANCE_20261025.md) 是当前优先讨论入口。原先共享方向、四臂零模型和配对比例是保存结果；须区分 decoded FP64 组方向与原生 BF16 写回、32 sampled rows 与真实全 token、star-null 与有限可加性。新增独立 HiF4/MXFP4/NVFP4 information timing 研究；其余本文为历史证据上下文。
+
+
 **Latest E0 next action (2026-10-25):** [Mechanism discrimination guide](../20261025/E0_NEXT_MECHANISM_GUIDANCE_20261025.md) supersedes older prompts that treated Block0 radial alignment as the only opening. Newly saved temporal calibration and shared-reference full-distance results distinguish a transferable Block39 common component (37.34%/8.32%/4.35% reuse/scale/affine SSE) from 39.25% centered-variation SSE, and expose exact three-pair-sum star-null violations across six final-flow sources (5.02%–47.44% relative ranges). **First independent task:** reconstruct full six-distance necessary identities by source/step/boundary/subspace and compare shared-reference, BF16 boundary and continuous-propagation mechanisms. Other agents retain token-pairing and temporal-structure alternatives. Source-linked science first; archived model scopes are complete.
 
 
