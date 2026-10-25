@@ -68,41 +68,103 @@
     "docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md"
   ],
   "experiment_authority": {
-    "all_cpu_gpu_model_experiments": "RESUMED_ONLY_FOR_BOUNDED_E0_OBSERVATION",
+    "all_cpu_gpu_model_experiments": "REGISTERED_SCOPES_COMPLETE_NO_PENDING_WORK",
     "paused_by": "research/20261024/EXPERIMENT_PAUSE.json",
     "eligible_model_method_ids": [],
     "automatic_followups": false,
-    "explicit_user_resume_required": false,
+    "explicit_user_resume_required": true,
     "resume_scope": {
       "user_instruction_date": "2026-10-25",
-      "user_instruction": "按照当前项目定下的规范继续去跑任务；授权七个私有节点中最多四张空卡。",
-      "protocol": "config/e0_observation_replication_20261025.json",
-      "protocol_sha256": "8bfb205aad9d9b846e07c6aec7b82b36b54568af2dbe946b1ad715e7a9c026c3",
-      "scope": "Six exposed CAL24 sources total, source0 instrument accepted and reused; five more sources each with two plain/observed native dense generations. At most two idle A100s; no candidate operator, training, new weights, official scoring or automatic retry. Saved/native operand CPU descriptions allowed.",
+      "user_instruction": "继续，直到当前所有尝试做到位。",
+      "protocol": "config/e0_finite_group_diagnostic_20261025.json",
+      "protocol_sha256": "5dad811d53d14a87fcde2e6df98b31c81a6a49976a4ecfdf2f3deed7cfa151d1",
+      "scope": "Six exposed CAL24 sources with five fixed diagnostic arms each, plus identical five-arm cross-worker technical repetitions on primary sources0/4. Max40 freely running four-step generations and4 simultaneous idle A100s; no tuning, training, decomposition, official scores or speed claim.",
+      "execution_status": "COMPLETE",
+      "actual_budget": {
+        "source_clusters": 6,
+        "full_generations": 40,
+        "primary_generations": 30,
+        "cross_worker_generations": 10,
+        "failed_generations": 0,
+        "retries": 0,
+        "peak_simultaneous_GPU_cards": 2,
+        "distinct_GPU_cards_used_in_batches": 4,
+        "workers_used": 2,
+        "extra_native_FFN_calls": 0,
+        "standalone_norm_calls": 0,
+        "training_updates": 0,
+        "new_decompositions": 0,
+        "official_quality_calls": 0,
+        "new_native_HF_output_bytes": 4019336478,
+        "new_derived_media_bytes": 1593050
+      },
+      "pending_model_jobs": 0,
       "historical_pause_receipt_preserved": true,
-      "completed_instrument_protocol": "config/e0_observation_native_20261025.json",
+      "protocols": [
+        {
+          "path": "config/e0_finite_group_diagnostic_20261025.json",
+          "sha256": "5dad811d53d14a87fcde2e6df98b31c81a6a49976a4ecfdf2f3deed7cfa151d1"
+        },
+        {
+          "path": "config/e0_finite_group_replication_20261025.json",
+          "sha256": "3f8b398b25bc6fed4ca375a929c233785111a439b5671ebb27c1980a24ed6937"
+        },
+        {
+          "path": "config/e0_finite_cross_worker_20261025.json",
+          "sha256": "ee638028b3dc83b5447dec5df7a42d67f9b14ef60a5eaa982b7203aa7e49c50b"
+        }
+      ],
+      "max_gpu_cards": 4,
+      "max_full_generations_total": 40,
+      "registered_source_indices": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20
+      ],
+      "completed_result": "research/20261025/E0_FINITE_GROUP_DIAGNOSTIC.json",
+      "cross_worker_reproduction": "research/20261025/E0_CROSS_WORKER_REPRODUCTION.json",
       "actual_source_strata": {
         "CAL24_subject": 3,
         "CAL24_background": 3,
         "camera": 0,
-        "note": "The frozen replication question mistakenly described a 2/2/2 split; actual fixed CAL24 indices are preserved and the scope is corrected here. No camera-generalization claim."
-      },
-      "execution_status": "COMPLETE",
-      "completed_result": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
-      "actual_budget": {
-        "source_clusters": 6,
-        "full_generations": 12,
-        "peak_simultaneous_GPU_cards": 2,
-        "extra_native_FFN_calls": 0,
-        "training_updates": 0,
-        "official_quality_calls": 0,
-        "new_HF_output_bytes": 1538504087
-      },
-      "pending_model_jobs": 0
+        "note": "Same six exposed source clusters as the passive study; two cross-worker repeats add no independent sources."
+      }
     },
     "new_model_experiment_requires_separate_explicit_user_instruction": true,
     "completed_authorization_is_not_future_permission": true,
-    "completed_scope_remains_historical_evidence": true
+    "completed_scope_remains_historical_evidence": true,
+    "completed_resume_scopes": [
+      {
+        "user_instruction_date": "2026-10-25",
+        "user_instruction": "按照当前项目定下的规范继续去跑任务；授权七个私有节点中最多四张空卡。",
+        "protocol": "config/e0_observation_replication_20261025.json",
+        "protocol_sha256": "8bfb205aad9d9b846e07c6aec7b82b36b54568af2dbe946b1ad715e7a9c026c3",
+        "scope": "Six exposed CAL24 sources total, source0 instrument accepted and reused; five more sources each with two plain/observed native dense generations. At most two idle A100s; no candidate operator, training, new weights, official scoring or automatic retry. Saved/native operand CPU descriptions allowed.",
+        "historical_pause_receipt_preserved": true,
+        "completed_instrument_protocol": "config/e0_observation_native_20261025.json",
+        "actual_source_strata": {
+          "CAL24_subject": 3,
+          "CAL24_background": 3,
+          "camera": 0,
+          "note": "The frozen replication question mistakenly described a 2/2/2 split; actual fixed CAL24 indices are preserved and the scope is corrected here. No camera-generalization claim."
+        },
+        "execution_status": "COMPLETE",
+        "completed_result": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
+        "actual_budget": {
+          "source_clusters": 6,
+          "full_generations": 12,
+          "peak_simultaneous_GPU_cards": 2,
+          "extra_native_FFN_calls": 0,
+          "training_updates": 0,
+          "official_quality_calls": 0,
+          "new_HF_output_bytes": 1538504087
+        },
+        "pending_model_jobs": 0
+      }
+    ]
   },
   "model_execution_authority": "USER_AUTHORIZED_E0_FIXED_SCOPE_COMPLETE_NO_PENDING_JOB",
   "research_navigation": "research/RESEARCH_NAVIGATION.md",
@@ -192,26 +254,44 @@
     "transition_authority": "EXPLICIT_USER_DIRECTED_SERIALIZED_COORDINATOR_UPDATE_ONLY",
     "new_experiment_authority": "NONE",
     "latest_deliverable": {
-      "status": "COMPLETE_SOURCE_BOUND_DISCOVERY_ARCHIVE",
-      "document": "research/20261025/E0_DISCOVERY.md",
+      "status": "COMPLETE_FIXED_NATIVE_E0_PHENOMENON_ARCHIVE",
+      "document": "research/20261025/E0_FOLLOWTHROUGH.md",
       "native_observations": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
       "residual_geometry": "research/20261025/E0_RESIDUAL_GEOMETRY.json",
       "temporal_structure": "research/20261025/E0_TEMPORAL_STRUCTURE.json",
       "profile_outliers": "research/20261025/E0_PROFILE_OUTLIERS.json",
       "candidate_operator_selected": false,
       "stage_changed": false,
-      "new_structural_result": "First-block fixed-group gated outputs have substantial residual-radial alignment in saved-operand ideal LN geometry; present before writeback and retained in algebraic leave-group-out controls. Coarse profile variability mostly precedes Q2; temporal cosine partly reflects cross-row common means.",
-      "open_discriminator": "Native finite group actions matched in local output error but differing in radial alignment, comparing centered-angle/BI-style controls, real nextnorm and downstream flow; no followup registered or launched.",
+      "new_structural_result": "Fixed finite group actions expose BF16 residual writeback as a major local prediction-error boundary. Local and final-flow A/B rankings differ in3/6 exposed sources. Four-arm nonlinear response, not opposite linear directions, explains subadditive final-flow energy. All210 numerical/video hash comparisons reproduce on a second same-model A100 worker; this is technical reproduction, not peer agreement.",
+      "open_discriminator": "Separate downstream quantizer-boundary effects from continuous attention/residual propagation after matching actual native writeback errors. Amplitude-matched radial-causality test and independent author reconstruction remain open; no next model study registered.",
       "literature_crosscheck": {
         "date": "2026-10-25",
-        "document": "research/20261025/E0_DISCOVERY.md",
-        "coverage": "Primary papers and official code: HiF4/SmoothQuant, LayerNorm geometry, angular block pruning/ShortGPT, FFN memory composition, visual registers and few-step solver caching; backward/forward citation followup. No novelty or deployment claim."
+        "document": "research/20261025/E0_FOLLOWTHROUGH.md",
+        "previous_document": "research/20261025/E0_DISCOVERY.md",
+        "coverage": "Primary ShortGPT/angle controls, SparseGPT/OBS-Diff signed-Gram reconstruction, ERTACache/6BitDiffusion temporal limits, Xiong pre-norm bypass, NVIDIA residual dtype code and author StreamBack negative experiment. Distinguish papers/code read from discovery-only leads; no novelty or imported speed/quality claim."
       },
       "independent_e0_peer_review_status": "PENDING_EXPLICIT_OTHER_AGENT_RECONSTRUCTION",
-      "gaps_and_required_remedies": "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md"
+      "gaps_and_required_remedies": "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md",
+      "previous_discovery": "research/20261025/E0_DISCOVERY.md",
+      "geometry_rankings": "research/20261025/E0_GEOMETRY_RANKINGS.json",
+      "joint_and_temporal": "research/20261025/E0_JOINT_AND_TEMPORAL.json",
+      "finite_native_actions": "research/20261025/E0_FINITE_GROUP_DIAGNOSTIC.json",
+      "cross_worker_reproduction": "research/20261025/E0_CROSS_WORKER_REPRODUCTION.json"
     },
     "open_problems_document": "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md",
-    "problem_priority": "Independent source-bound Block0 residual-gate-LN mechanism challenge and evidence scope reconciliation; no algorithm promotion or unauthorized model work."
+    "problem_priority": "Independent reconstruction of Block0 continuous/native BF16 response and residual-bypass propagation, with distinct predictions for later quantization vs continuous nonlinear effects; no operator promotion.",
+    "latest_completed_observation": {
+      "id": "E0_FINITE_GROUP_CAUSAL_DIAGNOSTIC",
+      "status": "COMPLETE",
+      "source_clusters_registered": 6,
+      "full_generations_max": 40,
+      "max_concurrent_GPU_cards": 4,
+      "candidate_operator_selected": false,
+      "stage_changed": false,
+      "document": "research/20261025/E0_FOLLOWTHROUGH.md",
+      "actual_full_generations": 40,
+      "pending_model_jobs": 0
+    }
   },
   "web_research": {
     "mode": "PROACTIVE_BROAD_DEEP_ITERATIVE_WEB_SEARCH_FOR_SUBSTANTIVE_SCIENTIFIC_WORK",

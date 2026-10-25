@@ -1,0 +1,76 @@
+{
+  "id": "FFNDS_E0_FINITE_GROUP_CAUSAL_DIAGNOSTIC_20261025",
+  "schema_version": "1.0",
+  "status": "FROZEN_BEFORE_NATIVE_EXECUTION",
+  "user_instruction": "继续推进，直到当前所有尝试做到位；沿用当前 E0 发现阶段，不提升候选方法。",
+  "target": "original native A100 Wan2.2 I2V D-Q HiF4/BF16, full dense GEMMs",
+  "source_indices": [
+    0,
+    4
+  ],
+  "source_scope": "Two discovery-exposed CAL24 sources, one subject and one background; no camera or population claim.",
+  "seed": 42,
+  "intervention": {
+    "step": 0,
+    "block": 0,
+    "boundary": "after original Q2, before unchanged full dense W2; zero complete original64 groups",
+    "groups_A": [
+      0
+    ],
+    "groups_B": [
+      53
+    ],
+    "reason": "First two existing fixed observation panels, kept identical across both sources; diagnostic of composition, not fitted route or amplitude-matched directional experiment."
+  },
+  "arms": [
+    "dense",
+    "A",
+    "B",
+    "AB",
+    "dense_repeat"
+  ],
+  "max_generations_per_source": 5,
+  "max_full_generations_total": 10,
+  "max_gpu_cards": 2,
+  "max_output_gib_per_source": 2,
+  "disk_reserve_gib": 80,
+  "training_updates": 0,
+  "new_decompositions": 0,
+  "official_quality_calls": 0,
+  "extra_native_FFN_calls": 0,
+  "standalone_norm_calls": 0,
+  "automatic_retry": false,
+  "input_default": ".runtime/inputs/calibration24/canonical.json",
+  "native_source_sha256": {
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QTensor.py": "ac5061523cfb87c203cb38a250fffc590d2248f4b7e303f671ba36b48d0eaee2",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c"
+  },
+  "accepted_observations": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
+  "accepted_observations_sha256": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5",
+  "driver_sources_sha256": {
+    "tools/run_e0_finite_group_diagnostic.py": "0ce229e8df1dac2244e12d15b9bac028ff503c42bd47ddc88b222b6877e5d409",
+    "tools/prepare_ffnds_observations.py": "08e73ec99c535fa3c0ebf551ab6627b45a19173c410e233c2296d5430684245a",
+    "tools/ffnds_observation_common.py": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+    "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030"
+  },
+  "observables": [
+    "same-prefix native FFN output, residual writeback, actual next-block norm1",
+    "all four freely running input/flow/post tensors",
+    "repeated dense and historical latent/video SHA controls",
+    "four-arm signed cross term versus nonlinear response"
+  ],
+  "claims_excluded": [
+    "speed or physical sparse kernel saving",
+    "fresh source quality validation",
+    "angle-versus-energy causal test at matched local error",
+    "promotion to an operator strategy"
+  ]
+}

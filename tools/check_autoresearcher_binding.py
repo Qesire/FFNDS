@@ -199,8 +199,8 @@ def main():
            pause["resume_requires_explicit_user_instruction"] is True and
            current["experiment_pause"]["all_experiments_paused"] is True,
            "Explicit user experiment pause was changed")
-    # Historical pause is immutable. A later, explicitly user-authorized
-    # six-source E0 passive collection was completed; it grants NO new execution.
+    # Preserve the completed passive receipt even when a later user instruction
+    # creates a separate bounded scope. Neither completion grants future work.
     authority = active["experiment_authority"]
     bounded = authority.get("resume_scope", {})
     ensure(authority.get("completed_authorization_is_not_future_permission") is True and
@@ -209,8 +209,18 @@ def main():
            bounded.get("execution_status") == "COMPLETE" and
            bounded.get("pending_model_jobs") == 0,
            "Completed E0 bounded observation vs fresh experiment permission is ambiguous")
-    budget = bounded.get("actual_budget", {})
-    strata = bounded.get("actual_source_strata", {})
+    completed = [*authority.get("completed_resume_scopes", []), bounded]
+    passive_path = "config/e0_observation_replication_20261025.json"
+    passive = [scope for scope in completed if scope.get("protocol") == passive_path]
+    ensure(len(passive) == 1, "Missing or duplicated original passive completion receipt")
+    passive = passive[0]
+    ensure(passive.get("execution_status") == "COMPLETE" and
+           passive.get("pending_model_jobs") == 0 and
+           passive.get("protocol_sha256") ==
+           hashlib.sha256((ROOT / passive_path).read_bytes()).hexdigest(),
+           "Historical passive completion or protocol identity changed")
+    budget = passive.get("actual_budget", {})
+    strata = passive.get("actual_source_strata", {})
     ensure(budget.get("source_clusters") == 6 and
            budget.get("full_generations") == 12 and
            budget.get("peak_simultaneous_GPU_cards", 99) <= 4 and
@@ -218,6 +228,23 @@ def main():
            strata.get("CAL24_background") == 3 and
            strata.get("camera") == 0,
            "Frozen E0 result scope or cohort description changed unexpectedly")
+    if bounded.get("protocol") != passive_path:
+        protocols = bounded.get("protocols", [])
+        ensure(bool(protocols), "Later bounded scope lacks frozen protocols")
+        generation_cap = 0
+        for item in protocols:
+            path = ROOT / item["path"]
+            ensure(path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() ==
+                   item["sha256"], "Later bounded protocol identity changed")
+            generation_cap += record(item["path"])["max_full_generations_total"]
+        actual = bounded.get("actual_budget", {})
+        ensure(bounded.get("max_full_generations_total") == generation_cap and
+               0 < actual.get("full_generations", 0) <= generation_cap and
+               0 < actual.get("peak_simultaneous_GPU_cards", 99) <=
+               bounded.get("max_gpu_cards", 0) <= 4 and
+               bool(bounded.get("completed_result")) and
+               (ROOT / bounded["completed_result"]).is_file(),
+               "Later completed execution is outside its explicit frozen bounds")
     ensure(current["eligible_model_method_ids"] ==
            pause["eligible_model_method_ids"] ==
            active["experiment_authority"]["eligible_model_method_ids"] == [],
