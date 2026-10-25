@@ -22,7 +22,7 @@
 | 字段 | 内容 |
 |---|---|
 | `claim_id`, `agent_id`, `source_revision` | 可追踪的发现身份/代码版本 |
-| `anchor_nodes`, `upstream_nodes`, `consumer_nodes` | 从 G/F/D/P 注册表中选择**相关**节点，跨G0–G4追踪；不要求每个方向都有完整闭环 |
+| `anchor_nodes`, `upstream_nodes`, `consumer_nodes` | 从 G/F/D/P 注册表中选择**相关**节点，跨G0–G5追踪；不要求每个方向都有完整闭环 |
 | `mechanism`, `math_or_trace` | 一条正向新认识、推导或可证伪想法，明确 GELU/QDQ/BF16 等边界 |
 | `availability`, `real_cost` | 观测在 W1 前还是后？哪些W1/W2/量化/缓存/索引开销已付？属于后验 oracle 还是可在线观测？ |
 | `evidence`, `countermechanism`, `discriminator` | 原始文件及精确来源/step/block/token 范围，最强不同解释与决定性预测 |
