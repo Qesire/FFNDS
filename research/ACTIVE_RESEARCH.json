@@ -64,7 +64,7 @@
     "actual_scoped": "R7 finite historic two-block response, R13 copied-row negative, old C1 restoration/capture scope, R16/R17 incomplete fresh independent quality.",
     "unknown": "Wan upstream incremental NetVOI and no-recovery method full-video/speed gains."
   },
-  "stale_task_policy": "Only research/ACTIVE_RESEARCH.json names the current research priority. Archived task status strings are original evidence; discover new hypotheses freely from them. The separate user experiment pause controls model resource use.",
+  "stale_task_policy": "Only research/ACTIVE_RESEARCH.json names current priority and resource state. Historical pauses, frozen scopes and old status text retain their original scope; later explicit user instructions and individually registered scopes are serialized here.",
   "historical_evidence_links": [
     "research/CURRENT_DECISION.json",
     "research/20261021/method_triage.json",
@@ -73,7 +73,7 @@
     "docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md"
   ],
   "experiment_authority": {
-    "all_cpu_gpu_model_experiments": "REGISTERED_SHARED_TILE_AND_CLOSURE_SCOPES_COMPLETE_NO_PENDING_WORK",
+    "all_cpu_gpu_model_experiments": "ALL_EXPLICITLY_REGISTERED_SCOPES_COMPLETE_NO_JOBS_PENDING",
     "paused_by": "research/20261024/EXPERIMENT_PAUSE.json",
     "eligible_model_method_ids": [],
     "automatic_followups": false,
@@ -215,7 +215,12 @@
           "training_updates": 0,
           "official_quality_calls": 0,
           "peak_simultaneous_GPU_cards": 1
-        }
+        },
+        "actual_seeds_by_source": {
+          "0": 42,
+          "12": 54
+        },
+        "seed_scope_clarification": "Frozen scope wording seed42 denotes base seed; canonical source12 actually uses54. Preserve frozen protocols; raw identity uses actual source seeds."
       },
       {
         "id": "E0_CONTIGUOUS_NATIVE_OPERANDS_20261025",
@@ -238,7 +243,12 @@
           "peak_GPU_cards": 2,
           "extra_native_FFN_calls": 0,
           "training_updates": 0
-        }
+        },
+        "actual_seeds_by_source": {
+          "0": 42,
+          "12": 54
+        },
+        "seed_scope_clarification": "Frozen scope wording seed42 denotes base seed; canonical source12 actually uses54. Preserve frozen protocols; raw identity uses actual source seeds."
       },
       {
         "id": "E0_SHARED_TILE_PRE_W1_SAVED_20261025",
@@ -282,10 +292,266 @@
             "W2": 260
           }
         }
+      },
+      {
+        "id": "E0_SHARED_GELU_TANGENT_SAVED_20261025",
+        "protocol": "config/e0_shared_tangent_20261025.json",
+        "protocol_sha256": "cc0eb83f6543bfdaa8fcf84655dc82adb53a2dfa6d4f4f79954061623a66af05",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "scope": "20 saved same-expert contiguous384-row cases. Compare old per-token tanh-GELU derivative, old shared128/384 derivative and posthoc shared hidden least-squares slope. Project exact current-minus-old Q1 through original W1; compare native Q2 update through original W2/current gate. No composed weight produced, no model action, training, extra QDQ or decomposition.",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "automatic_retry": false,
+        "pending_GPU_analysis_jobs": 0,
+        "completed_document": "research/20261025/E0_SHARED_TANGENT.md",
+        "actual_budget": {
+          "new_generations": 0,
+          "native_QDQ_calls": 0,
+          "training_updates": 0,
+          "new_weight_compositions": 0,
+          "diagnostic_projections": {
+            "W1": 20,
+            "W2": 140
+          },
+          "peak_GPU_cards": 1
+        },
+        "pending_model_jobs": 0,
+        "actual_seeds_by_source": {
+          "0": 42,
+          "12": 54
+        },
+        "seed_scope_clarification": "Frozen scope wording seed42 denotes base seed; canonical source12 actually uses54. Preserve frozen protocols; raw identity uses actual source seeds."
+      },
+      {
+        "id": "E0_ALL_BLOCK_FULL_M_TANGENT_NATIVE_20261025",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "date": "2026-10-25",
+        "protocol": "config/e0_all_block_tangent_native_20261025.json",
+        "protocol_sha256": "db18231187dcb8aaa8d878720a6d98fb12c53989c7d98997c892e4076a44172a",
+        "scope": "Two unchanged dense four-step videos, exposed source0/12 seed42;all40 blocks/four steps. Save one center M128 plus original random32 rows, original five fields; compute full-M mean tanh-GELU derivative at old expert steps0/2. No approximation returned to model.",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "max_full_generations_total": 2,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "completed_result": "research/20261025/E0_ALL_BLOCK_TANGENT_OBSERVATIONS.json",
+        "actual_budget": {
+          "full_generations": 2,
+          "failed_generations": 0,
+          "retries": 0,
+          "peak_GPU_cards": 2,
+          "user_GPU_ceiling": 4,
+          "extra_native_FFN_calls": 0,
+          "full_M_derivative_reductions": 160,
+          "training_updates": 0
+        },
+        "pending_GPU_analysis_jobs": 0,
+        "actual_seeds_by_source": {
+          "0": 42,
+          "12": 54
+        },
+        "seed_scope_clarification": "Frozen scope wording seed42 denotes base seed; canonical source12 actually uses54. Preserve frozen protocols; raw identity uses actual source seeds."
+      },
+      {
+        "id": "E0_ALL_BLOCK_FULL_M_SHARED_TANGENT_SAVED_20261025",
+        "protocol": "config/e0_all_block_tangent_saved_20261025.json",
+        "protocol_sha256": "4378dc75d606b4b1d99691a889a5d7321a13b582a483da99025145272e421239",
+        "scope": "160 saved source/expert/block cases; each tests center128 and original uniform32 separately. Full-M old derivative mean is available before current W1. Compare per-token, center128 shared and full-M shared old derivatives plus current-label center128 least-squares description. Exact same-prefix native W2 output deltas are labels. No model action or A construction.",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "pending_GPU_analysis_jobs": 0,
+        "automatic_retry": false,
+        "pending_model_jobs": 0,
+        "completed_result": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
+        "completed_document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "actual_budget": {
+          "new_full_generations": 0,
+          "diagnostic_counts": {
+            "W1": 160,
+            "W2": 1120
+          },
+          "failed_attempts": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1,
+          "training_updates": 0,
+          "persisted_new_weights": 0
+        }
+      },
+      {
+        "id": "E0_SHARED_TANGENT_ISOLATED_NATIVE_FOLD_MICROBENCHMARK_20261025",
+        "protocol": "config/e0_fold_microbenchmark_20261025.json",
+        "protocol_sha256": "4ceb8d202f3c8ff3692d49429c0f35ec93411c1638ebe4bdee4912958eff56b4",
+        "scope": "Eight saved source/expert/block cases. Native isolated after-Q1 W1-GELU-Smooth2-Q2-W2/gate versus BF16 folded updates, FP32 or BF16 matrix formation. Quality check uses actual saved128 rows. Full-M shape timing repeats these rows to31668; it is not the natural full-M tensor or end-to-end video benchmark. No weights persisted, no full generation, training, decomposition or official scoring.",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "pending_GPU_analysis_jobs": 0,
+        "automatic_retry": false,
+        "pending_model_jobs": 0,
+        "completed_result": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
+        "completed_document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "actual_budget": {
+          "new_full_generations": 0,
+          "diagnostic_counts": {
+            "standalone_native_after_Q1_FFN": 64,
+            "native_Q2_calls": 64,
+            "FP32_matrix_compositions": 64,
+            "BF16_matrix_compositions": 64,
+            "folded_update_applications": 128,
+            "full_M_derivative_reductions": 56
+          },
+          "failed_attempts": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1,
+          "training_updates": 0,
+          "persisted_new_weights": 0
+        }
+      },
+      {
+        "id": "E0_CROSS_SOURCE_FIXED_FOLD_GROUP_RESIDUAL_20261025",
+        "protocol": "config/e0_fold_group_residual_20261025.json",
+        "protocol_sha256": "ebc44b029b0f38a3404e13e0083edc21874daebd462fed12bccd4e8c0f7bee8a",
+        "scope": "160 saved source/expert/block cases, center128 and original uniform32 panels. Fixed kappa from the OTHER source full-M old derivative. Fixed group supports are calibrated on only the OTHER source random32 residuals using that SAME training-source kappa; no held-source state in calibration. Compare linear plus original64 whole-group nonlinear residual, group-only controls and other-source affine. Current-label group ranking kept explicitly posthoc. No model action, new matrix or decomposition.",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "pending_GPU_analysis_jobs": 0,
+        "automatic_retry": false,
+        "pending_model_jobs": 0,
+        "completed_result": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
+        "completed_document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "actual_budget": {
+          "new_full_generations": 0,
+          "diagnostic_counts": {
+            "W1": 160,
+            "full_W2": 160,
+            "batched_group_W2": 480
+          },
+          "failed_attempts": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1,
+          "training_updates": 0,
+          "persisted_new_weights": 0
+        }
+      },
+      {
+        "id": "E0_ABSOLUTE_FFN_AFFINE_GROUP_FOLD_SAVED_20261025",
+        "protocol": "config/e0_absolute_affine_fold_20261025.json",
+        "protocol_sha256": "b4b348427d5a835d9113be773c4324d0e1b6ef33e42b580e4d683fa52f4d6867",
+        "scope": "Forty saved all-step cases across five depth-spanning blocks. Fit only OTHER-source original uniform32 coefficients: Q2-vs-continuous-preactivation OLS, or GELU/Smooth2 OLS with actual-Q2 mean offset. Evaluate source-held affine full-function base plus exact original64-group residual, fixed other-source and posthoc group choices. No temporal cache, current full-W1 input observer, matrix composition or model action.",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "pending_GPU_analysis_jobs": 0,
+        "automatic_retry": false,
+        "pending_model_jobs": 0,
+        "completed_result": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
+        "completed_document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "actual_budget": {
+          "new_full_generations": 0,
+          "diagnostic_counts": {
+            "W1": 40,
+            "full_W2": 80,
+            "batched_group_W2": 200
+          },
+          "failed_attempts": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1,
+          "training_updates": 0,
+          "persisted_new_weights": 0
+        }
+      },
+      {
+        "id": "E0_DENSE_WEIGHT_RESIDENCY_NATIVE_20261025",
+        "protocol": "config/e0_dense_weight_residency_20261025.json",
+        "protocol_sha256": "be7fc72afdb2fdef30dbe582746a980eedde2aa683f7d1dba641a5aa1f08776a",
+        "scope": "Nine unchanged-arithmetic dense generations, three fresh-process allocation policies each source0 cold/source0 repeat/source12. All original latents/videos must match. Compare original one-block+empty_cache, same block policy without explicit flush, and no-flush with exact FFN decoded weights retained across blocks/experts/videos. No activation mask, training, new weights or download.",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "max_full_generations_total": 9,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "pending_GPU_analysis_jobs": 0,
+        "completed_result": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.json",
+        "completed_document": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+        "actual_budget": {
+          "full_generations": 9,
+          "matched_video_hashes": 9,
+          "matched_latent_hashes": 36,
+          "failed_generations": 0,
+          "retries": 0,
+          "peak_GPU_cards": 2,
+          "user_GPU_ceiling": 4,
+          "extra_native_FFN_calls": 0,
+          "training_updates": 0,
+          "new_weight_decompositions": 0,
+          "official_quality_calls": 0,
+          "HF_output_bytes": 15575623
+        }
+      },
+      {
+        "id": "E0_DENSE_RESIDENCY_SAME_CARD_CROSSOVER_20261025",
+        "protocol": "config/e0_dense_residency_crossover_20261025.json",
+        "protocol_sha256": "343d134ec8afa077b16fd704910f8464f9e8656f9b45b29500eb7eed5d955531",
+        "scope": "Six unchanged-arithmetic dense videos: repeat original policy on the card previously used by no-flush, and no-flush on the card previously used by original; three source0/source0/source12 videos each. Fresh process per mode, same code/source/assets/seed and CUDA-event observation. This counterbalances card and order for descriptive timing; not statistical speed acceptance.",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "max_full_generations_total": 6,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "pending_GPU_analysis_jobs": 0,
+        "completed_result": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.json",
+        "completed_document": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+        "actual_budget": {
+          "full_generations": 6,
+          "matched_video_hashes": 6,
+          "matched_latent_hashes": 24,
+          "failed_generations": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1,
+          "user_GPU_ceiling": 4,
+          "extra_native_FFN_calls": 0,
+          "training_updates": 0,
+          "new_weight_decompositions": 0,
+          "official_quality_calls": 0,
+          "HF_output_bytes": 10382260
+        }
+      },
+      {
+        "id": "E0_ALL_DECODED_WEIGHT_RESIDENCY_NATIVE_20261025",
+        "protocol": "config/e0_all_weight_residency_20261025.json",
+        "protocol_sha256": "a0674e0271d4171738ebd1733011368279e9f76a3cef589be0a68d9f71e1569f",
+        "scope": "Three unchanged-arithmetic dense videos, source0/source0/source12, fresh process on the card used by reverse original/no-flush controls. Retain all exact decoded quantized linear weights, including attention and FFN. No scalar or FFN operation changes. Start only if sum of original sampled peak, full decoded weights and2GiB safety fits this A100; otherwise skip before any generation. Budget54GiB resident weights, zero automatic retries.",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "max_full_generations_total": 3,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "pending_GPU_analysis_jobs": 0,
+        "completed_result": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.json",
+        "completed_document": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+        "actual_budget": {
+          "full_generations": 3,
+          "matched_video_hashes": 3,
+          "matched_latent_hashes": 12,
+          "failed_generations": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1,
+          "user_GPU_ceiling": 4,
+          "extra_native_FFN_calls": 0,
+          "training_updates": 0,
+          "new_weight_decompositions": 0,
+          "official_quality_calls": 0,
+          "HF_output_bytes": 5184707
+        }
       }
     ]
   },
-  "model_execution_authority": "USER_RENEWED_CONTIGUOUS_NATIVE_AND_SAVED_SCOPES_COMPLETE_NO_PENDING_JOB",
+  "model_execution_authority": "ALL_FIXED_SCOPES_COMPLETED_NO_AUTOMATIC_MODEL_FOLLOWUP",
   "research_navigation": "research/RESEARCH_NAVIGATION.md",
   "question_relationship": "COUPLED_LENSES_NON_SEQUENTIAL_INFORMATION_DECISION_COMPUTE",
   "research_interfaces": {
@@ -302,15 +568,15 @@
     "experiment_authority": "NONE"
   },
   "latest_exploration": {
-    "id": "GATED_RESIDUAL_QUOTIENT_20261024",
-    "type": "SOURCE_GROUNDED_CONDITIONAL_THEOREM_AND_HYPOTHESES",
-    "document": "docs/96_门控残差商空间_可观测误差与无补算FFN构造_20261024.md",
-    "record": "research/20261024/gated_residual_quotient_exploration.json",
-    "finding": "LayerNorm exact per-token shift invariance implies a conditional gated residual-output nullspace; study real 64-group observable cancellation versus isotropic 1/5120 baseline.",
-    "precedence": "Additional open Q3→Q1→Q2 exploration only; does not supersede current Q1/Q2/Q3 study or native authorization state.",
-    "next_source_only_discriminator": "Inspect actual optional residual consumers (norm3/adapter) and locate preexisting gate/W2/group-contribution operands before interpreting nullspace as useful sparsity.",
-    "empirical_status": "UNMEASURED",
-    "experiments": "PAUSED"
+    "id": "E0_AFFINE_FFN_DISCOVERY_20261025",
+    "type": "SOURCE_MATH_SAVED_GPU_NATIVE_NOOP_AND_INDEPENDENT_CHALLENGE",
+    "document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+    "record": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
+    "finding": "An affine FFN base plus whole-group residual beats exact matched projection pruning, but old full-M slopes leave substantial middle-layer error and unfused acquisition is costly. GELU odd/even decomposition offers a different falsifiable explanation.",
+    "runtime_result": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+    "experiment_state": "ALL_REGISTERED_SCOPES_COMPLETE_NO_PENDING_JOBS",
+    "candidate_operator_selected": false,
+    "stage_changed": false
   },
   "latest_historical_discriminator": {
     "id": "GATED_RESIDUAL_QUOTIENT_ARCHIVED_TEST_20261024",
@@ -373,28 +639,29 @@
     "transition_authority": "EXPLICIT_USER_DIRECTED_SERIALIZED_COORDINATOR_UPDATE_ONLY",
     "new_experiment_authority": "NONE",
     "latest_deliverable": {
-      "status": "COMPLETE_SHARED_COLUMNS_PRE_W1_AND_NATIVE_DEPENDENCY_DISCOVERY",
-      "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+      "status": "COMPLETE_ALL_DEPTH_AFFINE_DISCRIMINATION_AND_EXACT_DENSE_RUNTIME_IMPROVEMENT",
+      "document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
       "native_observations": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
       "residual_geometry": "research/20261025/E0_RESIDUAL_GEOMETRY.json",
       "temporal_structure": "research/20261025/E0_TEMPORAL_STRUCTURE.json",
       "profile_outliers": "research/20261025/E0_PROFILE_OUTLIERS.json",
       "candidate_operator_selected": false,
       "stage_changed": false,
-      "new_structural_result": "Two unchanged dense native videos supply3 original contiguous M128 tiles at40 positions;20 same-expert pairs and80 layout descriptions. At25% columns pre-W1 micro16 GELU/value ranking has6.55% innovation SSE in Block39 but42%-47% in observed middle blocks, where shared posthoc diagonal itself has39%-42%. Common token innovation energy is65%/78% at Block0/39 versus10%-14% in the three middle blocks. Every tested25% arbitrary shared set touches all216 native HiF4 groups, so direct native Q2 closure does not permit the same W1 reduction. A one-input-change synthetic original-Python HiF4 reference changes all64 outputs. No sparse speed or candidate quality acceptance.",
-      "open_discriminator": "Study a joint function/execution unit rather than retune the same topk: shared common update plus token-specific innovation, different spatial organization, or explicit quantizer-tree dependency actions. Distinguish W1 and W2 budgets and changed-Q2-output support. Existing contiguous operands now suffice for initial discrimination; no need to recapture these fields. E0 and algorithm selection unchanged; no job queued.",
+      "new_structural_result": "All40-depth saved diagnostics separate old full-M derivative statistics from128/32-row output error. Cross-source affine+27 group residual has11.27% average uniform32 output SSE versus43.13% exact matched group-only67 in40 five-depth/all-step cases; middle-depth errors remain large. Current unfused full-M derivative acquisition costs about54ms and can consume fold arithmetic gains. Separately18 dense runtime videos preserve72 latent/18 video hashes; same-card all-decoded residency reduces warm wall75.17/75.37 to50.42/50.79s with77.08GiB sampled physical peak, no FFN MAC reduction.",
+      "open_discriminator": "Distinguish GELU intrinsic odd half-linear term plus W2 cancellation from local affine hot ranges. Compare a fixed half-slope with source-held mean intercept to existing OLS and old derivatives using already saved operands; separate even-remainder hidden energy and signed W2 output. This is an unexecuted next mechanism, not a queued study. Any future native latency comparison must include exact-output resident dense and explicit memory/cold-start costs.",
       "literature_crosscheck": {
         "date": "2026-10-25",
-        "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
         "previous_documents": [
           "research/20261025/E0_RADIAL_PAIRING.md",
           "research/20261025/E0_TEMPORAL_CALIBRATION.md",
           "research/20261025/E0_FOLLOWTHROUGH.md",
           "research/20261025/E0_DISCOVERY.md"
         ],
-        "coverage": "Pinned Chipmunk official module/ops/MM1/MM2 source at177fdefc4803e621fd8a02aad491812e9d1ecc94, author PartsI/II and original paper; TaylorSeer v1 §3.2 equations4-10; actual native HiF4 group64/8/4 Python/CUDA dependencies and two CPU original-reference synthetic calls. No complete prior system/kernel reproduction."
+        "coverage": "Root: pinned Chipmunk official module/ops/MM1/MM2; TARDIS v1 hot ranges/constant fold/quantized W1 predictor; Increment-Calibrated Caching v1 input increments; TaylorSeer v1 output finite differences; original GELU v5 equations; PyTorch2.10 allocator semantics and NVIDIA allocator original blog. Independent reviewer additionally reconstructs GELU symmetry and signed group counterexamples with its own original-source trail. No whole TARDIS/Chipmunk system reproduction.",
+        "runtime_document": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
       },
-      "independent_e0_peer_review_status": "PENDING_EXPLICIT_OTHER_AGENT_RECONSTRUCTION",
+      "independent_e0_peer_review_status": "INDEPENDENT_SOURCE_MATH_DATA_RECORD_AVAILABLE_NOT_FORMAL_METHOD_ENDORSEMENT",
       "gaps_and_required_remedies": "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md",
       "previous_discovery": "research/20261025/E0_DISCOVERY.md",
       "geometry_rankings": "research/20261025/E0_GEOMETRY_RANKINGS.json",
@@ -415,81 +682,137 @@
       "shared_tile_preW1": "research/20261025/E0_SHARED_TILE_PRE_W1.json",
       "shared_tile_closure": "research/20261025/E0_SHARED_TILE_CLOSURE.json",
       "native_column_dependency_counterexample": "research/20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json",
-      "current_handoff_note": "The stored latest_deliverable.open_discriminator is historical to its finished experiment. Current E0 research handoff is latest_direction_review and current_open_forks; sharing/quantizer-tree are only peer-competing hypotheses, not assigned implementation."
+      "current_handoff_note": "The stored latest_deliverable.open_discriminator is historical to its finished experiment. Current E0 research handoff is latest_direction_review and current_open_forks; sharing/quantizer-tree are only peer-competing hypotheses, not assigned implementation.",
+      "previous_shared_tile_document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+      "affine_discovery": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
+      "dense_runtime_document": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+      "dense_runtime": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.json",
+      "all_block_operands": "research/20261025/E0_ALL_BLOCK_TANGENT_OBSERVATIONS.json",
+      "shared_tangent": "research/20261025/E0_SHARED_TANGENT.json",
+      "shared_tangent_fixed_controls": "research/20261025/E0_TANGENT_FIXED_CONTROLS.json",
+      "independent_e0_peer_review": "research/method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md",
+      "graph_claims": [
+        "research/method_discussion/graph_annotations/E0/E0_GRAPH_AFFINE_ODD_EVEN_20261025.json",
+        "research/method_discussion/graph_annotations/E0/E0_GRAPH_EXACT_DENSE_RESIDENCY_20261025.json"
+      ],
+      "independent_graph_review": "research/method_discussion/graph_annotations/E0/independent-affine-residency-graph-review-20261026.json",
+      "graph_review_status": "INDEPENDENT_REVIEWED_SCOPED_NOT_FORMAL_METHOD_ENDORSEMENT"
     },
     "open_problems_document": "research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md",
     "problem_priority": "New intrinsic mechanism after completed full-hidden, contiguous-token and native group-closure evidence: signed joint FFN function coordinates, nonlinear GELU structure, alternative spatiotemporal organization, downstream video value, executable W1/W2 information costs, and four-step distilled layer/expert dynamics. Independent discovery may start anywhere, invent further explanations and challenge fixed/raster assumptions.",
     "latest_completed_observation": {
-      "id": "E0_CONTIGUOUS_NATIVE_OPERANDS_20261025",
+      "id": "E0_DENSE_WEIGHT_RESIDENCY_COMPLETED_20261025",
       "status": "COMPLETE",
-      "protocol": "config/e0_contiguous_native_20261025.json",
-      "protocol_sha256": "65f5b4b8bd087e1e3a83c0c3641241767b8d2b30be37b5eb4356d5e98e817598",
+      "protocols": [
+        "config/e0_all_weight_residency_20261025.json",
+        "config/e0_dense_residency_crossover_20261025.json",
+        "config/e0_dense_weight_residency_20261025.json"
+      ],
       "source_indices": [
         0,
         12
       ],
-      "actual_full_generations": 2,
+      "actual_seeds_by_source": {
+        "0": 42,
+        "12": 54
+      },
+      "actual_full_generations": 18,
+      "matched_latent_hashes": 72,
+      "matched_video_files": 18,
       "max_concurrent_GPU_cards": 4,
       "actual_peak_GPU_cards": 2,
       "pending_model_jobs": 0,
       "candidate_operator_selected": false,
       "stage_changed": false,
-      "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
-      "result": "research/20261025/E0_SHARED_TILE_PRE_W1.json"
+      "document": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+      "result": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.json",
+      "additional_native_operand_capture": {
+        "result": "research/20261025/E0_ALL_BLOCK_TANGENT_OBSERVATIONS.json",
+        "full_generations": 2,
+        "scopes_per_source": 160,
+        "full_M_old_derivative_reductions": 160
+      }
     },
     "latest_saved_analysis": {
-      "id": "E0_SHARED_TILE_AND_NATIVE_DEPENDENCY_20261025",
+      "id": "E0_AFFINE_FFN_DISCOVERY_20261025",
       "status": "COMPLETE",
-      "protocols": [
-        "config/e0_shared_tile_saved_20261025.json",
-        "config/e0_shared_closure_20261025.json"
-      ],
       "source_clusters": 2,
-      "same_expert_pairs": 20,
-      "layout_tile_descriptions": 80,
-      "diagnostic_W1_projections": 120,
-      "diagnostic_W2_projections": 2280,
-      "CPU_original_quantizer_synthetic_calls": 2,
-      "new_native_FFN_calls": 0,
-      "new_native_norm_calls": 0,
+      "actual_seeds_by_source": {
+        "0": 42,
+        "12": 54
+      },
+      "protocols": [
+        "config/e0_all_block_tangent_saved_20261025.json",
+        "config/e0_fold_group_residual_20261025.json",
+        "config/e0_absolute_affine_fold_20261025.json",
+        "config/e0_fold_microbenchmark_20261025.json"
+      ],
+      "all_block_tangent_cases": 160,
+      "cross_source_increment_group_cases": 160,
+      "absolute_affine_cases": 40,
+      "isolated_fold_cases": 8,
+      "isolated_native_FFN_and_Q2_calls": 64,
+      "FP32_matrix_compositions": 64,
+      "BF16_matrix_compositions": 64,
+      "persisted_composed_weights": 0,
+      "new_generations": 0,
       "training_updates": 0,
-      "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
-      "result": "research/20261025/E0_SHARED_TILE_PRE_W1.json",
-      "closure_result": "research/20261025/E0_SHARED_TILE_CLOSURE.json",
+      "document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+      "result": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
       "previous_saved_analysis": {
-        "id": "E0_INTRINSIC_FULL_HIDDEN_SAVED_GPU_20261025",
+        "id": "E0_SHARED_TILE_AND_NATIVE_DEPENDENCY_20261025",
         "status": "COMPLETE",
-        "plan": "config/e0_intrinsic_saved_gpu_20261025.json",
-        "plan_sha256": "2e53fbe18cf4553b3787bbc1bab9753e7ed43574f27cc3e6f530a073271dfb9e",
-        "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
-        "result": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json",
-        "source_clusters": 6,
-        "uniform_rows_per_scope": 32,
-        "hidden_width": 13824,
-        "absolute_cases": 120,
-        "same_expert_innovation_cases": 60,
-        "new_generations": 0,
-        "GPU_cards_used": 1,
+        "protocols": [
+          "config/e0_shared_tile_saved_20261025.json",
+          "config/e0_shared_closure_20261025.json"
+        ],
+        "source_clusters": 2,
+        "same_expert_pairs": 20,
+        "layout_tile_descriptions": 80,
+        "diagnostic_W1_projections": 120,
+        "diagnostic_W2_projections": 2280,
+        "CPU_original_quantizer_synthetic_calls": 2,
         "new_native_FFN_calls": 0,
         "new_native_norm_calls": 0,
-        "model_training_updates": 0,
-        "diagnostic_small_W2_subset_projections": 2160,
-        "diagnostic_full_reference_projections": 120,
-        "diagnostic_batched_216_group_projections": 360,
-        "candidate_operator_selected": false,
-        "stage_changed": false,
+        "training_updates": 0,
+        "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "result": "research/20261025/E0_SHARED_TILE_PRE_W1.json",
+        "closure_result": "research/20261025/E0_SHARED_TILE_CLOSURE.json",
         "previous_saved_analysis": {
-          "id": "E0_SAVED_RADIAL_PAIRING_DISCRIMINATION_20261025",
-          "plan": "config/e0_radial_pairing_saved_20261025.json",
-          "document": "research/20261025/E0_RADIAL_PAIRING.md",
-          "result": "research/20261025/E0_RADIAL_PAIRING.json"
+          "id": "E0_INTRINSIC_FULL_HIDDEN_SAVED_GPU_20261025",
+          "status": "COMPLETE",
+          "plan": "config/e0_intrinsic_saved_gpu_20261025.json",
+          "plan_sha256": "2e53fbe18cf4553b3787bbc1bab9753e7ed43574f27cc3e6f530a073271dfb9e",
+          "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+          "result": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json",
+          "source_clusters": 6,
+          "uniform_rows_per_scope": 32,
+          "hidden_width": 13824,
+          "absolute_cases": 120,
+          "same_expert_innovation_cases": 60,
+          "new_generations": 0,
+          "GPU_cards_used": 1,
+          "new_native_FFN_calls": 0,
+          "new_native_norm_calls": 0,
+          "model_training_updates": 0,
+          "diagnostic_small_W2_subset_projections": 2160,
+          "diagnostic_full_reference_projections": 120,
+          "diagnostic_batched_216_group_projections": 360,
+          "candidate_operator_selected": false,
+          "stage_changed": false,
+          "previous_saved_analysis": {
+            "id": "E0_SAVED_RADIAL_PAIRING_DISCRIMINATION_20261025",
+            "plan": "config/e0_radial_pairing_saved_20261025.json",
+            "document": "research/20261025/E0_RADIAL_PAIRING.md",
+            "result": "research/20261025/E0_RADIAL_PAIRING.json"
+          }
         }
       }
     },
     "next_discussion_handoff": "research/20261025/E0_FFN_FIRST_TASK_20261025.md",
     "discussion_priority": "Independent E0 mechanism findings: FFN signed contribution, conditional spatiotemporal change, and downstream function; quantization format/scale research retained as secondary evidence/deployment context.",
     "guidance_evidence_commit": "5edf2dcc440dd4e3ddac808c64e5ba7c8d0f3757",
-    "peer_review_next_status": "PENDING_INDEPENDENT_AGENT_SOURCE_MATH_CHECK",
+    "peer_review_next_status": "INDEPENDENT_RECORD_COMPLETE_GELU_ODD_EVEN_AND_SIGNED_GROUP_CHALLENGES_OPEN",
     "previous_completed_observation": {
       "id": "E0_INTRINSIC_NATIVE_FULL_M_SUPPORT_20261025",
       "status": "COMPLETE",
@@ -518,7 +841,27 @@
       "Information-time and real W1/W2 + QDQ + kernel/packing/caching cost; numerical formats as cases",
       "Four-step distilled high/high/low/low layer and expert heterogeneity"
     ],
-    "graph_agent_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md"
+    "graph_agent_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
+    "earlier_completed_observations": [
+      {
+        "id": "E0_CONTIGUOUS_NATIVE_OPERANDS_20261025",
+        "status": "COMPLETE",
+        "protocol": "config/e0_contiguous_native_20261025.json",
+        "protocol_sha256": "65f5b4b8bd087e1e3a83c0c3641241767b8d2b30be37b5eb4356d5e98e817598",
+        "source_indices": [
+          0,
+          12
+        ],
+        "actual_full_generations": 2,
+        "max_concurrent_GPU_cards": 4,
+        "actual_peak_GPU_cards": 2,
+        "pending_model_jobs": 0,
+        "candidate_operator_selected": false,
+        "stage_changed": false,
+        "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "result": "research/20261025/E0_SHARED_TILE_PRE_W1.json"
+      }
+    ]
   },
   "web_research": {
     "mode": "PROACTIVE_BROAD_DEEP_ITERATIVE_WEB_SEARCH_FOR_SUBSTANTIVE_SCIENTIFIC_WORK",
@@ -529,7 +872,7 @@
     "outputs": "Search date, actual coverage/source links, closest competitors/counterexamples, what changed in explanation, uncovered gaps",
     "e0_focus": "Intrinsic FFN nonlinear/activation/signed contribution, video spatiotemporal dynamics, functional sensitivity, physical sparse units; pursue quantization-specific sources only if causally relevant.",
     "tool_absence": "Disclose unavailable live search and never invent retrieved sources",
-    "research_tools_only": "Read-only discovery and analysis; model CPU/GPU execution pause unchanged",
+    "research_tools_only": "Read-only discovery by default. Completed explicitly renewed CPU/GPU/model scopes are recorded above; no automatic new model/GPU followup.",
     "upstream_protocol": "core/WEB_RESEARCH_DISCOVERY.md",
     "upstream_skill": ".agents/skills/web-research-discovery/SKILL.md",
     "upstream_revision": "8b88a52d894568dc303db727decfbf13b5fabf3b"
@@ -548,14 +891,16 @@
       "real computable simplification and conditionally available information"
     ],
     "previous_radial_and_star_null": "HISTORICAL_COMPLETED_MECHANISM_EVIDENCE_NOT_CURRENT_GENERAL_TASK",
-    "execution": "NONE_PENDING; ALL_REGISTERED_MODEL_AND_GPU_SCOPES_COMPLETED",
+    "execution": "NONE_PENDING; ALL_REGISTERED_MODEL_AND_GPU_SCOPES_COMPLETED; ACTUAL_PEAK_TWO_UNDER_FOUR_IDLE_GPU_CEILING",
     "knowledge_gaps": "research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md",
     "current_scientific_reinterpretation": "Weighted-value FFN composition, signed contributions, GELU-constrained reparameterization, temporal innovation, video function and genuine execution tiles are complementary research coordinates.",
     "editorial_review": "AUTO_RESEARCHER_MECHANISM_EXPANSION_PRD_WARD_20261025",
     "prior_art_scope": "Public primary conference abstracts, Chipmunk author derivation and NVIDIA tiling technical details checked; no full prior-art implementation reproduction claimed.",
     "latest_mechanism_audit": "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md",
     "current_open_question": "Why does strong per-token posthoc FFN innovation concentration fail to induce shared token support or native tile savings; which alternative intrinsic function, spatiotemporal, video-functional or executable representation best explains and exploits the discrepancy?",
-    "search_space_policy": "MULTIPLE_COMPETING_MECHANISMS_FROM_SOURCE_AND_PRIOR_ART; NOT_DEFAULT_SHARED_COLUMN_OR_HIF4_GROUP64"
+    "search_space_policy": "MULTIPLE_COMPETING_MECHANISMS_FROM_SOURCE_AND_PRIOR_ART; NOT_DEFAULT_SHARED_COLUMN_OR_HIF4_GROUP64",
+    "latest_runtime_reference": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+    "latest_mechanism_discriminator": "GELU half-linear odd term versus local hot range; signed even-residual output after W2"
   },
   "graph_agent_collaboration": {
     "status": "ACTIVE_SOURCE_GRAPH_AND_EVIDENCE_DISCUSSION",
@@ -570,5 +915,16 @@
     "model_execution_authority": "NONE",
     "new_experiment_authority": "UNCHANGED_NONE",
     "canonical_stage": "E0_OPEN_DISCOVERY"
+  },
+  "previous_exploration": {
+    "id": "GATED_RESIDUAL_QUOTIENT_20261024",
+    "type": "SOURCE_GROUNDED_CONDITIONAL_THEOREM_AND_HYPOTHESES",
+    "document": "docs/96_门控残差商空间_可观测误差与无补算FFN构造_20261024.md",
+    "record": "research/20261024/gated_residual_quotient_exploration.json",
+    "finding": "LayerNorm exact per-token shift invariance implies a conditional gated residual-output nullspace; study real 64-group observable cancellation versus isotropic 1/5120 baseline.",
+    "precedence": "Additional open Q3→Q1→Q2 exploration only; does not supersede current Q1/Q2/Q3 study or native authorization state.",
+    "next_source_only_discriminator": "Inspect actual optional residual consumers (norm3/adapter) and locate preexisting gate/W2/group-contribution operands before interpreting nullspace as useful sparsity.",
+    "empirical_status": "UNMEASURED",
+    "experiments": "PAUSED"
   }
 }

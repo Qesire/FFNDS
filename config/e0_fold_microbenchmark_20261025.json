@@ -1,0 +1,56 @@
+{
+  "id": "E0_SHARED_TANGENT_ISOLATED_NATIVE_FOLD_MICROBENCHMARK_20261025",
+  "status": "FROZEN_BEFORE_GPU_EXECUTION",
+  "base_commit": "798a3c9",
+  "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+  "bound_sources": {
+    "tools/run_e0_fold_microbenchmark.py": "00ea3c0c05d3c166b2d710bc762d31b33497ccc4993060e6f82e97b540770393",
+    "tools/e0_gelu_tangent.py": "97d52906d7e0f502160423065eae60b60f10fa86bcd94eaf24145ab96620f9c1",
+    "tools/analyze_ffnds_observations.py": "c20003603ceb4bd0f263254464dedf02eff544a428b0c1137a9fd122bb4f2da7",
+    "tools/ffnds_observation_common.py": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/with_transformers_source_view.py": "85df726d8a98cc4570731a3767cb998cee08e85dca1496734a1f71111b686198",
+    ".runtime/hif4_rebuilt_cache.json": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+    "research/20261025/E0_ALL_BLOCK_TANGENT_OBSERVATIONS.json": "bfec17f83b95d86828125c6baca23e62582d7b154373cf98ee140246a79d9fbd",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QTensor.py": "ac5061523cfb87c203cb38a250fffc590d2248f4b7e303f671ba36b48d0eaee2",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c"
+  },
+  "source_indices": [
+    0,
+    12
+  ],
+  "blocks": [
+    30,
+    39
+  ],
+  "scope": "Eight saved source/expert/block cases. Native isolated after-Q1 W1-GELU-Smooth2-Q2-W2/gate versus BF16 folded updates, FP32 or BF16 matrix formation. Quality check uses actual saved128 rows. Full-M shape timing repeats these rows to31668; it is not the natural full-M tensor or end-to-end video benchmark. No weights persisted, no full generation, training, decomposition or official scoring.",
+  "warmup_calls": 2,
+  "timed_calls": 5,
+  "call_limits": {
+    "standalone_native_after_Q1_FFN": 64,
+    "native_Q2_calls": 64,
+    "FP32_matrix_compositions": 64,
+    "BF16_matrix_compositions": 64,
+    "folded_update_applications": 128,
+    "full_M_derivative_reductions": 56
+  },
+  "max_gpu_cards": 4,
+  "planned_GPU_cards": 1,
+  "max_HF_output_gib": 0.02,
+  "new_generations": 0,
+  "persisted_weights": 0,
+  "automatic_retry": false,
+  "claims_excluded": [
+    "End-to-end speed acceptance",
+    "Full video quality",
+    "Cost-free matrix generation or old-state observation",
+    "Full TARDIS reproduction"
+  ]
+}

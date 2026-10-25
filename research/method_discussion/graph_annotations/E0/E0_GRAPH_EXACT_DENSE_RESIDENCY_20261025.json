@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "ROOT_INTRINSIC_FFN_RESEARCH",
+  "research_stage": "E0_OPEN_DISCOVERY",
+  "source_revision": "79bc9ea",
+  "review_status": "PROPOSED",
+  "review_refs": [],
+  "model_experiment_authorized": false,
+  "execution_note": "All individually frozen empirical scopes completed. This annotation grants no new experiment or stage promotion.",
+  "claim_id": "E0_GRAPH_EXACT_DENSE_RESIDENCY_20261025",
+  "anchor_nodes": [
+    "G02",
+    "F04",
+    "F09",
+    "P12",
+    "D09"
+  ],
+  "upstream_nodes": [
+    "G18"
+  ],
+  "consumer_nodes": [
+    "F12",
+    "F13",
+    "G21"
+  ],
+  "mechanism": {
+    "statement": "Repeated decoded-weight H2D transfers and per-block allocator flush are avoidable runtime cost in the current native dense realization. Exact tensor residency preserves all tested trajectories and improves complete video wall time without reducing FFN arithmetic.",
+    "math_or_trace": "Context replaces only runtime._weight allocation policy, caching exact source.to(device,dtype,non_blocking=False).contiguous() by expert/block-qualified module/device/dtype. Every generation keeps1600 linear and1600 QDQ calls,cache_misses0. Warm all-resident transfer count0 instead of1600.",
+    "relation": "SOURCE_PLUS_NATIVE_IDENTITY_AND_SCOPED_SYS"
+  },
+  "availability": {
+    "earliest_decision_time": "Weight placement before/at original linear requests; no input selector.",
+    "observer_computation": "No activation observer; fixed retained-byte cap, source/asset identity validation, original counts/trajectory/video controls.",
+    "online_or_posthoc": "EXECUTED_FIXED_ALLOCATION_POLICY"
+  },
+  "real_cost": {
+    "W1": "Unchanged dense W1 MAC.",
+    "W2": "Unchanged dense W2 MAC.",
+    "QDQ": "Unchanged native Q1/Q2.",
+    "routing_memory": "Full decoded residency56,203,673,600 bytes; sampled physical peak78,932MiB on single80GB A100. FFN-only22,649,241,600 bytes is an additional policy.",
+    "downstream": "18 videos and72 scheduler latent hashes equal historical dense exactly. Same-card B warm75.172/75.372s versus50.419/50.789s. No claim beyond two exposed image/seed clusters or pipeline timing boundary."
+  },
+  "evidence": [
+    {
+      "path": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.json",
+      "kind": "NATIVE-OBS/VIDEO/SYS",
+      "scope": "Six fresh-process three-video runs; two anonymous cards on one worker; original/no-flush reciprocal crossover, full residency same-card original control without reciprocal full-residency repeat."
+    },
+    {
+      "path": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+      "kind": "SOURCE/SYS",
+      "scope": "Source0 seed42 first/repeat then source12 seed54. Host pipe.generate+sync wall includes video save/common hashing, excludes model construction/imports/assets. Sampled memory includes reserved pool."
+    }
+  ],
+  "countermechanism": {
+    "statement": "Differences arise only from card identity or process warmup, rather than allocation/residency.",
+    "prediction": "If card identity alone explained no-flush gain, reciprocal original/no-flush placement would erase the direction. Both same-card controls preserve the direction. All-residency still lacks reciprocal card repetition and broader performance replication."
+  },
+  "discriminator": "Completed reciprocal no-flush controls and exact counts identify a useful runtime reference. Future FFN speed comparisons should include this strong dense runtime with matching memory/cold-start accounting; no new jobs proposed here.",
+  "graph_change_suggestion": {
+    "node_ids": [
+      "P12",
+      "D09",
+      "G02",
+      "F04",
+      "F09"
+    ],
+    "proposed_annotation": "Attach scoped measured same-output runtime/memory evidence; do not draw an executed sparse W1/W2 edge or label FFN MAC reduction.",
+    "graph_edge_status": "SCOPED_MEASUREMENT_ANNOTATION"
+  }
+}

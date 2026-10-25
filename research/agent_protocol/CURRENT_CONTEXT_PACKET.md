@@ -1,5 +1,9 @@
 # FFNDS · E0 当前科学上下文（2026-10-25）
 
+**最新实际推进：** [全层函数表示结果](../20261025/E0_AFFINE_FFN_DISCOVERY.md)已完成40层旧斜率、160个跨来源增量、40个绝对affine和8个孤立计时案例。affine＋27组的uniform32平均输出SSE11.27%，匹配直接67组43.13%；中间层仍有明显误差，未执行近似候选视频。全部40层的中心128/原random32操作数与旧full-M导数均值已保存，勿重复采集。full-M不是误差评价行数。[独立审查](../method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md)提出GELU半线性奇部＋偶部及W2 signed抵消的竞争解释，半斜率控制尚未执行。
+
+**可复用的运行时成果：** [相同视频的权重常驻](../20261025/E0_DENSE_WEIGHT_RESIDENCY.md)在单张80GB A100同卡热态约75→50秒，18视频/72latent SHA与原dense相同；显存物理采样峰值77.08GiB。没有减少FFN MAC，后续算法应对照这个更强dense参考并报告冷态/显存。两来源实际seed42/54；此前“seed42”简称指base seed，并非source12同seed。全部本轮固定范围完成、0作业，实际峰值2卡、用户上限4卡；旧12/40次冻结回执不变。
+
 **唯一活跃科学入口**：[FFN 本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) → [首个 FFN 科学发现任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) → [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。本文件是阅读索引，不增加实验权限。**从 FFN 的输入系数与 W2 value vectors、有符号组合、时空变化、下游功能和可替代计算开始；量化尺度属于辅助幅值线索。**
 
 **最新连续token/前置观察跟进：** [报告](../20261025/E0_SHARED_TILE_PRE_W1.md)、[共享列数据](../20261025/E0_SHARED_TILE_PRE_W1.json)、[原量化组依赖](../20261025/E0_SHARED_TILE_CLOSURE.json)。再次明确续推后，两张空闲A100完成source0/12两次相同dense生成，连续M128向量已保存；另120次W1、2280次W2诊断。25%任意共享列的前置micro16 GELU/value排名：Block39创新SSE6.55%，中间观测层42%–47%。块内共同创新能量首尾65%/78%、中间10%–14%。所有25%共享集合触及全部原64组；原始Python量化合成反例只改一项却改变64项输出。下一判别需要联合函数/执行单位，分别记W1/W2成本；不是继续微调topk。两视频、8latent、40处五字段控制通过，无待执行作业；E0/候选选择未变。

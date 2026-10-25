@@ -36,6 +36,8 @@
 
 ## 已归档发现
 
+新增[Affine、GELU奇偶部与dense residency独立审查](independent-affine-residency-audit-20261025.md)：独立核对跨来源校准、18视频轨迹身份与计时边界，并给出半斜率条件证明及signed-group反例。[主研究数据](../../../20261025/E0_AFFINE_FFN_DISCOVERY.json)与[runtime数据](../../../20261025/E0_DENSE_WEIGHT_RESIDENCY.json)保留完整范围；此记录不构成正式方法认可或新增执行授权。
+
 | 作者 / 日期 | 发现记录 | 配套核算 | 证据范围 |
 | --- | --- | --- | --- |
 | Codex `01a171da` / 2026-10-25 | [最新有限干预的竞争机制与应用种子](codex-01a171da-competing-mechanisms-20261025.md) | [标量重表达 JSON](codex-01a171da-competing-mechanisms-20261025.json) | 基于 `375dc760` 六来源固定四臂结果；新增共同参考/误差去相关零模型及矩约束检查，独立同行评议待进行。 |

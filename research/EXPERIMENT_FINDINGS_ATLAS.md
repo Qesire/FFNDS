@@ -81,6 +81,8 @@
 
 ## 6. E 族：2026-10-25 本征 FFN 结构发现（当前重点）
 
+**最新系统证据 T05/T06：** [18视频/72latent恒等的dense常驻](20261025/E0_DENSE_WEIGHT_RESIDENCY.md)在同卡80GB A100热态75.17/75.37→50.42/50.79秒，约1.49×，物理采样显存峰值77.08GiB。算术与1600linear/QDQ不变；两暴露图片/seed组合，不是18独立来源或普适倍速。另一方面，[8案例孤立折叠计时](20261025/E0_AFFINE_FFN_DISCOVERY.md)的BF16矩阵形成约4ms、应用约8ms，但未融合旧full-M导数获取约54ms，总和约为原生after-Q1 FFN的1.26–1.28倍。后者是128行重复到31668的形状微基准，不是自然全M或完整视频，也非融合/固定斜率的成本下界。图锚点P12/D09与F06。
+
 以下 E0 统一源为 **[6个已暴露原生来源](20261025/E0_NATIVE_OBSERVATIONS.json)**。被动 dense 共12次完整生成，捕获 120个位置×冻结行；有限组原生干预共30次完整四步生成，另10次跨worker复核在两来源做到210项hash一致；**原生干预仍完整运行密集主 GEMM**。不可把六个来源展开成数百个独立场景，也不可从这些实验报告部署加速或正式视频质量通过。
 
 用户随后新指示继续并允许GPU，新增两批相互衔接的证据：[全hidden/完整M](20261025/E0_INTRINSIC_FULL_HIDDEN.md)为六来源180个保存数据案例+source0/12两次原生被动dense生成；[连续共享列/量化闭包](20261025/E0_SHARED_TILE_PRE_W1.md)又在source0/12各生成一次原生dense，保存真正连续的3×M128操作数，并完成额外GPU保存数据对照与原Python量化器合成反例。**新增4次原生dense被动生成，不是4个新独立来源，更不是4次稀疏视频；原12次被动、30次finite、10次跨worker记录不变。** 图解参见 [G4决策与依赖图](../docs/98_端到端计算图与证据注解_20261025.md)。
@@ -108,13 +110,21 @@
 | **E19 真实前置信号需要额外W1；双投影预算不同** | [实际共享列及原布局](20261025/E0_SHARED_TILE_PRE_W1.md)：原四步每专家第二次调用可用一次同专家历史；如\`ρ_W1≈1, ρ_W2=.25, o=1/16\`，160个FFN的总主投影理想MAC节约 **17.1875%**，理想主投影加速≤约 **1.208×**；若新算子真的同时缩到\`ρ_W1=ρ_W2=.25\`，才是**35.9375%** MAC节约（含相同o） | *ALG/预算*。独立书写W1、W2、selector、QDQ闭包、缓存和最终壁钟；不是新核计时或质量门槛通过。G4d |
 | **E20 E0 技术可复现性** | [original 12 gens](20261025/E0_NATIVE_OBSERVATIONS.json)、[cross worker](20261025/E0_CROSS_WORKER_REPRODUCTION.json)：被动hook没有改变视频/latent SHA；10次跨worker、210项配对hash一致 | *NATIVE控制*：建立此批数据可信度；不是新的独立scene sample，也不是新的算法收益。G00–G10 |
 
-### 本次增量核查：E13–E20 数值未变，新增一条 OPEN 图锚点而非新实验
+### 历史增量核查（截至79bc9ea）：E13–E20未变，P14仍为假说
 
-以先前计算图合并 [8df09a6](https://github.com/Qesire/FFNDS/commit/8df09a6dcb82d256a2593ef5158441f78b771ff0) 对比 FFNDS [79bc9ea](https://github.com/Qesire/FFNDS/commit/79bc9eae9f2d7c694f5536a2aa860381a9c80ee4)：**新增26次仓库提交集中于 Graph-Agent 协作、23节点初始注册表及静态测试，并无新的原生/保存数据实验报告**。本图的测量依据仍是上文E13–E20；新增 [G4e P14 OPEN](../docs/98_端到端计算图与证据注解_20261025.md) 是 [一份PROPOSED、无独立评议的共享输出函数基假说](method_discussion/graph_annotations/E0/E0_GRAPH_SEED_FUNCTION_BASIS_20261025.json)，**未升级为E21证据或认可方法**。
+以先前计算图合并 [8df09a6](https://github.com/Qesire/FFNDS/commit/8df09a6dcb82d256a2593ef5158441f78b771ff0) 对比 FFNDS [79bc9ea](https://github.com/Qesire/FFNDS/commit/79bc9eae9f2d7c694f5536a2aa860381a9c80ee4)：**新增26次仓库提交集中于 Graph-Agent 协作、23节点初始注册表及静态测试，并无新的原生/保存数据实验报告**。该审计时点的测量依据仍是上文E13–E20；新增 [G4e P14 OPEN](../docs/98_端到端计算图与证据注解_20261025.md) 是 [一份PROPOSED、无独立评议的共享输出函数基假说](method_discussion/graph_annotations/E0/E0_GRAPH_SEED_FUNCTION_BASIS_20261025.json)，**未升级为E21证据或认可方法**。
 
 当前可以直接从已测连续M128的共同创新能量推出一个新的**代数推论，不是新增测量**：若将每个token的创新输出都替换为本tile的后验均值向量，block0/10/20/30/39 对同专家创新能量的相对SSE案例均值依次为 **34.7%、90.2%、86.4%、85.7%、22.2%**。由于任何128×5120 token-output矩阵天然rank不超过128，单凭“维数低于5120”不构成可省算证据；需要有意义的低k谱尾、跨来源持出和足够便宜的**W1前可获得**表示。归属：E16已测共享能量 + 精确正交分解（ALG），不是新视频、kernel或验证的rank-k压缩率。新反解释为**真实token特有输出变化有较高有效秩**，参见 [当前 E0 分歧审查](20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)。
 
 ## 7. M 族：将所有结果组织成可检验的机制，而不是路径偏好
+
+后续 E21–E23 接回同一图谱：
+
+| 知识ID | 固定比较与数值发现 | 机制边界 |
+|---|---|---|
+| **E21 全40层共享斜率** | [全层保存诊断](20261025/E0_AFFINE_FFN_DISCOVERY.md)：旧full-M均值斜率在uniform32上，0→1有0/40层输出SSE＜1%，2→3仅1/40 | *OBS*：full-M只指旧导数统计，误差仍在128/32行；不能以末层低误差代表模型，也不排除其他条件表示。G02/F06/F09 |
+| **E22 函数基项与匹配删组** | [40案例绝对affine](20261025/E0_AFFINE_FFN_DISCOVERY.json)：另一来源固定affine＋27组uniform32 SSE11.27%，同MAC直接67组43.13%；center128为12.49%对43.64% | *ALG/OBS*：D×D基项恰等于40/216原投影组；部分非线性余项仍大、原Q2依赖/packing/下游未知；不声称发明TARDIS已有常量折叠或候选质量通过 |
+| **E23 半斜率与组Gram反例** | [独立审查](method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md)：对称输入的实数tanh-GELU OLS斜率1/2；余项10v,−10v,v否定组能量排序净误差最优 | *条件ALG/反例*：将E18已有GELU奇偶关系推进为竞争预测；稳定斜率不证明窄热区，posthoc非净误差oracle；未宣称Wan对称配对或native Q2恒等。F06/F08/F15 |
 
 | 研究问题 | 可由哪些已完成实验确认的结构推出新问题 | 真正相互竞争的机制解释 | 成本最小的下一项**信息需求**（非运行授权） |
 | --- | --- | --- | --- |

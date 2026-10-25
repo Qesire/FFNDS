@@ -1,0 +1,88 @@
+{
+  "id": "E0_DENSE_RESIDENCY_SAME_CARD_CROSSOVER_20261025",
+  "schema_version": "1.0",
+  "status": "FROZEN_BEFORE_NATIVE_EXECUTION",
+  "base_commit": "798a3c9",
+  "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+  "user_instruction_date": "2026-10-25",
+  "question": "Does removal of the explicit block flush reduce latency on both same-card comparisons, rather than merely reflect different A100s or ordering?",
+  "hypotheses": [
+    "The allocation-policy advantage repeats on both physical cards.",
+    "Card/temporal interference dominates the initial difference."
+  ],
+  "scope": "Six unchanged-arithmetic dense videos: repeat original policy on the card previously used by no-flush, and no-flush on the card previously used by original; three source0/source0/source12 videos each. Fresh process per mode, same code/source/assets/seed and CUDA-event observation. This counterbalances card and order for descriptive timing; not statistical speed acceptance.",
+  "source_indices": [
+    0,
+    12
+  ],
+  "source_strata": {
+    "subject": 1,
+    "background": 1,
+    "camera": 0
+  },
+  "native_source_sha256": {
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QTensor.py": "ac5061523cfb87c203cb38a250fffc590d2248f4b7e303f671ba36b48d0eaee2",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c"
+  },
+  "accepted_observations": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
+  "accepted_observations_sha256": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5",
+  "input_default": ".runtime/inputs/calibration24/canonical.json",
+  "driver_sources_sha256": {
+    "tools/run_e0_dense_residency.py": "702e58acd147e7eeee561565e85d0394d127fdfa21b82bb696b5142638c70f35",
+    "tools/ffnds_weight_residency.py": "57b2e6a2b282863cbcaf807ea92ab662bcd880585b942d1194a888f468c9685b",
+    "tools/prepare_ffnds_observations.py": "08e73ec99c535fa3c0ebf551ab6627b45a19173c410e233c2296d5430684245a",
+    "tools/ffnds_observation_common.py": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b",
+    "tools/run_e0_intrinsic_native_support.py": "08d269b39185d8ff2638753caee703a284912a9f78059ef63582857494e7bf83",
+    "tools/e0_intrinsic_math.py": "8af6014373bbee83422dd4c26c1c3b41f98754d02954d62e8f5099ebff7573ad",
+    "tools/e0_intrinsic_temporal_support.py": "3623ab3f0079c51bc0449c2dfa8e95f0b10de4bc71d7dfe996c98e21a35e9170",
+    "tools/analyze_ffnds_observations.py": "c20003603ceb4bd0f263254464dedf02eff544a428b0c1137a9fd122bb4f2da7",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+    "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/with_transformers_source_view.py": "85df726d8a98cc4570731a3767cb998cee08e85dca1496734a1f71111b686198"
+  },
+  "max_gpu_cards": 4,
+  "planned_simultaneous_GPU_cards": 2,
+  "max_full_generations_total": 6,
+  "extra_native_FFN_calls": 0,
+  "standalone_norm_calls": 0,
+  "training_updates": 0,
+  "new_decompositions": 0,
+  "new_weights": 0,
+  "official_quality_calls": 0,
+  "disk_reserve_gib": 80,
+  "automatic_retry": false,
+  "no_automatic_followup": true,
+  "claims_excluded": [
+    "Removed FFN MACs",
+    "General speed acceptance beyond matched modes/sources",
+    "Fresh-seed/source quality generalization",
+    "Free warm-cache population or memory",
+    "New scientific-method novelty"
+  ],
+  "cache_manifest_sha256": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+  "source_sequence": [
+    0,
+    0,
+    12
+  ],
+  "modes": [
+    "original",
+    "block_no_flush"
+  ],
+  "max_generations_per_mode": 3,
+  "max_retained_bytes": 25769803776,
+  "max_output_gib_per_mode": 0.125,
+  "maximum_simultaneous_model_processes": 2,
+  "stage_changed": false,
+  "no_operator_selected": true,
+  "stop_after_any_generation_failure": true,
+  "input_default_sha256": "3c24f59ca5960c3c3ca9bc69fcb91ccccaf6c01644ede7361877e8733aa4efcb"
+}

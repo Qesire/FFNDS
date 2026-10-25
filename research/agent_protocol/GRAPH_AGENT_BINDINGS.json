@@ -20,7 +20,8 @@
       "availability": "before_block",
       "evidence_type": "SRC",
       "evidence": [
-        "research/20261022/R12_E0_runtime_reconstruction.json"
+        "research/20261022/R12_E0_runtime_reconstruction.json",
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
       ],
       "open_question": "Which histories and weights are legal across high/high/low/low?"
     },
@@ -76,7 +77,9 @@
       "evidence_type": "SRC",
       "evidence": [
         "research/20261022/R12_E0_runtime_reconstruction.json",
-        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
       ],
       "open_question": "Can a new representation reduce true W1 work rather than posthoc W2 work?"
     },
@@ -88,9 +91,10 @@
       "evidence_type": "SRC",
       "evidence": [
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
-        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
       ],
-      "open_question": "What nonlinear structure or special algebra creates useful function units?"
+      "open_question": "What nonlinear structure or special algebra creates useful function units? Distinguish a narrow affine hot range from the exact GELU odd half-linear component and even-remainder cancellation; half-slope control is unexecuted."
     },
     {
       "id": "F08R",
@@ -111,7 +115,8 @@
       "evidence_type": "SRC",
       "evidence": [
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
-        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
       ],
       "open_question": "How do post-Q2 coefficients differ from pre-Q2 GELU for exact W2 contributions?"
     },
@@ -122,7 +127,9 @@
       "availability": "after_W2",
       "evidence_type": "SRC",
       "evidence": [
-        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
       ],
       "open_question": "What signed net output patterns can be computed more cheaply?"
     },
@@ -155,7 +162,8 @@
       "availability": "posthoc",
       "evidence_type": "OBS",
       "evidence": [
-        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
       ],
       "open_question": "Are functions more concentrated than channel-wise diagonal scores suggest?"
     },
@@ -188,9 +196,10 @@
       "availability": "downstream",
       "evidence_type": "VIDEO",
       "evidence": [
-        "research/EXPERIMENT_FINDINGS_ATLAS.md"
+        "research/EXPERIMENT_FINDINGS_ATLAS.md",
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
       ],
-      "open_question": "Which full-video dimension and execution counterfactual distinguish rival mechanisms?"
+      "open_question": "Which full-video dimension and execution counterfactual distinguish rival mechanisms? Exact-output allocation controls now match18 exposed-source video/72 latent hashes; this is not broader source quality or universal speed acceptance."
     },
     {
       "id": "P06",
@@ -244,7 +253,8 @@
       "availability": "conditional_action",
       "evidence_type": "ALG",
       "evidence": [
-        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
       ],
       "open_question": "Does early information actually eliminate W1 work?"
     },
@@ -255,7 +265,8 @@
       "availability": "conditional_action",
       "evidence_type": "ALG",
       "evidence": [
-        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
       ],
       "open_question": "How much of the net W2 output can be omitted or re-expressed?"
     },
@@ -266,9 +277,11 @@
       "availability": "conditional_action",
       "evidence_type": "ALG",
       "evidence": [
-        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
       ],
-      "open_question": "What is the actual end-to-end benefit rather than nominal MAC savings?"
+      "open_question": "What is the actual end-to-end benefit rather than nominal MAC savings? Charge the measured unfused derivative observation and compare future algorithms to the scoped exact-output resident dense runtime, including cold/memory costs."
     },
     {
       "id": "P14",
@@ -439,6 +452,11 @@
       "from": "P14",
       "to": "F13",
       "relation": "conditional_functional_downstream_effect_not_measured"
+    },
+    {
+      "from": "F06",
+      "to": "F09",
+      "relation": "candidate_affine_basis_plus_signed_residual_not_native_Q2_equivalence"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -463,5 +481,20 @@
       ],
       "experimentally_verified": false
     }
-  ]
+  ],
+  "latest_scoped_followthrough": {
+    "mechanism": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+    "runtime": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+    "graph_claims": [
+      "research/method_discussion/graph_annotations/E0/E0_GRAPH_AFFINE_ODD_EVEN_20261025.json",
+      "research/method_discussion/graph_annotations/E0/E0_GRAPH_EXACT_DENSE_RESIDENCY_20261025.json"
+    ],
+    "independent_record": "research/method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md",
+    "scope": "ALG/OBS/isolated SYS for folded functions;18 exact-dense video phases for allocation. E0 unchanged; no automatic jobs.",
+    "independent_graph_review": "research/method_discussion/graph_annotations/E0/independent-affine-residency-graph-review-20261026.json",
+    "review_status": "INDEPENDENT_REVIEWED_AT_EXACT_CLAIM_HASHES_NO_FORMAL_METHOD_ENDORSEMENT",
+    "integration_source_commit": "79bc9eae9f2d7c694f5536a2aa860381a9c80ee4",
+    "curator_precision": "Affine comparator is the tested other-source fixed group-energy pruning, not every possible matched pruning strategy. Continuous GELU theorem does not imply native Q2/BF16 equivalence."
+  },
+  "last_experiment_evidence_commit_scope": "Historical completed studies through798a3c9; newer completed reports are indexed under latest_scoped_followthrough in this same registry."
 }

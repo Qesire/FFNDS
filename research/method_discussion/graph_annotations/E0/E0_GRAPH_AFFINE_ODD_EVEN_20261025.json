@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "ROOT_INTRINSIC_FFN_RESEARCH",
+  "research_stage": "E0_OPEN_DISCOVERY",
+  "source_revision": "79bc9ea",
+  "review_status": "PROPOSED",
+  "review_refs": [],
+  "model_experiment_authorized": false,
+  "execution_note": "All individually frozen empirical scopes completed. This annotation grants no new experiment or stage promotion.",
+  "claim_id": "E0_GRAPH_AFFINE_ODD_EVEN_20261025",
+  "anchor_nodes": [
+    "F04",
+    "F06",
+    "F08",
+    "F09",
+    "F15"
+  ],
+  "upstream_nodes": [
+    "G02",
+    "G18"
+  ],
+  "consumer_nodes": [
+    "F12",
+    "F13",
+    "G21",
+    "P10",
+    "P11",
+    "P12",
+    "D09"
+  ],
+  "mechanism": {
+    "statement": "An affine FFN base plus native whole-group coefficient residual is a stronger local representation than exact matched projection group pruning. Its benefit need not imply narrow linear hot ranges: GELU has an exact odd half-linear part and an even remainder whose W2 contributions can cancel.",
+    "math_or_trace": "For real tanh-GELU, phi(a)=a/2+e(a), e(-a)=e(a). OLS slope=1/2+Cov(a,e(a))/Var(a); symmetric a gives1/2 without small curvature. For actual q2_post, q=kappa*a+beta+r is an exact coefficient decomposition, and W2 q=A x+B+W2 r in continuous arithmetic. Native Q2/BF16 and the folded finite implementation do not inherit bitwise equality.",
+    "relation": "ALG_CONDITIONAL_PLUS_SAVED_OBS_AND_OPEN_COMPETING_HYPOTHESIS"
+  },
+  "availability": {
+    "earliest_decision_time": "Source-held fixed affine parameters can be known before current W1; current residual/group ranking in these saved diagnostics is posthoc.",
+    "observer_computation": "Full-M old derivative statistics cost actual additional computation; absolute affine calibration reads only the other source random32. A fixed half-slope control has not yet been run.",
+    "online_or_posthoc": "FIXED_CALIBRATION_PLUS_POSTHOC_RESIDUAL_DIAGNOSTICS"
+  },
+  "real_cost": {
+    "W1": "Ideal absolute base plus27 groups equals67/216 original projection MAC including W1/W2; no native packed operator tested.",
+    "W2": "A is5120x5120; exact signed whole-group residual allows corrected columns, but native dependency/packing costs remain.",
+    "QDQ": "Actual q2_post targets; native original group64 closure not removed by this algebra.",
+    "routing_memory": "Temporal unfused full-M old derivative costs about54ms on repeated-row shape; BF16 matrix build4ms plus apply8ms. Full method not timed.",
+    "downstream": "No folded approximation returned to model; no candidate video quality evidence."
+  },
+  "evidence": [
+    {
+      "path": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
+      "kind": "OBS",
+      "scope": "Two exposed image/seed clusters0/42 and12/54;160 all-depth tangent+160 fixed-increment cases,40 absolute all-step/five-depth cases; center128 and uniform32 reported separately."
+    },
+    {
+      "path": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+      "kind": "ALG/OBS/SYS",
+      "scope": "Absolute source-held affine+27 uniform32 mean11.27% current-output SSE vs exact matched group-only67 mean43.13%; substantial middle-depth error remains. Isolated timing uses repeated128 rows at full-M shape."
+    }
+  ],
+  "countermechanism": {
+    "statement": "Narrow stable per-neuron hot ranges explain affine performance, rather than the odd/even decomposition plus signed W2 interference.",
+    "prediction": "Under hot-range mechanism learned per-neuron OLS substantially beats a source-held mean-intercept half-slope control and errors track curvature support; under odd/even cancellation the half-slope can approach OLS even for broad activations while W2 suppresses the even remainder."
+  },
+  "discriminator": "Use existing saved operands to compare fixed1/(2*s2) with source-held mean offset, per-neuron OLS and old derivatives. Separately evaluate even-remainder hidden energy and signed gated W2 energy. Unexecuted next discriminator, not a queued experiment.",
+  "graph_change_suggestion": {
+    "node_ids": [
+      "F06",
+      "F08",
+      "F09",
+      "F15",
+      "P12"
+    ],
+    "proposed_annotation": "Attach the exact continuous odd/even counterexample and scoped affine/whole-group observations. Mark only the new explanatory/cheap implementation edge OPEN; keep dense execution path unchanged.",
+    "graph_edge_status": "OPEN"
+  }
+}

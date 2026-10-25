@@ -25,6 +25,8 @@ The single live [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json) defines pr
 
 ## Scientific aim and three complementary lenses
 
+**Later completed followthrough:** [All40-depth tangent/affine mechanisms](research/20261025/E0_AFFINE_FFN_DISCOVERY.md) and [independent odd/even/signed-residual challenge](research/method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md) now distinguish shared slope statistics, nonlinear residual and physical observation cost. Full-M describes old derivative statistics; error panels remain128/32 sampled rows. [Exact dense weight residency](research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md) preserves18 video/72 latent hashes while reducing same-card warm generation ~75→50s, using77.08GiB sampled physical memory and unchanged FFN MACs. Use it as a strong scoped timing reference. These fixed scopes are complete under the four-idle-GPU ceiling; no jobs or automatic new model scope. Seeds are42/54 for sources0/12. Keep other open mechanisms available; half-slope versus affine hot range is an unexecuted next discriminator, not a selected method.
+
 Improve the **real FFN / end-to-end compute versus full four-step I2V quality** frontier through intrinsic FFN mechanisms. The existing Wan2.2 D-Q/HiF4 execution is one evidence-backed baseline, not a required future quantization method. The problem is to discover what information, mathematical structure and execution unit actually makes computation dispensable.
 
 - **Information (Q1):** What state is already available and what does it tell us? Distinguish cheap prediction of local FFN computation from prediction of the downstream consequence of changing that computation.
