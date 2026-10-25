@@ -1,5 +1,8 @@
 # FFNDS — concise decision-specific evidence packet
 
+**Latest E0 next action (2026-10-25):** [Mechanism discrimination guide](../20261025/E0_NEXT_MECHANISM_GUIDANCE_20261025.md) supersedes older prompts that treated Block0 radial alignment as the only opening. Newly saved temporal calibration and shared-reference full-distance results distinguish a transferable Block39 common component (37.34%/8.32%/4.35% reuse/scale/affine SSE) from 39.25% centered-variation SSE, and expose exact three-pair-sum star-null violations across six final-flow sources (5.02%–47.44% relative ranges). **First independent task:** reconstruct full six-distance necessary identities by source/step/boundary/subspace and compare shared-reference, BF16 boundary and continuous-propagation mechanisms. Other agents retain token-pairing and temporal-structure alternatives. Source-linked science first; archived model scopes are complete.
+
+
 **Upstream synchronized:** AutoResearcher **v2.4 search-augmented**, pinned by [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). New web-science Skill [web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md) and general [WARD](../../core/WEB_RESEARCH_DISCOVERY.md) are imported verbatim; [local FFNDS deep search](DEEP_WEB_RESEARCH.md) adds native quantization/video specificity. Continue current E0 research from original source/competing explanations.
 
 
