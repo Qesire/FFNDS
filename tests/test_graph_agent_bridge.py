@@ -1,4 +1,4 @@
-"""Pure-static tests of G0–G4 graph ↔ Agent node/evidence index."""
+"""Pure-static tests of G0–G5 graph ↔ Agent node/evidence index."""
 import json
 import sys
 import unittest
@@ -32,6 +32,14 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertTrue(any(e["relation"].startswith("posthoc") or
                             e["relation"].startswith("candidate")
                             for e in path["edges"]))
+
+    def test_g5_separates_local_function_observations_from_dense_system_speed(self):
+        kinds = {n["id"]: n["evidence_type"] for n in self.registry["nodes"]}
+        self.assertEqual(kinds["P15"], "OBS")
+        self.assertEqual(kinds["P16"], "OBS")
+        self.assertEqual(kinds["P17"], "SYS")
+        self.assertEqual(kinds["P18"], "ALG")
+        self.assertIn("G5", self.registry["graph_roles"])
 
     def test_unregistered_discovery_needs_curator(self):
         with self.assertRaises(SystemExit):
