@@ -1,50 +1,34 @@
-# FFNDS method discussion agents — AutoResearcher by default
+# FFNDS 方法讨论 Agent · AutoResearcher 默认原则
 
-## E0 current gaps, independent challenge and evidence boundaries
+**阶段：`E0_OPEN_DISCOVERY`。** 先从 [唯一活跃状态](../ACTIVE_RESEARCH.json) 读取任务与权限，结合 [E0 问题及改进目标](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md)、[阶段锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 选择一个有科学价值的开放问题。
 
-Every participating discoverer/reviewer should first consult [current E0 problems and improvement requirements](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md). For the newest six-source finding, independently reconstruct the ideal LN, post-gate and residual-bypass logic and provide a **competing physical/functional explanation**, rather than merely applauding its 19.82% Block0 radial-energy projection statistic. Also keep real HiF4 QDQ separate from unmeasured native MXFP4/NVFP4, retain source8 outliers, and report six **independent sources**, not 120 scenes. Reviews must identify exact supporting blob/version; historical #9/#12/#13/#19 drafts are not independent validation of the current E0 result. No new experiments or algorithm-task promotions.
+## 所有角色共享的研究动作
 
+1. **发现：** 从真实 Wan 源码、数学张力、历史负结果、外部论文或最新六来源观测发现异常结构，形成最强解释。
+2. **扩展：** 探索不同数学表示、信息时机、量化状态、FFN 有符号组合、残差几何、蒸馏/时空和潜在算子自由度。新的算子猜想可直接作为 `idea seed`。
+3. **重建：** 对实现相关主张，核对真正的 Q1→W1→GELU→Q2→W2、gate/residual、dtype、step/expert 和下游消费路径。先处理**能改变结论**的源码部分。
+4. **区分：** 给出另一种有解释力的机制、不同预测与最经济的源码/数学/保存数据对照。条件定理与有效反例也是完整科研结果。
+5. **交付：** 具体新认识、证据级别、竞争结果和一项能改变下一步判断的观察。研究质量由实质论证决定。
 
-## Web literature and code research by every independent agent
+按问题使用固定 [AutoResearcher 来源](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)、[研究 harness](../../core/AGENT_HARNESS.md)、[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md) 和 [FFNDS domain skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)。
 
-**Each proposer, discoverer, challenger, independent reviewer and synthesizer** should perform **broad and deep Web Search** when tools allow, following [the FFNDS web research protocol](../agent_protocol/DEEP_WEB_RESEARCH.md). Do not inherit another agent's limited paper list as your complete prior-art search. Diversify the search across terminology, classic/new works, neighboring fields, mathematics, native formats/engineering and contrary findings; follow citation chains and inspect original papers + implementation before judging mechanism overlap. Record actual links and what distinguishing prediction differs from the nearest work. Independent reviewers should actively look for the **strongest potential duplicate or counterexample**, not just agree. During E0, the search advances competing scientific explanations; a newly located attractive operator is an unpromoted idea seed, not a new execution task. If web access is absent, mark this honestly and continue source/math reasoning.
+## 充分且独立的 Web Search
 
+每位发现者、挑战者、reviewer、整理者都主动开展 [深度 Web 文献/源码检索](../agent_protocol/DEEP_WEB_RESEARCH.md)：多领域经典与最新工作、后向/前向引用、官方公式及代码、最强重复机制和反例。记录自己实际检索的范围与来源，尽量形成与其他 Agent **信息来源不同**的证据。E0 的文献发现服务于机制探索，方法构想继续作为开放种子。
 
-## E0_OPEN_DISCOVERY active brief for all parallel discussants
+## 当前最重要的独立复核
 
-Read [the single live stage](../ACTIVE_RESEARCH.json) and [E0 agent anchor](../agent_protocol/E0_STAGE_ANCHOR.md) **before treating an old proposal, review or stale handoff as the current task**. The current discussion is independent scientific discovery of real phenomena, competing mechanisms and one decisive next observation. Prefer an individually owned file under [E0 discoveries](discoveries/E0/README.md) for this stage; an unexpected operator can still be recorded as an unpromoted idea, but **is not an instruction to build it or to change the live research priority**. Reviewers challenge the mechanism with a competing source/math explanation rather than demanding an arbitrary implementation. Only the user can authorize a stage change; serialized coordination avoids shared-file races.
+六来源 E0 保存操作数呈现 Block 0 FFN 输出—残差径向对齐。独立从原始计算图、LN `epsilon` 导数、pre/post/leave-one-group-out 和五个固定组的聚合口径复建，再挑战其可能的下游功能解释。并行可研究 HiF4 QDQ 与 MXFP4/NVFP4 的信息时机、时空共同均值或 Source 8 高杠杆行。引用时保留 **6 来源、3 主体/3 背景/0 相机** 的真实采样构成。
 
+## 协作与评议
 
-> **Applies to every agent and every role in this directory**: independent proposer, external reviewer, challenger, re-formulator, and discussion/consensus integrator. It also applies to agents entering directly through a `proposals/`, `reviews/` or `endorsements/` file. **Do not wait to be asked to use AutoResearcher.** Inherit [root AGENTS.md](../../AGENTS.md), then this local rule.
+- **发现者/提案者：** 在 [E0 自有发现文件](discoveries/E0/README.md) 或 `proposals/<method-id>/vN.json` 中保存自己发现的结构、数学/源码依据、竞争解释及下一项观察；早期 operator idea 可保持种子状态。
+- **独立挑战者：** 按自己的源码/公式推导或新文献反例审查精确版本。独立的 `reviews/<method-id>/vN/<review-id>.json` 明确写出证实、挑战或需要修订的**具体命题**。
+- **整理者：** 依据不同作者的真实 review 整理 `SUPPORT` / `CHALLENGE` / `REVISE` / `ABSTAIN`。一位外部 reviewer 的独立 SUPPORT 可支持 `PEER_SUPPORTED`；两位不同 reviewer 的支持可支持 `CROSS_CONFIRMED`。未解决的实质异议保持 `CONTESTED`。历史提案、评议及来源版本均保持可追溯。
+- **共享状态：** 串行协调者更新 [QUEUE.md](QUEUE.md) 与 endorsement 汇总；阶段与实验权限以唯一 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为准。
 
-## Source of method
+## 工作范围
 
-Use the [currently pinned AutoResearcher source manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json), [research harness](../../core/AGENT_HARNESS.md), [mechanism-research](../../.agents/skills/mechanism-research/SKILL.md), [research-expansion](../../.agents/skills/research-expansion/SKILL.md), [problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md), and [FFNDS native domain skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md).
+本讨论空间开展科学构想、数学推导、原始源码/文献查找与已保存数据分析。2026-10-25 用户单独授权的六来源原生 E0 采集已经完成；新的 CPU/GPU/model 作业需用户明确授权。[历史暂停回执](../20261024/EXPERIMENT_PAUSE.json) 继续保存。
 
-The active AutoResearcher revision is recorded in [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json), currently `5bd7ec537ae63f2b6a6dd579f0e886aff58a177c`. Use the **locally pinned** source files, not a mixture of old handoffs or an unverified new upstream commit. You may apply several relevant skills, but do **not** force every skill, every Q1/Q2/Q3 lens, or every reasoning step into a bureaucratic checklist. Choose the most informative route for the scientific decision.
-
-## Default scientific loop — shared by all roles
-
-1. **Discover / open:** Find a structural anomaly, conceptual tension, source-level freedom, surprising old result or productive external paper. A mathematically explicit speculative construction can be registered immediately as a conjecture.
-2. **Reconstruct:** For an assertion about actual Wan execution, ground the decision-critical source/config/shape and native Q1→W1→GELU→Q2→W2, AdaLN/gate, residual consumer and quantization order. Do not reconstruct irrelevant blocks just to lengthen the discussion.
-3. **Reformulate / derive:** Find an informative equation or nontrivial representation (exact/conditional algebra, mechanism taxonomy, alternative reduction, operator change), not a superficial rebranding of a score, mask or baseline.
-4. **Discriminate:** State a closest competing mechanism and a different prediction, exact proof, counterexample, archived observation or feasible **future** discriminator. Seek the strongest defensible interpretation of the idea, not reasons to stall it.
-5. **Advance:** Leave a distinct construction, sharper testable proposition, scoped rejection, or concrete improvement. Research value and peer agreement are judged on the **substance of that reasoning**, not the existence of a filled checklist.
-
-For FFNDS always keep the real objective in view: lower actual FFN / total-generation cost while maintaining four-step video quality. Q1 (available information), Q2 (net decision value), Q3 (physically eliminable compute) are **coupled explanatory viewpoints, not sequential approvals**. Dense restoration, R256, masks and a particular representation are options/comparators, not defaults.
-
-## Role-specific duties under the same method
-
-**Proposer:** originate an operator, decision principle or structural hypothesis and explain the freedom it exploits; give a distinguishing prediction and most instructive failure case. Relate to original native source, prior results and nearest work at the scope required by the claim. **Do not gate novel ideas on already having a full implementation or measured video**.
-
-**Independent reviewer:** reconstruct the claimed mechanism **yourself** before adopting the proposer’s conclusion. Inspect the original model/evidence where it changes the judgment; attempt a stronger alternative interpretation, algebraic check and discriminating counterexample. Support a clearly bounded claim when the construction survives; `CHALLENGE` identifies the minimal broken assumption and a constructive repair. Do not respond with generic safety/uncertainty boilerplate or expand a failed *old action* into disproof of an entire direction.
-
-**Integrator / synthesizer:** only combine **real recorded** independent reviews, preserve competing mechanisms and unresolved challenges, and state precisely which proposition is supported, contested or superseded. Do not manufacture extra agent identities or shift a `PEER_SUPPORTED` claim to `MEASURED`. A synthesis should reveal what the cross-agent reasoning discovered, not tally votes without arguments.
-
-## Work products and collaboration
-
-See [discussion rules](README.md), [queue](QUEUE.md) and [record templates](TEMPLATES.md). Write proposals and reviews in separate, immutable versioned files; another agent's approval must come from another agent's distinct file and independent argument. In review records, identify the **chosen AutoResearcher route(s)** and the decisive scientific reasoning *in content*, not via a hollow compliance certificate. Keep the upstream commit provenance visible through this local rule; the proposal/review file may cite particular skills when material.
-
-**Discussion only:** No agent in this workflow implements, performs CPU/GPU/model experiments, spawns jobs or edits the experiment authorization. The historical [pause receipt](../20261024/EXPERIMENT_PAUSE.json) remains immutable. A later user-authorized six-source E0 capture is complete; **new** discussion-driven experiments remain unauthorized. Reading sources, papers, and already generated experimental data is permitted. Even unanimous agreement cannot restart experiments.
-
-If an external agent system does not read repository instructions automatically, its launcher must supply **both root and local AGENTS.md**. Git rules cannot force an unrelated agent to read instructions; participation in this discussion process assumes it has been given these rules.
+外部 Agent 启动器应同时提供 [根 AGENTS](../../AGENTS.md) 与本目录指令，使新成员进入相同的科学阶段和协作规则。
