@@ -43,3 +43,7 @@
 | Codex `01a171da` / 2026-10-25 | [最新有限干预的竞争机制与应用种子](codex-01a171da-competing-mechanisms-20261025.md) | [标量重表达 JSON](codex-01a171da-competing-mechanisms-20261025.json) | 基于 `375dc760` 六来源固定四臂结果；新增共同参考/误差去相关零模型及矩约束检查，独立同行评议待进行。 |
 
 2026-10-26新增[函数基/可预测性独立推导](independent-function-basis-prediction-20261026.md)与[四项结果独立审查](independent-function-basis-results-audit-20261026.md)：RRR惩罚目标、表示/系数误差分解、统计增益和保留真实非线性重构；保留跨设置校准混杂与native局部/视频边界的挑战。
+
+2026-10-26补充[匹配控制与全模型源码/计时审查](independent-matched-calibration-and-runtime-audit-20261026.md)，以及[功能后缀/受扰轨迹问题改写](transported-function-and-trajectory-target-20261026.md)。真实窄FFN提速已测，固定自由视频质量失败；局部风险、输入偏移和功能传递须区分。
+
+[独立受扰轨迹/CTEC/TCEC审查](independent-trajectory-error-and-correction-20261026.md)重建实际FP32调度与层内/跨步偏移，给出修复方向的有符号条件，并用原PDF核实一个近邻递推展开的边界反例；不授予新训练/生成。

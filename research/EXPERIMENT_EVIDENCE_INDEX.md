@@ -2,7 +2,7 @@
 
 **Current scientific priority, not historical execution authority.** Start with [curated evidence ranking](experiment_evidence/PRIORITY_RANKING.json). Search the [complete experimental file inventory](experiment_evidence/FILE_INVENTORY.json) only when you need a specific source or protocol. The inventory's automated filename roles are **not** a scientific evaluation of unread files.
 
-**New scoped E0 evidence (2026-10-26):** [function reconstruction](20261026/E0_FUNCTION_RECONSTRUCTION.md) / [validated scalar bindings](20261026/E0_FUNCTION_RECONSTRUCTION.json) add output representation/prediction controls, GELU statistical gains, four-source nonlinear recovery and finite native BF16/HiF4 shape timing. No approximate video or end-to-end speed acceptance; see active state for the separately frozen missing-calibration collection. Historical ranking below is preserved.
+**New scoped E0 evidence (2026-10-26):** [all40 matched controls](20261026/E0_ALL_BLOCK_RECONSTRUCTION.md) and [six native full-video prototypes](20261026/E0_RECONSTRUCTED_VIDEOS.md) follow the [four function studies](20261026/E0_FUNCTION_RECONSTRUCTION.md). Real warm FFN2.182× and generation1.120× are observed, setup excluded; both fixed prototypes visibly fail video quality. Local affine54 SSE8.54% versus matched anchored input15.35% does not certify downstream behavior. Exact raw/source/parameter/media bindings, neutral controls, failed pre-generation capture accounting and independent reviews are preserved. All current scopes complete; no automatic followup authority. Historical ranking below remains unchanged.
 
 ## Core evidence in priority order
 

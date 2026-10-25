@@ -168,3 +168,13 @@
 | **E27 局部原生折叠** | [两层16案例](20261026/E0_FUNCTION_RECONSTRUCTION.json)：144dense＋288partial FFN，432native Q2；resident after-Q1形状计时52.69→20.77ms | *NATIVE-LOCAL/SYS*。重复160行到31668，FP32准备/BF16新矩阵未再次HiF4量化；非自然全M/视频/整网结果。block30误差仍大，F12/F13/D09 OPEN。P12 |
 
 [独立结果复核](method_discussion/discoveries/E0/independent-function-basis-results-audit-20261026.md)保留实际SHA、反预测与校准条件挑战；[图G5b](../docs/98_端到端计算图与证据注解_20261025.md)按这一范围接回。原P14提案及E21–E23原记录不改写。
+
+## 2026-10-26：E28–E30 匹配控制、真实视频失败与功能问题改写
+
+| 知识ID | 新证据 | 可成立范围与下一竞争解释 |
+| --- | --- | --- |
+| **E28 全40层同校准对照** | [320案例](20261026/E0_ALL_BLOCK_RECONSTRUCTION.md)：四来源256行、持出0/12；affine锚定输入15.35%对affine54 8.54%，320/320较低；旧五层标量差0 | *OBS*。这一固定正则下覆盖/先验不足以解释全部差距；不是任意线性类下界，也不匹配输入线性与非线性在线MAC。P20/P21 |
+| **E29 真实全模型固定原型** | [六完整视频](20261026/E0_RECONSTRUCTED_VIDEOS.md)：原dense两视频/8latent exact；warm affine54 FFN9.707→4.449s，wall50.750→45.313s；新160包19.7GB | *NATIVE-ACT/VIDEO/SYS*。自然全M、全部160处、同卡预载强dense。whole重影，affine模糊/动作改变，均无画质验收。setup额外约237s，QDQ调用没少；理想MAC43.52%与总wall1.120×分开。P19/P22/F12/F13/D09 |
+| **E30 功能/轨迹对象改写** | [原Wan源码与数学](method_discussion/discoveries/E0/transported-function-and-trajectory-target-20261026.md)：原生混合前缀/后缀的望远镜恒等式；理想Wan受扰目标vhat(z+delta)=v(z)+delta/h | *ALG/OPEN*。保留FP32舍入，真实QDQ不可默认光滑；teacher仅离线可见。输入偏移、有限下游传递、跨步纠错不同预言。核对BRECQ作者代码、CTEC与TCEC近邻；没有新增训练/模型范围 |
+
+四来源缺失35层补采得到560份payload；首source16进程生成前退出（原因未确认），独立冻结恢复一次通过；共四条实际dense生成，另扣一次生成前失败，实际分配峰四卡。旧12/40生成和原协议不变。固定范围全部完成，无GPU任务。E0继续开放、无方法选定。

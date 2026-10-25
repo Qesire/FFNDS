@@ -15,3 +15,5 @@
 后续[affine与奇偶部记录](E0_GRAPH_AFFINE_ODD_EVEN_20261025.json)、[相同视频dense常驻记录](E0_GRAPH_EXACT_DENSE_RESIDENCY_20261025.json)已有[独立图审查](independent-affine-residency-graph-review-20261026.json)，绑定两份原始claim的精确SHA。原始投稿的PROPOSED状态保留；最新审查状态由review及registry的`latest_scoped_followthrough`索引表达。核实的连续数学、保存数据和SYS结论已接回图/谱系；native折叠、奇偶部实际解释、完整质量仍OPEN。affine只优于所测跨来源固定组能量控制，不代表优于所有最优删组方法；这些评议不授予正式方法认可或新执行权限。
 
 2026-10-26的[函数表示/原生局部重构原claim](E0_GRAPH_FUNCTION_RECONSTRUCTION_20261026.json)及[V2](E0_GRAPH_FUNCTION_RECONSTRUCTION_20261026_V2.json)已有[独立结果审查](../../discoveries/E0/independent-function-basis-results-audit-20261026.md)，绑定精确SHA。原claim的跨设置非线性归因受到校准混杂挑战，V2限定为各自设置内结果；P14通用假说和视频消费者继续OPEN，未授予方法认可。
+
+2026-10-26新增[全40层匹配控制与真实六视频claim](E0_GRAPH_MATCHED_NATIVE_VIDEOS_20261026.json)：实际窄FFN/完整wall收益与画质失败并存；P21/P22明确标注OBS与VIDEO/SYS。原P14/V2记录不改，PROPOSED不等于方法认可。
