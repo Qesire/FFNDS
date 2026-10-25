@@ -14,6 +14,16 @@
 
 **附加而非替代的应用场景：实时、交互式流式生成。** 当前81帧约45秒属于offline整段延迟；它未测试time-to-first-frame、逐帧deadline、p95/p99抖动、causal/rolling历史、跨chunk长期漂移。原四步同expert历史不能自动作为流式KV/cache的合法证据。新G6图层全部是OPEN条件研究，Agent先从真实目标streaming源码和SLO定义重建其计算流，再问FFN何时必须重算/可以跨帧复用。**当前唯一E0主目标仍是有视频质量条件的真实FFN必要计算减少，不选定新模型，不自动启动实验。**
 
+## 2026-10-26 新的全局实验质量要求：全视频完整指标 + 全深度真实受扰前缀
+
+**当前最优先规则**：[每视频必有SHA绑定的全帧指标包、全40层×四步误差传播政策](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)；[冻结前诊断模板](../../config/e0_full_depth_quality_discriminator_TEMPLATE_20261026.json)。上一轮已经在全部160处真正替换FFN并生成六视频，但完整视频质量不佳。**仅block0、block30做过有限partial-native单层对照**（block30不是末层39）；全40层8.54%是teacher保存输入的采样误差，未测受扰前缀all-site误差，均不足以归因全模型画质。
+
+每次新的dense/candidate/对照/失败视频都要有完整的逐视频报告，不允许只给MP4、局部SSE、FFN加速或若干抽帧。至少绑定生成源码和视频SHA、逐帧解码、RGB/encoded-luma、细节代理、相邻帧变化、真实运动/静态区域观测、full wall/FFN/预载/显存；正式VBench-I2V/人工审阅未运行则明确为PENDING，**不得质量验收**。指标工具 `tools/ffnds_video_metrics.py`，多视频门禁 `tools/ffnds_video_metric_gate.py`。历史六视频未补的指标是缺项，不得虚称完整。
+
+对宣称适用于所有FFN Block的机制，诊断必须覆盖每来源四步每步40层的**真实学生前缀**。同一个FFN输入上测dense/近似输出，同时区分由于之前层被替换引起的输入改变；记录门控后、block后误差和四步flow/latent中有符号误差及交叉作用。先全160轻量迹线，再按冻结分层依据选择多处混合原生后缀干预，不能用首/末或仅两个Block的局部测试概括全网；分层需兼顾source、expert、step、运动/背景。仍允许其他新函数/计算构造，不能把“做更复杂Affine54”当成唯一方案。
+
+此处都是新研究规范/静态工具与**待授权**的诊断设计；没有因此启动GPU、新生成或训练。实时生成方向继续暂停。
+
 ## Agent 与计算图共同完成研究
 
 本任务默认使用 [G0–G6计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent双向协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)。Agent选择实际相关节点（如 `G18→F04→F06→F08→F09→F12→G21`），核对源代码/张量语义/决策时点/后续影响，再用 [图节点证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json) 提取已存实验和开放问题。新机制、反例与研究缺口在 [独立图注解目录](../method_discussion/graph_annotations/E0/README.md) 署名提交；另一 Agent交叉核查，确认后反向注解计算图、谱系及新OPEN边。对源代码提出的新结构可以先创建待证实的新图节点，不以现有G4方法穷尽科研方向。图是图谱/审查接口，当前尚非可执行运行时动态图。
