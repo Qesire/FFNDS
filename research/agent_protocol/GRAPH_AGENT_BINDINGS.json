@@ -1,0 +1,384 @@
+{
+  "schema_version": "1.0",
+  "id": "FFNDS_GRAPH_AGENT_BINDINGS_20261025",
+  "graph_document": "docs/98_端到端计算图与证据注解_20261025.md",
+  "graph_basis_commit": "8df09a6dcb82d256a2593ef5158441f78b771ff0",
+  "purpose": "Read-only, source/evidence-scoped registry for agent graph lookup and claim attachment; it is not an executable runtime graph or an experiment queue.",
+  "evidence_rule": "Each node is a stable graph-label anchor, not a new performance claim. OPEN and conditional edges never imply executed sparse code.",
+  "graph_roles": {
+    "G0": "four-step schedule and expert",
+    "G1": "transformer block and consumer",
+    "G2": "FFN math and numerical boundaries",
+    "G3": "decision-time and historical actions",
+    "G4": "latest observations and conditional physical-cost forks"
+  },
+  "nodes": [
+    {
+      "id": "G02",
+      "graph_section": "G0",
+      "meaning": "four-step expert selection",
+      "availability": "before_block",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261022/R12_E0_runtime_reconstruction.json"
+      ],
+      "open_question": "Which histories and weights are legal across high/high/low/low?"
+    },
+    {
+      "id": "G17",
+      "graph_section": "G1",
+      "meaning": "cross-attention residual update",
+      "availability": "before_FFN_norm2",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261022/R12_E0_runtime_reconstruction.json"
+      ],
+      "open_question": "Which residual and attention components affect later FFN functional value?"
+    },
+    {
+      "id": "G18",
+      "graph_section": "G1",
+      "meaning": "norm2 and FFN conditioning",
+      "availability": "before_W1",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261022/R12_E0_runtime_reconstruction.json"
+      ],
+      "open_question": "What modulation information is available before dense W1?"
+    },
+    {
+      "id": "G20",
+      "graph_section": "G1",
+      "meaning": "FFN gate and residual writeback",
+      "availability": "after_FFN",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261025/E0_FOLLOWTHROUGH.md"
+      ],
+      "open_question": "How does numerical writeback change signed function effects?"
+    },
+    {
+      "id": "G21",
+      "graph_section": "G1",
+      "meaning": "next block consumers",
+      "availability": "downstream",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261025/E0_FOLLOWTHROUGH.md"
+      ],
+      "open_question": "Which propagated directions alter flow and video quality?"
+    },
+    {
+      "id": "F04",
+      "graph_section": "G2",
+      "meaning": "main W1 GEMM",
+      "availability": "after_W1",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261022/R12_E0_runtime_reconstruction.json",
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+      ],
+      "open_question": "Can a new representation reduce true W1 work rather than posthoc W2 work?"
+    },
+    {
+      "id": "F06",
+      "graph_section": "G2",
+      "meaning": "tanh-GELU hidden",
+      "availability": "after_GELU",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "What nonlinear structure or special algebra creates useful function units?"
+    },
+    {
+      "id": "F08R",
+      "graph_section": "G2",
+      "meaning": "original HiF4 shared scale tree",
+      "availability": "during_Q2",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "What dependence is intrinsic to this QDQ implementation, not to arbitrary FFN computation?"
+    },
+    {
+      "id": "F08",
+      "graph_section": "G2",
+      "meaning": "decoded post-Q2 W2 coefficient",
+      "availability": "after_Q2",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "How do post-Q2 coefficients differ from pre-Q2 GELU for exact W2 contributions?"
+    },
+    {
+      "id": "F09",
+      "graph_section": "G2",
+      "meaning": "main W2 projection",
+      "availability": "after_W2",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+      ],
+      "open_question": "What signed net output patterns can be computed more cheaply?"
+    },
+    {
+      "id": "F12",
+      "graph_section": "G2",
+      "meaning": "native BF16 gated residual",
+      "availability": "after_FFN",
+      "evidence_type": "NATIVE-ACT",
+      "evidence": [
+        "research/20261025/E0_FOLLOWTHROUGH.md"
+      ],
+      "open_question": "What finite numerical effects survive the writeback into the next block?"
+    },
+    {
+      "id": "F13",
+      "graph_section": "G2",
+      "meaning": "downstream block and flow",
+      "availability": "downstream",
+      "evidence_type": "NATIVE-ACT",
+      "evidence": [
+        "research/20261025/E0_FOLLOWTHROUGH.md"
+      ],
+      "open_question": "How does a local error mode affect eventual video?"
+    },
+    {
+      "id": "F15",
+      "graph_section": "G2",
+      "meaning": "216 group value-vector diagnostic",
+      "availability": "posthoc",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+      ],
+      "open_question": "Are functions more concentrated than channel-wise diagonal scores suggest?"
+    },
+    {
+      "id": "D01",
+      "graph_section": "G3",
+      "meaning": "pre-W1 observable input",
+      "availability": "before_main_W1",
+      "evidence_type": "SRC",
+      "evidence": [
+        "research/20261022/R12_E0_runtime_reconstruction.json"
+      ],
+      "open_question": "What sketch can be computed before the full W1 and at what cost?"
+    },
+    {
+      "id": "D08",
+      "graph_section": "G3",
+      "meaning": "saved dense oracle",
+      "availability": "offline_only",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+      ],
+      "open_question": "Which posthoc results are only labels, not free online information?"
+    },
+    {
+      "id": "D09",
+      "graph_section": "G3",
+      "meaning": "end-to-end quality and runtime",
+      "availability": "downstream",
+      "evidence_type": "VIDEO",
+      "evidence": [
+        "research/EXPERIMENT_FINDINGS_ATLAS.md"
+      ],
+      "open_question": "Which full-video dimension and execution counterfactual distinguish rival mechanisms?"
+    },
+    {
+      "id": "P06",
+      "graph_section": "G4",
+      "meaning": "posthoc same-expert delta",
+      "availability": "after_current_Q2",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "Is innovation concentration posterior only, or predictably available earlier?"
+    },
+    {
+      "id": "P07",
+      "graph_section": "G4",
+      "meaning": "micro16 extra-W1 observer",
+      "availability": "before_main_W1_with_extra_compute",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "Can a less costly signal outperform extra full-width W1/GELU?"
+    },
+    {
+      "id": "P08",
+      "graph_section": "G4",
+      "meaning": "candidate shared-column selector",
+      "availability": "conditional_proposal",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "Does a different token organization or joint signed function basis change its outcome?"
+    },
+    {
+      "id": "P09",
+      "graph_section": "G4",
+      "meaning": "native original Q2 operand closure",
+      "availability": "conditional_original_QDQ",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "Can alternative numerical methods or function representations change the dependence graph?"
+    },
+    {
+      "id": "P10",
+      "graph_section": "G4",
+      "meaning": "W1 operand budget",
+      "availability": "conditional_action",
+      "evidence_type": "ALG",
+      "evidence": [
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "Does early information actually eliminate W1 work?"
+    },
+    {
+      "id": "P11",
+      "graph_section": "G4",
+      "meaning": "W2 column budget",
+      "availability": "conditional_action",
+      "evidence_type": "ALG",
+      "evidence": [
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "How much of the net W2 output can be omitted or re-expressed?"
+    },
+    {
+      "id": "P12",
+      "graph_section": "G4",
+      "meaning": "observer packing QDQ and wall-time cost",
+      "availability": "conditional_action",
+      "evidence_type": "ALG",
+      "evidence": [
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md"
+      ],
+      "open_question": "What is the actual end-to-end benefit rather than nominal MAC savings?"
+    }
+  ],
+  "edges": [
+    {
+      "from": "G02",
+      "to": "G17",
+      "relation": "context"
+    },
+    {
+      "from": "G17",
+      "to": "G18",
+      "relation": "execution"
+    },
+    {
+      "from": "G18",
+      "to": "F04",
+      "relation": "cross_level"
+    },
+    {
+      "from": "F04",
+      "to": "F06",
+      "relation": "execution"
+    },
+    {
+      "from": "F06",
+      "to": "F08R",
+      "relation": "execution"
+    },
+    {
+      "from": "F08R",
+      "to": "F08",
+      "relation": "execution"
+    },
+    {
+      "from": "F08",
+      "to": "F09",
+      "relation": "execution"
+    },
+    {
+      "from": "F09",
+      "to": "F12",
+      "relation": "execution"
+    },
+    {
+      "from": "F12",
+      "to": "F13",
+      "relation": "execution"
+    },
+    {
+      "from": "F13",
+      "to": "G21",
+      "relation": "cross_level"
+    },
+    {
+      "from": "G21",
+      "to": "D09",
+      "relation": "downstream"
+    },
+    {
+      "from": "D01",
+      "to": "P07",
+      "relation": "candidate_observer"
+    },
+    {
+      "from": "D08",
+      "to": "P06",
+      "relation": "posthoc_label"
+    },
+    {
+      "from": "F08",
+      "to": "P06",
+      "relation": "posthoc_label"
+    },
+    {
+      "from": "P06",
+      "to": "P08",
+      "relation": "posthoc_comparison_not_online_execution"
+    },
+    {
+      "from": "P07",
+      "to": "P08",
+      "relation": "candidate_selector"
+    },
+    {
+      "from": "P08",
+      "to": "P09",
+      "relation": "native_original_QDQ_condition"
+    },
+    {
+      "from": "P09",
+      "to": "P10",
+      "relation": "native_operand_dependency"
+    },
+    {
+      "from": "P08",
+      "to": "P11",
+      "relation": "candidate_W2_budget"
+    },
+    {
+      "from": "P10",
+      "to": "P12",
+      "relation": "accounting"
+    },
+    {
+      "from": "P11",
+      "to": "P12",
+      "relation": "accounting"
+    }
+  ],
+  "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
+  "annotation_template": "research/method_discussion/GRAPH_CLAIM_TEMPLATE.json",
+  "current_scientific_audit": "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md"
+}
