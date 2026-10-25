@@ -11,9 +11,17 @@
 
 研究成果应回答：**外部文献揭示了什么我们尚未考虑的结构？最接近的机制在哪些数学和计算边界上相同或不同？接下来哪一项证据会改变我们的认识？**
 
-## 当前优先搜索地图（2026-10-25）
+## 当前优先搜索地图（2026-10-25 · WARD 扩展）
 
-当前以 [FFN 本征研究纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 为起点。按深度优先搜索 **FFN preactivation/GELU 有效贡献 → W2 有符号聚合与交互 → 条件 token/step/expert 创新 → downstream residual/attention/视频时序重要性 → 可执行稀疏/重计算表示**。积极追踪 Chipmunk、RT-Lynx、Activation Concentration、DiffSparse、LLM activation sparsity 等近邻与反例，再按真实 FFN 源码核对可迁移性。HiF4/MXFP4/NVFP4 与 scale/code 研究保留为对应结果所需的数值实现分支，不再统领方法搜索。
+以 [FFN 本征研究纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 为中心，阅读 [五族原始证据和竞争机制](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。将每次新发现连接到实际函数和数值时序：
+
+1. **基础功能机制**：FFN key-value memories、GELU weighted-values、单元子更新与 residual 消费、superposition/基依赖、局部 Jacobian；
+2. **结构稀疏与定义单位**：FFN/CETT、DiT N:M、element-to-column/tile 稀疏落差、W1/W2 条件交互与数据分布；
+3. **时空及少步动态**：Chipmunk、DiffSparse、AdaCache、运动条件、专家切换、跨 step/step 内变化；
+4. **视频功能**：VBench 的背景一致性/temporal flickering/motion smoothness，空间频率、有限干预和定向感知误差；
+5. **物理执行与代价**：GEMM M/N/K tiles、索引/重排/访存、实际 sparse-vs-dense break-even，与先前 QDQ→BF16 路径区分。
+
+对每族先找**一项会改变我们 FFN 假说的数学、机制或反例**，再从其实际原论文/正式源码做多轮检索与引用追踪。将「原文已报告的结论」「Wan 本项目已观测的结果」「新提出的条件推论」分别标注到相关句子旁。量化元信息作为幅值/舍入线索；发现新的因果结构时再展开对应的原生格式和系统论文。
 
 ## 广度：围绕科学问题连接不同知识簇
 
@@ -49,7 +57,7 @@
 | 实验证据 | 数据来源、质量指标、基线、消融、真实计时和适用条件 |
 | 与 FFNDS 的关系 | 同构方法、共享基础组件、相邻但不同的机制、可迁移启发或仍待检查的联系 |
 
-将最近的先例与旧 Proxy+HWG、静态/动态组选择、FP4 LUT、跨步缓存及新的 E0 残差径向现象作**源与方程级**比较。论文标题与关键词主要用于定位，研究结论基于真实数学关系和计算流。
+将近邻分别与 Wan 的 weighted-value 函数结构、时空创新、终端功能响应及真实可执行 tile 做**源码、方程和作用时点级**比较；当命题确实涉及已测机制时再调入旧 Proxy+HWG、FP4 LUT、缓存或 E0 径向结果。论文标题与关键词主要用于定位，研究结论基于真实数学关系和计算流。
 
 ## 输出可复核的检索依据
 
