@@ -6,6 +6,10 @@
 
 **Goal:** Understand and exploit real FFN computational redundancy in the distilled Wan I2V model, reduce *actual* FFN and end-to-end inference time, and preserve complete free-running video quality. No default dense restoration, R256 compensation, mask family or representation.
 
+## Agent × computation-graph scientific workflow
+
+All FFNDS research agents now use the [G0–G4 source graph](docs/98_端到端计算图与证据注解_20261025.md) together with the [Graph↔Agent collaboration protocol](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) and [node/edge/evidence registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json). Agents retrieve relevant computation/decision-time/downstream paths, independently attach hypotheses and evidence to [E0 graph claims](research/method_discussion/graph_annotations/E0/README.md), review one another's mechanisms, and the serialized integrator annotates supported findings back into the graph and experiment atlas. The interface is a **read-only static lookup plus reviewed annotation workflow**, not a runnable model-tracing application.
+
 ## Experiment findings and source-linked computation graph
 
 The [updated G0–G4 source-anchored computation graph](docs/98_端到端计算图与证据注解_20261025.md) traces four-step scheduling, self/cross attention, norm2/AdaLN, W1–GELU–W2, **HiF4 group64/8/4 Q2 scale dependencies**, gated residual, and propagation into flow/video. New G4 distinguishes posthoc coefficient concentration, native tile occupancy, micro16 pre-W1 observation with its extra W1 cost, shared-column innovation and the distinct W1/W2 operand closures. Every graph boundary links to a relevant historical or E0 result with an explicit evidence scope. The companion [experiment findings atlas](research/EXPERIMENT_FINDINGS_ATLAS.md) classifies early mask/quantization, group support, R256, temporal reuse, native finite actions, information-value, system timing and current intrinsic-FFN discoveries. They synthesize existing evidence; no paused experiments were resumed.
