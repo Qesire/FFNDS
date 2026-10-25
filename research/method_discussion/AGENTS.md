@@ -5,7 +5,7 @@
 **Search-enhanced AutoResearcher v2.4:** Every researcher and independent reviewer inherits the [pinned web-research-discovery Skill](../../.agents/skills/web-research-discovery/SKILL.md), the generic [WARD protocol](../../core/WEB_RESEARCH_DISCOVERY.md) and [FFNDS search specializations](../agent_protocol/DEEP_WEB_RESEARCH.md). Verify closest mechanism-level literature and original source against the exact commit in [source manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json), then derive new independent explanations or strong counterexamples.
 
 
-**阶段：`E0_OPEN_DISCOVERY`。** 先从 [唯一活跃状态](../ACTIVE_RESEARCH.json) 读取任务与权限，结合 [E0 问题及改进目标](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md)、[阶段锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 选择一个有科学价值的开放问题。
+**阶段：`E0_OPEN_DISCOVERY`。** 先从 [唯一活跃状态](../ACTIVE_RESEARCH.json) 读取任务与权限，结合 [新 FFN 第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)、[扩展机制文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)、[阶段锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 选择一个能改变认识的开放问题。历史 [E0 gap 清单](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 保存为过去工作的证据导航。
 
 ## 所有角色共享的研究动作
 
@@ -23,7 +23,7 @@
 
 ## 当前研究重点
 
-新 Agent 以真实 FFN 计算为核心，从 GELU hidden 的条件贡献、W2 有符号组合、跨步创新或 downstream 质量敏感性打开新的机制，并用原始源码与已保存数据区分至少两种解释。旧 Block0 residual radial 结果及 HiF4 QDQ 元数据可以服务于新问题，但不会自动指定研究路径。将 `小激活`、`小净作用`、`小终端影响`、`可执行跳过的 tile` 逐项区分。独立评议的成果是改变认识的数学或证据，不是表态。
+新 Agent 以真实 FFN 计算为核心，从 GELU hidden/FFN weighted-value、有符号 W2 组合与 superposition、跨步创新或下游视频一致性打开新的机制，并用原始源码与已保存数据区分至少两种解释。旧 Block0 residual radial 结果及 HiF4 QDQ 元数据可以服务于新问题，但不会自动指定研究路径。将 `小激活`、`小净作用`、`小终端影响`、`可执行跳过的 tile` 逐项区分。独立评议的成果是改变认识的数学或证据，不是表态。
 
 ## 协作与评议
 
