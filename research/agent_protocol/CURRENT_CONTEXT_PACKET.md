@@ -1,5 +1,8 @@
 # FFNDS — concise decision-specific evidence packet
 
+**Upstream synchronized:** AutoResearcher **v2.4 search-augmented**, pinned by [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). New web-science Skill [web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md) and general [WARD](../../core/WEB_RESEARCH_DISCOVERY.md) are imported verbatim; [local FFNDS deep search](DEEP_WEB_RESEARCH.md) adds native quantization/video specificity. Continue current E0 research from original source/competing explanations.
+
+
 ## Current E0 scientific fork
 
 The six-source [passive E0 discovery](../20261025/E0_DISCOVERY.md) establishes a local Block0 gated-output / residual-radial relationship. The [native followthrough](../20261025/E0_FOLLOWTHROUGH.md) now locates substantial continuous/native prediction mismatch at BF16 residual writeback and shows three local/final-flow ordering changes. Independent reconstruction and separating later quantizer boundaries from continuous bypass/attention propagation are useful next discriminators. Read the [gap/remedy dossier](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) with this update; quantizer hierarchies, temporal means and high-leverage tokens remain open.
