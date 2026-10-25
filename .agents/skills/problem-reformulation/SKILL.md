@@ -7,6 +7,8 @@ description: Discover better mathematical representations, mechanism taxonomies,
 **Activate** when a paper changes how a known operator is understood, the current search is trapped in one representation, a new source suggests a transferable prior, or the user asks for genuine new research ideas. PRD complements mechanism-research and research-expansion.
 
 1. **OPEN:** state the most promising alternative interpretation of the actual question immediately. Begin with a construction, not a caution list.
+**Literature-augmented reformulation:** Use [web-research-discovery](../web-research-discovery/SKILL.md) during substantive investigation: seek equivalent mathematics under different names, related problems with better-developed solvers, backward/forward citations and competing code-level implementations. Compare exact/conditional relations before claiming a transfer.
+
 2. **TRANSFORM:** try a useful route: (E) exact/conditional algebraic rewrite; (T) mechanism taxonomy and unexplored combination; or (R) reduction to a better-served problem/solver. Explore more than one only if it creates materially different mechanisms.
 3. **FIND FREEDOM:** expose an implicit basis, dependency, state, decision time, action granularity or target that can be changed. Derive one minimal mathematical or algorithmic construction.
 4. **PREDICT:** identify a different observable from the closest prior mechanism and a counterexample or condition in which the construction would fail.
