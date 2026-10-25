@@ -26,14 +26,17 @@ class VideoGateTest(unittest.TestCase):
                 "candidate":{"sha256":digest(video)},
                 "reference":None,
                 "metrics":{"artifact":{"decoded_frames":n,"verified_full_decode_frames":n,"fps":16},
-                           "runtime":{"wall_seconds":10},
-                           "temporal_motion":{"adjacent":0.1},
-                           "spatial_detail":{"edge":0.1},
-                           "luma_color":{"luma":0.2}},
+                           "runtime":{"generation_wall_seconds":10,"ffn_boundary_seconds":2,"setup_seconds":3,"peak_gpu_memory_mib":24000},
+                           "temporal_motion":{"adjacent_RGB_MAE_0to1":{"n":3},"downsampled_Farneback_mean_flow_px":{"n":3}},
+                           "spatial_detail":{"laplacian_abs_energy_candidate":{"n":4}},
+                           "luma_color":{"mean_encoded_BT709_luma":{"n":4},"adjacent_encoded_luma_abs":{"n":3}}},
                 "external_quality":{k:{"status":"NOT_RUN","reason":"Not executed"} for k in
                                     ("vbench_i2v","vbench2","human_review")},
                 "quality_accepted":False,
-                "per_frame":[{"frame":i} for i in range(n)]}
+                "per_frame":[{"frame":i,"laplacian_abs_edge_energy":.2,"mean_encoded_luma":.3,
+                              **({"candidate_adjacent_RGB_MAE_0to1":.02,
+                                  "candidate_downsampled_Farneback_flow_mean_px":1.0} if i>0 else {})}
+                             for i in range(n)]}
         report_path=root/"metrics.json"
         report_path.write_text(json.dumps(report))
         bundle={"schema":"ffnds.video.bundle.v1","expected_video_count":1,
