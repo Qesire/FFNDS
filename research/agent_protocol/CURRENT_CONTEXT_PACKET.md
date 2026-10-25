@@ -15,17 +15,17 @@
 - [原生四臂跟进](../20261025/E0_FOLLOWTHROUGH.md) 提示 BF16 写回与下游连续传播差异，属于可供未来功能机制分析的既有证据。star-null 是特定相关误差零模型，不是动作可加的充要条件。详见 [E0_SHARED_REFERENCE_MOMENTS.md](../20261025/E0_SHARED_REFERENCE_MOMENTS.md)。
 - 历史 A5+HWG 发现主体外光照/细节不稳定；将其转为时间/位置/频谱重要性的竞争解释，研究目标仍是同等设置下全视频质量与实际 FFN 计算的 Pareto 改善。
 
-**紧缺原始信息**：以 [K1–K5 字段/机制缺口地图](../20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md) 为下一轮 evidence retrieval 指引：优先完整 FFN sampled hidden 字段覆盖与输出贡献/执行 tile 的对应性；其它专项从竞争假说自然派生。
+**当前新问题**：[最新机制分歧与研究空间](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)已将完整hidden、原布局支持和连续M128字段归为**已取得证据**。待研究的核心关系是：何种条件函数或时空表示保留逐token创新的集中？这种作用如何传递到视频？能在哪一个真实计算边界减少W1/W2和总成本？研究可从输入、输出函数、下游感知或物理执行任意开始，不让shared-column、原group64或micro16固定所有Agent的假说。
 
-[本轮字段地图](../20261025/E0_INTRINSIC_FULL_HIDDEN.md)已经确认旧采集的`z`是完整13824维preactivation，`gelu/q2_pre/q2_post`也含全部hidden，但位置只采48行（主分析32行）；旧W2面板只有320列。本轮从原缓存取得完整W2并核对所有旧面板。后续连续采集已补足三块M128的完整q1/a/h/q2/y，支持16/64/128行判别；保存在HF derived cache，不再将32个随机位置当相邻tile。完整M支持统计仍不能反推出未捕获的其它向量。
+**时点与数值对象**：`q2_post`是实际W2输入，而`h=GELU(a)`是Q2前的对象。micro16先于完整token W1，但使用**额外全宽W1和GELU**投影。原HiF4尺度组依赖是该数值实现的约束，与新格式/条件近似/函数重写所允许的计算不同。保存的全通道sample与全token仅占用统计也不是同一范围。
 
 ## 当前第一组开放科学探索
 
-**A FFN hidden→W2 的有符号贡献、superposition 与敏感子空间**：一个通道激活很小，不必然对应净输出或可删 tile 的价值；检查真实已存字段和能量/Gram/时空条件假说。
+**A FFN函数与非线性**：利用现存完整W1/W2和q2_post，从signed贡献、GELU特别结构、Jacobian和特征表征中找新的计算单位，而不是再检索相同的hidden字段。
 
-**B FFN token×空间×step×expert 的条件创新**：什么绝对输出和更新量能真正共享/复用？区分同坐标与同物体，4步双专家意味着有限历史可用。
+**B FFN空间—时间组织**：逐token集中而raster共享列失效，是真实token异质、空间分组失配还是函数基错误？用竞争预测区分，四步双专家历史按实际可用性审查。
 
-**C FFN 对下游视频功能的有限影响与计算重构**：用残差/attention/去噪轨迹连接局部作用与背景光照/细小动态敏感性；提炼新的可省算自由度，不能将旧 dense completion 当成研究目标。
+**C FFN视频功能与计算重构**：从残差/attention、背景光照及小物体时序敏感性，或真实GEMM系统约束反推必要函数作用。分别核算W1/W2、观察器和QDQ依赖；欢迎第四种新解释。
 
 独立挑战者通过 [扩展研究文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md) 对照 Geva/FFN weighted-values、superposition、Chipmunk、RT-Lynx、AdaCache、VBench 与 GPU tiling 等原始工作，核对对象、信息时序、训练负担和实际 kernel。默认 AutoResearcher v2.4 的 mechanism-research、research-expansion、problem-reformulation、[WARD 深度检索](DEEP_WEB_RESEARCH.md)。所有 Agent 在 [E0 独立讨论](../method_discussion/discoveries/E0/README.md) 保存自己有实质差异的科学贡献。
 
