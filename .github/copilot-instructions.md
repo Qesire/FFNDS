@@ -5,9 +5,11 @@
 
 ## 当前阶段与研究任务
 
-唯一活跃阶段是 [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 中的 `E0_OPEN_DISCOVERY`；立即阅读 [本征 FFN 重置纲领](../research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[新的第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md) 与 [Agent 锚点](../research/agent_protocol/E0_STAGE_ANCHOR.md)。
+唯一活跃阶段是 [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 中的 `E0_OPEN_DISCOVERY`；立即阅读 [本征 FFN 重置纲领](../research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[新的第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md) 、[最新机制分歧审查](../research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md) 与 [Agent 锚点](../research/agent_protocol/E0_STAGE_ANCHOR.md)。
 
 **默认从 FFN 而不是量化信息出发**：W1/GELU/W2、有符号 hidden 贡献、token/step/expert 动态结构、下游功能敏感性及可能重排或减少的实际计算。旧 HiF4 QDQ、MXFP4/NVFP4 元信息仅作为次级幅值/数值实现线索。局部激活小、W2 净贡献小、视频功能价值小、物理 tile 可跳过，是四个不同的科学对象。旧径向/四臂报告继续作为与具体假说相关的证据，而非第一任务。
+
+**2026-10-25 新的研究节点**：已完成全13824 hidden、两来源连续M128、同专家创新/共享列和HiF4组闭包分析。后验逐token的25%通道创新SSE为2.44%–7.07%，但中间层25%共享列后验SSE约39%–42%。从这一落差打开**有符号函数坐标、时空组织、下游视频作用、非线性表示、物理执行和蒸馏层/步特异性**，并允许超出这些切面的新想法。已完成K1字段地图/原布局支持检查无需再作为第一任务。micro16所谓“pre-W1”需额外全宽W1/GELU，其信息时点与开销分开记账；原HiF4的尺度闭包不自动推出其它数值实现的计算下界。
 
 **每次研究交付**：一个值得深入的新函数/结构解释，真实源码或数学上的支撑，与最相近机制相反的预测，最廉价的判别观察，以及它打开的计算自由度。探索种子可以先于算子。
 
