@@ -5,7 +5,10 @@
 所有 E0 发现、后续 proposal 和 review 均主动开展 [深度 Web Search](../agent_protocol/DEEP_WEB_RESEARCH.md)：跨经典与最新论文、相关数学、源代码、引用链和竞争解释深化。重点记录与研究问题有关的**方法公式、实际实现、实验差异和反例**。独立 reviewer 带回自己核查的最强先例，说明检索结果如何拓展或修正假说。检索范围与可访问来源按实际记录。
 
 
-## E0_OPEN_DISCOVERY：现象发现优先
+## E0_OPEN_DISCOVERY：FFN 本征现象发现优先
+
+当前主要参照 [FFN 本征研究纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 与 [新第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)：明确激活 vs 有符号 FFN 净贡献 vs downstream 价值 vs 物理可省算单位。量化元信息只作为可选幅值线索。提出者不需要在发现期证明某算子有效；成熟 proposal 才具体列出计算边界。
+
 
 以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为阶段权威。当前优先采用 [E0 独立发现模板](discoveries/E0/README.md) 报告真实结构、两种竞争解释和区分性观察。下方的 versioned `proposals/<id>/vN.json` 用于保存成熟候选方法或由现象启发的新算子种子，由未来阶段再确定实现时机。
 
