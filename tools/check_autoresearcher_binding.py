@@ -113,6 +113,8 @@ def main():
                   "research/method_discussion/AGENTS.md",
                   "research/agent_protocol/E0_STAGE_ANCHOR.md",
                   "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+                  "research/agent_protocol/README.md",
+                  "research/method_discussion/discoveries/E0/README.md",
                   "research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md",
                   "README.md"):
         ensure("E0_GAPS_REMEDIATION_REQUIREMENTS.md" in text(entry),
