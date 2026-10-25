@@ -269,6 +269,19 @@
         "research/20261025/E0_SHARED_TILE_PRE_W1.md"
       ],
       "open_question": "What is the actual end-to-end benefit rather than nominal MAC savings?"
+    },
+    {
+      "id": "P14",
+      "graph_section": "G4",
+      "meaning": "OPEN graph annotation: potential shared output-function basis for token-specific signed same-expert innovation; not measured or implemented",
+      "availability": "posthoc_hypothesis_only",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/method_discussion/graph_annotations/E0/E0_GRAPH_SEED_FUNCTION_BASIS_20261025.json",
+        "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+      ],
+      "open_question": "Is there source-held-out useful low-dimensional output variation at rank k <<128 with a cheap prior observer and actual W1/W2 savings? Rank<=128 on an M128 tile is automatic and is not experimental evidence."
     }
   ],
   "edges": [
@@ -406,9 +419,49 @@
       "from": "F15",
       "to": "P08",
       "relation": "posthoc_diagnostic_not_online_execution"
+    },
+    {
+      "from": "P06",
+      "to": "P14",
+      "relation": "open_hypothesis_from_posthoc_delta_not_online_execution"
+    },
+    {
+      "from": "F15",
+      "to": "P14",
+      "relation": "open_hypothesis_from_signed_value_diagnostic"
+    },
+    {
+      "from": "P14",
+      "to": "P12",
+      "relation": "conditional_algorithm_and_cost_not_measured"
+    },
+    {
+      "from": "P14",
+      "to": "F13",
+      "relation": "conditional_functional_downstream_effect_not_measured"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
   "annotation_template": "research/method_discussion/GRAPH_CLAIM_TEMPLATE.json",
-  "current_scientific_audit": "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md"
+  "current_scientific_audit": "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md",
+  "last_experiment_evidence_commits": [
+    "94929b252a64",
+    "798a3c9f3a628e47b153b1ae1ed0226b1683c2e9"
+  ],
+  "last_nonexperimental_review_commit": "79bc9eae9f2d7c694f5536a2aa860381a9c80ee4",
+  "open_claims": [
+    {
+      "claim_id": "E0_GRAPH_SEED_FUNCTION_BASIS_20261025",
+      "path": "research/method_discussion/graph_annotations/E0/E0_GRAPH_SEED_FUNCTION_BASIS_20261025.json",
+      "status": "PROPOSED",
+      "independent_review_refs": [],
+      "node_ids": [
+        "F09",
+        "F15",
+        "P06",
+        "P14"
+      ],
+      "experimentally_verified": false
+    }
+  ]
 }
