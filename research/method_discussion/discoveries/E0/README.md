@@ -1,5 +1,10 @@
 # E0 独立发现记录 · 不预设算法
 
+## Web Search：每个独立发现者都要主动扩展学术视野
+
+进入发现讨论前（工具可用时）先执行 [广泛深入、迭代式文献与代码搜索](../../../agent_protocol/DEEP_WEB_RESEARCH.md)：经典/近期、相邻学科、正反解释、引用链、官方实现与硬件格式。不能只检查旧 G6A–G6F 的论文或最早搜到的几篇。记录搜索日期、主要查询族、最接近的机制和一项能改变判断的原始文献/源码证据；评议 Agent **独立**搜索最强潜在重复或反例。E0 不以文献数量或算法数量作为产出标准，而以是否发现了真正不同的可检验解释为准。无法联网则注明检索未完成，不伪造外部来源。
+
+
 **当前主研究阶段读取 [ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json) 的 `current_stage`。** 这是 E0 开放探索的*平行讨论产物*，不是第二个活跃任务列表；只用于不同 Agent 提出/质询机理。先读 [E0 首任务](../../../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md) 与 [阶段锚定](../../../agent_protocol/E0_STAGE_ANCHOR.md)。
 
 每个 Agent 创建属于自己的 `<agent-id>-<phenomenon>.md`，其它 Agent 用单独的 `<agent-id>-challenge-<phenomenon>.md` 独立发表竞争解释。**无需统一维护 queue、无需抢占同一个文件、无需达到指定发现数量。** 提案路径 `../proposals/` 继续保存已有算子和未来的 idea seeds，不将 E0 草案自动转为待执行算法。
