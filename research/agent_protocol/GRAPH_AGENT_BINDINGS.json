@@ -10,7 +10,8 @@
     "G1": "transformer block and consumer",
     "G2": "FFN math and numerical boundaries",
     "G3": "decision-time and historical actions",
-    "G4": "latest observations and conditional physical-cost forks"
+    "G4": "latest observations and conditional physical-cost forks",
+    "G5": "All-depth nonlinear-function and matched affine approximation versus exact dense residency timing; separates OBS/ALG/OPEN and actual SYS."
   },
   "nodes": [
     {
@@ -295,6 +296,51 @@
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
       ],
       "open_question": "Is there source-held-out useful low-dimensional output variation at rank k <<128 with a cheap prior observer and actual W1/W2 savings? Rank<=128 on an M128 tile is automatic and is not experimental evidence."
+    },
+    {
+      "id": "P15",
+      "graph_section": "G5",
+      "meaning": "full-M previous GELU-derivative statistic for all40 layers; panel error only on sampled 128/32 rows",
+      "availability": "before_next_W1_but_prior_full_M_stat_cost",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
+      ],
+      "open_question": "Which layers/experts have stable transferable slopes versus actual nonlinear innovation?"
+    },
+    {
+      "id": "P16",
+      "graph_section": "G5",
+      "meaning": "cross-source affine constant fold plus original group64 residual, panel-only approximation, no native candidate",
+      "availability": "other_source_fixed_affine_available_before_W1_but_actual_residual_post_Q2",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
+      ],
+      "open_question": "What stronger function unit than the tested fixed group-energy pruning survives signed cross terms, QDQ and real execution?"
+    },
+    {
+      "id": "P17",
+      "graph_section": "G5",
+      "meaning": "measured original dense decoded weight residency, unchanged GEMM MAC and video hashes",
+      "availability": "before_generation_static_original_weight_cache",
+      "evidence_type": "SYS",
+      "evidence": [
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
+      ],
+      "open_question": "How can physical execution improve under memory constraints and how should all FFN approximations be compared to this strong dense baseline?"
+    },
+    {
+      "id": "P18",
+      "graph_section": "G5",
+      "meaning": "exact continuous odd half-linear plus even GELU remainder, competing causal explanation still OPEN",
+      "availability": "mathematical_identity_pre_Q2_without_native_rounding_identity",
+      "evidence_type": "ALG",
+      "evidence": [
+        "research/method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
+      ],
+      "open_question": "Do even nonlinear components cancel in Wan W2 directions, or does a narrow local hot range explain the observed affine fit?"
     }
   ],
   "edges": [
@@ -457,11 +503,66 @@
       "from": "F06",
       "to": "F09",
       "relation": "candidate_affine_basis_plus_signed_residual_not_native_Q2_equivalence"
+    },
+    {
+      "from": "F06",
+      "to": "P18",
+      "relation": "exact_continuous_function_identity_not_native_equivalence"
+    },
+    {
+      "from": "F06",
+      "to": "P15",
+      "relation": "old_derivative_saved_analysis"
+    },
+    {
+      "from": "F08",
+      "to": "P16",
+      "relation": "post_Q2_label_diagnostic"
+    },
+    {
+      "from": "P15",
+      "to": "P16",
+      "relation": "alternative_slope_description_not_required"
+    },
+    {
+      "from": "P18",
+      "to": "P16",
+      "relation": "competing_open_odd_even_explanation"
+    },
+    {
+      "from": "P16",
+      "to": "P12",
+      "relation": "conditional_approximation_cost_not_executed"
+    },
+    {
+      "from": "P16",
+      "to": "F13",
+      "relation": "open_native_downstream_quality"
+    },
+    {
+      "from": "F04",
+      "to": "P17",
+      "relation": "original_weight_residency_system"
+    },
+    {
+      "from": "F09",
+      "to": "P17",
+      "relation": "original_weight_residency_system"
+    },
+    {
+      "from": "P17",
+      "to": "P12",
+      "relation": "scoped_measured_system_cost"
+    },
+    {
+      "from": "P17",
+      "to": "D09",
+      "relation": "scoped_measured_exact_dense_runtime"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
   "annotation_template": "research/method_discussion/GRAPH_CLAIM_TEMPLATE.json",
-  "current_scientific_audit": "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md",
+  "current_scientific_audit": "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md",
   "last_experiment_evidence_commits": [
     "94929b252a64",
     "798a3c9f3a628e47b153b1ae1ed0226b1683c2e9"
@@ -494,7 +595,8 @@
     "independent_graph_review": "research/method_discussion/graph_annotations/E0/independent-affine-residency-graph-review-20261026.json",
     "review_status": "INDEPENDENT_REVIEWED_AT_EXACT_CLAIM_HASHES_NO_FORMAL_METHOD_ENDORSEMENT",
     "integration_source_commit": "79bc9eae9f2d7c694f5536a2aa860381a9c80ee4",
-    "curator_precision": "Affine comparator is the tested other-source fixed group-energy pruning, not every possible matched pruning strategy. Continuous GELU theorem does not imply native Q2/BF16 equivalence."
+    "curator_precision": "Affine comparator is the tested other-source fixed group-energy pruning, not every possible matched pruning strategy. Continuous GELU theorem does not imply native Q2/BF16 equivalence.",
+    "direction_review": "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md"
   },
   "last_experiment_evidence_commit_scope": "Historical completed studies through798a3c9; newer completed reports are indexed under latest_scoped_followthrough in this same registry."
 }
