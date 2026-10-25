@@ -122,18 +122,19 @@ def evaluate(candidate, reference, identity_record):
                 raise ValueError("Frame shape changed/mismatched")
             # BT.709 weights are applied to gamma-encoded pixels, not to linear luminance.
             gray = [cv2.cvtColor(f, cv2.COLOR_RGB2GRAY) for f in frames]
+            luma = [f @ np.array([.2126,.7152,.0722],dtype=np.float32) for f in frames]
             for v in gray:
                 if not np.all(np.isfinite(v)):
                     raise ValueError("Nonfinite decoded pixels")
             data["edge_energy"].append(float(np.mean(np.abs(cv2.Laplacian(gray[0], cv2.CV_32F)))))
             item={"frame":count,"laplacian_abs_edge_energy":data["edge_energy"][-1]}
-            data["mean_encoded_luma"].append(float(np.mean(frames[0] @ np.array([.2126,.7152,.0722],dtype=np.float32))))
+            data["mean_encoded_luma"].append(float(np.mean(luma[0])))
             item["mean_encoded_luma"]=data["mean_encoded_luma"][-1]
             if reference:
                 diff = frames[0] - frames[1]
                 data["pixel_rmse"].append(float(np.sqrt(np.mean(diff**2))))
                 data["pixel_mae"].append(float(np.mean(np.abs(diff))))
-                d_luma = (frames[0]-frames[1]) @ np.array([.2126,.7152,.0722],dtype=np.float32)
+                d_luma = luma[0]-luma[1]
                 data["encoded_luma_rmse"].append(float(np.sqrt(np.mean(d_luma**2))))
                 data["mean_signed_luma_drift"].append(float(np.mean(d_luma)))
                 item["paired_RGB_RMSE_0to1"]=data["pixel_rmse"][-1]
@@ -144,7 +145,7 @@ def evaluate(candidate, reference, identity_record):
                 item["candidate_to_reference_laplacian_energy_ratio"]=data["edge_energy_ratio"][-1]
             if old is not None:
                 data["temporal_mae"].append(float(np.mean(np.abs(frames[0]-old[0]))))
-                data["luma_temporal_abs"].append(float(np.mean(np.abs(gray[0]-old[1][0]))))
+                data["luma_temporal_abs"].append(float(np.mean(np.abs(luma[0]-old[3][0]))))
                 item["candidate_adjacent_RGB_MAE_0to1"]=data["temporal_mae"][-1]
                 flows = []
                 for g, oldg in zip(gray, old[1]):
@@ -168,12 +169,12 @@ def evaluate(candidate, reference, identity_record):
                     # Fixed low-motion mask is obtained ONLY from dense flow.
                     mask = np.linalg.norm(flows[1],axis=2) <= .25
                     if np.any(mask):
-                        d0 = cv2.resize(gray[0]-old[1][0],flows[1].shape[1::-1])
-                        d1 = cv2.resize(gray[1]-old[1][1],flows[1].shape[1::-1])
+                        d0 = cv2.resize(luma[0]-old[3][0],flows[1].shape[1::-1])
+                        d1 = cv2.resize(luma[1]-old[3][1],flows[1].shape[1::-1])
                         data["static_luma_delta_error"].append(float(np.mean(np.abs(d0[mask]-d1[mask]))))
                         item["paired_low_motion_luma_delta_abs"]=data["static_luma_delta_error"][-1]
             framewise.append(item)
-            old = (frames[0],gray,frames)
+            old = (frames[0],gray,frames,luma)
             count += 1
         if count < 2:
             raise ValueError("Need at least two fully decoded frames")
