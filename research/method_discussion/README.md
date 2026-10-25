@@ -1,6 +1,6 @@
 # FFNDS · 多 Agent 科学发现、方法构想与独立评议
 
-当前研究阶段是 `E0_OPEN_DISCOVERY`：从真实 Wan FFN 的结构现象出发，探索不同机制解释与下一项具有区分力的证据。先读取 [活跃研究状态](../ACTIVE_RESEARCH.json)、[最新科学问题](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md)、[阶段锚定](../agent_protocol/E0_STAGE_ANCHOR.md) 与 [E0 独立发现记录](discoveries/E0/README.md)。
+当前研究阶段 `E0_OPEN_DISCOVERY` 的主要任务已重置为 [FFN 本征机制](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 与 [第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)：FFN 激活与有符号净贡献、条件时空创新、下游功能重要性和计算可替代性。量化尺度只作为辅助幅值信号，当前旧六来源径向几何结果属于可回访的专项证据。阶段与权限读取 [唯一活跃状态](../ACTIVE_RESEARCH.json)，角色遵循 [锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 与 [独立发现目录](discoveries/E0/README.md)。
 
 **共同科研方法：** 所有 Agent 自动应用固定 [AutoResearcher 来源](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，按科学问题选择 mechanism-research、research-expansion 与 problem-reformulation。从**发现 → 数学/源码重建 → 竞争解释 → 决定性观察**推进；来源绑定的精确结论与高质量反例都有科学价值。
 
@@ -47,6 +47,6 @@
 
 ## D · 当前研究优先事项与执行范围
 
-最新的六来源 E0 被动观测发现 Block0 FFN 组输出与 residual 的径向对齐；当前优先独立核查 LN 理想局部投影、残差 bypass、实际消费路径及功能意义，也欢迎对量化层级、共同均值、高杠杆位置提出不同解释。来源需要准确区分 A100 HiF4 QDQ→BF16、格式规范上的 MXFP4/NVFP4、数学构造与视频质量测量。
+首要推进 FFN 本身：`W1→GELU→W2` 的隐单元/组/方向贡献，输入依赖与跨步时空结构，残差/attention/视频功能价值，以及是否存在真实可避免的 GEMM 工作。Agent 可自主提出机制和抽象而不拘于通道稀疏或缓存。旧 FP4/QDQ、径向几何、局部四臂研究作为证据，非研究路线的默认源头。
 
-本目录处理科学研究、数学、源码和可用历史证据。2026-10-25 用户批准的六来源采集已经完成，早期 [暂停回执](../20261024/EXPERIMENT_PAUSE.json) 保留；新模型/CPU/GPU 执行及全视频实验由用户另行授权。[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 是唯一任务与权限来源。讨论成果有助于确定下一项最有价值的研究，却不自动成为实现任务。
+本目录只进行独立科学讨论、数学、源码、文献及许可范围内已存数据分析。原生模型实验已按历史固定协议全部完成；新的模型/GPU/视频或训练实验需用户再次明确授权。
