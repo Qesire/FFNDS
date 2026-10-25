@@ -4,6 +4,8 @@
 
 **2026-10-25 当前科学入口：** [FFN 本征研究纲领](../../../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[新第一任务](../../../20261025/E0_FFN_FIRST_TASK_20261025.md) 与 [原始近邻文献地图](../../../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)、[知识缺口地图](../../../20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)。围绕真实 FFN 的有符号贡献、条件时空结构、下游因果价值和计算自由度进行独立的机制发现。量化 scale 视为可选幅值信息，旧 radial/four-arm 评论可作专项依据，但不再决定全部 Agent 的研究题目。
 
+**新增图协作入口**：[G0–G4的Graph↔Agent协议](../../../agent_protocol/GRAPH_AGENT_COLLABORATION.md)、[实际节点与证据索引](../../../agent_protocol/GRAPH_AGENT_BINDINGS.json)及[图锚点独立发现目录](../../graph_annotations/E0/README.md)。新发现可在本目录写数学叙述，并将节点/边身份通过相应 JSON 记录关联。跨 Agent独立复核以后再由整理者更新原计算图，不将图中OPEN边误画成已执行算子。
+
 ## 新任务分工是开放发现切面
 
 - **FFN 输出机制**：从真实 preactivation、GELU、W2 value vectors 和表示叠加出发，寻找条件集中、相互干扰或新的敏感子空间；通过有符号对照确认它们的函数意义。
