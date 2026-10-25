@@ -481,6 +481,43 @@
         "research/20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md"
       ],
       "open_question": "How do stream-window errors propagate across self-generated history, where are resets necessary, and what steady memory remains for weights/KV/latents?"
+    },
+    {
+      "id": "P23",
+      "graph_section": "G5",
+      "meaning": "required all40x4 teacher/student actual native same-input and perturbed-prefix dual FFN trace; not yet executed",
+      "availability": "offline_future_native_paired_teacher_student_prefix",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md",
+        "config/e0_full_depth_quality_discriminator_TEMPLATE_20261026.json"
+      ],
+      "open_question": "At which real post-Q1 inputs, steps, depths and source types does affine54 native same-input error differ from the dense-prefix saved-data approximation?"
+    },
+    {
+      "id": "P24",
+      "graph_section": "G5",
+      "meaning": "unmeasured signed cumulative postgate residual, all-block output, head flow and four-step latent transport",
+      "availability": "offline_future_native_all_site_state_trace_and_bounded_hybrid_suffix",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md",
+        "research/method_discussion/discoveries/E0/independent-trajectory-error-and-correction-20261026.md"
+      ],
+      "open_question": "Which component causes full-video deterioration: finite deployed-QDQ error, student-prefix shift, downstream direction sensitivity, step-wise trajectory drift or their interactions?"
+    },
+    {
+      "id": "P25",
+      "graph_section": "G5",
+      "meaning": "new mandatory SHA-bound per-generated-video all-frame spatial, luma, detail, temporal/motion, runtime and external quality-status evidence gate",
+      "availability": "after_each_video_is_rendered_before_any_quality_acceptance",
+      "evidence_type": "POLICY",
+      "evidence": [
+        "research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md",
+        "tools/ffnds_video_metrics.py",
+        "tools/ffnds_video_metric_gate.py"
+      ],
+      "open_question": "Which per-video quality dimensions diagnose body motion suppression, spurious scene variation and unstable background illumination under real full40x4 FFN replacement?"
     }
   ],
   "edges": [
@@ -793,6 +830,41 @@
       "from": "F09",
       "to": "R04",
       "relation": "potential_FFN_function_transfer_subject_to_new_source"
+    },
+    {
+      "from": "P22",
+      "to": "P23",
+      "relation": "full_depth_paired_trace_required_not_yet_executed"
+    },
+    {
+      "from": "P23",
+      "to": "P24",
+      "relation": "signed_cumulative_native_effect_hypothesis"
+    },
+    {
+      "from": "P24",
+      "to": "P25",
+      "relation": "end_to_end_quality_consumer_requirement"
+    },
+    {
+      "from": "P25",
+      "to": "D09",
+      "relation": "quality_report_gates_scientific_claim"
+    },
+    {
+      "from": "F03",
+      "to": "P23",
+      "relation": "paired_Q1_input_native_operator_probe"
+    },
+    {
+      "from": "F13",
+      "to": "P24",
+      "relation": "post_gate_residual_propagation_required"
+    },
+    {
+      "from": "G08",
+      "to": "P24",
+      "relation": "four_step_scheduler_latent_direction"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -860,5 +932,7 @@
     "graph_section": "G6",
     "not_a_selected_operator": true,
     "not_a_new_model_run": true
-  }
+  },
+  "current_full_depth_video_quality_policy": "research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md",
+  "current_full_depth_state": "P23_P24_OPEN_UNEXECUTED_P25_POLICY_ACTIVE"
 }
