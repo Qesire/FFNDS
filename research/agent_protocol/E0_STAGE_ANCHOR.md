@@ -1,5 +1,10 @@
 # FFNDS E0 · Agent 阶段锚定与偏航回收
 
+## 默认深入联网检索：探索的第一手外部证据
+
+**每次 E0 科学探索在工具允许时主动开展广泛、深入、多轮的 Web Search**，参考 [跨领域检索与证据追溯规范](DEEP_WEB_RESEARCH.md)。不要停留在 3–5 条关键词结果或同一批论文摘要：从量化机制、FFN 内部数学、视频蒸馏、时空与下游质量、原生硬件执行等互补方向搜索，沿最有启发的论文追溯引用与后继工作，阅读方法公式、局限性和官方源码，主动寻找可能推翻当前直觉的机制。检索的产出应该是**新现象与竞争解释**，不是照抄热门论文或立即敲定 G6D/G6E/G6F。独立 Agent 应主动检索不同的反例与最近先例。记录日期、主要检索方向、原始链接和尚未覆盖的范围；无法联网时明示限制，不伪造已查证的文献。
+
+
 **唯一活跃阶段以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 的 `current_stage` 为准。** 本文件解释如何在 E0 开放探索中工作，不能自行改变主研究目标、实验权限或独立评议规则。上游方法论固定为 [AutoResearcher source manifest](ACTIVE_SOURCE_MANIFEST.json) 的 `5bd7ec537ae63f2b6a6dd579f0e886aff58a177c`；按问题选用 research-expansion、problem-reformulation、mechanism-research，而非机械重复其标题。
 
 ## 启动时的最小锚定动作
