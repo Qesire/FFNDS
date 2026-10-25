@@ -2,6 +2,8 @@
 
 > 2026-10-25 | 基于 AutoResearcher v2.4 **Ground → Derive → Discriminate → Learn** 的历史证据重组；链接至 [实际计算图 G0–G3](../docs/98_端到端计算图与证据注解_20261025.md)。这是一份**研究知识图谱**而非新增任务单，不改变原有冻结协议、失败决定、授权或当前唯一 E0 方向。
 
+**最新质量与全层限制（2026-10-26）**：[统一每生成视频指标与全40×4真实误差政策](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)以[全模型六视频失败](20261026/E0_RECONSTRUCTED_VIDEOS.md)为直接依据。完成了全部160处原生替换，不等于已解释每一步各层真实Student前缀误差：早先partial-native只有block0/30，8.54%局部输出SSE来自Dense前缀保存panel。六视频已有逐帧RGB/encoded-luma/差分，尚未完成运动/结构/官方VBench/人工指标；不能将旧视频结果标成符合新全指标验收。今后的每段生成要求SHA/全帧评估/真实成本/质量状态，无结果则保留为未完备证据。
+
 ## 0. 研究命题与证据单位
 
 **研究终点**：在真实 Wan 四步蒸馏 I2V 上减少实际 FFN/完整生成时间，同时保留自由四步完整视频质量。**静态/动态、通道/组/行/共享、补偿/不补偿、量化格式**都是可能的表示或实现选项，并不是目标本身。[目标复位](../docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md) 已明确 R256 与 dense restoration 不是必需路径；[当前 E0 纲领](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 从 W1→GELU→W2 的有符号函数价值、时空条件与真实 GEMM work 出发。
