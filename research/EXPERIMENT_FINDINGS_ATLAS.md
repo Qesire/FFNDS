@@ -108,6 +108,12 @@
 | **E19 真实前置信号需要额外W1；双投影预算不同** | [实际共享列及原布局](20261025/E0_SHARED_TILE_PRE_W1.md)：原四步每专家第二次调用可用一次同专家历史；如\`ρ_W1≈1, ρ_W2=.25, o=1/16\`，160个FFN的总主投影理想MAC节约 **17.1875%**，理想主投影加速≤约 **1.208×**；若新算子真的同时缩到\`ρ_W1=ρ_W2=.25\`，才是**35.9375%** MAC节约（含相同o） | *ALG/预算*。独立书写W1、W2、selector、QDQ闭包、缓存和最终壁钟；不是新核计时或质量门槛通过。G4d |
 | **E20 E0 技术可复现性** | [original 12 gens](20261025/E0_NATIVE_OBSERVATIONS.json)、[cross worker](20261025/E0_CROSS_WORKER_REPRODUCTION.json)：被动hook没有改变视频/latent SHA；10次跨worker、210项配对hash一致 | *NATIVE控制*：建立此批数据可信度；不是新的独立scene sample，也不是新的算法收益。G00–G10 |
 
+### 本次增量核查：E13–E20 数值未变，新增一条 OPEN 图锚点而非新实验
+
+以先前计算图合并 [8df09a6](https://github.com/Qesire/FFNDS/commit/8df09a6dcb82d256a2593ef5158441f78b771ff0) 对比 FFNDS [79bc9ea](https://github.com/Qesire/FFNDS/commit/79bc9eae9f2d7c694f5536a2aa860381a9c80ee4)：**新增26次仓库提交集中于 Graph-Agent 协作、23节点初始注册表及静态测试，并无新的原生/保存数据实验报告**。本图的测量依据仍是上文E13–E20；新增 [G4e P14 OPEN](../docs/98_端到端计算图与证据注解_20261025.md) 是 [一份PROPOSED、无独立评议的共享输出函数基假说](method_discussion/graph_annotations/E0/E0_GRAPH_SEED_FUNCTION_BASIS_20261025.json)，**未升级为E21证据或认可方法**。
+
+当前可以直接从已测连续M128的共同创新能量推出一个新的**代数推论，不是新增测量**：若将每个token的创新输出都替换为本tile的后验均值向量，block0/10/20/30/39 对同专家创新能量的相对SSE案例均值依次为 **34.7%、90.2%、86.4%、85.7%、22.2%**。由于任何128×5120 token-output矩阵天然rank不超过128，单凭“维数低于5120”不构成可省算证据；需要有意义的低k谱尾、跨来源持出和足够便宜的**W1前可获得**表示。归属：E16已测共享能量 + 精确正交分解（ALG），不是新视频、kernel或验证的rank-k压缩率。新反解释为**真实token特有输出变化有较高有效秩**，参见 [当前 E0 分歧审查](20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)。
+
 ## 7. M 族：将所有结果组织成可检验的机制，而不是路径偏好
 
 | 研究问题 | 可由哪些已完成实验确认的结构推出新问题 | 真正相互竞争的机制解释 | 成本最小的下一项**信息需求**（非运行授权） |
