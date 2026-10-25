@@ -208,6 +208,23 @@ def main():
     ensure(stage.get("new_experiment_authority") == "NONE" and
            "MULTIPLE_COMPETING_MECHANISMS" in focus.get("search_space_policy", ""),
            "Latest progress narrowed research or granted experiment authority")
+    # New research-wide video evidence obligation and genuine 40x4 propagation.
+    # Earlier frozen video drivers and metrics are historical, not silently retrofitted.
+    contract = "research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md"
+    depth_template = "config/e0_full_depth_quality_discriminator_TEMPLATE_20261026.json"
+    ensure((ROOT / contract).is_file() and (ROOT / depth_template).is_file()
+           and (ROOT / "tools/ffnds_video_metrics.py").is_file()
+           and (ROOT / "tools/ffnds_video_metric_gate.py").is_file(),
+           "Missing mandatory video metric and full-depth native analysis gate")
+    ensure(stage.get("video_quality_evidence_contract", {}).get("metric_report_required_for_new_videos") is True
+           and stage.get("full_depth_trajectory_analysis", {}).get("sites_per_video") == 160
+           and stage.get("full_depth_trajectory_analysis", {}).get("status") == "DESIGNED_NOT_EXECUTED"
+           and stage.get("new_experiment_authority") == "NONE",
+           "Video evidence or full40x4 trajectory scope drifted / silently authorized GPU work")
+    ensure({n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P23") == "OPEN"
+           and {n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P24") == "OPEN"
+           and {n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P25") == "POLICY",
+           "New native student-prefix trajectory or metric completeness must not be reported as measured")
     # Semantic/creative writing quality is evaluated using blinded case reviews,
     # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")
@@ -373,6 +390,8 @@ def main():
             "E0_AFFINE_FOLLOWTHROUGH_NOT_SINGLE_ROUTE",
             "E0_EXACT_RESIDENCY_NOT_FFN_COMPUTE_REDUCTION",
             "E0_GRAPH_EXTENDS_AFTER_NEW_EVIDENCE",
+            "E0_EVERY_GENERATED_VIDEO_REQUIRES_METRIC_REPORT",
+            "E0_ALL_LAYER_APPROXIMATION_REQUIRES_REAL_CUMULATIVE_TRACE",
              "WARD_PINNED_WEB_RESEARCH_DEFAULT"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
@@ -416,6 +435,7 @@ def main():
     check_relative_markdown_links("research/20261025/E0_FFN_FIRST_TASK_20261025.md")
     check_relative_markdown_links("research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md")
     check_relative_markdown_links("research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md")
+    check_relative_markdown_links("research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md")
     check_relative_markdown_links("research/agent_protocol/GRAPH_AGENT_COLLABORATION.md")
     check_relative_markdown_links("research/method_discussion/graph_annotations/E0/README.md")
     check_relative_markdown_links("docs/98_端到端计算图与证据注解_20261025.md")
