@@ -12,7 +12,7 @@
 
 先建立**实际 FFN 数据字段地图**：真实 pre-W1 输入、W1 输出 `a`、GELU `h`、Q2 saved operand、decoded W2 sampled contributions、gate、bias 和 residual 的 tensor shape、可用 source/step/block/token 范围。特别说明哪些是整个 hidden，哪些只是32位置×五64组面板。
 
-以 `h_j`、`d_j=h_j(g⊙W2[:,j])`、`Σd_j`、局部 Jacobian 为四种表达，检验**条件集中**与**superposition/方向干扰**两种机制。证明最小反例：`|h|` 排序可以与净功能贡献排序不同。创新空间包括神经元组合、条件敏感子空间、输出方向和坐标重表示，并非只有 channel-group mask。
+以 `h_j`、`d_j=h_j(g⊙W2[:,j])`、`Σd_j`、局部 Jacobian 为四种表达，检验**条件集中**与**superposition/方向干扰**两种机制。证明最小反例：`|h|` 排序可以与净功能贡献排序不同；同时验证 **GELU 前的任意旋转并非一般等价变换**。创新空间包括神经元组合、条件敏感子空间、输出方向和坐标重表示，并非只有 channel-group mask。
 
 **交付**：一个具体公式/反例；准确 operand 覆盖地图；当前历史资产中的最小可判别观测或需要的一个精准新字段。
 
