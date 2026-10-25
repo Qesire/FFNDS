@@ -1,49 +1,26 @@
-# FFNDS — concise decision-specific evidence packet
+# FFNDS · E0 当前科学上下文（2026-10-25）
 
-**2026-10-25 Skill/Web 二轮审查结果：** [复审报告](../20261025/E0_SKILL_WEB_REAUDIT_20261025.md) 与 [修订 Agent 指引](../20261025/E0_REVIEW_RESPONSE_AND_AGENT_GUIDANCE_20261025.md) 是当前优先讨论入口。原先共享方向、四臂零模型和配对比例是保存结果；须区分 decoded FP64 组方向与原生 BF16 写回、32 sampled rows 与真实全 token、star-null 与有限可加性。新增独立 HiF4/MXFP4/NVFP4 information timing 研究；其余本文为历史证据上下文。
+**唯一活跃科学入口**：[FFN 本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) → [首个 FFN 科学发现任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) → [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。本文件是阅读索引，不增加实验权限。**从 FFN 内部的 W1/GELU/W2 有符号贡献、条件时空变化、传播功能和可替代计算开始；量化只在具有额外机制证据时充当研究主因。**
 
+## 真实对象与解释口径
 
-**Historical E0 handoff (2026-10-25, superseded by Skill/Web re-audit above):** [Mechanism discrimination guide](../20261025/E0_NEXT_MECHANISM_GUIDANCE_20261025.md) supersedes older prompts that treated Block0 radial alignment as the only opening. Newly saved temporal calibration and shared-reference full-distance results distinguish a transferable Block39 common component (37.34%/8.32%/4.35% reuse/scale/affine SSE) from 39.25% centered-variation SSE, and expose exact three-pair-sum star-null violations across six final-flow sources (5.02%–47.44% relative ranges). **Earlier independent task:** reconstruct full six-distance necessary identities by source/step/boundary/subspace and compare shared-reference, BF16 boundary and continuous-propagation mechanisms. Other agents retain token-pairing and temporal-structure alternatives. Source-linked science first; archived model scopes are complete.
+- 当前已完成观测环境：Wan2.2 I2V 蒸馏四步，LightX2V D-Q/HiF4 QDQ→BF16 GEMM，5120→13824→5120 双专家 FFN，含 AdaLN、gate、残差和后续 attention；真实源码身份见 [C0 源绑定](../20261023/C0_coupling_offline_results.json) 与 [runtime 重建](../20261022/R12_E0_runtime_reconstruction.json)。
+- 量化元数据在此研究默认视为可选的粗略幅值/范围统计；HiF4 现有 QDQ 并非原生 MXFP4/NVFP4 数据布局或 FP4 GEMM，方法发现不再预设 scale/code、K panel、64 hidden group 或 QDQ 是算法核心。
+- 强调四对象分离：`|GELU(a)|` 强度；`Σ_j GELU(a_j)W2[:,j]` 的净作用；后续 norm/attention/多步生成的功能价值；可真实跳过或共享的运算和读取。
+- 最近已保存的径向对齐 **19.794% raw 正确对 20.542% 错排、8.839% centered 正确对 3.590% 错排**及同 seed 六来源共有方向 cosine 0.99645，属于特定 32 行×5组 ideal epsilon-LN 表征结果。**不是 FFN 整体功能冗余率**；见 [E0_RADIAL_PAIRING.md](../20261025/E0_RADIAL_PAIRING.md) 与 [复审](../20261025/E0_SKILL_WEB_REAUDIT_20261025.md)。
+- [原生四臂跟进](../20261025/E0_FOLLOWTHROUGH.md) 提示 BF16 写回与下游连续传播差异，属于可供未来功能机制分析的既有证据。star-null 是特定相关误差零模型，不是动作可加的充要条件。详见 [E0_SHARED_REFERENCE_MOMENTS.md](../20261025/E0_SHARED_REFERENCE_MOMENTS.md)。
+- 历史 A5+HWG 发现主体外光照/细节不稳定；将其转为时间/位置/频谱重要性的竞争解释，研究目标仍是同等设置下全视频质量与实际 FFN 计算的 Pareto 改善。
 
+## 当前第一组开放科学探索
 
-**Upstream synchronized:** AutoResearcher **v2.4 search-augmented**, pinned by [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). New web-science Skill [web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md) and general [WARD](../../core/WEB_RESEARCH_DISCOVERY.md) are imported verbatim; [local FFNDS deep search](DEEP_WEB_RESEARCH.md) adds native quantization/video specificity. Continue current E0 research from original source/competing explanations.
+**A FFN hidden→W2 的有符号贡献与有效计算支持**：一个通道激活很小，不必然对应净输出或可删 tile 的价值；检查真实已存字段和能量/Gram/时空条件假说。
 
+**B FFN token×空间×step×expert 的条件创新**：什么绝对输出和更新量能真正共享/复用？区分同坐标与同物体，4步双专家意味着有限历史可用。
 
-## Current E0 scientific fork
+**C FFN 对下游视频功能的有限影响与计算重构**：用残差/attention/去噪轨迹连接局部作用与背景光照/细小动态敏感性；提炼新的可省算自由度，不能将旧 dense completion 当成研究目标。
 
-The six-source [passive E0 discovery](../20261025/E0_DISCOVERY.md) establishes a local Block0 gated-output / residual-radial relationship. The [native followthrough](../20261025/E0_FOLLOWTHROUGH.md) now locates substantial continuous/native prediction mismatch at BF16 residual writeback and shows three local/final-flow ordering changes. Independent reconstruction and separating later quantizer boundaries from continuous bypass/attention propagation are useful next discriminators. Read the [gap/remedy dossier](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) with this update; quantizer hierarchies, temporal means and high-leverage tokens remain open.
+独立挑战者通过 [研究文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md) 查最接近的 Chipmunk / RT-Lynx / DiffSparse / Activation Concentration 等原始工作，核对对象、信息时序、训练负担和实际 kernel。默认 AutoResearcher v2.4 的 mechanism-research、research-expansion、problem-reformulation、[WARD 深度检索](DEEP_WEB_RESEARCH.md)。所有 Agent 在 [E0 独立讨论](../method_discussion/discoveries/E0/README.md) 保存自己有实质差异的科学贡献。
 
-**Latest saved-data result:** [radial pairing and common-direction transfer](../20261025/E0_RADIAL_PAIRING.md) distinguishes two coexisting mechanisms. Block0 raw radial alignment is19.79% paired versus20.54% under exact within-scope derangements; temporal/spatial and equal-magnitude controls preserve this. After subtracting position means it is8.84% versus3.59%, and a pre-writeback pairing relation also remains. Other-five-source common residual direction transfers at cosine0.99645, within the same six-source seed42 cohort. All1440 historical radial values reproduce. Shared direction is not permission to delete a potentially necessary bias; the retained centered relation does not yet establish cheap decision value. Model authority and E0 stage are unchanged, with zero new model/GPU calls.
+## 可使用的证据与能力边界
 
-The preceding [temporal calibration](../20261025/E0_TEMPORAL_CALIBRATION.md) separates transferable position-common drift from input-conditioned variation. In whole-source leave-out, Block39 reuse/fixed-scale/fixed-affine full-output relative SSE is37.34%/8.32%/4.35%; centered-variation error under fixed affine remains39.25%. Current input RMS carries some expert-dependent information, but this is not an executed cache or fresh quality test. The native40-generation scope and original observations remain unchanged.
-
-[Complete four-arm moments](../20261025/E0_SHARED_REFERENCE_MOMENTS.md) additionally follow the newly synchronized independent shared-reference hypothesis: final-flow six-distance fit discrepancy is2.24%–20.01%, and a globally subadditive source can have superadditive mean components. The 5120-channel internal FFN mean and16-channel latent-flow subspaces are different objects. No peer-support vote or model authorization follows from these checks.
-
-**Stage:** `ACTIVE_RESEARCH.json.current_stage=E0_OPEN_DISCOVERY`. Read the [current E0 question](../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md) and [agent anchor](E0_STAGE_ANCHOR.md) for its productive next steps. Existing G6 methods remain idea seeds. An E0 result is an explained phenomenon, a competing prediction and one source-justified observation.
-
-**Research method:** default to pinned AutoResearcher, broad/deep [Web Search](DEEP_WEB_RESEARCH.md) and first-party model source; report the strongest related theory and which part of the new finding it explains. The passive12-generation and later finite40-generation scopes have finished, with zero pending jobs. Cross-worker technical reproduction is distinct from independent peer agreement, which remains pending. A new model scope follows a future explicit user instruction.
-
-Live state: [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). Model/source identity and its original hashes: [C0 source bindings](../20261023/C0_coupling_offline_results.json), [runtime reconstruction](../20261022/R12_E0_runtime_reconstruction.json). AutoResearcher principles: [local harness](../../core/AGENT_HARNESS.md). Dated plans are historical observations. Relevant experiment files are prioritized in the [scientific evidence ranking](../EXPERIMENT_EVIDENCE_INDEX.md); follow original source/protocol from the ranked artifact as needed.
-
-## North star and current scientific opportunity
-
-Find lower actual Wan2.2 four-step D-Q/HiF4 FFN and end-to-end cost at preserved free-running video quality. Explore through **Q1 (available information)**, **Q2 (economically useful decisions)** and **Q3 (genuinely reducible operations)** in either direction. The scientifically interesting gap is between a computable local FFN approximation and its state-dependent downstream effect, *and* between a mathematical operation reduction and physically efficient execution.
-
-## Real object and evidence
-
-- Wan I2V distilled D-Q/HiF4, FFN width 5120→13824→5120, native quantization/GELU, AdaLN, attention, gate, residual. Check the precise relevant implementation and QDQ boundary against [source bindings](../20261023/C0_coupling_offline_results.json) and [reference operator](../../tools/packed_ffn_reference.py) for any native claim.
-- **Mathematical identity:** given complete quantized post-Q1 `q`, frozen weights and execution semantics, the current *local* deterministic FFN output is fully determined. This says nothing by itself about the state-dependent future value of changing the operator.
-- **Constructive C0 synthetic result:** identical BF16 normalized input but different pre-norm residual scales reverses next-normalization A/B action ranking. Read [numerical record](../20261023/C0_coupling_offline_results.json) for exact scope; a mechanism seed for real Wan.
-- **Older native scopes:** R7 finite two-block interactions, R13 copied-row comparison, R16/R17 routing and incomplete fresh quality. They test specific actions/metrics, not all alternative operators.
-- **Missing historical operands:** the 3,840 old OP2 file headers lack pre-norm residual and attention increment and do not contain same-prefix finite native labels for fresh low-cost operators. The next source inspection can locate existing observables; it need not assume a selector is necessary.
-- **New E0 finite observations:** [six exposed sources,30 complete generations](../20261025/E0_FINITE_GROUP_DIAGNOSTIC.json) now contain fixed step0/block0 group0/53 interventions, original Q2/full GEMMs, native writeback/nextnorm and four free-running steps. [Followthrough](../20261025/E0_FOLLOWTHROUGH.md) reconstructs sampled BF16 multiply/add, separates signed numerical error components, and shows local/final-flow ordering changes in three sources. This does not repair the missing historical OP2 fields, establish a cheap predictor, identify a winning operator or pass a speed/quality gate.
-
-## Two complementary openings
-
-**From information:** derive whether state variables absent from `q` or its cheap sketch alter downstream finite action preference. Contrast residual-scale/attention bypass against geometry or step-only predictors. The conditional `NetVOI` must eventually include observation, policy, layout and native action costs.
-
-**From computation:** inspect FFN/quantization/temporal execution and look for an identity, low-dimensional invariant, repeated work, alternative unit of sharing, or a physically efficient approximation. Define what it saves even with a **fixed** choice; then determine whether input or upstream state can improve the Pareto frontier. Constructive hypotheses are welcome before any empirical permission or full deployment proof.
-
-**High-information next step:** choose the opening that most changes the mechanism understanding using a source inspection, algebraic result, or existing saved evidence. For later separately authorized tests, evaluate distinguishable native actions and downstream finite effects, then full four-step free videos and true runtime. Compare against matched static and closest prior-art methods.
-
-**Current resource boundary:** the user explicitly requested renewed execution and completion of the current attempts on 2026-10-25, reiterating at most **four idle GPUs**. [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) records the completed passive observations and the fixed native finite study:30 complete four-step generations on six exposed sources, plus10 cross-worker technical repetitions on two of those sources; at most four simultaneously assigned idle A100s. No training, decomposition, official scoring, new speed claim or automatic subsequent study. The passive study's actual two-card peak is historical usage, not the current limit. The old [pause receipt](../20261024/EXPERIMENT_PAUSE.json) remains historical evidence. This packet and the method discussion queue grant no authority themselves. [Current followthrough](../20261025/E0_FOLLOWTHROUGH.md) separates complete results from any work still in progress.
+[完整实验证据导航](../EXPERIMENT_EVIDENCE_INDEX.md) 与 [量化优先时代旧 E0 第一任务](../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md) 都继续保存，以服务确切新机制而非统领下一任务。已有六来源原生被动12次、有限四臂30次、跨节点技术重复10次，全都完成；无待运行的新模型任务。历史最高并发2张、授权最多4张的数字只是已完成范围。当前可以进行源码/原论文/数学/获准的离线保存资产复算；新的 native model/GPU/视频/训练范围需要用户再次明确授权。现阶段 `E0_OPEN_DISCOVERY`，未选择任何新算子，同行认可仍由真正的独立评议产生。
