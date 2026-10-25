@@ -11,3 +11,5 @@
 一条新科学定理、一个对新表示的反例，或一个发现原图忽略了重要源码分支的分析均为有效科研贡献。若用户未许可新模型执行，则记录下一实验需求而不自动运行。**第一份示范性机制种子**：[跨token共享函数基的OPEN假说](E0_GRAPH_SEED_FUNCTION_BASIS_20261025.json)，在F08/F09/F15/P06/P08节点注册“输出函数空间可能共享而原hidden列不共享”的竞争机制；严格代数分解有依据，所提出的可执行低维基属于**未证实/未独立评议**，不能当作已完成模型加速。
 
 后续[affine与奇偶部记录](E0_GRAPH_AFFINE_ODD_EVEN_20261025.json)、[相同视频dense常驻记录](E0_GRAPH_EXACT_DENSE_RESIDENCY_20261025.json)已有[独立图审查](independent-affine-residency-graph-review-20261026.json)，绑定两份原始claim的精确SHA。原始投稿的PROPOSED状态保留；最新审查状态由review及registry的`latest_scoped_followthrough`索引表达。核实的连续数学、保存数据和SYS结论已接回图/谱系；native折叠、奇偶部实际解释、完整质量仍OPEN。affine只优于所测跨来源固定组能量控制，不代表优于所有最优删组方法；这些评议不授予正式方法认可或新执行权限。
+
+2026-10-26的[函数表示/原生局部重构原claim](E0_GRAPH_FUNCTION_RECONSTRUCTION_20261026.json)及[V2](E0_GRAPH_FUNCTION_RECONSTRUCTION_20261026_V2.json)已有[独立结果审查](../../discoveries/E0/independent-function-basis-results-audit-20261026.md)，绑定精确SHA。原claim的跨设置非线性归因受到校准混杂挑战，V2限定为各自设置内结果；P14通用假说和视频消费者继续OPEN，未授予方法认可。

@@ -73,7 +73,7 @@
     "docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md"
   ],
   "experiment_authority": {
-    "all_cpu_gpu_model_experiments": "ALL_EXPLICITLY_REGISTERED_SCOPES_COMPLETE_NO_JOBS_PENDING",
+    "all_cpu_gpu_model_experiments": "USER_RENEWED_TWO_FIXED_SAVED_DATA_DISCRIMINATION_SCOPES_20261026",
     "paused_by": "research/20261024/EXPERIMENT_PAUSE.json",
     "eligible_model_method_ids": [],
     "automatic_followups": false,
@@ -548,10 +548,182 @@
           "official_quality_calls": 0,
           "HF_output_bytes": 5184707
         }
+      },
+      {
+        "id": "E0_STATISTICAL_GELU_GAINS_20261026",
+        "protocol": "config/e0_statistical_gelu_20261026.json",
+        "protocol_sha256": "9a0205dd1a8b26e90419e6699de737bb8a3aee3d27c4bf1b841c968df8a02e0b",
+        "user_instruction": "你继续同步最新仓库，根据仓库内容和当前实验结果和我们项目的最终目的持续推进",
+        "date": "2026-10-26",
+        "scope": "320 absolute saved cases (two exposed sources, four steps, forty blocks). Compare five other-source random32 mean-anchored diagonal gains: half-slope, Q2 OLS, native GELU/Smooth2 OLS, empirical tanh derivative mean, and32-node Gaussian-moment tanh derivative expectation. Decompose continuous GELU odd/even gated W2 outputs; evaluate errors separately on center128 and original random32. Source coefficients fixed before held case; current tensors are labels, no network return.",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "planned_simultaneous_cards_this_study": 1,
+        "max_combined_cards_for_two_new_scopes": 2,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "completed_result": "research/20261026/E0_FUNCTION_RECONSTRUCTION.json",
+        "completed_document": "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "actual_budget": {
+          "cases": 320,
+          "diagnostic_counts": {
+            "W1": 320,
+            "W2": 2560,
+            "continuous_GELU_evaluations": 320,
+            "calibration_parameter_sets": 1600
+          },
+          "new_full_generations": 0,
+          "optimizer_updates": 0,
+          "persisted_fitted_weights": 0,
+          "HF_output_bytes": 1345833,
+          "failed_attempts": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1
+        }
+      },
+      {
+        "id": "E0_OUTPUT_BASIS_PREDICTION_20261026",
+        "protocol": "config/e0_output_basis_prediction_20261026.json",
+        "protocol_sha256": "cb88a49f16125dd842adecd508804855bd1eba32dbbc407e191ef79702403fab",
+        "user_instruction": "你继续同步最新仓库，根据仓库内容和当前实验结果和我们项目的最终目的持续推进",
+        "date": "2026-10-26",
+        "scope": "480 saved cases:320 absolute and160 same-expert innovations. Fit on only OTHER-source original center128: output PCA and fixed post-Q1 ridge factors, exact predictive reduced-rank ridge, and training token-mismatch ridge. Compare own-center and source-held output projection with true-label coefficients and one fixed random orthogonal basis. Evaluate center128 and original uniform rows after removing overlap with the center training positions. No original W1/W2 projection, no model weight loading or replacement. SVD applies only to activation/input/crosscovariance samples; closed-form diagnostic maps are transient and not saved.",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "planned_simultaneous_cards_this_study": 1,
+        "max_combined_cards_for_two_new_scopes": 2,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "completed_result": "research/20261026/E0_FUNCTION_RECONSTRUCTION.json",
+        "completed_document": "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "actual_budget": {
+          "cases": 480,
+          "diagnostic_counts": {
+            "activation_SVD": 1440,
+            "random_basis_QR": 1,
+            "fitted_diagnostic_maps": 1440,
+            "temporal_affine_calibrations": 160
+          },
+          "new_full_generations": 0,
+          "optimizer_updates": 0,
+          "persisted_fitted_weights": 0,
+          "HF_output_bytes": 11816055,
+          "failed_attempts": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1
+        }
+      },
+      {
+        "id": "E0_NONLINEAR_RECONSTRUCTION_20261026",
+        "protocol": "config/e0_nonlinear_reconstruction_20261026.json",
+        "protocol_sha256": "9b502d8d16b05dfa793e660fb679bc473ff9eac01f54cd4cde77bd90f6e09d30",
+        "user_instruction": "你继续同步最新仓库，根据仓库内容和当前实验结果和我们项目的最终目的持续推进",
+        "date": "2026-10-26",
+        "scope": "Fixed saved-data nonlinear feature reconstruction. Four original calibration sources, original uniform32 at both steps per expert, pooled256 rows per expert/block. Five fixed blocks; two disjoint exposed held sources, four steps, center128/uniform32/uniform-disjoint panels. Compare original complete64-group features plus native-output calibration mean, and a pooled diagonal affine base plus complete64-group nonlinear residual. Score groups only with calibration variance times mean-current-gate weighted W2 column norm. At fixed group counts compare mean compensation against a ridge residual correction, with a128-row cyclic target mismatch. Each paired ridge solve uses one calibration Gram and two right-hand sides; no SVD, model return, persisted new weights, native calls or videos. Diagnostic factors are temporary. New output weights and bias would be required to deploy; this study does not test their quantization or native equivalence.",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "planned_simultaneous_cards_this_study": 1,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "completed_result": "research/20261026/E0_FUNCTION_RECONSTRUCTION.json",
+        "completed_document": "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "actual_budget": {
+          "cases": 40,
+          "diagnostic_counts": {
+            "W1": 120,
+            "W2": 390,
+            "calibration_Gram": 60,
+            "ridge_solve": 60,
+            "fitted_correction_maps": 120,
+            "affine_calibrations": 10,
+            "group_rankings": 20
+          },
+          "new_full_generations": 0,
+          "optimizer_updates": 0,
+          "persisted_fitted_weights": 0,
+          "HF_output_bytes": 1263205,
+          "failed_attempts": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1
+        }
+      },
+      {
+        "id": "E0_RECONSTRUCTED_NATIVE_20261026",
+        "protocol": "config/e0_reconstructed_native_20261026.json",
+        "protocol_sha256": "fe9027f5cf5d81d28e3b001701beee7be194662edd45bfcc238e2e46cc5cab39",
+        "user_instruction": "你继续同步最新仓库，根据仓库内容和当前实验结果和我们项目的最终目的持续推进",
+        "date": "2026-10-26",
+        "scope": "Fixed standalone numerical and shape-timing diagnostic on blocks0/30, two experts, held source0/12, all four steps. Recalibrate only original four sources uniform32 at both expert steps (256 rows/expert/block). Compare resident original dense after-Q1 FFN, whole94 groups with output ridge recovery, and affine+54 groups with recovered nonlinear residual. Compose the fixed base in FP32 and cast to BF16; newly fitted output weights/bias are BF16 and NOT re-HiF4-quantized. Original W1/GELU/native HiF4 Q2 are genuinely called at selected complete64 groups. All timing uses repeated160 saved rows at full M31668; first160 numerical rows compared against original saved native outputs and continuous diagnostic. All weights resident; excludes Q1, gate/residual, setup/data loading, allocator flush and end-to-end propagation. Per case/method one numerical call, two warmups and six timed calls. No returned-to-network outputs, videos, optimizer, decomposition, persisted fitted weights, retry or stage promotion.",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "planned_simultaneous_cards_this_study": 1,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "completed_result": "research/20261026/E0_FUNCTION_RECONSTRUCTION.json",
+        "completed_document": "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "actual_budget": {
+          "cases": 16,
+          "diagnostic_counts": {
+            "W1": 48,
+            "W2": 60,
+            "calibration_Gram": 8,
+            "ridge_solve": 8,
+            "fitted_correction_maps": 8,
+            "FP32_matrix_compositions": 8,
+            "transient_BF16_output_weights": 8,
+            "native_dense_after_Q1_FFN": 144,
+            "native_partial_after_Q1_FFN": 288,
+            "native_Q2": 432,
+            "folded_linear_applications": 144
+          },
+          "new_full_generations": 0,
+          "optimizer_updates": 0,
+          "persisted_fitted_weights": 0,
+          "HF_output_bytes": 735784,
+          "failed_attempts": 0,
+          "retries": 0,
+          "peak_GPU_cards": 1
+        }
+      },
+      {
+        "id": "E0_MISSING_CALIBRATION_OBSERVATIONS_20261026",
+        "protocol": "config/e0_missing_calibration_observations_20261026.json",
+        "protocol_sha256": "21c999b6f46023d8c25a5a56fb9b924c02393e86bb4e5801393fe12f9a267b28",
+        "user_instruction": "你继续同步最新仓库，根据仓库内容和当前实验结果和我们项目的最终目的持续推进",
+        "date": "2026-10-26",
+        "scope": "Four unchanged historical dense videos on sources4/8/16/20 actual seeds46/50/58/62. Collect only35 missing blocks (exclude0/10/20/30/39), all four steps, original uniform32 rows of postQ1 input, native postQ2 coefficients and ungated FFN output plus gate/biases. Reuse original five-block calibration data rather than repeat it. No old derivative, center tiles, new weights, approximation, candidate selection, score, or automatic following study. Every video and four scheduler latents must match accepted source dense SHA and1600/1600 native call counts.",
+        "execution_status": "THREE_COMPLETE_ONE_PROCESS_EXITED_BEFORE_GENERATION",
+        "max_gpu_cards": 4,
+        "max_full_generations_total": 4,
+        "planned_simultaneous_cards_this_study": 4,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "automatic_retry": false,
+        "completed_generations": 3,
+        "failed_pre_generation_attempts": 1
+      },
+      {
+        "id": "E0_MISSING_CALIBRATION_SOURCE16_RECOVERY_20261026",
+        "protocol": "config/e0_missing_calibration_recovery_20261026.json",
+        "protocol_sha256": "9338ccc452f911648ae8c32a93c1eabea9e99a523f0f20b01e48017fd718baac",
+        "scope": "One separately frozen supervised recovery of missing source16 only, actual seed58, same unchanged dense arithmetic and35 missing layers/uniform32/three fields. Previous process ended before generation and never produced a completion receipt; no cause asserted. All previous jobs have exited; require at least192GiB available host memory before model loading; one idle GPU. One generation, no retry, no automatic followup; exact original latents/video/counts required. Original three complete source runs and incomplete source16 receipt are preserved.",
+        "user_instruction": "你继续同步最新仓库，根据仓库内容和当前实验结果和我们项目的最终目的持续推进",
+        "date": "2026-10-26",
+        "execution_status": "FROZEN_BEFORE_EXECUTION",
+        "max_gpu_cards": 4,
+        "planned_simultaneous_cards_this_study": 1,
+        "max_full_generations_total": 1,
+        "pending_model_jobs": 1,
+        "pending_GPU_analysis_jobs": 0,
+        "automatic_retry": false
       }
     ]
   },
-  "model_execution_authority": "ALL_FIXED_SCOPES_COMPLETED_NO_AUTOMATIC_MODEL_FOLLOWUP",
+  "model_execution_authority": "FOUR_FIXED_PASSIVE_MISSING_BLOCK_VIDEOS_ONLY_NO_APPROXIMATE_MODEL_ACTION",
   "research_navigation": "research/RESEARCH_NAVIGATION.md",
   "question_relationship": "COUPLED_LENSES_NON_SEQUENTIAL_INFORMATION_DECISION_COMPUTE",
   "research_interfaces": {
@@ -568,13 +740,13 @@
     "experiment_authority": "NONE"
   },
   "latest_exploration": {
-    "id": "E0_AFFINE_FFN_DISCOVERY_20261025",
-    "type": "SOURCE_MATH_SAVED_GPU_NATIVE_NOOP_AND_INDEPENDENT_CHALLENGE",
-    "document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
-    "record": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
-    "finding": "An affine FFN base plus whole-group residual beats exact matched projection pruning, but old full-M slopes leave substantial middle-layer error and unfused acquisition is costly. GELU odd/even decomposition offers a different falsifiable explanation.",
+    "id": "E0_FUNCTION_RECONSTRUCTION_20261026",
+    "type": "SAVED_FUNCTION_BASIS_STATISTICAL_LINEARIZATION_NONLINEAR_RECONSTRUCTION_AND_FINITE_NATIVE",
+    "document": "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+    "record": "research/20261026/E0_FUNCTION_RECONSTRUCTION.json",
+    "finding": "Specific cross-source output basis leaves high remote-token error; half-slope control fails; actual retained nonlinear features with affine/ridge reconstruction improve matched local errors and execute in a narrower native path. Calibration-confounded comparisons challenged; no full-video approximation or speed acceptance.",
     "runtime_result": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
-    "experiment_state": "ALL_REGISTERED_SCOPES_COMPLETE_NO_PENDING_JOBS",
+    "experiment_state": "FOUR_DIAGNOSTICS_COMPLETE; THREE_PASSIVE_CAPTURES_COMPLETE; ONE_MEMORY_GUARDED_RECOVERY_RUNNING",
     "candidate_operator_selected": false,
     "stage_changed": false
   },
@@ -734,6 +906,88 @@
       }
     },
     "latest_saved_analysis": {
+      "id": "E0_FUNCTION_RECONSTRUCTION_20261026",
+      "status": "COMPLETE",
+      "source_clusters_exposed": 6,
+      "held_source_indices": [
+        0,
+        12
+      ],
+      "calibration_source_indices": [
+        4,
+        8,
+        16,
+        20
+      ],
+      "statistical_cases": 320,
+      "basis_prediction_cases": 480,
+      "nonlinear_reconstruction_cases": 40,
+      "native_finite_cases": 16,
+      "native_FFN_calls": 432,
+      "native_Q2_calls": 432,
+      "new_generations": 0,
+      "optimizer_updates": 0,
+      "persisted_fitted_weights": 0,
+      "record": "research/20261026/E0_FUNCTION_RECONSTRUCTION.json",
+      "document": "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+      "independent_review": "research/method_discussion/discoveries/E0/independent-function-basis-results-audit-20261026.md",
+      "candidate_operator_selected": false,
+      "stage_changed": false
+    },
+    "next_discussion_handoff": "research/20261025/E0_FFN_FIRST_TASK_20261025.md",
+    "discussion_priority": "Independent E0 mechanism findings: FFN signed contribution, conditional spatiotemporal change, and downstream function; quantization format/scale research retained as secondary evidence/deployment context.",
+    "guidance_evidence_commit": "5edf2dcc440dd4e3ddac808c64e5ba7c8d0f3757",
+    "peer_review_next_status": "INDEPENDENT_RESULTS_AUDITED; CALIBRATION_CONFOUND_CHALLENGED_AND_V2_SCOPED; MATCHED_LINEAR_CONTROL_OPEN",
+    "previous_completed_observation": {
+      "id": "E0_INTRINSIC_NATIVE_FULL_M_SUPPORT_20261025",
+      "status": "COMPLETE",
+      "protocol": "config/e0_intrinsic_native_support_20261025.json",
+      "protocol_sha256": "62a75ea9944b4062856787d9b01488bd22e70808a193456c57b6e54599e13f36",
+      "source_clusters_registered": 2,
+      "source_indices": [
+        0,
+        12
+      ],
+      "full_generations_max": 2,
+      "actual_full_generations": 2,
+      "max_concurrent_GPU_cards": 4,
+      "actual_peak_GPU_cards": 1,
+      "pending_model_jobs": 0,
+      "candidate_operator_selected": false,
+      "stage_changed": false,
+      "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+      "result": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json"
+    },
+    "latest_direction_review": "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md",
+    "current_open_forks": [
+      "Signed FFN output function, GELU special relations and conditional/low-dimensional representations",
+      "Spatial/temporal change organization beyond common raster columns; common-plus-private function fields",
+      "Downstream quality/temporal flicker versus local energy/flow surrogate",
+      "Information-time and real W1/W2 + QDQ + kernel/packing/caching cost; numerical formats as cases",
+      "Four-step distilled high/high/low/low layer and expert heterogeneity"
+    ],
+    "graph_agent_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
+    "earlier_completed_observations": [
+      {
+        "id": "E0_CONTIGUOUS_NATIVE_OPERANDS_20261025",
+        "status": "COMPLETE",
+        "protocol": "config/e0_contiguous_native_20261025.json",
+        "protocol_sha256": "65f5b4b8bd087e1e3a83c0c3641241767b8d2b30be37b5eb4356d5e98e817598",
+        "source_indices": [
+          0,
+          12
+        ],
+        "actual_full_generations": 2,
+        "max_concurrent_GPU_cards": 4,
+        "actual_peak_GPU_cards": 2,
+        "pending_model_jobs": 0,
+        "candidate_operator_selected": false,
+        "stage_changed": false,
+        "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "result": "research/20261025/E0_SHARED_TILE_PRE_W1.json"
+      }
+    ],
+    "previous_saved_analysis": {
       "id": "E0_AFFINE_FFN_DISCOVERY_20261025",
       "status": "COMPLETE",
       "source_clusters": 2,
@@ -808,60 +1062,7 @@
           }
         }
       }
-    },
-    "next_discussion_handoff": "research/20261025/E0_FFN_FIRST_TASK_20261025.md",
-    "discussion_priority": "Independent E0 mechanism findings: FFN signed contribution, conditional spatiotemporal change, and downstream function; quantization format/scale research retained as secondary evidence/deployment context.",
-    "guidance_evidence_commit": "5edf2dcc440dd4e3ddac808c64e5ba7c8d0f3757",
-    "peer_review_next_status": "INDEPENDENT_RECORD_COMPLETE_GELU_ODD_EVEN_AND_SIGNED_GROUP_CHALLENGES_OPEN",
-    "previous_completed_observation": {
-      "id": "E0_INTRINSIC_NATIVE_FULL_M_SUPPORT_20261025",
-      "status": "COMPLETE",
-      "protocol": "config/e0_intrinsic_native_support_20261025.json",
-      "protocol_sha256": "62a75ea9944b4062856787d9b01488bd22e70808a193456c57b6e54599e13f36",
-      "source_clusters_registered": 2,
-      "source_indices": [
-        0,
-        12
-      ],
-      "full_generations_max": 2,
-      "actual_full_generations": 2,
-      "max_concurrent_GPU_cards": 4,
-      "actual_peak_GPU_cards": 1,
-      "pending_model_jobs": 0,
-      "candidate_operator_selected": false,
-      "stage_changed": false,
-      "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
-      "result": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json"
-    },
-    "latest_direction_review": "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md",
-    "current_open_forks": [
-      "Signed FFN output function, GELU special relations and conditional/low-dimensional representations",
-      "Spatial/temporal change organization beyond common raster columns; common-plus-private function fields",
-      "Downstream quality/temporal flicker versus local energy/flow surrogate",
-      "Information-time and real W1/W2 + QDQ + kernel/packing/caching cost; numerical formats as cases",
-      "Four-step distilled high/high/low/low layer and expert heterogeneity"
-    ],
-    "graph_agent_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
-    "earlier_completed_observations": [
-      {
-        "id": "E0_CONTIGUOUS_NATIVE_OPERANDS_20261025",
-        "status": "COMPLETE",
-        "protocol": "config/e0_contiguous_native_20261025.json",
-        "protocol_sha256": "65f5b4b8bd087e1e3a83c0c3641241767b8d2b30be37b5eb4356d5e98e817598",
-        "source_indices": [
-          0,
-          12
-        ],
-        "actual_full_generations": 2,
-        "max_concurrent_GPU_cards": 4,
-        "actual_peak_GPU_cards": 2,
-        "pending_model_jobs": 0,
-        "candidate_operator_selected": false,
-        "stage_changed": false,
-        "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
-        "result": "research/20261025/E0_SHARED_TILE_PRE_W1.json"
-      }
-    ]
+    }
   },
   "web_research": {
     "mode": "PROACTIVE_BROAD_DEEP_ITERATIVE_WEB_SEARCH_FOR_SUBSTANTIVE_SCIENTIFIC_WORK",
@@ -891,7 +1092,7 @@
       "real computable simplification and conditionally available information"
     ],
     "previous_radial_and_star_null": "HISTORICAL_COMPLETED_MECHANISM_EVIDENCE_NOT_CURRENT_GENERAL_TASK",
-    "execution": "NONE_PENDING; ALL_REGISTERED_MODEL_AND_GPU_SCOPES_COMPLETED; ACTUAL_PEAK_TWO_UNDER_FOUR_IDLE_GPU_CEILING",
+    "execution": "THREE_PASSIVE_CAPTURES_COMPLETE; ONE_PRE_GENERATION_PROCESS_TERMINATION_PRESERVED; SINGLE_SOURCE_MEMORY_GUARDED_RECOVERY_FROZEN",
     "knowledge_gaps": "research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md",
     "current_scientific_reinterpretation": "Weighted-value FFN composition, signed contributions, GELU-constrained reparameterization, temporal innovation, video function and genuine execution tiles are complementary research coordinates.",
     "editorial_review": "AUTO_RESEARCHER_MECHANISM_EXPANSION_PRD_WARD_20261025",
@@ -900,7 +1101,7 @@
     "current_open_question": "Why does strong per-token posthoc FFN innovation concentration fail to induce shared token support or native tile savings; which alternative intrinsic function, spatiotemporal, video-functional or executable representation best explains and exploits the discrepancy?",
     "search_space_policy": "MULTIPLE_COMPETING_MECHANISMS_FROM_SOURCE_AND_PRIOR_ART; NOT_DEFAULT_SHARED_COLUMN_OR_HIF4_GROUP64",
     "latest_runtime_reference": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
-    "latest_mechanism_discriminator": "GELU half-linear odd term versus local hot range; signed even-residual output after W2"
+    "latest_mechanism_discriminator": "Four-source matched input ridge versus retained nonlinear features, all-depth spatial/source transfer, and native residual/video propagation"
   },
   "graph_agent_collaboration": {
     "status": "ACTIVE_SOURCE_GRAPH_AND_EVIDENCE_DISCUSSION",
@@ -917,14 +1118,14 @@
     "canonical_stage": "E0_OPEN_DISCOVERY"
   },
   "previous_exploration": {
-    "id": "GATED_RESIDUAL_QUOTIENT_20261024",
-    "type": "SOURCE_GROUNDED_CONDITIONAL_THEOREM_AND_HYPOTHESES",
-    "document": "docs/96_门控残差商空间_可观测误差与无补算FFN构造_20261024.md",
-    "record": "research/20261024/gated_residual_quotient_exploration.json",
-    "finding": "LayerNorm exact per-token shift invariance implies a conditional gated residual-output nullspace; study real 64-group observable cancellation versus isotropic 1/5120 baseline.",
-    "precedence": "Additional open Q3→Q1→Q2 exploration only; does not supersede current Q1/Q2/Q3 study or native authorization state.",
-    "next_source_only_discriminator": "Inspect actual optional residual consumers (norm3/adapter) and locate preexisting gate/W2/group-contribution operands before interpreting nullspace as useful sparsity.",
-    "empirical_status": "UNMEASURED",
-    "experiments": "PAUSED"
+    "id": "E0_AFFINE_FFN_DISCOVERY_20261025",
+    "type": "SOURCE_MATH_SAVED_GPU_NATIVE_NOOP_AND_INDEPENDENT_CHALLENGE",
+    "document": "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+    "record": "research/20261025/E0_AFFINE_FFN_DISCOVERY.json",
+    "finding": "An affine FFN base plus whole-group residual beats exact matched projection pruning, but old full-M slopes leave substantial middle-layer error and unfused acquisition is costly. GELU odd/even decomposition offers a different falsifiable explanation.",
+    "runtime_result": "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+    "experiment_state": "ALL_REGISTERED_SCOPES_COMPLETE_NO_PENDING_JOBS",
+    "candidate_operator_selected": false,
+    "stage_changed": false
   }
 }

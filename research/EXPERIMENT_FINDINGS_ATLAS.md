@@ -155,3 +155,14 @@
 本轮核对了：AutoResearcher v2.4 模型/问题表示/演绎/证据规则；FFNDS 主入口与 2026-10-25 E0 理论、被动、有限、跨源校准；实际 LightX2V 固定 Transformer/scheduler 与 HiF4适配；已有 **[28个重点原始文件](EXPERIMENT_EVIDENCE_INDEX.md)** 所代表的核心对照，以及 [R7/R10/前期/新指标](../docs/61_全路线失败归因与组合方案复盘_R10.md) 的按族复核。完整 [1348项文件名库存](experiment_evidence/FILE_INVENTORY.json) 用于**定位**，并未逐项独立重新执行、重读所有大张量或对所有文件做逐行复核。本档案链接到原报告/RUN JSON，尽量不让二次综述替代直接数据。
 
 每条主张应保留 **source/checkpoint/hash → action operator → independent source groups → comparator → measurement horizon → physical cost (W1/W2/QDQ/observer分别记账) → observed number**，区分 synthetic、理想 FP64、native BF16、自由视频及硬件计时。版本识别从 [真实源码](../docs/98_端到端计算图与证据注解_20261025.md) 进入，实验状态从 [当前主入口](ACTIVE_RESEARCH.json) 进入。原实验、不变资产和归档均未被改写。
+
+## 2026-10-26：E24–E27 函数表示与真实保留非线性
+
+| 知识ID | 新证据 | 可成立范围与下一竞争解释 |
+| --- | --- | --- |
+| **E24 半斜率实际检验** | [320案例](20261026/E0_FUNCTION_RECONSTRUCTION.md)：uniform32半斜率84.80%、Q2OLS21.07%、高斯统计增益22.47%；偶部/净连续输出能量6.14、奇偶cosine−0.927 | *OBS/条件ALG*。奇偶恒等式成立但偶部不小；支持统计增益为有用解释，不证明窄热区、高斯或独立噪声。F06/F08/F15 |
+| **E25 固定输出基和系数预测** | [480案例](20261026/E0_FUNCTION_RECONSTRUCTION.json)：跨源center128 rank64真实系数创新SSE72.94%；PCA-ridge86.44%、精确RRR86.45% | *OBS/ALG*。表示覆盖和迁移已是瓶颈；限制具体基/面板，不否定全部P14。未门控正交分解与门控比例分开。G18/P14 |
+| **E26 四源校准的非线性重构** | [五层40案例](20261026/E0_FUNCTION_RECONSTRUCTION.md)：affine54 ridge5.89%对直接94 ridge8.47%，均为94/216理想MAC；错配对照更差 | *OBS*。同设置匹配组比较成立；相对两来源输入预测的优势有校准混杂，独立挑战促使新增匹配输入控制。新W2/bias是拟合参数。F04/F06/F09 |
+| **E27 局部原生折叠** | [两层16案例](20261026/E0_FUNCTION_RECONSTRUCTION.json)：144dense＋288partial FFN，432native Q2；resident after-Q1形状计时52.69→20.77ms | *NATIVE-LOCAL/SYS*。重复160行到31668，FP32准备/BF16新矩阵未再次HiF4量化；非自然全M/视频/整网结果。block30误差仍大，F12/F13/D09 OPEN。P12 |
+
+[独立结果复核](method_discussion/discoveries/E0/independent-function-basis-results-audit-20261026.md)保留实际SHA、反预测与校准条件挑战；[图G4g](../docs/98_端到端计算图与证据注解_20261025.md)按这一范围接回。原P14提案及E21–E23原记录不改写。

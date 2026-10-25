@@ -79,7 +79,8 @@
         "research/20261022/R12_E0_runtime_reconstruction.json",
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
         "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
-        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
       ],
       "open_question": "Can a new representation reduce true W1 work rather than posthoc W2 work?"
     },
@@ -92,9 +93,10 @@
       "evidence": [
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
         "research/20261025/E0_SHARED_TILE_PRE_W1.md",
-        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
       ],
-      "open_question": "What nonlinear structure or special algebra creates useful function units? Distinguish a narrow affine hot range from the exact GELU odd half-linear component and even-remainder cancellation; half-slope control is unexecuted."
+      "open_question": "Half slope failed the320-case control; Gaussian/empirical statistical gains approach OLS but correlated nonlinear residual remains. Explain transfer and the strong signed odd/even cancellation without claiming joint Gaussianity."
     },
     {
       "id": "F08R",
@@ -116,7 +118,8 @@
       "evidence": [
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
         "research/20261025/E0_SHARED_TILE_PRE_W1.md",
-        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
       ],
       "open_question": "How do post-Q2 coefficients differ from pre-Q2 GELU for exact W2 contributions?"
     },
@@ -129,7 +132,8 @@
       "evidence": [
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
         "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
-        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
       ],
       "open_question": "What signed net output patterns can be computed more cheaply?"
     },
@@ -163,7 +167,8 @@
       "evidence_type": "OBS",
       "evidence": [
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
-        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
       ],
       "open_question": "Are functions more concentrated than channel-wise diagonal scores suggest?"
     },
@@ -279,22 +284,24 @@
       "evidence": [
         "research/20261025/E0_SHARED_TILE_PRE_W1.md",
         "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
-        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
       ],
       "open_question": "What is the actual end-to-end benefit rather than nominal MAC savings? Charge the measured unfused derivative observation and compare future algorithms to the scoped exact-output resident dense runtime, including cold/memory costs."
     },
     {
       "id": "P14",
       "graph_section": "G4",
-      "meaning": "OPEN graph annotation: potential shared output-function basis for token-specific signed same-expert innovation; not measured or implemented",
+      "meaning": "OPEN shared output-function basis hypothesis; a specific cross-source center128-trained rank<=64 construction has measured remote-token limitations, not a universal exclusion",
       "availability": "posthoc_hypothesis_only",
       "evidence_type": "OPEN",
       "evidence": [
         "research/method_discussion/graph_annotations/E0/E0_GRAPH_SEED_FUNCTION_BASIS_20261025.json",
         "research/20261025/E0_SHARED_TILE_PRE_W1.md",
-        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md"
+        "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
       ],
-      "open_question": "Is there source-held-out useful low-dimensional output variation at rank k <<128 with a cheap prior observer and actual W1/W2 savings? Rank<=128 on an M128 tile is automatic and is not experimental evidence."
+      "open_question": "Can a differently conditioned or spatially calibrated basis improve the measured72.94% rank64 true-coefficient innovation error? Separate representation and cheap coefficient prediction under matched sources/rows/cost."
     }
   ],
   "edges": [
@@ -496,5 +503,12 @@
     "integration_source_commit": "79bc9eae9f2d7c694f5536a2aa860381a9c80ee4",
     "curator_precision": "Affine comparator is the tested other-source fixed group-energy pruning, not every possible matched pruning strategy. Continuous GELU theorem does not imply native Q2/BF16 equivalence."
   },
-  "last_experiment_evidence_commit_scope": "Historical completed studies through798a3c9; newer completed reports are indexed under latest_scoped_followthrough in this same registry."
+  "last_experiment_evidence_commit_scope": "Historical completed studies through798a3c9; newer completed reports are indexed under latest_scoped_followthrough in this same registry.",
+  "latest_function_reconstruction": {
+    "document": "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+    "record": "research/20261026/E0_FUNCTION_RECONSTRUCTION.json",
+    "claim": "research/method_discussion/graph_annotations/E0/E0_GRAPH_FUNCTION_RECONSTRUCTION_20261026_V2.json",
+    "review": "research/method_discussion/discoveries/E0/independent-function-basis-results-audit-20261026.md",
+    "scope": "OBS+FINITE_NATIVE_LOCAL_ONLY; originalP14 unchanged; calibration confound explicitly challenged; full-video edge OPEN"
+  }
 }

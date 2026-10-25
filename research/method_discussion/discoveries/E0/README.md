@@ -41,3 +41,5 @@
 | 作者 / 日期 | 发现记录 | 配套核算 | 证据范围 |
 | --- | --- | --- | --- |
 | Codex `01a171da` / 2026-10-25 | [最新有限干预的竞争机制与应用种子](codex-01a171da-competing-mechanisms-20261025.md) | [标量重表达 JSON](codex-01a171da-competing-mechanisms-20261025.json) | 基于 `375dc760` 六来源固定四臂结果；新增共同参考/误差去相关零模型及矩约束检查，独立同行评议待进行。 |
+
+2026-10-26新增[函数基/可预测性独立推导](independent-function-basis-prediction-20261026.md)与[四项结果独立审查](independent-function-basis-results-audit-20261026.md)：RRR惩罚目标、表示/系数误差分解、统计增益和保留真实非线性重构；保留跨设置校准混杂与native局部/视频边界的挑战。

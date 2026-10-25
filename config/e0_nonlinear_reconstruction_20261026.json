@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "status": "FROZEN_BEFORE_SAVED_GPU_EXECUTION",
+  "base_commit": "087893f31a5718f108f7fba13a4bf41a8ebe1fc4",
+  "user_instruction": "你继续同步最新仓库，根据仓库内容和当前实验结果和我们项目的最终目的持续推进",
+  "user_instruction_date": "2026-10-26",
+  "max_gpu_cards": 4,
+  "new_generations": 0,
+  "native_FFN_calls": 0,
+  "native_QDQ_calls": 0,
+  "optimizer_updates": 0,
+  "model_weight_decompositions": 0,
+  "persisted_fitted_weights": 0,
+  "official_quality_calls": 0,
+  "automatic_retry": false,
+  "no_automatic_followup": true,
+  "disk_reserve_gib": 20,
+  "research_stage": "E0_OPEN_DISCOVERY",
+  "candidate_operator_selected": false,
+  "id": "E0_NONLINEAR_RECONSTRUCTION_20261026",
+  "calibration_sources": [
+    4,
+    8,
+    16,
+    20
+  ],
+  "held_sources": [
+    0,
+    12
+  ],
+  "actual_seeds_by_source": {
+    "0": 42,
+    "4": 46,
+    "8": 50,
+    "12": 54,
+    "16": 58,
+    "20": 62
+  },
+  "blocks": [
+    0,
+    10,
+    20,
+    30,
+    39
+  ],
+  "calibration_rows_per_expert_block": 256,
+  "whole_group_counts": [
+    27,
+    54,
+    67,
+    94
+  ],
+  "affine_residual_group_counts": [
+    27,
+    54
+  ],
+  "ridge_fraction": 0.01,
+  "max_cases": 40,
+  "max_HF_output_gib": 0.125,
+  "planned_GPU_cards_per_study": 1,
+  "maximum_combined_concurrent_cards": 2,
+  "anchor_nodes": [
+    "F03",
+    "F04",
+    "F06",
+    "F08R",
+    "F08",
+    "F09",
+    "F15",
+    "P12",
+    "P14",
+    "D09"
+  ],
+  "scope": "Fixed saved-data nonlinear feature reconstruction. Four original calibration sources, original uniform32 at both steps per expert, pooled256 rows per expert/block. Five fixed blocks; two disjoint exposed held sources, four steps, center128/uniform32/uniform-disjoint panels. Compare original complete64-group features plus native-output calibration mean, and a pooled diagonal affine base plus complete64-group nonlinear residual. Score groups only with calibration variance times mean-current-gate weighted W2 column norm. At fixed group counts compare mean compensation against a ridge residual correction, with a128-row cyclic target mismatch. Each paired ridge solve uses one calibration Gram and two right-hand sides; no SVD, model return, persisted new weights, native calls or videos. Diagnostic factors are temporary. New output weights and bias would be required to deploy; this study does not test their quantization or native equivalence.",
+  "count_limits": {
+    "W1": 120,
+    "W2": 390,
+    "calibration_Gram": 60,
+    "ridge_solve": 60,
+    "fitted_correction_maps": 120,
+    "affine_calibrations": 10,
+    "group_rankings": 20
+  },
+  "claims_excluded": [
+    "SSE acceptance as video quality",
+    "Fresh source/seed generalization",
+    "Native selected-Q2 or packed-GEMM equivalence",
+    "New output weights as original unchanged checkpoint",
+    "Ideal projection MAC ratio as measured acceleration",
+    "Method selection or stage promotion"
+  ],
+  "bound_sources": {
+    "tools/e0_saved_function_common.py": "bfc4116a9d9fe8c58818b4d0da0da0b79950ee8348e67ce516e542909f1e6c90",
+    "tools/e0_affine_fold_math.py": "6f7b303ce1d1b5ffeee1a36fc7e54a240961e29358f40c2367bbce0a5f7649a4",
+    "tools/e0_nonlinear_reconstruction_math.py": "434daa6919469f50e12b2a2d9fcea5291dbdf2c68d6607741a740252bc1b86ac",
+    "tools/analyze_ffnds_observations.py": "c20003603ceb4bd0f263254464dedf02eff544a428b0c1137a9fd122bb4f2da7",
+    "tools/ffnds_observation_common.py": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/run_e0_nonlinear_reconstruction.py": "b5a3c3999c05ec67c6d080b5b45bc68c01e8adea5dee53797e2a2bb4cacc06ec",
+    "research/20261025/E0_ALL_BLOCK_TANGENT_OBSERVATIONS.json": "bfec17f83b95d86828125c6baca23e62582d7b154373cf98ee140246a79d9fbd",
+    "research/20261025/E0_NATIVE_OBSERVATIONS.json": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5"
+  }
+}
