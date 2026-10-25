@@ -159,6 +159,19 @@ def main():
                   "research/agent_protocol/README.md", "README.md"):
         ensure("E0_FFN_FIRST_TASK_20261025.md" in text(entry),
                "New FFN discovery task not visible to agent: " + entry)
+    # New E0 evidence is attached to a broad scientific handoff rather than
+    # being silently narrowed to the latest shared-column/HiF4 implementation.
+    divergence = "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md"
+    ensure(focus.get("latest_mechanism_audit") == divergence and
+           stage.get("latest_direction_review") == divergence and
+           (ROOT / divergence).is_file() and
+           "E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md" in text(first_task),
+           "Latest intrinsic mechanism divergence not routed into sole active task")
+    ensure("MULTIPLE_COMPETING_MECHANISMS" in
+           focus.get("search_space_policy", "") and
+           len(stage.get("current_open_forks", [])) >= 4 and
+           stage.get("new_experiment_authority") == "NONE",
+           "Research handoff narrowed or created an implicit experiment queue")
     # Semantic/creative writing quality is evaluated using blinded case reviews,
     # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")
@@ -355,6 +368,7 @@ def main():
     check_relative_markdown_links("research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md")
     check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_FIRST_TASK_20261025.md")
+    check_relative_markdown_links("research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md")
     check_relative_markdown_links("core/WEB_RESEARCH_DISCOVERY.md")
