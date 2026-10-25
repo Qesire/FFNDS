@@ -83,7 +83,7 @@
 
 以下 E0 统一源为 **[6个已暴露原生来源](20261025/E0_NATIVE_OBSERVATIONS.json)**。被动 dense 共12次完整生成，捕获 120个位置×冻结行；有限组原生干预共30次完整四步生成，另10次跨worker复核在两来源做到210项hash一致；**原生干预仍完整运行密集主 GEMM**。不可把六个来源展开成数百个独立场景，也不可从这些实验报告部署加速或正式视频质量通过。
 
-用户随后新指示继续并允许使用GPU，[本征FFN跟进](20261025/E0_INTRINSIC_FULL_HIDDEN.md)另完成180个完整hidden保存数据重建，以及原六来源中source0/12的两次原生被动生成；原12/40次记录未改。新任务只用一张空闲A100，结束已释放。
+用户随后新指示继续并允许GPU，新增两批相互衔接的证据：[全hidden/完整M](20261025/E0_INTRINSIC_FULL_HIDDEN.md)为六来源180个保存数据案例+source0/12两次原生被动dense生成；[连续共享列/量化闭包](20261025/E0_SHARED_TILE_PRE_W1.md)又在source0/12各生成一次原生dense，保存真正连续的3×M128操作数，并完成额外GPU保存数据对照与原Python量化器合成反例。**新增4次原生dense被动生成，不是4个新独立来源，更不是4次稀疏视频；原12次被动、30次finite、10次跨worker记录不变。** 图解参见 [G4决策与依赖图](../docs/98_端到端计算图与证据注解_20261025.md)。
 
 | 知识ID | 固定比较与数值发现 | 机制/强竞争解释；计算图 |
 | --- | --- | --- |
@@ -102,18 +102,20 @@
 | **E13 全hidden创新与函数支持** | [完整13824通道/216组](20261025/E0_INTRINSIC_FULL_HIDDEN.md)：六来源180案例，25%单通道value对角排名的同专家创新SSE **2.44%–7.07%**；同预算连续64组后验能量排名 **32.42%–54.67%** | *GPU保存操作数/ALG*：创新比分别的绝对输出集中，但当前对角/组排名不是联合最优或前置selector；不能把通道集中直接变为视频质量结论 |
 | **E14 完整M支持与原布局** | [两来源原生被动](20261025/E0_INTRINSIC_FULL_HIDDEN.json)：完整M=31668，原系数/创新每行12.5%保留时，所测 **M16/64/128×K64全部非空**；8latent、2视频、40FFN采样哈希与原dense一致 | *NATIVE被动支持*：保持这些逐行集合时原块无空闲；不排除另一共享任意列集合、packing、时空重排或条件表示。未测稀疏kernel速度 |
 | **E15 W2后验更新的四步代价上界** | [本征报告计算式](20261025/E0_INTRINSIC_FULL_HIDDEN.md)：若只在同专家第二次调用减少W2，ρ=25%时最多减少 **18.75%总投影MAC** | *ALG/边界限定*：W1/GELU/Q2已付成本，前置选择或其他表示才可能突破此具体策略的上界；不是所有FFN方法的上界 |
-| **E16 连续token共享列与前置观察** | [两来源M128跟进](20261025/E0_SHARED_TILE_PRE_W1.md)：25%列的前置micro16 GELU/value在Block39创新SSE6.55%，中间观测层42%–47%；共同创新能量首尾65%/78%、中间10%–14% | *NATIVE被动字段/GPU保存诊断*：共享后验也损失逐行优势，观察器不是唯一瓶颈；原raster分组不等于voxel重排，未获速度/质量结论 |
-| **E17 W1/W2依赖边界不同** | [原量化组闭包](20261025/E0_SHARED_TILE_CLOSURE.json)：25%任意共享列触及所有216组；[原始Python合成](20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json)只改一输入却改变64个Q2输出 | *SOURCE/保存数据/合成*：直接原生求值的W1预算不能按W2选择率计算；不是所有认证max/尺度缓存/新表示的下界；新函数/执行单位仍开放 |
-| **E13 E0 技术可复现性** | [original 12 gens](20261025/E0_NATIVE_OBSERVATIONS.json)、[cross worker](20261025/E0_CROSS_WORKER_REPRODUCTION.json)：被动hook没有改变视频/latent SHA；10次跨worker、210项配对hash一致 | *NATIVE控制*：建立此批数据可信度；不是新的独立scene sample，也不是新的算法收益。G00–G10 |
+| **E16 连续token共享列与前置观察（G4/P07–P08）** | [两来源M128跟进](20261025/E0_SHARED_TILE_PRE_W1.md)：25%列的前置micro16 GELU/value在Block39创新SSE6.55%，中间观测层42%–47%；共同创新能量首尾65%/78%、中间10%–14% | *NATIVE被动字段/GPU保存诊断*：共享后验也损失逐行优势，观察器不是唯一瓶颈；原raster分组不等于voxel重排，未获速度/质量结论 |
+| **E17 W1/W2依赖边界不同（G4/P02–P11）** | [原量化组闭包](20261025/E0_SHARED_TILE_CLOSURE.json)：25%任意共享列触及所有216组；[原始Python合成](20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json)只改一输入却改变64个Q2输出 | *SOURCE/保存数据/合成*：直接原生求值的W1预算不能按W2选择率计算；不是所有认证max/尺度缓存/新表示的下界；新函数/执行单位仍开放 |
+| **E18 GELU、时空均值和量化的三个不同非交换环节** | [连续token机制分解](20261025/E0_SHARED_TILE_PRE_W1.md)：块均值的旧/新preactivation可能不变，但平均GELU发生变化（合成对照）；在五个观测block，线性半项与GELU余项经W2/gate投影的平均cosine **−0.64到−0.82** | *ALG/SYN/OBS*。不能用线性块均值替代平均GELU，也不能将后Q2差分的支持当成pre-Q2修改列的精确支持。实数GELU满足\`φ(a)-φ(-a)=a\`但原QDQ/BF16并不自动遵守变换等价。G4c |
+| **E19 真实前置信号需要额外W1；双投影预算不同** | [实际共享列及原布局](20261025/E0_SHARED_TILE_PRE_W1.md)：原四步每专家第二次调用可用一次同专家历史；如\`ρ_W1≈1, ρ_W2=.25, o=1/16\`，160个FFN的总主投影理想MAC节约 **17.1875%**，理想主投影加速≤约 **1.208×**；若新算子真的同时缩到\`ρ_W1=ρ_W2=.25\`，才是**35.9375%** MAC节约（含相同o） | *ALG/预算*。独立书写W1、W2、selector、QDQ闭包、缓存和最终壁钟；不是新核计时或质量门槛通过。G4d |
+| **E20 E0 技术可复现性** | [original 12 gens](20261025/E0_NATIVE_OBSERVATIONS.json)、[cross worker](20261025/E0_CROSS_WORKER_REPRODUCTION.json)：被动hook没有改变视频/latent SHA；10次跨worker、210项配对hash一致 | *NATIVE控制*：建立此批数据可信度；不是新的独立scene sample，也不是新的算法收益。G00–G10 |
 
 ## 7. M 族：将所有结果组织成可检验的机制，而不是路径偏好
 
 | 研究问题 | 可由哪些已完成实验确认的结构推出新问题 | 真正相互竞争的机制解释 | 成本最小的下一项**信息需求**（非运行授权） |
 | --- | --- | --- | --- |
 | **M1 F1: signed contribution & representation** | E01/E02/E03/E06，A02/A03/A11 | (a) 静态大值方向、(b) 输入相关组合的 signed cross terms、(c) LN/共享方向弱可见性；三者不等同 | 保存组后的原生可用时点，使用已保存 W1/GELU/Q2/W2 有符号值分解；先比较 angle/signed Gram 与静态等成本 |
-| **M2 F2: step–space innovation** | E04/E09/E10/E11，H02 | (a) 按step固定共同幅度漂移、(b) 逐位置条件变化、(c) 仅Y共同均值使raw cosine高 | 针对同专家同位置，以 source-held-out 固定预测 vs 当前输入统计；明确缓存值及单层真实可减的2/160工作比例 |
+| **M2 F2: step–space innovation** | E04/E09/E10/E11/E13/E16/E18，H02 | (a) 按step固定共同幅度漂移、(b) 逐位置条件变化、(c) 仅Y共同均值使raw cosine高 | 针对同专家同位置，以 source-held-out 固定预测 vs 当前输入统计；明确缓存值及单层真实可减的2/160工作比例 |
 | **M3 F3: functional propagation** | P03/P04/P08/P09，E07/E08 | (a) 仅局部LN短程不敏感、(b) 写回舍入非加性、(c) 下游状态/attention传播方向改变 | 冻结**同一原生前缀**与有限真实输出扰动：逐段比较 post、nextnorm、nextblock、flow及完整视频的作用向量；当前六源实验仅检验特定组 |
-| **M4 F4: physical compute** | H01/H03/H04，Q01–Q05，T01/T02 | (a) 算子确能缩窄两次主GEMM、(b) 零值仅发生在全部W1付费后、(c) gather/QDQ/selector/weight访存主导 | 先写明 W1前/后可用输入、物理tile/packet格式及每一支的实际工作量；以 R17 full generation 作不能省略的比较维度 |
+| **M4 F4: physical compute** | H01/H03/H04，Q01–Q05，T01/T02，E14/E17/E19 | (a) 算子确能缩窄两次主GEMM、(b) 零值仅发生在全部W1付费后、(c) gather/QDQ/selector/weight访存主导 | 先写明 W1前/后可用输入、物理tile/packet格式及每一支的实际工作量；以 R17 full generation 作不能省略的比较维度 |
 | **M5 Q1: cheap information / NetVOI** | P08/P09/P10，T01，E04 | (a) residual旁路含真实下游增量信息、(b) 信息仅预测本地hidden、(c) 增益不足以改变动作或付不起cost | 必须先定义**新直接算子**，计算其完整 action value 后比较 best fixed、source-held-out、shuffle 和 selector cost；旧 C1 72/72 不支持泛化断言 |
 
 ### 三个特别容易错误迁移的“反直觉结果”
@@ -124,7 +126,7 @@
 
 ## 8. 量化信息、算子身份及现行研究进度
 
-原始 HiF4 code/dequant metadata、MXFP4 E8M0／NVFP4 scale 等能在对应 kernel/权重表征中提供**幅值或范围估计**，但“元信息的存在”“W1前可读”“净决策收益”“物理skip tile”“视频质量”是五条不同边。[本地格式实现](../upstream_audit/source_deltas/Wan2.2-I2V-A14B-W4A4/files/CODE_PATH_ANALYSIS.md)、[现行首个任务](20261025/E0_FFN_FIRST_TASK_20261025.md) 要求先研究本征FFN signed计算及哪些工作值得省，再考虑元信息是否能作廉价观测。历史的 HiF4 QDQ 并未证明 MXFP4/NVFP4 真实packed kernel 上同样的信息读取代价或计算收益。
+原始 HiF4 code/dequant metadata、MXFP4 E8M0／NVFP4 scale 等能在对应 kernel/权重表征中提供**幅值或范围估计**；新增原HiF4根尺度闭包还证明，元信息可能在*量化运算中制造跨列依赖*，不只是供selector读取的免费幅值信号。但“元信息的存在”“W1前可读”“净决策收益”“物理skip tile”“视频质量”是五条不同边。[本地格式实现](../upstream_audit/source_deltas/Wan2.2-I2V-A14B-W4A4/files/CODE_PATH_ANALYSIS.md)、[现行首个任务](20261025/E0_FFN_FIRST_TASK_20261025.md) 要求先研究本征FFN signed计算及哪些工作值得省，再考虑元信息是否能作廉价观测。历史的 HiF4 QDQ 并未证明 MXFP4/NVFP4 真实packed kernel 上同样的信息读取代价或计算收益。
 
 后续对每个新解释应填下列小型决策记录（模板不是实验提交）：
 
@@ -136,4 +138,4 @@
 
 本轮核对了：AutoResearcher v2.4 模型/问题表示/演绎/证据规则；FFNDS 主入口与 2026-10-25 E0 理论、被动、有限、跨源校准；实际 LightX2V 固定 Transformer/scheduler 与 HiF4适配；已有 **[28个重点原始文件](EXPERIMENT_EVIDENCE_INDEX.md)** 所代表的核心对照，以及 [R7/R10/前期/新指标](../docs/61_全路线失败归因与组合方案复盘_R10.md) 的按族复核。完整 [1348项文件名库存](experiment_evidence/FILE_INVENTORY.json) 用于**定位**，并未逐项独立重新执行、重读所有大张量或对所有文件做逐行复核。本档案链接到原报告/RUN JSON，尽量不让二次综述替代直接数据。
 
-每条主张应保留 **source/checkpoint/hash → action operator → independent source groups → comparator → measurement horizon → physical cost → observed number**，区分 synthetic、理想 FP64、native BF16、自由视频及硬件计时。版本识别从 [真实源码](../docs/98_端到端计算图与证据注解_20261025.md) 进入，实验状态从 [当前主入口](ACTIVE_RESEARCH.json) 进入。原实验、不变资产和归档均未被改写。
+每条主张应保留 **source/checkpoint/hash → action operator → independent source groups → comparator → measurement horizon → physical cost (W1/W2/QDQ/observer分别记账) → observed number**，区分 synthetic、理想 FP64、native BF16、自由视频及硬件计时。版本识别从 [真实源码](../docs/98_端到端计算图与证据注解_20261025.md) 进入，实验状态从 [当前主入口](ACTIVE_RESEARCH.json) 进入。原实验、不变资产和归档均未被改写。
