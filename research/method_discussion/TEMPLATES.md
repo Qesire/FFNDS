@@ -1,24 +1,24 @@
 # 方法讨论记录模板
 
-## 原始论文与源码检索是每位科研 Agent 的默认步骤
+## 原始论文和源码是创造新机制的默认资源
 
-无论是 **E0 科学发现**还是后续方法 proposal/review，先依据 [多轮深度 Web Search 协议](../agent_protocol/DEEP_WEB_RESEARCH.md) 搜集经典与最新论文、相似/反向机制、官方代码及规格，并追踪重要论文的前后引用。文献支持需要阅读与判断有关的**公式、实现与实验设置**，不要堆砌摘要。E0 发现记录可把检索日期、跨领域方向、最相近文献与未覆盖范围放在“直接依据”一栏；review 必须独立寻找最强潜在重复论文。**不规定凑篇数或搜索次数；无法联网如实标注。** 不以网页数量作为科学支持票。
-
-
-## 当前 E0：先记录科学发现，不需要填写算子字段
-
-唯一活跃阶段以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 的 `current_stage` 为准；目前是 **E0_OPEN_DISCOVERY**。在此阶段，**优先用 [发现记录模板](discoveries/E0/README.md)** 独立报告一个真实现象/条件结构、竞争解释和下一项区分性观察。下面的 `proposals/<id>/vN.json` 是**将来的候选方法结构**，其中 `action`、`expected_compute_saving` 不是 E0 发现的必答题。新的算子灵感可以登记，但不能因为填了这个模板就成为默认算法或 GPU 实验任务。
+所有 E0 发现、后续 proposal 和 review 均主动开展 [深度 Web Search](../agent_protocol/DEEP_WEB_RESEARCH.md)：跨经典与最新论文、相关数学、源代码、引用链和竞争解释深化。重点记录与研究问题有关的**方法公式、实际实现、实验差异和反例**。独立 reviewer 带回自己核查的最强先例，说明检索结果如何拓展或修正假说。检索范围与可访问来源按实际记录。
 
 
-复制并替换以下占位符。保存路径与字段规范见 [README.md](README.md)；所有内容只供方法讨论，不代表实际实验/性能结果。禁止使用示例中的占位符制造虚假的独立 reviewer。
+## E0_OPEN_DISCOVERY：现象发现优先
+
+以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为阶段权威。当前优先采用 [E0 独立发现模板](discoveries/E0/README.md) 报告真实结构、两种竞争解释和区分性观察。下方的 versioned `proposals/<id>/vN.json` 用于保存成熟候选方法或由现象启发的新算子种子，由未来阶段再确定实现时机。
+
+
+将下方示例字段替换为真实命题与本人来源；保存路径见 [README.md](README.md)。每个 Agent 用自己的独立推理与身份创建记录，实验和性能结论由实际结果另行支持。
 
 ## 所有角色的默认科学方法（AutoResearcher）
 
-使用 [本目录 AGENTS.md](AGENTS.md) 和 [已钉住的 AutoResearcher manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，选择最适合当前科学争论的 mechanism-research、research-expansion、problem-reformulation 模式，可以结合使用。**这些模式是发现与推理方法，不是硬性评分卡或必须填满的审批流程。**
+使用 [本目录 AGENTS.md](AGENTS.md) 和 [已钉住的 AutoResearcher manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，选择最适合当前科学争论的 mechanism-research、research-expansion、problem-reformulation 模式，可以结合使用。**按科学问题灵活组合这些方法，以获得更有区别力的解释与检验。**
 
-- **独立提案：** 在 `mechanism` 中体现**新结构或计算自由度 → 数学构造 → 真正省下什么工作**；在 `competing_explanations`、`falsifiable_predictions` 中体现机制竞争与可区分预言。任何尚未完成的源码证明或性能检验，准确放在对应论断边界即可，不能因此压制探索。
-- **独立评议：** `independent_reconstruction` 要有 reviewer 自己复建的数学、源码或历史证据推导；`decisive_argument` 直接说明支持/质疑的关键机制；`counterexample_or_discriminator` 应能真正改变对方法的判断。优先寻找构造性修改和竞争解释，不堆砌泛泛的免责声明。
-- **整理者：** 根据不同 reviewer 的实质论证归纳其精确同意的命题与条件，同时保留未决反例；不能只计赞成票或把数学合理性变成已验证的运行效果。
+- **独立提案：** 在 `mechanism` 中体现**新结构或计算自由度 → 数学构造 → 真正省下什么工作**；在 `competing_explanations`、`falsifiable_predictions` 中体现机制竞争与可区分预言。将开放的源码证明和性能检验作为后续研究机会记录在相应命题旁边。
+- **独立评议：** `independent_reconstruction` 要有 reviewer 自己复建的数学、源码或历史证据推导；`decisive_argument` 直接说明支持/质疑的关键机制；`counterexample_or_discriminator` 应能真正改变对方法的判断。优先寻找构造性修改和真正改变判断的竞争解释。
+- **整理者：** 根据不同 reviewer 的实质论证归纳其精确同意的命题与条件，同时保留未决反例；将数学支持、实际测量与仍有分歧的条件分别清楚陈列。
 
 当某一篇旧论文、代码、实验或指定 AutoResearcher 技能对论证有实质贡献，在已有 `evidence_links` 或文字论证中给出来源；不需要新增空泛的“本 agent 遵守了全部原则”字段。与此前导入的历史提案保持数据兼容。
 
