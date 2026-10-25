@@ -1,5 +1,10 @@
 # FFNDS method discussion agents — AutoResearcher by default
 
+## Web literature and code research by every independent agent
+
+**Each proposer, discoverer, challenger, independent reviewer and synthesizer** should perform **broad and deep Web Search** when tools allow, following [the FFNDS web research protocol](../agent_protocol/DEEP_WEB_RESEARCH.md). Do not inherit another agent's limited paper list as your complete prior-art search. Diversify the search across terminology, classic/new works, neighboring fields, mathematics, native formats/engineering and contrary findings; follow citation chains and inspect original papers + implementation before judging mechanism overlap. Record actual links and what distinguishing prediction differs from the nearest work. Independent reviewers should actively look for the **strongest potential duplicate or counterexample**, not just agree. During E0, the search advances competing scientific explanations; a newly located attractive operator is an unpromoted idea seed, not a new execution task. If web access is absent, mark this honestly and continue source/math reasoning.
+
+
 ## E0_OPEN_DISCOVERY active brief for all parallel discussants
 
 Read [the single live stage](../ACTIVE_RESEARCH.json) and [E0 agent anchor](../agent_protocol/E0_STAGE_ANCHOR.md) **before treating an old proposal, review or stale handoff as the current task**. The current discussion is independent scientific discovery of real phenomena, competing mechanisms and one decisive next observation. Prefer an individually owned file under [E0 discoveries](discoveries/E0/README.md) for this stage; an unexpected operator can still be recorded as an unpromoted idea, but **is not an instruction to build it or to change the live research priority**. Reviewers challenge the mechanism with a competing source/math explanation rather than demanding an arbitrary implementation. Only the user can authorize a stage change; serialized coordination avoids shared-file races.

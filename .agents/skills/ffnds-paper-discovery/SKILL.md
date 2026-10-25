@@ -1,11 +1,13 @@
 ---
-
-**Stage-sensitive application:** Before using this skill to propose a method, read `research/ACTIVE_RESEARCH.json.current_stage`. During E0_OPEN_DISCOVERY, aim first for source-grounded *phenomena and competing explanations*, not a chosen operator; record any good operator as an unpromoted seed. Read the [E0 stage anchor](../../../research/agent_protocol/E0_STAGE_ANCHOR.md) for the short multi-agent handoff. This adjusts the current task, **not** the upstream pinned AutoResearcher creative/reformulation principles.
-
 name: ffnds-paper-discovery
 description: Automatically apply AutoResearcher mechanism discovery, mathematical reformulation and evidence-grounded science to FFNDS video FFN research.
 ---
 # FFNDS — information ↔ net decision value ↔ physical compute
+
+**Stage-sensitive application:** Before using this skill to propose a method, read `research/ACTIVE_RESEARCH.json.current_stage`. During E0_OPEN_DISCOVERY, aim first for source-grounded *phenomena and competing explanations*, not a chosen operator; record any good operator as an unpromoted seed. Read the [E0 stage anchor](../../../research/agent_protocol/E0_STAGE_ANCHOR.md) for the short multi-agent handoff. This adjusts the current task, **not** the upstream pinned AutoResearcher creative/reformulation principles.
+
+**Default broad/deep Web Search (not optional for research when tools are available):** Read the [FFNDS deep Web literature and code search protocol](../../../research/agent_protocol/DEEP_WEB_RESEARCH.md). Search iteratively across seminal and current papers, neighboring mathematical/quantization/video/ML-systems lines, original source repos and counterexamples. Follow backward/forward citations, validate key derivations and implementation details in primary sources, and explain what changes in the mechanism understanding. E0 searches for phenomena, not a predetermined operator. State actual search coverage if web access is unavailable; never invent consulted publications.
+
 
 For every research request, use the project [AGENTS.md](../../../AGENTS.md), [live scientific state](../../../research/ACTIVE_RESEARCH.json), and the [compact evidence packet](../../../research/agent_protocol/CURRENT_CONTEXT_PACKET.md). This domain skill is a working scientific lens, not an additional approval process.
 

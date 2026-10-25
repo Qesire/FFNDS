@@ -1,5 +1,10 @@
 # FFNDS — default AutoResearcher scientific behavior
 
+## Broad, deep, iterative Internet research is a research default
+
+For any substantive scientific question, **actively Web Search before narrowing to a solution**, without requiring the user to name “web search”. Follow the [FFNDS comprehensive literature/code search protocol](../research/agent_protocol/DEEP_WEB_RESEARCH.md): find recent and foundational work across complementary keywords and neighboring disciplines, inspect original papers and released code, chase backward/forward citations, search adversarial counterexamples and nearest mechanism-level duplicates. Verify quantization/native-kernel and Wan-specific behavior from first-party specs/source, and clearly distinguish secondary discovery from primary evidence. Summarize what the search actually changed and its time/source coverage; keep E0 phenomenon-first rather than reverting to old G6D/G6E/G6F implementation. When browsing is unavailable, disclose the limitation and do not fabricate citations or assert comprehensive novelty.
+
+
 **Live phase (mandatory first read):** [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) `current_stage=E0_OPEN_DISCOVERY`, [first E0 task](../research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md), and [agent stage anchor](../research/agent_protocol/E0_STAGE_ANCHOR.md). Current deliverable is **real mechanism/phenomenon discovery, not a Q1 K-panel, Q2 W2-panel or hidden-group algorithm**. Record promising new operators as idea seeds without promoting them. Parallel agents write independent [E0 discoveries](../research/method_discussion/discoveries/E0/README.md). Use competition between explanations and primary source checks to make progress, not a list of prohibitions.
 
 

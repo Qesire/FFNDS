@@ -1,5 +1,10 @@
 # FFNDS — concise decision-specific evidence packet
 
+## Required active literature scope
+
+For **substantive research tasks**, every agent should conduct broad/deep multi-pass online literature **and original-source** search using [the FFNDS Web Search protocol](DEEP_WEB_RESEARCH.md). Expand across quantization FP4/QDQ, FFN computational geometry, few-step video distillation, time/space propagation, native kernels and neighboring theory, plus opposing papers; use seed-paper backward/forward citations. Verify primary equations/implementations and report real search coverage and strongest nearest prior mechanisms. E0 remains phenomenon-first. Web unavailable ≠ evidence that no similar work exists.
+
+
 **Live priority right now:** `ACTIVE_RESEARCH.json.current_stage=E0_OPEN_DISCOVERY`. Open [first E0 phenomenon task](../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md) and [stage/anti-drift anchor](E0_STAGE_ANCHOR.md) before continuing any historical operator seed. We are currently discovering **what real information and FFN/video structure exists**, not selecting a mask, K/N panel, compensation or proxy formula. G6D/G6E/G6F are exploratory candidates, not the next action. Agent deliverable: source-bound phenomenon, contrasting mechanisms, one decisive observation. No method-discussion implementation or model experiments.
 
 

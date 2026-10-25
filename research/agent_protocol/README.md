@@ -1,5 +1,10 @@
 # FFNDS · AutoResearcher source and task routing
 
+## 深度 Web Search 是默认研究能力
+
+科研发现、跨 Agent 方法评议与查重应当主动进行**广泛、深入、迭代式联网检索**，而非依赖固定知识或一轮关键词搜索；统一遵循 [深度文献与源码搜索协议](DEEP_WEB_RESEARCH.md)。从经典和最新论文、相邻机制、前后向引用链、官方模型/硬件源码、失败与反例多方向追踪，再把可核验结果回到真实 FFN 计算流。E0 的结论仍是科学现象与竞争解释，不自动变成新算法。对无法访问互联网的 Agent，应在结果中明确检索缺口并避免编造已审阅来源。
+
+
 The default agent entry is [root AGENTS.md](../../AGENTS.md); the **only live research state** is [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). For a small decision-relevant evidence bundle, read [CURRENT_CONTEXT_PACKET.md](CURRENT_CONTEXT_PACKET.md). The research directory [navigation](../RESEARCH_NAVIGATION.md) separates latest science from old studies.
 
 The project uses pinned [AutoResearcher current source](ACTIVE_SOURCE_MANIFEST.json) (`5bd7ec53`) with upstream core files and three specialist skills kept **verbatim**. FFNDS-specific application lives in root `AGENTS.md` and `.agents/skills/ffnds-paper-discovery/SKILL.md`; generic AutoResearcher source files should not contain appended FFNDS policies. Apply the mechanism/reformulation/expansion methods that materially advance the question; combine them when a mathematical reformulation and source reconstruction need each other.
