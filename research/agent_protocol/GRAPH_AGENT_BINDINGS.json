@@ -11,7 +11,8 @@
     "G2": "FFN math and numerical boundaries",
     "G3": "decision-time and historical actions",
     "G4": "latest observations and conditional physical-cost forks",
-    "G5": "All-depth nonlinear-function and matched affine approximation versus exact dense residency timing; separates OBS/ALG/OPEN and actual SYS."
+    "G5": "All-depth nonlinear-function and matched affine approximation versus exact dense residency timing; separates OBS/ALG/OPEN and actual SYS.",
+    "G6": "OPEN application-scene/SLO graph for hypothetical causal/rolling real-time streaming video, not executed current Wan"
   },
   "nodes": [
     {
@@ -424,6 +425,62 @@
         "research/method_discussion/graph_annotations/E0/E0_GRAPH_MATCHED_NATIVE_VIDEOS_20261026.json"
       ],
       "open_question": "First separate all-layer same-input deployed-bank/native fidelity from perturbed-prefix mismatch, finite downstream transport and trajectory targets. Current fixed models visibly fail quality; no acceptance or automatic scope."
+    },
+    {
+      "id": "R01",
+      "graph_section": "G6",
+      "meaning": "existing 81-frame offline Wan completion timing not streaming fps or time-to-first-frame",
+      "availability": "measured_offline_video_completion",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261026/E0_RECONSTRUCTED_VIDEOS.md",
+        "research/20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md"
+      ],
+      "open_question": "What streaming latency component is even addressable by the original Wan dense FFN?"
+    },
+    {
+      "id": "R02",
+      "graph_section": "G6",
+      "meaning": "hypothetical TTFF steady deadline tail latency jitter and dynamic command response SLO",
+      "availability": "not_measured_hypothetical_live_stream",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md"
+      ],
+      "open_question": "What genuine visible-frame deadlines and p95/p99 latency are required at each output resolution and hardware budget?"
+    },
+    {
+      "id": "R03",
+      "graph_section": "G6",
+      "meaning": "hypothetical causal/chunked/rolling autoregressive source model and historical state validity",
+      "availability": "requires_new_streaming_native_source",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md"
+      ],
+      "open_question": "Does the actual candidate streaming model use causal KV, chunked denoise or sliding-window state, and who consumes which frame history?"
+    },
+    {
+      "id": "R04",
+      "graph_section": "G6",
+      "meaning": "hypothetical per-chunk FFN function reuse selected recompute and cost under state/prompt changes",
+      "availability": "requires_streaming_native_source_and_trial",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md"
+      ],
+      "open_question": "What source-grounded cheap statistics predict reusable FFN function without accumulating video drift or missing a frame deadline?"
+    },
+    {
+      "id": "R05",
+      "graph_section": "G6",
+      "meaning": "unmeasured long-stream video fidelity identity flicker prompt transition and memory cost",
+      "availability": "not_measured_hypothetical_live_video",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md"
+      ],
+      "open_question": "How do stream-window errors propagate across self-generated history, where are resets necessary, and what steady memory remains for weights/KV/latents?"
     }
   ],
   "edges": [
@@ -696,11 +753,51 @@
       "from": "P22",
       "to": "P12",
       "relation": "measured_FFN_and_generation_wall_without_quality_acceptance"
+    },
+    {
+      "from": "P22",
+      "to": "R01",
+      "relation": "actual_offline_result_not_streaming_measurement"
+    },
+    {
+      "from": "R01",
+      "to": "R02",
+      "relation": "conditional_latency_target_not_measured"
+    },
+    {
+      "from": "R02",
+      "to": "R03",
+      "relation": "requires_causal_or_chunked_architecture"
+    },
+    {
+      "from": "R03",
+      "to": "R04",
+      "relation": "hypothetical_stream_state_legality"
+    },
+    {
+      "from": "R04",
+      "to": "R05",
+      "relation": "hypothetical_video_drift_and_deadline_cost"
+    },
+    {
+      "from": "R03",
+      "to": "R05",
+      "relation": "hypothetical_KV_latency_memory_and_visual_effect"
+    },
+    {
+      "from": "P17",
+      "to": "R05",
+      "relation": "resident_weights_compete_with_streaming_cache_memory"
+    },
+    {
+      "from": "F09",
+      "to": "R04",
+      "relation": "potential_FFN_function_transfer_subject_to_new_source"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
   "annotation_template": "research/method_discussion/GRAPH_CLAIM_TEMPLATE.json",
-  "current_scientific_audit": "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md",
+  "current_scientific_audit": "research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md",
   "last_experiment_evidence_commits": [
     "94929b252a64",
     "798a3c9f3a628e47b153b1ae1ed0226b1683c2e9"
@@ -755,5 +852,13 @@
     "mathematical_independent_record_sha256": "da7f943ab8966b9757ab518d4356aa621d860a9543593ce57a413043ef35316c",
     "review_status": "EXACT_CLAIM_SCOPED_INDEPENDENT_REVIEW; NO_FORMAL_METHOD_ENDORSEMENT",
     "curator_precision": "Visible prototype failure is established; all-layer deployed bank/native fidelity is an additional OPEN alternative before input-shift/transport/trajectory attribution."
+  },
+  "optional_application_scenario": {
+    "id": "REALTIME_INTERACTIVE_STREAMING",
+    "status": "OPEN_SCENARIO_NOT_EXECUTED",
+    "document": "research/20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md",
+    "graph_section": "G6",
+    "not_a_selected_operator": true,
+    "not_a_new_model_run": true
   }
 }
