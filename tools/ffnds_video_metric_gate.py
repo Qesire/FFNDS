@@ -27,9 +27,12 @@ def inspect(bundle_path, require_acceptance=False):
         seen.add(key)
         path=base/entry.get("video_path","")
         evidence=base/entry.get("metric_report_path","")
-        if not path.is_file() or not evidence.is_file():
-            errors.append(f"{index}: missing video or metric report")
+        run_path=base/entry.get("run_receipt_path","")
+        if not path.is_file() or not evidence.is_file() or not run_path.is_file():
+            errors.append(f"{index}: missing video, metric report or actual run receipt")
             continue
+        if digest(run_path)!=entry.get("run_sha256"):
+            errors.append(f"{index}: actual run receipt digest mismatch")
         if digest(path)!=entry.get("video_sha256"):
             errors.append(f"{index}: video digest mismatch")
         if digest(evidence)!=entry.get("metric_report_sha256"):
@@ -40,6 +43,8 @@ def inspect(bundle_path, require_acceptance=False):
             if report.get("candidate",{}).get("sha256")!=entry.get("video_sha256"):
                 errors.append(f"{index}: report/video artifact digest mismatch")
             identity=report.get("identity",{})
+            if identity.get("run_sha256")!=entry.get("run_sha256"):
+                errors.append(f"{index}: run receipt SHA not bound to metric report")
             for k in ("source_id","seed"):
                 if identity.get(k)!=entry.get(k):
                     errors.append(f"{index}: identity mismatch {k}")
