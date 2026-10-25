@@ -22,9 +22,16 @@
   "identity": {
     "source_id": "image-sha256-or-frozen-id",
     "seed": 42,
+    "input_prompt_digest": "prompt-image-condition-sha",
     "model_digest": "actual-model-checkpoint-sha",
     "protocol_sha256": "frozen-protocol-sha",
     "run_sha256": "completed-run-receipt-sha"
+  },
+  "reference_identity": {
+    "source_id": "image-sha256-or-frozen-id",
+    "seed": 42,
+    "input_prompt_digest": "prompt-image-condition-sha",
+    "run_sha256": "matched-dense-RUN-json-sha"
   },
   "cost": {
     "generation_wall_seconds": 0.0,
@@ -35,7 +42,29 @@
 }
 ~~~
 
-数值为字段形态示范，**不是一条实际测量**。真实运行必须从计时和资源收据填写。无Dense配对的参考视频也做全帧自身时序/纹理统计，之后与候选组合时生成paired报告。
+数值为字段形态示范，**不是一条实际测量**。真实运行必须从计时和资源收据填写。paired候选除两个视频必须实际匹配，还要绑定参考 Dense 的 source、seed、输入图像+prompt+conditioning digest 和原dense RUN SHA；不允许拿不同prompt/seed的视频凑“质量差异”。无Dense配对的参考视频也做全帧自身时序/纹理统计，之后与候选组合时生成paired报告。
+
+多视频完整性入口：`python tools/ffnds_video_metric_gate.py --bundle path/to/video_bundle.json`，要求同一视频文件有唯一的逐帧报告、原始 RUN 收据以及全部文件SHA；有Dense配对则额外核对Dense视频与Dense RUN的文件SHA。最小bundle形态（SHA值必须由实际文件计算，下面只是字段名）：
+
+~~~json
+{
+  "schema": "ffnds.video.bundle.v1",
+  "expected_video_count": 1,
+  "videos": [
+    {
+      "source_id": "image-sha-or-id", "seed": 42, "variant": "affine54",
+      "video_path": "generated.mp4", "video_sha256": "sha-of-generated",
+      "run_receipt_path": "RUN.json", "run_sha256": "sha-of-RUN",
+      "metric_report_path": "metrics.json", "metric_report_sha256": "sha-of-metrics",
+      "reference_video_path": "dense.mp4", "reference_video_sha256": "sha-of-dense",
+      "reference_run_receipt_path": "DENSE_RUN.json",
+      "reference_run_sha256": "sha-of-dense-RUN"
+    }
+  ]
+}
+~~~
+
+每条视频应保留全部frame索引的实际测量值，不仅是全段平均。官方指标和人工结果必须独立保留工具/模型版本和实际评价凭据；核心指标报告允许尚未获质量验收，但任何缺文件/缺真实帧都会使证据bundle检查失败。
 
 分析器写出的 `external_quality` 默认明确为 `NOT_RUN`，`quality_accepted=false`；必须从真实官方输出和实际视频人工审查另行提供具有版本、来源/运行签名的证据才能变更。验收模式 `audit --require-acceptance` 遇到缺失必须失败；可产生**有未决项的客观指标包**，但不能宣传“完整视频质量合格”。核心指标或逐帧覆盖不齐时连客观指标包也不得标为完成。
 
