@@ -356,6 +356,7 @@ def main():
     check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_FIRST_TASK_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md")
+    check_relative_markdown_links("research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md")
     check_relative_markdown_links("core/WEB_RESEARCH_DISCOVERY.md")
     check_relative_markdown_links(".agents/skills/web-research-discovery/SKILL.md")
     check_relative_markdown_links("research/agent_protocol/UPSTREAM_SYNC.md")
