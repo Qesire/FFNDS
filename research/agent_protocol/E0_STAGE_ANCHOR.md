@@ -19,6 +19,10 @@
 
 这些可能相关，也可能彼此分离。**当前目的不是先构造新的 Proxy、固定64组或 Dense completion，而是发现决定上述关系的机制。**
 
+## 计算图参与研究的默认方式
+
+从 [G0–G4计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent协作协议](GRAPH_AGENT_COLLABORATION.md) 获取真实算子路径、Q1/W1/GELU/Q2/W2数值边界、历史可用性与下游消费者；借 [JSON节点索引](GRAPH_AGENT_BINDINGS.json) 查证据和未解问题。每项新科学认识形成一份 [图锚点讨论记录](../method_discussion/graph_annotations/E0/README.md) 或在原发现中声明相关节点；独立reviewer沿路径反推源码/数学反例，整理者把受支持的注释回写计算图和实验谱系。新表示可以提出新的图节点，勿将现有G4 shared-column视为所有实验的默认路线。
+
 ## 独立科学发现入口
 
 可从下列三组互补问题进入，也允许新的原创问题：
