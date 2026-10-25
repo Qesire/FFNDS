@@ -3,6 +3,9 @@ name: ffnds-paper-discovery
 description: Automatically apply AutoResearcher mechanism discovery, mathematical reformulation and evidence-grounded science to FFNDS video FFN research.
 ---
 
+**AutoResearcher v2.4 search default:** This domain skill extends the exact [web-research-discovery upstream Skill](../web-research-discovery/SKILL.md) and [WARD protocol](../../../core/WEB_RESEARCH_DISCOVERY.md); the project [deep search protocol](../../../research/agent_protocol/DEEP_WEB_RESEARCH.md) adds Wan/HiF4/FFN-specific examples. Preserve the source revision and project E0 stage from [ACTIVE_RESEARCH.json](../../../research/ACTIVE_RESEARCH.json).
+
+
 # FFNDS — information ↔ net decision value ↔ physical compute
 
 **E0_OPEN_DISCOVERY focus:** Read [latest scientific questions](../../../research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) and [stage anchor](../../../research/agent_protocol/E0_STAGE_ANCHOR.md). The six-source Wan observations expose Block0 gated-output / residual-radial alignment and separate quantization/temporal effects. Independently explain the most interesting structure, develop a competing mechanism and select an informative next observation. Any inspired operator can be recorded as an exploratory seed.

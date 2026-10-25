@@ -1,5 +1,10 @@
 # Mechanism-first Novelty Gate (MNG)
 
+## Web-augmented prior-art search
+
+For every substantive novelty or method-overlap judgment, proactively follow [Web Research Discovery](WEB_RESEARCH_DISCOVERY.md): multiple related mechanism families, original equations and code, recent and foundational work, backward/forward citations and an adversarial search for the nearest potentially equivalent method. Differentiate shared ingredients from genuinely equivalent computation/action; report actual coverage and the strongest counterexample. Use a novel mechanism as a creative seed before formal novelty is determined.
+
+
 A frequently seen failure is to select internet-famous solutions (smoothing, EMA, regularization, distillation, classic sparsity) immediately after observing an anomaly. This bypasses the computation-specific mechanism that could yield a genuinely new method.
 
 **Generate first, audit before novelty claims.** Early exploratory ideas have no novelty-permission gate. For a candidate being promoted toward a research contribution, use this ordering:

@@ -1,5 +1,8 @@
 # FFNDS · AutoResearcher 默认科研引导
 
+**AutoResearcher v2.4 (pinned):** Load [web-research-discovery Skill](../.agents/skills/web-research-discovery/SKILL.md), [generic deep web protocol](../core/WEB_RESEARCH_DISCOVERY.md) and [FFNDS-specific search](../research/agent_protocol/DEEP_WEB_RESEARCH.md) for substantial research. The exact upstream revision is recorded in [active manifest](../research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json); this shared default applies to independent research agents and reviewers while E0 remains open discovery.
+
+
 ## 当前阶段与研究任务
 
 活跃阶段从 [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 读取：`E0_OPEN_DISCOVERY`。结合 [E0 第一任务](../research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md)、[当前科学问题](../research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和 [E0 Agent 锚点](../research/agent_protocol/E0_STAGE_ANCHOR.md) 选择本次最值得研究的现象。

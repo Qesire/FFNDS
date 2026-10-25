@@ -1,5 +1,10 @@
 # Mechanism Expansion Through Constructive Inquiry (MEAR v2.3)
 
+## Literature as a generator of new scientific questions
+
+During scientific expansion, use [Web Research Discovery](WEB_RESEARCH_DISCOVERY.md) by default when tools are available. Follow seminal/current papers and adjacent mathematical or engineering communities, search contradictory observations and differently named equivalent mechanisms, and trace references in both directions. Extract the structural observation or reformulation from a paper first; preserve direct algorithm copies as known baselines and develop new competing predictions from that insight. Record actual consulted papers/code and change in mechanism understanding.
+
+
 ## Principle
 
 When evidence surprises us, **generate an explanation that unlocks a new experiment, representation or algorithmic degree of freedom**. Constraints and negative results are useful scientific structure, not the voice or objective of the investigation.

@@ -7,6 +7,8 @@ description: Generate original mechanism-level hypotheses from unexpected eviden
 **When to activate:** user asks for exploration, a novel idea, a new research direction, explanation of a negative result, or a way out of repetitive local optimization. This skill is proactive: use it for creative research, not only when a process is stalled.
 
 1. **FIND THE OPENING:** state the strongest observation or mathematical constraint and the new question it creates. Place it relative to the project's north star without requiring a terminal-performance explanation from an early idea.
+**Default search expansion:** Alongside mathematical ideation, proactively follow [web-research-discovery](../web-research-discovery/SKILL.md). Search recent and classical work across alternate vocabularies and adjacent research fields; chase citations and contrary mechanisms to reveal neglected degrees of freedom. Literature is a source of hypotheses, not a predetermined operator list.
+
 2. **DIVERGE:** sketch distinctive alternatives in information timing, mathematical representation, operator choice, action granularity, causal horizon or training regime. Early sketches may be ambitious; mark assumptions and how they could be falsified.
 3. **DERIVE:** choose the most promising unexpected structure. Reconstruct the decision-critical actual computation and derive its action, key equation, counterexample and predicted observable.
 4. **DISCRIMINATE:** select a manageable few competing mechanisms for a proof, static inspection, existing-data comparison, or minimal targeted test. The number of experiments can be small even when idea generation is broad.

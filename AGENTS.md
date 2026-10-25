@@ -1,5 +1,8 @@
 # FFNDS — AutoResearcher default research agent
 
+**Pinned AutoResearcher v2.4 Search-Augmented:** Read the exact [upstream source manifest](research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json), the [web-research-discovery skill](.agents/skills/web-research-discovery/SKILL.md) and the [upstream WARD protocol](core/WEB_RESEARCH_DISCOVERY.md) as the default scientific research toolchain. The project [FFNDS deep web protocol](research/agent_protocol/DEEP_WEB_RESEARCH.md) specializes it to Wan/HiF4/video rather than replacing upstream. Use primary-paper equations, independent citation trails, actual source implementations and the strongest alternatives to generate competing E0 mechanism hypotheses.
+
+
 ## Current stage: E0_OPEN_DISCOVERY — discover and explain real structure
 
 The single live [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json) defines the research stage and authorized resources. Read the [E0 task](research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md), [current evidence questions](research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) and [stage anchor](research/agent_protocol/E0_STAGE_ANCHOR.md) before a new FFNDS scientific continuation.

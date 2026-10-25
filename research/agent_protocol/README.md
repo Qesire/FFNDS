@@ -1,5 +1,8 @@
 # FFNDS · AutoResearcher source and task routing
 
+**Latest upstream synchronization:** AutoResearcher v2.4 WARD is pinned to [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Read [generic research protocol](../../core/WEB_RESEARCH_DISCOVERY.md), [dedicated Skill](../../.agents/skills/web-research-discovery/SKILL.md) and [FFNDS-specific deep Web Search](DEEP_WEB_RESEARCH.md); see [sync procedure](UPSTREAM_SYNC.md) for reproducible future upgrades.
+
+
 ## 当前科研问题审查入口
 
 现在的活跃 E0 任务应结合 [2026-10-25 未闭合问题与必需改进](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 阅读：Block0 残差径向结构已被真实保存操作数观察到，但还缺独立评议及完整下游因果支持；Q2 时空、来源覆盖、HiF4/native FP4 的研究边界也必须单独注明。所有 agent 用**来源可追溯的竞争性解释与区分观察**弥补问题；不能把有界且已完成的旧 A100 采集权当成可继续自动运行模型的授权。
