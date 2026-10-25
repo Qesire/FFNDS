@@ -2,9 +2,19 @@
 
 **当前阶段：`E0_OPEN_DISCOVERY`**。**最新科学证据和任务再审**：[全层affine/奇偶机制/强dense基线与研究空间](E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)。40层旧导数/局部affine与原生权重常驻研究已完成；新的任务必须从这些结果提供的开放解释出发，而不以当前folding或共享列当作必选算子。科学纲领：[FFN 本征计算](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)；最新独立审查：[分歧与探索空间](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；原始数据：[完整hidden](E0_INTRINSIC_FULL_HIDDEN.md)、[连续token / 前置选择](E0_SHARED_TILE_PRE_W1.md)、[K1–K5更新](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)；授权与唯一状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
 
+## 2026-10-26：最新全模型证据与并列的实时场景
+
+**最新方向审查**：[六视频原生替换失败后的机制判别与双场景定位](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)，[六条视频及真实成本报告](../20261026/E0_RECONSTRUCTED_VIDEOS.md)；**附加实时场景**：[真实在线时延与因果状态问题](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)。
+
+前次任务的五层/affine理论阶段现已推进至真实全160处FFN：强resident dense热态整段50.750秒/FFN9.707秒，affine54为45.313秒/FFN4.449秒，**画面明显模糊/运动减弱**；whole94严重重影。已保存四来源全40层的匹配局部误差：affine54 8.54%（uniform_disjoint），并未保护完整视频。无方法验收。不能继续把旧文档中“尚无完整视频验证”当作最新状态。
+
+**当前主要科学问题**是辨别三类真正不同的原因：①实际160个部署bank是否在**同一输入**上额外引入数值/量化误差；②旧teacher前缀上的局部FFN误差能否迁移到新student前缀；③原生gate/residual、后续attention与四步scheduler如何传递并放大某些有符号误差。每种机制应有精确、可区分的最小对照，并与其它函数表示/时空重组/少量后训练等自主探索并行，不默认继续对affine或group64做局部优化。
+
+**附加而非替代的应用场景：实时、交互式流式生成。** 当前81帧约45秒属于offline整段延迟；它未测试time-to-first-frame、逐帧deadline、p95/p99抖动、causal/rolling历史、跨chunk长期漂移。原四步同expert历史不能自动作为流式KV/cache的合法证据。新G6图层全部是OPEN条件研究，Agent先从真实目标streaming源码和SLO定义重建其计算流，再问FFN何时必须重算/可以跨帧复用。**当前唯一E0主目标仍是有视频质量条件的真实FFN必要计算减少，不选定新模型，不自动启动实验。**
+
 ## Agent 与计算图共同完成研究
 
-本任务默认使用 [G0–G5计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent双向协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)。Agent选择实际相关节点（如 `G18→F04→F06→F08→F09→F12→G21`），核对源代码/张量语义/决策时点/后续影响，再用 [图节点证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json) 提取已存实验和开放问题。新机制、反例与研究缺口在 [独立图注解目录](../method_discussion/graph_annotations/E0/README.md) 署名提交；另一 Agent交叉核查，确认后反向注解计算图、谱系及新OPEN边。对源代码提出的新结构可以先创建待证实的新图节点，不以现有G4方法穷尽科研方向。图是图谱/审查接口，当前尚非可执行运行时动态图。
+本任务默认使用 [G0–G6计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent双向协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)。Agent选择实际相关节点（如 `G18→F04→F06→F08→F09→F12→G21`），核对源代码/张量语义/决策时点/后续影响，再用 [图节点证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json) 提取已存实验和开放问题。新机制、反例与研究缺口在 [独立图注解目录](../method_discussion/graph_annotations/E0/README.md) 署名提交；另一 Agent交叉核查，确认后反向注解计算图、谱系及新OPEN边。对源代码提出的新结构可以先创建待证实的新图节点，不以现有G4方法穷尽科研方向。图是图谱/审查接口，当前尚非可执行运行时动态图。
 
 ## 本轮已验证进展带来的新科研起点
 
