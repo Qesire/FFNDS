@@ -19,7 +19,7 @@ class VideoGateTest(unittest.TestCase):
         run_sha=digest(run)
         n=4
         report={"schema":SCHEMA,
-                "identity":{"source_id":"image-id","seed":42,"input_prompt_digest":"inputsha","model_digest":"modelsha",
+                "identity":{"source_id":"image-id","seed":42,"expected_frames":4,"input_prompt_digest":"inputsha","model_digest":"modelsha",
                             "protocol_sha256":"protocolsha","run_sha256":run_sha},
                 "cost":{"generation_wall_seconds":10,"ffn_boundary_seconds":2,
                         "setup_seconds":3,"peak_gpu_memory_mib":24000},
