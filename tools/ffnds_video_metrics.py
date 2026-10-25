@@ -13,7 +13,7 @@ import statistics
 
 
 SCHEMA = "ffnds.video.metrics.v1"
-REQUIRED_IDENTITY = ("source_id", "seed", "input_prompt_digest", "model_digest", "protocol_sha256", "run_sha256")
+REQUIRED_IDENTITY = ("source_id", "seed", "expected_frames", "input_prompt_digest", "model_digest", "protocol_sha256", "run_sha256")
 REQUIRED_COST = ("generation_wall_seconds", "ffn_boundary_seconds",
                  "setup_seconds", "peak_gpu_memory_mib")
 FAMILIES = ("artifact", "temporal_motion", "spatial_detail", "luma_color", "runtime")
@@ -80,14 +80,20 @@ def validate(report, require_acceptance=False):
         })
     for family,fields in required_metric_fields.items():
         values=report.get("metrics",{}).get(family,{})
+        if not isinstance(values,dict): values={}
+
         for key in fields:
             if key not in values:
                 failures.append("missing metric "+family+"."+key)
+    if not isinstance(identity.get("expected_frames"),int) or identity["expected_frames"] < 2:
+        failures.append("missing valid expected_frames")
     artifact = report.get("metrics", {}).get("artifact", {})
     if artifact.get("decoded_frames", 0) < 2 or artifact.get("fps", 0) <= 0:
         failures.append("invalid frame coverage")
     if artifact.get("decoded_frames") != artifact.get("verified_full_decode_frames"):
         failures.append("not all frames verified")
+    if artifact.get("decoded_frames") != identity.get("expected_frames"):
+        failures.append("not all expected frames decoded")
     if report.get("reference") and report.get("metrics", {}).get("paired_spatial", {}).get("frames") != artifact.get("decoded_frames"):
         failures.append("paired frames incomplete")
     frames = report.get("per_frame", [])
@@ -211,6 +217,8 @@ def evaluate(candidate, reference, identity_record):
             count += 1
         if count < 2:
             raise ValueError("Need at least two fully decoded frames")
+        if count != identity_record["identity"]["expected_frames"]:
+            raise ValueError("Decoded frame count differs from preregistered expected_frames")
         metrics["artifact"] = {"decoded_frames":count,"verified_full_decode_frames":count,
                                "fps":fps_values[0],"frame_shape":frame_shape,
                                "candidate_sha256":digest(candidate),
