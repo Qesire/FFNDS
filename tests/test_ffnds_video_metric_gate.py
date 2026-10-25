@@ -29,7 +29,8 @@ class VideoGateTest(unittest.TestCase):
                            "luma_color":{"luma":0.2}},
                 "external_quality":{k:{"status":"NOT_RUN","reason":"Not executed"} for k in
                                     ("vbench_i2v","vbench2","human_review")},
-                "quality_accepted":False}
+                "quality_accepted":False,
+                "per_frame":[{"frame":i} for i in range(n)]}
         report_path=root/"metrics.json"
         report_path.write_text(json.dumps(report))
         bundle={"schema":"ffnds.video.bundle.v1","expected_video_count":1,
