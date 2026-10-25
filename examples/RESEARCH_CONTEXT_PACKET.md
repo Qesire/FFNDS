@@ -1,5 +1,8 @@
 # Task-local evidence packet (example template)
 
+**Optional Web discovery packet:** for substantive science, include actual search date/tool coverage, foundational/current and contradictory mechanism families, original equations/code/spec references, backward/forward citation threads, closest prior implementation, and *how evidence changed the explanation*. See [Web Research Discovery](../core/WEB_RESEARCH_DISCOVERY.md). An offline agent notes unavailable online coverage while continuing useful source and mathematical reasoning.
+
+
 This is a *retrieval and handoff template*, not a required user-visible form or a fixed word quota.
 
 **Research question:** What observed phenomenon or new mechanism should the next decision explain?
