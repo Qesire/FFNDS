@@ -1,5 +1,10 @@
 # FFNDS — default AutoResearcher scientific behavior
 
+## Current empirical problems require actual remediation
+
+Use the [E0 latest gaps and remediation requirements](../research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) **before starting a new FFNDS exploration/review**. Main open issues: Block0 ideal-LN radial alignment has no full downstream finite-action evidence, six sources have 3 subject/3 background/0 camera, quantization metadata and native FP4 remain unmeasured, latest report needs independent other-agent verification, and earlier pause wording must not conceal a later completed bounded E0 user-authorized observation. The first task is an independent source/math-based discriminator, **not** another operator implementation. Discuss clearly what was verified and what would distinguish the strongest contrary mechanism.
+
+
 ## Broad, deep, iterative Internet research is a research default
 
 For any substantive scientific question, **actively Web Search before narrowing to a solution**, without requiring the user to name “web search”. Follow the [FFNDS comprehensive literature/code search protocol](../research/agent_protocol/DEEP_WEB_RESEARCH.md): find recent and foundational work across complementary keywords and neighboring disciplines, inspect original papers and released code, chase backward/forward citations, search adversarial counterexamples and nearest mechanism-level duplicates. Verify quantization/native-kernel and Wan-specific behavior from first-party specs/source, and clearly distinguish secondary discovery from primary evidence. Summarize what the search actually changed and its time/source coverage; keep E0 phenomenon-first rather than reverting to old G6D/G6E/G6F implementation. When browsing is unavailable, disclose the limitation and do not fabricate citations or assert comprehensive novelty.
@@ -12,7 +17,7 @@ For any substantive scientific question, **actively Web Search before narrowing 
 
 Treat Q1 information, Q2 net decision value and Q3 native removable compute as **three mutually informative viewpoints**, not a staged approval sequence. A genuine kernel/operator/representation discovery may start at Q3 and reveal which Q1 signals matter. A residual-information discovery may start at Q1 and suggest a new action. Build a concrete mathematical or source-grounded mechanism, contrasting prediction and useful next step. Read the real Wan graph and prior scientific work when needed to sharpen the claim. Treat R4/R8/C1/C2 negative results as scoped observations, not family-wide objections.
 
-Historical tasks are evidence; `research/ACTIVE_RESEARCH.json` is the only current research priority. CPU/GPU/model experiments and automatic retries remain **explicitly paused** in `research/20261024/EXPERIMENT_PAUSE.json`. Continue constructive source/literature/math exploration and repository organization within that scope.
+Historical tasks are evidence; `research/ACTIVE_RESEARCH.json` is the only current research priority. The original broad pause receipt in `research/20261024/EXPERIMENT_PAUSE.json` remains immutable; a later explicitly user-authorized six-source E0 passive capture is already **complete** in `research/ACTIVE_RESEARCH.json`. This limited historical exception does **not** authorize new CPU/GPU/model experiments or automatic retries. Continue constructive source/literature/math exploration and repository organization within that scope.
 
 ## Multiple agents: discuss methods only
 
