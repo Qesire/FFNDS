@@ -1,5 +1,9 @@
 # 方法讨论记录模板
 
+## 计算图协作是讨论的共同定位方式
+
+参阅 [G0–G4计算图](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md) 和 [稳定节点/证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json)。Agent 可以从真实源码、论文或视频现象开始，但提出可审查机制时关联相关节点及上游/下游边界，并记录自己的 [E0图锚点claim](graph_annotations/E0/README.md)。独立 reviewer 复核其真实代码路径、数学、source/step范围和时序成本；整合者将确认的解释回填计算图的节点注释与实验图谱。现有历史提案不需要倒填新的JSON字段；新候选可在下面示例中添加 `graph_context`。
+
 ## 原始论文和源码是创造新机制的默认资源
 
 所有 E0 发现、后续 proposal 和 review 均主动开展 [深度 Web Search](../agent_protocol/DEEP_WEB_RESEARCH.md)：跨经典与最新论文、相关数学、源代码、引用链和竞争解释深化。重点记录与研究问题有关的**方法公式、实际实现、实验差异和反例**。独立 reviewer 带回自己核查的最强先例，说明检索结果如何拓展或修正假说。检索范围与可访问来源按实际记录。
@@ -46,6 +50,11 @@
   },
   "related_method_ids": [],
   "lenses": ["Q3", "Q1", "Q2"],
+  "graph_context": {
+    "node_ids": ["F04", "F08", "F09", "F12"],
+    "graph_claim_refs": [],
+    "edge_hypothesis": "具体哪条输入/输出/功能/费用关系需要独立检验"
+  },
   "mechanism": {
     "native_boundary": "计算图、shape、条件信息、量化和残差消费者",
     "action": "明确要替换/改变的实际算子，而不只提出评分函数",
@@ -88,6 +97,11 @@
     "session_ref": "可追溯的会话/PR/commit"
   },
   "verdict": "SUPPORT",
+  "graph_independent_check": {
+    "node_ids": ["F08", "F09", "F12"],
+    "reconstructed_source_edge": "reviewer亲自核对源码、图与证据是否一致",
+    "hypothesis_or_evidence_gap": "结论精确范围、反例或未证实的边"
+  },
   "independent_reconstruction": "本人独立重建的实际 FFN 计算流及数学结构，不能复制摘要",
   "decisive_argument": "具体为什么支持；如果提出 CHALLENGE，写出与方法结论冲突的推导",
   "counterexample_or_discriminator": "最强反例、成立条件或与已有方法可区分的预言",
