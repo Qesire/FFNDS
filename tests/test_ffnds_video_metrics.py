@@ -14,11 +14,12 @@ class MetricContractTest(unittest.TestCase):
             return {"n":n,"mean":0.2,"p50":0.1,"p95":0.3,"max":0.4}
         n=4
         r={"schema":SCHEMA,
-           "identity":{"source_id":"fixture","seed":42,"model_digest":"hash",
+           "identity":{"source_id":"fixture","seed":42,"input_prompt_digest":"inputsha","model_digest":"hash",
                        "protocol_sha256":"protocol","run_sha256":"run"},
            "cost":{"generation_wall_seconds":3.1,"ffn_boundary_seconds":.5,
                    "setup_seconds":4.2,"peak_gpu_memory_mib":500},
            "reference":{"sha256":"dense"} if paired else None,
+           "reference_identity":{"source_id":"fixture","seed":42,"input_prompt_digest":"inputsha","run_sha256":"dense-run"} if paired else None,
            "metrics":{"artifact":{"decoded_frames":n,"verified_full_decode_frames":n,
                                   "fps":16,"frame_shape":[32,32,3]},
                       "runtime":{"generation_wall_seconds":3.1},
@@ -84,7 +85,8 @@ class MetricContractTest(unittest.TestCase):
                     writer.write(f)
                 writer.release()
             metadata={"identity":{"source_id":"synthetic", "seed":42,
-                                  "model_digest":"hash","protocol_sha256":"hash","run_sha256":"hash"},
+                                  "input_prompt_digest":"inputsha","model_digest":"hash","protocol_sha256":"hash","run_sha256":"hash"},
+                      "reference_identity":{"source_id":"synthetic","seed":42,"input_prompt_digest":"inputsha","run_sha256":"dense-run"},
                       "cost":{"generation_wall_seconds":1.0,"ffn_boundary_seconds":.2,
                               "setup_seconds":.5,"peak_gpu_memory_mib":100}}
             result=evaluate(a,b,metadata)
