@@ -51,6 +51,33 @@ def main():
     pause = record("research/20261024/EXPERIMENT_PAUSE.json")
     source = record("research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json")
 
+    # Broad/deep web-research routing is an instruction integrity property,
+    # never evidence that any agent actually performed live searches.
+    web = active.get("web_research", {})
+    ensure(web.get("default") is True and
+           web.get("mode") ==
+           "PROACTIVE_BROAD_DEEP_ITERATIVE_WEB_SEARCH_FOR_SUBSTANTIVE_SCIENTIFIC_WORK" and
+           web.get("protocol") == "research/agent_protocol/DEEP_WEB_RESEARCH.md",
+           "Live deep web-search research default is missing")
+    ensure((ROOT / web["protocol"]).is_file(),
+           "Deep web research protocol is missing")
+    for entry in ("AGENTS.md", ".github/copilot-instructions.md",
+                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
+                  "research/method_discussion/AGENTS.md",
+                  "research/method_discussion/README.md",
+                  "research/method_discussion/TEMPLATES.md",
+                  "research/method_discussion/discoveries/E0/README.md",
+                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+                  "research/agent_protocol/E0_STAGE_ANCHOR.md",
+                  "research/agent_protocol/README.md",
+                  "research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md"):
+        ensure("DEEP_WEB_RESEARCH.md" in text(entry),
+               "Deep web-search prompt routing drift: " + entry)
+    local_skill = text(".agents/skills/ffnds-paper-discovery/SKILL.md")
+    ensure(re.match(r"\\A---\\nname:\\s*ffnds-paper-discovery\\n"
+                    r"description:[^\\n]+\\n---\\n", local_skill),
+           "Local domain skill YAML frontmatter is invalid")
+
     # Live-stage routing: static structural consistency, NOT creative grading.
     stage = active.get("current_stage", {})
     ensure(stage.get("id") == "E0_OPEN_DISCOVERY" and
@@ -175,7 +202,11 @@ def main():
             "E0_CONTINUATION_DOES_NOT_PICK_OLD_OPERATOR",
             "E0_FP4_METADATA_REQUIRES_PHENOMENON_FIRST",
             "E0_IDEA_CREATIVITY_NOT_CENSORED",
-            "E0_MULTIAGENT_INDEPENDENT_SCIENCE"}.issubset(case_ids),
+            "E0_MULTIAGENT_INDEPENDENT_SCIENCE",
+            "PROACTIVE_BROAD_WEB_SEARCH_ON_E0_RESEARCH",
+            "MULTI_PASS_CITATION_AND_OPPOSITION_SEARCH",
+            "SEARCH_REAL_PRIMARY_IMPLEMENTATION",
+            "WEB_TOOL_UNAVAILABLE_NO_FICTION"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
            "Behavior-case answers may be leaked to candidate-agent evaluation")
@@ -213,6 +244,7 @@ def main():
                entry["archive"] in text(entry["path"]),
                "Historical entry is not a concise working redirect: " + entry["path"])
         check_relative_markdown_links(entry["path"])
+    check_relative_markdown_links("research/agent_protocol/DEEP_WEB_RESEARCH.md")
     check_relative_markdown_links("research/agent_protocol/E0_STAGE_ANCHOR.md")
     check_relative_markdown_links("research/method_discussion/discoveries/E0/README.md")
     check_relative_markdown_links("research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md")
