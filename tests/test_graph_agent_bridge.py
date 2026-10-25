@@ -1,4 +1,5 @@
 """Pure-static tests of G0–G4 graph ↔ Agent node/evidence index."""
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -36,6 +37,19 @@ class GraphAgentBridgeTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             inspect(self.registry, "F99")
 
+    def test_open_proposal_is_not_experimental_evidence(self):
+        proposed = inspect(self.registry, "P14")
+        self.assertEqual(proposed["node"]["evidence_type"], "OPEN")
+        self.assertEqual(proposed["node"]["availability"], "posthoc_hypothesis_only")
+        self.assertGreaterEqual(len(proposed["node"]["evidence"]), 2)
+        claim_path = Path(__file__).resolve().parents[1] / proposed["node"]["evidence"][0]
+        claim = json.loads(claim_path.read_text(encoding="utf-8"))
+        self.assertEqual(claim["review_status"], "PROPOSED")
+        self.assertEqual(claim["review_refs"], [])
+        self.assertFalse(claim["model_experiment_authorized"])
+        candidate_route = trace(self.registry, "P06", "P14")
+        self.assertEqual(len(candidate_route["edges"]), 1)
+        self.assertTrue(candidate_route["edges"][0]["relation"].startswith("open_hypothesis"))
 
 if __name__ == "__main__":
     unittest.main()
