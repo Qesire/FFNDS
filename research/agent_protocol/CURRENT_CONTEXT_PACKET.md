@@ -19,6 +19,8 @@
 
 **时点与数值对象**：`q2_post`是实际W2输入，而`h=GELU(a)`是Q2前的对象。micro16先于完整token W1，但使用**额外全宽W1和GELU**投影。原HiF4尺度组依赖是该数值实现的约束，与新格式/条件近似/函数重写所允许的计算不同。保存的全通道sample与全token仅占用统计也不是同一范围。
 
+**计算图协作**：同步查阅 [G0–G4](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph↔Agent协议](GRAPH_AGENT_COLLABORATION.md)和 [机器可读节点](GRAPH_AGENT_BINDINGS.json)。独立研究者选与问题相关的若干节点沿原生执行、历史条件、下游功能及成本路径核对证据；新机制/反例另入 [E0图注解](../method_discussion/graph_annotations/E0/README.md)，交叉核查后再由整理者更新图/谱系。图的候选路线为待证实边，不自动代表可运行算子；允许提出新的数学节点和执行路径。
+
 ## 当前第一组开放科学探索
 
 **A FFN函数与非线性**：利用现存完整W1/W2和q2_post，从signed贡献、GELU特别结构、Jacobian和特征表征中找新的计算单位，而不是再检索相同的hidden字段。
