@@ -1,6 +1,10 @@
-# Constructive Research Prompt Playbook v2.3
+# Constructive Research Prompt Playbook v2.4
 
 Prompts are **task-specific creative operators**, not a checklist. Start with the research result or concrete hypothesis, select **one** operator for the current decision and load source only as needed. Add a second operator only when it changes the candidate, evidence or next test. Verification obligations increase at experiment and claim time, not at idea-generation time.
+
+## Default evidence-generating web discovery
+
+Substantive scientific prompts automatically pair their selected creative operator with [Web Research Discovery](WEB_RESEARCH_DISCOVERY.md) when browsing is available. Start from a phenomenon, search several orthogonal literature families (foundational/current, mathematical/implementation, supportive/contrary), inspect primary equations and code, expand via backward/forward citations, and return the nearest competing mechanism and a new discriminating observation. Use [web-research-discovery skill](../.agents/skills/web-research-discovery/SKILL.md). A concise factual lookup retains a narrower retrieval budget.
 
 ## Context assembly
 
