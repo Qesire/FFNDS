@@ -172,6 +172,24 @@ def main():
            len(stage.get("current_open_forks", [])) >= 4 and
            stage.get("new_experiment_authority") == "NONE",
            "Research handoff narrowed or created an implicit experiment queue")
+    # Graph↔Agent index must resolve to real Mermaid node labels, source/evidence
+    # files and link to current E0 study. This is a purely static integrity check.
+    from graph_agent_bridge import load as load_graph_registry, validate as validate_graph_registry
+    graph = active.get("graph_agent_collaboration", {})
+    ensure(graph.get("status") == "ACTIVE_SOURCE_GRAPH_AND_EVIDENCE_DISCUSSION" and
+           graph.get("canonical_stage") == "E0_OPEN_DISCOVERY" and
+           graph.get("model_execution_authority") == "NONE" and
+           graph.get("node_registry") == "research/agent_protocol/GRAPH_AGENT_BINDINGS.json" and
+           graph.get("protocol") == "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md" and
+           graph.get("visual_computation_graph") == "docs/98_端到端计算图与证据注解_20261025.md" and
+           stage.get("graph_agent_protocol") == graph.get("protocol"),
+           "Graph-Agent collaboration missing from current E0 control plane")
+    result = validate_graph_registry(load_graph_registry())
+    ensure(result["nodes"] >= 20 and result["edges"] >= 18 and
+           "GRAPH_AGENT_COLLABORATION.md" in text("AGENTS.md") and
+           "GRAPH_AGENT_BINDINGS.json" in text(".agents/skills/ffnds-paper-discovery/SKILL.md") and
+           "graph_annotations/E0/README.md" in text("research/method_discussion/AGENTS.md"),
+           "Graph Agent registry / multi-agent discovery routing drift")
     # Semantic/creative writing quality is evaluated using blinded case reviews,
     # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")
@@ -331,6 +349,9 @@ def main():
             "E0_QUANTIZER_CLOSURE_NOT_UNIVERSAL",
             "E0_POSTHOC_CONCENTRATION_VS_REAL_VALUE",
             "E0_BROAD_INDEPENDENT_REVIEW_AFTER_LATEST",
+            "GRAPH_AGENT_NODE_CONTEXT_DEFAULT",
+            "GRAPH_AGENT_PROPOSE_REVIEW_UPDATE",
+            "GRAPH_AGENT_QUERY_IS_NOT_EXECUTABLE_TRACE",
              "WARD_PINNED_WEB_RESEARCH_DEFAULT"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
@@ -373,6 +394,9 @@ def main():
     check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_FIRST_TASK_20261025.md")
     check_relative_markdown_links("research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md")
+    check_relative_markdown_links("research/agent_protocol/GRAPH_AGENT_COLLABORATION.md")
+    check_relative_markdown_links("research/method_discussion/graph_annotations/E0/README.md")
+    check_relative_markdown_links("docs/98_端到端计算图与证据注解_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md")
     check_relative_markdown_links("core/WEB_RESEARCH_DISCOVERY.md")
