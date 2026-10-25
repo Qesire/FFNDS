@@ -49,6 +49,14 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(kinds["P18"], "ALG")
         self.assertIn("G5", self.registry["graph_roles"])
 
+    def test_full_depth_video_diagnostics_remain_open_and_policy_is_not_native_evidence(self):
+        kinds={n["id"]:n["evidence_type"] for n in self.registry["nodes"]}
+        self.assertEqual(kinds["P23"], "OPEN")
+        self.assertEqual(kinds["P24"], "OPEN")
+        self.assertEqual(kinds["P25"], "POLICY")
+        self.assertTrue(any(e["from"]=="P23" and e["to"]=="P24"
+                            for e in self.registry["edges"]))
+
     def test_unregistered_discovery_needs_curator(self):
         with self.assertRaises(SystemExit):
             inspect(self.registry, "F99")
