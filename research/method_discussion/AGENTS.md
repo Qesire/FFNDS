@@ -27,6 +27,10 @@
 
 新 Agent 以真实 FFN 计算为核心，从 GELU hidden/FFN weighted-value、有符号 W2 组合与 superposition、跨步创新或下游视频一致性打开新的机制，并用原始源码与已保存数据区分至少两种解释。旧 Block0 residual radial 结果及 HiF4 QDQ 元数据可以服务于新问题，但不会自动指定研究路径。将 `小激活`、`小净作用`、`小终端影响`、`可执行跳过的 tile` 逐项区分。独立评议的成果是改变认识的数学或证据，不是表态。
 
+## 图节点参与独立讨论
+
+**默认加载** [G0–G4计算图](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph-Agent协作协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[节点注册表](../agent_protocol/GRAPH_AGENT_BINDINGS.json)。研究者从机制或视频异常定位真实节点；提交 [E0图锚点claim](graph_annotations/E0/README.md) 时注明 SRC/ALG/OBS/OPEN、最强竞争解释、信息出现时点以及能够改变理解的一条边。独立reviewer先根据实际源码和证据论证再给意见；整理者只把证实的主张连同适用范围写回图/实验图谱，争议与假说仍保留为OPEN。图中已有G4条件路线不限制独立 Agent提出完全不同的机制和图节点。
+
 ## 协作与评议
 
 - **发现者/提案者：** 在 [E0 自有发现文件](discoveries/E0/README.md) 或 `proposals/<method-id>/vN.json` 中保存自己发现的结构、数学/源码依据、竞争解释及下一项观察；早期 operator idea 可保持种子状态。
