@@ -3,6 +3,10 @@
 **Latest upstream synchronization:** AutoResearcher v2.4 WARD is pinned to [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Read [generic research protocol](../../core/WEB_RESEARCH_DISCOVERY.md), [dedicated Skill](../../.agents/skills/web-research-discovery/SKILL.md) and [FFNDS-specific deep Web Search](DEEP_WEB_RESEARCH.md); see [sync procedure](UPSTREAM_SYNC.md) for reproducible future upgrades.
 
 
+## Graph-Agent协作入口
+
+[双向协议](GRAPH_AGENT_COLLABORATION.md) · [G0–G4节点索引](GRAPH_AGENT_BINDINGS.json) · [计算图原文](../../docs/98_端到端计算图与证据注解_20261025.md) · [E0独立图注解](../method_discussion/graph_annotations/E0/README.md)。相关科研 Agent 从真实计算节点检索来源/证据，独立提出与审查机制，再将确定范围的发现反向更新图与实验谱系。
+
 ## 当前科研入口：FFN 本征结构
 
 请从 [E0 FFN 本征研究重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 和 [唯一活跃第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) 开始；真实状态与实验授权见 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。探索 FFN hidden/GELU/W2 有符号贡献、时空条件创新、下游视频敏感性及计算重构。此前的 [E0 gap 总表](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和相关 BF16/HiF4 径向观察已经完成其特定研究阶段，继续用作证据，不再决定下一次 Agent 的首要任务。
