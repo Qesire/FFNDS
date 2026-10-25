@@ -14,7 +14,7 @@ class MetricContractTest(unittest.TestCase):
             return {"n":n,"mean":0.2,"p50":0.1,"p95":0.3,"max":0.4}
         n=4
         r={"schema":SCHEMA,
-           "identity":{"source_id":"fixture","seed":42,"input_prompt_digest":"inputsha","model_digest":"hash",
+           "identity":{"source_id":"fixture","seed":42,"expected_frames":4,"input_prompt_digest":"inputsha","model_digest":"hash",
                        "protocol_sha256":"protocol","run_sha256":"run"},
            "cost":{"generation_wall_seconds":3.1,"ffn_boundary_seconds":.5,
                    "setup_seconds":4.2,"peak_gpu_memory_mib":500},
@@ -72,6 +72,11 @@ class MetricContractTest(unittest.TestCase):
         report["quality_accepted"]=True
         self.assertIn("unsupported accepted quality",validate(report))
 
+    def test_wrong_expected_frame_count_is_rejected(self):
+        report=self.fixture()
+        report["identity"]["expected_frames"]=81
+        self.assertIn("not all expected frames decoded",validate(report))
+
     def test_unpaired_reference_has_own_temporal_metrics(self):
         self.assertEqual(validate(self.fixture(False)),[])
 
@@ -93,7 +98,7 @@ class MetricContractTest(unittest.TestCase):
                     cv2.rectangle(f,(x,15),(x+10,28),(220,220,220),-1)
                     writer.write(f)
                 writer.release()
-            metadata={"identity":{"source_id":"synthetic", "seed":42,
+            metadata={"identity":{"source_id":"synthetic", "seed":42,"expected_frames":4,
                                   "input_prompt_digest":"inputsha","model_digest":"hash","protocol_sha256":"hash","run_sha256":"hash"},
                       "reference_identity":{"source_id":"synthetic","seed":42,"input_prompt_digest":"inputsha","run_sha256":"dense-run"},
                       "cost":{"generation_wall_seconds":1.0,"ffn_boundary_seconds":.2,
