@@ -11,6 +11,8 @@
 - [原生四臂跟进](../20261025/E0_FOLLOWTHROUGH.md) 提示 BF16 写回与下游连续传播差异，属于可供未来功能机制分析的既有证据。star-null 是特定相关误差零模型，不是动作可加的充要条件。详见 [E0_SHARED_REFERENCE_MOMENTS.md](../20261025/E0_SHARED_REFERENCE_MOMENTS.md)。
 - 历史 A5+HWG 发现主体外光照/细节不稳定；将其转为时间/位置/频谱重要性的竞争解释，研究目标仍是同等设置下全视频质量与实际 FFN 计算的 Pareto 改善。
 
+**紧缺原始信息**：以 [K1–K5 字段/机制缺口地图](../20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md) 为下一轮 evidence retrieval 指引：优先完整 FFN sampled hidden 字段覆盖与输出贡献/执行 tile 的对应性；其它专项从竞争假说自然派生。
+
 ## 当前第一组开放科学探索
 
 **A FFN hidden→W2 的有符号贡献、superposition 与敏感子空间**：一个通道激活很小，不必然对应净输出或可删 tile 的价值；检查真实已存字段和能量/Gram/时空条件假说。
