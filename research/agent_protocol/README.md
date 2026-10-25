@@ -3,10 +3,11 @@
 **Latest upstream synchronization:** AutoResearcher v2.4 WARD is pinned to [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Read [generic research protocol](../../core/WEB_RESEARCH_DISCOVERY.md), [dedicated Skill](../../.agents/skills/web-research-discovery/SKILL.md) and [FFNDS-specific deep Web Search](DEEP_WEB_RESEARCH.md); see [sync procedure](UPSTREAM_SYNC.md) for reproducible future upgrades.
 
 
-## 当前科研问题审查入口
+## 当前科研入口：FFN 本征结构
 
-现在的活跃 E0 任务应结合 [2026-10-25 未闭合问题与必需改进](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 阅读：Block0 残差径向结构已被真实保存操作数观察到，但还缺独立评议及完整下游因果支持；Q2 时空、来源覆盖、HiF4/native FP4 的研究边界也必须单独注明。所有 agent 用**来源可追溯的竞争性解释与区分观察**弥补问题；不能把有界且已完成的旧 A100 采集权当成可继续自动运行模型的授权。
+请从 [E0 FFN 本征研究重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 和 [唯一活跃第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) 开始；真实状态与实验授权见 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。探索 FFN hidden/GELU/W2 有符号贡献、时空条件创新、下游视频敏感性及计算重构。此前的 [E0 gap 总表](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和相关 BF16/HiF4 径向观察已经完成其特定研究阶段，继续用作证据，不再决定下一次 Agent 的首要任务。
 
+跨领域原始文献检索始终依照 [DEEP_WEB_RESEARCH.md](DEEP_WEB_RESEARCH.md)，量化元信息一般作为低成本幅值线索；后续如发现真正新的量化结构可建立独立问题。旧 E0 运行范围已完成，没有新的模型/视频/GPU 授权。
 
 ## 深度 Web Search 是默认研究能力
 
