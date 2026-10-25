@@ -6,6 +6,8 @@
 
 研究 Wan 四步蒸馏视频模型 FFN 中的条件计算需求。**从 `W1→GELU→W2` 的激活、W2 有符号贡献、token/step/expert 条件变化、下游视频敏感性和可替代真实计算出发**，主动寻找数学结构、反例和新表示。HiF4 QDQ 是已有实验的数值实现，不是所有方法的默认起点；量化元信息优先视为粗略幅值/范围线索。
 
+**进一步打开的数学表示**：将 FFN 看作按输入与 gate 变化的 weighted-value composition；分析神经元重要性是否受基表示和 superposition 影响，区分 `Σ_j h_j(g⊙W2[:,j])` 的净向量与 `W2 diag(GELU'(a)) W1` 的局部敏感方向。详见 [增补文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。
+
 特别区分：
 
 - `|h_j|` 小：某激活大小的描述。
@@ -23,7 +25,7 @@
 2. **条件时空创新**：四步、双专家、跨位置/跨帧的共同/变化模式，哪些可被便宜地预测，哪些需重新计算？
 3. **下游功能与计算重构**：为什么某些低局部误差引起背景光照/小物体波动？有无与原始 mask/缓存不同的可替代计算表示？
 
-历史 LayerNorm 径向、四臂 star-null、跨来源共同方向、HiF4 scale 统计都作为**按问题检索的证据**，而不是新的第一项工作。详见 [既有观测导航](../EXPERIMENT_EVIDENCE_INDEX.md)、[历史 E0 gap 文档](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和 [研究重置文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。
+先试着解释新结构的实际功能，再从旧 LayerNorm 径向、四臂 star-null、跨来源共同方向与 HiF4 scale 结果检索恰当证据。详见 [既有观测导航](../EXPERIMENT_EVIDENCE_INDEX.md)、[历史 E0 gap 文档](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和 [研究重置文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。
 
 ## AutoResearcher 默认操作
 
