@@ -73,7 +73,7 @@
     "docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md"
   ],
   "experiment_authority": {
-    "all_cpu_gpu_model_experiments": "REGISTERED_INTRINSIC_SCOPES_COMPLETE_NO_PENDING_WORK",
+    "all_cpu_gpu_model_experiments": "REGISTERED_SHARED_TILE_AND_CLOSURE_SCOPES_COMPLETE_NO_PENDING_WORK",
     "paused_by": "research/20261024/EXPERIMENT_PAUSE.json",
     "eligible_model_method_ids": [],
     "automatic_followups": false,
@@ -216,10 +216,76 @@
           "official_quality_calls": 0,
           "peak_simultaneous_GPU_cards": 1
         }
+      },
+      {
+        "id": "E0_CONTIGUOUS_NATIVE_OPERANDS_20261025",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "date": "2026-10-25",
+        "protocol": "config/e0_contiguous_native_20261025.json",
+        "protocol_sha256": "65f5b4b8bd087e1e3a83c0c3641241767b8d2b30be37b5eb4356d5e98e817598",
+        "scope": "Two unchanged dense generations on exposed source0/12, seed42. Save three original contiguous M128 tiles plus old random32 control rows at20 FFN positions each; no sparse action. All original trajectories/videos/counts and five fields on old rows must match.",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "max_full_generations_total": 2,
+        "automatic_retry": false,
+        "pending_model_jobs": 0,
+        "pending_GPU_analysis_jobs": 0,
+        "completed_document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "actual_budget": {
+          "full_generations": 2,
+          "failed_generations": 0,
+          "retries": 0,
+          "peak_GPU_cards": 2,
+          "extra_native_FFN_calls": 0,
+          "training_updates": 0
+        }
+      },
+      {
+        "id": "E0_SHARED_TILE_PRE_W1_SAVED_20261025",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "date": "2026-10-25",
+        "protocol": "config/e0_shared_tile_saved_20261025.json",
+        "protocol_sha256": "367dc58787837faa2d13963684b924d20226b007604b4dd27e48250b76cf8c91",
+        "scope": "Two accepted contiguous native sources;20 source-step-block pairs and80 layout/tile descriptions. Same-expert delta q reconstructed with original BF16-cast W2 and current gate. Seven shared or pre-W1 descriptions plus pointwise posthoc comparator at exact matched channel counts. No model return, training, decomposition or official scoring.",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "automatic_retry": false,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "completed_document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "actual_budget": {
+          "new_generations": 0,
+          "peak_GPU_cards": 1,
+          "diagnostic_projections": {
+            "W1": 80,
+            "W2": 2020
+          }
+        }
+      },
+      {
+        "id": "E0_SHARED_COLUMNS_ORIGINAL_QUANTIZER_CLOSURE_20261025",
+        "protocol": "config/e0_shared_closure_20261025.json",
+        "protocol_sha256": "a1ca56136c88ea3ad527108b3c33a5c449fa13f2da7a2fbdddb8907357f4cbff",
+        "scope": "Saved contiguous M128 cases only; measure original group4/8/64 dependency closure, recheck prior exact selections and compare matched group64-closed shared diagonal subset. No native/model/QDQ call.",
+        "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+        "execution_status": "COMPLETE",
+        "max_gpu_cards": 4,
+        "automatic_retry": false,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "completed_document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+        "actual_budget": {
+          "new_generations": 0,
+          "peak_GPU_cards": 1,
+          "diagnostic_projections": {
+            "W1": 40,
+            "W2": 260
+          }
+        }
       }
     ]
   },
-  "model_execution_authority": "USER_AUTHORIZED_INTRINSIC_FFN_SCOPES_COMPLETE_NO_PENDING_JOB",
+  "model_execution_authority": "USER_RENEWED_CONTIGUOUS_NATIVE_AND_SAVED_SCOPES_COMPLETE_NO_PENDING_JOB",
   "research_navigation": "research/RESEARCH_NAVIGATION.md",
   "question_relationship": "COUPLED_LENSES_NON_SEQUENTIAL_INFORMATION_DECISION_COMPUTE",
   "research_interfaces": {
@@ -307,26 +373,26 @@
     "transition_authority": "EXPLICIT_USER_DIRECTED_SERIALIZED_COORDINATOR_UPDATE_ONLY",
     "new_experiment_authority": "NONE",
     "latest_deliverable": {
-      "status": "COMPLETE_INTRINSIC_FULL_HIDDEN_AND_NATIVE_SUPPORT_DISCOVERY",
-      "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+      "status": "COMPLETE_SHARED_COLUMNS_PRE_W1_AND_NATIVE_DEPENDENCY_DISCOVERY",
+      "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
       "native_observations": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
       "residual_geometry": "research/20261025/E0_RESIDUAL_GEOMETRY.json",
       "temporal_structure": "research/20261025/E0_TEMPORAL_STRUCTURE.json",
       "profile_outliers": "research/20261025/E0_PROFILE_OUTLIERS.json",
       "candidate_operator_selected": false,
       "stage_changed": false,
-      "new_structural_result": "On six exposed sources/all13824 coefficients, same-expert innovation reconstructed at25% individual value-energy-ranked channels has2.44%-7.07% relative SSE across five observed blocks; same-budget contiguous64 group-energy ranking has32.42%-54.67%. Two unchanged full native generations show all observed original M16/64/128xK64 support blocks remain nonempty even at12.5% element retention. All8 latent,2 video and40 FFN sample hashes match historical dense. Concentrated innovations and physically empty original tiles are distinct. No sparse candidate executed or speed/quality acceptance.",
-      "open_discriminator": "At the same column budget, compare joint signed-function support shared by a contiguous token tile against pointwise support, with a genuinely pre-W1 observation and packing/read costs; alternatively inspect conditional FFN representations such as jointly antipodal read/write/bias populations. Current random32 rows and full-M occupancy summaries do not supply the required adjacent coefficient vectors. No model job queued.",
+      "new_structural_result": "Two unchanged dense native videos supply3 original contiguous M128 tiles at40 positions;20 same-expert pairs and80 layout descriptions. At25% columns pre-W1 micro16 GELU/value ranking has6.55% innovation SSE in Block39 but42%-47% in observed middle blocks, where shared posthoc diagonal itself has39%-42%. Common token innovation energy is65%/78% at Block0/39 versus10%-14% in the three middle blocks. Every tested25% arbitrary shared set touches all216 native HiF4 groups, so direct native Q2 closure does not permit the same W1 reduction. A one-input-change synthetic original-Python HiF4 reference changes all64 outputs. No sparse speed or candidate quality acceptance.",
+      "open_discriminator": "Study a joint function/execution unit rather than retune the same topk: shared common update plus token-specific innovation, different spatial organization, or explicit quantizer-tree dependency actions. Distinguish W1 and W2 budgets and changed-Q2-output support. Existing contiguous operands now suffice for initial discrimination; no need to recapture these fields. E0 and algorithm selection unchanged; no job queued.",
       "literature_crosscheck": {
         "date": "2026-10-25",
-        "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
         "previous_documents": [
           "research/20261025/E0_RADIAL_PAIRING.md",
           "research/20261025/E0_TEMPORAL_CALIBRATION.md",
           "research/20261025/E0_FOLLOWTHROUGH.md",
           "research/20261025/E0_DISCOVERY.md"
         ],
-        "coverage": "Geva weighted-value original paper; Chipmunk v1 MLP Algorithms5-7 and memory AppendixB4 plus author theory blog; Activation Concentration v2 full-M methods/simulator distinction; NVIDIA GEMM tile/wave guide; SVD-Cache v1 reference-basis/EMA equations; MagCache v1 norm model; author Pythia antipodal GELU blog with conditional algebra only. No complete prior algorithm/kernel reproduction claimed."
+        "coverage": "Pinned Chipmunk official module/ops/MM1/MM2 source at177fdefc4803e621fd8a02aad491812e9d1ecc94, author PartsI/II and original paper; TaylorSeer v1 §3.2 equations4-10; actual native HiF4 group64/8/4 Python/CUDA dependencies and two CPU original-reference synthetic calls. No complete prior system/kernel reproduction."
       },
       "independent_e0_peer_review_status": "PENDING_EXPLICIT_OTHER_AGENT_RECONSTRUCTION",
       "gaps_and_required_remedies": "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md",
@@ -344,11 +410,86 @@
       "radial_pairing": "research/20261025/E0_RADIAL_PAIRING.json",
       "radial_source_transfer": "research/20261025/E0_RADIAL_TEMPLATE.json",
       "previous_radial_document": "research/20261025/E0_RADIAL_PAIRING.md",
-      "intrinsic_full_hidden": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json"
+      "intrinsic_full_hidden": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json",
+      "previous_document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+      "shared_tile_preW1": "research/20261025/E0_SHARED_TILE_PRE_W1.json",
+      "shared_tile_closure": "research/20261025/E0_SHARED_TILE_CLOSURE.json",
+      "native_column_dependency_counterexample": "research/20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json"
     },
     "open_problems_document": "research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md",
     "problem_priority": "First inspect intrinsic FFN signed contribution/concentration, temporal innovation, and downstream functional sensitivity; distinguish local magnitude, net FFN action, finite video value and physically removable work. Keep radial/4-arm findings as relevant evidence, not the default route.",
     "latest_completed_observation": {
+      "id": "E0_CONTIGUOUS_NATIVE_OPERANDS_20261025",
+      "status": "COMPLETE",
+      "protocol": "config/e0_contiguous_native_20261025.json",
+      "protocol_sha256": "65f5b4b8bd087e1e3a83c0c3641241767b8d2b30be37b5eb4356d5e98e817598",
+      "source_indices": [
+        0,
+        12
+      ],
+      "actual_full_generations": 2,
+      "max_concurrent_GPU_cards": 4,
+      "actual_peak_GPU_cards": 2,
+      "pending_model_jobs": 0,
+      "candidate_operator_selected": false,
+      "stage_changed": false,
+      "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+      "result": "research/20261025/E0_SHARED_TILE_PRE_W1.json"
+    },
+    "latest_saved_analysis": {
+      "id": "E0_SHARED_TILE_AND_NATIVE_DEPENDENCY_20261025",
+      "status": "COMPLETE",
+      "protocols": [
+        "config/e0_shared_tile_saved_20261025.json",
+        "config/e0_shared_closure_20261025.json"
+      ],
+      "source_clusters": 2,
+      "same_expert_pairs": 20,
+      "layout_tile_descriptions": 80,
+      "diagnostic_W1_projections": 120,
+      "diagnostic_W2_projections": 2280,
+      "CPU_original_quantizer_synthetic_calls": 2,
+      "new_native_FFN_calls": 0,
+      "new_native_norm_calls": 0,
+      "training_updates": 0,
+      "document": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+      "result": "research/20261025/E0_SHARED_TILE_PRE_W1.json",
+      "closure_result": "research/20261025/E0_SHARED_TILE_CLOSURE.json",
+      "previous_saved_analysis": {
+        "id": "E0_INTRINSIC_FULL_HIDDEN_SAVED_GPU_20261025",
+        "status": "COMPLETE",
+        "plan": "config/e0_intrinsic_saved_gpu_20261025.json",
+        "plan_sha256": "2e53fbe18cf4553b3787bbc1bab9753e7ed43574f27cc3e6f530a073271dfb9e",
+        "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+        "result": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json",
+        "source_clusters": 6,
+        "uniform_rows_per_scope": 32,
+        "hidden_width": 13824,
+        "absolute_cases": 120,
+        "same_expert_innovation_cases": 60,
+        "new_generations": 0,
+        "GPU_cards_used": 1,
+        "new_native_FFN_calls": 0,
+        "new_native_norm_calls": 0,
+        "model_training_updates": 0,
+        "diagnostic_small_W2_subset_projections": 2160,
+        "diagnostic_full_reference_projections": 120,
+        "diagnostic_batched_216_group_projections": 360,
+        "candidate_operator_selected": false,
+        "stage_changed": false,
+        "previous_saved_analysis": {
+          "id": "E0_SAVED_RADIAL_PAIRING_DISCRIMINATION_20261025",
+          "plan": "config/e0_radial_pairing_saved_20261025.json",
+          "document": "research/20261025/E0_RADIAL_PAIRING.md",
+          "result": "research/20261025/E0_RADIAL_PAIRING.json"
+        }
+      }
+    },
+    "next_discussion_handoff": "research/20261025/E0_FFN_FIRST_TASK_20261025.md",
+    "discussion_priority": "Independent E0 mechanism findings: FFN signed contribution, conditional spatiotemporal change, and downstream function; quantization format/scale research retained as secondary evidence/deployment context.",
+    "guidance_evidence_commit": "5edf2dcc440dd4e3ddac808c64e5ba7c8d0f3757",
+    "peer_review_next_status": "PENDING_INDEPENDENT_AGENT_SOURCE_MATH_CHECK",
+    "previous_completed_observation": {
       "id": "E0_INTRINSIC_NATIVE_FULL_M_SUPPORT_20261025",
       "status": "COMPLETE",
       "protocol": "config/e0_intrinsic_native_support_20261025.json",
@@ -367,51 +508,6 @@
       "stage_changed": false,
       "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
       "result": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json"
-    },
-    "latest_saved_analysis": {
-      "id": "E0_INTRINSIC_FULL_HIDDEN_SAVED_GPU_20261025",
-      "status": "COMPLETE",
-      "plan": "config/e0_intrinsic_saved_gpu_20261025.json",
-      "plan_sha256": "2e53fbe18cf4553b3787bbc1bab9753e7ed43574f27cc3e6f530a073271dfb9e",
-      "document": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
-      "result": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json",
-      "source_clusters": 6,
-      "uniform_rows_per_scope": 32,
-      "hidden_width": 13824,
-      "absolute_cases": 120,
-      "same_expert_innovation_cases": 60,
-      "new_generations": 0,
-      "GPU_cards_used": 1,
-      "new_native_FFN_calls": 0,
-      "new_native_norm_calls": 0,
-      "model_training_updates": 0,
-      "diagnostic_small_W2_subset_projections": 2160,
-      "diagnostic_full_reference_projections": 120,
-      "diagnostic_batched_216_group_projections": 360,
-      "candidate_operator_selected": false,
-      "stage_changed": false,
-      "previous_saved_analysis": {
-        "id": "E0_SAVED_RADIAL_PAIRING_DISCRIMINATION_20261025",
-        "plan": "config/e0_radial_pairing_saved_20261025.json",
-        "document": "research/20261025/E0_RADIAL_PAIRING.md",
-        "result": "research/20261025/E0_RADIAL_PAIRING.json"
-      }
-    },
-    "next_discussion_handoff": "research/20261025/E0_FFN_FIRST_TASK_20261025.md",
-    "discussion_priority": "Independent E0 mechanism findings: FFN signed contribution, conditional spatiotemporal change, and downstream function; quantization format/scale research retained as secondary evidence/deployment context.",
-    "guidance_evidence_commit": "5edf2dcc440dd4e3ddac808c64e5ba7c8d0f3757",
-    "peer_review_next_status": "PENDING_INDEPENDENT_AGENT_SOURCE_MATH_CHECK",
-    "previous_completed_observation": {
-      "id": "E0_FINITE_GROUP_CAUSAL_DIAGNOSTIC",
-      "status": "COMPLETE",
-      "source_clusters_registered": 6,
-      "full_generations_max": 40,
-      "max_concurrent_GPU_cards": 4,
-      "candidate_operator_selected": false,
-      "stage_changed": false,
-      "document": "research/20261025/E0_FOLLOWTHROUGH.md",
-      "actual_full_generations": 40,
-      "pending_model_jobs": 0
     }
   },
   "web_research": {
@@ -442,7 +538,7 @@
       "real computable simplification and conditionally available information"
     ],
     "previous_radial_and_star_null": "HISTORICAL_COMPLETED_MECHANISM_EVIDENCE_NOT_CURRENT_GENERAL_TASK",
-    "execution": "NONE_NEW; ALL_PREVIOUS_MODEL_SCOPES_COMPLETED",
+    "execution": "NONE_PENDING; ALL_REGISTERED_MODEL_AND_GPU_SCOPES_COMPLETED",
     "knowledge_gaps": "research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md",
     "current_scientific_reinterpretation": "Weighted-value FFN composition, signed contributions, GELU-constrained reparameterization, temporal innovation, video function and genuine execution tiles are complementary research coordinates.",
     "editorial_review": "AUTO_RESEARCHER_MECHANISM_EXPANSION_PRD_WARD_20261025",

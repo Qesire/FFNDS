@@ -1,0 +1,65 @@
+{
+  "id": "E0_SHARED_COLUMNS_ORIGINAL_QUANTIZER_CLOSURE_20261025",
+  "status": "FROZEN_BEFORE_GPU_EXECUTION",
+  "user_instruction": "你不是机械执行命令啊，你是要持续推进，去完成项目的啊，请你继续",
+  "base_commit": "94929b2",
+  "source_indices": [
+    0,
+    12
+  ],
+  "blocks": [
+    0,
+    10,
+    20,
+    30,
+    39
+  ],
+  "retained_fractions": [
+    0.125,
+    0.25,
+    0.5
+  ],
+  "selectors": [
+    "posthoc_shared_diagonal",
+    "preW1_micro16_gelu_value",
+    "preW1_mean_preact"
+  ],
+  "bound_sources": {
+    "tools/run_e0_shared_tiles.py": "e39cbc3f33a01d0dc5673725794fa681e0b3530cdea1220918dcdf2d82d63a4f",
+    "tools/e0_shared_tile_math.py": "cca1a538eeced0405f0ef1fdaa0ad80b79e48b83e94ba478ae3c4c0ebba27ce0",
+    "tools/e0_intrinsic_math.py": "8af6014373bbee83422dd4c26c1c3b41f98754d02954d62e8f5099ebff7573ad",
+    "tools/analyze_ffnds_observations.py": "c20003603ceb4bd0f263254464dedf02eff544a428b0c1137a9fd122bb4f2da7",
+    "tools/ffnds_observation_common.py": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    ".runtime/hif4_rebuilt_cache.json": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+    "research/20261025/E0_NATIVE_OBSERVATIONS.json": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5",
+    "config/e0_contiguous_native_20261025.json": "65f5b4b8bd087e1e3a83c0c3641241767b8d2b30be37b5eb4356d5e98e817598",
+    "tools/run_e0_shared_closure.py": "503666a4802ca311261e30b9bcbff0e614882f1b8efb94c076df1f3e2a599bc2",
+    "research/20261025/E0_SHARED_TILE_PRE_W1.json": "1ed8c5944e248624a48315eab66d552511c43ff6237550bb586b81a4d371aa43",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QFuncs/hifx.py": "6a8d1f1b8ea49ce099439cff251309b4d9b3eeeab6a7ee0a83bdcf85b24704f7"
+  },
+  "scope": "Saved contiguous M128 cases only; measure original group4/8/64 dependency closure, recheck prior exact selections and compare matched group64-closed shared diagonal subset. No native/model/QDQ call.",
+  "hypotheses": [
+    "Arbitrary shared columns also occupy few original HiF4 groups, so original groupwise Q2 is directly compatible with reduced W1.",
+    "They touch nearly all original64 groups; the existing native quantizer needs a larger operand set than W2 selection. Whole-group selection trades function accuracy for direct closure."
+  ],
+  "projection_limits": {
+    "W1": 40,
+    "W2": 260
+  },
+  "max_gpu_cards": 4,
+  "planned_GPU_cards": 1,
+  "max_HF_output_gib": 0.02,
+  "new_generations": 0,
+  "native_QDQ_calls": 0,
+  "training_updates": 0,
+  "new_decompositions": 0,
+  "automatic_retry": false,
+  "claims_excluded": [
+    "Universal lower bound on all algorithms",
+    "Native quality or speed acceptance",
+    "Full prior algorithm reproduction"
+  ]
+}

@@ -102,6 +102,8 @@
 | **E13 全hidden创新与函数支持** | [完整13824通道/216组](20261025/E0_INTRINSIC_FULL_HIDDEN.md)：六来源180案例，25%单通道value对角排名的同专家创新SSE **2.44%–7.07%**；同预算连续64组后验能量排名 **32.42%–54.67%** | *GPU保存操作数/ALG*：创新比分别的绝对输出集中，但当前对角/组排名不是联合最优或前置selector；不能把通道集中直接变为视频质量结论 |
 | **E14 完整M支持与原布局** | [两来源原生被动](20261025/E0_INTRINSIC_FULL_HIDDEN.json)：完整M=31668，原系数/创新每行12.5%保留时，所测 **M16/64/128×K64全部非空**；8latent、2视频、40FFN采样哈希与原dense一致 | *NATIVE被动支持*：保持这些逐行集合时原块无空闲；不排除另一共享任意列集合、packing、时空重排或条件表示。未测稀疏kernel速度 |
 | **E15 W2后验更新的四步代价上界** | [本征报告计算式](20261025/E0_INTRINSIC_FULL_HIDDEN.md)：若只在同专家第二次调用减少W2，ρ=25%时最多减少 **18.75%总投影MAC** | *ALG/边界限定*：W1/GELU/Q2已付成本，前置选择或其他表示才可能突破此具体策略的上界；不是所有FFN方法的上界 |
+| **E16 连续token共享列与前置观察** | [两来源M128跟进](20261025/E0_SHARED_TILE_PRE_W1.md)：25%列的前置micro16 GELU/value在Block39创新SSE6.55%，中间观测层42%–47%；共同创新能量首尾65%/78%、中间10%–14% | *NATIVE被动字段/GPU保存诊断*：共享后验也损失逐行优势，观察器不是唯一瓶颈；原raster分组不等于voxel重排，未获速度/质量结论 |
+| **E17 W1/W2依赖边界不同** | [原量化组闭包](20261025/E0_SHARED_TILE_CLOSURE.json)：25%任意共享列触及所有216组；[原始Python合成](20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json)只改一输入却改变64个Q2输出 | *SOURCE/保存数据/合成*：直接原生求值的W1预算不能按W2选择率计算；不是所有认证max/尺度缓存/新表示的下界；新函数/执行单位仍开放 |
 | **E13 E0 技术可复现性** | [original 12 gens](20261025/E0_NATIVE_OBSERVATIONS.json)、[cross worker](20261025/E0_CROSS_WORKER_REPRODUCTION.json)：被动hook没有改变视频/latent SHA；10次跨worker、210项配对hash一致 | *NATIVE控制*：建立此批数据可信度；不是新的独立scene sample，也不是新的算法收益。G00–G10 |
 
 ## 7. M 族：将所有结果组织成可检验的机制，而不是路径偏好
