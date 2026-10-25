@@ -1,10 +1,19 @@
 # E0 · 当前唯一研究任务：从最新证据发现新的 FFN 条件计算机制
 
-**当前阶段：`E0_OPEN_DISCOVERY`**。科学纲领：[FFN 本征计算](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)；最新独立审查：[分歧与探索空间](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；原始数据：[完整hidden](E0_INTRINSIC_FULL_HIDDEN.md)、[连续token / 前置选择](E0_SHARED_TILE_PRE_W1.md)、[K1–K5更新](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)；授权与唯一状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
+**当前阶段：`E0_OPEN_DISCOVERY`**。**最新科学证据和任务再审**：[全层affine/奇偶机制/强dense基线与研究空间](E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)。40层旧导数/局部affine与原生权重常驻研究已完成；新的任务必须从这些结果提供的开放解释出发，而不以当前folding或共享列当作必选算子。科学纲领：[FFN 本征计算](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)；最新独立审查：[分歧与探索空间](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；原始数据：[完整hidden](E0_INTRINSIC_FULL_HIDDEN.md)、[连续token / 前置选择](E0_SHARED_TILE_PRE_W1.md)、[K1–K5更新](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)；授权与唯一状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
 
 ## Agent 与计算图共同完成研究
 
-本任务必须接入 [G0–G4计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent双向协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)。Agent选择实际相关节点（如 `G18→F04→F06→F08→F09→F12→G21`），核对源代码/张量语义/决策时点/后续影响，再用 [图节点证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json) 提取已存实验和开放问题。新机制、反例与研究缺口在 [独立图注解目录](../method_discussion/graph_annotations/E0/README.md) 署名提交；另一 Agent交叉核查，确认后反向注解计算图、谱系及新OPEN边。对源代码提出的新结构可以先创建待证实的新图节点，不以现有G4方法穷尽科研方向。图是图谱/审查接口，当前尚非可执行运行时动态图。
+本任务默认使用 [G0–G5计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent双向协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)。Agent选择实际相关节点（如 `G18→F04→F06→F08→F09→F12→G21`），核对源代码/张量语义/决策时点/后续影响，再用 [图节点证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json) 提取已存实验和开放问题。新机制、反例与研究缺口在 [独立图注解目录](../method_discussion/graph_annotations/E0/README.md) 署名提交；另一 Agent交叉核查，确认后反向注解计算图、谱系及新OPEN边。对源代码提出的新结构可以先创建待证实的新图节点，不以现有G4方法穷尽科研方向。图是图谱/审查接口，当前尚非可执行运行时动态图。
+
+## 本轮已验证进展带来的新科研起点
+
+- 全40层完整M旧`GELU'`均值已经测过，但输出误差只在采样128/32行评价。0→1只有1/40层输出SSE低于5%，2→3有10/40层；**不再重复收集相同全层字段**。
+- 所测另一来源affine折叠＋27固定完整64组余项，与**所测另一来源固定组能量删组67组**理想投影MAC匹配；uniform32局部输出SSE均值11.27%对43.13%。两来源为已暴露source0/seed42与source12/seed54，且原生近似候选未执行；这是值得解释的**函数表示差异**，并不宣布affine或64组最优。
+- GELU的`φ(a)=a/2+e(a)`（`e`为偶函数）可能解释固定斜率，并与热区OLS/有符号W2抵消相竞争。固定半斜率测试是一种可判别方法，**不规定每位Agent都研究它**。
+- 原样dense常驻权重在A100 80GB的相同phase热态完整生成75→50秒，18视频/72latent SHA保持一致；它**没有省任何FFN主GEMM算术**，而是必须纳入未来部署比较的强基线。高显存策略是一个物理实现分支，不是整个项目的研究目标。
+
+**今后可以从任意真实机制开始**：条件非线性/有符号函数基、输入信息与决策价值、时空层/步异质性、下游视频误差模式、真实可删W1/W2/内存工作以及静态/动态/小型后训练自由度。允许一个Agent深入一项突破性机制，也允许多个Agent分别检验不同假说。图G5仅组织本次成果，不将`P15–P18`转成所有Agent的固定路线。
 
 ## 1. 现在真正需要解释的科学张力
 
@@ -48,4 +57,4 @@
 
 独立 Agent 在[研究发现目录](../method_discussion/discoveries/E0/README.md)保存各自的实质推导；独立reviewer通过不同的源码/数学/论文检验精确主张。[讨论队列](../method_discussion/QUEUE.md)只在出现具体提案与真实同行评议时更新；研究讨论不自动升级成操作员部署队列。
 
-**当前执行状态**：最新共享/closure、连续捕获与完整hidden研究都已完成，0待执行模型/GPU任务。阶段仍为`E0_OPEN_DISCOVERY`；后续新GPU、模型、训练或视频实验需新的用户授权。成熟方法再进行真实FFN及端到端时延、配对自由四步视频背景/闪烁/运动/细节评价。
+**当前执行状态**：全层导数、跨源affine/余项、密集权重常驻及此前shared/closure完整hidden研究均已完成，0待执行模型/GPU任务。阶段仍为`E0_OPEN_DISCOVERY`；后续新GPU、模型、训练或视频实验需新的用户授权。成熟方法再进行真实FFN及端到端时延、配对自由四步视频背景/闪烁/运动/细节评价。
