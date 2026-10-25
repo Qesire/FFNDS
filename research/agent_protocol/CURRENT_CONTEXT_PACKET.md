@@ -1,6 +1,6 @@
 # FFNDS · E0 当前科学上下文（2026-10-25）
 
-**唯一活跃科学入口**：[FFN 本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) → [首个 FFN 科学发现任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) → [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。本文件是阅读索引，不增加实验权限。**从 FFN 内部的 W1/GELU/W2 有符号贡献、条件时空变化、传播功能和可替代计算开始；量化只在具有额外机制证据时充当研究主因。**
+**唯一活跃科学入口**：[FFN 本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) → [首个 FFN 科学发现任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) → [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。本文件是阅读索引，不增加实验权限。**从 FFN 的输入系数与 W2 value vectors、有符号组合、时空变化、下游功能和可替代计算开始；量化尺度属于辅助幅值线索。**
 
 ## 真实对象与解释口径
 
@@ -13,13 +13,13 @@
 
 ## 当前第一组开放科学探索
 
-**A FFN hidden→W2 的有符号贡献与有效计算支持**：一个通道激活很小，不必然对应净输出或可删 tile 的价值；检查真实已存字段和能量/Gram/时空条件假说。
+**A FFN hidden→W2 的有符号贡献、superposition 与敏感子空间**：一个通道激活很小，不必然对应净输出或可删 tile 的价值；检查真实已存字段和能量/Gram/时空条件假说。
 
 **B FFN token×空间×step×expert 的条件创新**：什么绝对输出和更新量能真正共享/复用？区分同坐标与同物体，4步双专家意味着有限历史可用。
 
 **C FFN 对下游视频功能的有限影响与计算重构**：用残差/attention/去噪轨迹连接局部作用与背景光照/细小动态敏感性；提炼新的可省算自由度，不能将旧 dense completion 当成研究目标。
 
-独立挑战者通过 [研究文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md) 查最接近的 Chipmunk / RT-Lynx / DiffSparse / Activation Concentration 等原始工作，核对对象、信息时序、训练负担和实际 kernel。默认 AutoResearcher v2.4 的 mechanism-research、research-expansion、problem-reformulation、[WARD 深度检索](DEEP_WEB_RESEARCH.md)。所有 Agent 在 [E0 独立讨论](../method_discussion/discoveries/E0/README.md) 保存自己有实质差异的科学贡献。
+独立挑战者通过 [扩展研究文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md) 对照 Geva/FFN weighted-values、superposition、Chipmunk、RT-Lynx、AdaCache、VBench 与 GPU tiling 等原始工作，核对对象、信息时序、训练负担和实际 kernel。默认 AutoResearcher v2.4 的 mechanism-research、research-expansion、problem-reformulation、[WARD 深度检索](DEEP_WEB_RESEARCH.md)。所有 Agent 在 [E0 独立讨论](../method_discussion/discoveries/E0/README.md) 保存自己有实质差异的科学贡献。
 
 ## 可使用的证据与能力边界
 
