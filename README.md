@@ -8,7 +8,7 @@
 
 ## Agent × computation-graph scientific workflow
 
-All FFNDS research agents now use the [G0–G4 source graph](docs/98_端到端计算图与证据注解_20261025.md) together with the [Graph↔Agent collaboration protocol](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) and [node/edge/evidence registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json). Agents retrieve relevant computation/decision-time/downstream paths, independently attach hypotheses and evidence to [E0 graph claims](research/method_discussion/graph_annotations/E0/README.md), review one another's mechanisms, and the serialized integrator annotates supported findings back into the graph and experiment atlas. The interface is a **read-only static lookup plus reviewed annotation workflow**, not a runnable model-tracing application.
+All FFNDS research agents now use the [G0–G5 source graph](docs/98_端到端计算图与证据注解_20261025.md) together with the [Graph↔Agent collaboration protocol](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) and [node/edge/evidence registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json). Agents retrieve relevant computation/decision-time/downstream paths, independently attach hypotheses and evidence to [E0 graph claims](research/method_discussion/graph_annotations/E0/README.md), review one another's mechanisms, and the serialized integrator annotates supported findings back into the graph and experiment atlas. The interface is a **read-only static lookup plus reviewed annotation workflow**, not a runnable model-tracing application.
 
 ## Experiment findings and source-linked computation graph
 
@@ -31,6 +31,8 @@ Read [ranked experimental evidence](research/EXPERIMENT_EVIDENCE_INDEX.md), [cur
 Every research agent uses [AutoResearcher](https://github.com/Qesire/AutoResearcher/tree/8b88a52d894568dc303db727decfbf13b5fabf3b) automatically through [AGENTS.md](AGENTS.md): discover a mechanism → reconstruct relevant source → derive and discriminate → compare closest published work → implement/measure when authorized → record what was learned. The minimal [FFNDS paper-discovery skill](.agents/skills/ffnds-paper-discovery/SKILL.md) provides domain context. Suggestions and exploratory math are not gated by whether an exact experiment already exists.
 
 ## Project state
+
+**Newest direction review:** [E0 all-depth function vs exact-dense residency and competing mechanisms](research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md). The G5 graph keeps original dense system speed, sampled affine improvement, GELU odd/even explanatory alternatives, and video-functional/open real FFN savings separate; no method selected.
 
 **Exact-output runtime improvement and all-depth FFN followthrough:** [dense weight residency](research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md) reduces warm complete generation on the same A100 80GB from75.17/75.37s to50.42/50.79s (~1.49×), at77.08GiB sampled physical peak. All18 videos and72 scheduler latent hashes match historical dense. FFN MACs are unchanged. Original/no-flush reciprocal card controls, first-generation costs, memory and opt-in reusable helpers are retained; no automatic default switch or research-stage promotion.
 
