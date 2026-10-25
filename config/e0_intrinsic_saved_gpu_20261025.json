@@ -1,0 +1,107 @@
+{
+  "id": "E0_INTRINSIC_FULL_HIDDEN_SAVED_GPU_20261025",
+  "schema_version": "1.0",
+  "status": "FROZEN_BEFORE_GPU_EXECUTION",
+  "base_commit": "61a4566",
+  "user_instruction": "同步最新，然后继续推进，不要害怕用gpu",
+  "user_instruction_date": "2026-10-25",
+  "stage": "E0_OPEN_DISCOVERY",
+  "question": "Do coefficient concentration, signed W2 value contribution, and whole64 physical support describe the same conditional computation? Contrast absolute coefficients with same-expert innovations.",
+  "hypotheses": [
+    "A few large coefficients dominate both diagonal and net W2 output; the same source-fixed coordinates transfer.",
+    "W2 norms and signed cross terms make coefficient mass a poor account of net output; source-conditioned support and a strong fixed reference differ.",
+    "Sparse point supports remain dispersed over K64 and many rows, so neuron retention need not leave removable dense tiles."
+  ],
+  "accepted_observations": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
+  "accepted_observations_sha256": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5",
+  "cache_manifest": ".runtime/hif4_rebuilt_cache.json",
+  "cache_manifest_sha256": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef",
+  "source_indices": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "source_strata": {
+    "subject": 3,
+    "background": 3,
+    "camera": 0
+  },
+  "blocks": [
+    0,
+    10,
+    20,
+    30,
+    39
+  ],
+  "steps": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "uniform_rows": 32,
+  "hidden_width": 13824,
+  "group_width": 64,
+  "all_hidden_groups": 216,
+  "same_expert_innovation_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "innovation_target": "Current-gate weighted W2 times (current original post-Q2 coefficients minus previous same-expert coefficients). Previous/current coordinates align; not object tracking. This retimes an ungated cache with the current gate, not a claim that gates stay fixed.",
+  "retained_fractions": [
+    0.125,
+    0.25,
+    0.5
+  ],
+  "random_seed": 20261025,
+  "neuron_controls": [
+    "postQ2 coefficient magnitude",
+    "individual value diagonal energy",
+    "other-five-source fixed diagonal support",
+    "source-independent seeded fixed random support"
+  ],
+  "group_controls": [
+    "postQ2 coefficient energy",
+    "individual value diagonal energy summed per64",
+    "actual signed group output energy (posthoc)",
+    "other-five-source fixed group-energy support",
+    "source-independent seeded fixed random support"
+  ],
+  "source_fixed_fit": "Each source contributes equally after its own total diagonal/group energy normalization. Hold out the complete source, within same step/block/mode; all sources already discovery-exposed.",
+  "math_semantics": "FP64 GPU reconstructions with original cached weights cast through native BF16; all five saved weight panels matched exactly before casting. Absolute whole-W2 output compared against saved native FFN output with original bias/gate. These reconstructions are diagnostics, not native finite deletion or speed/quality acceptance.",
+  "max_cases": 180,
+  "absolute_cases": 120,
+  "same_expert_innovation_cases": 60,
+  "max_small_W2_subset_projections": 2160,
+  "max_full_reference_projections": 120,
+  "max_batched_group_projections": 360,
+  "max_gpu_cards": 4,
+  "planned_simultaneous_GPU_cards": 1,
+  "new_full_model_generations": 0,
+  "extra_native_FFN_calls": 0,
+  "standalone_native_norm_calls": 0,
+  "training_updates": 0,
+  "new_decompositions": 0,
+  "new_model_downloads": 0,
+  "max_new_HF_output_gib": 0.5,
+  "automatic_retry": false,
+  "no_automatic_followup": true,
+  "driver_sources_sha256": {
+    "tools/run_e0_intrinsic_saved_gpu.py": "7d1f8c8eb3878c12c3b813c468dc2679a26b8a13aaedea8a32f209000fc0f3ac",
+    "tools/e0_intrinsic_math.py": "8af6014373bbee83422dd4c26c1c3b41f98754d02954d62e8f5099ebff7573ad",
+    "tools/analyze_ffnds_observations.py": "c20003603ceb4bd0f263254464dedf02eff544a428b0c1137a9fd122bb4f2da7",
+    "tools/ffnds_observation_common.py": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+  }
+}

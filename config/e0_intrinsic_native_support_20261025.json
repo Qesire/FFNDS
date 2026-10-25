@@ -1,0 +1,111 @@
+{
+  "id": "E0_INTRINSIC_NATIVE_FULL_M_SUPPORT_20261025",
+  "schema_version": "1.0",
+  "status": "FROZEN_BEFORE_NATIVE_EXECUTION",
+  "base_commit": "61a4566",
+  "user_instruction": "同步最新，然后继续推进，不要害怕用gpu",
+  "user_instruction_date": "2026-10-25",
+  "question": "Do both original coefficients and same-expert coefficient innovations leave actual full-M cold columns or contiguous-row K64 tiles?",
+  "hypotheses": [
+    "Conditionally large coefficients concentrate in repeatable columns/tiles, leaving actual dense subblocks empty.",
+    "Top-magnitude elements scatter across columns/rows, so high element sparsity leaves most K64 tiles active."
+  ],
+  "scope": "Two passive unchanged dense four-step generations, one each on exposed source0 (subject) and source12 (background), seed42. No sparse approximation is returned to the model. Compare all four latent and video SHA, runtime call counts, and 20 sampled FFN outputs against original accepted runs.",
+  "source_indices": [
+    0,
+    12
+  ],
+  "source_strata": {
+    "subject": 1,
+    "background": 1,
+    "camera": 0
+  },
+  "blocks": [
+    0,
+    10,
+    20,
+    30,
+    39
+  ],
+  "steps": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "full_M": 31668,
+  "hidden_width": 13824,
+  "retained_fractions": [
+    0.125,
+    0.25,
+    0.5
+  ],
+  "row_tiles": [
+    1,
+    16,
+    64,
+    128
+  ],
+  "column_group_width": 64,
+  "selection": "Exactly top-|original GELU| retained count per row, ignore selected exact zeros; support observation only, before original Smooth/Q2/W2. No activation is modified.",
+  "metrics": [
+    "retained nonzero element fraction",
+    "full-M hot-column union",
+    "fraction of active K64 blocks per contiguous row tile",
+    "real-row-weighted retained dense tile work bound",
+    "original Q2 exact zero fraction",
+    "Original BF16 post-Q2 full-M support at the same retained fractions",
+    "Current minus previous same-expert BF16 post-Q2 full-M innovation support, promoted before subtraction"
+  ],
+  "native_source_sha256": {
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QTensor.py": "ac5061523cfb87c203cb38a250fffc590d2248f4b7e303f671ba36b48d0eaee2",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c"
+  },
+  "accepted_observations": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
+  "accepted_observations_sha256": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5",
+  "input_default": ".runtime/inputs/calibration24/canonical.json",
+  "driver_sources_sha256": {
+    "tools/run_e0_intrinsic_native_support.py": "08d269b39185d8ff2638753caee703a284912a9f78059ef63582857494e7bf83",
+    "tools/e0_intrinsic_math.py": "8af6014373bbee83422dd4c26c1c3b41f98754d02954d62e8f5099ebff7573ad",
+    "tools/analyze_ffnds_observations.py": "c20003603ceb4bd0f263254464dedf02eff544a428b0c1137a9fd122bb4f2da7",
+    "tools/ffnds_observation_common.py": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b",
+    "tools/prepare_ffnds_observations.py": "08e73ec99c535fa3c0ebf551ab6627b45a19173c410e233c2296d5430684245a",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/restored_assets.py": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839",
+    "tools/historical_source_snapshot.py": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/with_transformers_source_view.py": "85df726d8a98cc4570731a3767cb998cee08e85dca1496734a1f71111b686198",
+    "tools/e0_intrinsic_temporal_support.py": "3623ab3f0079c51bc0449c2dfa8e95f0b10de4bc71d7dfe996c98e21a35e9170"
+  },
+  "max_gpu_cards": 4,
+  "planned_simultaneous_GPU_cards": 1,
+  "max_full_generations_total": 2,
+  "max_generations_per_source": 1,
+  "extra_native_FFN_calls": 0,
+  "standalone_norm_calls": 0,
+  "training_updates": 0,
+  "new_decompositions": 0,
+  "new_weights": 0,
+  "official_quality_calls": 0,
+  "disk_reserve_gib": 80,
+  "max_output_gib_per_source": 0.25,
+  "automatic_retry": false,
+  "no_automatic_followup": true,
+  "claims_excluded": [
+    "Sparse-kernel wall-time speedup",
+    "Quality acceptance of the unexecuted sparse supports",
+    "Fresh-source or seed generalization",
+    "Physical occupancy estimated from only32 sampled rows"
+  ],
+  "revision": 2,
+  "revised_before_any_native_generation": true,
+  "prior_unexecuted_plan_sha256": "e805e348587ecfa7013c5b2d8b6ee84959f6b9f1d6a781f610fc8fedd47b5734",
+  "motivation": "The separately frozen saved-GPU scope completed180 cases. Innovations are more reconstructable than absolute outputs at equal retained fractions, while contiguous64 groups are much worse than individual channels. Adapt this passive observation before any native run; no sparse action or tuning.",
+  "history": "For five selected blocks, cache complete step0 or2 post-Q2 coefficients in CPU RAM (peak about4.38GB) and release each after step1 or3; no GPU persistent activation cache or new weight file."
+}
