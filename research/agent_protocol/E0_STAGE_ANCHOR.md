@@ -1,6 +1,6 @@
 # FFNDS E0 · 当前科研 Agent 锚点（2026-10-25）
 
-**最新知识缺口导航**：[K1–K5](../20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)。
+**最新机制审查**：[2026-10-25 开放分歧](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；[已完成的K1–K3与剩余K4–K5](../20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)。原生全hidden、连续M128和原组支持研究已完成；优先发现新的函数、时空、质量和系统机制。
 
 **阶段：`E0_OPEN_DISCOVERY` · 唯一科学状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) · 当前任务：[E0_FFN_FIRST_TASK_20261025.md](../20261025/E0_FFN_FIRST_TASK_20261025.md) · 科研纲领：[E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)。**
 
@@ -27,7 +27,7 @@
 2. **条件时空创新**：四步、双专家、跨位置/跨帧的共同/变化模式，哪些可被便宜地预测，哪些需重新计算？
 3. **下游功能与计算重构**：为什么某些低局部误差引起背景光照/小物体波动？有无与原始 mask/缓存不同的可替代计算表示？
 
-先试着解释新结构的实际功能，再从旧 LayerNorm 径向、四臂 star-null、跨来源共同方向与 HiF4 scale 结果检索恰当证据。详见 [既有观测导航](../EXPERIMENT_EVIDENCE_INDEX.md)、[历史 E0 gap 文档](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和 [研究重置文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。
+**待区分的强张力**：后验25%逐token单元可重建同专家创新（2.44%–7.07% SSE），中间层共享后验25%列则约39%–42%，原HiF4组尺度几乎全宽。继续比较函数坐标、token空间组织、下游视频功能和真实执行时点，而不是将共享列、micro16或量化树升级为默认优化任务。旧LayerNorm径向、四臂、跨来源方向与scale结果仍可按机制调用。详见 [既有观测导航](../EXPERIMENT_EVIDENCE_INDEX.md)、[历史 E0 gap 文档](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和 [研究重置文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。
 
 ## AutoResearcher 默认操作
 
