@@ -39,7 +39,9 @@ r  --norm2/AdaLN--> z --W1(+b1)--> a --GELU--> h
 - **表示几何**：`||Σ_j d_j||²=Σ_j||d_j||²+2Σ_{j<k}〈d_j,d_k〉`。低单元幅值、有符号相消、可压缩子空间、时间稳定方向是不同命题；[Toy Models of Superposition](https://transformer-circuits.pub/2022/toy_model/index.html) 提示 feature 不必一一对应神经元。
 - **局部敏感结构**：在固定权重与 conditioning 的连续实数模型下，`D_z y=W2 diag(φ'(W1z+b1)) W1`，其中 bias 不影响导数。对于 gated FFN 对 z 的直接响应，在 gate 与 z 独立固定时左乘 `diag(g)`；当真实 conditioning/gate 随所扰动对象变化时，将其额外链式项列出。**输出的有效子空间**与**Jacobian 的敏感子空间**分开衡量。
 
-上述是发现新问题的数学坐标，并不预先选择 SVD、神经元掩码、Proxy、W2 分组或缓存。
+**非线性与重表示的分界**：`W2h` 的输出线性组合可以在 GELU **之后**作严格的基变化，例如将 `W2=UV` 写成 `W2h=U(Vh)`；但 `GELU(Ra)` 一般不等于 `R GELU(a)`，所以一个任意旋转不能由 W1 与 W2 的权重吸收并保持相同函数。也要计入因子分解后的两次乘法与中间访存，只有真的低有效秩/复用结构才可能降低总代价。
+
+上述是发现新问题的数学坐标，不预先选择 SVD、神经元掩码、Proxy、W2 分组或缓存。
 
 ## 3. 优先探索的四族机制
 
