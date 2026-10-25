@@ -1,8 +1,8 @@
 # E0 — AutoResearcher Skill + 独立 Web 复审：修订上轮四路提议（2026-10-25）
 
-**审查基准**：FFNDS 原提议 [E0_REVIEW_RESPONSE_AND_AGENT_GUIDANCE_20261025.md](E0_REVIEW_RESPONSE_AND_AGENT_GUIDANCE_20261025.md)，及保存分析 [E0_RADIAL_PAIRING.md](E0_RADIAL_PAIRING.md)、[E0_SHARED_REFERENCE_MOMENTS.md](E0_SHARED_REFERENCE_MOMENTS.md)、[E0_FOLLOWTHROUGH.md](E0_FOLLOWTHROUGH.md)。核对过的核心脚本为 \`tools/analyze_e0_radial_pairing.py\`、\`tools/analyze_e0_radial_template.py\`，原评议为 \`research/method_discussion/discoveries/E0/gpt6-independent-radial-pairing-judgment-review-20261025.md\`。
+**审查基准**：FFNDS 原提议 [E0_REVIEW_RESPONSE_AND_AGENT_GUIDANCE_20261025.md](E0_REVIEW_RESPONSE_AND_AGENT_GUIDANCE_20261025.md)，及保存分析 [E0_RADIAL_PAIRING.md](E0_RADIAL_PAIRING.md)、[E0_SHARED_REFERENCE_MOMENTS.md](E0_SHARED_REFERENCE_MOMENTS.md)、[E0_FOLLOWTHROUGH.md](E0_FOLLOWTHROUGH.md)。核对过的核心脚本为 `tools/analyze_e0_radial_pairing.py`、`tools/analyze_e0_radial_template.py`，原评议为 `research/method_discussion/discoveries/E0/gpt6-independent-radial-pairing-judgment-review-20261025.md`。
 
-**实际使用的 Skill**（来自 FFNDS 已同步、固定的 AutoResearcher v2.4）：\`.agents/skills/mechanism-research/SKILL.md\`、\`.agents/skills/research-expansion/SKILL.md\`、\`.agents/skills/problem-reformulation/SKILL.md\`、\`.agents/skills/web-research-discovery/SKILL.md\` 与 \`core/WEB_RESEARCH_DISCOVERY.md\`。检索日期 2026-10-25。Web 范围包括：Wan 官方源码、LN 官方定义、表示各向异性、DiT 时序/特征缓存、少步扩散稀疏、量化 SmoothQuant、NVFP4 官方硬件格式。阅读层级与链接见后文，未宣称复现他人算法、下载 PDF 全文或执行任何新模型实验。
+**实际使用的 Skill**（来自 FFNDS 已同步、固定的 AutoResearcher v2.4）：`.agents/skills/mechanism-research/SKILL.md`、`.agents/skills/research-expansion/SKILL.md`、`.agents/skills/problem-reformulation/SKILL.md`、`.agents/skills/web-research-discovery/SKILL.md` 与 `core/WEB_RESEARCH_DISCOVERY.md`。检索日期 2026-10-25。Web 范围包括：Wan 官方源码、LN 官方定义、表示各向异性、DiT 时序/特征缓存、少步扩散稀疏、量化 SmoothQuant、NVFP4 官方硬件格式。阅读层级与链接见后文，未宣称复现他人算法、下载 PDF 全文或执行任何新模型实验。
 
 ## 最重要的新判断
 
@@ -14,39 +14,39 @@
 
 ## I. 独立源码与数学核查：六个具体修订
 
-### 1. \`delta_g\` 不是原生有限干预的写回差值
+### 1. `delta_g` 不是原生有限干预的写回差值
 
 实际脚本逐组计算
-\`delta_g = (q2_post[:,64g:64(g+1)] @ W2_panel_g.T) * gate\`。
+`delta_g = (q2_post[:,64g:64(g+1)] @ W2_panel_g.T) * gate`。
 这是保存 BF16 operand 解码到 FP64 后的 W2 分组方向。它不含完整 BF16 累加、不同组求和、bias、gate 舍入、残差写回。实验中真正的置零动作通过 native Q2 后控制组，二者为不同数学对象。
 
-因此原 Agent B 的“保存的 FFN 写回更新”应改为**decoded FP64 group contribution**。可对其做精确恒等分解，但不能将它当作执行后 \`x'_native-x_native\`，也不能据此推出某组单独的因果边。
+因此原 Agent B 的“保存的 FFN 写回更新”应改为**decoded FP64 group contribution**。可对其做精确恒等分解，但不能将它当作执行后 `x'_native-x_native`，也不能据此推出某组单独的因果边。
 
 ### 2. 真实 normalizer 的位置、算子和类型转换
 
-Wan 官方 \`wan/modules/model.py\` 中 FFN 输入使用 \`norm2\`，下一个 block 的 self-attention 使用 \`norm1\`；FFN 后写回经过 residual identity 路径。项目自身的 LightX2V source pin 已在 \`E0_RESIDUAL_GEOMETRY.json\` 标记 \`transformer_infer.py\` 和 layer_norm_weight 实现。Agent 应优先复建**项目当前 LightX2V 版本**的真实读写顺序，官方 Wan 作为交叉对照，不能以通用 pre-norm 模板替代。
+Wan 官方 `wan/modules/model.py` 中 FFN 输入使用 `norm2`，下一个 block 的 self-attention 使用 `norm1`；FFN 后写回经过 residual identity 路径。项目自身的 LightX2V source pin 已在 `E0_RESIDUAL_GEOMETRY.json` 标记 `transformer_infer.py` 和 layer_norm_weight 实现。Agent 应优先复建**项目当前 LightX2V 版本**的真实读写顺序，官方 Wan 作为交叉对照，不能以通用 pre-norm 模板替代。
 
-对无仿射 ideal epsilon-LN，设 \`P=I-11^T/C\`, \`u=Px\`, \`s=u^Tu\`，则
-\`J_LN(x)d = rstd(x) [Pd - u (u^T d)/(s+C eps)]\`，
-其中 \`rstd=(s/C+eps)^(-1/2)\`。若存在 norm affine weight，则在左侧乘以对应 diagonal gamma；AdaLN shift/scale 位于真实 norm 之后的下一运算，属于后续链。原生 fp32 norm 和 cast-to-BF16 是有离散数值边界的实现，导数对象为条件连续代理。
+对无仿射 ideal epsilon-LN，设 `P=I-11^T/C`, `u=Px`, `s=u^Tu`，则
+`J_LN(x)d = rstd(x) [Pd - u (u^T d)/(s+C eps)]`，
+其中 `rstd=(s/C+eps)^(-1/2)`。若存在 norm affine weight，则在左侧乘以对应 diagonal gamma；AdaLN shift/scale 位于真实 norm 之后的下一运算，属于后续链。原生 fp32 norm 和 cast-to-BF16 是有离散数值边界的实现，导数对象为条件连续代理。
 
 ### 3. 固定 J 的分解虽精确，却尚未等于实际下游价值
 
-对同一真实 x_i 和已构造 delta_i，令 \`mu=mean_i delta_i\`, \`eta_i=delta_i-mu\`, \`J_i=J_LN(x_i)\`：
-\`||J_i delta_i||²=||J_i mu||²+||J_i eta_i||²+2<J_i mu,J_i eta_i>\`。
-恒等式精确。需要同时注明：每个 \`J_i\` 随 token 不同；分解是**同一固定 x_i 处的一阶局部响应**，在下一 block norm1 的输入不是唯一消费边，identity bypass、attention、AdaLN 与 downstream nonlinearities 仍会传播该状态。高比例径向响应不等于网络中该信息消失。
+对同一真实 x_i 和已构造 delta_i，令 `mu=mean_i delta_i`, `eta_i=delta_i-mu`, `J_i=J_LN(x_i)`：
+`||J_i delta_i||²=||J_i mu||²+||J_i eta_i||²+2<J_i mu,J_i eta_i>`。
+恒等式精确。需要同时注明：每个 `J_i` 随 token 不同；分解是**同一固定 x_i 处的一阶局部响应**，在下一 block norm1 的输入不是唯一消费边，identity bypass、attention、AdaLN 与 downstream nonlinearities 仍会传播该状态。高比例径向响应不等于网络中该信息消失。
 
 ### 4. 32 行位置均值不等于整段视频的全局分量
 
-脚本按 source/step/block/group 取 \`uniform_rows\` 的 **32 个位置**，在这些行上做 \`state.mean(axis=0)\` 和 \`delta.mean(axis=0)\`；真实 patch token 网格为 \`21×29×52\`。已有“共享方向”首先是**该固定采样面板的 5120 通道位置均值**；跨六来源相同 seed 和 row-coordinate 策略的留出结果也不是对全部 token、跨 seed 或新视频的可迁移性证明。应检验 row 采样与共同坐标的影响，并核对实际可用的其他保存行，而非直接把它称为视频级共享 bias。
+脚本按 source/step/block/group 取 `uniform_rows` 的 **32 个位置**，在这些行上做 `state.mean(axis=0)` 和 `delta.mean(axis=0)`；真实 patch token 网格为 `21×29×52`。已有“共享方向”首先是**该固定采样面板的 5120 通道位置均值**；跨六来源相同 seed 和 row-coordinate 策略的留出结果也不是对全部 token、跨 seed 或新视频的可迁移性证明。应检验 row 采样与共同坐标的影响，并核对实际可用的其他保存行，而非直接把它称为视频级共享 bias。
 
 ### 5. Star-null 不是两组动作可加性的零模型
 
-四臂 D/A/B/AB 定义 \`a=A-D\`, \`b=B-D\`, \`c=AB-A-B+D\`。\`c=0\` 等价于当前边界两组有限动作可加。令 \`S1=d(D,A)+d(B,AB)\`, \`S2=d(D,B)+d(A,AB)\`, \`S3=d(D,AB)+d(A,B)\`（各 d 为平方 L2 距离），有
-\`S1=||a||²+||a+c||²\`,
-\`S2=||b||²+||b+c||²\`,
-\`S3=||a+b+c||²+||a-b||²\`。
-取 D=(0,0), A=(1,0), B=(0,1), AB=(1,1)，\`c=0\` 但 \`(S1,S2,S3)=(2,2,4)\`。三配对和相等是 \`d_ij=v_i+v_j, v_i>=0\` 的特定 shared-reference uncorrelated-error 零模型必要条件，不是动作可加的必要条件。现有解释需要将 star-null 残差、有限交互 c 与响应 Gram 三者并列，避免由一项直接归因 BF16 或 smooth propagation。
+四臂 D/A/B/AB 定义 `a=A-D`, `b=B-D`, `c=AB-A-B+D`。`c=0` 等价于当前边界两组有限动作可加。令 `S1=d(D,A)+d(B,AB)`, `S2=d(D,B)+d(A,AB)`, `S3=d(D,AB)+d(A,B)`（各 d 为平方 L2 距离），有
+`S1=||a||²+||a+c||²`,
+`S2=||b||²+||b+c||²`,
+`S3=||a+b+c||²+||a-b||²`。
+取 D=(0,0), A=(1,0), B=(0,1), AB=(1,1)，`c=0` 但 `(S1,S2,S3)=(2,2,4)`。三配对和相等是 `d_ij=v_i+v_j, v_i>=0` 的特定 shared-reference uncorrelated-error 零模型必要条件，不是动作可加的必要条件。现有解释需要将 star-null 残差、有限交互 c 与响应 Gram 三者并列，避免由一项直接归因 BF16 或 smooth propagation。
 
 ### 6. 原引导的离线 CPU 权限语言过宽
 
@@ -79,7 +79,7 @@ Wan 官方 \`wan/modules/model.py\` 中 FFN 输入使用 \`norm2\`，下一个 b
 围绕**真实信息图**而非四种既定结论建立五条可选并行线：
 
 1. **A 四臂因果边界**：区分 c、Gram、star-null；审计现有边界能识别哪一种连续传播与哪一种 BF16 数值机制。
-2. **B 固定真实 norm Jacobian**：明确 decoded \`delta_g\`、同位置固定 J 的三项分解、残差旁路及 norm 实现/舍入边界；对比之前改变 x 的 centered probe。
+2. **B 固定真实 norm Jacobian**：明确 decoded `delta_g`、同位置固定 J 的三项分解、残差旁路及 norm 实现/舍入边界；对比之前改变 x 的 centered probe。
 3. **C 共享来源/时空机制**：32 行采样公共分量、seed/position 协议、step/expert/gate/AdaLN 的竞争来源与不同可检验预测。
 4. **D 量化信息的出生时刻**：追踪 HiF4 Q1/Q2 codes/scales/smoothing 的真正读取成本，与 MXFP4/NVFP4 原生 scales 对照；寻找前置可获的统计信息与可物理省略的 GEMM 单元。
 5. **E 跨领域机制/计算经济与新颖性**：对照 RFC/HyCa/SVD-Cache/DiffSparse 和硬件受限现实，提出至少一个**新的**数学表示或竞争解释，再从 NetVOI 与可执行计算判断是否值得未来独立验证。
