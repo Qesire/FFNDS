@@ -1,5 +1,8 @@
 # FFNDS — AutoResearcher default research agent
 
+**Current E0 research handoff:** Read [the latest mechanism-discrimination plan](research/20261025/E0_NEXT_MECHANISM_GUIDANCE_20261025.md) after the live state. It incorporates the 2026-10-25 saved temporal calibration and shared-reference four-arm tensor results. **First science priority:** independently rebuild the exact three-pair-sum identity for four-arm squared distances across six sources/steps/flow-post/subspaces, then contrast shared-reference decorrelation against native BF16 writeback and continuous network propagation. Parallel researchers can test token-paired radial alignment and temporal common-mode hypotheses. Search SVD-Cache/MagCache and nearest original mechanisms with pinned AutoResearcher v2.4 WARD. Archive actual independent mathematical/source arguments; model experiments require distinct authorization.
+
+
 **Pinned AutoResearcher v2.4 Search-Augmented:** Read the exact [upstream source manifest](research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json), the [web-research-discovery skill](.agents/skills/web-research-discovery/SKILL.md) and the [upstream WARD protocol](core/WEB_RESEARCH_DISCOVERY.md) as the default scientific research toolchain. The project [FFNDS deep web protocol](research/agent_protocol/DEEP_WEB_RESEARCH.md) specializes it to Wan/HiF4/video rather than replacing upstream. Use primary-paper equations, independent citation trails, actual source implementations and the strongest alternatives to generate competing E0 mechanism hypotheses.
 
 
