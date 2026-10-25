@@ -15,6 +15,10 @@ Keep the persistent AGENTS/Project instruction to: scientific intent, creative-f
 - HANDOFF: V9, record actionable state rather than transcript.
 No explicit routing ceremony is necessary in the ordinary answer.
 
+## Default WEB_MAP for scientific exploration
+
+For substantive research, activate [Web Research Discovery](WEB_RESEARCH_DISCOVERY.md) when available: broad search across classic/current and neighboring mechanism families; deep first-party equations, code and experiment reading; citation-chain expansion and adversarial prior-art. Let sources revise the candidate question, and record real coverage and discovered differences. For narrow static facts, retrieve only essential sources. An offline agent retains useful source/math exploration and records which web checks remain open.
+
 ## 2. Context packet assembled for the current question
 
 Instead of consuming all available files, assemble a small **Evidence Packet**:
