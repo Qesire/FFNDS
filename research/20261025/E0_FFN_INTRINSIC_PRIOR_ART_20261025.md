@@ -11,7 +11,7 @@
 | [Toy Models of Superposition, 2022](https://transformer-circuits.pub/2022/toy_model/index.html)（作者页面/理论摘要） | 特征可超过 neuron 数，在同一表示坐标相互干扰；基与神经元不必单义。 | W2 通道/组幅值分布可能不是最合适的计算作用坐标；如果换表示，何种可计算量与功能更稳定？ |
 | [Chipmunk Theory Part II](https://sandyresearch.github.io/chipmunk-part-II/)（作者正文，MLP 加权 value vectors 方程） | `GELU(XW1)W2` 与 attention 都可写成加权 value vectors，扩散步上的更新可以从基础贡献组合研究。 | 优先比较静态 basis 与随条件变化系数，而非把 full output cosine 视为全部解释。 |
 
-**数学落点**：对于固定 gate 的 `d_j=h_j(g⊙W2[:,j])`，计算 `Σ_jd_j` 与有符号 Gram；进一步审查 `W2 diag(φ') W1` 的局部 Jacobian 的方向依赖（数学恒等式，不是 Wan 特有实测低秩）。**最强竞争解释**：看似集中的神经元信号可能来自 superposition / basis choice，真正可减少的作用未必对应当前 channel。
+**数学边界**：任意隐藏 basis 旋转通常无法穿过 GELU；在 GELU 后利用 W2 的表示分解则要支付相应乘法和重排成本。这使「输出有效子空间」与「可无损改写原 FFN」构成两个不同问题。\n\n**数学落点**：对于固定 gate 的 `d_j=h_j(g⊙W2[:,j])`，计算 `Σ_jd_j` 与有符号 Gram；进一步审查 `W2 diag(φ') W1` 的局部 Jacobian 的方向依赖（数学恒等式，不是 Wan 特有实测低秩）。**最强竞争解释**：看似集中的神经元信号可能来自 superposition / basis choice，真正可减少的作用未必对应当前 channel。
 
 ## II. 激活稀疏与有意义的执行单元
 
