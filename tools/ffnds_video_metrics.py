@@ -63,6 +63,26 @@ def validate(report, require_acceptance=False):
     for key in FAMILIES + (PAIRED_FAMILIES if report.get("reference") else ()):
         if not isinstance(report.get("metrics", {}).get(key), dict) or not report["metrics"][key]:
             failures.append("missing metric family " + key)
+    required_metric_fields={
+        "temporal_motion":("adjacent_RGB_MAE_0to1","downsampled_Farneback_mean_flow_px"),
+        "spatial_detail":("laplacian_abs_energy_candidate",),
+        "luma_color":("mean_encoded_BT709_luma","adjacent_encoded_luma_abs"),
+        "runtime":REQUIRED_COST,
+    }
+    if report.get("reference"):
+        required_metric_fields.update({
+            "paired_spatial":("RGB_RMSE_0to1","RGB_MAE_0to1","encoded_luma_RMSE_0to1",
+                              "signed_encoded_luma_drift_0to1","candidate_to_reference_laplacian_energy_ratio"),
+            "paired_temporal":("adjacent_delta_RGB_RMSE_0to1",),
+            "paired_motion":("downsampled_Farneback_flow_L2_px","candidate_to_reference_flow_magnitude_ratio"),
+            "static_region":("reference_flow_threshold_downsampled_px",
+                             "uncompensated_low_reference_motion_luma_delta_abs","warning"),
+        })
+    for family,fields in required_metric_fields.items():
+        values=report.get("metrics",{}).get(family,{})
+        for key in fields:
+            if key not in values:
+                failures.append("missing metric "+family+"."+key)
     artifact = report.get("metrics", {}).get("artifact", {})
     if artifact.get("decoded_frames", 0) < 2 or artifact.get("fps", 0) <= 0:
         failures.append("invalid frame coverage")
@@ -75,6 +95,11 @@ def validate(report, require_acceptance=False):
         failures.append("missing or incomplete per-frame metric series")
     elif [f.get("frame") for f in frames] != list(range(len(frames))):
         failures.append("per-frame indices not contiguous")
+    elif any(("laplacian_abs_edge_energy" not in f or "mean_encoded_luma" not in f
+              or (f["frame"]>0 and ("candidate_adjacent_RGB_MAE_0to1" not in f
+                                    or "candidate_downsampled_Farneback_flow_mean_px" not in f)))
+             for f in frames):
+        failures.append("intrinsic per-frame quality observations incomplete")
     elif report.get("reference") and any("paired_RGB_RMSE_0to1" not in f or
                                       (f["frame"] > 0 and "paired_temporal_delta_RGB_RMSE_0to1" not in f)
                                       for f in frames):
@@ -154,6 +179,7 @@ def evaluate(candidate, reference, identity_record):
                 data["temporal_mae"].append(float(np.mean(np.abs(frames[0]-old[0]))))
                 data["luma_temporal_abs"].append(float(np.mean(np.abs(luma[0]-old[3][0]))))
                 item["candidate_adjacent_RGB_MAE_0to1"]=data["temporal_mae"][-1]
+                item["candidate_adjacent_encoded_luma_abs"]=data["luma_temporal_abs"][-1]
                 flows = []
                 for g, oldg in zip(gray, old[1]):
                     h, w = g.shape
