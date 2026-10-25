@@ -1,21 +1,14 @@
 # E0 独立现象发现记录
 
-**2026-10-25 Skill/Web 二轮审查后最新入口：** [完整复审](../../../20261025/E0_SKILL_WEB_REAUDIT_20261025.md) 与 [修订后五条开放机制探索](../../../20261025/E0_REVIEW_RESPONSE_AND_AGENT_GUIDANCE_20261025.md)。修正 decoded group delta 与原生写回的对象差别、32行样本均值边界、star-null 与可加性的独立性；新增量化信息产生时刻及计算经济线。下文旧任务划分作为历史上下文。
+**2026-10-25 当前科学入口：** [FFN 本征研究纲领](../../../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[新第一任务](../../../20261025/E0_FFN_FIRST_TASK_20261025.md) 与 [原始近邻文献地图](../../../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。围绕真实 FFN 的有符号贡献、条件时空结构、下游因果价值和计算自由度进行独立的机制发现。量化 scale 视为可选幅值信息，旧 radial/four-arm 评论可作专项依据，但不再决定全部 Agent 的研究题目。
 
+## 新任务分工是开放发现切面
 
-**历史说明：** 初版四路分工见 [当时提交](https://github.com/Qesire/FFNDS/commit/09f0662f3657d82d0c37253e348b55533f443d3a)；当前统一使用上方五路修订方案。
+- **FFN 输出机制**：实际输入/预激活/GELU/有符号 W2 贡献，何种有效支持和条件稀疏确实存在？
+- **时空动态机制**：哪部分变化需要重新计算？跨 step/expert/位置是否有可追溯的规律和反例？
+- **功能/计算机制**：哪个局部改变能够跨 residual/attention 影响四步视频？能否导出新计算表示或动作，而不仅是微调旧分数？
 
-## 本轮建议的独立科学问题
-
-历史 [E0 机制区分交接](../../../20261025/E0_NEXT_MECHANISM_GUIDANCE_20261025.md) 曾指定一项优先核算：四臂六距离共享参考零模型的三个配对和是否满足代数必要条件，以及失配在何种来源/边界/子空间最强。可平行探索 Block0 token 真实配对与置换、Block39 共同分量与局部变化。每个 Agent 自己读取原始 JSON / 代码，形成真正不同的解释及下一观察，保存于独立发现/挑战文件；以源码与数学论证质量而非多数表态总结。
-
-
-**当前阶段：`E0_OPEN_DISCOVERY`。** 每位 Agent 阅读 [唯一活跃研究状态](../../../ACTIVE_RESEARCH.json)、[E0 第一任务](../../../20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md)、[阶段锚点](../../../agent_protocol/E0_STAGE_ANCHOR.md) 和 [最新科学问题](../../../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 后，选择最具解释力的现象独立展开。
-
-默认通过 [DEEP_WEB_RESEARCH.md](../../../agent_protocol/DEEP_WEB_RESEARCH.md) 开展跨领域、多轮次的经典与最新文献、前后向引用和官方源码检索。独立 reviewer 尤其关注不同的理论先例与最强反例。
-
-**独立发现：** `<agent-id>-<phenomenon>.md`  
-**独立挑战：** `<agent-id>-challenge-<phenomenon>.md`
+独立审查需要亲自看源码、数学或反例，形成真正不同的预测；按 [DEEP_WEB_RESEARCH.md](../../../agent_protocol/DEEP_WEB_RESEARCH.md) 搜索首发论文、官方代码和最强竞争机制。旧描述性任务及历史报告保留于 Git 历史和原始 E0 资料；本入口只指向当前工作。
 
 ## 简短科学记录模板
 
