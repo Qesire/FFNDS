@@ -1,7 +1,6 @@
 # FFNDS 方法讨论 Agent · AutoResearcher 默认原则
 
-**Current independent E0 investigation:** Start with [latest E0 mechanism guidance](../20261025/E0_NEXT_MECHANISM_GUIDANCE_20261025.md) and the exact saved source records. Agent A can independently derive three pairing-sum invariants of the four-arm distance null across sources/subspaces; Agent B can challenge Block0 token pairing versus shared direction, auditing archived raw fields first; Agent C can independently compare temporal common-mode and centered variation with published SVD-Cache/MagCache mechanisms. This is a suggested division of **independent scientific questions**, and creative alternatives remain welcome. Reviewers bind exact blobs and report counterexamples; shared states are updated serially.
-
+**Current independent E0 investigation:** Read [intrinsic FFN research reset](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) and [new first task](../20261025/E0_FFN_FIRST_TASK_20261025.md). Agents independently explore (i) hidden/GELU/W2 signed contributions and real hardware concentration, (ii) token/step/expert conditional innovation and FFN sharing, (iii) downstream functional sensitivity and mathematical compute reconstruction; reviewers bring strong counterexamples and related papers. This division is a science map, not a fixed algorithm list. HiF4/QDQ scales are secondary amplitude hints; previous radial and star-null tasks are historical observations, not current default assignments.
 
 **Search-enhanced AutoResearcher v2.4:** Every researcher and independent reviewer inherits the [pinned web-research-discovery Skill](../../.agents/skills/web-research-discovery/SKILL.md), the generic [WARD protocol](../../core/WEB_RESEARCH_DISCOVERY.md) and [FFNDS search specializations](../agent_protocol/DEEP_WEB_RESEARCH.md). Verify closest mechanism-level literature and original source against the exact commit in [source manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json), then derive new independent explanations or strong counterexamples.
 
@@ -22,9 +21,9 @@
 
 每位发现者、挑战者、reviewer、整理者都主动开展 [深度 Web 文献/源码检索](../agent_protocol/DEEP_WEB_RESEARCH.md)：多领域经典与最新工作、后向/前向引用、官方公式及代码、最强重复机制和反例。记录自己实际检索的范围与来源，尽量形成与其他 Agent **信息来源不同**的证据。E0 的文献发现服务于机制探索，方法构想继续作为开放种子。
 
-## 当前最重要的独立复核
+## 当前研究重点
 
-六来源 E0 保存操作数呈现 Block 0 FFN 输出—残差径向对齐。独立从原始计算图、LN `epsilon` 导数、pre/post/leave-one-group-out 和五个固定组的聚合口径复建，再挑战其可能的下游功能解释。并行可研究 HiF4 QDQ 与 MXFP4/NVFP4 的信息时机、时空共同均值或 Source 8 高杠杆行。引用时保留 **6 来源、3 主体/3 背景/0 相机** 的真实采样构成。
+新 Agent 以真实 FFN 计算为核心，从 GELU hidden 的条件贡献、W2 有符号组合、跨步创新或 downstream 质量敏感性打开新的机制，并用原始源码与已保存数据区分至少两种解释。旧 Block0 residual radial 结果及 HiF4 QDQ 元数据可以服务于新问题，但不会自动指定研究路径。将 `小激活`、`小净作用`、`小终端影响`、`可执行跳过的 tile` 逐项区分。独立评议的成果是改变认识的数学或证据，不是表态。
 
 ## 协作与评议
 
