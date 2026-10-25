@@ -74,8 +74,8 @@ def main():
         ensure("DEEP_WEB_RESEARCH.md" in text(entry),
                "Deep web-search prompt routing drift: " + entry)
     local_skill = text(".agents/skills/ffnds-paper-discovery/SKILL.md")
-    ensure(re.match(r"\\A---\\nname:\\s*ffnds-paper-discovery\\n"
-                    r"description:[^\\n]+\\n---\\n", local_skill),
+    ensure(re.match(r"\A---\nname:\s*ffnds-paper-discovery\n"
+                    r"description:[^\n]+\n---\n", local_skill),
            "Local domain skill YAML frontmatter is invalid")
 
     # Live-stage routing: static structural consistency, NOT creative grading.
