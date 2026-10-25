@@ -1,9 +1,8 @@
 # FFNDS · Wan2.2 four-step video FFN research
 
-## Current E0 problems and remedies
+## Current E0 science — intrinsic FFN computation first
 
-The [passive E0 observation](research/20261025/E0_DISCOVERY.md) found local quantization, residual geometry and temporal patterns; the [completed native followthrough](research/20261025/E0_FOLLOWTHROUGH.md) now tests fixed finite actions and numerical boundaries. Read the [2026-10-25 evidence gaps](research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) alongside this update: independent peer challenge, amplitude-matched directional causality, fresh quality, quantizer metadata and high-leverage token mechanisms remain open. Completed execution scopes and later explicit user instructions are recorded separately in the live state.
-
+**Research direction reset, 2026-10-25:** [intrinsic FFN mechanism program](research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) and [current sole discovery task](research/20261025/E0_FFN_FIRST_TASK_20261025.md). Study W1–GELU–W2 signed contributions, conditional token/step/expert structure, downstream functional effect, and actual avoidable GEMM work. The old [E0 gap dossier](research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md), radial pairing, four-arm and HiF4/NVFP4 comparison now serve as historical/scoped evidence rather than default science agenda. Default [deep Web Search](research/agent_protocol/DEEP_WEB_RESEARCH.md) and AutoResearcher v2.4 remain in force.
 
 **Goal:** Understand and exploit real FFN computational redundancy in the distilled Wan I2V model, reduce *actual* FFN and end-to-end inference time, and preserve complete free-running video quality. No default dense restoration, R256 compensation, mask family or representation.
 
@@ -13,7 +12,7 @@ The three questions are **complementary, not a compulsory sequence**. Discovery 
 
 1. **Information:** Which already-available signals before FFN/block execution reveal the necessity or downstream value of different computations?
 2. **Decision:** Which signals have positive *net* value after observation, routing and physical execution costs over strong static same-cost alternatives?
-3. **Compute:** Which operations are truly removable without degrading four-step I2V quality, after native HiF4/BF16, residual and cross-step propagation?
+3. **Compute:** Which FFN computations are avoidable or reparameterizable while maintaining four-step I2V quality, including residual/step propagation and eventual native hardware deployment?
 
 Read [ranked experimental evidence](research/EXPERIMENT_EVIDENCE_INDEX.md), [current live research](research/ACTIVE_RESEARCH.json), [short evidence packet](research/agent_protocol/CURRENT_CONTEXT_PACKET.md), [research navigation](research/RESEARCH_NAVIGATION.md) and [mechanism & information study](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md). The source-informed C0 residual-scale example is a synthetic construction, not a measured Wan speed/quality win.
 
