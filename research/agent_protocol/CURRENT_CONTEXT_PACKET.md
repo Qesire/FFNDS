@@ -1,5 +1,9 @@
 # FFNDS · E0 当前科学上下文（2026-10-26）
 
+**最新全模型更新 2026-10-26**：[全40层校准](../20261026/E0_ALL_BLOCK_RECONSTRUCTION.md)、[完整160处FFN与六条视频](../20261026/E0_RECONSTRUCTED_VIDEOS.md)以及[新的方向审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。affine54在强resident dense同卡热态FFN9.707→4.449s、全生成50.750→45.313s，但视频变模糊、动作减弱，whole94严重重影，**新原型无画质验收**。后续优先区分same-input部署数值差、受扰前缀输入分布及原生下游有符号/跨步传递，而不是继续调旧局部SSE。跨来源局部8.54%也不是视频指标。正式方法选择未发生，所有注册实验结束。
+
+**并列实时场景（OPEN）**：[实时交互式生成研究](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)，对应G6新节点。原81帧整段离线完成时间不是逐帧stream FPS/TTFF，后者需确定causal/rolling模型源码、逐帧p95/p99 deadline、KV/FFN缓存有效条件及long-horizon漂移。用户新增场景不自动变更原Wan主线、执行授权或算法选择。
+
 **方向再审（当前首先阅读）**：[E0后affine科学分歧](../20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)与新增 [G5图层](../../docs/98_端到端计算图与证据注解_20261025.md)。affine表征、奇偶/热区竞争解释、旧导数层间差异、真实权重常驻属于不同科学对象。当前活跃任务允许由下游画质、时空组织、早期信息、W1/W2可删计算甚至新表示直接提出新机制；不要把下一任务等同于固定1/2斜率或affine+27组。Graph-Agent节点是来源与论证索引，不构成科学问题全集。
 
 **最新实际推进：** [全模型三臂六视频](../20261026/E0_RECONSTRUCTED_VIDEOS.md)已在全部160处FFN真实执行。affine54热态FFN边界9.707→4.449s（2.182×）、生成50.750→45.313s（1.120×），setup另计；两个原型仍明显损坏画面，未满足完整视频质量目标。[全40层相同四来源/256行控制](../20261026/E0_ALL_BLOCK_RECONSTRUCTION.md)中，affine锚定输入ridge15.35%对affine54局部SSE8.54%，后者320/320较低；因此旧覆盖混杂不再是这一固定对照的充分解释，但更低局部误差没有转成可用视频。四次被动补采、另冻的生成前失败恢复、160个新BF16参数包与六视频范围均结束，GPU已释放；旧失败回执不删、历史12/40及旧协议不改。用户上限四张空卡，新实验无自动权限。[功能/受扰轨迹数学](../method_discussion/discoveries/E0/transported-function-and-trajectory-target-20261026.md)区分输入偏移、实际后缀传递和下一状态目标；[独立审查](../method_discussion/discoveries/E0/independent-matched-calibration-and-runtime-audit-20261026.md)保留反解释。[前序四项检查](../20261026/E0_FUNCTION_RECONSTRUCTION.md)仍为原始范围，P14通用假说开放。
@@ -27,7 +31,7 @@
 
 **时点与数值对象**：`q2_post`是实际W2输入，而`h=GELU(a)`是Q2前的对象。micro16先于完整token W1，但使用**额外全宽W1和GELU**投影。原HiF4尺度组依赖是该数值实现的约束，与新格式/条件近似/函数重写所允许的计算不同。保存的全通道sample与全token仅占用统计也不是同一范围。
 
-**计算图协作**：同步查阅 [G0–G5](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph↔Agent协议](GRAPH_AGENT_COLLABORATION.md)和 [机器可读节点](GRAPH_AGENT_BINDINGS.json)。独立研究者选与问题相关的若干节点沿原生执行、历史条件、下游功能及成本路径核对证据；新机制/反例另入 [E0图注解](../method_discussion/graph_annotations/E0/README.md)，交叉核查后再由整理者更新图/谱系。图的候选路线为待证实边，不自动代表可运行算子；允许提出新的数学节点和执行路径。
+**计算图协作**：同步查阅 [G0–G6](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph↔Agent协议](GRAPH_AGENT_COLLABORATION.md)和 [机器可读节点](GRAPH_AGENT_BINDINGS.json)。独立研究者选与问题相关的若干节点沿原生执行、历史条件、下游功能及成本路径核对证据；新机制/反例另入 [E0图注解](../method_discussion/graph_annotations/E0/README.md)，交叉核查后再由整理者更新图/谱系。图的候选路线为待证实边，不自动代表可运行算子；允许提出新的数学节点和执行路径。
 
 ## 当前第一组开放科学探索
 
