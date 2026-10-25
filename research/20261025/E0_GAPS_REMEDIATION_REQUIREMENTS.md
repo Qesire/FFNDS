@@ -1,7 +1,7 @@
 # FFNDS E0 · 已有发现、关键科学问题与下一步行动
 
-**审查日期：2026-10-25** · **证据基准：** \`main@dee013a7cfaa6fe34548fc871e9bdab356cac94e\`  
-**研究阶段：** \`E0_OPEN_DISCOVERY\` · **方法：** AutoResearcher 的现象发现、源码重建、数学重表述、竞争性机制检验。
+**审查日期：2026-10-25** · **证据基准：** `main@dee013a7cfaa6fe34548fc871e9bdab356cac94e`  
+**研究阶段：** `E0_OPEN_DISCOVERY` · **方法：** AutoResearcher 的现象发现、源码重建、数学重表述、竞争性机制检验。
 
 ## 研究判断：从真实观测走向机制解释
 
@@ -19,7 +19,7 @@
 | Block 0 五个固定 W2 组：写回前 24.71%、写回后 19.82%、decoded leave-one-group-out 后 19.88% 的理想 LN 方向能量消去 | [几何分析](E0_RESIDUAL_GEOMETRY.json) / [发现说明](E0_DISCOVERY.md) | 96 个非末层位置 × 五组 = 480 个组案例；描述 FP64 局部几何 |
 | Q2 新置零元素比例 5.42%–14.00%；粗组能量轮廓相较 pre-Q2 通常只变化 0.08–0.19 个百分点 | [发现说明](E0_DISCOVERY.md) | 当前 A100 **HiF4 QDQ→BF16 GEMM** 格式与指定粗二阶统计 |
 | Block 39 同专家同坐标跨步 FFN 输出 cosine，raw 约 0.919，去跨行共同均值后约 0.814 | [时序结构](E0_TEMPORAL_STRUCTURE.json) | 同一 latent 网格位置；区分同/跨专家 |
-| Source 8、Block 30、采样行 1981、坐标 \`[1,9,5]\` 对两个 Q2 轮廓极值有较高杠杆 | [异常点分析](E0_PROFILE_OUTLIERS.json) | 保留原始行，同时提供 leave-one-row 诊断 |
+| Source 8、Block 30、采样行 1981、坐标 `[1,9,5]` 对两个 Q2 轮廓极值有较高杠杆 | [异常点分析](E0_PROFILE_OUTLIERS.json) | 保留原始行，同时提供 leave-one-row 诊断 |
 | 已有跨领域文献核对：LN 球面几何、ShortGPT 角度重要性、FFN 记忆、视觉 registers、HiF4/SmoothQuant、少步视频缓存 | [文献与源码入口](E0_DISCOVERY.md) | 已记录的 2026-10-25 检索范围；新的审查者可独立拓展 |
 
 ## P0 · 当前优先解决的三个科学问题
@@ -33,15 +33,15 @@
 - **功能性对齐：** FFN 输出组织了与 residual 相关的方向，可能使某些扰动的后续响应依赖方向而非单纯幅度。
 - **边界局部效应：** 下一次归一化的径向投影较强，而 residual 旁路及后续块仍传播原差异。
 
-围绕相同的保存组输出，分别检查中心化角度/BI、原始 \`||δ||\`、门控输出强度、理想 LN 切向响应与 pre/post/leave-out 的相互排序。解释时保留实际计算路径与 FP64 解析近似的区别。
+围绕相同的保存组输出，分别检查中心化角度/BI、原始 `||δ||`、门控输出强度、理想 LN 切向响应与 pre/post/leave-out 的相互排序。解释时保留实际计算路径与 FP64 解析近似的区别。
 
 **完成标志：** 一份独立来源绑定的公式与消费者图；两种解释对应的不同预测；一项最小区分观察。若这项观察需真实完整动作，可先给出正式实验合同草案。
 
 ### GAP-E0-02 · 对最新 E0 发现进行真正独立的同行重建
 
-**开展的研究：** 至少一位与原发现作者不同的 Agent，从源码及 \`E0_RESIDUAL_GEOMETRY.json\` 复建 LN 雅可比、epsilon 径向项、\`post-δ_g\` 对照和聚合分母；另一独立视角从 residual 旁路、固定选取五组、异常行、来源聚类或最近论文中寻找最强反解释。
+**开展的研究：** 至少一位与原发现作者不同的 Agent，从源码及 `E0_RESIDUAL_GEOMETRY.json` 复建 LN 雅可比、epsilon 径向项、`post-δ_g` 对照和聚合分母；另一独立视角从 residual 旁路、固定选取五组、异常行、来源聚类或最近论文中寻找最强反解释。
 
-**完成标志：** 不同作者的精确版本/blob 绑定审查及竞争解释；明确写出复核过的式子、字段、数值和一个有辨别力的反例。外部复核状态依据真实 reviewer 记录更新，现阶段为 \`PENDING_REVIEW\`。
+**完成标志：** 不同作者的精确版本/blob 绑定审查及竞争解释；明确写出复核过的式子、字段、数值和一个有辨别力的反例。外部复核状态依据真实 reviewer 记录更新，现阶段为 `PENDING_REVIEW`。
 
 ### GAP-E0-03 · 建立局部观测到下游效果的证据桥梁
 
@@ -51,7 +51,7 @@
 2. **需要条件动作标签：** 相同前缀下真实的 Q2 重编码、nextnorm、后续 flow 响应及 signed 联动；
 3. **需要独立终端验证：** 自由四步视频质量及完整执行开销。
 
-设计同前缀、局部 \`||δy||\` 接近而径向比例不同的代表性有限动作对照，确定观察值、负对照、模型来源/分层和两种可能结果分别支持哪种解释。**把此项先交付为可审查的观测合同 \`NEEDS_SEPARATE_USER_AUTHORIZATION\`**；这样可以在 E0 阶段完成科学准备。
+设计同前缀、局部 `||δy||` 接近而径向比例不同的代表性有限动作对照，确定观察值、负对照、模型来源/分层和两种可能结果分别支持哪种解释。**把此项先交付为可审查的观测合同 `NEEDS_SEPARATE_USER_AUTHORIZATION`**；这样可以在 E0 阶段完成科学准备。
 
 **完成标志：** 一份以竞争性预测为核心的最小观测合同；观测字段、判别路径和数据权限单独清楚列示。
 
@@ -71,7 +71,7 @@
 
 ### GAP-E0-09 · 使实验授权时间线清晰可读
 
-历史的 [暂停回执](../20261024/EXPERIMENT_PAUSE.json)记录了先前的全面暂停；2026-10-25 的用户指令随后授权过**一次有限的 E0 Dense 被动观测**。这一范围已经完成：六来源、12 次生成、峰值两张 A100、零额外 FFN、零自动跟进、当前待运行模型作业数为零。完整记录在 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 的 \`experiment_authority.resume_scope\`。
+历史的 [暂停回执](../20261024/EXPERIMENT_PAUSE.json)记录了先前的全面暂停；2026-10-25 的用户指令随后授权过**一次有限的 E0 Dense 被动观测**。这一范围已经完成：六来源、12 次生成、峰值两张 A100、零额外 FFN、零自动跟进、当前待运行模型作业数为零。完整记录在 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 的 `experiment_authority.resume_scope`。
 
 **改进动作：** 统一入口均呈现这条按时间排序的事实，并由 [静态一致性检查](../../tools/check_autoresearcher_binding.py) 检查完成状态、来源分层、zero pending、automatic_followups 和零 eligible method IDs。新的模型/CPU/GPU 实验由用户下次明确指令指定；当前允许继续基于已有资料的独立数学、源码、文献和保存数据分析。
 
@@ -81,7 +81,7 @@
 
 当前仍开放的 Draft PR **#9/#12/#13/#19** 各有明确历史版本与研究对象。#19 的 HiF4 层级耦合现象适合用来挑战“量化只是幅度重编码”的解释；#9/#12/#13 讨论的是旧方法命题。
 
-**改进动作：** 为 E0 最新发现独立存档 reviewer 记录及 revision/blob，明确 \`OBSERVED\`、\`MATH_CONDITIONAL\`、\`PENDING_REVIEW\`、\`REVIEWED\` 的不同意义；对旧 Draft 追踪其原命题和可以迁移的反例。
+**改进动作：** 为 E0 最新发现独立存档 reviewer 记录及 revision/blob，明确 `OBSERVED`、`MATH_CONDITIONAL`、`PENDING_REVIEW`、`REVIEWED` 的不同意义；对旧 Draft 追踪其原命题和可以迁移的反例。
 
 **完成标志：** 一份版本准确、内容有差异、独立性可复核的审查索引。现有方法讨论空间继续保存所有有价值的 idea seed。
 
