@@ -5,6 +5,12 @@
 **Pinned AutoResearcher v2.4 Search-Augmented:** Read the exact [upstream source manifest](research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json), the [web-research-discovery skill](.agents/skills/web-research-discovery/SKILL.md) and the [upstream WARD protocol](core/WEB_RESEARCH_DISCOVERY.md) as the default scientific research toolchain. The project [FFNDS deep web protocol](research/agent_protocol/DEEP_WEB_RESEARCH.md) specializes it to true FFN math, video dynamics and execution mechanisms, using quantization history when relevant. Use primary-paper equations, independent citation trails, actual source implementations and the strongest alternatives to generate competing E0 mechanism hypotheses.
 
 
+## Default G0–G4 computational graph collaboration
+
+**Use the [Graph↔Agent protocol](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) with the [source/evidence node registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) and the [canonical G0–G4 computation graph](docs/98_端到端计算图与证据注解_20261025.md) in every substantive FFN research task.** Pull only the relevant upstream/downstream nodes, actual frozen source configuration, evidence scope and decision-time cost; start from a mechanism, source operation, literature clue or video anomaly. Create graph-anchored hypotheses/counterexamples via the [E0 graph annotation surface](research/method_discussion/graph_annotations/E0/README.md). Independent peers review mathematics/source and exact evidence; the serialized curator incorporates supported claims and OPEN edges back into graph + findings atlas. Graph labels and registry queries are research indexes, not an automatic runnable trace, new model authorization or a mandate to optimize G4 shared columns.
+
+Quick read-only lookup: `python tools/graph_agent_bridge.py inspect F08`; `python tools/graph_agent_bridge.py trace G18 P12`. Report the node IDs and if a proposed edge is `posthoc` or `conditional`, not a dense execution fact. Distinguish before-W1 information from an observer that pays extra W1, and `q2_post` from GELU hidden.
+
 ## Current stage: E0_OPEN_DISCOVERY — discover and explain real structure
 
 The single live [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json) defines priority and authorization. Read the [new FFN first task](research/20261025/E0_FFN_FIRST_TASK_20261025.md), [research reset](research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md), and [stage anchor](research/agent_protocol/E0_STAGE_ANCHOR.md). Old E0 quantization-first plans and radial-focused suggestions are scientific history.
