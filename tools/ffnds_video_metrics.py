@@ -13,7 +13,7 @@ import statistics
 
 
 SCHEMA = "ffnds.video.metrics.v1"
-REQUIRED_IDENTITY = ("source_id", "seed", "model_digest", "protocol_sha256", "run_sha256")
+REQUIRED_IDENTITY = ("source_id", "seed", "input_prompt_digest", "model_digest", "protocol_sha256", "run_sha256")
 REQUIRED_COST = ("generation_wall_seconds", "ffn_boundary_seconds",
                  "setup_seconds", "peak_gpu_memory_mib")
 FAMILIES = ("artifact", "temporal_motion", "spatial_detail", "luma_color", "runtime")
@@ -53,6 +53,13 @@ def validate(report, require_acceptance=False):
     for key in REQUIRED_COST:
         if key not in cost or not isinstance(cost[key], (int, float)) or not math.isfinite(cost[key]) or cost[key] < 0:
             failures.append("invalid cost." + key)
+    if report.get("reference"):
+        ref_identity=report.get("reference_identity",{})
+        for key in ("source_id","seed","input_prompt_digest"):
+            if identity.get(key)!=ref_identity.get(key) or ref_identity.get(key) in (None,""):
+                failures.append("reference does not match source/seed/prompt: "+key)
+        if not ref_identity.get("run_sha256"):
+            failures.append("reference run receipt identity absent")
     for key in FAMILIES + (PAIRED_FAMILIES if report.get("reference") else ()):
         if not isinstance(report.get("metrics", {}).get(key), dict) or not report["metrics"][key]:
             failures.append("missing metric family " + key)
@@ -204,6 +211,7 @@ def evaluate(candidate, reference, identity_record):
         report = {"schema":SCHEMA,"identity":identity_record["identity"],"cost":identity_record["cost"],
                   "candidate":{"path":str(candidate),"sha256":digest(candidate)},
                   "reference":{"path":str(reference),"sha256":digest(reference)} if reference else None,
+                  "reference_identity":identity_record.get("reference_identity") if reference else None,
                   "metrics":metrics,"per_frame":framewise,
                   "external_quality":{k:{"status":"NOT_RUN","reason":"Independent official benchmark or manual review not yet attached"}
                                       for k in ("vbench_i2v","vbench2","human_review")},
