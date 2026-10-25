@@ -1,5 +1,10 @@
 # 方法讨论记录模板
 
+## 原始论文与源码检索是每位科研 Agent 的默认步骤
+
+无论是 **E0 科学发现**还是后续方法 proposal/review，先依据 [多轮深度 Web Search 协议](../agent_protocol/DEEP_WEB_RESEARCH.md) 搜集经典与最新论文、相似/反向机制、官方代码及规格，并追踪重要论文的前后引用。文献支持需要阅读与判断有关的**公式、实现与实验设置**，不要堆砌摘要。E0 发现记录可把检索日期、跨领域方向、最相近文献与未覆盖范围放在“直接依据”一栏；review 必须独立寻找最强潜在重复论文。**不规定凑篇数或搜索次数；无法联网如实标注。** 不以网页数量作为科学支持票。
+
+
 ## 当前 E0：先记录科学发现，不需要填写算子字段
 
 唯一活跃阶段以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 的 `current_stage` 为准；目前是 **E0_OPEN_DISCOVERY**。在此阶段，**优先用 [发现记录模板](discoveries/E0/README.md)** 独立报告一个真实现象/条件结构、竞争解释和下一项区分性观察。下面的 `proposals/<id>/vN.json` 是**将来的候选方法结构**，其中 `action`、`expected_compute_saving` 不是 E0 发现的必答题。新的算子灵感可以登记，但不能因为填了这个模板就成为默认算法或 GPU 实验任务。
