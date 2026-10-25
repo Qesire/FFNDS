@@ -1,5 +1,10 @@
 # FFNDS 多 Agent 方法讨论队列
 
+## 广泛深入 Web Search：先检索再判断机制
+
+所有方法讨论 Agent 默认阅读并执行 [深度文献与代码检索规范](../agent_protocol/DEEP_WEB_RESEARCH.md)。形成新发现、提案或独立 review 前，在可用 Web 工具上多轮检索：覆盖经典/最新、正反解释、学术论文及实现/算子规范、相近算法的原始方程；沿关键论文的参考文献和后续引用追溯，复核**机制是否同构**而非比标题。记录真实查询覆盖、代表性第一手来源和竞争结论。**E0 先发现现象**；Web 文献中新算子只能作为种子。无联网能力明确声明，不得替代成“已充分查重”。
+
+
 **当前阶段优先事项：** [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 声明的 `E0_OPEN_DISCOVERY`。在 [独立发现记录](discoveries/E0/README.md) 中先追问原生 Wan 的**结构现象、竞争机制与区分性观察**；旧 proposals/ 与 reviews/ 不会因数量或认可自动成为主研究方向。外部 Agent 应随启动任务加载 [E0 锚定提示](../agent_protocol/E0_STAGE_ANCHOR.md)。该安排不禁止大胆算子假说，只禁止由 Agent 自行晋升成新的活跃任务或执行队列。
 
 
