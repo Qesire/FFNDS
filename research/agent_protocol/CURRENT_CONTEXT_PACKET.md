@@ -1,5 +1,7 @@
 # FFNDS · E0 当前科学上下文（2026-10-25）
 
+**方向再审（当前首先阅读）**：[E0后affine科学分歧](../20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)与新增 [G5图层](../../docs/98_端到端计算图与证据注解_20261025.md)。affine表征、奇偶/热区竞争解释、旧导数层间差异、真实权重常驻属于不同科学对象。当前活跃任务允许由下游画质、时空组织、早期信息、W1/W2可删计算甚至新表示直接提出新机制；不要把下一任务等同于固定1/2斜率或affine+27组。Graph-Agent节点是来源与论证索引，不构成科学问题全集。
+
 **最新实际推进：** [全层函数表示结果](../20261025/E0_AFFINE_FFN_DISCOVERY.md)已完成40层旧斜率、160个跨来源增量、40个绝对affine和8个孤立计时案例。affine＋27组的uniform32平均输出SSE11.27%，匹配直接67组43.13%；中间层仍有明显误差，未执行近似候选视频。全部40层的中心128/原random32操作数与旧full-M导数均值已保存，勿重复采集。full-M不是误差评价行数。[独立审查](../method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md)提出GELU半线性奇部＋偶部及W2 signed抵消的竞争解释，半斜率控制尚未执行。
 
 **可复用的运行时成果：** [相同视频的权重常驻](../20261025/E0_DENSE_WEIGHT_RESIDENCY.md)在单张80GB A100同卡热态约75→50秒，18视频/72latent SHA与原dense相同；显存物理采样峰值77.08GiB。没有减少FFN MAC，后续算法应对照这个更强dense参考并报告冷态/显存。两来源实际seed42/54；此前“seed42”简称指base seed，并非source12同seed。全部本轮固定范围完成、0作业，实际峰值2卡、用户上限4卡；旧12/40次冻结回执不变。
@@ -23,7 +25,7 @@
 
 **时点与数值对象**：`q2_post`是实际W2输入，而`h=GELU(a)`是Q2前的对象。micro16先于完整token W1，但使用**额外全宽W1和GELU**投影。原HiF4尺度组依赖是该数值实现的约束，与新格式/条件近似/函数重写所允许的计算不同。保存的全通道sample与全token仅占用统计也不是同一范围。
 
-**计算图协作**：同步查阅 [G0–G4](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph↔Agent协议](GRAPH_AGENT_COLLABORATION.md)和 [机器可读节点](GRAPH_AGENT_BINDINGS.json)。独立研究者选与问题相关的若干节点沿原生执行、历史条件、下游功能及成本路径核对证据；新机制/反例另入 [E0图注解](../method_discussion/graph_annotations/E0/README.md)，交叉核查后再由整理者更新图/谱系。图的候选路线为待证实边，不自动代表可运行算子；允许提出新的数学节点和执行路径。
+**计算图协作**：同步查阅 [G0–G5](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph↔Agent协议](GRAPH_AGENT_COLLABORATION.md)和 [机器可读节点](GRAPH_AGENT_BINDINGS.json)。独立研究者选与问题相关的若干节点沿原生执行、历史条件、下游功能及成本路径核对证据；新机制/反例另入 [E0图注解](../method_discussion/graph_annotations/E0/README.md)，交叉核查后再由整理者更新图/谱系。图的候选路线为待证实边，不自动代表可运行算子；允许提出新的数学节点和执行路径。
 
 ## 当前第一组开放科学探索
 
