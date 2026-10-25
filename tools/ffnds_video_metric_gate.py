@@ -42,6 +42,18 @@ def inspect(bundle_path, require_acceptance=False):
             errors.extend(f"{index}: {message}" for message in validate(report,require_acceptance))
             if report.get("candidate",{}).get("sha256")!=entry.get("video_sha256"):
                 errors.append(f"{index}: report/video artifact digest mismatch")
+            if report.get("reference"):
+                ref_video=base/entry.get("reference_video_path","")
+                ref_run=base/entry.get("reference_run_receipt_path","")
+                if not ref_video.is_file() or not ref_run.is_file():
+                    errors.append(f"{index}: paired candidate missing original dense video or run receipt")
+                else:
+                    if (digest(ref_video)!=entry.get("reference_video_sha256")
+                        or digest(ref_video)!=report["reference"].get("sha256")):
+                        errors.append(f"{index}: paired dense video hash mismatch")
+                    if (digest(ref_run)!=entry.get("reference_run_sha256")
+                        or digest(ref_run)!=report.get("reference_identity",{}).get("run_sha256")):
+                        errors.append(f"{index}: paired dense run receipt hash mismatch")
             identity=report.get("identity",{})
             if identity.get("run_sha256")!=entry.get("run_sha256"):
                 errors.append(f"{index}: run receipt SHA not bound to metric report")
