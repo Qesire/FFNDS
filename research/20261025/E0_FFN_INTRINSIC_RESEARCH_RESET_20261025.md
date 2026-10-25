@@ -1,5 +1,7 @@
 # FFNDS · FFN 本征计算研究纲领（2026-10-25 · Skill/WARD 修订）
 
+**当前阅读顺序**：[第一任务](E0_FFN_FIRST_TASK_20261025.md) → [知识缺口与最低成本判别](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md) → [五族机制与原文](E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。
+
 **当前科学主线**：从 FFN 真正执行的计算出发，研究输入与上下文如何决定必要计算，以及哪些功能变化可由更少、更共享或重新组织的运算产生。**研究对象**是 Wan2.2 四步蒸馏视频模型的真实 FFN；**当前有界测量环境**是 LightX2V 的 D-Q/HiF4 QDQ→BF16 路径。历史观测维持原样。任务入口：[第一任务](E0_FFN_FIRST_TASK_20261025.md)；[机制与先例地图](E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)；[唯一活跃状态](../ACTIVE_RESEARCH.json)。
 
 ## 1. 核心科学问题
