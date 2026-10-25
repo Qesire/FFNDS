@@ -125,11 +125,22 @@ def main():
                   "research/method_discussion/TEMPLATES.md"):
         ensure(stage["id"] in text(entry),
                "Agent entrypoint has drifted from live E0 research phase: " + entry)
-    # Current E0 problems must be discoverable across actual agent entrypoints.
-    gap_doc = "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md"
-    ensure(stage.get("open_problems_document") == gap_doc and
-           stage.get("latest_deliverable", {}).get("gaps_and_required_remedies") == gap_doc,
-           "E0 source-bound open-problems document is not the live stage reference")
+    # Single FFN-first scientific question; historical E0 gap dossier remains immutable
+    # evidence rather than a source of agent task priority.
+    focus = active.get("research_focus", {})
+    reset_doc = "research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md"
+    first_task = "research/20261025/E0_FFN_FIRST_TASK_20261025.md"
+    historical_gap = "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md"
+    ensure(focus.get("priority") == "INTRINSIC_FFN_MECHANISM_FIRST" and
+           focus.get("scientific_reset") == reset_doc and
+           focus.get("first_task") == first_task and
+           focus.get("quantization_role", "").startswith("OPTIONAL_COARSE_MAGNITUDE") and
+           active.get("active_document") == first_task and
+           stage.get("open_problems_document") == reset_doc and
+           stage.get("direction_document") == reset_doc and
+           stage.get("latest_deliverable", {}).get("gaps_and_required_remedies") == historical_gap and
+           (ROOT / historical_gap).is_file(),
+           "FFN-first active science routing or historical evidence provenance drift")
     for entry in ("AGENTS.md", ".github/copilot-instructions.md",
                   ".agents/skills/ffnds-paper-discovery/SKILL.md",
                   "research/method_discussion/AGENTS.md",
@@ -137,10 +148,17 @@ def main():
                   "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
                   "research/agent_protocol/README.md",
                   "research/method_discussion/discoveries/E0/README.md",
-                  "research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md",
                   "README.md"):
-        ensure("E0_GAPS_REMEDIATION_REQUIREMENTS.md" in text(entry),
-               "Current E0 problem-remediation prompt route missing: " + entry)
+        ensure("E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md" in text(entry),
+               "FFN-first project entrypoint drift: " + entry)
+    for entry in ("AGENTS.md", ".github/copilot-instructions.md",
+                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
+                  "research/method_discussion/AGENTS.md",
+                  "research/agent_protocol/E0_STAGE_ANCHOR.md",
+                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+                  "research/agent_protocol/README.md", "README.md"):
+        ensure("E0_FFN_FIRST_TASK_20261025.md" in text(entry),
+               "New FFN discovery task not visible to agent: " + entry)
     # Semantic/creative writing quality is evaluated using blinded case reviews,
     # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")
@@ -335,6 +353,9 @@ def main():
                "Historical entry is not a concise working redirect: " + entry["path"])
         check_relative_markdown_links(entry["path"])
     check_relative_markdown_links("research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md")
+    check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md")
+    check_relative_markdown_links("research/20261025/E0_FFN_FIRST_TASK_20261025.md")
+    check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md")
     check_relative_markdown_links("core/WEB_RESEARCH_DISCOVERY.md")
     check_relative_markdown_links(".agents/skills/web-research-discovery/SKILL.md")
     check_relative_markdown_links("research/agent_protocol/UPSTREAM_SYNC.md")
@@ -379,7 +400,7 @@ def main():
            not (ROOT / "research/20261024/operator_first_autoresearcher_reexploration.json").exists(),
            "Superseded algorithm-first task is present")
 
-    print("PASS: exact AutoResearcher v2.4 WARD source, shared skills and live FFNDS route,")
+    print("PASS: exact AutoResearcher v2.4 WARD source, shared skills and intrinsic FFN discovery route,")
     print("      Markdown links, E0 issues, completed permission scope and historic pause.")
     print("Scope: static structure only. No numerical experiment or agent behavioral run.")
 
