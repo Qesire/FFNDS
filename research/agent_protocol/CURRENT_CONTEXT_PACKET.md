@@ -1,5 +1,7 @@
 # FFNDS · E0 当前科学上下文（2026-10-26）
 
+**刚刚确定的科研质量底线（2026-10-26）**：[每次生成必须有完整质量/物理指标和全40层×四步真实前缀诊断](VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)。上一轮两层partial-native仅0和30，**不包含末层39**；160处完整模型替换已执行，但尚未采集160处Student原生同输入/离轨输入的配对误差。现有六视频只有RGB/亮度/时间差等部分指标，正式VBench-I2V、光流/细节、真实背景闪烁及人工视频审阅不齐，不符合新的完整质量验收。新产生的每条视频必须有全帧逐帧指标、SHA/运行成本、未执行官方指标的明确状态和证据bundle校验。工具：[全帧分析](../../tools/ffnds_video_metrics.py) · [全视频SHA门禁](../../tools/ffnds_video_metric_gate.py)；新160位研究仍仅静态模板未授权GPU。实时场景用户已明确暂停。
+
 **最新全模型更新 2026-10-26**：[全40层校准](../20261026/E0_ALL_BLOCK_RECONSTRUCTION.md)、[完整160处FFN与六条视频](../20261026/E0_RECONSTRUCTED_VIDEOS.md)以及[新的方向审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。affine54在强resident dense同卡热态FFN9.707→4.449s、全生成50.750→45.313s，但视频变模糊、动作减弱，whole94严重重影，**新原型无画质验收**。后续优先区分same-input部署数值差、受扰前缀输入分布及原生下游有符号/跨步传递，而不是继续调旧局部SSE。跨来源局部8.54%也不是视频指标。正式方法选择未发生，所有注册实验结束。
 
 **并列实时场景（OPEN）**：[实时交互式生成研究](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)，对应G6新节点。原81帧整段离线完成时间不是逐帧stream FPS/TTFF，后者需确定causal/rolling模型源码、逐帧p95/p99 deadline、KV/FFN缓存有效条件及long-horizon漂移。用户新增场景不自动变更原Wan主线、执行授权或算法选择。
