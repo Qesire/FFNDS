@@ -22,20 +22,29 @@ class MetricContractTest(unittest.TestCase):
            "reference_identity":{"source_id":"fixture","seed":42,"input_prompt_digest":"inputsha","run_sha256":"dense-run"} if paired else None,
            "metrics":{"artifact":{"decoded_frames":n,"verified_full_decode_frames":n,
                                   "fps":16,"frame_shape":[32,32,3]},
-                      "runtime":{"generation_wall_seconds":3.1},
-                      "temporal_motion":{"adjacent_RGB_MAE_0to1":stat(n-1)},
+                      "runtime":{"generation_wall_seconds":3.1,"ffn_boundary_seconds":.5,"setup_seconds":4.2,"peak_gpu_memory_mib":500},
+                      "temporal_motion":{"adjacent_RGB_MAE_0to1":stat(n-1),"downsampled_Farneback_mean_flow_px":stat(n-1)},
                       "spatial_detail":{"laplacian_abs_energy_candidate":stat(n)},
-                      "luma_color":{"mean_encoded_BT709_luma":stat(n)}} ,
+                      "luma_color":{"mean_encoded_BT709_luma":stat(n),"adjacent_encoded_luma_abs":stat(n-1)}} ,
            "external_quality":{k:{"status":"NOT_RUN","reason":"Missing actual VBench/manual evaluation"}
                                for k in ("vbench_i2v","vbench2","human_review")},
            "quality_accepted":False}
-        r["per_frame"]=[dict(frame=i, **({"paired_RGB_RMSE_0to1":0.1,
+        r["per_frame"]=[dict(frame=i,laplacian_abs_edge_energy=.2,mean_encoded_luma=.3,
+                            **({"candidate_adjacent_RGB_MAE_0to1":.02,"candidate_downsampled_Farneback_flow_mean_px":1.0} if i>0 else {}),
+                            **({"paired_RGB_RMSE_0to1":0.1,
                       **({"paired_temporal_delta_RGB_RMSE_0to1":0.2} if i>0 else {})} if paired else {})) for i in range(n)]
         if paired:
-            r["metrics"].update(paired_spatial={"frames":n,"RGB_RMSE_0to1":stat(n)},
+            r["metrics"].update(paired_spatial={"frames":n,"RGB_RMSE_0to1":stat(n),
+                                                "RGB_MAE_0to1":stat(n),
+                                                "encoded_luma_RMSE_0to1":stat(n),
+                                                "signed_encoded_luma_drift_0to1":stat(n),
+                                                "candidate_to_reference_laplacian_energy_ratio":stat(n)},
                                 paired_temporal={"adjacent_delta_RGB_RMSE_0to1":stat(n-1)},
-                                paired_motion={"downsampled_Farneback_flow_L2_px":stat(n-1)},
-                                static_region={"warning":"Low-motion mask is not a semantic background mask"})
+                                paired_motion={"downsampled_Farneback_flow_L2_px":stat(n-1),
+                                               "candidate_to_reference_flow_magnitude_ratio":stat(n-1)},
+                                static_region={"reference_flow_threshold_downsampled_px":.25,
+                                               "uncompensated_low_reference_motion_luma_delta_abs":stat(n-1),
+                                               "warning":"Low-motion mask is not a semantic background mask"})
         return r
 
     def test_percentiles_are_auditable(self):
