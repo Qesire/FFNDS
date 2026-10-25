@@ -159,14 +159,12 @@ def main():
                   "research/agent_protocol/README.md", "README.md"):
         ensure("E0_FFN_FIRST_TASK_20261025.md" in text(entry),
                "New FFN discovery task not visible to agent: " + entry)
-    # New E0 evidence is attached to a broad scientific handoff rather than
-    # being silently narrowed to the latest shared-column/HiF4 implementation.
+    # Historical G4 mechanism audit remains discoverable, but only the
+    # most recent G5 audit owns the current latest_* pointers below.
     divergence = "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md"
-    ensure(focus.get("latest_mechanism_audit") == divergence and
-           stage.get("latest_direction_review") == divergence and
-           (ROOT / divergence).is_file() and
+    ensure((ROOT / divergence).is_file() and
            "E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md" in text(first_task),
-           "Latest intrinsic mechanism divergence not routed into sole active task")
+           "Historical intrinsic divergence audit lost from research navigation")
     ensure("MULTIPLE_COMPETING_MECHANISMS" in
            focus.get("search_space_policy", "") and
            len(stage.get("current_open_forks", [])) >= 4 and
