@@ -2,6 +2,8 @@
 
 **当前阶段：`E0_OPEN_DISCOVERY`**。**最新科学证据和任务再审**：[全层affine/奇偶机制/强dense基线与研究空间](E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)。40层旧导数/局部affine与原生权重常驻研究已完成；新的任务必须从这些结果提供的开放解释出发，而不以当前folding或共享列当作必选算子。科学纲领：[FFN 本征计算](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)；最新独立审查：[分歧与探索空间](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；原始数据：[完整hidden](E0_INTRINSIC_FULL_HIDDEN.md)、[连续token / 前置选择](E0_SHARED_TILE_PRE_W1.md)、[K1–K5更新](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)；授权与唯一状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
 
+**最新用户范围（2026-10-26）**：实时/交互式流式生成方向暂时暂停。下面的场景介绍只保留历史文档，不指派Agent继续研究。唯一当前焦点：解释 affine54 原生计算、完整视频质量损失，以及用现有证据对部署数值、前缀离轨、下游有符号传递与四步轨迹竞争解释做可区分的验证。
+
 ## 2026-10-26：最新全模型证据与并列的实时场景
 
 **最新方向审查**：[六视频原生替换失败后的机制判别与双场景定位](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)，[六条视频及真实成本报告](../20261026/E0_RECONSTRUCTED_VIDEOS.md)；**附加实时场景**：[真实在线时延与因果状态问题](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)。
