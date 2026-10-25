@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "claim_id": "E0_GRAPH_SEED_FUNCTION_BASIS_20261025",
+  "agent_id": "GPT6_GRAPH_PROTOCOL_BOOTSTRAP",
+  "research_stage": "E0_OPEN_DISCOVERY",
+  "source_revision": "8df09a6dcb82d256a2593ef5158441f78b771ff0",
+  "anchor_nodes": [
+    "F08",
+    "F09",
+    "F15",
+    "P06",
+    "P08"
+  ],
+  "upstream_nodes": [
+    "F04",
+    "F06",
+    "F08R"
+  ],
+  "consumer_nodes": [
+    "F12",
+    "F13",
+    "P10",
+    "P11",
+    "P12"
+  ],
+  "mechanism": {
+    "statement": "Observed per-token posthoc delta-channel concentration and poor common-channel support may coexist with a lower-dimensional common output-function basis in which each token has different coefficients. This is a competing representation hypothesis, not a measured Wan result.",
+    "math_or_trace": "For token block B, ΔU_r=V_t Δq_r; define μ_B=mean_r ΔU_r and e_r=ΔU_r−μ_B, giving Σ_r||ΔU_r||²=|B| ||μ_B||²+Σ_r||e_r||². The decomposition is exact; a cheap rank-k predictor or executable factorization for e_r has not been established.",
+    "relation": "HYPOTHESIS_PLUS_EXACT_ALGEBRA"
+  },
+  "availability": {
+    "earliest_decision_time": "posthoc only in current recorded data",
+    "observer_computation": "Computing Δq for current steps requires full W1/GELU/Q2; any early function-basis observer would have additional work.",
+    "online_or_posthoc": "POSTHOC_LABEL_ONLY"
+  },
+  "real_cost": {
+    "W1": "No W1 reduction shown",
+    "W2": "No executed reduction; output-space basis must account for transforms",
+    "QDQ": "Native original HiF4 group-scale closure applies when computing current Q2 coordinates in the original way",
+    "routing_memory": "Potential function-basis update/cache and gather cost unknown",
+    "downstream": "No new paired candidate video or real FFN speed"
+  },
+  "evidence": [
+    {
+      "path": "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
+      "kind": "OBS",
+      "scope": "Six exposed sources, saved32 row analysis, five sampled blocks, 25% posthoc delta value diagonal innovation SSE 2.44%–7.07%"
+    },
+    {
+      "path": "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+      "kind": "OBS",
+      "scope": "Two exposed sources, original raster M128 tiles, common-innovation energy first/last layers greater than sampled middle layers; shared 25% diagonal SSE ~39%–42% middle"
+    }
+  ],
+  "countermechanism": {
+    "statement": "The observed shared-support loss is intrinsic high-dimensional token-specific function variation, not merely a poor original hidden basis.",
+    "prediction": "Conditional output-space low-dimensional shared basis will not improve matched-data reconstruction vs suitably matched per-token and shared-column baselines once independent tokens and selector costs are included."
+  },
+  "discriminator": "Use existing two-source contiguous saved Δq and W2/gate: compare matched-rank output subspace (with held-out token/source basis fitting) vs shared-column, fixed, and shuffled controls. Evaluate signed function reconstruction per token plus source-held-out generality before considering early predictor or new native jobs.",
+  "graph_change_suggestion": {
+    "node_ids": [
+      "F09",
+      "F15",
+      "P06",
+      "P08"
+    ],
+    "proposed_annotation": "Add OPEN conditional representation edge from posthoc token-wise W2 output geometry to an optional output-function basis; separate basis expressivity from acquisition and executable savings.",
+    "graph_edge_status": "OPEN"
+  },
+  "review_status": "PROPOSED",
+  "review_refs": [],
+  "model_experiment_authorized": false
+}
