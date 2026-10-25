@@ -63,6 +63,15 @@ def validate(report, require_acceptance=False):
         failures.append("not all frames verified")
     if report.get("reference") and report.get("metrics", {}).get("paired_spatial", {}).get("frames") != artifact.get("decoded_frames"):
         failures.append("paired frames incomplete")
+    frames = report.get("per_frame", [])
+    if not isinstance(frames, list) or len(frames) != artifact.get("decoded_frames", -1):
+        failures.append("missing or incomplete per-frame metric series")
+    elif [f.get("frame") for f in frames] != list(range(len(frames))):
+        failures.append("per-frame indices not contiguous")
+    elif report.get("reference") and any("paired_RGB_RMSE_0to1" not in f or
+                                      (f["frame"] > 0 and "paired_temporal_delta_RGB_RMSE_0to1" not in f)
+                                      for f in frames):
+        failures.append("paired framewise quality metrics incomplete")
     ext = report.get("external_quality", {})
     for key in ("vbench_i2v", "vbench2", "human_review"):
         record = ext.get(key)
@@ -98,6 +107,7 @@ def evaluate(candidate, reference, identity_record):
                         "static_luma_delta_error", "edge_energy_ratio")})
         old = None
         count = 0
+        framewise = []
         frame_shape = None
         while True:
             reads = [cap.read() for cap in caps]
@@ -116,7 +126,9 @@ def evaluate(candidate, reference, identity_record):
                 if not np.all(np.isfinite(v)):
                     raise ValueError("Nonfinite decoded pixels")
             data["edge_energy"].append(float(np.mean(np.abs(cv2.Laplacian(gray[0], cv2.CV_32F)))))
+            item={"frame":count,"laplacian_abs_edge_energy":data["edge_energy"][-1]}
             data["mean_encoded_luma"].append(float(np.mean(frames[0] @ np.array([.2126,.7152,.0722],dtype=np.float32))))
+            item["mean_encoded_luma"]=data["mean_encoded_luma"][-1]
             if reference:
                 diff = frames[0] - frames[1]
                 data["pixel_rmse"].append(float(np.sqrt(np.mean(diff**2))))
@@ -124,11 +136,16 @@ def evaluate(candidate, reference, identity_record):
                 d_luma = (frames[0]-frames[1]) @ np.array([.2126,.7152,.0722],dtype=np.float32)
                 data["encoded_luma_rmse"].append(float(np.sqrt(np.mean(d_luma**2))))
                 data["mean_signed_luma_drift"].append(float(np.mean(d_luma)))
+                item["paired_RGB_RMSE_0to1"]=data["pixel_rmse"][-1]
+                item["paired_encoded_luma_RMSE_0to1"]=data["encoded_luma_rmse"][-1]
+                item["paired_signed_encoded_luma_drift_0to1"]=data["mean_signed_luma_drift"][-1]
                 edge_r = float(np.mean(np.abs(cv2.Laplacian(gray[1],cv2.CV_32F))))
                 data["edge_energy_ratio"].append(float(data["edge_energy"][-1]/max(edge_r,1e-9)))
+                item["candidate_to_reference_laplacian_energy_ratio"]=data["edge_energy_ratio"][-1]
             if old is not None:
                 data["temporal_mae"].append(float(np.mean(np.abs(frames[0]-old[0]))))
                 data["luma_temporal_abs"].append(float(np.mean(np.abs(gray[0]-old[1][0]))))
+                item["candidate_adjacent_RGB_MAE_0to1"]=data["temporal_mae"][-1]
                 flows = []
                 for g, oldg in zip(gray, old[1]):
                     h, w = g.shape
@@ -139,10 +156,13 @@ def evaluate(candidate, reference, identity_record):
                     flow = cv2.calcOpticalFlowFarneback(prev_s,curr_s,None,.5,3,15,3,5,1.2,0)
                     flows.append(flow)
                 data["temporal_flow_mean"].append(float(np.mean(np.linalg.norm(flows[0],axis=2))))
+                item["candidate_downsampled_Farneback_flow_mean_px"]=data["temporal_flow_mean"][-1]
                 if reference:
                     delta = (frames[0]-old[0])-(frames[1]-old[2][1])
                     data["temporal_delta_rmse"].append(float(np.sqrt(np.mean(delta**2))))
+                    item["paired_temporal_delta_RGB_RMSE_0to1"]=data["temporal_delta_rmse"][-1]
                     data["motion_flow_l2"].append(float(np.mean(np.linalg.norm(flows[0]-flows[1],axis=2))))
+                    item["paired_Farneback_flow_L2_px"]=data["motion_flow_l2"][-1]
                     m0 = float(np.mean(np.linalg.norm(flows[1],axis=2)))
                     data["flow_magnitude_ratio"].append(float(data["temporal_flow_mean"][-1]/max(m0,1e-9)))
                     # Fixed low-motion mask is obtained ONLY from dense flow.
@@ -151,6 +171,8 @@ def evaluate(candidate, reference, identity_record):
                         d0 = cv2.resize(gray[0]-old[1][0],flows[1].shape[1::-1])
                         d1 = cv2.resize(gray[1]-old[1][1],flows[1].shape[1::-1])
                         data["static_luma_delta_error"].append(float(np.mean(np.abs(d0[mask]-d1[mask]))))
+                        item["paired_low_motion_luma_delta_abs"]=data["static_luma_delta_error"][-1]
+            framewise.append(item)
             old = (frames[0],gray,frames)
             count += 1
         if count < 2:
@@ -169,6 +191,7 @@ def evaluate(candidate, reference, identity_record):
         if reference:
             metrics["paired_spatial"] = {"frames":count,"RGB_RMSE_0to1":summary(data["pixel_rmse"]),
                                           "RGB_MAE_0to1":summary(data["pixel_mae"]),
+                                          "candidate_to_reference_laplacian_energy_ratio":summary(data["edge_energy_ratio"]),
                                           "encoded_luma_RMSE_0to1":summary(data["encoded_luma_rmse"]),
                                           "signed_encoded_luma_drift_0to1":summary(data["mean_signed_luma_drift"])}
             metrics["paired_temporal"] = {"adjacent_delta_RGB_RMSE_0to1":summary(data["temporal_delta_rmse"])}
@@ -180,7 +203,7 @@ def evaluate(candidate, reference, identity_record):
         report = {"schema":SCHEMA,"identity":identity_record["identity"],"cost":identity_record["cost"],
                   "candidate":{"path":str(candidate),"sha256":digest(candidate)},
                   "reference":{"path":str(reference),"sha256":digest(reference)} if reference else None,
-                  "metrics":metrics,
+                  "metrics":metrics,"per_frame":framewise,
                   "external_quality":{k:{"status":"NOT_RUN","reason":"Independent official benchmark or manual review not yet attached"}
                                       for k in ("vbench_i2v","vbench2","human_review")},
                   "quality_accepted":False,"scope":"ALL_FRAMES_EVALUATED_NO_OFFICIAL_OR_HUMAN_ACCEPTANCE"}
