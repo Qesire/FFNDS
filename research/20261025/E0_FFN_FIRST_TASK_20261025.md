@@ -1,53 +1,43 @@
-# E0 当前唯一第一任务：FFN 本征结构发现，不从量化尺度选择算子
+# E0 · 第一轮研究任务：发现 FFN 的条件函数结构
 
-**依循纲领**：[E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)。**研究阶段**：`E0_OPEN_DISCOVERY`。此文是新科研任务，不是 GPU / 模型执行协议。
+**唯一活跃任务** · [研究纲领](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [文献与机制地图](E0_FFN_INTRINSIC_PRIOR_ART_20261025.md) · [活跃状态](../ACTIVE_RESEARCH.json)
 
-## 要首先回答的科学问题
+## 首先回答哪一个问题？
 
-> 在真实 Wan 四步学生模型中，是否存在能够区别「FFN 激活小」「FFN 净作用小」「下游影响小」「物理可省算」四件事的结构？最先让我们改变判断的是哪一种已可获得的证据？
+> `W1→GELU→W2` 的函数贡献如何随输入、时空位置、去噪步和专家变化？哪种新表示最能解释“某些计算可以减少，而其他小误差仍严重影响视频”？
 
-不能用已做完的 Block0 径向配对/四臂 star-null 复算重复充当新发现。它们作为挑战下游功能结论的专项证据，在需要时调用即可。
+**第一步是填补 FFN 研究信息缺口，不是继续重算旧 LayerNorm 径向指标。** Agent 可以用已有证据或不同的文学线索开启方法讨论，发现新机制以后再收紧观测范围。
 
-## 第一轮真实工作（三条相互独立的科学问题）
+### A · 函数与表示：找到真正有意义的计算单位
 
-### I. FFN 内部：贡献分布和有符号交互
+先建立**实际 FFN 数据字段地图**：真实 pre-W1 输入、W1 输出 `a`、GELU `h`、Q2 saved operand、decoded W2 sampled contributions、gate、bias 和 residual 的 tensor shape、可用 source/step/block/token 范围。特别说明哪些是整个 hidden，哪些只是32位置×五64组面板。
 
-- 从固定源重建 `z→W1→GELU→W2→gate` 的真实张量边界及 available saved fields，指出现有 assets 哪些是完整 h、Q2-only、W2 sampled panels、gate、bias。区分已存 32 行 × 五组和完整全网络 hidden；保存资产不够时以精确字段需求完成这一步。
-- 理论上先区分 `|h_j|`、`||h_j W2[:,j]||`、净增量、signed cross-term；独立提出 **集中** 和 **分散/高相关** 两种机制的相反预测。
-- 重新考虑最有效的定义单位：每通道、成组、按 token 的 tile、输入敏感子空间。先观察支持集与方向，后选择是否有任何方法应以某单位实现。
-- **交付**：源码/字段覆盖地图、至少一条有符号交互恒等式或反例、最廉价的现有数据检验。
+以 `h_j`、`d_j=h_j(g⊙W2[:,j])`、`Σd_j`、局部 Jacobian 为四种表达，检验**条件集中**与**superposition/方向干扰**两种机制。证明最小反例：`|h|` 排序可以与净功能贡献排序不同。创新空间包括神经元组合、条件敏感子空间、输出方向和坐标重表示，并非只有 channel-group mask。
 
-### II. FFN 的空间与跨步变化
+**交付**：一个具体公式/反例；准确 operand 覆盖地图；当前历史资产中的最小可判别观测或需要的一个精准新字段。
 
-- 检查同一 token 坐标、不同 step 与 expert 的 FFN pre-activation/hidden/output 的绝对值 vs innovation/变化；严格分离共同模式、局部变化及真实时空对象追踪。
-- 明确 Wan 四步双专家调度和保存资产限制；和 Chipmunk 的 cached-MLP delta、少步 DiffSparse 的“计算时点”对比。
-- 竞争假说：可共享的跨步状态 vs 表面 cosine 高但仍存在不可忽略幅度/局部变化；后者能解释为何光照/细小背景更容易出问题？
-- **交付**：来源/step/expert 分层的已有证据可回答程度，以及一条将改变计算重用判断的反例或判别式。
+### B · 条件创新：研究 FFN 实际重复了什么
 
-### III. 下游功能价值与计算自由度
+在固定源重建四步双专家时间表与真正可复用的历史（同 expert 的两次，不假设更多历史）；分析绝对 `a,h,y`、幅度、方向、变化 `Δ` 的区别；再比较相同 latent 网格位置与时间/空间邻近位置的结构。
 
-- 用实际 gate/residual/nextnorm/attention/scheduler 图刻画 FFN 的有限动作如何改变视频轨迹；将历史观察到的主体外光照/细节波动作为机制发现线索。
-- 比较输出能量、时间稳定性、空间低频/高频、条件方向对后续真实作用排序的预测；对小局部误差但大终端效应给出条件性解释。
-- 探索新的静态/动态、精确/近似、改变执行顺序/减少重复工作的计算机制；对每个种子列出最早可以作选择的计算节点和可消去的 GEMM 工作，**不要求立即定案**。
-- **交付**：功能机制竞争图、能改变下一行动的一项精确反例/条件推导。
+竞争机制例如**共享低维变化**对**表面高 cosine 但创新仍大**、**expert 切换机制**对**同一源 seed 或采样协议产生的共同方向**。与 [Chipmunk Part II](https://sandyresearch.github.io/chipmunk-part-II/)、[AdaCache ICCV 2025](https://openaccess.thecvf.com/content/ICCV2025/html/Kahatapitiya_Adaptive_Caching_for_Faster_Video_Generation_with_Diffusion_Transformers_ICCV_2025_paper.html) 和 [DiffSparse ICLR 2026](https://proceedings.iclr.cc/paper_files/paper/2026/hash/5e66b9f710a8e38351da690f3806cba9-Abstract-Conference.html) 区分不同缓存时点、训练和算子对象。
 
-**交叉审查者**：独立依据文献与源代码挑战 I/II/III，不能把最接近的已发表原语直接看作完整重合；优先找到真正同构的行动、时序、代价与训练假设。
+**交付**：一个真正解释时间机制的判别式/反例与可检验预测，不以 cosine 数字直接证明复用可行。
 
-## 当前资产使用清单
+### C · 功能与物理自由度：让视频效果和计算结构同框
 
-| 资产 | 可以先做的判断 | 不可跳跃的推论 |
-|---|---|---|
-| `tools/analyze_e0_radial_pairing.py`、E0 保存组面板 | 32 sampled rows 上的 decoder W2 group + gate 方向与几何 | 整体 hidden 稀疏率、真实 GEMM tile 可省算 |
-| `E0_TEMPORAL_CALIBRATION.json`、`E0_TEMPORAL_STRUCTURE.json` | 特定跨 step FFN 输出/共同分量/专家分层 | 训练自由缓存策略或其真实速度 |
-| `E0_FOLLOWTHROUGH.json` 对应的完成报告与 `E0_FINITE_GROUP_DIAGNOSTIC.json` | 固定两组有限干预的 BF16 本地和四步 downstream 作用 | 通道一般性、硬件速度、视频质量门槛 |
-| 旧 R13/R16/R17/A5+HWG 证据 | 对以前具体动作和主体外视频失稳提出机制问题 | “稀疏必然失败”或“必须 dense completion” |
+用真实 gate→residual→next consumer→scheduler 路径重构已保存的有界 finite effects；同时借助 [VBench CVPR 2024](https://openaccess.thecvf.com/content/CVPR2024/html/Huang_VBench_Comprehensive_Benchmark_Suite_for_Video_Generative_Models_CVPR_2024_paper.html) 的背景一致性、时间闪烁、运动平滑等区分**终端质量结构**。研究问题是：同样局部误差能量，为何作用方向、空间位置、时间连续性会使感知质量表现不同？
 
-本任务只引用已在仓库核实的研究报告与现有产物；新字段的可用性由 Agent 在来源审计中登记。
+在数学上寻找引发可执行工作的表示自由度。对候选种子标明观测时点（FFN 前 / W1 后 / GELU 后 / W2 后）、实际动作（改变 W1/GELU/W2 的哪块工作）与最近相关 kernel/论文。对原先散点式 token×channel 支持，可比较 column/tile、重排、共享基等**假说**，优先用 [Activation Concentration](https://arxiv.org/abs/2606.00567) 和 [NVIDIA GEMM Tiling](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/index.html) 的已知物理约束构造判别。
 
-## 方法行动与报告格式
+**交付**：局部量与时间质量不一致的至少一个有内容的机制解释，和一项明确可移除的物理计算候选或能够否定它的实证需求。
 
-每位 Agent 沿 [DEEP_WEB_RESEARCH.md](../agent_protocol/DEEP_WEB_RESEARCH.md) 开展深入原论文与原代码检索，并依据固定 AutoResearcher v2.4 的 `mechanism-research`、`research-expansion`、`problem-reformulation` 和 `web-research-discovery`，**主动大范围检索原论文和原始源码**，挑战先入为主的静态/量化尺度/局部几何解释。记录：`新观点 → 源码与精确数学 → 两个相异机制及其不同预测 → 最强反例/先例 → 最廉价下一检查 → 潜在省算自由度`。
+## 独立 Agent 的研究交接
 
-各 Agent 只在其自己的发现/挑战文件记录，汇总者串行维护讨论队列。可读现有获授权的保存数据，做数学/离线复核，但新模型 / GPU / 生成 / 训练 / 扩展原生干预需单独用户授权；旧实验授权全部已完成，零 pending。新的最小实验可以**提出合同**，但不会因为本任务自动运行。
+任一 Agent 可以在 A/B/C 间自主选择最有解释力的问题，或以新的数学构造拓展问题；另一位 Agent 从不同来源独立审查。统一使用 pinned AutoResearcher v2.4 的 mechanism-research、research-expansion、problem-reformulation、web-research-discovery，按 [DEEP_WEB_RESEARCH.md](../agent_protocol/DEEP_WEB_RESEARCH.md) 主动搜索原始论文、后向/前向引用、反例和作者源码。
 
-**一次成功的 E0 迭代** = 至少一个比现有描述更有解释力且可证伪的 FFN 内部或功能结构，连同一个来源可靠的判别路径。没有要求预先选定 Proxy、分组、稀疏率、缓存、补算或量化格式。
+**报告建议**：`新认识 → 精确数学与源码 → 竞争解释及不同预测 → 文献新信息 → 下一条判别观察 → 可能的真实 FFN 工作减少`。选择不同观察值应当为了解释同一个科学分歧，而不是机械填满所有栏目。
+
+**历史资料的检索入口**：[源身份](../20261023/C0_coupling_offline_results.json)、[E0_OPERAND 局部统计](E0_RADIAL_PAIRING.md)、[原生四臂结果](E0_FOLLOWTHROUGH.md)、[时序校准](E0_TEMPORAL_CALIBRATION.md)、[完整证据索引](../EXPERIMENT_EVIDENCE_INDEX.md)、[两轮历史数学审查](E0_SKILL_WEB_REAUDIT_20261025.md)。读取它们时保存样本/数值条件；目前没有新的 model/GPU/视频/训练实验授权。
+
+**当前最短可落实的研究成果**：给出 FFN 输入、hidden、输出贡献与下游作用的**实际可观测字段—数学关系—竞争机制**三方对应，明确哪一条现存证据能立即区分解释。由此再提出方法种子，下一轮才选定最有价值的额外采集或 kernel 检查。
