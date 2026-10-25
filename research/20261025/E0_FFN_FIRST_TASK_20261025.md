@@ -1,5 +1,7 @@
 # E0 · 第一轮研究任务：发现 FFN 的条件函数结构
 
+**优先填补信息**：[K1–K5 知识缺口](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)。
+
 **唯一活跃任务** · [研究纲领](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [文献与机制地图](E0_FFN_INTRINSIC_PRIOR_ART_20261025.md) · [活跃状态](../ACTIVE_RESEARCH.json)
 
 ## 首先回答哪一个问题？
