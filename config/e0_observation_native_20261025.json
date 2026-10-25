@@ -1,0 +1,89 @@
+{
+  "id": "FFNDS_E0_NATIVE_OBSERVATION_20261025",
+  "schema_version": "1.0",
+  "role_split": {
+    "idea_owner": "user",
+    "agent_role": "method/evidence audit, passive observation preparation and later user-idea tests"
+  },
+  "status": "REGISTERED_SINGLE_SOURCE_INSTRUMENT_ACCEPTANCE",
+  "base_commit": "ff6942763d8ce3e1823a4814905ad5ee61da7c31",
+  "target": "original A100 native Wan2.2 I2V four-step D-Q HiF4/BF16 dense runtime",
+  "steps": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "blocks": [
+    0,
+    10,
+    20,
+    30,
+    39
+  ],
+  "uniform_rows": 32,
+  "weight_panel_groups": [
+    0,
+    53,
+    107,
+    161,
+    215
+  ],
+  "max_sources_per_invocation": 1,
+  "native_generations_per_source": 2,
+  "extra_teacher_ffn_calls": 0,
+  "arms": [
+    "plain_dense_DQ",
+    "observed_same_dense_DQ"
+  ],
+  "input_default": ".runtime/inputs/calibration24/canonical.json",
+  "source_exposure": "existing exposed source for instrument smoke; not fresh quality holdout",
+  "native_source_sha256": {
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3",
+    ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6",
+    ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+    ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QType.py": "aec909792bbeb59a1a441bd0f3677585bc9597389c10519185e00a706b56e0fc",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/QTensor.py": "ac5061523cfb87c203cb38a250fffc590d2248f4b7e303f671ba36b48d0eaee2",
+    ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c"
+  },
+  "disk_reserve_gib": 80,
+  "observations": [
+    "Q1/Q2 paired values",
+    "W1/GELU sign and channel structure",
+    "fixed-coordinate spatial/latent-time/denoising-step variation",
+    "signed W2 panel contributions",
+    "gate and residual geometry"
+  ],
+  "absent_observations": [
+    "native quantizer internal states",
+    "nextnorm/attention causal response",
+    "undistilled comparison",
+    "new-method full video quality",
+    "uninstrumented end-to-end performance"
+  ],
+  "acceptance": [
+    "all four plain/observed latent hashes and video SHA match",
+    "same original runtime call counts",
+    "exact twenty expected captured scopes",
+    "finite payloads and original full-width shapes",
+    "source/cache/image bindings verified"
+  ],
+  "execution_note": "User explicitly requested renewed task execution on 2026-10-25 and authorized at most four idle GPUs across seven private workers. This bounded run uses one idle A100, one exposed source, plain/observed dense D-Q only. No candidate operator or research-stage promotion.",
+  "max_gpu_cards": 1,
+  "max_full_generations": 2,
+  "max_output_gib": 1,
+  "source_index": 0,
+  "automatic_retry": false,
+  "competing_explanations": [
+    {
+      "id": "AMPLITUDE_ONLY",
+      "prediction": "Group amplitude profiles and relative QDQ changes largely track row RMS; same-coordinate temporal similarity is consistent across local boundaries."
+    },
+    {
+      "id": "FUNCTIONAL_DIRECTION",
+      "prediction": "GELU/QDQ change directions and signed W2 contributions differently from amplitude ordering, with source/step/block-dependent differences."
+    }
+  ],
+  "intended_discriminator": "Paired Q1/Q2 pre/post values and signed fixed W2-panel geometry at aligned latent coordinates; descriptive mechanism observation only, not action utility or speed."
+}
