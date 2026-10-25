@@ -2,6 +2,10 @@
 
 **当前阶段：`E0_OPEN_DISCOVERY`**。科学纲领：[FFN 本征计算](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)；最新独立审查：[分歧与探索空间](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；原始数据：[完整hidden](E0_INTRINSIC_FULL_HIDDEN.md)、[连续token / 前置选择](E0_SHARED_TILE_PRE_W1.md)、[K1–K5更新](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)；授权与唯一状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
 
+## Agent 与计算图共同完成研究
+
+本任务必须接入 [G0–G4计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent双向协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)。Agent选择实际相关节点（如 `G18→F04→F06→F08→F09→F12→G21`），核对源代码/张量语义/决策时点/后续影响，再用 [图节点证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json) 提取已存实验和开放问题。新机制、反例与研究缺口在 [独立图注解目录](../method_discussion/graph_annotations/E0/README.md) 署名提交；另一 Agent交叉核查，确认后反向注解计算图、谱系及新OPEN边。对源代码提出的新结构可以先创建待证实的新图节点，不以现有G4方法穷尽科研方向。图是图谱/审查接口，当前尚非可执行运行时动态图。
+
 ## 1. 现在真正需要解释的科学张力
 
 > **为什么 FFN 的同专家变化量在逐token、逐channel坐标下很集中，但没有自然形成跨token可共享、原物理tile可执行的低成本计算？是否存在不同的数学表示、条件依赖或作用目标，让我们在真实Wan四步视频中减少必要运算？**
