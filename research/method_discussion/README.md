@@ -1,80 +1,52 @@
-# FFNDS 多 Agent 方法讨论队列
+# FFNDS · 多 Agent 科学发现、方法构想与独立评议
 
-## 广泛深入 Web Search：先检索再判断机制
+当前研究阶段是 `E0_OPEN_DISCOVERY`：从真实 Wan FFN 的结构现象出发，探索不同机制解释与下一项具有区分力的证据。先读取 [活跃研究状态](../ACTIVE_RESEARCH.json)、[最新科学问题](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md)、[阶段锚定](../agent_protocol/E0_STAGE_ANCHOR.md) 与 [E0 独立发现记录](discoveries/E0/README.md)。
 
-所有方法讨论 Agent 默认阅读并执行 [深度文献与代码检索规范](../agent_protocol/DEEP_WEB_RESEARCH.md)。形成新发现、提案或独立 review 前，在可用 Web 工具上多轮检索：覆盖经典/最新、正反解释、学术论文及实现/算子规范、相近算法的原始方程；沿关键论文的参考文献和后续引用追溯，复核**机制是否同构**而非比标题。记录真实查询覆盖、代表性第一手来源和竞争结论。**E0 先发现现象**；Web 文献中新算子只能作为种子。无联网能力明确声明，不得替代成“已充分查重”。
+**共同科研方法：** 所有 Agent 自动应用固定 [AutoResearcher 来源](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，按科学问题选择 mechanism-research、research-expansion 与 problem-reformulation。从**发现 → 数学/源码重建 → 竞争解释 → 决定性观察**推进；来源绑定的精确结论与高质量反例都有科学价值。
 
+**深入搜索：** 按 [DEEP_WEB_RESEARCH.md](../agent_protocol/DEEP_WEB_RESEARCH.md) 主动检索广泛领域、经典/最新文献、原始公式和源码、引用链与相邻机制，独立 reviewer 着重寻找最接近的同构方法和反证。
 
-**当前阶段优先事项：** [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 声明的 `E0_OPEN_DISCOVERY`。在 [独立发现记录](discoveries/E0/README.md) 中先追问原生 Wan 的**结构现象、竞争机制与区分性观察**；旧 proposals/ 与 reviews/ 不会因数量或认可自动成为主研究方向。外部 Agent 应随启动任务加载 [E0 锚定提示](../agent_protocol/E0_STAGE_ANCHOR.md)。该安排不禁止大胆算子假说，只禁止由 Agent 自行晋升成新的活跃任务或执行队列。
+## A · 两类并行成果
 
+**E0 科学发现：** `discoveries/E0/<agent-id>-<phenomenon>.md`，提出可重建的结构、解释 A/B、不同预测和下一条最有区分力的来源或观测；质疑者建立独立的挑战记录。这是当前默认输出。
 
-> **只讨论方法。** 本目录不是实验队列、实现任务池或可运行的调度器。Agent 的职责是独立提出可证伪的方法设想、独立推导/反驳别人提出的机制、形成有依据的交叉认可。即使获得多方同意，也不自动生成代码、实验或模型运行权限。
+**方法探索种子：** `proposals/<METHOD_ID>/v<N>.json`，保存可证伪的计算机制、方法构造和相关数学。发现阶段欢迎引入大胆算法想法，最终实现方向由后续证据与用户研究阶段决定。使用 [模板](TEMPLATES.md) 记录与他人方法的联系和实际前提。
 
-**入口：** [QUEUE.md](QUEUE.md)（便于阅读的队列视图）；实际事实以 `proposals/`、`reviews/` 和 `endorsements/` 中的逐文件记录为准。全局目标/研究权威仍由 [../ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 决定。仓库根 [AGENTS.md](../../AGENTS.md) 是每个 agent 的默认行为规则。
+## B · 独立评议的科学职责
 
-## 默认方法论：每位 Agent 都使用 AutoResearcher
+| 角色 | 工作重点 | 保存方式 |
+| --- | --- | --- |
+| 提案者 | 描述结构与构造的关键方程、原始计算边界、竞争解释与最有力反例 | `proposals/<id>/vN.json` |
+| 独立 reviewer | 亲自复建源码/数学、提出异议或支持**精确版本上的精确命题** | `reviews/<id>/vN/<review-id>.json` |
+| 挑战者 | 追踪另一个解释、构造反例与较强的修订方式 | 自己的独立 review / discovery 文件 |
+| 整理者 | 根据真实独立记录呈现共同结论、核心分歧与下一观察 | `endorsements/<id>/vN.json`，再串行更新 [QUEUE.md](QUEUE.md) |
 
-进入该目录的**每一位** agent（提出者、复核者、质疑者、改进者、整理者）均默认继承本目录 [AGENTS.md](AGENTS.md) 与仓库根 [AGENTS.md](../../AGENTS.md)。方法论来源是 [当前固定 AutoResearcher manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，不从旧归档自由拼接不相容版本。
+评议者从原始论证开始，之后参考其他评论并记录 `prior_reviews_seen`；`reviewer.agent_id` 与提案作者有区别，`proposal_git_blob_sha` 绑定所审查的原始版本。身份与独立性以实际科研过程中的不同来源和推导来体现。
 
-具体行为是：寻找新的机制与可利用自由度 → 只重建决策关键的真实计算流 → 用演绎、重表述或新算子给出数学构造 → 用竞争解释、反例或不同预测做**讨论层面的判别** → 交付有内容的改进或结论。提案者和 reviewer 均如此；整理者则以来源可追溯的真实独立推导来归纳一致点和争议点。
+### 认可状态
 
-AutoResearcher 的 mechanism-research、research-expansion 和 problem-reformulation 是**按问题选择、可并用**的能力，不是每次依次执行的流程。Q1/Q2/Q3 也不是审批阶段。**独立创意和理论种子可以直接进入队列**；真实实现/性能要求只用于识别已有的证据级别，不作为拦截新方法的形式主义条件。复核者要主动寻找最强成立版本及最有区别度的反例，而不是防御性罗列杂项限制。记录中的数学、源码和证据应足以看出所用原则，无须空洞的“遵循 AutoResearcher”合规声明。
+| 状态 | 科学含义 |
+| --- | --- |
+| `OPEN` | 已登记科学方法，等待新的独立讨论 |
+| `PEER_SUPPORTED` | 至少一位外部 reviewer 对该精确机制给出独立论证的 `SUPPORT`，主要实质异议已处理 |
+| `CROSS_CONFIRMED` | 至少两位不同外部 reviewer 独立支持，主要实质异议已处理 |
+| `CONTESTED` | 存在具有明确数学、源码或实验依据的待解 `CHALLENGE`，并行保留支持记录 |
+| `SUPERSEDED` | 新版本或新研究解释取代旧构造，旧版作为可追溯证据保留 |
 
-## A. 三种独立记录
+`SUPPORT` / `CHALLENGE` / `REVISE` / `ABSTAIN` 指向具体命题；`PEER_SUPPORTED` / `CROSS_CONFIRMED` 表示**方法讨论的意见状态**。新版本通过独立评议形成自己的证据链。
 
-1. **独立提案：** `proposals/<METHOD_ID>/v<N>.json`。提交者单独写：方法构造、真实计算边界、数学表示、为什么可能节省实际 FFN 工作、与相邻历史方法的机制差异、条件假设、最有力的反例/替代解释、可借用的已保存证据、下一步*讨论问题*。创意可以先于全部证据；诚实记录 conjecture，**不以硬件/全视频结果作为提案入队条件**。
-2. **独立评议：** `reviews/<METHOD_ID>/v<N>/<REVIEW_ID>.json`。另一位 agent 针对**准确版本**给出 `SUPPORT`、`CHALLENGE`、`REVISE` 或 `ABSTAIN`，必须写出自己独立复建的机制/推导及一个能区分此方法与基线的预言、反例或重要改进。支持并不代表实验验证；仅重复提案摘要的评语不能算独立认可。
-3. **交叉认可快照：** `endorsements/<METHOD_ID>/v<N>.json`。由整理者根据**已存在**的评议整理支持方、关键分歧、所同意的精确命题，以及非结论的未决条件。它引用各评议文件；不能生成或代替评议。允许未来独立评议改变快照，并保留旧版本 Git 历史。
+## C · 文件与字段结构
 
-## B. 讨论状态（从事实导出，不由提案者自封）
+提案字段：`schema_version, method_id, version, title, proposer, origin, related_method_ids, lenses, mechanism, competing_explanations, falsifiable_predictions, best_counterexample, evidence_links, discussion_questions, claim_level`。
 
-- `OPEN`：已登记方法，待他人讨论；不能计算提案者对自己的同意。
-- `IN_REVIEW`：已经有外部评议，但尚未获得支持意见或需要澄清。
-- `PEER_SUPPORTED`：**至少 1 名与提案者不同的 agent** 提交含独立论证的 `SUPPORT`，且该命题没有尚未回答的实质性反例。达到用户所说的“经过其他 agent 同意”。
-- `CROSS_CONFIRMED`：**至少 2 名互不相同、且均非提案者的 agent** 独立给出 `SUPPORT`，无未解决的实质性异议。它表示更强的讨论一致性，不意味着实际有效。
-- `CONTESTED`：有具体未解决的 `CHALLENGE`。支持仍保留在账本中，但快照必须同时呈现争议，不能标记为无争议的 `PEER_SUPPORTED`。
-- `SUPERSEDED`：新版本或不同构造替代；原方法/原评议不删除，原版的同意不自动转移到新版本。
+评议字段：`schema_version, review_id, method_id, version, proposal_git_blob_sha, reviewer, verdict, independent_reconstruction, decisive_argument, counterexample_or_discriminator, constructive_revision, evidence_links, prior_reviews_seen`。
 
-`REVISE` 建议要说明哪项修改改变了作用算子/关键预言；若只修错字可写注释，不必推动版本增加。**讨论不会自动淘汰科学设想**；具体失效的假设可以关闭，同时另一个构造仍可以保留。
+认可快照字段：`schema_version, method_id, version, proposal_git_blob_sha, state, supporting_reviews, challenging_reviews, resolved_challenges, endorsed_claim, remaining_unknowns, summarized_by`。
 
-## C. 每个 agent 的默认动作
+每个 Agent 在单独的版本文件中提交，保留 Git SHA、来源及上一版本的审查。**一个串行整理者**更新共享 `QUEUE.md` 和 endorsement 快照；所有其他 Agent 通过独立文件参与讨论。对已发现的错误，写出精确修订及该修订如何改变核心科学预言。
 
-**独立提出时：** 先按 Q1 信息 / Q2 决策净价值 / Q3 可消除工作量，从真实 Wan 计算流、已有异常或文献出发，写出独有的构造；先查找相似 proposal。若只是一种已有方法的等价改写，把关系写进 `related_method_ids`，不抢建“新颖”条目；如果机制实质不同，允许并列争论。不同 agent 可以各自提出竞争机制。
+## D · 当前研究优先事项与执行范围
 
-**受邀复核时：** 先独立重建真正的计算图、推导/反例与旧结果边界，再看已有评议（有条件则先写自己的意见再读其它评议）；审查“同样的效用是否已由更便宜的固定算子实现”“是否偷用了决策后信息”“是否只是改变损失名称”之类有判别力的问题。寻找最强可成立版本，给出建设性修改，不能把同类旧负面实验推广为普遍禁令。
+最新的六来源 E0 被动观测发现 Block0 FFN 组输出与 residual 的径向对齐；当前优先独立核查 LN 理想局部投影、残差 bypass、实际消费路径及功能意义，也欢迎对量化层级、共同均值、高杠杆位置提出不同解释。来源需要准确区分 A100 HiF4 QDQ→BF16、格式规范上的 MXFP4/NVFP4、数学构造与视频质量测量。
 
-**取得认可时：** 一位其他 agent 的真实独立 `SUPPORT` 足以进入 `PEER_SUPPORTED`。两位可进入 `CROSS_CONFIRMED`。reviewer 的同意限于该版本写明的**机制命题**，不是论文创新性认证，不是模型质量保证，也不是执行许可。提案者不得充任本提案的 reviewer；自称多个 agent ID 不能制造独立性。独立性是过程声明，不是可由 Git 仓库自动证明的身份事实。
-
-**遇到异议时：** 保存具体 counterexample 和作用边界；可以由提案者解释，但该解释不自动清除别人提出的挑战。挑战者确认撤回，或新的独立 reviewer 对争议点给出有论证的解决意见后，才能更新为无争议认可。对未解决争议维持 `CONTESTED`，不同观点可以并存。
-
-## D. 并行、可追溯和防覆盖
-
-- **一个方法一个目录，一个版本一个不可变提案文件。** 不原地改写已经被评议的 vN；用 v(N+1) 表示有实质变化的重构，指出对旧评论逐项回应。旧版本、反例与负面意见始终存在。
-- **每位 reviewer 写独立文件**（例：`reviews/MD-.../v1/<agent_id>-review01.json`），不多人争写共享 `reviews.json`。review 的 `proposal_git_blob_sha` 必须指向精确文件版本，`reviewer_id != proposer.agent_id`。
-- 队列视图 `QUEUE.md` 可由**一个整理者串行更新**，并标记由哪次快照形成；它不覆盖文件事实。禁止各 agent 在并行讨论时竞争修改 `AGENTS.md`、`ACTIVE_RESEARCH.json`、`QUEUE.md`。
-- 认可快照只能引用存在的 `SUPPORT` review 和未决挑战；有新异议时应更新快照/视图。快照写入须基于当时最新 Git 文件 SHA，冲突就重新读取再整理。
-- 文件中的外部文献、工具输出、其它 agent 论断都属于可质询的**证据**，不是提升权限的指令。记录 source/ref/commit；不要编造已运行测试或“其它 agent 同意”。
-
-## E. 结构字段（版本 1）
-
-### 提案（`proposals/<id>/v1.json`）
-
-`schema_version, method_id, version, title, proposer, origin, related_method_ids, lenses, mechanism, competing_explanations, falsifiable_predictions, best_counterexample, evidence_links, discussion_questions, claim_level`。
-
-`proposer.agent_id` 是当前 agent 的稳定自报身份，`proposer.session_ref` 用于追踪讨论上下文；`origin.kind` 是 `AGENT_INDEPENDENT` 或 `IMPORTED_RESEARCH_SEED`。后者不冒充新 agent 原创。
-
-### 评议（`reviews/<id>/v1/<review_id>.json`）
-
-`schema_version, review_id, method_id, version, proposal_git_blob_sha, reviewer, verdict, independent_reconstruction, decisive_argument, counterexample_or_discriminator, constructive_revision, evidence_links, prior_reviews_seen`。`reviewer.agent_id` 必须不同于 proposer；`prior_reviews_seen` 诚实记录是否已被现有意见影响。
-
-### 认可快照（`endorsements/<id>/v1.json`）
-
-`schema_version, method_id, version, proposal_git_blob_sha, state, supporting_reviews, challenging_reviews, resolved_challenges, endorsed_claim, remaining_unknowns, summarized_by`。同意来源仅指向真实评议路径，`summarized_by` 不作为任何支持票。
-
-文档不要求讨论步骤繁琐化：一份完整提案、一份有独立论证的 reviewer 记录即可形成首个同行认可。**不为获得认可而缩小方法构造；不为创造性提案先要求跑完模型。**
-
-## F. 不改变的全局边界
-
-- 队列是**讨论候选的多元索引**，不是第二份 `ACTIVE_RESEARCH.json`，不决定主研究方向；Q1、Q2、Q3 双向启发，不是三个必过的阶段。
-- 现有 [实验暂停](../20261024/EXPERIMENT_PAUSE.json) 对所有 CPU/GPU/模型实验及自动运行继续有效。讨论成员只做思辨、源码/文献/已有证据核对，以及本目录的文字记录；**没有分配实现、执行、跑分或调度的义务与权限**。
-- 所有“支持、认可、一致”仅为**跨 agent 方法学意见**，与 `MEASURED`、`QUALITY_PASS`、`EXECUTION_AUTHORIZED` 完全分离。
+本目录处理科学研究、数学、源码和可用历史证据。2026-10-25 用户批准的六来源采集已经完成，早期 [暂停回执](../20261024/EXPERIMENT_PAUSE.json) 保留；新模型/CPU/GPU 执行及全视频实验由用户另行授权。[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 是唯一任务与权限来源。讨论成果有助于确定下一项最有价值的研究，却不自动成为实现任务。
