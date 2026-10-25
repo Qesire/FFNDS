@@ -5,11 +5,11 @@
 
 ## 当前阶段与研究任务
 
-活跃阶段从 [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 读取：`E0_OPEN_DISCOVERY`。结合 [E0 第一任务](../research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md)、[当前科学问题](../research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和 [E0 Agent 锚点](../research/agent_protocol/E0_STAGE_ANCHOR.md) 选择本次最值得研究的现象。
+唯一活跃阶段是 [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 中的 `E0_OPEN_DISCOVERY`；立即阅读 [本征 FFN 重置纲领](../research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[新的第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md) 与 [Agent 锚点](../research/agent_protocol/E0_STAGE_ANCHOR.md)。
 
-**当前最有价值的入口：** 独立解释 Block 0 真实保存组输出与 residual 的径向对齐，检查理想 LN 局部几何、真实残差旁路和后续传播之间的差别；同时保持量化层级、FFN 内部几何、蒸馏时空和异常 token 作为竞争路线。
+**默认从 FFN 而不是量化信息出发**：W1/GELU/W2、有符号 hidden 贡献、token/step/expert 动态结构、下游功能敏感性及可能重排或减少的实际计算。旧 HiF4 QDQ、MXFP4/NVFP4 元信息仅作为次级幅值/数值实现线索。局部激活小、W2 净贡献小、视频功能价值小、物理 tile 可跳过，是四个不同的科学对象。旧径向/四臂报告继续作为与具体假说相关的证据，而非第一任务。
 
-**本轮应交付：** 新的结构认识或精确理论命题；源码/数学/已保存证据；最强不同解释与一项决定性观察。任何有启发的新算子均可作为后续探索种子。
+**每次研究交付**：最强新结构解释、至少一个与其竞争的机制、真实源码或数学、可区分预测和下一项最廉价的检验。允许主动提出不同于通道稀疏的新表示/新算子种子。
 
 ## 默认进行广泛深入的 Web Search
 
