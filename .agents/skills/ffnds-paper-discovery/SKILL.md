@@ -2,6 +2,9 @@
 name: ffnds-paper-discovery
 description: Automatically apply AutoResearcher mechanism discovery, mathematical reformulation and evidence-grounded science to FFNDS video FFN research.
 ---
+
+**Current open issues to improve:** Alongside the E0 stage, consult the [source-bound E0 gap/remediation memo](../../../research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md). The six-source passive native results (already completed under a separate user instruction) show a substantial Block0 ideal-LN residual-radial alignment, but not downstream finite-action or video-safe FFN sparsity. An independent reviewer should challenge this mechanism and the actual bypass graph, preserve quantization/format and time/space alternatives, and distinguish source clusters from sampled cases. This memo does not authorize fresh CPU/GPU/model execution or make any G6 operator the default.
+
 # FFNDS — information ↔ net decision value ↔ physical compute
 
 **Stage-sensitive application:** Before using this skill to propose a method, read `research/ACTIVE_RESEARCH.json.current_stage`. During E0_OPEN_DISCOVERY, aim first for source-grounded *phenomena and competing explanations*, not a chosen operator; record any good operator as an unpromoted seed. Read the [E0 stage anchor](../../../research/agent_protocol/E0_STAGE_ANCHOR.md) for the short multi-agent handoff. This adjusts the current task, **not** the upstream pinned AutoResearcher creative/reformulation principles.

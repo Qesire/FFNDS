@@ -92,7 +92,7 @@ def main():
            "EXPLICIT_USER_DIRECTED_SERIALIZED_COORDINATOR_UPDATE_ONLY",
            "E0 discussion acquired unapproved stage/execution authority")
     for key in ("task_document", "direction_document", "agent_anchor",
-                "discovery_surface"):
+                "discovery_surface", "open_problems_document"):
         rel = stage.get(key, "")
         ensure(bool(rel) and (ROOT / rel).is_file(),
                "Missing active E0 instruction/evidence link: " + key)
@@ -103,6 +103,22 @@ def main():
                   "research/method_discussion/TEMPLATES.md"):
         ensure(stage["id"] in text(entry),
                "Agent entrypoint has drifted from live E0 research phase: " + entry)
+    # Current E0 problems must be discoverable across actual agent entrypoints.
+    gap_doc = "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md"
+    ensure(stage.get("open_problems_document") == gap_doc and
+           stage.get("latest_deliverable", {}).get("gaps_and_required_remedies") == gap_doc,
+           "E0 source-bound open-problems document is not the live stage reference")
+    for entry in ("AGENTS.md", ".github/copilot-instructions.md",
+                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
+                  "research/method_discussion/AGENTS.md",
+                  "research/agent_protocol/E0_STAGE_ANCHOR.md",
+                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+                  "research/agent_protocol/README.md",
+                  "research/method_discussion/discoveries/E0/README.md",
+                  "research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md",
+                  "README.md"):
+        ensure("E0_GAPS_REMEDIATION_REQUIREMENTS.md" in text(entry),
+               "Current E0 problem-remediation prompt route missing: " + entry)
     # Semantic/creative writing quality is evaluated using blinded case reviews,
     # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")
@@ -181,6 +197,25 @@ def main():
            pause["resume_requires_explicit_user_instruction"] is True and
            current["experiment_pause"]["all_experiments_paused"] is True,
            "Explicit user experiment pause was changed")
+    # Historical pause is immutable. A later, explicitly user-authorized
+    # six-source E0 passive collection was completed; it grants NO new execution.
+    authority = active["experiment_authority"]
+    bounded = authority.get("resume_scope", {})
+    ensure(authority.get("completed_authorization_is_not_future_permission") is True and
+           authority.get("new_model_experiment_requires_separate_explicit_user_instruction") is True and
+           authority.get("automatic_followups") is False and
+           bounded.get("execution_status") == "COMPLETE" and
+           bounded.get("pending_model_jobs") == 0,
+           "Completed E0 bounded observation vs fresh experiment permission is ambiguous")
+    budget = bounded.get("actual_budget", {})
+    strata = bounded.get("actual_source_strata", {})
+    ensure(budget.get("source_clusters") == 6 and
+           budget.get("full_generations") == 12 and
+           budget.get("peak_simultaneous_GPU_cards", 99) <= 4 and
+           strata.get("CAL24_subject") == 3 and
+           strata.get("CAL24_background") == 3 and
+           strata.get("camera") == 0,
+           "Frozen E0 result scope or cohort description changed unexpectedly")
     ensure(current["eligible_model_method_ids"] ==
            pause["eligible_model_method_ids"] ==
            active["experiment_authority"]["eligible_model_method_ids"] == [],
@@ -206,7 +241,10 @@ def main():
             "PROACTIVE_BROAD_WEB_SEARCH_ON_E0_RESEARCH",
             "MULTI_PASS_CITATION_AND_OPPOSITION_SEARCH",
             "SEARCH_REAL_PRIMARY_IMPLEMENTATION",
-            "WEB_TOOL_UNAVAILABLE_NO_FICTION"}.issubset(case_ids),
+            "WEB_TOOL_UNAVAILABLE_NO_FICTION",
+            "E0_NEW_FINDING_REQUIRES_INDEPENDENT_CHALLENGE",
+            "E0_COHORT_AND_FORMAT_NONOVERCLAIM",
+            "E0_COMPLETED_AUTHORIZATION_IS_NOT_FUTURE_RESUME"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
            "Behavior-case answers may be leaked to candidate-agent evaluation")
@@ -244,6 +282,7 @@ def main():
                entry["archive"] in text(entry["path"]),
                "Historical entry is not a concise working redirect: " + entry["path"])
         check_relative_markdown_links(entry["path"])
+    check_relative_markdown_links("research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md")
     check_relative_markdown_links("research/agent_protocol/DEEP_WEB_RESEARCH.md")
     check_relative_markdown_links("research/agent_protocol/E0_STAGE_ANCHOR.md")
     check_relative_markdown_links("research/method_discussion/discoveries/E0/README.md")
@@ -286,7 +325,7 @@ def main():
            "Superseded algorithm-first task is present")
 
     print("PASS: pinned upstream AutoResearcher source, compact live Q1/Q2/Q3 route,")
-    print("      Markdown links, source-bound evidence ranking, archived handoffs and pause.")
+    print("      Markdown links, E0 issues, completed permission scope and historic pause.")
     print("Scope: static structure only. No numerical experiment or agent behavioral run.")
 
 

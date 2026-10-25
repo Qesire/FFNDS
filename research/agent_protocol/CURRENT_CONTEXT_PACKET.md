@@ -1,5 +1,10 @@
 # FFNDS — concise decision-specific evidence packet
 
+## Current unresolved evidence gaps — start here
+
+The latest E0 findings are real observations but **not an actionable FFN reduction yet**. Read the [current issues, required improvements and completion evidence](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) before selecting the next scientific discussion. Prioritize independent challenges to the Block0 residual-radial effect (ideal LN geometry vs actual residual bypass and downstream propagation), native Q1/Q2 format boundaries, non-independent source strata (3 subject/3 background/0 camera), source8 high-leverage row and temporal mean. Existing explicitly authorized six-source E0 capture **finished**; no new model jobs are pending or authorized solely by this handoff. Keep dated pause receipts and completed permission scope as distinct historical facts.
+
+
 ## Required active literature scope
 
 For **substantive research tasks**, every agent should conduct broad/deep multi-pass online literature **and original-source** search using [the FFNDS Web Search protocol](DEEP_WEB_RESEARCH.md). Expand across quantization FP4/QDQ, FFN computational geometry, few-step video distillation, time/space propagation, native kernels and neighboring theory, plus opposing papers; use seed-paper backward/forward citations. Verify primary equations/implementations and report real search coverage and strongest nearest prior mechanisms. E0 remains phenomenon-first. Web unavailable ≠ evidence that no similar work exists.

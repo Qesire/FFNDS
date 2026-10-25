@@ -1,5 +1,10 @@
 # FFNDS · Wan2.2 four-step video FFN research
 
+## Current E0 problems and remedies
+
+The latest [E0 six-source observation](research/20261025/E0_DISCOVERY.md) found important **local** quantization, residual geometry and temporal patterns. Read the [2026-10-25 evidence gaps and improvement requirements](research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) before proposing a new default research direction: independent peer challenge, actual downstream propagation uncertainty, 3/3/0 sample strata, HiF4-QDQ versus native FP4 metadata, common temporal mean and high-leverage outliers. A historical pause was followed by one **completed, bounded user-authorized passive capture**; no further model runs are authorized by this memo.
+
+
 **Goal:** Understand and exploit real FFN computational redundancy in the distilled Wan I2V model, reduce *actual* FFN and end-to-end inference time, and preserve complete free-running video quality. No default dense restoration, R256 compensation, mask family or representation.
 
 ## Current scientific questions

@@ -1,5 +1,10 @@
 # FFNDS method discussion agents — AutoResearcher by default
 
+## E0 current gaps, independent challenge and evidence boundaries
+
+Every participating discoverer/reviewer should first consult [current E0 problems and improvement requirements](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md). For the newest six-source finding, independently reconstruct the ideal LN, post-gate and residual-bypass logic and provide a **competing physical/functional explanation**, rather than merely applauding its 19.82% Block0 radial-energy projection statistic. Also keep real HiF4 QDQ separate from unmeasured native MXFP4/NVFP4, retain source8 outliers, and report six **independent sources**, not 120 scenes. Reviews must identify exact supporting blob/version; historical #9/#12/#13/#19 drafts are not independent validation of the current E0 result. No new experiments or algorithm-task promotions.
+
+
 ## Web literature and code research by every independent agent
 
 **Each proposer, discoverer, challenger, independent reviewer and synthesizer** should perform **broad and deep Web Search** when tools allow, following [the FFNDS web research protocol](../agent_protocol/DEEP_WEB_RESEARCH.md). Do not inherit another agent's limited paper list as your complete prior-art search. Diversify the search across terminology, classic/new works, neighboring fields, mathematics, native formats/engineering and contrary findings; follow citation chains and inspect original papers + implementation before judging mechanism overlap. Record actual links and what distinguishing prediction differs from the nearest work. Independent reviewers should actively look for the **strongest potential duplicate or counterexample**, not just agree. During E0, the search advances competing scientific explanations; a newly located attractive operator is an unpromoted idea seed, not a new execution task. If web access is absent, mark this honestly and continue source/math reasoning.
@@ -40,6 +45,6 @@ For FFNDS always keep the real objective in view: lower actual FFN / total-gener
 
 See [discussion rules](README.md), [queue](QUEUE.md) and [record templates](TEMPLATES.md). Write proposals and reviews in separate, immutable versioned files; another agent's approval must come from another agent's distinct file and independent argument. In review records, identify the **chosen AutoResearcher route(s)** and the decisive scientific reasoning *in content*, not via a hollow compliance certificate. Keep the upstream commit provenance visible through this local rule; the proposal/review file may cite particular skills when material.
 
-**Discussion only:** No agent in this workflow implements, performs CPU/GPU/model experiments, spawns jobs or edits the experiment authorization. The [explicit experiment pause](../20261024/EXPERIMENT_PAUSE.json) remains active. Reading sources, papers, and already generated experimental data is permitted. Even unanimous agreement cannot restart experiments.
+**Discussion only:** No agent in this workflow implements, performs CPU/GPU/model experiments, spawns jobs or edits the experiment authorization. The historical [pause receipt](../20261024/EXPERIMENT_PAUSE.json) remains immutable. A later user-authorized six-source E0 capture is complete; **new** discussion-driven experiments remain unauthorized. Reading sources, papers, and already generated experimental data is permitted. Even unanimous agreement cannot restart experiments.
 
 If an external agent system does not read repository instructions automatically, its launcher must supply **both root and local AGENTS.md**. Git rules cannot force an unrelated agent to read instructions; participation in this discussion process assumes it has been given these rules.
