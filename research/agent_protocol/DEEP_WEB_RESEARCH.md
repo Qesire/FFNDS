@@ -1,6 +1,6 @@
 # FFNDS · 深入文献与原始代码检索
 
-**AutoResearcher v2.4 alignment:** This FFNDS-specific protocol extends the upstream [Web Research Discovery / WARD](../../core/WEB_RESEARCH_DISCOVERY.md) and its [pinned Skill](../../.agents/skills/web-research-discovery/SKILL.md). Exact source revision and per-file blob hashes are recorded in [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Follow the shared breadth, depth, citation tracing and primary evidence method; specialize each search to actual Wan numerical/data-flow questions.
+**AutoResearcher v2.4 alignment:** This FFNDS-specific protocol extends the upstream [Web Research Discovery / WARD](../../core/WEB_RESEARCH_DISCOVERY.md) and its [pinned Skill](../../.agents/skills/web-research-discovery/SKILL.md). Exact source revision and per-file blob hashes are recorded in [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Follow the shared breadth, depth, citation tracing and primary evidence method; specialize each search to actual Wan FFN computations and video functional effects; quantizer metadata is a secondary clue unless a distinct mechanism requires it.
 
 
 **适用：** 所有 FFNDS 科研探索、机理推导、方案构想、文献查重、方法评议及科研方向调整。当前阶段由 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 确定为 `E0_OPEN_DISCOVERY`，搜索服务于**发现真实现象和竞争性解释**。
@@ -11,11 +11,15 @@
 
 研究成果应回答：**外部文献揭示了什么我们尚未考虑的结构？最接近的机制在哪些数学和计算边界上相同或不同？接下来哪一项证据会改变我们的认识？**
 
+## 当前优先搜索地图（2026-10-25）
+
+当前以 [FFN 本征研究纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 为起点。按深度优先搜索 **FFN preactivation/GELU 有效贡献 → W2 有符号聚合与交互 → 条件 token/step/expert 创新 → downstream residual/attention/视频时序重要性 → 可执行稀疏/重计算表示**。积极追踪 Chipmunk、RT-Lynx、Activation Concentration、DiffSparse、LLM activation sparsity 等近邻与反例，再按真实 FFN 源码核对可迁移性。HiF4/MXFP4/NVFP4 与 scale/code 研究保留为对应结果所需的数值实现分支，不再统领方法搜索。
+
 ## 广度：围绕科学问题连接不同知识簇
 
 - **模型与任务：** Wan、DiT、视频生成、Flow Matching、少步蒸馏与跨步/跨层/时空表示。
 - **FFN 与数学：** W1→GELU→W2、residual/gate/LayerNorm、方向抵消、有效子空间、特征几何、条件计算、信息价值。
-- **量化机制：** HiF4 QDQ、W4A4、E2M1/FP4、MXFP4/E8M0、NVFP4/E4M3、scale/code/exponent、层级共享尺度与量化边界。
+- **量化机制（相关时使用）：** HiF4 QDQ、W4A4、MXFP4、NVFP4 及 scale/code；优先视作幅值、动态范围和舍入信号，只有新的可证伪结构才促使升级为独立科研方向。
 - **系统实现：** GPU Tensor Core、原生 FP4 GEMM、scale layout、内存流量、kernel fusion、动态稀疏与实际物理 tile。
 - **邻近理论与反例：** 视觉 registers/高杠杆 token、角度重要性、误差传播、扩散视频稳定性、跨步共享、近似计算和失效机制。
 
@@ -61,7 +65,7 @@
 
 ## 多 Agent 的互补探索
 
-不同 Agent 各自深入量化与硬件、FFN 数学、蒸馏时空、后续质量几何等领域，同时沿新发现跨域连接。独立 reviewer 亲自追踪最可能同构的原始实现与反例。整理者聚合**有差异的证据链和竞争机制**，使共同结论建立在真实相互独立的研究上。
+不同 Agent 各自深入 FFN 作用几何、有符号贡献、蒸馏时空、后续质量与真正可执行的计算结构等领域，同时沿新发现跨域连接。独立 reviewer 亲自追踪最可能同构的原始实现与反例。整理者聚合**有差异的证据链和竞争机制**，使共同结论建立在真实相互独立的研究上。
 
 Web Search 所产生的新算子想法作为 `idea seed` 保留；当前 E0 的主要交付仍是**新的现象解释、可复核的数学关系和区分性下一观察**。
 
