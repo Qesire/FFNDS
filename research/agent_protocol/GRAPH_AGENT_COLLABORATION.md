@@ -1,10 +1,12 @@
 # FFNDS · 科研 Agent × 源码计算图双向协作协议
 
-**当前任务**：[E0 FFN本征机制发现](../20261025/E0_FFN_FIRST_TASK_20261025.md)；**权威可读计算图**：[G0–G4](../../docs/98_端到端计算图与证据注解_20261025.md)；**结构化索引**：[GRAPH_AGENT_BINDINGS.json](GRAPH_AGENT_BINDINGS.json)；**研究范例与竞争解释**：[E0机制再审](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)。
+**最新研究边界**：[全层affine与同值密集运行时再审](../20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)将局部函数重写、GELU奇偶解释、已测权重常驻与尚未做的视频质量分开。G5提供新的证据节点，不是下一位Agent必须实现的affine折叠路线。可以从未登记的新数学结构或视频异常起步，再提出新节点/边，合理使用图即可。
+
+**当前任务**：[E0 FFN本征机制发现](../20261025/E0_FFN_FIRST_TASK_20261025.md)；**权威可读计算图**：[G0–G5](../../docs/98_端到端计算图与证据注解_20261025.md)；**结构化索引**：[GRAPH_AGENT_BINDINGS.json](GRAPH_AGENT_BINDINGS.json)；**研究范例与竞争解释**：[E0机制再审](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)。
 
 ## 协作定义
 
-**图是研究问题的可定位计算对象，Agent 是提出/验证新解释的主体。** G0–G4 是源码绑定的计算流与证据注解；`GRAPH_AGENT_BINDINGS.json` 提供图中稳定ID、语义、信息时点、证据文件、未解分歧和必要的跨层边。它不是运行时动态图，也不意味着所有备选融合/硬件分支已被执行。
+**图是研究问题的可定位计算对象，Agent 是提出/验证新解释的主体。** G0–G5 是源码绑定的计算流与证据注解；`GRAPH_AGENT_BINDINGS.json` 提供图中稳定ID、语义、信息时点、证据文件、未解分歧和必要的跨层边。它不是运行时动态图，也不意味着所有备选融合/硬件分支已被执行。
 
 双向反馈：
 1. **图→Agent**：从科研问题选图节点（例如 `F06→F08R→F08→F09`），沿执行边追溯上游输入与合法状态（G0/G1），沿消费者追踪功能后果（F12/F13/G21/D09），将数值证据、真实源码和未知边组成小型上下文。
@@ -20,7 +22,7 @@
 | 字段 | 内容 |
 |---|---|
 | `claim_id`, `agent_id`, `source_revision` | 可追踪的发现身份/代码版本 |
-| `anchor_nodes`, `upstream_nodes`, `consumer_nodes` | 从 G/F/D/P 注册表中选择**相关**节点，跨G0–G4追踪；不要求每个方向都有完整闭环 |
+| `anchor_nodes`, `upstream_nodes`, `consumer_nodes` | 从 G/F/D/P 注册表中选择**相关**节点，跨G0–G5追踪；不要求每个方向都有完整闭环 |
 | `mechanism`, `math_or_trace` | 一条正向新认识、推导或可证伪想法，明确 GELU/QDQ/BF16 等边界 |
 | `availability`, `real_cost` | 观测在 W1 前还是后？哪些W1/W2/量化/缓存/索引开销已付？属于后验 oracle 还是可在线观测？ |
 | `evidence`, `countermechanism`, `discriminator` | 原始文件及精确来源/step/block/token 范围，最强不同解释与决定性预测 |

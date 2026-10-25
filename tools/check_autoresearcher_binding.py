@@ -159,14 +159,12 @@ def main():
                   "research/agent_protocol/README.md", "README.md"):
         ensure("E0_FFN_FIRST_TASK_20261025.md" in text(entry),
                "New FFN discovery task not visible to agent: " + entry)
-    # New E0 evidence is attached to a broad scientific handoff rather than
-    # being silently narrowed to the latest shared-column/HiF4 implementation.
+    # Historical G4 mechanism audit remains discoverable, but only the
+    # most recent G5 audit owns the current latest_* pointers below.
     divergence = "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md"
-    ensure(focus.get("latest_mechanism_audit") == divergence and
-           stage.get("latest_direction_review") == divergence and
-           (ROOT / divergence).is_file() and
+    ensure((ROOT / divergence).is_file() and
            "E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md" in text(first_task),
-           "Latest intrinsic mechanism divergence not routed into sole active task")
+           "Historical intrinsic divergence audit lost from research navigation")
     ensure("MULTIPLE_COMPETING_MECHANISMS" in
            focus.get("search_space_policy", "") and
            len(stage.get("current_open_forks", [])) >= 4 and
@@ -190,6 +188,26 @@ def main():
            "GRAPH_AGENT_BINDINGS.json" in text(".agents/skills/ffnds-paper-discovery/SKILL.md") and
            "graph_annotations/E0/README.md" in text("research/method_discussion/AGENTS.md"),
            "Graph Agent registry / multi-agent discovery routing drift")
+    # Latest G5 evidence is a scientific expansion; it must not silently
+    # promote the particular affine/micro16/HiF4 branch as the sole task.
+    review = "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md"
+    ensure(focus.get("latest_mechanism_audit") == review and
+           stage.get("latest_direction_review") == review and
+           (ROOT / review).is_file() and
+           "E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md" in text(first_task),
+           "Post-affine science handoff is not current")
+    graph_data = load_graph_registry()
+    g5 = {n["id"]: n for n in graph_data["nodes"]}
+    ensure({"P15", "P16", "P17", "P18"}.issubset(g5) and
+           g5["P15"]["evidence_type"] == "OBS" and
+           g5["P16"]["evidence_type"] == "OBS" and
+           g5["P17"]["evidence_type"] == "SYS" and
+           g5["P18"]["evidence_type"] == "ALG" and
+           "G5" in graph_data["graph_roles"],
+           "G5 full-depth function evidence and exact dense speed got conflated")
+    ensure(stage.get("new_experiment_authority") == "NONE" and
+           "MULTIPLE_COMPETING_MECHANISMS" in focus.get("search_space_policy", ""),
+           "Latest progress narrowed research or granted experiment authority")
     # Semantic/creative writing quality is evaluated using blinded case reviews,
     # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")
@@ -352,6 +370,9 @@ def main():
             "GRAPH_AGENT_NODE_CONTEXT_DEFAULT",
             "GRAPH_AGENT_PROPOSE_REVIEW_UPDATE",
             "GRAPH_AGENT_QUERY_IS_NOT_EXECUTABLE_TRACE",
+            "E0_AFFINE_FOLLOWTHROUGH_NOT_SINGLE_ROUTE",
+            "E0_EXACT_RESIDENCY_NOT_FFN_COMPUTE_REDUCTION",
+            "E0_GRAPH_EXTENDS_AFTER_NEW_EVIDENCE",
              "WARD_PINNED_WEB_RESEARCH_DEFAULT"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
@@ -394,6 +415,7 @@ def main():
     check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_FIRST_TASK_20261025.md")
     check_relative_markdown_links("research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md")
+    check_relative_markdown_links("research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md")
     check_relative_markdown_links("research/agent_protocol/GRAPH_AGENT_COLLABORATION.md")
     check_relative_markdown_links("research/method_discussion/graph_annotations/E0/README.md")
     check_relative_markdown_links("docs/98_端到端计算图与证据注解_20261025.md")

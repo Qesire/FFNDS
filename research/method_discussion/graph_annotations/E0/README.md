@@ -1,4 +1,6 @@
-# E0 · Agent 与 G0–G4 计算图关联的研究注解
+# E0 · Agent 与 G0–G5 计算图关联的研究注解
+
+**最新方向入口**：[全层非线性/affine与dense权重常驻的竞争机制再审](../../../20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)。G5的P15–P18分别保存OBS、OBS、SYS和ALG证据；各Agent可研究视频下游、空间/时间新函数单位或不依赖affine的原生省算，计算图用于查证和回填而不是规定科学问题。
 
 当前 Agent 每次**实质性 FFN 科学研究**都应使用 [图↔Agent协作协议](../../../agent_protocol/GRAPH_AGENT_COLLABORATION.md) 与 [稳定节点索引](../../../agent_protocol/GRAPH_AGENT_BINDINGS.json)。图的原始来源为 [G0–G4](../../../../docs/98_端到端计算图与证据注解_20261025.md)。
 

@@ -10,7 +10,8 @@
     "G1": "transformer block and consumer",
     "G2": "FFN math and numerical boundaries",
     "G3": "decision-time and historical actions",
-    "G4": "latest observations and conditional physical-cost forks"
+    "G4": "latest observations and conditional physical-cost forks",
+    "G5": "All-depth nonlinear-function and matched affine approximation versus exact dense residency timing; separates OBS/ALG/OPEN and actual SYS."
   },
   "nodes": [
     {
@@ -302,6 +303,76 @@
         "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
       ],
       "open_question": "Can a differently conditioned or spatially calibrated basis improve the measured72.94% rank64 true-coefficient innovation error? Separate representation and cheap coefficient prediction under matched sources/rows/cost."
+    },
+    {
+      "id": "P15",
+      "graph_section": "G5",
+      "meaning": "full-M previous GELU-derivative statistic for all40 layers; panel error only on sampled 128/32 rows",
+      "availability": "before_next_W1_but_prior_full_M_stat_cost",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
+      ],
+      "open_question": "Which layers/experts have stable transferable slopes versus actual nonlinear innovation?"
+    },
+    {
+      "id": "P16",
+      "graph_section": "G5",
+      "meaning": "cross-source affine constant fold plus original group64 residual, panel-only approximation, no native candidate",
+      "availability": "other_source_fixed_affine_available_before_W1_but_actual_residual_post_Q2",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md"
+      ],
+      "open_question": "What stronger function unit than the tested fixed group-energy pruning survives signed cross terms, QDQ and real execution?"
+    },
+    {
+      "id": "P17",
+      "graph_section": "G5",
+      "meaning": "measured original dense decoded weight residency, unchanged GEMM MAC and video hashes",
+      "availability": "before_generation_static_original_weight_cache",
+      "evidence_type": "SYS",
+      "evidence": [
+        "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md"
+      ],
+      "open_question": "How can physical execution improve under memory constraints and how should all FFN approximations be compared to this strong dense baseline?"
+    },
+    {
+      "id": "P18",
+      "graph_section": "G5",
+      "meaning": "exact continuous odd half-linear plus even GELU remainder, competing causal explanation still OPEN",
+      "availability": "mathematical_identity_pre_Q2_without_native_rounding_identity",
+      "evidence_type": "ALG",
+      "evidence": [
+        "research/method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md",
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
+      ],
+      "open_question": "Actual half-slope control fails; odd/even W2 outputs strongly cancel but this can already arise for negative scalar GELU before W2. Distinguish statistical gain, hidden cancellation and learned value organization."
+    },
+    {
+      "id": "P19",
+      "graph_section": "G5",
+      "meaning": "finite native reconstructed nonlinear path: selected W1/GELU/HiF4 Q2, new BF16 readout and fixed affine matrix; repeated-row after-Q1 only",
+      "availability": "fixed_offline_calibration_then_paid_selected_nonlinear_features",
+      "evidence_type": "NATIVE-ACT",
+      "evidence": [
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.json"
+      ],
+      "open_question": "Does this local narrower operator preserve natural full-M residual propagation and complete four-step video under full preparation/memory and strong dense comparisons?"
+    },
+    {
+      "id": "P20",
+      "graph_section": "G5",
+      "meaning": "measured source-held center-trained output basis capacity versus input ridge coefficient prediction, including exact predictive RRR and spatial holdout",
+      "availability": "true_coefficients_posthoc; fitted_input_map_before_current_W1",
+      "evidence_type": "OBS",
+      "evidence": [
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "research/method_discussion/discoveries/E0/independent-function-basis-results-audit-20261026.md"
+      ],
+      "open_question": "How much of the poor transfer comes from basis spatial/calibration coverage versus a need for paid nonlinear features? Match all training sources and rows before causal attribution."
     }
   ],
   "edges": [
@@ -464,11 +535,86 @@
       "from": "F06",
       "to": "F09",
       "relation": "candidate_affine_basis_plus_signed_residual_not_native_Q2_equivalence"
+    },
+    {
+      "from": "F06",
+      "to": "P18",
+      "relation": "exact_continuous_function_identity_not_native_equivalence"
+    },
+    {
+      "from": "F06",
+      "to": "P15",
+      "relation": "old_derivative_saved_analysis"
+    },
+    {
+      "from": "F08",
+      "to": "P16",
+      "relation": "post_Q2_label_diagnostic"
+    },
+    {
+      "from": "P15",
+      "to": "P16",
+      "relation": "alternative_slope_description_not_required"
+    },
+    {
+      "from": "P18",
+      "to": "P16",
+      "relation": "competing_open_odd_even_explanation"
+    },
+    {
+      "from": "P16",
+      "to": "P12",
+      "relation": "conditional_approximation_cost_not_executed"
+    },
+    {
+      "from": "P16",
+      "to": "F13",
+      "relation": "open_native_downstream_quality"
+    },
+    {
+      "from": "F04",
+      "to": "P17",
+      "relation": "original_weight_residency_system"
+    },
+    {
+      "from": "F09",
+      "to": "P17",
+      "relation": "original_weight_residency_system"
+    },
+    {
+      "from": "P17",
+      "to": "P12",
+      "relation": "scoped_measured_system_cost"
+    },
+    {
+      "from": "P17",
+      "to": "D09",
+      "relation": "scoped_measured_exact_dense_runtime"
+    },
+    {
+      "from": "P14",
+      "to": "P20",
+      "relation": "scoped_test_of_center_trained_rank64_basis_not_general_exclusion"
+    },
+    {
+      "from": "F09",
+      "to": "P19",
+      "relation": "candidate_reconstruction_finite_standalone_native_not_free_video"
+    },
+    {
+      "from": "P19",
+      "to": "P12",
+      "relation": "scoped_native_local_time_excludes_preparation_and_Q1_gate_residual"
+    },
+    {
+      "from": "P19",
+      "to": "F13",
+      "relation": "open_natural_full_M_and_network_propagation"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
   "annotation_template": "research/method_discussion/GRAPH_CLAIM_TEMPLATE.json",
-  "current_scientific_audit": "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md",
+  "current_scientific_audit": "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md",
   "last_experiment_evidence_commits": [
     "94929b252a64",
     "798a3c9f3a628e47b153b1ae1ed0226b1683c2e9"
@@ -501,7 +647,8 @@
     "independent_graph_review": "research/method_discussion/graph_annotations/E0/independent-affine-residency-graph-review-20261026.json",
     "review_status": "INDEPENDENT_REVIEWED_AT_EXACT_CLAIM_HASHES_NO_FORMAL_METHOD_ENDORSEMENT",
     "integration_source_commit": "79bc9eae9f2d7c694f5536a2aa860381a9c80ee4",
-    "curator_precision": "Affine comparator is the tested other-source fixed group-energy pruning, not every possible matched pruning strategy. Continuous GELU theorem does not imply native Q2/BF16 equivalence."
+    "curator_precision": "Affine comparator is the tested other-source fixed group-energy pruning, not every possible matched pruning strategy. Continuous GELU theorem does not imply native Q2/BF16 equivalence.",
+    "direction_review": "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md"
   },
   "last_experiment_evidence_commit_scope": "Historical completed studies through798a3c9; newer completed reports are indexed under latest_scoped_followthrough in this same registry.",
   "latest_function_reconstruction": {

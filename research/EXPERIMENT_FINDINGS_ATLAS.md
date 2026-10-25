@@ -116,6 +116,8 @@
 
 当前可以直接从已测连续M128的共同创新能量推出一个新的**代数推论，不是新增测量**：若将每个token的创新输出都替换为本tile的后验均值向量，block0/10/20/30/39 对同专家创新能量的相对SSE案例均值依次为 **34.7%、90.2%、86.4%、85.7%、22.2%**。由于任何128×5120 token-output矩阵天然rank不超过128，单凭“维数低于5120”不构成可省算证据；需要有意义的低k谱尾、跨来源持出和足够便宜的**W1前可获得**表示。归属：E16已测共享能量 + 精确正交分解（ALG），不是新视频、kernel或验证的rank-k压缩率。新反解释为**真实token特有输出变化有较高有效秩**，参见 [当前 E0 分歧审查](20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)。
 
+**最新研究议程检查**：[2026-10-25 affine/非线性/同值权重常驻方向审查](20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)，对应 [G5图层](../docs/98_端到端计算图与证据注解_20261025.md)。全层旧导数统计、affine局部重建、GELU奇偶身份、系统级同值常驻是不同对象；新的共同科研目标仍是有质量条件的FFN必要计算缩减。现有报告归属不变，未将G5开放假说标作已完成新视频算法。
+
 ## 7. M 族：将所有结果组织成可检验的机制，而不是路径偏好
 
 后续 E21–E23 接回同一图谱：
@@ -165,4 +167,4 @@
 | **E26 四源校准的非线性重构** | [五层40案例](20261026/E0_FUNCTION_RECONSTRUCTION.md)：affine54 ridge5.89%对直接94 ridge8.47%，均为94/216理想MAC；错配对照更差 | *OBS*。同设置匹配组比较成立；相对两来源输入预测的优势有校准混杂，独立挑战促使新增匹配输入控制。新W2/bias是拟合参数。F04/F06/F09 |
 | **E27 局部原生折叠** | [两层16案例](20261026/E0_FUNCTION_RECONSTRUCTION.json)：144dense＋288partial FFN，432native Q2；resident after-Q1形状计时52.69→20.77ms | *NATIVE-LOCAL/SYS*。重复160行到31668，FP32准备/BF16新矩阵未再次HiF4量化；非自然全M/视频/整网结果。block30误差仍大，F12/F13/D09 OPEN。P12 |
 
-[独立结果复核](method_discussion/discoveries/E0/independent-function-basis-results-audit-20261026.md)保留实际SHA、反预测与校准条件挑战；[图G4g](../docs/98_端到端计算图与证据注解_20261025.md)按这一范围接回。原P14提案及E21–E23原记录不改写。
+[独立结果复核](method_discussion/discoveries/E0/independent-function-basis-results-audit-20261026.md)保留实际SHA、反预测与校准条件挑战；[图G5b](../docs/98_端到端计算图与证据注解_20261025.md)按这一范围接回。原P14提案及E21–E23原记录不改写。

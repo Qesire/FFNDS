@@ -1,4 +1,4 @@
-"""Pure-static tests of G0–G4 graph ↔ Agent node/evidence index."""
+"""Pure-static tests of G0–G5 graph ↔ Agent node/evidence index."""
 import json
 import sys
 import unittest
@@ -25,13 +25,29 @@ class GraphAgentBridgeTests(unittest.TestCase):
         h = inspect(self.registry, "F06")
         self.assertEqual(h["node"]["availability"], "after_GELU")
 
-    def test_candidate_cost_path_is_labeled_not_runtime_proof(self):
+    def test_cost_paths_preserve_candidate_and_measured_boundaries(self):
         path = trace(self.registry, "G18", "P12")
         self.assertTrue(path["edges"])
         self.assertIn("not proof", path["warning"])
-        self.assertTrue(any(e["relation"].startswith("posthoc") or
-                            e["relation"].startswith("candidate")
-                            for e in path["edges"]))
+        # The G5 exact-dense SYS branch is now a valid shorter route. It must
+        # not be relabeled a hypothetical approximation to satisfy this test.
+        routes = {
+            "P16": "conditional_approximation_cost_not_executed",
+            "P17": "scoped_measured_system_cost",
+            "P19": "scoped_native_local_time_excludes_preparation_and_Q1_gate_residual",
+        }
+        for start, relation in routes.items():
+            route = trace(self.registry, start, "P12")
+            self.assertIn("not proof", route["warning"])
+            self.assertEqual(route["edges"], [{"from": start, "to": "P12", "relation": relation}])
+
+    def test_g5_separates_local_function_observations_from_dense_system_speed(self):
+        kinds = {n["id"]: n["evidence_type"] for n in self.registry["nodes"]}
+        self.assertEqual(kinds["P15"], "OBS")
+        self.assertEqual(kinds["P16"], "OBS")
+        self.assertEqual(kinds["P17"], "SYS")
+        self.assertEqual(kinds["P18"], "ALG")
+        self.assertIn("G5", self.registry["graph_roles"])
 
     def test_unregistered_discovery_needs_curator(self):
         with self.assertRaises(SystemExit):

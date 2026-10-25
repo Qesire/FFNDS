@@ -7,6 +7,8 @@
 
 每位 Agent 都根据 [G0–G4 原始源码关联计算图](../docs/98_端到端计算图与证据注解_20261025.md)、[节点/证据JSON](../research/agent_protocol/GRAPH_AGENT_BINDINGS.json) 与 [双向协作协议](../research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) 工作：从图找到研究机制相关的真实输入/运算/消费者、信息出现时点和证据，再以 [E0图注解](../research/method_discussion/graph_annotations/E0/README.md) 将新解释/反例绑定到节点，由独立reviewer核查，整理者把已证实的内容回写图/实验图谱。允许以理论或视频问题为起点提出新图节点；所有候选/后验边须显式区别于已执行原生Dense路径。图是可追溯索引，不是假定已经有自动化可执行图或实验权限。
 
+**最新结果复审**：[全层GELU、affine、奇偶解释与权重常驻的竞争研究空间](../research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)，对应 G5 计算图。affine＋27组优于所测等投影MAC固定67组，仅在两暴露来源五层小面板上完成；GELU半斜率是数学竞争解释，未证明Wan中有效；同值权重常驻的热态全生成75→50秒是实测工程改进、显存接近80GB且FFN MAC无变化。下一轮优先由Agent自行提出不同函数、时空、视频功能和执行机制，允许新图节点。G0–G5仅作为已有源码/证据索引，不预选affine、半斜率或group64方案。
+
 ## 当前阶段与研究任务
 
 唯一活跃阶段是 [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 中的 `E0_OPEN_DISCOVERY`；立即阅读 [本征 FFN 重置纲领](../research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[新的第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md) 、[最新机制分歧审查](../research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md) 与 [Agent 锚点](../research/agent_protocol/E0_STAGE_ANCHOR.md)。
