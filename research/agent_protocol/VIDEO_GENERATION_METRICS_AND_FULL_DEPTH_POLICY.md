@@ -22,6 +22,7 @@
   "identity": {
     "source_id": "image-sha256-or-frozen-id",
     "seed": 42,
+    "expected_frames": 81,
     "input_prompt_digest": "prompt-image-condition-sha",
     "model_digest": "actual-model-checkpoint-sha",
     "protocol_sha256": "frozen-protocol-sha",
@@ -64,7 +65,7 @@
 }
 ~~~
 
-每条视频应保留全部frame索引的实际测量值，不仅是全段平均。官方指标和人工结果必须独立保留工具/模型版本和实际评价凭据；核心指标报告允许尚未获质量验收，但任何缺文件/缺真实帧都会使证据bundle检查失败。
+每条视频须在运行前冻结预期帧数（例如本轮Wan为81帧）、输入image/prompt/condition的digest，并保留全部frame索引的实际测量值，不仅是全段平均。实际解码未达到预期帧数则拒绝完成报告。官方指标和人工结果必须独立保留工具/模型版本和实际评价凭据；核心指标报告允许尚未获质量验收，但任何缺文件/缺真实帧都会使证据bundle检查失败。
 
 分析器写出的 `external_quality` 默认明确为 `NOT_RUN`，`quality_accepted=false`；必须从真实官方输出和实际视频人工审查另行提供具有版本、来源/运行签名的证据才能变更。验收模式 `audit --require-acceptance` 遇到缺失必须失败；可产生**有未决项的客观指标包**，但不能宣传“完整视频质量合格”。核心指标或逐帧覆盖不齐时连客观指标包也不得标为完成。
 
