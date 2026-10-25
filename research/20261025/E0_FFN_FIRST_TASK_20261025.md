@@ -42,11 +42,11 @@
 | `E0_FOLLOWTHROUGH.json` 对应的完成报告与 `E0_FINITE_GROUP_DIAGNOSTIC.json` | 固定两组有限干预的 BF16 本地和四步 downstream 作用 | 通道一般性、硬件速度、视频质量门槛 |
 | 旧 R13/R16/R17/A5+HWG 证据 | 对以前具体动作和主体外视频失稳提出机制问题 | “稀疏必然失败”或“必须 dense completion” |
 
-注：若报告中某文件名并不存在，应从 [E0_FOLLOWTHROUGH.md](E0_FOLLOWTHROUGH.md) 的真实链接定位现有结果，不凭文件名猜路径。
+本任务只引用已在仓库核实的研究报告与现有产物；新字段的可用性由 Agent 在来源审计中登记。
 
 ## 方法行动与报告格式
 
-每位 Agent 依据固定 AutoResearcher v2.4 的 `mechanism-research`、`research-expansion`、`problem-reformulation` 和 `web-research-discovery`，**主动大范围检索原论文和原始源码**，挑战先入为主的静态/量化尺度/局部几何解释。记录：`新观点 → 源码与精确数学 → 两个相异机制及其不同预测 → 最强反例/先例 → 最廉价下一检查 → 潜在省算自由度`。
+每位 Agent 沿 [DEEP_WEB_RESEARCH.md](../agent_protocol/DEEP_WEB_RESEARCH.md) 开展深入原论文与原代码检索，并依据固定 AutoResearcher v2.4 的 `mechanism-research`、`research-expansion`、`problem-reformulation` 和 `web-research-discovery`，**主动大范围检索原论文和原始源码**，挑战先入为主的静态/量化尺度/局部几何解释。记录：`新观点 → 源码与精确数学 → 两个相异机制及其不同预测 → 最强反例/先例 → 最廉价下一检查 → 潜在省算自由度`。
 
 各 Agent 只在其自己的发现/挑战文件记录，汇总者串行维护讨论队列。可读现有获授权的保存数据，做数学/离线复核，但新模型 / GPU / 生成 / 训练 / 扩展原生干预需单独用户授权；旧实验授权全部已完成，零 pending。新的最小实验可以**提出合同**，但不会因为本任务自动运行。
 
