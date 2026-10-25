@@ -1,0 +1,39 @@
+# E0 · FFN 本征机制：已知信息、真实缺口与最短判别（2026-10-25）
+
+**读者**：独立科研 Agent 和 reviewer。上位 [纲领](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[第一任务](E0_FFN_FIRST_TASK_20261025.md)、[五族来源](E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)。将现有实验看到的现象与需要再确认的因果机制分离，而不是将缺信息直接转化为新 GPU 作业。
+
+## 最有价值的五个知识缺口
+
+| 缺口 | 已有科学/数据基础 | 最重要的尚缺信息 | 首选无需新模型执行的推进 |
+|---|---|---|---|
+| **K1 FFN 真实功能单位** | 源码 W1/GELU/W2、32 行×五组 decoded W2 面板；Geva weighted-values、superposition 理论 | 完整 sampled preactivation/hidden 是否存档？正交/有符号贡献的有效方向由固定 W2 还是动态 gate 决定？ | 给出精确 tensor/asset 字段地图；对已有组面板做有符号 Gram/反例，不把五组当全模型 |
+| **K2 散点式稀疏怎样变成执行局部性** | 旧 Proxy/HWG 的 token×channel 支持散点；Activation Concentration 与 NVIDIA GEMM tiling | 完整 token×hidden 支持的 tile occupancy、索引/weight packing 成本和实际可删 W1/W2 轴 | 数学上分别推演 N/M/K tile 的可省算条件；核对哪些历史保存支持率允许估计上下界 |
+| **K3 四步时空条件创新** | E0 已保存按 step/block/expert 的若干 group 输出与公共方向；Chipmunk/AdaCache/DiffSparse | 哪些变化在同专家可预测？高 cosine 是否仍伴随大 relative SSE？哪一项先前状态真正在线可用？ | 将时序报告按 step 0→1、1→2、2→3、expert 和不同幅度校准分层；建立预测-vs-后验区别 |
+| **K4 局部功能响应与视频时间质量** | 原生 D/A/B/AB 同前缀有限干预、四步完整结果；历史主体稳定/背景光照抖动；VBench | 符号、方向、空间背景区域与相同局部误差预算的终端质量差别；是否是闪烁而非运动 | 从既有 flow/post 向量重组低/高频、帧内/帧间差异的**候选指标定义**；核查旧完整视频配对与评价字段 |
+| **K5 表示变换的数学/系统可行性** | `y=W2 GELU(W1z+b1)+b2`，本轮确认严格值向量/局部 Jacobian 表示；系统 tiling 文献 | 作用子空间能否在不穿越 GELU 的情况下重新参数化？在线投影/permute 的开销与 dense 比如何？ | 证明哪些变换为严格等价、哪些为条件近似；推导至少一个新算子的操作量与存储代价表达式 |
+
+## 在第一个实验前就能回答的两个数学问题
+
+### A. 为什么 hidden 坐标重要性不等价于输出函数重要性
+
+令 `h=(1,1)`、`W2=[v,-v]`、固定 `g=1`，则两个单元激活都大但 FFN 净贡献为零；令 `h=(ε,1)`、`W2=[v/ε,0]`，小激活的输出贡献反而主导。这两个构造说明**需要 W2 方向与幅度**，也说明只统计 `|h|` 不能确定输出功能；它们是数学反例，而非 Wan 数值观察。
+
+如果观察下游 `L(r')`，即使 `||δr||` 很小，也可能沿高度敏感的局部方向产生较大 `|δL|`。一阶形式 `δL≈∇_r L · δr`（条件：可微、有限动作足够小）；这给 F3 的方向机制而不是某个定量结论。
+
+### B. 什么时候真能重写 FFN 计算
+
+`W2h` 允许 `W2=UV` 的因子重写 `U(Vh)`，但如果 `rank(W2)` 接近 `min(D,H)`，矩阵相乘总代价可能无收益；时间/条件低有效秩还可能通过分布的 `h` 而非静态 W2 本身出现。对 `a=W1z+b1` 先施加一般旋转 `R` 时，`GELU(Ra)≠R GELU(a)` 通常成立；故任何 hidden-basis 提议需要清楚标注其数学身份（严格、条件、近似），并给出最小反例。
+
+## 与近期论文的最短区别性阅读问题
+
+- **Geva/Chipmunk**：在静态 W2 value basis 下，哪些输入系数体现 FFN 有意义的变化？Wan 的 gate 会如何改变最终向量组合？
+- **Toy Models of Superposition**：如果有效特征不是通道，换基重写是否真的改变可执行算子，还是只把 oracle 分析变漂亮？
+- **RT-Lynx / Activation Concentration**：算法选出来的非零支持与真实硬件 tile occupancy 之间，最大的可观察差异是哪条轴？
+- **AdaCache / Token-wise Caching / VBench**：背景、静态区域的闪烁与运动条件、整体输出相似度是否能够给出相反的作用排序？
+- **NVIDIA Tiling / Sparse GEMM**：对 proposed action 具体减少的是 M、N、K 何种 tile？权重重排和 launch 成本怎样计入？
+
+## 第一轮独立交付的质量标准
+
+在自己的 [E0 发现区](../method_discussion/discoveries/E0/README.md) 提供一项明确的**新增科学认识**：它涉及哪条实际 FFN 运算、具有什么数学形式、有哪些相竞争的解释、已获得哪一条证据和一项最廉价的不同预言。这既可以是一个积极构造，也可以是一个严格反例/不可交换性定理。找到真实字段后自然扩展实验；新 native 模型/生成/GPU 作业和阶段提升仍由单独授权决定。
+
+目前的第一步尤其适合 K1 + K2：完整 W1/GELU/W2 的保存字段覆盖度和有符号 contribution / tile 存在性判别。它比复用先前五组径向数字构造新的 proxy 更能改变整个研究方向。
