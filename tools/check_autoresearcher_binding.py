@@ -327,6 +327,10 @@ def main():
             "E0_NEW_FINDING_REQUIRES_INDEPENDENT_CHALLENGE",
             "E0_COHORT_AND_FORMAT_NONOVERCLAIM",
             "E0_COMPLETED_AUTHORIZATION_IS_NOT_FUTURE_RESUME",
+            "E0_COMPLETE_FIELDS_NEXT_MECHANISM",
+            "E0_QUANTIZER_CLOSURE_NOT_UNIVERSAL",
+            "E0_POSTHOC_CONCENTRATION_VS_REAL_VALUE",
+            "E0_BROAD_INDEPENDENT_REVIEW_AFTER_LATEST",
              "WARD_PINNED_WEB_RESEARCH_DEFAULT"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
