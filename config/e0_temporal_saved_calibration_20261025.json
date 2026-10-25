@@ -1,0 +1,73 @@
+{
+  "id": "E0_SAVED_TEMPORAL_AMPLITUDE_AND_MEAN_DISCRIMINATION_20261025",
+  "status": "FIXED_BEFORE_NEW_SAVED_DATA_CALIBRATION",
+  "user_instruction": "继续此前建议：先用已有数据检查跨步幅度漂移和固定/廉价前置信号，不重新生成视频。",
+  "accepted_manifest": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
+  "source_indices": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "blocks": [
+    0,
+    10,
+    20,
+    30,
+    39
+  ],
+  "same_expert_pairs": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "uniform_rows_per_scope": 32,
+  "primary_focus": "block39, chosen from already exposed observations; all five blocks reported",
+  "hypotheses": [
+    "A step/expert-specific scalar or fixed affine correction transfers across the six discovery sources.",
+    "Pre-FFN input magnitude or projection adds useful information beyond a strong matched fixed correction.",
+    "High raw similarity is mainly a spatial common component; centered motion remains poorly reusable."
+  ],
+  "evaluation": "Leave one entire source out; fit only the other five at the same block and target step. All six sources were already discovery-exposed, so this is descriptive cross-source transfer, not fresh holdout quality validation.",
+  "calibration_objective": "Mean of per-source gate-weighted SSE / current gated-output energy. Closed-form least squares only; no optimizer, neural fitting, checkpoint change or model execution.",
+  "comparators": [
+    "reuse",
+    "fixed_scale",
+    "fixed_bias_preserving_scale",
+    "fixed_affine",
+    "input_row_RMS_calibrated",
+    "input_row_RMS_bias_preserving_calibrated",
+    "input_panel_RMS_calibrated",
+    "input_row_projection_calibrated"
+  ],
+  "target_informed_bounds": [
+    "oracle_scalar",
+    "oracle_current_mean_shift",
+    "oracle_affine",
+    "oracle_row_scalar"
+  ],
+  "available_current_predictor_field": "modulated_input, before Smooth1/Q1/W1; current gate and same-expert original b2 are available independently of current FFN output",
+  "forbidden_predictor_fields": [
+    "current ffn_output",
+    "current z",
+    "current gelu",
+    "current q2_pre",
+    "current q2_post",
+    "current residual_post_ffn"
+  ],
+  "cache_semantics": "Previous un-gated FFN output; apply current gate. Same latent coordinates, not object tracking. Same-expert b2 must be identical before using bias-preserving controls.",
+  "scope_limits": "32 sampled rows per source, no native reuse or independent videos, no speed/quality acceptance, no automatic followup or operator promotion",
+  "new_model_generations": 0,
+  "new_GPU_calls": 0,
+  "new_native_FFN_calls": 0,
+  "new_norm_calls": 0,
+  "model_training_updates": 0,
+  "accepted_manifest_sha256": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5"
+}
