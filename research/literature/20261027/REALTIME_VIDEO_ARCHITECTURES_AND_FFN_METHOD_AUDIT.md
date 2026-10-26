@@ -1,6 +1,6 @@
 # 实时视频生成：一般视频模型如何转为流式计算，以及 FFN 的物理需求（2026-10-27）
 
-> **并行文献研究线 G10**。本研究由用户本轮明确要求恢复；仅恢复真实论文/公开源码/数学与计算图整理。原来暂停的 GPU、CPU 原生模型试验和视频生成继续暂停，权威边界见 \`research/ACTIVE_RESEARCH.json\`。外部论文或作者系统均是 **LIT**，本项目 Wan2.2-I2V-A14B D-Q HiF4 的 G0–G5 为 **SRC/NATIVE**。来源等级及源码 blob 见 [来源账本](REALTIME_VIDEO_SOURCE_LEDGER.json)。
+> **并行文献研究线 G10**。本研究由用户本轮明确要求恢复；仅恢复真实论文/公开源码/数学与计算图整理。原来暂停的 GPU、CPU 原生模型试验和视频生成继续暂停，权威边界见 `research/ACTIVE_RESEARCH.json`。外部论文或作者系统均是 **LIT**，本项目 Wan2.2-I2V-A14B D-Q HiF4 的 G0–G5 为 **SRC/NATIVE**。来源等级及源码 blob 见 [来源账本](REALTIME_VIDEO_SOURCE_LEDGER.json)。
 
 ## 1. 先分清生成“整段很快”与真正“流式”
 
@@ -36,14 +36,14 @@ X^{(k+1)}_{1:T}=X^{(k)}_{1:T}+\Delta \sigma_k\,V_\theta(X^{(k)}_{1:T},\sigma_k,c
 
 ### 路径C：直接重构时间因果与去噪的计算职责
 
-- **L60 Separable Causal Diffusion / SCD**（[CVPR2026](https://openaccess.thecvf.com/content/CVPR2026/html/Bai_Causality_in_Video_Diffusers_is_Separable_from_Denoising_CVPR_2026_paper.html)、[作者源码](https://github.com/xingjian-bai/sparse-causal-diffusion)）：作者的原始实测观察为**早中层跨 denoising-step 特征相似、深层cross-frame attention稀疏**。因此用 once-per-frame causal temporal encoder 获得条件表征，再用多步 frame renderer 做细节。FFN的启发来自时间/去噪次数的**因子分离**，不是预设隐藏通道可删。已直接核查作者 \`scd/models/scd_model.py\` 中单个 SCDTransformerBlock 顺序：AdaNorm→attention→gate残差→AdaNorm→\`FeedForward(...,activation_fn='gelu-approximate')\`→gate残差；\`SCDAttnProcessor\` 有历史K/V拼接与缓存；该作者具体结构/任务与当前Wan2.2 G1不同。公开repo README把预训练权重/标准推理列于注释状态；不得把源码存在解释为已获得大规模Wan可用checkpoint。
-- **L61 LongLive-2.0**（[原arXiv论文，含Eq2–6与表3](https://arxiv.org/abs/2605.18739)、[官方代码](https://github.com/NVlabs/LongLive/tree/main/LongLive2.0)）：基于 **Wan2.2-TI2V-5B**（不是当前A14B双expert），训练期把多段clean history/noisy targets用Balanced SP与NVFP4组织；原模型经AR finetune，少步能力可由LoRA 4→2步训练赋予。推理为W4A4 NVFP4 GEMM + NVFP4 KV-cache + multi-shot sink + asynchronous VAE。在作者原始论文 §3.2 \`K,V\` 按8帧latent chunk缓存，§3.3把chunk VAE解码与下一chunk DiT重叠。官方config \`LongLive2.0/configs/nvfp4/inference_nvfp4.yaml\` 明确 \`num_frame_per_block:8\`、\`sampling_steps:4\`、\`kv_quant:true\`、\`streaming_vae:false\`、\`async_vae:false\`：**这些能力是可选配置，不可把默认示例脚本说成已经并行打开streaming VAE**。官方 \`pipeline/causal_diffusion_inference.py\` 已读取，确认 \`WanDiffusionWrapper(...,is_causal=True)\`、滚动KV/shot sink与缓存量化可独立开关。论文表3在**1×GB200 180GB，异步解码另用1GPU**的条件下，5B 2step模型仅DiT吞吐45.7FPS，E2E时间另列（16s视频11.2s）。不能说“单卡45.7FPS包含VAE输出”。
+- **L60 Separable Causal Diffusion / SCD**（[CVPR2026](https://openaccess.thecvf.com/content/CVPR2026/html/Bai_Causality_in_Video_Diffusers_is_Separable_from_Denoising_CVPR_2026_paper.html)、[作者源码](https://github.com/xingjian-bai/sparse-causal-diffusion)）：作者的原始实测观察为**早中层跨 denoising-step 特征相似、深层cross-frame attention稀疏**。因此用 once-per-frame causal temporal encoder 获得条件表征，再用多步 frame renderer 做细节。FFN的启发来自时间/去噪次数的**因子分离**，不是预设隐藏通道可删。已直接核查作者 `scd/models/scd_model.py` 中单个 SCDTransformerBlock 顺序：AdaNorm→attention→gate残差→AdaNorm→`FeedForward(...,activation_fn='gelu-approximate')`→gate残差；`SCDAttnProcessor` 有历史K/V拼接与缓存；该作者具体结构/任务与当前Wan2.2 G1不同。公开repo README把预训练权重/标准推理列于注释状态；不得把源码存在解释为已获得大规模Wan可用checkpoint。
+- **L61 LongLive-2.0**（[原arXiv论文，含Eq2–6与表3](https://arxiv.org/abs/2605.18739)、[官方代码](https://github.com/NVlabs/LongLive/tree/main/LongLive2.0)）：基于 **Wan2.2-TI2V-5B**（不是当前A14B双expert），训练期把多段clean history/noisy targets用Balanced SP与NVFP4组织；原模型经AR finetune，少步能力可由LoRA 4→2步训练赋予。推理为W4A4 NVFP4 GEMM + NVFP4 KV-cache + multi-shot sink + asynchronous VAE。在作者原始论文 §3.2 `K,V` 按8帧latent chunk缓存，§3.3把chunk VAE解码与下一chunk DiT重叠。官方config `LongLive2.0/configs/nvfp4/inference_nvfp4.yaml` 明确 `num_frame_per_block:8`、`sampling_steps:4`、`kv_quant:true`、`streaming_vae:false`、`async_vae:false`：**这些能力是可选配置，不可把默认示例脚本说成已经并行打开streaming VAE**。官方 `pipeline/causal_diffusion_inference.py` 已读取，确认 `WanDiffusionWrapper(...,is_causal=True)`、滚动KV/shot sink与缓存量化可独立开关。论文表3在**1×GB200 180GB，异步解码另用1GPU**的条件下，5B 2step模型仅DiT吞吐45.7FPS，E2E时间另列（16s视频11.2s）。不能说“单卡45.7FPS包含VAE输出”。
 
 - **工业近期补充**：[Runway 2026-09-10技术陈述](https://runway.com/news/research/towards-instant-video-generation)：自述将普通foundation模型后训练改为因果AR，再做 off-policy→on-policy DMD，音视频decoder也改为可逐段流式；这是厂商公开技术叙述，不是公开可复验源码/客观benchmark，单独在ledger标 INDUSTRY_PRIMARY_STATEMENT。
 
 ## 3. FFN如何从普通full-sequence变成真正实时工作负载
 
-**原模型 G0–G5** 的每个FFN为本次 \`q = AdaLN(norm2(r2))\` 经HiF4 QDQ的固定函数 \(f_{\theta}(q)\)。历史 \(\mathcal H\) 并不是额外决定FFN输出的隐含变量：给定完整 \(q,\theta\) 时 \(f_\theta(q)\) 已确定。历史只可能通过：(i) 改变当前 attention/residual, 从而改变q；(ii) 提供用于预测 \(q\) 或 \(f(q)\) 的便宜侧信息；(iii) 新的训练后模型让函数直接把历史作为输入。
+**原模型 G0–G5** 的每个FFN为本次 `q = AdaLN(norm2(r2))` 经HiF4 QDQ的固定函数 \(f_{\theta}(q)\)。历史 \(\mathcal H\) 并不是额外决定FFN输出的隐含变量：给定完整 \(q,\theta\) 时 \(f_\theta(q)\) 已确定。历史只可能通过：(i) 改变当前 attention/residual, 从而改变q；(ii) 提供用于预测 \(q\) 或 \(f(q)\) 的便宜侧信息；(iii) 新的训练后模型让函数直接把历史作为输入。
 
 对当前chunk实际 token 数 \(M_c\)，FFN dense主投影 MAC：
 \[
@@ -78,4 +78,18 @@ g_{n,k}\odot f(q_{n,k})\stackrel{?}{=}\mu_n+u_{n,k},
 
 最强可复核实时物理先例：LongLive2原始数学及代码（Wan2.2 TI2V-5B低位内核）、StreamDiffusionV2官方source（Wan2.1 causal V2V/T2V和SLO）、SCD源码（因果模块与FFN可分层结构）。CausVid/Self Forcing/RollingForcing、LongLive/MotionStream用于蒸馏与自生成分布，FAST-AR用于明确attention压缩的强竞争基线。Runway只是近2026年工业方案声明。
 
-继续文献深读要寻找明确讨论 **FFN/MLP** 在 \`once-per-frame encoder\` 和 \`multi-step renderer\` 中角色/耗时的原始消融，提取每层/每step分项FLOPs、真实microbatch shapes、命中deadline分布；其次用同一计算图比较低位稠密内核、训练后窄FFN、原生channel稀疏与历史函数缓存。**所有G10节点是文献计算图，不改变暂停的G6真实实验权限。**
+继续文献深读要寻找明确讨论 **FFN/MLP** 在 `once-per-frame encoder` 和 `multi-step renderer` 中角色/耗时的原始消融，提取每层/每step分项FLOPs、真实microbatch shapes、命中deadline分布；其次用同一计算图比较低位稠密内核、训练后窄FFN、原生channel稀疏与历史函数缓存。**所有G10节点是文献计算图，不改变暂停的G6真实实验权限。**
+
+
+## 6. 2026年9–10月的新增流式模型：与Wan/LightX2V更直接的迁移边
+
+这批来源进一步更新了“实时的视频基础模型是怎样来的”：**通常保留强大的离线视频foundation prior，然后通过causal/block-AR蒸馏/条件化/系统优化成为能持续交付的小步模型；另一些把外部world state/音频/动作与视频rendering剥离或同步。**
+
+- **L65 Causal Forcing++（arXiv:2605.15141，v4于2026-10-04）**：[官方HTML全文](https://arxiv.org/html/2605.15141v4)、[源码](https://github.com/thu-ml/Causal-Forcing)。§2–3一手方法明确批判**双向teacher ODE轨迹给因果student直接回归**存在未来帧不可见的结构性错位。采用causal teacher的 **causal consistency distillation (CD)**，仅需相邻时间点的一次online ODE step监督来学习AR-conditional flow map，并以Self-Forcing形式自生成rollout的asymmetric DMD做第三阶段优化。测试Wan2.1-1.3B逐帧1–2步。作者报告framewise 2step初帧延迟较其前版本降低50%、阶段2训练成本约4×节省；这是**学生初始化/训练机制**，不意味着FFN动态mask有50%时延收益。区别于旧四步长chunk：两次去噪都发生在**更短的帧级计算单位**，会改变FFN GEMM 的M、K和偏移反馈频率。
+- **L66 EdenLive（2026-10-18发布）**：[开发方技术页](https://www.tripo3d.ai/research/edenlive)、[原始可用代码及部署说明](https://github.com/VAST-AI-Research/EdenLive)。这是最接近当前工具链的**参考条件流式renderer**：Wan2.2-TI2V-5B和Wan2.1-I2V-14B foundation分别转换为 bidirectional/few-step chunk-AR 模式，visual encoder对graybox/normal map/真实参考视频抽取**几何与运动条件**；真实world state由游戏/代码/外部代理维护，模型负责渲染外观。每chunk4 denoise steps、固定历史；upstream simulation→reference encoding→generation可并行。其README确认**LightX2V**辅助低位量化、融合算子、CUDA graphs、缓存和流式LightTAE；作者报告5B 1280×704 **RTX5090约24.7FPS inference throughput**。这个数字是官方工程实验描述，**未单独证明TTFF、含传输的p99或帧级独立因果功能**。README同时记载普通安装测试GPU需80GB，不应混作5090部署最低要求。对FFNDS最大启发不是再删通道，而是**外部结构/运动明确给出后，FFN中的功能与外部renderer需求发生角色变化**：变外观与保运动的条件功能是否存在不同的计算周期？需下游视频与真实图层检验。
+- **L67 Helix World（2026-10-12）**：[作者技术说明](https://noiz.ai/lp/blog/meet-helix-world)、[开源代码](https://github.com/NoizAI/HelixWorld)。基于LTX-2.3视听foundation，转换成以相机/键盘动作条件控制的少步因果学生，并同步输出视频与空间音频。厂商称单H800 768×512 24fps，RTF=0.77含音视频解码，但动作指令作用于下一chunk约1.3秒后。由此说明 **稳定24FPS吞吐≠毫秒级交互响应**，如果FFN策略延迟scene/音频同步信息，其系统后果需要跨模态测量。此项为作者公开技术与代码存在性，未独立复验。
+- **L68 Astronex-World 1.0（2026-09-17技术报告）**：[arXiv原始报告](https://arxiv.org/abs/2609.20034)。基于Wan2.2-TI2V-5B的bidirectional与block-causal两个模型，跨block KV、按层 action stream（64-d）和camera PRoPE；五阶段迁移包括causal改造、少步蒸馏/混合域恢复与分布匹配。作者称在832×480以24FPS流式生成，并把文字事件放入指定rollout位置。对FFNDS而言，**time-AdaLN和action conditioner是时间变化的前置合法信息**，但“动作低维”不等于只需算少量FFN通道。
+
+这四项在 [G10](../../../docs/98_端到端计算图与证据注解_20261025.md) 增加 **S21–S25**：因果一致性学生初始化、逐帧1–2步、外部scene state/视觉proxy、LightX2V流式renderer、动作/音视频同步。它们的核心共同点是时间依赖变更有**训练机制**和**推理算子**两条证据通道；我们要在当前原Wan中的真实函数角色、可用观测及硬件预算上独立求证。避免只把企业FPS当端到端deadline通过率。
+
+**FFN机理新判别**：若参考给出的layout/motion已知，则在同模型中对保持参考不变而只改appearance conditioning的样本，计算 \( \Delta U^{\rm appearance}\)；反之保appearance不变只改motion参考计算 \(\Delta U^{\rm motion}\)。探索两类变化是否落在不同的 **gate-weighted W2 value subspace**，并向跨chunk video/flow传输。真实Wan是否支持这个分解尚未实证，来自EdenLive“外部状态→渲染函数”的机制启发，而非其作者FFN观察。小成本判别应先找已有条件对照与冻结权重，不能把训练后模型的功能分工当冻结原FFN性质。
