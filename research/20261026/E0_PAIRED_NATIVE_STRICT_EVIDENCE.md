@@ -10,6 +10,6 @@
 
 为保持版本历史，[v1草案](../../config/e0_paired_full_depth_20261026.json)保留`6e9e6a…c188`原字节，**从未授权或执行**；另冻[v2执行协议](../../config/e0_paired_full_depth_20261026_v2.json)，SHA `dfefff076066c766766897ab76bb161b1e82fbfb74c5a0031c3f91c68ef95ce0`。v2绑定19份driver/环境/单GPU启动脚本及23份native源码，数学、参数包及六条完整路径预算不变。旧v1源绑定只对应其原实现提交，不用于当前入口启动。
 
-当前三pair仍是DD来源0控制，然后DC来源0/12、seed42/54，单张空闲A100、输出≤0.5GiB，无训练/拟合/分解/官方评分，失败扣账且不重试。生成成本按pair去重；正式质量仍NOT_RUN/false。失败产物继续走逐帧取证或显式缺失/解码失败记录，不冒称严格gate通过。
+**冻结的v2设计范围**曾含DD来源0及DC来源0/12共三pair，单卡A100、输出≤0.5GiB；实际v2仅完成DD视频，后处理路径失败使本次trace缺失。后续[v3两组DC结果](E0_PAIRED_FULL_DEPTH_RESULTS.md)独立完成四视频、320site与全帧/身份核验，已另计真实预算。生成成本按pair去重；正式质量仍NOT_RUN/false。失败产物继续走逐帧取证或显式缺失/解码失败记录，不冒称严格gate通过。
 
-独立[严格层审阅](../method_discussion/discoveries/E0/independent-paired-driver-final-audit-20261026_v5_strict_gate.md)检查新增工具与接入；前轮[原生组件/控制器审阅](E0_PAIRED_NATIVE_IMPLEMENTATION.md)保留原snapshot范围。**本严格门禁软件验证阶段**新模型/GPU调用为0，原生采集仍未作为这些软件测试的一部分。其后v2已由另一用户指令明确有界授权并登记执行，**当前运行/失败/数据质量以[活动状态](../ACTIVE_RESEARCH.json)和原生RUN为准**；不能将本软件报告的零GPU或旧待授权状态当成实时事实。
+独立[严格层审阅](../method_discussion/discoveries/E0/independent-paired-driver-final-audit-20261026_v5_strict_gate.md)检查新增工具与接入；前轮[原生组件/控制器审阅](E0_PAIRED_NATIVE_IMPLEMENTATION.md)保留原snapshot范围。**本严格门禁软件验证阶段**新模型/GPU调用为0，原生采集仍未作为这些软件测试的一部分。其后v2实际执行产生[DD终端视频与后处理路径失败](E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)，随后[v3完成两来源320site全深度原生观测](E0_PAIRED_FULL_DEPTH_RESULTS.md)。本软件报告零GPU是最初门禁开发阶段的历史计数；当前资源状态与新授权以[活动状态](../ACTIVE_RESEARCH.json)和实际RUN为准。
