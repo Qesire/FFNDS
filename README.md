@@ -2,7 +2,7 @@
 
 ## Current E0 science — intrinsic FFN computation first
 
-**统一机制与质量科学结论**：[Wan FFN完整视频失败与Affine54方法族审查](research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。此页是导航而非实时执行日志；paired-native v2的进度、权限和实际结果读取[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)与原生RUN，不能以历史“全部完成/待授权”覆盖新状态。
+**统一机制与质量科学结论**：[Wan FFN完整视频失败与Affine54方法族审查](research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。此页是科研导航；**v3两来源全深度原生观测已完成**，原生RUN与[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)负责精确执行状态及后续授权。
 
 **Research direction reset, 2026-10-25:** [intrinsic FFN mechanism program](research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) and [current sole discovery task](research/20261025/E0_FFN_FIRST_TASK_20261025.md). For specific missing source fields, mathematical contrasts and cheapest discriminators, read [knowledge gaps K1–K5](research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md). Study W1–GELU–W2 signed contributions, conditional token/step/expert structure, downstream functional effect, and actual avoidable GEMM work. The old [E0 gap dossier](research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md), radial pairing, four-arm and HiF4/NVFP4 comparison now serve as historical/scoped evidence rather than default science agenda. Default [deep Web Search](research/agent_protocol/DEEP_WEB_RESEARCH.md) and AutoResearcher v2.4 remain in force.
 
@@ -33,6 +33,10 @@ Read [ranked experimental evidence](research/EXPERIMENT_EVIDENCE_INDEX.md), [cur
 Every research agent uses [AutoResearcher](https://github.com/Qesire/AutoResearcher/tree/8b88a52d894568dc303db727decfbf13b5fabf3b) automatically through [AGENTS.md](AGENTS.md): discover a mechanism → reconstruct relevant source → derive and discriminate → compare closest published work → implement/measure when authorized → record what was learned. The minimal [FFNDS paper-discovery skill](.agents/skills/ffnds-paper-discovery/SKILL.md) provides domain context. Suggestions and exploratory math are not gated by whether an exact experiment already exists.
 
 **Mandatory research quality protocol (2026-10-26):** [every generated video must have all-frame quality and runtime analysis; all-layer FFN claims must trace actual cumulative 40×4 student inputs](research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md). New tools: [video analyzer](tools/ffnds_video_metrics.py), [per-video SHA-bound evidence gate](tools/ffnds_video_metric_gate.py), [unexecuted full-depth design template](config/e0_full_depth_quality_discriminator_TEMPLATE_20261026.json). The six original videos retain immutable reports; [separate 486-frame core-metric backfill](research/20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md) includes corrected motion proxies. Official quality, semantic background evaluation and human full-video acceptance remain separate evidence requirements. Realtime research is paused.
+
+## 最新全深度机制发现 · 2026-10-26
+
+[两来源320处原生paired数据](research/20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)在来源0/12各40层×4步记录了teacher/student输入上的四臂FFN、实际writeback、完整flow/latent以及四视频/16个latent身份校验。318/320处Student-prefix raw局部绝对算子误差**低于**Teacher-prefix，其余2处相等；与此同时latent偏差在去噪步中持续增大，后3步flow差与已有状态偏移方向明显相反。由此得到新的可判别问题：需要额外的完整dense `v_D(z_S)`响应，将流差分成部署算子作用与原生Dense状态响应，再考察哪些改变关联完整视频的运动、光照、细节。这个反事实尚未执行；新的模型计算需要单独授权。v2两条DD视频虽与历史Dense字节相同，详细trace因后处理路径错误未落盘，独立记录为失败而不折算为320处证据。v3全帧与严格身份检查通过，但官方/人工质量未验收。
 
 ## Project state
 
