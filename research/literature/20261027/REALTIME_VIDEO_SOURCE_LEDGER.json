@@ -1,0 +1,176 @@
+{
+  "schema": "ffnds.streaming.literature.v1",
+  "date": "2026-10-27",
+  "scope": "SOURCE_VERIFIED_LITERATURE_ONLY",
+  "document": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md",
+  "graph": "docs/98_端到端计算图与证据注解_20261025.md",
+  "records": [
+    {
+      "id": "L55",
+      "title": "CausVid",
+      "primary_url": "https://openaccess.thecvf.com/content/CVPR2025/html/Yin_From_Slow_Bidirectional_to_Fast_Autoregressive_Video_Diffusion_Models_CVPR_2025_paper.html",
+      "source_tier": "CVPR_2025_AUTHOR_PAPER_ABSTRACT_REPOSITORY_CONFIRMED",
+      "code_urls": [
+        "https://github.com/tianweiy/CausVid"
+      ],
+      "method_and_claim": "Pretrained bidirectional teacher adapted to causal student; ODE init and asymmetric DMD four steps; author 9.4FPS 1GPU original setting",
+      "limits": "Full author source method and timing definition not independently inspected this round",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L56",
+      "title": "Self Forcing",
+      "primary_url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f4823f831af67a3ef15e41a85434422a-Abstract-Conference.html",
+      "source_tier": "NEURIPS_2025_OFFICIAL_ABSTRACT",
+      "code_urls": [
+        "https://github.com/guandeh17/Self-Forcing"
+      ],
+      "method_and_claim": "Self-generated rolling causal rollout during training and video-level supervision",
+      "limits": "Original full equations/training source not read this round",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L57",
+      "title": "Rolling Forcing",
+      "primary_url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/935151cc6cb5d8b6816133b75233775a-Abstract-Conference.html",
+      "source_tier": "ICLR_2026_OFFICIAL_ABSTRACT_REPOSITORY_CONFIRMED",
+      "code_urls": [
+        "https://github.com/TencentARC/RollingForcing"
+      ],
+      "method_and_claim": "Progressively noisy joint denoising of a multi-frame rolling window; attention sinks and long-window distillation",
+      "limits": "Window attention code uninspected; not frame-serial",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L58",
+      "title": "LongLive",
+      "primary_url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/91a1610c6ed9e02d33f826b46f472b92-Abstract-Conference.html",
+      "source_tier": "ICLR_2026_AUTHOR_ABSTRACT_REPOSITORY_CONFIRMED",
+      "code_urls": [
+        "https://github.com/NVlabs/LongLive/tree/main/LongLive1.0"
+      ],
+      "method_and_claim": "frame-level AR, sink-window KV, prompt recache, long tuning, author 20.7fps one H100",
+      "limits": "Original code version specific performance not rerun",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L59",
+      "title": "StreamDiffusionV2",
+      "primary_url": "https://proceedings.mlsys.org/paper_files/paper/2026/hash/698cfaf72a208aef2e78bcac55b74328-Abstract-Conference.html",
+      "source_tier": "MLSys_2026_ORIGINAL_PROJECT_METHOD_PLUS_OFFICIAL_CODE_READ",
+      "code_urls": [
+        "https://github.com/chenfengxu714/StreamDiffusionV2"
+      ],
+      "method_and_claim": "Causal Wan2.1 based V2V/stream SLO scheduling, pipeline, rolling KV, stream VAE, motion noise. 14B four H100 author 58.28fps",
+      "limits": "Author online total FPS not comparable to single GPU or FFN kernel timing",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L60",
+      "title": "Separable Causal Diffusion",
+      "primary_url": "https://openaccess.thecvf.com/content/CVPR2026/html/Bai_Causality_in_Video_Diffusers_is_Separable_from_Denoising_CVPR_2026_paper.html",
+      "source_tier": "CVPR_2026_ORIGINAL_ABSTRACT_PLUS_AUTHOR_MODEL_PIPELINE_CODE_READ",
+      "code_urls": [
+        "https://github.com/xingjian-bai/sparse-causal-diffusion"
+      ],
+      "method_and_claim": "Once-per-frame causal temporal encoder, multi-step frame denoising renderer; early denoise features similar, late cross-frame attention low",
+      "limits": "No original full equation PDF verified in this turn; repo weights and generation instructions commented out",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L61",
+      "title": "LongLive-2.0",
+      "primary_url": "https://arxiv.org/abs/2605.18739",
+      "source_tier": "ORIGINAL_ARXIV_HTML_METHOD_EQ2_TO_6_SEC3_TO_4_TABLE3_AND_CODE_READ",
+      "code_urls": [
+        "https://github.com/NVlabs/LongLive/tree/main/LongLive2.0"
+      ],
+      "method_and_claim": "Wan2.2-TI2V-5B causal AR, two-step LoRA, W4A4 NVFP4 GEMM and NVFP4 KV, async VAE optional",
+      "limits": "45.7fps is diffusion/model FPS (single GB200), E2E table includes separate decoding GPU; default example async=false",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L62",
+      "title": "MotionStream",
+      "primary_url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/0cece806cd3d1dfad4a893f016ad3d7d-Abstract-Conference.html",
+      "source_tier": "ICLR_2026_OFFICIAL_ABSTRACT",
+      "code_urls": [],
+      "method_and_claim": "Motion control teacher converted into causal SelfForcing/DMD student with rolling sink; up to29FPS",
+      "limits": "Original method source and detailed hardware conditions unverified",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L63",
+      "title": "StreamDiT",
+      "primary_url": "https://openaccess.thecvf.com/content/CVPR2026/html/Kodaira_StreamDiT_Real-Time_Streaming_Text-to-Video_Generation_CVPR_2026_paper.html",
+      "source_tier": "CVPR_2026_OFFICIAL_ABSTRACT",
+      "code_urls": [],
+      "method_and_claim": "Partitioned buffer/chunk streaming sampling and per-segment distillation; 16FPS 512p singleGPU author setting",
+      "limits": "Full PDF formula/source unverified",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L64",
+      "title": "FAST-AR",
+      "primary_url": "https://proceedings.mlr.press/v306/samuel26a.html",
+      "source_tier": "ICML_2026_PMLR_OFFICIAL_ABSTRACT",
+      "code_urls": [],
+      "method_and_claim": "Temporal cache compression TempCache, ANN self and cross attention; up to5-10x end-to-end author on stated models",
+      "limits": "Primarily attention alternative; exact implementation and full equations unverified",
+      "native_wan_verified": false
+    }
+  ],
+  "author_code_blobs": [
+    {
+      "repository": "xingjian-bai/sparse-causal-diffusion",
+      "path": "scd/models/scd_model.py",
+      "blob_sha": "e751d5eeae50752dd215b80da02966036d27e6fc",
+      "checked": "AdaNorm, attention, gelu-approx FeedForward and gate residual plus KV cache"
+    },
+    {
+      "repository": "xingjian-bai/sparse-causal-diffusion",
+      "path": "scd/pipelines/pipeline_scd.py",
+      "blob_sha": "ee5b38cf4b19edf9e3969a5e87b9fb871977dc36",
+      "checked": "Diffusion pipeline autoregressive context/cache initialization"
+    },
+    {
+      "repository": "NVlabs/LongLive",
+      "path": "LongLive2.0/pipeline/causal_diffusion_inference.py",
+      "blob_sha": "375fb6a5514cfa54981b18c2dee252ba51b2366e",
+      "checked": "Wan2.2 TI2V 5B causal wrapper, KV cache, sink and async VAE flags"
+    },
+    {
+      "repository": "NVlabs/LongLive",
+      "path": "LongLive2.0/configs/nvfp4/inference_nvfp4.yaml",
+      "blob_sha": "c5420a5dfac50f45685d32249cc8d5005f5bf23a",
+      "checked": "8 latent frames/chunk, 4 steps, kv_quant true, streaming_vae and async_vae false by default"
+    },
+    {
+      "repository": "chenfengxu714/StreamDiffusionV2",
+      "path": "streamdiffusionv2/pipeline.py",
+      "blob_sha": "97cfd90208b5e598de33c2f1cd7dbdd09828d12f",
+      "checked": "video chunk encode->denoise->decode and causal v2v API"
+    },
+    {
+      "repository": "chenfengxu714/StreamDiffusionV2",
+      "path": "README.md",
+      "blob_sha": "84c3e33942ee750b5e3ac72d01e0c388028ba54e",
+      "checked": "Wan2.1 T2V1.3B/14B model download, causal checkpoints and installation"
+    }
+  ],
+  "industrial_sources": [
+    {
+      "type": "INDUSTRY_PRIMARY_STATEMENT_NO_PUBLIC_MODEL_CODE",
+      "date": "2026-09-10",
+      "organization": "Runway",
+      "url": "https://runway.com/news/research/towards-instant-video-generation",
+      "claim": "Original foundation model -> causal AR -> off-policy/on-policy DMD; causal streaming audio/video decode",
+      "performance": "NOT_REPORTED_IN_THIS_READING"
+    }
+  ],
+  "experiment": {
+    "gpu_started": 0,
+    "model_started": 0,
+    "original_e0_pause_preserved": true
+  }
+}
