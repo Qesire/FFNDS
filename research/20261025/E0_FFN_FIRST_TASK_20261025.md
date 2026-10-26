@@ -1,3 +1,5 @@
+**当前文献深读产物已同步计算图：** [DIFS/FIS原始PDF公式](../literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)、[G7论文方法分支](../../docs/98_端到端计算图与证据注解_20261025.md)。继续深读新研究并及时补入算子、时空形状、训练边与真实消费者，先不实施新FFN方法。
+
 # E0 · 当前研究任务：真实FFN必要计算与完整视频功能
 
 **当前权威机制与方向解释**：[2026-10-26统一科学审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。本页只定义**研究目标、任务分工和交付**，不重复过时的实验进度快照；当前阶段、用户授权、模型运行进度只以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)及实际RUN为准。

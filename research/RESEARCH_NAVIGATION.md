@@ -1,3 +1,5 @@
+**计算图与一手论文同步（2026-10-27）：** [DIFS/FIS原文方法](literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)已绑定[G7计算图](../docs/98_端到端计算图与证据注解_20261025.md)，保留SRC/LIT区别。其它文献后续需要依相同形状、信息时点与真实操作落图。
+
 # FFNDS research navigation
 
 **2026-10-27 actual completion / pause:** [four new sources, six seed paths, twelve videos](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md), [six exposed-source native comparison](20261026/E0_SIX_SOURCE_DIRECTIONAL_RESULTS.md), [conditional mean information](20261026/E0_EVEN_RESIDUAL_MEAN_CPU_RESULTS.md). Ten source identities/twelve nested source×seed trajectories/1,920sites now exist. Formal quality NOT_RUN/false. User requested completion, GitHub upload, then pause; model/GPU jobs are complete and released, new execution is paused in ACTIVE.
