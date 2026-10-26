@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "claim_id": "E0_GRAPH_PAIRED_V2_VIDEO_AND_FAILURE_20261026",
+  "agent_id": "ROOT_INTRINSIC_FFN_RESEARCH",
+  "research_stage": "E0_OPEN_DISCOVERY",
+  "source_revision": "9aa355e",
+  "review_status": "PROPOSED",
+  "review_refs": [],
+  "model_experiment_authorized": true,
+  "authorization_scope": "Closed v2 only; v3 not authorized.",
+  "anchor_nodes": [
+    "F12",
+    "P23",
+    "P24",
+    "P25"
+  ],
+  "upstream_nodes": [
+    "F08",
+    "F09"
+  ],
+  "consumer_nodes": [
+    "G21"
+  ],
+  "mechanism": {
+    "statement": "The instrumented DD final videos match original dense exactly, but a later HF-relative path error prevented native per-site/latent evidence from being retained. Final-video identity is distinct from a complete paired trace.",
+    "math_or_trace": "sha(teacher.mp4)=sha(student.mp4)=sha(original_dense.mp4)=23f5063d3565f672ae82244ddaa7d18591ee84f2484ac8b5a0ab21dea75b1ee4. Same-step/block gate is a function only of shared modulation and equal embed0 in this frozen configuration.",
+    "relation": "POSTHOC_VIDEO_IDENTITY_AND_SRC_CONDITIONAL; NO_RETAINED_PREFIX_OBSERVATIONS"
+  },
+  "availability": {
+    "earliest_decision_time": "After full offline generation",
+    "observer_computation": "Both main paths and both shadow FFNs execute; no compute saving claimed.",
+    "online_or_posthoc": "POSTHOC"
+  },
+  "real_cost": {
+    "W1": "All main/shadow W1 paid",
+    "W2": "All main/shadow W2 paid",
+    "QDQ": "Native full paired observer executed; exact count values not persisted",
+    "routing_memory": "One idle A100, sampled physical peak73475MiB; no deployment comparison",
+    "downstream": "Two complete dense videos/162 decoded frames, source0 seed42; cancelled4 followup paths. Complete timing and trace missing, core gate false."
+  },
+  "evidence": [
+    {
+      "path": "research/20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.json",
+      "sha256": "bc8f821c0fb0ddda5513c732e793aa47137997b1df44f1b639cec2dfa5267309",
+      "kind": "VIDEO/SYS/FAILED-RUN",
+      "scope": "Two saved exact videos and sampled resource receipt; zero saved native site/latent records."
+    }
+  ],
+  "countermechanism": {
+    "statement": "Exact final video identity proves a retained complete per-site trace or candidate quality.",
+    "prediction": "The failed receipt and missing TRACE refute that inference; exact final hash does not supply missing intermediate arrays/hashes."
+  },
+  "discriminator": "Run only a separately authorized repaired scope with mandatory CPU reference preflight and early/partial observation persistence. No v2 retry or automatic v3 launch.",
+  "graph_change_suggestion": {
+    "node_ids": [
+      "P23",
+      "P24",
+      "P25"
+    ],
+    "proposed_annotation": "Add scoped dense final-video neutrality and persistence failure; P23/P24 remain OPEN, P25 POLICY.",
+    "graph_edge_status": "POSTHOC_VIDEO_ONLY; NATIVE_PREFIX_EDGES_OPEN"
+  }
+}

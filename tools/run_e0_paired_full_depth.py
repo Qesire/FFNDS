@@ -46,13 +46,91 @@ def object_sha(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
-def preflight(protocol, bank):
+def historical_branch(plan, hf_root, pair, kind):
+    """Published HF_relative fields are relative to ffnds-derived, not HF_HOME."""
+    previous = json.loads((ROOT / plan['previous_result']).read_text())
+    mode = 'dense' if kind == 'dense' else 'affine_residual'
+    old = next(r for r in previous['runs'] if r['mode'] == mode)
+    base = (hf_root / 'ffnds-derived').resolve()
+    path = (base / old['raw_binding']['HF_relative']).resolve()
+    if not path.is_relative_to(base) or sha256(path) != old['raw_binding']['sha256']:
+        raise ValueError('Original native receipt changed or escaped derived root')
+    raw = json.loads(path.read_text())
+    phases = [p for p in raw['phases'] if p['source_index'] == pair['source_index']]
+    if len(phases) != 1 or phases[0]['seed'] != pair['seed']:
+        raise ValueError('Original native source/seed mismatch')
+    phase = phases[0]
+    video = (path.parent / phase['video']).resolve()
+    if not video.is_relative_to(path.parent) or sha256(video) != phase['video_sha256']:
+        raise ValueError('Original native video changed or escaped receipt directory')
+    return path, raw, phase
+
+
+def persist_observation(out, controller, observer=None, runtime=None, runtime_before=None, policy=None):
+    """Save completed sites/steps even when a later decode or reference fails."""
+    if controller is None or getattr(controller, 'trace', None) is None:
+        return None
+    trace = controller.trace
+    record = getattr(controller, 'completed_trace', None)
+    complete = record is not None
+    if not complete:
+        record = {'schema': 'ffnds.full_depth.partial_trace.v1',
+                  'status': 'PARTIAL_FAILED_ATTEMPT_NOT_COMPLETE_NATIVE_EVIDENCE',
+                  'source_index': trace.source, 'seed': trace.seed, 'provenance': trace.provenance,
+                  'sites': [trace.sites[k] for k in sorted(trace.sites)],
+                  'steps': [trace.steps[k] for k in sorted(trace.steps)], 'quality_accepted': False}
+        done = observer.counts['completed_sites'] if observer is not None else None
+        record['fully_completed_sites'] = done
+        record['incomplete_or_unverified_tail_sites'] = [
+            [s['step'], s['block']] for s in record['sites'][done if done is not None else 0:]]
+    write_json(out / 'TRACE.json', record)
+    observation = {'status': 'COMPLETE_TRACE_NOT_REFERENCE_OR_QUALITY_ACCEPTANCE' if complete else 'PARTIAL_TRACE_NOT_ACCEPTED',
+                   'trace_sha256': sha256(out / 'TRACE.json'),
+                   'recorded_site_geometries': len(record['sites']),
+                   'fully_completed_sites': len(record['sites']) if complete else done,
+                   'completed_steps': len(record['steps']),
+                   'trajectory': controller.trajectory, 'quality_accepted': False}
+    if observer is not None:
+        observation['observer_counts'] = dict(observer.counts)
+    if runtime is not None and runtime_before is not None:
+        observation['native_runtime_counts'] = {k: runtime.counters[k] - runtime_before[k] for k in runtime_before}
+    if policy is not None:
+        observation['residency'] = policy.snapshot()
+    write_json(out / 'OBSERVATION.json', observation)
+    return {'path': 'OBSERVATION.json', 'sha256': sha256(out / 'OBSERVATION.json')}
+
+
+def preflight(protocol, bank, hf_root=None):
     plan = json.loads(protocol.read_text())
     if (not MANDATORY_DRIVER_SOURCES <= set(plan['driver_sources_sha256']) or
             not MANDATORY_NATIVE_SOURCES <= set(plan['native_source_sha256'])):
         raise ValueError('Missing mandatory driver/native source bindings')
-    if (plan['max_full_generations_total'] != 6 or plan['planned_simultaneous_GPU_cards'] != 1
-            or len(plan['pairs']) != 3 or plan['automatic_retry'] is not False):
+    expected_pairs = [('dd_source00', 0, ['dense', 'dense']),
+                      ('dc_source00', 0, ['dense', 'candidate']),
+                      ('dc_source12', 12, ['dense', 'candidate'])]
+    if plan.get('reuse_failed_v2_dense_video_control'):
+        expected_pairs = expected_pairs[1:]
+        control = plan['reuse_failed_v2_dense_video_control']
+        receipt = hf_root / 'ffnds-derived' / control['RUN_HF_relative'] if hf_root is not None else None
+        if receipt is None or sha256(receipt) != control['RUN_sha256']:
+            raise ValueError('Frozen prior control receipt changed')
+        old = json.loads(receipt.read_text())
+        if old['status'] != 'FAILED_PRESERVED_NO_RETRY' or old['pair']['modes'] != ['dense', 'dense']:
+            raise ValueError('Unexpected prior control scope')
+        for branch in ['teacher', 'student']:
+            if sha256(receipt.parent / (branch + '.mp4')) != control['video_sha256']:
+                raise ValueError('Saved dense control video changed')
+        v2 = json.loads((ROOT / control['protocol']).read_text())
+        if (sha256(ROOT / control['protocol']) != control['protocol_sha256']
+                or old['id'] != v2['id'] or old['protocol_sha256'] != control['protocol_sha256']
+                or old['pair']['source_index'] != 0 or old['seed'] != 42):
+            raise ValueError('Prior control protocol/source binding changed')
+        for name in ['e0_paired_wan_controller.py', 'e0_paired_ffn_observer.py', 'e0_paired_weight_residency.py']:
+            if sha256(ROOT / 'tools' / name) != v2['driver_sources_sha256']['tools/' + name]:
+                raise ValueError('Prior control does not bind current mathematical execution')
+    if (plan['max_full_generations_total'] != 2 * len(expected_pairs) or plan['planned_simultaneous_GPU_cards'] != 1
+            or [(p['id'], p['source_index'], p['modes']) for p in plan['pairs']] != expected_pairs
+            or plan['automatic_retry'] is not False):
         raise ValueError('Unsupported finite paired execution scope')
     for group in ['driver_sources_sha256', 'native_source_sha256']:
         for name, expected in plan[group].items():
@@ -72,12 +150,18 @@ def preflight(protocol, bank):
     for pack in packs:
         if sha256(bank / pack['path']) != pack['sha256']:
             raise ValueError('Immutable pack changed')
+    if hf_root is None:
+        raise ValueError('Explicit HF root required for historical reference preflight')
+    for pair in plan['pairs']:
+        for kind in set(pair['modes']):
+            historical_branch(plan, hf_root, pair, kind)
     active = json.loads((ROOT / 'research/ACTIVE_RESEARCH.json').read_text())
     scopes = active['experiment_authority']['current_user_authorized_scopes']
     authorized = any(s['id'] == plan['id'] and s['protocol_sha256'] == sha256(protocol)
                      and s.get('execution_status') in ['AUTHORIZED_NOT_STARTED', 'RUNNING_FIXED_SCOPE'] for s in scopes)
     return plan, packs, {'status': 'STATIC_BINDINGS_PASS_NOT_NATIVE_VALIDATION',
-                        'model_scope_authorized': authorized, 'new_generations': 0, 'GPU_initialized': False}
+                        'model_scope_authorized': authorized, 'historical_references_verified': True,
+                        'new_generations': 0, 'GPU_initialized': False}
 
 
 @contextmanager
@@ -221,6 +305,8 @@ def execute(args, plan, packs_manifest, status):
         raise RuntimeError('Exact fixed model scope requires separate explicit authorization registered in ACTIVE_RESEARCH')
     if args.study_root.resolve() != Path(plan['canonical_study_root']).resolve():
         raise ValueError('One frozen canonical study ledger; changing output root cannot reset attempts')
+    if not status.get('historical_references_verified'):
+        raise ValueError('Historical reference preflight required before reserving a model attempt')
     from worker_identity import private_config_path, require_worker
     if sha256(private_config_path()) != plan['private_worker_config_sha256']:
         raise ValueError('Frozen privately selected executor changed')
@@ -310,6 +396,8 @@ def execute(args, plan, packs_manifest, status):
                     before = dict(runtime.counters); started = time.perf_counter()
                     pipe.generate(seed=seed, image_path=str(image), prompt=sample['prompt'], negative_prompt='',
                                   save_result_path=str(out / 'student.mp4'))
+                    run['observation'] = persist_observation(out, controller, observer, runtime, before, policy)
+                    write_json(out / 'RUN.json', run)
                     info = controller.input_info
                     original_info = pipe.runner.input_info
                     try:
@@ -320,6 +408,15 @@ def execute(args, plan, packs_manifest, status):
                         pipe.runner.input_info = original_info
                     torch.cuda.synchronize(); pair_wall = time.perf_counter() - started; budget()
                     timings = observer.timing_report()
+                    counts = {k: runtime.counters[k] - before[k] for k in before}
+                    run.update(trajectory=controller.trajectory, trace_sha256=sha256(out / 'TRACE.json'),
+                        observer_counts=dict(observer.counts), native_runtime_counts=counts,
+                        residency=policy.snapshot(), FFN_primary_plus_shadow_timings=timings,
+                        cost={'generation_wall_seconds': pair_wall, 'ffn_boundary_seconds': sum(t['primary_plus_shadow_ms'] for t in timings) / 1000,
+                              'setup_seconds': setup_seconds, 'peak_gpu_memory_mib': monitor.report()['peak_physical_used_memory_MiB']},
+                        cost_scope='WHOLE_PAIRED_OFFLINE_OBSERVATION_AND_TWO_DECODES_NOT_SINGLE_CANDIDATE_DEPLOYMENT_COST',
+                        videos={b: {'path': b + '.mp4', 'sha256': sha256(out / (b + '.mp4'))} for b in ['teacher', 'student']})
+                    write_json(out / 'RUN.json', run)
                     if len(timings) != 320 or observer.counts['completed_sites'] != 160:
                         raise RuntimeError('Missing native FFN boundaries/sites')
                     expected = {'dense_main_GEMM': 640 if pair['modes'] == ['dense', 'dense'] else 320,
@@ -329,29 +426,16 @@ def execute(args, plan, packs_manifest, status):
                                 'native_QDQ': 1280, 'continuous_GEMM': 960, 'completed_sites': 160}
                     if any(observer.counts[k] != v for k, v in expected.items()):
                         raise RuntimeError('Four-arm actual call ledger mismatch')
-                    counts = {k: runtime.counters[k] - before[k] for k in before}
                     if counts['linear_forward_calls'] != 3200 or counts['activation_qdq_calls'] != 3200 or counts['cache_misses']:
                         raise RuntimeError('Dense/native non-FFN call ledger mismatch')
                     if policy.snapshot()['ffn_transfers'] != 320 or counts['weight_transfers'] != 320:
                         raise RuntimeError('Bounded current-block FFN transfers mismatch')
-                    previous = json.loads((ROOT / plan['previous_result']).read_text())
                     for branch, kind in zip(['teacher', 'student'], pair['modes']):
-                        old = next(r for r in previous['runs'] if r['mode'] == ('dense' if kind == 'dense' else 'affine_residual'))
-                        raw_path = args.hf_root / old['raw_binding']['HF_relative']
-                        if sha256(raw_path) != old['raw_binding']['sha256']:
-                            raise ValueError('Original native receipt changed')
-                        old_phase = next(v for v in json.loads(raw_path.read_text())['phases'] if v['source_index'] == pair['source_index'])
+                        _, _, old_phase = historical_branch(plan, args.hf_root, pair, kind)
                         latent = [{k: v[k] for k in ['step', 'sha256', 'shape']} for v in controller.trajectory[branch]]
                         if latent != old_phase['trajectory'] or sha256(out / (branch + '.mp4')) != old_phase['video_sha256']:
                             raise RuntimeError('Instrumented branch changed original native latent/video identity: ' + branch)
-                    write_json(out / 'TRACE.json', controller.completed_trace)
-                    run.update(status='PASS_NATIVE_PAIRED_ACCOUNTING_REQUIRES_CORE_METRICS', trajectory=controller.trajectory,
-                        trace_sha256=sha256(out / 'TRACE.json'), observer_counts=observer.counts,
-                        native_runtime_counts=counts, residency=policy.snapshot(), FFN_primary_plus_shadow_timings=timings,
-                        cost={'generation_wall_seconds': pair_wall, 'ffn_boundary_seconds': sum(t['primary_plus_shadow_ms'] for t in timings) / 1000,
-                              'setup_seconds': setup_seconds, 'peak_gpu_memory_mib': monitor.report()['peak_physical_used_memory_MiB']},
-                        cost_scope='WHOLE_PAIRED_OFFLINE_OBSERVATION_AND_TWO_DECODES_NOT_SINGLE_CANDIDATE_DEPLOYMENT_COST',
-                        videos={b: {'path': b + '.mp4', 'sha256': sha256(out / (b + '.mp4'))} for b in ['teacher', 'student']})
+                    run['status'] = 'PASS_NATIVE_PAIRED_ACCOUNTING_REQUIRES_CORE_METRICS'
         adapter.deactivate_lightx2v_hooks()
         del pipe, packs, runtime, controller, observer, policy
         gc.collect(); torch.cuda.empty_cache()
@@ -360,15 +444,19 @@ def execute(args, plan, packs_manifest, status):
         run['cost']['peak_gpu_memory_mib'] = run['assigned_GPU_resources']['peak_physical_used_memory_MiB']
         run['cost_deduplication_key'] = protocol_sha + '/' + pair['id']
         write_json(out / 'NATIVE_RUN.json', run)
-        dense_run = next(r for r in previous['runs'] if r['mode'] == 'dense')
-        path = args.hf_root / dense_run['raw_binding']['HF_relative']; raw = json.loads(path.read_text())
-        phase = next(p for p in raw['phases'] if p['source_index'] == pair['source_index'])
-        original = {'receipt': str(path), 'receipt_sha256': dense_run['raw_binding']['sha256'],
+        path, raw, phase = historical_branch(plan, args.hf_root, pair, 'dense')
+        original = {'receipt': str(path), 'receipt_sha256': sha256(path),
                     'video': str(path.parent / phase['video']), 'video_sha256': phase['video_sha256'], 'protocol_sha256': raw['protocol_sha256']}
         evaluate_pair(out, run, pair, sample, original, protocol_sha)
         run['status'] = 'PASS_NATIVE_AND_CORE_METRICS_NOT_QUALITY'; run['native_RUN_sha256'] = sha256(out / 'NATIVE_RUN.json')
     except BaseException as exc:
         run.update(status='FAILED_PRESERVED_NO_RETRY', error_type=type(exc).__name__, error=str(exc), traceback=traceback.format_exc())
+        if 'controller' in locals():
+            try:
+                run['observation'] = persist_observation(out, controller, locals().get('observer'),
+                                                        locals().get('runtime'), locals().get('before'), locals().get('policy'))
+            except BaseException as observation_error:
+                run['observation_preservation_error'] = repr(observation_error)
         try:
             run['failed_video_evidence'] = collect_failed_video_evidence(
                 out, run, pair, locals().get('sample', {}), protocol_sha)
@@ -380,6 +468,8 @@ def execute(args, plan, packs_manifest, status):
             adapter.deactivate_lightx2v_hooks()
         if monitor is not None:
             monitor.close(); run['assigned_GPU_resources'] = monitor.report()
+            if 'cost' in run:
+                run['cost']['peak_gpu_memory_mib'] = run['assigned_GPU_resources']['peak_physical_used_memory_MiB']
         write_json(out / 'RUN.json', run)
         close_attempt(args.study_root, pair['id'], run['status'], out / 'RUN.json')
 
@@ -391,7 +481,7 @@ def main():
     parser.add_argument('--pair', default='dd_source00')
     parser.add_argument('--execute-native', action='store_true')
     args = parser.parse_args()
-    plan, packs, status = preflight(args.protocol, args.bank)
+    plan, packs, status = preflight(args.protocol, args.bank, args.hf_root)
     print(json.dumps(status), flush=True)
     if args.execute_native:
         execute(args, plan, packs, status)

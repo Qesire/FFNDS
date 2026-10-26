@@ -9,7 +9,8 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from run_e0_paired_full_depth import (close_attempt, collect_failed_video_evidence,
-                                    execute, preflight, reserve_attempt)
+                                    execute, historical_branch, persist_observation, preflight,
+                                    reserve_attempt, sha256, write_json)
 
 
 class PairedDriverTest(unittest.TestCase):
@@ -69,6 +70,49 @@ class PairedDriverTest(unittest.TestCase):
         self.assertEqual(evidence['videos'][0]['status'], 'DECODE_OR_EVALUATION_FAILED')
         self.assertEqual(len(evidence['videos'][0]['report_sha256']), 64)
         self.assertFalse(evidence['quality_accepted'])
+
+    def test_reference_uses_derived_root_and_checks_real_video_and_seed(self):
+        out = self.root/'ffnds-derived'/'old'; out.mkdir(parents=True)
+        (out/'video.mp4').write_bytes(b'SYNTHETIC_VIDEO')
+        raw = {'phases': [{'source_index': 0, 'seed': 42, 'video': 'video.mp4',
+                           'video_sha256': sha256(out/'video.mp4')}]}
+        write_json(out/'RUN.json', raw)
+        previous = {'runs': [{'mode': 'dense', 'raw_binding': {
+            'HF_relative': 'old/RUN.json', 'sha256': sha256(out/'RUN.json')}}]}
+        write_json(self.root/'previous.json', previous)
+        with patch('run_e0_paired_full_depth.ROOT', self.root):
+            plan = {'previous_result': 'previous.json'}
+            pair = {'source_index': 0, 'seed': 42}
+            path, _, phase = historical_branch(plan, self.root, pair, 'dense')
+            self.assertEqual(path, out/'RUN.json'); self.assertEqual(phase['seed'], 42)
+            with self.assertRaisesRegex(ValueError, 'source/seed'):
+                historical_branch(plan, self.root, {**pair, 'seed': 54}, 'dense')
+            (out/'video.mp4').write_bytes(b'CHANGED')
+            with self.assertRaisesRegex(ValueError, 'video changed'):
+                historical_branch(plan, self.root, pair, 'dense')
+
+    def test_reference_paths_cannot_escape_derived_root(self):
+        write_json(self.root/'previous.json', {'runs': [{'mode': 'dense', 'raw_binding': {
+            'HF_relative': '../outside.json', 'sha256': 'unused'}}]})
+        with patch('run_e0_paired_full_depth.ROOT', self.root):
+            with self.assertRaisesRegex(ValueError, 'escaped derived root'):
+                historical_branch({'previous_result': 'previous.json'}, self.root, {}, 'dense')
+
+    def test_partial_trace_survives_failure_without_completing_tail_site(self):
+        trace = SimpleNamespace(source=0, seed=42, provenance={'fixture': True},
+                                sites={(0, 0): {'step': 0, 'block': 0}, (0, 1): {'step': 0, 'block': 1}}, steps={})
+        controller = SimpleNamespace(trace=trace, completed_trace=None,
+                                     trajectory={'teacher': [], 'student': []})
+        result = persist_observation(self.root, controller, SimpleNamespace(counts={'completed_sites': 1}))
+        saved = json.loads((self.root/'TRACE.json').read_text())
+        observed = json.loads((self.root/result['path']).read_text())
+        self.assertEqual(saved['incomplete_or_unverified_tail_sites'], [[0, 1]])
+        self.assertEqual(observed['recorded_site_geometries'], 2)
+        self.assertEqual(observed['fully_completed_sites'], 1)
+        self.assertEqual(result['sha256'], sha256(self.root/'OBSERVATION.json'))
+        controller.completed_trace = {'sites': list(trace.sites.values()), 'steps': []}
+        persist_observation(self.root, controller)
+        self.assertEqual(json.loads((self.root/'OBSERVATION.json').read_text())['fully_completed_sites'], 2)
 
 
 if __name__ == '__main__':

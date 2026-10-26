@@ -204,3 +204,7 @@
 ## 2026-10-26：E35 新入口的严格视频身份与产物覆盖
 
 [新paired严格层](20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)从独立native回执与实际目录比对两视频清单，并以真实生成assets/operator重算dense model_digest；拒绝误继承候选digest、漏视频并降expected计数、删reference及无权威清单。8项新软件测试+17项paired软件测试通过，两个实际旧dense身份只读复核一致。*SRC/SOFTWARE*，仅新paired入口，原gate/旧报告字节不改，不追加质量验收。另冻v2替代未授权未执行v1，当前模型/GPU仍0，真实全深度迹线仍OPEN。
+
+## 2026-10-26：E36 DD终端视频中性与路径失败边界
+
+[实际结果与修复](20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)：两条新DD视频逐字节等于旧dense，采样显存71.75GiB；后置历史路径错误使v2失败，详细trace/latent未留存，不能将160处已运行当作160处可审计记录。余下DC取消，无重试；v3四视频范围待独立授权。P23/P24保持OPEN，正式质量及完整成本未通过。
