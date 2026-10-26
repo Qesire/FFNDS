@@ -28,4 +28,4 @@
 
 由提出方法的 agent 自己新增 `proposals/<NEW_METHOD_ID>/v1.json`，并明确写明 `origin.kind = AGENT_INDEPENDENT` 和 `proposer.agent_id`；不同 agent 应各自创建提案，不合写含糊的集体原创。复核者另写 `reviews/<METHOD_ID>/vN/<REVIEW_ID>.json`，论证自己的支持、反例或更强构造。建议采用 `MD-YYYYMMDD-简短机制名-唯一后缀`，避免并发 ID 冲突。
 
-**禁止从此表自动发起模型运行、生成实现待办或改动实验暂停状态。** `research/ACTIVE_RESEARCH.json` 仍是研究主线，讨论认可仅表示方法层面的跨 agent 意见。
+**队列的职责是方法讨论与独立审查。** 模型运行、实现任务与相应资源范围由 `research/ACTIVE_RESEARCH.json` 的独立授权与执行协议确定；讨论认可仅代表已注明范围的跨 Agent 机制共识。
