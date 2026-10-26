@@ -1,3 +1,5 @@
+**2026-10-27 研究双线同步：** [FFN本征与实时FFN竞争机制](20261027/PARALLEL_FFN_MECHANISM_AND_STREAMING_RESEARCH_BRIEF.md)；[14项实时模型深度综述与原始源码](literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)；[证据账本](literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)；[G10计算图](../docs/98_端到端计算图与证据注解_20261025.md)。文献68项，计算图104节点、183条关系。实时研究已恢复文献/计算图，模型与GPU实验仍暂停。
+
 **2026-10-27 G9 新增机制与计算图同步：** [L²P、条件执行树FFF、训练期FFN/attention计算职能迁移](literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)已按作者源码 / 原文公式 / 作者摘要分级，[证据账本](literature/20261027/G9_METHOD_SOURCE_LEDGER.json)与[权威计算图K28–K37](../docs/98_端到端计算图与证据注解_20261025.md)、[79节点/131关系索引](agent_protocol/GRAPH_AGENT_BINDINGS.json)一致。现有54项文献，其中G7–G9提供37个可检索LIT计算节点。研究对照优先分辨历史预测、树结构训练与冻权函数省算的不同条件；ACTIVE暂停的GPU/model/video任务保持原状。
 
 **2026-10-27 G8 最新文献—计算图同步**：[RT-Lynx/Dense2MoE/SVD-Cache/Chipmunk一手方法、真实信息时点及原Wan FFN节点](literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)；[机器证据账本](literature/20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json)将原PDF/作者公开说明/先前代码审查区分。当前G7+G8共27个外部论文节点，原生执行仍暂停。
