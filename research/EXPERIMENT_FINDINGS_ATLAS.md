@@ -220,3 +220,7 @@
 ## 2026-10-26：E39 有符号神经元簇的向量值曲线
 
 [独立表示发现](method_discussion/discoveries/E0/independent-signed-neuron-curve-coordinates-20261026.md)：条件共线W1方向可精确组织为向量值ridge曲线，再以少量非线性基形成薄W1/W2。*CONDITIONAL-ALG/OPEN*，不把曲线低复杂度当Wan实测。相反W2的近共线神经元可保留关键差分；Q2闭包可能使曲线多变量化，两者给出低成本否证。已核对neuron merging、PPR、kernel feature bundling等近邻，不主张发明通用原语；P14为独立开放机制，无训练/拟合/模型执行或质量验收。
+
+## 2026-10-26：E40 原dense在候选状态上的有限响应与来源相关交叉符号
+
+[完整原生固定v1](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)：两来源8个状态对、6个非零偏移，完整dense单步能量增益3.63–7.72；来源0候选交叉项为负，来源12为正，候选净效应均为正。*NATIVE-OBS*，状态由候选历史产生，结果不确定最早根因、全局Jacobian或dense恢复序列；增益不能相乘。全部16历史latent、24次CPU原生更新及8状态包通过，0新视频。16通道偏置+flow/latent两个全局尺度的固定状态oracle仍留下60.20%–71.14%理想SSE；数值投影不作严格家族排除。下一廉价判别是已存末步dense反事实的VAE视频桥；独立向量曲线CPU可行性保持另一探索线。P24实测finite-map边，因果机制OPEN，P25画质未验收。
