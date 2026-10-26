@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
   "updated": "2026-10-27",
-  "status": "EXPANDED_54_PAPER_MECHANISM_ATLAS_G9_PARTIAL_SOURCE_AUDITS",
+  "status": "EXPANDED_64_WORK_MECHANISM_ATLAS_WITH_G10_REALTIME_PARALLEL_RESEARCH",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -931,6 +931,219 @@
         "K37"
       ],
       "graph_method_reference": "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+    },
+    {
+      "id": "L55",
+      "group": "frame_token_step",
+      "title": "CausVid: From Slow Bidirectional to Fast Autoregressive Video Diffusion Models",
+      "year": 2025,
+      "venue": "CVPR 2025",
+      "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Yin_From_Slow_Bidirectional_to_Fast_Autoregressive_Video_Diffusion_Models_CVPR_2025_paper.html",
+      "model": "pretrained video diffusion teacher causal distilled student",
+      "observed_mechanism": "bidirectional video teacher -> 4step causal autoregressive student",
+      "decision_time": "causal history after earlier frames",
+      "physical_action": "temporal chunk compute with cached KV and few denoise steps",
+      "training": "ODE initialization plus asymmetric DMD",
+      "wan_specific_discriminator": "Architecture/teacher effects, not frozen Wan FFN mask",
+      "reading_depth": "OFFICIAL_CVPR_ABSTRACT_AND_AUTHOR_REPOSITORY",
+      "graph_anchor": [
+        "S01",
+        "S02",
+        "S03",
+        "S05"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L56",
+      "group": "frame_token_step",
+      "title": "Self Forcing: Bridging the Train-Test Gap in Autoregressive Video Diffusion",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f4823f831af67a3ef15e41a85434422a-Abstract-Conference.html",
+      "model": "causal video AR diffusion",
+      "observed_mechanism": "train with student-generated KV rollouts, video-level loss and truncation",
+      "decision_time": "training time and inference rolled history",
+      "physical_action": "cache current generated sequence and full causal model per frame",
+      "training": "self forcing/posttraining",
+      "wan_specific_discriminator": "Student-prefix drift across stream may exceed four-step movie effects",
+      "reading_depth": "OFFICIAL_NEURIPS_ABSTRACT",
+      "graph_anchor": [
+        "S04",
+        "S05",
+        "S09"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L57",
+      "group": "frame_token_step",
+      "title": "Rolling Forcing: Autoregressive Long Video Diffusion in Real Time",
+      "year": 2026,
+      "venue": "ICLR 2026",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/935151cc6cb5d8b6816133b75233775a-Abstract-Conference.html",
+      "model": "long-horizon video rolling diffusion",
+      "observed_mechanism": "multiple frames jointly denoised with progressive noise and attention sinks",
+      "decision_time": "current rolling window across multiple frames",
+      "physical_action": "bounded attention window with joint denoising",
+      "training": "few-step training on extended windows",
+      "wan_specific_discriminator": "No assumption of strictly single-frame streaming; FFN temporal group value",
+      "reading_depth": "OFFICIAL_ICLR_ABSTRACT_AND_REPOSITORY_PRESENT",
+      "graph_anchor": [
+        "S04",
+        "S05",
+        "S06",
+        "S09"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L58",
+      "group": "frame_token_step",
+      "title": "LongLive: Real-time Interactive Long Video Generation",
+      "year": 2026,
+      "venue": "ICLR 2026",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/91a1610c6ed9e02d33f826b46f472b92-Abstract-Conference.html",
+      "model": "LongLive1.3B causal video",
+      "observed_mechanism": "frame-level causal AR, frame sink, KV-recache during dynamic prompts and long tuning",
+      "decision_time": "current frame/chunk and prompt version",
+      "physical_action": "sustained streaming KV and prompt-conditioning",
+      "training": "long video finetune",
+      "wan_specific_discriminator": "Measure FFN cache validity across prompt/scene changes rather than just spatial temporal coherence",
+      "reading_depth": "OFFICIAL_ICLR_ABSTRACT_AUTHOR_PROJECT_REPOSITORY",
+      "graph_anchor": [
+        "S05",
+        "S06",
+        "S17"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L59",
+      "group": "frame_token_step",
+      "title": "StreamDiffusionV2: A Streaming System for Dynamic and Interactive Video Generation",
+      "year": 2026,
+      "venue": "MLSys 2026",
+      "url": "https://proceedings.mlsys.org/paper_files/paper/2026/hash/698cfaf72a208aef2e78bcac55b74328-Abstract-Conference.html",
+      "model": "Wan2.1 causal 1.3B and 14B streaming server",
+      "observed_mechanism": "rolling KV with causal DiT, StreamVAE and motion-aware scheduler, multi-GPU SLO pipeline",
+      "decision_time": "live input frame arrival and deadline",
+      "physical_action": "denoising step and layer pipeline stream batches",
+      "training": "training-free system adaptation of causal checkpoint",
+      "wan_specific_discriminator": "SLO and chunk microbatch change FFN physical kernel priorities",
+      "reading_depth": "AUTHOR_PROJECT_METHOD_AND_CODE_READ",
+      "graph_anchor": [
+        "S10",
+        "S11",
+        "S12",
+        "S20"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L60",
+      "group": "architecture_joint",
+      "title": "Causality in Video Diffusers is Separable from Denoising",
+      "year": 2026,
+      "venue": "CVPR 2026",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Bai_Causality_in_Video_Diffusers_is_Separable_from_Denoising_CVPR_2026_paper.html",
+      "model": "SCD causal toy/real video model",
+      "observed_mechanism": "once per frame causal context encoder then multiple framewise rendering steps",
+      "decision_time": "causal past once and current frame for denoise",
+      "physical_action": "separate temporal cross-frame reasoning from per-frame denoising cost",
+      "training": "pretraining and posttraining architecture variants",
+      "wan_specific_discriminator": "Potential FFN temporal versus rendering role; requires same-q/gate finite function test",
+      "reading_depth": "AUTHOR_ORIGINAL_CODE_SCD_BLOCK_READ",
+      "graph_anchor": [
+        "S13",
+        "S14"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L61",
+      "group": "evaluation_hardware",
+      "title": "LongLive-2.0: An NVFP4 Parallel Infrastructure for Long Video Generation",
+      "year": 2026,
+      "venue": "arXiv 2605.18739",
+      "url": "https://arxiv.org/abs/2605.18739",
+      "model": "Wan2.2 TI2V-5B AR/FP4",
+      "observed_mechanism": "Wan2.2 TI2V5B trained causal AR + two-step LoRA + W4A4 NVFP4 native linear and cache",
+      "decision_time": "chunk of 8 latent frames, streaming KV and optional asynchronous VAE",
+      "physical_action": "packed lowprecision GEMM, FP4 KV, chunk decoder overlap",
+      "training": "NVFP4 AR finetune and LoRA DMD",
+      "wan_specific_discriminator": "Real hardware low-bit FFN control vs expensive irregular sparse dispatch; not Wan A14B D-Q",
+      "reading_depth": "ORIGINAL_ARXIV_HTML_EQUATIONS_AND_AUTHOR_CODE_READ",
+      "graph_anchor": [
+        "S15",
+        "S16",
+        "S10",
+        "S17"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L62",
+      "group": "frame_token_step",
+      "title": "MotionStream: Real-Time Video Generation with Interactive Motion Controls",
+      "year": 2026,
+      "venue": "ICLR 2026",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/0cece806cd3d1dfad4a893f016ad3d7d-Abstract-Conference.html",
+      "model": "motion-controlled causal video",
+      "observed_mechanism": "motion conditioned T2V teacher -> self forcing causal AR and rolling history",
+      "decision_time": "interactive camera/body motion input",
+      "physical_action": "rolling temporal sparse attention/cache",
+      "training": "distill bidirectional teacher",
+      "wan_specific_discriminator": "Dynamic motion changes invalidate static FFN influence predictor",
+      "reading_depth": "OFFICIAL_ICLR_ABSTRACT",
+      "graph_anchor": [
+        "S02",
+        "S04",
+        "S17"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L63",
+      "group": "frame_token_step",
+      "title": "StreamDiT: Real-Time Streaming Text-to-Video Generation",
+      "year": 2026,
+      "venue": "CVPR 2026",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Kodaira_StreamDiT_Real-Time_Streaming_Text-to-Video_Generation_CVPR_2026_paper.html",
+      "model": "StreamDiT real time video",
+      "observed_mechanism": "buffer partition and streaming multi-step distillation",
+      "decision_time": "chunk within multi-frame stream buffer",
+      "physical_action": "partitioned online denoising with reduced NFE",
+      "training": "chunk-aware distillation",
+      "wan_specific_discriminator": "Step count and chunk scheduling affect FFN recomputation rate",
+      "reading_depth": "OFFICIAL_CVPR_ABSTRACT_ONLY",
+      "graph_anchor": [
+        "S03",
+        "S06",
+        "S12"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L64",
+      "group": "frame_token_step",
+      "title": "FAST-AR: Fast Autoregressive Video Diffusion and World Models with Temporal Cache Compression and Sparse Attention",
+      "year": 2026,
+      "venue": "ICML 2026 PMLR306",
+      "url": "https://proceedings.mlr.press/v306/samuel26a.html",
+      "model": "AR video/world models",
+      "observed_mechanism": "TempCache and ANN sparse attention for AR video/world models",
+      "decision_time": "rolling cached KV and prompt relevance",
+      "physical_action": "compress attention KV/time budget, not FFN directly",
+      "training": "training-free",
+      "wan_specific_discriminator": "After attention reduction, FFN may dominate; compare FFN microbatch kernel",
+      "reading_depth": "OFFICIAL_PMLR_ABSTRACT_ONLY",
+      "graph_anchor": [
+        "S16",
+        "S18",
+        "S20"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -975,5 +1188,13 @@
     "ledger": "research/literature/20261027/G9_METHOD_SOURCE_LEDGER.json",
     "node_count": 10,
     "native_runs": 0
+  },
+  "g10_realtime_line": {
+    "document": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md",
+    "ledger": "research/literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json",
+    "paper_count": 10,
+    "node_count": 20,
+    "research_only": true,
+    "model_runs": 0
   }
 }
