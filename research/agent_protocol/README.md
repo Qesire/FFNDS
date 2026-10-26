@@ -3,6 +3,8 @@
 **Latest upstream synchronization:** AutoResearcher v2.4 WARD is pinned to [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Read [generic research protocol](../../core/WEB_RESEARCH_DISCOVERY.md), [dedicated Skill](../../.agents/skills/web-research-discovery/SKILL.md) and [FFNDS-specific deep Web Search](DEEP_WEB_RESEARCH.md); see [sync procedure](UPSTREAM_SYNC.md) for reproducible future upgrades.
 
 
+**表达与验证：** 科研结果首先呈现新结构、数学机制与竞争预测。历史失败使用原作用域陈述；授权和质量按实际行动说明。按照[根指令](../../AGENTS.md)的生成性表达准则审阅当前引导，按风险选择本地验证，CI保持手动按需。
+
 ## Graph-Agent协作入口
 
 [双向协议](GRAPH_AGENT_COLLABORATION.md) · [G0–G6节点索引](GRAPH_AGENT_BINDINGS.json) · [计算图原文](../../docs/98_端到端计算图与证据注解_20261025.md) · [E0独立图注解](../method_discussion/graph_annotations/E0/README.md)。相关科研 Agent 从真实计算节点检索来源/证据，独立提出与审查机制，再将确定范围的发现反向更新图与实验谱系。
@@ -26,6 +28,6 @@ Earlier `SOURCE_MANIFEST.json`, `PRD_SOURCE_MANIFEST.json` and `AUTORESEARCHER_A
 
 The content-addressed check `tools/check_autoresearcher_binding.py` confirms local version integrity and active-route agreement. It does not measure scientific creativity; [behavior cases](DEFAULT_BEHAVIOR_CASES.json) supply the separate evaluation corpus for authorized future agent comparisons.
 
-All CPU/GPU/model experiments and automatic followups remain paused per [explicit receipt](../20261024/EXPERIMENT_PAUSE.json).
+已保存的历史暂停回执记录其发生时的执行状态。当前 paired-native v2 与后续授权及运行进度以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 和原生 RUN 为准。
 
 Superseded operational summaries have moved to the [dated handoff archive](../../archive/20261024/historical_handoffs/README.md). Reproduce the original wording with the archived Git blobs or original source commits; dated execution instructions are historical, not a reason to launch an experiment.
