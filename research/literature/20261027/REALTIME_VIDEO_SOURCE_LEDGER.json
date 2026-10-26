@@ -118,6 +118,52 @@
       "method_and_claim": "Temporal cache compression TempCache, ANN self and cross attention; up to5-10x end-to-end author on stated models",
       "limits": "Primarily attention alternative; exact implementation and full equations unverified",
       "native_wan_verified": false
+    },
+    {
+      "id": "L65",
+      "title": "Causal Forcing++",
+      "primary_url": "https://arxiv.org/html/2605.15141v4",
+      "source_tier": "ORIGINAL_ARXIV_V4_HTML_METHOD_SEC2_SEC3_READ_20261004",
+      "code_urls": [
+        "https://github.com/thu-ml/Causal-Forcing"
+      ],
+      "method_and_claim": "Causal consistency distillation of AR teacher via one online adjacent-time ODE step -> framewise 1-2step SelfForcing-style DMD; author first frame latency 50% lower than comparator",
+      "limits": "Original technique is student training/init, not frozen FFN kernel; Wan2.1 1.3B not Wan2.2 A14B",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L66",
+      "title": "EdenLive",
+      "primary_url": "https://www.tripo3d.ai/research/edenlive",
+      "source_tier": "OCT18_2026_AUTHOR_TECHNICAL_PAGE_AND_ORIGINAL_REPO_READ",
+      "code_urls": [
+        "https://github.com/VAST-AI-Research/EdenLive"
+      ],
+      "method_and_claim": "Wan2.2 TI2V5B and Wan2.1 I2V14B foundation to bidirectional/chunkAR; motion-layout reference encoder, four step chunk, LightX2V quant/fused ops and streaming LightTAE; official approx24.7fps on RTX5090 1280x704",
+      "limits": "Reference-conditioned generation; author inference FPS not independently measured TTFF/p99; ordinary 80GB installation section not 5090 minimum",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L67",
+      "title": "Helix World",
+      "primary_url": "https://noiz.ai/lp/blog/meet-helix-world",
+      "source_tier": "OCT12_2026_ORIGINAL_ORGANIZATION_REPORT_REPO_EXISTS",
+      "code_urls": [
+        "https://github.com/NoizAI/HelixWorld"
+      ],
+      "method_and_claim": "LTX2.3 causal few-step audio-video world model with camera action conditioning; 24fps H800 claim with RTF0.77 and ca1.3s control chunk",
+      "limits": "Developer announcement/technical source; independent numerical/code path verification pending",
+      "native_wan_verified": false
+    },
+    {
+      "id": "L68",
+      "title": "Astronex World 1.0",
+      "primary_url": "https://arxiv.org/abs/2609.20034",
+      "source_tier": "SEP17_2026_ORIGINAL_ARXIV_TECHNICAL_REPORT_INTRO_READ",
+      "code_urls": [],
+      "method_and_claim": "Wan2.2 TI2V5B bidirectional vs blockcausal mode, per-layer 64-d action and PRoPE camera, AR fewstep, KV; author reports 832x480 24fps on one L20",
+      "limits": "Author technical report; hardware/training claims not independently replicated; not A14B",
+      "native_wan_verified": false
     }
   ],
   "author_code_blobs": [
@@ -156,6 +202,12 @@
       "path": "README.md",
       "blob_sha": "84c3e33942ee750b5e3ac72d01e0c388028ba54e",
       "checked": "Wan2.1 T2V1.3B/14B model download, causal checkpoints and installation"
+    },
+    {
+      "repository": "VAST-AI-Research/EdenLive",
+      "path": "README.md",
+      "blob_sha": "d3b5cd8f42a50904745221aa052cf96a32b9fdf2",
+      "checked": "Released 5B/14B bidirectional and 4-step chunk AR weights, LightX2V 5090 24.7FPS description and real-time service"
     }
   ],
   "industrial_sources": [
@@ -166,6 +218,22 @@
       "url": "https://runway.com/news/research/towards-instant-video-generation",
       "claim": "Original foundation model -> causal AR -> off-policy/on-policy DMD; causal streaming audio/video decode",
       "performance": "NOT_REPORTED_IN_THIS_READING"
+    },
+    {
+      "type": "INDUSTRY_PRIMARY_TECHNICAL_REPORT_AND_OPEN_CODE",
+      "date": "2026-10-18",
+      "organization": "VAST",
+      "url": "https://www.tripo3d.ai/research/edenlive",
+      "claim": "EdenLive 5B LightX2V 5090 real-time reference conditioned renderer",
+      "performance": "AUTHOR_FPS_NOT_VERIFIED_INDEPENDENTLY"
+    },
+    {
+      "type": "INDUSTRY_ORIGINAL_BLOG_AND_CODE",
+      "date": "2026-10-12",
+      "organization": "NoizAI / HKUST",
+      "url": "https://noiz.ai/lp/blog/meet-helix-world",
+      "claim": "Helix World multimodal audio/video 24fps and response-next-chunk",
+      "performance": "AUTHOR_CLAIM_RTF0.77_H800"
     }
   ],
   "experiment": {
