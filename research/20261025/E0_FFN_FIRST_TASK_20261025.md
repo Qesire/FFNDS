@@ -6,6 +6,8 @@
 
 在Wan2.2 I2V四步蒸馏模型中减少真实FFN计算、减轻完整生成成本，保持主体、运动、纹理、光照与时序表现。研究对象按真实W1→tanh-GELU→Q2/postQ2→W2→gate/residual→后续层→flow/scheduler/视频计算流定位。[FFN本征研究纲领](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[源图G0–G6](../../docs/98_端到端计算图与证据注解_20261025.md)与[AutoResearcher Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)共同提供可扩展基础。
 
+历史科学分歧与未闭合机制分类仍可按需追溯[独立分歧审查](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)，它是证据和思路来源，不再是当前判断入口。
+
 已有证据的精确数据与边界，统一进入[科学审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)、[实验发现图谱](../EXPERIMENT_FINDINGS_ATLAS.md)。请注意：Affine54局部SSE改善与原生FFN加速均为实测积极结果；当前两个来源固定160位置全层替换的视频质量不符合研究目标。局部teacher输入SSE不是视频保真充分条件，尚不知它是否是主导损失原因；**这既不是对整个Affine族的不可行定理，也不是给固定54组重调参的指令**。
 
 ## 并行而互补的研究任务
