@@ -57,6 +57,16 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertTrue(any(e["from"]=="P23" and e["to"]=="P24"
                             for e in self.registry["edges"]))
 
+    def test_literature_branch_is_not_native_execution(self):
+        kinds = {n["id"]: n["evidence_type"] for n in self.registry["nodes"]}
+        for i in range(1, 13):
+            self.assertEqual(kinds[f"K{i:02d}"], "LIT")
+        self.assertIn("G7", self.registry["graph_roles"])
+        self.assertEqual(self.registry["literature_mapping_v1"]["model_execution_count"], 0)
+        path = trace(self.registry, "K07", "F08R")
+        self.assertTrue(path["edges"])
+        self.assertIn("not proof", path["warning"])
+
     def test_unregistered_discovery_needs_curator(self):
         with self.assertRaises(SystemExit):
             inspect(self.registry, "F99")

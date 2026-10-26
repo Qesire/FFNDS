@@ -23,7 +23,7 @@ def validate(data):
     graph = ROOT / data["graph_document"]
     assert graph.is_file(), f"Missing graph document: {graph}"
     text = graph.read_text(encoding="utf-8")
-    required_types = {"SRC","ALG","OBS","NATIVE-OBS","NATIVE-ACT","SYN","VIDEO","SYS","OPEN","POLICY"}
+    required_types = {"SRC","ALG","OBS","NATIVE-OBS","NATIVE-ACT","SYN","VIDEO","SYS","OPEN","POLICY","LIT"}
     nodes = data.get("nodes", [])
     ids = [n["id"] for n in nodes]
     assert len(ids) == len(set(ids)) and ids, "Duplicate/missing graph node IDs"
