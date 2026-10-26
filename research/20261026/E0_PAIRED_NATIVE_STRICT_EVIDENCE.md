@@ -12,4 +12,4 @@
 
 当前三pair仍是DD来源0控制，然后DC来源0/12、seed42/54，单张空闲A100、输出≤0.5GiB，无训练/拟合/分解/官方评分，失败扣账且不重试。生成成本按pair去重；正式质量仍NOT_RUN/false。失败产物继续走逐帧取证或显式缺失/解码失败记录，不冒称严格gate通过。
 
-独立[严格层审阅](../method_discussion/discoveries/E0/independent-paired-driver-final-audit-20261026_v5_strict_gate.md)检查新增工具与接入；前轮[原生组件/控制器审阅](E0_PAIRED_NATIVE_IMPLEMENTATION.md)保留原snapshot范围。**新模型/GPU0，真实全深度采集0；当前v2仍待新固定模型范围的单独明确授权登记。**
+独立[严格层审阅](../method_discussion/discoveries/E0/independent-paired-driver-final-audit-20261026_v5_strict_gate.md)检查新增工具与接入；前轮[原生组件/控制器审阅](E0_PAIRED_NATIVE_IMPLEMENTATION.md)保留原snapshot范围。**本严格门禁软件验证阶段**新模型/GPU调用为0，原生采集仍未作为这些软件测试的一部分。其后v2已由另一用户指令明确有界授权并登记执行，**当前运行/失败/数据质量以[活动状态](../ACTIVE_RESEARCH.json)和原生RUN为准**；不能将本软件报告的零GPU或旧待授权状态当成实时事实。
