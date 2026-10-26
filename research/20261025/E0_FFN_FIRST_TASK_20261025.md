@@ -14,9 +14,9 @@
 
 ### A · 解释已测原型为何失配
 
-在**实际源码/参数/条件分支**下，区分部署数值NUM、函数容量CAP、真实Student前缀SHIFT、下游有符号传递TRANS及四步调度状态STATE。先复用保存数据与代数验证，逐步用同输入和student双轨原生观测排除竞争预测。单site四臂包括 `f_D(x_D)`、`f_S(x_D)`、`f_D(x_S)`、`f_S(x_S)`；另测真实gate/residual、block、flow与scheduler `step_pre/post`。对整个全层方法以40层×四步、不同来源与真实时空分层为覆盖单位；不以首末层或历史Block0/30的partial-native代替全160个site。相关受控后缀试验须由实际观测选点，再独立冻结范围。
+在**实际源码/参数/条件分支**下，区分部署数值NUM、函数容量CAP、真实Student前缀SHIFT、下游有符号传递TRANS及四步调度状态STATE。**已得到两来源320处同输入四臂/写回及四步状态原生数据**；现在先复用[完整结果](../20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)中的有符号观察区分竞争预测，再选择价值最高的有限验证。单site四臂包括 `f_D(x_D)`、`f_S(x_D)`、`f_D(x_S)`、`f_S(x_S)`；另测真实gate/residual、block、flow与scheduler `step_pre/post`。现有两个已暴露来源已覆盖每来源40层×四步160个site；下一步应重视函数和状态因果分解、外部来源泛化与真实时空分层。相关受控后缀试验须由实际观测选点，再独立冻结范围。
 
-**当前工具**：[原生paired采集与中性对照](../20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)、[新严格视频身份与清单校验](../20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)、[有符号数据账本](../20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)。固定v2范围若已在运行，仅跟进其注册protocol和真实RUN；**没有新的自动重试、参数扩展或模型训练权限**。源码软件测试≠原生模型验证。
+**当前工具**：[原生paired采集与中性对照](../20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)、[新严格视频身份与清单校验](../20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)、[有符号数据账本](../20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)。**v2的DD中性视频及后处理失败**与**v3的320处完整原生记录**已分别归档；可从后一结果提出两种流差的可区分分解：`v_S(z_S)-v_D(z_D)=[v_S(z_S)-v_D(z_S)]+[v_D(z_S)-v_D(z_D)]`。执行状态由ACTIVE判定，下一次完整dense反事实模型计算须独立授权。
 
 ### B · 发现不同的低成本FFN机制
 
@@ -36,4 +36,4 @@ G6实时/流式生成已由用户暂停，只保留[历史独立场景文档](..
 
 ## 下一次交接读取顺序
 
-[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)（唯一状态/权限）→ [统一科学结论](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)（证据解释）→ [paired原生结果/回执](../20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)（具体注册范围）→ [完整指标政策](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md) → [实验发现图谱](../EXPERIMENT_FINDINGS_ATLAS.md)或相关源图节点。只打开与当前科学问题真正相关的旧实验与独立评议。
+[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)（唯一状态/权限）→ [统一科学结论](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)（证据解释）→ [v3配对原生结果](../20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)（最新实测）→ [完整指标政策](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md) → [实验发现图谱](../EXPERIMENT_FINDINGS_ATLAS.md)或相关源图节点。只打开与当前科学问题真正相关的旧实验与独立评议。
