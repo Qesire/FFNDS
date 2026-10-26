@@ -188,14 +188,19 @@ def main():
            "GRAPH_AGENT_BINDINGS.json" in text(".agents/skills/ffnds-paper-discovery/SKILL.md") and
            "graph_annotations/E0/README.md" in text("research/method_discussion/AGENTS.md"),
            "Graph Agent registry / multi-agent discovery routing drift")
-    # Latest G5 evidence is a scientific expansion; it must not silently
-    # promote the particular affine/micro16/HiF4 branch as the sole task.
-    review = "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md"
+    # Historical G5 affine audit is retained for mechanism evidence;
+    # the latest review is the post-native-video failure and full-trajectory audit.
+    affine_review = "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md"
+    review = "research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md"
+    ensure((ROOT / affine_review).is_file() and
+           "E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md" in text(first_task),
+           "Historical affine review lost from the active evidence trail")
     ensure(focus.get("latest_mechanism_audit") == review and
            stage.get("latest_direction_review") == review and
+           graph.get("current_scientific_audit") == review and
            (ROOT / review).is_file() and
-           "E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md" in text(first_task),
-           "Post-affine science handoff is not current")
+           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(first_task),
+           "Post-native-video direction review is not the current handoff")
     graph_data = load_graph_registry()
     g5 = {n["id"]: n for n in graph_data["nodes"]}
     ensure({"P15", "P16", "P17", "P18"}.issubset(g5) and
