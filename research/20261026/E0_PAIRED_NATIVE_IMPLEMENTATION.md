@@ -2,7 +2,7 @@
 
 **记录层级：本页描述实现与初始软件验证，并非实时执行状态。之后用户另行授权了[固定paired-v2协议](../../config/e0_paired_full_depth_20261026_v2.json)；实际启动/结果以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)与原生RUN为准。本实现阶段零GPU/零原生观测是历史统计值。**
 
-本阶段把前轮静态账本接入实际 Wan 调用路径：[执行入口](../../tools/run_e0_paired_full_depth.py)、[四步双轨控制器](../../tools/e0_paired_wan_controller.py)、[四臂FFN观测](../../tools/e0_paired_ffn_observer.py)和[当前block驻留](../../tools/e0_paired_weight_residency.py)均已实现。**实现与CPU软件测试完成，不是原生数值、显存或视频验收。新模型/GPU调用0，P23/P24仍OPEN。**
+本阶段把前轮静态账本接入实际 Wan 调用路径：[执行入口](../../tools/run_e0_paired_full_depth.py)、[四步双轨控制器](../../tools/e0_paired_wan_controller.py)、[四臂FFN观测](../../tools/e0_paired_ffn_observer.py)和[当前block驻留](../../tools/e0_paired_weight_residency.py)均已实现。**实现与CPU软件测试完成，不是原生数值、显存或视频验收。此处零GPU计数仅针对初始实现阶段；后续固定v2已单独登记并启动，实时结果必须以活动状态与原生RUN为准。P23/P24只有获得真实合格数据后才改变证据身份。**
 
 ## 这次实现解决的问题
 
@@ -16,7 +16,7 @@
 
 ## 固定模型范围
 
-[冻结协议](../../config/e0_paired_full_depth_20261026.json)只准备以下3个串行fresh process，单张空闲A100：
+初始[未执行v1草案](../../config/e0_paired_full_depth_20261026.json)规定以下3个串行fresh process；当前有界执行依据是后续独立冻结的[paired-v2协议](../../config/e0_paired_full_depth_20261026_v2.json)，保留了三pair与单张空闲A100的核心范围：
 
 | 顺序 | 原来源/seed | 两条完整四步轨迹 | 控制目的 |
 | --- | --- | --- | --- |
@@ -30,10 +30,10 @@
 
 ## 已完成验证与剩余边界
 
-17项新CPU软件测试覆盖四臂主/影子隔离、真实写回反例、完整160处调度顺序、每block一次swap、native dtype哈希、上卡/中途失败恢复、缓存上限/释放fence、有限次数与失败clip报告。夹具不加载Wan/HiF4或GPU，保持SYNTHETIC。完整静态preflight验证了16份driver/23份native源码和80个真实bank文件字节；结果明确`model_scope_authorized=false, GPU_initialized=false`。私有worker的只读检查已确认原仓库/资产可见且有空闲A100；未预占卡。
+初始实现阶段的17项新CPU软件测试覆盖四臂主/影子隔离、真实写回反例、完整160处调度顺序、每block一次swap、native dtype哈希、上卡/中途失败恢复、缓存上限/释放fence、有限次数与失败clip报告。夹具不加载Wan/HiF4或GPU，保持SYNTHETIC。完整静态preflight验证了16份driver/23份native源码和80个真实bank文件字节；这份**初始preflight快照**当时报告`model_scope_authorized=false, GPU_initialized=false`；它不用于判断后续v2授权或执行状态。私有worker的当时只读检查确认仓库/资产可见且有空闲A100，并未预占卡。
 
 独立审阅：[控制器生命周期](../method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026_v3_review.md)、[四臂语义与成本](../method_discussion/discoveries/E0/independent-paired-observer-runtime-audit-20261026_v4.md)、[执行入口最终审查](../method_discussion/discoveries/E0/independent-paired-driver-final-audit-20261026_v4.md)。审查发现并促成修复实际config键名、上卡失败清理、同步异常跳过hook恢复、换目录重置次数和失败视频跳过评估等问题；独立审查仍是读源，不是原生实测。
 
-HiF4量化实现与原.so通过原cache manifest的identity.source_sha256及HistoricalSources逐项绑定；完整cache SHA仍由verified_restored_assets在执行前核验。旧模型/协议/原视频/原RUN不改，24个既有scope保留。当前唯一缺失的执行前步骤是对这一新固定模型范围的单独用户授权与登记；未借本轮“继续”把旧额度自动复活。
+HiF4量化实现与原.so通过原cache manifest的identity.source_sha256及HistoricalSources逐项绑定；完整cache SHA仍由verified_restored_assets在执行前核验。旧模型/协议/原视频/原RUN不改，24个既有scope保留。初始实现阶段尚未获得本次固定范围的授权；之后另一指令已授权v2，且活动状态记录了实际启动。不得再把初始阶段的授权缺口写作当前待办，也不能据此扩展其它实验额度。
 
-**当前执行版本更新**：[v2严格身份/产物清单检查](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)另冻了新协议，原v1草案从未授权/执行；本页保留初始实现与17测snapshot，不用于指示运行旧v1。
+**执行协议边界**：[v2严格身份/产物清单检查](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)已另冻协议，原v1草案未执行；本页保存初始软件实现与17项测试的证据范围。v2授权、正在运行或运行结束后的实际产物都需以[活动状态](../ACTIVE_RESEARCH.json)与真实回执核查，不能用本页固定快照替代。
