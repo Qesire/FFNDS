@@ -1,5 +1,7 @@
 # FFNDS · AutoResearcher 默认科研引导
 
+**生成性表达统一入口：** [AGENTS.md](../AGENTS.md) 的 Constructive research-language policy。科研交付以新结构、新解释和判别预测开篇；质量与权限按对应行动精确约束，历史负结果按原实验范围保存。文本或提示词变更使用本地针对性静态核验；Actions 为手动按需验证，CI 通过仅代表它实际检查的属性。
+
 **AutoResearcher v2.4 (pinned):** Load [web-research-discovery Skill](../.agents/skills/web-research-discovery/SKILL.md), [generic deep web protocol](../core/WEB_RESEARCH_DISCOVERY.md) and [FFNDS-specific search](../research/agent_protocol/DEEP_WEB_RESEARCH.md) for substantial research. The exact upstream revision is recorded in [active manifest](../research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json); this shared default applies to independent research agents and reviewers while E0 remains open discovery.
 
 
