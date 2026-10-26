@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "claim_id": "E0_GRAPH_WHOLE_FLOW_FINITE_MAP_20261026",
+  "agent_id": "ROOT_INTRINSIC_FFN_RESEARCH",
+  "research_stage": "E0_OPEN_DISCOVERY",
+  "source_revision": "5a907228d92edcef01d750c3d10dcaf52e92b6e3",
+  "review_status": "PROPOSED",
+  "review_refs": [
+    "research/method_discussion/discoveries/E0/independent-whole-flow-native-source-review-20261026.md"
+  ],
+  "model_experiment_authorized": false,
+  "authorization_scope": "Prepared only; completed v3 artifacts support saved-record arithmetic, not new model execution.",
+  "anchor_nodes": [
+    "F12",
+    "F13",
+    "P23",
+    "P24"
+  ],
+  "upstream_nodes": [
+    "G02"
+  ],
+  "consumer_nodes": [
+    "G21",
+    "D09"
+  ],
+  "mechanism": {
+    "statement": "Native writeback operator error also decreases318/320 sites. Whole-flow finite dense response and candidate injection can be separated by one additional full dense flow per step.",
+    "math_or_trace": "R=vD(zS)-vD(zD); e=vS(zS)-vD(zS); P=delta-hR. Ideal next=P-he. Actual next=Pnat+Nnat via native shadow step_post; save both signed energies/crosses.",
+    "relation": "SAVED_NATIVE_POSTHOC_PLUS_CONDITIONAL_ALG; NEW_FULL_MODEL_FLOW_NOT_RUN"
+  },
+  "availability": {
+    "earliest_decision_time": "Offline existing traces; new full dense counterfactual after paid full-model pass",
+    "observer_computation": "8extra complete dense flows in a separately proposed4-latent-path replay; zero new VAE/videos.",
+    "online_or_posthoc": "POSTHOC; teacher delta not freely available online"
+  },
+  "real_cost": {
+    "W1": "Full original replay and counterfactual W1 charged",
+    "W2": "Full replay and counterfactual W2 charged",
+    "QDQ": "Proposed10880 actual targetQDQ and11520native GEMM plus1920continuous diagnostic GEMM",
+    "routing_memory": "Proposed1idleA100, HF<=0.5GiB, memory fit NOT_MEASURED",
+    "downstream": "No new full-video quality/speed claim; original16latent hashes required to match."
+  },
+  "evidence": [
+    {
+      "path": "research/20261026/E0_NATIVE_WRITEBACK_GEOMETRY.json",
+      "sha256": "b7ca7412818ed34a69af645ba40a6459c42f6f5c052bee9f0c7e85869cbc1bcc",
+      "kind": "NATIVE-OBS_POSTHOC",
+      "scope": "Two exposed sources320 dependent sites; no new model calls"
+    },
+    {
+      "path": "research/method_discussion/discoveries/E0/independent-whole-flow-control-and-value-geometry-20261026_v7.json",
+      "sha256": "fcee96cc4aa6a374c8bc6fb0833e7f36f689fa7a73b5df858a3946376b7eba9a",
+      "kind": "ALG_EXISTING_SCALARS",
+      "scope": "Ideal radial-family lower bound; native corrected map not measured"
+    },
+    {
+      "path": "config/e0_whole_flow_counterfactual_20261026_v1.json",
+      "sha256": "cebee73f6acd646de6b8eddcc03bb7a3982fca652a273cf77f6d5e259ab10b2c",
+      "kind": "PREPARED_EXECUTION_SCOPE",
+      "scope": "Not authorized or executed"
+    },
+    {
+      "path": "research/method_discussion/discoveries/E0/independent-whole-flow-native-source-review-20261026.md",
+      "sha256": "73a80ffbf98114b38f66fb089eb2dbd4d7ae7e9bb63e3ea0678bbd671a340729",
+      "kind": "INDEPENDENT_SOURCE_MATH_SOFTWARE",
+      "scope": "9CPUtests/source audit; no native run"
+    }
+  ],
+  "countermechanism": {
+    "statement": "The same observed total drift may come from contractive dense response plus candidate injection or expansive dense response with partial candidate cancellation.",
+    "prediction": "Existing delta,d cannot distinguish; the reviewed two-coordinate constructions show equal total4.25 but dense map energies0.25 and7.25."
+  },
+  "discriminator": "Measure exact whole-network vD(zS) on original states; compare ideal and native dense discrete-map gains and signed candidate effects.",
+  "graph_change_suggestion": {
+    "node_ids": [
+      "P23",
+      "P24"
+    ],
+    "proposed_annotation": "Retain native observed drift; add finite-map conditional discriminator and prepared software evidence.",
+    "graph_edge_status": "CONDITIONAL_NOT_EXECUTED; CAUSAL_MECHANISM_OPEN"
+  }
+}

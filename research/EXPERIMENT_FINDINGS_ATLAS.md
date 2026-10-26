@@ -212,3 +212,11 @@
 ## 2026-10-26：E37 局部raw误差变小与四步状态差扩大
 
 [完整320site原生结果](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)：两已暴露来源、四视频及16历史latent指纹一致，完整指标/严格身份通过。318/320处student-prefix raw算子SSE更小（另2相等），而后3step流差与已有latent差反向，cos分别约−0.87/−0.91/−0.94和−0.79/−0.80/−0.88；状态差持续增大。Post-Q1能量/方向变化，不等于完整block范数塌缩。旧8.54%是gated/native-q2保存panel的FP64重构，不能与新ungated/fullM直接比较。下一判别为完整dense vD(zS)，未执行。P23/P24的原生记录已取得，但因果机制仍OPEN；正式画质未验收、无新方法选择/提速主张。
+
+## 2026-10-26：E38 原生写回与整步有限响应
+
+[只读followthrough](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_PREPARATION.md)将318小/2等/0大的结果延伸至真实native writeback，同输入student/teacher算子SSE比中位数0.4311/0.4575。*NATIVE-OBS/POSTHOC*，prefix含residual基底，分项能量不是因果占比。[独立解析投影界](method_discussion/discoveries/E0/independent-whole-flow-control-and-value-geometry-20261026_v7.md)在source12 step1给出radial-only理想next SSE下界555.174>输入474.421；只约束该控制族和这一状态对。完整dense反事实入口已通过9项CPU合成测试及源码/资产预检，尚无新增模型调用；P24的有限整步响应/注入分解保持conditional。
+
+## 2026-10-26：E39 有符号神经元簇的向量值曲线
+
+[独立表示发现](method_discussion/discoveries/E0/independent-signed-neuron-curve-coordinates-20261026.md)：条件共线W1方向可精确组织为向量值ridge曲线，再以少量非线性基形成薄W1/W2。*CONDITIONAL-ALG/OPEN*，不把曲线低复杂度当Wan实测。相反W2的近共线神经元可保留关键差分；Q2闭包可能使曲线多变量化，两者给出低成本否证。已核对neuron merging、PPR、kernel feature bundling等近邻，不主张发明通用原语；P14为独立开放机制，无训练/拟合/模型执行或质量验收。

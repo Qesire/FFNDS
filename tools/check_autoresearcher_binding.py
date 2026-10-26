@@ -71,6 +71,30 @@ def fixed_depth_scope_is_registered(active):
                     for s in active["experiment_authority"]["current_user_authorized_scopes"]))
 
 
+def paired_graph_evidence_is_consistent(active, graph_data, result):
+    """Static receipt consistency; never substitutes for native verification."""
+    nodes = {n['id']: n for n in graph_data['nodes']}
+    if nodes.get('P25', {}).get('evidence_type') != 'POLICY':
+        return False
+    scopes = active['experiment_authority']['current_user_authorized_scopes']
+    completed = next((s for s in scopes if s.get('id') == 'E0_PAIRED_FULL_DEPTH_NATIVE_20261026_V3'
+                      and s.get('execution_status') == 'COMPLETE_FIXED_SCOPE_NOT_QUALITY'), None)
+    if completed is None:
+        return all(nodes.get(k, {}).get('evidence_type') == 'OPEN' for k in ['P23', 'P24'])
+    return (completed.get('protocol_sha256') == result.get('protocol_sha256')
+            and completed.get('actual_budget', {}).get('paired_sites') == 320
+            and result.get('actual_budget', {}).get('paired_sites') == 320
+            and result.get('actual_budget', {}).get('videos') == 4
+            and result.get('status') == 'COMPLETE_FIXED_V3_NATIVE_OBSERVATIONS_NOT_QUALITY_ACCEPTANCE'
+            and result.get('quality_accepted') is False
+            and len(result.get('runs', [])) == 2
+            and {(r.get('source_index'), r.get('seed'), r.get('sites')) for r in result['runs']}
+                == {(0, 42, 160), (12, 54, 160)}
+            and all(r.get('core_and_strict_gate_pass') is True for r in result['runs'])
+            and all(nodes.get(k, {}).get('evidence_type') == 'NATIVE-OBS' for k in ['P23', 'P24'])
+            and nodes['P24'].get('causal_status') == 'OPEN')
+
+
 def check_relative_markdown_links(path):
     for link in re.findall(r"\]\(([^)]+)\)", text(path)):
         if link.startswith(("https://", "http://", "#", "mailto:")):
@@ -284,10 +308,9 @@ def main():
 
            and stage.get("new_experiment_authority") == "NONE",
            "Video evidence, bounded paired-native v2 scope or full40x4 trajectory coverage drifted")
-    ensure({n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P23") == "OPEN"
-           and {n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P24") == "OPEN"
-           and {n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P25") == "POLICY",
-           "New native student-prefix trajectory or metric completeness must not be reported as measured")
+    ensure(paired_graph_evidence_is_consistent(active, graph_data,
+           record('research/20261026/E0_PAIRED_FULL_DEPTH_RESULTS.json')),
+           'Measured paired-native graph state must match completed receipts; causal attribution stays OPEN')
     # Semantic/creative writing quality is evaluated using blinded case reviews,
     # not keyword quotas or mandated prompt length.
     workflow = text(".github/workflows/research-agent-validation.yml")

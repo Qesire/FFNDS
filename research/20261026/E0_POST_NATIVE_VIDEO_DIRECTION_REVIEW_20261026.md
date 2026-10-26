@@ -60,6 +60,8 @@
 `v_S(z_S)-v_D(z_D)=[v_S(z_S)-v_D(z_S)]+[v_D(z_S)-v_D(z_D)]`
 区分模型差与dense对状态变化的有限响应。逐FFN shadow不能代替这条完整网络流。方向传递、跨步状态、数值部署及固定bank容量是并列竞争机制；未来的受控后缀干预才能进一步指认层级因果效应。
 
+**进一步的保存数据与数学判别**：[原生writeback followthrough](E0_WHOLE_FLOW_COUNTERFACTUAL_PREPARATION.md)也测得318小/2等/0大；实际gate/residual写回没有逆转这一观察。整步应再检查`P=δ−hR`的有限增益与`h²||e||²−2h<P,e>`的signed候选净效应，并单列真实BF16 shadow step_post；同一总流差可对应收缩或扩张的dense响应。独立radial-only理想投影界在source12 step1为555.174>输入474.421，给该一步的单方向校正家族以明确边界。完整flow工具已备好及审查，当前尚未执行。另有[共享投影/向量值曲线](../method_discussion/discoveries/E0/independent-signed-neuron-curve-coordinates-20261026.md)作为独立条件表示；其signed差分及Q2多变量闭包是待检验的竞争机制。
+
 **失败与执行版本追溯**：[v2路径故障](E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)保存两条逐字节相同的DD视频但后处理未留存详细trace，记录其site证据为0；修复后v3在单卡串行完成四视频及320site，16个历史latent指纹匹配，核心全帧/严格身份门禁通过，物理峰值75.01GiB。v3的双轨观察wall包括shadow、诊断GEMM及离线核验费用，**不是候选部署速度**。正式VBench-I2V/VBench2、语义背景及人工全片仍按实际结果NOT_RUN。软件测试与冻结旧RUN各自保持身份；当前资源授权见[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
 
 ## 六、AutoResearcher引导：两条独立而协作的线
