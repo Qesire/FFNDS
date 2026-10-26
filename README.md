@@ -2,6 +2,8 @@
 
 ## Current E0 science — intrinsic FFN computation first
 
+**2026-10-26 扩展决策更新**：[六来源起步、10+来源迁移与有符号视频功能评价](research/20261026/E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026.md)。全局SSE保留为诊断，方法比较基于真实同输入signed状态贡献、互斥频带、跨源多维视频质量与原生物理成本；本计划为新设计，非新增GPU结果。
+
 **统一机制与质量科学结论**：[Wan FFN完整视频失败与Affine54方法族审查](research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。此页是科研导航；**v3两来源全深度原生观测已完成**，原生RUN与[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)负责精确执行状态及后续授权。
 
 **Research direction reset, 2026-10-25:** [intrinsic FFN mechanism program](research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) and [current sole discovery task](research/20261025/E0_FFN_FIRST_TASK_20261025.md). For specific missing source fields, mathematical contrasts and cheapest discriminators, read [knowledge gaps K1–K5](research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md). Study W1–GELU–W2 signed contributions, conditional token/step/expert structure, downstream functional effect, and actual avoidable GEMM work. The old [E0 gap dossier](research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md), radial pairing, four-arm and HiF4/NVFP4 comparison now serve as historical/scoped evidence rather than default science agenda. Default [deep Web Search](research/agent_protocol/DEEP_WEB_RESEARCH.md) and AutoResearcher v2.4 remain in force.
