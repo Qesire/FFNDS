@@ -842,6 +842,30 @@
           "HF_native_output_bytes": 13054842,
           "HF_derived_media_bytes": 9216830
         }
+      },
+      {
+        "id": "E0_EXISTING_SIX_VIDEO_QUALITY_BACKFILL_20261026",
+        "protocol": "config/e0_existing_video_quality_backfill_20261026.json",
+        "protocol_sha256": "6978cd9c41101f725fe384e07956c2293adc31f041c10fb0264343aca9088144",
+        "user_instruction": "更新最新目录，然后继续",
+        "date": "2026-10-26",
+        "scope": "CPU posthoc full-frame analysis of exactly six existing videos. Correct optical-flow input scale; report full-frame pixel/motion/detail/cost and explicit external-quality statuses. No new weights, model call, GPU, generation or official scoring. Frozen raw reports preserved with separate reference-model digest errata.",
+        "execution_status": "COMPLETE_CPU_EXISTING_VIDEO_ANALYSIS_NO_QUALITY_ACCEPTANCE",
+        "max_gpu_cards": 0,
+        "pending_model_jobs": 0,
+        "pending_GPU_analysis_jobs": 0,
+        "automatic_retry": false,
+        "completed_result": "research/20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.json",
+        "completed_document": "research/20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md",
+        "actual_budget": {
+          "existing_videos": 6,
+          "decoded_video_frames": 486,
+          "video_transitions": 480,
+          "new_generations": 0,
+          "GPU_calls": 0,
+          "official_quality_calls": 0,
+          "raw_HF_output_bytes": 1555076
+        }
       }
     ]
   },
@@ -1384,5 +1408,23 @@
     "experiment_state": "ALL_REGISTERED_SCOPES_COMPLETE_NO_PENDING_JOBS",
     "candidate_operator_selected": false,
     "stage_changed": false
+  },
+  "latest_quality_followthrough": {
+    "id": "E0_EXISTING_SIX_VIDEO_QUALITY_BACKFILL_20261026",
+    "document": "research/20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md",
+    "record": "research/20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.json",
+    "independent_review": "research/method_discussion/discoveries/E0/independent-video-metrics-mechanism-audit-20261026_v2.md",
+    "new_result": "Corrected Farneback scale; affine source0 estimated motion suppressed, source12 temporal changes elevated and final-window flow exceeds dense. Laplacian energy can increase despite visible degradation. Four reference model-digest errata disclosed; zero new model/GPU work.",
+    "quality_accepted": false
+  },
+  "full_depth_trace_tooling": {
+    "document": "research/20261026/E0_FULL_DEPTH_TRACE_TOOLING.md",
+    "design": "config/e0_full_depth_trace_design_20261026.json",
+    "source_review": "research/method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md",
+    "status": "STATIC_INTERFACE_AND_SOFTWARE_ACCOUNTING_COMPLETE_NATIVE_PRODUCER_UNIMPLEMENTED",
+    "native_paired_sites_measured": 0,
+    "model_execution_authority": "NONE",
+    "new_generations": 0,
+    "pending_GPU_jobs": 0
   }
 }

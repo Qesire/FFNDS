@@ -1,0 +1,45 @@
+{
+  "id": "E0_EXISTING_SIX_VIDEO_QUALITY_BACKFILL_20261026",
+  "schema_version": "1.0",
+  "status": "FROZEN_BEFORE_CPU_VIDEO_ANALYSIS",
+  "base_commit": "f5622ed4fd2bce7d2b964ba51f3ce2b3dd62d7db",
+  "user_instruction": "更新最新目录，然后继续",
+  "user_instruction_date": "2026-10-26",
+  "scope": "Six existing videos only, all81 original frames and80 transitions; CPU decoder, actual Farneback uint8 flow, forward/backward consistency, motion-compensated encoded-luma, paired pixel/detail/low-motion diagnostics and16-frame windows. No new generation, weights, GPU/model/official quality calls. Preserve old RUNs/reports. No quality acceptance.",
+  "new_generations": 0,
+  "GPU_calls": 0,
+  "official_quality_calls": 0,
+  "expected_frames": 81,
+  "expected_video_count": 6,
+  "max_output_gib": 0.05,
+  "disk_reserve_gib": 80,
+  "previous_result": "research/20261026/E0_RECONSTRUCTED_VIDEOS.json",
+  "input_default": ".runtime/inputs/calibration24/canonical.json",
+  "bound_sources": {
+    "tools/backfill_e0_video_quality.py": "1d3efdc44e0a1f385c1b0a35c8e80ae032173d4329aab16532c1da2c01744307",
+    "tools/ffnds_video_metrics.py": "0c6ab066674adb2a04097978ced52abcd7cbf1125918b74d59cf976a56ffec66",
+    "tools/ffnds_video_metric_gate.py": "3f1b70fa25b7c961f8141ba396ee3b9507e028d60fd168e642e0548de99a2d07",
+    "tools/ffnds_observation_common.py": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b",
+    "research/20261026/E0_RECONSTRUCTED_VIDEOS.json": "f01554b974741191b39faffd31fc23badc7a395de87a621a95d98674a621e7c8",
+    "research/20261025/E0_NATIVE_OBSERVATIONS.json": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5",
+    ".runtime/inputs/calibration24/canonical.json": "3c24f59ca5960c3c3ca9bc69fcb91ccccaf6c01644ede7361877e8733aa4efcb",
+    "research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md": "b629b79970685f7d53395770f879ebc59e974a4145e1b0eb00c28ab106bd1ab8"
+  },
+  "flow_parameters": {
+    "input": "rounded encoded gray uint8",
+    "max_side": 320,
+    "Farneback": [
+      0.5,
+      3,
+      15,
+      3,
+      5,
+      1.2,
+      0
+    ],
+    "FB_consistency": "in_bounds & residual <=0.5+0.01*forward_magnitude",
+    "low_reference_motion_px": 0.25
+  },
+  "acceptance_thresholds": "NONE_SCIENTIFIC_POSTHOC_CORE_DIAGNOSTICS_ONLY",
+  "automatic_retry": false
+}

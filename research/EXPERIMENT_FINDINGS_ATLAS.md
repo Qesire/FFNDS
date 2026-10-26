@@ -2,7 +2,7 @@
 
 > 2026-10-25 | 基于 AutoResearcher v2.4 **Ground → Derive → Discriminate → Learn** 的历史证据重组；链接至 [实际计算图 G0–G3](../docs/98_端到端计算图与证据注解_20261025.md)。这是一份**研究知识图谱**而非新增任务单，不改变原有冻结协议、失败决定、授权或当前唯一 E0 方向。
 
-**最新质量与全层限制（2026-10-26）**：[统一每生成视频指标与全40×4真实误差政策](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)以[全模型六视频失败](20261026/E0_RECONSTRUCTED_VIDEOS.md)为直接依据。完成了全部160处原生替换，不等于已解释每一步各层真实Student前缀误差：早先partial-native只有block0/30，8.54%局部输出SSE来自Dense前缀保存panel。六视频已有逐帧RGB/encoded-luma/差分，尚未完成运动/结构/官方VBench/人工指标；不能将旧视频结果标成符合新全指标验收。今后的每段生成要求SHA/全帧评估/真实成本/质量状态，无结果则保留为未完备证据。
+**最新质量与全层限制（2026-10-26）**：[统一每生成视频指标与全40×4真实误差政策](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)以[全模型六视频失败](20261026/E0_RECONSTRUCTED_VIDEOS.md)为直接依据。完成了全部160处原生替换，不等于已解释每一步各层真实Student前缀误差：早先partial-native只有block0/30，8.54%局部输出SSE来自Dense前缀保存panel。六视频已有逐帧RGB/encoded-luma/差分，现已另行补全运动/结构编码像素诊断（见下方E31），官方VBench/人工指标仍未完成；不能将旧视频结果标成符合新全指标验收。今后的每段生成要求SHA/全帧评估/真实成本/质量状态，无结果则保留为未完备证据。
 
 ## 0. 研究命题与证据单位
 
@@ -177,6 +177,16 @@
 | --- | --- | --- |
 | **E28 全40层同校准对照** | [320案例](20261026/E0_ALL_BLOCK_RECONSTRUCTION.md)：四来源256行、持出0/12；affine锚定输入15.35%对affine54 8.54%，320/320较低；旧五层标量差0 | *OBS*。这一固定正则下覆盖/先验不足以解释全部差距；不是任意线性类下界，也不匹配输入线性与非线性在线MAC。P20/P21 |
 | **E29 真实全模型固定原型** | [六完整视频](20261026/E0_RECONSTRUCTED_VIDEOS.md)：原dense两视频/8latent exact；warm affine54 FFN9.707→4.449s，wall50.750→45.313s；新160包19.7GB | *NATIVE-ACT/VIDEO/SYS*。自然全M、全部160处、同卡预载强dense。whole重影，affine模糊/动作改变，均无画质验收。setup额外约237s，QDQ调用没少；理想MAC43.52%与总wall1.120×分开。P19/P22/F12/F13/D09 |
-| **E30 功能/轨迹对象改写** | [原Wan源码与数学](method_discussion/discoveries/E0/transported-function-and-trajectory-target-20261026.md)：原生混合前缀/后缀的望远镜恒等式；理想Wan受扰目标vhat(z+delta)=v(z)+delta/h | *ALG/OPEN*。保留FP32舍入，真实QDQ不可默认光滑；teacher仅离线可见。输入偏移、有限下游传递、跨步纠错不同预言。核对BRECQ作者代码、CTEC与TCEC近邻；没有新增训练/模型范围 |
+| **E30 功能/轨迹对象改写** | [原Wan源码与数学](method_discussion/discoveries/E0/transported-function-and-trajectory-target-20261026.md)：原生混合前缀/后缀的望远镜恒等式；理想Wan受扰目标vhat(z+delta)=v(z)+delta/h | *ALG/OPEN*。保留真实step_pre/step_post dtype与舍入（E33纠正旧FP32常驻说法），真实QDQ不可默认光滑；teacher仅离线可见。输入偏移、有限下游传递、跨步纠错不同预言。核对BRECQ作者代码、CTEC与TCEC近邻；没有新增训练/模型范围 |
 
 四来源缺失35层补采得到560份payload；首source16进程生成前退出（原因未确认），独立冻结恢复一次通过；共四条实际dense生成，另扣一次生成前失败，实际分配峰四卡。旧12/40生成和原协议不变。固定范围全部完成，无GPU任务。E0继续开放、无方法选定。
+
+## 2026-10-26：E31–E33 已有视频时序、完整状态账本与数值边界
+
+| 知识ID | 新证据 | 可成立范围与下一竞争解释 |
+| --- | --- | --- |
+| **E31 质量异质性** | [六已有视频补评](20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md)：486帧/480帧对；修正光流8bit尺度，affine source0低运动估计、source12高帧差且末窗口光流反高；高Laplacian可与失真并存 | *POSTHOC-VIDEO*。两个暴露来源，未测真光流/语义背景/官方/用户完整播放；双向一致性不等于准确。四处reference model_digest勘误与原冻结报告并存。P22/P25 |
+| **E32 有符号完整状态账本** | [工具](20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)：四native FFN/四实际写回、完整40×4覆盖，operator-prefix交叉项、完整四维latent、六边界哈希跨步连续性；10项软件测试 | *SOFTWARE/ALG*。保留SYNTHETIC标签，native producer尚未实现，空间时间strata待定；P23/P24仍OPEN，非因果归因或质量通过 |
+| **E33 dtype与原生接口纠正** | [独立源审阅](method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md)：继承step_pre可把FP32 latent转BF16，step_post再回转；单pipeline同block buffer交错两轨可行切口，25源码/7API静态检查 | *SRC/CONDITIONAL*。当前env和flag下静态推断，不是实际dtype迹线；40.70GiB只含已知权重，bounded residency未实现、峰值未知。新GPU/模型0 |
+
+官方/人工质量仍NOT_RUN，模型权限NONE。历史23范围、原始六视频与RUN、12/40旧生成及旧冻结协议不变；本次只追加一个已完成CPU已有视频分析范围。

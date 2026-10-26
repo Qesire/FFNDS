@@ -20,6 +20,52 @@ FAMILIES = ("artifact", "temporal_motion", "spatial_detail", "luma_color", "runt
 PAIRED_FAMILIES = ("paired_spatial", "paired_temporal", "paired_motion", "static_region")
 
 
+def downsampled_farneback(previous_gray_0to1, current_gray_0to1):
+    """Forward flow in downsampled pixels, using OpenCV's documented 8-bit input.
+
+    Normalized floats suppress the solver's gradients relative to its fixed
+    numerical regularizer. Color/luma metrics retain their separate 0..1 units.
+    """
+    import cv2
+    import numpy as np
+    if previous_gray_0to1.shape != current_gray_0to1.shape or current_gray_0to1.ndim != 2:
+        raise ValueError("Flow requires paired single-channel images")
+    h, w = current_gray_0to1.shape
+    scale = min(1.0, 320.0/max(h,w))
+    dims = (max(8,round(w*scale)), max(8,round(h*scale)))
+    images = []
+    for gray in [previous_gray_0to1, current_gray_0to1]:
+        if not np.all(np.isfinite(gray)) or gray.min() < 0 or gray.max() > 1:
+            raise ValueError("Flow image outside encoded gray0..1 range")
+        pixels = np.rint(gray*255).astype(np.uint8)
+        images.append(cv2.resize(pixels,dims))
+    return cv2.calcOpticalFlowFarneback(images[0],images[1],None,.5,3,15,3,5,1.2,0)
+
+
+def motion_diagnostics(previous_luma, current_luma, forward, backward):
+    """Finite forward/backward agreement and next-to-previous encoded-luma warp.
+
+    Agreement is a geometric diagnostic, not ground-truth optical-flow accuracy.
+    Occlusions, texture loss and the aperture problem still limit interpretation.
+    """
+    import cv2
+    import numpy as np
+    h,w=forward.shape[:2]
+    y,x=np.mgrid[:h,:w].astype(np.float32)
+    mx,my=x+forward[:,:,0],y+forward[:,:,1]
+    inside=(mx>=0)&(mx<=w-1)&(my>=0)&(my<=h-1)
+    back_at_next=cv2.remap(backward,mx,my,cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT)
+    disagreement=np.linalg.norm(forward+back_at_next,axis=2)
+    good=inside&(disagreement<=(.5+.01*np.linalg.norm(forward,axis=2)))
+    current=cv2.resize(current_luma,(w,h));previous=cv2.resize(previous_luma,(w,h))
+    warped=cv2.remap(current,mx,my,cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT)
+    residual=warped-previous
+    return {'forward_backward_L2_mean_px':float(disagreement[inside].mean()) if inside.any() else None,
+            'consistent_area_fraction':float(good.mean()),
+            'compensated_encoded_luma_MAE':float(np.abs(residual[good]).mean()) if good.any() else None,
+            'valid':good,'residual':residual}
+
+
 def digest(path):
     h = hashlib.sha256()
     with open(path, "rb") as stream:
@@ -44,6 +90,12 @@ def summary(values):
 
 def validate(report, require_acceptance=False):
     failures = []
+    def finite_tree(value):
+        if isinstance(value,dict):return all(finite_tree(v) for v in value.values())
+        if isinstance(value,list):return all(finite_tree(v) for v in value)
+        return not isinstance(value,(int,float)) or math.isfinite(value)
+    if not finite_tree(report):
+        failures.append("non-finite report value")
     if report.get("schema") != SCHEMA:
         failures.append("incorrect schema")
     identity, cost = report.get("identity", {}), report.get("cost", {})
@@ -110,6 +162,13 @@ def validate(report, require_acceptance=False):
                                       (f["frame"] > 0 and "paired_temporal_delta_RGB_RMSE_0to1" not in f)
                                       for f in frames):
         failures.append("paired framewise quality metrics incomplete")
+    if report.get('implementation')=='uint8-flow-and-finite-motion-diagnostics-20261026':
+        required=('forward_backward_consistent_area_fraction','forward_backward_L2_mean_px',
+                  'compensated_encoded_luma_MAE')
+        if not isinstance(report.get('metrics',{}).get('motion_diagnostics'),dict):
+            failures.append('missing motion consistency diagnostics')
+        if not isinstance(frames,list) or any(any(k not in f for k in required) for f in frames[1:]):
+            failures.append('missing framewise motion consistency diagnostics')
     ext = report.get("external_quality", {})
     for key in ("vbench_i2v", "vbench2", "human_review"):
         record = ext.get(key)
@@ -138,11 +197,14 @@ def evaluate(candidate, reference, identity_record):
         metrics = {family: {} for family in FAMILIES + (PAIRED_FAMILIES if reference else ())}
         data = {name: [] for name in ("temporal_mae", "temporal_flow_mean",
                    "edge_energy", "mean_encoded_luma", "luma_temporal_abs")}
+        data.update({name: [] for name in ("fb_error","flow_good_fraction","compensated_luma")})
         if reference:
             data.update({name: [] for name in ("pixel_rmse", "pixel_mae",
                         "encoded_luma_rmse", "mean_signed_luma_drift",
                         "temporal_delta_rmse", "motion_flow_l2", "flow_magnitude_ratio",
                         "static_luma_delta_error", "edge_energy_ratio")})
+            data.update({name: [] for name in ("reference_static_fraction","reference_static_good_fraction",
+                                               "paired_compensated_luma")})
         old = None
         count = 0
         framewise = []
@@ -187,14 +249,19 @@ def evaluate(candidate, reference, identity_record):
                 item["candidate_adjacent_RGB_MAE_0to1"]=data["temporal_mae"][-1]
                 item["candidate_adjacent_encoded_luma_abs"]=data["luma_temporal_abs"][-1]
                 flows = []
-                for g, oldg in zip(gray, old[1]):
-                    h, w = g.shape
-                    scale = min(1.0, 320.0/max(h,w))
-                    dims = (max(8,round(w*scale)), max(8,round(h*scale)))
-                    prev_s = cv2.resize(oldg,dims)
-                    curr_s = cv2.resize(g,dims)
-                    flow = cv2.calcOpticalFlowFarneback(prev_s,curr_s,None,.5,3,15,3,5,1.2,0)
+                diagnostics = []
+                for j,(g, oldg) in enumerate(zip(gray, old[1])):
+                    flow = downsampled_farneback(oldg,g)
                     flows.append(flow)
+                    backward=downsampled_farneback(g,oldg)
+                    diagnostics.append(motion_diagnostics(old[3][j],luma[j],flow,backward))
+                quality=diagnostics[0]
+                data['flow_good_fraction'].append(quality['consistent_area_fraction'])
+                item['forward_backward_consistent_area_fraction']=quality['consistent_area_fraction']
+                for field,dest in [('forward_backward_L2_mean_px','fb_error'),
+                                   ('compensated_encoded_luma_MAE','compensated_luma')]:
+                    item[field]=quality[field]
+                    if quality[field] is not None:data[dest].append(quality[field])
                 data["temporal_flow_mean"].append(float(np.mean(np.linalg.norm(flows[0],axis=2))))
                 item["candidate_downsampled_Farneback_flow_mean_px"]=data["temporal_flow_mean"][-1]
                 if reference:
@@ -207,6 +274,16 @@ def evaluate(candidate, reference, identity_record):
                     data["flow_magnitude_ratio"].append(float(data["temporal_flow_mean"][-1]/max(m0,1e-9)))
                     # Fixed low-motion mask is obtained ONLY from dense flow.
                     mask = np.linalg.norm(flows[1],axis=2) <= .25
+                    data['reference_static_fraction'].append(float(mask.mean()))
+                    data['reference_static_good_fraction'].append(float((mask&diagnostics[1]['valid']).mean()))
+                    item['reference_low_motion_area_fraction']=data['reference_static_fraction'][-1]
+                    item['reference_low_motion_consistent_area_fraction']=data['reference_static_good_fraction'][-1]
+                    valid_pair=quality['valid']&diagnostics[1]['valid']
+                    item['paired_flow_consistent_area_fraction']=float(valid_pair.mean())
+                    if valid_pair.any():
+                        comp=float(np.mean(np.abs(quality['residual'][valid_pair]-diagnostics[1]['residual'][valid_pair])))
+                        data['paired_compensated_luma'].append(comp)
+                        item['paired_compensated_encoded_luma_delta_abs']=comp
                     if np.any(mask):
                         d0 = cv2.resize(luma[0]-old[3][0],flows[1].shape[1::-1])
                         d1 = cv2.resize(luma[1]-old[3][1],flows[1].shape[1::-1])
@@ -224,7 +301,17 @@ def evaluate(candidate, reference, identity_record):
                                "candidate_sha256":digest(candidate),
                                "reference_sha256":digest(reference) if reference else None}
         metrics["temporal_motion"] = {"adjacent_RGB_MAE_0to1":summary(data["temporal_mae"]),
+                                      "flow_input":"rounded_encoded_OpenCV_gray_uint8_0to255",
+                                      "flow_coordinates":"forward_displacement_in_downsampled_pixels_max_side320",
                                       "downsampled_Farneback_mean_flow_px":summary(data["temporal_flow_mean"])}
+        def optional_stat(values):
+            return summary(values) if values else {'status':'NO_VALID_FLOW_PIXELS'}
+        metrics['motion_diagnostics']={
+            'forward_backward_L2_mean_px':optional_stat(data['fb_error']),
+            'forward_backward_consistent_area_fraction':summary(data['flow_good_fraction']),
+            'compensated_encoded_luma_MAE':optional_stat(data['compensated_luma']),
+            'agreement_threshold':'0.5+0.01*forward_magnitude_downsampled_px; in-bounds endpoints',
+            'warning':'Geometric forward/backward consistency is not true flow accuracy; texture loss can hide motion.'}
         metrics["spatial_detail"] = {"laplacian_abs_energy_candidate":summary(data["edge_energy"]),
                                       "not_a_perceptual_sharpness_score":True}
         metrics["luma_color"] = {"mean_encoded_BT709_luma":summary(data["mean_encoded_luma"]),
@@ -240,13 +327,26 @@ def evaluate(candidate, reference, identity_record):
             metrics["paired_motion"] = {"downsampled_Farneback_flow_L2_px":summary(data["motion_flow_l2"]),
                                         "candidate_to_reference_flow_magnitude_ratio":summary(data["flow_magnitude_ratio"])}
             metrics["static_region"] = {"reference_flow_threshold_downsampled_px":.25,
+                                         'reference_low_motion_area_fraction':summary(data['reference_static_fraction']),
+                                         'reference_low_motion_consistent_area_fraction':summary(data['reference_static_good_fraction']),
                                          "uncompensated_low_reference_motion_luma_delta_abs":summary(data["static_luma_delta_error"]) if data["static_luma_delta_error"] else {"status":"NOT_ENOUGH_STATIC_PIXELS"},
                                          "warning":"Reference-flow low-motion pixels are not camera-compensated background masks or official temporal flicker scores."}
-        report = {"schema":SCHEMA,"identity":identity_record["identity"],"cost":identity_record["cost"],
+            metrics['motion_diagnostics']['paired_compensated_encoded_luma_delta_abs']=optional_stat(data['paired_compensated_luma'])
+        windows=[]
+        for start in range(0,count,16):
+            window={'first_frame':start,'last_frame':min(count,start+16)-1,'frames':min(16,count-start)}
+            for field in ['paired_RGB_RMSE_0to1','candidate_adjacent_RGB_MAE_0to1',
+                          'candidate_downsampled_Farneback_flow_mean_px','mean_encoded_luma',
+                          'laplacian_abs_edge_energy','paired_compensated_encoded_luma_delta_abs']:
+                values=[f[field] for f in framewise[start:start+16] if f.get(field) is not None]
+                if values:window[field]=summary(values)
+            windows.append(window)
+        report = {"schema":SCHEMA,"implementation":"uint8-flow-and-finite-motion-diagnostics-20261026",
+                  "identity":identity_record["identity"],"cost":identity_record["cost"],
                   "candidate":{"path":str(candidate),"sha256":digest(candidate)},
                   "reference":{"path":str(reference),"sha256":digest(reference)} if reference else None,
                   "reference_identity":identity_record.get("reference_identity") if reference else None,
-                  "metrics":metrics,"per_frame":framewise,
+                  "metrics":metrics,"per_frame":framewise,'windows16':windows,
                   "external_quality":{k:{"status":"NOT_RUN","reason":"Independent official benchmark or manual review not yet attached"}
                                       for k in ("vbench_i2v","vbench2","human_review")},
                   "quality_accepted":False,"scope":"ALL_FRAMES_EVALUATED_NO_OFFICIAL_OR_HUMAN_ACCEPTANCE"}

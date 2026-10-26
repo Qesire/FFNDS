@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"tools"))
-from ffnds_video_metrics import SCHEMA, summary, validate, evaluate
+from ffnds_video_metrics import SCHEMA, summary, validate, evaluate, downsampled_farneback, motion_diagnostics
 
 
 class MetricContractTest(unittest.TestCase):
@@ -79,6 +79,33 @@ class MetricContractTest(unittest.TestCase):
 
     def test_unpaired_reference_has_own_temporal_metrics(self):
         self.assertEqual(validate(self.fixture(False)),[])
+
+    def test_nonfinite_nested_observation_is_rejected(self):
+        report=self.fixture()
+        report['per_frame'][1]['paired_RGB_RMSE_0to1']=float('nan')
+        self.assertIn('non-finite report value',validate(report))
+
+    def test_known_translation_has_pixel_units_and_direction(self):
+        import cv2
+        import numpy as np
+        rng=np.random.default_rng(819)
+        previous=cv2.GaussianBlur(rng.uniform(.1,.9,(192,192)).astype(np.float32),(3,3),0)
+        current=cv2.warpAffine(previous,np.float32([[1,0,2],[0,1,-1]]),(192,192),
+                               borderMode=cv2.BORDER_REFLECT_101)
+        flow=downsampled_farneback(previous,current)[24:-24,24:-24]
+        self.assertAlmostEqual(float(np.median(flow[:,:,0])),2,delta=.15)
+        self.assertAlmostEqual(float(np.median(flow[:,:,1])),-1,delta=.15)
+
+    def test_forward_warp_direction_and_out_of_bounds_mask(self):
+        import numpy as np
+        rng=np.random.default_rng(71)
+        previous=rng.uniform(.1,.9,(40,48)).astype(np.float32)
+        current=np.roll(previous,2,axis=1)
+        forward=np.zeros((40,48,2),np.float32);forward[:,:,0]=2
+        backward=-forward
+        result=motion_diagnostics(previous,current,forward,backward)
+        self.assertAlmostEqual(result['compensated_encoded_luma_MAE'],0,delta=1e-7)
+        self.assertAlmostEqual(result['consistent_area_fraction'],46/48,delta=1e-7)
 
     def test_synthetic_video_decode_and_metrics(self):
         try:

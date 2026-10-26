@@ -217,9 +217,9 @@ def main():
            "Latest progress narrowed research or granted experiment authority")
     # New research-wide video evidence obligation and genuine 40x4 propagation.
     # Earlier frozen video drivers and metrics are historical, not silently retrofitted.
-    contract = "research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md"
+    video_policy_path = "research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md"
     depth_template = "config/e0_full_depth_quality_discriminator_TEMPLATE_20261026.json"
-    ensure((ROOT / contract).is_file() and (ROOT / depth_template).is_file()
+    ensure((ROOT / video_policy_path).is_file() and (ROOT / depth_template).is_file()
            and (ROOT / "tools/ffnds_video_metrics.py").is_file()
            and (ROOT / "tools/ffnds_video_metric_gate.py").is_file(),
            "Missing mandatory video metric and full-depth native analysis gate")
