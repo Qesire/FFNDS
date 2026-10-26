@@ -17,6 +17,8 @@
 | **完整视频失配** | 原Dense、Whole94、Affine54×来源0/12共6条81帧；候选均显示可见画面偏差、Whole94更明显破碎/重影；Affine54改善局部拟合而仍改变运动、模糊、背景/细节 | *NATIVE VIDEO/有限视觉对比*：当前固定bank与所有160处同时替换组合不满足已有项目的保真目标；正式质量测评未获通过 |
 | **六视频后验指标** | 全486帧/480帧间对，修复Farneback输入灰度尺度：来源0 Affine/Dense光流比**0.091**、相邻RGB差比**0.368**；来源12约**0.846**、**1.463** | [CPU补评和逐帧资产](E0_EXISTING_VIDEO_QUALITY_BACKFILL.md)。来源0有运动估计大幅压低，来源12帧差升高且末窗口流可反超；二者**不能统一解释为“冻结”**。光流与Laplacian是编码像素代理，非真运动、语义细节或真实画质评分 |
 
+**新增原生机制观察**：[两来源320site完整双轨](E0_PAIRED_FULL_DEPTH_RESULTS.md)已保留实际原生四臂、写回及四步状态，四视频/16latent历史指纹相同。318/320处student前缀的raw算子SSE反而更小（另外2处初始相等），但后3步flow差与状态差高度反向、latent误差持续增大。此现象削弱“每处局部误差离轨后统一变大”的解释，不识别主因；需要完整`v_D(z_S)`才能区分whole-model误差与原dense状态响应。旧8.54%为gated、保存native-q2特征的FP64重构，不能与新ungated/fullM量比较。详细数字、费用、分母及独立口径审查均见结果报告。
+
 **质量与标注现状**：六段已有视频的核心工程指标已补齐，但VBench-I2V/VBench2、语义背景稳定性和人工全片审阅未完成；`quality_accepted=false`。四个候选报告中 `reference_identity.model_digest` 曾错误继承候选身份，已登记不可变勘误；原视频SHA和像素分析未改。新配对入口已另实现[严格原生视频身份与清单门禁](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)，但其软件通过不追认为旧核心gate曾有同等语义检查。
 
 ## 二、哪些数学结构成立，哪些近似没有被保证
@@ -52,9 +54,9 @@
 
 ## 五、原生配对工作与完整证据
 
-实现路径已进入 [paired-native接线](E0_PAIRED_NATIVE_IMPLEMENTATION.md)：双scheduler、当前block四臂FFN与真实写回、按生命周期控制dense影子权重、真实step前后状态以及[严格质量证据层](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)。17项paired软件测试＋8项严格软件测试属于**SYN/SOFTWARE**，不等于实际GPU显存、轨迹中性、160处有效真实native观察或视频验收。
+实现路径已进入 [paired-native接线](E0_PAIRED_NATIVE_IMPLEMENTATION.md)：双scheduler、当前block四臂FFN与真实写回、按生命周期控制dense影子权重、真实step前后状态以及[严格质量证据层](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)。初版17项paired软件测试＋8项严格软件测试（路径/保存修复后共28项）属于**SYN/SOFTWARE**，不等于实际GPU显存、轨迹中性、160处有效真实native观察或视频验收。
 
-明确有界协议为 [`config/e0_paired_full_depth_20261026_v2.json`](../../config/e0_paired_full_depth_20261026_v2.json)。该工作线已另行得到明确用户授权，**是否运行、运行成功多少、失败原因与可用site数量，以[实时状态](../ACTIVE_RESEARCH.json)、原生NATIVE_RUN及严格验收文件为准**；文档不再写死“未授权/等待启动/执行完成”。无论状态如何，P23/P24只有在收到真实合格site及机制证据后才能从OPEN改变；运行许可≠机制已经测定，也不自动准许下一批、新算子或训练。
+有界v2及后续v3协议分别保留版本历史，当前执行范围读取ACTIVE；v3结果已另行保留，后续没有自动模型权限。该工作线已另行得到明确用户授权，**是否运行、运行成功多少、失败原因与可用site数量，以[实时状态](../ACTIVE_RESEARCH.json)、原生NATIVE_RUN及严格验收文件为准**；文档不再写死“未授权/等待启动/执行完成”。无论状态如何，P23/P24只有在收到真实合格site及机制证据后才能从OPEN改变；运行许可≠机制已经测定，也不自动准许下一批、新算子或训练。
 
 [v2实际运行与路径修复](E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)已提供两条与原dense逐字节相同的DD终端视频，但后处理报错使详细site/latent记录未保存；这不构成P23/P24观测或完整成本门禁通过。其后[四视频v3协议](../../config/e0_paired_full_depth_20261026_v3.json)的授权/执行仍只以ACTIVE及原始RUN为准。当前普通I2V同step/block gate由共享modulation与相等embed0决定；不能用两轨gate变化解释prefix差。32行native–continuous与full-M operator SSE也不能直接比较来裁定NUM主导。
 

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "claim_id": "E0_GRAPH_PAIRED_NATIVE_STATE_DIVERGENCE_20261026",
+  "agent_id": "ROOT_INTRINSIC_FFN_RESEARCH",
+  "research_stage": "E0_OPEN_DISCOVERY",
+  "source_revision": "99f2544",
+  "review_status": "PROPOSED",
+  "review_refs": [
+    "research/method_discussion/discoveries/E0/independent-native-input-contraction-and-flow-error-20261026_v6.md",
+    "research/method_discussion/discoveries/E0/independent-paired-metric-domain-audit-20261026.md"
+  ],
+  "model_experiment_authorized": true,
+  "authorization_scope": "Completed V3 two-pair/four-video fixed scope only; no followup model permission.",
+  "anchor_nodes": [
+    "F03",
+    "F08",
+    "F09",
+    "F12",
+    "P23",
+    "P24",
+    "P25"
+  ],
+  "upstream_nodes": [
+    "G02"
+  ],
+  "consumer_nodes": [
+    "G21",
+    "D09"
+  ],
+  "mechanism": {
+    "statement": "At318 of320 observed sites student-input raw operator SSE is smaller while both complete latent trajectories diverge. Later whole-flow error anti-aligns with existing state difference. Local error growth at every site is not required for the observed video failure.",
+    "math_or_trace": "eT=S(qT)-D(qT),eS=S(qS)-D(qS); eS SSE<eT SSE at318sites, two initial equal. delta_next=delta-h*d+rho; later dot(delta,d)<0 on both sources. Whole-model d=e_flow+R_flow requires unmeasured vD(zS).",
+    "relation": "NATIVE-OBS_POSTHOC; CAUSAL_ATTRIBUTION_OPEN"
+  },
+  "availability": {
+    "earliest_decision_time": "Offline after actual full-model paths and paid native shadows",
+    "observer_computation": "Two main and two shadow FFNs/site,32-row FP32 diagnostics,FP64 fullM/stratum reductions.",
+    "online_or_posthoc": "POSTHOC"
+  },
+  "real_cost": {
+    "W1": "All main/shadow W1 charged",
+    "W2": "All main/shadow W2 and affine readouts charged",
+    "QDQ": "7680 actual target QDQ;8320native GEMM plus1920continuous diagnostic GEMM",
+    "routing_memory": "Single idle A100; sampled peak76815MiB; HF278488412bytes",
+    "downstream": "Four complete videos/16historical latent hashes; core+strict gates PASS; official/human NOT_RUN; quality not accepted. Observation times are not deployment latency."
+  },
+  "evidence": [
+    {
+      "path": "research/20261026/E0_PAIRED_FULL_DEPTH_RESULTS.json",
+      "sha256": "e7283b84f59d2633b6b4cd0bf40a536728ae24e534a183884a9941ef51112fe9",
+      "kind": "NATIVE-OBS/VIDEO/SYS",
+      "scope": "Two exposed sources0/12, seeds42/54,320dependent sites; no quality or population claim."
+    },
+    {
+      "path": "research/method_discussion/discoveries/E0/independent-native-input-contraction-and-flow-error-20261026_v6.md",
+      "sha256": "2122cf6c60b96ce0289984f277a69362acf849c10897c8fbde45f85aab89805d",
+      "kind": "INDEPENDENT_JSON_SOURCE_MATH_REVIEW",
+      "scope": "Independent exact-SHA scalar/source review and analytic counterexample; no model/test or formal endorsement."
+    },
+    {
+      "path": "research/method_discussion/discoveries/E0/independent-paired-metric-domain-audit-20261026.md",
+      "sha256": "f6687af2767624c21ab031036d949014e7e8337d9f8a7e8f75c7a1877003fb3b",
+      "kind": "INDEPENDENT_METRIC_DOMAIN_REVIEW",
+      "scope": "Old gated saved-native-q2 FP64 fitting versus new ungated fullM deployed bank; not a matched8.54% comparison."
+    }
+  ],
+  "countermechanism": {
+    "statement": "Student-prefix video degradation requires larger same-input FFN operator error everywhere, or observed outward flow proves an unstable dense teacher.",
+    "prediction": "Measured318smaller errors refute the first within this scope. Constant teacher flow plus biased contracting student is an analytic counterexample to the second, not a Wan fitted explanation."
+  },
+  "discriminator": "At a future separately authorized nonzero-delta step, obtain whole dense vD(zS); compare dot(delta,vS(zS)-vD(zS)) and dot(delta,vD(zS)-vD(zD)). Per-FFN shadow does not provide this missing flow.",
+  "graph_change_suggestion": {
+    "node_ids": [
+      "P23",
+      "P24",
+      "P25"
+    ],
+    "proposed_annotation": "Retained320site native evidence now available; model-vs-state-response causal mechanism staysOPEN, P25 remainsPOLICY; no method selection or new scope.",
+    "graph_edge_status": "NATIVE-OBS_POSTHOC; CAUSAL_EDGES_OPEN"
+  }
+}
