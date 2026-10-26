@@ -543,7 +543,7 @@
       "year": 2026,
       "venue": "arXiv:2607.06631",
       "url": "https://arxiv.org/abs/2607.06631",
-      "model": "Wan-14B 4-step; variant not pinned in abstract",
+      "model": "Wan2.1-14B 4-step T2V, small Wan2.1-1.3B ablations",
       "observed_mechanism": "Joint stage-specific structured sparsification and few-step distillation yielding Mixture-of-Models with progressive training and output rollout",
       "decision_time": "offline schedule and trained step-specific submodels",
       "physical_action": "stage-structured FFN/block/model compute + specialized engine",
@@ -555,7 +555,10 @@
         "K02",
         "K03"
       ],
-      "graph_method_reference": "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md"
+      "graph_method_reference": "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
+      "method_review": "ORIGINAL_FULL_ARXIV_V1_METHOD_EQUATIONS_APPENDIX_REVIEWED",
+      "original_pdf": "https://arxiv.org/pdf/2607.06631v1",
+      "method_equation_audit": "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
     },
     {
       "id": "L35",
@@ -564,19 +567,22 @@
       "year": 2026,
       "venue": "arXiv:2605.11869",
       "url": "https://arxiv.org/abs/2605.11869",
-      "model": "Wan2.2; HunyuanVideo1.5; few-step",
+      "model": "Wan2.2-14B 4-step T2V and HunyuanVideo1.5 8-step I2V",
       "observed_mechanism": "Interleaves latent frame subsets across model hierarchy; refreshes all frame positions across blocks despite partial-frame execution",
       "decision_time": "spatial-temporal frame indices and layer schedule, not step-history delta",
       "physical_action": "partial-frame block computation",
       "training": "training free",
-      "wan_specific_discriminator": "Direct Wan2.2 few-step attention+FFN operator-agnostic competitor; does not show FFN channel sparsity; official code not yet publicly located in host repo",
+      "wan_specific_discriminator": "Feature-norm map interpolated-frame error ~9.8% on Wan2.2 v1; Gather/Module/interpolation and block/step gate are not exact full-frame computation; Wan2.2 experiment T2V not I2V.",
       "reading_depth": "OFFICIAL_ARXIV_ABSTRACT_AND_AUTHOR_REPO",
       "graph_anchor": [
         "K04",
         "K05",
         "K06"
       ],
-      "graph_method_reference": "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md"
+      "graph_method_reference": "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
+      "method_review": "ORIGINAL_FULL_ARXIV_V1_METHOD_EQUATIONS_REVIEWED_LATER_V2_NOT_CHECKED",
+      "original_pdf": "https://arxiv.org/pdf/2605.11869v1",
+      "method_equation_audit": "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
     },
     {
       "id": "L36",

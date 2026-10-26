@@ -577,66 +577,72 @@
     {
       "id": "K01",
       "graph_section": "G7",
-      "meaning": "trained step-specific architecture selection",
+      "meaning": "step-specific trained block/head/FFN masks; FFN weight-L2 reorder and chunk-8",
       "availability": "before_step_in_trained_model",
       "evidence_type": "LIT",
       "evidence": [
-        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md"
+        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
+        "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
       ],
       "open_question": "Does MoM introduce distinct learned experts rather than Wan original high/low?"
     },
     {
       "id": "K02",
       "graph_section": "G7",
-      "meaning": "step model compact parameters and physical inference",
+      "meaning": "step-specific compact parameters packed by union model and index tables",
       "availability": "trained_step_runtime",
       "evidence_type": "LIT",
       "evidence": [
-        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md"
+        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
+        "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
       ],
       "open_question": "Which layer/head/FFN structures and engine costs are genuinely changed?"
     },
     {
       "id": "K03",
       "graph_section": "G7",
-      "meaning": "output rollout learning through terminal generation",
+      "meaning": "reverse stage DMD training and detached-output rollout fake-score",
       "availability": "training_offline",
       "evidence_type": "LIT",
       "evidence": [
-        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md"
+        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
+        "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
       ],
       "open_question": "Which downstream video changes support structural choice?"
     },
     {
       "id": "K04",
       "graph_section": "G7",
-      "meaning": "per-block latent-frame subset selection",
+      "meaning": "stable-block, non-tail-step frame anchor Gather with endpoints retained",
       "availability": "before_layer",
       "evidence_type": "LIT",
       "evidence": [
-        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md"
+        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
+        "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
       ],
       "open_question": "How are frame masks determined and RoPE/QKV contexts supplied?"
     },
     {
       "id": "K05",
       "graph_section": "G7",
-      "meaning": "partial frame block attention and FFN",
+      "meaning": "only selected contiguous latent frame grids execute block module",
       "availability": "during_block",
       "evidence_type": "LIT",
       "evidence": [
-        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md"
+        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
+        "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
       ],
       "open_question": "Can non-selected frames remain valid global attention context?"
     },
     {
       "id": "K06",
       "graph_section": "G7",
-      "meaning": "frame interleaving across layer and residual restoration",
+      "meaning": "linear feature interpolation, rotating anchor phase and exact full-step fallback",
       "availability": "after_layer",
       "evidence_type": "LIT",
       "evidence": [
-        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md"
+        "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
+        "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
       ],
       "open_question": "How is complete frame state reconstructed exactly?"
     },
@@ -1386,10 +1392,11 @@
     ],
     "model_execution_count": 0,
     "tiers": {
-      "L34": "OFFICIAL_ABSTRACT_SECONDARY_METHOD",
-      "L35": "OFFICIAL_ABSTRACT_METHOD_OPEN",
+      "L34": "ORIGINAL_ARXIV_V1_METHOD_EQUATIONS_2_TO_7_AND_APPENDIX_CHECKED",
+      "L35": "ORIGINAL_ARXIV_V1_METHOD_EQUATIONS_7_TO_15_CHECKED_V2_NOT_CHECKED",
       "L37": "ORIGINAL_FULL_PDF_METHOD_FIGURE_AND_EQ_3_TO_6",
       "L50": "AUTHOR_ORIGINAL_METRICS_CODE"
-    }
+    },
+    "primary_v1_method_review": "research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md"
   }
 }

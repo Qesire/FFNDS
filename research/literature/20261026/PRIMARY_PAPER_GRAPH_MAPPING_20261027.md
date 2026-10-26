@@ -2,6 +2,8 @@
 
 本研究以 LightX2V pin 运行图 G0–G5 为基底，保留其 SRC 执行实线。四篇外部论文只建立 G7 的 LIT 参考分支，绝不意味着本 Wan 已实现、可加速或质量验收。固定对象：Wan2.2 I2V 4-step high/high/low/low 双整网专家；M=31668 tokens, D=5120, H=13824, 40 blocks, latent temporal=21, decoded frames=81；真实顺序是 norm2/AdaLN → Smooth1/Q1 → W1 → tanh-GELU → Smooth2 → 64→8→4 HiF4 Q2 → W2 → e5 gate/writeback → subsequent blocks/head/flow/scheduler/video。
 
+**已升级为原文一手证据：** [两篇原PDF v1逐公式与计算图绑定](PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)明确核查Dynamic-in-Few-Step和FIS-DiT。以下早期“仅原摘要/二手细节待核”已由该补充审查更新；FIS最新v2未读。
+
 ## L34：Dynamic-in-Few-Step（K01→K03），step-specific 网络本体
 
 [原始 arXiv 2607.06631](https://arxiv.org/abs/2607.06631)的作者摘要确认，step-specific Mixture-of-Models 是通过少步蒸馏与结构化稀疏联合训练产生的；含 progressive training、output rollout 和专门推理引擎；Wan-14B 四步时作者报告在已蒸馏模型基础上，per-step FLOPs -24%、额外 wall gain 1.2x。上述数字不是单独FFN加速。具体 block/head/FFN channel/group-mask STE、权重 gather 等细节目前主要来自 [alphaXiv二级解读](https://www.alphaxiv.org/abs/2607.06631)，未获得完整独立原方法正文核查，**不得标为原文公式已经审核**。
