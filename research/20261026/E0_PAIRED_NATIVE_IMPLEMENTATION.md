@@ -33,3 +33,5 @@
 独立审阅：[控制器生命周期](../method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026_v3_review.md)、[四臂语义与成本](../method_discussion/discoveries/E0/independent-paired-observer-runtime-audit-20261026_v4.md)、[执行入口最终审查](../method_discussion/discoveries/E0/independent-paired-driver-final-audit-20261026_v4.md)。审查发现并促成修复实际config键名、上卡失败清理、同步异常跳过hook恢复、换目录重置次数和失败视频跳过评估等问题；独立审查仍是读源，不是原生实测。
 
 HiF4量化实现与原.so通过原cache manifest的identity.source_sha256及HistoricalSources逐项绑定；完整cache SHA仍由verified_restored_assets在执行前核验。旧模型/协议/原视频/原RUN不改，24个既有scope保留。当前唯一缺失的执行前步骤是对这一新固定模型范围的单独用户授权与登记；未借本轮“继续”把旧额度自动复活。
+
+**当前执行版本更新**：[v2严格身份/产物清单检查](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)另冻了新协议，原v1草案从未授权/执行；本页保留初始实现与17测snapshot，不用于指示运行旧v1。

@@ -198,3 +198,7 @@
 [E34实现](20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)交付双scheduler/同buffer逐block两轨、可重入四FFN与四真实写回、当前block dense FFN驻留、唯一有限attempt账本及失败视频全帧取证。17项CPU SYN软件测试、39源码与80参数包checksum通过，三pair六完整轨迹协议待单独授权，实际native记录0。初始BF16 latent与四步入口/出口哈希保持真实dtype。
 
 有限精度反例：相同g=1、yD=0、yS=2^-9，在r=1的BF16写回误差0，在r=0误差2^-9；因此raw FFN差不变也可能改变真实写回差，student门控误差变大不必只有FFN输入失配这一解释。*SYN/ALG*，不是Wan已测机制。P23/P24仍OPEN，诊断wall包含额外observer/影子/连续/归约/双解码，不能当部署提速。旧原型质量失败和24既有scope不改。
+
+## 2026-10-26：E35 新入口的严格视频身份与产物覆盖
+
+[新paired严格层](20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)从独立native回执与实际目录比对两视频清单，并以真实生成assets/operator重算dense model_digest；拒绝误继承候选digest、漏视频并降expected计数、删reference及无权威清单。8项新软件测试+17项paired软件测试通过，两个实际旧dense身份只读复核一致。*SRC/SOFTWARE*，仅新paired入口，原gate/旧报告字节不改，不追加质量验收。另冻v2替代未授权未执行v1，当前模型/GPU仍0，真实全深度迹线仍OPEN。

@@ -1,11 +1,12 @@
 # FFNDS · E0 当前科学上下文（2026-10-26）
 
+**新原生入口与严格门禁就绪（2026-10-26）**：[v2配对采集](../20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)已完成25项CPU软件测试、42份源/环境绑定和80参数包checksum。新严格层从独立native回执核对全部视频清单及真实dense资产身份，拒绝漏视频/错digest/删reference；旧gate/报告不改。v1未授权/执行，v2六完整轨迹仍待单独模型范围授权，真实配对native记录/GPU0。
+
 **最新Skill复审的科学判断：** [当前Affine54失败边界及方法族对照](../20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md)。实数GELU奇偶/全残差分解成立；8.54%局部SSE、强Dense对照下FFN2.18×是真实但有限的正面信号；本次固定54组全层自由视频已观察质量退化，正式验收仍未通过。由此只能否决“较低teacher局部SSE充分保证视频保真”，不能归因某单一原因，也不排除新的Affine条件表示。H-NUM数值、H-CAP函数覆盖、H-SHIFT输入、H-TRANS后缀、H-STATE跨步竞争解释待区分；方法探索与失败归因两线并行。
 
+**最新跟踪及偏移审查**：[证据状态、引导校正与未闭合门禁缺口](../20261026/E0_TRACKING_RESULT_AND_DRIFT_AUDIT_20261026.md)。六旧视频486帧核心指标补评已完成，但正式质量未验收；全40×4 Student-prefix 原生双轨仍为0/160，接线已实现并经软件测试，真实native仍未执行。对旧dense引用的四处模型digest错误已有不可变勘误；未来新paired入口已另加严格身份/原生清单检查，旧门禁的历史范围不追认。Affine54是受审失败案例，不是下一方法的预设。G0–G6仅为研究索引，实时G6继续暂停。
 
-**最新跟踪及偏移审查**：[证据状态、引导校正与未闭合门禁缺口](../20261026/E0_TRACKING_RESULT_AND_DRIFT_AUDIT_20261026.md)。六旧视频486帧核心指标补评已完成，但正式质量未验收；全40×4 Student-prefix 原生双轨仍为0/160，接线已实现并经软件测试，真实native仍未执行。对旧dense引用的四处模型digest错误已有不可变勘误；未来视频bundle的参考模型语义身份及原生成清单覆盖检查尚未工程闭环。Affine54是受审失败案例，不是下一方法的预设。G0–G6仅为研究索引，实时G6继续暂停。
-
-**原生采集接线已实现（2026-10-26）**：[四步双轨控制器、四臂FFN与当前block驻留](../20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)已完成17项CPU软件测试及80参数包完整checksum预检；[固定3pair/6完整轨迹协议](../../config/e0_paired_full_depth_20261026.json)已准备并独立审阅。新模型/GPU调用0，真实显存/数值中性/全160处观测仍未验证，P23/P24保持OPEN，待单独授权登记。
+**原生采集接线已实现（2026-10-26）**：[四步双轨控制器、四臂FFN与当前block驻留](../20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)已完成17项CPU软件测试及80参数包完整checksum预检；[固定3pair/6完整轨迹协议](../../config/e0_paired_full_depth_20261026_v2.json)已准备并独立审阅。新模型/GPU调用0，真实显存/数值中性/全160处观测仍未验证，P23/P24保持OPEN，待单独授权登记。
 
 **本轮补评与工具（2026-10-26）**：[六已有视频全帧补评](../20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md)已完成486帧/480帧对，修正光流输入尺度。affine熊视频持续低运动估计，小镇持续高帧差且末窗口光流高于dense，不能统一冻结；高边缘能量也不等于真实细节。四个参考model_digest元数据勘误单列，原回执不改。新增[全160处向量账本与静态接口检查](../20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)，纠正step_pre条件BF16 cast；这只是软件/源审阅，原生双轨producer现已另行实现并经软件测试，真实观测未运行，P23/P24仍OPEN、无新GPU作业。
 

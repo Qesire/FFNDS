@@ -22,6 +22,7 @@ MANDATORY_DRIVER_SOURCES = {
     'tools/' + name for name in [
         'run_e0_paired_full_depth.py', 'e0_paired_wan_controller.py', 'e0_paired_ffn_observer.py',
         'check_e0_full_depth_interface.py',
+        'ffnds_paired_video_strict_gate.py',
         'e0_paired_weight_residency.py', 'e0_full_depth_trace_contract.py', 'ffnds_video_metrics.py',
         'ffnds_video_metric_gate.py', 'ffnds_observation_common.py', 'restored_assets.py',
         'historical_source_snapshot.py', 'startup_gpu_reservation.py', 'assigned_gpu_resources.py',
@@ -113,6 +114,7 @@ def close_attempt(study, pair_id, status, receipt):
 def evaluate_pair(out, native, pair, sample, original, protocol_sha):
     from ffnds_video_metrics import evaluate, validate
     from ffnds_video_metric_gate import inspect
+    from ffnds_paired_video_strict_gate import inspect as strict_inspect
     receipt = out / 'NATIVE_RUN.json'
     reference_receipt = Path(original['receipt'])
     if sha256(reference_receipt) != original['receipt_sha256'] or sha256(Path(original['video'])) != original['video_sha256']:
@@ -159,6 +161,13 @@ def evaluate_pair(out, native, pair, sample, original, protocol_sha):
             'reference_run_sha256': reference_identity['run_sha256']})
     write_json(out / 'BUNDLE.json', bundle)
     failures = inspect(out / 'BUNDLE.json')
+    if failures:
+        raise ValueError('; '.join(failures))
+    write_json(out / 'STRICT_BUNDLE.json', {
+        'schema': 'ffnds.paired.video.strict.v1', 'core_bundle_path': 'BUNDLE.json',
+        'core_bundle_sha256': sha256(out / 'BUNDLE.json'),
+        'native_generation_receipts': [{'path': receipt.name, 'sha256': sha256(receipt)}]})
+    failures = strict_inspect(out / 'STRICT_BUNDLE.json')
     if failures:
         raise ValueError('; '.join(failures))
 
@@ -248,6 +257,10 @@ def execute(args, plan, packs_manifest, status):
         if 'A100' not in torch.cuda.get_device_name(0):
             raise RuntimeError('Frozen single idle A100 required')
         torch.set_num_threads(8); torch.backends.cuda.matmul.allow_tf32 = False
+        run['environment'] = {'torch': torch.__version__, 'CUDA_runtime': torch.version.cuda,
+                              'GPU': torch.cuda.get_device_name(0), 'python': sys.version,
+                              'TF32': torch.backends.cuda.matmul.allow_tf32,
+                              'BF16_reduced_precision_reduction': torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction}
         setup_started = time.perf_counter()
         snapshot = out / 'EXECUTED_SOURCES'; snapshot.mkdir()
         for name in {**plan['driver_sources_sha256'], **plan['native_source_sha256']}:
