@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
-  "updated": "2026-10-26",
-  "status": "EXPANDED_51_PAPER_MECHANISM_ATLAS_WITH_PARTIAL_METHOD_AND_SOURCE_AUDITS",
+  "updated": "2026-10-27",
+  "status": "EXPANDED_54_PAPER_MECHANISM_ATLAS_G9_PARTIAL_SOURCE_AUDITS",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -867,6 +867,70 @@
       "training": "SFT/score distillation + RL",
       "wan_specific_discriminator": "FFN W4 weight precision is not W4A4 and not FFN arithmetic sparsity; author system-level 40x not isolate FFN",
       "reading_depth": "OFFICIAL_ARXIV_ABSTRACT_AND_PUBLIC_PREPRINT_SECTION"
+    },
+    {
+      "id": "L52",
+      "group": "step_cache",
+      "title": "Beyond Fixed Formulas: Data-Driven Linear Predictor for Efficient Diffusion Models",
+      "year": 2026,
+      "venue": "CVPR 2026",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Shen_Beyond_Fixed_Formulas_Data-Driven_Linear_Predictor_for_Efficient_Diffusion_Models_CVPR_2026_paper.html",
+      "model": "FLUX.1-dev publicly implemented; video paper result",
+      "observed_mechanism": "Tiny causal lower-triangular coefficients predict full DiT output features from history",
+      "decision_time": "full/cache step after earlier true/predicted outputs exist",
+      "physical_action": "whole-step skip plus history/FFT/IO and refresh costs",
+      "training": "frozen model feature capture and 50x50 coefficient postfit",
+      "wan_specific_discriminator": "Contrast 50step output trajectory vs 4step high/high/low/low and Student state feedback",
+      "reading_depth": "AUTHOR_CVPR_ABSTRACT_AND_FLUX_CODE_METHOD_CHECKED",
+      "graph_anchor": [
+        "K28",
+        "K29",
+        "K30",
+        "K31"
+      ],
+      "graph_method_reference": "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+    },
+    {
+      "id": "L53",
+      "group": "ffn_function",
+      "title": "Dynamic sparsity in tree-structured feed-forward layers at scale",
+      "year": 2026,
+      "venue": "arXiv 2604.08565v1",
+      "url": "https://arxiv.org/pdf/2604.08565",
+      "model": "GPT-like transformers and DETR appendix; not Wan",
+      "observed_mechanism": "Trained tree node logits, hard path and GELU signed output; path auto-pruning",
+      "decision_time": "at serial token tree traversal",
+      "physical_action": "selected path node matvec/conditional sparse output vs dense GEMMs",
+      "training": "from scratch / finetune alternative architecture",
+      "wan_specific_discriminator": "Frozen-Wan dense weights do not inherit newly trained route structure; test route fragmentation and QDQ",
+      "reading_depth": "ORIGINAL_ARXIV_V1_EQ1_3_SEC5_SEC7_READ",
+      "graph_anchor": [
+        "K32",
+        "K33",
+        "K34",
+        "K35"
+      ],
+      "graph_method_reference": "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+    },
+    {
+      "id": "L54",
+      "group": "ffn_function",
+      "title": "Sparsity Moves Computation: How FFN Architecture Reshapes Attention in Small Transformers",
+      "year": 2026,
+      "venue": "arXiv 2605.09403",
+      "url": "https://arxiv.org/abs/2605.09403",
+      "model": "small one-layer arithmetic task transformers",
+      "observed_mechanism": "Author abstract claims trained sparse FFN alters computation learned by attention; random route control",
+      "decision_time": "architecture/training rather than inference mask",
+      "physical_action": "coadapted full-network role shift, not frozen W1 pruning",
+      "training": "train dense/GLU/MoE variants and controls",
+      "wan_specific_discriminator": "Compare joint adaptation with frozen Wan FFN intervention; do not claim observed Wan attention relocation",
+      "reading_depth": "AUTHOR_ARXIV_ABSTRACT_ONLY",
+      "graph_anchor": [
+        "K36",
+        "K37"
+      ],
+      "graph_method_reference": "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -905,5 +969,11 @@
     "ledger": "research/literature/20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json",
     "node_count": 15,
     "new_model_runs": 0
+  },
+  "g9_literature_branch": {
+    "document": "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md",
+    "ledger": "research/literature/20261027/G9_METHOD_SOURCE_LEDGER.json",
+    "node_count": 10,
+    "native_runs": 0
   }
 }
