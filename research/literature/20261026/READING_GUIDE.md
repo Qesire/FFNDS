@@ -1,3 +1,5 @@
+**G8 methods and method-status audit (2026-10-27):** [RT-Lynx, Dense2MoE, SVD-Cache and Chipmunk computations](../20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md) + [per-paper source tier](../20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json). Dense2MoE and SVD-Cache now have original v1 method equations read, correcting earlier abstract-only and no-method claims. RT-Lynx official main-paper method remains unavailable; use author HF post as primary author statement, not verified formula/code. When reviewing other related works, attach each to G7/G8 or create a distinct branch with tensor shape, legal runtime signal and costs.
+
 # FFNDS · 文献Agent阅读与升级证据契约
 
 **第二轮可复核深读：** [五篇近邻方法审查](FIVE_PAPER_METHOD_AUDIT.md)与[5篇证据等级账本](METHOD_AUDIT_LEDGER.json)。后续Agent首先补齐RT-Lynx/Dense2MoE完整原始方法源码，Activation Concentration阈值/列的严格定义，以及DiffSparse原Wan分项VBench；Chipmunk已亲读MLP源，但没有Wan四步实验。

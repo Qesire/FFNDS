@@ -143,13 +143,20 @@
       "url": "https://proceedings.mlr.press/v306/cong26a.html",
       "model": "image DiT",
       "observed_mechanism": "Activation N:M more robust than weight N:M; norm compensation and light LoRA",
-      "decision_time": "after activation / before next GEMM",
+      "decision_time": "current GEMM operand after Q1 (W1) or after GELU/Q2 (W2) with actual N:M online metadata",
       "physical_action": "native N:M kernel",
       "training": "light LoRA used",
       "wan_specific_discriminator": "Original full paper/code not reviewed; N:M activated GEMM and error compensation verified by abstract only. Third-party norm/LoRA formula requires primary verification; after-GELU sparsity does not save already-done W1.",
       "reading_depth": "OFFICIAL_ABSTRACT",
-      "method_review": "OFFICIAL_ICML_ABSTRACT_ONLY_SECONDARY_DETAIL_PENDING",
-      "code_review": "NOT_CHECKED"
+      "method_review": "ICML_OFFICIAL_ABSTRACT_AND_AUTHOR_PUBLIC_COMMENT; METHOD_PDF_NOT_READ",
+      "code_review": "NOT_CHECKED",
+      "graph_anchor": [
+        "K13",
+        "K14",
+        "K15"
+      ],
+      "graph_method_reference": "research/literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md",
+      "source_tier_20261027": "ICML_PRIMARY_ABSTRACT_AUTHOR_POST__METHOD_PDF_UNREAD"
     },
     {
       "id": "L09",
@@ -160,14 +167,22 @@
       "url": "https://arxiv.org/abs/2506.03275",
       "model": "DiT image/video incl. Wan2.1",
       "observed_mechanism": "Sparse inter-step change of MLP and attention scaled value vectors; voxel reorder",
-      "decision_time": "previous-step cached activation/output plus current reduced-token blockmean passed through fc1; topk mask on blockmean activation difference",
+      "decision_time": "same-expert old MLP cache + current blockmean→fc1 predictor + sparse mm1/delta and W2 scatter-add",
       "physical_action": "column sparse delta GEMM and cache",
       "training": "training free",
       "wan_specific_discriminator": "Original MLP implementation computes blockmean-W1 to choose mask and uses a separate >=10-step mask-cache reuse condition. Original Wan2.1 long-step performance is not four-step Wan2.2 evidence.",
       "reading_depth": "AUTHOR_TECHNICAL_BODY",
-      "method_review": "AUTHOR_METHOD_AND_ORIGINAL_GITHUB_MLP_CODE",
+      "method_review": "AUTHOR_MLP_SOURCE_LEVEL_REVIEW_WITH_GRAPH_EXECUTION_ANCHORS",
       "code_review": "FOUR_MLP_SOURCE_FILES_READ_NOT_RUN",
-      "method_note": "research/literature/20261026/CHIPMUNK_SOURCE_READING.md"
+      "method_note": "research/literature/20261026/CHIPMUNK_SOURCE_READING.md",
+      "graph_anchor": [
+        "K24",
+        "K25",
+        "K26",
+        "K27"
+      ],
+      "graph_method_reference": "research/literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md",
+      "source_tier_20261027": "AUTHOR_CODE_AND_METHOD_PRIOR_REVIEW"
     },
     {
       "id": "L10",
@@ -178,13 +193,21 @@
       "url": "https://openaccess.thecvf.com/content/ICCV2025/html/Zheng_Dense2MoE_Restructuring_Diffusion_Transformer_to_MoE_for_Efficient_Text-to-Image_Generation_ICCV_2025_paper.html",
       "model": "FLUX DiT",
       "observed_mechanism": "Preserves total FFN capacity while selecting activated experts and blocks",
-      "decision_time": "learned router",
+      "decision_time": "offline Taylor split + expert distill; token runtime shared/topK normal; AdaLN conditioned contiguous MoB block selection",
       "physical_action": "subset of FFN experts and blocks",
       "training": "multi-stage distillation",
-      "wan_specific_discriminator": "MoE+MoB conditional capacity is learned by multi-stage distillation; original high/low Wan denoisers are not per-token internal MoE. Detailed router/loss require original full method check.",
+      "wan_specific_discriminator": "MoB selects contiguous κ blocks in group; token MoE router and distillation learned from FLUX T2I, not existing Wan high-low denoisers; deployment dispatch and HiF4 scale costs not measured.",
       "reading_depth": "OFFICIAL_ABSTRACT",
-      "method_review": "OFFICIAL_ICCV_ABSTRACT_PRIMARY_EXCERPT_SECONDARY_DETAILS_PENDING",
-      "code_review": "NOT_CHECKED"
+      "method_review": "PRIMARY_ARXIV_V1_METHOD_EQ1_TO_10_READ",
+      "code_review": "NOT_CHECKED",
+      "graph_anchor": [
+        "K16",
+        "K17",
+        "K18",
+        "K19"
+      ],
+      "graph_method_reference": "research/literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md",
+      "source_tier_20261027": "ARXIV_V1_PRIMARY_METHOD_EQ1_TO_10"
     },
     {
       "id": "L11",
@@ -644,11 +667,20 @@
       "url": "https://openaccess.thecvf.com/content/CVPR2026/html/Chen_Forecast_the_Principal_Stabilize_the_Residual_Subspace-Aware_Feature_Caching_for_CVPR_2026_paper.html",
       "model": "FLUX and HunyuanVideo",
       "observed_mechanism": "Principal subspace smooth and predictable but low-energy residual temporally oscillatory; EMA principal, cache residual",
-      "decision_time": "offline one-time SVD and previous feature cache",
+      "decision_time": "offline reference-prompt SVD basis; on full-step refresh project full feature F, EMA predict rank-k and reuse residual for skipped future steps",
       "physical_action": "feature subspace forecasting/reuse",
       "training": "training free",
-      "wan_specific_discriminator": "Competes directly with any claim that low-energy FFN modes can be omitted without temporal consequence; announced GitHub repo essentially empty in checked snapshot",
-      "reading_depth": "OFFICIAL_CVPR_ABSTRACT_AND_GITHUB_METADATA"
+      "wan_specific_discriminator": "Original SVD decomposes block feature, not FFN error Fourier bands; low-energy residual is reused rather than discarded; requires same-layer/expert history and full refresh.",
+      "reading_depth": "OFFICIAL_CVPR_ABSTRACT_AND_GITHUB_METADATA",
+      "graph_anchor": [
+        "K20",
+        "K21",
+        "K22",
+        "K23"
+      ],
+      "graph_method_reference": "research/literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md",
+      "source_tier_20261027": "ARXIV_V1_PRIMARY_METHOD_EQ4_TO_11",
+      "method_review": "PRIMARY_ARXIV_V1_METHOD_EQ4_TO_11_READ"
     },
     {
       "id": "L40",
@@ -867,5 +899,11 @@
     "document": "research/literature/20261026/PRIMARY_PAPER_GRAPH_MAPPING_20261027.md",
     "graph": "docs/98_端到端计算图与证据注解_20261025.md",
     "scope": "SOURCE_TIERED_LITERATURE_BRANCH_ONLY"
+  },
+  "g8_primary_method_update": {
+    "document": "research/literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md",
+    "ledger": "research/literature/20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json",
+    "node_count": 15,
+    "new_model_runs": 0
   }
 }

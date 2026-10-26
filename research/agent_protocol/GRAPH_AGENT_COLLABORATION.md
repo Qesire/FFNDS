@@ -1,3 +1,5 @@
+**G8论文执行路径扩展（2026-10-27）**：[四组原始论文方法与源码比照](../literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)加入K13–K27的N:M激活、共享/TopK专家及连续MoB、SVD主/残差缓存和MLP稀疏增量；G7仍是step、frame、width和activation spectrum。所有K节点均LIT，不授予新原生算子执行权限；新增文献要求节点、数学、真实数据时点、训练成本、跨模型变更和可用证据同步更新。
+
 **G7外部论文同步协议（2026-10-27）**：[论文原始方法](../literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)和[计算图](../../docs/98_端到端计算图与证据注解_20261025.md)的节点K01–K12为LIT。研究者读原文后应同步修改图、论文证据等级、实际数值时点和下游消费者；原Wan的G0–G5实线只由本项目源码/原生执行证据更新。
 
 # FFNDS · 科研 Agent × 源码计算图双向协作协议

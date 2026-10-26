@@ -1,3 +1,5 @@
+**New source-to-compute extension (2026-10-27):** [G8 four primary/author-source flow audits](../../../research/literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md) and [source-tier ledger](../../../research/literature/20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json). Dense2MoE original v1 Eq1-10: trained shared+TopK normal experts and CONTIGUOUS MoB block window conditioned on AdaLN embeddings; SVD-Cache original v1 Eq4-11: cached offline V, full-feature refresh projection, rank-k EMA and reuse (not delete) residual. RT-Lynx official PDF method is still unverified; author post confirms N:M+compensation, don't invent code details. Chipmunk blockmean→partial fc1 mask decision and sparse MM1/MM2 costs are prior author-code evidence. Extend G8 K13-27 and competition matrix as new papers arrive; preserve paused model/GPU state.
+
 ---
 name: ffnds-paper-discovery
 description: Automatically apply AutoResearcher mechanism discovery, mathematical reformulation and evidence-grounded science to FFNDS video FFN research.

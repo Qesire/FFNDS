@@ -1,3 +1,5 @@
+**外部文献不混入原生实验的最新映射（2026-10-27）：** [G8 15个论文节点与四机制直接对照](literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)；Dense2MoE是训练后的FFN专家及连续MoB而非本Wan原high/low，SVD-Cache在full feature refresh之后复用低能量残差，Chipmunk跨step系数增量，RT-Lynx当前输入N:M。G8全部是LIT，不是本Wan新实测。ACTIVE已完成十来源采集并按用户要求暂停，研究图只提供科学对照和后续待验证关系。
+
 # FFNDS · 实验发现谱系、机制分类与对照矩阵
 
 **2026-10-27 completed fresh replication:** [4project-new identities/6nested seed paths/12videos/960sites](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md):942smaller/6equal/12larger; source425 changes all three post-initial cross signs between seed42/54, source437step2/3 has beneficial finite one-step N+cross despite large divergent trajectory. Together with6exposed sources there are10identities/12paths/1,920nested sites. Formal quality remains NOT_RUN; user finish-then-pause is serialized in ACTIVE and all model jobs exited.

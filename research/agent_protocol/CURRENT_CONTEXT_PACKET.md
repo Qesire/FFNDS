@@ -1,3 +1,5 @@
+**2026-10-27 G8研究已入图**：[4篇源级逐公式计算流](../literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)对应K13–K27；Dense2MoE首次核实Eq1–10与连续MoB、SVD-Cache核实Eq4–11的refresh特征投影与residual复用，Chipmunk按作者原MLP源码映射，RT-Lynx仅原始摘要与作者说明。用户先前要求完成原生批次后暂停，ACTIVE中状态为E0_OPEN_DISCOVERY_PAUSED_BY_USER；本轮仅文献与静态索引，不恢复GPU。
+
 **最新一手文献图（2026-10-27）：** [原始PDF Eq审查](../literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)、[G7 K01-K12](../../docs/98_端到端计算图与证据注解_20261025.md)。DIFS的8-channel训练mask与FIS的Gather/插值/完整fallback已经核对；论文T2V≠本I2V，最新FIS v2尚未审查。新论文必须同步计算图。
 
 ***Mechanism-first current science update (2026-10-26):*** [frontier/practice literature audit](../20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md) sets FFN redundancy, functional roles, online-available signals and physically realizable transformations as the first question. The existing signed/full-flow/SSE/Fourier data analyze Affine54 failure; they do not define the next method's objective. Additional registered sources are a scoped hypothesis-validation resource, not automatic execution.

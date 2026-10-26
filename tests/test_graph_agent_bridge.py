@@ -67,6 +67,17 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertTrue(path["edges"])
         self.assertIn("not proof", path["warning"])
 
+    def test_literature_g8_preserves_paper_execution_boundaries(self):
+        kinds = {n["id"]: n["evidence_type"] for n in self.registry["nodes"]}
+        for i in range(13, 28):
+            self.assertEqual(kinds[f"K{i:02d}"], "LIT")
+        self.assertIn("G8", self.registry["graph_roles"])
+        self.assertEqual(self.registry["literature_mapping_v2"]["gpu_executions"], 0)
+        for pair in [("K13", "K15"), ("K16", "K19"), ("K20", "K23"), ("K24", "K27")]:
+            result = trace(self.registry, *pair)
+            self.assertTrue(result["edges"])
+            self.assertIn("not proof", result["warning"])
+
     def test_unregistered_discovery_needs_curator(self):
         with self.assertRaises(SystemExit):
             inspect(self.registry, "F99")

@@ -1,3 +1,5 @@
+**2026-10-27 G8 最新文献—计算图同步**：[RT-Lynx/Dense2MoE/SVD-Cache/Chipmunk一手方法、真实信息时点及原Wan FFN节点](literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)；[机器证据账本](literature/20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json)将原PDF/作者公开说明/先前代码审查区分。当前G7+G8共27个外部论文节点，原生执行仍暂停。
+
 **计算图与一手论文同步（2026-10-27）：** [DIFS/FIS原文方法](literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)已绑定[G7计算图](../docs/98_端到端计算图与证据注解_20261025.md)，保留SRC/LIT区别。其它文献后续需要依相同形状、信息时点与真实操作落图。
 
 # FFNDS research navigation
