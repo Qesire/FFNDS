@@ -1,6 +1,6 @@
 # E0 · 新配对采集入口的严格视频身份与覆盖检查
 
-针对最新[门禁偏移审计](E0_TRACKING_RESULT_AND_DRIFT_AUDIT_20261026.md)的两个缺口，新增[严格检查层](../../tools/ffnds_paired_video_strict_gate.py)，并接入新双轨入口。**旧v1视频报告、旧门禁及已执行协议均保持原字节**；本结果仅是新入口的软件改进，不把历史核心gate追认为具备这些语义检查。
+针对最新[门禁偏移审计](E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)的两个缺口，新增[严格检查层](../../tools/ffnds_paired_video_strict_gate.py)，并接入新双轨入口。**旧v1视频报告、旧门禁及已执行协议均保持原字节**；本结果仅是新入口的软件改进，不把历史核心gate追认为具备这些语义检查。
 
 `STRICT_BUNDLE.json`绑定原`BUNDLE.json`及独立`NATIVE_RUN.json`的SHA。严格层先调用未改的核心gate，再从原生回执的teacher/student两视频清单核对实际路径、SHA、目录中全部MP4及bundle覆盖集合。降低expected_video_count或漏注册一条视频不能通过。每个配对视频都必须保留真实dense reference/reference_identity，删除引用也不能跳过检查。
 
