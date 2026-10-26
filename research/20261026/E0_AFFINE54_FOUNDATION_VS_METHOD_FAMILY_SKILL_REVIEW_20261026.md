@@ -2,6 +2,8 @@
 
 > 2026-10-26｜AutoResearcher v2.4 方法审查与科研路由。审查前仓库基线 `30806238b156f1db1223f280a13a5f491d1e6e9e`。**本文件为源码/数学/已冻结实验的二次判断，不是新实验、正式独立同行认可或新算子推荐。** 当前仍为 `E0_OPEN_DISCOVERY`，不追加GPU/模型/新生成授权，实时G6仍暂停。
 
+**并行实验登记更新（本审查完成前）**：另一工作线随后在 `ACTIVE_RESEARCH.json` 将原生双轨采集器更新为“软件已实现/验证、原生尚未测量”，并依据另一次明确指令登记了**唯一固定 `E0_PAIRED_FULL_DEPTH_NATIVE_20261026_V2` 授权范围**（对应 `config/e0_paired_full_depth_20261026_v2.json`）。截至读取该状态，0/160原生双轨site、范围状态 `AUTHORIZED_NOT_STARTED`、3项待办。它不是已测机制结果，不授权新的参数选择、训练或自动扩展；实际执行状态以后续活动状态和原始RUN为准。本科学评议自身不提交GPU或模型调用。
+
 ## 0. 经过的 Skill 路径与审查纠正
 
 已读取本仓库绑定的 [AutoResearcher 源manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，以及 `mechanism-research`、`problem-reformulation`、`research-expansion`、`web-research-discovery` 四个实际 skill；按 **NOTICE → MAP_FLOW → DERIVE → EXPAND → DISCRIMINATE → RECORD**、**OPEN → TRANSFORM → FIND FREEDOM → PREDICT → GROUND** 和 **evidence→counterexample→minimal decision-changing check** 复查。仅修改科学判断与路由，不把技能的使用本身当作方法有效性的证据。
@@ -12,7 +14,7 @@
 
 ## 1. 源码对象与数学关系：精确性究竟在哪
 
-实测对象为 Wan2.2 I2V 四步蒸馏版，两个expert（high/high/low/low），(D=5120)、(H=13824=216\times64)，LightX2V Wan FFN调用点保留原调用者的norm/condition modulation、tanh-GELU、gate、残差与真实QDQ→BF16执行。审查来源： [原生六视频](E0_RECONSTRUCTED_VIDEOS.md)、[全40层匹配回归](E0_ALL_BLOCK_RECONSTRUCTION.md)、[折叠公式及有限原生](E0_FUNCTION_RECONSTRUCTION.md)、[原生/连续边界审计](../method_discussion/discoveries/E0/independent-matched-calibration-and-runtime-audit-20261026.md)。
+实测对象为 Wan2.2 I2V 四步蒸馏版，两个expert（high/high/low/low），\(D=5120,\ H=13824=216\times64\)，LightX2V Wan FFN调用点保留原调用者的norm/condition modulation、tanh-GELU、gate、残差与真实QDQ→BF16执行。审查来源： [原生六视频](E0_RECONSTRUCTED_VIDEOS.md)、[全40层匹配回归](E0_ALL_BLOCK_RECONSTRUCTION.md)、[折叠公式及有限原生](E0_FUNCTION_RECONSTRUCTION.md)、[原生/连续边界审计](../method_discussion/discoveries/E0/independent-matched-calibration-and-runtime-audit-20261026.md)。
 
 1. **实数级 tanh-GELU 身份（ALG）：** `phi(a)=a/2+e(a)`，`e(-a)=e(a)`。其依据是tanh近似的内部多项式为奇函数；[GELU原作者实现](https://github.com/hendrycks/GELUs/blob/master/README.md)写明该tanh表达。这只证明激活函数的代数分解，不证明经过Smooth2、Q2量化/反量化、BF16舍入后仍满足该分解。
 2. **任意系数的完整残差恒等式（ALG）：** 对**实际post-Q2系数** `q(a)`，定义 `r(a)=q(a)-kappa*a-beta`，则 `q(a)=kappa*a+beta+r(a)` 总成立；保留所有组的 `r` 只是重写原函数，并未省算。真正的Approx从「仅付费求选中组的原非线性Q1/Q2」以及重新拟合读出和偏置开始；静态其他组残差没有精确保留。
@@ -79,7 +81,7 @@
 2. **结论裁剪**：拒绝把两段视频当作总体统计、把最小SSE直接排名成画质、把flow proxy当主体运动真值、把平均数遮住中间层单案例24.86%最大误差。
 3. **前缀/费用**：`q2_post`而非`GELU_preQ2`是W2输入；所需observer的全W1/GELU代价、FP4格式依赖与native BF16 bank不免费；保存的teacher panel≠student自然轨迹。
 4. **保持计算图状态**：G5/P22属于VIDEO失配与已测速度，P23/P24属于OPEN测量，P25属于POLICY，G6实时暂停。图的标签不是原生执行记录。
-5. **当前授权**：新GPU/模型/视频/训练=NONE。现有六视频完整核心分析已结束，正式质量仍未验收。行为改进以更多科学辨识力为目标，非自动把Prompt拉长。
+5. **授权与执行分离**：本Skill复审本身不产生实验授权。仓库另行登记了严格绑定协议SHA的 `E0_PAIRED_FULL_DEPTH_NATIVE_20261026_V2` 有界原生采集授权，**登记≠已运行，原生结果仍未取得**；它不准自动重试、继续实验或训练。六旧视频的核心补评已结束、正式质量未验收。当前执行状态始终以最新 `ACTIVE_RESEARCH.json` 与原生RUN为准。
 
 ## 6. 现在应当如何回答“基础不对还是整个思路不可行？”
 

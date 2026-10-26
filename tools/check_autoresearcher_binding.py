@@ -267,8 +267,9 @@ def main():
     ensure(stage.get("video_quality_evidence_contract", {}).get("metric_report_required_for_new_videos") is True
            and stage.get("full_depth_trajectory_analysis", {}).get("sites_per_video") == 160
            and fixed_depth_scope_is_registered(active)
+
            and stage.get("new_experiment_authority") == "NONE",
-           "Video evidence or full40x4 trajectory scope drifted / silently authorized GPU work")
+           "Video evidence, bounded paired-native v2 scope or full40x4 trajectory coverage drifted")
     ensure({n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P23") == "OPEN"
            and {n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P24") == "OPEN"
            and {n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P25") == "POLICY",

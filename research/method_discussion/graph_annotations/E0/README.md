@@ -1,5 +1,7 @@
 # E0 · Agent 与 G0–G5 计算图关联的研究注解
 
+**最新 Skill 评议范围说明（2026-10-26）**：[Affine54 原型失败与方法族开放性的图锚点](E0_AFFINE54_FAMILY_SCOPE_REVIEW_20261026.json)绑定P21/P22已测局部函数与视频失配、P23/P24未执行的原生双轨与传播、P25质量政策。该claim为`PROPOSED`、不是独立认可或实测因果边；不将局部SSE不足以验收视频误写为其导致本次失败，也不指派恢复54组为默认科研任务。权威解释文档见[Skill复审](../../../20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md)。
+
 **最新方向入口**：[全层非线性/affine与dense权重常驻的竞争机制再审](../../../20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)。G5的P15–P18分别保存OBS、OBS、SYS和ALG证据；各Agent可研究视频下游、空间/时间新函数单位或不依赖affine的原生省算，计算图用于查证和回填而不是规定科学问题。
 
 当前 Agent 每次**实质性 FFN 科学研究**都应使用 [图↔Agent协作协议](../../../agent_protocol/GRAPH_AGENT_COLLABORATION.md) 与 [稳定节点索引](../../../agent_protocol/GRAPH_AGENT_BINDINGS.json)。图的原始来源为 [G0–G4](../../../../docs/98_端到端计算图与证据注解_20261025.md)。
