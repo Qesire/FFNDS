@@ -1,10 +1,10 @@
 # E0 · 当前唯一研究任务：从最新证据发现新的 FFN 条件计算机制
 
-**当前阶段：`E0_OPEN_DISCOVERY`**。**最新科学证据和任务再审**：[全层affine/奇偶机制/强dense基线与研究空间](E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)。40层旧导数/局部affine与原生权重常驻研究已完成；新的任务必须从这些结果提供的开放解释出发，而不以当前folding或共享列当作必选算子。科学纲领：[FFN 本征计算](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)；最新独立审查：[分歧与探索空间](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；原始数据：[完整hidden](E0_INTRINSIC_FULL_HIDDEN.md)、[连续token / 前置选择](E0_SHARED_TILE_PRE_W1.md)、[K1–K5更新](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)；授权与唯一状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
+**当前阶段：`E0_OPEN_DISCOVERY`**。**最新完整视频证据与任务再审**：[六视频质量失败后的机制判别](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)、[486帧后验核心指标补评](../20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md)、[全深度软件工具及原生未执行边界](../20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)。**历史方法证据**：[全层affine/奇偶机制/强dense基线与研究空间](E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)。40层旧导数/局部affine与原生权重常驻研究已完成；新的任务必须从这些结果提供的开放解释出发，而不以当前folding或共享列当作必选算子。科学纲领：[FFN 本征计算](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)；最新独立审查：[分歧与探索空间](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；原始数据：[完整hidden](E0_INTRINSIC_FULL_HIDDEN.md)、[连续token / 前置选择](E0_SHARED_TILE_PRE_W1.md)、[K1–K5更新](E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)；授权与唯一状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
 
-**最新用户范围（2026-10-26）**：实时/交互式流式生成方向暂时暂停。下面的场景介绍只保留历史文档，不指派Agent继续研究。唯一当前焦点：解释 affine54 原生计算、完整视频质量损失，以及用现有证据对部署数值、前缀离轨、下游有符号传递与四步轨迹竞争解释做可区分的验证。
+**最新用户范围（2026-10-26）**：实时/交互式流式生成方向暂时暂停。下面的场景介绍只保留历史文档，不指派Agent继续研究。当前实验判别重点是解释已失败的 affine54 原生计算与完整视频损失，区分部署数值、学生前缀离轨、下游有符号传递与四步轨迹；与此同时，FFN必要计算的开放机制探索继续涵盖新的函数单位、时空组织、可得信息和物理执行方案，不以修补 affine54 作为唯一研究任务。
 
-## 2026-10-26：最新全模型证据与并列的实时场景
+## 2026-10-26：最新离线全模型证据与暂停的历史应用场景
 
 **最新方向审查**：[六视频原生替换失败后的机制判别与双场景定位](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)，[六条视频及真实成本报告](../20261026/E0_RECONSTRUCTED_VIDEOS.md)；**附加实时场景**：[真实在线时延与因果状态问题](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)。
 
@@ -12,13 +12,13 @@
 
 **当前主要科学问题**是辨别三类真正不同的原因：①实际160个部署bank是否在**同一输入**上额外引入数值/量化误差；②旧teacher前缀上的局部FFN误差能否迁移到新student前缀；③原生gate/residual、后续attention与四步scheduler如何传递并放大某些有符号误差。每种机制应有精确、可区分的最小对照，并与其它函数表示/时空重组/少量后训练等自主探索并行，不默认继续对affine或group64做局部优化。
 
-**附加而非替代的应用场景：实时、交互式流式生成。** 当前81帧约45秒属于offline整段延迟；它未测试time-to-first-frame、逐帧deadline、p95/p99抖动、causal/rolling历史、跨chunk长期漂移。原四步同expert历史不能自动作为流式KV/cache的合法证据。新G6图层全部是OPEN条件研究，Agent先从真实目标streaming源码和SLO定义重建其计算流，再问FFN何时必须重算/可以跨帧复用。**当前唯一E0主目标仍是有视频质量条件的真实FFN必要计算减少，不选定新模型，不自动启动实验。**
+**实时/交互式流式生成：历史记录，当前暂停。** 相关概念与OPEN节点留在G6以保存探索沿革；本阶段不指派源码检索、时延/SLO调查或实时生成算法任务。当前E0主目标为离线Wan视频质量约束下的真实FFN必要计算减少，不预选算子或新模型，不自动启动实验。
 
 ## 2026-10-26 新的全局实验质量要求：全视频完整指标 + 全深度真实受扰前缀
 
 **当前最优先规则**：[每视频必有SHA绑定的全帧指标包、全40层×四步误差传播政策](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)；[冻结前诊断模板](../../config/e0_full_depth_quality_discriminator_TEMPLATE_20261026.json)。上一轮已经在全部160处真正替换FFN并生成六视频，但完整视频质量不佳。**仅block0、block30做过有限partial-native单层对照**（block30不是末层39）；全40层8.54%是teacher保存输入的采样误差，未测受扰前缀all-site误差，均不足以归因全模型画质。
 
-每次新的dense/candidate/对照/失败视频都要有完整的逐视频报告，不允许只给MP4、局部SSE、FFN加速或若干抽帧。至少绑定生成源码和视频SHA、逐帧解码、RGB/encoded-luma、细节代理、相邻帧变化、真实运动/静态区域观测、full wall/FFN/预载/显存；正式VBench-I2V/人工审阅未运行则明确为PENDING，**不得质量验收**。指标工具 `tools/ffnds_video_metrics.py`，多视频门禁 `tools/ffnds_video_metric_gate.py`。历史六视频未补的指标是缺项，不得虚称完整。
+每次新的dense/candidate/对照/失败视频都要有完整的逐视频报告，不允许只给MP4、局部SSE、FFN加速或若干抽帧。至少绑定生成源码和视频SHA、逐帧解码、RGB/encoded-luma、细节代理、相邻帧变化、真实运动/静态区域观测、full wall/FFN/预载/显存；正式VBench-I2V/人工审阅未运行则明确为PENDING，**不得质量验收**。指标工具 `tools/ffnds_video_metrics.py`，多视频门禁 `tools/ffnds_video_metric_gate.py`。历史六视频已另行冻结全486帧、480帧间对的CPU核心指标补评（光流/细节/运动补偿亮度等），原报告保持不变；其中四个候选报告的参考模型身份字段存在已登记的勘误。正式VBench-I2V、语义背景稳定性与人工完整审阅尚未完成，**不能将工程核心指标齐备等同于正式质量验收**。
 
 对宣称适用于所有FFN Block的机制，诊断必须覆盖每来源四步每步40层的**真实学生前缀**。同一个FFN输入上测dense/近似输出，同时区分由于之前层被替换引起的输入改变；记录门控后、block后误差和四步flow/latent中有符号误差及交叉作用。先全160轻量迹线，再按冻结分层依据选择多处混合原生后缀干预，不能用首/末或仅两个Block的局部测试概括全网；分层需兼顾source、expert、step、运动/背景。仍允许其他新函数/计算构造，不能把“做更复杂Affine54”当成唯一方案。
 
