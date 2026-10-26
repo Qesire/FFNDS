@@ -18,6 +18,8 @@ P=T_D(z_S)-T_D(z_D),\quad N=T_S(z_S)-T_D(z_S),\quad \Delta'=P+N.
 \]
 也保留 \`||Π_BΔ||²\` 以明确输入状态偏移；此分解对已测有限state对成立，不声称全局Jacobian或者将某一方向认作终端画质因果。先前20个嵌套累积mask只有经差集改为互斥频带后才能相加，推荐固定DC、低频非DC、中频新引入、其余高频；报告每个band的P、N、signed cross和剩余频段。**latent的21个时间位置不是81帧视频，频谱低频不是主体/背景的语义标签。**
 
+**新的互斥频带实测归约**：[两来源8个step的有符号band拆分](E0_DISJOINT_SIGNED_BANDS.md)直接将原嵌套mask变成可加子空间。两个source在动态空间低频、剩余高频的signed交叉项有不同方向，可作为新source预登记预测。
+
 ## Source 扩展：第一批6个，第二批10个以上
 
 依据已核验 [六来源原生回执](../20261025/E0_NATIVE_OBSERVATIONS.json)，固定来源 \`[0,4,8,12,16,20]\`（实际类别：3 subject、3 background、0 camera），源SHA和seed见计划JSON。当前Native覆盖0和12，每来源160个site，故已测320；新增4/8/16/20可把同一固定bank的全深度测量扩展至**6×160=960个site**（新增640），预计新增**8条完整Dense/candidate视频**。这些都是**拟议预算，当前新运行计数为零**。原4/8/16/20已参与Affine54参数校准，因此只能用于已暴露source稳健性复验，**不属于独立held-out视频泛化测试**。
