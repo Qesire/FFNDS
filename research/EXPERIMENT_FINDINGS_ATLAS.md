@@ -224,3 +224,11 @@
 ## 2026-10-26：E40 原dense在候选状态上的有限响应与来源相关交叉符号
 
 [完整原生固定v1](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)：两来源8个状态对、6个非零偏移，完整dense单步能量增益3.63–7.72；来源0候选交叉项为负，来源12为正，候选净效应均为正。*NATIVE-OBS*，状态由候选历史产生，结果不确定最早根因、全局Jacobian或dense恢复序列；增益不能相乘。全部16历史latent、24次CPU原生更新及8状态包通过，0新视频。16通道偏置+flow/latent两个全局尺度的固定状态oracle仍留下60.20%–71.14%理想SSE；数值投影不作严格家族排除。下一廉价判别是已存末步dense反事实的VAE视频桥；独立向量曲线CPU可行性保持另一探索线。P24实测finite-map边，因果机制OPEN，P25画质未验收。
+
+## 2026-10-26：E41–E43 独立函数坐标、频带几何与末步视频反事实
+
+| 知识ID | 新证据 | 解释及下一竞争预测 |
+| --- | --- | --- |
+| **E41 原权重共享曲线** | [固定四簇/16坐标CPU](20261026/E0_VECTOR_CURVE_CPU_FEASIBILITY.md)：最近邻cos .084–.151，簇误差34–89%，signed/diag约1 | *CPU-OBS/连续*。一个block/四anchors，限制原权重共线构造；输入流形仍OPEN。[同rank函数空间澄清](method_discussion/discoveries/E0/independent-curve-basis-identifiability-clarification-20261026.md)防止15列vs4列的样本内容量混杂。F04/F06/F09/P14 |
+| **E42 有符号状态频谱** | [8状态/160频带](20261026/E0_SAVED_FLOW_SPECTRUM.md)：4.79%周期谱维数含末态误差53–70%；来源0该band cross增强、全域相消 | *POSTHOC-NATIVE-GEOMETRY*。矩形band累积不相加、周期边界及latent时间明确；完整偏移上的band能量比含跨带传递，不是孤立band增益或普遍低频优先放大。P24 |
+| **E43 末步完整dense的视频桥** | [四VAE新视频](20261026/E0_SAVED_FLOW_DECODE_RESULTS.md)：两dense控制MP4 exact；末步dense使来源0/12 RGB RMSE下降0.45%/13.58%，后者时序下降15.80% | *VIDEO-OBS*。0新增denoiser/FFN，但4次VAE/324帧；运动/细节/luma收益不一致，来源0运动仍弱。只识别S,S,S,D宏干预，官方/人工NOT_RUN、qualityfalse，未选方法。P24→G21/D09/P25 |

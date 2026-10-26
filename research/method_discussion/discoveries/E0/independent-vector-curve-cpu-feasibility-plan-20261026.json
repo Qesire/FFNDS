@@ -1,0 +1,161 @@
+{
+  "id": "E0_VECTOR_CURVE_CPU_FEASIBILITY_20261026",
+  "status": "PREPARED_NOT_NUMERICALLY_EXECUTED_PENDING_ROOT_REGISTRATION",
+  "block": 10,
+  "expert": "high_noise_model",
+  "sources": [
+    0,
+    12
+  ],
+  "steps": [
+    0,
+    1
+  ],
+  "anchors": [
+    0,
+    4607,
+    9215,
+    13823
+  ],
+  "neighbors": 3,
+  "selection": "Same four fixed clusters on all cases; absolute cosine of original decoded BF16 W1 rows; signed alpha=<wi,wrep>/||wrep||^2; ties by ascending neuron ID; other representatives excluded; neighbor overlap allowed",
+  "rows_per_case": 32,
+  "saved_fields_BF16": {
+    "q1_post": [
+      48,
+      5120
+    ],
+    "z": [
+      48,
+      13824
+    ],
+    "gelu": [
+      48,
+      13824
+    ],
+    "q2_pre": [
+      48,
+      13824
+    ],
+    "q2_post": [
+      48,
+      13824
+    ],
+    "gate": [
+      1,
+      5120
+    ],
+    "b1": [
+      13824
+    ],
+    "ffn_output": [
+      48,
+      5120
+    ]
+  },
+  "hf_root": "/home/xiang/.cache/huggingface",
+  "weight_shard_sha256": "a5f243260406301c4b82b402e1781108dd639d45b3ec424335d0c007aa065e2d",
+  "weight_geometry": {
+    "W1": [
+      13824,
+      5120
+    ],
+    "W2": [
+      5120,
+      13824
+    ],
+    "weight_dtype": "torch.bfloat16 as written by original rebuild source; runtime checks required",
+    "Smooth2": [
+      13824
+    ],
+    "smooth_dtype": "torch.float32 in original rebuild source; promoted FP64 for this analysis"
+  },
+  "weight_access": "Exact original one-block torch.save ZIP shard; CPU weights_only mmap; no merged-cache load, reconstructed byte identity or model loader",
+  "canonical_output": "/home/xiang/.cache/huggingface/ffnds-derived/e0_vector_curve_cpu_feasibility_20261026/attempt1",
+  "max_cpu_threads": 1,
+  "max_RSS_bytes": 2147483648,
+  "max_wall_seconds": 120,
+  "max_output_bytes": 1048576,
+  "max_CPU_matmul_MAC": 346030080,
+  "CPU_matmul_budget": {
+    "weight_neighbor_search_MAC": 283115520,
+    "max_selected_W1_replay_MAC": 10485760,
+    "five_readout_projections_per_cluster_MAC": 52428800,
+    "max_numpy_matmul_calls": 74,
+    "norm_and_metric_reductions": "additional elementwise FP64 work; about70.8M W1 squares plus fixed small panels; not GEMM-free"
+  },
+  "native_QDQ_calls": 0,
+  "GPU_calls": 0,
+  "model_calls": 0,
+  "fits": 0,
+  "new_bank": false,
+  "automatic_retry": false,
+  "quality_accepted": false,
+  "reference_domains": [
+    "continuous tanh-GELU on FP64 q1 x BF16-decodedW1+bias",
+    "same signed cluster on one representative projection with raw-weight alpha and original per-neuron bias",
+    "saved Q2-only coefficient remainder q2_post-q2_pre projected through actual BF16-decodedW2",
+    "preQ2-vs-continuous remainder includes original W1/GELU/Smooth casts; separate from Q2-only"
+  ],
+  "signed_metrics": "raw and current_gate signed SSE, unsigned diagonal energy, reference/error dot, error/full-nativeFFN dot; partial-cluster bias excluded; no downstream causal interpretation",
+  "bound_sources": {
+    "tools/e0_vector_curve_cpu_feasibility.py": "1c03b1d45312610f303b321a9cd2d6d0c3c33086cb143873a6c2ff127ae039d6",
+    "tests/test_e0_vector_curve_cpu_feasibility.py": "cb92f53487aa20f8af4b7a43c72fc3cb4c68e5300fc333e87176913ded2193b5",
+    "research/20261025/E0_NATIVE_OBSERVATIONS.json": "6bab763310c38f399c57da7106f4d01c1b2800843a4b3fc4f8f6171923df93c5",
+    ".runtime/hif4_rebuilt_cache.json": "d88a614cc57d014bc13c5f35d04643034dda8958b5907a82495795ab6fc79eef"
+  },
+  "inputs": [
+    {
+      "source": 0,
+      "step": 0,
+      "seed": 42,
+      "run_path": "/home/xiang/.cache/huggingface/ffnds-derived/e0_observations_20261025/source00_attempt1/RUN.json",
+      "run_sha256": "871b096277704ae4977ca033cc7619a5cf72375062b12cbf25d73a7a84c319d8",
+      "path": "/home/xiang/.cache/huggingface/ffnds-derived/e0_observations_20261025/source00_attempt1/observed/step0_block10.safetensors",
+      "sha256": "6fcc05ed066d8fe29c10175b77b9a484f01bafdfa174995db286416ce281eb3d",
+      "bytes": 9289896
+    },
+    {
+      "source": 0,
+      "step": 1,
+      "seed": 42,
+      "run_path": "/home/xiang/.cache/huggingface/ffnds-derived/e0_observations_20261025/source00_attempt1/RUN.json",
+      "run_sha256": "871b096277704ae4977ca033cc7619a5cf72375062b12cbf25d73a7a84c319d8",
+      "path": "/home/xiang/.cache/huggingface/ffnds-derived/e0_observations_20261025/source00_attempt1/observed/step1_block10.safetensors",
+      "sha256": "587495c59449e194454a9ed6184552b9933b82d9445ed6adfbd8d70b31a95d75",
+      "bytes": 9289896
+    },
+    {
+      "source": 12,
+      "step": 0,
+      "seed": 54,
+      "run_path": "/home/xiang/.cache/huggingface/ffnds-derived/e0_observations_20261025/source12_attempt1/RUN.json",
+      "run_sha256": "fb49b31abe3e811ab2c26a4607f2a09ef41bf5311136fd21eef25d146b4baa24",
+      "path": "/home/xiang/.cache/huggingface/ffnds-derived/e0_observations_20261025/source12_attempt1/observed/step0_block10.safetensors",
+      "sha256": "d3eb2e79aab056707b1ce8a490f7f9cbbe81df93c5037ac0bc099576859ba8fb",
+      "bytes": 9289896
+    },
+    {
+      "source": 12,
+      "step": 1,
+      "seed": 54,
+      "run_path": "/home/xiang/.cache/huggingface/ffnds-derived/e0_observations_20261025/source12_attempt1/RUN.json",
+      "run_sha256": "fb49b31abe3e811ab2c26a4607f2a09ef41bf5311136fd21eef25d146b4baa24",
+      "path": "/home/xiang/.cache/huggingface/ffnds-derived/e0_observations_20261025/source12_attempt1/observed/step1_block10.safetensors",
+      "sha256": "1870249106c284cfbf1ed5b2ef5ae0a360e02cf6b7f929b09931108054a9a2a4",
+      "bytes": 9289896
+    }
+  ],
+  "executor_readiness": "Metadata-only probe on configured execution worker confirmed exact original block10 shard exists,702797321 bytes,SHA matches frozen cache manifest,torch.save ZIP=true; all four original panels exist with expected9289896 bytes. No torch/tensor/model/GPU/numerical execution in probe. Hash/header preflight remains required on executor.",
+  "executor_metadata_probe": {
+    "kind": "PATH_SIZE_SHA_ZIP_ONLY",
+    "original_shard_bytes": 702797321,
+    "original_shard_sha256": "a5f243260406301c4b82b402e1781108dd639d45b3ec424335d0c007aa065e2d",
+    "private_worker_config_sha256": "62fa4257e6d8c7a80f2545671fa102a344c8404e01493dcef074615c228a7e48",
+    "torch_imported": false,
+    "numerical_work": false,
+    "GPU_initialized": false
+  },
+  "weight_shard_filename": "high_noise_model_block_10.pt",
+  "weight_shard_resolution": "Exact expert=high_noise_model and block=10 record in checksum-bound .runtime/hif4_rebuilt_cache.json; use its original private path and verify fixed filename, original bytes and SHA; no reconstructed shard"
+}

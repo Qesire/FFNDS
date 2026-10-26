@@ -62,6 +62,8 @@
 
 **进一步的保存数据与数学判别**：[原生writeback followthrough](E0_WHOLE_FLOW_COUNTERFACTUAL_PREPARATION.md)也测得318小/2等/0大；实际gate/residual写回没有逆转这一观察。整步应再检查`P=δ−hR`的有限增益与`h²||e||²−2h<P,e>`的signed候选净效应，并单列真实BF16 shadow step_post；同一总流差可对应收缩或扩张的dense响应。独立radial-only理想投影界在source12 step1为555.174>输入474.421，给该一步的单方向校正家族以明确边界。完整flow固定v1现已完成：[八状态对](E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)中六个非零偏移的native dense一步能量增益3.63–7.72；候选整步交叉项来源0为负、来源12为正，净效应均正。状态来自候选历史，有限增益不等于全局Jacobian、根因占比或可相乘的恢复增益。16通道偏置+当前flow/latent两个全局尺度的数值oracle仍留下60.20%–71.14%理想目标SSE，不是形式化家族排除。该轮0新视频；正式画质仍未接纳。另有[共享投影/向量值曲线](../method_discussion/discoveries/E0/independent-signed-neuron-curve-coordinates-20261026.md)作为独立条件表示；其signed差分及Q2多变量闭包是待检验的竞争机制。
 
+**进一步接回完整视频**：[已存末步latent的四次VAE桥](E0_SAVED_FLOW_DECODE_RESULTS.md)两dense控制逐字节一致，来源12末步换dense后RGB/时序误差下降13.58%/15.80%，来源0仅0.45%/2.32%；估计运动幅度、细节比和luma存在异质权衡，正式质量仍未验收。[周期状态频谱](E0_SAVED_FLOW_SPECTRUM.md)显示末态误差在4.79%谱维数内含53–70%能量，且signed cross可在子空间和全域反号；该观察不等于低频统一优先放大或在线可修复。独立[原权重共享曲线CPU](E0_VECTOR_CURVE_CPU_FEASIBILITY.md)所测四簇没有近共线性，曲线误差34–89%；输入流形上的固定预算非线性坐标仍是另一开放机制，下一函数空间比较须匹配rank和样本内容量。
+
 **失败与执行版本追溯**：[v2路径故障](E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)保存两条逐字节相同的DD视频但后处理未留存详细trace，记录其site证据为0；修复后v3在单卡串行完成四视频及320site，16个历史latent指纹匹配，核心全帧/严格身份门禁通过，物理峰值75.01GiB。v3的双轨观察wall包括shadow、诊断GEMM及离线核验费用，**不是候选部署速度**。正式VBench-I2V/VBench2、语义背景及人工全片仍按实际结果NOT_RUN。软件测试与冻结旧RUN各自保持身份；当前资源授权见[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
 
 ## 六、AutoResearcher引导：两条独立而协作的线
