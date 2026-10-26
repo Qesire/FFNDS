@@ -1,0 +1,37 @@
+{
+  "id": "E0_SM120_NVFP4_SOURCE_BUILD_20261026",
+  "status": "PREPARED_COMPILER_ONLY",
+  "source_repository": "https://github.com/NVIDIA/cutlass",
+  "source_revision": "d55f6beeebb6df501a250dc82827db97660f06e0",
+  "source_tag": "v4.3.3",
+  "source_root": "/home/xiang/projects/FFNDS/.runtime/code/cutlass-v4.3.3",
+  "canonical_output": "/home/xiang/.cache/huggingface/ffnds-derived/e0_sm120_fp4_20261026/source_build1",
+  "target": "79a_blackwell_geforce_nvfp4_bf16_gemm",
+  "scope": "Isolated compiler preparation of official SM120 blockscaled NVFP4 GEMM. No executable runs, learned models, saved tensors, numerical study or GPU initialization. Preserve source release; no environment upgrade or global install. Native primitive test requires separate frozen registration.",
+  "max_cpu_jobs": 2,
+  "max_wall_seconds": 900,
+  "max_HF_output_gib": 1,
+  "GPU_calls": 0,
+  "model_calls": 0,
+  "automatic_retry": false,
+  "compiler": "/usr/local/cuda-12.8/bin/nvcc",
+  "compiler_metadata": "Read-only executor query reported CUDA12.8.93 and SM120 hardware; no GPU assigned in compiler scope.",
+  "configure_arguments": [
+    "-DCUTLASS_NVCC_ARCHS=120a",
+    "-DCUTLASS_ENABLE_TESTS=OFF",
+    "-DCUTLASS_ENABLE_EXAMPLES=ON",
+    "-DCUTLASS_ENABLE_TOOLS=OFF",
+    "-DCUTLASS_ENABLE_LIBRARY=OFF",
+    "-DCUTLASS_ENABLE_PROFILER=OFF",
+    "-DCMAKE_CUDA_COMPILER=/usr/local/cuda-12.8/bin/nvcc",
+    "-DCMAKE_BUILD_TYPE=Release"
+  ],
+  "decision": "Check build feasibility before isolated native correctness plus quantize/matmul cost study. Optional physical comparator, not intrinsic MAC reduction or Wan quality result.",
+  "bound_source_files": {
+    "CMakeLists.txt": "6bd2b8aa3d9768bcde0331abe4d7ea73b143229ff6dfd01b16b4fcf7ab9a7760",
+    "CUDA.cmake": "39804836ef76b275902eb68354878dab20805be16c6bd9d63c0862e56c43a4bc",
+    "examples/79_blackwell_geforce_gemm/CMakeLists.txt": "6baf8bab9c160c7d36eeb7ed62a2ccf2724f8cba44f93bc3b362f8a2549d8647",
+    "examples/79_blackwell_geforce_gemm/79a_blackwell_geforce_nvfp4_bf16_gemm.cu": "c4c4db11c85795bdd38c6df294e013b57be54eb5ff8d583281cfb90f6a54295f",
+    "examples/common/helper.h": "0f88bbd3ba35788de4bd0ee9e375f9c896b683b67929083048ee83ecbe05d4fe"
+  }
+}

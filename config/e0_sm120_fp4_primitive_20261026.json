@@ -1,0 +1,76 @@
+{
+  "id": "E0_SM120_NVFP4_PRIMITIVE_20261026",
+  "status": "PREPARED_FIXED_NATIVE_PRIMITIVE",
+  "source_repository": "https://github.com/NVIDIA/cutlass",
+  "source_revision": "d55f6beeebb6df501a250dc82827db97660f06e0",
+  "source_tag": "v4.3.3",
+  "target": "79a_blackwell_geforce_nvfp4_bf16_gemm",
+  "source_build_id": "E0_SM120_NVFP4_SOURCE_BUILD_20261026_V2",
+  "source_build_protocol": "config/e0_sm120_fp4_source_build_20261026_v2.json",
+  "source_build_protocol_sha256": "00ca7eb897bb387272d5c88251f621e4b9ce8b2e7759a108a6ee5a5b1fc43967",
+  "source_build_RUN": "/home/xiang/.cache/huggingface/ffnds-derived/e0_sm120_fp4_20261026/source_build2/RUN.json",
+  "source_build_RUN_sha256": "56130cd6290a393ab9fa1681825e0f17ebacb799a29f7d0680ad8bba122c102e",
+  "binary_relative": "build/examples/79_blackwell_geforce_gemm/79a_blackwell_geforce_nvfp4_bf16_gemm",
+  "binary_sha256": "76d3f50c28c341da27d4c89faac45391aa25b21100ed0261bd9900f4fc6ba5f0",
+  "configure_arguments": [
+    "-DCUTLASS_NVCC_ARCHS=120a",
+    "-DCUTLASS_ENABLE_TESTS=OFF",
+    "-DCUTLASS_ENABLE_EXAMPLES=ON",
+    "-DCUTLASS_ENABLE_TOOLS=ON",
+    "-DCUTLASS_ENABLE_LIBRARY=OFF",
+    "-DCUTLASS_ENABLE_PROFILER=OFF",
+    "-DCMAKE_CUDA_COMPILER=/usr/local/cuda-12.8/bin/nvcc",
+    "-DCMAKE_BUILD_TYPE=Release"
+  ],
+  "canonical_output": "/home/xiang/.cache/huggingface/ffnds-derived/e0_sm120_fp4_20261026/primitive_attempt1",
+  "cases": [
+    {
+      "m": 128,
+      "n": 128,
+      "k": 128,
+      "alpha": 1.0,
+      "beta": 0.0,
+      "iterations": 0
+    },
+    {
+      "m": 128,
+      "n": 256,
+      "k": 512,
+      "alpha": 0.5,
+      "beta": 0.5,
+      "iterations": 3
+    }
+  ],
+  "max_GPU_cards": 1,
+  "max_child_processes": 2,
+  "timeout_seconds_per_child": 120,
+  "automatic_retry": false,
+  "max_HF_output_bytes": 1048576,
+  "private_worker_config_sha256": "4411d3e80fe5d3d83f92329b75346619c33dc1508667a96f8740c111f3e2694b",
+  "seed": "Upstream static uint64 seed=0; host operand random seeds2021/2022/2023/2024/2025",
+  "reserved_GPU_GEMMs": 5,
+  "host_reference_MAC": 18874368,
+  "scope": "Official packed E2M1/FP8-scale inputs, FP32 accumulation and BF16 output; verify exact host TensorEquals and positive norms on two fixed synthetic cases. Not BF16-to-NVFP4 quantization verification, Wan FFN equivalence, matched BF16 timing, intrinsic MAC reduction or video quality.",
+  "graph_nodes": [
+    "F06",
+    "F08",
+    "F09",
+    "F12",
+    "P14"
+  ],
+  "graph_edge_status": "CONDITIONAL_OPTIONAL_PHYSICAL_REPRESENTATION_NOT_WAN_DENSE_EXECUTION_FACT",
+  "quality_accepted": false,
+  "new_videos": 0,
+  "Wan_FFN_calls": 0,
+  "model_calls": 0,
+  "training_updates": 0,
+  "bound_sources": {
+    "tools/run_e0_sm120_fp4_primitive.py": "a46720162e4ebe7ad7f4fa24db44b3f509bf48165877a12e59ef7469b52174db",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "scripts/worker_wait_uuid_idle_exec.sh": "38f055289300e9d52b0e4ee27cb19174e804ba178fad0815ae52f4ab97774a53",
+    "config/worker.env": "0dd88ae89887232dc5c50c1bcbed1a0bbcffb7de0ceeea891ce827452f52de66",
+    "tests/test_e0_sm120_fp4_primitive.py": "661c1a9b8720e1f29c81412727fd4fd8a320bb634c3f49c6707dbcd28b5cab1f"
+  }
+}

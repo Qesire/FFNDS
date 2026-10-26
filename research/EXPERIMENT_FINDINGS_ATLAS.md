@@ -232,3 +232,12 @@
 | **E41 原权重共享曲线** | [固定四簇/16坐标CPU](20261026/E0_VECTOR_CURVE_CPU_FEASIBILITY.md)：最近邻cos .084–.151，簇误差34–89%，signed/diag约1 | *CPU-OBS/连续*。一个block/四anchors，限制原权重共线构造；输入流形仍OPEN。[同rank函数空间澄清](method_discussion/discoveries/E0/independent-curve-basis-identifiability-clarification-20261026.md)防止15列vs4列的样本内容量混杂。F04/F06/F09/P14 |
 | **E42 有符号状态频谱** | [8状态/160频带](20261026/E0_SAVED_FLOW_SPECTRUM.md)：4.79%周期谱维数含末态误差53–70%；来源0该band cross增强、全域相消 | *POSTHOC-NATIVE-GEOMETRY*。矩形band累积不相加、周期边界及latent时间明确；完整偏移上的band能量比含跨带传递，不是孤立band增益或普遍低频优先放大。P24 |
 | **E43 末步完整dense的视频桥** | [四VAE新视频](20261026/E0_SAVED_FLOW_DECODE_RESULTS.md)：两dense控制MP4 exact；末步dense使来源0/12 RGB RMSE下降0.45%/13.58%，后者时序下降15.80% | *VIDEO-OBS*。0新增denoiser/FFN，但4次VAE/324帧；运动/细节/luma收益不一致，来源0运动仍弱。只识别S,S,S,D宏干预，官方/人工NOT_RUN、qualityfalse，未选方法。P24→G21/D09/P25 |
+
+## 2026-10-26：E44 同rank固定非线性函数空间的能力与边界
+
+[固定16坐标/128行oracle](20261026/E0_FIXED_COORDINATE_BASIS_ORACLE.md)：共同constant/affine raw SSE85.50%/65.34%，随机15维75.34%，joint二次45.87%、separable15维42.69%；实际rank均15且良态。*OFFLINE_FUNCTION_CLASS_ORACLE*，样本内LS能力参照，非无拟合泛化；已有四anchor自身非线性与其余12系数的信息尚需区分。Q2前后目标分列，共同raw解按case gate重评不等于共同gated最优。重复anchor导致伪高rank的反例已修复，primary数值rank与expanded敏感性分离。19.31M CPU MAC、0GPU/model/bank/video，未推进全模型多项式部署；F04/F06/F09/P14→实际省算和视频仍conditional。
+
+
+### E45 · 原生 SM120 packed FP4 基元可执行，真实 FFN 成本保持 OPEN
+
+固定 CUTLASS v4.3.3 两个小型 packed E2M1+scale case 原生执行5次GPU GEMM，均通过官方CPU逐元素BF16输出检查；初次utility-header编译失败与修复后独立构建均保留。短进程NVML采样不是精确峰值/完整隔离证明；0 BF16输入量化、Wan FFN、视频或本征MAC减少。下一项判别应核对真实输入的量化/布局/矩乘净成本。见[结果](20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md)。
