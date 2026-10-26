@@ -2,7 +2,7 @@
 
 **版本说明：本文件记录先前静态设计阶段。其后原生采集器已在[paired-native实现](E0_PAIRED_NATIVE_IMPLEMENTATION.md)中完成软件接线，新严格证据层见[paired-v2门禁](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)，另获固定v2范围授权；实际native测量/运行状态必须读取[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)与原生RUN。静态设计时记录的“尚未实现/未授权/零GPU”均仅表示本阶段的历史截面，不代表当前状态。**
 
-本阶段交付两个静态软件工具：[有符号向量账本](../../tools/e0_full_depth_trace_contract.py)与[原生接口检查器](../../tools/check_e0_full_depth_interface.py)。它们把最新仓库的全40×4政策落实为可检查的数据边界，但不是可运行的模型采集器。**新GPU调用0、生成0、真实双轨site记录0**；P23/P24仍OPEN，实时场景仍暂停。
+初始阶段交付两个静态软件工具：[有符号向量账本](../../tools/e0_full_depth_trace_contract.py)与[原生接口检查器](../../tools/check_e0_full_depth_interface.py)。**这两个工具本身**是校验/归约层，并非原生采集程序；真正的四臂Wan采集程序已在后续[paired-native实现](E0_PAIRED_NATIVE_IMPLEMENTATION.md)接线。本阶段当时新GPU调用/生成/真实site均为0，属于明确的历史计数；当前执行与质量须读取[活动状态](../ACTIVE_RESEARCH.json)和真实RUN。P23/P24在未得到合格原生证据前仍OPEN，实时场景暂停。
 
 ## 新结果与有符号分解
 
@@ -18,9 +18,9 @@ total = d-a = student_operator + prefix_response
             + 2 <student_operator, prefix_response>
 ```
 
-`U`是调制后、Smooth1/Q1之前的实际caller输入；账本的`teacher_q1/student_q1`则明确要求真实post-Q1矩阵。未来producer必须证明两者的边界关系，不能把U直接重命名q1。包含W1/GELU/Q2/W2的四函数要求相同真实输入，并对每个site另附绑定系数来源和明确row_ids的native-versus-continuous检查。连续诊断仍可为预冻结采样，不能把它的误差泛化到full-M。
+`U`是调制后、Smooth1/Q1之前的实际caller输入；账本的`teacher_q1/student_q1`则明确要求真实post-Q1矩阵。实际producer应证明两者的边界关系，不能把U直接重命名q1。包含W1/GELU/Q2/W2的四函数要求相同真实输入，并对每个site另附绑定系数来源和明确row_ids的native-versus-continuous检查。连续诊断仍可为预冻结采样，不能把它的误差泛化到full-M。
 
-账本沿M轴分块转FP64归约整个矩阵，保存能量、交叉内积、cosine和重组闭合；不保存160个完整激活。分块归约有额外计算/同步成本，未来采集单独计费。软件反例中两个分量各能量6，却因内积−6完全抵消；简单相加SSE会误判。
+账本沿M轴分块转FP64归约整个矩阵，保存能量、交叉内积、cosine和重组闭合；不保存160个完整激活。分块归约有额外计算/同步成本，原生采集时应另行计费。软件反例中两个分量各能量6，却因内积−6完全抵消；简单相加SSE会误判。
 
 门控写回需要另一套四臂实际张量：`W(rD,a,gD), W(rD,b,gD), W(rS,c,gS), W(rS,d,gS)`，其中W包含原生乘法、加法与dtype cast。其prefix项同时含residual基底和gate变化，不能称为纯FFN输入响应，也不能用`gate*输出误差`替代原生写回。两个实际block输出差单列。这些是双轨相关性观察；某一层对终端视频的因果贡献仍需另冻有限hybrid干预。
 
@@ -38,7 +38,7 @@ total = d-a = student_operator + prefix_response
 
 ## 原生接口和资源设计
 
-[独立源审阅](../method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md)给出精确方法名、23份实际源码SHA、offload时序和互相竞争的实现。设计优先保留单pipeline原生block-offload：在同一compute stream和当前GPU buffer中依次完成两轨与shadow，再swap一次。scheduler需通过原setter绑定pre/transformer/post，两个轨的hidden和可变state独立；当前candidate的单pending槽不能直接变成可重入四臂dispatcher。
+[独立源审阅](../method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md)给出精确方法名、23份实际源码SHA、offload时序和互相竞争的实现。设计优先保留单pipeline原生block-offload：在同一compute stream和当前GPU buffer中依次完成两轨与shadow，再swap一次。scheduler需通过原setter绑定pre/transformer/post，两个轨的hidden和可变state独立；初始candidate的单pending槽不能直接视为可重入四臂dispatcher；后续已单独实现四臂调度。
 
 原non-FFN驻留31.25GiB、affine80pack约9.18GiB及当前原FFN矩阵约0.264GiB，已知payload合计约40.70GiB。它不是显存峰值上界，未含双buffer、pre/head、attention/QDQ临时、VAE、observer及allocator。现有AllWeightResidency在shadow dense访问后会永久留下另约21.09GiB原FFN，不能直接复用；所需bounded策略在本静态设计阶段尚未实现；后续接线见paired-native实现文档。双GPU替代方案还要支付full-M跨轨传输，不能靠标量norm重建有符号内积。
 
