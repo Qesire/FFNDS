@@ -1,10 +1,10 @@
 # FFNDS · 实验发现谱系、机制分类与对照矩阵
 
-> 2026-10-25 | 基于 AutoResearcher v2.4 **Ground → Derive → Discriminate → Learn** 的历史证据重组；链接至 [实际计算图 G0–G3](../docs/98_端到端计算图与证据注解_20261025.md)。这是一份**研究知识图谱**而非新增任务单，不改变原有冻结协议、失败决定、授权或当前唯一 E0 方向。
+> 2026-10-25 | 基于 AutoResearcher v2.4 **Ground → Derive → Discriminate → Learn** 的历史证据重组；链接至 [实际计算图 G0–G6](../docs/98_端到端计算图与证据注解_20261025.md)。这是一份**研究知识图谱**而非新增任务单，不改变原有冻结协议、失败决定、授权或当前唯一 E0 方向。
 
 **I34 · 科学解释复审（非新增实验编号）：** [Affine54实验边界与方法族科学判断](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。`ALG`：实数tanh-GELU奇偶及全残差恒等式；`OBS`：匹配320案例局部输出误差改善；`NATIVE/SYS`：真实窄FFN加速；`VIDEO`：两个来源视频失真而正式质量未验收；`OPEN`：数值/容量/student前缀/下游传递/调度器原因。**局部SSE不是终端质量充分条件，但不能因此断言SSE优化本身是当前失败主因或整个Affine家族无效。** 该评议不是新的测量或Agent独立认可。
 
-**并行授权状态（2026-10-26）**：独立原生paired v2接线和严格身份门禁已软件验证，另行登记了[固定v2范围](../config/e0_paired_full_depth_20261026_v2.json)的明确有界授权；截至本次审查原生paired测量仍为0/160、状态为`AUTHORIZED_NOT_STARTED`。已有E34/E35为软件/源码成果，不改变P23/P24 OPEN；正式模型RUN及质量结果以其后续实际记录为准。
+**原生paired-v2执行状态入口**：已冻结[固定v2范围](../config/e0_paired_full_depth_20261026_v2.json)并完成软件采集器及严格资产身份验证。授权、队列、真实配对site、失败/成功回执与是否可升级P23/P24，始终以[活动研究状态](ACTIVE_RESEARCH.json)和真实原生RUN/质量证据为准；本图谱的E34/E35只是它们完成时的**软件/源码阶段快照**，不会根据是否已启动任务自动升级为native机制证据。
 
 **最新质量与全层限制（2026-10-26）**：[统一每生成视频指标与全40×4真实误差政策](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)以[全模型六视频失败](20261026/E0_RECONSTRUCTED_VIDEOS.md)为直接依据。完成了全部160处原生替换，不等于已解释每一步各层真实Student前缀误差：早先partial-native只有block0/30，8.54%局部输出SSE来自Dense前缀保存panel。六视频已有逐帧RGB/encoded-luma/差分，现已另行补全运动/结构编码像素诊断（见下方E31），官方VBench/人工指标仍未完成；不能将旧视频结果标成符合新全指标验收。今后的每段生成要求SHA/全帧评估/真实成本/质量状态，无结果则保留为未完备证据。
 
