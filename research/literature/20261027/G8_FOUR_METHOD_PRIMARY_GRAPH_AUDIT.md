@@ -37,7 +37,7 @@
 
 ## 4. Chipmunk（L09）— 与SVD-Cache不同的MLP系数增量（K24–K27）
 
-**原始作者技术正文及代码**：[arXiv 2506.03275](https://arxiv.org/abs/2506.03275)、[作者Part II](https://sandyresearch.github.io/chipmunk-part-II/)、[原MLP源码](https://github.com/sandyresearch/chipmunk/blob/master/src/chipmunk/modules/mlp.py)与[本仓库既有源码审查](CHIPMUNK_SOURCE_READING.md)。已核源tree为 \`177fdefc4803e621fd8a02aad491812e9d1ecc94\`，非新的源码复现。
+**原始作者技术正文及代码**：[arXiv 2506.03275](https://arxiv.org/abs/2506.03275)、[作者Part II](https://sandyresearch.github.io/chipmunk-part-II/)、[原MLP源码](https://github.com/sandyresearch/chipmunk/blob/master/src/chipmunk/modules/mlp.py)与[本仓库既有源码审查](../20261026/CHIPMUNK_SOURCE_READING.md)。已核源tree为 \`177fdefc4803e621fd8a02aad491812e9d1ecc94\`，非新的源码复现。
 
 - **K24**：当前W1之前输入 \`x_t\`，上次同一**权重**FFN缓存post-GELU或对应数值状态 \`h_(t−1)\` 与 \`y_(t−1)\`。同expert条件下数学形式 \`y_t≈y_(t−1)+W2 S(h_t−h_(t−1))\`；已变Q2 scale或不同专家W2时不直接成立。
 - **K25**：先在缩小token网格做 \`blockmean(x_t)→fc1\` 生成预估激活与历史blockmean对比，并Top-K选择候选hidden indices。这项W1子计算、block mean和mask/reorder**有真实在线成本**。源码对**复用过去选择的mask**还有 \`inference_step≥10\` 的guard；不能说“四步全盘不可能稀疏计算”，只说明该复用分支在四步默认场景不能自动触发。
