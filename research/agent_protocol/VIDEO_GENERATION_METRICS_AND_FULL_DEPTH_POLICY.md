@@ -120,6 +120,6 @@ f_S(x_S)             actual student-input approx
 
 从现在起新video protocol必须写`metric_report_required=true`、绑定`metric_contract_version`、匹配参考来源、每条视频分组/文件SHA、成本分母、官方质量评测实现或其不可执行原因。未收到report/未审查则保持`COMPLETED_EXECUTION_QUALITY_PENDING`，不称结果合格。新multi-layer方法必须按160-site维度呈现逐层过程，**单层teacher forced只可作底层算术/局部构造证据，不能作为全网络结论**。
 
-Agent仍使用 [Graph-Agent实际计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 的F03–F13/G20–G21/P22/D09，并支持新的 `L00...` 全深度双轨迹迹线/消费者节点；图增量是待执行的诊断设计而不是凭空完成的测量。
+Agent通过[更新的G5d/P23/P24计算图](../../docs/98_端到端计算图与证据注解_20261025.md)定位已测原生site与下游消费者；区分v3的真实四臂、gate写回和四步flow/latent记录，与未来有限反事实/受控后缀的OPEN因果边。
 
-跟踪与质量工具已实现；下一阶段依据 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 与真实 paired-native RUN 审核160位置双轨覆盖、signed传播和完整视频质量。在原生数据实际到达后，逐项更新证据等级与竞争机制判断。
+**最新执行核验**：[v3两来源320site结果](../20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)已保存每来源160处真实配对与四步signed flow/latent，四条视频、16个latent与历史指纹一致，核心全帧/身份检查通过；v2后处理失败的未保存site独立记为0。318/320处Student-prefix raw绝对误差变小、latent差同时增大。新实验如对`v_D(z_S)`作完整dense有限差分须另行授权；官方VBench与人工视频验收保留NOT_RUN。
