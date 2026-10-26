@@ -11,6 +11,8 @@
 
 **最新结果复审**：[全层GELU、affine、奇偶解释与权重常驻的竞争研究空间](../research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)，对应 G5 计算图。affine＋27组优于所测等投影MAC固定67组，仅在两暴露来源五层小面板上完成；GELU半斜率是数学竞争解释，未证明Wan中有效；同值权重常驻的热态全生成75→50秒是实测工程改进、显存接近80GB且FFN MAC无变化。下一轮优先由Agent自行提出不同函数、时空、视频功能和执行机制，允许新图节点。G0–G5仅作为已有源码/证据索引，不预选affine、半斜率或group64方案。
 
+**当前最有辨识力的实测张力（2026-10-26）：** [v3双轨320site完整结果](../research/20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)表明318处Student输入raw局部算子误差较Teacher小（2处初始相等），但两来源latent差持续扩大；后3步flow差与已有latent偏差方向相反。这一结果已将“Student前缀导致所有局部operator误差恶化”的解释削弱。研究由此比较完整Dense对受扰latent的有限响应与近似模型自身flow误差；仅有逐FFN四臂尚不能代替`v_D(z_S)`。现有执行作用域已完成，后续模型工作需要独立授权。Agent首先给新机制、数学分解、竞争预测与最低成本判别。
+
 ## 当前阶段与研究任务
 
 唯一活跃阶段是 [ACTIVE_RESEARCH.json](../research/ACTIVE_RESEARCH.json) 中的 `E0_OPEN_DISCOVERY`；立即阅读 [本征 FFN 重置纲领](../research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[新的第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md) 、[最新机制分歧审查](../research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md) 与 [Agent 锚点](../research/agent_protocol/E0_STAGE_ANCHOR.md)。
