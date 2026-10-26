@@ -31,6 +31,39 @@ def git_blob_sha1(data):
     return hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
 
 
+def fixed_depth_scope_is_registered(active):
+    """A later explicit fixed scope is distinct from standing stage authority."""
+    depth = active["current_stage"].get("full_depth_trajectory_analysis", {})
+    if depth.get("status") == "DESIGNED_NOT_EXECUTED":
+        return depth.get("no_new_execution") is True
+    states = {
+        "EXPLICIT_FIXED_V2_SCOPE_AUTHORIZED_NOT_STARTED": "AUTHORIZED_NOT_STARTED",
+        "RUNNING_FIXED_V2_SCOPE": "RUNNING_FIXED_SCOPE",
+        "FIXED_V2_SCOPE_FAILED_NO_RETRY": "FAILED_PRESERVED_NO_RETRY",
+        "FIXED_V2_SCOPE_COMPLETE_NOT_QUALITY": "COMPLETE_FIXED_SCOPE_NOT_QUALITY",
+    }
+    expected = states.get(depth.get("status"))
+    path = "config/e0_paired_full_depth_20261026_v2.json"
+    if not expected or depth.get("authorized_protocol") != path:
+        return False
+    plan = record(path)
+    digest = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+    return (depth.get("authorized_protocol_sha256") == digest
+            and plan.get("max_full_generations_total") == 6
+            and plan.get("planned_simultaneous_GPU_cards") == 1
+            and plan.get("automatic_retry") is False
+            and plan.get("no_automatic_followup") is True
+            and any(s.get("id") == plan["id"] and s.get("protocol") == path
+                    and s.get("protocol_sha256") == digest
+                    and s.get("execution_status") == expected
+                    and s.get("user_instruction")
+                    and s.get("planned_simultaneous_GPU_cards") == 1
+                    and s.get("max_full_generations_total") == 6
+                    and s.get("automatic_retry") is False
+                    and s.get("no_automatic_followup") is True
+                    for s in active["experiment_authority"]["current_user_authorized_scopes"]))
+
+
 def check_relative_markdown_links(path):
     for link in re.findall(r"\]\(([^)]+)\)", text(path)):
         if link.startswith(("https://", "http://", "#", "mailto:")):
@@ -233,7 +266,7 @@ def main():
            "Missing mandatory video metric and full-depth native analysis gate")
     ensure(stage.get("video_quality_evidence_contract", {}).get("metric_report_required_for_new_videos") is True
            and stage.get("full_depth_trajectory_analysis", {}).get("sites_per_video") == 160
-           and stage.get("full_depth_trajectory_analysis", {}).get("status") == "DESIGNED_NOT_EXECUTED"
+           and fixed_depth_scope_is_registered(active)
            and stage.get("new_experiment_authority") == "NONE",
            "Video evidence or full40x4 trajectory scope drifted / silently authorized GPU work")
     ensure({n["id"]: n["evidence_type"] for n in graph_data["nodes"]}.get("P23") == "OPEN"
