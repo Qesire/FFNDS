@@ -197,11 +197,13 @@ def main():
            "Historical affine review lost from the active evidence trail")
     ensure(focus.get("latest_mechanism_audit") == review and
            stage.get("latest_direction_review") == review and
-           graph.get("current_scientific_audit") == review and
+           graph.get("science_review") == review and
            (ROOT / review).is_file() and
            "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(first_task),
            "Post-native-video direction review is not the current handoff")
     graph_data = load_graph_registry()
+    ensure(graph_data.get("current_scientific_audit") == review,
+           "Computation graph review differs from the active science review")
     g5 = {n["id"]: n for n in graph_data["nodes"]}
     ensure({"P15", "P16", "P17", "P18"}.issubset(g5) and
            g5["P15"]["evidence_type"] == "OBS" and
