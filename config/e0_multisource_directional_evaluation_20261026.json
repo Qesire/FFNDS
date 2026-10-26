@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "id": "E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026",
+  "status": "DESIGNED_NOT_NATIVE_EXECUTED",
+  "historical_native_completed_sources": [
+    0,
+    12
+  ],
+  "registered_source_manifest": "research/20261025/E0_NATIVE_OBSERVATIONS.json",
+  "phase1": {
+    "source_records": [
+      {
+        "index": 0,
+        "source_id": "bbcf851ef52d17f8e1eccce9d449109e61a35d5548d1556d3b8f57e9830b23df",
+        "seed": 42,
+        "source_group": "i2v_subject:0",
+        "source_reference_video_sha256": "23f5063d3565f672ae82244ddaa7d18591ee84f2484ac8b5a0ab21dea75b1ee4",
+        "role": "EXPOSED_EVALUATION",
+        "paired_native_completed": true
+      },
+      {
+        "index": 4,
+        "source_id": "64bca1e56a73f87957cefa96ffe7801db9e80506be015da23fcaec1655042f65",
+        "seed": 46,
+        "source_group": "i2v_subject:4",
+        "source_reference_video_sha256": "8f65f93261e37cb3786cb6bef998f0bdf9792be1131d89496f9434ac2830b1ef",
+        "role": "EXPOSED_AFFINE54_CALIBRATION",
+        "paired_native_completed": false
+      },
+      {
+        "index": 8,
+        "source_id": "0f15f7bf76dc1612a30f02f7ae7b109c9489aa4c0197c987cdf534f39a59ae7b",
+        "seed": 50,
+        "source_group": "i2v_subject:8",
+        "source_reference_video_sha256": "fedd48ca6f2a8b94f0419b26b7f5f407d73a32b848e552cf320475fd7fc66ae1",
+        "role": "EXPOSED_AFFINE54_CALIBRATION",
+        "paired_native_completed": false
+      },
+      {
+        "index": 12,
+        "source_id": "6c1e3a9d4c9b89fe5ecc2f8df80791e634094f522b7fba5ad8aacb6458abdfde",
+        "seed": 54,
+        "source_group": "i2v_background:8",
+        "source_reference_video_sha256": "6d757a154fc15ca79689b65a5bc95bf9d3338b3d6618d2734645a3414a00919e",
+        "role": "EXPOSED_EVALUATION",
+        "paired_native_completed": true
+      },
+      {
+        "index": 16,
+        "source_id": "1efcfeb84db1336150f319b2e1701f310e941cdd7eab900af25a3e8bd588d6c1",
+        "seed": 58,
+        "source_group": "i2v_background:22",
+        "source_reference_video_sha256": "2978b5b85e8f121116e85de06d36dd1e36dcdd7c9b07aae27317ee3386116840",
+        "role": "EXPOSED_AFFINE54_CALIBRATION",
+        "paired_native_completed": false
+      },
+      {
+        "index": 20,
+        "source_id": "451a3c3fb18a12fa9792b9a7cc80d1b4a118d1ece38a91ee604bc8de12b8f0bb",
+        "seed": 62,
+        "source_group": "i2v_background:26",
+        "source_reference_video_sha256": "913d466c2a94b55d1a42cf33cb7138be6288ae4ebfd7639d72b6438f9d9b8c82",
+        "role": "EXPOSED_AFFINE54_CALIBRATION",
+        "paired_native_completed": false
+      }
+    ],
+    "add_source_indices": [
+      4,
+      8,
+      16,
+      20
+    ],
+    "expected_new_sites": 640,
+    "expected_new_videos": 8,
+    "scope": "EXPOSED_REPLICATION_NOT_INDEPENDENT_GENERALIZATION",
+    "required_source_hash_preflight": true
+  },
+  "phase2": {
+    "minimum_additional_distinct_sources": 4,
+    "minimum_total_distinct_sources": 10,
+    "selection": "Prior to observing new results, independently verify source/image/prompt SHA and past fitting/evaluation exposure. Prefer motion-diverse content and camera group if actual labels exist. Use genuinely new inputs when all CAL24 entries were already exposed.",
+    "at_least_two_crossed_seed_sources": true,
+    "no_invented_source_indices": true
+  },
+  "evaluation": {
+    "source_unit": "source_id×seed×variant",
+    "sites_nested": "40 blocks×4 steps are repeated measures within source",
+    "primary": "Full signed direction and video function vector with source-level Pareto plus frozen component gates",
+    "global_SSE": "SECONDARY_DIAGNOSTIC_ONLY",
+    "signed_native_map": "P=T_D(z_S)-T_D(z_D), N=T_S(z_S)-T_D(z_S), delta_next=P+N",
+    "signed_terms": [
+      "||P_B||²",
+      "||N_B||²",
+      "2<P_B,N_B>",
+      "||delta_next_B||²",
+      "||delta_input_B||²"
+    ],
+    "frequency_basis": "Unitary latent Fourier; use mutually disjoint DC, low-not-DC, mid-not-low and remaining high bands from pre-registered nested masks; preserve signed cross; frequency bands are not semantic masks",
+    "video": [
+      "full-frame paired RGB,luma,spatial p50/p95/max",
+      "temporal difference/estimated flow/compensated change",
+      "independently justified background/subject/camera masks",
+      "LPIPS and DISTS only when computed",
+      "official VBench-I2V/VBench2 and complete human review or NOT_RUN"
+    ],
+    "runtime": [
+      "native FFN W1/W2/QDQ/GEMM work",
+      "native FFN wall and full generation wall",
+      "cold/warm setup, peak allocated GPU memory, strong resident Dense"
+    ],
+    "acceptance": "Video artifacts+real measured quality and runtime; not a single scalar weighted SSE; no stage promotion from saved feature loss"
+  },
+  "execution": {
+    "this_registration_is_not_run": true,
+    "old_protocol_immutable": true,
+    "needs_new_source_bound_driver_protocol": true,
+    "no_auto_retry": true,
+    "temporary_user_continuation": "see research/ACTIVE_RESEARCH.json",
+    "gpu_started_by_this_commit": 0
+  },
+  "sources": [
+    "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_VBench_Comprehensive_Benchmark_Suite_for_Video_Generative_Models_CVPR_2024_paper.html",
+    "https://github.com/Vchitect/VBench/blob/master/VBench-2.0/README.md",
+    "https://openaccess.thecvf.com/content/ICCV2025/html/Ling_VMBench_A_Benchmark_for_Perception-Aligned_Video_Motion_Generation_ICCV_2025_paper.html",
+    "https://openaccess.thecvf.com/content_cvpr_2018/html/Zhang_The_Unreasonable_Effectiveness_CVPR_2018_paper.html",
+    "https://arxiv.org/abs/2004.07728",
+    "https://proceedings.mlr.press/v306/he26q.html",
+    "https://arxiv.org/abs/2410.05203"
+  ]
+}

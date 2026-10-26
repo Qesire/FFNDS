@@ -3,6 +3,8 @@ name: ffnds-paper-discovery
 description: Automatically apply AutoResearcher mechanism discovery, mathematical reformulation and evidence-grounded science to FFNDS video FFN research.
 ---
 
+**Current expanded-sample and functional-direction research:** [registered multi-source signed evidence program](../../../research/20261026/E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026.md). First verify six exposed source hashes, adding the four previously calibration-exposed sources for scoped replication; then test at least four independent new sources and crossed seeds. Candidate ranking uses real multi-source signed P/N/cross, mutually disjoint spectral components and full-video quality plus physical execution, retaining global SSE as a diagnostic. The already measured whole-dense finite response and last-step decoded source contrast supersede the older unmeasured-counterfactual suggestion. New source execution has not been recorded by this research protocol.
+
 **AutoResearcher v2.4 search default:** This domain skill extends the exact [web-research-discovery upstream Skill](../web-research-discovery/SKILL.md) and [WARD protocol](../../../core/WEB_RESEARCH_DISCOVERY.md); the project [deep search protocol](../../../research/agent_protocol/DEEP_WEB_RESEARCH.md) adds Wan/HiF4/FFN-specific examples. Preserve the source revision and project E0 stage from [ACTIVE_RESEARCH.json](../../../research/ACTIVE_RESEARCH.json).
 
 

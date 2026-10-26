@@ -8,6 +8,10 @@
 
 **执行沿革**：[v2 DD中性视频及路径故障](20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)只支持最终视频同一性，丢失的trace计0；修复后的[v3完整运行](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)提供独立可复核的原生数据。[统一质量协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)要求每条新视频具有完整帧、SHA、真实成本与分级画质报告；历史六视频已有486帧后验工程补评，官方VBench/人工仍未验收。当前状态及新实验权限只看[ACTIVE_RESEARCH.json](ACTIVE_RESEARCH.json)与真实RUN。
 
+**新研究设计（非新增结果编号）：** [2026-10-26六来源扩大、10+来源迁移与多维signed评价](20261026/E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026.md)。既有2-source的320 native sites和完整Dense finite map/末步视频结果为机制依据；新增四校准暴露source与四个真正独立source均为未来条件执行。全局SSE由候选单独排名目标转为二级诊断量。源级视频质量、互斥频带signed P/N/cross和原生省算共同约束判断。
+
+**有符号频带的新观察（POSTHOC，非新native作业）**：[两来源8个step×四个互斥band](20261026/E0_DISJOINT_SIGNED_BANDS.md)保留P、N、signed cross并回收全域能量；说明全局SSE可能遮蔽分方向抵消/增强。新的source必须复用事先指定的同频带，视频功能仍需独立验证。
+
 ## 0. 研究命题与证据单位
 
 **研究终点**：在真实 Wan 四步蒸馏 I2V 上减少实际 FFN/完整生成时间，同时保留自由四步完整视频质量。**静态/动态、通道/组/行/共享、补偿/不补偿、量化格式**都是可能的表示或实现选项，并不是目标本身。[目标复位](../docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md) 已明确 R256 与 dense restoration 不是必需路径；[当前 E0 纲领](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 从 W1→GELU→W2 的有符号函数价值、时空条件与真实 GEMM work 出发。
