@@ -221,26 +221,26 @@ def main():
            "GRAPH_AGENT_BINDINGS.json" in text(".agents/skills/ffnds-paper-discovery/SKILL.md") and
            "graph_annotations/E0/README.md" in text("research/method_discussion/AGENTS.md"),
            "Graph Agent registry / multi-agent discovery routing drift")
-    # Historical G5 affine audit is retained for mechanism evidence;
-    # the latest review is the post-native-video failure and full-trajectory audit.
-    affine_review = "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md"
+    # One scientific audit owns current interpretation; original frozen reports
+    # and independently authored evidence remain separate primary sources.
     review = "research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md"
-    ensure((ROOT / affine_review).is_file() and
-           "E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md" in text(first_task),
-           "Historical affine review lost from the active evidence trail")
     ensure(focus.get("latest_mechanism_audit") == review and
+           focus.get("latest_affine54_family_review") == review and
            stage.get("latest_direction_review") == review and
            graph.get("science_review") == review and
            (ROOT / review).is_file() and
-           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(first_task),
-           "Post-native-video direction review is not the current handoff")
-    family_review = "research/20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md"
-    ensure(focus.get("latest_affine54_family_review") == family_review and
-           (ROOT / family_review).is_file() and
-           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text(first_task) and
-           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text("AGENTS.md") and
-           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text(".agents/skills/ffnds-paper-discovery/SKILL.md"),
-           "Affine54 scope-limited mechanism review lost from research guidance")
+           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(first_task) and
+           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text("AGENTS.md") and
+           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in
+           text(".agents/skills/ffnds-paper-discovery/SKILL.md"),
+           "Scientific review split across obsolete handoffs")
+    for obsolete in (
+        "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md",
+        "research/20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md",
+        "research/20261026/E0_TRACKING_RESULT_AND_DRIFT_AUDIT_20261026.md",
+    ):
+        ensure(not (ROOT / obsolete).exists(),
+               "Obsolete duplicate scientific review still exists: " + obsolete)
 
     graph_data = load_graph_registry()
     ensure(graph_data.get("current_scientific_audit") == review,
