@@ -4,6 +4,8 @@
 
 **阅读深度：**多数条目已核对正式会议/预印本官方摘要；Chipmunk作者技术正文、NVIDIA格式规范、TinyFusion相关原文段落做了更深入阅读。此轮未全面逐篇核验方法伪代码、训练步骤、完整消融或代码，实现核对将由独立文献Agent在同一索引追补；不可把摘要论断当Wan可迁移定律。
 
+**第二轮实际深入记录：** [五篇直接竞争者的原论文/源码核查](FIVE_PAPER_METHOD_AUDIT.md) · [证据层级与准确性账本](METHOD_AUDIT_LEDGER.json)。最重要的纠错：DiffSparse四步实验为FLUX.1-schnell，其Wan2.1-1.3B视频实验为25步；Chipmunk的掩码决策在缩小token均值上运行W1并依赖历史缓存，公开实现含>=10步cache-mask分支。RT-Lynx和Dense2MoE的部分细节只能取自二手自动概述，尚未原文确认。
+
 ## 研究逻辑
 
 Wan2.2 I2V四步原生对象是Q1→W1→GELU(tanh)→Q2→W2→gate/residual→40 block→flow→scheduler→完整视频。两来源paired研究、四anchor CPU函数实验、SM120合成packed FP4基元分别回答不同层级的问题。论文中的图像DiT、video attention、LLM、训练后转换及不同采样步数必须注明迁移条件。

@@ -4,6 +4,8 @@
 
 **当前第一步（用户2026-10-26明确指定）：** [系统整理33项已核验原始研究](../literature/20261026/PRIMARY_LITERATURE_ATLAS.md)，并用[机制重叠和查重矩阵](../literature/20261026/MECHANISM_COMPETITION_MATRIX.md)与[阅读工作协议](../literature/20261026/READING_GUIDE.md)深化论文方法及反例。尚不选定新算子、优化SSE或派发原生实验。F1/F2/F3科研开放切面与既有模型资产保持完整。
 
+**本轮深读成果：** [五个最强先例的实际公式、在线信息及训练/部署比较](../literature/20261026/FIVE_PAPER_METHOD_AUDIT.md)；[证据层级与查缺账本](../literature/20261026/METHOD_AUDIT_LEDGER.json)。下一步先补缺失原文/代码、真实视频消融，再形成与他们具有明确差异的科学机制。注意Wan2.1 25步不等于Wan2.2 I2V四步，Cache需要可付费的mask预测，不可预设免费。
+
 ## 目标与研究对象
 
 在Wan2.2 I2V四步蒸馏模型中减少真实FFN计算、减轻完整生成成本，保持主体、运动、纹理、光照与时序表现。研究对象按真实W1→tanh-GELU→Q2/postQ2→W2→gate/residual→后续层→flow/scheduler/视频计算流定位。[FFN本征研究纲领](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[源图G0–G6](../../docs/98_端到端计算图与证据注解_20261025.md)与[AutoResearcher Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)共同提供可扩展基础。

@@ -1,5 +1,7 @@
 # FFNDS research navigation
 
+**新近邻方法级审查：** [5篇论文技术对照](literature/20261026/FIVE_PAPER_METHOD_AUDIT.md)及[原文/作者源码/二手来源分级](literature/20261026/METHOD_AUDIT_LEDGER.json)。已对DiffSparse正式论文方法/附录和Chipmunk原始MLP源码作深入核查；修正Wan2.1 25步/FLUX4步的混淆，确认在线掩码选择所需W1计算。下一步补全RT-Lynx、Dense2MoE的原始全文与代码。
+
 **2026-10-26 文献优先的新入口：** [33条原始论文/规范、研究深度和模型差异的结构化索引](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[可读的六类机制科学综述](literature/20261026/PRIMARY_LITERATURE_ATLAS.md)、[方法重叠与竞争机制矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[独立Agent的文献深读规则](literature/20261026/READING_GUIDE.md)。目前先分析相关科研，而不是继续生成FFN候选或扩展SSE测量。此前2026-10-25五族论文表是历史检索资产。
 
 **研读与写作原则：** 优先读[当前研究任务](20261025/E0_FFN_FIRST_TASK_20261025.md)，独立构造新的机制与可区分预测；仅在论证涉及既有实验时打开精确的历史证据。研究结论保留负结果的准确适用范围，活跃Agent指令采用[生成性表达准则](../AGENTS.md)。静态检查和手动CI用于技术一致性，科学判断来自数学、源码和原生实测。

@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
   "updated": "2026-10-26",
-  "status": "CURATED_DISCOVERY_INDEX_NOT_PAPER_REPRODUCTION",
+  "status": "CURATED_PRIMARY_ATLAS_PLUS_FIVE_UNEVENLY_DEEP_METHOD_REVIEWS",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -144,8 +144,10 @@
       "decision_time": "after activation / before next GEMM",
       "physical_action": "native N:M kernel",
       "training": "light LoRA used",
-      "wan_specific_discriminator": "Must check whether online 2:4 packing saves original W1, Q2 and BF16 costs on actual Wan",
-      "reading_depth": "OFFICIAL_ABSTRACT"
+      "wan_specific_discriminator": "Original full paper/code not reviewed; N:M activated GEMM and error compensation verified by abstract only. Third-party norm/LoRA formula requires primary verification; after-GELU sparsity does not save already-done W1.",
+      "reading_depth": "OFFICIAL_ABSTRACT",
+      "method_review": "OFFICIAL_ICML_ABSTRACT_ONLY_SECONDARY_DETAIL_PENDING",
+      "code_review": "NOT_CHECKED"
     },
     {
       "id": "L09",
@@ -156,11 +158,14 @@
       "url": "https://arxiv.org/abs/2506.03275",
       "model": "DiT image/video incl. Wan2.1",
       "observed_mechanism": "Sparse inter-step change of MLP and attention scaled value vectors; voxel reorder",
-      "decision_time": "previous-step cached MLP activations",
+      "decision_time": "previous-step cached activation/output plus current reduced-token blockmean passed through fc1; topk mask on blockmean activation difference",
       "physical_action": "column sparse delta GEMM and cache",
       "training": "training free",
-      "wan_specific_discriminator": "Only two same-expert steps in four-step high-high/low-low; no cross-expert cache identity assumption",
-      "reading_depth": "AUTHOR_TECHNICAL_BODY"
+      "wan_specific_discriminator": "Original MLP implementation computes blockmean-W1 to choose mask and uses a separate >=10-step mask-cache reuse condition. Original Wan2.1 long-step performance is not four-step Wan2.2 evidence.",
+      "reading_depth": "AUTHOR_TECHNICAL_BODY",
+      "method_review": "AUTHOR_METHOD_AND_ORIGINAL_GITHUB_MLP_CODE",
+      "code_review": "FOUR_MLP_SOURCE_FILES_READ_NOT_RUN",
+      "method_note": "research/literature/20261026/CHIPMUNK_SOURCE_READING.md"
     },
     {
       "id": "L10",
@@ -174,8 +179,10 @@
       "decision_time": "learned router",
       "physical_action": "subset of FFN experts and blocks",
       "training": "multi-stage distillation",
-      "wan_specific_discriminator": "Needs model reorganization/training: not the same as static zero-training mask",
-      "reading_depth": "OFFICIAL_ABSTRACT"
+      "wan_specific_discriminator": "MoE+MoB conditional capacity is learned by multi-stage distillation; original high/low Wan denoisers are not per-token internal MoE. Detailed router/loss require original full method check.",
+      "reading_depth": "OFFICIAL_ABSTRACT",
+      "method_review": "OFFICIAL_ICCV_ABSTRACT_PRIMARY_EXCERPT_SECONDARY_DETAILS_PENDING",
+      "code_review": "NOT_CHECKED"
     },
     {
       "id": "L11",
@@ -204,8 +211,10 @@
       "decision_time": "postactivation hardware profiles",
       "physical_action": "column/systolic modeling",
       "training": "none",
-      "wan_specific_discriminator": "Systolic simulator is not a real Wan Tensor Core kernel; directly relevant to existing scatter",
-      "reading_depth": "OFFICIAL_ABSTRACT"
+      "wan_specific_discriminator": "Element sparsity vs simulated systolic column sparsity; reported DiT 12.4% cycle reduction cannot be transferred as actual Wan BF16 or FP4 sparse GEMM speed.",
+      "reading_depth": "OFFICIAL_ABSTRACT",
+      "method_review": "ARXIV_V2_PRIMARY_ABSTRACT_ONLY",
+      "code_review": "NOT_CHECKED"
     },
     {
       "id": "L13",
@@ -304,13 +313,16 @@
       "year": 2026,
       "venue": "ICLR",
       "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/5e66b9f710a8e38351da690f3806cba9-Abstract-Conference.html",
-      "model": "few-step DiT incl. Wan2.1",
+      "model": "PixArt-alpha 20 steps, DiT-XL/2 50 steps, FLUX.1-schnell 4 steps, Wan2.1-1.3B text-to-video 25 flow steps",
       "observed_mechanism": "Learn layer-wise sparsity with end-to-end optimizer for few-step caches",
-      "decision_time": "learned allocation",
+      "decision_time": "trained offline per-step/per-layer cost allocation; online token priority plus cached layer features",
       "physical_action": "token and layer sparsity",
-      "training": "two-stage training",
-      "wan_specific_discriminator": "Very close few-step competitor but still not equivalent to FFN neuron selection",
-      "reading_depth": "OFFICIAL_ABSTRACT"
+      "training": "two-stage AdamW offline cost matrix optimization; STE; full-sampling LPIPS distillation; 8 AMD MI250 4-10h per experiment",
+      "wan_specific_discriminator": "Wan2.1-1.3B T2V experiment was 25 steps; 4-step was FLUX.1-schnell T2I; neither is four-step Wan2.2 I2V FFN neuron sparsity.",
+      "reading_depth": "OFFICIAL_ABSTRACT",
+      "method_review": "OFFICIAL_ICLR_FULL_METHOD_EXPERIMENT_APPENDIX",
+      "code_review": "NOT_CHECKED",
+      "method_note": "research/literature/20261026/DIFFSPARSE_PRIMARY_READING.md"
     },
     {
       "id": "L20",
@@ -522,5 +534,14 @@
       "wan_specific_discriminator": "Secondary map not independent evidence for every included result",
       "reading_depth": "OFFICIAL_ABSTRACT"
     }
+  ],
+  "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
+  "deep_audit_ledger": "research/literature/20261026/METHOD_AUDIT_LEDGER.json",
+  "deep_papers": [
+    "L08",
+    "L09",
+    "L10",
+    "L12",
+    "L19"
   ]
 }

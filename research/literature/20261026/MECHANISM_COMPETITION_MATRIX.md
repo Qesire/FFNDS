@@ -1,5 +1,7 @@
 # FFNDS · 学术近邻与竞争解释矩阵
 
+**方法级核查补充：** [五篇核心机制差异与实际实验模型](FIVE_PAPER_METHOD_AUDIT.md)。DiffSparse的token缓存预算在离线训练中优化，Wan2.1为25步、FLUX-schnell为4步；Chipmunk的跨步MLP缓存在真实源码中先支付blockmean+W1的选择成本。这改变了与FFNDS的四步合法比较基础。
+
 本矩阵用于**机制查重**，不是结果晋级或强制算法清单。先查[33篇原文入口与研究深度](PRIMARY_LITERATURE_INDEX.json)。
 
 | 研究对象 | 代表先例 | 与FFNDS既有工作的相似点 | 必须保持的不同假说 |

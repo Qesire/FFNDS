@@ -1,5 +1,7 @@
 # FFNDS · 文献Agent阅读与升级证据契约
 
+**第二轮可复核深读：** [五篇近邻方法审查](FIVE_PAPER_METHOD_AUDIT.md)与[5篇证据等级账本](METHOD_AUDIT_LEDGER.json)。后续Agent首先补齐RT-Lynx/Dense2MoE完整原始方法源码，Activation Concentration阈值/列的严格定义，以及DiffSparse原Wan分项VBench；Chipmunk已亲读MLP源，但没有Wan四步实验。
+
 **当前优先级：原始文献查验与竞争机制分类；非新算法实现。** 正式记录在[33篇索引](PRIMARY_LITERATURE_INDEX.json)，研究总图见[Atlas](PRIMARY_LITERATURE_ATLAS.md)，关系见[矩阵](MECHANISM_COMPETITION_MATRIX.md)。
 
 每个paper ID深读时分别填写：原论文及版本、实际阅读章节/图、中心计算方程和前提、方法究竟使用什么已知输入及何时可知、训练/校准类型、online重算/缓存/GEMM与显存成本、原生kernel和真实时延、分项视频指标、失败消融、竞争论文与本项目现有机制的同构/不同，以及能区分两种解释的最低成本观测。
