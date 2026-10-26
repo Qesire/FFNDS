@@ -14,7 +14,8 @@
     "G5": "All-depth nonlinear-function and matched affine approximation versus exact dense residency timing; separates OBS/ALG/OPEN and actual SYS.",
     "G6": "OPEN application-scene/SLO graph for hypothetical causal/rolling real-time streaming video, not executed current Wan",
     "G7": "Source-tiered external literature method graph; no original Wan replacement or model execution",
-    "G8": "Primary-method external FFN N:M, trained MoE, low-rank feature cache and sparse MLP delta branches"
+    "G8": "Primary-method external FFN N:M, trained MoE, low-rank feature cache and sparse MLP delta branches",
+    "G9": "LIT: temporal linear prediction, hard-routed sparse FFN trees, architecture-induced FFN/attention function redistribution"
   },
   "nodes": [
     {
@@ -877,6 +878,116 @@
         "research/literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md"
       ],
       "open_question": "Does sparse update preserve native gated BF16 writeback?"
+    },
+    {
+      "id": "K28",
+      "graph_section": "G9",
+      "meaning": "L2P dense full-step F(z,t,c) output trajectory cache",
+      "availability": "after_full_transformer_step",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "How many legal same-expert trajectories at 4 steps?"
+    },
+    {
+      "id": "K29",
+      "graph_section": "G9",
+      "meaning": "L2P offline lower-triangular 50step historical coefficient fit",
+      "availability": "offline_dense_trajectory_supervision",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "Does the temporal fit transfer to four-step?"
+    },
+    {
+      "id": "K30",
+      "graph_section": "G9",
+      "meaning": "L2P full/cache runtime decision and predicted-history feedback",
+      "availability": "at_beginning_of_step",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "Are cache/FFT/IO and closed-loop error paid for?"
+    },
+    {
+      "id": "K31",
+      "graph_section": "G9",
+      "meaning": "L2P predicted full-flow feature to scheduler and latent",
+      "availability": "after_cache_or_full_output",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "Does Student-prefix drift defeat predictor transfer?"
+    },
+    {
+      "id": "K32",
+      "graph_section": "G9",
+      "meaning": "FFF trained tree scalar logit per active node",
+      "availability": "before_active_tree_route",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "Does original Wan q admit a cheap conditional representation?"
+    },
+    {
+      "id": "K33",
+      "graph_section": "G9",
+      "meaning": "FFF hard sign root-to-leaf routing",
+      "availability": "during_serial_tree_traversal",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "What path-batch GPU layout is affordable?"
+    },
+    {
+      "id": "K34",
+      "graph_section": "G9",
+      "meaning": "FFF path GELU and signed value vectors",
+      "availability": "after_tree_traversal",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "Does learned output approximate gated QDQ Wan function?"
+    },
+    {
+      "id": "K35",
+      "graph_section": "G9",
+      "meaning": "FFF post-sum GELU and path-utilization alternative",
+      "availability": "architecture_design_and_training",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "Does moving GELU change path gradient/usage?"
+    },
+    {
+      "id": "K36",
+      "graph_section": "G9",
+      "meaning": "FFN sparse architecture perturbation under joint training",
+      "availability": "offline_training",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "Which changes are architecture versus frozen mask?"
+    },
+    {
+      "id": "K37",
+      "graph_section": "G9",
+      "meaning": "FFN/attention compute redistribution in toy tasks (author abstract)",
+      "availability": "after_joint_training",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
+      ],
+      "open_question": "Does any analogous Wan functional shift exist?"
     }
   ],
   "edges": [
@@ -1459,6 +1570,81 @@
       "from": "K24",
       "to": "K22",
       "relation": "different_cache_targets_interstep_MLP_coeff_vs_feature_subspace"
+    },
+    {
+      "from": "G02",
+      "to": "K28",
+      "relation": "open_same_expert_step_cache_condition"
+    },
+    {
+      "from": "K28",
+      "to": "K29",
+      "relation": "dense_history_supervises_autoregressive_fit"
+    },
+    {
+      "from": "K29",
+      "to": "K30",
+      "relation": "learned_coefficients_govern_cache_runtime"
+    },
+    {
+      "from": "K30",
+      "to": "K31",
+      "relation": "cached_or_full_outputs_flow_to_scheduler"
+    },
+    {
+      "from": "K30",
+      "to": "K22",
+      "relation": "contrast_linear_time_cache_with_svd_principal_residual"
+    },
+    {
+      "from": "K31",
+      "to": "D09",
+      "relation": "open_wan_flow_trajectory_effect_if_transferred"
+    },
+    {
+      "from": "D01",
+      "to": "K32",
+      "relation": "open_original_wan_preW1_q_to_new_tree_router"
+    },
+    {
+      "from": "K32",
+      "to": "K33",
+      "relation": "original_fff_eq1_eq2_hard_path"
+    },
+    {
+      "from": "K33",
+      "to": "K34",
+      "relation": "original_fff_eq3_gelu_signed_sparse_values"
+    },
+    {
+      "from": "K34",
+      "to": "K35",
+      "relation": "original_fffpost_path_gradient_competition"
+    },
+    {
+      "from": "K33",
+      "to": "K17",
+      "relation": "contrast_tree_path_with_moe_topk"
+    },
+    {
+      "from": "K34",
+      "to": "F12",
+      "relation": "open_wan_hif4_and_gate_writeback_transfer"
+    },
+    {
+      "from": "K36",
+      "to": "K37",
+      "relation": "author_abstract_training_sparsity_function_shift"
+    },
+    {
+      "from": "K37",
+      "to": "G17",
+      "relation": "conditional_attention_function_distribution_under_training"
+    },
+    {
+      "from": "K37",
+      "to": "K18",
+      "relation": "different_from_trained_block_routing"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -1728,6 +1914,30 @@
       "L10": "PRIMARY_ARXIV_V1_METHOD_EQ1_TO_10_REVIEWED",
       "L39": "PRIMARY_ARXIV_V1_METHOD_EQ4_TO_11_REVIEWED",
       "L09": "AUTHOR_MLP_GITHUB_CODE_PREVIOUSLY_REVIEWED"
+    }
+  },
+  "literature_mapping_v3": {
+    "section": "G9",
+    "document": "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md",
+    "ledger": "research/literature/20261027/G9_METHOD_SOURCE_LEDGER.json",
+    "node_ids": [
+      "K28",
+      "K29",
+      "K30",
+      "K31",
+      "K32",
+      "K33",
+      "K34",
+      "K35",
+      "K36",
+      "K37"
+    ],
+    "evidence_identity": "PAPER_LIT_NOT_NATIVE",
+    "gpu_executions": 0,
+    "source_tiers": {
+      "L52": "CVPR_OFFICIAL_AND_AUTHOR_FLUX_SOURCE_READ",
+      "L53": "ARXIV_ORIGINAL_V1_EQ1_3_SEC5_SEC7_READ",
+      "L54": "AUTHOR_ARXIV_ABSTRACT_ONLY"
     }
   }
 }
