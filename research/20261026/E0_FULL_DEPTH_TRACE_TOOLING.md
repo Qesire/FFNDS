@@ -1,6 +1,8 @@
-# E0 · 全深度双轨工具：可测试的误差账本，原生采集仍待实现
+# E0 · 全深度双轨误差账本：初始静态设计、后续原生实现
 
-本轮交付两个静态软件工具：[有符号向量账本](../../tools/e0_full_depth_trace_contract.py)与[原生接口检查器](../../tools/check_e0_full_depth_interface.py)。它们把最新仓库的全40×4政策落实为可检查的数据边界，但不是可运行的模型采集器。**新GPU调用0、生成0、真实双轨site记录0**；P23/P24仍OPEN，实时场景仍暂停。
+**版本说明：本文件记录先前静态设计阶段。其后原生采集器已在[paired-native实现](E0_PAIRED_NATIVE_IMPLEMENTATION.md)中完成软件接线，新严格证据层见[paired-v2门禁](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)，另获固定v2范围授权；实际native测量/运行状态必须读取[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)与原生RUN。静态设计时记录的“尚未实现/未授权/零GPU”均仅表示本阶段的历史截面，不代表当前状态。**
+
+本阶段交付两个静态软件工具：[有符号向量账本](../../tools/e0_full_depth_trace_contract.py)与[原生接口检查器](../../tools/check_e0_full_depth_interface.py)。它们把最新仓库的全40×4政策落实为可检查的数据边界，但不是可运行的模型采集器。**新GPU调用0、生成0、真实双轨site记录0**；P23/P24仍OPEN，实时场景仍暂停。
 
 ## 新结果与有符号分解
 
@@ -38,7 +40,7 @@ total = d-a = student_operator + prefix_response
 
 [独立源审阅](../method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md)给出精确方法名、23份实际源码SHA、offload时序和互相竞争的实现。设计优先保留单pipeline原生block-offload：在同一compute stream和当前GPU buffer中依次完成两轨与shadow，再swap一次。scheduler需通过原setter绑定pre/transformer/post，两个轨的hidden和可变state独立；当前candidate的单pending槽不能直接变成可重入四臂dispatcher。
 
-原non-FFN驻留31.25GiB、affine80pack约9.18GiB及当前原FFN矩阵约0.264GiB，已知payload合计约40.70GiB。它不是显存峰值上界，未含双buffer、pre/head、attention/QDQ临时、VAE、observer及allocator。现有AllWeightResidency在shadow dense访问后会永久留下另约21.09GiB原FFN，不能直接复用；所需bounded策略尚未实现。双GPU替代方案还要支付full-M跨轨传输，不能靠标量norm重建有符号内积。
+原non-FFN驻留31.25GiB、affine80pack约9.18GiB及当前原FFN矩阵约0.264GiB，已知payload合计约40.70GiB。它不是显存峰值上界，未含双buffer、pre/head、attention/QDQ临时、VAE、observer及allocator。现有AllWeightResidency在shadow dense访问后会永久留下另约21.09GiB原FFN，不能直接复用；所需bounded策略在本静态设计阶段尚未实现；后续接线见paired-native实现文档。双GPU替代方案还要支付full-M跨轨传输，不能靠标量norm重建有符号内积。
 
 [静态设计](../../config/e0_full_depth_trace_design_20261026.json)绑定25份源码，检查7个关键API和NoCaching/SDPA/block-offload/无CFG/无seq有效配置需求；拒绝配置漂移、错误接口与无界FFN驻留声明。通过只能证明已绑定文件与接口要求相符，不能证明接线中性、资源可行或真实配置已运行。
 
@@ -52,4 +54,4 @@ python3 tools/check_e0_full_depth_interface.py
 
 ## 下一步边界
 
-还需实现原生双scheduler controller、可重入四臂dispatcher、bounded FFN生命周期和预登记空间时间strata；再把dense/dense、candidate/candidate及shadow观测中性控制、真实峰值与计数写成一个独立冻结的有限模型协议，另行授权后才能采集。没有把模板当授权，没有选择新算子，也没有把测试夹具当原生数据。未来每条新视频仍需全81帧SHA绑定评估，官方/人工NOT_RUN时不得验收质量。
+以上属于静态设计阶段曾经开放的实现任务；其后双scheduler、四臂dispatcher、bounded FFN生命周期及严格身份检查已另行实现并有软件验证，paired-v2有界授权已登记。真实native现场显存、observer neutrality和全160处有效观测须等待实际RUN与严格验收结果。没有把模板当授权，没有选择新算子，也没有把测试夹具当原生数据。未来每条新视频仍需全81帧SHA绑定评估，官方/人工NOT_RUN时不得验收质量。
