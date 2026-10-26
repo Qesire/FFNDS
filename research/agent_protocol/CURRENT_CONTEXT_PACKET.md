@@ -9,7 +9,7 @@
 - tanh-GELU实数奇偶与完整非线性余项的代数关系成立，固定54组截断、回归拟合和BF16/QDQ部署不是该恒等式的精确推论。
 - 当前Affine54在两个已暴露来源的全40层×四步固定替换下实现真实FFN与warm生成加速，同时造成明显的视频偏离。这一张力支持NUM/CAP/SHIFT/TRANS/STATE的竞争性判别研究；8.54% teacher输入局部SSE是有用的局部指标，其对终端质量的因果贡献由原生配对和下游干预确定。其它Affine/非线性余项与独立表示继续开放探索。
 - 已有六视频共486帧/480组帧间核心CPU指标补评，但正式VBench-I2V/VBench2、语义背景分析和人工全片未通过完整验收；旧四份候选的Dense参考model_digest元数据存在勘误，原始资产不可篡改。
-- 原生双轨NUM/CAP/SHIFT/TRANS/STATE机制仍需有符号原生验证；软件采集器/严格视频证据层已实现，实际配对site、GPU健康和质量证据以[活动状态](../ACTIVE_RESEARCH.json)、[采集实现报告](../20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)和[严格门禁说明](../20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)读取。
+- **最新全深度机制观测（NATIVE-OBS）**：[v3两来源320处配对结果](../20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)实测318/320处Student-prefix raw FFN绝对误差较Teacher前缀小（其余2处相等），post-Q1状态能量/方向改变且latent差在四步传播中扩大。后3步flow差与已有latent差高度反向，给出有符号传播线索。完整dense在Student latent上`v_D(z_S)`仍待有限原生测量，因果主因保持OPEN；官方视频质量尚未验收。
 
 ## Agent 工作模式
 
@@ -21,6 +21,6 @@
 
 **工作起点**：[唯一第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) · [权威科学审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) · [实验发现与证据](../EXPERIMENT_FINDINGS_ATLAS.md) · [Graph-Agent协议](GRAPH_AGENT_COLLABORATION.md)。
 
-**原生运行证据索引**：[v2失败与DD视频身份核对](../20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)；详细运行状态和后续固定范围仍从ACTIVE及实际RUN读取。
+**原生运行证据索引**：[v3原生全深度结果](../20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)为当前实测起点；[v2后处理路径失败及DD视频核对](../20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)仅记录其历史失败范围。执行权限与实时进度从ACTIVE及原生RUN读取。
 
 **研究工具与基础**：[默认WARD深度检索](DEEP_WEB_RESEARCH.md) · [FFN本征纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)。
