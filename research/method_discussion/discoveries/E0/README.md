@@ -6,6 +6,8 @@
 
 **新增图协作入口**：[G0–G4的Graph↔Agent协议](../../../agent_protocol/GRAPH_AGENT_COLLABORATION.md)、[实际节点与证据索引](../../../agent_protocol/GRAPH_AGENT_BINDINGS.json)及[图锚点独立发现目录](../../graph_annotations/E0/README.md)。新发现可在本目录写数学叙述，并将节点/边身份通过相应 JSON 记录关联。跨 Agent独立复核以后再由整理者更新原计算图，不将图中OPEN边误画成已执行算子。
 
+**最新实测与后续独立评议：** [固定15维函数空间的CPU oracle](../../../20261026/E0_FIXED_COORDINATE_BASIS_ORACLE.md)为四anchor自身与neighbor12预测的分歧提供数据背景，[独立v9分块/双向source迁移设计](independent-anchor-versus-neighbor-transfer-discriminator-20261026_v9.md)为一个小范围判别；[SM120 packed原生执行](../../../20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md)与[独立基元源码审查](independent-sm120-packed-fp4-primitive-source-review-20261026.md)代表另一类物理计算证据。两者都属于可选择的独立发现切面，[统一纠偏](../../../20261026/E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)列明已测、设计和视频未测三层，鼓励其它从Q2、时空、传播和功能出发的独立新解释。
+
 ## 新任务分工是开放发现切面
 
 - **FFN 输出机制**：从真实 preactivation、GELU、W2 value vectors 和表示叠加出发，寻找条件集中、相互干扰或新的敏感子空间；通过有符号对照确认它们的函数意义。

@@ -1,3 +1,5 @@
+**更新后的研究判别入口（2026-10-26）：** [新工作审查与机制引导](../20261026/E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)。新四坐标oracle是已完成CPU功能能力实测、A4→N12迁移是设计；SM120合成packed FP4是已完成底层原生GPU基元、尚未测Wan FFN。优先独立机制与现实省算问题，已有两来源完整dense有限响应现为已测事实。
+
 # FFNDS E0 · 当前科研 Agent 锚点（2026-10-26更新）
 
 **创意优先路由：** 先提出可证伪的新机制、新数学表示或新的信息时点，再用源码、已有结果和独立文献提出竞争预测。失败实验是精确的判别证据；授权与质量要求在执行阶段落实。详细遵循[根目录表达政策](../../AGENTS.md)。
@@ -25,7 +27,7 @@
 
 **最新机制与系统双分支**：[全层affine/奇偶与强dense运行时再审](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。全层old tangent和原生权重常驻已测：affine+27只是相对一个匹配固定67-group的局部优势，半斜率/偶分量抵消是竞争解释，权重驻留加速没有降低FFN MAC。视频功能、条件信息、时空动态和真实执行自由度与仿射解释并列竞争，由区分性证据决定后续优先级。
 
-**最新完成的全深度观测：** [v3两来源320处配对FFN与四步状态](../20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)已取得真实四臂、writeback、flow和latent；318/320处Student-prefix raw绝对算子误差比Teacher小（其余2处相等），但两来源latent差持续扩大。后3步flow差与已有latent偏差方向相反。研究从这组新结构出发，比较部署数值、函数容量、输入状态收缩、传播方向与调度器状态；下一完整dense `v_D(z_S)`反事实需另行授权。
+**最新完成的全深度观测：** [v3两来源320处配对FFN与四步状态](../20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)已取得真实四臂、writeback、flow和latent；318/320处Student-prefix raw绝对算子误差比Teacher小（其余2处相等），但两来源latent差持续扩大。后3步flow差与已有latent偏差方向相反。研究从这组新结构出发，比较部署数值、函数容量、输入状态收缩、传播方向与调度器状态；完整dense `v_D(z_S)`反事实已经原生执行并复核（见research/20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md）。
 
 **最新研究路标（2026-10-26）**：[原生六视频机制审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。160处FFN投影宽度缩减及原生加速已经观察到，同时视频出现可见质量偏差；部署same-input、有限后缀传播与受扰轨迹构成主要可判别解释。新函数/时空/物理执行机制与它们并列探索。[G6实时流式场景](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)为暂停的设计资产，由用户恢复后再纳入研究任务。
 

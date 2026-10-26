@@ -2,6 +2,8 @@
 
 > **当前科研引导：MECHANISM_FIRST_DISCOVERY。** 2025–2026 原论文/会议核对，完成对先前“global SSE → signed band SSE → 增样拟合”的研究顺序纠正。此文件是科学问题与设计更新，不改变冻结观测、运行收据、原始视频/质量身份；本轮没有执行新 FFN 模型。
 
+**已合并的新证据审查（2026-10-26）**：[四anchor固定基、neighbor12独立判别与原生SM120 packed基元的机制归类](E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)。四坐标非线性族在128个已暴露行上获得样本内表示信息，尚未证明它可预测另外12个neuron；Blackwell合成packed FP4仅证实可执行基元。两条线索分别产生功能共享与真实数值执行的可证伪问题，均不自动成为研究唯一方法。
+
 ## 0. 研究目标与真正的第一问
 
 在 Wan2.2 I2V 四步蒸馏原生计算中，发现 FFN 哪些计算承担不可替代的生成**功能**，哪些具有可以实际执行的结构性冗余，以及在何种输入、层、expert、去噪step和时空条件下成立。把发现进一步转化为可实现的 W1/Q1/GELU/Q2/W2 低成本条件计算或重新表示，最终比较真实 FFN/整网 wall 与多维完整视频质量。
@@ -72,7 +74,8 @@ Wan仅四步且high→low有专家切换；任何跨步reuse要单独证明实�
 - [full-network finite Dense](E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)：状态依赖响应边界，支持分析动力学与动作时点，不归因到一个FFN机制；
 - [saved latent decode](E0_SAVED_FLOW_DECODE_RESULTS.md)：终端运动、亮度和细节的分歧样本；
 - [frequency signed bands](E0_DISJOINT_SIGNED_BANDS.md)：正交**描述性**统计，适于反驳无差别能量假设，不能独立确定计算功能；
-- [已有16neuron曲线](E0_VECTOR_CURVE_CPU_FEASIBILITY.md)：固定原权重共享投影的能力测试，启发其它函数坐标；
+- [已有16neuron曲线](E0_VECTOR_CURVE_CPU_FEASIBILITY.md)及[固定四坐标函数oracle](E0_FIXED_COORDINATE_BASIS_ORACLE.md)：同rank非线性在已暴露128行上有样本内改进；核心未知是4个anchor是否能预测其余12个neuron，而非如何继续压低16个的总体SSE；
+- [Blackwell合成packed E2M1 GPU基元](E0_SM120_NVFP4_PHYSICAL_PATH.md)：已确认实机原生tensorcore数值执行，实际Wan在线量化、真实FFN省算及视频质量仍未测；
 - [历史HiF4 closure和tile](../20261025/E0_INTRINSIC_FULL_HIDDEN.md)：信息与物理可执行约束，而不是先验稀疏支持的定义。
 
 **当前目标**：沿F1/F2/F3建立真正新的FFN函数/时空/生成作用联系；找到被跨source、有限干预与真实部署共同支持的机制，才进入方法实施、完全自由视频质量和系统性能比对。多Agent只参与方法发现与独立评议，原任务门禁继续由ACTIVE/原生协议管理。

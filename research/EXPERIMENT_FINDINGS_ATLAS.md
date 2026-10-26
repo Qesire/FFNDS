@@ -4,7 +4,7 @@
 
 **I34 · 科学解释复审（非新增实验编号）：** [Affine54实验边界与方法族科学判断](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。`ALG`：实数tanh-GELU奇偶及全残差恒等式；`OBS`：匹配320案例局部输出误差改善；`NATIVE/SYS`：真实窄FFN加速；`VIDEO`：两个来源视频失真而正式质量未验收；`OPEN`：数值/容量/student前缀/下游传递/调度器原因。**局部SSE不是终端质量充分条件，但不能因此断言SSE优化本身是当前失败主因或整个Affine家族无效。** 该评议不是新的测量或Agent独立认可。
 
-**E37 · 当前可复核的新机制事实（NATIVE-OBS）**：[v3两来源320处原生FFN/写回与四步状态](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)已完成四视频、16历史latent指纹及严格身份检查。318/320处Student-prefix raw FFN绝对算子误差更小（2初始位置相等），而两来源latent差持续增大；后3步flow差与既有latent差强反向。此结论属于两个已暴露来源的320个**位置**，不是320个独立视频。完整dense在受扰Student latent上`v_D(z_S)`仍为待授权有限反事实。P23/P24有原生观测，功能因果机制仍OPEN。
+**E37 · 当前可复核的新机制事实（NATIVE-OBS）**：[v3两来源320处原生FFN/写回与四步状态](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)已完成四视频、16历史latent指纹及严格身份检查。318/320处Student-prefix raw FFN绝对算子误差更小（2初始位置相等），而两来源latent差持续增大；后3步flow差与既有latent差强反向。此结论属于两个已暴露来源的320个**位置**，不是320个独立视频。完整dense在受扰Student latent上的`v_D(z_S)`反事实已随后完成，参见[E0完整模型状态响应](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。P23/P24有原生观测，功能因果机制仍OPEN。
 
 **执行沿革**：[v2 DD中性视频及路径故障](20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)只支持最终视频同一性，丢失的trace计0；修复后的[v3完整运行](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)提供独立可复核的原生数据。[统一质量协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)要求每条新视频具有完整帧、SHA、真实成本与分级画质报告；历史六视频已有486帧后验工程补评，官方VBench/人工仍未验收。当前状态及新实验权限只看[ACTIVE_RESEARCH.json](ACTIVE_RESEARCH.json)与真实RUN。
 
@@ -13,6 +13,8 @@
 **有符号频带的新观察（POSTHOC，非新native作业）**：[两来源8个step×四个互斥band](20261026/E0_DISJOINT_SIGNED_BANDS.md)保留P、N、signed cross并回收全域能量；说明全局SSE可能遮蔽分方向抵消/增强。新的source必须复用事先指定的同频带，视频功能仍需独立验证。
 
 **最新统一科研起点（非新增结果）**：[机制先行的2025–2026前沿文献对照与FFN三类发现问题](20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md)。把已观测Affine54局部/全局SSE、整步状态谱和signed cross归入原有失败原型的分析资产；新方法先从可执行的冗余、信息时点、条件功能与有限因果检验中提出。10+source扩展负责验证已定义的科学预测，而非自动派生SSE优化候选。
+
+**新增两类独立实测（2026-10-26）**：[同预算四anchor固定函数oracle](20261026/E0_FIXED_COORDINATE_BASIS_ORACLE.md)在128已暴露行上非线性基优于affine/单随机rank基，但尚未识别neighbor12的额外函数信息；[真实SM120 packed NVFP4 primitive](20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md)完成两配置五次GPU GEMM并与host参考一致，却尚无真实Wan量化/FFN省算/完整生成。新的[科研引导审查](20261026/E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)将二者分为CPU结构能力与GPU硬件可行性，明确下一可证伪问题及并行开放方向。
 
 ## 0. 研究命题与证据单位
 
