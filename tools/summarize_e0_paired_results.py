@@ -76,6 +76,7 @@ def summarize(study, hf_derived):
             'student_operator_SSE_strictly_smaller_sites': sum(s['FFN']['student_operator_SSE'] < s['FFN']['teacher_operator_SSE'] for s in trace['sites']),
             'operator_SSE_equal_sites': [[s['step'], s['block']] for s in trace['sites'] if s['FFN']['student_operator_SSE'] == s['FFN']['teacher_operator_SSE']],
             'per_step': per_step, 'cost': run['cost'], 'cost_scope': run['cost_scope'],
+            'GPU_allocated_bytes_before_CPU_metrics': run['GPU_allocated_bytes_before_CPU_metrics'],
             'cost_deduplication_key': run['cost_deduplication_key'],
             'observer_counts': run['observer_counts'], 'native_runtime_counts': run['native_runtime_counts'],
             'sampled_isolation_pass': run['assigned_GPU_resources']['sampled_isolation_pass'],

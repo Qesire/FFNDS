@@ -1,10 +1,10 @@
 # FFNDS · 实验发现谱系、机制分类与对照矩阵
 
-> 2026-10-25 | 基于 AutoResearcher v2.4 **Ground → Derive → Discriminate → Learn** 的历史证据重组；链接至 [实际计算图 G0–G3](../docs/98_端到端计算图与证据注解_20261025.md)。这是一份**研究知识图谱**而非新增任务单，不改变原有冻结协议、失败决定、授权或当前唯一 E0 方向。
+> 2026-10-25 | 基于 AutoResearcher v2.4 **Ground → Derive → Discriminate → Learn** 的历史证据重组；链接至 [实际计算图 G0–G6](../docs/98_端到端计算图与证据注解_20261025.md)。这是一份**研究知识图谱**而非新增任务单，不改变原有冻结协议、失败决定、授权或当前唯一 E0 方向。
 
 **I34 · 科学解释复审（非新增实验编号）：** [Affine54实验边界与方法族科学判断](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。`ALG`：实数tanh-GELU奇偶及全残差恒等式；`OBS`：匹配320案例局部输出误差改善；`NATIVE/SYS`：真实窄FFN加速；`VIDEO`：两个来源视频失真而正式质量未验收；`OPEN`：数值/容量/student前缀/下游传递/调度器原因。**局部SSE不是终端质量充分条件，但不能因此断言SSE优化本身是当前失败主因或整个Affine家族无效。** 该评议不是新的测量或Agent独立认可。
 
-**并行授权状态（2026-10-26）**：独立原生paired v2接线和严格身份门禁已软件验证，另行登记了[固定v2范围](../config/e0_paired_full_depth_20261026_v2.json)的明确有界授权；截至本次审查原生paired测量仍为0/160、状态为`AUTHORIZED_NOT_STARTED`。已有E34/E35为软件/源码成果，不改变P23/P24 OPEN；正式模型RUN及质量结果以其后续实际记录为准。
+**原生paired-v2执行状态入口**：已冻结[固定v2范围](../config/e0_paired_full_depth_20261026_v2.json)并完成软件采集器及严格资产身份验证。授权、队列、真实配对site、失败/成功回执与是否可升级P23/P24，始终以[活动研究状态](ACTIVE_RESEARCH.json)和真实原生RUN/质量证据为准；本图谱的E34/E35只是它们完成时的**软件/源码阶段快照**，不会根据是否已启动任务自动升级为native机制证据。
 
 **最新质量与全层限制（2026-10-26）**：[统一每生成视频指标与全40×4真实误差政策](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)以[全模型六视频失败](20261026/E0_RECONSTRUCTED_VIDEOS.md)为直接依据。完成了全部160处原生替换，不等于已解释每一步各层真实Student前缀误差：早先partial-native只有block0/30，8.54%局部输出SSE来自Dense前缀保存panel。六视频已有逐帧RGB/encoded-luma/差分，现已另行补全运动/结构编码像素诊断（见下方E31），官方VBench/人工指标仍未完成；不能将旧视频结果标成符合新全指标验收。今后的每段生成要求SHA/全帧评估/真实成本/质量状态，无结果则保留为未完备证据。
 
@@ -190,24 +190,24 @@
 | 知识ID | 新证据 | 可成立范围与下一竞争解释 |
 | --- | --- | --- |
 | **E31 质量异质性** | [六已有视频补评](20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md)：486帧/480帧对；修正光流8bit尺度，affine source0低运动估计、source12高帧差且末窗口光流反高；高Laplacian可与失真并存 | *POSTHOC-VIDEO*。两个暴露来源，未测真光流/语义背景/官方/用户完整播放；双向一致性不等于准确。四处reference model_digest勘误与原冻结报告并存。P22/P25 |
-| **E32 有符号完整状态账本** | [工具](20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)：四native FFN/四实际写回、完整40×4覆盖，operator-prefix交叉项、完整四维latent、六边界哈希跨步连续性；10项软件测试 | *SOFTWARE/ALG*。保留SYNTHETIC标签，native producer尚未实现，空间时间strata待定；P23/P24仍OPEN，非因果归因或质量通过 |
-| **E33 dtype与原生接口纠正** | [独立源审阅](method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md)：继承step_pre可把FP32 latent转BF16，step_post再回转；单pipeline同block buffer交错两轨可行切口，25源码/7API静态检查 | *SRC/CONDITIONAL*。当前env和flag下静态推断，不是实际dtype迹线；40.70GiB只含已知权重，bounded residency未实现、峰值未知。新GPU/模型0 |
+| **E32 有符号完整状态账本** | [工具](20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)：四native FFN/四实际写回、完整40×4覆盖，operator-prefix交叉项、完整四维latent、六边界哈希跨步连续性；10项软件测试 | *SOFTWARE/ALG（初始阶段）*。10项夹具保留SYNTHETIC标签；后续producer与时空分层已在E34实现，**不代表任何真实site成功**。P23/P24只有原生验证后才可升级 |
+| **E33 dtype与原生接口纠正** | [独立源审阅](method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md)：继承step_pre可把FP32 latent转BF16，step_post再回转；单pipeline同block buffer交错两轨可行切口，25源码/7API静态检查 | *SRC/CONDITIONAL（初始源码设计）*。原源码的step_pre BF16条件推断不是实测迹线；已知40.70GiB只含部分权重。bounded residency后来在E34完成接线，但真实GPU峰值和中性仍要以RUN验证；本条不代表当前执行状态 |
 
-官方/人工质量仍NOT_RUN，模型权限NONE。历史23范围、原始六视频与RUN、12/40旧生成及旧冻结协议不变；本次只追加一个已完成CPU已有视频分析范围。
+**历史六视频**的官方/人工质量仍NOT_RUN；E31–E33对应的CPU/设计工作没有启动模型。后续另有严格固定的paired-v2独立授权和执行状态，见[活动状态](ACTIVE_RESEARCH.json)。原始六视频、RUN及冻结协议不因本文变化。
 
 ## 2026-10-26：E34 原生采集接线与有限精度写回反例
 
-[E34实现](20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)交付双scheduler/同buffer逐block两轨、可重入四FFN与四真实写回、当前block dense FFN驻留、唯一有限attempt账本及失败视频全帧取证。17项CPU SYN软件测试、39源码与80参数包checksum通过，三pair六完整轨迹协议待单独授权，实际native记录0。初始BF16 latent与四步入口/出口哈希保持真实dtype。
+[E34实现](20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)交付双scheduler/同buffer逐block两轨、可重入四FFN与四真实写回、当前block dense FFN驻留、唯一有限attempt账本及失败视频全帧取证。17项CPU SYN软件测试、39份源码及80份参数包checksum在初始实现阶段通过；当时真实native为0。三pair/六轨迹随后经v2独立冻结与授权，实时进度只以[活动状态](ACTIVE_RESEARCH.json)和RUN判定。初始BF16 latent与四步入口/出口哈希保持真实dtype。
 
 有限精度反例：相同g=1、yD=0、yS=2^-9，在r=1的BF16写回误差0，在r=0误差2^-9；因此raw FFN差不变也可能改变真实写回差，student门控误差变大不必只有FFN输入失配这一解释。*SYN/ALG*，不是Wan已测机制。P23/P24仍OPEN，诊断wall包含额外observer/影子/连续/归约/双解码，不能当部署提速。旧原型质量失败和24既有scope不改。
 
 ## 2026-10-26：E35 新入口的严格视频身份与产物覆盖
 
-[新paired严格层](20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)从独立native回执与实际目录比对两视频清单，并以真实生成assets/operator重算dense model_digest；拒绝误继承候选digest、漏视频并降expected计数、删reference及无权威清单。8项新软件测试+17项paired软件测试通过，两个实际旧dense身份只读复核一致。*SRC/SOFTWARE*，仅新paired入口，原gate/旧报告字节不改，不追加质量验收。另冻v2替代未授权未执行v1，当前模型/GPU仍0，真实全深度迹线仍OPEN。
+[新paired严格层](20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)从独立native回执与实际目录比对两视频清单，并以真实生成assets/operator重算dense model_digest；拒绝误继承候选digest、漏视频并降expected计数、删reference及无权威清单。8项新软件测试+17项paired软件测试通过，两个实际旧dense身份只读复核一致。*SRC/SOFTWARE*，仅新paired入口，原gate/旧报告字节不改，不追加质量验收。另冻v2替代未授权未执行的v1；软件门禁测试阶段模型/GPU为0。v2后续已登记有界授权/启动，不能把这里的0当作实时作业计数；P23/P24是否有有效原生迹线由实际RUN和审查决定。
 
 ## 2026-10-26：E36 DD终端视频中性与路径失败边界
 
-[实际结果与修复](20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)：两条新DD视频逐字节等于旧dense，采样显存71.75GiB；后置历史路径错误使v2失败，详细trace/latent未留存，不能将160处已运行当作160处可审计记录。余下DC取消，无重试；v3四视频范围待独立授权。P23/P24保持OPEN，正式质量及完整成本未通过。
+[实际结果与修复](20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)：两条新DD视频逐字节等于旧dense，采样显存71.75GiB；后置历史路径错误使v2失败，详细trace/latent未留存，不能将160处已运行当作160处可审计记录。余下DC取消，无重试；后续v3四视频的授权及实测见E37与ACTIVE。P23/P24保持OPEN，正式质量及完整成本未通过。
 
 ## 2026-10-26：E37 局部raw误差变小与四步状态差扩大
 

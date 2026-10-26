@@ -42,7 +42,7 @@ raw FFN及真实writeback四臂的有符号重组均闭合，能量恒等式相�
 
 v3单张空闲A100串行两组：4完整生成、320site、8320个原生目标GEMM、7680次原生QDQ，另1920个32行FP32诊断GEMM。物理采样峰值两组均76815MiB（75.01GiB），同卡隔离通过。HF新增278488412字节，低于0.5GiB。
 
-来源0/12的整个双轨观察wall为220.94/198.38秒、setup301.59/203.04秒；FFN主调用＋shadow边界为31.44/31.43秒。这些费用包含两条轨迹、影子与观察，**不是候选部署延迟**。四视频完整324帧/320帧间对已评价，正式VBench及人工全片仍NOT_RUN；候选与旧有损视频逐字节一致，本轮没有画质验收或新方法提速结论。
+来源0/12的整个双轨观察wall为220.94/198.38秒、setup301.59/203.04秒；FFN主调用＋shadow边界为31.44/31.43秒。CPU补评前回执仍记录6012407296字节（约5.60GiB）GPU分配；Python对象删除不作为即时物理释放的证据。这些费用包含两条轨迹、影子与观察，**不是候选部署延迟**。四视频完整324帧/320帧间对已评价，正式VBench及人工全片仍NOT_RUN；候选与旧有损视频逐字节一致，本轮没有画质验收或新方法提速结论。
 
 [独立两来源复核](../method_discussion/discoveries/E0/independent-native-input-contraction-and-flow-error-20261026_v6.md)还给出解析反例：常量teacher flow与有偏但收缩的student更新就能同时出现局部student误差降低及outward流差，因此不能由当前符号现象反推teacher动力学不稳定。该反例未拟合Wan；[图注解](../method_discussion/graph_annotations/E0/E0_GRAPH_PAIRED_NATIVE_STATE_DIVERGENCE_20261026.json)仍为PROPOSED。
 

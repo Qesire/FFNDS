@@ -1,6 +1,8 @@
 # FFNDS E0 · 当前科研 Agent 锚点（2026-10-25）
 
-**最新机制审查**：[2026-10-25 开放分歧](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；[已完成的K1–K3与剩余K4–K5](../20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)。原生全hidden、连续M128和原组支持研究已完成；优先发现新的函数、时空、质量和系统机制。
+**当前唯一科学解释**：[全模型视频与Affine方法族审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)；**原生执行授权与运行状态**仅看[活动状态](../ACTIVE_RESEARCH.json)。
+
+**历史机制审查**：[2026-10-25 开放分歧](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)；[已完成的K1–K3与剩余K4–K5](../20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md)。原生全hidden、连续M128和原组支持研究已完成；优先发现新的函数、时空、质量和系统机制。
 
 **阶段：`E0_OPEN_DISCOVERY` · 唯一科学状态：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) · 当前任务：[E0_FFN_FIRST_TASK_20261025.md](../20261025/E0_FFN_FIRST_TASK_20261025.md) · 科研纲领：[E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)。**
 
@@ -17,15 +19,15 @@
 - finite downstream response 小：residual/attention/多步视频的实际函数影响。
 - 可省真实计算：W1/GELU/W2、访存、布局与决策代价合计使物理代价下降。
 
-这些可能相关，也可能彼此分离。**当前目的不是先构造新的 Proxy、固定64组或 Dense completion，而是发现决定上述关系的机制。**
+这些可能相关，也可能彼此分离。**当前研究产物是连接激活、净贡献、终端影响和可省计算的机制模型。** Proxy、固定组、Dense completion及新表示均可作为从该机制自然导出的待判别构造。
 
-**最新机制与系统双分支**：[全层affine/奇偶与强dense运行时再审](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。全层old tangent和原生权重常驻已测：affine+27只是相对一个匹配固定67-group的局部优势，半斜率/偶分量抵消是竞争解释，权重驻留加速没有降低FFN MAC。其他视频功能、条件信息、时空动态和真实执行自由度仍与其并列；不派发单一affine下一任务。
+**最新机制与系统双分支**：[全层affine/奇偶与强dense运行时再审](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。全层old tangent和原生权重常驻已测：affine+27只是相对一个匹配固定67-group的局部优势，半斜率/偶分量抵消是竞争解释，权重驻留加速没有降低FFN MAC。视频功能、条件信息、时空动态和真实执行自由度与仿射解释并列竞争，由区分性证据决定后续优先级。
 
 **最新研究路标（2026-10-26）**：[原生六视频失败后的方向审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)和[实时流式附加场景](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)。当前已在160处FFN真正减少矩阵宽度并加速，但画质受损；第一诊断为部署same-input、本机有限传播、受扰轨迹这三种竞争机制。实时流式需另建causal/rolling源码计算流、first-frame和frame-deadline指标；现有Wan离线整段不自动可流式。保留其他函数/时空/执行机制自主探索与实验暂停权限。
 
 ## 计算图参与研究的默认方式
 
-从 [G0–G6计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent协作协议](GRAPH_AGENT_COLLABORATION.md) 获取真实算子路径、Q1/W1/GELU/Q2/W2数值边界、历史可用性与下游消费者；借 [JSON节点索引](GRAPH_AGENT_BINDINGS.json) 查证据和未解问题。每项新科学认识形成一份 [图锚点讨论记录](../method_discussion/graph_annotations/E0/README.md) 或在原发现中声明相关节点；独立reviewer沿路径反推源码/数学反例，整理者把受支持的注释回写计算图和实验谱系。新表示可以提出新的图节点，勿将现有G4 shared-column视为所有实验的默认路线。
+从 [G0–G6计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [Graph-Agent协作协议](GRAPH_AGENT_COLLABORATION.md) 获取真实算子路径、Q1/W1/GELU/Q2/W2数值边界、历史可用性与下游消费者；借 [JSON节点索引](GRAPH_AGENT_BINDINGS.json) 查证据和未解问题。每项新科学认识形成一份 [图锚点讨论记录](../method_discussion/graph_annotations/E0/README.md) 或在原发现中声明相关节点；独立reviewer沿路径反推源码/数学反例，整理者把受支持的注释回写计算图和实验谱系。新表示可以提出新图节点；G4 shared-column是可复用的已测比较对象之一。
 
 ## 独立科学发现入口
 

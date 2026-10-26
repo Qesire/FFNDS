@@ -241,7 +241,20 @@ def main():
            "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in
            text(".agents/skills/ffnds-paper-discovery/SKILL.md"),
            "Scientific review split across obsolete handoffs")
+    for obsolete in (
+        "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md",
+        "research/20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md",
+    ):
+        ensure(not (ROOT / obsolete).exists(),
+               "Obsolete duplicate scientific review still exists: " + obsolete)
 
+    frozen_audit_locator = "research/20261026/E0_TRACKING_RESULT_AND_DRIFT_AUDIT_20261026.md"
+    ensure((ROOT / frozen_audit_locator).is_file() and
+           len(text(frozen_audit_locator)) < 1400 and
+           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(frozen_audit_locator) and
+           "compatibility locator" in text(frozen_audit_locator) and
+           record("config/e0_paired_full_depth_20261026_v2.json").get("upstream_audit") == frozen_audit_locator,
+           "Frozen paired-v2 audit locator was lost or expanded into a duplicate review")
 
     graph_data = load_graph_registry()
     ensure(graph_data.get("current_scientific_audit") == review,
@@ -485,7 +498,12 @@ def main():
     check_relative_markdown_links("research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md")
     check_relative_markdown_links("research/20261025/E0_FFN_FIRST_TASK_20261025.md")
     check_relative_markdown_links("research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md")
-    check_relative_markdown_links("research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md")
+    check_relative_markdown_links("research/20261026/E0_TRACKING_RESULT_AND_DRIFT_AUDIT_20261026.md")
+    check_relative_markdown_links("research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md")
+    check_relative_markdown_links("research/20261026/E0_FULL_DEPTH_TRACE_TOOLING.md")
+    check_relative_markdown_links("research/20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md")
+    check_relative_markdown_links("research/20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md")
+    check_relative_markdown_links("research/EXPERIMENT_FINDINGS_ATLAS.md")
     check_relative_markdown_links("research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md")
     check_relative_markdown_links("research/agent_protocol/GRAPH_AGENT_COLLABORATION.md")
     check_relative_markdown_links("research/method_discussion/graph_annotations/E0/README.md")

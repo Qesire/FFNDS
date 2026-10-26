@@ -2,6 +2,8 @@
 
 ## Current E0 science — intrinsic FFN computation first
 
+**统一机制与质量科学结论**：[Wan FFN完整视频失败与Affine54方法族审查](research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。此页是导航而非实时执行日志；paired-native v2的进度、权限和实际结果读取[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)与原生RUN，不能以历史“全部完成/待授权”覆盖新状态。
+
 **Research direction reset, 2026-10-25:** [intrinsic FFN mechanism program](research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) and [current sole discovery task](research/20261025/E0_FFN_FIRST_TASK_20261025.md). For specific missing source fields, mathematical contrasts and cheapest discriminators, read [knowledge gaps K1–K5](research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md). Study W1–GELU–W2 signed contributions, conditional token/step/expert structure, downstream functional effect, and actual avoidable GEMM work. The old [E0 gap dossier](research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md), radial pairing, four-arm and HiF4/NVFP4 comparison now serve as historical/scoped evidence rather than default science agenda. Default [deep Web Search](research/agent_protocol/DEEP_WEB_RESEARCH.md) and AutoResearcher v2.4 remain in force.
 
 **Goal:** Understand and exploit real FFN computational redundancy in the distilled Wan I2V model, reduce *actual* FFN and end-to-end inference time, and preserve complete free-running video quality. No default dense restoration, R256 compensation, mask family or representation.
