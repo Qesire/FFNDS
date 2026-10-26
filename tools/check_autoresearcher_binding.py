@@ -201,6 +201,14 @@ def main():
            (ROOT / review).is_file() and
            "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(first_task),
            "Post-native-video direction review is not the current handoff")
+    family_review = "research/20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md"
+    ensure(focus.get("latest_affine54_family_review") == family_review and
+           (ROOT / family_review).is_file() and
+           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text(first_task) and
+           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text("AGENTS.md") and
+           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text(".agents/skills/ffnds-paper-discovery/SKILL.md"),
+           "Affine54 scope-limited mechanism review lost from research guidance")
+
     graph_data = load_graph_registry()
     ensure(graph_data.get("current_scientific_audit") == review,
            "Computation graph review differs from the active science review")
@@ -399,6 +407,7 @@ def main():
             "E0_GRAPH_EXTENDS_AFTER_NEW_EVIDENCE",
             "E0_EVERY_GENERATED_VIDEO_REQUIRES_METRIC_REPORT",
             "E0_ALL_LAYER_APPROXIMATION_REQUIRES_REAL_CUMULATIVE_TRACE",
+            "E0_AFFINE54_FAILURE_SCOPE_VS_METHOD_FAMILY",
              "WARD_PINNED_WEB_RESEARCH_DEFAULT"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
