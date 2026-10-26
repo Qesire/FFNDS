@@ -73,7 +73,7 @@
     "docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md"
   ],
   "experiment_authority": {
-    "all_cpu_gpu_model_experiments": "COMPLETED_EXPLICIT_SCOPES_ONLY; NO_AUTOMATIC_FOLLOWUPS",
+    "all_cpu_gpu_model_experiments": "EXPLICIT_FIXED_PAIRED_V2_SCOPE_AUTHORIZED; NO_AUTOMATIC_FOLLOWUPS",
     "paused_by": "research/20261024/EXPERIMENT_PAUSE.json",
     "eligible_model_method_ids": [],
     "automatic_followups": false,
@@ -866,10 +866,32 @@
           "official_quality_calls": 0,
           "raw_HF_output_bytes": 1555076
         }
+      },
+      {
+        "id": "E0_PAIRED_FULL_DEPTH_NATIVE_20261026_V2",
+        "protocol": "config/e0_paired_full_depth_20261026_v2.json",
+        "protocol_sha256": "dfefff076066c766766897ab76bb161b1e82fbfb74c5a0031c3f91c68ef95ce0",
+        "user_instruction": "授权该固定范围，立即运行",
+        "date": "2026-10-26",
+        "scope": "Three serial fresh-process paired trajectories on one idle A100: dense/dense source0 first, then dense/candidate source0 and source12. Each pair is two complete four-step paths and two decoded81-frame videos. At every one of480 paired sites observe two native main FFNs plus two shadow FFNs and actual original gate/residual four arms, full-M signed scalars, nine preregistered frame-third x vertical-third raster strata, and two32-row FP32 continuous diagnostics with the same deployed BF16 coefficients. Source0/12 are previously exposed, seeds42/54, not new-source inference. Every branch must match original native four latent/video hashes before pass. Every actual clip including failed output gets full-frame metrics or explicit failure. No fitting, decomposition, training, official scoring, operator selection or promotion.",
+        "execution_status": "AUTHORIZED_NOT_STARTED",
+        "max_gpu_cards": 4,
+        "planned_simultaneous_GPU_cards": 1,
+        "max_full_generations_total": 6,
+        "max_HF_output_gib": 0.5,
+        "pending_model_jobs": 3,
+        "automatic_retry": false,
+        "no_automatic_followup": true,
+        "stop_after_any_failure": true,
+        "new_weight_fits": 0,
+        "training_updates": 0,
+        "model_weight_decompositions": 0,
+        "official_quality_calls": 0,
+        "stage_promotion": false
       }
     ]
   },
-  "model_execution_authority": "NONE; ALL_CURRENT_FIXED_NATIVE_AND_BANK_SCOPES_COMPLETE; NO_AUTOMATIC_FOLLOWUP",
+  "model_execution_authority": "E0_PAIRED_FULL_DEPTH_NATIVE_20261026_V2_ONLY; EXACT_PROTOCOL_SHA; SERIAL_SINGLE_IDLE_GPU; NO_AUTOMATIC_RETRY_OR_FOLLOWUP",
   "research_navigation": "research/RESEARCH_NAVIGATION.md",
   "question_relationship": "COUPLED_LENSES_NON_SEQUENTIAL_INFORMATION_DECISION_COMPUTE",
   "research_interfaces": {
@@ -1287,7 +1309,7 @@
       "backfill_metadata_errata": "FOUR_CANDIDATE_REFERENCE_MODEL_DIGEST_FIELDS_WRONG; corrected in immutable report errata, old files not rewritten"
     },
     "full_depth_trajectory_analysis": {
-      "status": "DESIGNED_NOT_EXECUTED",
+      "status": "EXPLICIT_FIXED_V2_SCOPE_AUTHORIZED_NOT_STARTED",
       "protocol_template": "config/e0_full_depth_quality_discriminator_TEMPLATE_20261026.json",
       "blocks": [
         0,
@@ -1343,9 +1365,11 @@
         30
       ],
       "measurement": "FULL_160_SITE_TEACHER_STUDENT_INPUT_PAIR_AND_SIGNED_CUMULATIVE_OUTPUT_FLOW_LATENT",
-      "no_new_execution": true,
+      "no_new_execution": false,
       "existing_all40_observation_review": "research/20261026/E0_40_BLOCK_DISTRIBUTION_AND_CUMULATIVE_NEXT_20261026.md",
-      "empirical_risk": "Teacher-input block0=0.85%,block39=0.34% affine54 local SSE yet 5=15.78%,6=13.99%,7=13.68%,32=13.49%,35=13.17%; not full-model causal attribution"
+      "empirical_risk": "Teacher-input block0=0.85%,block39=0.34% affine54 local SSE yet 5=15.78%,6=13.99%,7=13.68%,32=13.49%,35=13.17%; not full-model causal attribution",
+      "authorized_protocol": "config/e0_paired_full_depth_20261026_v2.json",
+      "authorized_protocol_sha256": "dfefff076066c766766897ab76bb161b1e82fbfb74c5a0031c3f91c68ef95ce0"
     }
   },
   "web_research": {
@@ -1441,7 +1465,7 @@
     "source_review": "research/method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md",
     "status": "NATIVE_COLLECTOR_IMPLEMENTED_SOFTWARE_TESTED_NATIVE_UNVALIDATED",
     "native_paired_sites_measured": 0,
-    "model_execution_authority": "NONE",
+    "model_execution_authority": "E0_PAIRED_FULL_DEPTH_NATIVE_20261026_V2",
     "new_generations": 0,
     "pending_GPU_jobs": 0,
     "implementation_document": "research/20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md",
@@ -1449,7 +1473,7 @@
     "prepared_native_protocol": "config/e0_paired_full_depth_20261026_v2.json",
     "prepared_native_protocol_sha256": "dfefff076066c766766897ab76bb161b1e82fbfb74c5a0031c3f91c68ef95ce0",
     "independent_driver_review": "research/method_discussion/discoveries/E0/independent-paired-driver-final-audit-20261026_v4.md",
-    "new_model_scope_state": "AWAITING_SEPARATE_EXPLICIT_USER_AUTHORIZATION",
+    "new_model_scope_state": "EXPLICITLY_AUTHORIZED_NOT_STARTED",
     "strict_evidence_document": "research/20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md",
     "independent_strict_review": "research/method_discussion/discoveries/E0/independent-paired-driver-final-audit-20261026_v5_strict_gate.md",
     "strict_gate_software_tests": 8,
@@ -1460,7 +1484,7 @@
     "id": "E0_PAIRED_FULL_DEPTH_NATIVE_20261026_V2",
     "protocol": "config/e0_paired_full_depth_20261026_v2.json",
     "protocol_sha256": "dfefff076066c766766897ab76bb161b1e82fbfb74c5a0031c3f91c68ef95ce0",
-    "status": "READY_AWAITING_SEPARATE_EXPLICIT_AUTHORIZATION",
+    "status": "AUTHORIZED_NOT_STARTED",
     "model_jobs_started": 0,
     "automatic_execution": false,
     "supersedes_unexecuted_v1": true

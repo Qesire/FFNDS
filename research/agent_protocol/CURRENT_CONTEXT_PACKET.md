@@ -1,6 +1,6 @@
 # FFNDS · E0 当前科学上下文（2026-10-26）
 
-**新原生入口与严格门禁就绪（2026-10-26）**：[v2配对采集](../20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)已完成25项CPU软件测试、42份源/环境绑定和80参数包checksum。新严格层从独立native回执核对全部视频清单及真实dense资产身份，拒绝漏视频/错digest/删reference；旧gate/报告不改。v1未授权/执行，v2六完整轨迹仍待单独模型范围授权，真实配对native记录/GPU0。
+**新原生入口与严格门禁就绪（2026-10-26）**：[v2配对采集](../20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)已完成25项CPU软件测试、42份源/环境绑定和80参数包checksum。新严格层从独立native回执核对全部视频清单及真实dense资产身份，拒绝漏视频/错digest/删reference；旧gate/报告不改。v1未授权/执行；用户已明确授权v2固定六完整轨迹，已登记待启动。单张空闲A100串行，失败即停不重试；真实配对native记录暂为0。
 
 **最新Skill复审的科学判断：** [当前Affine54失败边界及方法族对照](../20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md)。实数GELU奇偶/全残差分解成立；8.54%局部SSE、强Dense对照下FFN2.18×是真实但有限的正面信号；本次固定54组全层自由视频已观察质量退化，正式验收仍未通过。由此只能否决“较低teacher局部SSE充分保证视频保真”，不能归因某单一原因，也不排除新的Affine条件表示。H-NUM数值、H-CAP函数覆盖、H-SHIFT输入、H-TRANS后缀、H-STATE跨步竞争解释待区分；方法探索与失败归因两线并行。
 
