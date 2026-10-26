@@ -4,6 +4,8 @@
 
 **文献新结论（2026-10-26）：** [直接近邻方法与源代码深度研究](../literature/20261026/FIVE_PAPER_METHOD_AUDIT.md)。DiffSparse论文完整原文：Wan2.1-1.3B视频用25步，四步模型实际为FLUX.1-schnell；其学习DP与full-sampling LPIPS是训练时预算分配。Chipmunk作者原MLP源码需先以blockmean(x)经fc1推断mask再稀疏GEMM，cache调度另含>=10步条件。其余论文的二手详情待作者原文核对，不将文献训练/系统性能冒充本Wan测量。
 
+**文献研究当前已扩展至51项（2026-10-26）：** [新18项的直接机制综述](../literature/20261026/ADJACENT_METHOD_EXPANSION_20261026.md)与[实际源码/开源状态](../literature/20261026/ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。四步Wan的Dynamic-in-Few-Step、Wan2.2少步FIS-DiT、真实FFN channel剪枝Mobile Video DiT以及FFN非线性谱NerVE比多篇Attention类比更直接。此轮仍属于文献科学研究，尚不据此设计固定候选或启动GPU。
+
 # FFNDS · 当前上下文（动态科研交接入口）
 
 **最新机制引导：** [机制先行纲领](../20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md) → [新工作审查：fixed-coordinate与SM120 primitive](../20261026/E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)。优先发现可解释FFN真实必要计算的功能/信息/执行规律；局部SSE、signed状态频谱作为测量器。跨source计划用于验证明确机制。已有新结果分别是CPU同rank函数能力与原生合成NVFP4基元，未产生可接受的Wan新少算算子。

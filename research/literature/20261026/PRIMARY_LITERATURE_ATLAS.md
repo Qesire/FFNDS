@@ -1,10 +1,12 @@
 # FFNDS · 机制先行文献目录（2026-10-26）
 
-**研究阶段：先系统检索和审阅相关工作，再提出新方法。** 本目录按实际研究对象而非指标名分类；作者原文报告和FFNDS已复现实验分开。对应[33篇结构化索引](PRIMARY_LITERATURE_INDEX.json)、[机制交叉比较](MECHANISM_COMPETITION_MATRIX.md)。前期[2026-10-25五族目录](../../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)作为历史记录继续保留。
+**研究阶段：先系统检索和审阅相关工作，再提出新方法。** 本目录按实际研究对象而非指标名分类；作者原文报告和FFNDS已复现实验分开。对应[51项结构化索引](PRIMARY_LITERATURE_INDEX.json)、[机制交叉比较](MECHANISM_COMPETITION_MATRIX.md)。前期[2026-10-25五族目录](../../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)作为历史记录继续保留。
 
 **阅读深度：**多数条目已核对正式会议/预印本官方摘要；Chipmunk作者技术正文、NVIDIA格式规范、TinyFusion相关原文段落做了更深入阅读。此轮未全面逐篇核验方法伪代码、训练步骤、完整消融或代码，实现核对将由独立文献Agent在同一索引追补；不可把摘要论断当Wan可迁移定律。
 
 **第二轮实际深入记录：** [五篇直接竞争者的原论文/源码核查](FIVE_PAPER_METHOD_AUDIT.md) · [证据层级与准确性账本](METHOD_AUDIT_LEDGER.json)。最重要的纠错：DiffSparse四步实验为FLUX.1-schnell，其Wan2.1-1.3B视频实验为25步；Chipmunk的掩码决策在缩小token均值上运行W1并依赖历史缓存，公开实现含>=10步cache-mask分支。RT-Lynx和Dense2MoE的部分细节只能取自二手自动概述，尚未原文确认。
+
+**第三轮完整扩展：** [新增18项直接Wan四步、frame×layer、结构剪枝和非线性特征谱先例](ADJACENT_METHOD_EXPANSION_20261026.md) · [源码审查及核验边界](ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。目录现有**51项**，不再局限RT-Lynx/Dense2MoE等旧五篇。新重点包括Dynamic-in-Few-Step、FIS-DiT、Mobile Video DiT和NerVE。
 
 ## 研究逻辑
 

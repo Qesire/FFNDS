@@ -2,6 +2,8 @@
 
 **方法级核查补充：** [五篇核心机制差异与实际实验模型](FIVE_PAPER_METHOD_AUDIT.md)。DiffSparse的token缓存预算在离线训练中优化，Wan2.1为25步、FLUX-schnell为4步；Chipmunk的跨步MLP缓存在真实源码中先支付blockmean+W1的选择成本。这改变了与FFNDS的四步合法比较基础。
 
+**第三轮新增的直接竞争先例：** [18篇研究与Wan四步差异](ADJACENT_METHOD_EXPANSION_20261026.md)、[源码级实际边界](ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。特别注意Dynamic-in-Few-Step的四步Wan阶段结构、FIS-DiT的frame×layer计算、Mobile Video DiT的FFN channel静态缩窄及NerVE的非线性函数谱。它们分别阻止“联合少步动态剪枝/训练自由帧稀疏/FFN channel压缩/非线性谱”被当作无已知强先例的新颖机制。
+
 本矩阵用于**机制查重**，不是结果晋级或强制算法清单。先查[33篇原文入口与研究深度](PRIMARY_LITERATURE_INDEX.json)。
 
 | 研究对象 | 代表先例 | 与FFNDS既有工作的相似点 | 必须保持的不同假说 |

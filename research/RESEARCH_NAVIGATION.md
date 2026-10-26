@@ -1,5 +1,7 @@
 # FFNDS research navigation
 
+**最优先文献扩展（2026-10-26）：** [51项科学索引](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[新增18项强近邻与相互差异](literature/20261026/ADJACENT_METHOD_EXPANSION_20261026.md)、[NerVE/FIS/SVD-Cache原源码状态与关键方法学张力](literature/20261026/ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。特别纳入Dynamic-in-Few-Step、FIS-DiT、Mobile Video DiT、NerVE以避免遗漏与四步Wan FFN最直接的已知工作。
+
 **新近邻方法级审查：** [5篇论文技术对照](literature/20261026/FIVE_PAPER_METHOD_AUDIT.md)及[原文/作者源码/二手来源分级](literature/20261026/METHOD_AUDIT_LEDGER.json)。已对DiffSparse正式论文方法/附录和Chipmunk原始MLP源码作深入核查；修正Wan2.1 25步/FLUX4步的混淆，确认在线掩码选择所需W1计算。下一步补全RT-Lynx、Dense2MoE的原始全文与代码。
 
 **2026-10-26 文献优先的新入口：** [33条原始论文/规范、研究深度和模型差异的结构化索引](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[可读的六类机制科学综述](literature/20261026/PRIMARY_LITERATURE_ATLAS.md)、[方法重叠与竞争机制矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[独立Agent的文献深读规则](literature/20261026/READING_GUIDE.md)。目前先分析相关科研，而不是继续生成FFN候选或扩展SSE测量。此前2026-10-25五族论文表是历史检索资产。
