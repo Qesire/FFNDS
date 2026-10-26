@@ -17,7 +17,7 @@
 **一手证据**：[CVPR2026发表页面](https://openaccess.thecvf.com/content/CVPR2026/html/Shen_Beyond_Fixed_Formulas_Data-Driven_Linear_Predictor_for_Efficient_Diffusion_Models_CVPR_2026_paper.html)；[作者源码仓库](https://github.com/Aredstone/L2P-Cache) 的 `predictor/train.py`、`src/flux/model.py`、`src/flux/learnable_utils/__init__.py`、`src/flux/l2p_cache.py` 已直接读取（本轮检查的是现行 main，未固定仓库 commit；对应 blob SHA 详见账本）。作者公开摘要及仓库对实验报告 FLUX.1-dev 4.15× latency，但**不是** FFNDS Wan 测值；目前仓库 README 将 HunyuanVideo 复现代码标为“coming soon”。
 
 - **K28 历史真实观测**：在 full-compute 步，完整 Transformer 的最终特征/输出 (f_t=F_{θ}(z_t,t,c)) 经过 `_forward_full()` 计算、缓存。训练离线保存真实轨迹 `features.pt`。
-- **K29 轻量后训练**：训练脚本构造 `W∈R^{50×50}`，用下三角掩码按 (\hat f_{t+1}=\sum_{j=0}^{t} W_{tj} f_j\) 拟合下一时点完整特征，损失 `mean((pred - next_feature)^2)`，Adam lr=0.01/201轮。初值对角为1；这相当于最近一步复制起点。50步历史/固定step schedule是本次作者代码条件；小参数拟合不是完全零训练。
+- **K29 轻量后训练**：训练脚本构造 `W∈R^{50×50}`，用下三角掩码按 \(\hat f_{t+1}=\sum_{j=0}^{t} W_{tj} f_j\) 拟合下一时点完整特征，损失 `mean((pred - next_feature)^2)`，Adam lr=0.01/201轮。初值对角为1；这相当于最近一步复制起点。50步历史/固定step schedule是本次作者代码条件；小参数拟合不是完全零训练。
 - **K30 在线选择**：`src/flux/model.py` 以 `FULL_STEP_SCHEDULES` 判定 full/cache。cache分支用 `predict_with_learnable` 取下三角对应行与先前缓存特征矩阵相乘；`update_learnable` 将**预测的值也写入历史**。这是**整个 Transformer 返回值**的替代，不能直接解释为选出某些 W1/W2 列。预测若不准确，闭环历史可能继续传播误差。
 - **K31 后续动态**：预测的 `f_t` 进入 flow/scheduler 和下一latent，生成轨迹偏移可能改变将来的密集刷新输入。FFNDS已有 NATIVE 的 whole-flow counterfactual、跨 seed 传播为相邻问题，但不证明 L²P 对本 Wan 有效。
 
@@ -32,9 +32,9 @@
 
 **一手证据**：[arXiv:2604.08565v1](https://arxiv.org/pdf/2604.08565) §3 Eq.(1–3)、§5 Eq.的 `FFF_post` 对照、§7 表4–5和作者 §8 limitations。主实验是 GPT-style LLM 训练/微调，并有 DETR 补充；**不是冻结 Wan dense FFN 的免训练稀疏化**。
 
-- **K32 节点线性表征**：P棵深度D的树，访问节点 ((p,\ell,s_\ell)) 用 (z_{p,\ell}=x^\top w^{in}_{p,\ell,s_\ell}+b^{in}_{p,\ell,s_\ell})（Eq.1）。这是对当前输入的主动训练所得决策值，并非 `W1` 完全dense激活后收集的统计。
-- **K33 路径决策**：(s_{\ell+1}=2s_\ell+\mathbf1[z_{p,\ell}\ge0])，`sg` 仅在训练的指示器反传使用（Eq.2）；每树每层只访问一个节点，避免原来其余分支的矩阵工作。
-- **K34 输出**：(y=b^{out}+\sum_{p=1}^P\sum_{\ell=0}^D \operatorname{GELU}(z_{p,\ell})w^{out}_{p,\ell,s_\ell})（Eq.3）。具有**有符号value向量聚合**，但其value与 `W2` 原列不同、路由网络本身即在算子定义中。统计path访问偏斜可形成**训练后静态path修剪**，必须按负载与质量匹配。
+- **K32 节点线性表征**：P棵深度D的树，访问节点 \((p,\ell,s_\ell)\) 用 \(z_{p,\ell}=x^\top w^{in}_{p,\ell,s_\ell}+b^{in}_{p,\ell,s_\ell}\)（Eq.1）。这是对当前输入的主动训练所得决策值，并非 `W1` 完全dense激活后收集的统计。
+- **K33 路径决策**：\(s_{\ell+1}=2s_\ell+\mathbf1[z_{p,\ell}\ge0]\)，`sg` 仅在训练的指示器反传使用（Eq.2）；每树每层只访问一个节点，避免原来其余分支的矩阵工作。
+- **K34 输出**：\(y=b^{out}+\sum_{p=1}^P\sum_{\ell=0}^D \operatorname{GELU}(z_{p,\ell})w^{out}_{p,\ell,s_\ell}\)（Eq.3）。具有**有符号value向量聚合**，但其value与 `W2` 原列不同、路由网络本身即在算子定义中。统计path访问偏斜可形成**训练后静态path修剪**，必须按负载与质量匹配。
 - **K35 竞争性的激活位置**：作者 §5 把 GELU 放到**稀疏节点贡献求和之后**的 `FFF_post` 版本，缓解训练产生的极端路径偏斜；这改变函数而非实数线性变换等价，因为 φ(Σz_jw_j) 一般不同于 Σφ(z_j)w_j。作者A100表5给 d=6 时 layer 0.35ms vs dense3.03ms（8.7×），同时§8明示是受计算模型/软件实现条件约束的**层级基准潜力**，不得称为 Wan 真实wall。
 
 **关键区别**：Dense2MoE 的 token-topK shared+normal FFN 使用额外路由；FFF 的路由与输出节点绑定，并沿路径串行。FFNDS现有 W1/GELU/W2 同层全宽QDQ输入，不能将树的决策函数套在原 `W1` 列上仍声称两种模型等价。可能的研究问题是：对冻结 dense FFN 的**函数**是否存在低复杂度树/字典近似，且整体 I2V 视频保真；需要小型训练/蒸馏时单独列成本。竞争解释是观察到树训练有效源于**参数/attention共同适配**，而非原模型当前通道天然可省。
