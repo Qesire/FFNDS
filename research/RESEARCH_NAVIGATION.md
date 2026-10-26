@@ -1,8 +1,12 @@
 # FFNDS research navigation
 
+**2026-10-27 actual completion / pause:** [four new sources, six seed paths, twelve videos](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md), [six exposed-source native comparison](20261026/E0_SIX_SOURCE_DIRECTIONAL_RESULTS.md), [conditional mean information](20261026/E0_EVEN_RESIDUAL_MEAN_CPU_RESULTS.md). Ten source identities/twelve nested source×seed trajectories/1,920sites now exist. Formal quality NOT_RUN/false. User requested completion, GitHub upload, then pause; model/GPU jobs are complete and released, new execution is paused in ACTIVE.
+
 **研读与写作原则：** 优先读[当前研究任务](20261025/E0_FFN_FIRST_TASK_20261025.md)，独立构造新的机制与可区分预测；仅在论证涉及既有实验时打开精确的历史证据。研究结论保留负结果的准确适用范围，活跃Agent指令采用[生成性表达准则](../AGENTS.md)。静态检查和手动CI用于技术一致性，科学判断来自数学、源码和原生实测。
 
-**最新实测（2026-10-26）**：[v3两来源原生320处双轨观测](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)完成FFN四臂、gate写回、四步flow/latent与四视频/16指纹核对；318/320处Student-prefix raw绝对局部误差更小，latent差同时扩大。下一低范围因果判别需在非零偏移latent上测完整dense `v_D(z_S)`；该实验尚未授权。历史[v2 DD视频身份与后处理失败](20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)按其实际证据单列，正式视频质量仍未验收。
+**最新原生与函数研究（2026-10-26）**：[v3两来源320-site配对](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md) → [完整dense有限反事实（已完成）](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md) → [末步Dense视频桥（已完成）](20261026/E0_SAVED_FLOW_DECODE_RESULTS.md)。新的[四坐标固定函数oracle](20261026/E0_FIXED_COORDINATE_BASIS_ORACLE.md)检验128个已暴露行的条件非线性能力，下一应区分anchor自身与neighbor12的可迁移函数信息；[SM120 packed FP4原生基元](20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md)属于独立硬件能力（没有真实Wan FFN替换）。[最新机制审查与引导](20261026/E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)按功能发现→不同预测→最小判别→实际工作→整段视频划分科研优先级。历史[v2 DD故障](20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)只支持其实际故障范围；正式质量仍未验收。
+
+**机制优先的最新读法：** [2025–2026文献与机制纲领](20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md)与[新工作纠偏](20261026/E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)为讨论入口；source数量、SSE、函数特征基和NVFP4只是识别条件结构后的不同证据/实现对象。
 
 **当前统一科学解释**：[完整视频、Affine54家族与开放机制](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)；**唯一运行状态与权限**：[ACTIVE_RESEARCH.json](ACTIVE_RESEARCH.json)；**一页研究任务**：[E0第一任务](20261025/E0_FFN_FIRST_TASK_20261025.md)。旧科学审查已合并，2026-10-25的方向文件仅提供当时的原始观察和机制历史；不应被当成当前事实。
 

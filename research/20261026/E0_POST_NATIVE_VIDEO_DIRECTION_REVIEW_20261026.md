@@ -2,6 +2,8 @@
 
 > **权威研究解释（2026-10-26）**。合并此前 `E0_POST_AFFINE_DIRECTION_REVIEW_20261025`、Affine54方法族Skill审查、全视频后续方向审查和追踪/偏移审查的科学内容。本文件解释**已冻结证据与待验证机制**，不替代实验RUN、SHA或当前任务状态。**最新执行阶段、授权、作业、完成/失败数必须实时读取 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 和原生RUN**；不要根据本文件的写作时间推断任务仍在等待或已经通过。当前研究阶段E0开放探索，实时生成G6按用户要求暂停。
 
+**当前科研引导的补充（2026-10-26）：** [新CPU固定坐标函数oracle、anchor/neighbor竞争解释与SM120实际packed基元的审查](E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)。本报告解释既有Affine54失配；新方法从FFN结构性冗余、信息时点和生成功能出发，不把局部/有符号/频域SSE升格为机制本身。
+
 ## 一、真正已得到的结果
 
 **研究终点**：在原生Wan2.2 I2V四步蒸馏（high/high/low/low双专家）中，减少真实必要FFN运算与端到端生成成本，同时维持完整视频中主体、运动、背景照明与细节表现。FFN的局部SSE、理想MAC、原生kernel耗时、完整wall、正式VBench和人工质量是不同证据单位。
@@ -17,7 +19,7 @@
 | **完整视频失配** | 原Dense、Whole94、Affine54×来源0/12共6条81帧；候选均显示可见画面偏差、Whole94更明显破碎/重影；Affine54改善局部拟合而仍改变运动、模糊、背景/细节 | *NATIVE VIDEO/有限视觉对比*：当前固定bank与所有160处同时替换组合不满足已有项目的保真目标；正式质量测评未获通过 |
 | **六视频后验指标** | 全486帧/480帧间对，修复Farneback输入灰度尺度：来源0 Affine/Dense光流比**0.091**、相邻RGB差比**0.368**；来源12约**0.846**、**1.463** | [CPU补评和逐帧资产](E0_EXISTING_VIDEO_QUALITY_BACKFILL.md)。来源0有运动估计大幅压低，来源12帧差升高且末窗口流可反超；二者**不能统一解释为“冻结”**。光流与Laplacian是编码像素代理，非真运动、语义细节或真实画质评分 |
 
-**新增原生机制观察**：[两来源320site完整双轨](E0_PAIRED_FULL_DEPTH_RESULTS.md)已保留实际原生四臂、写回及四步状态，四视频/16latent历史指纹相同。318/320处student前缀的raw算子SSE反而更小（另外2处初始相等），但后3步flow差与状态差高度反向、latent误差持续增大。此现象削弱“每处局部误差离轨后统一变大”的解释，不识别主因；需要完整`v_D(z_S)`才能区分whole-model误差与原dense状态响应。旧8.54%为gated、保存native-q2特征的FP64重构，不能与新ungated/fullM量比较。详细数字、费用、分母及独立口径审查均见结果报告。
+**新增原生机制观察**：[两来源320site完整双轨](E0_PAIRED_FULL_DEPTH_RESULTS.md)已保留实际原生四臂、写回及四步状态，四视频/16latent历史指纹相同。318/320处student前缀的raw算子SSE反而更小（另外2处初始相等），但后3步flow差与状态差高度反向、latent误差持续增大。此现象削弱“每处局部误差离轨后统一变大”的解释，不识别主因；完整`v_D(z_S)`已在两来源随后实测：见[全模型Dense有限响应](E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。两来源均在已观测有限偏移上扩张，候选与Dense状态响应的有符号交互存在来源差异；最早的FFN功能缺失、跨来源因果迁移仍开放。旧8.54%为gated、保存native-q2特征的FP64重构，不能与新ungated/fullM量比较。详细数字、费用、分母及独立口径审查均见结果报告。
 
 **质量与标注现状**：六段已有视频的核心工程指标已补齐，但VBench-I2V/VBench2、语义背景稳定性和人工全片审阅未完成；`quality_accepted=false`。四个候选报告中 `reference_identity.model_digest` 曾错误继承候选身份，已登记不可变勘误；原视频SHA和像素分析未改。新配对入口已另实现[严格原生视频身份与清单门禁](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)，但其软件通过不追认为旧核心gate曾有同等语义检查。
 

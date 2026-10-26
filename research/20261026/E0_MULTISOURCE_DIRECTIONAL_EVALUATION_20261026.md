@@ -2,6 +2,8 @@
 
 > **阶段：研究设计已经登记，新增原生GPU任务尚未执行。** 本研究方向由现有两来源完整native paired和全模型Dense反事实出发，增加独立来源与可区分的多维终端质量。正式来源身份、指标与执行状态由 [机器可读计划](../../config/e0_multisource_directional_evaluation_20261026.json) 和 [ACTIVE](../ACTIVE_RESEARCH.json) 区分；旧原生RUN、质量SHA和协议不改动。
 
+**最新科研顺序修订**：[前沿机制先行研究方案](E0_FRONTIER_MECHANISM_FIRST_20261026.md)已将本页定位为**具有可证伪机制后的跨来源验证资源计划**。源级signed P/N、互斥频带与SSE均属于诊断描述，不能作为发现FFN必要计算的预设优化坐标。先根据真实执行图发现冗余结构、解释条件、可提前获知的预测信号与物理可执行替代，再用此扩展计划检验新假说。已登记4个CAL24来源保持拟议状态。
+
 ## 科研对象：必要输出方向与实际少算
 
 现有 320-site paired 原生实验中，318处Student-prefix局部raw误差减小，但两个来源的最终latent偏差增加。[完整网络有限反事实](E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)实测六个非零状态对的Dense能量增益3.63–7.72。[末步解码对照](E0_SAVED_FLOW_DECODE_RESULTS.md)中，Source12平均RGB RMSE改善13.58%，Source0仅改善0.45%，运动/细节代理各有不同变化。[频域分析](E0_SAVED_FLOW_SPECTRUM.md)发现占实维4.79%的固定频带含末态偏差69.99%/53.47%，但这个频带的全域cross符号与局部cross甚至可能相反。

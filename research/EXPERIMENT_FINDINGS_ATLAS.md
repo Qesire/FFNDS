@@ -1,16 +1,24 @@
 # FFNDS · 实验发现谱系、机制分类与对照矩阵
 
+**2026-10-27 completed fresh replication:** [4project-new identities/6nested seed paths/12videos/960sites](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md):942smaller/6equal/12larger; source425 changes all three post-initial cross signs between seed42/54, source437step2/3 has beneficial finite one-step N+cross despite large divergent trajectory. Together with6exposed sources there are10identities/12paths/1,920nested sites. Formal quality remains NOT_RUN; user finish-then-pause is serialized in ACTIVE and all model jobs exited.
+
 > 2026-10-25 | 基于 AutoResearcher v2.4 **Ground → Derive → Discriminate → Learn** 的历史证据重组；链接至 [实际计算图 G0–G6](../docs/98_端到端计算图与证据注解_20261025.md)。这是一份**研究知识图谱**而非新增任务单，不改变原有冻结协议、失败决定、授权或当前唯一 E0 方向。
 
 **I34 · 科学解释复审（非新增实验编号）：** [Affine54实验边界与方法族科学判断](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。`ALG`：实数tanh-GELU奇偶及全残差恒等式；`OBS`：匹配320案例局部输出误差改善；`NATIVE/SYS`：真实窄FFN加速；`VIDEO`：两个来源视频失真而正式质量未验收；`OPEN`：数值/容量/student前缀/下游传递/调度器原因。**局部SSE不是终端质量充分条件，但不能因此断言SSE优化本身是当前失败主因或整个Affine家族无效。** 该评议不是新的测量或Agent独立认可。
 
-**E37 · 当前可复核的新机制事实（NATIVE-OBS）**：[v3两来源320处原生FFN/写回与四步状态](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)已完成四视频、16历史latent指纹及严格身份检查。318/320处Student-prefix raw FFN绝对算子误差更小（2初始位置相等），而两来源latent差持续增大；后3步flow差与既有latent差强反向。此结论属于两个已暴露来源的320个**位置**，不是320个独立视频。完整dense在受扰Student latent上`v_D(z_S)`仍为待授权有限反事实。P23/P24有原生观测，功能因果机制仍OPEN。
+**E37 · 当前可复核的新机制事实（NATIVE-OBS）**：[v3两来源320处原生FFN/写回与四步状态](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)已完成四视频、16历史latent指纹及严格身份检查。318/320处Student-prefix raw FFN绝对算子误差更小（2初始位置相等），而两来源latent差持续增大；后3步flow差与既有latent差强反向。此结论属于两个已暴露来源的320个**位置**，不是320个独立视频。完整dense在受扰Student latent上的`v_D(z_S)`反事实已随后完成，参见[E0完整模型状态响应](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。P23/P24有原生观测，功能因果机制仍OPEN。
 
 **执行沿革**：[v2 DD中性视频及路径故障](20261026/E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)只支持最终视频同一性，丢失的trace计0；修复后的[v3完整运行](20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)提供独立可复核的原生数据。[统一质量协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)要求每条新视频具有完整帧、SHA、真实成本与分级画质报告；历史六视频已有486帧后验工程补评，官方VBench/人工仍未验收。当前状态及新实验权限只看[ACTIVE_RESEARCH.json](ACTIVE_RESEARCH.json)与真实RUN。
 
 **新研究设计（非新增结果编号）：** [2026-10-26六来源扩大、10+来源迁移与多维signed评价](20261026/E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026.md)。既有2-source的320 native sites和完整Dense finite map/末步视频结果为机制依据；新增四校准暴露source与四个真正独立source均为未来条件执行。全局SSE由候选单独排名目标转为二级诊断量。源级视频质量、互斥频带signed P/N/cross和原生省算共同约束判断。
 
 **有符号频带的新观察（POSTHOC，非新native作业）**：[两来源8个step×四个互斥band](20261026/E0_DISJOINT_SIGNED_BANDS.md)保留P、N、signed cross并回收全域能量；说明全局SSE可能遮蔽分方向抵消/增强。新的source必须复用事先指定的同频带，视频功能仍需独立验证。
+
+**最新统一科研起点（非新增结果）**：[机制先行的2025–2026前沿文献对照与FFN三类发现问题](20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md)。把已观测Affine54局部/全局SSE、整步状态谱和signed cross归入原有失败原型的分析资产；新方法先从可执行的冗余、信息时点、条件功能与有限因果检验中提出。10+source扩展负责验证已定义的科学预测，而非自动派生SSE优化候选。
+
+**新增两类独立实测（2026-10-26）**：[同预算四anchor固定函数oracle](20261026/E0_FIXED_COORDINATE_BASIS_ORACLE.md)在128已暴露行上非线性基优于affine/单随机rank基，但尚未识别neighbor12的额外函数信息；[真实SM120 packed NVFP4 primitive](20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md)完成两配置五次GPU GEMM并与host参考一致，却尚无真实Wan量化/FFN省算/完整生成。新的[科研引导审查](20261026/E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)将二者分为CPU结构能力与GPU硬件可行性，明确下一可证伪问题及并行开放方向。
+
+**2026-10-27新增原生与函数信息证据：** [六来源960处汇总](20261026/E0_SIX_SOURCE_DIRECTIONAL_RESULTS.md)已完成新增四来源/八视频；943小/6等/11大，18个非零位移的dense有限能量增益均>1；source16step2候选`N+cross=−946.8824`，比同Student状态改用dense更接近该步teacher。说明本步候选作用、既有状态传播和局部误差是不同对象。频带为描述性posthoc，官方/人工质量未验收。[四panel矩闭合](20261026/E0_EVEN_RESIDUAL_MEAN_CPU_RESULTS.md)区分post-W1Gaussian均值与pre-W1对角信息：gated均值SSE约0.179–0.772%对5.04–14.29%，只解释这四个保存panel，未建完整视频算法。对应P14/P23/P24，新的共享函数与联合信息机制仍OPEN。四个项目新来源/六个seed路径按冻结scope运行，真实进度只看ACTIVE。
 
 ## 0. 研究命题与证据单位
 
