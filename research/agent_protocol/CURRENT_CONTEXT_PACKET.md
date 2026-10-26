@@ -1,3 +1,5 @@
+***Mechanism-first current science update (2026-10-26):*** [frontier/practice literature audit](../20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md) sets FFN redundancy, functional roles, online-available signals and physically realizable transformations as the first question. The existing signed/full-flow/SSE/Fourier data analyze Affine54 failure; they do not define the next method's objective. Additional registered sources are a scoped hypothesis-validation resource, not automatic execution.
+
 # FFNDS · 当前上下文（动态科研交接入口）
 
 本页是E0_OPEN_DISCOVERY的最小Agent上下文，**不存储固定的“最新GPU作业状态”**。当前stage、授权、执行、失败、采集进度和质量结果必须从[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)、固定protocol与实际RUN读取；不得把先前`NOT_STARTED`或某次运行中的`RUNNING`当作永久事实。
