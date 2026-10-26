@@ -1,6 +1,8 @@
-# E0 · 原生双轨采集实现就绪，真实采集待单独授权
+# E0 · 原生双轨采集实现：软件验证与原生执行边界
 
-本轮已把前轮静态账本接入实际 Wan 调用路径：[执行入口](../../tools/run_e0_paired_full_depth.py)、[四步双轨控制器](../../tools/e0_paired_wan_controller.py)、[四臂FFN观测](../../tools/e0_paired_ffn_observer.py)和[当前block驻留](../../tools/e0_paired_weight_residency.py)均已实现。**实现与CPU软件测试完成，不是原生数值、显存或视频验收。新模型/GPU调用0，P23/P24仍OPEN。**
+**记录层级：本页描述实现与初始软件验证，并非实时执行状态。之后用户另行授权了[固定paired-v2协议](../../config/e0_paired_full_depth_20261026_v2.json)；实际启动/结果以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)与原生RUN为准。本实现阶段零GPU/零原生观测是历史统计值。**
+
+本阶段把前轮静态账本接入实际 Wan 调用路径：[执行入口](../../tools/run_e0_paired_full_depth.py)、[四步双轨控制器](../../tools/e0_paired_wan_controller.py)、[四臂FFN观测](../../tools/e0_paired_ffn_observer.py)和[当前block驻留](../../tools/e0_paired_weight_residency.py)均已实现。**实现与CPU软件测试完成，不是原生数值、显存或视频验收。新模型/GPU调用0，P23/P24仍OPEN。**
 
 ## 这次实现解决的问题
 
