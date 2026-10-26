@@ -1,5 +1,7 @@
 # E0 · 原生双轨采集实现：软件验证与原生执行边界
 
+**后续结果索引：** [v2 DD视频同一性及路径失败](E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)、[v3两来源320site完整原生观测](E0_PAIRED_FULL_DEPTH_RESULTS.md)。本页介绍采集器设计时的源码/软件状态；真实GPU费用、有效site和后续因果边界以后续完整记录为准。
+
 **记录层级：本页描述实现与初始软件验证，并非实时执行状态。之后用户另行授权了[固定paired-v2协议](../../config/e0_paired_full_depth_20261026_v2.json)；实际启动/结果以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)与原生RUN为准。本实现阶段零GPU/零原生观测是历史统计值。**
 
 本阶段把前轮静态账本接入实际 Wan 调用路径：[执行入口](../../tools/run_e0_paired_full_depth.py)、[四步双轨控制器](../../tools/e0_paired_wan_controller.py)、[四臂FFN观测](../../tools/e0_paired_ffn_observer.py)和[当前block驻留](../../tools/e0_paired_weight_residency.py)均已实现。**实现与CPU软件测试完成，不是原生数值、显存或视频验收。此处零GPU计数仅针对初始实现阶段；后续固定v2已单独登记并启动，实时结果必须以活动状态与原生RUN为准。P23/P24只有获得真实合格数据后才改变证据身份。**
