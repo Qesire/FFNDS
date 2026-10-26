@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
   "updated": "2026-10-27",
-  "status": "EXPANDED_64_WORK_MECHANISM_ATLAS_WITH_G10_REALTIME_PARALLEL_RESEARCH",
+  "status": "EXPANDED_68_RELATED_WORKS_WITH_G10_CAUSAL_REALTIME_STUDY",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -1144,6 +1144,88 @@
         "S20"
       ],
       "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L65",
+      "group": "frame_token_step",
+      "title": "Causal Forcing++: Scalable Few-Step Autoregressive Diffusion Distillation for Real-Time Interactive Video Generation",
+      "year": 2026,
+      "venue": "arXiv 2605.15141v4 (2026-10-04)",
+      "url": "https://arxiv.org/html/2605.15141v4",
+      "model": "Wan2.1-T2V-1.3B framewise AR",
+      "observed_mechanism": "AR-conditional consistency map initialization from one online adjacent teacher ODE step then onpolicy asymDMD",
+      "decision_time": "offline few-step training followed by frame-wise 1-2 step generation",
+      "physical_action": "training target alignment and fewer framewise denoise steps",
+      "training": "causal consistency distillation plus DMD",
+      "wan_specific_discriminator": "Important mechanism is timesteps and teacher causality, not direct frozen Wan W1 sparsity",
+      "reading_depth": "ORIGINAL_ARXIV_V4_HTML_METHOD_SEC2_3_READ",
+      "graph_anchor": [
+        "S21",
+        "S22"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L66",
+      "group": "frame_token_step",
+      "title": "EdenLive: Real-Time Generative Rendering from Any Visual Reference",
+      "year": 2026,
+      "venue": "VAST Tech Report October 18 2026",
+      "url": "https://www.tripo3d.ai/research/edenlive",
+      "model": "Wan2.2-TI2V-5B and Wan2.1-I2V-14B; realtime LightX2V",
+      "observed_mechanism": "external world-layout and motion reference -> four step chunkAR reference-conditioned appearance renderer",
+      "decision_time": "live reference chunk preceding render",
+      "physical_action": "streaming reference encode + native LightX2V FFN/QDQ kernels and LightTAE",
+      "training": "foundation finetune and AR distillation",
+      "wan_specific_discriminator": "Separate motion/appearance conditions, kernel FPS not full p99; nearest LightX2V hardware cousin",
+      "reading_depth": "AUTHOR_OCT2026_METHOD_AND_REPOSITORY_READ",
+      "graph_anchor": [
+        "S23",
+        "S24"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L67",
+      "group": "frame_token_step",
+      "title": "Helix World: A Real-Time Audio-Visual World Model",
+      "year": 2026,
+      "venue": "Noiz AI + HKUST technical release Oct 12 2026",
+      "url": "https://noiz.ai/lp/blog/meet-helix-world",
+      "model": "LTX2.3 audiovisual causal fewstep",
+      "observed_mechanism": "camera/action-conditioned video and spatial stereo audio streams with audio-video temporal sync",
+      "decision_time": "per chunk generated audio/video and incoming keyboard actions",
+      "physical_action": "streaming multimodal decode and conditional causal generation",
+      "training": "foundation-to-causal-student posttraining",
+      "wan_specific_discriminator": "FPS and 1.3s control response differ; examine FFN role in multimodal timing",
+      "reading_depth": "AUTHOR_OCT2026_TECHNICAL_PAGE_AND_CODE_REPO",
+      "graph_anchor": [
+        "S25",
+        "S10",
+        "S11"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L68",
+      "group": "frame_token_step",
+      "title": "Astronex-World 1.0: Real-Time Interactive World Model Foundation",
+      "year": 2026,
+      "venue": "arXiv technical report September 17 2026",
+      "url": "https://arxiv.org/abs/2609.20034",
+      "model": "Wan2.2-TI2V-5B bidirectional and block-causal",
+      "observed_mechanism": "action modulates each transformer layer; camera PRoPE; block-causal attention history and fewstep",
+      "decision_time": "per layer actions and frame-aligned camera trajectory",
+      "physical_action": "chunk autoregressive denoise + KV cache",
+      "training": "five-stage training/posttraining",
+      "wan_specific_discriminator": "Additional explicit low-dimensional action signal can vary every FFN condition",
+      "reading_depth": "ORIGINAL_ARXIV_REPORT_INTRO_READ",
+      "graph_anchor": [
+        "S25",
+        "S06",
+        "S07"
+      ],
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -1192,9 +1274,15 @@
   "g10_realtime_line": {
     "document": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md",
     "ledger": "research/literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json",
-    "paper_count": 10,
-    "node_count": 20,
+    "paper_count": 14,
+    "node_count": 25,
     "research_only": true,
-    "model_runs": 0
+    "model_runs": 0,
+    "recent_october_ids": [
+      "L65",
+      "L66",
+      "L67",
+      "L68"
+    ]
   }
 }
