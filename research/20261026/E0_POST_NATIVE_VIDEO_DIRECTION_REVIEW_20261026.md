@@ -52,23 +52,23 @@
 
 理论上在实际连续实数更新下有\(\delta_{k+1}=\delta_k-h_k[v_S(z_D+\delta_k)-v_D(z_D)]+\rho_k\)，\(\rho_k\)专门记录真实dtype/舍入更新缺陷。原生Wan的`step_pre`可能按当前配置对latent作BF16转换；真实数据必须分别记录pre、post和不同轨的原始dtype。完整四臂误差分解是**相关结构观察**；证明哪层对终端视频具有因果作用还需受控后缀干预。[轨迹推导](../method_discussion/discoveries/E0/transported-function-and-trajectory-target-20261026.md)、[双轨数据协议与dtype审计](E0_FULL_DEPTH_TRACE_TOOLING.md)给出了准确边界。
 
-## 五、原生配对工作与完整证据
+## 五、原生双轨已经测得的机制与仍开放的因果分解
 
-实现路径已进入 [paired-native接线](E0_PAIRED_NATIVE_IMPLEMENTATION.md)：双scheduler、当前block四臂FFN与真实写回、按生命周期控制dense影子权重、真实step前后状态以及[严格质量证据层](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)。初版17项paired软件测试＋8项严格软件测试（路径/保存修复后共28项）属于**SYN/SOFTWARE**，不等于实际GPU显存、轨迹中性、160处有效真实native观察或视频验收。
+**完整原生证据（NATIVE-OBS）**：[v3两来源320site](E0_PAIRED_FULL_DEPTH_RESULTS.md)在来源0/12、每来源40层×四步全部160处保存同输入FFN四臂、真实gate写回、四步flow与latent几何。318/320处Student-prefix raw FFN绝对算子误差低于Teacher-prefix，另2处相等；Student post-Q1能量/方向改变而latent差持续增大。后3步flow差与已有latent差的cos均为负，来源0约−0.870/−0.905/−0.942，来源12约−0.790/−0.801/−0.885，真实step_post有限精度缺陷另计。这表明局部operator误差降低仍可能伴随终端轨迹分离。
 
-有界v2及后续v3协议分别保留版本历史，当前执行范围读取ACTIVE；v3结果已另行保留，后续没有自动模型权限。该工作线已另行得到明确用户授权，**是否运行、运行成功多少、失败原因与可用site数量，以[实时状态](../ACTIVE_RESEARCH.json)、原生NATIVE_RUN及严格验收文件为准**；文档不再写死“未授权/等待启动/执行完成”。无论状态如何，P23/P24只有在收到真实合格site及机制证据后才能从OPEN改变；运行许可≠机制已经测定，也不自动准许下一批、新算子或训练。
+**从结果构造新的判别**：旧H-SHIFT中“受扰前缀让每一处raw局部operator绝对误差增大”的版本已被这两来源观测削弱；但Student后续功能未因此得到改善。对真实非零偏移状态需补测**完整40层dense模型**的`v_D(z_S)`，利用
+`v_S(z_S)-v_D(z_D)=[v_S(z_S)-v_D(z_S)]+[v_D(z_S)-v_D(z_D)]`
+区分模型差与dense对状态变化的有限响应。逐FFN shadow不能代替这条完整网络流。方向传递、跨步状态、数值部署及固定bank容量是并列竞争机制；未来的受控后缀干预才能进一步指认层级因果效应。
 
-[v2实际运行与路径修复](E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)已提供两条与原dense逐字节相同的DD终端视频，但后处理报错使详细site/latent记录未保存；这不构成P23/P24观测或完整成本门禁通过。其后[四视频v3协议](../../config/e0_paired_full_depth_20261026_v3.json)的授权/执行仍只以ACTIVE及原始RUN为准。当前普通I2V同step/block gate由共享modulation与相等embed0决定；不能用两轨gate变化解释prefix差。32行native–continuous与full-M operator SSE也不能直接比较来裁定NUM主导。
-
-新视频每段都要绑定同source/seed/真实Dense视频、生成RUN、模型身份、完整解码帧及结构/亮度/光流/静态背景/时间分析与实际运行代价。官方VBench-I2V、VBench2及人工全片未跑时明确NOT_RUN，不得宣称质量验收。
+**失败与执行版本追溯**：[v2路径故障](E0_PAIRED_V2_FAILURE_AND_RECOVERY.md)保存两条逐字节相同的DD视频但后处理未留存详细trace，记录其site证据为0；修复后v3在单卡串行完成四视频及320site，16个历史latent指纹匹配，核心全帧/严格身份门禁通过，物理峰值75.01GiB。v3的双轨观察wall包括shadow、诊断GEMM及离线核验费用，**不是候选部署速度**。正式VBench-I2V/VBench2、语义背景及人工全片仍按实际结果NOT_RUN。软件测试与冻结旧RUN各自保持身份；当前资源授权见[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。
 
 ## 六、AutoResearcher引导：两条独立而协作的线
 
-**A｜已完成原型的失败判别**：先分NUM/CAP/SHIFT/TRANS/STATE，选择最能切开竞争预测的已有证据/数学/源码/原生配对结果，再以冻结的、有代表性的多层×四步时空分层决定少量后缀干预；不能只用Block0/39或曾有限测的0/30代替全40层。若已授权v2正在运行，应跟进那一个scope，而非由本审查另造任务。
+**A｜已完成原型的失败判别**：先分NUM/CAP/SHIFT/TRANS/STATE，选择最能切开竞争预测的已有证据/数学/源码/原生配对结果，再以冻结的、有代表性的多层×四步时空分层决定少量后缀干预；不能只用Block0/39或曾有限测的0/30代替全40层。已有v3完整观测可优先提出可区分的有限dense-flow反事实与有符号下游预测；模型层新实验按独立授权执行。
 
 **B｜新FFN必要计算发现**：从信息可得时点、W1/GELU/W2函数基与signed值方向、时空条件、专家/step结构、可执行tile、其它FP4格式或有界后训练构造原本不存在的低成本作用单位；可完全不依赖Affine或HiF4原group64。提出新解释→实际数学与源码链路→与最接近机制不同的预测→最低成本判别→可能的终端质量/运行成本路径。
 
-两线均遵循默认 [AutoResearcher v2.4四类Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md) 与 [Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)。G5/P21局部OBS、P22视频执行和成本、P23/P24待测native传播、P25证据政策必须保持身份分离；G6实时应用场景已暂停，不派工作。提出开放结构无须等待Affine54失败归因结束；要声称可用加速才要求同条件全视频质量与真实物理费用。
+两线均遵循默认 [AutoResearcher v2.4四类Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md) 与 [Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)。G5/P21局部OBS、P22视频执行和成本、P23/P24已测双轨NATIVE-OBS与开放因果机制、P25证据政策必须保持身份分离；G6实时应用场景已暂停，不派工作。提出开放结构无须等待Affine54失败归因结束；要声称可用加速才要求同条件全视频质量与真实物理费用。
 
 **邻近研究**：[TARDIS](https://arxiv.org/abs/2501.10054)已有局部线性化/权重折叠/动态回退；[BRECQ](https://arxiv.org/abs/2102.05426)涉及块重构及跨层相依性；[Q-VDiT](https://proceedings.mlr.press/v267/feng25q.html)提示视频时空质量区别；[CTEC](https://ojs.aaai.org/index.php/AAAI/article/view/34039)已有跨步误差校正；[Sparse VideoGen](https://proceedings.mlr.press/v267/xi25c.html)和[Sparse-vDiT](https://ojs.aaai.org/index.php/AAAI/article/view/37287)为时空/计算组织近邻。它们没有在本Wan量化四步原生算子上替我们验证结果，不能从论文名认定原创或复现。
 
