@@ -1,3 +1,5 @@
+**2026-10-27 G9 新增机制与计算图同步：** [L²P、条件执行树FFF、训练期FFN/attention计算职能迁移](literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)已按作者源码 / 原文公式 / 作者摘要分级，[证据账本](literature/20261027/G9_METHOD_SOURCE_LEDGER.json)与[权威计算图K28–K37](../docs/98_端到端计算图与证据注解_20261025.md)、[79节点/131关系索引](agent_protocol/GRAPH_AGENT_BINDINGS.json)一致。现有54项文献，其中G7–G9提供37个可检索LIT计算节点。研究对照优先分辨历史预测、树结构训练与冻权函数省算的不同条件；ACTIVE暂停的GPU/model/video任务保持原状。
+
 **2026-10-27 G8 最新文献—计算图同步**：[RT-Lynx/Dense2MoE/SVD-Cache/Chipmunk一手方法、真实信息时点及原Wan FFN节点](literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)；[机器证据账本](literature/20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json)将原PDF/作者公开说明/先前代码审查区分。当前G7+G8共27个外部论文节点，原生执行仍暂停。
 
 **计算图与一手论文同步（2026-10-27）：** [DIFS/FIS原文方法](literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)已绑定[G7计算图](../docs/98_端到端计算图与证据注解_20261025.md)，保留SRC/LIT区别。其它文献后续需要依相同形状、信息时点与真实操作落图。
@@ -6,11 +8,11 @@
 
 **2026-10-27 actual completion / pause:** [four new sources, six seed paths, twelve videos](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md), [six exposed-source native comparison](20261026/E0_SIX_SOURCE_DIRECTIONAL_RESULTS.md), [conditional mean information](20261026/E0_EVEN_RESIDUAL_MEAN_CPU_RESULTS.md). Ten source identities/twelve nested source×seed trajectories/1,920sites now exist. Formal quality NOT_RUN/false. User requested completion, GitHub upload, then pause; model/GPU jobs are complete and released, new execution is paused in ACTIVE.
 
-**最优先文献扩展（2026-10-26）：** [51项科学索引](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[新增18项强近邻与相互差异](literature/20261026/ADJACENT_METHOD_EXPANSION_20261026.md)、[NerVE/FIS/SVD-Cache原源码状态与关键方法学张力](literature/20261026/ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。特别纳入Dynamic-in-Few-Step、FIS-DiT、Mobile Video DiT、NerVE以避免遗漏与四步Wan FFN最直接的已知工作。
+**2026-10-26文献扩展的历史增量：** [现已更新至54项的科学索引](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[新增18项强近邻与相互差异](literature/20261026/ADJACENT_METHOD_EXPANSION_20261026.md)、[NerVE/FIS/SVD-Cache原源码状态与关键方法学张力](literature/20261026/ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。特别纳入Dynamic-in-Few-Step、FIS-DiT、Mobile Video DiT、NerVE以避免遗漏与四步Wan FFN最直接的已知工作。
 
-**新近邻方法级审查：** [5篇论文技术对照](literature/20261026/FIVE_PAPER_METHOD_AUDIT.md)及[原文/作者源码/二手来源分级](literature/20261026/METHOD_AUDIT_LEDGER.json)。已对DiffSparse正式论文方法/附录和Chipmunk原始MLP源码作深入核查；修正Wan2.1 25步/FLUX4步的混淆，确认在线掩码选择所需W1计算。下一步补全RT-Lynx、Dense2MoE的原始全文与代码。
+**新近邻方法级审查：** [5篇论文技术对照](literature/20261026/FIVE_PAPER_METHOD_AUDIT.md)及[原文/作者源码/二手来源分级](literature/20261026/METHOD_AUDIT_LEDGER.json)。已对DiffSparse正式论文方法/附录和Chipmunk原始MLP源码作深入核查；修正Wan2.1 25步/FLUX4步的混淆，确认在线掩码选择所需W1计算。RT-Lynx完整方法仍待核查；Dense2MoE原文Eq1–10已在G8完成公式级复核，源码仍待核对。
 
-**2026-10-26 文献优先的新入口：** [33条原始论文/规范、研究深度和模型差异的结构化索引](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[可读的六类机制科学综述](literature/20261026/PRIMARY_LITERATURE_ATLAS.md)、[方法重叠与竞争机制矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[独立Agent的文献深读规则](literature/20261026/READING_GUIDE.md)。目前先分析相关科研，而不是继续生成FFN候选或扩展SSE测量。此前2026-10-25五族论文表是历史检索资产。
+**2026-10-26 文献优先的新入口：** [初版33项起步、现已发展为54项的结构化索引](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[可读的六类机制科学综述](literature/20261026/PRIMARY_LITERATURE_ATLAS.md)、[方法重叠与竞争机制矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[独立Agent的文献深读规则](literature/20261026/READING_GUIDE.md)。目前先分析相关科研，而不是继续生成FFN候选或扩展SSE测量。此前2026-10-25五族论文表是历史检索资产。
 
 **研读与写作原则：** 优先读[当前研究任务](20261025/E0_FFN_FIRST_TASK_20261025.md)，独立构造新的机制与可区分预测；仅在论证涉及既有实验时打开精确的历史证据。研究结论保留负结果的准确适用范围，活跃Agent指令采用[生成性表达准则](../AGENTS.md)。静态检查和手动CI用于技术一致性，科学判断来自数学、源码和原生实测。
 
