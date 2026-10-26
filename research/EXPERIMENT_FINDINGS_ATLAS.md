@@ -192,3 +192,9 @@
 | **E33 dtype与原生接口纠正** | [独立源审阅](method_discussion/discoveries/E0/independent-full-depth-native-interface-20261026.md)：继承step_pre可把FP32 latent转BF16，step_post再回转；单pipeline同block buffer交错两轨可行切口，25源码/7API静态检查 | *SRC/CONDITIONAL*。当前env和flag下静态推断，不是实际dtype迹线；40.70GiB只含已知权重，bounded residency未实现、峰值未知。新GPU/模型0 |
 
 官方/人工质量仍NOT_RUN，模型权限NONE。历史23范围、原始六视频与RUN、12/40旧生成及旧冻结协议不变；本次只追加一个已完成CPU已有视频分析范围。
+
+## 2026-10-26：E34 原生采集接线与有限精度写回反例
+
+[E34实现](20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)交付双scheduler/同buffer逐block两轨、可重入四FFN与四真实写回、当前block dense FFN驻留、唯一有限attempt账本及失败视频全帧取证。17项CPU SYN软件测试、39源码与80参数包checksum通过，三pair六完整轨迹协议待单独授权，实际native记录0。初始BF16 latent与四步入口/出口哈希保持真实dtype。
+
+有限精度反例：相同g=1、yD=0、yS=2^-9，在r=1的BF16写回误差0，在r=0误差2^-9；因此raw FFN差不变也可能改变真实写回差，student门控误差变大不必只有FFN输入失配这一解释。*SYN/ALG*，不是Wan已测机制。P23/P24仍OPEN，诊断wall包含额外observer/影子/连续/归约/双解码，不能当部署提速。旧原型质量失败和24既有scope不改。
