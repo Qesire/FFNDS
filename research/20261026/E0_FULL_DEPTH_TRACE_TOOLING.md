@@ -2,7 +2,7 @@
 
 **版本说明：本文件记录先前静态设计阶段。其后原生采集器已在[paired-native实现](E0_PAIRED_NATIVE_IMPLEMENTATION.md)中完成软件接线，新严格证据层见[paired-v2门禁](E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)，另获固定v2范围授权；实际native测量/运行状态必须读取[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)与原生RUN。静态设计时记录的“尚未实现/未授权/零GPU”均仅表示本阶段的历史截面，不代表当前状态。**
 
-初始阶段交付两个静态软件工具：[有符号向量账本](../../tools/e0_full_depth_trace_contract.py)与[原生接口检查器](../../tools/check_e0_full_depth_interface.py)。**这两个工具本身**是校验/归约层，并非原生采集程序；真正的四臂Wan采集程序已在后续[paired-native实现](E0_PAIRED_NATIVE_IMPLEMENTATION.md)接线。本阶段当时新GPU调用/生成/真实site均为0，属于明确的历史计数；当前执行与质量须读取[活动状态](../ACTIVE_RESEARCH.json)和真实RUN。P23/P24在未得到合格原生证据前仍OPEN，实时场景暂停。
+初始阶段交付两个静态软件工具：[有符号向量账本](../../tools/e0_full_depth_trace_contract.py)与[原生接口检查器](../../tools/check_e0_full_depth_interface.py)。**这两个工具本身**是校验/归约层，并非原生采集程序；真正的四臂Wan采集程序已在后续[paired-native实现](E0_PAIRED_NATIVE_IMPLEMENTATION.md)接线。本阶段当时新GPU调用/生成/真实site均为0，属于明确的历史计数；当前执行与质量须读取[活动状态](../ACTIVE_RESEARCH.json)和真实RUN。后续[v3两来源320site实际结果](E0_PAIRED_FULL_DEPTH_RESULTS.md)已取得P23/P24的NATIVE-OBS证据；其全模型因果分解仍OPEN，G6实时场景暂停。
 
 ## 新结果与有符号分解
 
@@ -54,4 +54,4 @@ python3 tools/check_e0_full_depth_interface.py
 
 ## 下一步边界
 
-以上属于静态设计阶段曾经开放的实现任务；其后双scheduler、四臂dispatcher、bounded FFN生命周期及严格身份检查已另行实现并有软件验证，paired-v2有界授权已登记。真实native现场显存、observer neutrality和全160处有效观测须等待实际RUN与严格验收结果。没有把模板当授权，没有选择新算子，也没有把测试夹具当原生数据。未来每条新视频仍需全81帧SHA绑定评估，官方/人工NOT_RUN时不得验收质量。
+以上属于静态设计阶段曾经开放的实现任务；其后双scheduler、四臂dispatcher、bounded FFN生命周期及严格身份检查已另行实现并有软件验证，paired-v2有界授权已登记。真实native物理峰值与320处配对已由[v3独立回执](E0_PAIRED_FULL_DEPTH_RESULTS.md)测得并经核验；当前开放部分为额外完整dense-on-Student-state函数与有限后缀因果机制。没有把模板当授权，没有选择新算子，也没有把测试夹具当原生数据。未来每条新视频仍需全81帧SHA绑定评估，官方/人工NOT_RUN时不得验收质量。
