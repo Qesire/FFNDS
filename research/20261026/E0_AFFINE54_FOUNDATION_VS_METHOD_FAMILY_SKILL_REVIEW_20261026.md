@@ -12,7 +12,7 @@
 
 ## 1. 源码对象与数学关系：精确性究竟在哪
 
-实测对象为 Wan2.2 I2V 四步蒸馏版，两个expert（high/high/low/low），(D=5120)、(H=13824=216\times64)，LightX2V Wan FFN调用点保留原调用者的norm/condition modulation、tanh-GELU、gate、残差与真实QDQ→BF16执行。审查来源： [原生六视频](E0_RECONSTRUCTED_VIDEOS.md)、[全40层匹配回归](E0_ALL_BLOCK_RECONSTRUCTION.md)、[折叠公式及有限原生](E0_FUNCTION_RECONSTRUCTION.md)、[原生/连续边界审计](../method_discussion/discoveries/E0/independent-matched-calibration-and-runtime-audit-20261026.md)。
+实测对象为 Wan2.2 I2V 四步蒸馏版，两个expert（high/high/low/low），\(D=5120,\ H=13824=216\times64\)，LightX2V Wan FFN调用点保留原调用者的norm/condition modulation、tanh-GELU、gate、残差与真实QDQ→BF16执行。审查来源： [原生六视频](E0_RECONSTRUCTED_VIDEOS.md)、[全40层匹配回归](E0_ALL_BLOCK_RECONSTRUCTION.md)、[折叠公式及有限原生](E0_FUNCTION_RECONSTRUCTION.md)、[原生/连续边界审计](../method_discussion/discoveries/E0/independent-matched-calibration-and-runtime-audit-20261026.md)。
 
 1. **实数级 tanh-GELU 身份（ALG）：** `phi(a)=a/2+e(a)`，`e(-a)=e(a)`。其依据是tanh近似的内部多项式为奇函数；[GELU原作者实现](https://github.com/hendrycks/GELUs/blob/master/README.md)写明该tanh表达。这只证明激活函数的代数分解，不证明经过Smooth2、Q2量化/反量化、BF16舍入后仍满足该分解。
 2. **任意系数的完整残差恒等式（ALG）：** 对**实际post-Q2系数** `q(a)`，定义 `r(a)=q(a)-kappa*a-beta`，则 `q(a)=kappa*a+beta+r(a)` 总成立；保留所有组的 `r` 只是重写原函数，并未省算。真正的Approx从「仅付费求选中组的原非线性Q1/Q2」以及重新拟合读出和偏置开始；静态其他组残差没有精确保留。
