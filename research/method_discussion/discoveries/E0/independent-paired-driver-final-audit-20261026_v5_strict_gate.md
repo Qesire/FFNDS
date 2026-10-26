@@ -10,7 +10,7 @@
 | `config/e0_paired_full_depth_20261026_v2.json` | `dfefff076066c766766897ab76bb161b1e82fbfb74c5a0031c3f91c68ef95ce0` |
 | 原 `config/e0_paired_full_depth_20261026.json` | `6e9e6a39898d12c90f8378cec7ee77a7f26a909e5690d8e1547896bdaf67c188` |
 
-我实际读取新增 strict 工具、driver 的 evaluate_pair/不可变 NATIVE_RUN 写出路径、旧核心 gate/validate 及 strict fixture 源码；没有运行这些程序。问题来源为 `E0_TRACKING_RESULT_AND_DRIFT_AUDIT_20261026.md` 第三节，不把旧门禁 PASS 或既有四处错误 digest 当作 dense 身份真值。
+我实际读取新增 strict 工具、driver 的 evaluate_pair/不可变 NATIVE_RUN 写出路径、旧核心 gate/validate 及 strict fixture 源码；没有运行这些程序。问题来源为 `E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md` 第三节，不把旧门禁 PASS 或既有四处错误 digest 当作 dense 身份真值。
 
 - driver 在原 BUNDLE/core gate 通过后写 `STRICT_BUNDLE.json`，绑定 BUNDLE SHA，并另列已先行写出的 `NATIVE_RUN.json` 路径和 SHA；strict 失败抛异常，driver 不到达最终成功状态。strict 工具已加入 driver 必备源码集合。
 - inventory 不取 bundle 自报的 expected_count：strict 从各个 SHA 已核对的 native receipt 强制读取 teacher/student 两分支，逐视频核对真实文件 SHA，构造 `(receipt SHA, resolved video path)` 权威集合。core 条目必须集合相等且长度相等，重复或漏报失败；receipt 同目录实际 `*.mp4` 也须等于该 receipt 清单。当前 driver 每 pair 独立目录、两条平铺 MP4，符合这项文件布局假设。
