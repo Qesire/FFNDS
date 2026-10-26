@@ -31,7 +31,7 @@
 
 ## 图节点参与独立讨论
 
-**默认加载** [G0–G4计算图](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph-Agent协作协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[节点注册表](../agent_protocol/GRAPH_AGENT_BINDINGS.json)。研究者从机制或视频异常定位真实节点；提交 [E0图锚点claim](graph_annotations/E0/README.md) 时注明 SRC/ALG/OBS/OPEN、最强竞争解释、信息出现时点以及能够改变理解的一条边。独立reviewer先根据实际源码和证据论证再给意见；整理者只把证实的主张连同适用范围写回图/实验图谱，争议与假说仍保留为OPEN。图中已有G4条件路线不限制独立 Agent提出完全不同的机制和图节点。
+**默认加载** [G0–G6计算图](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph-Agent协作协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[节点注册表](../agent_protocol/GRAPH_AGENT_BINDINGS.json)。研究者从机制或视频异常定位真实节点；提交 [E0图锚点claim](graph_annotations/E0/README.md) 时注明 SRC/ALG/OBS/OPEN、最强竞争解释、信息出现时点以及能够改变理解的一条边。独立reviewer先根据实际源码和证据论证再给意见；整理者只把证实的主张连同适用范围写回图/实验图谱，争议与假说仍保留为OPEN。图中已有G4条件路线不限制独立 Agent提出完全不同的机制和图节点。
 
 ## 协作与评议
 
@@ -42,6 +42,6 @@
 
 ## 工作范围
 
-本讨论空间开展科学构想、数学推导、原始源码/文献查找与已保存数据分析。2026-10-25 用户单独授权的六来源原生 E0 采集已经完成；新的 CPU/GPU/model 作业需用户明确授权。[历史暂停回执](../20261024/EXPERIMENT_PAUSE.json) 继续保存。
+本讨论空间开展科学构想、数学推导、原始源码/文献查找与已保存数据分析。2026-10-25 已注册六来源原生 E0 采集已经完成；当前另有用户明确授权的paired-native v2有界范围，实际运行/结束状态以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)为准。所有超出既有协议的CPU/GPU/model任务需要独立明确授权。[历史暂停回执](../20261024/EXPERIMENT_PAUSE.json) 继续保存。
 
 外部 Agent 启动器应同时提供 [根 AGENTS](../../AGENTS.md) 与本目录指令，使新成员进入相同的科学阶段和协作规则。
