@@ -1,0 +1,74 @@
+{
+  "schema": "ffnds.literature.deep_v2",
+  "date": "2026-10-26",
+  "type": "MIXED_PRIMARY_AND_AUTHOR_SOURCE_METHOD_AUDIT_NOT_EXPERIMENT",
+  "studies": [
+    {
+      "id": "L19",
+      "paper": "DiffSparse",
+      "evidence_tier": "ORIGINAL_FULL_PAPER_METHOD_EXPERIMENT_APPENDIX_REVIEWED",
+      "original_primary": "https://proceedings.iclr.cc/paper_files/paper/2026/file/5e66b9f710a8e38351da690f3806cba9-Paper-Conference.pdf",
+      "exact_sections": [
+        "§3.2 Eq(5)-(9)",
+        "§4.1 sampling-step and training",
+        "Appendix A.5.2,A.5.3"
+      ],
+      "key_correction": "FLUX.1-schnell 4-step; Wan2.1-1.3B 25-step, not four",
+      "code_audited": false
+    },
+    {
+      "id": "L09",
+      "paper": "Chipmunk",
+      "evidence_tier": "ORIGINAL_AUTHOR_EXPLANATION_AND_GITHUB_MLP_PYTHON_CUDA_SOURCE_READ",
+      "primary": "https://sandyresearch.github.io/chipmunk-part-II/",
+      "tree_sha": "177fdefc4803e621fd8a02aad491812e9d1ecc94",
+      "blobs": {
+        "mlp": "1415c033df8af9ec388b315036b450a7d2ea87ee",
+        "ops": "a42074fd41477cf666ae298a994baa09f68214c7",
+        "mm1": "7fe07b98462f748af5405e94ce3f430a1f7bf89d",
+        "mm2": "5048cb5ac007ff0c93f77abaf4e76a7607c5a68a"
+      },
+      "key_correction": "blockmean+fc1 mask proposal and cached MLP outputs; inference_step>=10 guard only for mask cache reuse, not proof of impossibility of 4-step use",
+      "paper_full_pdf_read": false
+    },
+    {
+      "id": "L08",
+      "paper": "RT-Lynx",
+      "evidence_tier": "OFFICIAL_ICML_ABSTRACT_ONLY_PLUS_SECONDARY_AUTOMATED_METHOD_SUMMARY",
+      "primary": "https://proceedings.mlr.press/v306/cong26a.html",
+      "secondary": "https://www.alphaxiv.org/abs/2605.26632v2",
+      "secondary_only": [
+        "norm compensation formula",
+        "LoRA mathematical details",
+        "selective layer skipping"
+      ],
+      "key_correction": "1.55× authors linear-layer speedup, not Wan full video",
+      "code_audited": false
+    },
+    {
+      "id": "L10",
+      "paper": "Dense2MoE",
+      "evidence_tier": "OFFICIAL_ICCV_ABSTRACT_AND_SEARCH_INDEXED_PRIMARY_PDF_EXCERPT_PLUS_SECONDARY_SUMMARY",
+      "primary": "https://openaccess.thecvf.com/content/ICCV2025/html/Zheng_Dense2MoE_Restructuring_Diffusion_Transformer_to_MoE_for_Efficient_Text-to-Image_Generation_ICCV_2025_paper.html",
+      "secondary": "https://www.alphaxiv.org/abs/2510.09094",
+      "key_correction": "requires multi-step distillation; layer-internal MoE distinct from whole Wan high/low experts",
+      "code_audited": false
+    },
+    {
+      "id": "L12",
+      "paper": "Activation Concentration",
+      "evidence_tier": "ARXIV_V2_PRIMARY_ABSTRACT_QUANTITATIVE_ONLY",
+      "primary": "https://arxiv.org/abs/2606.00567",
+      "key_correction": "Systolic simulation cycles and pure DiT 12.4% do not equal native Wan CUDA speedup",
+      "code_audited": false
+    }
+  ],
+  "direct_model_execution": 0,
+  "quality_accepted": false,
+  "source_depth_policy": "Do not promote secondary-generated paper summaries to PRIMARY_METHOD_CHECKED. Do not promote code reading to running or Wan transfer verification.",
+  "review_docs": [
+    "FIVE_PAPER_METHOD_AUDIT.md",
+    "CHIPMUNK_SOURCE_READING.md",
+    "DIFFSPARSE_PRIMARY_READING.md"
+  ]
+}
