@@ -1,3 +1,5 @@
+**G9论文与计算图同步（2026-10-27）：** [跨步函数历史预测/树路径稀疏/协同训练后职责转移](../literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)现在是外部LIT K28–K37，[逐来源账本](../literature/20261027/G9_METHOD_SOURCE_LEDGER.json)记录真实阅读深度。与G7/G8共37个外部K节点，以实际信息时点、计算代价、训练与冻权区别连接SRC图；沿着论文原始函数和已经冻结的Wan证据提出竞争机制。新增纸面发现回写权威图和节点注册表；原生GPU/model执行遵循ACTIVE暂停。
+
 **G8论文执行路径扩展（2026-10-27）**：[四组原始论文方法与源码比照](../literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)加入K13–K27的N:M激活、共享/TopK专家及连续MoB、SVD主/残差缓存和MLP稀疏增量；G7仍是step、frame、width和activation spectrum。所有K节点均LIT，不授予新原生算子执行权限；新增文献要求节点、数学、真实数据时点、训练成本、跨模型变更和可用证据同步更新。
 
 **G7外部论文同步协议（2026-10-27）**：[论文原始方法](../literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)和[计算图](../../docs/98_端到端计算图与证据注解_20261025.md)的节点K01–K12为LIT。研究者读原文后应同步修改图、论文证据等级、实际数值时点和下游消费者；原Wan的G0–G5实线只由本项目源码/原生执行证据更新。
@@ -6,7 +8,7 @@
 
 **统一研究边界**：[全层省算、真实视频失配与方法族审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)将局部函数重写、GELU奇偶解释、已测权重常驻与已经产生完整视频但质量不合格的原型结果分开。G5提供Affine候选、视频结果与成本的证据节点。Agent可以从全新数学结构或视频异常起步，建立新的源图节点与判别性计算边。
 
-**当前任务**：[E0 FFN本征机制发现](../20261025/E0_FFN_FIRST_TASK_20261025.md)；**权威可读计算图**：[G0–G6](../../docs/98_端到端计算图与证据注解_20261025.md)；**结构化索引**：[GRAPH_AGENT_BINDINGS.json](GRAPH_AGENT_BINDINGS.json)；**研究范例与竞争解释**：[E0机制再审](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)。
+**当前任务**：[E0 FFN本征机制发现](../20261025/E0_FFN_FIRST_TASK_20261025.md)；**权威可读计算图**：[G0–G9](../../docs/98_端到端计算图与证据注解_20261025.md)；**结构化索引**：[GRAPH_AGENT_BINDINGS.json](GRAPH_AGENT_BINDINGS.json)；**研究范例与竞争解释**：[E0机制再审](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)。
 
 ## 协作定义
 
