@@ -36,20 +36,27 @@ def fixed_depth_scope_is_registered(active):
     depth = active["current_stage"].get("full_depth_trajectory_analysis", {})
     if depth.get("status") == "DESIGNED_NOT_EXECUTED":
         return depth.get("no_new_execution") is True
+    path = depth.get("authorized_protocol")
+    allowed = {
+        "config/e0_paired_full_depth_20261026_v2.json": ("V2", 6),
+        "config/e0_paired_full_depth_20261026_v3.json": ("V3", 4),
+    }
+    if path not in allowed:
+        return False
+    version, budget = allowed[path]
     states = {
-        "EXPLICIT_FIXED_V2_SCOPE_AUTHORIZED_NOT_STARTED": "AUTHORIZED_NOT_STARTED",
-        "RUNNING_FIXED_V2_SCOPE": "RUNNING_FIXED_SCOPE",
-        "FIXED_V2_SCOPE_FAILED_NO_RETRY": "FAILED_PRESERVED_NO_RETRY",
-        "FIXED_V2_SCOPE_COMPLETE_NOT_QUALITY": "COMPLETE_FIXED_SCOPE_NOT_QUALITY",
+        f"EXPLICIT_FIXED_{version}_SCOPE_AUTHORIZED_NOT_STARTED": "AUTHORIZED_NOT_STARTED",
+        f"RUNNING_FIXED_{version}_SCOPE": "RUNNING_FIXED_SCOPE",
+        f"FIXED_{version}_SCOPE_FAILED_NO_RETRY": "FAILED_PRESERVED_NO_RETRY",
+        f"FIXED_{version}_SCOPE_COMPLETE_NOT_QUALITY": "COMPLETE_FIXED_SCOPE_NOT_QUALITY",
     }
     expected = states.get(depth.get("status"))
-    path = "config/e0_paired_full_depth_20261026_v2.json"
-    if not expected or depth.get("authorized_protocol") != path:
+    if not expected:
         return False
     plan = record(path)
     digest = hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
     return (depth.get("authorized_protocol_sha256") == digest
-            and plan.get("max_full_generations_total") == 6
+            and plan.get("max_full_generations_total") == budget
             and plan.get("planned_simultaneous_GPU_cards") == 1
             and plan.get("automatic_retry") is False
             and plan.get("no_automatic_followup") is True
@@ -58,7 +65,7 @@ def fixed_depth_scope_is_registered(active):
                     and s.get("execution_status") == expected
                     and s.get("user_instruction")
                     and s.get("planned_simultaneous_GPU_cards") == 1
-                    and s.get("max_full_generations_total") == 6
+                    and s.get("max_full_generations_total") == budget
                     and s.get("automatic_retry") is False
                     and s.get("no_automatic_followup") is True
                     for s in active["experiment_authority"]["current_user_authorized_scopes"]))
@@ -235,12 +242,10 @@ def main():
            "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(first_task),
            "Post-native-video direction review is not the current handoff")
     family_review = "research/20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md"
-    ensure(focus.get("latest_affine54_family_review") == family_review and
-           (ROOT / family_review).is_file() and
-           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text(first_task) and
-           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text("AGENTS.md") and
-           "E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md" in text(".agents/skills/ffnds-paper-discovery/SKILL.md"),
-           "Affine54 scope-limited mechanism review lost from research guidance")
+    ensure((ROOT / family_review).is_file() and focus.get("latest_affine54_family_review") == review
+           and all("E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(entry)
+                   for entry in [first_task, "AGENTS.md", ".agents/skills/ffnds-paper-discovery/SKILL.md"]),
+           "Unified scope-limited mechanism review lost from research guidance")
 
     graph_data = load_graph_registry()
     ensure(graph_data.get("current_scientific_audit") == review,

@@ -8,7 +8,7 @@
 
 修复统一历史路径，并在CPU预检中读取实际历史receipt、唯一source/seed及视频SHA；生成后先写TRACE/OBSERVATION，再进入后续解码、计数和历史检查。Python异常时保存已记录几何和完整完成数，标识尚未完成strata/vector的尾site；硬终止仍可能丢失未写内存。controller、observer、residency及trace数学组件与v2相同。8项driver软件测试通过，增加了真实目录层级、越界路径及partial保存的回归检查；总计28项双轨/严格层软件测试。[独立v6源码审阅](../method_discussion/discoveries/E0/independent-paired-driver-path-persistence-audit-20261026_v6.md)限于这些路径/留存修复，不声称运行测试或模型。
 
-另备[v3固定范围](../../config/e0_paired_full_depth_20261026_v3.json)，SHA`3027bc17588efdcdab32aacc5084cca6705b58d76f75529be43edeeda1b7bcc5`：仅补来源0/12的两组DC，4条完整四步视频、320处配对观测，单张空闲A100。复用旧DD两视频只作为最终视频中性证据；新teacher/student仍各需匹配原四步latent及视频指纹。无拟合、训练、分解或官方评分，新增≤0.5GiB，任一失败即停。**v3当前未授权、未启动。**
+另备[v3固定范围](../../config/e0_paired_full_depth_20261026_v3.json)，SHA`3027bc17588efdcdab32aacc5084cca6705b58d76f75529be43edeeda1b7bcc5`：仅补来源0/12的两组DC，4条完整四步视频、320处配对观测，单张空闲A100。复用旧DD两视频只作为最终视频中性证据；新teacher/student仍各需匹配原四步latent及视频指纹。无拟合、训练、分解或官方评分，新增≤0.5GiB，任一失败即停。v3的后续授权、执行与结果以ACTIVE及实际RUN为准。
 
 解释本轮/后续记录还须保持三个限定（已独立只读核对）：
 

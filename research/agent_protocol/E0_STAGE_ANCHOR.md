@@ -19,7 +19,7 @@
 
 这些可能相关，也可能彼此分离。**当前目的不是先构造新的 Proxy、固定64组或 Dense completion，而是发现决定上述关系的机制。**
 
-**最新机制与系统双分支**：[全层affine/奇偶与强dense运行时再审](../20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md)。全层old tangent和原生权重常驻已测：affine+27只是相对一个匹配固定67-group的局部优势，半斜率/偶分量抵消是竞争解释，权重驻留加速没有降低FFN MAC。其他视频功能、条件信息、时空动态和真实执行自由度仍与其并列；不派发单一affine下一任务。
+**最新机制与系统双分支**：[全层affine/奇偶与强dense运行时再审](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。全层old tangent和原生权重常驻已测：affine+27只是相对一个匹配固定67-group的局部优势，半斜率/偶分量抵消是竞争解释，权重驻留加速没有降低FFN MAC。其他视频功能、条件信息、时空动态和真实执行自由度仍与其并列；不派发单一affine下一任务。
 
 **最新研究路标（2026-10-26）**：[原生六视频失败后的方向审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)和[实时流式附加场景](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)。当前已在160处FFN真正减少矩阵宽度并加速，但画质受损；第一诊断为部署same-input、本机有限传播、受扰轨迹这三种竞争机制。实时流式需另建causal/rolling源码计算流、first-frame和frame-deadline指标；现有Wan离线整段不自动可流式。保留其他函数/时空/执行机制自主探索与实验暂停权限。
 
