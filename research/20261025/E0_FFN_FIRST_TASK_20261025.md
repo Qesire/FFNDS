@@ -2,6 +2,8 @@
 
 **当前权威机制与方向解释**：[2026-10-26统一科学审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。本页只定义**研究目标、任务分工和交付**，不重复过时的实验进度快照；当前阶段、用户授权、模型运行进度只以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)及实际RUN为准。
 
+**当前第一步（用户2026-10-26明确指定）：** [系统整理33项已核验原始研究](../literature/20261026/PRIMARY_LITERATURE_ATLAS.md)，并用[机制重叠和查重矩阵](../literature/20261026/MECHANISM_COMPETITION_MATRIX.md)与[阅读工作协议](../literature/20261026/READING_GUIDE.md)深化论文方法及反例。尚不选定新算子、优化SSE或派发原生实验。F1/F2/F3科研开放切面与既有模型资产保持完整。
+
 ## 目标与研究对象
 
 在Wan2.2 I2V四步蒸馏模型中减少真实FFN计算、减轻完整生成成本，保持主体、运动、纹理、光照与时序表现。研究对象按真实W1→tanh-GELU→Q2/postQ2→W2→gate/residual→后续层→flow/scheduler/视频计算流定位。[FFN本征研究纲领](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[源图G0–G6](../../docs/98_端到端计算图与证据注解_20261025.md)与[AutoResearcher Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)共同提供可扩展基础。
@@ -22,7 +24,7 @@
 
 在**实际源码/参数/条件分支**下，区分部署数值NUM、函数容量CAP、真实Student前缀SHIFT、下游有符号传递TRANS及四步调度状态STATE。**已得到两来源320处同输入四臂/写回及四步状态原生数据**；现在先复用[完整结果](../20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)中的有符号观察区分竞争预测，再选择价值最高的有限验证。单site四臂包括 `f_D(x_D)`、`f_S(x_D)`、`f_D(x_S)`、`f_S(x_S)`；另测真实gate/residual、block、flow与scheduler `step_pre/post`。现有两个已暴露来源已覆盖每来源40层×四步160个site；下一步应重视函数和状态因果分解、外部来源泛化与真实时空分层。相关受控后缀试验须由实际观测选点，再独立冻结范围。
 
-**当前工具**：[原生paired采集与中性对照](../20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)、[新严格视频身份与清单校验](../20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)、[有符号数据账本](../20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)。**v2的DD中性视频及后处理失败**与**v3的320处完整原生记录**已分别归档；可从后一结果提出两种流差的可区分分解：`v_S(z_S)-v_D(z_D)=[v_S(z_S)-v_D(z_S)]+[v_D(z_S)-v_D(z_D)]`。执行状态由ACTIVE判定，下一次完整dense反事实模型计算须独立授权。
+**当前工具**：[原生paired采集与中性对照](../20261026/E0_PAIRED_NATIVE_IMPLEMENTATION.md)、[新严格视频身份与清单校验](../20261026/E0_PAIRED_NATIVE_STRICT_EVIDENCE.md)、[有符号数据账本](../20261026/E0_FULL_DEPTH_TRACE_TOOLING.md)。**v2的DD中性视频及后处理失败**与**v3的320处完整原生记录**已分别归档；可从后一结果提出两种流差的可区分分解：`v_S(z_S)-v_D(z_D)=[v_S(z_S)-v_D(z_S)]+[v_D(z_S)-v_D(z_D)]`。执行状态由ACTIVE判定；该完整Dense受扰前缀反事实已完成并复核，见[全网络有限响应](../20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。
 
 ### B · 发现不同的低成本FFN机制
 

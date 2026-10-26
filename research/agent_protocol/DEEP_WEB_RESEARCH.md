@@ -1,5 +1,7 @@
 # FFNDS · 深入文献与原始代码检索
 
+**最新多轮 Web 检索汇总（2026-10-26）：** [33项机制索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[科学综述](../literature/20261026/PRIMARY_LITERATURE_ATLAS.md)、[竞争先例矩阵](../literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[文献深读交接](../literature/20261026/READING_GUIDE.md)。新增重点是直接DiT FFN/激活的RT-Lynx、MLP增量的Chipmunk、FFN专家化Dense2MoE、OBS-Diff、Activation Concentration。每项记录原论文对象、方法成立条件、信息时点、训练、GPU动作和视频功能；论文摘要核对与方法源码审核属于不同层级。先做学术关系清理，再展开有证据的新机制假说。
+
 **AutoResearcher v2.4 alignment:** This FFNDS-specific protocol extends the upstream [Web Research Discovery / WARD](../../core/WEB_RESEARCH_DISCOVERY.md) and its [pinned Skill](../../.agents/skills/web-research-discovery/SKILL.md). Exact source revision and per-file blob hashes are recorded in [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Follow the shared breadth, depth, citation tracing and primary evidence method; specialize each search to actual Wan FFN computations and video functional effects; quantizer metadata is a secondary clue unless a distinct mechanism requires it.
 
 

@@ -1,5 +1,7 @@
 ***Mechanism-first current science update (2026-10-26):*** [frontier/practice literature audit](../20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md) sets FFN redundancy, functional roles, online-available signals and physically realizable transformations as the first question. The existing signed/full-flow/SSE/Fourier data analyze Affine54 failure; they do not define the next method's objective. Additional registered sources are a scoped hypothesis-validation resource, not automatic execution.
 
+**2026-10-26 最新任务：首先系统收集并比较相关研究。** [33项原始研究索引与科学分类](../literature/20261026/PRIMARY_LITERATURE_ATLAS.md) → [竞争机理矩阵](../literature/20261026/MECHANISM_COMPETITION_MATRIX.md) → [Agent原文深读范围](../literature/20261026/READING_GUIDE.md)。先完成文献方法、在线信息、训练/核函数以及Wan适用条件查重，暂不将SSE、四坐标非线性或某个FP4格式设为下一算法。
+
 # FFNDS · 当前上下文（动态科研交接入口）
 
 **最新机制引导：** [机制先行纲领](../20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md) → [新工作审查：fixed-coordinate与SM120 primitive](../20261026/E0_NEW_WORK_MECHANISM_AUDIT_20261026.md)。优先发现可解释FFN真实必要计算的功能/信息/执行规律；局部SSE、signed状态频谱作为测量器。跨source计划用于验证明确机制。已有新结果分别是CPU同rank函数能力与原生合成NVFP4基元，未产生可接受的Wan新少算算子。

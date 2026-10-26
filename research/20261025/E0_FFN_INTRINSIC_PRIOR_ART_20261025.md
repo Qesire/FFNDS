@@ -1,5 +1,7 @@
 # FFNDS · 本征 FFN 科学机制与竞争先例地图（2026-10-25 · WARD 扩展）
 
+**检索进化注记（2026-10-26）：** 此页保留旧五族探究的历史记录。新目录为[33篇原始来源、研究深度、可执行条件索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[新版分类综述](../literature/20261026/PRIMARY_LITERATURE_ATLAS.md)、[最强先例关系与反解释](../literature/20261026/MECHANISM_COMPETITION_MATRIX.md)。原先已知Chipmunk/RT-Lynx等去重更新到新目录，不再把多来源SSE观测当文献研究的起点。
+
 **用途**：向 FFNDS 提供新的机制、不同数学表示与最强先例；[纲领](E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[首个任务](E0_FFN_FIRST_TASK_20261025.md)。本轮 2026-10-25 使用公开 Web 搜索，分 FFN 函数解释、表征叠加、DiT 激活/动态计算、视频功能质量、实际稀疏执行五族检索；继续从 Chipmunk 理论篇追到 Geva 的 FFN key-value 解释，从 activation-concentration 追到真实 GPU GEMM tile，从背景闪烁问题追到 VBench 时间维度。部分来源读到作者方法正文；其它仅核实原始会议摘要 / 官方项目方法说明，逐项标注。
 
 ## I. FFN 究竟在计算什么：基础功能机制
