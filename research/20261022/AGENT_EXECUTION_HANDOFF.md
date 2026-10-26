@@ -1,16 +1,16 @@
 > **Previous R12 preliminary handoff, now superseded as a general-purpose agent task order.** Latest actually completed work is [R12 E0](HANDOFF_R12_E0.md); use [open exploration index](../exploration/20261022/EXPLORATION_INDEX.md) and root AGENTS.md for open mechanism exploration. The operations below remain useful recipe-specific checks, not a requirement to run R12 or a GPU authorization.
 
-# Mandatory agent execution: R12 dynamic FFN discovery
+# R12 历史执行交接（已结束的任务作用域）
 
 **E0 completed:** [current result/handoff](HANDOFF_R12_E0.md), [source/operand and CPU-pack audit](R12_E0_operand_audit.json), [historical flow geometry](R12_E0_flow_partitions.json). No model job was run or made eligible. The initial E0 instructions below are preserved as the task record; do not repeat them as missing work. The next native-value collection exists only as a [separate unregistered draft](R12_E1_native_value_DRAFT.json).
 
-**State:** exploratory; no registered GPU model method. Work immediately on valid source/CPU artifacts. Avoid a response consisting only of proposals.
+**历史状态：** 本记录对应当时的R12探索与CPU资产；具体操作步骤已在其原阶段使用。当前科研入口为 [E0第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)，实时执行权限与优先级从 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 获取。
 
 1. Read `AGENTS.md`, local AutoResearcher skills + `core/PROMPT_PLAYBOOK.md`, `research/CURRENT_DECISION.json`, `research/20261021/method_triage.json`, `research/OBJECTIVE_CONTRACT.json`, `docs/65_研究目标层级与R11解释修正_20261022.md`, and [full plan](POST_TRAIN_DYNAMIC_FFN_PAPER_PLAN.md).
-2. **Run E0 checks now**: `python tools/check_research_routes.py`; `python -m unittest discover -s tests -p 'test_counterfactual_actions.py'`; `python tools/analyze_counterfactual_actions.py --input research/20261022/examples/counterfactual_demo.json --output /tmp/ffnds_r12_oracle_smoke.json`. The latter is synthetic math validation, not Wan evidence.
+2. **当时的E0检查记录与可复现命令**： `python tools/check_research_routes.py`; `python -m unittest discover -s tests -p 'test_counterfactual_actions.py'`; `python tools/analyze_counterfactual_actions.py --input research/20261022/examples/counterfactual_demo.json --output /tmp/ffnds_r12_oracle_smoke.json`. The latter is synthetic math validation, not Wan evidence.
 3. Inspect the actual OP2, TF2, R7 and worker artifact manifests and code to determine which **full same-step native input/flow** for step3/block30–31 exists. Save an explicit table `operand / path or locator / source-sha / shape / available-before-W1 / reused-for-which-arm / absent-dependency`. Neither 256 sampled rows nor R7D1 dense restoral are matched R12 action observations.
 4. Deduce and record one fresh signed-counterfactual mechanism plus its opposing static-only mechanism. Use best-fixed/oracle pre-W1 action distinction and identify the smallest real measurement that separates them. Keep related functional-group/distillation/temporal hypotheses exploratory rather than forcing the first pair to succeed.
 5. Prepare source-verified, testable matched pack/compensation/native forward collection **in a new draft protocol only** if E0 reveals missing operands. Detail action widths, same-input state, downstream propagation, source splits and exposure, frozen thresholds, all MAC/latency/VRAM costs, original R4/R7 distinction. Do not self-grant model job eligibility or spend GPU allocation from this agenda.
 6. Publish a concise next handoff beginning with *scientific result or structural obstruction*, link real records and exact new files/tests, and give a single discriminating next action. Keep current decision, triage, README and handoff synchronized **only when real state changes**.
 
-Prioritize a competitive post-training input-conditioned FFN algorithm over repeated R256/q/bank hyperparameter searches; preserve the original 50%/1.5×/2%-per-axis criteria. An untested idea is legitimate exploratory work, but not a measurement or conference novelty claim.
+**历史目标记录：** 当时关注后训练条件FFN机制与R256/q/bank方案的比较，并采用对应实验登记的数值门槛。当前方法发现以真实省算与整段视频质量为目标，候选晋级标准按最新质量协议和实际登记的比较器执行。 An untested idea is legitimate exploratory work, but not a measurement or conference novelty claim.

@@ -1,6 +1,6 @@
 # FFNDS · 多 Agent 科学发现、方法构想与独立评议
 
-当前研究阶段 `E0_OPEN_DISCOVERY` 的主要任务已重置为 [FFN 本征机制](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 与 [第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)：FFN 激活与有符号净贡献、条件时空创新、下游功能重要性和计算可替代性。量化尺度只作为辅助幅值信号，当前旧六来源径向几何结果属于可回访的专项证据。阶段与权限读取 [唯一活跃状态](../ACTIVE_RESEARCH.json)，角色遵循 [锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 与 [独立发现目录](discoveries/E0/README.md)。
+本目录服务于 `E0_OPEN_DISCOVERY` 的研究目标，实时阶段以活动状态为准。科学重点为 [FFN 本征机制](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 与 [第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)：FFN 激活与有符号净贡献、条件时空创新、下游功能重要性和计算可替代性。量化尺度只作为辅助幅值信号，当前旧六来源径向几何结果属于可回访的专项证据。阶段与权限读取 [唯一活跃状态](../ACTIVE_RESEARCH.json)，角色遵循 [锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 与 [独立发现目录](discoveries/E0/README.md)。
 
 **共同科研方法：** 所有 Agent 自动应用固定 [AutoResearcher 来源](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，按科学问题选择 mechanism-research、research-expansion 与 problem-reformulation。从**发现 → 数学/源码重建 → 竞争解释 → 决定性观察**推进；来源绑定的精确结论与高质量反例都有科学价值。
 

@@ -69,7 +69,7 @@
 
 分析器写出的 `external_quality` 默认明确为 `NOT_RUN`，`quality_accepted=false`；必须从真实官方输出和实际视频人工审查另行提供具有版本、来源/运行签名的证据才能变更。验收模式 `audit --require-acceptance` 遇到缺失必须失败；可产生**有未决项的客观指标包**，但不能宣传“完整视频质量合格”。核心指标或逐帧覆盖不齐时连客观指标包也不得标为完成。
 
-**对已完成六视频**：`research/20261026/E0_RECONSTRUCTED_VIDEOS.json`已经有两来源81帧RGB、encoded-luma、相邻帧差、运行成本/SHA，属于**legacy partial-quality coverage**。缺真正的参考光流、语义分区/运动补偿闪烁、感知距离、正式VBench-I2V和完整人工看视频；不能把缺项补成PASS、也不重写原RUN。可在原始MP4可访问时以本工具**新增一份**后验报告，并保留与旧指标公式/视频SHA的关系。
+**已有六视频当前证据**：`research/20261026/E0_RECONSTRUCTED_VIDEOS.json`保存原始两来源×81帧、RGB/encoded-luma与成本/SHA；[独立后验补评](../20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md)已完成486帧/480帧间核心工程指标，包含修正后的Farneback运动和运动补偿亮度proxy。原RUN/旧报告保持不可变；正式VBench-I2V/VBench2、语义背景与人工全片仍按实际验收状态标记。
 
 参考官方指标定义：[VBench CVPR2024原仓库](https://github.com/Vchitect/VBench) 及 [VBench-2.0](https://github.com/Vchitect/VBench/tree/master/VBench-2.0)。官方报告需要原工具、权重、版本、数据范围；本repo廉价proxy绝不是“VBench时序闪烁”的实现。
 
@@ -122,4 +122,4 @@ f_S(x_S)             actual student-input approx
 
 Agent仍使用 [Graph-Agent实际计算图](../../docs/98_端到端计算图与证据注解_20261025.md) 的F03–F13/G20–G21/P22/D09，并支持新的 `L00...` 全深度双轨迹迹线/消费者节点；图增量是待执行的诊断设计而不是凭空完成的测量。
 
-下一项有效交付是**静态可验证的跟踪/质量协议与工具**，之后才是新授权的全160位实际配对记录；不能宣称当前已有这些新迹线、指标或改进视频。
+跟踪与质量工具已实现；下一阶段依据 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 与真实 paired-native RUN 审核160位置双轨覆盖、signed传播和完整视频质量。在原生数据实际到达后，逐项更新证据等级与竞争机制判断。
