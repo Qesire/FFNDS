@@ -1209,6 +1209,61 @@
         "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
       ],
       "open_question": "When are dense NVFP4/GEMM tiles better than sparse dispatch?"
+    },
+    {
+      "id": "S21",
+      "graph_section": "G10",
+      "meaning": "Causal Forcing++ online AR teacher adjacent step causal consistency distillation",
+      "evidence_type": "LIT",
+      "availability": "posttraining",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "How does a strong 1/2step initialization change downstream error feedback?"
+    },
+    {
+      "id": "S22",
+      "graph_section": "G10",
+      "meaning": "framewise 1-2 step causal rolling generator and first-frame latency",
+      "evidence_type": "LIT",
+      "availability": "current_frame_step",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What is the effective FFN M and K under framewise vs chunkwise execution?"
+    },
+    {
+      "id": "S23",
+      "graph_section": "G10",
+      "meaning": "EdenLive external structured motion and layout reference encoder",
+      "evidence_type": "LIT",
+      "availability": "external_live_reference_before_chunk",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Can appearance and motion changes define different FFN functional subspaces?"
+    },
+    {
+      "id": "S24",
+      "graph_section": "G10",
+      "meaning": "EdenLive 4step chunk autoregressive LightX2V reference-conditioned renderer",
+      "evidence_type": "LIT",
+      "availability": "4step_chunk_inference",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Does LightX2V native W4A4 dense/sparse microbatch dominate 5090 throughput?"
+    },
+    {
+      "id": "S25",
+      "graph_section": "G10",
+      "meaning": "action-conditioned blockcausal model and synchronous audio-video outputs",
+      "evidence_type": "LIT",
+      "availability": "per_chunk_actions_prompt_audio",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What is the timely user action and audio-video consistency obligation?"
     }
   ],
   "edges": [
@@ -2056,6 +2111,76 @@
       "from": "G02",
       "to": "S19",
       "relation": "original_high_low_weights_break_cross_expert_cache_equivalence"
+    },
+    {
+      "from": "S02",
+      "to": "S21",
+      "relation": "lit_causal_teacher_prepares_online_consistency_distillation"
+    },
+    {
+      "from": "S21",
+      "to": "S22",
+      "relation": "lit_causal_consistency_framewise_fewstep_student"
+    },
+    {
+      "from": "S22",
+      "to": "S06",
+      "relation": "lit_one_two_step_framewise_inference_reduces_M_and_K"
+    },
+    {
+      "from": "S22",
+      "to": "S11",
+      "relation": "lit_ttff_and_frame_granularity_author_comparison"
+    },
+    {
+      "from": "S23",
+      "to": "S24",
+      "relation": "lit_eden_visual_reference_conditioned_render"
+    },
+    {
+      "from": "S24",
+      "to": "S06",
+      "relation": "lit_eden_fourstep_chunk_autoregressive_inference"
+    },
+    {
+      "from": "S24",
+      "to": "S15",
+      "relation": "compare_lightx2v_quant_native_path_to_longlive2_nvfp4"
+    },
+    {
+      "from": "S23",
+      "to": "S19",
+      "relation": "open_appearance_vs_motion_ffn_value_subspace"
+    },
+    {
+      "from": "S23",
+      "to": "S17",
+      "relation": "open_reference_scene_changes_and_cache_invalidation"
+    },
+    {
+      "from": "S25",
+      "to": "S17",
+      "relation": "lit_action_prompt_conditions_chunk_version"
+    },
+    {
+      "from": "S25",
+      "to": "S11",
+      "relation": "lit_multimodal_interaction_latency_separate_from_fps"
+    },
+    {
+      "from": "S25",
+      "to": "S19",
+      "relation": "open_action_modulation_effect_on_ffn_cache_validity"
+    },
+    {
+      "from": "S24",
+      "to": "F04",
+      "relation": "comparison_eden_lightx2v_to_original_wan_quantized_ffn"
+    },
+    {
+      "from": "S24",
+      "to": "F09",
+      "relation": "comparison_wan_reference_renderer_to_original_w2_gate"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -2375,7 +2500,12 @@
       "S17",
       "S18",
       "S19",
-      "S20"
+      "S20",
+      "S21",
+      "S22",
+      "S23",
+      "S24",
+      "S25"
     ],
     "paper_ids": [
       "L55",
@@ -2387,9 +2517,19 @@
       "L61",
       "L62",
       "L63",
-      "L64"
+      "L64",
+      "L65",
+      "L66",
+      "L67",
+      "L68"
     ],
     "native_model_runs": 0,
-    "source_status": "SOURCE_TIERED_EXTERNAL_LITERATURE_ONLY"
+    "source_status": "SOURCE_TIERED_EXTERNAL_LITERATURE_ONLY",
+    "recent_2026_models": [
+      "L65",
+      "L66",
+      "L67",
+      "L68"
+    ]
   }
 }
