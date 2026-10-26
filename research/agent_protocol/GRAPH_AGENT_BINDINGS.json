@@ -15,7 +15,8 @@
     "G6": "OPEN application-scene/SLO graph for hypothetical causal/rolling real-time streaming video, not executed current Wan",
     "G7": "Source-tiered external literature method graph; no original Wan replacement or model execution",
     "G8": "Primary-method external FFN N:M, trained MoE, low-rank feature cache and sparse MLP delta branches",
-    "G9": "LIT: temporal linear prediction, hard-routed sparse FFN trees, architecture-induced FFN/attention function redistribution"
+    "G9": "LIT: temporal linear prediction, hard-routed sparse FFN trees, architecture-induced FFN/attention function redistribution",
+    "G10": "External realtime-generation literature + open FFN cross-architecture hypotheses; S01–S18=LIT, S19–S20=OPEN; separate from paused G6 scenario"
   },
   "nodes": [
     {
@@ -988,6 +989,281 @@
         "research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md"
       ],
       "open_question": "Does any analogous Wan functional shift exist?"
+    },
+    {
+      "id": "S01",
+      "graph_section": "G10",
+      "meaning": "bidir video teacher full-frame time-dependent video function",
+      "availability": "original_offline_teacher",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What survives after causal adaptation?"
+    },
+    {
+      "id": "S02",
+      "graph_section": "G10",
+      "meaning": "causal student with temporally masked AR attention",
+      "availability": "model_architecture_after_training",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Does original pretrained all-frame distribution survive causal adaptation?"
+    },
+    {
+      "id": "S03",
+      "graph_section": "G10",
+      "meaning": "few-step (2–4) diffusion distillation",
+      "availability": "offline_posttraining",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "How do altered timestep and block conditions affect FFN function?"
+    },
+    {
+      "id": "S04",
+      "graph_section": "G10",
+      "meaning": "training with self-generated autoregressive rollout / history",
+      "availability": "offline_on_policy_training",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What downstream loss sees accumulated approximation-induced stream drift?"
+    },
+    {
+      "id": "S05",
+      "graph_section": "G10",
+      "meaning": "rolling KV history, attention sink and bounded window",
+      "availability": "preceding_chunks",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What are legal history and scene changes?"
+    },
+    {
+      "id": "S06",
+      "graph_section": "G10",
+      "meaning": "new frame/chunk latents and current timestep/condition",
+      "availability": "new_chunk_input",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "How many M rows and distinct denoise steps are actually computed?"
+    },
+    {
+      "id": "S07",
+      "graph_section": "G10",
+      "meaning": "per-chunk causal self/cross attention reads KV",
+      "availability": "during_step_before_ffn",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Which attention state changes q presented to FFN?"
+    },
+    {
+      "id": "S08",
+      "graph_section": "G10",
+      "meaning": "per-chunk FFN current q -> W1/nonlinearity/W2/writeback",
+      "availability": "during_chunk_step",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What FFN work remains after rolling attention?"
+    },
+    {
+      "id": "S09",
+      "graph_section": "G10",
+      "meaning": "flow update commit new latent/chunk to generated history",
+      "availability": "after_few_step_sampling",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "How do signed FFN perturbations propagate into future chunk input?"
+    },
+    {
+      "id": "S10",
+      "graph_section": "G10",
+      "meaning": "stream VAE decode and display of committed latent chunks",
+      "availability": "after_chunk_commit",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Can VAE overlap with DiT on the available hardware?"
+    },
+    {
+      "id": "S11",
+      "graph_section": "G10",
+      "meaning": "online TTFF per-frame deadline jitter and response metrics",
+      "availability": "service_output",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Does lower FFN latency reduce p99 and TTFF under actual SLO?"
+    },
+    {
+      "id": "S12",
+      "graph_section": "G10",
+      "meaning": "SLO-aware partition across layer/denoising steps, parallel stream batch",
+      "availability": "pipeline_runtime",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "How much communication/launch overhead remains for small chunks?"
+    },
+    {
+      "id": "S13",
+      "graph_section": "G10",
+      "meaning": "SCD once-per-frame temporal causal encoder",
+      "availability": "once_each_frame",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Which FFN computations belong to temporal reasoning?"
+    },
+    {
+      "id": "S14",
+      "graph_section": "G10",
+      "meaning": "SCD multi-step framewise denoising renderer",
+      "availability": "each_denoising_step_frame",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Which FFN computations belong to detail rendering?"
+    },
+    {
+      "id": "S15",
+      "graph_section": "G10",
+      "meaning": "LongLive2 W4A4 NVFP4 QAT/LoRA and native GEMMs",
+      "availability": "inference_GEMM_kernel",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Dense low-precision reference for short-chunk FFN?"
+    },
+    {
+      "id": "S16",
+      "graph_section": "G10",
+      "meaning": "LongLive2 NVFP4 rolling KV cache with per-chunk quantization",
+      "availability": "at_cache_read_write",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Memory and dequant cost relative to weight residency?"
+    },
+    {
+      "id": "S17",
+      "graph_section": "G10",
+      "meaning": "scene/prompt-aware KV recache and multi-shot sink",
+      "availability": "prompt_or_scene_transition",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What information invalidates cached FFN function?"
+    },
+    {
+      "id": "S18",
+      "graph_section": "G10",
+      "meaning": "FAST-AR compressed-KV plus ANN-sparse attention alternatives",
+      "availability": "attention_memory_and_query",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Will FFN become dominant after attention reduction?"
+    },
+    {
+      "id": "S19",
+      "graph_section": "G10",
+      "meaning": "FFN historical-value validity and signed downstream transport conjecture",
+      "availability": "conditional_prediction_from_legal_history",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Does historical cheap signal support correct full-stream function and no drift?"
+    },
+    {
+      "id": "S20",
+      "graph_section": "G10",
+      "meaning": "chunk-size roofline and FFN latency/deadline cost conjecture",
+      "availability": "runtime_cost_accounting",
+      "evidence_type": "OPEN",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "When are dense NVFP4/GEMM tiles better than sparse dispatch?"
+    },
+    {
+      "id": "S21",
+      "graph_section": "G10",
+      "meaning": "Causal Forcing++ online AR teacher adjacent step causal consistency distillation",
+      "evidence_type": "LIT",
+      "availability": "posttraining",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "How does a strong 1/2step initialization change downstream error feedback?"
+    },
+    {
+      "id": "S22",
+      "graph_section": "G10",
+      "meaning": "framewise 1-2 step causal rolling generator and first-frame latency",
+      "evidence_type": "LIT",
+      "availability": "current_frame_step",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What is the effective FFN M and K under framewise vs chunkwise execution?"
+    },
+    {
+      "id": "S23",
+      "graph_section": "G10",
+      "meaning": "EdenLive external structured motion and layout reference encoder",
+      "evidence_type": "LIT",
+      "availability": "external_live_reference_before_chunk",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Can appearance and motion changes define different FFN functional subspaces?"
+    },
+    {
+      "id": "S24",
+      "graph_section": "G10",
+      "meaning": "EdenLive 4step chunk autoregressive LightX2V reference-conditioned renderer",
+      "evidence_type": "LIT",
+      "availability": "4step_chunk_inference",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "Does LightX2V native W4A4 dense/sparse microbatch dominate 5090 throughput?"
+    },
+    {
+      "id": "S25",
+      "graph_section": "G10",
+      "meaning": "action-conditioned blockcausal model and synchronous audio-video outputs",
+      "evidence_type": "LIT",
+      "availability": "per_chunk_actions_prompt_audio",
+      "evidence": [
+        "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      ],
+      "open_question": "What is the timely user action and audio-video consistency obligation?"
     }
   ],
   "edges": [
@@ -1645,6 +1921,266 @@
       "from": "K37",
       "to": "K18",
       "relation": "different_from_trained_block_routing"
+    },
+    {
+      "from": "S01",
+      "to": "S02",
+      "relation": "lit_pretrained_teacher_to_causal_ar_student"
+    },
+    {
+      "from": "S02",
+      "to": "S03",
+      "relation": "lit_few_step_distillation_after_causal_conversion"
+    },
+    {
+      "from": "S03",
+      "to": "S06",
+      "relation": "lit_changed_denoising_steps_for_new_chunk"
+    },
+    {
+      "from": "S04",
+      "to": "S05",
+      "relation": "lit_training_self_rollout_with_history_cache"
+    },
+    {
+      "from": "S05",
+      "to": "S06",
+      "relation": "lit_provide_prior_clean_history_to_new_chunk"
+    },
+    {
+      "from": "S06",
+      "to": "S07",
+      "relation": "lit_new_tokens_causal_attention"
+    },
+    {
+      "from": "S05",
+      "to": "S07",
+      "relation": "lit_rolling_kv_keys_and_values"
+    },
+    {
+      "from": "S07",
+      "to": "S08",
+      "relation": "lit_current_q_through_attention_before_ffn"
+    },
+    {
+      "from": "S08",
+      "to": "S09",
+      "relation": "lit_ffn_flow_residual_downstream_to_latent"
+    },
+    {
+      "from": "S09",
+      "to": "S05",
+      "relation": "lit_future_chunks_cache_update"
+    },
+    {
+      "from": "S09",
+      "to": "S10",
+      "relation": "lit_chunk_commit_to_decoder"
+    },
+    {
+      "from": "S10",
+      "to": "S11",
+      "relation": "lit_displayed_frames_define_realtime_slo"
+    },
+    {
+      "from": "S12",
+      "to": "S07",
+      "relation": "lit_pipeline_partition_compute_stages"
+    },
+    {
+      "from": "S12",
+      "to": "S11",
+      "relation": "lit_deadline_aware_online_schedule"
+    },
+    {
+      "from": "S05",
+      "to": "S17",
+      "relation": "lit_sink_recache_on_prompt_change"
+    },
+    {
+      "from": "S17",
+      "to": "S07",
+      "relation": "lit_conditional_cross_attention_caching"
+    },
+    {
+      "from": "S06",
+      "to": "S13",
+      "relation": "lit_scd_once_per_frame_temporal_encoder"
+    },
+    {
+      "from": "S13",
+      "to": "S14",
+      "relation": "lit_scd_encoded_temporal_feature_to_renderer"
+    },
+    {
+      "from": "S14",
+      "to": "S09",
+      "relation": "lit_scd_multistep_frame_refinement_output"
+    },
+    {
+      "from": "S15",
+      "to": "S08",
+      "relation": "lit_longlive2_native_nvfp4_linear_reference"
+    },
+    {
+      "from": "S16",
+      "to": "S05",
+      "relation": "lit_kv_fp4_storage_requires_dequant"
+    },
+    {
+      "from": "S17",
+      "to": "S16",
+      "relation": "lit_scene_prompt_condition_chunk_cache"
+    },
+    {
+      "from": "S18",
+      "to": "S07",
+      "relation": "lit_fastar_attention_reduction_competitor"
+    },
+    {
+      "from": "S08",
+      "to": "S19",
+      "relation": "open_ffn_history_prediction_vs_actual_function"
+    },
+    {
+      "from": "S05",
+      "to": "S19",
+      "relation": "open_history_is_predictor_only_not_extra_wan_function_input"
+    },
+    {
+      "from": "S19",
+      "to": "S09",
+      "relation": "open_future_stream_drift_from_ffn_error"
+    },
+    {
+      "from": "S20",
+      "to": "S08",
+      "relation": "open_short_chunk_microbatch_physical_kernel_choice"
+    },
+    {
+      "from": "S20",
+      "to": "S11",
+      "relation": "open_deadline_need_true_runtime_account"
+    },
+    {
+      "from": "R03",
+      "to": "S02",
+      "relation": "research_comparison_causal_architecture_requirements"
+    },
+    {
+      "from": "R04",
+      "to": "S19",
+      "relation": "research_conditional_validity_for_ffn_reuse"
+    },
+    {
+      "from": "R02",
+      "to": "S11",
+      "relation": "realtime_requested_slo_definition"
+    },
+    {
+      "from": "S08",
+      "to": "F04",
+      "relation": "comparison_only_stream_ffn_to_wan_w1"
+    },
+    {
+      "from": "S08",
+      "to": "F09",
+      "relation": "comparison_only_stream_ffn_to_wan_w2"
+    },
+    {
+      "from": "S09",
+      "to": "D09",
+      "relation": "comparison_only_long_rollout_to_wan_video_end"
+    },
+    {
+      "from": "S19",
+      "to": "K28",
+      "relation": "compare_stream_ffn_history_to_full_diT_L2P_predictor"
+    },
+    {
+      "from": "S13",
+      "to": "K36",
+      "relation": "compare_training_reorganization_to_ffn_attention_reallocation"
+    },
+    {
+      "from": "S15",
+      "to": "F08R",
+      "relation": "compare_NVFP4_16scale_to_original_HiF4_64_8_4_tree"
+    },
+    {
+      "from": "G02",
+      "to": "S19",
+      "relation": "original_high_low_weights_break_cross_expert_cache_equivalence"
+    },
+    {
+      "from": "S02",
+      "to": "S21",
+      "relation": "lit_causal_teacher_prepares_online_consistency_distillation"
+    },
+    {
+      "from": "S21",
+      "to": "S22",
+      "relation": "lit_causal_consistency_framewise_fewstep_student"
+    },
+    {
+      "from": "S22",
+      "to": "S06",
+      "relation": "lit_one_two_step_framewise_inference_reduces_M_and_K"
+    },
+    {
+      "from": "S22",
+      "to": "S11",
+      "relation": "lit_ttff_and_frame_granularity_author_comparison"
+    },
+    {
+      "from": "S23",
+      "to": "S24",
+      "relation": "lit_eden_visual_reference_conditioned_render"
+    },
+    {
+      "from": "S24",
+      "to": "S06",
+      "relation": "lit_eden_fourstep_chunk_autoregressive_inference"
+    },
+    {
+      "from": "S24",
+      "to": "S15",
+      "relation": "compare_lightx2v_quant_native_path_to_longlive2_nvfp4"
+    },
+    {
+      "from": "S23",
+      "to": "S19",
+      "relation": "open_appearance_vs_motion_ffn_value_subspace"
+    },
+    {
+      "from": "S23",
+      "to": "S17",
+      "relation": "open_reference_scene_changes_and_cache_invalidation"
+    },
+    {
+      "from": "S25",
+      "to": "S17",
+      "relation": "lit_action_prompt_conditions_chunk_version"
+    },
+    {
+      "from": "S25",
+      "to": "S11",
+      "relation": "lit_multimodal_interaction_latency_separate_from_fps"
+    },
+    {
+      "from": "S25",
+      "to": "S19",
+      "relation": "open_action_modulation_effect_on_ffn_cache_validity"
+    },
+    {
+      "from": "S24",
+      "to": "F04",
+      "relation": "comparison_eden_lightx2v_to_original_wan_quantized_ffn"
+    },
+    {
+      "from": "S24",
+      "to": "F09",
+      "relation": "comparison_wan_reference_renderer_to_original_w2_gate"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -1939,5 +2475,61 @@
       "L53": "ARXIV_ORIGINAL_V1_EQ1_3_SEC5_SEC7_READ",
       "L54": "AUTHOR_ARXIV_ABSTRACT_ONLY"
     }
+  },
+  "literature_mapping_v4": {
+    "section": "G10",
+    "document": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md",
+    "ledger": "research/literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json",
+    "node_ids": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "S17",
+      "S18",
+      "S19",
+      "S20",
+      "S21",
+      "S22",
+      "S23",
+      "S24",
+      "S25"
+    ],
+    "paper_ids": [
+      "L55",
+      "L56",
+      "L57",
+      "L58",
+      "L59",
+      "L60",
+      "L61",
+      "L62",
+      "L63",
+      "L64",
+      "L65",
+      "L66",
+      "L67",
+      "L68"
+    ],
+    "native_model_runs": 0,
+    "source_status": "SOURCE_TIERED_EXTERNAL_LITERATURE_ONLY",
+    "recent_2026_models": [
+      "L65",
+      "L66",
+      "L67",
+      "L68"
+    ]
   }
 }

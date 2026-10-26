@@ -1,3 +1,5 @@
+**G10实时生成文献与图同步（2026-10-27）：** [14源模型方法/源码与FFN代价分解](../literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)、[tier账本](../literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)以及[权威G10图](../../docs/98_端到端计算图与证据注解_20261025.md)。S01–S18/S21–S25 LIT，S19/S20 OPEN；和G0–G5的跨边只是模型结构、代数和物理成本比较。用户已恢复实时文献/计算图研究，原生模型实验仍暂停。
+
 **G9论文与计算图同步（2026-10-27）：** [跨步函数历史预测/树路径稀疏/协同训练后职责转移](../literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)现在是外部LIT K28–K37，[逐来源账本](../literature/20261027/G9_METHOD_SOURCE_LEDGER.json)记录真实阅读深度。与G7/G8共37个外部K节点，以实际信息时点、计算代价、训练与冻权区别连接SRC图；沿着论文原始函数和已经冻结的Wan证据提出竞争机制。新增纸面发现回写权威图和节点注册表；原生GPU/model执行遵循ACTIVE暂停。
 
 **G8论文执行路径扩展（2026-10-27）**：[四组原始论文方法与源码比照](../literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)加入K13–K27的N:M激活、共享/TopK专家及连续MoB、SVD主/残差缓存和MLP稀疏增量；G7仍是step、frame、width和activation spectrum。所有K节点均LIT，不授予新原生算子执行权限；新增文献要求节点、数学、真实数据时点、训练成本、跨模型变更和可用证据同步更新。

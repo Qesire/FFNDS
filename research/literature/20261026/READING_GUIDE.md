@@ -1,3 +1,5 @@
+**2026-10-27 独立实时模型文献线：** [14项原始论文/报告及作者源码](../20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)与[一手证据分级](../20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)新增 G10 S01–S25。优先比较Causal Forcing++ v4的1–2步framewise蒸馏、EdenLive LightX2V/5090的外部参考条件与原Wan FFN、SCD时间功能分离、LongLive2 NVFP4原生GEMM和KV、StreamDiffusionV2 SLO。论文集现68项；模型执行继续暂停。
+
 **G9条件计算与跨步预测（2026-10-27）：** [L²P / FFF / FFN↔attention训练期迁移一手研究](../20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)和[逐论文证据账本](../20261027/G9_METHOD_SOURCE_LEDGER.json)已加入[计算图 G9 K28–K37](../../../docs/98_端到端计算图与证据注解_20261025.md)。L²P已读取CVPR官方发布与作者FLUX历史预测源码；FFF已核原始v1方法公式/消融；Sparsity Moves Computation只有作者摘要，需深读方法正文。研究比较分清“缓存整个模型输出”“新训练的树状条件函数”“训练期全网角色迁移”三种不同的省算机制；现实Wan四步执行仍暂停。
 
 **G8 methods and method-status audit (2026-10-27):** [RT-Lynx, Dense2MoE, SVD-Cache and Chipmunk computations](../20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md) + [per-paper source tier](../20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json). Dense2MoE and SVD-Cache now have original v1 method equations read, correcting earlier abstract-only and no-method claims. RT-Lynx official main-paper method remains unavailable; use author HF post as primary author statement, not verified formula/code. When reviewing other related works, attach each to G7/G8 or create a distinct branch with tensor shape, legal runtime signal and costs.
@@ -6,9 +8,9 @@
 
 **第二轮可复核深读：** [五篇近邻方法审查](FIVE_PAPER_METHOD_AUDIT.md)与[5篇证据等级账本](METHOD_AUDIT_LEDGER.json)。后续Agent首先补齐RT-Lynx/Dense2MoE完整原始方法源码，Activation Concentration阈值/列的严格定义，以及DiffSparse原Wan分项VBench；Chipmunk已亲读MLP源，但没有Wan四步实验。
 
-**研究版本演进：最初51项（其中18个追加近邻），G9后更新至54项。**先读[新研究地图](ADJACENT_METHOD_EXPANSION_20261026.md)和[已检查原始源码与公开代码状态](ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。下一轮方法级重点扩至Dynamic-in-Few-Step、FIS-DiT、Mobile Video DiT、NerVE、SVD-Cache、FastLightGen、PARE，再结合RT-Lynx/Chipmunk/Dense2MoE/Activation Concentration/DiffSparse。阅读顺序按科学重叠和证据变化选择，而非要求固定一条算法路线。
+**研究版本演进：初期51项、G9扩展54项、G10现68项。**先读[新研究地图](ADJACENT_METHOD_EXPANSION_20261026.md)和[已检查原始源码与公开代码状态](ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。下一轮方法级重点扩至Dynamic-in-Few-Step、FIS-DiT、Mobile Video DiT、NerVE、SVD-Cache、FastLightGen、PARE，再结合RT-Lynx/Chipmunk/Dense2MoE/Activation Concentration/DiffSparse。阅读顺序按科学重叠和证据变化选择，而非要求固定一条算法路线。
 
-**当前优先级：原始文献查验与竞争机制分类。** 完整54项记录在[持续维护的文献索引](PRIMARY_LITERATURE_INDEX.json)，研究总图见[Atlas](PRIMARY_LITERATURE_ATLAS.md)，关系见[矩阵](MECHANISM_COMPETITION_MATRIX.md)。
+**当前优先级：原始文献查验与竞争机制分类。** 完整68项记录在[持续维护的文献索引](PRIMARY_LITERATURE_INDEX.json)，研究总图见[Atlas](PRIMARY_LITERATURE_ATLAS.md)，关系见[矩阵](MECHANISM_COMPETITION_MATRIX.md)。
 
 每个paper ID深读时分别填写：原论文及版本、实际阅读章节/图、中心计算方程和前提、方法究竟使用什么已知输入及何时可知、训练/校准类型、online重算/缓存/GEMM与显存成本、原生kernel和真实时延、分项视频指标、失败消融、竞争论文与本项目现有机制的同构/不同，以及能区分两种解释的最低成本观测。
 
