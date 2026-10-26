@@ -1,5 +1,7 @@
 # 方法讨论记录模板
 
+**生成性书写规则：** 从正向数学构造与新计算自由度开始，紧接最强竞争机制及其不同预测。`counterexample`字段服务于发现成立条件和新表示，不能取代提出机制。负面观察按原实验、来源、指标与作用域如实记录。权限和形式验收只约束相应执行与结论；执行路径遵循[根入口准则](../../AGENTS.md)。
+
 ## 计算图协作是讨论的共同定位方式
 
 参阅 [G0–G4计算图](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md) 和 [稳定节点/证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json)。Agent 可以从真实源码、论文或视频现象开始，但提出可审查机制时关联相关节点及上游/下游边界，并记录自己的 [E0图锚点claim](graph_annotations/E0/README.md)。独立 reviewer 复核其真实代码路径、数学、source/step范围和时序成本；整合者将确认的解释回填计算图的节点注释与实验图谱。现有历史提案不需要倒填新的JSON字段；新候选可在下面示例中添加 `graph_context`。
@@ -11,7 +13,7 @@
 
 ## E0_OPEN_DISCOVERY：FFN 本征现象发现优先
 
-当前主要参照 [FFN 本征研究纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 与 [新第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)：明确激活 vs 有符号 FFN 净贡献 vs downstream 价值 vs 物理可省算单位。量化元信息只作为可选幅值线索。提出者不需要在发现期证明某算子有效；成熟 proposal 才具体列出计算边界。
+当前主要参照 [FFN 本征研究纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 与 [新第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)：明确激活 vs 有符号 FFN 净贡献 vs downstream 价值 vs 物理可省算单位。量化元信息只作为可选幅值线索。发现阶段优先交付有数学结构与可判别预测的研究种子；进入成熟 proposal 后补充精确计算边界和部署假设。
 
 
 以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为阶段权威。当前优先采用 [E0 独立发现模板](discoveries/E0/README.md) 报告真实结构、两种竞争解释和区分性观察。下方的 versioned `proposals/<id>/vN.json` 用于保存成熟候选方法或由现象启发的新算子种子，由未来阶段再确定实现时机。
