@@ -13,7 +13,7 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 \`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续block/flow/scheduler/video\`。
 现有原生实现采用 HiF4 fake-QDQ 与 BF16 Linear；外部原生packed NVFP4/MXFP4算子属于独立比较对象。
 
-**新增统一分析方法：三层交叉，而不是按“稀疏/量化”分门派。** [O-A选择、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习及验证](../../../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[论文/项目方法签名JSON](../../../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)是当前五种可组合操作。每次针对G14某论文，记录其真实主/辅操作、信息首次可用时刻、真实减少何种计算、新增在线/训练成本、数值模型和源级证据；论文可以同时使用多种操作，O-E校准source不等于O-A在线选算子。I/F/C仍是相互开放的科学入口。本轮用户指定的**M-B候选**（后缀敏感坐标）是O-B＋O-E、可选O-D的一个特例；先完成其独立METHOD_SNAPSHOT，再讨论扩展动作空间。
+**新增统一分析方法：三层交叉，而不是按“稀疏/量化”分门派。** [O-A选择、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习及验证](../../../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[论文/项目方法签名JSON](../../../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)是当前五种可组合操作。每次针对G14某论文，记录其真实主/辅操作、信息首次可用时刻、真实减少何种计算、新增在线/训练成本、数值模型和源级证据；论文可以同时使用多种操作，O-E校准source不等于O-A在线选算子。I/F/C仍是相互开放的科学入口。[现行整合方案 v2](../../../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)已经吸收G14先验、A0四位置真实pilot与已完成M-B末层连续head/LN代数。用户指定的**M-B候选**是O-B＋O-E、可选O-D的一个特例，现有[M-B v2 METHOD_SNAPSHOT](../../../research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已存在。下一动作是[B0原生postwrite u/head/flow身份与neutral验证，随后B1有限响应](../../../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)；优先区分正常函数、合法学生可预测性和真正省算，再推进B-H direct 65统计学生与B-F factored通用学生。
 
 **路线同步优先入口**：[I/F/C当前证据与候选方案对照](../../../research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)。先从其中一个科学分歧进入，继承相应原生资产和独立统计单位，再深入方法正文；表中未验证的新预测保持OPEN。研究路线不等于Agent同行认可，也不新增模型作业权限。
 
