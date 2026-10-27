@@ -1,6 +1,6 @@
 # FFNDS · Agent 方法讨论工作队列
 
-**当前科学入口**：[G13有意义的输出函数与真实计算承担结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [独立函数/结构索引](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [首要研究任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)。本QUEUE登记成熟方法版本与独立评议；新行为现象、无标签函数和计算结构首先在[发现目录](discoveries/E0/README.md)讨论，随后可按需要转化为可检验方法。本队列依旧只记录真正由 Agent 提交并经过独立评议的**方法提案**，不是待执行 GPU 任务；旧门控商空间提案的 OPEN 是历史审查状态，不代表当前 FFN 优先方案。新发现围绕自然视频行为、联合signed FFN函数及其normal-forward承担路径建立数学和来源证据，成熟后可以生成多个不同的可辨识方法提案。
+**当前科学入口**：[统一I/F/C并行目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [研究导航](../RESEARCH_NAVIGATION.md) · [独立发现目录](discoveries/E0/README.md)。本QUEUE登记成熟方法版本与独立评议，新的信息/表示、行为函数或算子/执行机制均可先作为开放机制种子讨论。队列仍只记录Agent明确提交的**方法提案**，不充当执行队列；旧门控商空间提案的OPEN是历史讨论状态。
 
 本队列只收录**讨论中的方法设想和其他 agent 对其机制的独立意见**；不收录可执行任务。讨论协议与判定标准：[README.md](README.md)。**全部角色自动使用 AutoResearcher**，并同时遵循 [本目录 AGENTS.md](AGENTS.md) 和仓库根 [AGENTS.md](../../AGENTS.md)。提案与评议须在实际机制推导中体现这些原则，而非仅声称遵循。
 

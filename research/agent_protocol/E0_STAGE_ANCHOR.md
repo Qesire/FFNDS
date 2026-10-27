@@ -1,8 +1,8 @@
 # FFNDS · E0_OPEN_DISCOVERY阶段科研锚点
 
-**当前科学问题：** [G13视频FFN输出函数与真实计算承担结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)。先发现哪类自然行为/无标签有符号输出函数需要解释，再定位由正常执行中的哪些W1/GELU/HiF4-Q2/W2/attention/step子图承担；新函数/结构及竞争机制可随原论文与原生证据继续扩展。
+**当前科学问题：** 按[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)并行发展 **I/F/C：信息与表示、函数与动力学、计算与执行**。保留原生四步Wan证据锚点，允许源信息、算子代数、视频功能及系统成本独立形成新机制。
 
-**统一资料**：[当前第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) · [O/D/Q/P函数/结构定位](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [Function–Structure registry](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [主计算图G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph-Agent双向协议](GRAPH_AGENT_COLLABORATION.md) · [89项论文索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json) · [当前ACTIVE研究状态](../ACTIVE_RESEARCH.json)。[早期FFN本征重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)与[2026-10-26机制审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留其已测研究线索。
+**统一资料**：[研究导航](../RESEARCH_NAVIGATION.md) · [当前ACTIVE状态](../ACTIVE_RESEARCH.json) · [研究上下文](CURRENT_CONTEXT_PACKET.md) · [G0–G13主图](../../docs/98_端到端计算图与证据注解_20261025.md) · [跨机制综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)。[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[Function–Structure](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)为F线专门资料。[2026-10-25第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)与[早期本征重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)保留历史意义。
 
 ## 科研材料与可比较的结构
 
@@ -16,13 +16,13 @@
 
 ## 独立探索与证据升级
 
-**从行为观察到函数**：整理完整视频的运动、相机、主体、照明、背景细节及无标签signed/时空响应，在[Function registry](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)建立带source、seed、expert、step的FUNCTIONAL-OBS候选。
+**I线，信息与表示**：研究输入/weight/码字/历史状态的首次可得时间、信息价和共享编码，探索可以单独被证明的界与执行策略。
 
-**从函数到结构**：在正常源码路径中研究多个W1行的共享输入、GELU与原HiF4 Q2耦合、W2的signed向量合成及后续层补偿。其计算图重要性随行为目标、上下文及可验证的干预而定义。
+**F线，函数与动力学**：从视频、latent/flow与无标签signed响应探索条件性生成行为，再用G13定位W1/GELU/Q2/W2与下游attention/step的真实承担结构；区分观察、因果及部署效果。
 
-**从结构到新实现**：由适用函数选择未来的量化码幅值/符号、静态/动态函数重参数化、数据布局、时空cache或小训练；记录真实可用信息时点、物理W1/Q2/W2费用与完整视频功能。
+**C线，计算与执行**：从合法tile、GEMM/QDQ、kernel访存和量化/训练后表示研究低成本实现。可以先证明成本或实现优势，再把结果反馈至I/F线，不需要先完成函数定位。
 
-**研究方法**：[AutoResearcher领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[独立方法讨论](../method_discussion/AGENTS.md)、[深度原论文检索](DEEP_WEB_RESEARCH.md)。独立发现者和reviewer可提出新数学表示或不同假说，沿[图注解](../method_discussion/graph_annotations/E0/README.md)提供源码/ALG/OBS/LIT和OPEN对照边。证据状态紧贴命题，用于决定最有价值的下一份来源或最小判别。
+**共同方法**：使用[AutoResearcher领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)及[独立讨论](../method_discussion/AGENTS.md)，取最有辨识力的源码/数学/论文与已有数据，建立最强竞争机制及不同预测；图注解不规定研究范围。
 
 ## 状态、质量和交接
 
@@ -30,4 +30,4 @@
 
 新模型或视频方法的质量需覆盖40层×4step、自由视频主体/背景/时序表现、same-source/seed比较及实际cost/SLO（见[统一指标协议](VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)）。纯理论和已测观察以各自数学/来源证据交付。
 
-**交接优先顺序**：[G13科学问题](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) → [已有真实证据包](CURRENT_CONTEXT_PACKET.md) → [主图](../../docs/98_端到端计算图与证据注解_20261025.md) → [ACTIVE](../ACTIVE_RESEARCH.json)。留下新的函数/结构、竞争解释、可判别证据与图节点，保持积极构造的研究表达。
+**交接优先顺序**：[统一I/F/C目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) → [已有真实证据包](CURRENT_CONTEXT_PACKET.md) → [主图](../../docs/98_端到端计算图与证据注解_20261025.md) → [ACTIVE](../ACTIVE_RESEARCH.json)。留下有价值的信息、函数或执行机制、竞争预测及其证据身份。

@@ -137,8 +137,7 @@ def main():
                "research/agent_protocol/UPSTREAM_SYNC.md"),
            "Upstream synchronization procedure is missing generic WARD core")
 
-    # Current route integrity is checked by target files, protocol hashes and
-    # semantic G13 pointers, rather than dated phrases in natural-language prose.
+    # Current route integrity uses target files, protocol hashes and scoped G13 pointers.
     web = active.get("web_research", {})
     ensure(web.get("default") is True and
            web.get("mode") ==
@@ -171,7 +170,7 @@ def main():
         ensure(bool(p) and (ROOT / p).is_file(),
                "Missing registered active study file: " + key)
     g13 = active.get("function_first_structure_localization_20261027", {})
-    ensure(g13.get("status") == "PRIMARY_SCIENTIFIC_PRIORITY_DISCOVERY_ONLY" and
+    ensure(g13.get("status") == "SCOPED_F_LINE_SCIENTIFIC_BRANCH_DISCOVERY_ONLY" and
            g13.get("current_document") ==
            "research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md" and
            g13.get("structured_research_objects") ==
@@ -195,22 +194,24 @@ def main():
                     "ACTIVE_SOURCE_MANIFEST.json" in wording),
                "Live G13 and source/authorization navigation missing: " + entry)
 
-    # Single FFN-first scientific question; historical E0 gap dossier remains immutable
-    # evidence rather than a source of agent task priority.
+    # Parallel I/F/C science; historical 2026-10-25 E0 task and gap dossier
+    # remain archived source evidence rather than the live research selector.
     focus = active.get("research_focus", {})
     reset_doc = "research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md"
     first_task = "research/20261025/E0_FFN_FIRST_TASK_20261025.md"
     historical_gap = "research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md"
-    ensure(focus.get("priority") == "INTRINSIC_FFN_MECHANISM_FIRST" and
+    ensure(focus.get("priority") == "PARALLEL_I_F_C_MECHANISM_DISCOVERY" and
            focus.get("scientific_reset") == reset_doc and
            focus.get("first_task") == first_task and
            focus.get("quantization_role", "").startswith("OPTIONAL_COARSE_MAGNITUDE") and
-           active.get("active_document") == first_task and
+           active.get("active_document") ==
+           "research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md" and
+           stage.get("task_document") == active.get("active_document") and
            stage.get("open_problems_document") == reset_doc and
-           stage.get("direction_document") == reset_doc and
+           stage.get("direction_document") == active.get("active_document") and
            stage.get("latest_deliverable", {}).get("gaps_and_required_remedies") == historical_gap and
            (ROOT / historical_gap).is_file(),
-           "FFN-first active science routing or historical evidence provenance drift")
+           "Parallel I/F/C active routing or historical evidence provenance drift")
     # File targets and G13 science route are validated above.
     # Historical G4 mechanism audit remains discoverable, but only the
     # most recent G5 audit owns the current latest_* pointers below.
@@ -223,6 +224,20 @@ def main():
            len(stage.get("current_open_forks", [])) >= 4 and
            stage.get("new_experiment_authority") == "NONE",
            "Research handoff narrowed or created an implicit experiment queue")
+
+    objective = record("research/OBJECTIVE_CONTRACT.json")
+    north = objective.get("current_research_goal_20261027", {})
+    ensure(north.get("authority_document") ==
+           "research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md" and
+           north.get("g13_role") == "SCOPED_FUNCTIONAL_CAUSAL_LOCALIZATION_NOT_GLOBAL_GATE" and
+           len(north.get("parallel_entries", [])) == 3 and
+           all(token in local_skill for token in
+               ("信息与表示", "函数与动力学", "计算与执行")) and
+           "I/F/C" in text("research/agent_protocol/E0_STAGE_ANCHOR.md") and
+           "I/F/C" in text("research/agent_protocol/README.md") and
+           "I/F/C" in text("research/method_discussion/README.md"),
+           "Parallel scientific objective or scoped G13 route drift")
+
     # Graph↔Agent index must resolve to real Mermaid node labels, source/evidence
     # files and link to current E0 study. This is a purely static integrity check.
     from graph_agent_bridge import load as load_graph_registry, validate as validate_graph_registry
@@ -469,7 +484,9 @@ def main():
              "G13_DISCOVER_FUNCTION_BEFORE_SELECTING_OPERATOR",
              "G13_DISTINGUISH_FUNCTION_FROM_SIGNED_PROXY",
              "G13_IMPORTANT_COMPUTE_STRUCTURE_IS_A_DISCOVERY_TARGET",
-             "G13_CONSTRUCTIVE_SCOPE_AND_CURRENT_AGENT_ROUTING"}.issubset(case_ids),
+             "G13_CONSTRUCTIVE_SCOPE_AND_CURRENT_AGENT_ROUTING",
+             "PARALLEL_INFORMATION_FIRST_WITHOUT_CAUSAL_FUNCTION_GATE",
+             "PARALLEL_COMPUTE_FIRST_WITHOUT_FUNCTION_LABEL_GATE"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
            "Behavior-case answers may be leaked to candidate-agent evaluation")
@@ -567,7 +584,7 @@ def main():
            not (ROOT / "research/20261024/operator_first_autoresearcher_reexploration.json").exists(),
            "Superseded algorithm-first task is present")
 
-    print("PASS: exact AutoResearcher v2.4 WARD source, shared skills and intrinsic FFN discovery route,")
+    print("PASS: exact AutoResearcher v2.4 WARD source, shared skills and parallel I/F/C discovery route,")
     print("      Markdown links, E0 issues, completed permission scope and historic pause.")
     print("Scope: static structure only. No numerical experiment or agent behavioral run.")
 

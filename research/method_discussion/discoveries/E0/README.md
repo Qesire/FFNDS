@@ -1,20 +1,21 @@
-# E0 · 独立行为函数与计算结构发现
+# E0 · 独立信息、函数与计算机制发现
 
-**当前科研目标**：[G13行为意义与真实承担结构](../../../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)；来自自由生成视频、signed FFN写回与无标签函数响应的现象，沿原生W1/GELU/HiF4-Q2/W2/attention/step关系提出联合结构，再以独立机制预测判别。[Function–Structure登记](../../../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)维护BEHAVIOR、FUNCTION与STRUCTURE；[主图G0–G13](../../../../docs/98_端到端计算图与证据注解_20261025.md)和[Graph-Agent协作](../../../agent_protocol/GRAPH_AGENT_COLLABORATION.md)保留源及下游边。
+**当前科研目标**：依据[统一研究目标](../../../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)并行探索 **I/F/C**。该发现目录接纳无需语义标签的编码/信息新定理、真正FFN函数/动力学假说与物理算子重组。F线的[G13专题](../../../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[Function–Structure](../../../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[源图](../../../../docs/98_端到端计算图与证据注解_20261025.md)为需要行为因果定位的研究提供支持。
 
-**研究方法**：按[FFNDS领域Skill](../../../../.agents/skills/ffnds-paper-discovery/SKILL.md)主动从反直觉数据、新数学、源码与原论文发现不同的函数解释；经[WARD深度搜索](../../../agent_protocol/DEEP_WEB_RESEARCH.md)核对基础、前沿、作者实现和相反先例。在科研记录中清晰写出新结构、真正依据、竞争机制与预期不同结果。此处为**E0_OPEN_DISCOVERY**独立讨论空间，历史提案与失败均保留具体版本和可追溯解释。
+**研究方法**：[领域Skill](../../../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[WARD](../../../agent_protocol/DEEP_WEB_RESEARCH.md)促进从反直觉数据、新数学、实际源码/原论文及执行表现中产生竞争假说。记录精确依赖、证据身份、不同预测和最小判别。历史方法、审阅和原生视频结论保留原始版本。
 
 **当前执行状态**：[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)保留已完成模型范围及质量记录；新CPU/GPU/模型/视频执行暂停。发现目录用于数学、源码、论文和原证据上的科研讨论。
 
 **当前原生证据**：10个独立source身份、12条source×seed完整轨迹、1920个嵌套FFN位置。[cross-seed有符号作用](../../../20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md)、[整步有限状态响应](../../../20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)、[既有视频失配](../../../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)和[HiF4/物理tile](../../../20261025/E0_SHARED_TILE_PRE_W1.md)是研究功能和结构的互补入口。[初始FFN本征研究](../../../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[第一任务](../../../20261025/E0_FFN_FIRST_TASK_20261025.md)与旧A4/N12、SM120研究继续作为精确历史证据。
 
-## 探索的三种互补切面
+## 探索的三种互补科学入口
 
-- **FFN 输出机制**：从自然输入的gate×W2输出、共享q多W1行、GELU/HiF4分组与不同符号叠加出发，探索实际承担行为作用的联合函数或其它新坐标。
-- **时空动态机制**：哪些时空/step/expert条件下的函数响应构成共同或独有职责？它们如何通过真正的残差消费者传递到下一状态？
-- **功能/计算机制**：哪种跨W1/W2及后缀路径对背景、运动、光照与时序功能作出贡献？新的代数基或计算单位如何产生不同的物理动作？
+- **F · FFN函数与动力学**：从自然输入的gate×W2输出、共享q多W1行、GELU/HiF4分组与不同符号叠加出发，探索实际承担行为作用的联合函数或其它新坐标。
+- **I · 信息与表示**：已可得输入与权重编码、跨step状态、量化分组/码字提供哪些可证明的共享信息与预测价值？哪些额外观测成本能够换来真实算法收益？
+- **时空动态机制（F线子问题）**：哪些时空/step/expert条件下的函数响应构成共同或独有职责？它们如何通过真正的残差消费者传递到下一状态？
+- **C · 计算与执行**：哪种跨W1/W2及后缀路径对背景、运动、光照与时序功能作出贡献？新的代数基或计算单位如何产生不同的物理动作？
 
-独立审查需要亲自看源码、数学或反例，形成真正不同的预测；按 [DEEP_WEB_RESEARCH.md](../../../agent_protocol/DEEP_WEB_RESEARCH.md) 搜索首发论文、官方代码和最强竞争机制。本入口指向现行功能研究，历史论文、原生RUN和旧构造仍按版本保留其证据价值。
+独立审查需要亲自看源码、数学或反例，形成真正不同的预测；按 [DEEP_WEB_RESEARCH.md](../../../agent_protocol/DEEP_WEB_RESEARCH.md) 搜索首发论文、官方代码和最强竞争机制。本入口覆盖三条并行研究路径，历史论文、原生RUN和旧构造仍按版本保留其证据价值。
 
 ## 简短科学记录模板
 

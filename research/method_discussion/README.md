@@ -1,12 +1,12 @@
-# FFNDS · 多Agent函数/结构发现与独立方法评议
+# FFNDS · 多Agent独立机制发现与方法评议
 
-当前科学任务为 **E0_OPEN_DISCOVERY / G13：先识别具有行为意义的FFN输出函数，再追索承担这些函数的原生计算子图**。从[首要科研文档](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [函数作用与计算来源定位](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[行为/函数/结构登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[当前科研状态](../ACTIVE_RESEARCH.json)和[FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)进入。
+当前 **E0_OPEN_DISCOVERY** 允许 **I/F/C并行探索**：可从信息/表示、生成函数/动力学或物理计算/算子任何一个研究入口提出机制并由其它Agent独立评议。[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md) · [ACTIVE](../ACTIVE_RESEARCH.json)。[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)用于F线定位，Function–Structure登记只覆盖相应对象。
 
-**方法**：发现真实视频或数学张力→建立函数/结构候选→原生源码/原论文及数学支持→有不同预测的竞争解释→最廉价的有辨识力下一证据。[深度文献检索](../agent_protocol/DEEP_WEB_RESEARCH.md)包括基础/近期论文、数学变体、消融、原生作者代码及相反发现。AutoResearcher 机制研究、扩展与问题重构允许提出超出已有图谱的OPEN机制。
+**方法**：发现真实现象、信息自由度或算子数学 → 形成可证伪机制 → 精确相关源码/原论文 → 竞争解释与不同预测 → 最便宜的判别证据。[原始文献检索](../agent_protocol/DEEP_WEB_RESEARCH.md)支持跨学科和相反证据，AutoResearcher机制研究/扩展/问题重构鼓励开放数学空间。
 
 ## 独立讨论的两种科研成果
 
-**发现记录**：\`discoveries/E0/<agent-id>-<phenomenon>.md\`，记录行为/无标签FFN响应、条件、源码/数学、候选计算结构、竞争性解释和最有信息价值的观察。[独立发现说明](discoveries/E0/README.md)提供示例及历史结果。
+**发现记录（信息/函数/算子均可）**：\`discoveries/E0/<agent-id>-<phenomenon>.md\`，记录行为/无标签FFN响应、条件、源码/数学、候选计算结构、竞争性解释和最有信息价值的观察。[独立发现说明](discoveries/E0/README.md)提供示例及历史结果。
 
 **方法提案**：\`proposals/<METHOD_ID>/v<N>.json\`，用[模板](TEMPLATES.md)登记具体构造、作用在什么真实计算边、预计的功能价值与不同预测。提出新表示、功能协作/重组、时空或量化信息机制均可以先作为早期探索种子；真正形成明确方案与版本时进入方法队列。
 
@@ -29,8 +29,8 @@
 
 **版本规则**：每位Agent保有自己的发现/评议文件，原始Git blob SHA、真正独立论证、提案身份和不同观点持续可追溯；串行整理者更新共享表。新错误通过有界勘误说明，不改变旧实验数据及原始版本记录。
 
-## 函数定位与算子研究如何连接
+## 并行研究如何在计算图中连接
 
-从现有原生视频背景光照/运动与source×seed signed响应中定位FUNC-OBS，然后沿W1/GELU/HiF4-Q2/W2有符号合成、attention/残差与四步状态寻找实际计算承担者。对已识别功能再研究量化存储信号、共享计算、训练职责迁移、cache和物理执行tile。对应[G0–G13图](../../docs/98_端到端计算图与证据注解_20261025.md)及[Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)；来自外部作者的机制保持LIT，数学恒等式保持ALG，有效原生观察和功能因果各按证据等级保存。
+F线从自然视频与signed响应定位FUNC-OBS，再沿真实W1/GELU/HiF4-Q2/W2、attention/残差和四步状态研究正常承担者；I/C线则可以直接由量化信息、计算代数、共享结构、训练后重组、cache或物理tile形成独立成果。任何成果都可反向解释另两条线。对应[G0–G13图](../../docs/98_端到端计算图与证据注解_20261025.md)及[Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)；来自外部作者的机制保持LIT，数学恒等式保持ALG，有效原生观察和功能因果各按证据等级保存。
 
 **当前研究范围**：独立科学讨论、原论文/源码、数学、已有数据和计算图工作。**新的CPU/GPU/模型/视频运行暂停**；旧E0/paired-native固定实验均已完成或关闭，后续许可看[ACTIVE](../ACTIVE_RESEARCH.json)。所有新视频质量按[全深度指标与画质协议](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)独立记录。
