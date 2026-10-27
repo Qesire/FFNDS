@@ -4,7 +4,7 @@
 
 以 LightX2V Wan2.2 I2V A14B 四步D-Q为原生证据锚点，沿**信息与表示（I）／函数与动力学（F）／计算与执行（C）**三条互相反馈的研究路径探索。G13是函数因果与承担结构的专题，G7–G12的量化、复用、重构、系统机制也能独立产生新发现。研究路线从现象、数学、源码或性能任一入口开始，见[统一目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-当前索引：**89项相关论文、184个稳定计算图节点、389条类型化关系、14个机制家族**；G13包含27个定位节点；新增保存操作数观察与OPEN后缀分别标注。不同论文的实际阅读层级可在source ledger中逐项追溯。
+当前索引：**89项相关论文、186个稳定计算图节点、397条类型化关系、14个机制家族**；G13包含27个定位节点；新增保存操作数观察与OPEN后缀分别标注。不同论文的实际阅读层级可在source ledger中逐项追溯。
 
 ## 研究入口
 
@@ -42,6 +42,8 @@
 2026-10-27合并的实验管线提供来源登记、全160位置校准行**计划**、原生操作数索引/文件头核验、注册后Dense/UB1原生视频生成入口、原版VBench分维调用入口，以及图像簇配对统计工具。各环节独立读取真实收据：**计划生成 ≠ 原生操作数已采集或拟合；原版评测函数执行 ≠ 九维完整官方榜单；来源级重采样 ≠ 新的独立来源**。
 
 同一图像簇内先对各source/prompt的seed×sample重复观测求均值，再对source/prompt等权，最后对独立图像簇等权。历史单视频复制五个文件名的VBench结果仍按单次生成的旧协议解释。当前工作与模型执行权限统一以 `research/ACTIVE_RESEARCH.json` 为入口；`research/CURRENT_DECISION.json` 中的早期暂停状态及旧RUN保留为对应阶段的历史记录。CPU静态/统计测试与真实GPU/官方质量运行分别验收。
+
+**最新原生判别（不同证据对象）**：[固定R256 consumer](research/20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24来源校准训练内恢复83.01%的局部gate误差；[六条配对视频的八维官方函数结果](research/20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)仅覆盖两条已暴露来源，连续RAFT运动相对neutral部分恢复，仍低于Dense，camera motion未运行；[保存latent有符号几何](research/20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)显示局部纠偏与末步距离增大并存。[A100合成激活2:4比较](research/20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)找到部分更快的预打包乘法布局，在线动态选择、压缩与完整视频收益仍分别验证。该组发现已索引于[研究导航](research/RESEARCH_NAVIGATION.md)。
 
 ## 当前科研方向
 
