@@ -1,84 +1,58 @@
-# FFNDS · 科研 Agent × 源码计算图双向协作协议
+# FFNDS · 科研Agent与真实计算图的双向协作
 
-**现行图谱状态（2026-10-27）**：171个稳定节点、354条有类型边、85项研究索引。G0–G5是原生Wan源码/原生实验，G6是历史场景图，G7–G13是外部论文LIT/原理ALG/SPEC/开放OPEN；[统一综合报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)解释研究关系，[14机制Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)登记何时可观察、付费算子、对应源码、主要竞争论文和下一可证伪观测。**原实验CPU/GPU/model/video仍全部暂停。**
+**科学对象**：[G13具有行为意义的输出函数与正常前向承担结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)。结合[行为/函数/结构独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点关系](GRAPH_AGENT_BINDINGS.json)进行研究。当前图谱85项文献、171节点、354关系、14机制家族；[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)维护跨机制比较。
 
-**双向维护规则**：一手文献原方程、实际算法代码和原Wan节点分别留在来源账本、结构化graph、native实验RUN；Crosswalk加入有类型的**比较/条件**边，结论不能自动升级为SRC原生执行。新的理论发现可以先独立于既有图提出，随后绑定到最相关的操作与消费者。更新数值实验原始文件必须独立授权并保留历史哈希；清理文档不改变RUN本身。
+研究者可从自然视频行为、数值张力、真实源码或外部数学/论文发现新功能候选和计算关系，再把它落实到实际源图。图谱支持研究的可追溯性，也为新的科学表示留下空间。
 
+## 1. 从功能意义推进到计算结构
 
-**统一研究边界**：[全层省算、真实视频失配与方法族审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)将局部函数重写、GELU奇偶解释、已测权重常驻与已经产生完整视频但质量不合格的原型结果分开。G5提供Affine候选、视频结果与成本的证据节点。Agent可以从全新数学结构或视频异常起步，建立新的源图节点与判别性计算边。
+**图→Agent**：沿G18→F03/F04→F06→F08R→F09→F12→F13/G21重建当前输入条件、共享q上的多W1行、GELU、HiF4 Q2整组尺度、门控输出及下游真实路径；结合自然视频和跨step/seed的已保存状态变化。
 
-**当前任务**：以[当前统一机制报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)和[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)为综合入口；[G0–G13权威图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点边](GRAPH_AGENT_BINDINGS.json)同步。历史FFN第一任务和本征审计继续作为原生证据来源。
+**Agent→函数/结构地图**：提出一个行为现象或无标签函数候选，登记实际条件、观察出处、有符号/时空响应以及可能的计算承担者（联合W1行、W2有符号组合、跨层attention补偿、expert/step职责或时空共享）。从中推导新结构、竞争解释及有不同结果的判别。
 
-## 当前首要双向协作：先观察功能，再定位正常执行结构
+**独立评议→图谱**：另一个Agent核对源码时序、公式和实验身份，对函数的正常计算路径提供支持、具体反例或替代解释；整合者将成熟命题标为SRC/ALG/OBS/NATIVE、原作者LIT或OPEN条件边。函数候选、物理执行单元和后验oracle信息分别登记，便于未来完整因果验证。
 
-最新[G13研究优先级和功能证据分层](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)：视频/latent现象→有标签或无标签的条件输出函数→真实在正常前向承担函数的多W1行/GELU/HiF4-Q2/W2/门控/跨层/跨step子图→未来可授权的独立因果干预→算子/量化/硬件效率。使用[FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)登记不同的**行为、函数和结构**；不将SAE概念、signed cross、低频、SSE、后验mask直接升级为功能必要性。M13/M14是新研究主入口，原 M01–M12只是后续技术类比较。G13的L80–L85仅对应真实原文摘要/作者摘要等级。
+**信息与效率**：对已定位功能与结构，再比较G7–G12中的FP4 code/sign、proxy、码本查表、合法group稀疏、cache、step策略或小训练模型。解释信息获取点、物理观察成本以及实际变化的W1/Q2/W2和视频行为。
 
-当前85篇/171节点/354关系/14机制家族；G13是研究与源码事实叠加图，没有新的FFN组消融或原生视频运行。**原实验暂停**由ACTIVE独立判定。
+## 2. Graph Evidence Packet：足够支持新认识的最小信息
 
-## 协作定义
+以[模板](../method_discussion/GRAPH_CLAIM_TEMPLATE.json)记录：
 
-**图是研究问题的可定位计算对象，Agent 是提出/验证新解释的主体。** G0–G5 是源码绑定的计算流与证据注解，G6为2026-10-26历史假设应用场景，2026-10-27另由G10恢复**实时文献与计算图研究**，原生流式实验尚未授权；`GRAPH_AGENT_BINDINGS.json` 提供图中稳定ID、语义、信息时点、证据文件、未解分歧和必要的跨层边。它是源码与证据索引；实际运行时动态轨迹及候选硬件执行由独立RUN与对应实验范围证实。
-
-双向反馈：
-1. **图→Agent**：从科研问题选图节点（例如 `F06→F08R→F08→F09`），沿执行边追溯上游输入与合法状态（G0/G1），沿消费者追踪功能后果（F12/F13/G21/D09），将数值证据、真实源码和未知边组成小型上下文。
-2. **Agent→图**：提出可能的函数关系、可执行变换或竞争解释；创建**与节点/边绑定**的讨论注解，附公式、源证据、反向预言和最小判别。新想法仍为`HYPOTHESIS`；已存推导和测量的命题以 `ALG`、`OBS`、`NATIVE-OBS`、`NATIVE-ACT`、`VIDEO`、`SYS` 等标注。
-3. **独立复核→图谱**：第二个 Agent 沿图重新检查实际时序、数学及证据，以独立文件提出支持/异议/修订；整合者串行地将**证实且范围明确**的新认知回写到计算图文字、[实验发现图谱](../EXPERIMENT_FINDINGS_ATLAS.md)或索引。尚未证实的研究空间留在图的“OPEN边”和注解，不改变真实Dense执行实线。
-
-**此流程连接开放研究与可追溯证据。** Agent自主选择机制、节点和算子层级，按相关源图路径形成可判别的新解释。 允许理论先发现表示，再找到对应图边；也允许从视频现象逆向寻找FFN/残差传播路径。AutoResearcher v2.4 `mechanism-research`、`research-expansion`、`problem-reformulation` 与 `web-research-discovery` 始终默认生效。
-
-## Graph Evidence Packet：每项研究留下什么
-
-最小记录可用 [模板](../method_discussion/GRAPH_CLAIM_TEMPLATE.json)：
-
-| 字段 | 内容 |
+| 项目 | 有价值的研究内容 |
 |---|---|
-| `claim_id`, `agent_id`, `source_revision` | 可追踪的发现身份/代码版本 |
-| `anchor_nodes`, `upstream_nodes`, `consumer_nodes` | 从 G/F/D/P 注册表中选择**相关**节点，跨G0–G5已测计算流追踪；不要求每个方向都有完整闭环 |
-| `mechanism`, `math_or_trace` | 一条正向新认识、推导或可证伪想法，明确 GELU/QDQ/BF16 等边界 |
-| `availability`, `real_cost` | 观测在 W1 前还是后？哪些W1/W2/量化/缓存/索引开销已付？属于后验 oracle 还是可在线观测？ |
-| `evidence`, `countermechanism`, `discriminator` | 原始文件及精确来源/step/block/token 范围，最强不同解释与决定性预测 |
-| `graph_change_suggestion` | 哪条边/节点可能新增条件注释、改变覆盖范围或等待证据；此字段只是建议 |
-| `review_status` | `PROPOSED`、`INDEPENDENT_REVIEWED` 或 `CONTESTED`，由实际 reviewer 文件支持 |
+| 身份与版本 | claim_id、agent_id、source_revision及真实模型/代码范围 |
+| 行为/函数/结构 | 哪种视频行为、FFN输出及其可能的原计算路径 |
+| 条件 | source、seed、step、expert、block、token时空位置 |
+| 图锚点 | 原生上游、正常计算、下游消费者及其证据身份 |
+| 数学与机制 | 一条新的方程、交互、共享结构或可证伪预测 |
+| 证据与竞争机制 | 精确源码/保存数据/论文、最强不同解释和决定性的下一观察 |
+| 信息/物理价格 | 在讨论执行时记录observer、量化、访存、核时间和可省计算 |
+| 独立评议与回写 | 对应版本的支持/反例与需要补充的图边 |
 
-单个有价值的数学问题不必补齐全链路未来质量与时延；只有声称实际可部署加速时，才把到 `D09/P12` 的费用和视频证据闭合。理论/源码、后验保存数据、原生有限动作和自由四步视频是不同来源。
+探索性FUNCTIONAL-OBS或数学新结构可以先形成有价值的科研成果；正式部署加速需要进一步核对normal-forward因果身份、整个HiF4 Q2分组、终端视频及实际物理成本。
 
-## 三条不同的工作路径
+## 3. 三种互补的探索方式
 
-**A. 从原生计算路径提出新数学表示。** 例如 `G18→F04→F06→F08R→F08→F09`。区分真实后Q2系数与 pre-Q2 GELU，探索有符号value basis、GELU特殊结构、条件子空间，以及何处能改变W1/W2的可计算形式。比较 `F15` 的后验有符号证据与 `D08` oracle，不让观察数据自动升级为在线路由。
+- **正常计算中的联合函数**：研究真实W1/GELU/HiF4-Q2/W2及其它数学基下的有符号响应、补偿与条件职责；与旧Affine或SVD/TopK先例比较新的可区分预测。
+- **真实视频状态中的功能职责**：以source425跨seed的signed P/N翻转、频带内外cross异号及背景/光照/运动失配为入口，追踪原生计算消费者维护的时空关系；保留旧状态传播与当前注入两个不同解释。
+- **前沿论文启发的结构**：读原论文及实际源码，核对训练、在线决策、量化/核、任务和硬件身份；抽取科学自由度，并据此构造对当前Wan有辨识力的新功能假说。
 
-**B. 从时空现象反推需要的共同/独有计算。** 例如从 `G02→P06→P08` 开始：逐token新变化高度集中但原raster共享支持恶化。允许构造完全不同的时空聚类/条件基、共同更新+位置特有修正、专家专属预测；计算图负责明确跨专家合法时间历史，Agent负责产生反预测，报告真实信息与开销。
+多Agent经[QUEUE](../method_discussion/QUEUE.md)、[独立评议规则](../method_discussion/AGENTS.md)和[图注表面](../method_discussion/graph_annotations/E0/README.md)交换版本与可复核证据。
 
-**C. 从画质或物理成本反向找机制。** 从 `D09/F13/G21` 的光照/时间质量变化回溯 `F12/F09` 或 `P12/P10/P11` 的执行单位。功能结论不能用局部FFN SSE替代。原HiF4 `P09` 只限定相同QDQ的原始求值闭包；不同格式/函数表示允许另一条条件边，不用假装图的原生实线已经执行新算子。
+## 4. 只读图谱检索
 
-三个入口互补；新解释可来自 WARD 查到的相邻理论、其它计算图节点或者独立先例，不以此列举限制创意。
-
-## 新的只读机制检索与静态一致性检查
-
-运行**python tools/graph_agent_bridge.py validate**确认原主图标签、每节点绑定文件、节点证据身份、crosswalk所有M01–M12源节点和L01–L79论文引用以及26条真实登记的比较边；**python tools/graph_agent_bridge.py mechanisms**列出12个研究家族；**python tools/graph_agent_bridge.py mechanism M02**可查看某一理论信息源对应的已知条件与竞争边。**inspect F08R**、**trace I04 F12**只返回当前注册表最短路，不说明条件已证明或模型已执行。
-
-对应[轻量静态测试](../../tests/test_graph_agent_bridge.py)包括已升级为真实NATIVE-OBS的P23/P24、量化SPEC类型、开放函数下游，以及实时G10与G12共同输入有符号信息的索引。此检查只在修改图谱时具有技术一致性价值；运行许可只看ACTIVE。
-
-## 具体操作（不启动模型）
-
-从仓库根目录使用无第三方依赖的索引工具：
-
-```bash
+~~~bash
 python tools/graph_agent_bridge.py validate
-python tools/graph_agent_bridge.py nodes
-python tools/graph_agent_bridge.py inspect F08
+python tools/graph_agent_bridge.py mechanisms
+python tools/graph_agent_bridge.py mechanism M13
+python tools/graph_agent_bridge.py inspect F08R
 python tools/graph_agent_bridge.py trace G18 P12
-```
+~~~
 
-- `validate` 检查 registry JSON结构、边端点、文档中存在的稳定节点ID、节点的本地证据链接；它不验证 GPU算子实际实现、数学结论或任意 Agent推理。
-- `inspect` 从注册表返回当前节点的上下文与其关联边。
-- `trace` 在本索引的**因果/候选依赖边**中寻找最短路径；它是快速检索提示，不宣称一条科学机制已经证实。
-- Agent 以 `research/method_discussion/graph_annotations/E0/<unique-claim>.json` 保存**新的**图锚点发现；提案与独立评议继续沿旧 [讨论规则](../method_discussion/AGENTS.md) 运行。不覆盖他人记录。
-- 整理者将证实的命题更新到 [图](../../docs/98_端到端计算图与证据注解_20261025.md)及[图谱](../EXPERIMENT_FINDINGS_ATLAS.md)，并根据需要扩展新的节点ID及本registry，使另一位Agent的检索能立即读到新结果。
+validate检查JSON结构、证据文件、节点、85项论文ID、14机制家族和67条跨机制关系；mechanism按家族返回函数/结构及先例；inspect/trace沿登记边检索。结果是科学图谱/条件关系的索引，真实数值、因果作用与性能另由对应证据支持。
 
-## 一致性与权限
+## 5. 科研状态与记录维护
 
-原生编译/真实时序优先以 pin源码、实际runtime分支和冻结配置为准；图注的 SRC/OBS/OPEN代表其具体命题的证据身份。源修订变化先提出图差异并定位真正改变的节点，保持历史实验自身身份，不直接修改旧收据/JSON/SHA。
+**当前范围**：原论文/源码、数学、已有证据、函数/结构索引与独立讨论。**新的CPU/GPU/模型/视频执行暂停**；用户未来按[ACTIVE](../ACTIVE_RESEARCH.json)单独授权。历史RUN、质量、SHA与对应失败结论保留原始身份。
 
-**Agent使用图不会获得实验许可。** `ACTIVE_RESEARCH.json` 是唯一活跃目标与授权源；目前E0原生固定范围已全部完成并按用户要求暂停；实际RUN和未来授权以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)为准。新的 GPU/模型/视频/训练须用户另外指定；计算图注解与独立研究讨论保持为分析工作。
-
-**协作完成标准**：新 Agent 能从一个图节点检索到真实证据及当前开放问题，提出一项带图锚点的不同机制与最低成本判别；另一 Agent 能沿相同节点验证并指出具体争议；整合者能更新图/图谱的注释而不把建议误画成已执行算子。
+当研究发现改变函数或承担结构的认识，依次更新[Function–Structure](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[主图](../../docs/98_端到端计算图与证据注解_20261025.md)与[科学综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；原论文详细方法与阅读等级保留在各自source ledger。好的交接留下**新的科学认识、真实证据、竞争预测和下一条有信息价值的图边**。
