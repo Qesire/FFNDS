@@ -1,159 +1,153 @@
-# FFNDS · 从旧候选的诊断材料到可恢复的新FFN计算结构：A/B/C三方法研究方案
+# FFNDS · 三条新函数路线的现行整合研究方案（M-A / M-B / M-C）
 
-> **2026-10-27 · METHOD_SNAPSHOT / DISCUSSION_ONLY / OPEN。** 基线版本：[FFNDS main 5f1fb066](https://github.com/Qesire/FFNDS/tree/5f1fb06681c35d44b8a53adb36bdb19754aaed87)。本报告把用户提出的三种候选整理为可证伪的数学和部署对象；完成了论文/作者代码与现存仓库证据核对，**本文件未运行新的模型、训练、校准、GPU算子或视频**。这里的优先级是研究方案建议，并非修改[ACTIVE_RESEARCH](../ACTIVE_RESEARCH.json)、注册实验预算、改变旧候选历史结论或替代Agent同行评议。
->
-> **一句话判断：让原有UB1、Affine54、量化直方图和局部SSE成为构造新表示的基线与诊断资产；让能够重分配功能、具有可导出低成本算子的FFN成为候选研究主体。**
+> **2026-10-28 · INTEGRATED_METHOD_PLAN v2 · CURRENT RESEARCH PLAN / MIXED ALG+SRC+NATIVE+LIT+OPEN。** 此文件是三方案**现行权威整合入口**。首次2026-10-27讨论版本可由[原始合并提交dd21c539](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)审阅，旧版本时间点的推测不再作为当前操作指令。修订依据：[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)、[原独立评议](COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)、[五操作框架](FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[现行M-B数学快照](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)和[最新A0真实pilot](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)。研究方案和方法讨论不代替[ACTIVE研究与运行授权](../ACTIVE_RESEARCH.json)，本次编辑没有运行新的模型、实验或视频。
 
-## 1. 研究框架和方法队列分别保持清晰
+## 0. 研究目标、三层组织和现在的成果边界
 
-[统一I/F/C目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)与[现行路线证据组合](PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)仍是项目的科学入口；它们和本文件的A/B/C**不是一一对应的三个同义分类**。
+**科学问题**：Wan视频生成FFN正常计算如何承载信息、时空生成行为和真实物理工作？能否通过**新的函数表示、合法先验/历史和可执行算子**在保留完整视频能力的同时减少实际计算？
 
-| 新候选 | 主要关联研究入口 | 新的计算对象 | 优先定位 | 状态 |
-| --- | --- | --- | --- | --- |
-| **A 可恢复紧凑FFN** | C（执行）＋F（生成行为） | 以6016维非线性FFN取代“D×D仿射＋54组非线性” | **方法主线**：用成熟恢复技术建立强可部署比较器 | SPEC/ALG，恢复后质量OPEN |
-| **B 敏感方向编译** | F（后缀响应）＋I（坐标）＋C（折叠） | 将低能但高行为作用的联合输出坐标编译入窄FFN权重 | **科学主线**：机制有意义则可独立成成果 | 数学构造ALG，方向是否存在OPEN |
-| **C 编码直接求值** | I（编码信息）＋C（实际求值） | 小投影→离散码→输出系数表→全FFN输出 | **高风险备选**：输入信息本身承担输出求值 | SPEC/ALG，质量/算子性能OPEN |
-
-实时生成、G13因果定位、FP4/MXFP4/NVFP4、Calibration V2属于跨线专题或实验方法；**不作为A/B/C的公共准入门槛**。三个候选可以独立成立。旧的Whole94、UB1、Affine54、R256只承担其已测范围内的诊断或强比较基线；原有RUN、数值阈值和失败版本原封保留。
-
-共同原生对象为LightX2V Wan2.2 I2V A14B四步D-Q、两套high/low expert、每套40个block，FFN的实际边界依次为：post-Q1输入→BF16 W1→GELU(tanh)→Smooth2/HiF4 Q2(64→8→4)→BF16 W2→原调用者e5门控与残差。**去噪step不是视频帧时序**；81 RGB帧、21 latent时间槽与四个step的指标不同。
-
-## 2. 研究判断所依赖的原生事实与成熟先例
-
-**已完成的原生证据**：
-
-- [Affine54](QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)：两个已暴露来源×160位置的局部gated SSE均值8.54%，相同投影预算Whole94为11.67%；在指定源中FFN热态约2.182×、完整生成约1.120×，但六视频有模糊/运动与细节偏差。**局部拟合排序与完整视频质量不是同一目标。**
-- [UB1 fixed-RR训练内consumer](UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)：24个训练来源的条件下局部gated误差约恢复83.01%；[两个已暴露开发来源六视频、八轴函数](UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)中连续运动部分恢复，但相对Dense仍有缺口及其它质量轴的取舍；[末步latent](UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)与Dense距离略增。以上不能单独识别“低能高敏”这一因果机制。
-- [G12联合码结构](E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)：固定方向可用离线 $p=W^\top c$、在线 $p^\top x$ 精确计算；单行码直方图的紧界不意味着跨行的联合输出最优。**这是编码求值方案必须面对的强低成本比较器。**
-- [A100激活2:4布局](E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)得到预压缩合成SpMM在特定布局上的局部胜出；在线选择、压缩、QDQ与真实Wan全FFN收益尚未测得。A/B/C的成本论断必须包含这个物理先例所揭示的系统开销。
-
-**经核验的论文构造**：
-
-| 先例 | 已证实的方法作用 | 本项目应如何迁移 |
+| 层 | 科学身份 | 当前展开 |
 | --- | --- | --- |
-| [TinyFusion，CVPR 2025](https://openaccess.thecvf.com/content/CVPR2025/html/Fang_TinyFusion_Diffusion_Transformers_Learned_Shallow_CVPR_2025_paper.html)；[固定作者代码](https://github.com/VainF/TinyFusion/blob/a147de7c33c2bc12872b9913f459119068b81ac8/prune_by_learning.py) | 搜索**恢复后的**结构，而非只按初始误差；源码233–257行分开优化gate/可训练权重，239–242行提供LoRA选项，444–470行重新载入原初权重后导出被剪模型 | A采用预算内可恢复性作为比较目标；TinyFusion是深度剪枝先例，不能把其层删减当作已验证Wan宽度操作 |
-| [Dynamic-in-Few-Step，2026预印本](https://arxiv.org/abs/2607.06631) | 少步蒸馏、随step改变结构及rollout一起优化 | 直接比较少步视频的结构恢复；step-specific宽度本身已有先例，公平记录作者额外训练与新引擎 |
-| [CoBRAS，SIAM JSC 2023](https://doi.org/10.1137/22M1513228) | 通过状态协方差＋梯度/adjoint协方差平衡重要坐标，包含斜投影/可学习降阶模型 | B借用“低变化量但高未来敏感”的机制；下述FFN代理目标是新适配设计，**不是其原定理在量化Wan上的直接套用** |
-| [LUT-NN，MobiCom 2023](https://www.microsoft.com/en-us/research/publication/lut-nn-empower-efficient-neural-network-inference-with-centroid-learning-and-table-lookup/) | 学习centroid，直接以LUT替代所定义算子的部分乘法，并配套运行引擎 | C检验学到的码能否直接承担完整非线性FFN近似，而不止用码预测mask |
-| [LUT-Diff，IEEE TMC 2025](https://chrisplus.me/assets/pdf/tmc25-lutdiff.pdf) | 扩散模型的输出感知码本、分层表配置与移动端CPU/GPU协同；主要近似线性/卷积MM | C必须与**完整非线性FFN输出**的码本、普通小MLP及原LUT-Diff式线性近似做实际对照 |
-| [VideoJAM，ICML 2025](https://proceedings.mlr.press/v267/chefer25a.html) | 联合外观/运动的表示和训练目标、推理Inner-Guidance | A/B可借鉴动作/外观分别定义的质量读出，不把RAFT幅值增加或某个latent标量变小当作充分的生成能力恢复 |
+| **I / F / C** | 分别问信息何时/以何形式可得；正常函数与后缀动力学为何；执行怎样真实低成本 | 三个可并行的科研入口 |
+| **O-A / O-B / O-C / O-D / O-E** | 选择需要算的量 / 改变函数表示 / 历史复用 / 计算代数 / 学习与验证目标 | 方法动作可组合；**稀疏是一种可能的结构/结果，不是独立路线** |
+| **M-A / M-B / M-C** | 具体候选及原生实现 | **M-A0** 普通紧凑学生；**M-B** 后缀敏感低成本函数；**M-C** 整层编码直接求值。名称不与操作O-A～E混淆 |
 
-外部论文指标只对作者各自任务、训练预算与硬件成立，不移植为Wan的加速数字。复现成熟方法本身可以形成有效工程基线；新增机制归因另需实证。
+**下一位方法研究Agent先继续 M-B**，并非重新做最初的提案初审：已经有B v1的末层head/LN有限数学身份、配对敏感度定理及源码审计；下一步是验证native同状态有限响应与合法、低成本的学生函数构造。**M-A0已完成四位置真实恢复pilot**，作为强基线；M-C仍为独立OPEN路线。原 UB1/Affine54/2:4、G12、G13和历史缓存是竞争材料、先例和可复用资产，不因失败范围被视为整个路线家族失败。
 
-## 3. A｜可恢复的6016维紧凑FFN（方法主线）
+**真实边界固定**：LightX2V Wan2.2 I2V A14B，四步高/高/低/低、2个expert×40 blocks；post-Q1输入 $x\in\mathbb R^{M\times5120}$ → W1 (5120→13824) → GELU(tanh) → Smooth2/HiF4 Q2 (64→8→4) → W2 (13824→5120) → pre-gate $y$ → e5门控及BF16残差 → 后续attention、最终LN/head、flow和去噪状态。现有本地计算是fake-QDQ＋BF16 GEMM；真实native FP4与它的格式和耗时分别建证。4 denoise steps、21 latent时间槽和81 RGB视频帧是不同的研究坐标。
 
-### 3.1 精确的预算和原生输出边界
+## 1. 已有证据不是门槛，而是新版设计的起点
 
-固定 $D=5120$、$H=13824=216\times64$；Affine54保留$54\times64=3456$个非线性hidden，另有$D\times D$仿射主干。只计每token两投影MAC：
-\[
-C_{\rm A54}=D^2+2D(3456)
-=2D\left(\frac D2+3456\right)
-=2D(6016)=61{,}603{,}840.
-\]
-原Dense主GEMM为 $2DH=141{,}557{,}760$；因此 **6016=94×64维普通FFN在主投影MAC上与Affine54完全等额，均为Dense的43.5185%**。A54的$D^2$项占原Dense的18.5185%，重分配后相当于增加2560个非线性hidden坐标。**等MAC不意味着等时延、等显存、等QDQ或等质量**。
-
-定义$postQ1$输入 $x\in\mathbb R^D$，原调用者gate为$g$。学生函数为
-\[
-h_\phi(x)=\sigma_{\rm GELU(tanh)}(A_{e,l}x+a_{e,l}),\qquad
-\widehat y_\phi(x)=B_{e,l}Q_{2,\phi}(h_\phi(x))+b_{e,l},
-\]
-\[
-A_{e,l}\in\mathbb R^{6016\times5120},\quad
-B_{e,l}\in\mathbb R^{5120\times6016},\quad
-\widehat{\mathrm{residual}}=g\odot\widehat y_\phi(x).
-\]
-输入post-Q1和FFN pre-gate输出的边界与teacher一致；调用者仍负责其原数值顺序的e5门控与残差。**$Q_{2,\phi}$需建立学生自己可执行的Smooth/HiF4尺度及有限精度路径**；缩窄学生的量化标尺不可假定等于完整teacher原Q2。部署首版选择每expert×block一份权重（两expert共80份FFN），复用原high/high/low/low调度；是否按step另建bank是独立容量/驻留判别。
-
-### 3.2 “有限后训练”须量化为真实预算
-
-A/B两主矩阵**每个expert-block约6160万个矩阵参数**，80份共约**49.28亿**。若所有权重全量训练，优化器状态与反向显存和训练成本相当可观，不能以“小型适配”命名。预算受限版本应首先对齐：
-
-- **初始化**：Whole94原生合法组选列、MPC/消费者初始化、其它结构蒸馏初始化；最终若均允许更新全部A/B，它们属于同一宽度函数类，初始化是实验因素。
-- **有限适配**：固定窄模型基底，用LoRA或部分层/输出矩阵分阶段解冻；例如给A和B都加rank32 LoRA，80份矩阵的LoRA增量约$2\times80\times32\times(6016+5120)=57{,}016{,}320$个参数（只是参数账本，不包括实际训练开销）。初始化、rank和可训练参数范围需与最强同预算紧凑学生对齐。
-- **双分布训练信息**：teacher同一真实post-Q1状态的局部pre-gate/gate监督，回答函数等价；student自己free-rollout状态及终端行为目标，回答轨迹稳定性。两者不能在训练统计与来源曝光上混记。teacher/后缀调用的离线代价进入适配总预算，部署在线不使用teacher。
-- **结构选择**：预算$\mathcal B$内最大化可恢复生成质量，而不是以原模型未适配时局部SSE直接决定结构：
-\[
-\min_{\mathcal A\in\mathcal A_{\rm executable}}
-\mathcal L_{\rm video}\!\left(\operatorname{Adapt}_{\mathcal B}(\theta,\mathcal A)\right),
-\qquad C_{\rm deploy}(\mathcal A)\le C_0.
-\]
-
-**最强竞争解释/比较器**：按完全相同宽度、训练来源、参数更新范围、更新步数与计算预算恢复的**普通6016维学生**。未训练Whole94、冻结UB1和Affine54是历史对照，但不代替这个匹配适配后的强基线。若普通学生已经达到高质量–成本Pareto，它首先是成熟结构恢复的有效成果；新机制的额外贡献应另证。
-
-**区分性预测**：相同部署MAC与实际适配预算下，全新可训练非线性容量可能比保留原支持的消费者恢复，更好维护来源间罕见运动/细节功能。若效果只来自训练步数、数据更多或未匹配的更新参数，则需将结论改为训练预算效应。
-
-## 4. B｜下游敏感函数坐标编译（科学主线）
-
-**研究假说**：在真实条件分布中，有些FFN输出方向的变化能量较低，却因gate、attention、后续层/去噪step对生成动作或细节具有较大有限作用。**低能高敏的存在、可重复性及能否低成本实现，目前均为OPEN**。
-
-在指定expert、step、block、source/seed状态和预先定义的suffix读出下，令 $y\in\mathbb R^D$ 为一个token的pre-gate FFN输出（多token耦合另行定义），$C_y$ 为在**明确采样分布**上的中心化输出协方差；用局部响应/adjoint代理$G_y\succeq0$描述后缀读出对输出方向的敏感性。对秩$r$的投影$P$提出设计代理量：
-\[
-\mathcal E_{\rm proxy}(P)=
-\operatorname{tr}\!\bigl[G_y(I-P)C_y(I-P)^\top\bigr],
-\qquad P^2=P,\quad {\rm rank}(P)=r.
-\]
-若考虑双基，取 $\Phi,\Psi\in\mathbb R^{D\times r}$、$\Psi^\top\Phi=I_r$，则$P=\Phi\Psi^\top$可为斜投影。此式是一个局部二次近似/坐标选择**代理设计量**，不是Wan完整非线性、量化、时间轨迹上的已证明误差界；$G_y$的选择、分布平均、量化不连续性及跨token耦合必须实证核对。
-
-为避免先跑完整teacher FFN再投影，在学生**可得**post-Q1输入$x$上计算：
-\[
-\widehat y=\mu+\Phi B_c\,Q_{2,\phi}
-\!\left(\sigma_{\rm GELU(tanh)}(A_cx+a_c)\right),
-\]
-其中$B_c\in\mathbb R^{r\times h}$、$A_c\in\mathbb R^{h\times D}$。部署前把$\Phi B_c$离线折叠到最终$D\times h$矩阵：
-\[
-\overline B=\Phi B_c,\qquad
-\widehat y=\mu+\overline B\,Q_{2,\phi}
-\!\left(\sigma_{\rm GELU(tanh)}(A_cx+a_c)\right).
-\]
-因此在线仍可只执行普通两主GEMM，且$W_2$受秩$r$输出空间约束；原生BF16舍入与对折叠权重重新量化需单独校验。若$r$接近D或校准后质量不优，则退回A类普通窄FFN即可。
-
-**关键可辨别对照**：固定$h$、$r$、同源训练曝光和计算，比较PCA/能量基、平衡基、随机/同秩基以及无低秩约束的普通窄学生；不仅看heldout局部SSE，还看真实same-state后缀有限变化、对生成行为的预定义读出和完整视频。比较时区分单token平均$G_y$与完整$M\times D$多token后缀；较高的局部敏感性不自动拥有“运动语义”标签。已有P/N标量无法反推出完整$G_y$。
-
-**竞争解释**：轨迹问题主要来自Student状态分布迁移、纹理导致RAFT可观测差异或量化数值边界，而不是低能方向丢失；也可能高敏子空间高度随source变化，根本不能用同一共享基有效压缩。该路线允许以明确负结果建立机制边界。
-
-## 5. C｜编码直接求值完整非线性FFN（高风险备选）
-
-**新研究对象**：从便宜的预FFN输入投影学习足以**直接计算输出**的码，而不是把量化直方图当作后验神经元筛选器。对$x\in\mathbb R^D$：
-\[
-z=Rx\in\mathbb R^{r_i},\quad
-k_b=E_b(z_b),\qquad
-\alpha(z)=Lz+\sum_{b=1}^{B}T_b[k_b]
-+\sum_{(b,c)\in\mathcal P}T_{bc}[k_b,k_c],
-\]
-\[
-\widehat y=U\alpha(z)+b,\quad
-U\in\mathbb R^{D\times r_o},\quad
-L\in\mathbb R^{r_o\times r_i}.
-\]
-每个$k_b$有$K$个码字；$T_b\in\mathbb R^{K\times r_o}$，稀疏二组表$T_{bc}\in\mathbb R^{K\times K\times r_o}$。单组表表示常见码条件响应；少量二组表允许跨组非加性；$Lz$携带连续分量。它是**新训练的完整FFN输出近似函数类**，不是按输入组把GELU线性分解的恒等式。原HiF4-Q2可以作为teacher数值定义，而学生编码系统有独立真实部署格式。
-
-固定编码$Z=E(X)$与监督目标$T$，平方损失下：
-\[
-\inf_d\mathbb E\|T-d(Z)\|_2^2
-=\mathbb E\,\operatorname{tr}\!\left[\operatorname{Cov}(T\mid Z)\right].
-\]
-这只是经典条件均值性质，提示应减少**输出相关的码内歧义**，不意味着所构造的有限码本必然高效。若$T$是后缀/运动响应，必须说明编码时是否已经合法得到相应条件，而非暗用未来teacher信息。
-
-朴素实现的在线复杂度近似：投影$O(MDr_i)$；$K$原型逐组搜索合计$O(MKr_i)$；连续分量$O(Mr_ir_o)$；表累积$O(M(B+|\mathcal P|)r_o)$；输出展开$O(MDr_o)$，另计索引、读表、同步、权重和码本带宽。表元素规模$(BK+|\mathcal P|K^2)r_o$，另外有$R,L,U$。这里$M$是实际Wan token数，大$M$的dense Tensor Core本身效率很高；MAC下降≠全系统提速。
-
-**最强基线**：同输入投影/输出秩与实际成本的连续小MLP、低秩连续预测器、固定方向精确投影，以及LUT-NN/LUT-Diff的作者定义的算子近似。比较**输出目标码本 vs 输入重建码本**，并记录交互表大小和缓存未命中的真实成本。若非线性方向必须依赖复杂跨码交互、需$K^2$大量表或输出展开吞吐不足，则应改变编码粒度、混合连续计算，或回归A/B，不必继续重复直方图证书。
-
-## 6. 三项决定、最小证据与可复用资产
-
-| 决策 | 首个成本较低、能改变结论的对照 | 真正升级为候选所需的证据 |
+| 证据 | 实际观察 | 对设计的推动 |
 | --- | --- | --- |
-| **A：更多非线性容量是否可恢复？** | 静态核算A54与6016 FFN的原生形状/参数、可重用Whole94初始化及训练预算；分开teacher/student现有捕获 | 在**相同新训练预算**下，与matched普通6016学生、Whole94/A54/UB1和强论文适配基线比较原生QDQ、全深度生成与质量–速度Pareto |
-| **B：是否存在低能高敏且可编译的子空间？** | 检查现存saved tensors是否具备pre-gate $y$、真实后缀readout及导数/有限差；先数学给出何时PCA与敏感基预测不同 | 同rank、训练和源曝光，比较PCA/平衡/普通紧凑学生；强关联必须用原生有限扰动＋新source的自然行为证实 |
-| **C：编码是否能替代FFN真实求值？** | 对$K,B,|\mathcal P|,r_i,r_o$做表规模、带宽、连续/GEMM工作与下界核算，并比较简单连续预测器 | 自定义码本及完整FFN值恢复、实际硬件端到端在线成本、强LUT/MLP基线与独立完整视频效果 |
+| [UB1 consumer20视频](UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md) | 20个**已暴露开发来源**，fresh Dense对照下RAFT均值6.894→1.152（下降83.28%）、二值dynamic6/20→0/20；imaging均值仅下降约1.38% | “静态接近＋动态响应大幅改变”是区分自然功能、可观测性/纹理及student轨迹的理由；**并未证明存在运动专属低rank方向** |
+| [四位置CAL24来源能量](../20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md) | 固定whole64支持leave-one-source Jaccard均值约0.980–0.998；同位置已保存gate无来源变化 | 同source共同敏感新信息更可能来自**真实J_s和状态**，而不是重复平均常数gate² |
+| [A0 compact6016 pilot](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md) | **已实际完成**4个(step,block)×energy94/random94，每arm每位置128次更新；train16/已暴露heldout8，energy94局部gated relative SSE1.061%–2.546%，random94为1.463%–3.649%；native narrowed Q2和8份回读权重 | M-A0可以恢复teacher状态上的局部函数，应成为**matched实验基线**。四site/旧来源≠80个函数、学生自由轨迹、完整视频或整端速度 |
+| [M-B末层v1](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | **ALG+SRC已完成**：final LN→调制→64维head的连续有限充分统计、Jacobian和finite identity；实际head权重/shape已有已核checkpoint资产 | B不必从盲目全5120维加权PCA起步：优先用真实末层readout建立能被合法原生有限差判别的函数坐标 |
+| [C5合成A100 online](E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md) | 合成BF16 2:4 fused online相对dense仅约3.5%/0.7%中位数余量 | 任何“低MAC/稀疏/查表/低rank”都要加上观察、量化、packing、kernel、读表、布局、驻留及系统墙时 |
 
-**共同数据合同**：[Calibration V2](CALIBRATION_V2_METHOD_SNAPSHOT.md)区分独立image cluster、seed和每来源的相关row；12×512、24×256、48×128只是在相同行预算下的候选设计，原CAL24旧PRNG与新方案不自动配对。所有来源标识训练/探索/正式隔离确认用途。同source/seed模型与原生噪声需真正重放，teacher_input/student_input在张量边界上分开；新方法改变$Q_2$必须记录student真实码/scale。官方VBench完整协议与自定义两来源八轴函数不等价，连续运动需补全ROI/相机和语义。
+**验证立场**：上述新增的A0/NATIVE数字可以用于同一当前文档，但不同pilot和UB1的训练来源/状态不可直接并为一种显著性证据；原A54少量视频失配、source-level motion和C5执行证据均限定各自版本。
 
-**REUSABLE_ASSET_PLAN（运行前登记）**：每方法预计复用：(1) teacher+student完整source/seed/step/expert/block原生post-Q1、post-GELU、pre-gate、gate/quant状态，(2) A窄模型初始化/冻结参数集合与LoRA增量、训练预算，(3) B坐标基和来源级敏感/协方差与有限差，(4) C码表、读表配置、真实布局与缓存流量，(5) full-depth视频、每轴source-level配对和实际算子/整模型成本。每件资产登记producer、方法版本、schema/shape/单位、来源/随机性、locator、复用条件和失效条件；本报告阶段这些新资产全为**NOT_PRODUCED / OPEN**，历史产物仅以原RUN版本复用。
+## 2. G14先验正式升级为构造条件，而非参考书目
 
-## 7. 研究顺序与交付边界
+对每一候选，必须写出**原生计算边→已知论文先验→数学或源码约束→新表示自由度→竞争解释→最小判别**：
 
-**先A方法、并行B数学、保持C结构探索**是一个可反驳的资源配置建议，而非永久排序：若强等预算窄学生已足够，可先得到成熟迁移的系统成果；若B的方向规律可独立重现，能够形成科学成果；若C的物理带宽/交互核算有独特突破，可无需等待B便进入下一阶段。
+| G14/文献输入 | 会约束哪条具体新方法 | 目前可用的研究修正 |
+| --- | --- | --- |
+| **T04–T06；L02 Superposition、L50 NerVE、L06 SliceGPT** | M-A/M-B/M-C都穿越W1/GELU/HiF4 Q2 | 原hidden坐标并非独立语义单位；非线性会重排谱；**只允许明确合法的重基/替代**，不能把任意hidden旋转穿过GELU和原生64-group Q2当作恒等 |
+| **T07–T09；L82、L86–L89 patching/幻象/组作用** | M-B主张保留正常计算承担的重要方向 | 分开轨迹观察、原正常路径受控有限干预和替代函数可实现性；**能引发响应不自动说明该方向是原生正常承担者** |
+| **T09–T12；L39 SVD-Cache、L21 HyCa、L60 SCD** | M-B敏感方向、可选O-C历史复用 | 三个不同属性：方向能量、下游作用、**时间可预测性**；低能快速振荡可以重要，保留、预测/复用、重算是不同运算 |
+| **T02/T14/T16；L34 DIFS、L47少步时序塌缩、L56 Self Forcing** | M-A局部恢复、M-B训练目标 | teacher同状态准确≠student四步自由轨迹准确；若变更全网络架构允许attention职责迁移，须与**冻结attention**作不同estimand |
+| **T06/T13；L71、L73 CodeGEMM、L74 SharQ、L76 LUT-GEMM** | M-B因子化、M-C LUT、O-D低位和O-A选择 | 大M Tensor Core GEMM与单token/GEMV码本fast path、真实QDQ与native FP4分开；以**实际线上计算边**计净省算 |
+| **T08论文覆盖稀疏（现行图关键薄弱处）** | M-B末层门控、LN/head后缀 | 采用实际SRC + B v1导出的有限等式建立可检验方法；缺少外部同构论文时保留开放问题、针对性深读与强基线 |
 
-下一位Agent首先完整重建每个方法真实的 **输入→数值算子→输出→gate→跨层/跨step生成** 边界，基于成熟先例与保存资产给出一份最小判别设计；提出的OPEN数学/函数/算子进入[独立发现目录](../method_discussion/discoveries/E0/README.md)，真正的方法提案由独立Agent自己按[QUEUE](../method_discussion/QUEUE.md)提交并经不同Agent评议。提案成立或本报告发表均**不直接触发GPU实验**，具体授权、数据冻结和预算以ACTIVE当前可执行范围为准。
+**G14关系分类**：REQUIRES是实现/可辨识条件，CONSTRAINS是已知数学/数值限制，COMPETES_WITH是相同成本对照，PREDICTS_DIFFERENTLY是争议机制的对向预测。见[机器方法—先验交叉索引](../agent_protocol/METHOD_OPERATION_CROSSWALK.json)，图节点/论文证据不直接变成新模型已完成实验。
 
-**证据声明**：本报告仅整合已有原生NATIVE/VIDEO/SYS和外部LIT，新增的是ALG预算、SPEC方法和OPEN竞争假说；不声明三方法已有Wan质量收益或新算法首创。现有指标/视频/源码证据指向各自原始文件，保留历史反例为新函数设计和竞争比较器。
+## 3. M-B：当前首要方法——从正常后缀到可编译函数
+
+### B-0. 科学对象及已经证明的结构
+
+基础假说：存在由正常FFN承担、下游具有重要作用的坐标，这些坐标能从合法的pre-W1输入等当前已可得信息以较低成本预测，且对整个视频质量有益。
+
+将此拆成**三个独立可判别命题**：
+1. **B-NATURAL**：方向在自然Dense轨迹及匹配原生有限响应中确有下游影响，区分patch-induced dormant backup；
+2. **B-PREDICTABLE**：该方向对应的所需函数可由当前$x$、合法residual和conditioning推算，而不偷用完整teacher pre-gate y或将来step；
+3. **B-COMPUTABLE**：新函数lower成实际BF16/Q2/factored/fused/native FP4等算子后，**全付费在线成本**优于强dense/紧凑学生，仍保持source-level完整视频能力。
+
+B-NATURAL可以独立成为机制结果；B-PREDICTABLE＋B-COMPUTABLE才是可部署结构主张的核心，不应把这三者合成单一局部SSE门槛。
+
+**B-MARGINAL对照**与**B-JOINT候选**分别为（固定当前写回gate、相同source/state、相同公共中心$\mu$、$R=I-P$）：
+\[
+E_m(P)=\operatorname{tr}[\bar G R\bar C R^\top],\quad
+E_j(P)=\mathbb E_s\|J_sD_{g_s}R(y_s-\mu)\|^2,\quad
+G_s=D_{g_s}^{\top}J_s^\top J_sD_{g_s}.
+\]
+[独立严格二维反例](../method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)证明边际与联合相反排序甚至可达100倍差；然而**在旧四位置CAL24同一个step/block的gate对来源固定**，真正新的配对判别需要变化的**后缀$J_s$与状态$y_s$**。真实多token后缀的$J_s$一般跨token，末层单tokenhead只是控制性锚点；上述目标是一阶敏感代理，不是BF16程序恒等式。
+
+### B-1. 当前最强起点：block39最终head的有限充分统计
+
+[既有B-v1已证明](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)：固定该step最终head modulation，令$u=r+D_gy$为post-write状态，$P_0=I-\mathbf1\mathbf1^\top/D$、$z=P_0u$、$\sigma^2=\|z\|^2/D+\epsilon$、$T=W_{head}\operatorname{diag}(1+scale)$，则连续读出
+\[
+F(u)=Tz/\sigma+W_{head}\,shift+b
+\]
+由**64个线性head投影、mean(u)、||u||²**决定（最多66个标量）；一阶$J_u=\sigma^{-1}T(P_0-zz^\top/(D\sigma^2))$，真实离散BF16下应做原生有限差。此结论针对**每个expert的最后一个block和固定条件的head读出**，不是“整网只需66维”或原FFN+Q2可无条件绕过。
+
+**将其转为两个真正可比较的新函数构造**：
+- **B-H / readout-sufficient student**：预测目标是$\widehat q,\widehat m,\widehat n$，它们分别代表该末层post-write状态的$T u$、mean(u)、||u||²；预测器仅接收当前post-Q1$x$、已可得$r$、gate/time conditioning，产生同一head流形的读出。用真实student路径加上原生post-norm/head等价/近似求值，而不是从已付费完整W2得到这些统计后再宣称节省W2。
+- **B-F / generic gated-output factorization**：每expert/block以新的可训练紧凑表示$\widehat y=\Phi c_\phi(x)$或$\widehat y=\Phi B_c Q_{2,\phi}[\mathrm{GELU}(W_{1,\phi}x)]$替代原pre-gateFFN，并保留原真实gate/residual。此方案能扩展到其余78个非末层FFN；从B0自然后缀的作用权重指导训练，具体Q2缩窄/量化闭包需重新建立。
+- **共同反例**：原生full y可由head读出压缩成几个标量，并**不**推出这些标量由post-Q1 x以低成本精确得到。尤其$||r+D_gy||^2$含残差交叉及W2二次项：若仍通过fullW2或巨大的Gram求得，B-H只是离线分析而不是效率方法。
+
+将**时间预测/历史复用O-C**作为独立后续组合：四步high/high/low/low专家变换，只有历史同形状且条件、时间和数值可用时才允许使用；L39低能振荡残差的reuse现象不能自动传到当前Wan。
+
+### B-2. 配对竞争解释及阶段结果
+
+| 竞争机制 | 不同预测 | 首个有分辨力的动作 |
+| --- | --- | --- |
+| 普通PCA/平均敏感度已足够 | 同rank/同source独立fold上，B-JOINT没有稳定改进 | 在原生真实same-state J/y捕获后对PCA、随机、marginal、配对、打乱配对作等rank比较 |
+| 真正联合下游依赖存在 | 来源配对的敏感方向与打乱来源配对会改变真实末层finite response排序 | **先取得同一状态u/head/flow，进行中性重放，再冻结有限差方向和幅度** |
+| 低能高敏但学生难预测 | oracle低rank代理好，pre-W1学生难以保留该结果 | matched模型宽度、训练预算、quantization与输入可得性比较；避免把oracle写成部署成果 |
+| 仅是head/LN放大而非自然功能承担 | 同状态post-write有限差有变化，但自然trajectory/完整视频不同或实验基线效应翻转 | 正常状态+成对有限反事实、多个读出与来源；随后独立完整40×4新学生video |
+| 光流可观测性、量化/状态漂移是主因 | RAFT与语义ROI/相机行为不一致，或student rollout偏差远大于同状态head替换 | 完整free-rollout/来源级运动、纹理及attention/flow状态拆分 |
+
+**现行方法进度，不重置**：
+- **已完成**：二维联合配对反例；固定度量斜投影代数；block39真实head/LN源码和权重核验；连续末层有限充分统计及Jacobian；A0四位置native恢复pilot。
+- **未执行、须完成实际绑定/冻结范围**：**B0**同状态最后block u/head/flow的原生捕获；**B1**full-M中性重放、指定BF16有限响应、paired与shuffled比较；**B2**真正只用pre-W1可得信息的B-H与B-F学生对照；**B3**真实部署与完整40×4自由视频质量。明确来源排除历史曝光、统计按独立image cluster；本研究文档不触发GPU执行。
+- 已登记的B-v1计划以真实[SRC+ALG快照](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)的producer/range/预扣预算为准。若准备已完成、protocol冻结后才进入新模型流程；任何实际来源变更必须形成新版本，不在本文件静默扩大。
+
+### B-3. 编译与实际成本的两个分支
+
+设$D=5120,h=6016,r$为输出中间rank：
+
+| 原生模型方法 | 理论主MAC/token | 部署含义 |
+| --- | ---: | --- |
+| **M-A0 / B-FOLDED** | $2Dh=61,603,840$（dense原13824宽为141,557,760） | W2折叠$D\times h$后**在线MAC与A0相同**；折叠可能仅改善表示与参数优化 |
+| **B-FACTORED** | $Dh+r(h+D)$ | W2路径rank限制$r<Dh/(h+D)\approx2766$才有理论MAC减少；多1次GEMM/kernel与量化舍入 |
+| **B-FACTORED, r=512** | **36,503,552**（A0的59.26%） | 是ALG预算，需在$M=31668$、真实QDQ、存储、launch和matched BF16下取得SYS证据 |
+| **B-H末层直接读出** | **取决于实际学生和统计构造** | 精确连续head sufficient stats≠计算复杂度界；不能先完整W1/W2/Gram然后声称跳过 |
+
+原生BF16、HiF4 fake-QDQ、进一步native NVFP4/MXFP4都应拥有独立数值等价合同。新O-D改写若与M-B的科学函数发现正交，可单独作为计算结果推进，而非必须等视频因果全证实。
+
+## 4. M-A：固定预算紧凑函数，不再作为没有实验的原始假说
+
+**M-A0普通学生已实际验证局部恢复**：每expert/block width=6016=94×64，相比dense两个主GEMM占**43.5185%**，与旧Affine54$D^2+2D\times3456$等MAC。80套W1/W2两矩阵总参数4,928,307,200；rank32 LoRA覆盖两矩阵约57,016,320增量参数。**已有pilot**比较能源选组和random选组，在4site、train16/heldout8已暴露source相同预算得上述局部恢复；该结果与完整Wan动态能力或所有位置的恢复是不同命题。
+
+**M-A1真正新机制选择空间**（只选择一个主设计变量做每版验证）：
+- **nonlinear-capacity allocation**：相同全模型总MAC但$h_{expert,block}$不同；对L50的nonlinear spectra、L34的step异质性和M-B的suffix作用提出**相反宽度分配**预测，与均匀A0相比。
+- **rollout-aware adaptation**：冻结FFN-only LoRA路径，与保持其余变量一致、改用同预算student-prefix/terminal rollout监督比较；L34/DIFS的输出rollout是最强同类先例，独立新贡献需额外明确原Wan量化边界、来源/行为约束。
+- **whole-model role transfer**：如果允许attention/norm参与训练则是另一模型类和另一estimand，不可把全网络共同适配的收益归于FFN独有的函数压缩。
+
+**A0下一步**：继续将已验证4个位置扩展到包含中间层和双expert/所有位置的source-heldout诊断，再以实际student自由轨迹和完整视频按独立image cluster做动作/外观/速度比较；不把旧pilot的8来源称为未暴露确认。M-B配对/学生设计不依赖A1先完成。
+
+## 5. M-C：直接预测完整量化后非线性函数，而非另造线性GEMM查表
+
+构造$\widehat f(x)=U d(k(Rx))+b$，必要时包含有限交互码表；这一方案是**O-B函数替代＋O-D编码求值＋O-E训练验证**。最先明确三个独立自由度：
+
+1. **输入信息充分性**：若$Rx_1=Rx_2$且真实$Q2/GELU/W2$函数输出不同，编码不能同时精确表达两者。平方损失最优预测器不可约平均风险为$\mathbb E\operatorname{tr}\mathrm{Cov}(f(X)\mid RX)$，离散码$k(RX)$只会进一步缩小可分辨输入。
+2. **输出空间限制**：只输出$\operatorname{col}(U)$时，中心化teacher输出均方重构残差至少是协方差尾谱$\sum_{j>r_o}\lambda_j$。门控与后缀作用属于另一个损失/可辨识问题，不能直接用Euclidean尾谱断言视频表现。
+3. **真实线上物理代价**：编码投影、量化/查找、交互表、输出展开与GPU内存层级全付费；$K=256,r_o=256$的每二组BF16表=**32MiB/expert-block**。CodeGEMM原作者公开实现的快速查表路径主要在单token，不能据此推出大M真实Wan快于Tensor Core dense。
+
+**新科学设计自由度**：在保留input sufficiency的情况下，把码book容量分配给经过**真实量化后非线性耦合**且下游作用高的函数交互；同rank连续小MLP、A0、最强公开LUT-GEMM同类算子为匹配强臂。M-C目前没有Wan训练/视频/SYS，先用现存$x/y$资产（真实身份先核对）与输出谱、编码冲突及驻留成本给出最小判别，再决定是否登记实验。它可以独立于M-B成功或失败。
+
+## 6. 三条路线共享的方法协议：先验、测试和科研分层
+
+**必须对每个候选冻结的对象**：
+1. **操作指纹与源图**：I/F/C科学问题；O-A～E主/辅动作；G14 T03–T16定位；真正动作在信息可得前还是后；原Wan shape、quant、gate、后缀状态与候选替换后的shape/参数/计算；
+2. **DERIVATION_GRAPH**：证明确切等式、边界和反例（PROVED/CONDITIONAL/OPEN），具体source/原文先例的**REQUIRES/CONSTRAINS/COMPETES_WITH/PREDICTS_DIFFERENTLY**关系；
+3. **独立来源资产**：image-cluster级训练/验证/未暴露确认，seed/row/step嵌套；真实post-Q1/pre-gate/gate/Q2、teacher/student同坐标、时间与expert身份、原生producer SHA。旧CAL24的6144行不是6144独立源。
+4. **相同条件比较**：Dense原生BF16+HiF4、M-A0同训练预算、同rank随机/PCA/marginal/paired、相同用时/数据/算子边界的最佳近邻；oracle teacher target与在线student分开报告；
+5. **分阶段证据**：ALG证明→SRC/numeric neutral→source-level finite/local→真实完整40×4 student自由视频（主体、背景、成像、连续motion、相机/ROI、prompt）→在线FFN及整机墙时/VRAM/系统Pareto。每个阶段回答自己的命题，不把数学实验先验变成所有创新种子的强制GPU门；
+6. **竞争机制**：真实作用 vs patch dormant；低能高影响 vs source bias；数量敏感 vs student预测不足；QDQ数值 vs 后缀放大；RAFT可观测性 vs 真实动作改变；MAC减小 vs packing/访存抵消；
+7. **开放性**：新研究可以在任何I/F/C位置提出新的表示或历史复用/算子组合，不要求从M-A/M-B/M-C三者选一个；作为开放新方法独立写入discovery、竞争/审阅按QUEUE，运行按ACTIVE。
+
+## 7. 当前可实际执行的工作顺序（本方案的唯一现行下一步指引）
+
+| 顺序 | 负责人/研究动作 | 现有输入与具体产物 | 验收及状态 |
+| --- | --- | --- | --- |
+| **① M-B / B0源路径** | 下一Agent先重核已完成B v1 source/LN/head和可复用资产，对完整post-write u、modulation/head/flow的采集器给出真实producer、dtype、对照状态和中性实验协议 | [B方法v1](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)、[B0真实SRC审计](../method_discussion/discoveries/E0/b-final-block-head-source-audit-20261028.md) | **OPEN**：完成冻结范围/代码资产后才注册并执行；不是本次Git文档改动已经获取u |
+| **② M-B / B1有限判别** | 相同状态native no-op→同幅有限扰动比较head-null、范数通路、普通/PCA/marginal/joint与source打乱 | B0真实full-M u、gate/head、来源一致身份及旧finite方法 | **OPEN**：依据来源级效果判别是否存在稳定差异；BF16扰动被量化吞没判INCONCLUSIVE |
+| **③ M-B / B2结构构造** | 有区分性时并行给出B-H充分统计学生和B-F通用因子化学生，严格只用pre-W1合法信息，比较同rank同预算A0与量化/在线价格 | B1 finite、A0八包（仅四site），训练与真实数据另设版本 | **OPEN**：可表达性、可预测性与成本分开给出，优先小规模有分辨力实验 |
+| **④ M-A0强化比较** | 扩展四site pilot的来源/深度覆盖，区分teacher-state和student-free-run；以A0作为B及C共同基线 | 已完成P30结果与原生Q2重载，CAL24旧source roles | **PARTIAL NATIVE**：强局部基线成立、终端质量OPEN |
+| **⑤ M-C数学/系统小判别** | 先检验R输入信息及U输出rank下界、码本32MiB交互表、真实M布局，再提出可训练码本 | G12 / 保存$x,y$ / G14 LUT作者路径 | **OPEN**：先验约束优先于盲调表参数 |
+| **⑥ 全深度+系统确认** | 对已形成的候选完成source-disjoint 40×4配对视频、分维评测及真实QDQ/native kernel成本；不要求数学路线一开始全通过 | 新student、freeze模型版本、运行授权和官方分维协议 | **NOT_RUN for M-B/M-C**；A0也尚未完整视频 |
+
+**核心决策**：下一位Agent的第一份**实质新工作**是将已完成的M-B末层数学结果化成可运行、可核数值的B0/B1判别，而不是再做B最初的理论survey或跳到A0全80训练。数学/CPU静态研究可立即推进，GPU/模型/视频执行依ACTIVE逐项冻结与登记；候选队列只登记真实提出者/审阅者记录，不提前投支持票。
