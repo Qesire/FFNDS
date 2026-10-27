@@ -2,6 +2,10 @@
 
 > 现行版本：2026-10-27。全部研究记录索引：[79篇唯一论文](PRIMARY_LITERATURE_INDEX.json)；综合机制解释：[现行研究报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；机器关系：[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)。原2026-10-26首批33/51篇是历史检索阶段，而非当前总数。文献研究持续，原生CPU/GPU/模型/视频执行暂停。
 
+## 首要文献辨识：功能意义与承担功能的计算结构
+
+在探索何种FP4-code符号、mask、路由、Cache值得部署前，先从真实视频/状态差和原W1/GELU/Q2/W2发现**函数是什么、在哪里发生、哪个上下文成立**，再确定哪些**正常前向计算路径**承担此功能。新增[L80–L85 功能–因果–时空定位理论](../20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)，以及[G13研究综合](../../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)。语义concept/SAE可做函数候选观测；necessity/sufficiency仍需要合法原生干预；能否物理省算是另一层实验。当前目录85项，机器图171节点/354关系，14机制家族。
+
 ## 一个paper ID应回答什么
 
 原始论文/论文版本与正式会议；确切读过的摘要、原文§/Eq/Table/Fig、公开源码文件与blob SHA；作者所**实际采用的架构、训练/蒸馏、quant格式和步数**；真实当次输入/历史/量化code在**哪个计算节点之前可用**；额外router、proxy、量化scale、KV/cache、metadata、tensor gather、weight读与GPU调度价格；缩减的W1/W2 GEMM、frame、block或whole-step调用；作者报告质量/速度的硬件、source、step和任务；最强同构先例、替代机制和可区分预测。
