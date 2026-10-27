@@ -5,7 +5,7 @@ description: Construct and audit FFNDS source sampling, calibration, held-out da
 
 # FFNDS · Sampling, calibration, evaluation and data evidence
 
-Activate for any FFNDS question involving calibration, sample rows, source cohorts, model states, video generation/evaluation, generalization, official scores, or the reliability of an observed effect. Start with [data protocol](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) and the applicable original source/config.
+Activate for any FFNDS question involving calibration, sample rows, source cohorts, model states, video generation/evaluation, generalization, official scores, or the reliability of an observed effect. The live [I/F/C route portfolio](../../../research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md) distinguishes local restoration, motion, operator speed and deployment claims; choose estimands separately for each. Start with [data protocol](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) and the applicable original source/config.
 
 ## Positive execution sequence
 
