@@ -4,7 +4,7 @@
 
 > **核心原则：先说明算法实际改变哪一项计算，再研究它为什么有效、在线是否省掉物理工作、行为是否得到保留。稀疏（sparsity）是多种方法可能产生的结构或执行结果，不是独立、完备的机制分类。**
 
-**先验约束层的补充入口**：[G14全论文计算图反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)从T03–T09的FFN数值/门控、T11–T12的时序、T13物理执行、T15因果反例审视M-A/M-B/M-C，不把操作类标签直接当作可行性结论。当前最优先的M-B需分别证明**自然计算作用、从pre-W1合法信息可预测、真实QDQ和成本可部署**。
+**方法构造已经更新至v2**：[整合M-A/M-B/M-C现行研究方案](COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)直接运用[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)与[先验约束机器关系](../agent_protocol/METHOD_OPERATION_CROSSWALK.json)：A0四位置native恢复已完成，M-B v2已证明末层中心化head的64读出＋1中心方差充分坐标（ALG/SRC），下一项为B0原生u/head/flow neutral状态捕获准备、B1有限敏感性。M-C保留输入充分性/输出秩/实际大M LUT代价OPEN。本分类是可组合**方法语法**，不能替代每条实际科学方法的状态与证据。
 
 ## 1. 三层研究体系，避免代号冲突
 
