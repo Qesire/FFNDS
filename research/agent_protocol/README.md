@@ -2,7 +2,7 @@
 
 **当前研究问题**：在真实视频生成FFN中发现信息、函数与计算的组织规律，并探索在保持完整视频质量下的真实低成本实现。**I/F/C并行入口**为信息与表示、函数与动力学、计算与执行。见[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-**统一方法操作分析（O-A～O-E）**：[五操作G14交叉方法文档](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[结构化source/方案表](METHOD_OPERATION_CROSSWALK.json)。I/F/C为科学问题，O-A选择计算、O-B函数表示、O-C缓存复用、O-D计算代数、O-E学习验证为可组合的算法动作；先通过G14读论文实际改变的边和decision_time，再判断本地Wan的合法数值/物理/时序条件。下一位方法Agent仍从**M-B**而非整个O-B起步。
+**统一方法操作与当前研究方案**：[五操作G14交叉方法文档](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[带REQUIRES/CONSTRAINS/COMPETES_WITH/PREDICTS_DIFFERENTLY先验边的机器索引v2](METHOD_OPERATION_CROSSWALK.json)、[M-A/M-B/M-C现行整合方法方案](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。I/F/C为科学问题，O-A选择计算、O-B函数表示、O-C缓存复用、O-D计算代数、O-E学习验证为可组合动作；须在同一Wan数字计算路径定位与检查。下一位方法Agent从**M-B已完成的数学v2继续B0/B1**，而非泛研究整个O-B或重新生成初版提案。
 
 **并行机制组合**：[多条开放机制、现有方法与最小判别](../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)供科学推导与独立评议使用。
 
