@@ -4,6 +4,8 @@
 
 
 
+**本轮新命题（UB1运动幅值衰减，OBS/ALG/OPEN分开）**：[UB1原VBench/RAFT逐对数据与外观—运动研究](UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)显示两条已暴露formal20来源的相对连续运动幅值38.13%/9.19%，38/40和40/40采样对低于Dense，而四个官方binary Dynamic Degree仍全0。A5+HWG的历史背景闪烁是**额外的非物理时序变化**，UB1的幅值衰减可能是**被抑制的时序变化**，两者都不等于静态画质SSE，亦不能视为同一物理原因。数学上在固定线性视频时间差分`D_tau`下，候选与Dense的signed cross决定时间差能量变化；RAFT非线性、blur/texture追踪可观测性和主体/相机运动需另行校验。近邻VideoJAM(ICML2025)已经将appearance-motion监督分开，Motive(ICML2026)使用motion-weighted gradient影响数据选择，DCM(ICCV2025)的semantic/detail双专家不同于Wan high/low噪声expert。以上是迁移工具，不是本仓库已经实施的 motion-aware FFN。
+
 ## 0. 统一研究主轴：信息、函数与执行并行
 
 **科学北极星**：[统一目标与I/F/C并行研究](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。FFNDS同时争取**独立可证伪的计算机制认识**和**有真实质量–成本优势的部署方法**。三个机制入口为：
