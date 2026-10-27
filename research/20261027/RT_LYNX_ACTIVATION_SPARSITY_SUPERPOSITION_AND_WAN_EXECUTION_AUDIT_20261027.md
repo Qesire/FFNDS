@@ -1,6 +1,8 @@
 # RT-Lynx 深读：从权重能力、激活使用到可执行2:4稀疏的FFNDS研究重构
 
 **2026-10-27 · ICML2026一手论文/原生Wan证据/数学判别 · LIT/SRC/NATIVE/ALG/OPEN分级。**  
+**后续同方向原生算子进展（不回填本文原始文献复核状态）**：[E0 A100激活2:4布局对照](E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)已在合成BF16算子证明某些**预先选择、压缩**后的布局快于dense，同时默认布局也可更慢。它未测实时在线top2＋压缩全成本、真实HiF4 FFN、全部生成或视频质量；因此R0→R1的下一有效研究是核对Q1后W1、Q2后W2两种实际输入边界，并在匹配精度与best dense/packed基线上计时端到端的选择＋压缩＋SpMM＋QDQ。[跨路线表](PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)保持这一C路线与UB1/Affine54的科学/系统对象清晰分离。
+
 **版本证据**：直接检查 [RT-Lynx arXiv 2605.26632 HTML（已读可访问版本v2）](https://arxiv.org/html/2605.26632) §2–5、Appendix B/E/F/G/H，以及 [ICML2026 PMLR正式页](https://proceedings.mlr.press/v306/cong26a.html)；[arXiv abstract及LaTex正文视图](https://arxiv.org/abs/2605.26632)提供原式、修正数字。arXiv页面还显示2026-08后续版本v3，但本轮未逐公式与v2作差分；PMLR正式标题是 *Putting GEMM Sparsity in the Right Place for Diffusion Models*。未找到可靠的作者可复现CUDA代码仓库，不将正文kernel叙述冒充亲自复现。FFNDS原生路径及观察引用对应已存实验，**无新FFNDS模型/训练/视频/GPU执行**。
 
 ## 0. 最重要的科学发展：模型长期的计算潜能 ≠ 该输入调用的计算
