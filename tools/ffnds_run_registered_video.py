@@ -35,8 +35,28 @@ def job_preflight(plan, index, ub1_policy):
     return job, source
 
 
-def run(plan, index, out_root, ub1_policy):
+def registration_check(plan, job, registration):
+    if registration is None or not registration.is_file():
+        raise ValueError("Real GPU execution requires a registered bounded experiment scope")
+    scope = load(registration)
+    if (scope.get("schema") != "ffnds.native.scope.v1"
+            or scope.get("status") != "REGISTERED_BOUNDED_GPU_EXECUTION"
+            or scope.get("experiment") != plan["experiment"]
+            or job["run_id"] not in scope.get("allowed_run_ids", [])
+            or scope.get("max_visible_GPUs") != 1
+            or scope.get("user_authorization") != "USER_RESUME_OFFLINE_IFC_20261027"):
+        raise ValueError("Frozen job is outside its registered model execution authority")
+    from run_ar2_restart import ROOT
+    active = load(ROOT / "research/ACTIVE_RESEARCH.json")
+    latest = active.get("user_continuation_authorization_20261027", {})
+    if latest.get("status") != "ACTIVE_CURRENT_USER_DIRECTED_SESSION" or latest.get("id") != scope["user_authorization"]:
+        raise ValueError("Active research authority differs from registered scope")
+    return scope
+
+
+def run(plan, index, out_root, ub1_policy, registration):
     job, source = job_preflight(plan, index, ub1_policy)
+    registration_check(plan, job, registration)
     # Explicit node ownership: the user's scheduler should expose exactly one GPU.
     import torch
     from safetensors.torch import save_file
@@ -146,6 +166,8 @@ def main():
     p.add_argument("--job-index", type=int, required=True)
     p.add_argument("--out-root", type=Path, required=True)
     p.add_argument("--ub1-policy", type=Path)
+    p.add_argument("--registration", type=Path,
+                   help="Explicit frozen, bounded model-execution registration; required for GPU runs")
     p.add_argument("--dry-run", action="store_true")
     args = p.parse_args()
     plan = load(args.plan)
@@ -154,7 +176,7 @@ def main():
         print(json.dumps({"status": "NATIVE_INPUT_PREFLIGHT_ONLY", "job": job,
                           "source": source["source_id"]}, ensure_ascii=False))
         return
-    record = run(plan, args.job_index, args.out_root, args.ub1_policy)
+    record = run(plan, args.job_index, args.out_root, args.ub1_policy, args.registration)
     print(json.dumps({"status": record["status"], "run_id": job["run_id"],
                       "video_path": record["video_path"]}, ensure_ascii=False))
 

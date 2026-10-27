@@ -10,6 +10,7 @@ import filecmp
 import json
 from pathlib import Path
 import shutil
+import os
 import subprocess
 import sys
 
@@ -123,8 +124,14 @@ def stage(complete, original_full_info, output):
             names.add(key)
             clip = videos / (basename + ".mp4")
             image = images / (basename + Path(source["image_name"]).suffix)
-            shutil.copyfile(job["video_path"], clip)
-            shutil.copyfile(source["image_path"], image)
+            try:
+                os.link(job["video_path"], clip)
+            except OSError:
+                shutil.copyfile(job["video_path"], clip)
+            try:
+                os.link(source["image_path"], image)
+            except OSError:
+                shutil.copyfile(source["image_path"], image)
             count[(job["variant"], dim)] += 1
     for (variant, dim), n in count.items():
         save_new(root / variant / dim / "RUN.json",
