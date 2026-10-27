@@ -86,9 +86,11 @@ class PipelineTest(unittest.TestCase):
             save_new(p / "cal.json", sample)
             b = sources_from_legacy([f"CALIBRATION={p/'cal.json'}"])
             self.assertEqual(len(b["sources"]), 1)
+            second = [{**sample[0], "source_group": "i2v_subject:1"}]
+            save_new(p / "dev.json", second)
             with self.assertRaisesRegex(ValueError, "overlap data roles"):
                 sources_from_legacy([f"CALIBRATION={p/'cal.json'}",
-                                     f"DEVELOPMENT={p/'cal.json'}"])
+                                     f"DEVELOPMENT={p/'dev.json'}"])
 
 
 if __name__ == "__main__":

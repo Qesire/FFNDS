@@ -91,22 +91,22 @@ def source_bank(path):
     return d["sources"]
 
 
-def choose(sources, role, strata, seed):
+def choose(sources, role, strata, seed, *, allow_same_image_with_distinct_prompts=False):
     grouped = defaultdict(list)
     for s in sources:
         if s["role"] == role:
             grouped[s["scene_stratum"]].append(s)
     chosen = []
-    for stratum, n in sorted(strata.items()):
+    for stratum_index, (stratum, n) in enumerate(sorted(strata.items())):
         candidates = sorted(grouped[stratum], key=lambda s: s["source_id"])
-        rng = random.Random(seed + 1000003 * (len(chosen) + 1))
+        rng = random.Random(seed + 1000003 * (stratum_index + 1))
         rng.shuffle(candidates)
         if n > len(candidates):
             raise ValueError(f"{stratum}: need {n} independent sources, have {len(candidates)}")
         chosen.extend(candidates[:n])
     ids = [s["image_id"] for s in chosen]
-    if len(set(ids)) != len(ids):
-        raise ValueError("Chosen sources contain image-cluster duplicates")
+    if len(set(ids)) != len(ids) and not allow_same_image_with_distinct_prompts:
+        raise ValueError("Chosen calibration sources contain image-cluster duplicates")
     return sorted(chosen, key=lambda s: s["source_id"])
 
 
@@ -129,11 +129,16 @@ def row_draw(population, rows, *, base_seed, source_index, step, block, state_pa
     seed = base_seed + (source_index + 1) * 1000003 + 1009 * step + 37 * block
     if not state_pair:
         seed += 700000001
-    return sorted(random.Random(seed).sample(range(population), rows)), seed
+    # Draw a fixed maximum prefix to preserve nested selections across 128/256/512 rows.
+    # The same policy remains valid for larger designs; all must freeze row_count before sampling.
+    take = min(population, max(512, rows))
+    return sorted(random.Random(seed).sample(range(population), take)[:rows]), seed
 
 
 def plan_calibration(bank, geometry, *, strata, rows, seed, output):
-    selected = choose(source_bank(bank), "CALIBRATION", parse_strata(strata), seed)
+    all_sources = source_bank(bank)
+    selected = choose(all_sources, "CALIBRATION", parse_strata(strata), seed)
+    global_indices = {s["source_id"]: i for i, s in enumerate(sorted(all_sources, key=lambda x: x["source_id"]))}
     by_geometry = {}
     for x in load(geometry):
         key = (x["source_id"], x["step"], x["block"])
@@ -151,7 +156,7 @@ def plan_calibration(bank, geometry, *, strata, rows, seed, output):
                 if key not in by_geometry:
                     raise ValueError("Missing observed native geometry " + repr(key))
                 ids, rs = row_draw(by_geometry[key], rows, base_seed=seed,
-                                   source_index=source_index, step=step, block=block,
+                                   source_index=global_indices[s["source_id"]], step=step, block=block,
                                    state_pair=True)
                 result.append({"source_id": s["source_id"], "step": step, "block": block,
                                "expert": "high_noise_model" if step < 2 else "low_noise_model",
@@ -177,7 +182,8 @@ def plan_video(bank, *, role, strata, seed, samples, variants, experiment,
                frames, fps, width, height, scheduler, output):
     if role not in ("DEVELOPMENT", "FROZEN_CONFIRMATION", "OFFICIAL_BENCHMARK"):
         raise ValueError("Video cohort needs declared evaluation role")
-    selected = choose(source_bank(bank), role, parse_strata(strata), seed)
+    selected = choose(source_bank(bank), role, parse_strata(strata), seed,
+                      allow_same_image_with_distinct_prompts=(role == "OFFICIAL_BENCHMARK"))
     if samples not in (1, 5):
         raise ValueError("Use one real diagnostic sample or five real official samples")
     if len(variants) < 2 or "dense" not in variants or len(set(variants)) != len(variants):

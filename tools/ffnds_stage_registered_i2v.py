@@ -165,8 +165,10 @@ def evaluate(stage_root, original_checkout, ratio, dims, *, execute):
         cmd = [sys.executable, str(evaluator),
                "--videos_path", str((leaf / "videos").resolve()),
                "--dimension", item["dimension"],
-               "--ratio", ratio]
-        if not index["full_image_suite_matched"]:
+               "--ratio", ratio, "--output_path", str(target.resolve())]
+        if index["full_image_suite_matched"]:
+            cmd += ["--mode", "vbench_standard"]
+        else:
             cmd += ["--mode", "custom_input", "--custom_image_folder", str((leaf / "images").resolve())]
         commands.append((leaf, cmd))
     if not commands:
