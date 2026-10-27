@@ -2,6 +2,8 @@
 
 > 2026-10-27综合版本，覆盖79项论文索引。[完整研究报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)详细陈述数学、原生证据和物理预算；[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)保存机器可检索的M01–M12机制组/源节点/论文ID/成本。下表是**同构性与区分性**导航，而不是方法优先序或GPU任务单。
 
+**研究顺序校正（2026-10-27）**：本矩阵从**M13有意义的输出函数定位→M14承担该功能的真实计算结构**出发；之后才考虑量化码信息与其它M01–M12执行方案。见[G13定义和原生观察](../../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[功能–结构登记](../../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)。完整论文索引当前85项，171图节点、354关系、14机制家族。
+
 | 研究机制 | 最强公开先例（LID / 图节点） | 何时可观察、何处产生真实费用 | 反向预测与当前Wan待验证边 |
 |---|---|---|---|
 | **冻结FFN有符号函数可预测** | Geva L01/superposition L02；NerVE L50/K10–K12；Prox L69/Q19–20 | preW1 q能读、weight静态统计能离线预处理；postQ2 signed函数是后验标签 | 可能只有W1/GELU后才分辨，或shared Q2 group/跨行相消使单通道不足；验证原gate×W2和整视频 |
