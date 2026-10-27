@@ -1,5 +1,8 @@
 # FFNDS · AutoResearcher 科研Agent默认约定
 
+> **下一位Agent的一次性交接**：先执行[修正验收清单](research/agent_protocol/ONE_TIME_REPAIR_HANDOFF_20261027.md)，验证和修正完成后在收尾提交中删除清单及所有临时入口，再恢复正常I/F/C科研。本提醒不属于长期研究规则或执行授权。
+
+
 **统一科学目标**：发现视频生成FFN中信息、计算与生成行为的组织规律，发展保持完整视频能力、降低真实物理成本的表示和执行机制。**信息与表示（I）、函数与动力学（F）、计算与执行（C）是并行且互相反馈的起点**；科学规律与部署方法可以分别构成成果。详见[统一研究目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
 统一入口：[领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md) · [研究导航](research/RESEARCH_NAVIGATION.md) · [G13函数研究（F线）](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P专题方法](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [G0–G13原生计算图](docs/98_端到端计算图与证据注解_20261025.md) · [跨机制综合](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [ACTIVE状态与授权](research/ACTIVE_RESEARCH.json)。

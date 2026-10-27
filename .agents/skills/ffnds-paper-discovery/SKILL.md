@@ -3,6 +3,8 @@ name: ffnds-paper-discovery
 description: Apply AutoResearcher science to parallel information, function/dynamics and computation/execution discovery for efficient video FFN research.
 ---
 
+> **一次性交接（仅下一位Agent）**：[先修正并实际验证](../../../research/agent_protocol/ONE_TIME_REPAIR_HANDOFF_20261027.md)，完成后删除该清单及所有临时指针，然后恢复常规I/F/C研究。此提醒非长期Skill步骤。
+
 # FFNDS · Parallel information, function and compute discovery (2026-10-27)
 
 ## 研究对象与可扩展目标

@@ -1,5 +1,8 @@
 # FFNDS · Copilot科学研究默认引导（E0_OPEN_DISCOVERY）
 
+> **一次性修正交接（下一位Agent）**：先完成[修正验收](../research/agent_protocol/ONE_TIME_REPAIR_HANDOFF_20261027.md)；验收后删除该文件、AGENTS/Copilot/Skill中的临时提示，再进入常规I/F/C科研。不是永久阶段门槛。
+
+
 统一科学问题：**视频生成模型如何组织信息、计算与生成行为，怎样在保持完整视频能力时降低真实执行成本？** 可从I（信息与表示）、F（函数与动力学）、C（计算与执行）任意入口研究，G13是F线专题。见[统一目标](../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
 **必读**：[根AGENTS](../AGENTS.md)、[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[研究导航](../research/RESEARCH_NAVIGATION.md)、[跨机制综合](../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[主计算图](../docs/98_端到端计算图与证据注解_20261025.md)及[ACTIVE执行状态](../research/ACTIVE_RESEARCH.json)。F线深入时使用[G13](../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)；旧[第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md)是历史研究阶段的证据来源。
