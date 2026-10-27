@@ -21,6 +21,10 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 - [机制交叉索引](../../../research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)
 - [当前综合与现行证据](../../../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[ACTIVE权限](../../../research/ACTIVE_RESEARCH.json)
 
+## 实验采样与校准的可解释证据
+
+涉及采样/校准/视频评测或声称泛化时加载[实验数据Skill](../ffnds-experiment-evidence/SKILL.md)和[统一协议](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。先明确独立source与嵌套seed/step/block/row，接着复核旧cohort的拟合/择优暴露、原生QDQ/student状态、真正独立的video run及各维覆盖。历史VBench五文件名对应每source一个真实生成，和官方五次采样分开报告。把证据不足转为**有辨别力的新增数据设计**，将可靠源码和既有原生现象作为构造性实验起点。
+
 ## 默认研究思路：三种入口、共同判别、分别验证
 
 **I · 信息与表示（DISCOVER）**：从已知权重、当前输入、数值编码、跨token/step状态或历史信息发现条件性结构；给出信息首次可用的时间、获取价与信息利用机制。允许直接探索编码域内积、有限码本、低秩统计、信息证书及无需语义标签的算术。

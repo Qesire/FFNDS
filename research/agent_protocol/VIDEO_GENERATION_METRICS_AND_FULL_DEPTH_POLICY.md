@@ -1,5 +1,7 @@
 # FFNDS · 每次生成必有指标；全40层/四步必须评估真实误差传播
 
+**新实验采样与校准上游合同**：[统一数据协议](DATA_SAMPLING_CALIBRATION_EVALUATION.md)。此处负责每个实际视频的质量/物理证据；前者定义独立source、真实生成run、校准数据和官方评价用途。历史VBench三轴的每source一条生成+五份文件名属于`HISTORICAL_REPLICATED_FILENAME_SINGLE_GENERATION`，R17 one-video-per-source官方函数调用属于自定义子集；正式VBench-I2V五次采样由独立生成执行而不是复制实现。所有实际生成的视频继续记录完整逐帧工程诊断，官方指标缺项真实标记NOT_RUN。
+
 **适用**：2026-10-26之后所有新视频生成任务（Dense、候选、对照、失败视频、调参、定性演示）。已有冻结协议和原始视频RUN字节不修改；后验补评必须使用有原始视频SHA的单独版本。**用户当前暂停实时生成**，本文件只针对四步Wan整段I2V。
 
 **2026-10-26方向协议补充**：[扩来源＋有符号评价设计](../20261026/E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026.md)。候选发现的科学评价优先保留源级多维功能/运动/光照质量，以及原生完整状态P/N与互斥频带signed cross；pooled SSE只是诊断分量。来源校准暴露程度与真实held-out严格区分，两个source的320sites不得当320独立视频。此补充不改既有视频RUN或本文件的完整逐帧必备契约。
