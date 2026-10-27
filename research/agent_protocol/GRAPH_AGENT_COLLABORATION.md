@@ -56,3 +56,8 @@ validate检查JSON结构、证据文件、节点、89项论文ID、14机制家�
 **当前范围**：原论文/源码、数学、已有证据、函数/结构索引与独立讨论。**新的CPU/GPU/模型/视频执行暂停**；用户未来按[ACTIVE](../ACTIVE_RESEARCH.json)单独授权。历史RUN、质量、SHA与对应失败结论保留原始身份。
 
 当F线研究发现改变函数或承担结构的认识，按对应命题更新[Function–Structure](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[主图](../../docs/98_端到端计算图与证据注解_20261025.md)与[科学综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；I/C线的新表示、算子和成本结构可直接更新Graph Bindings与Crosswalk。原论文详细方法与阅读等级保留在各自source ledger。好的交接留下**新的科学认识、真实证据、竞争预测和下一条有信息价值的图边**。
+
+
+## G14 · 逐论文计算作用注释
+
+原文事实/源码阅读层级继续在 `PRIMARY_LITERATURE_INDEX.json`及各原文ledger维护；G14 `PAPER_METHOD_FOCUS_GRAPH.json`对每篇文献绑定稳定T01–T16 focus、原生Wan锚点、决策时点、具体行动、适用性判别。图G14将所有L01–L89和校准C01–C10逐项落入可读Mermaid图，用`graph_agent_bridge.py paper L34`/`focus T06`进行双向访问。映射边保留LIT，不自动升级成本仓库NATIVE/VIDEO/SYS的执行结果。数据/校准/评测型论文优先进入T01/T02/T16及视频作用边，训练结构方法保留其训练前提与物理算子。

@@ -1,0 +1,37 @@
+name: FFNDS G14 paper-method graph integrity (CPU only)
+
+on:
+  pull_request:
+    paths:
+      - 'research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json'
+      - 'research/agent_protocol/GRAPH_AGENT_BINDINGS.json'
+      - 'research/literature/20261026/PRIMARY_LITERATURE_INDEX.json'
+      - 'docs/98_端到端计算图与证据注解_20261025.md'
+      - 'tools/graph_agent_bridge.py'
+      - 'tests/test_graph_agent_bridge.py'
+      - '.github/workflows/ffnds-paper-graph-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  literature-computation-bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile G14 graph bridge
+        run: python -m py_compile tools/graph_agent_bridge.py tests/test_graph_agent_bridge.py
+      - name: Validate indexed paper provenance and visible Mermaid graph
+        run: python tools/graph_agent_bridge.py validate
+      - name: Run graph native evidence and paper coverage regression tests
+        run: python tests/test_graph_agent_bridge.py
+      - name: Query independent paper and computation-stage interfaces
+        run: |
+          python tools/graph_agent_bridge.py paper L34 >/tmp/ffnds_paper.json
+          python tools/graph_agent_bridge.py focus T06 >/tmp/ffnds_focus.json
+          python -c 'import json; p=json.load(open("/tmp/ffnds_paper.json")); f=json.load(open("/tmp/ffnds_focus.json")); assert p["paper"]["id"]=="L34" and f["focus"]["native_anchor"]=="F08R"'

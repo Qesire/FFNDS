@@ -50,3 +50,10 @@
 5. **当前合成**：只有改变认识的跨机制结论进入[综合报告](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)。
 
 **历史与权限**：[早期科学任务](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[2026-10-25第一任务原始记录](20261025/E0_FFN_FIRST_TASK_20261025.md)、[原方法反例](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)继续提供真实的时间点证据；现行ACTIVE统一当前优先级与运行授权。用户本轮恢复I/F/C研究及登记后的有限实验；旧暂停和历史RUN保持原样，实时/流式实验未恢复。
+
+
+## G14 · 全文献逐计算算子入口（2026-10-27）
+
+- [分组计算图G14](../docs/98_端到端计算图与证据注解_20261025.md)：89项主文献与10项补充校准研究均有Mermaid方法图和原生聚焦边界。
+- [机器图谱](agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)：逐论文保留原文阅读深度、观察时点、真实行动、迁移判别。
+- `python tools/graph_agent_bridge.py paper L34` / `focus T06` 和 `validate`：分别检查论文、算子聚类及全部99项索引的可见图关系。
