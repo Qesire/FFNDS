@@ -1,49 +1,32 @@
-# FFNDS 方法讨论 Agent · AutoResearcher 默认原则
+# FFNDS · 独立科研Agent（E0_OPEN_DISCOVERY）
 
-**After latest all-depth followthrough:** [current post-affine directional review](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) and [G5 graph](../../docs/98_端到端计算图与证据注解_20261025.md) keep distinct: (1) sampled function reconstruction, (2) exact GELU odd/even theorem with unmeasured Wan explanatory power, and (3) actually timed unchanged-compute weight residency. Independent agents may pursue signed function basis, video propagation, temporal/spatial units, cheap observations and new compute representations. A prior graph check of one method claim does not automatically make all its scientific premises accepted or its implementation runnable.
+**科学研究中心**：先定位具有行为意义的Wan视频FFN输出函数，再定位正常执行中承担这些函数的联合计算结构。从真实视频与状态差、数学与原作者论文寻找开放解释；通过不同机制的可判别预测推动下一次研究。
 
-**Latest evidence and independent-review launch:** Read [the intrinsic divergence audit](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md) and [updated first task](../20261025/E0_FFN_FIRST_TASK_20261025.md). Full hidden and two-source contiguous tile fields exist; independent agents may instead review (a) joint signed function basis, (b) different spatial/temporal function organization, (c) downstream video sensitivity, (d) nonlinear/physical execution, or propose new alternatives. Specifically test that posthoc concentration, original HiF4 group-scale closure and cheap-online selectors are different claims. The old gated-quotient queue entry is a historical discussion item rather than current assignment.
+**科研入口**：[根目录AGENTS](../../AGENTS.md) · [FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md) · [当前G13功能定位](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [Function–Structure对象](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [主计算图G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md) · [一手证据包](../agent_protocol/CURRENT_CONTEXT_PACKET.md) · [ACTIVE状态](../ACTIVE_RESEARCH.json)。
 
-**Current independent E0 investigation:** Read [intrinsic FFN research reset](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) and [new first task](../20261025/E0_FFN_FIRST_TASK_20261025.md). Agents independently explore (i) hidden/GELU/W2 signed contributions and real hardware concentration, (ii) token/step/expert conditional innovation and FFN sharing, (iii) downstream functional sensitivity and mathematical compute reconstruction; reviewers bring strong counterexamples and related papers. This division is a science map, not a fixed algorithm list. HiF4/QDQ scales are secondary amplitude hints; previous radial and star-null tasks are historical observations, not current default assignments.
+**AutoResearcher 来源**：[ACTIVE_SOURCE_MANIFEST.json](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)的固定版本，结合[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)和[本项目原文/源码深度检索协议](../agent_protocol/DEEP_WEB_RESEARCH.md)。
 
-**Search-enhanced AutoResearcher v2.4:** Every researcher and independent reviewer inherits the [pinned web-research-discovery Skill](../../.agents/skills/web-research-discovery/SKILL.md), the generic [WARD protocol](../../core/WEB_RESEARCH_DISCOVERY.md) and [FFNDS search specializations](../agent_protocol/DEEP_WEB_RESEARCH.md). Verify closest mechanism-level literature and original source against the exact commit in [source manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json), then derive new independent explanations or strong counterexamples.
+## 新发现、数学及独立反证
 
+1. **观察与命名**：来自完整视频/latent/flow的行为差异、自然q上的FFN signed输出关系或无标签时空规律，可以先作为FUNCTIONAL-OBS与新数学假说。
+2. **源码定位**：根据实际配置重建norm2/AdaLN→Q1→W1→GELU→HiF4 Q2(group64)→W2→e5门控BF16写回→后续attention/step/视频；比较同一q驱动的多行联合响应和下游补偿。
+3. **推导与探索**：给出一种新的表示、函数交互、时空共享或其他数学自由度，提出与最强相关论文/旧原生解释不同的预测。新构造可早于形式化候选注册而留作探索种子。
+4. **独立审查**：其他Agent亲自核实原论文、数学、实际源码、条件反例和证据来源，给出具体支持、挑战或建设性替代结构。观察级结论、功能因果证据与物理可省计算分别定位。
+5. **逐步交付**：留下新函数/结构认识、真实source/seed/step范围、图节点或新OPEN边、最有判别力的下一项证明/已有数据对照/未来授权的实验。研究成果由实际解释力与可证伪性评价。
 
-**阶段：`E0_OPEN_DISCOVERY`。** 先从 [唯一活跃状态](../ACTIVE_RESEARCH.json) 读取任务与权限，结合 [新 FFN 第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)、[扩展机制文献地图](../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)、[阶段锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 选择一个能改变认识的开放问题。历史 [E0 gap 清单](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 保存为过去工作的证据导航。
+方法学追随[科研协作总则](README.md)、[独立发现目录](discoveries/E0/README.md)和[图锚点目录](graph_annotations/E0/README.md)，原生数值判断沿[实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)与[真实视频指标](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)审查。
 
-**表达顺序：** 每个科学讨论先给出最有创造性的正向结构或新解释，再给出竞争预测、廉价判别及证据等级。将历史失败写为精确作用域内的新信息，避免以逐条禁止或合规清单取代机制推导。执行权限与质量门禁仅在涉及相应实验和结论时说明。遵循[根入口的生成性表达政策](../../AGENTS.md)。
+## 多Agent讨论与共享记录
 
-## 所有角色共享的研究动作
+- **独立发现者/提案者**在自己的 \`discoveries/E0/<agent-id>-<phenomenon>.md\` 或 \`proposals/<method-id>/vN.json\` 保存认识、方程、源码与竞争解释。
+- **独立评议者**在 \`reviews/<method-id>/vN/<review-id>.json\` 留下精确命题、独立论证及原始反例，引用原提案Git blob；其它review可以随后阅读与回应，保持评议来源身份。
+- **协调整理者**依据真实评议版本串行更新[QUEUE](QUEUE.md)与endorsements。跨Agent \`PEER_SUPPORTED\` / \`CROSS_CONFIRMED\` 代表同一版本的科学讨论支持，具体原生效果仍由自己的测试证据与条件建立。
+- **Graph Agent**使用[节点/证据注册表](../agent_protocol/GRAPH_AGENT_BINDINGS.json)和[协作协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)回写源码SRC、数学ALG、论文LIT、观察NATIVE及OPEN条件关系，促进后续独立检查。
 
-1. **发现：** 从真实 Wan 源码、数学张力、历史负结果、外部论文或最新六来源观测发现异常结构，形成最强解释。
-2. **扩展：** 探索不同数学表示、信息时机、量化状态、FFN 有符号组合、残差几何、蒸馏/时空和潜在算子自由度。新的算子猜想可直接作为 `idea seed`。
-3. **重建：** 对实现相关主张，核对真正的 Q1→W1→GELU→Q2→W2、gate/residual、dtype、step/expert 和下游消费路径。先处理**能改变结论**的源码部分。
-4. **区分：** 给出另一种有解释力的机制、不同预测与最经济的源码/数学/保存数据对照。条件定理与有效反例也是完整科研结果。
-5. **交付：** 具体新认识、证据级别、竞争结果和一项能改变下一步判断的观察。研究质量由实质论证决定。
+## 当前研究范围
 
-按问题使用固定 [AutoResearcher 来源](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)、[研究 harness](../../core/AGENT_HARNESS.md)、[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md) 和 [FFNDS domain skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)。
+**真实研究对象**：LightX2V Wan2.2 I2V A14B四步双expert，已完成10独立source、12条source×seed生成轨迹及1920个嵌套site。source425跨seed有符号P/N交叉项翻转、视频背景/光照失配与物理tile占用等都提供具有信息价值的函数/结构问题。[原生全深度反事实](../20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)已有固定证据。
 
-## 充分且独立的 Web Search
+目前执行科学讨论、源码、原文、数学、保存数据和文档/图谱工作。**新CPU/GPU/模型/视频实验暂停**，任何后续原生干预需用户新授权；旧paired-native v2/v3及其它用户批准的范围已经完成或明确关闭，真实RUN按[ACTIVE](../ACTIVE_RESEARCH.json)保存。
 
-每位发现者、挑战者、reviewer、整理者都主动开展 [深度 Web 文献/源码检索](../agent_protocol/DEEP_WEB_RESEARCH.md)：多领域经典与最新工作、后向/前向引用、官方公式及代码、最强重复机制和反例。记录自己实际检索的范围与来源，尽量形成与其他 Agent **信息来源不同**的证据。E0 的文献发现服务于机制探索，方法构想继续作为开放种子。
-
-## 当前研究重点
-
-新 Agent 以真实 FFN 计算为核心，从 GELU hidden/FFN weighted-value、有符号 W2 组合与 superposition、跨步创新或下游视频一致性打开新的机制，并用原始源码与已保存数据区分至少两种解释。旧 Block0 residual radial 结果及 HiF4 QDQ 元数据可以服务于新问题，但不会自动指定研究路径。将 `小激活`、`小净作用`、`小终端影响`、`可执行跳过的 tile` 逐项区分。独立评议的成果是改变认识的数学或证据，不是表态。
-
-## 图节点参与独立讨论
-
-**默认加载** [G0–G6计算图](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph-Agent协作协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[节点注册表](../agent_protocol/GRAPH_AGENT_BINDINGS.json)。研究者从机制或视频异常定位真实节点；提交 [E0图锚点claim](graph_annotations/E0/README.md) 时注明 SRC/ALG/OBS/OPEN、最强竞争解释、信息出现时点以及能够改变理解的一条边。独立reviewer先根据实际源码和证据论证再给意见；整理者只把证实的主张连同适用范围写回图/实验图谱，争议与假说仍保留为OPEN。图中已有G4条件路线不限制独立 Agent提出完全不同的机制和图节点。
-
-## 协作与评议
-
-- **发现者/提案者：** 在 [E0 自有发现文件](discoveries/E0/README.md) 或 `proposals/<method-id>/vN.json` 中保存自己发现的结构、数学/源码依据、竞争解释及下一项观察；早期 operator idea 可保持种子状态。
-- **独立挑战者：** 按自己的源码/公式推导或新文献反例审查精确版本。独立的 `reviews/<method-id>/vN/<review-id>.json` 明确写出证实、挑战或需要修订的**具体命题**。
-- **整理者：** 依据不同作者的真实 review 整理 `SUPPORT` / `CHALLENGE` / `REVISE` / `ABSTAIN`。一位外部 reviewer 的独立 SUPPORT 可支持 `PEER_SUPPORTED`；两位不同 reviewer 的支持可支持 `CROSS_CONFIRMED`。未解决的实质异议保持 `CONTESTED`。历史提案、评议及来源版本均保持可追溯。
-- **共享状态：** 串行协调者更新 [QUEUE.md](QUEUE.md) 与 endorsement 汇总；阶段与实验权限以唯一 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为准。
-
-## 工作范围
-
-本讨论空间开展科学构想、数学推导、原始源码/文献查找与已保存数据分析。2026-10-25 已注册六来源原生 E0 采集已经完成；当前另有用户明确授权的paired-native v2有界范围，实际运行/结束状态以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)为准。所有超出既有协议的CPU/GPU/model任务需要独立明确授权。[历史暂停回执](../20261024/EXPERIMENT_PAUSE.json) 继续保存。
-
-外部 Agent 启动器应同时提供 [根 AGENTS](../../AGENTS.md) 与本目录指令，使新成员进入相同的科学阶段和协作规则。
+**默认交接**：新发现 → 数学/源码来源 → 竞争机制与相反预测 → 最低成本有区分度的下一证据 → 图与函数/结构登记。
