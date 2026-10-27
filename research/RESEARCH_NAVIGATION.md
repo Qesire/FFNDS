@@ -16,6 +16,8 @@
 
 **新训练、视频与执行结果**：[固定R256 consumer bank](20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24校准来源160位置的训练内gate误差下降83.01%；[两开发来源六条完整视频](20261027/UB1_FIXED_RR_CONSUMER_VIDEO_RESULTS_20261027.md)通过历史Dense/neutral四步latent与视频字节复现。[八轴官方函数评分](20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)显示成像更接近Dense、连续运动部分恢复而美学等轴有取舍；[保存latent几何](20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)揭示负交叉项与末步距离略增可以并存。下一项保持参数不变，扩大到旧disjoint20开发来源。[合成2:4布局对照](20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)发现部分预打包路径较快，在线选择与压缩仍另计。图P28/P29分别保留模型恢复与合成物理算子的身份。
 
+**新数据流程索引**：[实验Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md) · [可执行手册](agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) · [统一数据协议](agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。实现分别维护来源历史暴露、固定原生抽样行身份、真实Dense/UB1配对视频、官方分维调用和图像簇统计；旧VBench三轴与新正式九维实验有不同证据身份，当前执行范围以ACTIVE为准。
+
 ## 按科研问题选择证据
 
 | 要回答的问题 | 主入口 | 精确证据与下一层 |

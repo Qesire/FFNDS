@@ -69,6 +69,19 @@ class PipelineTest(unittest.TestCase):
                                  rows=256, seed=42, output=p / "out.json")
             self.assertEqual(len(v["calibration"]), 320)
             self.assertEqual(v["training_rows_per_position"], 512)
+            ordinal_by_source = {s["source_id"]: s["native_source_ordinal"]
+                                 for s in bank((1, 1))["sources"]}
+            for row in v["calibration"]:
+                expected = (f"draw:42:{ordinal_by_source[row['source_id']]}:"
+                            f"{row['step']}:{row['block']}")
+                self.assertEqual(row["row_draw_id"], expected)
+                ids, actual_seed = row_draw(row["population_rows"], row["n_rows"],
+                                            base_seed=42,
+                                            source_index=ordinal_by_source[row["source_id"]],
+                                            step=row["step"], block=row["block"],
+                                            state_pair=True)
+                self.assertEqual(row["selected_row_ids"], ids)
+                self.assertEqual(row["sampling_seed"], actual_seed)
             geometry.pop()
             save_new(p / "less.json", geometry)
             with self.assertRaisesRegex(ValueError, "Missing observed native geometry"):
