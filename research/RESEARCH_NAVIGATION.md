@@ -6,6 +6,8 @@
 
 **研究规模**：89项相关论文、182个计算图节点、381条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
 
+**近期一手论文与原生算子重要更新**：[RT-Lynx激活/权重稀疏、superposition解释和Wan 2:4实际执行审查](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)提出三个各自有证据身份的问题：稠密权重的跨输入长期能力、当前输入的2:4使用、SpTC真实硬件操作。原whole64满tile负例**只适用于相应原布局group剪枝**，不是稀疏Tensor Core 2:4的反例。该审查直接关联[修订后的UB1](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)与[Affine54](20261027/QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)方案；原Wan速度和视频质量未新增运行。
+
 ## 按科研问题选择证据
 
 | 要回答的问题 | 主入口 | 精确证据与下一层 |
@@ -15,7 +17,7 @@
 | **哪些真实计算子结构承担这些函数？** | [功能/结构索引](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13主图](../docs/98_端到端计算图与证据注解_20261025.md) | [Wan真实配置/shape](20261022/R12_E0_runtime_reconstruction.json)、[HiF4组尺度反例](20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json)、[全网络finite response](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md) |
 | **哪个先例有不同的科学机制？** | [综合文献研究](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[Crosswalk](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) | [89项论文索引及阅读等级](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[竞争矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[一手阅读指南](literature/20261026/READING_GUIDE.md) |
 | **实时模型的FFN职责和物理形状如何改变？** | [G10实时视频生成/架构/FFN](literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md) | [真实外部模型/源码账本](literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)、[两线机制衔接](20261027/PARALLEL_FFN_MECHANISM_AND_STREAMING_RESEARCH_BRIEF.md) |
-| **哪些计算或执行结构可独立重组？（C）** | [G11 FP4信息/具体方法](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)、[G12有符号编码/计算](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) | [Prox/Spark/SpQt/SQ-DM/CodeGEMM深读](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ](literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md) |
+| **哪些计算或执行结构可独立重组？（C）** | [RT-Lynx真实2:4 activation operand](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)、[G11 FP4信息](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)、[G12编码](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) | [G11 Prox/SpQt/CodeGEMM原文与代码](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ](literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md) |
 | **已有原生结果支持到哪一层？** | [实验发现谱系](EXPERIMENT_FINDINGS_ATLAS.md)、[证据索引](EXPERIMENT_EVIDENCE_INDEX.md) | [原生全深度与视频验收协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)、[保存状态频谱](20261026/E0_SAVED_FLOW_SPECTRUM.md) |
 | **如何进行多Agent独立讨论与图回写？** | [领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[Graph↔Agent协议](agent_protocol/GRAPH_AGENT_COLLABORATION.md) | [讨论队列](method_discussion/QUEUE.md)、[图注原始发现](method_discussion/graph_annotations/E0/README.md)、[Graph Agent Bindings](agent_protocol/GRAPH_AGENT_BINDINGS.json) |
 
