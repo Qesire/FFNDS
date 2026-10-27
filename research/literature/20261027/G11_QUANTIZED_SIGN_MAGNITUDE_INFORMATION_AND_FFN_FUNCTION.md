@@ -68,3 +68,8 @@ FFNDS的原生路径为 norm2和FFN AdaLN → Smooth1/Q1 → W1[13824×5120] →
 5. 未来如另获模型/GPU授权，最后依次检验全40层four-step自由生成质量、背景/照明/运动、原生wall；实时衍生线额外TTFF/p99/chunk M和低位packed GEMM对照。
 
 **科研结论身份**：量化码/scale确实提供初等符号和幅值信息（SPEC）；直方图无法唯一确定signed GEMM dot（ALG+反例）；HiF4 64组数值闭包与full-M空间支持（OBS）已经存在；“存在充分可预测且净物理省算的本征视频FFN函数结构”仍为OPEN。此处坚守 Q1信息存在、Q2信息取得成本、Q3真实省FFN工作三问。
+
+
+## 6. 2026-10-27 一手论文与源码复核后的机制更新
+
+已完成 [L69–L73 五篇原文方程/实证/源码审查](G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)，并新增 [L74 SharQ：FP4 + N:M 两路真实GEMM、Wan2.2 T2V 原视频数据及NVFP4源码](G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)。摘要级旧阅读等级已升级。核心调整：Prox的INT4代理**真实花费两次GEMV**；Spark的统计预测来自**联合训练的模型**；SpQt多token prefill用dense，CodeGEMM的多token路径解完整量化权重再matmul；SQ-DM经ReLU替换/微调制造严格零；SharQ在线计算4:8稀疏主值并始终计算**dense残差**。这六个方向不能与“FP4符号与尺度可在W1前免费判定可省净函数”混为同一个主张。所有研究结果的模型/硬件不同，继续以功能净值、真实访存、scale-group闭包、native GPU kernel、完整视频和时间SLO为区别依据。原冻结实验仍暂停。

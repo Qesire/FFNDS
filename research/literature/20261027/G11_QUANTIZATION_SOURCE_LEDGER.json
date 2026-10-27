@@ -46,47 +46,102 @@
       "id": "L69",
       "name": "Prox: Training-Free FFN Activation Sparsity via Approximate Intermediate-Channel Salience in LLMs",
       "url": "https://arxiv.org/pdf/2607.27591",
-      "reading_depth": "ORIGINAL_ARXIV_V1_PDF_PAGES_3_TO_5_EQ_STAGE1_STAGE2_COST_AND_FIG3_FIG4",
+      "reading_depth": "ORIGINAL_ARXIV_2607.27591v1_SEC3_4_5_A1_A3_AUTHOR_PAPER_VERIFIED",
       "system": "LLM SwiGLU 3 linear GEMVs",
       "method": "stage1 input sparse and per-row INT4 proxy of up/gate; stage2 exact selected up/gate/down",
       "cost": "C=2alpha(1-s1)+3(1-s2); alpha=1/3 authors measured",
-      "difference": "quant proxy is extra GEMV; original Wan one W1/GELU/W2 and Q2 scale closure; 82% mask overlap is their task"
+      "difference": "quant proxy is extra GEMV; original Wan one W1/GELU/W2 and Q2 scale closure; 82% mask overlap is their task",
+      "paper_mathematics": "Cprox=2alpha(1-s1)+3(1-s2), effective e=s2-[2alpha(1-s1)]/3. Two INT4 proxy projections and exact fullprecision three selected projections.",
+      "benchmarks": "NVIDIA A6000 batch1 decode; author 1.51-1.99x at effective FFN sparsity60-70%; Fig3 82.77% single overlap, 82.04% 512-token mean; A3 Qwen3-8B aggregate70% 68.6->44.3.",
+      "strong_rival": "Same-stage cost FP16-proxy A1 worse at fixed budget; do not treat masks as available from weight sign for free.",
+      "code_review": "NO_VERIFIED_AUTHOR_IMPLEMENTATION_FOUND_IN_THIS_READING",
+      "evidence": "PAPER_PDF_16_PAGES_FIG3_FIG4_FIG5_TABLE3",
+      "primary_method_document": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
     },
     {
       "id": "L70",
       "name": "Spark Transformer: Reactivating Sparsity in Transformer FFN and Attention",
       "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/220d26c7fb478c2a397bd3fef0fe1d6f-Abstract-Conference.html",
-      "reading_depth": "OFFICIAL_NEURIPS_ABSTRACT_ONLY",
+      "reading_depth": "NEURIPS_2025_AUTHOR_FULL_36_PAGE_PDF_EQ2_EQ4_EQ9_EQ12_SEC4_APP_C_D_VERIFIED",
       "system": "LLM training altered FFN attention",
       "method": "low-cost predictor from reallocated parameters, statistical top-k",
-      "difference": "trained router is not naturally given quant metadata"
+      "difference": "trained router is not naturally given quant metadata",
+      "paper_mathematics": "f=V[GELU(TopK(K1^T q[:r])) ⊙(K2^T q[r:])]; cost=2r*dff+2*(d-r)*k+2*d*k. theta=mean+std*GaussianInvCDF(1-k/dff).",
+      "benchmarks": "Gemma2 2B retrained full recipe; d=2304, originaldff=9216, Sparkdff=13824, r=1024 k=1106 8%; author up to 1.79x CPU,1.40x GPU and 2.5x FLOPs fewer.",
+      "strong_rival": "Theorem Gaussian iid pertains to approximate active count, not truthful signed FFN function; new trained architecture, not frozen model.",
+      "code_review": "NO_VERIFIED_PUBLIC_AUTHOR_IMPLEMENTATION_INSPECTED",
+      "evidence": "OFFICIAL_NEURIPS_36_PAGE_PDF_THEOREM3_1_AND_TRAINING_ABLATIONS",
+      "primary_method_document": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
     },
     {
       "id": "L71",
       "name": "Enabling Dynamic Sparsity in Quantized LLM Inference (SpQt)",
       "url": "https://arxiv.org/pdf/2511.04477",
-      "reading_depth": "ORIGINAL_ARXIV_V1_PDF_PAGES_0_TO_3_STRUCTURE_AND_LAYOUT",
+      "reading_depth": "ARXIV_2511.04477v1_FULL_METHOD_SEC3_4_5_6_TABLE2_TABLE3_VERIFIED",
       "system": "Apple Silicon LLM decode GEMV weight quantization",
       "method": "zigzag quantized weight layout, sparse index gather, special GEMV",
-      "difference": "physical layout is essential; not native Wan HiF4 big M"
+      "difference": "physical layout is essential; not native Wan HiF4 big M",
+      "paper_mathematics": "Quantized Q4_K weight zigzag column-group packing, sparse-index collection, balanced simdgroup Metal GEMV, threshold obtained from TEAL.",
+      "benchmarks": "Apple A19Pro/M2 series max1.55x over Q4_K dense; 50% GEMV Fig9 1.51-1.78x; Llama2-7B Q4K ppl5.28,50%5.65,65%7.39.",
+      "strong_rival": "Author explicitly selects dense path for prefill/multi-token; no native multi-token FFN sparse GEMM established.",
+      "code_review": "IMPLEMENTATION_DESCRIBED_BY_AUTHOR_PAPER; NO_AUTHOR_CODE_READ",
+      "evidence": "ORIGINAL_ARXIV_PDF_PAGES3_8_FIG3_4_9_TABLE3",
+      "primary_method_document": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
     },
     {
       "id": "L72",
       "name": "SQ-DM: Accelerating Diffusion Models with Aggressive Quantization and Temporal Sparsity",
       "url": "https://arxiv.org/abs/2501.15448",
-      "reading_depth": "ORIGINAL_AUTHOR_ARXIV_ABSTRACT_ONLY",
+      "reading_depth": "ORIGINAL_AR5IV_AUTHOR_FULL_HTML_2501.15448_SECIII_IV_TABLEI_II_FIGURES_TEXT_VERIFIED__PDF_OVERSIZE",
       "system": "diffusion custom accelerator",
       "method": "step aware sparse detection, mixed-precision custom hardware",
-      "difference": "6.91x special accelerator not existing GPUs or video score"
+      "difference": "6.91x special accelerator not existing GPUs or video score",
+      "paper_mathematics": "EDM/EDM2 conv+SiLU->ReLU fullprecision finetune then PTQ (UINT4 for nonnegative); channel zero fraction10%->65%; per timestep sparse/dense channel classifier threshold30%; mixed MXINT8 and INT4 FP8 scale.",
+      "benchmarks": "EDM1 CIFAR10 FID FP16=1.85 MP-only=2.87 MP+ReLU=2.12. STONNE 28nm simulated 2×128 multiplier DPE/SPE; 3.78x quant times1.83x temporal sparsity=6.91x total, 51.5% energy saved.",
+      "strong_rival": "Activation model altered via finetuning (<10% pretraining time), custom hardware simulation. NOT frozen video DiT; not a natural metadata mask.",
+      "code_review": "NO_AUTHOR_NATIVE_CODE; ORIGINAL_AR5IV_BODY_FULL_READ",
+      "evidence": "AR5IV_AUTHOR_FULL_ORIGINAL_BODY_PDF_TOOL_FAILED_OVERSIZE",
+      "primary_method_document": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
     },
     {
       "id": "L73",
       "name": "CodeGEMM: A Codebook-Centric Approach to Efficient GEMM in Quantized LLMs",
       "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/3151e460c41ba67dc55412861184ef35-Abstract-Conference.html",
-      "reading_depth": "NEURIPS_2025_OFFICIAL_ABSTRACT_ONLY",
+      "reading_depth": "NEURIPS_2025_AUTHOR_FULL_ARXIV_2512.17970v1_SEC2_3_4_EQ2_3_AND_AUTHOR_PYTHON_CUDA_BLOBS_READ",
       "system": "weight-only 2-bit codebook GEMM",
       "method": "Psumbook centroid and input precompute, lookup by code",
-      "difference": "different codebook and operation than W4A4 HiF4; alternative structural representation prior art"
+      "difference": "different codebook and operation than W4A4 HiF4; alternative structural representation prior art",
+      "paper_mathematics": "Additive vector codebook: p_j,c=<centroid_c, x_chunk_j>; each weight code gathers p and accumulate with scale. Eq3 O(MNK*m*(2^b/M+1/v)) under M>>2^b.",
+      "benchmarks": "Llama3 8B/70B 2bit relative AQLM:1.83x/8.93x; physical Table3 is GEMV M=1 N=28672 K=8192.",
+      "strong_rival": "Actual released CodeGEMMLinear only if tokens==1 calls LUT/Psum CUDA; otherwise dequant entire weights then torch.matmul. No multi-token Psum GEMM route in inspected code.",
+      "code_review": "AUTHOR_PYTORCH_CUDA_DETERMINED_GEMV_B1T1_AND_FULL_DENSE_FALLBACK",
+      "evidence": "ARXIV_22_PAGE_AUTHOR_CODE_BLOBS_20261027",
+      "primary_method_document": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+    },
+    {
+      "id": "L74",
+      "name": "SharQ: Bridging Activation Sparsity and FP4 Quantization for LLM Inference",
+      "url": "https://arxiv.org/html/2606.26587",
+      "reading_depth": "ARXIV_V1_ORIGINAL_EQ6_13_TABLE3_4_5_FIG4_AUTHOR_CODE_REVIEWED",
+      "system": "Wan2.2 T2V A14B 4xRTX5090 + LLM",
+      "method": "activation outlier 4:8 in-pairs sparse FP4 backbone; R=x-DQ(Q(backbone)); one sparse FP4 GEMM PLUS full dense FP4 residual GEMM",
+      "benchmarks": "480P FP16 223.41 SharQ 182.21 1.23x SharQ+Sage 141.63 1.58x; 720P FP16 717.88 SharQ 648.04 1.11x SharQ+Sage 457.88 1.57x; dense NVFP4 prefill is faster than total SharQ (100 vs111.2%)",
+      "difference": "not I2V D-Q or fourstep; HiF4 sim path not native; no pure skip due dense residual",
+      "primary_method_document": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md",
+      "source_blobs": [
+        {
+          "path": "model/qLinearLayer.py",
+          "sha": "1db675d181663d4bd76868f40279e40db8428c31"
+        },
+        {
+          "path": "kernels/src/fused_sparse_prepare.cu",
+          "sha": "687470cc965cfd524157d7ea16afedba35b84a76"
+        },
+        {
+          "path": "kernels/README.md",
+          "sha": "8a09910a72256969ed94ca3d482fc8407e131c2b"
+        }
+      ]
     }
   ],
   "engineering": [
@@ -103,5 +158,50 @@
     "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json",
     "research/method_discussion/discoveries/E0/independent-sm120-packed-fp4-primitive-source-review-20261026.md"
   ],
-  "confidence": "SPEC/ALG/LIT versus native evidence clearly separated"
+  "confidence": "SPEC/ALG/LIT versus native evidence clearly separated",
+  "pinned_author_source": {
+    "repository": "naver-aics/codegemm",
+    "reference": "main as fetched 2026-10-27; blob-anchored",
+    "files": [
+      {
+        "path": "codegemm/inference/codegemm_linear.py",
+        "blob_sha": "c03de33cd2375094fc07d895c47a70b7e2eb8ba4",
+        "checked": "if x.numel()//in_features==1: codegemm_gemv; else dequant full weight and torch.matmul"
+      },
+      {
+        "path": "codegemm/inference/custom_kernel/gemv.cu",
+        "blob_sha": "f5872a2eba5c0dc9dc48bb8e7bbce36095f7f566",
+        "checked": "enforce batch=1 seq=1, dispatch m1v4/m2v8"
+      },
+      {
+        "path": "codegemm/inference/custom_kernel/codegemm.cu",
+        "blob_sha": "7ff6d96f33b0e196ca0b6fa5e94e3f299b30534f",
+        "checked": "shared LUT pSum, packed index and per-group scale and half2 atomicAdd"
+      },
+      {
+        "path": "codegemm/inference/plugin.py",
+        "blob_sha": "e4f4d96f3c1d89af3d0be97e3a60e2ffd50937c0",
+        "checked": "custom op binds codegemm_gemv"
+      },
+      {
+        "path": "README.md",
+        "blob_sha": "0d9de152dd44a9ba28199873eb33c57a6271494e",
+        "checked": "main m2v8g128 example with quant/fine tuning setup"
+      }
+    ],
+    "critical_execution_scope": {
+      "batch1_token1": "psumbased custom kernel",
+      "multi_token": "full weight dequantization + torch.matmul",
+      "reason": "codegemm_linear.py forward condition, C++ GEMV shape asserts"
+    }
+  },
+  "method_evidence_corrections": {
+    "L69": "precision co-designed proxy and original channel values; sparse+lowbit physical kernel not supplied",
+    "L70": "architecture retrained, Gaussian iid theorem has restricted scope",
+    "L71": "explicit dense prefill and sparse decode only",
+    "L72": "activation-function replacement, posttrain finetune and STONNE simulation; not metadata-only",
+    "L73": "codebook lookup math verified, public implementation fast path single-token only"
+  },
+  "last_primary_review": "2026-10-27",
+  "deep_audit_document": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
 }

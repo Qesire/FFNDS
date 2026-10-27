@@ -1,3 +1,6 @@
+
+**G11六篇重点的一手精读：** [L69–L73原始算子、成本与消融](../20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)，[L74 SharQ、Win T2V 4×RTX5090论文表格及实际CUDA路径](../20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)，[逐篇来源等级及CodeGEMM/SharQ blob SHAs](../20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)。目录现74条，研究图137节点/254关系；区分论文的硬件速度与FFNDS原生I2V结果。
+
 **G11最新研究近邻**：[符号与幅值量化信息/动态scale/严格证书/FFN有符号函数](../20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)；[5篇强对照Prox/SpQt/Spark/SQ-DM/CodeGEMM及MXFP4/NVFP4一手规格和来源深度](../20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)。现73项研究。不能把量化sign/scale天然有→点积符号可免算，或后验mask→W1合法空tile。冻结原生实验权限。
 
 **2026-10-27 独立实时模型文献线：** [14项原始论文/报告及作者源码](../20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)与[一手证据分级](../20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)新增 G10 S01–S25。优先比较Causal Forcing++ v4的1–2步framewise蒸馏、EdenLive LightX2V/5090的外部参考条件与原Wan FFN、SCD时间功能分离、LongLive2 NVFP4原生GEMM和KV、StreamDiffusionV2 SLO。论文集现68项；模型执行继续暂停。
