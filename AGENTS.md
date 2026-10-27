@@ -2,6 +2,8 @@
 
 **当前解释入口（2026-10-27）**：[FFN机理与文献综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [权威G0–G12计算图](docs/98_端到端计算图与证据注解_20261025.md) · [12类机制/源码/论文/计算成本映射](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) · [79篇文献分级索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) · [当前研究状态与权限](research/ACTIVE_RESEARCH.json)。
 
+**当前来源与图谱规模**：79个LID、153个稳定节点、313条有类型关系。新增的26条跨机制边均为文献/ALG/OPEN比较，不是新native execution。
+
 **研究现场**：原生 LightX2V Wan2.2-I2V-A14B D-Q 四步high/high/low/low，40 blocks；FFN是norm2/AdaLN→Smooth1/Q1→W1→tanh-GELU→Smooth2/HiF4 Q2(64→8→4)→W2→e5 BF16 gated residual→后续blocks/flow/video。现已覆盖10个独立source身份、12条source×seed完整轨迹、1920个全深度FFN观察位置，旧方法曾有真实速度收益和视频质量失配。原生fake-QDQ不是已部署NVFP4/MXFP4 packed GEMM。外部G7–G12论文、数学与实时video均是可检验研究参考。
 
 **研究权限**：当前主动进行论文原文/源码核查、机制推导、已保存证据整理、计算图增量与Agent独立讨论。全部**新CPU/GPU/模型/视频**实验暂停，另行明确授权才能运行。AGENTS/图/论文索引/CI不授予执行权限；历史授权不能自动续用。
