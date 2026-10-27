@@ -17,7 +17,7 @@
     "G8": "Primary-method external FFN N:M, trained MoE, low-rank feature cache and sparse MLP delta branches",
     "G9": "LIT: temporal linear prediction, hard-routed sparse FFN trees, architecture-induced FFN/attention function redistribution",
     "G10": "External realtime-generation literature + open FFN cross-architecture hypotheses; S01–S18=LIT, S19–S20=OPEN; separate from paused G6 scenario",
-    "G11": "SPEC/ALG and LIT quantized sign/amplitude information, original HiF4 QDQ closure and OPEN causal function/physical savings; Q01–Q18"
+    "G11": "SPEC/ALG/LIT/OBS/SRC plus OPEN quant signed information and 5 primary-deep-audited competitor graphs Q01–Q29; paper identity and real source execution differ."
   },
   "nodes": [
     {
@@ -1463,6 +1463,127 @@
         "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md"
       ],
       "open_question": "What information, function and physical cost does this node add?"
+    },
+    {
+      "id": "Q19",
+      "graph_section": "G11",
+      "meaning": "L69 Prox Stage1 input-sparse INT4 two-projection mask construction",
+      "availability": "current SwiGLU input and proxy weight after paid INT4 GEMVs",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "Pre W1-GELU-W2 lowcost only if proxy costs amortize"
+    },
+    {
+      "id": "Q20",
+      "graph_section": "G11",
+      "meaning": "L69 Prox Stage2 selected original up/gate/down and effective cost allocation",
+      "availability": "after computed proxy mask",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "No approximate proxy value writeback"
+    },
+    {
+      "id": "Q21",
+      "graph_section": "G11",
+      "meaning": "L70 Spark trained K1 partial-input predictor and joint parameter reallocation",
+      "availability": "new model trained lowdim q[:r]",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "Original Wan frozen weight cannot substitute automatically"
+    },
+    {
+      "id": "Q22",
+      "graph_section": "G11",
+      "meaning": "L70 Spark Gaussian mean-std statistical topk soft threshold",
+      "availability": "after new model predictor projection",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "Theorem i.i.d. Gaussian, approximate nonzero count"
+    },
+    {
+      "id": "Q23",
+      "graph_section": "G11",
+      "meaning": "L71 SpQt zigzag quantized weight packing aligned with sparse input channels",
+      "availability": "offline quant weight conversion",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "Apple Q4_K grouped GEMV not original Wan QDQ"
+    },
+    {
+      "id": "Q24",
+      "graph_section": "G11",
+      "meaning": "L71 SpQt sparse-index collection+loadbalanced Metal GEMV with dense-prefill fallback",
+      "availability": "per token decode or multi-token prefill",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "prefill intentionally dense; runtime indices charged"
+    },
+    {
+      "id": "Q25",
+      "graph_section": "G11",
+      "meaning": "L72 SQ-DM SiLU to ReLU finetune and uint4 zero-generating function change",
+      "availability": "model finetune and PTQ before deployment",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "65% zero mostly constructed via new ReLU function"
+    },
+    {
+      "id": "Q26",
+      "graph_section": "G11",
+      "meaning": "L72 SQ-DM timestep per-channel sparsity classifier and mixed dense/sparse PE simulation",
+      "availability": "each diffusion timestep after output zero-count measurement",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "30% classification threshold; 6.91x simulated hardware"
+    },
+    {
+      "id": "Q27",
+      "graph_section": "G11",
+      "meaning": "L73 CodeGEMM additive quantized vector codes and Psumbook build",
+      "availability": "online input centroid dot reuse in single vector",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "Not FP4 scalar E2M1 equal codebook"
+    },
+    {
+      "id": "Q28",
+      "graph_section": "G11",
+      "meaning": "L73 CodeGEMM author single-vector CUDA GEMV LUT and code-index accumulation",
+      "availability": "codegemm_gemv batch=1 token=1",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "Verifiable actual source branch"
+    },
+    {
+      "id": "Q29",
+      "graph_section": "G11",
+      "meaning": "L73 CodeGEMM author multi-token fallback: dequant full weight then torch.matmul",
+      "availability": "codegemm_linear.py x.numel()/in_features>1",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+      ],
+      "open_question": "Strong physical nontransfer evidence for Wan large M"
     }
   ],
   "edges": [
@@ -2560,6 +2681,126 @@
       "from": "S20",
       "to": "Q13",
       "relation": "realtime_small_chunk_kernel_SLO_cross_reference"
+    },
+    {
+      "from": "Q15",
+      "to": "Q19",
+      "relation": "method_primary_prox_stage1_proxy_from_input_and_INT4"
+    },
+    {
+      "from": "Q19",
+      "to": "Q20",
+      "relation": "method_primary_prox_stage2_original_fullprecision_selected_values"
+    },
+    {
+      "from": "Q20",
+      "to": "Q09",
+      "relation": "compare_original_wan_signed_function_vs_mask_overlap"
+    },
+    {
+      "from": "Q16",
+      "to": "Q21",
+      "relation": "method_primary_spark_trained_partial_predictor"
+    },
+    {
+      "from": "Q21",
+      "to": "Q22",
+      "relation": "method_primary_sparse_k_stat_threshold_after_K1"
+    },
+    {
+      "from": "Q22",
+      "to": "Q09",
+      "relation": "comparison_only_topk_count_not_wan_downstream_signed_value"
+    },
+    {
+      "from": "Q17",
+      "to": "Q23",
+      "relation": "method_primary_spqt_offline_zigzag_weight_repack"
+    },
+    {
+      "from": "Q23",
+      "to": "Q24",
+      "relation": "method_primary_spqt_quant_sparse_kernel_and_index_collection"
+    },
+    {
+      "from": "Q24",
+      "to": "Q13",
+      "relation": "strong_competing_prefill_dense_decoding_sparse_execution"
+    },
+    {
+      "from": "Q18",
+      "to": "Q25",
+      "relation": "method_primary_sqdm_activation_replacement_creates_zero"
+    },
+    {
+      "from": "Q25",
+      "to": "Q26",
+      "relation": "method_primary_sqdm_stepwise_hardware_engine_classification"
+    },
+    {
+      "from": "Q26",
+      "to": "Q11",
+      "relation": "comparison_only_custom_stonne_vs_wan_hif4_scale_dependence"
+    },
+    {
+      "from": "Q18",
+      "to": "Q27",
+      "relation": "method_primary_codegemm_alternative_encoded_function"
+    },
+    {
+      "from": "Q27",
+      "to": "Q28",
+      "relation": "author_code_single_token_psum_lookup_cuda"
+    },
+    {
+      "from": "Q27",
+      "to": "Q29",
+      "relation": "author_code_multi_token_falls_back_to_dequant_dense"
+    },
+    {
+      "from": "Q28",
+      "to": "Q14",
+      "relation": "competing_single_vector_codebook_vs_native_fp4_dense"
+    },
+    {
+      "from": "Q29",
+      "to": "Q13",
+      "relation": "multi_token_codegemm_source_is_dense_not_sparse_kernel"
+    },
+    {
+      "from": "S20",
+      "to": "Q24",
+      "relation": "small_chunk_vs_big_M_sparse_gemv_bound"
+    },
+    {
+      "from": "S20",
+      "to": "Q29",
+      "relation": "small_chunk_vs_big_M_psum_source_bound"
+    },
+    {
+      "from": "F04",
+      "to": "Q19",
+      "relation": "compare_pre_w1_proxy_information_cost"
+    },
+    {
+      "from": "F08R",
+      "to": "Q20",
+      "relation": "hif4_group_closure_blocks_postmask_exactness"
+    },
+    {
+      "from": "F09",
+      "to": "Q28",
+      "relation": "compare_computational_rewrite_for_w2"
+    },
+    {
+      "from": "Q08",
+      "to": "Q19",
+      "relation": "closest_known_quant_proxy_prior"
+    },
+    {
+      "from": "Q14",
+      "to": "Q29",
+      "relation": "must_compare_dense_fp4_with_multi_token_fallback"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -2943,6 +3184,21 @@
     "document": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md",
     "ledger": "research/literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json",
     "experiment_started": false,
-    "conclusion": "code signs/scales are available after correctly placed quantization, not free prequant activation dot or downstream value"
+    "conclusion": "code signs/scales are available after correctly placed quantization, not free prequant activation dot or downstream value",
+    "deep_audit": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md",
+    "detail_node_ids": [
+      "Q19",
+      "Q20",
+      "Q21",
+      "Q22",
+      "Q23",
+      "Q24",
+      "Q25",
+      "Q26",
+      "Q27",
+      "Q28",
+      "Q29"
+    ],
+    "source_code_finding": "CodeGEMM public module only runs psum GEMV on token_count=1; larger M dequantizes full weights and calls dense matmul"
   }
 }
