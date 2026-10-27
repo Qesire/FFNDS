@@ -45,7 +45,7 @@ UB1原配置：
 
 证据：[联合工程RUN](../../reports/worker_20261020/UB1_joint_engineering_acceptance_RUN.json)、[原20 CSV](../../reports/worker_20261020/formal20_UB1_paired_sources.csv)、[新20 CSV](../../reports/worker_20261020/disjoint20_UB1_paired_sources.csv)、[补充20审查](../../docs/29_冻结候选的来源分离补充验证.md)、[R17全系统时延](../20261023/R17E0_system_timing_prefix.json)、[UB2真实失败和完整轨迹](../../docs/38_固定预算下恢复末步完整FFN.md)、[OP3比较](../../docs/46_真实状态重拟合与导入延迟修正.md)。
 
-**当前会话的局部跟进**：[Terra逐帧复核](UB1_INDEPENDENT_VISUAL_REVIEW.md)与[原版运动补评](UB1_DYNAMIC_DEGREE_RESULTS.md)实际覆盖两个已暴露formal20来源、四原视频，光流均值约为dense的38.1%/9.19%，而二值dynamic degree四条均0。它们为外观/运动观察提供补充，保留原20/新20聚合以及WP3独立来源设计的完整范围。
+**新增正式研究命题——相对Dense的运动幅度衰减**：[完整独立机制审查](UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)、[原版RAFT+SHA](UB1_DYNAMIC_DEGREE_RESULTS.md)、[逐帧复核](UB1_INDEPENDENT_VISUAL_REVIEW.md)。两个已暴露formal20来源UB1/Dense top5%连续光流38.13%/9.19%（衰减61.87%/90.81%）；犀牛38/40对、住宅40/40对比Dense低，五个不重叠8-pair窗口均低。原版二值Dynamic Degree四视频均0；原正式20仅有的Motion Smoothness均值0.983923/0.983850不能揭示这一变化。这是**两视频内的持续测量现象而不是普遍动态功能失去的证据**，且视觉质量/模糊变化影响RAFT追踪可观测性；真实主体位移、动作语义、相机运动与泛化还需独立确认。
 
 ## 3. 研究机制：五个能够分别修订的假说
 
@@ -87,6 +87,24 @@ UB1的R256是post-Q1→两次BF16投影，解决部分遗漏输出；它与真�
 
 竞争方案：**不变结构**先比较同一状态、同源同预算下的native路径；**不同目标**可直接采用现有groupwise sequential calibration、2ndMatch/Jacobian敏感性、CTEC/rollout或轻量LoRA；**不同函数类**则允许rank、非线性组、block参数和训练后结构改变，但要实际计入成本。Q1/Q2/写回需要沿真实源码比对。
 
+### H-Motion：外观保留与运动衰减为何可能并存？
+
+UB1按step静态组选择C_mean、R256恢复局部输出；它没有逐token动态mask切换，所以[A5+HWG](A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)的阈值抖动不是UB1的直接解释。现有两条已暴露视频仍呈相对Dense持续低RAFT动态幅度；[完整假说、数据与最小判别](UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)将这一观察升格为正式待检验问题。
+
+- **H-MEASURE**：UB1纹理、模糊、背景/编码差异可能降低RAFT在固定真实位移下的追踪可观测性。先在原81帧、16fps原视频上比较ROI关键点/轮廓位移、相机补偿、遮挡置信和跟踪器一致性；不将top5 RAFT直接命名真实主体速度。
+- **H-CAP**：传统平均gated W2能量组选择与rank256残差保留外观，却可能遗漏仅在罕见动作/latent视频时间变化上重要的有符号联合函数。固定计算预算比较同source组选择及MPC/FLAP/OBS成熟消费者重构，必要时做合法同prefix原生因果插入。
+- **H-TRAJ**：下游attention、flow、四步去噪和VAE可能改变运动方向。其它E0候选的P/N finite轨迹数据只支持“存在这种可能”，**不是UB1本人运动衰减已定位**。用same-input FFN→nextnorm→整步flow→latent→video逐边检验。
+- **H-DATA/SEM**：24独立校准来源×256行每source的覆盖、传统局部输出loss、不同prompt要求都可能影响结果。犀牛grazing有动作语义；住宅静态prompt没有镜头运动要求。固定总行数下分层motion-rich/static/camera来源，报告动作是否“符合prompt”，而不是单纯要求候选运动越大越好。
+
+**新数学对象**：对已固定来源/图边的**线性latent视频时间差分**\(D_\tau\)（21 latent时间槽，不是4 denoising steps或81 RGB frames），若\(Y_S=Y_D+e\)，
+\[
+\|D_\tau Y_S\|^2-\|D_\tau Y_D\|^2
+=2\langle D_\tau Y_D,D_\tau e\rangle+\|D_\tau e\|^2.
+\]
+这一通用恒等式分出正常运动方向与扰动方向的signed作用，不能代替非线性RAFT/对象运动指标或冒充新颖定理。原FFN group不必有专属“运动语义”；观测的函数方向与物理可省算单位是不同对象。
+
+**论文成熟入口**：VideoJAM(ICML2025)联合外观/运动目标及Inner-Guidance；Motive(ICML2026)利用运动区域加权梯度选择微调来源；Dual-Expert Consistency Model(ICCV2025)将semantic/motion与detail训练分工。它们是可直接迁移或比较的先例；**DCM semantic/detail专家与Wan按噪声等级high/low专家不是同一个计算结构**。未来若恢复动作保真，需同来源相同GPU成本和质量向量、真实整40层四步视频确认，而不先验要求一定采用训练或动态路由。
+
 ### H-System：质量改善与真实系统收益是不同的资源坐标
 
 R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部分固定，条件Amdahl上界约\(1/(1-0.195)=1.242\)，UB1实际完整生成1.0757×；这个上界**只针对R17的特定resident强基线、硬件和串行成本假设**。真实QDQ、启停、weight residency、额外R256、kernel形状与pack内存成本都可改变比较。并行研究真正packed低位dense或核融合，完全有可能在更强系统基线上验证更好的执行策略；不把输入动态作为必须实现的功能。
@@ -115,6 +133,8 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 | **TARDIS / LLMFolder** | 若原子组缩减能力受限，可探索conditional affine+必要真实非线性等竞争函数类 | TARDIS在线2-bit预测器和原FFN修正付费；LLMFolder已确认EuroSys发表但公式尚未逐节查阅 |
 | **RT-Lynx ICML2026** | 测试保持稠密权重完整能力、仅对本次GEMM输入2:4稀疏与norm+LoRA恢复；W1输入和W2输入分别定义 | 与UB1直接删whole64组是不同动作；原tile全满不阻止SpTC 2:4，作者图像DiT/H20数据不等于Wan；线上内核和训练均计费 |
 | **TAPE (2026)** | 视频时序预算与内容运动平滑 | 原重点token处理，不能将其指标横向换算UB1的hidden 64组 |
+| **VideoJAM (ICML2025) / Motive (ICML2026)** | 外观与运动联合监督、motion-weighted来源选择与动作区域加权 | 是成熟训练/数据方法，不代表已经验证UB1 FFN恢复或无开销部署 |
+| **Dual-Expert Consistency Model (ICCV2025)** | 少步蒸馏中semantic/motion与detail分工及Temporal Coherence | 该semantic/detail双专家不等同于Wan high/low噪声expert |
 
 **学习最优先例**与**准确报告可能的新机制**并不冲突。UB1原静态4步宽度不是时间条件计算的首创；Model Preserving Compression意味着“选择部分通道并重构消费者”也非新思想。若直接采用这些做到了更好的Wan视频质量/成本，可以如实作为有价值的复现和适配成果。
 
@@ -127,6 +147,8 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 ### WP1 · 最小数学与文献对照（当前允许，ALG/LIT/SRC）
 
 分别复核C_mean的有符号交叉缺口、基于同一总预算的四步组数约束、原生Q2与R256的实际成本。检查SlimDiff的协方差结构、OBS-Diff的序贯组校准与DyDiT/DIFS的step训练对象，并尝试构造1–2个**改变研究判断**的明确反例：如两个相同组能量的不同相干结构产生不同真实输出，或UB1/UB2局部末步误差改善并不降低前缀状态误差。数学构造可沿用现有定理，不必须“首次提出”。
+
+**运动专项**：本轮已只读核对原RAFT 40对×4视频、五窗口比以及38/40、40/40对的持续性；未补测其余formal20/另一20，也未获得新主观或物体追踪结论。已暴露视频用作机制发现，新source用于事前冻结motion/static/camera类别的确认。具体M0–M5见[独立机制审查](UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)。
 
 ### WP2 · 来源级泛化解释与已有数据（当前允许，已有文件只读）
 
@@ -156,6 +178,8 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 全40层×4步、同输入/seed配对、独立从未用于调参的确认来源、真实81帧自由生成；完整逐视频Aesthetic/Imaging/Motion及Dynamic Degree、Subject/Background一致性、Temporal Flicker、必要ROI/相机运动。逐轴报告相对Dense变化、源级tail和组别；测试模型指标版本、正反方向、评价粒度固定。明确原历史≤2%门槛是UB1原formal20内部验收条件，研究发现并不以先过门槛为必要资格；**若对外声称质量保真**，则应先预注册明确可审查的多指标标准并实际通过。
 
 性能以相同硬件/运行次数/分辨率/权重驻留的Dense D-Q、原UB1、相同预算C24/UB2及可获得的成熟论文实现比较；汇报完整FFN、DiT主干及整段生成wall、VRAM、冷/热启动、bank、校准与可选训练代价。检查后验组稀疏是否真的减少W1、Q2/W2、合法M/K/tile执行；强Dense resident与native packed低位Dense可作为C线独立竞争基线。不能把50%主GEMM直接写成50%整网FLOPs或2×整体加速。
+
+**新增motion必要分辨力**：逐视频原版Dynamic Degree binary + **标注为自定义连续诊断**的40-pair top5 RAFT均值/五窗口，主体/相机/背景运动、动作语义、对象轨迹、ROI纹理可追踪性；缺的项目标NOT_RUN。原Motion Smoothness不能替代动态程度，结构稳定不能直接验证运动正确。标准详见[指标合同](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)与[运动研究](UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)。
 
 ## 6. 决策逻辑与可交付成果
 
