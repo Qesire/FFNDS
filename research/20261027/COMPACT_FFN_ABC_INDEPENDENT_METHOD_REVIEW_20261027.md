@@ -2,6 +2,17 @@
 
 **状态：INDEPENDENT_METHOD_REVIEW / DISCUSSION_ONLY / STATIC_ONLY。** 评议对象：[A/B/C原方案](COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。应用仓库ffnds-paper-discovery、ffnds-experiment-evidence、mechanism-research、problem-reformulation、web-research-discovery及数学方法Skill，从问题结构、数学必要条件、已有证据、真实源计算路径及原论文重新评议。本评议**不是**独立第二Agent的支持票、QUEUE认可或实验授权；没有重新训练、执行模型、生成视频或获得A/B/C实际Wan实验结果。
 
+## 0.1 评议过程中主分支新增的原生证据（2026-10-28归档版本）
+
+在本评议进行时，main又合并了[consumer独立20来源评测](UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)、[源级状态与原生生成](UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)、[A0 Whole94适配就绪审查](../method_discussion/discoveries/E0/compact6016-adaptation-readiness-20261028.md)、[四位置来源稳定诊断](../20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)和[真实GPU fused 2:4数据](E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)。据此更新本评议的证据条件：
+
+- **VIDEO，已暴露开发20来源**：fresh Dense/consumer有20对同源同initial-noise真实81帧视频；相对Dense，消费者RAFT 6.894→1.152（−83.28%），官方dynamic degree二值6/20→0/20，imaging 72.629→71.626（−1.38%）；一致性升高可能伴随静止。另有20条历史neutral，初始噪声字节对齐未证实，勿将其作为同噪声强配对。此次60条视频/20来源、原版八个独特指标不等于正式VBench九维和camera motion，也不是独立未暴露确认集。**这使A/B的运动保留成为更具跨来源一致性的研究动机，不证明B低能高敏方向存在。**
+- **NATIVE/OBS，四teacher位置**：旧CAL24源删除时whole64固定支持Jaccard均值0.980–0.998，说明在测量的四位置、该能量统计下，支持对单来源移除较稳定。它让“由于这四位置的来源支持选择不稳而直接失去运动”成为相对弱的解释；**其余156位置、Student-state/轨迹及量化数值仍需单独辨别**。
+- **NATIVE-OBS，A100合成2:4**：新增fused online CUTLASS路径W1形状15.684ms vs dense16.247ms，W2形状15.867ms vs dense15.982ms，只有约3.5%/0.7%非交错、五次稳态测量的边际收益。它是**masked合成输入的执行证据**，不是原Wan稀疏化质量、跨机器显著收益或完整视频提速；B-Factored与C-LUT的真实系统成本门因此更加重要。
+- **A0已有具体原生启动路径**：Whole94原有可重用bank包含选出的完整64通道组、真实缩窄Q2、原W1选行及由四来源ridge修复的BF16输出权重。新A0适配的量化STE、训练/heldout来源身份、新student状态及权重包可达性都**尚未验证/生产**；需严格区分历史ridge预算与新的训练预算。
+
+本节后面的A/B/C判断在此更新范围内成立：**大量源的新事实是行为退化而不是新方法成功；A更需要强恢复基线，B更需要定义时间行为读出，C更需要物理执行证据。**
+
 ## 1. 评议结论
 
 | 方法 | 正确且有价值的部分 | 当前最重要的结构缺口 | 决策 |
