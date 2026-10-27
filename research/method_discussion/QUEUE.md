@@ -1,4 +1,10 @@
-**M-B首份方法已完成（2026-10-28）**：[gate/suffix敏感坐标快照](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)给出同source配对代理、末层64个head坐标＋均值/范数有限身份及folded/factored真实预算；[独立数学/SRC评议](discoveries/E0/b-sensitive-coordinates-method-independent-review-20261028.md)只支持所绑定版本的推导与分阶段设计。B0状态采集还待代码/资产冻结；该快照不自动成为formal proposal/endorsement，A0四位置pilot完成、full80仅草案。
+# FFNDS · Agent 方法讨论工作队列
+
+**研究方法及现行交接**：[统一M-A/M-B/M-C方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)；[M-B B0/B1任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。本队列负责独立机制提案和审阅，不登记实际模型执行；运行依据[ACTIVE](../ACTIVE_RESEARCH.json)。以下仍保留各项真实历史审阅出处。
+
+## 当前讨论状态（2026-10-28）
+
+**M-B方法快照v2已完成（2026-10-28）**：[gate/suffix敏感坐标快照](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)给出同source配对代理、末层64个head坐标＋中心化方差（65个中间充分统计的v2表示）及原66统计表示及folded/factored真实预算；[独立数学/SRC评议](discoveries/E0/b-sensitive-coordinates-method-independent-review-20261028.md)只支持所绑定版本的推导与分阶段设计。B0状态采集还待代码/资产冻结；该快照不自动成为formal proposal/endorsement，A0四位置pilot完成、full80仅草案。
 
 **P30/I19独立评议**：[6016适配代码审阅](discoveries/E0/compact6016-pilot-independent-code-audit-20261028.md)后已完成[限定四位置原生先导](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)。[B加权投影与配对](discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)由独立Agent推导、root核对反例全斜投影范围；ALG支持不等于模型实验通过。全80新范围仍按ACTIVE单独冻结。
 
@@ -6,7 +12,7 @@
 
 **下一Agent的M-B研究起点（已完成数学v2后的续作，尚非新方法提案）**：[B0/B1原生有限响应与B-H/B-F函数构造任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)直接依据[现行三路线整合方案](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)、已完成[M-B方法v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)及A0 P30四位置恢复。首个新成果是B0真实producer/neutral与B1有限响应判别，不是重新创建已存在的首份METHOD_SNAPSHOT；proposal/review/endorsement仍依独立Agent真正提交记录。
 
-# FFNDS · Agent 方法讨论工作队列
+## 已有方法证据的讨论导航（历史记录继续保留）
 
 **P29独立讨论新增：** [在线分项审阅](discoveries/E0/activation24-online-components-independent-review-20261027.md)、[双后端独立审阅](discoveries/E0/activation24-cutlass-backend-independent-review-20261027.md)及[C4原始结果核验](../20261027/E0_ACTIVATION24_CUTLASS_BACKEND_RESULTS_20261027.md)针对确切代码/范围。两通用转换实测成本较高，直接生产packed值与metadata是新的OPEN表示，不等于已通过模型质量。
 

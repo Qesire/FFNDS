@@ -5,6 +5,9 @@ on:
     paths:
       - 'research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json'
       - 'research/agent_protocol/GRAPH_AGENT_BINDINGS.json'
+      - 'research/agent_protocol/METHOD_OPERATION_CROSSWALK.json'
+      - 'research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md'
+      - 'research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md'
       - 'research/literature/20261026/PRIMARY_LITERATURE_INDEX.json'
       - 'docs/98_端到端计算图与证据注解_20261025.md'
       - 'tools/graph_agent_bridge.py'
@@ -26,7 +29,7 @@ jobs:
           python-version: '3.11'
       - name: Compile G14 graph bridge
         run: python -m py_compile tools/graph_agent_bridge.py tests/test_graph_agent_bridge.py
-      - name: Validate indexed paper provenance and visible Mermaid graph
+      - name: Validate paper provenance, current method/prior contracts, and visible Mermaid graph
         run: python tools/graph_agent_bridge.py validate
       - name: Run graph native evidence and paper coverage regression tests
         run: python tests/test_graph_agent_bridge.py
