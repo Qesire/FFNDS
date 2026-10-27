@@ -1,5 +1,7 @@
 # FFNDS · 研究导航（2026-10-27）
 
+**G14论文先验反向审计**：[现有M-A/M-B/M-C哪些已经符合、哪些尚未充分使用G14计算图知识](20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)。重点是M-B真实gate/后缀方向的正常作用、GELU/量化后可生成性、时间可预测性与低rank真正省算，另审A0的跨模块/rollout学习和M-C的大M LUT/信息瓶颈。文档提出可核验的E_m/E_j二维反例；新增科学方法约束不改变已有RUN/ACTIVE。
+
 **现行方法论（五种可组合操作）**：[五操作×I/F/C×当前FFNDS方案的完整交叉矩阵](20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，[G14文献操作机器交叉表](agent_protocol/METHOD_OPERATION_CROSSWALK.json)。将论文中的实际动作区分为O-A计算选择、O-B替代函数、O-C跨步历史复用、O-D低位/表/内核代数、O-E校准/蒸馏/因果评测；旧候选统一别名M-A/M-B/M-C，下一位Agent继续以**M-B gate-conditioned敏感坐标**为首项任务。
 
 **新表示首个原生结果（P30）**：[四位置6016恢复先导](20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)完成1024次更新、8份可重载BF16学生。相同预算下energy94在8个旧诊断来源的四位置误差为1.06%–2.55%，random94为1.46%–3.65%，尚未跑完整80/两个step或视频。[B条件敏感度配对推导（I19）](method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)证明固定度量的加权投影解与source/state配对的必要边界。A0为NATIVE-OBS强基线、I19为ALG；全80双step仅保留未运行草案。当前优先[M-B方法快照](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)：U28给出末层head坐标与LayerNorm均值/范数的有限身份，先生产同状态原生u，再判别有限响应；具体运行以ACTIVE为准。
