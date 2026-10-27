@@ -25,6 +25,8 @@
 
 **本轮的新判别**：[共享输入联合支持/精确投影比较器](../20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)为ALG＋604有限排列；[原M Q2直接/补集](../20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)及[W2形状控制](../20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)为保存操作数NATIVE-OBS，未知行填零、无后缀/新视频。用户另要求的[UB1静态全帧复核](../20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)有原视频SHA及三项历史逐视频评分，属于LLM视觉观察。
 
+**新增论文与算子判断（2026-10-27，LIT/SRC；尚无新Wan 2:4运行）**：[RT-Lynx原文深审](../20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)确认其输入侧activation 2:4 + norm + rank64 LoRA + SpTC核，**不是weight删列或whole64通道剪枝**。强制预训练weight 2:4可能破坏跨输入长期容量；输入活动接近零不等于neuron语义证明。原E0的64组/tile全满不能排除2:4 SpTC。对Wan分别考察**Q1后W1输入**及**Q2后W2输入**：后一种只可能省W2乘加、仍全付W1/GELU/Q2；真实HiF4/BF16与A100执行、视频质量保持OPEN。由[研究导航](../RESEARCH_NAVIGATION.md)进入[UB1](../20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)、[Affine54](../20261027/QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)的研究计划，不自动授权新的GPU/训练。
+
 ## 并行可发展的机制问题
 
 **I · 信息与表示**：从Q1输入何时可得、权重/码字、共享比例尺、已有latent/历史状态和有符号约束出发，探索新信息界、等价代数与信息获取净价值；允许先产生直接编码或可证明省算机制。
