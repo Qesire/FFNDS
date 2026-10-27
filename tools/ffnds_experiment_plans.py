@@ -93,21 +93,44 @@ def source_bank(path):
 
 
 def choose(sources, role, strata, seed, *, allow_same_image_with_distinct_prompts=False):
+    """Draw independent image clusters before selecting their prompt condition.
+
+    Official Image Suite mode instead samples image-prompt conditions, preserving
+    the benchmark's legitimate possibility of multiple prompts for one image.
+    """
     grouped = defaultdict(list)
+    image_strata = defaultdict(set)
     for s in sources:
         if s["role"] == role:
             grouped[s["scene_stratum"]].append(s)
+            image_strata[s["image_id"]].add(s["scene_stratum"])
+    if not allow_same_image_with_distinct_prompts:
+        ambiguous = sorted(img for img, labels in image_strata.items() if len(labels) > 1)
+        if ambiguous:
+            raise ValueError("Image clusters cross incompatible scene strata: " + repr(ambiguous[:3]))
     chosen = []
     for stratum_index, (stratum, n) in enumerate(sorted(strata.items())):
-        candidates = sorted(grouped[stratum], key=lambda s: s["source_id"])
         rng = random.Random(seed + 1000003 * (stratum_index + 1))
-        rng.shuffle(candidates)
-        if n > len(candidates):
-            raise ValueError(f"{stratum}: need {n} independent sources, have {len(candidates)}")
-        chosen.extend(candidates[:n])
+        candidates = sorted(grouped[stratum], key=lambda s: s["source_id"])
+        if allow_same_image_with_distinct_prompts:
+            rng.shuffle(candidates)
+            if n > len(candidates):
+                raise ValueError(f"{stratum}: need {n} image-prompt conditions, have {len(candidates)}")
+            chosen.extend(candidates[:n])
+            continue
+        by_image = defaultdict(list)
+        for candidate in candidates:
+            by_image[candidate["image_id"]].append(candidate)
+        cluster_ids = sorted(by_image)
+        rng.shuffle(cluster_ids)
+        if n > len(cluster_ids):
+            raise ValueError(f"{stratum}: need {n} independent image clusters, have {len(cluster_ids)}")
+        # The same frozen bank/seed produces nested source subsets as n increases.
+        for image_id in cluster_ids[:n]:
+            chosen.append(rng.choice(sorted(by_image[image_id], key=lambda s: s["source_id"])))
     ids = [s["image_id"] for s in chosen]
-    if len(set(ids)) != len(ids) and not allow_same_image_with_distinct_prompts:
-        raise ValueError("Chosen calibration sources contain image-cluster duplicates")
+    if not allow_same_image_with_distinct_prompts and len(set(ids)) != len(ids):
+        raise ValueError("Chosen sources contain image-cluster duplicates")
     return sorted(chosen, key=lambda s: s["source_id"])
 
 
