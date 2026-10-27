@@ -18,6 +18,32 @@ class ClusterMetricTests(unittest.TestCase):
         self.assertEqual(r["actual_sample_records"], 6)
         self.assertAlmostEqual(r["relative_percent"], -10)
 
+    def test_equal_source_conditions_inside_shared_image_cluster(self):
+        # Four repetitions for one prompt must not outweigh a second prompt on the same image.
+        rows = [{"source_id": "A", "image_id": "shared", "seed": i,
+                 "metric": "imaging_quality", "dense": 1, "candidate": .5}
+                for i in range(4)]
+        rows += [{"source_id": "B", "image_id": "shared", "seed": 1,
+                  "metric": "imaging_quality", "dense": 1, "candidate": 1.0},
+                 {"source_id": "C", "image_id": "other", "seed": 1,
+                  "metric": "imaging_quality", "dense": 1, "candidate": 1.0}]
+        score = paired_report(rows, replicates=0)["metrics"]["imaging_quality"]
+        self.assertEqual(score["independent_source_clusters"], 2)
+        self.assertEqual(score["actual_sample_records"], 6)
+        self.assertAlmostEqual(score["relative_percent"], -12.5)
+        shared = next(x for x in score["source_results"] if x["cluster"] == "shared")
+        self.assertEqual(shared["n_source_conditions"], 2)
+
+    def test_seed_and_sample_index_are_joint_identity(self):
+        rows = [{"source_id": "A", "image_id": "imageA", "seed": s, "sample_index": 0,
+                 "metric": "imaging_quality", "dense": 1, "candidate": .9}
+                for s in (41, 42)]
+        score = paired_report(rows, replicates=0)["metrics"]["imaging_quality"]
+        self.assertEqual(score["actual_sample_records"], 2)
+        with self.assertRaisesRegex(ValueError, "multiple image clusters"):
+            paired_report(rows + [dict(rows[0], metric="aesthetic_quality",
+                                       image_id="another")])
+
     def test_historical_pairs_and_zero_baseline(self):
         rows = [{"source_group": "subject:0", "dimension": "motion_smoothness",
                  "D_Q": "0.0", "candidate": "0.0"}]
