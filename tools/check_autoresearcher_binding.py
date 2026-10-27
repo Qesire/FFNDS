@@ -465,7 +465,11 @@ def main():
             "E0_EVERY_GENERATED_VIDEO_REQUIRES_METRIC_REPORT",
             "E0_ALL_LAYER_APPROXIMATION_REQUIRES_REAL_CUMULATIVE_TRACE",
             "E0_AFFINE54_FAILURE_SCOPE_VS_METHOD_FAMILY",
-             "WARD_PINNED_WEB_RESEARCH_DEFAULT"}.issubset(case_ids),
+             "WARD_PINNED_WEB_RESEARCH_DEFAULT",
+             "G13_DISCOVER_FUNCTION_BEFORE_SELECTING_OPERATOR",
+             "G13_DISTINGUISH_FUNCTION_FROM_SIGNED_PROXY",
+             "G13_IMPORTANT_COMPUTE_STRUCTURE_IS_A_DISCOVERY_TARGET",
+             "G13_CONSTRUCTIVE_SCOPE_AND_CURRENT_AGENT_ROUTING"}.issubset(case_ids),
            "Behavior case portfolio lost its symmetric discovery questions")
     ensure("only case.user_input" in behavior.get("evaluation_input_rule", ""),
            "Behavior-case answers may be leaked to candidate-agent evaluation")
