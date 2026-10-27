@@ -9,6 +9,12 @@
 
 **当前任务**：以[当前统一机制报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)和[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)为综合入口；[G0–G12权威图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点边](GRAPH_AGENT_BINDINGS.json)同步。历史FFN第一任务和本征审计继续作为原生证据来源。
 
+## 当前首要双向协作：先观察功能，再定位正常执行结构
+
+最新[G13研究优先级和功能证据分层](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)：视频/latent现象→有标签或无标签的条件输出函数→真实在正常前向承担函数的多W1行/GELU/HiF4-Q2/W2/门控/跨层/跨step子图→未来可授权的独立因果干预→算子/量化/硬件效率。使用[FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)登记不同的**行为、函数和结构**；不将SAE概念、signed cross、低频、SSE、后验mask直接升级为功能必要性。M13/M14是新研究主入口，原 M01–M12只是后续技术类比较。G13的L80–L85仅对应真实原文摘要/作者摘要等级。
+
+当前85篇/171节点/354关系/14机制家族；G13是研究与源码事实叠加图，没有新的FFN组消融或原生视频运行。**原实验暂停**由ACTIVE独立判定。
+
 ## 协作定义
 
 **图是研究问题的可定位计算对象，Agent 是提出/验证新解释的主体。** G0–G5 是源码绑定的计算流与证据注解，G6为2026-10-26历史假设应用场景，2026-10-27另由G10恢复**实时文献与计算图研究**，原生流式实验尚未授权；`GRAPH_AGENT_BINDINGS.json` 提供图中稳定ID、语义、信息时点、证据文件、未解分歧和必要的跨层边。它是源码与证据索引；实际运行时动态轨迹及候选硬件执行由独立RUN与对应实验范围证实。
