@@ -1,35 +1,38 @@
-# FFNDS · AutoResearcher研究协议与任务入口（E0_OPEN_DISCOVERY）
+# FFNDS · Agent协议与实际操作索引（2026-10-28）
 
-**当前研究问题**：在真实视频生成FFN中发现信息、函数与计算的组织规律，并探索在保持完整视频质量下的真实低成本实现。**I/F/C并行入口**为信息与表示、函数与动力学、计算与执行。见[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
+> **优先级和研究进度的权威入口**：[P0–P4阅读导航](../RESEARCH_NAVIGATION.md)。本目录负责协议、程序约束、计算图的机器索引，不维护第二份完整“当前研究状态”。[根AGENTS](../../AGENTS.md)和[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)决定科研行为；[ACTIVE](../ACTIVE_RESEARCH.json)决定原生模型作业权限。
 
-**统一方法操作与当前研究方案**：[五操作G14交叉方法文档](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[带REQUIRES/CONSTRAINS/COMPETES_WITH/PREDICTS_DIFFERENTLY先验边的机器索引v2](METHOD_OPERATION_CROSSWALK.json)、[M-A/M-B/M-C现行整合方法方案](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。I/F/C为科学问题，O-A选择计算、O-B函数表示、O-C缓存复用、O-D计算代数、O-E学习验证为可组合动作；须在同一Wan数字计算路径定位与检查。下一位方法Agent从**M-B已完成的数学v2继续B0/B1**，而非泛研究整个O-B或重新生成初版提案。
+## P0 · 下一位Agent直接使用
 
-**并行机制组合**：[多条开放机制、现有方法与最小判别](../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)供科学推导与独立评议使用。
+| 文件 | 应当读到/执行的合同 |
+| --- | --- |
+| [最小上下文包](CURRENT_CONTEXT_PACKET.md) | 原生Wan/QDQ/step、M-A0已完成局部实验、M-B代数已完成而B0 OPEN、M-C开放 |
+| [三方法权威方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | G14科学先验转换成M-A/M-B/M-C真正的函数与部署约束 |
+| [B0/B1当前任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | post-write u/head/flow的producer/neutral准备→有限响应、B-H/B-F学生 |
+| [现行范围/预算](../ACTIVE_RESEARCH.json) | 具体模型、GPU、来源、预算、独立来源与RUN身份；旧scope不自动续期 |
 
-**科学导航**：[研究导航](../RESEARCH_NAVIGATION.md) · [I/C/F跨机制综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [G13函数定位（F线）](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P专题](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [最小上下文](CURRENT_CONTEXT_PACKET.md) · [阶段入口](E0_STAGE_ANCHOR.md) · [ACTIVE](../ACTIVE_RESEARCH.json)。[2026-10-25首项任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)属于历史过程。
+## P1 · 按研究主张再打开相应协议
 
-**数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前92篇相关研究、205个稳定节点、424条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
+| 场景 | 主协议与工具 |
+| --- | --- |
+| 原论文映射到Wan计算边 | [92＋10篇G14机器焦点图](PAPER_METHOD_FOCUS_GRAPH.json)、[G0–G14可见源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[原生Graph Bindings](GRAPH_AGENT_BINDINGS.json) |
+| 五操作与方法先验查重 | [O-A～E×I/F/C](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[12条typed prior机器索引](METHOD_OPERATION_CROSSWALK.json)、[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md) |
+| 新数据、校准、配对视频、来源分割 | [数据采样/校准/评价合同](DATA_SAMPLING_CALIBRATION_EVALUATION.md)、[Calibration V2](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)、[实验专用Skill](../../.agents/skills/ffnds-experiment-evidence/SKILL.md)、[可执行实验手册](EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) |
+| 新功能/因果定位或Graph Agent | [Function–Structure Objects](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G13函数/结构方法](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[Graph Agent协作](GRAPH_AGENT_COLLABORATION.md) |
+| 独立新方法/同行复核 | [method_discussion讨论规则](../method_discussion/AGENTS.md)、[原始提案及审阅队列](../method_discussion/QUEUE.md)、[独立discovery](../method_discussion/discoveries/E0/README.md) |
+| 研究来源与固定上游 | [ACTIVE_SOURCE_MANIFEST](ACTIVE_SOURCE_MANIFEST.json)、[UPSTREAM_SYNC](UPSTREAM_SYNC.md)、[AutoResearcher绑定静态检查](../../tools/check_autoresearcher_binding.py) |
 
-## 数据与实验可信度
+## 证据边界、保存与回归
 
-[Calibration V2 方法与资产边界](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md) · [采样/校准/评测数据合同](DATA_SAMPLING_CALIBRATION_EVALUATION.md) · [实验专用Skill](../../.agents/skills/ffnds-experiment-evidence/SKILL.md) · [2026-10-27源码审查](../20261027/FFNDS_DATA_PROTOCOL_AUDIT_20261027.md) · [CPU预检](../../tools/ffnds_cohort_preflight.py)。正式官方多次采样、单视频自定义诊断、Dense/Student校准及独立新确认数据采用各自明确的统计单位和用途；历史RUN保持原样。优先从来源级效果差异提出竞争机制和低成本有区别的对照。
+原始RUN与哈希、teacher/student状态、source image-cluster、step/block嵌套统计、连续视频和VBench原函数/官方采样分别保持原记录和实际身份证据。ALG/SRC/LIT对科学解释有价值；NATIVE/VIDEO/SYS要有真实本地执行收据。静态图有效性不构成实际Wan推理、同行支持或模型质量通过。
 
-## 科学方法与实际检索
+只读图谱及回归：
+```bash
+python tools/graph_agent_bridge.py validate
+python tools/graph_agent_bridge.py paper L34
+python tools/graph_agent_bridge.py focus T06
+python tests/test_graph_agent_bridge.py
+python tools/check_autoresearcher_binding.py
+```
 
-可从已可得信息、非线性代数、自然视频响应、执行内核或相关论文任一入口开始。有效交付是：**新的信息/函数/计算机制 → 与主张有关的源码和数学 → 最强竞争机制和不同预测 → 最小判别证据 → 可能的科研或部署价值**。探索期间可以增加新的图节点、数学基与论文比较。
-
-[FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)按当前三条并行科研路径组织；通用源由[固定AutoResearcher manifest](ACTIVE_SOURCE_MANIFEST.json)绑定，执行[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)和[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)。通过[深度Web原论文/源码协议](DEEP_WEB_RESEARCH.md)持续发现前沿与强先例、读方法、消融及作者实际实现，从机制差异拓展信息、函数与计算的研究空间。
-
-[92篇索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)与[Mechanism Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)记录论文阅读等级和方法竞争；G13主要对照JMLR causal abstraction、ICLR patching与CVPR Video-DiT时空定位，G7–G12提供高效计算/实时系统竞争。
-
-## 科研Agent独立讨论
-
-根[AGENTS](../../AGENTS.md)、[Copilot](../../.github/copilot-instructions.md)、[方法讨论AGENTS](../method_discussion/AGENTS.md)、[独立发现目录](../method_discussion/discoveries/E0/README.md)共享这项目标。独立Agent产生函数/结构解释、数学反例与源码证据；审阅者给出新论证，整理者按实际证据与图边串行更新[方法QUEUE](../method_discussion/QUEUE.md)。提出一个函数候选或新数学对象，可以先作为科学发现，成熟后再形成方法提案或实验候选。
-
-## 固定上游来源与历史范围
-
-[ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json)固定AutoResearcher v2.4-source-commit \`8b88a52d894568dc303db727decfbf13b5fabf3b\`，对应[UPSTREAM_SYNC](UPSTREAM_SYNC.md)与[检验工具](../../tools/check_autoresearcher_binding.py)。通用 upstream Skills/core 文件以commit及Git blob SHA逐项锁定；本项目专用Skill、AGENTS、Copilot和图/证据协议各自维护。原始旧SOURCE_MANIFEST与2026-10-24量化路线/旧E0 gap文件保留时间点证据，现行优先级由[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)及ACTIVE控制。
-
-**研究权限**：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)记录10个source、12条source×seed完整轨迹及1920个嵌套FFN观测，以及已完成的固定实验范围。源码、文献、数学、已有保存证据和图均可用于当前科研；**具体CPU/GPU、模型与视频实验按 ACTIVE_RESEARCH 当轮范围、数据、资源和授权登记执行**。本导航不单独构成运行授权。既有实验原始RUN、质量与严格候选失败结论按其来源版本保留。
-
-静态检验验证科学入口/证据索引/源锁及图结构一致性；真正的功能因果、数值和视频质量通过各自独立证据判定。[DEFAULT_BEHAVIOR_CASES](DEFAULT_BEHAVIOR_CASES.json)供未来Agent研究能力的独立评估，静态“通过”不代表已经具有相应科研表现。
+**资料生命周期**：本目录只维护协议和机器权威表；各研究的公式、竞争机制与已完成实验归对应方案及[发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)；旧研究入口、暂停和历史结论由[ARCHIVE](../../ARCHIVE.md)供溯源，绝不以导航清理修改实际实验资产。
