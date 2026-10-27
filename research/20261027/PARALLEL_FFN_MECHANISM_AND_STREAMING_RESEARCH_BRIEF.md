@@ -1,3 +1,5 @@
+**第三条探索：编码可用信息是否预测有符号功能（2026-10-27）**：[G11一手数学/论文审查](../literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)。weight的符号/scale可离线读、current input须先过Q1，W1 pair sign/cancellation及HiF4 Q2 group closure可能改变预先信息成本。竞争性解释为统计结构、认证负侧GELU、码本表示而非固定通道掩码，比较低位packed dense及有符号长时/视频功能。这是与FFN本征及G10实时路线交叉但独立的开放机制，零原生执行。
+
 # FFNDS · 双线科研进程的数学对象、证据和下一条最小区分（2026-10-27）
 
 **A线：内生FFN功能机制**仍以冻结的Wan2.2 I2V四步D-Q为真实对象，研究真实可省的FFN W1/GELU/Q2/W2工作、跨层完整视频质量与原生硬件成本。**B线：实时视频生成**作为独立源级研究对象，回答可由何种普通视频foundation经过何种训练/架构/系统流程转为连续交付，以及其FFN函数和GEMM成本的变化。两条文献/数学线同时推进，**所有新CPU/GPU/模型/视频运行仍暂停**（ACTIVE）。
