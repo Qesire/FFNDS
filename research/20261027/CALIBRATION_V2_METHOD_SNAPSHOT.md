@@ -66,7 +66,7 @@ R_S=\mathbb E_{x\sim P_S}\|f_S(x)-f_D(x)\|^2.
 | C24_R512 | 24×512 | 12/12/0 | 同源增加行数 |
 | C48_R128_MOTION | 48×128 | 20/20/8 | 独立的**运动域扩展**效应，不参与仅来源数的等价比较 |
 
-场景分类配额是此轮可解释对照的起点，摄像机类别在独立的 domain arm 中加入；其真实比例应在正式外部目标分布已定义后重新冻结。source 选择使用相同抽样框、按类冻结置换的嵌套子集；采样行使用同一 source×step×block 的随机前缀。存量 CAL24 的 NumPy 选择与 v2 的 Python PRNG 不属于相同“精确行配对”，真正共同对照须都从 v2 采集，或严格重放历史坐标。
+场景分类配额是此轮可解释对照的起点，摄像机类别在独立的 domain arm 中加入；其真实比例应在正式外部目标分布已定义后重新冻结。source 选择首先按真实 `image_id` 组成独立簇，按类在**同一冻结source bank与seed**下置换簇并抽取嵌套前缀，然后在每簇内选择一条明确的image-prompt条件；不能先抽重复source再把撞到同图像解释为来源不足。若增加来源或修改类别，形成新cohort版本并记录实际被选的source/prompt，跨版本嵌套关系须从保存的cohort名单实证核对。标准VBench完整Image Suite保留全部所需image-prompt条件，条件数量与独立image cluster数量各自报告。采样行使用同一 source×step×block 的随机前缀。存量 CAL24 的 NumPy 选择与 v2 的 Python PRNG 不属于相同“精确行配对”，真正共同对照须都从 v2 采集，或严格重放历史坐标。
 
 **第三阶段：相同来源与预算的机制竞争**：
 1. 支持评分差异（diagonal、signed joint 等），每条运行都重建原生 Q2 与W2；
@@ -115,7 +115,7 @@ R_S=\mathbb E_{x\sim P_S}\|f_S(x)-f_D(x)\|^2.
 | `calibration_v2.geometry` / JSON | `ffnds_native_geometry.py` 从原生full160 capture读取step/block grid及population | 绑定同一I2V预处理、分辨率、native位置与sample语义；本轮 **NOT_PRODUCED** |
 | `calibration_v2.draws` / JSON | `calibration-plan --source-state`，来源ordinal、分层嵌套随机过程与真实row IDs | teacher/student共享坐标；旧CAL24 NumPy与v2 Python PRNG坐标方案不同，必须标别；本轮 **NOT_PRODUCED** |
 | `calibration_v2.native_operands` / BF16 safetensors+index | 原生模型采集者；V1/V2/Y、b2、gate、QDQ与实际row匹配验证 | 依赖实际tensor_boundary、shape、dtype、完整160位置；新拟合后继续保留可重用原生资产；本轮 **NOT_PRODUCED** |
-| `calibration_v2.source_stats` / JSON | 从原生 V2、W2(QDQ)与gate计算每来源每位置 `group_energy[216]`，可选完整 signed Gram | 所有值带source/image/step/block/state；同模型/同gate/同QDQ才复用；本轮 **OPEN_RUNTIME_BINDING** |
+| `calibration_v2.source_stats` / JSON | 从原生 V2、W2(QDQ)与gate计算每source/prompt每step×block×state唯一的 `group_energy[216]`，可选完整 signed Gram | 所有值带source/image/step/block/state；同模型/同gate/同QDQ才复用；本轮 **OPEN_RUNTIME_BINDING** |
 | `calibration_v2.diagnostic` / JSON | `ffnds_calibration_design.py diagnose` 对真实来源输入的统计处理 | source簇LOO、bootstrap、signed残差；仅代表统计稳定性，非视频确认；本轮 **NOT_PRODUCED** |
 | `calibration_v2.fit` / native policy + numerical receipts | 新cohort-aware支持/gain-bias/R256拟合器，真实训练-留出与QDQ部署 | 原拟合 `fit_step_budget.py` 的冻结24×256策略为独立历史基线；新fit尚待binding；本轮 **OPEN_RUNTIME_BINDING** |
 | `calibration_v2.video_metrics` / MP4、metric JSON、配对run收据 | 真正 Dense/student 完整生成、官方指标、连续运动/相机动作 | 真实无噪声复用或重命名不增加样本；预注册独立确认集；本轮 **NOT_PRODUCED** |

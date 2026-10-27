@@ -50,10 +50,12 @@ def validate_design(design):
         if (type(sources) is not int or type(rows) is not int or sources < 1 or rows < 1):
             errors.append(f"invalid source count / row density for {aid}")
         allocation = arm.get("allocation", {})
-        if not isinstance(allocation, dict) or not allocation or (type(sources) is int and sum(allocation.values()) != sources):
-            errors.append(f"arm {aid} lacks exact source strata allocation")
-        elif any(k not in design.get("strata", []) or type(v) is not int or v < 0 for k, v in allocation.items()):
+        if (not isinstance(allocation, dict) or not allocation
+                or any(k not in design.get("strata", []) or type(v) is not int or v < 0
+                       for k, v in allocation.items())):
             errors.append(f"arm {aid} has invalid stratum allocation")
+        elif type(sources) is int and sum(allocation.values()) != sources:
+            errors.append(f"arm {aid} lacks exact source strata allocation")
         if arm.get("status") not in {"PLANNED_NOT_COLLECTED",
                                    "REFERENCE_HISTORICAL_BUDGET_NOT_V2_FIT"}:
             errors.append(f"arm {aid} claims execution without native evidence")
@@ -200,6 +202,14 @@ def source_support_diagnostic(records, *, keep_groups, bootstrap=0, seed=42):
         by_image[image].append(values)
     if not by_image:
         raise ValueError("No actual group energy records")
+    # A profile contains one statistic per source/conditioning at one native site.
+    # Repeated seeds should first be reduced by a declared source-level producer.
+    source_ids = set()
+    for row in records:
+        sid = row["source_id"]
+        if sid in source_ids:
+            raise ValueError("Repeated source_id within native diagnostic scope: " + str(sid))
+        source_ids.add(sid)
     cluster_vectors = []
     for image in sorted(by_image):
         x = by_image[image]

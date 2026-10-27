@@ -7,7 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 from ffnds_experiment_plans import (
-    plan_video, plan_calibration, row_draw, sources_from_legacy, save_new, load
+    plan_video, plan_calibration, row_draw, sources_from_legacy, save_new, load, choose
 )
 
 
@@ -43,6 +43,33 @@ class PipelineTest(unittest.TestCase):
                 self.assertEqual({x["seed"] for x in pair}, {42 + sample_index})
                 self.assertEqual(len({x["initial_noise_id"] for x in pair}), 1)
             self.assertEqual({x["status"] for x in v["samples"]}, {"PLANNED"})
+
+    def test_cluster_first_selection_is_nested_with_shared_image_prompts(self):
+        sources = bank((3, 0))["sources"]
+        sources.insert(1, dict(sources[0], source_id="alternate_prompt",
+                               prompt_id="alternate", conditioning_id="alternate"))
+        small = choose(sources, "CALIBRATION", {"i2v_subject": 2}, 13)
+        large = choose(sources, "CALIBRATION", {"i2v_subject": 3}, 13)
+        self.assertEqual(len({s["image_id"] for s in small}), 2)
+        self.assertEqual(len({s["image_id"] for s in large}), 3)
+        self.assertTrue({s["source_id"] for s in small} <=
+                        {s["source_id"] for s in large})
+        self.assertEqual([s["source_id"] for s in small],
+                         [s["source_id"] for s in choose(
+                             sources, "CALIBRATION", {"i2v_subject": 2}, 13)])
+        official = choose(sources, "CALIBRATION", {"i2v_subject": 4}, 13,
+                          allow_same_image_with_distinct_prompts=True)
+        self.assertEqual(len(official), 4)
+        self.assertEqual(len({s["image_id"] for s in official}), 3)
+
+    def test_quota_counts_image_clusters_and_rejects_conflicting_strata(self):
+        sources = bank((1, 0))["sources"]
+        sources.append(dict(sources[0], source_id="alternate_prompt"))
+        with self.assertRaisesRegex(ValueError, "2 independent image clusters"):
+            choose(sources, "CALIBRATION", {"i2v_subject": 2}, 13)
+        sources[-1]["scene_stratum"] = "i2v_background"
+        with self.assertRaisesRegex(ValueError, "incompatible scene strata"):
+            choose(sources, "CALIBRATION", {"i2v_subject": 1}, 13)
 
     def test_rows_are_nested_deterministic_and_scoped(self):
         a, s1 = row_draw(2000, 128, base_seed=42, source_index=0,
