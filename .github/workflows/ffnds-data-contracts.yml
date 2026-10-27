@@ -1,0 +1,34 @@
+name: FFNDS data contracts (CPU only)
+
+# Narrow tests for data-experiment interfaces; no model loading or GPU runners.
+on:
+  pull_request:
+    paths:
+      - 'tools/ffnds_*'
+      - 'tests/test_ffnds_*'
+      - 'research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md'
+      - '.github/workflows/ffnds-data-contracts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  executable-cohort-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile concrete experiment code
+        run: |
+          python -m py_compile tools/ffnds_experiment_plans.py tools/ffnds_native_geometry.py tools/ffnds_run_registered_video.py tools/ffnds_stage_registered_i2v.py tools/ffnds_cluster_metric_report.py
+      - name: Synthetic source, calibration, video and statistics acceptance
+        run: |
+          python tests/test_ffnds_cohort_preflight.py
+          python tests/test_ffnds_experiment_plans.py
+          python tests/test_ffnds_native_geometry.py
+          python tests/test_ffnds_stage_registered_i2v.py
+          python tests/test_ffnds_cluster_metric_report.py
