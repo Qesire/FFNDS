@@ -53,7 +53,7 @@ UB1原配置：
 
 同样24×256行有不同的场景、seed、相机运动和背景组合。若主要问题是输入覆盖，增加独立来源/让覆盖更均衡，在固定支持规则、alpha/R256/λ下应该改善新来源尾部退化；若仅增加相同行的重复token而收益微小，则更加支持独立来源的作用。
 
-**反向解释**：更多样本也无法让静态whole64支持表达少数关键联合功能；原始训练目标可能与视频行为不一致。**判别实验**应同时改变来源数和每来源行数，控制总行数，不把多个改变混写成“增大校准”。
+**竞争解释**：即使来源增加，固定whole64支持仍可能删去仅在少数source/seed/step重要的功能；这种跨输入“长期能力”与当前token激活大小不相同。RT-Lynx在图像DiT对权重2:4与输入激活2:4的质量比较提供值得直接转移的对照，但不能把权重一律视为不可稀疏。**判别实验**可固定总行数同时改变独立来源数和每来源行数，并独立比较固定权重/whole64支持与按本次输入稀疏的质量尾部，避免把不同计算合同混写成“同一种动态方法”。
 
 ### H-Support：支持的可恢复性、消费者重构与合法量化单位
 
@@ -104,7 +104,7 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 | **BRECQ (ICLR2021)** | 不仅逐FFN输出，而按可管理的相邻block范围做二阶/分组重构 | 原目标是CNN post-training quantization；对于Wan是合理迁移而非同模型结论 |
 | **CTEC / 2ndMatch / TCEC** | 跨步错误纠正、扰动敏感性/有限响应、低成本补偿 | 完整四步原scheduler、同source/seed、teacher仅离线可见 |
 | **TARDIS / LLMFolder** | 若原子组缩减能力受限，可探索conditional affine+必要真实非线性等竞争函数类 | TARDIS在线2-bit预测器和原FFN修正付费；LLMFolder已确认EuroSys发表但公式尚未逐节查阅 |
-| **RT-Lynx ICML2026** | 在独立C线测试真实2:4激活稀疏、Norm Compensation、LoRA和融合SpTC | 作者image DiT/H20，不是Wan视频真实FPS/HiF4，LoRA及在线kernel计入预算 |
+| **RT-Lynx ICML2026** | 测试保持稠密权重完整能力、仅对本次GEMM输入2:4稀疏与norm+LoRA恢复；W1输入和W2输入分别定义 | 与UB1直接删whole64组是不同动作；原tile全满不阻止SpTC 2:4，作者图像DiT/H20数据不等于Wan；线上内核和训练均计费 |
 | **TAPE (2026)** | 视频时序预算与内容运动平滑 | 原重点token处理，不能将其指标横向换算UB1的hidden 64组 |
 
 **学习最优先例**与**准确报告可能的新机制**并不冲突。UB1原静态4步宽度不是时间条件计算的首创；Model Preserving Compression意味着“选择部分通道并重构消费者”也非新思想。若直接采用这些做到了更好的Wan视频质量/成本，可以如实作为有价值的复现和适配成果。
@@ -135,6 +135,8 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 
 直接对“训练后支持”或“在线动态支持”设立独立对照：若采用TARDIS热区与2-bit proxy，先核实原64组Q2尺度、观测器和tile；若采用RT-Lynx的2:4 SpTC，核实其真实activation数据结构和LoRA成本。过去R12/R14/C1事后oracle失败只限制各自旧动作族；不能关闭其它合法动态动作或函数重组。严格区分**后验最优支持的估计**与推理前实际可获得的信息。
 
+
+**RT-Lynx激活/权重稀疏对照（独立C/I研究，前置只读检查）**：不要把UB1的54/108/108/162原64组缩窄直接与2:4激活稀疏称为“相同50%计算预算”：前者**W1与W2主形状**同步降低，后者在Q1后压缩W1输入可仅减少W1部分乘加；Q2后压缩W2输入仅减少W2乘加且保留原Q2有效尺度，双位置组合才可能理论上令两层乘法各减半。先固定W1/Q1、W2/Q2两种2:4输入合同，对比naive weight2:4、activation2:4、norm、LoRA与敏感位置Dense保留，记录每步每block/seed的相干功能、尾部和真实A100 Sparse Tensor Core路径。[RT-Lynx专题深读](RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)。保留原始UB1及其24来源校准身份，这个新候选属于**新动作族**，旧R12/R14 oracle不约束它；未登记新原生RUN、视频或性能。
 
 ### WP5 · 轨迹及低成本补偿（**未来可选授权**）
 
@@ -173,5 +175,5 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 
 ## 8. 精简后的参考入口
 
-[本轮一手文献共用审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md) · 
+[共用部分线性FFN文献审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md) · [RT-Lynx激活稀疏、权重能力及2:4原生Wan合同](RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md) · 
 [UB1源码级方法审查](UB1_METHOD_AND_PRIOR_ART_REVIEW_20261027.md) · [质量指标与FFN速度RUN](../../reports/worker_20261020/UB1_joint_engineering_acceptance_RUN.json) · [新20逐来源CSV](../../reports/worker_20261020/disjoint20_UB1_paired_sources.csv) · [C24/UB1/UB2固定预算对照](../../docs/38_固定预算下恢复末步完整FFN.md) · [OP3状态重拟合](../../docs/46_真实状态重拟合与导入延迟修正.md) · [此前Skill复审的研究解释](UB1_TO_FFNDS_EVIDENCE_DRIVEN_ROUTE_REASSESSMENT_20261027.md) · [领域研究目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
