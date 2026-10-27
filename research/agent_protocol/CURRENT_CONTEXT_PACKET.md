@@ -4,7 +4,7 @@
 
 **五操作方法论**：[最新科学/方法/执行三层分析](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)和[可机读论文/方案签名](METHOD_OPERATION_CROSSWALK.json)。I/F/C科学入口独立于O-A～O-E计算动作；查G14论文时按实际computational intervention、decision_time、online kernel和validation区分主次。原提案B记为**M-B（O-B函数表示＋O-E下游敏感验证，O-D分解部署可选）**，不要误读成泛研究全部操作B。
 
-**下一轮明确起点（用户指令）**：[NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)：下一位方法Agent首先研究B的gate-conditioned联合下游敏感方向与可编译低成本表示，优先数学、现有原生资产与G14近邻论文；B-FOLDED/B-FACTORED及量化/后缀完整成本分开。第一交付是B的METHOD_SNAPSHOT，A0仅作为强对照、C暂为储备；不预注册GPU/视频或独立评议票。
+**现行方法交接（用户指定M-B先行，v2）**：[整合方案](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)已吸收[G14审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)和[本地M-B ALG+SRC v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)、[A0 P30四位置native恢复](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)。[NEXT_AGENT_M-B任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)从B0真实postwrite u/head/flow的producer与neutral绑定、B1有限响应继续；原连续head证明中64中心读出＋中心方差共65充分统计，尚需student可预测/线上计算。B-H direct和B-F factored两构造必须与matched A0和当前大M核成本对照；C保留独立研究，方法研究计划不预注册GPU或伪造peer支持。
 
 **路线协作**：[I/F/C现行方法组合](../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)统一编码信息、功能因果、运动观测、UB1/Affine54、2:4算子和轻量后训练的证据身份与下一个最小判别；[Calibration V2](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)为各路线提供分目标独立来源、teacher/student状态和实际full-video评测的共同实验接口。跨线表述以这些现行入口为准，旧文档的当时OPEN/NEXT是历史语境。
 
