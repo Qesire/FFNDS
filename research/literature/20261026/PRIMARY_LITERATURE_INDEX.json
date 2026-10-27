@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
   "updated": "2026-10-27",
-  "status": "EXPANDED_68_RELATED_WORKS_WITH_G10_CAUSAL_REALTIME_STUDY",
+  "status": "EXPANDED_73_RELATED_WORKS_WITH_G11_QUANT_SIGN_AND_FFN_FUNCTION",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -1226,6 +1226,103 @@
         "S07"
       ],
       "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+    },
+    {
+      "id": "L69",
+      "group": "evaluation_hardware",
+      "title": "Prox: Training-Free FFN Activation Sparsity via Approximate Intermediate-Channel Salience in LLMs",
+      "year": 2026,
+      "venue": "arXiv:2607.27591v1",
+      "url": "https://arxiv.org/pdf/2607.27591",
+      "model": "SwiGLU LLM FFN",
+      "observed_mechanism": "lightweight input sparse and INT4 proxy up+gate, exact selected up gate down",
+      "decision_time": "online pre-full GEMV after paid proxy",
+      "physical_action": "two proxy projections plus three selected original projections",
+      "training": "no new model training; offline threshold calibration",
+      "wan_specific_discriminator": "Original Wan has W1 tanh-GELU W2 and Q2 group scale closure; predicts signed functional value vs merely mask",
+      "reading_depth": "ORIGINAL_ARXIV_V1_PDF_EQ_STAGE1_STAGE2_COST_AND_FIGURES",
+      "graph_anchor": [
+        "Q15",
+        "Q08"
+      ],
+      "graph_method_reference": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md"
+    },
+    {
+      "id": "L70",
+      "group": "evaluation_hardware",
+      "title": "Spark Transformer: Reactivating Sparsity in Transformer FFN and Attention",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/220d26c7fb478c2a397bd3fef0fe1d6f-Abstract-Conference.html",
+      "model": "trained sparse FFN attention in language Transformers",
+      "observed_mechanism": "reallocation of trained small predictor and statistical topk",
+      "decision_time": "online trained score",
+      "physical_action": "FFN activation subset and attention sparse tokens",
+      "training": "new pretraining",
+      "wan_specific_discriminator": "Trained router/TopK is independent from intrinsic scale/sign from original code",
+      "reading_depth": "OFFICIAL_NEURIPS_2025_ABSTRACT",
+      "graph_anchor": [
+        "Q16"
+      ],
+      "graph_method_reference": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md"
+    },
+    {
+      "id": "L71",
+      "group": "evaluation_hardware",
+      "title": "Enabling Dynamic Sparsity in Quantized LLM Inference",
+      "year": 2025,
+      "venue": "arXiv:2511.04477v1",
+      "url": "https://arxiv.org/pdf/2511.04477",
+      "model": "K-quantized LLM small-batch Apple Silicon",
+      "observed_mechanism": "zigzag quantized weight layout and sparse index GEMV kernel",
+      "decision_time": "before GEMV sparse indices",
+      "physical_action": "layout co-designed sparse GEMV skipping",
+      "training": "offline re-quant layout no model training",
+      "wan_specific_discriminator": "Actual packed layout and GEMM difference; Wan HiF4 original group64",
+      "reading_depth": "ORIGINAL_ARXIV_V1_PDF_PAGES_0_3",
+      "graph_anchor": [
+        "Q17",
+        "Q13"
+      ],
+      "graph_method_reference": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md"
+    },
+    {
+      "id": "L72",
+      "group": "evaluation_hardware",
+      "title": "SQ-DM: Accelerating Diffusion Models with Aggressive Quantization and Temporal Sparsity",
+      "year": 2025,
+      "venue": "arXiv:2501.15448",
+      "url": "https://arxiv.org/abs/2501.15448",
+      "model": "diffusion accelerator",
+      "observed_mechanism": "aggressive 4bit and timestep aware sparse detection",
+      "decision_time": "step dependent",
+      "physical_action": "custom mixed dense sparse accelerator",
+      "training": "quantized model / accelerator study",
+      "wan_specific_discriminator": "Custom hardware simulation not native I2V H100 speed or full video quality",
+      "reading_depth": "AUTHOR_ARXIV_ABSTRACT_ONLY",
+      "graph_anchor": [
+        "Q18"
+      ],
+      "graph_method_reference": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md"
+    },
+    {
+      "id": "L73",
+      "group": "evaluation_hardware",
+      "title": "CodeGEMM: A Codebook-Centric Approach to Efficient GEMM in Quantized LLMs",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/3151e460c41ba67dc55412861184ef35-Abstract-Conference.html",
+      "model": "LLM lowbit weight-only codebook",
+      "observed_mechanism": "precomputed centroid-input inner products Psumbook code indexed gather",
+      "decision_time": "runtime centroid precompute then lookups",
+      "physical_action": "codebook GEMM replacement",
+      "training": "no new model training",
+      "wan_specific_discriminator": "Different W4A4 code/scale and kernel; code-driven representation alternative to sparsity mask",
+      "reading_depth": "OFFICIAL_NEURIPS_2025_ABSTRACT",
+      "graph_anchor": [
+        "Q18"
+      ],
+      "graph_method_reference": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -1284,5 +1381,37 @@
       "L67",
       "L68"
     ]
+  },
+  "g11_quant_information": {
+    "document": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md",
+    "ledger": "research/literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json",
+    "papers": [
+      "L69",
+      "L70",
+      "L71",
+      "L72",
+      "L73"
+    ],
+    "nodes": [
+      "Q01",
+      "Q02",
+      "Q03",
+      "Q04",
+      "Q05",
+      "Q06",
+      "Q07",
+      "Q08",
+      "Q09",
+      "Q10",
+      "Q11",
+      "Q12",
+      "Q13",
+      "Q14",
+      "Q15",
+      "Q16",
+      "Q17",
+      "Q18"
+    ],
+    "experiment_started": false
   }
 }

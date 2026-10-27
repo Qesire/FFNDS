@@ -1,3 +1,5 @@
+**G11最新研究近邻**：[符号与幅值量化信息/动态scale/严格证书/FFN有符号函数](../20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)；[5篇强对照Prox/SpQt/Spark/SQ-DM/CodeGEMM及MXFP4/NVFP4一手规格和来源深度](../20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)。现73项研究。不能把量化sign/scale天然有→点积符号可免算，或后验mask→W1合法空tile。冻结原生实验权限。
+
 **2026-10-27 独立实时模型文献线：** [14项原始论文/报告及作者源码](../20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)与[一手证据分级](../20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)新增 G10 S01–S25。优先比较Causal Forcing++ v4的1–2步framewise蒸馏、EdenLive LightX2V/5090的外部参考条件与原Wan FFN、SCD时间功能分离、LongLive2 NVFP4原生GEMM和KV、StreamDiffusionV2 SLO。论文集现68项；模型执行继续暂停。
 
 **G9条件计算与跨步预测（2026-10-27）：** [L²P / FFF / FFN↔attention训练期迁移一手研究](../20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)和[逐论文证据账本](../20261027/G9_METHOD_SOURCE_LEDGER.json)已加入[计算图 G9 K28–K37](../../../docs/98_端到端计算图与证据注解_20261025.md)。L²P已读取CVPR官方发布与作者FLUX历史预测源码；FFF已核原始v1方法公式/消融；Sparsity Moves Computation只有作者摘要，需深读方法正文。研究比较分清“缓存整个模型输出”“新训练的树状条件函数”“训练期全网角色迁移”三种不同的省算机制；现实Wan四步执行仍暂停。
