@@ -8,7 +8,7 @@
 
 现有证据表明：Affine54已将一部分非线性映射折叠成D×D仿射层，在全40层×4step实际运行中具有显著FFN提速；但它的局部拟合优势没能维持完整视频。现存证据还显示旧FFN后验单通道变化可集中，原始合法64组和M16/K64 tile支持却往往几乎全满。由此形成三个相互关联、但可以分别成功的研究对象：**量化一致的函数表示（I/C）、有限状态扰动与视频作用（F）、实际执行与可部署成本（C）**。
 
-**Skill审查的科研原则：学习和复用最好的已知方法，不人为要求每一个构造与论文不同。** 已发表的结构化剪枝、TARDIS线性化/回退、2ndMatch扰动敏感性、CTEC跨步蒸馏、TCEC误差补偿、OBS-Diff组校准，均可以直接作为可行分支和比较器。真正发现了新机制时据证据表述新颖性；只是成功复现、迁移、组合、改进系统时就准确表述工程/实证贡献。**一个好的已知方法优于刻意不同但质量更差的新方法**。文献查重服务于寻找成熟原理、了解假设与成本、设计合理对照，而不是强制差异化的淘汰门槛。
+**文献与研究原则：直接复用成熟的好方法，先解决真实问题再准确界定贡献。** TARDIS(2025)及同团队EuroSys 2026 LLMFolder已把FFN常量折叠作为成熟系统研究；Model Preserving Compression(2022)覆盖保留真实激活子集并重构消费者。FLAP、BRECQ、2ndMatch、CTEC与RT-Lynx分别提供其它可用的选择、补偿、传播与真实内核路线。成功复现、合理组合、提出精确数学解释、取得实际视频/系统改进都是有效成果，无需为了“必须不同”放弃成熟技术。**所有论文机制、阅读深度与迁移边界统一查[一手文献审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)**；本文专注可执行研究问题，不重复堆叠文献叙述。
 
 研究科学内容可仅形成定理、函数实测或反例；实际部署主张另需质量和物理性能证据。此提案不以UB1、Affine54、GELU配对、G13或指定loss作为不可替换的路线。I/F/C可独立入场。
 
@@ -40,7 +40,7 @@ A_{\mathrm{bank}}q_1(x)+b_{\mathrm{bank}}
 \]
 其中A_bank、V_S、b_bank是新BF16参数，读取q2的旧fit与缩窄Q2部署的数值路径存在待核对差异。门控残差由旧caller处理，和运行时bank的前馈输出是两个不同边界。
 
-真实结果：两个持出但已开发暴露来源×160位置=320局部例，A54 gated SSE平均8.54%，Whole94为11.67%；A54在305/320例占优。三臂两来源共六条真实81帧视频均已生成；来源12热态FFN 9.707→4.449秒（2.182×），完整生成50.750→45.313秒（1.120×），但画面出现模糊/运动及细节变化，因此**尚未通过完整视频质量验收**。历史offline校准为4来源×每expert两步×每步32行=256行/函数，另有有限full-width neutral接线测试；它并未证明所有partial bank的原生部署数值已完全对齐。
+理想两投影MAC密度为 \((40+54)/216=43.5185\%\)，只对原Dense两层FFN GEMM，不把QDQ、融合、门控、bank内存及前置预测器算作免费。\n\n真实结果：两个持出但已开发暴露来源×160位置=320局部例，A54 gated SSE平均8.54%，Whole94为11.67%；A54在305/320例占优。三臂两来源共六条真实81帧视频均已生成；来源12热态FFN 9.707→4.449秒（2.182×），完整生成50.750→45.313秒（1.120×），但画面出现模糊/运动及细节变化，因此**尚未通过完整视频质量验收**。历史offline校准为4来源×每expert两步×每步32行=256行/函数，另有有限full-width neutral接线测试；它并未证明所有partial bank的原生部署数值已完全对齐。
 
 [GELU反向配对]的恒等式 \(\phi(z)-\phi(-z)=z\) 只是上述仿射+余项框架的一个条件特例。原Wan权重的真实配对密度、Q2量化后的误差及物理收益尚未证明，**不单列为新算法**。
 
@@ -58,82 +58,68 @@ A_{\mathrm{bank}}q_1(x)+b_{\mathrm{bank}}
 
 三种假说可以同时成立；研究优先以**最少变更区分因果来源**，不以“必须与论文不同”作为成功标准。能直接复用论文方法改善质量或系统效率，是有效的研究推进。
 
-## 3. 可以直接借用的论文机制与真实迁移范围
+## 3. 成熟先例作为真实的研究组件
 
-| 论文 / 年份 | 优先吸收的成熟方法 | 对Wan的合理应用与须验证的假设 |
+本章压缩为**研究与迁移决策**，所有作者原公式/执行细节集中在[共用文献审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)，避免两份方案各自重述并出现版本冲突。
+
+| 成熟组件 | 允许直接使用的作用 | 最关键的Wan条件 |
 | --- | --- | --- |
-| [TARDIS 2025](https://arxiv.org/abs/2501.10054) | GELU近线性拆分、预折叠、动态回退 | 比较Affine54的压缩表示，保留真实Q2、gate与Wan大M GEMM执行约束 |
-| [2ndMatch CVPR2026](https://openaccess.thecvf.com/content/CVPR2026/html/Zheng_2ndMatch_Finetuning_Pruned_Diffusion_Models_via_Second-Order_Jacobian_Matching_CVPR_2026_paper.html) | \(J^\top J\)方向扩张敏感性与随机投影，可作轻量后训练目标 | 先建立与原生finite response的关系；HiF4舍入点的导数及计算开销需匹配；这是**很好的现有基线**，无须刻意改掉 |
-| [CTEC AAAI2025](https://ojs.aaai.org/index.php/AAAI/article/view/34039) | 累计错误驱动的跨步Teacher→Student蒸馏 | 在Wan真实四步scheduler与双expert内构造offline target，不把Teacher未来信息当部署可见特征 |
-| [Error Propagation/TCEC ICML2026](https://proceedings.mlr.press/v306/liu26fv.html) | 步间误差递推与低价补偿 | 使用实际Wan flow-step算子重新推导；论文不同版本的具体闭式展开需以正式终稿和代码逐项核对 |
-| [OBS-Diff ICLR2026](https://arxiv.org/abs/2510.06751) | 时间步加权结构化剪枝、groupwise sequential calibration | 可以作为whole64支持/敏感性选择器，评价目标与配额固定，避免与别人的FLOPs口径混淆 |
-| [DyDiT ICLR2025](https://proceedings.iclr.cc/paper_files/paper/2025/hash/a44a70acd5d0abc1a252ada9719dd06d-Abstract-Conference.html)、[DIFS 2026](https://arxiv.org/abs/2607.06631) | 时间步宽度及少步联合蒸馏的成功经验 | 允许直接借鉴或有限复现，不将静态25/50/50/75宽度包装成首创 |
+| **TARDIS 2025**（最直接的折叠先例） | 常见激活区间线性化、D×D折叠、2-bit W1代理预测离群、减近似加真实、定制kernel；对Affine54提供固定/动态支持对照 | 预测器成本、M=31668的token粒度、原HiF4 whole64 Q2尺度闭包、动态索引真实内核成本 |
+| **LLMFolder EuroSys2026** | 同团队正式发表的常量折叠论文，可作为相关核心文献 | 仅证实出版与作者身份；尚无逐公式核验全文，不能填补未知算法细节 |
+| **Model Preserving Compression / FLAP** | 在真实非线性子集上用ID恢复消费者；激活波动度量与bias补偿，均可直接复现 | 原量化全组合法性、校准来源泛化及是否需额外D×D主干 |
+| **BRECQ / OBS-Diff** | block/组级重构、二阶感知支持/时间敏感性 | 是否能在原native BF16/QDQ和实际后缀上稳定改善，而非只改局部损失 |
+| **2ndMatch / CTEC / TCEC** | 扰动响应保留、跨时间状态蒸馏与低成本补偿 | 原真实scheduler、同源同seed教师/学生配对、离线可见Teacher与在线真实信息的区别 |
+| **RT-Lynx ICML2026** | 独立2:4 activation-sparse GEMM+范数恢复+LoRA+融合CUDA，比折叠之外有更强物理执行对照 | 是图像DiT/H20的成果，不是Wan I2V native HiF4验证；实际融合、训练和全生成成本另算 |
 
-**重要数学关系**：
+Affine54的数学表示是 \(\widehat F=Aq_1(x)+b+V_Sq_S\)。TARDIS最关键的新增对照是条件性**异常修正**，而非“论文首次允许保留真实非线性”；MPC的 \(H\approx H_ST\Rightarrow HW_2\approx H_S(TW_2)\)表明重构消费者亦早有先例。我们已经有\(V_S\) ridge，所以应比较其选择/泛化效果与论文实现，而不是再次命名同一操作。
 
-A. 2ndMatch的Gram形式重视方向扩张的**模长**。它对许多任务可能已经足够，不应先验贬低。若需区分有符号响应，可令同一条件 \(c\) 下的真实FFN完整写回函数 \(f_D(b;c)\)、候选 \(f_S(b;c)\)，选择来自实际前缀的有限扰动 \(\Delta\)：
-\[
-L_{\rm value}=\|f_S(b;c)-f_D(b;c)\|^2;
-\]
-\[
-L_{\rm secant}=
-\|[f_S(b+\Delta;c)-f_S(b;c)]
--[f_D(b+\Delta;c)-f_D(b;c)]\|^2.
-\]
-**这是常规有限差分响应匹配，并非声称原创公式**。作为竞争目标与2ndMatch、原值蒸馏同预算比较；只在出现可预测差异后考虑组合。举例 \(J_S=-J_D\) 时二者\(J^\top J\)相同而方向不同，但不意味着2ndMatch在实际模型必然失败。若扰动改变condition \(c\)（如AdaLN/e5），须将其作为**联合条件扰动**另比较，不能偷偷固定正常应变化的条件。
+### 可以借用的响应与轨迹目标
 
-B. CTEC类跨步校准在理想实数步进 \(z_{t+1}=z_t-h_tv_t(z_t)\) 下，若Student与Dense当前状态差为\(\delta_t=z_t^S-z_t^D\)，令下一状态理想一致的**整个模型**输出目标为
-\[
-v_S^*(z_t^S)=v_D(z_t^D)+\delta_t/h_t.
-\]
-这是offline Teacher轨迹纠错目标，不是单个FFN直接标签，更不是推理时无代价获得的信息。真实scheduler的乘加/步长/BF16后处理需按源码修正；在四步迭代中，上式往往要求较大的控制幅度，应同时检验目标是否落在受限FFN表示的可表达范围。
+- 原值：\(\mathcal L_{\rm value}=\|F_S(b;c)-F_D(b;c)\|^2\)。
+- 经典有限差分：\(\mathcal L_{\rm secant}=\|[F_S(b+\delta;c)-F_S(b;c)]-[F_D(b+\delta;c)-F_D(b;c)]\|^2\)；条件\(c\)含AdaLN/gate，真实前缀变化时不能只改\(b\)且暗中固定\(c\)。
+- 2ndMatch的\(J^\top J\)匹配是有价值的既有基线；有限有符号差分可作为另一项实验比较器，**不预先假定更优，也不宣称其数学公式新颖**。
+- CTEC理想Euler流场下：若 \(\delta_t=z_t^S-z_t^D\)，则使下一状态吻合Dense所需**整模型**teacher目标为\(v_S^*(z_t^S)=v_D(z_t^D)+\delta_t/h_t\)；需要按原Wan shift5和精度重新推导，单FFN未必能达到。TCEC论文较早版本的具体闭式展开需独立核对正式版本。现有E0有限映射\(P_t,N_t\)交互是严格代数恒等式，不是独立首创机制。
 
-C. TCEC的累积误差竞争对象：令\(T_D,T_S\)为完整原生单步有限映射，则
-\[
-P_t=T_D(z_t^S)-T_D(z_t^D),\quad N_t=T_S(z_t^S)-T_D(z_t^S),
-\]
-\[
-\|\delta z_{t+1}\|^2=\|P_t\|^2+\|N_t\|^2+2\langle P_t,N_t\rangle.
-\]
-这只是精确代数恒等式。此前E0**其它候选**source425在相同prompt/image、不同seed的后三步cross变号，说明可以进一步检验条件性，但不能冒称A54或UB1已经完成对应实验。[原P/N](../20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md)。
+**直接复现优先级**由哪种机制能够解释Affine54真实模糊、运动与细节偏差决定，而不是由论文年份/会议排名决定。
 
-## 4. 研究中的函数表示候选（开放且不限定为“新”）
+## 4. 函数与实际工作单位：四个并行对照族
 
-| 备选表示 | 真正改变的工作 | 主要价值与挑战 |
-| --- | --- | --- |
-| **A0: 历史Affine54** | D×D folded linear+54组原非线性；实际BF16 bank | 现成对照，定位失败 |
-| **A1: Affine54原生数值一致化** | 不先改变结构，仅检验/修正Q2、BF16与拟合/部署不一致的部分 | 成本相近但能隔离H1；如效果更好，可直接采用 |
-| **A2: 文献支持的函数/损失迁移** | 沿用TARDIS近线性分区、2ndMatch响应匹配、CTEC状态目标或OBS-Diff组敏感性（可单用或组合） | 完全允许采用最佳已有方法；关键是wan实际数值与资源/质量 |
-| **A3: 完整64组块耦合残差字典（探索）** | 将逐神经元斜率\(\kappa_j\)推广为每64组 \(K_g\in\mathbb R^{64\times64}\)，用组级耦合表示共享scale响应 | 256行拟合4096参数/组易过拟合；先检查有限统计是否显示额外可预测结构；离线变化未必减少实际GEMM |
-| **A4: 其它I/C表示** | 量化码的联合信息界、函数重参数、布局/融合/编码域计算、必要时轻训练 | 不受A0–A3或G13约束；按数学、真实源码、物理代价决定推进 |
+| 类别 | 代表计算表达/成熟方法 | 需要区分的现象 | 执行条件 |
+| --- | --- | --- | --- |
+| **A：固定部分线性** | 现有Affine54（D×D+54 whole64）；same-cost Whole94；MPC式真实激活子集+消费者重构 | 视频退化来自支持/表示能力，还是数值校准失配？ | 固定source/seed/FFN成本和真实HiF4路径 |
+| **B：条件线性+修正** | 直接复现TARDIS热区、在线预测及“减近似加真实”，必要时以whole64组或更合适的合法算子为单位 | 校准区间在不同step/来源是否稳定？online outlier支持是否实际集中成省算tile？ | 观察器先于原W1/GELU/Q2有信息、并计2-bit proxy/metadata、group scale和kernel价 |
+| **C：函数/训练恢复** | FLAP/ID/OBS/BRECQ支持与消费者恢复、2ndMatch/CTEC/TCEC的局部和轨迹目标，允许直接采用 | 额外训练或不同评价边界能否改善独立视频质量？ | 相同校准来源及时间/参数预算比较，不把模型整体teacher状态当在线标签 |
+| **D：不同物理计算表示** | RT-Lynx的N:M activation sparse+LoRA+SpTC，原生packed FP4或其它量化代码域/融合、可选块耦合近似 | 既有D×D折叠与原whole64是否已经受限于布局/数值闭包？ | 实际大M形状、现有设备和native kernel；不能用后验SSE替换部署成本 |
 
-组块字典的数学形式为：令 \(z_g\in\mathbb R^{64}\)，原合法后量化函数\(q_g(z_g)\)，可定义
-\[
-r_g(z_g)=q_g(z_g)-K_gz_g-d_g,\quad
-A_K=\sum_g W_{2,g}K_gW_{1,g}.
-\]
-保留全部余项是恒等分解，去掉部分余项得到近似。A0是K_g对角的近邻；K_g若不能增加有效泛化信息，优先回到A1/A2，**不为了不同而采用更昂贵的块字典**。Q2尺度可能依赖实际group及更细子组，要以源码可证明的闭包建模，不能把64组内坐标错误假定互不相干。GELU反向配对仅可作为其中一个数学特例验证，不设立独立原创目标。
+可保留一个开放数学种子：以合法64组内的 \(q_g(z_g)\) 拟合 \(K_gz_g+d_g+r_g\)；A0的逐坐标仿射是对角近邻。这种共享scale块映射可能解释Q2条件关联，**但64×64块需要大量参数**，4来源×每函数256行校准不足以先验保证持出稳定，也不能自动减少GEMM。若证据不支持，直接转向TARDIS、MPC或其它更有效的已知基线。
 
-## 5. 工作包与可证伪的里程碑
+\(\phi(z)-\phi(-z)=z\)（tanh-GELU连续值）是已知函数恒等式和A类仿射表示的条件特例；原Wan是否存在可利用对称权重、能否保留原Q2/BF16仍OPEN，**不单独升级成新方法**。
 
-**WP0｜准确还原与现存资产整理（SRC/ALG，当前允许）**  
-从真实bank构造函数和runtime hook列出每一实际W1/GELU/Q2/W2/affine、group/smooth/gate/BF16转换；找到校准四来源、held0/12的相关输入/输出是否保留完整张量，区分“已保存向量”与“只有JSON统计/SHA”。复核A54 full-width neutral范围与partial真正运行范围。产物是一张**原生同输入数字身份与数据可用性表**。这是修正真实误解，不是所有I/C发现必须先做的长期流程。
+## 5. 工作包、竞争预测与资源
 
-**WP1｜最小数学/源码判别（ALG/SRC，当前允许）**  
-对H1从Q2闭包和cast次序找出可能的最早失配边；对H2给出匹配值误差但响应方向不同的构造及2ndMatch比较；对H3先判断256行是否支持拟合K_g以及对应有效rank，或者优先采用已有成熟算法。以确切约束/反例与真实执行成本决定是否值得新的原生验证。只需一两个真正改变推断的构造，**不设必须“原创不同”的结果指标**。
+**WP0｜真实性与证据登记（现存源码/资料，无新模型执行）**  
+完整复核Affine54的bank构造、V_S ridge、Q2/smooth/gate/BF16写回、同预算Whole94与6条81帧原生视频；记录4来源×256行/函数的校准和source0/12已开发暴露的持出身份。明确当前现存哪些full vector可读、哪些仅有聚合RUN/哈希；整理LLMFolder全文未读和需要复核的方程。交付单一source/step/block/boundary矩阵。
 
-**WP2｜已存证据上的机制比较（READ-ONLY；受实际资产可读性限制）**  
-在完整同source/seed/expert/step/site、相同输入和条件边界下比较离线输出、原生bank输出、原生后缀状态、当前值误差和有限响应。已有E0其它候选P/N只作为证据启发，不能移作A54实测。如果现有文件只有聚合标量，则诚实登记缺失，不凭空造运行结果。新CPU模型测量、大规模HF tensor实验及任何GPU/视频动作按ACTIVE需要新的用户授权。
+**WP1｜数值与表示的第一分歧（静态推导与已有载荷）**  
+将(A)完整native执行和(B)校准标签/折叠bank与原Dense在同条件下的偏差分离。来源相同、同Q1输入、同AdaLN/gate时，先检验Q2 scale/round/bias；再比较原Affine54、同成本Whole94、MPC式消费者重构与TARDIS式热区残差，若已有材料足够只需读取/数学检验。成功判据是找到**决定下一构造的数值原因或稳定反例**，不要求某个方法必须新。
 
-**WP3｜经授权后才执行的分辨性原生试验（可选）**  
-针对WP0–2尚不能区分的H1–H3，冻结来源/seed/站点与最小全40层范围，在同一原生prefix，使用matched dense/A54和一项竞争方案比较：teacher→离线拟合→partial native→写回→后缀有限响应。小试验用于验证机制，不冒称完整视频质量；发现数值失配先修正它，发现后缀敏感再决定是否要训练/换表示。不同训练目标保持同参数与数据预算。
+**WP2｜条件计算可行性（允许静态成本/数学构造）**  
+按真实分布考察逐组热区、当前输入outlier频度和在M/K tiles上的占用；在不执行实际模型前，构造必要W1提前信息的成本下界/方案并比较TARDIS原2-bit predictor。一个有价值的反例是outlier分布跨所有tiles，使索引/补算超过saved GEMM；即使如此也只关闭指定粒度/硬件路径，仍可采用固定方法/其它函数。
 
-**WP4｜经授权后进行强可比的原生质量与性能验证（条件触发）**  
-真实候选需要全部40层×四步、完整自由81帧生成、独立冻结来源、成对seed，以及VBench Aesthetic/Imaging/Motion，补齐Dynamic Degree、Subject/Background、时间闪烁与运动/细节代理；同时报告原生FFN、主干/完整生成wall、显存、setup、bank存储和训练成本。与resident Dense、UB1、Affine54及可获得的成熟先例比较。历史UB1原20的2%门槛只属于其原验收，不自动成为每个数学探索成功的硬要求。
+**WP3｜已有扰动与轨迹结论的迁移（保存资料只读）**  
+在同source/seed/step和同真实prefix比较值误差、有限方向响应、BF16写回与下一正常计算边界。其他E0候选的P/N交叉变号与local-vs-video分离只能生成Affine54待判别假说，**不可认作Affine54自己已经验证**。如果完整张量不存在，保留OPEN且先数学/文献推进。
 
-> **决策规则**：当A1足以解释画质缺口，优先完善数值实现；当已有2ndMatch/CTEC迁移有效，直接沿用并研究在Wan的真实效应；当块耦合K_g体现稳定的额外信息且成本可控，才扩展该新表示；当这些条件均不满足，转向不同I/C工作单位或更高容量模型。任何结果都是对具体机制的更新，不是对全部科研方向的否决。
+**WP4｜经用户新授权后的最小native判别**  
+在真正有区别力的两个方案上固定同预算、同source/seed、同数值精度和可见信息：例如原Affine54 vs“原生Q2对齐”的Affine54；或Affine54 vs匹配成本的TARDIS动态组恢复；或Affine54 vs直接MPC-ID重构。小试针对机制，不能替代全四步视频验收；如采用CTEC/2ndMatch做少量训练，需另报真实训练成本。
 
-## 6. Skill逐项审查与记录
+**WP5｜经授权后的终端研究结果**  
+完整40block×4step自由生成及帧视频，原Dense resident、UB1、Affine54、同预算Whole94、可运行论文迁移方法为强比较器。质量：per-source Aesthetic/Imaging/Motion及Dynamic Degree、subject/background consistency、flickering、局部细节与真实运动；速度：全160 FFN、DiT与完整save-video wall、GPU显存、驻留/冷启动/在线proxy+correction+QDQ/packing及训练摊销。结果对同一原生设备/模型/seed形成Pareto，而不是跨LLM或图像论文复述比值。
+
+**可修订决策**：数值路径不足则优先A；固定支持足够而条件outlier强时可直接复现TARDIS；V_S/消费者重构不足可直接采用MPC/OBS；局部重构仍不能解释视频则发展CTEC/2ndMatch与真实suffix；若硬件更受约束，直接比较RT-Lynx/packed FP4类系统。以上研究可以并行，没有强制顺序，也不设“必须不同”的算法门槛。
+
+**所有新模型运行、CPU数值模型测量、GPU、视频、训练仍服从[ACTIVE](../ACTIVE_RESEARCH.json)；当前文档修改不是新的计算授权。
+
+## 6. Skill复审：保留开放性与成熟技术可用性
 
 | AutoResearcher Skill | 已落实的检查 | 应继续保留的开放性 |
 | --- | --- | --- |
@@ -143,14 +129,15 @@ A_K=\sum_g W_{2,g}K_gW_{1,g}.
 | **web-research-discovery** | 官方原论文与真实先例映射到具体计算步骤、目标和适用范围 | 先例应促进合理借鉴，差异发现后再谈新颖性 |
 | **FFNDS领域Skill** | I/F/C并行、实测/推导/假说区分、强Dense和原生质量/成本保留 | G13仅为F线专题；未改ACTIVE、CI或一次性交接 |
 
-**交付主线**：一项可核实的数值失配定位、一项可检验的有限响应规律，或一项真正更廉价的函数表示，三者均是合格进展；能否发表独立新机制依据最终证据，而不是起步时要求刻意不同。
+**交付主线**：复现并成功迁移成熟机制、准确定位数值/函数/传播失配、或获得真正省算的计算表示均为有价值成果。下一轮判断优先来自同Wan强比较器与真实视频，而不是论文名称差异。
 
-## 7. 证据与后续科研入口
+## 7. 精简后的唯一证据与论文入口
+
+- [部分线性FFN与条件修正一手文献主审查（本轮新增）](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)：TARDIS、LLMFolder、MPC、FLAP、BRECQ、CTEC、RT-Lynx与实际Wan迁移边界
 
 - [已审核UB1和科研空间](UB1_TO_FFNDS_EVIDENCE_DRIVEN_ROUTE_REASSESSMENT_20261027.md)
 - [E0全40层匹配局部](../20261026/E0_ALL_BLOCK_RECONSTRUCTION.md)、[六视频与系统计时](../20261026/E0_RECONSTRUCTED_VIDEOS.md)
 - [E0完整hidden与物理tile](../20261025/E0_INTRINSIC_FULL_HIDDEN.md)、[Q2合法组与物理算子](../20261025/E0_SHARED_TILE_PRE_W1.md)
 - [独立G13方法](G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[三线目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)
-- 一手论文： [TARDIS](https://arxiv.org/abs/2501.10054)、[2ndMatch](https://openaccess.thecvf.com/content/CVPR2026/html/Zheng_2ndMatch_Finetuning_Pruned_Diffusion_Models_via_Second-Order_Jacobian_Matching_CVPR_2026_paper.html)、[CTEC](https://ojs.aaai.org/index.php/AAAI/article/view/34039)、[TCEC](https://proceedings.mlr.press/v306/liu26fv.html)、[OBS-Diff](https://arxiv.org/abs/2510.06751)、[DIFS](https://arxiv.org/abs/2607.06631)。
 
 **静态文档完成标准**：本文所有已测数字与原RUN/源码一致；内部链接可访问；理论等式标明成立条件；每个解释存在对照及可修订结论；不把复用成熟方法排除在外，也不预先宣称新方法/新执行授权。
