@@ -137,58 +137,64 @@ def main():
                "research/agent_protocol/UPSTREAM_SYNC.md"),
            "Upstream synchronization procedure is missing generic WARD core")
 
-    # Broad/deep web-research routing is an instruction integrity property,
-    # never evidence that any agent actually performed live searches.
+    # Current route integrity is checked by target files, protocol hashes and
+    # semantic G13 pointers, rather than dated phrases in natural-language prose.
     web = active.get("web_research", {})
     ensure(web.get("default") is True and
            web.get("mode") ==
            "PROACTIVE_BROAD_DEEP_ITERATIVE_WEB_SEARCH_FOR_SUBSTANTIVE_SCIENTIFIC_WORK" and
-           web.get("protocol") == "research/agent_protocol/DEEP_WEB_RESEARCH.md",
-           "Live deep web-search research default is missing")
-    ensure((ROOT / web["protocol"]).is_file(),
-           "Deep web research protocol is missing")
-    for entry in ("AGENTS.md", ".github/copilot-instructions.md",
-                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
-                  "research/method_discussion/AGENTS.md",
-                  "research/method_discussion/README.md",
-                  "research/method_discussion/TEMPLATES.md",
-                  "research/method_discussion/discoveries/E0/README.md",
-                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
-                  "research/agent_protocol/E0_STAGE_ANCHOR.md",
-                  "research/agent_protocol/README.md",
-                  "research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md"):
-        ensure("DEEP_WEB_RESEARCH.md" in text(entry),
-               "Deep web-search prompt routing drift: " + entry)
+           web.get("protocol") == "research/agent_protocol/DEEP_WEB_RESEARCH.md" and
+           (ROOT / web["protocol"]).is_file(),
+           "Deep source search protocol is missing from live FFNDS research")
+
     local_skill = text(".agents/skills/ffnds-paper-discovery/SKILL.md")
     ensure(re.match(r"\A---\nname:\s*ffnds-paper-discovery\n"
                     r"description:[^\n]+\n---\n", local_skill),
-           "Local domain skill YAML frontmatter is invalid")
+           "Domain skill frontmatter is invalid")
+    ensure("web-research-discovery/SKILL.md" in local_skill and
+           "web-research-discovery/SKILL.md" in text("AGENTS.md"),
+           "FFNDS science lost the pinned upstream literature discovery skill")
 
-    # Live-stage routing: static structural consistency, NOT creative grading.
     stage = active.get("current_stage", {})
     ensure(stage.get("id") == "E0_OPEN_DISCOVERY" and
-           stage.get("phase") == "PHENOMENON_AND_COMPETING_MECHANISM_EXPLORATION",
-           "Live research was silently promoted beyond the user-selected E0 phase")
-    ensure(active.get("active_document") == stage.get("task_document"),
-           "Active document and sole E0 task disagree")
-    ensure(stage.get("multi_agent_mode") ==
+           stage.get("phase") == "PHENOMENON_AND_COMPETING_MECHANISM_EXPLORATION" and
+           active.get("active_document") == stage.get("task_document") and
+           stage.get("multi_agent_mode") ==
            "INDEPENDENT_DISCOVERY_AND_CHALLENGE_DISCUSSION_ONLY" and
            stage.get("new_experiment_authority") == "NONE" and
            stage.get("transition_authority") ==
            "EXPLICIT_USER_DIRECTED_SERIALIZED_COORDINATOR_UPDATE_ONLY",
-           "E0 discussion acquired unapproved stage/execution authority")
+           "Current stage or experiment authority changed")
     for key in ("task_document", "direction_document", "agent_anchor",
                 "discovery_surface", "open_problems_document"):
-        rel = stage.get(key, "")
-        ensure(bool(rel) and (ROOT / rel).is_file(),
-               "Missing active E0 instruction/evidence link: " + key)
+        p = stage.get(key)
+        ensure(bool(p) and (ROOT / p).is_file(),
+               "Missing registered active study file: " + key)
+    g13 = active.get("function_first_structure_localization_20261027", {})
+    ensure(g13.get("status") == "PRIMARY_SCIENTIFIC_PRIORITY_DISCOVERY_ONLY" and
+           g13.get("current_document") ==
+           "research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md" and
+           g13.get("structured_research_objects") ==
+           "research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json" and
+           g13.get("model_execution_authority") ==
+           "PAUSED_BY_EXPLICIT_USER_REQUEST_20261027" and
+           all((ROOT / g13[key]).is_file() for key in
+               ("current_document", "structured_research_objects")),
+           "Current function/structure scientific problem is not linked to ACTIVE")
     for entry in ("AGENTS.md", ".github/copilot-instructions.md",
-                  "research/method_discussion/AGENTS.md",
-                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
                   ".agents/skills/ffnds-paper-discovery/SKILL.md",
-                  "research/method_discussion/TEMPLATES.md"):
-        ensure(stage["id"] in text(entry),
-               "Agent entrypoint has drifted from live E0 research phase: " + entry)
+                  "research/method_discussion/AGENTS.md",
+                  "research/agent_protocol/E0_STAGE_ANCHOR.md",
+                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+                  "research/agent_protocol/README.md",
+                  "research/method_discussion/discoveries/E0/README.md",
+                  "README.md"):
+        wording = text(entry)
+        ensure(("G13" in wording or "FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json" in wording)
+               and ("ACTIVE_RESEARCH.json" in wording or
+                    "ACTIVE_SOURCE_MANIFEST.json" in wording),
+               "Live G13 and source/authorization navigation missing: " + entry)
+
     # Single FFN-first scientific question; historical E0 gap dossier remains immutable
     # evidence rather than a source of agent task priority.
     focus = active.get("research_focus", {})
@@ -205,24 +211,7 @@ def main():
            stage.get("latest_deliverable", {}).get("gaps_and_required_remedies") == historical_gap and
            (ROOT / historical_gap).is_file(),
            "FFN-first active science routing or historical evidence provenance drift")
-    for entry in ("AGENTS.md", ".github/copilot-instructions.md",
-                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
-                  "research/method_discussion/AGENTS.md",
-                  "research/agent_protocol/E0_STAGE_ANCHOR.md",
-                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
-                  "research/agent_protocol/README.md",
-                  "research/method_discussion/discoveries/E0/README.md",
-                  "README.md"):
-        ensure("E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md" in text(entry),
-               "FFN-first project entrypoint drift: " + entry)
-    for entry in ("AGENTS.md", ".github/copilot-instructions.md",
-                  ".agents/skills/ffnds-paper-discovery/SKILL.md",
-                  "research/method_discussion/AGENTS.md",
-                  "research/agent_protocol/E0_STAGE_ANCHOR.md",
-                  "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
-                  "research/agent_protocol/README.md", "README.md"):
-        ensure("E0_FFN_FIRST_TASK_20261025.md" in text(entry),
-               "New FFN discovery task not visible to agent: " + entry)
+    # File targets and G13 science route are validated above.
     # Historical G4 mechanism audit remains discoverable, but only the
     # most recent G5 audit owns the current latest_* pointers below.
     divergence = "research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md"
@@ -260,11 +249,8 @@ def main():
            stage.get("latest_direction_review") == review and
            graph.get("science_review") == review and
            (ROOT / review).is_file() and
-           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text(first_task) and
-           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in text("AGENTS.md") and
-           "E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md" in
-           text(".agents/skills/ffnds-paper-discovery/SKILL.md"),
-           "Scientific review split across obsolete handoffs")
+           (ROOT / g13["current_document"]).is_file(),
+           "Original experimental review or G13 current science locator changed")
     for obsolete in (
         "research/20261025/E0_POST_AFFINE_DIRECTION_REVIEW_20261025.md",
         "research/20261026/E0_AFFINE54_FOUNDATION_VS_METHOD_FAMILY_SKILL_REVIEW_20261026.md",
