@@ -17,7 +17,7 @@
 | 检索原论文、机制家族与实际源码证据 | [89项文献索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[机制Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)、[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
 | 使用科研Skill与多Agent独立讨论 | [FFNDS领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md)、[AGENTS](AGENTS.md)、[Graph↔Agent协作](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) |
 | 实际研究状态、运行历史和授权 | [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)、[研究导航](research/RESEARCH_NAVIGATION.md) |
-| 数据抽样、校准、生成与评价 | [实验Skill](.agents/skills/ffnds-experiment-evidence/SKILL.md)、[可执行手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)、[数据协议](research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) |
+| 数据抽样、校准、生成与评价 | [Calibration V2 方法快照](research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)、[实验Skill](.agents/skills/ffnds-experiment-evidence/SKILL.md)、[可执行手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)、[数据协议](research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) |
 
 ## 真实研究对象与已有结果
 
@@ -37,7 +37,11 @@
 
 **本轮已完成**：[共享输入联合支持与精确投影强比较器](research/20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)、[原M Q2直接/补集数值判别](research/20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)、[W2形状控制](research/20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)。用户要求的[UB1独立全帧复核](research/20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)覆盖两组历史配对；完整视频质量与新方法优势仍按精确范围判断。
 
-## 新数据与评价管线的实际状态
+## 校准方法与评价管线的实际状态
+
+**Calibration V2 已注册为设计与CPU数学合同**：按目标区分 group support / signed cross、gain-bias、R256、teacher/student状态及终端motion；独立来源配额直接在 `image_id` 簇上抽取，再登记具体source/prompt。12×512、24×256、48×128等是待实采与拟合的因素实验；当前没有新的校准最优规模、独立视频验收或完整部署优势结论。[冻结设计](config/calibration_design_v2_20261027.json)和[方法快照](research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)用于新实验。
+
+
 
 2026-10-27合并的实验管线提供来源登记、全160位置校准行**计划**、原生操作数索引/文件头核验、注册后Dense/UB1原生视频生成入口、原版VBench分维调用入口，以及图像簇配对统计工具。各环节独立读取真实收据：**计划生成 ≠ 原生操作数已采集或拟合；原版评测函数执行 ≠ 九维完整官方榜单；来源级重采样 ≠ 新的独立来源**。
 
