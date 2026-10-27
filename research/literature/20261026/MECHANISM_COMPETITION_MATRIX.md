@@ -1,9 +1,13 @@
-# FFNDS · 现行研究机制与强竞争论文矩阵（G7–G12）
+# FFNDS · 现行研究机制与强竞争论文矩阵（G7–G13）
 
-> 2026-10-27综合版本，覆盖79项论文索引。[完整研究报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)详细陈述数学、原生证据和物理预算；[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)保存机器可检索的M01–M12机制组/源节点/论文ID/成本。下表是**同构性与区分性**导航，而不是方法优先序或GPU任务单。
+> 2026-10-27综合版本，覆盖85项论文索引。[完整研究报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)详细陈述数学、原生证据和物理预算；[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)保存机器可检索的M01–M12机制组/源节点/论文ID/成本。下表是**同构性与区分性**导航，而不是方法优先序或GPU任务单。
+
+**研究顺序校正（2026-10-27）**：本矩阵从**M13有意义的输出函数定位→M14承担该功能的真实计算结构**出发；之后才考虑量化码信息与其它M01–M12执行方案。见[G13定义和原生观察](../../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[功能–结构登记](../../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)。完整论文索引当前85项，171图节点、354关系、14机制家族。
 
 | 研究机制 | 最强公开先例（LID / 图节点） | 何时可观察、何处产生真实费用 | 反向预测与当前Wan待验证边 |
 |---|---|---|---|
+| **先识别有意义的输出函数（M13）** | JMLR2025 Causal Abstraction L80；ICLR2024 Patching方法L81/幻象L82；CVPR2026 IMAP L84 | 来自已有自由视频、有限P/N/cross与原FFN写回函数的自然条件变化；真实因果定位需额外合法干预 | 语义/频带/SAE线索仅供观察，可能由休眠备份通路解释patch效果；先从behavior定义验收函数身份 |
+| **再定位正常计算结构（M14）** | G0–G5原生Wan SRC；TIDE L83 / 视频时空SAE L85作为可解释表示先例；FFF L53作训练重构对照 | 共享q的W1多行、GELU、HiF4 Q2的64组耦合、W2 signed gate、后续attention/flow和step共同承担或补偿功能 | 区分联合功能与单列“重要性”，建立函数必要性/充分性和physically realizable subgraph后才选量化码/稀疏mask |
 | **冻结FFN有符号函数可预测** | Geva L01/superposition L02；NerVE L50/K10–K12；Prox L69/Q19–20 | preW1 q能读、weight静态统计能离线预处理；postQ2 signed函数是后验标签 | 可能只有W1/GELU后才分辨，或shared Q2 group/跨行相消使单通道不足；验证原gate×W2和整视频 |
 | **FP4有符号直方图与严格区间** | XNOR-Net L77/I13、量化乘积理论 L78/I14；经典重排定理（G12 I04） | 当前激活先Q1才能生成signed histogram；每行每token分组查询/partial-pair读价必须计算 | 单行紧界可能宽，所有行共享输入导致joint vector界不紧；与低位dense相比每组检查可能不划算 |
 | **付费INT4 proxy/MLP预测** | Prox L69/Q19–20；Chipmunk L09/K25；Spark L70/Q21–22 | 代理投影和mask不免费；Prox对LLM SwiGLU的两次proxy分摊到三次selected GEMV | 原Wan是W1/GELU/Q2/W2，不是SwiGLU 3投影；比较不支付proxy的码字证书及实际Q2 group |

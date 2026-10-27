@@ -1,13 +1,19 @@
 # FFNDS · 科研 Agent × 源码计算图双向协作协议
 
-**现行图谱状态（2026-10-27）**：153个稳定节点、313条有类型边、79项研究索引。G0–G5是原生Wan源码/原生实验，G6是历史场景图，G7–G12是外部论文LIT/原理ALG/SPEC/开放OPEN；[统一综合报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)解释研究关系，[12机制Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)登记何时可观察、付费算子、对应源码、主要竞争论文和下一可证伪观测。**原实验CPU/GPU/model/video仍全部暂停。**
+**现行图谱状态（2026-10-27）**：171个稳定节点、354条有类型边、85项研究索引。G0–G5是原生Wan源码/原生实验，G6是历史场景图，G7–G13是外部论文LIT/原理ALG/SPEC/开放OPEN；[统一综合报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)解释研究关系，[14机制Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)登记何时可观察、付费算子、对应源码、主要竞争论文和下一可证伪观测。**原实验CPU/GPU/model/video仍全部暂停。**
 
 **双向维护规则**：一手文献原方程、实际算法代码和原Wan节点分别留在来源账本、结构化graph、native实验RUN；Crosswalk加入有类型的**比较/条件**边，结论不能自动升级为SRC原生执行。新的理论发现可以先独立于既有图提出，随后绑定到最相关的操作与消费者。更新数值实验原始文件必须独立授权并保留历史哈希；清理文档不改变RUN本身。
 
 
 **统一研究边界**：[全层省算、真实视频失配与方法族审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)将局部函数重写、GELU奇偶解释、已测权重常驻与已经产生完整视频但质量不合格的原型结果分开。G5提供Affine候选、视频结果与成本的证据节点。Agent可以从全新数学结构或视频异常起步，建立新的源图节点与判别性计算边。
 
-**当前任务**：以[当前统一机制报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)和[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)为综合入口；[G0–G12权威图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点边](GRAPH_AGENT_BINDINGS.json)同步。历史FFN第一任务和本征审计继续作为原生证据来源。
+**当前任务**：以[当前统一机制报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)和[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)为综合入口；[G0–G13权威图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点边](GRAPH_AGENT_BINDINGS.json)同步。历史FFN第一任务和本征审计继续作为原生证据来源。
+
+## 当前首要双向协作：先观察功能，再定位正常执行结构
+
+最新[G13研究优先级和功能证据分层](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)：视频/latent现象→有标签或无标签的条件输出函数→真实在正常前向承担函数的多W1行/GELU/HiF4-Q2/W2/门控/跨层/跨step子图→未来可授权的独立因果干预→算子/量化/硬件效率。使用[FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)登记不同的**行为、函数和结构**；不将SAE概念、signed cross、低频、SSE、后验mask直接升级为功能必要性。M13/M14是新研究主入口，原 M01–M12只是后续技术类比较。G13的L80–L85仅对应真实原文摘要/作者摘要等级。
+
+当前85篇/171节点/354关系/14机制家族；G13是研究与源码事实叠加图，没有新的FFN组消融或原生视频运行。**原实验暂停**由ACTIVE独立判定。
 
 ## 协作定义
 

@@ -1,12 +1,18 @@
 # FFNDS — AutoResearcher 默认科研协议
 
-**当前解释入口（2026-10-27）**：[FFN机理与文献综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [权威G0–G12计算图](docs/98_端到端计算图与证据注解_20261025.md) · [12类机制/源码/论文/计算成本映射](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) · [79篇文献分级索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) · [当前研究状态与权限](research/ACTIVE_RESEARCH.json)。
+**当前解释入口（2026-10-27）**：[FFN机理与文献综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [权威G0–G13计算图](docs/98_端到端计算图与证据注解_20261025.md) · [14类机制/源码/论文/计算成本映射](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) · [79篇文献分级索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) · [当前研究状态与权限](research/ACTIVE_RESEARCH.json)。
 
-**当前来源与图谱规模**：79个LID、153个稳定节点、313条有类型关系。新增的26条跨机制边均为文献/ALG/OPEN比较，不是新native execution。
+**当前来源与图谱规模**：85个LID、171个稳定节点、354条有类型关系。新增的26条跨机制边均为文献/ALG/OPEN比较，不是新native execution。
 
 **研究现场**：原生 LightX2V Wan2.2-I2V-A14B D-Q 四步high/high/low/low，40 blocks；FFN是norm2/AdaLN→Smooth1/Q1→W1→tanh-GELU→Smooth2/HiF4 Q2(64→8→4)→W2→e5 BF16 gated residual→后续blocks/flow/video。现已覆盖10个独立source身份、12条source×seed完整轨迹、1920个全深度FFN观察位置，旧方法曾有真实速度收益和视频质量失配。原生fake-QDQ不是已部署NVFP4/MXFP4 packed GEMM。外部G7–G12论文、数学与实时video均是可检验研究参考。
 
 **研究权限**：当前主动进行论文原文/源码核查、机制推导、已保存证据整理、计算图增量与Agent独立讨论。全部**新CPU/GPU/模型/视频**实验暂停，另行明确授权才能运行。AGENTS/图/论文索引/CI不授予执行权限；历史授权不能自动续用。
+
+## 当前最优先的科学工作：输出函数与计算结构定位
+
+**用户2026-10-27明确修正**：研究先从**实际生成视频、当前状态与FFN gated residual功能**中发现有意义的输出函数（包括不带预设语义名称的signed联合功能），随后沿真实正常前向建立函数承担者：输入调制/W1共享输入、GELU、HiF4-Q2整个64组尺度、W2有符号合成、attention/后续block、flow/step状态。先整理现象/可重复函数候选，再以独立有效干预确认因果作用，之后才能确定真正重要的计算结构与减算空间。**量化符号、激活mask、proxy、LUT、单列重要性或SSE均为可选的后续实现与诊断，不是现在定义功能的条件。**
+
+权威[G13研究对象和一手论文](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[独立功能/结构索引](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13全图](docs/98_端到端计算图与证据注解_20261025.md)、[M13/M14顶层机制](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)。现在**85篇、171节点、354关系、14家族**；原ACTIVE的暂停与历史RUN不变。建议所有科研Agent首先从具体行为/输出函数提出竞争解释，再调查其真实计算子结构，最后才研究量化存储能否廉价观察或者算子加速。
 
 ## Constructive research-language policy (AutoResearcher v2.4)
 
@@ -14,13 +20,13 @@
 
 保持 DISCOVERY（假说、表示）、EVIDENCE（数学/SRC/OBS/NATIVE/VIDEO/SYS）、EXECUTION（授权的具体RUN）三个独立层级。SRC只绑定原Wan固定算子；外部作者论文和源码是LIT；经典不等式或代数重写是ALG；尚待当前Wan检验的是OPEN。新论文的来源等级和原文/实现版本逐项审查；不要把作者FPS、单核microbenchmark或单向量decode移为原I2V全模型证明。强制给出真实信息时点和物理价；无需预先挑选SSE、TopK、proxy、码本、稀疏format或单一路线。
 
-**科研文书维护规则**：上述综合报告承载**现行跨机制解释**，G0–G12图和Graph Bindings承载唯一稳定节点/有类型比较边；论文原方法细节保留在对应一手审计与来源账本；本文件只保留默认原则与稳定指针。避免逐轮把新进展大段插到标题前、复制旧论文数量或撤销历史原始证据。要更正旧报告时保留具体版本/原始数据并标注其后来源级复审结果。
+**科研文书维护规则**：上述综合报告承载**现行跨机制解释**，G0–G13图和Graph Bindings承载唯一稳定节点/有类型比较边；论文原方法细节保留在对应一手审计与来源账本；本文件只保留默认原则与稳定指针。避免逐轮把新进展大段插到标题前、复制旧论文数量或撤销历史原始证据。要更正旧报告时保留具体版本/原始数据并标注其后来源级复审结果。
 
 **CI使用**：脚本语法/链接/图ID/边端点验证可以快测；独立数值等价需单独原生验证、视频效果需完整质量验证。重复手动CI输出不代替科研证据，不为无决策价值的检查浪费资源。
 
-## Default G0–G12 computational-graph research collaboration
+## Default G0–G13 computational-graph research collaboration
 
-**Use the [Graph↔Agent protocol](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) with the [source/evidence node registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) and the [canonical G0–G12 computation graph](docs/98_端到端计算图与证据注解_20261025.md) in every substantive FFN research task.** Pull only the relevant upstream/downstream nodes, actual frozen source configuration, evidence scope and decision-time cost; start from a mechanism, source operation, literature clue or video anomaly. Create graph-anchored hypotheses/counterexamples via the [E0 graph annotation surface](research/method_discussion/graph_annotations/E0/README.md). Independent peers review mathematics/source and exact evidence; the serialized curator incorporates supported claims and OPEN edges back into graph + findings atlas. Graph labels and registry queries are research indexes, not an automatic runnable trace, new model authorization or a mandate to optimize G4 shared columns.
+**Use the [Graph↔Agent protocol](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) with the [source/evidence node registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) and the [canonical G0–G13 computation graph](docs/98_端到端计算图与证据注解_20261025.md) in every substantive FFN research task.** Pull only the relevant upstream/downstream nodes, actual frozen source configuration, evidence scope and decision-time cost; start from a mechanism, source operation, literature clue or video anomaly. Create graph-anchored hypotheses/counterexamples via the [E0 graph annotation surface](research/method_discussion/graph_annotations/E0/README.md). Independent peers review mathematics/source and exact evidence; the serialized curator incorporates supported claims and OPEN edges back into graph + findings atlas. Graph labels and registry queries are research indexes, not an automatic runnable trace, new model authorization or a mandate to optimize G4 shared columns.
 
 Quick read-only lookup: `python tools/graph_agent_bridge.py inspect F08`; `python tools/graph_agent_bridge.py trace G18 P12`. Report the node IDs and if a proposed edge is `posthoc` or `conditional`, not a dense execution fact. Distinguish before-W1 information from an observer that pays extra W1, and `q2_post` from GELU hidden.
 

@@ -2,16 +2,22 @@
 
 FFNDS研究**能以什么信息和数学表示减少真正的 FFN / 整段视频计算，同时保持生成视频的运动、主体、背景、光照与时间一致性**。研究从真实 LightX2V Wan2.2 I2V A14B 四步D-Q代码出发，并沿原始科研论文扩展函数、信息、时间和硬件机制。文献与计算图是研究工具，不是某一候选稀疏算子的实现声明。
 
-**当前图谱规模**：79项关联研究、153个稳定节点、313条有类型关系（包含26条新跨机制比较边）。数量代表可检索覆盖，不等于79篇均已完成全文或源码核查。
+**当前图谱规模**：85项关联研究、171个稳定节点、354条有类型关系（包含原26条综合比较关系及G13新增41条研究/条件关系）。数量代表可检索覆盖，不等于85篇均已完成全文或源码核查。
+
+## 当前第一科学问题：定位输出函数及其计算结构
+
+**先识别视频生成中具有行为作用的FFN输出函数，再研究承担这些函数的正常前向计算结构。** [G13函数定位、因果证据与实际算子路径](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)是现行首要研究入口；[行为–函数–结构独立登记](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)明确已有视频现象、开放的函数身份与待验证的计算图关系。量化code/sign、proxy、LUT、TopK或各种内核只在函数与结构定位后考虑信息/执行经济性。
+
+当前图谱为**85项相关研究、171稳定节点、354条类型化关系、14个机制家族**，其中G13新增18节点/41条件比较边；没有新模型功能因果实验，原模型CPU/GPU/视频运行保持暂停。G13原文方法学先例详见[来源账本](research/literature/20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)。
 
 ## 现行研究入口（2026-10-27）
 
 | 目的 | 权威资料 |
 |---|---|
 | 当前已经知道的事实、竞争假说及研究综合 | [统一 FFN 机制、文献与计算图研究报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) |
-| 一张可逐算子追踪的 Wan + 外部方法计算图 | [G0–G12 完整源码计算图与证据注解](docs/98_端到端计算图与证据注解_20261025.md) |
-| 机器可读的稳定节点、边和12类机制互联 | [Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) / [Mechanism Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) |
-| 79篇论文及各自真实阅读等级 | [Primary Literature Index](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) / [机制竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
+| 一张可逐算子追踪的 Wan + 外部方法计算图 | [G0–G13 完整源码计算图与证据注解](docs/98_端到端计算图与证据注解_20261025.md) |
+| 机器可读的稳定节点、边和14类机制互联 | [Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) / [Mechanism Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) |
+| 85篇论文及各自真实阅读等级 | [Primary Literature Index](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) / [机制竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
 | 已完成原生实验的发现、证据身份和验收范围 | [Experiment Findings Atlas](research/EXPERIMENT_FINDINGS_ATLAS.md) / [研究导航](research/RESEARCH_NAVIGATION.md) |
 | 默认AutoResearcher原则与科研Agent讨论 | [AGENTS.md](AGENTS.md) / [Graph↔Agent协作](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) |
 | 当前模型执行、实验权限和工作阶段 | [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json) |
@@ -33,7 +39,7 @@ FFNDS研究**能以什么信息和数学表示减少真正的 FFN / 整段视频
 
 这三个问题可以并行提出不同假说，无需先规定TopK、Dense恢复、SSE、FP4格式、特定路由或单一路线。局部raw SSE改善不等于最终视频稳定，也不反证其它未来函数表示。
 
-## 论文与图谱的六条主线
+## 论文与图谱的七条主线
 
 | 外部图分区 | 比较什么 | 一手材料 |
 |---|---|---|
@@ -42,6 +48,7 @@ FFNDS研究**能以什么信息和数学表示减少真正的 FFN / 整段视频
 | **G9** | 整个函数历史预测、硬树条件执行、全网功能迁移 | [G9一手阅读](research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md) |
 | **G10** | 普通视频teacher如何变成实时causal/rolling学生及其系统SLO | [实时视频14项论文与源码](research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md) |
 | **G11** | FP4符号/尺度的信息时点，Prox、CodeGEMM、SharQ等计算代价 | [核心5篇深读](research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ的Wan-T2V强对照](research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md) |
+| **G13** | 先定位有意义的输出函数、真实计算子图和因果证据 | [首要函数定位报告](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) |
 | **G12** | 有符号量化直方图的单行紧内积区间、部分配对精读与bitplane/LUT/GEMV | [严格代数和作者源码](research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) |
 
 G7–G12新外部节点使用LIT/ALG/SPEC/OPEN证据等级。CodeGEMM、LUT-GEMM的公开实现单向量查表与多token解量化dense回退、SharQ的sparse加dense residual GEMM是实质性的**原作者源码实现边界**；相关结果不是当前Wan本地运行。
