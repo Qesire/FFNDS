@@ -103,17 +103,38 @@ class GraphAgentBridgeTests(unittest.TestCase):
         crosswalk = load_crosswalk(self.registry)
         result = validate_crosswalk(self.registry)
         self.assertIsNotNone(crosswalk)
-        self.assertEqual(result["mechanism_families"], 12)
-        self.assertEqual(result["primary_papers"], 79)
-        self.assertEqual(result["crossgraph_comparison_edges"], 26)
-        self.assertEqual(len(self.registry["nodes"]), 153)
-        self.assertEqual(len(self.registry["edges"]), 313)
+        self.assertEqual(result["mechanism_families"], 14)
+        self.assertEqual(result["primary_papers"], 85)
+        self.assertEqual(result["crossgraph_comparison_edges"], 67)
+        self.assertEqual(len(self.registry["nodes"]), 171)
+        self.assertEqual(len(self.registry["edges"]), 354)
         self.assertTrue(all(e["edge_type"] == "SCIENTIFIC_COMPARISON_OR_CONDITIONAL"
                             for e in crosswalk["synthesis_edges"]))
         families = {f["id"]: f for f in crosswalk["families"]}
         self.assertIn("I04", families["M02"]["home"])
         self.assertIn("L74", families["M05"]["papers"])
         self.assertIn("S20", families["M10"]["home"])
+
+    def test_function_first_output_significance_and_native_structure_are_explicit(self):
+        crosswalk = load_crosswalk(self.registry)
+        self.assertEqual([f["id"] for f in crosswalk["families"][:2]], ["M13", "M14"])
+        families = {f["id"]: f for f in crosswalk["families"]}
+        self.assertIn("U07", families["M13"]["home"])
+        self.assertIn("U10", families["M14"]["home"])
+        self.assertIn("L84", families["M13"]["papers"])
+        nodes = {n["id"]: n for n in self.registry["nodes"]}
+        self.assertEqual(nodes["U02"]["evidence_type"], "NATIVE-OBS")
+        self.assertEqual(nodes["U04"]["evidence_type"], "SRC")
+        self.assertEqual(nodes["U08"]["evidence_type"], "OPEN")
+        self.assertEqual(nodes["U11"]["evidence_type"], "OPEN")
+        self.assertEqual(nodes["U14"]["evidence_type"], "OPEN")
+        self.assertEqual(nodes["U15"]["evidence_type"], "LIT")
+        self.assertTrue(any(e["from"]=="U14" and e["to"]=="I04"
+                            for e in self.registry["edges"]))
+        self.assertTrue(any(e["from"]=="U14" and e["to"]=="Q09"
+                            for e in self.registry["edges"]))
+        self.assertEqual(len(self.registry["function_first_graph_20261027"]["node_ids"]), 18)
+        self.assertTrue(self.registry["function_first_graph_20261027"]["no_new_native_runs"])
 
     def test_unregistered_discovery_needs_curator(self):
         with self.assertRaises(SystemExit):
