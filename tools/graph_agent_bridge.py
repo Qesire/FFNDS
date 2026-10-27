@@ -143,9 +143,17 @@ def inspect_focus(data, focus_id):
     if lens is None: raise SystemExit("No G14 literature overlay")
     focus=next((f for f in lens["focus_nodes"] if f["id"]==focus_id),None)
     if focus is None: raise SystemExit(f"Unknown stage: {focus_id}")
+    candidates=[p for p in lens["paper_links"]+lens["supplemental_links"]
+                if focus_id in p["focus_nodes"]]
     return {"focus":focus,
             "primary_papers":[p["id"] for p in lens["paper_links"] if focus_id in p["focus_nodes"]],
             "supplemental_papers":[p["id"] for p in lens["supplemental_links"] if focus_id in p["focus_nodes"]],
+            "method_comparisons":[{"id":p["id"], "author_method":p["mechanism"],
+                                  "decision_time":p["decision_time"],
+                                  "physical_or_training_action":p["intervention"],
+                                  "reading_depth":p["review_depth"],
+                                  "wan_transfer_discriminator":p["wan_transfer_question"]}
+                                  for p in candidates],
             "warning":"This relation is a scientific lens, not original model execution."}
 
 

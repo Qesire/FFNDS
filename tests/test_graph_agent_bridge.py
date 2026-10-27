@@ -31,6 +31,8 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(focus["focus"]["native_anchor"],"F08R")
         self.assertIn("L74",focus["primary_papers"])
         self.assertIn("C04",focus["supplemental_papers"])
+        self.assertTrue(all(x["author_method"] and x["decision_time"] and
+                            x["physical_or_training_action"] for x in focus["method_comparisons"]))
         stages=[p for p in self.registry["nodes"] if p["graph_section"]=="G14"]
         self.assertEqual(len(stages),16)
         self.assertTrue(all(n["evidence_type"]=="LIT" for n in stages))
