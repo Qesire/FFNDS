@@ -2,6 +2,8 @@
 
 **外部文献不混入原生实验的最新映射（2026-10-27）：** [G8 15个论文节点与四机制直接对照](literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)；Dense2MoE是训练后的FFN专家及连续MoB而非本Wan原high/low，SVD-Cache在full feature refresh之后复用低能量残差，Chipmunk跨step系数增量，RT-Lynx当前输入N:M。G8全部是LIT，不是本Wan新实测。十来源采集完成后的用户暂停为历史记录；外部研究图提供科学对照，当前授权单独看ACTIVE。
 
+**UB1独立运动保真证据更新（2026-10-27，原GPU-RAFT实测的只读重检，不新增RUN）**：[两条已暴露formal20来源的连续Dynamic Degree审查](20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)绑定[原RAFT原始数组/SHA](20261027/UB1_DYNAMIC_DEGREE_RESULTS.json)与[视频逐帧复核](20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)。source882犀牛Dense3.3932px→UB1 1.2937px（38.13%，38/40采样帧对减少）；source80山坡住宅1.9950→0.1833px（9.19%，40/40减少），五个8-pair窗口均下降。四视频官方binary全0，原formal20 Motion Smoothness约相等。这是两个**已暴露source×seed**内的连续RAFT幅度现象，不是80个独立sample，也不是全20来源的motion保真验收。H-MEAS（blur改变RAFT可追踪性）、H-CAP（删去相干运动方向）、H-TRAJ（跨层/步传播）、H-DATA（24-source校准）均OPEN；后续可用原视频主体ROI位移、相机补偿与完整后缀原生干预分别判别。与A5+HWG历史闪烁、Affine54模糊属于**不同候选证据身份**。
+
 # FFNDS · 实验发现谱系、机制分类与对照矩阵
 
 **UB1 新有界证据（2026-10-27）**：[来源泛化](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)记录两批逐源尾部；[原M一致性/独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)为两暴露来源16位置的位一致；[匹配恢复/独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)为24暴露来源的12/12训练折、4位置 M256 局部结果。相应图 P26/P27 不表明完整视频或加速通过。
