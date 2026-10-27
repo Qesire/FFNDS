@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
   "updated": "2026-10-27",
-  "status": "G11_5_PRIMARY_METHODS_DEEP_VERIFIED__CODEGEMM_AUTHOR_B1_FALLBACK_CONFIRMED",
+  "status": "G11_6_PRIMARY_METHODS_INCLUDING_SHARQ_WAN_T2V_FP4",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -1338,6 +1338,29 @@
       "method_review": "Additive vector codebook: p_j,c=<centroid_c, x_chunk_j>; each weight code gathers p and accumulate with scale. Eq3 O(MNK*m*(2^b/M+1/v)) under M>>2^b.",
       "code_review": "AUTHOR_PYTORCH_CUDA_DETERMINED_GEMV_B1T1_AND_FULL_DENSE_FALLBACK",
       "independent_benchmark_scope": "Llama3 8B/70B 2bit relative AQLM:1.83x/8.93x; physical Table3 is GEMV M=1 N=28672 K=8192."
+    },
+    {
+      "id": "L74",
+      "group": "evaluation_hardware",
+      "title": "SharQ: Bridging Activation Sparsity and FP4 Quantization for LLM Inference",
+      "year": 2026,
+      "venue": "arXiv 2606.26587v1",
+      "url": "https://arxiv.org/html/2606.26587",
+      "model": "Qwen LLMs and Wan2.2-T2V-A14B, Blackwell 4x RTX5090",
+      "observed_mechanism": "online outlier N:M sparse FP4 backbone and dense FP4 residual to correct mask and quantization error",
+      "decision_time": "current actual input at online fused preparation",
+      "physical_action": "sparse FP4 GEMM PLUS dense FP4 residual GEMM, two scale views shared weight payload",
+      "training": "training free",
+      "wan_specific_discriminator": "T2V not I2V; dual GEMM not skipping full functional work; native NVFP4 vs HIF4_SIM; SharQ only 1.23x/1.11x FP16 480p/720p, 1.58x+SageAttention",
+      "reading_depth": "ORIGINAL_ARXIV_V1_METHOD_EQ6_13_TABLE3_4_5_FIG4_AND_AUTHOR_SOURCE_INSPECTED",
+      "code_review": "AUTHOR_QLinearLayer_FUSED_SPARSE_PREP_NVFP4",
+      "graph_anchor": [
+        "Q30",
+        "Q31",
+        "Q32",
+        "Q33"
+      ],
+      "graph_method_reference": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -1405,7 +1428,8 @@
       "L70",
       "L71",
       "L72",
-      "L73"
+      "L73",
+      "L74"
     ],
     "nodes": [
       "Q01",
@@ -1430,6 +1454,7 @@
     "experiment_started": false,
     "deep_audit": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md",
     "methods_full_primary_review": true,
-    "author_code_scope": "CodeGEMM read; no verified author implementation of other four"
+    "author_code_scope": "CodeGEMM read; no verified author implementation of other four",
+    "sharq_deep_audit": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
   }
 }
