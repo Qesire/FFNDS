@@ -1,6 +1,6 @@
 # FFNDS archive and evidence preservation
 
-The **live research** entry is [research/ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json), and [AGENTS.md](AGENTS.md) governs research agents. This file indexes older materials, which provide evidence/provenance rather than next actions.
+**Current reading order is [P0–P4 navigation](research/RESEARCH_NAVIGATION.md), and the active M-A/M-B/M-C method is the [integrated v2 plan](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md).** [ACTIVE_RESEARCH](research/ACTIVE_RESEARCH.json) governs actual model execution; [AGENTS](AGENTS.md) governs research agents. This file indexes older materials, which provide evidence/provenance rather than next actions.
 
 - Full server handoff: [2026-10-20 release](https://github.com/Qesire/FFNDS/releases/tag/handoff-20261020). Original release SHA/protocols are not rewritten. The original A100 configuration has not been verified for H20.
 - [Upstream restoration](upstream_audit/README.md) corrects the first ZIP's omission of 15 W4A4 files. Apply the audited 92 changed files/5 patches to the pinned upstream revision rather than stacking the first ZIP patches.
@@ -15,7 +15,7 @@ The user-requested experiment pause is explicit and remains recorded in [EXPERIM
 
 | Tier | Meaning | Location and management |
 | --- | --- | --- |
-| **LIVE** | Default scientific behavior, Q1/Q2/Q3 research lenses, current evidence index | `AGENTS.md`, `research/ACTIVE_RESEARCH.json`, `research/agent_protocol/CURRENT_CONTEXT_PACKET.md`, `research/RESEARCH_NAVIGATION.md` |
+| **LIVE** | Default scientific behavior, Q1/Q2/Q3 research lenses, current evidence index | `AGENTS.md`, `research/ACTIVE_RESEARCH.json`, `research/agent_protocol/CURRENT_CONTEXT_PACKET.md`, `research/RESEARCH_NAVIGATION.md`, `research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md` |
 | **EVIDENCE** | Actual model/code/protocol measurements and method-specific claims | `research/2026102*/`, `reports/`, `tools/`, `upstream_audit/`; preserve source locators, bytes and frozen outcomes |
 | **ARCHIVED** | Dated operational handoffs, obsolete agent to-dos, duplicate interim summaries | `archive/20261024/historical_handoffs/`; redirect former Markdown URLs with small stubs and preserve original blob identities |
 
