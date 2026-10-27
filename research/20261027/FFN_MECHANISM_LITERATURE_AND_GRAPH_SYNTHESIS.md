@@ -116,7 +116,7 @@ W1点积区间 \([L_j,U_j]\) 若处于一侧可认证解码点积的符号；继
 ## 7. 论文的证据级别、当前未解问题及维护契约
 
 - **原 Wan证据：** G0–G5 SRC/OBS/NATIVE-ACT/VIDEO/SYS、[EXPERIMENT_FINDINGS_ATLAS](../EXPERIMENT_FINDINGS_ATLAS.md)各结论绑定原有RUN或保存统计。原Affine/HWG方案存在具体已测问题，但“所有conditional FFN思路”仍为开放科学空间。
-- **外部论文：** 85个 L01–L85 只是索引规模，不等于79篇均读完整方法。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
+- **外部论文：** 85个L01–L85构成可检索的研究索引，每条按已核摘要、原始方程、作者代码及本模型实测记录各自的阅读深度。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
 - **数学：** G12重排界是经典定理在本研究编码信息层的应用；single-row tight≠joint gate×W2 tight；多token GEMM有效性≠single-vector已实现。
 - **维护：** 新论文只写一遍原始方法到其审计来源，更新LID/来源等级/信息时点/训练/成本，并给机器图节点添加准确的**比较边**；综合文档仅更新**机制类别、改变判断的证据和研究问题**，图上不能把LIT边画成Wan实线。阅读指南/Agent/Navigation只放稳定指针，不用一段新研究进展覆盖旧导航。
 - **权限：** 一切原生新CPU/GPU/模型/视频须用户再次明确批准，当前实验状态仍 PAUSED_BY_EXPLICIT_USER_REQUEST_20261027。
