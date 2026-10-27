@@ -4,6 +4,10 @@
 
 **必读**：[根AGENTS](../AGENTS.md)、[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[研究导航](../research/RESEARCH_NAVIGATION.md)、[跨机制综合](../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[主计算图](../docs/98_端到端计算图与证据注解_20261025.md)及[ACTIVE执行状态](../research/ACTIVE_RESEARCH.json)。F线深入时使用[G13](../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)；旧[第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md)是历史研究阶段的证据来源。
 
+## 数据、校准与评测的实验思维
+
+遵循[新实验数据协议](../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)与[专用Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md)。恢复真实来源与source×seed独立性、样本行坐标和状态来源、候选/ Dense完全配对、指标覆盖与视频原始证据；用VBench-I2V官方五次真实生成和CUSTOM_PAIRED单次自定义评价的严格区分建立科学结论。每个问题正向给出来源级对照和最便宜的可判别实验；官方未测维度保留NOT_RUN。历史记录维持原有身份。
+
 ## 默认科研动作
 
 1. **任选真实入口**：从有趣的视频行为/有符号差异、已可得的信息与表示、数学算子恒等式、硬件执行异常或原论文机制提出新构造及竞争解释。

@@ -8,6 +8,10 @@
 
 **数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前89篇相关研究、177个稳定节点、371条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
 
+## 数据与实验可信度
+
+[采样/校准/评测数据合同](DATA_SAMPLING_CALIBRATION_EVALUATION.md) · [实验专用Skill](../../.agents/skills/ffnds-experiment-evidence/SKILL.md) · [2026-10-27源码审查](../20261027/FFNDS_DATA_PROTOCOL_AUDIT_20261027.md) · [CPU预检](../../tools/ffnds_cohort_preflight.py)。正式官方多次采样、单视频自定义诊断、Dense/Student校准及独立新确认数据采用各自明确的统计单位和用途；历史RUN保持原样。优先从来源级效果差异提出竞争机制和低成本有区别的对照。
+
 ## 科学方法与实际检索
 
 可从已可得信息、非线性代数、自然视频响应、执行内核或相关论文任一入口开始。有效交付是：**新的信息/函数/计算机制 → 与主张有关的源码和数学 → 最强竞争机制和不同预测 → 最小判别证据 → 可能的科研或部署价值**。探索期间可以增加新的图节点、数学基与论文比较。

@@ -21,6 +21,10 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 - [机制交叉索引](../../../research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)
 - [当前综合与现行证据](../../../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[ACTIVE权限](../../../research/ACTIVE_RESEARCH.json)
 
+## 实验采样与校准的可解释证据
+
+涉及采样/校准/视频评测或声称泛化时加载[实验数据Skill](../ffnds-experiment-evidence/SKILL.md)和[统一协议](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。先明确独立source与嵌套seed/step/block/row，接着复核旧cohort的拟合/择优暴露、原生QDQ/student状态、真正独立的video run及各维覆盖。历史VBench五文件名对应每source一个真实生成，和官方五次采样分开报告。把证据不足转为**有辨别力的新增数据设计**，将可靠源码和既有原生现象作为构造性实验起点。
+
 ## 默认研究思路：三种入口、共同判别、分别验证
 
 **I · 信息与表示（DISCOVER）**：从已知权重、当前输入、数值编码、跨token/step状态或历史信息发现条件性结构；给出信息首次可用的时间、获取价与信息利用机制。允许直接探索编码域内积、有限码本、低秩统计、信息证书及无需语义标签的算术。
@@ -52,6 +56,10 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 ### 历史A5+HWG提醒：视频时空功能的科学问题
 
 [A5+HWG背景闪烁与小物体模糊的重审](../../../research/20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)提供一个适合NOTICE→DERIVE→DISCRIMINATE的开放样例：主体结构基本保持时，静态/运动背景闪烁与小目标模糊仍可能发生。将**空间细节**（小物体、纹理）、**视频时间相干**（运动补偿后的背景光度/结构）、**真实动作幅度**分开；四个去噪step与81帧输出不能混为同一时轴。对逐token mask，区分阈值切换与长期弱信号固定遗失；若mask在HiF4 Q2前，还需原64组尺度连带与BF16，若postQ2则不能把preQ2效应当作已测因果。现有A5是历史视频定性记录，Affine54/UB1的后续VIDEO/RAFT另有来源身份。视频功能研究可使用G13因果定位，I/C路线也可直接研究时空共享信息与2:4物理算子；**不以找到语义神经元、发明新的loss或独创方法为推进门槛**。
+
+### UB1外观—运动分离的研究范例（原版RAFT证据）
+
+[UB1持续运动幅值衰减一手数据与机制重审](../../../research/20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)说明：在两个已暴露formal20来源，UB1相对Dense的原版top5连续RAFT幅值为38.13%/9.19%，40对中38/40、40/40更低；四原版Dynamic Degree binary均0，原20 Motion Smoothness接近。Skill的NOTICE对象因此是**外观近似而相对运动测度衰减**，不是输入动态方法失败或所有prompt违反动作语义。MAP_FLOW必须恢复Wan四denoise-step与21 latent视频时间/81 RGB帧的不同轴，以及UB1原64组静态预算(54/108/108/162)+R256和full-FFN成本。DERIVE可用冻结线性时间差的signed cross，不得将其套在非线性的RAFT上；REFORMULATE用VideoJAM/Motive等已有appearance-motion原理为成熟比较器。DISCRIMINATE优先区分**真实对象运动变化 vs 纹理模糊令RAFT难追踪**，其次竞争固定组丢失稀有动态能力、校准24source偏置和Attention/去噪状态传播。F线因果定位有其价值，I/C可独立探索动态所需信息/实际省算；不要求寻找“运动专属神经元”、发明新loss或把静态UB1强行改成token动态路由。录像/模型作业依ACTIVE精确范围。
 
 ## 文献、计算图和协作回写
 
