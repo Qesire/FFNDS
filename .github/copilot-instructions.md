@@ -4,7 +4,7 @@
 
 **方法统一五操作分类**：[O-A计算选择、O-B表示、O-C历史复用、O-D算子代数、O-E学习/验证](../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)。与I/F/C科学入口正交，按G14一手论文source+decision_time+runtime action建立组合指纹。原三候选明确为M-A/M-B/M-C，下一Agent先研究**M-B敏感坐标**，避免与操作O-B同名混用；现有方法讨论批准及运行范围不变。
 
-**本轮用户指定的首个方法研究任务**：[从B联合gate/后缀敏感方向开始](../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。研究Agent先完成B的数学与保存资产判别、G14论文/源码近邻核验，区分B-FOLDED/B-FACTORED、真实原生QDQ与来源状态，再提出独立METHOD_SNAPSHOT；不能改用A0训练或C码本拟合作为首项任务。A0仍是matched基线，I/F/C整体未改变。
+**当前方法交接已更新至v2**：[现行整合计划](../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)和[从M-B B0/B1继续的实际任务](../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。M-B的连续head/LN数学和来源配对反例**已做完**；下一Agent从真实post-write u/head/flow生产者、冻结资产/neutral重放开始，再完成原生有限响应、B-H 65充分统计直接学生与B-F因子化通用函数构造。M-A0四位置pilot已完成而完整40×4视频OPEN；新来源、GPU及原生模型RUN按ACTIVE登记，队列仅登记真实peer review。
 
 **必读**：[根AGENTS](../AGENTS.md)、[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[研究导航](../research/RESEARCH_NAVIGATION.md)、[跨机制综合](../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[主计算图](../docs/98_端到端计算图与证据注解_20261025.md)及[ACTIVE执行状态](../research/ACTIVE_RESEARCH.json)。F线深入时使用[G13](../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)；旧[第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md)是历史研究阶段的证据来源。
 
