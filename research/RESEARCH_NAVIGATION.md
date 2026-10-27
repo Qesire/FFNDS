@@ -20,6 +20,8 @@
 
 **新数据流程索引**：[实验Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md) · [可执行手册](agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) · [统一数据协议](agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。实现分别维护来源历史暴露、固定原生抽样行身份、真实Dense/UB1配对视频、官方分维调用和图像簇统计；旧VBench三轴与新正式九维实验有不同证据身份，当前执行范围以ACTIVE为准。
 
+**新研究方案独立评议（2026-10-27）**：[A/B/C数学、最近先例与最小判别](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)。A0普通6016学生与A1新增方法必须分开；B对比联合gate/后缀敏感、folded/factored真实MAC；C先测输入编码歧义与输出秩上界，讨论状态，不改变实验授权或Agent同行投票。
+
 **新研究构造入口（A/B/C，讨论状态）**：[可恢复6016维紧凑FFN／下游敏感坐标编译／编码直接计算完整FFN](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。该报告以Affine54等MAC恒等、固定RR视频运动缺口、G12精确投影和LUT/CoBRAS/TinyFusion/DIFS文献构造可检验的新函数类；它是新候选研究方案而非替代I/F/C科学框架的终止决议，新的模型效果未运行且不会改变当前ACTIVE授权。
 
 ## 按科研问题选择证据
