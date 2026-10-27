@@ -1,33 +1,27 @@
-# FFNDS · AutoResearcher source and task routing
+# FFNDS · AutoResearcher研究协议与任务入口（E0_OPEN_DISCOVERY）
 
-**Latest upstream synchronization:** AutoResearcher v2.4 WARD is pinned to [ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json). Read [generic research protocol](../../core/WEB_RESEARCH_DISCOVERY.md), [dedicated Skill](../../.agents/skills/web-research-discovery/SKILL.md) and [FFNDS-specific deep Web Search](DEEP_WEB_RESEARCH.md); see [sync procedure](UPSTREAM_SYNC.md) for reproducible future upgrades.
+**当前研究问题**：先在原生四步视频与正常FFN写回中定位有行为意义的输出函数，再寻找真实计算承担结构；在此基础上探索量化信息、跨步共享、结构化计算及部署方案。
 
+**科学导航**：[G13函数与计算结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [功能/结构独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [当前第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) · [阶段锚点](E0_STAGE_ANCHOR.md) · [最小上下文包](CURRENT_CONTEXT_PACKET.md) · [研究首页](../RESEARCH_NAVIGATION.md)。
 
-**表达与验证：** 科研结果首先呈现新结构、数学机制与竞争预测。历史失败使用原作用域陈述；授权和质量按实际行动说明。按照[根指令](../../AGENTS.md)的生成性表达准则审阅当前引导，按风险选择本地验证，CI保持手动按需。
+**数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前85篇相关研究、171个稳定节点、354条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
 
-## Graph-Agent协作入口
+## 科学方法与实际检索
 
-[双向协议](GRAPH_AGENT_COLLABORATION.md) · [G0–G6节点索引](GRAPH_AGENT_BINDINGS.json) · [计算图原文](../../docs/98_端到端计算图与证据注解_20261025.md) · [E0独立图注解](../method_discussion/graph_annotations/E0/README.md)。相关科研 Agent 从真实计算节点检索来源/证据，独立提出与审查机制，再将确定范围的发现反向更新图与实验谱系。
+从真实自然视频、状态、FFN输出函数或相关论文开始，以新的数学或条件性计算结构提出解释。最有效的交付包含：**新观察与函数 → 真实源码/方程及下游消费者 → 最强不同机制及反向预测 → 可判别的下一份证据 → 可能的高效实现自由度**。探索期间可以增加新的图节点、数学基与论文比较。
 
-## 当前科研入口：FFN 本征结构
+[FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)按本项目现行G13目标组织；通用源由[固定AutoResearcher manifest](ACTIVE_SOURCE_MANIFEST.json)绑定，执行[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)和[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)。通过[深度Web原论文/源码协议](DEEP_WEB_RESEARCH.md)持续发现前沿与强先例、读方法、消融及作者实际实现，从机制差异拓展新函数和结构研究。
 
-请从 [E0 FFN 本征研究重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 和 [唯一活跃第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) 开始；真实状态与实验授权见 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)。探索 FFN hidden/GELU/W2 有符号贡献、时空条件创新、下游视频敏感性及计算重构。此前的 [E0 gap 总表](../20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md) 和相关 BF16/HiF4 径向观察已经完成其特定研究阶段，继续用作证据，不再决定下一次 Agent 的首要任务。
+[85篇索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)与[Mechanism Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)记录论文阅读等级和方法竞争；G13主要对照JMLR causal abstraction、ICLR patching与CVPR Video-DiT时空定位，G7–G12提供高效计算/实时系统竞争。
 
-跨领域原始文献检索始终依照 [DEEP_WEB_RESEARCH.md](DEEP_WEB_RESEARCH.md)，量化元信息一般作为低成本幅值线索；后续如发现真正新的量化结构可建立独立问题。历史E0运行范围已完成；另外登记的paired-native v2权限、当前GPU作业及其执行结果必须实时读取[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)和原生RUN。讨论规则不会自动授予任何额外任务。
+## 科研Agent独立讨论
 
-## 深度 Web Search 是默认研究能力
+根[AGENTS](../../AGENTS.md)、[Copilot](../../.github/copilot-instructions.md)、[方法讨论AGENTS](../method_discussion/AGENTS.md)、[独立发现目录](../method_discussion/discoveries/E0/README.md)共享这项目标。独立Agent产生函数/结构解释、数学反例与源码证据；审阅者给出新论证，整理者按实际证据与图边串行更新[方法QUEUE](../method_discussion/QUEUE.md)。提出一个函数候选或新数学对象，可以先作为科学发现，成熟后再形成方法提案或实验候选。
 
-科研发现、跨 Agent 方法评议与查重应当主动进行**广泛、深入、迭代式联网检索**，而非依赖固定知识或一轮关键词搜索；统一遵循 [深度文献与源码搜索协议](DEEP_WEB_RESEARCH.md)。从经典和最新论文、相邻机制、前后向引用链、官方模型/硬件源码、失败与反例多方向追踪，再把可核验结果回到真实 FFN 计算流。E0 的结论仍是科学现象与竞争解释，不自动变成新算法。对无法访问互联网的 Agent，应在结果中明确检索缺口并避免编造已审阅来源。
+## 固定上游来源与历史范围
 
+[ACTIVE_SOURCE_MANIFEST.json](ACTIVE_SOURCE_MANIFEST.json)固定AutoResearcher v2.4-source-commit \`8b88a52d894568dc303db727decfbf13b5fabf3b\`，对应[UPSTREAM_SYNC](UPSTREAM_SYNC.md)与[检验工具](../../tools/check_autoresearcher_binding.py)。通用 upstream Skills/core 文件以commit及Git blob SHA逐项锁定；本项目专用Skill、AGENTS、Copilot和图/证据协议各自维护。原始旧SOURCE_MANIFEST与2026-10-24量化路线/旧E0 gap文件保留时间点证据，现行科研优先级由G13决定。
 
-The default agent entry is [root AGENTS.md](../../AGENTS.md); the **only live research state** is [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json). For a small decision-relevant evidence bundle, read [CURRENT_CONTEXT_PACKET.md](CURRENT_CONTEXT_PACKET.md). The research directory [navigation](../RESEARCH_NAVIGATION.md) separates latest science from old studies.
+**研究权限**：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)记录10个source、12条source×seed完整轨迹及1920个嵌套FFN观测，以及已完成的固定实验范围。当前进行源码、文献、数学、已有保存证据和图的科研工作；**新CPU/GPU/模型/视频运行暂停**。既有实验原始RUN、质量与严格候选失败结论按其来源版本保留。
 
-The project uses pinned [AutoResearcher current source](ACTIVE_SOURCE_MANIFEST.json) (`5bd7ec53`) with upstream core files and three specialist skills kept **verbatim**. FFNDS-specific application lives in root `AGENTS.md` and `.agents/skills/ffnds-paper-discovery/SKILL.md`; generic AutoResearcher source files should not contain appended FFNDS policies. Apply the mechanism/reformulation/expansion methods that materially advance the question; combine them when a mathematical reformulation and source reconstruction need each other.
-
-Earlier `SOURCE_MANIFEST.json`, `PRD_SOURCE_MANIFEST.json` and `AUTORESEARCHER_AGENTS_v2_3.md` are **archived provenance only**, pinned to their historical revisions. Similarly, old 2026-10-23 `COUPLING_PIVOT_TASK.json` may still say `ACTIVE_DISCOVERY_NOT_REGISTERED` in its original source; it has **zero current task authority**. Do not rewrite its original evidence to hide what occurred.
-
-The content-addressed check `tools/check_autoresearcher_binding.py` confirms local version integrity and active-route agreement. It does not measure scientific creativity; [behavior cases](DEFAULT_BEHAVIOR_CASES.json) supply the separate evaluation corpus for authorized future agent comparisons.
-
-已保存的历史暂停回执记录其发生时的执行状态。当前 paired-native v2 与后续授权及运行进度以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 和原生 RUN 为准。
-
-Superseded operational summaries have moved to the [dated handoff archive](../../archive/20261024/historical_handoffs/README.md). Reproduce the original wording with the archived Git blobs or original source commits; dated execution instructions are historical, not a reason to launch an experiment.
+静态检验验证科学入口/证据索引/源锁及图结构一致性；真正的功能因果、数值和视频质量通过各自独立证据判定。[DEFAULT_BEHAVIOR_CASES](DEFAULT_BEHAVIOR_CASES.json)供未来Agent研究能力的独立评估，静态“通过”不代表已经具有相应科研表现。

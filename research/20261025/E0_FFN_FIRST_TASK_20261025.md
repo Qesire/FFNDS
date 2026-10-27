@@ -39,3 +39,7 @@
 **当前工作**：论文与作者源码研究、数学推导、已有证据的解释性整理、函数/结构记录和计算图同步。**所有新CPU/GPU/模型/视频实验暂停**；原生复验与未来干预需用户新的明确授权。[ACTIVE](../ACTIVE_RESEARCH.json)为权限源。2026-10-25/26既有实验全部完成且原始RUN、哈希和严格结论持续保留。
 
 **交接先读** [G13科学问题](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) → [当前功能/结构登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) → [具体原生RUN证据](../EXPERIMENT_FINDINGS_ATLAS.md) → [源码图](../../docs/98_端到端计算图与证据注解_20261025.md) → [ACTIVE](../ACTIVE_RESEARCH.json)；按当前问题取必要资料。每轮留下一个新的机制理解、对应有类型图边和下一条有信息价值的判别。
+
+
+**历史分歧证据**：[2026-10-25独立本征审查](E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)记录此前不同表示与实验上的条件性矛盾，供新功能假说选择最强不同解释。
+
