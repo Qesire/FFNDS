@@ -2,6 +2,8 @@
 
 **共同科学问题**：生成FFN的信息、计算与视频行为如何组织？如何发现更廉价的表示、计算或执行？I（信息/表示）、F（函数/动力学）、C（计算/执行）并列推进。参考[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；G13的[行为/函数/结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)仅用于F线具体定位。
 
+**路线协作**：[I/F/C现行方法组合](../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)统一编码信息、功能因果、运动观测、UB1/Affine54、2:4算子和轻量后训练的证据身份与下一个最小判别；[Calibration V2](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)为各路线提供分目标独立来源、teacher/student状态和实际full-video评测的共同实验接口。跨线表述以这些现行入口为准，旧文档的当时OPEN/NEXT是历史语境。
+
 **研究方法**：[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[AutoResearcher机制研究](../../.agents/skills/mechanism-research/SKILL.md)、[扩展探索](../../.agents/skills/research-expansion/SKILL.md)、[问题重构](../../.agents/skills/problem-reformulation/SKILL.md)及[深度论文/源码检索](DEEP_WEB_RESEARCH.md)。科研成果由新的现象/函数/结构、关键数学或源码、竞争解释和可区分预测组成。
 
 **当前状态**：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为科学阶段、模型执行授权、历史RUN和质量身份来源。2026-10-27用户明确恢复持续推进I/F/C研究及冻结登记后的有限实验，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra。原E0固定批次和历史暂停保持原始身份；此上下文包仅提供导航，具体范围在ACTIVE登记，实时/流式实验未恢复。
