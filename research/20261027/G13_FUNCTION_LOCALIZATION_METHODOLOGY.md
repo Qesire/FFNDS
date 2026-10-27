@@ -1,6 +1,6 @@
 # G13 · 函数定位方法学：从行为差异到正常前向的计算承担者
 
-**2026-10-27 · 论文原文、已存原生证据与条件数学推导。** 基于 FFNDS \`14129346092aef2c3efed4a565d154f494fed2af\` 及后来G13文档状态。[G13研究目标](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [独立函数/结构登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [机器定位卡](../agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json) · [一手文献来源](../literature/20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)。
+**2026-10-27 · 论文原文、已存原生证据与条件数学推导。** 基于 FFNDS `14129346092aef2c3efed4a565d154f494fed2af` 及后来G13文档状态。[G13研究目标](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [独立函数/结构登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [机器定位卡](../agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json) · [一手文献来源](../literature/20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)。
 
 ## 0. 本次方法学形成的两个互补定位问题
 
