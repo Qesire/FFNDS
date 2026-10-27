@@ -6,6 +6,8 @@
 
 **当前状态**：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为科学阶段、模型执行授权、历史RUN和质量身份来源。2026-10-27用户明确恢复持续推进I/F/C研究及冻结登记后的有限实验，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra。原E0固定批次和历史暂停保持原始身份；此上下文包仅提供导航，具体范围在ACTIVE登记，实时/流式实验未恢复。
 
+**UB1运动方向正式问题（2026-10-27）**：[相对运动衰减原版RAFT数据及五窗口+测量可观测性竞争解释](../20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)。犀牛source882 UB1/Dense≈38.13%且38/40帧对较低，住宅source80≈9.19%且40/40帧对较低；原版binary四段全0，formal20 Motion Smoothness维度近同。仅两条已暴露历史source，不能称UB1普遍冻结或运动语义失败。犀牛动作有语义，住宅静态prompt可能不需要运动；**RAFT受模糊纹理可观测性的竞争解释须先核对ROI/关键点/相机运动**。该问题使FFN函数研究显式区分固定支持遗漏motion方向、校准来源、量化/后缀传播与实际物理工作，勿将别的E0候选P/N当作UB1已有因果测试；补全motion-aware评估按[质量合同](VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)，原生范围只看ACTIVE。论文VideoJAM(2025)、Motive(2026)及DCM(2025)为直接成熟先例，DCM semantic/detail并非Wan high/low专家。
+
 ## 真实计算对象
 
 **LightX2V Wan2.2 I2V A14B，四步D-Q，high/high/low/low两套独立expert，40 blocks**。单FFN实际顺序：
