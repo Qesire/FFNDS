@@ -157,6 +157,83 @@ def inspect_focus(data, focus_id):
             "warning":"This relation is a scientific lens, not original model execution."}
 
 
+
+def validate_method_operation_crosswalk(data):
+    """Check five-operation methods against G14 provenance, not native execution."""
+    pointer = data.get("current_method_prior_constraint_view")
+    if not pointer:
+        return {}
+    for key in ("method_plan", "source_graph", "typed_prior_edges", "visible_graph_section"):
+        assert pointer.get(key), f"Missing G14 method pointer: {key}"
+    for key in ("method_plan", "source_graph", "typed_prior_edges"):
+        assert (ROOT / pointer[key]).is_file(), f"Missing method reference {key}: {pointer[key]}"
+    graph_path, _, section = pointer["visible_graph_section"].partition("#")
+    assert section, "G14 method diagram requires explicit section anchor"
+    assert (ROOT / graph_path).is_file(), "Missing G14 method diagram"
+    assert section in (ROOT / graph_path).read_text(encoding="utf-8"), "Missing G14-C method section"
+
+    method_map = json.loads((ROOT / pointer["typed_prior_edges"]).read_text(encoding="utf-8"))
+    lens = json.loads((ROOT / pointer["source_graph"]).read_text(encoding="utf-8"))
+    assert method_map["schema"] == "ffnds.method_operation_crosswalk.v2"
+    assert method_map["current_method_plan"] == pointer["method_plan"]
+    assert (ROOT / method_map["next_agent_task"]).is_file()
+    assert method_map["next_agent_current_stage"] == "M-B_B0_NATIVE_POSTWRITE_CAPTURE_PREP"
+    assert method_map["one_turn_next_agent"] == "M-B"
+
+    operations = set(method_map["operation_definitions"])
+    assert operations == {"O-A", "O-B", "O-C", "O-D", "O-E"}
+    assert set(method_map["candidate_aliases"]) == {"M-A", "M-B", "M-C"}
+    methods = method_map["project_methods"]
+    names = [item["name"] for item in methods]
+    assert len(names) == len(set(names)), "Duplicate project method name"
+    for method in methods:
+        assert set(method["operations"]) <= operations, method["name"]
+
+    valid_papers = {x["id"] for x in lens["paper_links"] + lens["supplemental_links"]}
+    valid_stages = {x["id"] for x in lens["focus_nodes"]}
+    literature = method_map["literature_examples"]
+    literature_ids = [x["source_id"] for x in literature]
+    assert len(literature_ids) == len(set(literature_ids)), "Duplicate literature example"
+    for entry in literature:
+        assert entry["source_id"].startswith("EXTERNAL_") or entry["source_id"] in valid_papers
+        assert entry["operations"] and set(entry["operations"]) <= operations
+
+    progress = method_map["methods_progress"]
+    assert {item["method"] for item in progress} == {"M-A", "M-B", "M-C"}
+    for item in progress:
+        assert (ROOT / item["evidence"]).is_file(), f"Missing project evidence: {item['evidence']}"
+    assert "B0_NATIVE_STATE_CAPTURE_OPEN" in next(
+        item["status"] for item in progress if item["method"] == "M-B"
+    ), "Do not mark B0 native capture complete without its native record"
+
+    allowed_relations = set(method_map["relation_types"])
+    assert allowed_relations == {
+        "REQUIRES", "CONSTRAINS", "COMPETES_WITH", "PREDICTS_DIFFERENTLY"
+    }
+    edges = method_map["method_prior_constraint_edges"]
+    unique = set()
+    for edge in edges:
+        assert edge["method"] in {"M-A", "M-B", "M-C"}
+        assert edge["relation"] in allowed_relations
+        assert edge["paper_ids"] and set(edge["paper_ids"]) <= valid_papers
+        assert edge["focus_nodes"] and set(edge["focus_nodes"]) <= valid_stages
+        assert edge["constraint"] and edge["decision"] and edge["status"]
+        identity = (edge["method"], edge["relation"], tuple(edge["paper_ids"]),
+                    tuple(edge["focus_nodes"]))
+        assert identity not in unique, f"Duplicate method prior relation {identity}"
+        unique.add(identity)
+    assert len(edges) >= 12, "Active method prior relations are incomplete"
+    return {
+        "method_operation_types": len(operations),
+        "method_literature_examples": len(literature_ids),
+        "method_project_routes": len(methods),
+        "method_prior_constraint_relations": len(edges),
+        "method_next_agent": method_map["one_turn_next_agent"],
+        "method_next_stage": method_map["next_agent_current_stage"],
+        "method_validation_scope": "Static references only; no model or peer review",
+    }
+
+
 def validate(data):
     assert data.get("schema_version") == "1.0", "Unsupported graph registry schema"
     graph = ROOT / data["graph_document"]
@@ -184,9 +261,10 @@ def validate(data):
         assert (ROOT / data[key]).is_file(), f"Missing graph collaboration reference: {key}"
     synthesized = validate_crosswalk(data)
     paper_map = validate_paper_focus(data)
+    method_map = validate_method_operation_crosswalk(data)
     return {"status":"STATIC_GRAPH_BRIDGE_VALID", "nodes":len(nodes), "edges":len(data["edges"]),
             "scope":"Graph labels, local evidence and mechanism-crosswalk references only; no executed kernel or agent evaluation.",
-            **synthesized, **paper_map}
+            **synthesized, **paper_map, **method_map}
 
 def inspect(data, node_id):
     nodes = {n["id"]:n for n in data["nodes"]}
