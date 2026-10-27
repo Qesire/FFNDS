@@ -1,0 +1,418 @@
+{
+  "schema": "ffnds.method_operation_crosswalk.v1",
+  "status": "RESEARCH_TAXONOMY_STATIC_ONLY",
+  "date": "2026-10-27",
+  "authority": "research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md",
+  "literature_source": "research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json",
+  "literature_coverage": "CURATED_EXAMPLES_NOT_ALL_99",
+  "science_axes": [
+    "I",
+    "F",
+    "C"
+  ],
+  "operation_definitions": {
+    "O-A": {
+      "name": "选择保留的计算量",
+      "question": "Which originally evaluated operators or operands are actually skipped?",
+      "precondition": "selection available before skipped computation",
+      "variants": [
+        "OFFLINE_STATIC",
+        "STEP_CONDITIONED",
+        "INPUT_CONDITIONED"
+      ]
+    },
+    "O-B": {
+      "name": "改变函数表示",
+      "question": "Which new function, basis, architecture, or factorization computes the output?",
+      "precondition": "function/class and quantization closure defined",
+      "variants": [
+        "EXACT_REPARAM",
+        "APPROX_REPLACEMENT",
+        "LEARNED_REPLACEMENT"
+      ]
+    },
+    "O-C": {
+      "name": "复用历史",
+      "question": "What earlier valid computation is reused, forecast, or cached?",
+      "precondition": "history available before current step; cache identity valid",
+      "variants": [
+        "OUTPUT_CACHE",
+        "ACTIVATION_CACHE",
+        "FEATURE_FORECAST"
+      ]
+    },
+    "O-D": {
+      "name": "改变计算代数",
+      "question": "How does physical low-bit/LUT/sparse/fused execution compute the operator?",
+      "precondition": "full online cost and numeric semantics bound",
+      "variants": [
+        "QUANTIZED_GEMM",
+        "LUT_EVAL",
+        "SPARSE_KERNEL",
+        "KERNEL_FUSION"
+      ]
+    },
+    "O-E": {
+      "name": "改变学习与验证目标",
+      "question": "What data/estimator/loss/validation has changed and at what observational unit?",
+      "precondition": "objective, exposed cohorts, teacher/student states, evaluator declared",
+      "variants": [
+        "TRAIN_CALIBRATE",
+        "TRAIN_DISTILL",
+        "EVALUATE_CAUSAL",
+        "EVALUATE_VIDEO"
+      ]
+    }
+  },
+  "candidate_aliases": {
+    "M-A": "Former original A, recoverable compact FFN; A0 baseline/A1 increment",
+    "M-B": "Former original B, downstream sensitive basis; NEXT_AGENT_FIRST",
+    "M-C": "Former original C, full nonlinear encoded evaluator"
+  },
+  "one_turn_next_agent": "M-B",
+  "composition_rule": "Only assign an operation when an actual proposed or source-established action changes the relevant computation; do not infer deploy-time acceleration from E objectives or upstream pruning from post-operation masks.",
+  "literature_examples": [
+    {
+      "source_id": "L05",
+      "title": "Wanda",
+      "operations": [
+        "O-A",
+        "O-E"
+      ],
+      "mechanism": "Offline activation-informed weight selection",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L34",
+      "title": "Dynamic-in-Few-Step",
+      "operations": [
+        "O-A",
+        "O-B",
+        "O-E"
+      ],
+      "mechanism": "Step-conditional architecture, distillation and output objectives",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L69",
+      "title": "Prox",
+      "operations": [
+        "O-A",
+        "O-D"
+      ],
+      "mechanism": "Paid INT4 proxy to select actual FFN compute",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L19",
+      "title": "DiffSparse",
+      "operations": [
+        "O-A",
+        "O-C",
+        "O-E"
+      ],
+      "mechanism": "Layer token allocation plus caching",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L10",
+      "title": "Dense2MoE",
+      "operations": [
+        "O-B",
+        "O-A",
+        "O-E"
+      ],
+      "mechanism": "MoE function and expert routing",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "EXTERNAL_FFF",
+      "title": "Fast Feedforward Networks",
+      "operations": [
+        "O-B",
+        "O-A"
+      ],
+      "mechanism": "Tree conditional feedforward representation",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L06",
+      "title": "SliceGPT",
+      "operations": [
+        "O-B",
+        "O-A"
+      ],
+      "mechanism": "Rotation/invariance and dense size reduction",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "C06",
+      "title": "SVDQuant",
+      "operations": [
+        "O-B",
+        "O-D",
+        "O-E"
+      ],
+      "mechanism": "Low rank outlier absorption and fused W4A4",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L14",
+      "title": "TeaCache",
+      "operations": [
+        "O-C",
+        "O-A"
+      ],
+      "mechanism": "Timestep-aware output reuse decision",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L09",
+      "title": "Chipmunk",
+      "operations": [
+        "O-C",
+        "O-A",
+        "O-D"
+      ],
+      "mechanism": "Dynamic column sparse delta and feature cache",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L39",
+      "title": "SVD-Cache",
+      "operations": [
+        "O-C",
+        "O-B"
+      ],
+      "mechanism": "SVD component-wise history treatment",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "EXTERNAL_L2P_CACHE",
+      "title": "L2P Learnable Linear Predictor",
+      "operations": [
+        "O-C",
+        "O-E"
+      ],
+      "mechanism": "Learned per-timestep history predictor, arXiv 2604.26365",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L31",
+      "title": "NVFP4",
+      "operations": [
+        "O-D"
+      ],
+      "mechanism": "Native packed format and scales",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L73",
+      "title": "CodeGEMM",
+      "operations": [
+        "O-D"
+      ],
+      "mechanism": "Centroid and code lookup GEMM; author code token=1 fast path",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L74",
+      "title": "SharQ",
+      "operations": [
+        "O-A",
+        "O-D"
+      ],
+      "mechanism": "Activation sparse FP4 and dense residual FP4",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L76",
+      "title": "LUT-GEMM",
+      "operations": [
+        "O-D"
+      ],
+      "mechanism": "Encoded LUT evaluation of quantized GEMM",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "C01",
+      "title": "SparseGPT",
+      "operations": [
+        "O-A",
+        "O-E"
+      ],
+      "mechanism": "Hessian-aware offline pruning/reconstruction",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "C05",
+      "title": "S²Q-VDiT",
+      "operations": [
+        "O-E",
+        "O-D"
+      ],
+      "mechanism": "Salient calibration and sparse token distillation, quantized deployment",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "C07",
+      "title": "Q-VDiT",
+      "operations": [
+        "O-E",
+        "O-D",
+        "O-B"
+      ],
+      "mechanism": "Temporal maintenance and token-wise quant correction",
+      "local_execution_status": "LITERATURE_ONLY"
+    },
+    {
+      "source_id": "L89",
+      "title": "G13 patching / AtP*",
+      "operations": [
+        "O-E"
+      ],
+      "mechanism": "Offline causal scientific identification, not deployment",
+      "local_execution_status": "LITERATURE_ONLY"
+    }
+  ],
+  "project_methods": [
+    {
+      "name": "UB1 Whole64 + optional fixed-RR",
+      "science_axes": [
+        "I",
+        "F",
+        "C"
+      ],
+      "operations": [
+        "O-A",
+        "O-E",
+        "O-B"
+      ],
+      "boundary": "O-B only when consumer and R256 are used; 20-source motion evidence is VIDEO but not method B",
+      "status": "SCOPED_HISTORY_OR_OPEN"
+    },
+    {
+      "name": "A5+HWG",
+      "science_axes": [
+        "I",
+        "F",
+        "C"
+      ],
+      "operations": [
+        "O-A",
+        "O-E"
+      ],
+      "boundary": "Earlier token selector; upstream original W1 not saved when proxy is paid",
+      "status": "SCOPED_HISTORY_OR_OPEN"
+    },
+    {
+      "name": "Affine54",
+      "science_axes": [
+        "F",
+        "C"
+      ],
+      "operations": [
+        "O-B",
+        "O-A",
+        "O-E"
+      ],
+      "boundary": "Folded affine plus 54 real nonlinear groups",
+      "status": "SCOPED_HISTORY_OR_OPEN"
+    },
+    {
+      "name": "G11/G12 certificates",
+      "science_axes": [
+        "I",
+        "C"
+      ],
+      "operations": [],
+      "boundary": "ALG only; potential O-A/O-D consumers OPEN",
+      "status": "SCOPED_HISTORY_OR_OPEN"
+    },
+    {
+      "name": "RT-Lynx-style Activation 2:4",
+      "science_axes": [
+        "I",
+        "C"
+      ],
+      "operations": [
+        "O-A",
+        "O-D",
+        "O-E"
+      ],
+      "boundary": "Synthetic A100 kernel evidence only, no native Wan end-to-end video",
+      "status": "SCOPED_HISTORY_OR_OPEN"
+    },
+    {
+      "name": "Calibration V2 and G13",
+      "science_axes": [
+        "I",
+        "F",
+        "C"
+      ],
+      "operations": [
+        "O-E"
+      ],
+      "boundary": "Crosscutting learning/evidence, not runtime FFN accelerator",
+      "status": "SCOPED_HISTORY_OR_OPEN"
+    },
+    {
+      "name": "Cross-step caching",
+      "science_axes": [
+        "I",
+        "F",
+        "C"
+      ],
+      "operations": [
+        "O-C",
+        "O-A"
+      ],
+      "boundary": "Exploratory; four-step expert and history-identity constraints",
+      "status": "SCOPED_HISTORY_OR_OPEN"
+    },
+    {
+      "name": "M-A / A0 ordinary 6016",
+      "science_axes": [
+        "F",
+        "C"
+      ],
+      "operations": [
+        "O-B",
+        "O-E"
+      ],
+      "boundary": "A0 engineering baseline; A1 distinct method mechanism OPEN",
+      "status": "PROPOSAL_OPEN"
+    },
+    {
+      "name": "M-B / Gate-suffix-sensitive basis",
+      "science_axes": [
+        "I",
+        "F",
+        "C"
+      ],
+      "operations": [
+        "O-B",
+        "O-E"
+      ],
+      "boundary": "NEXT_AGENT_FIRST; optional O-D if factored/fused implementation wins",
+      "status": "PROPOSAL_OPEN"
+    },
+    {
+      "name": "M-C / Full nonlinear LUT evaluator",
+      "science_axes": [
+        "I",
+        "C"
+      ],
+      "operations": [
+        "O-B",
+        "O-D",
+        "O-E"
+      ],
+      "boundary": "Input sufficiency / output rank / online table cost OPEN",
+      "status": "PROPOSAL_OPEN"
+    }
+  ],
+  "evidence_rule": "LIT is not NATIVE; ALG is not SYS; codebook and step cache must have information available before avoided computation; no new independent source count from nested rows.",
+  "run_authority": "research/ACTIVE_RESEARCH.json",
+  "independent_peer_authority": "research/method_discussion/QUEUE.md"
+}
