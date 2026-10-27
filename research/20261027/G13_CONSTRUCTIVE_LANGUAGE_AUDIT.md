@@ -40,3 +40,29 @@
 - Agent提示词：域Skill/AGENTS只维护当前稳定科研原则，新的增量科研结果由来源文档记录。
 
 **验证说明**：本轮只运行独立静态检查（文档引用、Skill元数据、机器图一致性、研究权限字段），未运行新的CPU/GPU模型实验、训练或视频生成。形式化/原生数值与视频质量仍按其既有证据和后续正式评价划分。
+
+
+## 第二轮：实际会被自动加载的Agent入口和检验契约（2026-10-27）
+
+**这轮核查的中心发现**：最容易使科研重新偏移的，是下层仍具有“当前任务”效力的旧说明。高层Skill/G13已统一后，Copilot、Scoped AGENTS、E0 Context/Stage Anchor、方法讨论目录仍可能把Agent带回过时的first-51论文调查、G6实时暂停、P23/P24 OPEN或旧paired-native运行范围。这些入口已统一到**真实行为函数 → 正常执行承担结构 → 竞争预测与经济实现**。
+
+| 入口与改动 | 修正后由它负责的稳定职责 |
+|---|---|
+| [.github/copilot-instructions](../../.github/copilot-instructions.md) | 载入G13、根AGENTS、真实Wan FFN源码与AutoResearcher；给出当前研究方法和ACTIVE权限指针 |
+| [Scoped discussion AGENTS](../method_discussion/AGENTS.md) | 多Agent只做独立功能/结构/原论文讨论与源码审阅；旧paired-native v2/v3按历史完成范围引用 |
+| [CURRENT_CONTEXT_PACKET](../agent_protocol/CURRENT_CONTEXT_PACKET.md) | 统一当前原生证据，确认10个source/12轨迹、1920个嵌套sites及P23/P24的NATIVE-OBS身份，G13 OPEN具体因果承担者；实时文献研究保持开放 |
+| [E0_STAGE_ANCHOR](../agent_protocol/E0_STAGE_ANCHOR.md) | 原真实Wan模型、重要科学现象、G13函数/结构三层思路和研究权限；早期E0研究保留历史证据 |
+| [agent_protocol/README](../agent_protocol/README.md) | 明确85/171/354/14及研究导航，使用**固定上游8b88a52d**（以前页面误写5bd7ec53） |
+| [讨论README](../method_discussion/README.md)、[独立发现](../method_discussion/discoveries/E0/README.md)、[QUEUE](../method_discussion/QUEUE.md) | 行为/函数/结构首先作为开放发现，成熟后进入独立评议方法版本；历史门控商空间等旧提案保持历史身份 |
+
+**真正有机制价值的旧结果保留**：Affine候选原生FFN速度收益与自由视频功能失配；source425跨seed signed P/N交叉项改变；原HiF4 Q2组尺度与实际tile占用；原生整步\(P,N\)有限响应。新入口直接用它们提出联合signed函数、跨层补偿、时空职责及其可能的计算承担路径。
+
+### 对静态检验器作结构级修正
+
+[check_autoresearcher_binding.py](../../tools/check_autoresearcher_binding.py)之前把旧文件名/精确自然语言短语作为“当前Agent已正确引导”的代理检查，导致要消除过时表述时可能引起测试失败。现将**现行指令检查**改为核对ACTIVE中登记的G13文档/Function–Structure对象、真实存在的文件、Skill YAML、默认WARD科研能力与上下文索引，保持现行E0及实验暂停身份。
+
+仍保留可客观验证的核心不变量：**固定AutoResearcher upstream文件Git blob、真实ACTIVE科学与实验权限、原协议哈希及冻结原生RUN、Graph-Agent SRC/OBS/OPEN与真实图谱、方法讨论独立文件路径、单独记录的视频质量身份**。语言质量通过独立Agent实际轨迹评价。
+
+[DEFAULT_BEHAVIOR_CASES.json](../agent_protocol/DEFAULT_BEHAVIOR_CASES.json)由36个扩充至**40个**项目专用案例，新增4类：自然行为函数优先、signed整步响应与局部W1函数的区别、联合计算结构先于量化算法、积极表述与旧Agent任务入口校准；静态检查会检验这4个案例已登记，但其科研表现等待真正独立Agent行为评估。
+
+**本次静态核对**：共检查14个实际生效的指令、工具及研究目录文件中的251条Markdown本地相对链接，未发现失效链接；现行入口的旧G6暂停、旧文献总数、P23/P24旧等级及旧paired-native授权提示均已消解。ACTIVE文件与原main Git blob一致；机器图维持171节点/354关系、论文索引85项；上游pin 8b88a52d保持原样。本轮更改属于文档/静态检查/项目专用行为案例层级，CPU/GPU模型、视频生成、重型CI及Agent真实行为对照均未执行。
