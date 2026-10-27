@@ -4,6 +4,8 @@
 
 **研究方法**：按[FFNDS领域Skill](../../../../.agents/skills/ffnds-paper-discovery/SKILL.md)主动从反直觉数据、新数学、源码与原论文发现不同的函数解释；经[WARD深度搜索](../../../agent_protocol/DEEP_WEB_RESEARCH.md)核对基础、前沿、作者实现和相反先例。在科研记录中清晰写出新结构、真正依据、竞争机制与预期不同结果。此处为**E0_OPEN_DISCOVERY**独立讨论空间，历史提案与失败均保留具体版本和可追溯解释。
 
+**当前执行状态**：[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)保留已完成模型范围及质量记录；新CPU/GPU/模型/视频执行暂停。发现目录用于数学、源码、论文和原证据上的科研讨论。
+
 **当前原生证据**：10个独立source身份、12条source×seed完整轨迹、1920个嵌套FFN位置。[cross-seed有符号作用](../../../20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md)、[整步有限状态响应](../../../20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)、[既有视频失配](../../../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)和[HiF4/物理tile](../../../20261025/E0_SHARED_TILE_PRE_W1.md)是研究功能和结构的互补入口。[初始FFN本征研究](../../../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[第一任务](../../../20261025/E0_FFN_FIRST_TASK_20261025.md)与旧A4/N12、SM120研究继续作为精确历史证据。
 
 ## 探索的三种互补切面
