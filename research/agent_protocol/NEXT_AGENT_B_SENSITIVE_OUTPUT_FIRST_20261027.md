@@ -5,6 +5,8 @@
 
 **统一五操作术语（更新）**：先读[五操作×I/F/C科学分类](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)和[机器方法映射](METHOD_OPERATION_CROSSWALK.json)。这里用户指定的“B”是**M-B候选（下游敏感函数坐标）**，不是操作分类中的O-B整个函数表示家族。M-B当前为**O-B改变函数表示＋O-E学习/验证目标**，B-Factored/Fused才有可额外讨论的O-D执行改写；不要求加O-A稀疏选择或O-C跨步缓存。Agent如认为O-A/O-C有关键增益，可作为竞争性新候选，但先完成当前M-B数学方法交付。
 
+**G14先验反向审计（本轮新增）**：[99项文献中哪些约束还未用于M-B与其它新结构](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)。第一份M-B METHOD_SNAPSHOT须重点处理：T05非线性谱与不可随意旋转的HiF4 Q2、T08门控正常路径与patching幻象、T09/T11低能方向的跨步可预测性；用已给出的二维ALG反例区分B-MARGINAL和B-JOINT，明确三个不同目标（函数重要、前置可预测、真实可省算）。该审计属于LIT/ALG，不是Agent同行票或训练许可证。
+
 ## 0. 明确分工和交付
 
 给下一位研究Agent的直接要求：
