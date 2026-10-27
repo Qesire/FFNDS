@@ -1,0 +1,107 @@
+{
+  "schema": "ffnds.quant_sign_prior.v1",
+  "date": "2026-10-27",
+  "method_doc": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md",
+  "execution": {
+    "model": 0,
+    "gpu": 0,
+    "cpu_numerical": 0,
+    "full_video": 0,
+    "experiment_status": "PAUSED_UNCHANGED"
+  },
+  "formats": [
+    {
+      "name": "OCP MXFP4",
+      "type": "SPEC_PRIMARY",
+      "url": "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+      "code": "4-bit E2M1",
+      "block": 32,
+      "scale": "E8M0 (power of two)",
+      "timing": "weight persistent, current activation only after quantization",
+      "qualifications": "nonzero code sign and magnitudes distinct; exceptional scales require handling"
+    },
+    {
+      "name": "NVFP4",
+      "type": "VENDOR_TE_PRIMARY",
+      "url": "https://nvidia.github.io/TransformerEngine/features/low_precision_training/nvfp4/nvfp4.html",
+      "code": "E2M1",
+      "block": 16,
+      "scale": "E4M3 local and FP32 tensor-wide",
+      "timing": "local activation scales generated at runtime",
+      "qualifications": "weights 2D scaling by default in some TE training recipes; not universal checkpoint"
+    },
+    {
+      "name": "Wan HiF4 original QDQ",
+      "type": "FFNDS_ORIGINAL_SRC_SYNTHETIC_OBS",
+      "url": "https://github.com/Qesire/FFNDS/blob/main/research/20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json",
+      "code": "HiFloat4 QDQ",
+      "block": 64,
+      "scale": "64->8->4 shared dependency",
+      "timing": "Q2 depends on original full GELU group",
+      "qualifications": "change one input affects 64 outputs; CPU reference only; not equal to packed MX/NVFP4"
+    }
+  ],
+  "papers": [
+    {
+      "id": "L69",
+      "name": "Prox: Training-Free FFN Activation Sparsity via Approximate Intermediate-Channel Salience in LLMs",
+      "url": "https://arxiv.org/pdf/2607.27591",
+      "reading_depth": "ORIGINAL_ARXIV_V1_PDF_PAGES_3_TO_5_EQ_STAGE1_STAGE2_COST_AND_FIG3_FIG4",
+      "system": "LLM SwiGLU 3 linear GEMVs",
+      "method": "stage1 input sparse and per-row INT4 proxy of up/gate; stage2 exact selected up/gate/down",
+      "cost": "C=2alpha(1-s1)+3(1-s2); alpha=1/3 authors measured",
+      "difference": "quant proxy is extra GEMV; original Wan one W1/GELU/W2 and Q2 scale closure; 82% mask overlap is their task"
+    },
+    {
+      "id": "L70",
+      "name": "Spark Transformer: Reactivating Sparsity in Transformer FFN and Attention",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/220d26c7fb478c2a397bd3fef0fe1d6f-Abstract-Conference.html",
+      "reading_depth": "OFFICIAL_NEURIPS_ABSTRACT_ONLY",
+      "system": "LLM training altered FFN attention",
+      "method": "low-cost predictor from reallocated parameters, statistical top-k",
+      "difference": "trained router is not naturally given quant metadata"
+    },
+    {
+      "id": "L71",
+      "name": "Enabling Dynamic Sparsity in Quantized LLM Inference (SpQt)",
+      "url": "https://arxiv.org/pdf/2511.04477",
+      "reading_depth": "ORIGINAL_ARXIV_V1_PDF_PAGES_0_TO_3_STRUCTURE_AND_LAYOUT",
+      "system": "Apple Silicon LLM decode GEMV weight quantization",
+      "method": "zigzag quantized weight layout, sparse index gather, special GEMV",
+      "difference": "physical layout is essential; not native Wan HiF4 big M"
+    },
+    {
+      "id": "L72",
+      "name": "SQ-DM: Accelerating Diffusion Models with Aggressive Quantization and Temporal Sparsity",
+      "url": "https://arxiv.org/abs/2501.15448",
+      "reading_depth": "ORIGINAL_AUTHOR_ARXIV_ABSTRACT_ONLY",
+      "system": "diffusion custom accelerator",
+      "method": "step aware sparse detection, mixed-precision custom hardware",
+      "difference": "6.91x special accelerator not existing GPUs or video score"
+    },
+    {
+      "id": "L73",
+      "name": "CodeGEMM: A Codebook-Centric Approach to Efficient GEMM in Quantized LLMs",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/3151e460c41ba67dc55412861184ef35-Abstract-Conference.html",
+      "reading_depth": "NEURIPS_2025_OFFICIAL_ABSTRACT_ONLY",
+      "system": "weight-only 2-bit codebook GEMM",
+      "method": "Psumbook centroid and input precompute, lookup by code",
+      "difference": "different codebook and operation than W4A4 HiF4; alternative structural representation prior art"
+    }
+  ],
+  "engineering": [
+    {
+      "name": "TensorRT-LLM: Accelerating Video Generation with GEMM Quantization, Attention Quantization and Skip Softmax Attention",
+      "url": "https://nvidia.github.io/TensorRT-LLM/1.4.0rc1/blogs/tech_blog/blog28_Accelerating_Video_Generation_with_GEMM_Quantization_Attention_Quantization_and_Skip_Softmax_Attention_in_TensorRT-LLM.html",
+      "reading_depth": "OFFICIAL_TECHNICAL_IMPLEMENTATION_DOC",
+      "fact": "Static global activation scale can be checkpoint-calibrated, local NVFP4 block activation scale still dynamic. Dynamic model may quant weights at load."
+    }
+  ],
+  "existing_repo_evidence": [
+    "research/20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json",
+    "research/20261025/E0_SHARED_TILE_PRE_W1.md",
+    "research/20261025/E0_INTRINSIC_FULL_HIDDEN.json",
+    "research/method_discussion/discoveries/E0/independent-sm120-packed-fp4-primitive-source-review-20261026.md"
+  ],
+  "confidence": "SPEC/ALG/LIT versus native evidence clearly separated"
+}
