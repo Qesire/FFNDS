@@ -251,5 +251,38 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(cross["one_turn_next_agent"], "M-B")
         self.assertTrue((root / cross["current_method_plan"]).is_file())
 
+
+    def test_research_reading_priorities_have_one_current_method_authority(self):
+        root = Path(__file__).resolve().parents[1]
+        nav = (root / "research/RESEARCH_NAVIGATION.md").read_text(encoding="utf-8")
+        readme = (root / "README.md").read_text(encoding="utf-8")
+        context = (root / "research/agent_protocol/CURRENT_CONTEXT_PACKET.md").read_text(encoding="utf-8")
+        skill = (root / ".agents/skills/ffnds-paper-discovery/SKILL.md").read_text(encoding="utf-8")
+        copilot = (root / ".github/copilot-instructions.md").read_text(encoding="utf-8")
+        method = "COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md"
+        for tier in ("P0", "P1", "P2", "P3", "P4"):
+            self.assertIn("## " + tier + " ·", nav)
+        for entry in (nav, readme, context, skill):
+            self.assertIn(method, entry)
+        self.assertIn("NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md", nav)
+        self.assertIn("B0", context)
+        self.assertIn("92", skill)
+        self.assertNotIn("89个主LID", skill)
+        self.assertNotIn("89项文献、177图节点、371关系", copilot)
+
+    def test_priority_navigation_links_resolve_in_repo(self):
+        import re
+        from urllib.parse import unquote
+        root = Path(__file__).resolve().parents[1]
+        navfile = root / "research/RESEARCH_NAVIGATION.md"
+        nav = navfile.read_text(encoding="utf-8")
+        for target in re.findall(r"\]\(([^)]+)\)", nav):
+            rel = target.split("#")[0].split(" ")[0]
+            if not rel or rel.startswith(("https://", "http://", "mailto:")):
+                continue
+            resolved = (navfile.parent / unquote(rel)).resolve()
+            self.assertTrue(resolved.is_relative_to(root), f"Path outside repo: {target}")
+            self.assertTrue(resolved.exists(), f"Broken priority link: {target}")
+
 if __name__ == "__main__":
     unittest.main()
