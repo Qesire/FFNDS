@@ -3,6 +3,12 @@ name: FFNDS G14 paper-method graph integrity (CPU only)
 on:
   pull_request:
     paths:
+      - 'README.md'
+      - 'AGENTS.md'
+      - '.github/copilot-instructions.md'
+      - '.agents/skills/ffnds-paper-discovery/SKILL.md'
+      - 'research/RESEARCH_NAVIGATION.md'
+      - 'research/agent_protocol/CURRENT_CONTEXT_PACKET.md'
       - 'research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json'
       - 'research/agent_protocol/GRAPH_AGENT_BINDINGS.json'
       - 'research/agent_protocol/METHOD_OPERATION_CROSSWALK.json'
@@ -31,7 +37,7 @@ jobs:
         run: python -m py_compile tools/graph_agent_bridge.py tests/test_graph_agent_bridge.py
       - name: Validate paper provenance, current method/prior contracts, and visible Mermaid graph
         run: python tools/graph_agent_bridge.py validate
-      - name: Run graph native evidence and paper coverage regression tests
+      - name: Run graph, method-prior, and reading-priority regression tests
         run: python tests/test_graph_agent_bridge.py
       - name: Query independent paper and computation-stage interfaces
         run: |
