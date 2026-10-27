@@ -1,0 +1,209 @@
+{
+  "schema": "ffnds.function_structure_locators.v1",
+  "updated": "2026-10-27",
+  "authority": "research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md",
+  "definitions": {
+    "behavior": "Observable conditional full video/latent/flow phenotype; human semantic name is optional and does not imply causal identity.",
+    "function": "Context-conditioned FFN gated output response pattern or functional equivalence class with specified natural input variation and downstream behavior.",
+    "structure": "Graph nodes/edges and shared computation/quantization dependencies sufficient to realize or mediate a candidate function; may include nonlinear interactions and downstream compensation.",
+    "importance": "Always relative to a behavior, source/seed/step/expert context, intervention and quality/latency budget.",
+    "evidence_sequence": [
+      "FUNCTIONAL_OBS",
+      "FUNCTIONAL_CAUSAL",
+      "FUNCTIONAL_IMPLEMENTABLE"
+    ],
+    "validation": "No new native targeted patching has been run; existing two-arm/full-flow experiments give phenomena, not neuron-circuit localization."
+  },
+  "phenotypes": [
+    {
+      "id": "B01",
+      "name": "Localized or widespread video background/illumination instability",
+      "status": "VIDEO_OBS_HISTORICAL_CONTEXT_NOT_ISOLATED_FFN_FUNCTION",
+      "source": "research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md",
+      "relevant_nodes": [
+        "P22",
+        "P24",
+        "D09"
+      ],
+      "question": "Where is the native FFN signed gated output maintaining stable illumination or residual background under source/seed shifts?"
+    },
+    {
+      "id": "B02",
+      "name": "Source and seed specific finite-step signed interaction",
+      "status": "NATIVE_OBS_EXISTING_P_N_CROSS",
+      "source": "research/20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md",
+      "relevant_nodes": [
+        "P23",
+        "P24"
+      ],
+      "known": "Same source425 prompt, seeds42 and54 have opposite cross signs on all 3 postinitial steps despite same FFN raw error count.",
+      "question": "Which computational pathways support the sign flip, without treating cross term itself as semantic video role?"
+    },
+    {
+      "id": "B03",
+      "name": "Spatial-frequency localized but semantically unidentified propagation",
+      "status": "NATIVE_POSTHOC_SPECTRUM_ONLY",
+      "source": "research/20261026/E0_SAVED_FLOW_SPECTRUM.md",
+      "relevant_nodes": [
+        "P24",
+        "F13"
+      ],
+      "known": "Global and spatial band signed P/N cross can differ in sign; limited to two previously exposed source trajectories",
+      "question": "Does the band correspond to any behavior or just inherited smooth latent displacement?"
+    }
+  ],
+  "functions": [
+    {
+      "id": "FUN01",
+      "name": "Signed gated FFN response covariation across states",
+      "status": "FUNCTIONAL_OBS_CANDIDATE_NOT_CAUSAL",
+      "behavior_refs": [
+        "B02"
+      ],
+      "expression": "u_l,t(q,condition)=e5⊙W2 Q2(GELU(W1 Q1(q))), with BF16 residual boundary and actual biases",
+      "observed": "P/N cross sign reflects whole model state interactions, not an isolated neuron function",
+      "research_anchor": [
+        "U04",
+        "U06",
+        "U07",
+        "U10",
+        "U11"
+      ],
+      "competing_explanations": [
+        "Input distribution or expert-specific conditioning determines the sign",
+        "State displacement/attention rather than particular FFN channel groups dominates"
+      ],
+      "missing": "State-matched FFN output vs gate×W2 functional responses across source×seed and targeted honest downstream path interventions"
+    },
+    {
+      "id": "FUN02",
+      "name": "Spatiotemporally coherent FFN functional support",
+      "status": "OPEN_BEHAVIOR_TO_FFN_LINK",
+      "behavior_refs": [
+        "B01",
+        "B03"
+      ],
+      "expression": "context-specific stable/novel residual update across latent spacetime, to be discovered rather than hardcoded frequency basis",
+      "observed": "Video anomaly and latent band distribution each exist but association/causality unlocalized",
+      "research_anchor": [
+        "U05",
+        "U06",
+        "U13",
+        "U15",
+        "U16"
+      ],
+      "competing_explanations": [
+        "Low-frequency concentration inherited from prior latent rather than active protection",
+        "Attention/decoder/flow cause temporal drift independently of FFN function"
+      ],
+      "missing": "Independent mapping to actual behavior before labeling any FFN function stabilizer"
+    },
+    {
+      "id": "FUN03",
+      "name": "Conditional cross-step FFN function role and update frequency",
+      "status": "OPEN_FUNCTION_GROUP",
+      "behavior_refs": [
+        "B01",
+        "B02"
+      ],
+      "expression": "F_l,t(q_t; expert_t) and downstream scheduler response under same-source and crossed seeds",
+      "observed": "high/high/low/low 4step model and full-step finite-mapping P,N exist",
+      "research_anchor": [
+        "U07",
+        "U12",
+        "U13"
+      ],
+      "competing_explanations": [
+        "Step-specific q input change alone accounts for observed differences",
+        "Changed attention/history alters downstream behavior"
+      ],
+      "missing": "Function aligned across corresponding actual q and cross-expert state; no crossexpert reused function identity assumed"
+    }
+  ],
+  "structures": [
+    {
+      "id": "STR01",
+      "name": "Within-layer shared-input nonlinear coupled Q2 and signed W2",
+      "status": "SOURCE_MATH_STRUCTURE_PRESENT_IMPORTANCE_OPEN",
+      "nodes": [
+        "G18",
+        "F03",
+        "F04",
+        "F06",
+        "F08R",
+        "F09",
+        "F12"
+      ],
+      "candidate_functions": [
+        "FUN01",
+        "FUN02"
+      ],
+      "property": "All W1 rows see same q, GELU has nonlinear signed outputs, Q2 group64 8-to4 shared scales, gateW2 combines columns; individual column score cannot certify joint need",
+      "first_unresolved": "Which group or crossgroup dependencies actually carry meaningful behavior and which are only algebraic coupling?"
+    },
+    {
+      "id": "STR02",
+      "name": "Cross-layer and attention-mediated residual compensation/coupling",
+      "status": "SOURCE_PATH_PRESENT_FUNCTION_OPEN",
+      "nodes": [
+        "G17",
+        "G18",
+        "F09",
+        "F12",
+        "F13",
+        "G21"
+      ],
+      "candidate_functions": [
+        "FUN01",
+        "FUN02"
+      ],
+      "property": "Gated residual enters later block norm/attention/flow; path may compensate or amplify signed effects",
+      "first_unresolved": "Which live native pathway bears causal role under natural input rather than a patched dormant path?"
+    },
+    {
+      "id": "STR03",
+      "name": "Across-step high/low expert + state recurrence",
+      "status": "SOURCE_SCHEDULE_PRESENT_FUNCTION_OPEN",
+      "nodes": [
+        "G02",
+        "F12",
+        "F13",
+        "P24",
+        "D09"
+      ],
+      "candidate_functions": [
+        "FUN02",
+        "FUN03"
+      ],
+      "property": "4steps with high/high/low/low distinct weights; scheduler feeds new latent; temporal dynamics may make small upstream function essential",
+      "first_unresolved": "Which same-expert reuse or slow functional mode is robust to seed/state?"
+    },
+    {
+      "id": "STR04",
+      "name": "Spatiotemporally shared functions rather than isolated token channel support",
+      "status": "OPEN_COMPUTATIONAL_STRUCTURE",
+      "nodes": [
+        "P14",
+        "F15",
+        "P24",
+        "S19",
+        "I08"
+      ],
+      "candidate_functions": [
+        "FUN02",
+        "FUN03"
+      ],
+      "property": "Potential distributed or joint functions without predetermined Fourier/channel/tile basis",
+      "first_unresolved": "Can shared causal structure be distinguished from inherited low-frequency latent state and existing attention computation?"
+    }
+  ],
+  "required_sequence": [
+    "Begin from B behavioral or unlabeled output-response identity",
+    "Discover FUN conditional behavior and competing mechanism without selecting code/low-bit proxy",
+    "Trace STR computational paths and nonlinearity/group closure, causal vs associative evidence",
+    "Only then consider online observation, quant codes, executable sparse tiles, alternate numerical representation, and actual video+SLO"
+  ],
+  "resource_permission": "NO_NEW_MODEL_CPU_GPU_VIDEO_EXECUTION",
+  "new_native_interventions": 0,
+  "index_integrity": "Original observations cited, not newly run; mappings FUN->STR remain research hypotheses, not new algorithm."
+}
