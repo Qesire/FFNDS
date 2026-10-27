@@ -73,7 +73,11 @@
         "Input distribution or expert-specific conditioning determines the sign",
         "State displacement/attention rather than particular FFN channel groups dominates"
       ],
-      "missing": "State-matched FFN output vs gate×W2 functional responses across source×seed and targeted honest downstream path interventions"
+      "missing": "State-matched FFN output vs gate×W2 functional responses across source×seed and targeted honest downstream path interventions",
+      "localization_cards": [
+        "C01",
+        "C02"
+      ]
     },
     {
       "id": "FUN02",
@@ -96,7 +100,10 @@
         "Low-frequency concentration inherited from prior latent rather than active protection",
         "Attention/decoder/flow cause temporal drift independently of FFN function"
       ],
-      "missing": "Independent mapping to actual behavior before labeling any FFN function stabilizer"
+      "missing": "Independent mapping to actual behavior before labeling any FFN function stabilizer",
+      "localization_cards": [
+        "C03"
+      ]
     },
     {
       "id": "FUN03",
@@ -117,7 +124,10 @@
         "Step-specific q input change alone accounts for observed differences",
         "Changed attention/history alters downstream behavior"
       ],
-      "missing": "Function aligned across corresponding actual q and cross-expert state; no crossexpert reused function identity assumed"
+      "missing": "Function aligned across corresponding actual q and cross-expert state; no crossexpert reused function identity assumed",
+      "localization_cards": [
+        "C03"
+      ]
     }
   ],
   "structures": [
@@ -139,7 +149,10 @@
         "FUN02"
       ],
       "property": "All W1 rows see same q, GELU has nonlinear signed outputs, Q2 group64 8-to4 shared scales, gateW2 combines columns; individual column score cannot certify joint need",
-      "first_unresolved": "Which group or crossgroup dependencies actually carry meaningful behavior and which are only algebraic coupling?"
+      "first_unresolved": "Which group or crossgroup dependencies actually carry meaningful behavior and which are only algebraic coupling?",
+      "localization_cards": [
+        "C02"
+      ]
     },
     {
       "id": "STR02",
@@ -158,7 +171,11 @@
         "FUN02"
       ],
       "property": "Gated residual enters later block norm/attention/flow; path may compensate or amplify signed effects",
-      "first_unresolved": "Which live native pathway bears causal role under natural input rather than a patched dormant path?"
+      "first_unresolved": "Which live native pathway bears causal role under natural input rather than a patched dormant path?",
+      "localization_cards": [
+        "C01",
+        "C03"
+      ]
     },
     {
       "id": "STR03",
@@ -176,7 +193,11 @@
         "FUN03"
       ],
       "property": "4steps with high/high/low/low distinct weights; scheduler feeds new latent; temporal dynamics may make small upstream function essential",
-      "first_unresolved": "Which same-expert reuse or slow functional mode is robust to seed/state?"
+      "first_unresolved": "Which same-expert reuse or slow functional mode is robust to seed/state?",
+      "localization_cards": [
+        "C01",
+        "C03"
+      ]
     },
     {
       "id": "STR04",
@@ -194,7 +215,10 @@
         "FUN03"
       ],
       "property": "Potential distributed or joint functions without predetermined Fourier/channel/tile basis",
-      "first_unresolved": "Can shared causal structure be distinguished from inherited low-frequency latent state and existing attention computation?"
+      "first_unresolved": "Can shared causal structure be distinguished from inherited low-frequency latent state and existing attention computation?",
+      "localization_cards": [
+        "C03"
+      ]
     }
   ],
   "required_sequence": [
@@ -205,5 +229,28 @@
   ],
   "resource_permission": "NO_NEW_MODEL_CPU_GPU_VIDEO_EXECUTION",
   "new_native_interventions": 0,
-  "index_integrity": "Original observations cited, not newly run; mappings FUN->STR remain research hypotheses, not new algorithm."
+  "index_integrity": "Original observations cited, not newly run; mappings FUN->STR remain research hypotheses, not new algorithm.",
+  "localization_methodology": {
+    "updated": "2026-10-27",
+    "document": "research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md",
+    "method_cards": "research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json",
+    "cuts": [
+      "O",
+      "D",
+      "Q",
+      "P"
+    ],
+    "math_objects": [
+      "ALG01",
+      "ALG02"
+    ],
+    "planned_cards": [
+      "C01",
+      "C02",
+      "C03"
+    ],
+    "causal_interventions_executed": 0,
+    "source_state": "PROPOSED_NOT_EXECUTED",
+    "policy": "Behavior associations, causal function and implementable native compute are separate grades; observer/proxy/code inference later"
+  }
 }
