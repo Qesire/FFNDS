@@ -2,9 +2,9 @@
 
 **当前研究问题**：先在原生四步视频与正常FFN写回中定位有行为意义的输出函数，再寻找真实计算承担结构；在此基础上探索量化信息、跨步共享、结构化计算及部署方案。
 
-**科学导航**：[G13函数与计算结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [功能/结构独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [当前第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) · [阶段锚点](E0_STAGE_ANCHOR.md) · [最小上下文包](CURRENT_CONTEXT_PACKET.md) · [研究首页](../RESEARCH_NAVIGATION.md)。
+**科学导航**：[G13函数与计算结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P方法学](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [三张定位卡](FUNCTION_LOCALIZATION_METHOD_CARDS.json) · [功能/结构独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [当前第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) · [阶段锚点](E0_STAGE_ANCHOR.md) · [最小上下文包](CURRENT_CONTEXT_PACKET.md) · [研究首页](../RESEARCH_NAVIGATION.md)。
 
-**数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前85篇相关研究、171个稳定节点、354条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
+**数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前89篇相关研究、177个稳定节点、371条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
 
 ## 科学方法与实际检索
 
@@ -12,7 +12,7 @@
 
 [FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)按本项目现行G13目标组织；通用源由[固定AutoResearcher manifest](ACTIVE_SOURCE_MANIFEST.json)绑定，执行[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)和[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)。通过[深度Web原论文/源码协议](DEEP_WEB_RESEARCH.md)持续发现前沿与强先例、读方法、消融及作者实际实现，从机制差异拓展新函数和结构研究。
 
-[85篇索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)与[Mechanism Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)记录论文阅读等级和方法竞争；G13主要对照JMLR causal abstraction、ICLR patching与CVPR Video-DiT时空定位，G7–G12提供高效计算/实时系统竞争。
+[89篇索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)与[Mechanism Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)记录论文阅读等级和方法竞争；G13主要对照JMLR causal abstraction、ICLR patching与CVPR Video-DiT时空定位，G7–G12提供高效计算/实时系统竞争。
 
 ## 科研Agent独立讨论
 
