@@ -79,31 +79,68 @@
       "id": "C12_R512",
       "source_count": 12,
       "rows_per_source": 512,
-      "status": "PLANNED_NOT_COLLECTED"
+      "status": "PLANNED_NOT_COLLECTED",
+      "allocation": {
+        "i2v_subject": 6,
+        "i2v_background": 6
+      },
+      "calibration_scope": "SOURCE_DENSITY_ABLATION"
     },
     {
       "id": "C24_R256",
       "source_count": 24,
       "rows_per_source": 256,
-      "status": "REFERENCE_HISTORICAL_BUDGET_NOT_V2_FIT"
+      "status": "REFERENCE_HISTORICAL_BUDGET_NOT_V2_FIT",
+      "allocation": {
+        "i2v_subject": 12,
+        "i2v_background": 12
+      },
+      "calibration_scope": "SOURCE_DENSITY_ABLATION"
     },
     {
       "id": "C48_R128",
       "source_count": 48,
       "rows_per_source": 128,
-      "status": "PLANNED_NOT_COLLECTED"
+      "status": "PLANNED_NOT_COLLECTED",
+      "allocation": {
+        "i2v_subject": 24,
+        "i2v_background": 24
+      },
+      "calibration_scope": "SOURCE_DENSITY_ABLATION"
     },
     {
       "id": "C24_R128",
       "source_count": 24,
       "rows_per_source": 128,
-      "status": "PLANNED_NOT_COLLECTED"
+      "status": "PLANNED_NOT_COLLECTED",
+      "allocation": {
+        "i2v_subject": 12,
+        "i2v_background": 12
+      },
+      "calibration_scope": "SOURCE_DENSITY_ABLATION"
     },
     {
       "id": "C24_R512",
       "source_count": 24,
       "rows_per_source": 512,
-      "status": "PLANNED_NOT_COLLECTED"
+      "status": "PLANNED_NOT_COLLECTED",
+      "allocation": {
+        "i2v_subject": 12,
+        "i2v_background": 12
+      },
+      "calibration_scope": "SOURCE_DENSITY_ABLATION"
+    },
+    {
+      "id": "C48_R128_MOTION",
+      "source_count": 48,
+      "rows_per_source": 128,
+      "status": "PLANNED_NOT_COLLECTED",
+      "allocation": {
+        "i2v_subject": 20,
+        "i2v_background": 20,
+        "camera_motion": 8
+      },
+      "calibration_scope": "SCENE_DOMAIN_EXTENSION"
     }
   ],
   "optional_expansion": [
@@ -160,5 +197,50 @@
     "https://proceedings.neurips.cc/paper_files/paper/2025/hash/31ed129feae64a7e44a15b148c15558d-Abstract-Conference.html",
     "https://proceedings.iclr.cc/paper_files/paper/2025/hash/2ede933e10afa991a10b6f36b6522129-Abstract-Conference.html",
     "https://aclanthology.org/2025.naacl-long.509/"
+  ],
+  "experimental_contrasts": [
+    {
+      "axis": "source_diversity",
+      "arms": [
+        "C12_R512",
+        "C24_R256",
+        "C48_R128"
+      ],
+      "control": "constant 6144 source×row budget per native position; identical strata proportions; matched QDQ, support and fitting objective"
+    },
+    {
+      "axis": "within_source_density",
+      "arms": [
+        "C24_R128",
+        "C24_R256",
+        "C24_R512"
+      ],
+      "control": "same 24 sources and per-source random draw prefix"
+    },
+    {
+      "axis": "motion_domain",
+      "arms": [
+        "C48_R128",
+        "C48_R128_MOTION"
+      ],
+      "control": "same total rows and fitting objective; explicitly different strata mixture"
+    },
+    {
+      "axis": "model_input_state",
+      "arms": [
+        "teacher_input",
+        "student_input"
+      ],
+      "control": "same source, step, block, actual token coordinates, objective and data budget"
+    },
+    {
+      "axis": "objective",
+      "arms": [
+        "diagonal_energy",
+        "joint_signed_group",
+        "native_gate_output"
+      ],
+      "control": "same source rows and compute budget; independent heldout output/motion"
+    }
   ]
 }

@@ -24,12 +24,12 @@ class CalibrationDesignTests(unittest.TestCase):
 
     def test_coverage_and_image_split(self):
         bank = {"schema": "ffnds.source.bank.v1", "sources": [
-            {"source_id": str(i), "image_id": str(i), "scene_stratum": "i2v_subject",
+            {"source_id": str(i), "image_id": str(i), "scene_stratum": "i2v_subject" if i < 12 else "i2v_background",
              "role": "CALIBRATION"} for i in range(24)]}
         result = coverage(self.plan, bank)
         arms = {x["arm_id"]: x for x in result["arms"]}
         self.assertEqual(arms["C24_R256"]["status"], "SOURCE_CANDIDATES_PRESENT")
-        self.assertEqual(arms["C48_R128"]["status"], "AWAITING_NEW_SOURCES")
+        self.assertEqual(arms["C48_R128"]["status"], "AWAITING_NEW_STRATIFIED_SOURCES")
         self.assertEqual(arms["C24_R256"]["native_fit"], "NOT_RUN")
         bank["sources"].append({"source_id": "fresh", "image_id": "0",
             "role": "FROZEN_CONFIRMATION", "scene_stratum": "i2v_subject"})

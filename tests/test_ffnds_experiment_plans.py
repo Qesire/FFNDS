@@ -89,6 +89,26 @@ class PipelineTest(unittest.TestCase):
                                  strata="i2v_subject:1,i2v_background:1",
                                  rows=256, seed=42, output=p / "unwritten.json")
 
+    def test_teacher_student_plans_share_coordinates(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp)
+            save_new(p / "bank.json", bank((1, 1)))
+            geometry = [{"source_id": s["source_id"], "step": st, "block": b,
+                         "population_rows": 1200}
+                        for s in bank((1, 1))["sources"]
+                        for st in range(4) for b in range(40)]
+            save_new(p / "geometry.json", geometry)
+            kwargs = dict(strata="i2v_subject:1,i2v_background:1", rows=128, seed=42)
+            a = plan_calibration(p / "bank.json", p / "geometry.json",
+                                 output=p / "teacher.json", source_state="teacher_input", **kwargs)
+            b = plan_calibration(p / "bank.json", p / "geometry.json",
+                                 output=p / "student.json", source_state="student_input", **kwargs)
+            self.assertEqual(a["calibration_input_state"], "teacher_input")
+            self.assertEqual(b["calibration_input_state"], "student_input")
+            self.assertEqual([r["selected_row_ids"] for r in a["calibration"]],
+                             [r["selected_row_ids"] for r in b["calibration"]])
+            self.assertTrue(all(r["source_state"] == "student_input" for r in b["calibration"]))
+
     def test_legacy_source_roles_and_overlap(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp)

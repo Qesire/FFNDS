@@ -49,6 +49,11 @@ def validate_design(design):
         ids.add(aid)
         if (type(sources) is not int or type(rows) is not int or sources < 1 or rows < 1):
             errors.append(f"invalid source count / row density for {aid}")
+        allocation = arm.get("allocation", {})
+        if not isinstance(allocation, dict) or not allocation or (type(sources) is int and sum(allocation.values()) != sources):
+            errors.append(f"arm {aid} lacks exact source strata allocation")
+        elif any(k not in design.get("strata", []) or type(v) is not int or v < 0 for k, v in allocation.items()):
+            errors.append(f"arm {aid} has invalid stratum allocation")
         if arm.get("status") not in {"PLANNED_NOT_COLLECTED",
                                    "REFERENCE_HISTORICAL_BUDGET_NOT_V2_FIT"}:
             errors.append(f"arm {aid} claims execution without native evidence")
@@ -99,14 +104,16 @@ def coverage(design, bank):
     for arm in design["calibration_arms"]:
         need = arm["source_count"]
         observed = len(by_role["CALIBRATION"])
+        exact = all(len(available[stratum]) >= n for stratum, n in arm["allocation"].items())
         records.append({
             "arm_id": arm["id"],
             "source_target": need,
             "rows_per_source_per_position": arm["rows_per_source"],
             "token_row_budget_per_position": need * arm["rows_per_source"],
             "available_unique_calibration_images": observed,
+            "required_strata_counts": arm["allocation"],
             "available_strata_counts": {k: len(v) for k, v in sorted(available.items())},
-            "status": "SOURCE_CANDIDATES_PRESENT" if observed >= need else "AWAITING_NEW_SOURCES",
+            "status": "SOURCE_CANDIDATES_PRESENT" if observed >= need and exact else "AWAITING_NEW_STRATIFIED_SOURCES",
             "native_operands": "NOT_VERIFIED",
             "native_fit": "NOT_RUN",
             "independent_video": "NOT_RUN",
