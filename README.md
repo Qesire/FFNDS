@@ -46,6 +46,20 @@ FFNDS研究**能以什么信息和数学表示减少真正的 FFN / 整段视频
 
 G7–G12新外部节点使用LIT/ALG/SPEC/OPEN证据等级。CodeGEMM、LUT-GEMM的公开实现单向量查表与多token解量化dense回退、SharQ的sparse加dense residual GEMM是实质性的**原作者源码实现边界**；相关结果不是当前Wan本地运行。
 
+## 只读计算图检索
+
+以下命令仅检查和查询仓库现有JSON/Markdown，不运行模型、GPU或生成视频：
+
+~~~bash
+python tools/graph_agent_bridge.py validate
+python tools/graph_agent_bridge.py inspect F08R
+python tools/graph_agent_bridge.py trace I04 F12
+python tools/graph_agent_bridge.py mechanisms
+python tools/graph_agent_bridge.py mechanism M02
+~~~
+
+validate检查SPEC/LIT/ALG/OBS/OPEN与原生证据节点的存在性、Mermaid标签、现行79篇论文ID、12机制组及26条crosswalk关系。它只验证**静态文档/图谱一致性**，不证明数学值、模型正确性、内核速度和视频质量。对应轻量测试：[test_graph_agent_bridge.py](tests/test_graph_agent_bridge.py)。
+
 ## 复核、科研协作和实验权限
 
 先通过[研究导航](research/RESEARCH_NAVIGATION.md)定位原始配置、论文ID和evidence类型。每项研究形成**可检验的结构或机制 → 最强竞争解释 → 最低成本区分方法 → 实际省算范围与视频功能**，并回写[图谱](research/agent_protocol/GRAPH_AGENT_BINDINGS.json)和[综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)。静态graph/文档检查说明链接及关系一致；数值证明要源代码/数学，真实速度与质量需授权后原生完整试验。
