@@ -1,4 +1,4 @@
-"""Guard primary FFNDS objective against silent reinterpretation as static or local-only recovery."""
+"""Check parallel FFNDS goals, historical registered gates and current permissions."""
 import hashlib
 import json
 from pathlib import Path
@@ -64,8 +64,20 @@ class ObjectiveContractTests(unittest.TestCase):
     def test_research_objective_admits_static_dynamic_and_operator_first_work(self):
         goal = self.contract["primary_scientific_goal"].lower()
         live = record("research/ACTIVE_RESEARCH.json")
-        self.assertIn("dynamic ffn sparsity", goal)
-        self.assertIn("static reduction", goal)
+        self.assertIn("information", goal)
+        self.assertIn("computation", goal)
+        self.assertIn("generated behavior", goal)
+        parallel = self.contract["current_research_goal_20261027"]
+        self.assertEqual(parallel["parallel_entries"], [
+            "INFORMATION_AND_REPRESENTATION",
+            "FUNCTION_AND_DYNAMICS",
+            "COMPUTATION_AND_EXECUTION",
+        ])
+        self.assertEqual(parallel["g13_role"],
+                         "SCOPED_FUNCTIONAL_CAUSAL_LOCALIZATION_NOT_GLOBAL_GATE")
+        self.assertEqual(parallel["model_execution_authority"], "NONE_CURRENTLY_PAUSED")
+        self.assertIn("DIRECT_SPARSE_NO_RECOVERY",
+                      self.contract["goal_reconciliation_20261024"]["candidate_classes"])
         self.assertEqual([q["id"] for q in live["questions"]], ["Q1", "Q2", "Q3"])
         self.assertEqual(
             live["question_relationship"],
