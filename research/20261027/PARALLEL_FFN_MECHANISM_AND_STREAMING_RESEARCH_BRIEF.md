@@ -43,5 +43,5 @@ K\cdot\underbrace{C_{\mathrm{full\,temporal+render}}}_{\text{旧全步重算}} .
 
 ## 量化信息证书与实时短chunk联接（2026-10-27 G12）
 
-[G12 有符号FP4直方图区间与成本证明](../literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)给出了在weight/input共享scale正且每分组scale恒定时，已知signed code直方图但不知逐坐标配对的**最紧**量化内积上下界；部分pair信息可以逐步收紧，但fullM原M≈31668、D5120、H13824、B32意味着约70.1e9 group bounds/FFN，绝非免费稀疏路由。LUT-GEMM与CodeGEMM实际公开源码的多token dense fallback，加上MACKO的single-vector FP16路径，进一步验证离线大M与实时小chunk需各自算成本和质量门槛。固定Wan HiF4 Q2 group闭包与signed W2全部下游作用仍是独立必需条件；不选择既定mask、proxy或具体编码表示。
+[G12 有符号FP4直方图区间与成本证明](../literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)给出了在weight/input共享scale正且每分组scale恒定时，已知signed code直方图但不知逐坐标配对的**最紧**量化内积上下界；部分pair信息可以逐步收紧，但fullM原M≈31668、D5120、H13824、B32意味着约70.04e9 group bounds/FFN，绝非免费稀疏路由。LUT-GEMM与CodeGEMM实际公开源码的多token dense fallback，加上MACKO的single-vector FP16路径，进一步验证离线大M与实时小chunk需各自算成本和质量门槛。固定Wan HiF4 Q2 group闭包与signed W2全部下游作用仍是独立必需条件；不选择既定mask、proxy或具体编码表示。
 
