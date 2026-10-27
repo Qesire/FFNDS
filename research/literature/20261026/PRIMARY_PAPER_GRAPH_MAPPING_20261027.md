@@ -16,7 +16,7 @@
 
 ## L37 Mobile Video DiT · K07–K09
 
-[原始工作](https://arxiv.org/abs/2508.09448) 的训练后head/FFN width结构和紧凑GEMM计划已经在G7源图中登记：K07选择训练后保留通道→K08将W1中间维度与W2输入缩窄、部署真实compact dense weight→K09对feature一致性/KD及内存tile作优化。**区别**是静态重训后的物理维度缩窄，而非冻结Wan后验TopK；原HiF4 Q2 group的排列、码字尺度以及flow视频保真需要独立重建。这一项由[先前源码/论文审计](ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)决定版本，未产生当前Wan新原生结果。
+[原始工作](https://arxiv.org/abs/2507.13343) 的训练后head/FFN width结构和紧凑GEMM计划已经在G7源图中登记：K07选择训练后保留通道→K08将W1中间维度与W2输入缩窄、部署真实compact dense weight→K09对feature一致性/KD及内存tile作优化。**区别**是静态重训后的物理维度缩窄，而非冻结Wan后验TopK；原HiF4 Q2 group的排列、码字尺度以及flow视频保真需要独立重建。这一项由[先前源码/论文审计](ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)决定版本，未产生当前Wan新原生结果。
 
 ## L50 NerVE · K10–K12
 
