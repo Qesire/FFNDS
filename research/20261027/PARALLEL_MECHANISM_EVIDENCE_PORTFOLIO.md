@@ -4,6 +4,8 @@
 
 > **现行跨路线研究解释及方案对照入口。** 本文同步各路线的可证实结论、开放竞争解释、最小判别和可复用资产；它是科学路线图，**不是**新的GPU执行注册或Agent方法评议。共同目标以[统一研究目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)为准；执行及实时/流式范围仅由[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)判定。原始RUN、历史方法版本、失效结果保持原证据身份。
 
+**五操作横向索引**：[当前方法O-A选择、O-B表示、O-C复用、O-D计算代数、O-E学习验证及G14论文交叉表](FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)。下表I/F/C是三种**科学问题入口**，不是另五个互斥的算法分类；每项路线从G14原论文实际intervention及现有Wan SRC/NATIVE出发填写操作指纹。新增方法M-A/M-B/M-C与O-A/O-B/O-C区分，下一Agent仍从**M-B**开始。
+
 ## 1. 核心结构：三条并行入口、两种成果、一个共同物理锚点
 
 - **I（信息／表示）**：计算之前或中途何时可获得什么，能否形成可复用的有符号证书、等价代数、低位编码或跨步共享表示。
