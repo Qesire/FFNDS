@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from graph_agent_bridge import load, validate, inspect, trace, load_crosswalk, validate_crosswalk, validate_paper_focus, inspect_paper, inspect_focus
+from graph_agent_bridge import load, validate, inspect, trace, load_crosswalk, validate_crosswalk, validate_paper_focus, inspect_paper, inspect_focus, validate_method_operation_crosswalk
 
 
 class GraphAgentBridgeTests(unittest.TestCase):
@@ -216,6 +216,40 @@ class GraphAgentBridgeTests(unittest.TestCase):
         candidate_route = trace(self.registry, "P06", "P14")
         self.assertEqual(len(candidate_route["edges"]), 1)
         self.assertTrue(candidate_route["edges"][0]["relation"].startswith("open_hypothesis"))
+
+
+    def test_current_method_priors_and_B0_progress_are_checked(self):
+        result = validate_method_operation_crosswalk(self.registry)
+        self.assertEqual(result["method_operation_types"], 5)
+        self.assertEqual(result["method_project_routes"], 10)
+        self.assertGreaterEqual(result["method_prior_constraint_relations"], 12)
+        self.assertEqual(result["method_next_agent"], "M-B")
+        self.assertEqual(result["method_next_stage"], "M-B_B0_NATIVE_POSTWRITE_CAPTURE_PREP")
+        output = validate(self.registry)
+        self.assertEqual(output["method_next_agent"], "M-B")
+        self.assertEqual(output["method_operation_types"], 5)
+
+    def test_current_method_source_ids_and_stage_refs_are_grounded(self):
+        root = Path(__file__).resolve().parents[1]
+        cross = json.loads((root / "research/agent_protocol/METHOD_OPERATION_CROSSWALK.json").read_text())
+        focus = json.loads((root / "research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json").read_text())
+        all_papers = {x["id"] for x in focus["paper_links"] + focus["supplemental_links"]}
+        all_stages = {x["id"] for x in focus["focus_nodes"]}
+        self.assertEqual(cross["schema"], "ffnds.method_operation_crosswalk.v2")
+        for edge in cross["method_prior_constraint_edges"]:
+            self.assertTrue(set(edge["paper_ids"]) <= all_papers)
+            self.assertTrue(set(edge["focus_nodes"]) <= all_stages)
+            self.assertIn(edge["relation"], cross["relation_types"])
+
+    def test_method_progress_identity_is_not_a_claim_of_B_native_execution(self):
+        root = Path(__file__).resolve().parents[1]
+        cross = json.loads((root / "research/agent_protocol/METHOD_OPERATION_CROSSWALK.json").read_text())
+        progress = {x["method"]: x for x in cross["methods_progress"]}
+        self.assertIn("NATIVE_LOCAL_PILOT_COMPLETE", progress["M-A"]["status"])
+        self.assertIn("B0_NATIVE_STATE_CAPTURE_OPEN", progress["M-B"]["status"])
+        self.assertIn("MATHEMATICAL_INPUT_OUTPUT_LIMITS_ONLY", progress["M-C"]["status"])
+        self.assertEqual(cross["one_turn_next_agent"], "M-B")
+        self.assertTrue((root / cross["current_method_plan"]).is_file())
 
 if __name__ == "__main__":
     unittest.main()
