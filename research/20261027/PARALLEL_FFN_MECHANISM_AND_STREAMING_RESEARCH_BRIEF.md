@@ -38,3 +38,5 @@ K\cdot\underbrace{C_{\mathrm{full\,temporal+render}}}_{\text{旧全步重算}} .
 ## 研究优先级与开放性
 
 先按AutoResearcher WARD继续扩大 **原始FFN模块功能/时间冗余** 的论文查重链（尤其SCD消融中的MLP层、LongLive2 FFN原生算子与EdenLive实际LightX2V低位核），其次把每条文献按**模型训练身份、数学算子、决策时点、真实可省的W1/W2或整个网络调用、强比较器、视频功能/SLO** 关联到图。提出候选机制时可以超出现有K/S节点；图谱为已有证据索引，不是研究的边界或预定算法。各原生实验仍需未来明确授权，既有已冻结结果与质量认可身份保持原样。
+
+**补充原始论文级别的双线联系（2026-10-27）**：[G11五篇深读](../literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)与[SharQ视频近邻源码/数据](../literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)指出短chunk更接近少行 GEMV/GEMM，而原Wan完整M大矩阵并不能从CodeGEMM单vector查表/SpQt decode稀疏核直接获得收益。SharQ已有Wan2.2-T2V-A14B四RTX5090 FP4原生两路补偿，成为量化+稀疏竞品，仍不能直接代表I2V双expertD-Q和完整视频功能。
