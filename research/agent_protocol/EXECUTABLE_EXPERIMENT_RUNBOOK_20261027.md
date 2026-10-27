@@ -7,10 +7,11 @@
 ```bash
 python tests/test_ffnds_cohort_preflight.py
 python tests/test_ffnds_experiment_plans.py
+python tests/test_ffnds_calibration_design.py
 python tests/test_ffnds_native_geometry.py
 python tests/test_ffnds_stage_registered_i2v.py
 python tests/test_ffnds_cluster_metric_report.py
-python -m py_compile tools/ffnds_experiment_plans.py tools/ffnds_native_geometry.py tools/ffnds_run_registered_video.py tools/ffnds_stage_registered_i2v.py tools/ffnds_cluster_metric_report.py
+python -m py_compile tools/ffnds_calibration_design.py tools/ffnds_experiment_plans.py tools/ffnds_native_geometry.py tools/ffnds_run_registered_video.py tools/ffnds_stage_registered_i2v.py tools/ffnds_cluster_metric_report.py
 ```
 
 上述静态与CPU测试仅覆盖协议数学/记录解析；其中聚合测试涵盖同图像多prompt不等重复次数，采样测试涵盖实际抽样与注册身份一致。模型加载、原生HiF4及官方评测须在实际集群环境另作fresh run。
