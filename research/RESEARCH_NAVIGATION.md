@@ -2,13 +2,13 @@
 
 **现行科研目标**：理解并改进视频生成FFN中信息、函数与实际计算的组织方式，获得独立的新机制科学结论或质量–成本Pareto方法。**I信息与表示、F函数与动力学、C计算与执行三条研究入口并行且相互反馈**。[统一目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [G13 F线专题](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P定位方法](20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [G0–G13源图](../docs/98_端到端计算图与证据注解_20261025.md)。
 
-[I/F/C机制证据组合与最小判别](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)集成信息界、行为传播、物理算子和训练后职责迁移的竞争解释。它是研究导航，不是实验执行队列。
+[I/F/C并行研究路线、方法与证据组合](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)是当前跨路线的统一对照表：G11/G12编码证书、G13函数/流传播、UB1/A5视频运动、UB1与Affine54函数表示、SpTC 2:4与packed低位、轻量后训练，以及Calibration V2的共用数据接口。该表管理**科学对象及下一判别**，不替代方法QUEUE的同行评议或ACTIVE的执行登记。
 
 **研究规模**：89项相关论文、186个计算图节点、397条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
 
-**UB1 当前证据与开放判别**：[来源级泛化审计](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)保留两批已暴露来源的成像尾部与同源对照；[原M一致性及独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)对应图P26；[匹配恢复及独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)对应P27。后者在12/12探索折上比较支持和消费者；未见来源、原M性能和完整视频仍待检验。下一native bank仅在准备，执行状态以ACTIVE为准。
+**UB1历史来源对照与开放判别**：[来源级泛化审计](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)保留两批已暴露来源的成像尾部与同源对照；[原M一致性及独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)对应图P26；[匹配恢复及独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)对应P27。后者在12/12探索折上比较支持和消费者；它自身尚无独立确认来源质量证据。后续fixed-RR已完成另两个开发来源的实际完整视频与分维评分（见下文），但不把后续结果回填为这项旧测试当时已经运行；执行状态以ACTIVE为准。
 
-**近期一手论文与原生算子重要更新**：[RT-Lynx激活/权重稀疏、superposition解释和Wan 2:4实际执行审查](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)提出三个各自有证据身份的问题：稠密权重的跨输入长期能力、当前输入的2:4使用、SpTC真实硬件操作。原whole64满tile负例**只适用于相应原布局group剪枝**，不是稀疏Tensor Core 2:4的反例。该审查直接关联[修订后的UB1](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)与[Affine54](20261027/QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)方案；原Wan速度和视频质量未新增运行。
+**近期一手论文与原生算子重要更新**：[RT-Lynx激活/权重稀疏、superposition解释和Wan 2:4实际执行审查](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)提出三个各自有证据身份的问题：稠密权重的跨输入长期能力、当前输入的2:4使用、SpTC真实硬件操作。原whole64满tile负例**只适用于相应原布局group剪枝**，不是稀疏Tensor Core 2:4的反例。该审查直接关联[修订后的UB1](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)与[Affine54](20261027/QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)方案；这一文献审查本身不包含新Wan视频运行；后续A100合成2:4后端布局探针已运行，仅为预打包算子证据。
 
 **新增视频时空函数入口**：[A5+HWG历史背景闪烁与小物体模糊的机制推导](20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)。研究区分主体结构、细节保持、背景时序协调，拆分空间高低频与视频时间变化，并分别检验mask开关、持续弱功能遗漏、量化尺度和下游传播。它是HISTORY-OBS/ALG/OPEN组合，不是新A5原生实验；[指标协议细化](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)保留已有工程gate，不要求每个数学种子立即跑完整视频。
 
