@@ -1,6 +1,6 @@
 # FFNDS · 当前研究导航（2026-10-27）
 
-**一页进入研究：** [FFN与实时视频/量化信息的统一综合报告](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) → [G0–G12权威源码计算图与外部机制分支](../docs/98_端到端计算图与证据注解_20261025.md) → [14机制分组/节点关系/成本/证据矩阵](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) → [79篇研究与真实原文审计状态](literature/20261026/PRIMARY_LITERATURE_INDEX.json)。
+**一页进入研究：** [FFN与实时视频/量化信息的统一综合报告](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) → [G0–G13权威源码计算图与外部机制分支](../docs/98_端到端计算图与证据注解_20261025.md) → [14机制分组/节点关系/成本/证据矩阵](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) → [79篇研究与真实原文审计状态](literature/20261026/PRIMARY_LITERATURE_INDEX.json)。
 
 **索引状态**：85项相关研究、171个稳定图节点、354条有类型关系；G7–G12论文的阅读深度不同，26条跨机制关联只作条件性比较。
 
