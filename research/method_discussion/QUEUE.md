@@ -1,5 +1,7 @@
 **2026-10-28独立讨论与完成证据**：[20来源视觉review](../20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)、[质量审计](../20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)、[来源能量审计](../20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)均有独立Agent来源；[动作竞争机制提案](discoveries/E0/ub1-disjoint20-motion-mechanism-independent-proposal-20261027.md)把同状态2×2诊断的决策价值与A/B/C新表示区分。[6016适配准备](discoveries/E0/compact6016-adaptation-readiness-20261028.md)为独立SRC/ALG，训练还未执行；[C5结果审计](../20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)是合成GPU观察，不是模型质量。科研讨论标签与ACTIVE运行状态继续分开。
 
+**下一轮方法讨论起点（用户指定，尚非方法提案）**：[B下游敏感函数坐标的下一Agent任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。其首个成果应是独立数学METHOD_SNAPSHOT与可判别的gate/后缀/真实低秩计算对象；是否正式进入下面的proposal/review/endorsement依实际Agent原创提交和独立评议，不以此任务链接自动新增方法行。
+
 # FFNDS · Agent 方法讨论工作队列
 
 **P29独立讨论新增：** [在线分项审阅](discoveries/E0/activation24-online-components-independent-review-20261027.md)、[双后端独立审阅](discoveries/E0/activation24-cutlass-backend-independent-review-20261027.md)及[C4原始结果核验](../20261027/E0_ACTIVATION24_CUTLASS_BACKEND_RESULTS_20261027.md)针对确切代码/范围。两通用转换实测成本较高，直接生产packed值与metadata是新的OPEN表示，不等于已通过模型质量。
