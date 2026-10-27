@@ -2,7 +2,7 @@
 
 FFNDS研究**能以什么信息和数学表示减少真正的 FFN / 整段视频计算，同时保持生成视频的运动、主体、背景、光照与时间一致性**。研究从真实 LightX2V Wan2.2 I2V A14B 四步D-Q代码出发，并沿原始科研论文扩展函数、信息、时间和硬件机制。文献与计算图是研究工具，不是某一候选稀疏算子的实现声明。
 
-**当前图谱规模**：85项关联研究、171个稳定节点、354条有类型关系（包含26条新跨机制比较边）。数量代表可检索覆盖，不等于79篇均已完成全文或源码核查。
+**当前图谱规模**：85项关联研究、171个稳定节点、354条有类型关系（包含原26条综合比较关系及G13新增41条研究/条件关系）。数量代表可检索覆盖，不等于85篇均已完成全文或源码核查。
 
 ## 当前第一科学问题：定位输出函数及其计算结构
 
@@ -15,8 +15,8 @@ FFNDS研究**能以什么信息和数学表示减少真正的 FFN / 整段视频
 | 目的 | 权威资料 |
 |---|---|
 | 当前已经知道的事实、竞争假说及研究综合 | [统一 FFN 机制、文献与计算图研究报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) |
-| 一张可逐算子追踪的 Wan + 外部方法计算图 | [G0–G12 完整源码计算图与证据注解](docs/98_端到端计算图与证据注解_20261025.md) |
-| 机器可读的稳定节点、边和12类机制互联 | [Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) / [Mechanism Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) |
+| 一张可逐算子追踪的 Wan + 外部方法计算图 | [G0–G13 完整源码计算图与证据注解](docs/98_端到端计算图与证据注解_20261025.md) |
+| 机器可读的稳定节点、边和14类机制互联 | [Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) / [Mechanism Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) |
 | 85篇论文及各自真实阅读等级 | [Primary Literature Index](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) / [机制竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
 | 已完成原生实验的发现、证据身份和验收范围 | [Experiment Findings Atlas](research/EXPERIMENT_FINDINGS_ATLAS.md) / [研究导航](research/RESEARCH_NAVIGATION.md) |
 | 默认AutoResearcher原则与科研Agent讨论 | [AGENTS.md](AGENTS.md) / [Graph↔Agent协作](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) |
