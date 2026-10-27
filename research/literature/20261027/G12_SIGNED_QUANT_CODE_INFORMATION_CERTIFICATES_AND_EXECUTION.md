@@ -24,7 +24,7 @@ z_j=b_j+\sum_G s_{x,G}s_{w,j,G}\sum_{i\in G}c_{x,i}c_{w,ji}.
 3. **部分配对层**：挑少数input/weight pair精读，对已核的贡献取实际值，从两个multiset里删除该对，剩余部分再用重排界；允许pair的集合减少，区间只收紧。什么时候精读应由**已有** cheap interval和真实成本决定；这是可选的adaptive proof，不是提前选定算法。
 4. **完整配对/点积**：若区间始终无法收紧，则读全码字pair就恢复普通量化GEMM，直接同native Tensor Core对照。**不能把全码扫描并配对得到的sign certificate写作“无需计算点积”。**
 
-**信息代价的算术约束**：每output-row、每new token需要约 \(H(D/B)\) 次直方图区间查询；全 \(M\) token大约 \(MHD/B\) 次。当前D=5120,H=13824,B=32、M=31668，对每FFN约70.1e9 group queries（数学规模，不是计时），每query要处理signed 16档/重排、scale等。离线weight histogram也有显存价格：原FP4 packed权重 B=32块只用16 bytes，若每块保存16档的6bit计数上限需要12 bytes，约额外75% weight bytes（未经压缩的示意最坏表示），未必胜过直接读packed weights。因此**全W1逐通道打证书通常未必划算**；更可研究已有mask/低维簇、按时间或token共享的函数结构，使候选数显著减少。此处没有预定选择哪种压缩或通道掩码。
+**信息代价的算术约束**：每output-row、每new token需要约 \(H(D/B)\) 次直方图区间查询；全 \(M\) token大约 \(MHD/B\) 次。当前D=5120,H=13824,B=32、M=31668，对每FFN约70.04e9 group queries（数学规模，不是计时），每query至少需要signed直方图对应的排序/配对代价（例如按长度32直接计算约32次码值乘加，尽管可利用16档计数压缩），若全量遍历则可能重新达到与W1 dense点积同一量级的算术工作；不能把每组常数看成0。离线weight histogram也有显存价格：原FP4 packed权重 B=32块只用16 bytes，若每块保存16档的6bit计数上限需要12 bytes，约额外75% weight bytes（未经压缩的示意最坏表示），未必胜过直接读packed weights。因此**全W1逐通道打证书通常未必划算**；更可研究已有mask/低维簇、按时间或token共享的函数结构，使候选数显著减少。此处没有预定选择哪种压缩或通道掩码。
 
 ### 到GELU和W2还差哪些功能证明？
 
