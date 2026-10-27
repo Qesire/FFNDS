@@ -5,7 +5,7 @@
 
 > **中心问题**：在少步视频生成中，为什么一个可以真实减少FFN运算、在原20来源接近Dense的按步固定预算模型，会对另一些来源产生集中的画质退化？哪些条件决定有限预算应该被分配到哪些step、block、组或新的计算单元？能否通过充分的校准、成熟方法迁移、合理的函数/轨迹目标或更好的系统实现，获得更稳健的质量—成本折中？
 
-**AutoResearcher原则**：从成功和反例提取机制，重新审查实际计算对象、最强已有方法、不同解释及可区别证据；允许直接复现、采用、组合DyDiT、DIFS、SlimDiff、OBS-Diff、2ndMatch、CTEC等方法，**不为了刻意显得不同而改变有效方法**。科学解释、稳健复现、系统改进都可以是重要成果；新的原创性结论由实际发现而定，绝不是研究启动门槛。研究始终保留I（信息与表示）/F（函数与动力学）/C（计算与执行）并行入口。
+**研究原则**：复现与采用有效成熟方法是完全合理的研究策略。近期核实的TARDIS/LLMFolder、Model Preserving Compression、FLAP、BRECQ、RT-Lynx分别在部分线性、消费者重构、结构可恢复性、块间误差与真实N:M kernel上提供直接参照；DyDiT、DIFS、SlimDiff、OBS-Diff、2ndMatch和CTEC继续覆盖时间预算和跨步目标。它们都能启发UB1的改进，而不要求每种改法刻意不同。共同的逐篇一手方法与Wan适配边界集中在[文献审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)，本方案只保留实验决策。I/F/C并行，成功复现与系统改进也是真实成果。
 
 ## 1. 严格定义UB1：其“动态性”、计算与训练身份
 
@@ -55,16 +55,25 @@ UB1原配置：
 
 **反向解释**：更多样本也无法让静态whole64支持表达少数关键联合功能；原始训练目标可能与视频行为不一致。**判别实验**应同时改变来源数和每来源行数，控制总行数，不把多个改变混写成“增大校准”。
 
-### H-Support：C_mean独立组能量忽略组间协同
+### H-Support：支持的可恢复性、消费者重构与合法量化单位
 
-给定真实合法post-Q2输出组贡献\(c_j=g\odot W_{2,G_j}a_{G_j}\)，删去集合R的输出误差包含
+UB1的C_mean在保存post-Q2量化输出上计算每个64组\(c_g=g\odot W_{2,G_g}a_{G_g}\)的平均输出能量。固定某个删除集合R时，原输出差异的数学式为
 \[
-\|\sum_{j\in R}c_j\|^2
-=\sum_{j\in R}\|c_j\|^2+2\sum_{i<j\in R}\langle c_i,c_j\rangle.
+\|\sum_{g\in R}c_g\|^2=
+\sum_{g\in R}\|c_g\|^2+2\sum_{g<h\in R}\langle c_g,c_h\rangle.
 \]
-C_mean主要利用对角贡献，未直接最小化有符号交叉项。旧E0五组实验已经出现独立能量排序与联合最优选择不一致，但它属于**后续其它模型作用域的小组候选**，不是UB1全216组最优解证据。
+这证明单组能量排序**没有直接优化组间的联合抵消/增强**，但不能由此断言C_mean就是新20成像下降的唯一原因。另一个直接问题是原组的**可恢复性**：某组单独能量大，若它能够由保留组近似且通过重新拟合输出消费者恢复，删除它未必昂贵。
 
-**正面方向**：允许直接尝试成熟的协方差/OBS/SlimDiff二阶组校准，也允许廉价的有限联合修正和原Q2尺度组闭包；比较保留原W1+W2可执行组数与整体视频质量，而不是选择器分数本身。**关键反例**：统计上最优的后验组集合可能在真实部署Q2舍入或未来输入上不稳定。
+**第一批可直接采用的成熟算法**：
+- [Model Preserving Compression 2022](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)：合法量化激活组的ID选择及将重构矩阵折入消费者（在Wan上不是无条件可以直接搬运任意单通道）；
+- FLAP 2024：以波动/可恢复性及均值bias恢复替代单纯幅值；
+- SlimDiff与OBS-Diff：协方差、二阶/分组序贯重构和时间预算；
+- 若这些仍不足，也可把更完整的非线性函数表示作为独立候选，参照并行[Affine54方案](QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)。
+
+核心对照应**固定step宽度、原64组单位、独立校准来源、V_S/或R256的参数预算与BF16实际算子**；其次再研究多因素联合改进。E0五组的后验联合最佳不同于独立TopK，只是一项重要线索，不能宣称它已识别全216组UB1的最优支持。
+
+**区分性现象**：若仅改变支持/消费者就改善持出成像，说明原C_mean或旧补偿对目标不充分；若源扩展后改善而方法变化无效，来源覆盖可能主导；若局部重构改善但视频依旧差，则需要后缀/轨迹层证据。以上均允许直接使用已知成熟实现。
+
 
 ### H-Temporal：时间步与层级计算职责依赖真实状态
 
@@ -82,20 +91,23 @@ UB1的R256是post-Q1→两次BF16投影，解决部分遗漏输出；它与真�
 
 R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部分固定，条件Amdahl上界约\(1/(1-0.195)=1.242\)，UB1实际完整生成1.0757×；这个上界**只针对R17的特定resident强基线、硬件和串行成本假设**。真实QDQ、启停、weight residency、额外R256、kernel形状与pack内存成本都可改变比较。并行研究真正packed低位dense或核融合，完全有可能在更强系统基线上验证更好的执行策略；不把输入动态作为必须实现的功能。
 
-## 4. 从原论文吸取成熟方法，允许直接复现与采用
+## 4. 成熟方法的匹配使用与论文查重
 
-| 最相关工作 | 已公开方法与真正迁移对象 | 与UB1比较时要保持的条件 |
+**详细论文调查只保留一份**：[部分线性FFN、结构重构、跨步纠错与稀疏kernel共用审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)。以下对应UB1的**研究动作**而不是“创新性必须不同”的限制：
+
+| 成熟工作 | UB1研究可直接借鉴 | 公平比较条件 |
 | --- | --- | --- |
-| [DyDiT ICLR2025](https://proceedings.iclr.cc/paper_files/paper/2025/hash/a44a70acd5d0abc1a252ada9719dd06d-Abstract-Conference.html) / [DyDiT++](https://pubmed.ncbi.nlm.nih.gov/41538341/) | Timestep-wise dynamic width、spatial token、少量追加训练 | UB1属固定按步宽度；可直接借鉴其step动态训练，无需人为创造不同规则 |
-| [DIFS 2026](https://arxiv.org/abs/2607.06631) | Wan少步结构化稀疏与联合蒸馏、Progressive Training、Output Rollout | 可以作为含训练路线；将训练总成本、同任务视频行为与推理wall分别测，不能拿不同设备1.2×横排 |
-| [SlimDiff 2025](https://arxiv.org/abs/2509.21498) | activation-covariance与谱结构、跨步/模块稀疏分配、gradient-free | 可优先复现其covariance group思想，区分约500个样本与UB1的24来源×token行 |
-| [OBS-Diff ICLR2026](https://arxiv.org/abs/2510.06751) | 时间步加权Hessian、groupwise sequential pruning和补偿 | 能直接替代C_mean或作为组校准比较；必须对齐原HiF4闭包和组预算 |
-| [2ndMatch CVPR2026](https://openaccess.thecvf.com/content/CVPR2026/html/Zheng_2ndMatch_Finetuning_Pruned_Diffusion_Models_via_Second-Order_Jacobian_Matching_CVPR_2026_paper.html) | 带\(J^\top J\)扰动响应的后训练 | 比较原值匹配vs方向/敏感性匹配，QDQ数值梯度和参数训练预算单独测 |
-| [CTEC AAAI2025](https://ojs.aaai.org/index.php/AAAI/article/view/34039) | 受扰状态下的跨步误差纠正与teacher学生蒸馏 | teacher下一状态只在离线可见，不能当实时UB1免费标签 |
-| [TCEC ICML2026](https://proceedings.mlr.press/v306/liu26fv.html) | 有成本的时间误差补偿和拟合 | 数学递推由原Wan scheduler校验，不无条件接受预印本可能有问题的展开式 |
-| [TAPE 2026](https://arxiv.org/abs/2605.17837) | 视频token随扩散阶段的预算配置 | 早少算晚多算思想已有，UB1保留的是hidden FFN whole64而非token数 |
+| **DyDiT / DIFS** | Timestep-wise可训练宽度、少步结构优化与输出rollout | 固定Wan模型/step、记录额外训练、整模型FLOPs与真实wall |
+| **SlimDiff / OBS-Diff** | covariance/二阶式真实支持选择、序贯组补偿、时间/层预算 | 原whole64 Q2尺度、同校准来源/组数/R256或消费者预算 |
+| **Model Preserving Compression (NeurIPS2022)** | 激活子集ID及下游消费者重构 | 必须检验真实quantized整组表示，别把逐列ID误认原HiF4可直接W1省算 |
+| **FLAP (AAAI2024)** | 波动/可恢复性组分数、分层预算、baseline bias compensation | 常量bias方案表达能力低于UB1的R256，但评分/泛化原理可以很有用 |
+| **BRECQ (ICLR2021)** | 不仅逐FFN输出，而按可管理的相邻block范围做二阶/分组重构 | 原目标是CNN post-training quantization；对于Wan是合理迁移而非同模型结论 |
+| **CTEC / 2ndMatch / TCEC** | 跨步错误纠正、扰动敏感性/有限响应、低成本补偿 | 完整四步原scheduler、同source/seed、teacher仅离线可见 |
+| **TARDIS / LLMFolder** | 若原子组缩减能力受限，可探索conditional affine+必要真实非线性等竞争函数类 | TARDIS在线2-bit预测器和原FFN修正付费；LLMFolder已确认EuroSys发表但公式尚未逐节查阅 |
+| **RT-Lynx ICML2026** | 在独立C线测试真实2:4激活稀疏、Norm Compensation、LoRA和融合SpTC | 作者image DiT/H20，不是Wan视频真实FPS/HiF4，LoRA及在线kernel计入预算 |
+| **TAPE (2026)** | 视频时序预算与内容运动平滑 | 原重点token处理，不能将其指标横向换算UB1的hidden 64组 |
 
-查重结论不是“禁止采用已发表算法”，而是厘清技术的训练身份、可见信息和成本。最实用的成果可能是**发现某篇成熟方法在固定Wan四步/原生量化下确实显著改善了UB1**；这种迁移、成功和失败都可形成可复用知识。研究贡献和新颖性在结果充分时再界定。
+**学习最优先例**与**准确报告可能的新机制**并不冲突。UB1原静态4步宽度不是时间条件计算的首创；Model Preserving Compression意味着“选择部分通道并重构消费者”也非新思想。若直接采用这些做到了更好的Wan视频质量/成本，可以如实作为有价值的复现和适配成果。
 
 ## 5. 具体工作包：先选择有分辨力的对照，再决定计算范围
 
@@ -117,9 +129,12 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 
 **可区分的预测**：若覆盖是关键，固定总行数下增加来源应改善新确认集尾部质量；若容量/目标主导，来源增多后仍显著损失，且不同表示/目标在相同来源数下有收益。训练和质量分割按**source及seed**隔离，不将同视频token随机拆分成“独立验证”。方案先按可获取的独立数据量缩放；24/48/96只是设计示例，不声称目前已有足够新来源。
 
-### WP4 · 同预算组选择与时间预算（**未来条件执行**）
+### WP4 · 同预算组选择与时间预算（未来条件执行）
 
-两个正交轴：在固定step配额(54,108,108,162)下比较原C_mean、组间联合/二阶SVD/OBS/SlimDiff以及无训练/轻训练组选择；在固定总四步主预算432组×40block下比较C24/UB1/UB2和**预注册的有限step/block再分配**。如引入源/seed依赖动作，先报告原动作空间的离线oracle提升与可能的在线pre-W1信息价格，分别计核算observer、routing、padding。原R12/R14/C1只是旧动作族有限负例，不封锁新的支持或DIFS式训练。
+**两轴分离后再可选联合**：第一轴固定原UB1宽度(54,108,108,162)，对比C_mean、FLAP式波动/可恢复性、MPC-ID消费者折叠、SlimDiff/OBS-Diff二阶组选择，以及各自匹配成本的R256或输出重构；第二轴固定四步原主预算 \(\sum_t k_t=432\) 且每step 40block相同M/D，比较C24、UB1、UB2以及少量事前注册、真正具有不同机制预测的step/block配置。**不做无解释的大型离散预算扫描，也不排斥成熟方法原样迁移。**
+
+直接对“训练后支持”或“在线动态支持”设立独立对照：若采用TARDIS热区与2-bit proxy，先核实原64组Q2尺度、观测器和tile；若采用RT-Lynx的2:4 SpTC，核实其真实activation数据结构和LoRA成本。过去R12/R14/C1事后oracle失败只限制各自旧动作族；不能关闭其它合法动态动作或函数重组。严格区分**后验最优支持的估计**与推理前实际可获得的信息。
+
 
 ### WP5 · 轨迹及低成本补偿（**未来可选授权**）
 
@@ -144,7 +159,7 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 
 **方法失败是具体候选在指定来源/成本/质量协议下的事实**，不作为否决所有动态预算、二阶校准或训练后方法的理由。文献借鉴、精确数学分解、复现、方法组合与负结果都能帮助发展研究。
 
-## 7. 使用的Skills、科研协议与方法边界
+## 7. Skill复审与真实研究边界
 
 - **mechanism-research**：保留真实W1/GELU/HiF4 Q2/W2/e5、时间step、后缀及成本语义；为五个解释各给出不同预测和最便宜证据。
 - **research-expansion**：从校准来源/组间耦合/时间预算/训练函数/执行kernel多个入口探索，允许直接用已有最佳方法，不固定算法族。
@@ -156,6 +171,7 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 
 **执行范围**：本方案自身保持OPEN/DISCUSSION_ONLY。用户已在当前会话恢复离线I/F/C持续推进，当前状态及逐项冻结授权以[ACTIVE_RESEARCH](../ACTIVE_RESEARCH.json)为准，最多同时四张空卡；原暂停保留历史身份。WP3–6的具体来源、代码、资产和预算仍须分别冻结登记，本文不派发这些实验。已完成一次性交接已删除，稳定入口为[当前上下文](../agent_protocol/CURRENT_CONTEXT_PACKET.md)；原始RUN、CI及质量验收保持各自身份。
 
-## 8. 参考入口
+## 8. 精简后的参考入口
 
+[本轮一手文献共用审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md) · 
 [UB1源码级方法审查](UB1_METHOD_AND_PRIOR_ART_REVIEW_20261027.md) · [质量指标与FFN速度RUN](../../reports/worker_20261020/UB1_joint_engineering_acceptance_RUN.json) · [新20逐来源CSV](../../reports/worker_20261020/disjoint20_UB1_paired_sources.csv) · [C24/UB1/UB2固定预算对照](../../docs/38_固定预算下恢复末步完整FFN.md) · [OP3状态重拟合](../../docs/46_真实状态重拟合与导入延迟修正.md) · [此前Skill复审的研究解释](UB1_TO_FFNDS_EVIDENCE_DRIVEN_ROUTE_REASSESSMENT_20261027.md) · [领域研究目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
