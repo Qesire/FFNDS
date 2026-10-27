@@ -26,32 +26,48 @@ def quantile(values, q):
 def paired_report(records, *, replicates=2000, seed=42):
     if not records:
         raise ValueError("No actual paired metric records")
-    by_dim_cluster = defaultdict(lambda: defaultdict(list))
-    seen = set()
+    # image cluster -> source/prompt -> repeated seeds/samples; each level has equal weight.
+    by_dim_cluster = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    source_images, seen = {}, set()
     for row in records:
         dim = row.get("metric") or row.get("dimension")
         sid = row.get("source_id") or row.get("source_group")
         cluster = row.get("image_id") or sid
-        sample = row.get("sample_index", row.get("seed", 0))
+        seed_id = row.get("seed")
+        sample_id = row.get("sample_index")
         if not dim or not sid or not cluster:
             raise ValueError("Require dimension, source_id and an image-level cluster")
-        key = (str(dim), str(sid), str(sample))
+        if sid in source_images and source_images[sid] != cluster:
+            raise ValueError("A source ID maps to multiple image clusters: " + str(sid))
+        source_images[sid] = cluster
+        # A sample index is nested within a seed; neither field alone identifies a pair.
+        key = (str(dim), str(sid), str(seed_id if seed_id not in (None, "") else 0),
+               str(sample_id if sample_id not in (None, "") else 0))
         if key in seen:
-            raise ValueError("Duplicated paired source/seed/metric " + str(key))
+            raise ValueError("Duplicated paired source/seed/sample/metric " + str(key))
         seen.add(key)
         dense = float(row.get("dense", row.get("D_Q")))
         candidate = float(row["candidate"])
         if not math.isfinite(dense) or not math.isfinite(candidate):
             raise ValueError("Actual metric values must be finite; missing remains NOT_RUN")
-        by_dim_cluster[dim][cluster].append((dense, candidate))
+        by_dim_cluster[dim][cluster][sid].append((dense, candidate))
     result = {"schema": "ffnds.cluster.paired.metrics.v1",
-              "independent_unit": "image/source cluster; seeds and samples are repeated measures",
+              "independent_unit": "image cluster, equal-weight source conditions within each image; seeds and samples nested",
               "metrics": {}, "external_quality": "ACTUAL_SUBMITTED_VALUES_ONLY"}
     for dimension, clusters in sorted(by_dim_cluster.items()):
         pairs = []
-        for cluster, rows in sorted(clusters.items()):
-            a, b = mean(v[0] for v in rows), mean(v[1] for v in rows)
-            pairs.append({"cluster": cluster, "n_sample_repetitions": len(rows),
+        for cluster, sources in sorted(clusters.items()):
+            source_means = [(sid, mean(v[0] for v in rows),
+                             mean(v[1] for v in rows), len(rows))
+                            for sid, rows in sorted(sources.items())]
+            a = mean(item[1] for item in source_means)
+            b = mean(item[2] for item in source_means)
+            pairs.append({"cluster": cluster,
+                          "n_source_conditions": len(source_means),
+                          "n_sample_repetitions": sum(item[3] for item in source_means),
+                          "source_conditions": [{"source_id": sid, "dense": d, "candidate": q,
+                                                 "n_repetitions": count}
+                                                for sid, d, q, count in source_means],
                           "dense": a, "candidate": b, "delta": b - a})
         diffs = [p["delta"] for p in pairs]
         baseline, candidate = mean(p["dense"] for p in pairs), mean(p["candidate"] for p in pairs)
