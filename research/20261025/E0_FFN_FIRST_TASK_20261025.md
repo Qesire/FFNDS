@@ -1,14 +1,12 @@
-**当前文献深读产物已同步计算图：** [DIFS/FIS原始PDF公式](../literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)、[G7论文方法分支](../../docs/98_端到端计算图与证据注解_20261025.md)。继续深读新研究并及时补入算子、时空形状、训练边与真实消费者，先不实施新FFN方法。
+# E0 · 真实FFN输出函数与计算结构的定位任务
 
-# E0 · 当前研究任务：真实FFN必要计算与完整视频功能
+> **当前优先级更新（2026-10-27）：** [G13行为→FFN输出函数→真实计算结构研究](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[行为/函数/结构三类对象分开登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13源码/文献/功能图](../../docs/98_端到端计算图与证据注解_20261025.md)。首先确定哪些输出函数在自由生成视频/flow中具有条件性行为作用，随后找出正常前向中承担这些函数的真正计算结构；量化code、mask、proxy及核实现是**此后**的研究空间。
 
-**当前权威机制与方向解释**：[2026-10-26统一科学审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。本页只定义**研究目标、任务分工和交付**，不重复过时的实验进度快照；当前阶段、用户授权、模型运行进度只以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)及实际RUN为准。
+**已知证据**：10个source、12条source×seed轨迹、1920个嵌套FFN site已完成。已有局部FFN误差/视频失配、相同prompt跨seed有符号作用改变的现象，但尚未用新的组件级因果干预识别具体W1行/组的函数身份。先复用原生数据的已发表解释、真实源码依赖与方法文献，再设计最小辨识实验；**所有新的CPU/GPU模型与视频实验仍按用户指令暂停**，本文不授权运行。
 
-**当前第一步（用户2026-10-26明确指定）：** [系统整理33项已核验原始研究](../literature/20261026/PRIMARY_LITERATURE_ATLAS.md)，并用[机制重叠和查重矩阵](../literature/20261026/MECHANISM_COMPETITION_MATRIX.md)与[阅读工作协议](../literature/20261026/READING_GUIDE.md)深化论文方法及反例。尚不选定新算子、优化SSE或派发原生实验。F1/F2/F3科研开放切面与既有模型资产保持完整。
+**研究交付**：FUNCTIONAL-OBS标记有条件的自然输出响应/视频现象；FUNCTIONAL-CAUSAL通过未来单独获准的合法图边干预证明实际行为作用；STRUCTURE记录实现这些函数的W1/GELU/HiF4 Q2/W2联合非线性结构、attention与跨层/step依赖；FUNCTIONAL-IMPLEMENTABLE最终还要证明物理计算可减少且端到端质量可接受。G13 L80–L85提供causal abstraction、activation patching边界、video DiT运动定位和时空SAE时间完整性等方法学近邻。
 
-**本轮深读成果：** [五个最强先例的实际公式、在线信息及训练/部署比较](../literature/20261026/FIVE_PAPER_METHOD_AUDIT.md)；[证据层级与查缺账本](../literature/20261026/METHOD_AUDIT_LEDGER.json)。下一步先补缺失原文/代码、真实视频消融，再形成与他们具有明确差异的科学机制。注意Wan2.1 25步不等于Wan2.2 I2V四步，Cache需要可付费的mask预测，不可预设免费。
-
-**用户最新科研意图：不局限先前五篇，覆盖全部直接竞争研究并深入原方法。** [51项索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[扩展18项](../literature/20261026/ADJACENT_METHOD_EXPANSION_20261026.md)及[原始代码/方法比较](../literature/20261026/ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)是当前研究入口。优先分析动态少步结构、训练自由帧交错、静态FFN物理通道剪枝及非线性谱，结合其他近邻构造真正不同的研究问题。GPU未运行。
+**历史说明**：2026-10-25/26本征探索、旧33→51文献初查、早先6source/4source扩展和实时场景暂停的计划属于当时版本；其source/算子/实验报告可继续用于比较，不改变当前G13第一目标、已完成12轨迹状态和实时文献研究已恢复的事实。
 
 ## 目标与研究对象
 
@@ -18,7 +16,7 @@
 
 已有证据的精确数据与边界，统一进入[科学审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)、[实验发现图谱](../EXPERIMENT_FINDINGS_ATLAS.md)。**研究张力：** Affine54已实现局部SSE改善与原生FFN加速，而固定160位置全层替换产生了明显视频失配。由此打开部署数值、函数容量、受扰前缀、下游有符号传播和调度状态之间的机制识别问题；Affine54是可复用的判别资产，新的函数表示与算子构想同样作为独立科学方向。
 
-**最新目标尺度（2026-10-26）**：[扩大source与signed方向评价](../20261026/E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026.md)是现行跨源机制与指标设计：既有0/12之外补4/8/16/20的原生范围（含既有校准样本标注），并追求至少四个真正未暴露来源与交叉seed。以signed P/N/cross、互斥频带、全帧质量向量和实际省算判别新机制；全局SSE维持辅助观测。方案已登记，新增来源尚未运行。
+**最新目标尺度（2026-10-26）**：[扩大source与signed方向评价](../20261026/E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026.md)是现行跨源机制与指标设计：既有0/12之外补4/8/16/20的原生范围（含既有校准样本标注），并追求至少四个真正未暴露来源与交叉seed。以signed P/N/cross、互斥频带、全帧质量向量和实际省算判别新机制；全局SSE维持辅助观测。方案已登记，这些来源在2026-10-27已完成对应固定范围的原生验证并暂停新执行，见[四新来源六条路径](../20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md)。
 
 **当前首要科学步骤（机制优先、2026-10-26）**：[前沿方法学再审与FFN三个发现问题](../20261026/E0_FRONTIER_MECHANISM_FIRST_20261026.md)。先研究真实FFN计算为何产生某些功能、什么条件下可重组/共享/预测，构造相互区分的结构假说；再选择相应的干预和多来源验证。Affine54的局部/全局SSE、signed能量及频带只是已有原型的仪表，扩展640 site不是独立科研目标。
 
@@ -46,7 +44,7 @@
 
 ## 实时场景与职责边界
 
-G6实时/流式生成已由用户暂停，只保留[历史独立场景文档](../20261026/E0_REALTIME_GENERATION_SCENARIO_20261026.md)作研究资产；**当前不布置实时文献、SLO、架构或GPU任务**。所有新计算必须遵循活动状态中的明确授权；本页没有单独的模型执行权。
+G6原始实时场景在2026-10-26曾暂停；2026-10-27用户已另行恢复[G10实时论文/计算图研究](../literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)。本轮可继续论文和数学分析，**原生流式视频/CPU/GPU模型实验仍暂停**；G13首先定位函数和结构，真实服务SLO属于后续运行时评价。
 
 ## 下一次交接读取顺序
 
