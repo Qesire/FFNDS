@@ -4,7 +4,7 @@
 
 以 LightX2V Wan2.2 I2V A14B 四步D-Q为原生证据锚点，沿**信息与表示（I）／函数与动力学（F）／计算与执行（C）**三条互相反馈的研究路径探索。G13是函数因果与承担结构的专题，G7–G12的量化、复用、重构、系统机制也能独立产生新发现。研究路线从现象、数学、源码或性能任一入口开始，见[统一目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-当前索引：**89项相关论文、182个稳定计算图节点、381条类型化关系、14个机制家族**；G13包含27个定位节点；新增保存操作数观察与OPEN后缀分别标注。不同论文的实际阅读层级可在source ledger中逐项追溯。
+当前索引：**89项相关论文、184个稳定计算图节点、389条类型化关系、14个机制家族**；G13包含27个定位节点；新增保存操作数观察与OPEN后缀分别标注。不同论文的实际阅读层级可在source ledger中逐项追溯。
 
 ## 研究入口
 
@@ -17,6 +17,7 @@
 | 检索原论文、机制家族与实际源码证据 | [89项文献索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[机制Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)、[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
 | 使用科研Skill与多Agent独立讨论 | [FFNDS领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md)、[AGENTS](AGENTS.md)、[Graph↔Agent协作](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) |
 | 实际研究状态、运行历史和授权 | [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)、[研究导航](research/RESEARCH_NAVIGATION.md) |
+| 数据抽样、校准、生成与评价 | [实验Skill](.agents/skills/ffnds-experiment-evidence/SKILL.md)、[可执行手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)、[数据协议](research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) |
 
 ## 真实研究对象与已有结果
 
@@ -35,6 +36,12 @@
 [并行机制证据组合](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)展示四项开放机制、当前已知证据和下一项可区分检验；图谱不预设算法优先级。
 
 **本轮已完成**：[共享输入联合支持与精确投影强比较器](research/20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)、[原M Q2直接/补集数值判别](research/20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)、[W2形状控制](research/20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)。用户要求的[UB1独立全帧复核](research/20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)覆盖两组历史配对；完整视频质量与新方法优势仍按精确范围判断。
+
+## 新数据与评价管线的实际状态
+
+2026-10-27合并的实验管线提供来源登记、全160位置校准行**计划**、原生操作数索引/文件头核验、注册后Dense/UB1原生视频生成入口、原版VBench分维调用入口，以及图像簇配对统计工具。各环节独立读取真实收据：**计划生成 ≠ 原生操作数已采集或拟合；原版评测函数执行 ≠ 九维完整官方榜单；来源级重采样 ≠ 新的独立来源**。
+
+同一图像簇内先对各source/prompt的seed×sample重复观测求均值，再对source/prompt等权，最后对独立图像簇等权。历史单视频复制五个文件名的VBench结果仍按单次生成的旧协议解释。当前工作与模型执行权限统一以 `research/ACTIVE_RESEARCH.json` 为入口；`research/CURRENT_DECISION.json` 中的早期暂停状态及旧RUN保留为对应阶段的历史记录。CPU静态/统计测试与真实GPU/官方质量运行分别验收。
 
 ## 当前科研方向
 
