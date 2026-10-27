@@ -1,72 +1,55 @@
-# FFNDS · 研究导航（现行科研与历史证据，更新至2026-10-28）
+# FFNDS · 阅读优先级与当前研究导航（2026-10-28）
 
-## 一、当前权威路线与下一步
+> **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。GPU/模型/视频权限以[ACTIVE](ACTIVE_RESEARCH.json)为准；本导航不改实验授权或独立评议。
 
-**现行权威研究方案（2026-10-28 v2）**：[M-A紧凑学生、M-B后缀敏感函数、M-C编码求值的整合研究方案](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。它把[G14反向审计](20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)内的非线性/HiF4、正常后缀忠实性、时间可预测性、训练状态和大M原生代价直接变成方法定义和分阶段判别。**已完成P30 A0四位置真实恢复pilot、M-B末层v2 ALG/SRC；下一研究Agent从B0真实post-write状态生产与B1有限响应继续**，再比较B-H 65量head student与B-F通用factored student。新增G14 typed先验关系见[机器交叉表](agent_protocol/METHOD_OPERATION_CROSSWALK.json)；本导航不授权新的模型运行。
+## P0 · 立即阅读：恢复上下文与当前首项研究
 
+| 顺序 | 阅读对象 | 得到的具体信息 | 进入下一步的条件 |
+| --- | --- | --- | --- |
+| **1** | [当前最小上下文包](agent_protocol/CURRENT_CONTEXT_PACKET.md) | Wan原生FFN/QDQ/step、已完成与OPEN边界、当前用户指定的M-B | 确认本轮研究对象及source/模型版本 |
+| **2** | [M-A/M-B/M-C统一方案v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | 三种新函数、G14约束、强比较器与已登记研究顺序 | 不把旧初版A/B/C意见作为新任务 |
+| **3** | [M-B数学快照v2](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 配对敏感度、末层65个连续充分统计、B-H/B-F学生及线上代价 | 继承已完成ALG/SRC；识别原生u尚未捕获 |
+| **4** | [下一Agent B0/B1交接](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 原生producer/资产/neutral→有限响应→学生函数判别与输出合同 | 准备B0，真正执行另按ACTIVE冻结登记 |
+| **5** | [ACTIVE真实研究状态](ACTIVE_RESEARCH.json) | 当轮模型/资源权限、已完成的原始RUN、模型和实验范围 | 不将任务文档视为自动运行授权 |
 
-**现行方法论（五种可组合操作）**：[五操作×I/F/C×当前FFNDS方案的完整交叉矩阵](20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，[G14文献操作机器交叉表](agent_protocol/METHOD_OPERATION_CROSSWALK.json)。将论文中的实际动作区分为O-A计算选择、O-B替代函数、O-C跨步历史复用、O-D低位/表/内核代数、O-E校准/蒸馏/因果评测；旧候选统一别名M-A/M-B/M-C，下一位Agent继续以**M-B gate-conditioned敏感坐标**为首项任务。
+**现在的首项工作：M-B B0**，定位并核验原生block39 post-write \`u\`、gate、residual、final LN/head、flow的真实producer和state身份，给出合法的中性重放实现/冻结范围。随后是**B1**同来源原生有限响应。B-H直接预测head充分统计与B-F通用低秩函数仍是待实现的方法；A0是局部已实测的匹配基线，不需要重新做初步论证。
 
-**新表示首个原生结果（P30）**：[四位置6016恢复先导](20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)完成1024次更新、8份可重载BF16学生。相同预算下energy94在8个旧诊断来源的四位置误差为1.06%–2.55%，random94为1.46%–3.65%，尚未跑完整80/两个step或视频。[B条件敏感度配对推导（I19）](method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)证明固定度量的加权投影解与source/state配对的必要边界。A0为NATIVE-OBS强基线、I19为ALG；全80双step仅保留未运行草案。当前优先[M-B方法快照](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)：U28给出末层head坐标与LayerNorm均值/范数的有限身份，先生产同状态原生u，再判别有限响应；具体运行以ACTIVE为准。
+## P1 · 研究方法必备：按问题选择阅读，不必全读
 
-## 二、已经完成的原生/视频/系统证据
+| 想回答的问题 | 首先阅读 | 研究产物应形成什么 |
+| --- | --- | --- |
+| **为何研究，允许什么创新？** | [I/F/C科学北极星](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；[五操作O-A～E](20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md) | 科学问题和实际组合动作，不以“稀疏”代替机制 |
+| **先验是否制约了新函数？** | [G14反向先验审计](20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)；[REQUIRES/CONSTRAINS/COMPETES_WITH/PREDICTS_DIFFERENTLY机器索引](agent_protocol/METHOD_OPERATION_CROSSWALK.json) | 数学条件、竞争解释与对向预测 |
+| **这篇论文在真正计算边上做了什么？** | [G14论文到16算子焦点映射](agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)；[G0–G14有注解的源码计算图](../docs/98_端到端计算图与证据注解_20261025.md)；[论文索引](literature/20261026/PRIMARY_LITERATURE_INDEX.json) | 正文/公式/作者代码/decision_time/原生边界的分级出处 |
+| **哪些本地实验已真正做过？** | [跨线证据组合](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)；[实验发现谱系](EXPERIMENT_FINDINGS_ATLAS.md)；[证据索引](EXPERIMENT_EVIDENCE_INDEX.md) | 明确LIT/ALG/SRC/NATIVE/VIDEO/SYS/OPEN与source计数 |
+| **需要采样、校准与官方指标？** | [实验Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md)；[统一数据协议](agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)；[Calibration V2](20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)；[可执行手册](agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) | source image-cluster隔离、teacher/student配对、真实评测合同 |
+| **需要提出或审阅方法？** | [机制Skill](../.agents/skills/mechanism-research/SKILL.md)；[FFNDS领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)；[独立方法讨论队列](method_discussion/QUEUE.md) | 方法/反例、独立Agent来源、独立评议及版本身份 |
 
-**2026-10-28已完成**：[20来源40条原生主对照](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)、[八维质量与连续运动](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)和[全81帧独立缩略图复核](20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)已完成。Consumer成像相对Dense均值−1.38%，但RAFT幅值−83.28%、二值dynamic6/20→0/20；这条固定支持恢复尚未保住完整视频运动。[真实步长的状态增量](20261027/UB1_DISJOINT20_LATENT_INCREMENT_RESULTS_20261027.md)说明大末步原增量主要受步长尺度影响，不能反推原flow。[四位置CAL24来源诊断](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)逐bit复现原C_mean且LOO支持较稳定。当前按最新用户指引先推进[M-B敏感坐标](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)，A0作为匹配基线、C编码求值保留独立候选。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**92主＋10补充，共102项**；主计算图为205节点/424原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
-**P29成本更新**：[C3分项](20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.md)与[C4双后端](20261027/E0_ACTIVATION24_CUTLASS_BACKEND_RESULTS_20261027.md)识别通用转换开销；[C5直接生成packed表示](20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)已消除大部分该开销，完整合成算子相对dense仅剩3.5%/0.7%中位数余量。后续执行研究须关注乘法本体或新的表示。
+## P2 · 与当前方法直接有关的真实证据
 
-## 三、共享科学问题与历史知识入口
+| 原生证据及身份 | 结论的精确适用范围 | 用于哪条研究问题 |
+| --- | --- | --- |
+| [M-A0四位置6016恢复P30](20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)（NATIVE局部） | 4个(step,block)站点，train16/旧暴露heldout8、同预算energy94优于random94；不是全80/自由视频 | M-B/B-F与M-C的共同强比较器 |
+| [M-B配对敏感度I19](method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)（ALG）和[原始head SRC](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 平均代理与联合代理可反向排序；末层固定调制下65个连续充分统计；**B0/B1 native尚未执行** | M-B B0/B1的数学及数值任务 |
+| [20来源40条原生配对视频](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)和[质量/连续运动](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)（VIDEO） | 当前fixed-RR consumer成像平均−1.38%，RAFT幅值−83.28%；20个开发暴露来源，不能归因为M-B已失效或已恢复 | 视频动作与静态画面差异的科学动机 |
+| [CAL24来源组稳定性](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)（NATIVE/统计） | 4个teacher位置支持选择较稳定；不是配对$s$的真实后缀$J_s$ | 区分固定gate和联合后缀敏感假说 |
+| [激活2:4 C5 A100](20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)（合成SYS） | 在线候选与Dense比较仅约3.5%/0.7%余量；未证明原Wan端到端质量与真实加速 | O-D选择真实算子与物理成本 |
+| [两开发来源fixed-RR完整视频/官方轴](20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)（VIDEO） | 与其后的20来源consumer和A0 pilot属于不同来源、模型版本和验收范围 | 功能保真和质量证据分层 |
 
-**现行科研目标**：理解并改进视频生成FFN中信息、函数与实际计算的组织方式，获得独立的新机制科学结论或质量–成本Pareto方法。**I信息与表示、F函数与动力学、C计算与执行三条研究入口并行且相互反馈**。[统一目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [G13 F线专题](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P定位方法](20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [G0–G13源图](../docs/98_端到端计算图与证据注解_20261025.md)。
+**来源单位重要**：早期“10个source/12条source×seed/1920 FFN sites”是指定历史原生机制研究；新的20来源配对视频、CAL24、P30 train16/旧heldout8均有自己的统计身份。token、step、site及一张图的多个prompt不自动增加独立image-cluster数。
 
-[I/F/C并行研究路线、方法与证据组合](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)是当前跨路线的统一对照表：G11/G12编码证书、G13函数/流传播、UB1/A5视频运动、UB1与Affine54函数表示、SpTC 2:4与packed低位、轻量后训练，以及Calibration V2的共用数据接口。该表管理**科学对象及下一判别**，不替代方法QUEUE的同行评议或ACTIVE的执行登记。
+## P3 · 专题深入（有相应研究问题再阅读）
 
-**研究规模**：92项相关论文、205个计算图节点、424条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
+- **I信息线**：[G11低位码](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md) → [G12有符号量化证书](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) → [精确投影和跨线综合](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)。
+- **F函数线**：[G13函数研究](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) → [O/D/Q/P定位](20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) → [whole-flow反事实](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。
+- **C执行线**：[RT-Lynx与Wan2:4](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md) → [G11五篇原文/代码](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md) → [物理成本证据](20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.md)。
+- **视频动作功能**：[A5+HWG现象](20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md) → [UB1运动衰减独立审计](20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md) → [指标合同](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)。
+- **时序缓存/实时模型**：[跨模型文献及证据](literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)仅作为OPEN迁移/先例研究。实时/流式**实验**当前未恢复，不把论文可读性与模型作业权限混同。
 
-**UB1历史来源对照与开放判别**：[来源级泛化审计](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)保留两批已暴露来源的成像尾部与同源对照；[原M一致性及独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)对应图P26；[匹配恢复及独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)对应P27。后者在12/12探索折上比较支持和消费者；它自身尚无独立确认来源质量证据。后续fixed-RR已完成另两个开发来源的实际完整视频与分维评分（见下文），但不把后续结果回填为这项旧测试当时已经运行；执行状态以ACTIVE为准。
+## P4 · 历史存档与原始证据（追溯时读）
 
-**近期一手论文与原生算子重要更新**：[RT-Lynx激活/权重稀疏、superposition解释和Wan 2:4实际执行审查](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)提出三个各自有证据身份的问题：稠密权重的跨输入长期能力、当前输入的2:4使用、SpTC真实硬件操作。原whole64满tile负例**只适用于相应原布局group剪枝**，不是稀疏Tensor Core 2:4的反例。该审查直接关联[修订后的UB1](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)与[Affine54](20261027/QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)方案；这一文献审查本身不包含新Wan视频运行；后续A100合成2:4后端布局探针已运行，仅为预打包算子证据。
+[ARCHIVE总索引](../ARCHIVE.md) · [早期机制重置](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [旧first-task时间点](20261025/E0_FFN_FIRST_TASK_20261025.md) · [旧Affine54失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) · [原A/B/C独立评议](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) · [最初提案Git版本](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。
 
-**新增视频时空函数入口**：[A5+HWG历史背景闪烁与小物体模糊的机制推导](20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)。研究区分主体结构、细节保持、背景时序协调，拆分空间高低频与视频时间变化，并分别检验mask开关、持续弱功能遗漏、量化尺度和下游传播。它是HISTORY-OBS/ALG/OPEN组合，不是新A5原生实验；[指标协议细化](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)保留已有工程gate，不要求每个数学种子立即跑完整视频。
-
-**UB1运动保真已提升为正式研究假说**：[原始RAFT 40-pair×4 clips重检与运动衰减因果审查](20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)。两个已暴露formal20来源的连续motion幅值UB1/Dense约38.13%（犀牛38/40采样对较小）/9.19%（住宅40/40较小），官方二值Dynamic Degree全0；相对减幅不等于动作语义失败或普遍动态能力崩溃，**纹理模糊降低RAFT可追踪性**是优先判别的对手。按motion-rich subject/camera/static分层，在已有四步源图上区分static appearance、motion function、trajectory propagation；[UB1方案](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)和[视频指标合同](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)已联动修正。VideoJAM/Motive/DCM是成熟运动监督/来源选择近邻，供直接迁移，不要求另造loss。
-
-**新训练、视频与执行结果**：[固定R256 consumer bank](20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24校准来源160位置的训练内gate误差下降83.01%；[两开发来源六条完整视频](20261027/UB1_FIXED_RR_CONSUMER_VIDEO_RESULTS_20261027.md)通过历史Dense/neutral四步latent与视频字节复现。[八轴官方函数评分](20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)显示成像更接近Dense、连续运动部分恢复而美学等轴有取舍；[保存latent几何](20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)揭示负交叉项与末步距离略增可以并存。后续另20来源结果见本页最新完成项，保持其独立执行与统计身份。[合成2:4布局对照](20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)发现部分预打包路径较快，在线选择与压缩仍另计。图P28/P29分别保留模型恢复与合成物理算子的身份。
-
-**Calibration V2 当前边界**：[冻结设计及METHOD_SNAPSHOT](20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)将来源数、每源行数、Student状态与校准目标拆开；`coverage/diagnose`目前是CPU层的配额与来源级诊断合同，新原生操作数、cohort-aware拟合和冻结视频确认各有独立完成条件。抽样先选独立image cluster，再在簇内登记source/prompt；标准VBench Image Suite可以包含同图多prompt条件，须把条件计数与独立image数分别报告。
-
-**新数据流程索引**：[实验Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md) · [可执行手册](agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) · [统一数据协议](agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。实现分别维护来源历史暴露、固定原生抽样行身份、真实Dense/UB1配对视频、官方分维调用和图像簇统计；旧VBench三轴与新正式九维实验有不同证据身份，当前执行范围以ACTIVE为准。
-
-**新研究方案独立评议（2026-10-27）**：[A/B/C数学、最近先例与最小判别](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)。A0普通6016学生与A1新增方法必须分开；B对比联合gate/后缀敏感、folded/factored真实MAC；C先测输入编码歧义与输出秩上界，讨论状态，不改变实验授权或Agent同行投票。
-
-**新研究构造入口（A/B/C，讨论状态）**：[可恢复6016维紧凑FFN／下游敏感坐标编译／编码直接计算完整FFN](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。该报告以Affine54等MAC恒等、固定RR视频运动缺口、G12精确投影和LUT/CoBRAS/TinyFusion/DIFS文献构造可检验的新函数类；它是新候选研究方案而非替代I/F/C科学框架的终止决议，新的模型效果未运行且不会改变当前ACTIVE授权。
-
-## 四、按科研问题选择证据
-
-| 要回答的问题 | 主入口 | 精确证据与下一层 |
-|---|---|---|
-| **哪些信息/表示能改变真实计算？（I）** | [G11编码信息](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)、[G12编码区间数学](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) | [原生信息与成本比较](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[信息→决策→省算](../docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md) |
-| **哪些输出函数具有视频行为意义？（F）** | [G13函数发现](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) | [历史视频/函数失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)、[多来源signed响应](20261026/E0_SIX_SOURCE_DIRECTIONAL_RESULTS.md)、[交叉seed](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md) |
-| **哪些真实计算子结构承担这些函数？** | [功能/结构索引](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13主图](../docs/98_端到端计算图与证据注解_20261025.md) | [Wan真实配置/shape](20261022/R12_E0_runtime_reconstruction.json)、[HiF4组尺度反例](20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json)、[全网络finite response](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md) |
-| **哪个先例有不同的科学机制？** | [综合文献研究](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[Crosswalk](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) | [92项论文索引及阅读等级](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[竞争矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[一手阅读指南](literature/20261026/READING_GUIDE.md) |
-| **实时模型的FFN职责和物理形状如何改变？** | [G10实时视频生成/架构/FFN](literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md) | [真实外部模型/源码账本](literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)、[两线机制衔接](20261027/PARALLEL_FFN_MECHANISM_AND_STREAMING_RESEARCH_BRIEF.md) |
-| **哪些计算或执行结构可独立重组？（C）** | [RT-Lynx真实2:4 activation operand](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)、[G11 FP4信息](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)、[G12编码](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) | [G11 Prox/SpQt/CodeGEMM原文与代码](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ](literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md) |
-| **已有原生结果支持到哪一层？** | [实验发现谱系](EXPERIMENT_FINDINGS_ATLAS.md)、[证据索引](EXPERIMENT_EVIDENCE_INDEX.md) | [原生全深度与视频验收协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)、[保存状态频谱](20261026/E0_SAVED_FLOW_SPECTRUM.md) |
-| **如何进行多Agent独立讨论与图回写？** | [领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[Graph↔Agent协议](agent_protocol/GRAPH_AGENT_COLLABORATION.md) | [讨论队列](method_discussion/QUEUE.md)、[图注原始发现](method_discussion/graph_annotations/E0/README.md)、[Graph Agent Bindings](agent_protocol/GRAPH_AGENT_BINDINGS.json) |
-
-## 五、研究记录按主张类型维护
-
-1. **机制种子（I/F/C任选）**：记录问题、观察/公式/源码、竞争机制及其不同预测；新信息界、新算子或新表示无需先登记成FUNCTION。
-2. **关键图与信息身份**：对主张涉及的实际算子/状态重建shape、量化路径、step/expert、在线信息可得时间及主要下游；F线的行为–函数–结构定位使用[Function–Structure索引](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)。
-3. **可区分的原始证据**：文献原方程/作者代码留在source ledger，既有RUN/哈希保留原位；机制比较和条件性新关系进入[Crosswalk](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)及[Graph Bindings](agent_protocol/GRAPH_AGENT_BINDINGS.json)。
-4. **按主张升级证据**：机制性数学/因果成果可独立推进；拟发表的加速/视频方法核算真实W1/Q2/W2或整体执行和独立视频质量，按[指标协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)检验。
-5. **当前合成**：只有改变认识的跨机制结论进入[综合报告](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)。
-
-**历史与权限**：[早期科学任务](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[2026-10-25第一任务原始记录](20261025/E0_FFN_FIRST_TASK_20261025.md)、[原方法反例](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)继续提供真实的时间点证据；现行ACTIVE统一当前优先级与运行授权。用户本轮恢复I/F/C研究及登记后的有限实验；旧暂停和历史RUN保持原样，实时/流式实验未恢复。
-
-
-## 六、G14 · 全文献逐计算算子入口（2026-10-28）
-
-- [分组计算图G14](../docs/98_端到端计算图与证据注解_20261025.md)：92项主文献与10项补充校准研究均有Mermaid方法图和原生聚焦边界。
-- [机器图谱](agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)：逐论文保留原文阅读深度、观察时点、真实行动、迁移判别。
-- `python tools/graph_agent_bridge.py paper L34` / `focus T06` 和 `validate`：分别检查论文、算子聚类及全部102项索引的可见图关系。
+历史报告的“现在运行”“下一步”“暂停/恢复”只对当时冻结scope成立；目前方法进度依P0及[ACTIVE](ACTIVE_RESEARCH.json)核验。历史RUN、HASH、模型/来源、独立同行评议和失败边界不通过此索引重写。只在实际新的SRC/ALG/NATIVE/VIDEO或论文结论改变研究理解时，升级P0–P2；否则将新材料归入对应专题/历史证据而非新增并列权威方案。
