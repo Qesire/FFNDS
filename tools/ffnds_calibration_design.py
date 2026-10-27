@@ -127,6 +127,56 @@ def topk(values, n):
     return set(sorted(range(len(values)), key=lambda i: (-values[i], i))[:n])
 
 
+def signed_removed_group_energy(records, removed):
+    """Cross-group complement from actual gated signed-output Gram, if completely observed.
+
+    G[g,h] = E <e5*W2_g*a_g, e5*W2_h*a_h>; use equal image-cluster
+    weights, average prompt repeats within each image, then image clusters.
+    A missing Gram is a missing measurement, not zero cross interaction.
+    """
+    observed = [r.get("signed_group_gram") is not None for r in records]
+    if not any(observed):
+        return {"status": "NOT_MEASURED", "diagonal_removed_energy": None,
+                "cross_term": None, "total_signed_removed_energy": None}
+    if not all(observed):
+        return {"status": "PARTIAL_MEASUREMENT", "diagonal_removed_energy": None,
+                "cross_term": None, "total_signed_removed_energy": None}
+    by_image = defaultdict(list)
+    for row in records:
+        gram = row["signed_group_gram"]
+        energy = row["group_energy"]
+        if not isinstance(gram, list) or len(gram) != 216:
+            raise ValueError("Signed group Gram requires 216 actual native rows")
+        diagonal = 0.
+        interactions = 0.
+        for i in range(216):
+            line = gram[i]
+            if not isinstance(line, list) or len(line) != 216:
+                raise ValueError("Signed group Gram must be 216x216")
+            if not math.isfinite(line[i]) or not math.isclose(
+                    line[i], energy[i], abs_tol=1e-4, rel_tol=1e-3):
+                raise ValueError("Signed Gram diagonal contradicts group-energy values")
+        for i in removed:
+            diagonal += energy[i]
+            for j in removed:
+                val = gram[i][j]
+                if type(val) not in (int, float) or not math.isfinite(val):
+                    raise ValueError("Nonfinite signed Gram interaction")
+                if not math.isclose(val, gram[j][i], abs_tol=1e-4, rel_tol=1e-3):
+                    raise ValueError("Native signed Gram is not symmetric")
+                interactions += val
+        if interactions < -1e-3 * max(1.0, diagonal):
+            raise ValueError("Signed Gram produces materially negative squared removed output")
+        by_image[row["image_id"]].append((diagonal, interactions - diagonal, interactions))
+    averaged = [tuple(mean(item[k] for item in values) for k in range(3))
+                for values in by_image.values()]
+    d, c, total = [mean(row[i] for row in averaged) for i in range(3)]
+    return {"status": "ACTUAL_SIGNED_GRAM_DIAGNOSTIC",
+            "independent_image_clusters": len(averaged),
+            "diagonal_removed_energy": d, "cross_term": c,
+            "total_signed_removed_energy": total}
+
+
 def source_support_diagnostic(records, *, keep_groups, bootstrap=0, seed=42):
     """Compute source-cluster support influence for one step/block/state.
 
@@ -155,9 +205,12 @@ def source_support_diagnostic(records, *, keep_groups, bootstrap=0, seed=42):
     primary = topk(avg, keep_groups)
     sorted_energy = sorted(avg, reverse=True)
     margin = sorted_energy[keep_groups - 1] - sorted_energy[keep_groups] if keep_groups < 216 else None
+    removed = sorted(set(range(216)) - primary)
+    signed = signed_removed_group_energy(records, removed)
     if n < 2:
         return {"status": "SOURCE_COUNT_INSUFFICIENT_FOR_STABILITY", "independent_image_clusters": n,
                 "training_top_groups": sorted(primary), "boundary_energy_margin": margin,
+                "signed_removed_group_energy": signed,
                 "leave_one_cluster_out_jaccard": None, "bootstrap_jaccard_interval": None,
                 "source_level_diagnostics": "INCONCLUSIVE"}
     leave = []
@@ -182,6 +235,7 @@ def source_support_diagnostic(records, *, keep_groups, bootstrap=0, seed=42):
             "source_prompt_records": len(records),
             "training_top_groups": sorted(primary),
             "boundary_energy_margin": margin,
+            "signed_removed_group_energy": signed,
             "leave_one_cluster_out_jaccard": {"mean": mean(leave), "min": min(leave), "max": max(leave)},
             "bootstrap_jaccard_interval": lo,
             "top_group_between_source_std_mean": mean(dispersion[i] for i in primary),

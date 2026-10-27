@@ -58,6 +58,39 @@ class CalibrationDesignTests(unittest.TestCase):
         self.assertEqual(result["independent_image_clusters"], 1)
         self.assertEqual(result["leave_one_cluster_out_jaccard"], None)
 
+
+    def test_signed_group_gram_distinguishes_cancellation(self):
+        group0 = [0.] * 216
+        group0[0], group0[1], group0[2] = 100., 4., 4.
+        gram = [[0.] * 216 for _ in range(216)]
+        for i in range(216):
+            gram[i][i] = group0[i]
+        gram[1][2] = -3.
+        gram[2][1] = -3.
+        r = source_support_diagnostic([
+            {"source_id": "s", "image_id": "img", "group_energy": group0,
+             "signed_group_gram": gram}], keep_groups=1)
+        x = r["signed_removed_group_energy"]
+        self.assertEqual(x["status"], "ACTUAL_SIGNED_GRAM_DIAGNOSTIC")
+        self.assertAlmostEqual(x["diagonal_removed_energy"], 8.)
+        self.assertAlmostEqual(x["cross_term"], -6.)
+        self.assertAlmostEqual(x["total_signed_removed_energy"], 2.)
+        gram[1][2] = 3.
+        with self.assertRaisesRegex(ValueError, "not symmetric"):
+            source_support_diagnostic([
+                {"source_id": "s", "image_id": "img", "group_energy": group0,
+                 "signed_group_gram": gram}], keep_groups=1)
+
+    def test_missing_signed_gram_is_not_zero_cross_term(self):
+        x = [0.] * 216
+        x[0] = 1
+        result = source_support_diagnostic([
+            {"source_id": "s1", "image_id": "i1", "group_energy": x},
+            {"source_id": "s2", "image_id": "i2", "group_energy": x}], keep_groups=1)
+        signed = result["signed_removed_group_energy"]
+        self.assertEqual(signed["status"], "NOT_MEASURED")
+        self.assertIsNone(signed["cross_term"])
+
     def test_diagnostics_evidence_requires_actual_native(self):
         with self.assertRaisesRegex(ValueError, "actual native"):
             diagnose({"schema": "ffnds.calibration.source_statistics.v2",
