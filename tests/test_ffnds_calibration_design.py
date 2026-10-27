@@ -39,6 +39,20 @@ class CalibrationDesignTests(unittest.TestCase):
         self.assertIn("incompatible scene strata",
                       " ".join(coverage(self.plan, bank)["errors"]))
 
+    def test_diagnostic_rejects_reused_source_in_same_native_scope(self):
+        values = [1.] * 216
+        rows = [{"source_id": "same", "image_id": "img", "group_energy": values},
+                {"source_id": "same", "image_id": "img", "group_energy": values}]
+        with self.assertRaisesRegex(ValueError, "Repeated source_id"):
+            source_support_diagnostic(rows, keep_groups=54)
+
+    def test_malformed_allocation_reports_error_instead_of_crash(self):
+        import copy
+        plan = copy.deepcopy(self.plan)
+        plan["calibration_arms"][0]["allocation"]["i2v_subject"] = "6"
+        self.assertTrue(any("invalid stratum allocation" in error
+                            for error in validate_design(plan)))
+
     def test_jackknife_support_detects_source_shift(self):
         a = [0.] * 216
         b = [0.] * 216
