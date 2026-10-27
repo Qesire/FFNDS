@@ -1,8 +1,8 @@
 # FFNDS · 研究导航（2026-10-27）
 
-**现行科研目标**：定位视频FFN中有意义的输出函数、承担这些函数的真实计算结构，然后研究其可共享、可预测或可更经济执行的表示。[G13函数与结构](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) → [行为/函数/结构登记](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) → [G0–G13真实计算及研究图](../docs/98_端到端计算图与证据注解_20261025.md)。
+**现行科研目标**：定位视频FFN中有意义的输出函数、承担这些函数的真实计算结构，然后研究其可共享、可预测或可更经济执行的表示。[G13函数与结构](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P机制定位与差项](20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [C01–C03机器卡](agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json) → [行为/函数/结构登记](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) → [G0–G13真实计算及研究图](../docs/98_端到端计算图与证据注解_20261025.md)。
 
-**研究规模**：85项相关论文、171个计算图节点、354条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。新模型CPU/GPU/视频运行处于暂停状态；当前[ACTIVE](ACTIVE_RESEARCH.json)提供任务和授权身份。
+**研究规模**：89项相关论文、177个计算图节点、371条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。新模型CPU/GPU/视频运行处于暂停状态；当前[ACTIVE](ACTIVE_RESEARCH.json)提供任务和授权身份。
 
 ## 按科研问题选择证据
 
@@ -10,7 +10,7 @@
 |---|---|---|
 | **哪些输出函数具有视频行为意义？** | [G13函数发现](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) | [历史视频/函数失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)、[多来源signed响应](20261026/E0_SIX_SOURCE_DIRECTIONAL_RESULTS.md)、[交叉seed](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md) |
 | **哪些真实计算子结构承担这些函数？** | [功能/结构索引](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13主图](../docs/98_端到端计算图与证据注解_20261025.md) | [Wan真实配置/shape](20261022/R12_E0_runtime_reconstruction.json)、[HiF4组尺度反例](20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json)、[全网络finite response](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md) |
-| **哪个先例有不同的科学机制？** | [综合文献研究](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[Crosswalk](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) | [85项论文索引及阅读等级](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[竞争矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[一手阅读指南](literature/20261026/READING_GUIDE.md) |
+| **哪个先例有不同的科学机制？** | [综合文献研究](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[Crosswalk](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) | [89项论文索引及阅读等级](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[竞争矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[一手阅读指南](literature/20261026/READING_GUIDE.md) |
 | **实时模型的FFN职责和物理形状如何改变？** | [G10实时视频生成/架构/FFN](literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md) | [真实外部模型/源码账本](literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)、[两线机制衔接](20261027/PARALLEL_FFN_MECHANISM_AND_STREAMING_RESEARCH_BRIEF.md) |
 | **定位后有什么计算实现？** | [G11 FP4信息/具体方法](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)、[G12有符号编码/计算](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) | [Prox/Spark/SpQt/SQ-DM/CodeGEMM深读](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ](literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md) |
 | **已有原生结果支持到哪一层？** | [实验发现谱系](EXPERIMENT_FINDINGS_ATLAS.md)、[证据索引](EXPERIMENT_EVIDENCE_INDEX.md) | [原生全深度与视频验收协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)、[保存状态频谱](20261026/E0_SAVED_FLOW_SPECTRUM.md) |
