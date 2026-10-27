@@ -58,6 +58,15 @@ A_{\mathrm{bank}}q_1(x)+b_{\mathrm{bank}}
 
 三种假说可以同时成立；研究优先以**最少变更区分因果来源**，不以“必须与论文不同”作为成功标准。能直接复用论文方法改善质量或系统效率，是有效的研究推进。
 
+### 视频时空功能：从A5+HWG历史观察重新定位Affine54
+
+[历史A5+HWG专题](A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)把「大体主体稳定、背景局部闪烁、小物体变模糊」作为历史视频的**定性现象**提出。它有两种与Affine54不同的竞争解释：A5逐token mask的阈值翻转可能产生视频时间支持噪声；**Affine54没有这类在线mask切换，仍在原生视频中出现运动幅度和细节偏差**，说明固定函数表示的容量/输出方向/后续响应也可能独立影响时空行为。相同局部SSE不充分决定两者的视觉效果。
+
+具体研究对象因此不是抽象的「保真」一个数字，而是：小物体/边缘的**空间高频细节**、背景光照的**时间连续性**、语义动作与运动幅度以及正常full-flow状态响应。背景照明可在空间低频同时产生高时间频率；小物体也可能长期稳定模糊（高空间频率缺失但时间并不闪）。只用全帧Laplacian、单个VBench Motion Smoothness或latent FFT都不足以分开它们。
+
+直接可借鉴2ndMatch/CTEC/TARDIS/MPC的函数与轨迹目标，但选择依据应是同一source/seed和真实后缀内**哪种视频功能被保留**，而不是为了设计新损失而假定时空函数一定对应某一神经元组。专项ROI和运动补偿评价见[完整视频指标合同](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)，未运行的语义分析保留OPEN。
+
+
 ## 3. 成熟先例作为真实的研究组件
 
 本章压缩为**研究与迁移决策**，所有作者原公式/执行细节集中在[共用文献审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)，避免两份方案各自重述并出现版本冲突。
