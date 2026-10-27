@@ -17,7 +17,7 @@
     "G8": "Primary-method external FFN N:M, trained MoE, low-rank feature cache and sparse MLP delta branches",
     "G9": "LIT: temporal linear prediction, hard-routed sparse FFN trees, architecture-induced FFN/attention function redistribution",
     "G10": "External realtime-generation literature + open FFN cross-architecture hypotheses; S01–S18=LIT, S19–S20=OPEN; separate from paused G6 scenario",
-    "G11": "SPEC/ALG/LIT/OBS/SRC plus OPEN quant signed information and 5 primary-deep-audited competitor graphs Q01–Q29; paper identity and real source execution differ."
+    "G11": "Quant metadata/preW1 prediction and primary reviewed lowbit FFN methods Q01-Q33; L74 SharQ includes 2 true GEMMs and T2V results."
   },
   "nodes": [
     {
@@ -1584,6 +1584,50 @@
         "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
       ],
       "open_question": "Strong physical nontransfer evidence for Wan large M"
+    },
+    {
+      "id": "Q30",
+      "graph_section": "G11",
+      "meaning": "SharQ online top2-of4 pairs per8 activation magnitudes and FP4 sparse mask",
+      "availability": "before_sparse_GEMM_after_online_input",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
+      ],
+      "open_question": "Determine quant sign/function necessity and physical price in Wan I2V"
+    },
+    {
+      "id": "Q31",
+      "graph_section": "G11",
+      "meaning": "SharQ dense residual x minus decoded quantized sparse backbone",
+      "availability": "after_sparse_quant",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
+      ],
+      "open_question": "Determine quant sign/function necessity and physical price in Wan I2V"
+    },
+    {
+      "id": "Q32",
+      "graph_section": "G11",
+      "meaning": "SharQ sparse FP4 and dense residual FP4 GEMMs share weight payload and use two scale layouts",
+      "availability": "during_dual_lowbit_GEMM",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
+      ],
+      "open_question": "Determine quant sign/function necessity and physical price in Wan I2V"
+    },
+    {
+      "id": "Q33",
+      "graph_section": "G11",
+      "meaning": "SharQ author Wan2.2 T2V A14B video and dense FP4 prefill counterexample",
+      "availability": "external_paper_metrics",
+      "evidence_type": "LIT",
+      "evidence": [
+        "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
+      ],
+      "open_question": "Determine quant sign/function necessity and physical price in Wan I2V"
     }
   ],
   "edges": [
@@ -2801,6 +2845,61 @@
       "from": "Q14",
       "to": "Q29",
       "relation": "must_compare_dense_fp4_with_multi_token_fallback"
+    },
+    {
+      "from": "Q03",
+      "to": "Q30",
+      "relation": "runtime_activation_mask_requires_current_values"
+    },
+    {
+      "from": "Q30",
+      "to": "Q31",
+      "relation": "SharQ_Eq6_8_quantization_residual"
+    },
+    {
+      "from": "Q31",
+      "to": "Q32",
+      "relation": "SharQ_Eq9_dense_compensation_is_still_GEMM"
+    },
+    {
+      "from": "Q32",
+      "to": "Q33",
+      "relation": "SharQ_benchmark_not_native_Wan_I2V"
+    },
+    {
+      "from": "Q30",
+      "to": "Q13",
+      "relation": "legal_4to8_pair_not_functional_FFN_skip"
+    },
+    {
+      "from": "Q32",
+      "to": "Q14",
+      "relation": "strong_packed_dense_fp4_competitor"
+    },
+    {
+      "from": "Q32",
+      "to": "Q12",
+      "relation": "contrast_signed_gate_W2_function"
+    },
+    {
+      "from": "Q33",
+      "to": "S20",
+      "relation": "video_large_M_vs_online_small_chunk"
+    },
+    {
+      "from": "Q32",
+      "to": "F08R",
+      "relation": "original_HiF4_group_Q2_not_sharq_nvfp4"
+    },
+    {
+      "from": "Q30",
+      "to": "Q05",
+      "relation": "input_pair_magnitude_versus_sign_alignment"
+    },
+    {
+      "from": "Q29",
+      "to": "Q33",
+      "relation": "lowbit_big_M_deployment_caveats"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -3179,7 +3278,8 @@
       "L70",
       "L71",
       "L72",
-      "L73"
+      "L73",
+      "L74"
     ],
     "document": "research/literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md",
     "ledger": "research/literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json",
@@ -3197,8 +3297,13 @@
       "Q26",
       "Q27",
       "Q28",
-      "Q29"
+      "Q29",
+      "Q30",
+      "Q31",
+      "Q32",
+      "Q33"
     ],
-    "source_code_finding": "CodeGEMM public module only runs psum GEMV on token_count=1; larger M dequantizes full weights and calls dense matmul"
+    "source_code_finding": "CodeGEMM public module only runs psum GEMV on token_count=1; larger M dequantizes full weights and calls dense matmul",
+    "sharq_deep_audit": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
   }
 }
