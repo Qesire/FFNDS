@@ -1,0 +1,120 @@
+{
+  "schema": "ffnds.g12.quant_signed_histogram.v1",
+  "updated": "2026-10-27",
+  "document": "research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md",
+  "scope": "MATHEMATICAL_DERIVATION_PLUS_PRIMARY_PAPERS_AND_READ_ONLY_AUTHOR_CODE",
+  "resource_authority": {
+    "native_CPU_model_runs": 0,
+    "GPU_runs": 0,
+    "video_generations": 0,
+    "model_quality_runs": 0,
+    "experiment_state": "PAUSED_BY_EXPLICIT_USER_REQUEST_20261027"
+  },
+  "papers": [
+    {
+      "id": "L75",
+      "title": "BiQGEMM: Matrix Multiplication with Lookup Table for Binary-Coding-Based Quantized DNNs",
+      "year": 2020,
+      "venue": "SC20",
+      "url": "https://sc20.supercomputing.org/proceedings/tech_paper/tech_paper_pages/pap601.html",
+      "secondary_primary": "https://arxiv.org/abs/2005.09904",
+      "reading_tier": "PRIMARY_OFFICIAL_CONFERENCE_ABSTRACT_AND_LUT_GEMM_ORIGINAL_PAPER_CITATION_ONLY",
+      "actual_method": "binary-coding quantization finite LUT repeated partial sums and SIMD packed reads",
+      "execution_verified": "NO_FULL_FORMULA_OR_AUTHOR_CODE_INSPECTED_THIS_TURN",
+      "boundary": "code reuse not automatically W4A4 native multi-token or FFN sparsity"
+    },
+    {
+      "id": "L76",
+      "title": "LUT-GEMM: Quantized Matrix Multiplication based on LUTs for Efficient Inference in Large-Scale Generative Language Models",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/a4f98ce85f440ee269b0df57b4368719-Paper-Conference.pdf",
+      "reading_tier": "ORIGINAL_ICLR_2024_PDF_PAGE_3_SCREENSHOT_METHOD_EQUATIONS_AND_OFFICIAL_CUDA_SOURCE_READ",
+      "actual_method": "BCQ weight=sum alpha_i signed_binary_i; for chunks mu=8 precompute 2^mu=256 sign-pattern fullprec input sums then packed LUT gather",
+      "execution_verified": "n/m==1 LUT kernel, >1 dequantized weight cuBLAS fallback in official kernels.cu",
+      "boundary": "weight-only A16, single-token LUT speed up, not W4A4 multi-token Wan"
+    },
+    {
+      "id": "L77",
+      "title": "XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks",
+      "year": 2016,
+      "venue": "ECCV 2016",
+      "url": "https://arxiv.org/abs/1603.05279",
+      "reading_tier": "ORIGINAL_AUTHOR_PAPER_ABSTRACT_AND_DOCUMENTED_BINARY_DOT_FORMULA; NO_CUDA_SOURCE_INSPECTED",
+      "actual_method": "approx two real-valued operands by scaled +/-1 and XNOR-popcount dot",
+      "execution_verified": "not checked in original source",
+      "boundary": "binary CNN approximation not exact FP4 Wan dot"
+    },
+    {
+      "id": "L78",
+      "title": "Optimal Quantization for Matrix Multiplication",
+      "year": 2026,
+      "venue": "IEEE Transactions on Information Theory 72(3) 2026",
+      "url": "https://doi.org/10.1109/TIT.2025.3649596",
+      "reading_tier": "OFFICIAL_IEEE_FORMAL_ABSTRACT_AND_ARXIV_AUTHOR_ABSTRACT_ONLY",
+      "actual_method": "rate-distortion bound for independently compressed operands reconstructing matrix products; nested lattice quantizers; Gaussian model 0.906bit rate phase transition",
+      "execution_verified": "no native code or full theorem read",
+      "boundary": "expected product MSE/rate optimality not online signed sign margin or video functional certificate"
+    },
+    {
+      "id": "L79",
+      "title": "MACKO: Sparse matrix-vector multiplication for low sparsity",
+      "year": 2026,
+      "venue": "ICML 2026 PMLR 306",
+      "url": "https://proceedings.mlr.press/v306/macko26a.html",
+      "reading_tier": "ORIGINAL_PMLR_AUTHOR_ABSTRACT_AND_OFFICIAL_CUDA_COMPRESSED_INDEX_SOURCE_READ",
+      "actual_method": "static compressed sparse FP16 matrix with packed half values and 4-bit delta coordinate indices, warp-prefix decode and GEMV",
+      "execution_verified": "CUDA kernel code inspected; no hardware run",
+      "boundary": "static sparse FP16 GEMV on RTX2080/3090/4090; no native Wan A14B W4A4 multi-token/HiF4 Q2"
+    }
+  ],
+  "code_blobs": [
+    {
+      "repo": "naver-aics/lut-gemm",
+      "path": "lutGEMM/src/kernels.cu",
+      "sha": "e6950daa734c1b47331730145dbb9d32945f0914",
+      "fact": "n==1 -> nqmv LUT; else cuBLAS after getDequantiedWeight"
+    },
+    {
+      "repo": "naver-aics/lut-gemm",
+      "path": "lutGEMM/src/cuda/kernels/mv_fp16.hpp",
+      "sha": "77edd0a01ec6b815e7801451f5aa2f7183efc2b7",
+      "fact": "8-sign input chunks, 256 LUT patterns, packed byte indices, half2 atomicAdd"
+    },
+    {
+      "repo": "naver-aics/lut-gemm",
+      "path": "README.md",
+      "sha": "6caf000338d8f4240fbf63863215edb28ac9d3da",
+      "fact": "Official kernel demonstration only; CUDA arch=80; OPT 175B paper link"
+    },
+    {
+      "repo": "vlejd/macko_spmv",
+      "path": "src/macko_spmv/cuda/kernels.cuh",
+      "sha": "1be2c066684598fd5f0a341f6e9dc1dc3fa681fc",
+      "fact": "M_values FP16, M_deltas 4bit indices, compressed row pointers, warp prefix compressed GEMV"
+    },
+    {
+      "repo": "vlejd/macko_spmv",
+      "path": "README.md",
+      "sha": "d040c4df044e8bdb79c46699ffb4202700e9eb54",
+      "fact": "Author consumer GPU benchmarks 2080 3090 4090; H100 not tuned; FP16 static weight sparse"
+    }
+  ],
+  "new_math": {
+    "name": "Signed Re-arrangement Histograms for Quantized Dot Bounds",
+    "type": "MATH_DERIVATION_BY_FFNDS_DISCUSSION_USING_CLASSICAL_REARRANGEMENT_INEQUALITY_NOT_NEW_PROVEN_LITERATURE_ALGORITHM",
+    "assumptions": [
+      "operand code multiset known",
+      "weight and input positive shared scales constant within each joint K partition",
+      "pair alignment remains hidden",
+      "representational FP4 real dot only"
+    ],
+    "theorem": "Given two fixed sorted signed code multisets a<= and b<=, min sum a[i]b[reverse i], max sum a[i]b[i] across all alignments.",
+    "fact": "tight with respect to per-block histograms alone; may be wide and full MHD/B group screening costly",
+    "quantization_limits": "Actual original Wan HiF4 Q2 dynamic 64-to-8-to-4 closure, actual Q1 bit availability unverified"
+  },
+  "history": [
+    "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md",
+    "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
+  ]
+}
