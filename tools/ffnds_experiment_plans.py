@@ -154,7 +154,7 @@ def plan_calibration(bank, geometry, *, strata, rows, seed, output):
             raise ValueError("Invalid actual native population")
         by_geometry[key] = n
     result = []
-    for source_index, s in enumerate(selected):
+    for s in selected:
         for step in range(4):
             for block in range(40):
                 key = (s["source_id"], step, block)
