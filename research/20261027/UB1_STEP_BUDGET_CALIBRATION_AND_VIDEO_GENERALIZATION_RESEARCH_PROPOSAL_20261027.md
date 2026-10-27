@@ -91,6 +91,15 @@ UB1的R256是post-Q1→两次BF16投影，解决部分遗漏输出；它与真�
 
 R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部分固定，条件Amdahl上界约\(1/(1-0.195)=1.242\)，UB1实际完整生成1.0757×；这个上界**只针对R17的特定resident强基线、硬件和串行成本假设**。真实QDQ、启停、weight residency、额外R256、kernel形状与pack内存成本都可改变比较。并行研究真正packed低位dense或核融合，完全有可能在更强系统基线上验证更好的执行策略；不把输入动态作为必须实现的功能。
 
+### 横跨支持、预算和视频行为：历史A5+HWG提供的独立观察
+
+[历史A5+HWG时空函数审查](A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)表明：逐token动态hidden mask下主体大体结构可维持，但背景照明/纹理可能闪烁，小目标细节可能模糊；其证据身份是旧视频视觉报告，而非已经得到原生mask切换到视频ROI的因果链。UB1按step固定支持，**没有同一类型的逐token开关**，但后续[UB1连续运动补评](UB1_DYNAMIC_DEGREE_RESULTS.md)仍发现两来源动作幅度显著不同；所以视频质量问题同时有**固定支持容量**与**时空协调函数**两条可研究解释。
+
+这为H-Data、H-Support与H-Temporal增加一个共同评价坐标：对同一Dense配对逐视频比较(i)大体结构/真实动作；(ii)小物体/细纹理保留；(iii)相机/运动对齐后的背景亮度与纹理稳定。先用已有[完整视频指标合同](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)能正确计算的proxy；运动ROI、语义小目标/异常因果未执行即记OPEN/NOT_RUN。**不得将A5旧视觉描述直接记作UB1新来源的闪烁频率，也不从低运动误差推出动态路由应优于静态UB1。**
+
+**新判别**：若固定支持始终舍弃低幅值但持续重要的小目标函数，增加mask时间平滑不会解决UB1问题；若一个新输入动态方案发生阈值支持切换，则其mask波动和下游时序作用另需匹配测量。S-SWITCH/H-PERSIST可相互区分，但都允许直接采用已成熟的算法进行验证。
+
+
 ## 4. 成熟方法的匹配使用与论文查重
 
 **详细论文调查只保留一份**：[部分线性FFN、结构重构、跨步纠错与稀疏kernel共用审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)。以下对应UB1的**研究动作**而不是“创新性必须不同”的限制：
