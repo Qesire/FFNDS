@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
   "updated": "2026-10-27",
-  "status": "G11_6_PRIMARY_METHODS_INCLUDING_SHARQ_WAN_T2V_FP4",
+  "status": "G12_79_RELATED_WORKS_SIGNED_HISTOGRAM_INFORMATION_AND_CODE_DOMAIN_EXECUTION",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -1361,6 +1361,104 @@
         "Q33"
       ],
       "graph_method_reference": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
+    },
+    {
+      "id": "L75",
+      "title": "BiQGEMM: Matrix Multiplication with Lookup Table For Binary-Coding-Based Quantized DNNs",
+      "year": 2020,
+      "venue": "SC20",
+      "url": "https://sc20.supercomputing.org/proceedings/tech_paper/tech_paper_pages/pap601.html",
+      "group": "evaluation_hardware",
+      "model": "binary-coding quantized DNN",
+      "observed_mechanism": "binary coded low-bit weight lookup repeated partial sums",
+      "decision_time": "after weight encoding and current activation encoding",
+      "physical_action": "original official abstract plus succeeding LUT-GEMM citation",
+      "training": "weight offline quantization; no online model training",
+      "wan_specific_discriminator": "LUT computational reformulation not intrinsic gate-W2 skip",
+      "reading_depth": "PRIMARY_OFFICIAL_CONFERENCE_ABSTRACT_AND_ICLR_SUCCESSOR_REFERENCE",
+      "graph_anchor": [
+        "I11"
+      ],
+      "graph_method_reference": "research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md"
+    },
+    {
+      "id": "L76",
+      "title": "LUT-GEMM: Quantized Matrix Multiplication based on LUTs for Efficient Inference in Large-Scale Generative Language Models",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/a4f98ce85f440ee269b0df57b4368719-Paper-Conference.pdf",
+      "group": "evaluation_hardware",
+      "model": "OPT175B autoregressive LLM decode",
+      "observed_mechanism": "BCQ weight binary pattern 8-coordinate precomputed sign-dot LUT 256 entries",
+      "decision_time": "after weight encoding and current activation encoding",
+      "physical_action": "original ICLR PDF method and author kernels.cu and mv_fp16.hpp; m>1 dequant+cuBLAS",
+      "training": "weight offline quantization; no online model training",
+      "wan_specific_discriminator": "weight-only A16 GEMV does not show fullM W4A4 video native speed",
+      "reading_depth": "ORIGINAL_PDF_P3_SCREENSHOT_AND_AUTHOR_CODE_2_BLOBS",
+      "graph_anchor": [
+        "I11",
+        "I12"
+      ],
+      "graph_method_reference": "research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md"
+    },
+    {
+      "id": "L77",
+      "title": "XNOR-Net: ImageNet Classification Using Binary Convolutional Neural Networks",
+      "year": 2016,
+      "venue": "ECCV 2016",
+      "url": "https://arxiv.org/abs/1603.05279",
+      "group": "evaluation_hardware",
+      "model": "binary AlexNet ImageNet CNN",
+      "observed_mechanism": "binary sign approximation XNOR popcount and positive scale",
+      "decision_time": "after weight encoding and current activation encoding",
+      "physical_action": "original paper abstract and described binary sign dot",
+      "training": "trained binary weights and activations",
+      "wan_specific_discriminator": "one-bit approximation not accurate FP4 block signed margin",
+      "reading_depth": "ORIGINAL_ARXIV_AUTHOR_ABSTRACT_AND_BINARY_ALGEBRA",
+      "graph_anchor": [
+        "I10",
+        "I13"
+      ],
+      "graph_method_reference": "research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md"
+    },
+    {
+      "id": "L78",
+      "title": "Optimal Quantization for Matrix Multiplication",
+      "year": 2026,
+      "venue": "IEEE Trans. Inf. Theory vol72 issue3",
+      "url": "https://doi.org/10.1109/TIT.2025.3649596",
+      "group": "evaluation_hardware",
+      "model": "random Gaussian matrices; abstract lower bound",
+      "observed_mechanism": "rate-distortion lower bounds for matrix product and nested lattice approximate quantization",
+      "decision_time": "offline coding theory",
+      "physical_action": "official IEEE abstract only and arxiv author abstract",
+      "training": "weight offline quantization; no online model training",
+      "wan_specific_discriminator": "product MSE-optimal quantization does not certify FFN sign or downstream video function",
+      "reading_depth": "OFFICIAL_TIT_AUTHOR_ABSTRACT_NOT_FULL_PROOF",
+      "graph_anchor": [
+        "I14"
+      ],
+      "graph_method_reference": "research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md"
+    },
+    {
+      "id": "L79",
+      "title": "MACKO: Sparse Matrix-Vector Multiplication for Low Sparsity",
+      "year": 2026,
+      "venue": "ICML 2026 PMLR 306",
+      "url": "https://proceedings.mlr.press/v306/macko26a.html",
+      "group": "evaluation_hardware",
+      "model": "Wanda-pruned Llama2-7B FP16 GEMV",
+      "observed_mechanism": "compressed sparse FP16 half values and 4bit index deltas for bandwidth-efficient GPU GEMV",
+      "decision_time": "after weight encoding and current activation encoding",
+      "physical_action": "PMLR abstract and author CUDA kernels.cuh/readme; 2080/3090/4090 results",
+      "training": "static Wanda pruning before inference",
+      "wan_specific_discriminator": "already weight-sparse FP16 GEMV not FP4 W4A4 video fullM; H100 tuning author pending",
+      "reading_depth": "OFFICIAL_PMLR_AND_AUTHOR_CUDA_KERNEL_READ",
+      "graph_anchor": [
+        "I15",
+        "I16"
+      ],
+      "graph_method_reference": "research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -1456,5 +1554,17 @@
     "methods_full_primary_review": true,
     "author_code_scope": "CodeGEMM read; no verified author implementation of other four",
     "sharq_deep_audit": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
+  },
+  "g12_signed_quant_bounds": {
+    "document": "research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md",
+    "ledger": "research/literature/20261027/G12_SOURCE_LEDGER.json",
+    "papers": [
+      "L75",
+      "L76",
+      "L77",
+      "L78",
+      "L79"
+    ],
+    "scope": "mathematical certified rearrangement bounds and source-only multi-token kernel limits; no new native experiment"
   }
 }

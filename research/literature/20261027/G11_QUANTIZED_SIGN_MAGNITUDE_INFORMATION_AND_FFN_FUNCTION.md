@@ -73,3 +73,8 @@ FFNDS的原生路径为 norm2和FFN AdaLN → Smooth1/Q1 → W1[13824×5120] →
 ## 6. 2026-10-27 一手论文与源码复核后的机制更新
 
 已完成 [L69–L73 五篇原文方程/实证/源码审查](G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)，并新增 [L74 SharQ：FP4 + N:M 两路真实GEMM、Wan2.2 T2V 原视频数据及NVFP4源码](G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)。摘要级旧阅读等级已升级。核心调整：Prox的INT4代理**真实花费两次GEMV**；Spark的统计预测来自**联合训练的模型**；SpQt多token prefill用dense，CodeGEMM的多token路径解完整量化权重再matmul；SQ-DM经ReLU替换/微调制造严格零；SharQ在线计算4:8稀疏主值并始终计算**dense残差**。这六个方向不能与“FP4符号与尺度可在W1前免费判定可省净函数”混为同一个主张。所有研究结果的模型/硬件不同，继续以功能净值、真实访存、scale-group闭包、native GPU kernel、完整视频和时间SLO为区别依据。原冻结实验仍暂停。
+
+
+## 7. G12 信息判定收紧：直方图提供更强的数学依据（2026-10-27）
+
+[完整推导及L75–L79一手对照](G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)、[来源等级账本](G12_SOURCE_LEDGER.json)。G11的scale-only/配对sign-only分类可增加**两个operand分别已知有符号码字直方图、未知same-coordinate alignment**的中间信息层：经典重排不等式按signed码升序给出所有排列中最紧 `[L,U]`。逐步观察部分真实pair可收紧，至全配对时变成普通内积信息读取。这个数学结论不意味着原HiF4在线激活码已免费可用、Wan 5120维自动出现有用符号裕度、或者有合法empty W1/W2 tile。先测信息可得性/价与局部认证，再进入Q2整个64组和下游有符号函数，匹配真实packed FP4 dense kernel。

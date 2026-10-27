@@ -1,3 +1,5 @@
+**2026-10-27 G12量化编码的有符号计算信息研究：** [共享尺度量化码直方图的严格重排区间、逐配对收紧、编码域bitplane计算及真实工作量](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)；[原始论文、官方源码blob和等级账本](literature/20261027/G12_SOURCE_LEDGER.json)；[权威计算图G12](../docs/98_端到端计算图与证据注解_20261025.md)。共79篇文献、153节点、287条关系；区分数学可证/工程成本/原生视频表现，保持CPU/GPU/model试验暂停。
+
 
 **G11论文与计算图深读（2026-10-27）：** [5篇直接方法的方程/源码/证据](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)，[新增SharQ原论文、NVFP4双GEMM/HiF4仿真核、Wan T2V视频量化](literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)，[统一计算图 G11 Q01–Q33](../docs/98_端到端计算图与证据注解_20261025.md)。累计74项、137节点、254连边。当前只进行只读源与数学分析，原生模型实验暂停。
 
