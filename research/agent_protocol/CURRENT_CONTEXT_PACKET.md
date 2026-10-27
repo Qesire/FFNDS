@@ -27,6 +27,8 @@
 
 **新增论文与算子判断（2026-10-27，LIT/SRC；尚无新Wan 2:4运行）**：[RT-Lynx原文深审](../20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)确认其输入侧activation 2:4 + norm + rank64 LoRA + SpTC核，**不是weight删列或whole64通道剪枝**。强制预训练weight 2:4可能破坏跨输入长期容量；输入活动接近零不等于neuron语义证明。原E0的64组/tile全满不能排除2:4 SpTC。对Wan分别考察**Q1后W1输入**及**Q2后W2输入**：后一种只可能省W2乘加、仍全付W1/GELU/Q2；真实HiF4/BF16与A100执行、视频质量保持OPEN。由[研究导航](../RESEARCH_NAVIGATION.md)进入[UB1](../20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)、[Affine54](../20261027/QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)的研究计划，不自动授权新的GPU/训练。
 
+**历史A5+HWG引出的时空科学问题**：[细节/闪烁研究与严格历史身份](../20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)把主体结构、持续小物体细节、相机/运动补偿后的背景光照时序分开。A5代理预估hidden再乘HWG敏感度选择逐token mask，早期版本W1仍全付费；旧A5 s1/s2、TopK pilot和冻结阈值版不合并。mask切换的代数项、固定遗失弱信号、HiF4 Q2闭包、attention/后缀传播是竞争解释。**背景时序轴属于视频帧/latent temporal，不是四个去噪step**；既有数字无法证明A5闪烁的因果源。未来视频细节与运动连续指标见[质量合同](VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)，原RUN及SOURCE身份不变。
+
 ## 并行可发展的机制问题
 
 **I · 信息与表示**：从Q1输入何时可得、权重/码字、共享比例尺、已有latent/历史状态和有符号约束出发，探索新信息界、等价代数与信息获取净价值；允许先产生直接编码或可证明省算机制。
