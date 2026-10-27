@@ -24,7 +24,7 @@ python tools/ffnds_calibration_design.py coverage --design config/calibration_de
 python tools/ffnds_experiment_plans.py calibration-plan --bank /path/to/new_experiment/source_bank.json --geometry /path/to/new_experiment/native_geometry.json --strata i2v_subject:12,i2v_background:12 --rows 256 --source-state teacher_input --out /path/to/new_experiment/C24_teacher.json
 python tools/ffnds_experiment_plans.py calibration-plan --bank /path/to/new_experiment/source_bank.json --geometry /path/to/new_experiment/native_geometry.json --strata i2v_subject:12,i2v_background:12 --rows 256 --source-state student_input --out /path/to/new_experiment/C24_student.json
 # actual native per-source group statistics exist only after native operand capture/derivation:
-python tools/ffnds_calibration_design.py diagnose --statistics /path/to/actual_source_group_statistics.json --keep-groups 54 --bootstrap 500 --out /path/to/new_experiment/SUPPORT_DIAGNOSTIC.json
+python tools/ffnds_calibration_design.py diagnose --statistics /path/to/actual_source_group_statistics.json --keep-groups-by-step 54,108,108,162 --bootstrap 500 --out /path/to/new_experiment/SUPPORT_DIAGNOSTIC.json
 ```
 
 `coverage` 只证明 source bank 是否具备预设分层配额；实际native操作数和 Student 状态必须由真正捕获并通过校准索引验证。诊断 `ffnds.calibration.source_statistics.v2` 的 `group_energy[216]` 是从原生 gated group contributions 导出、以source/image聚合的非负量；测到的统计仅构成SOURCE_LEVEL_DIAGNOSTICS，不会写出拟合/官方视频已成功的结论。

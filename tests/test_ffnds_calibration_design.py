@@ -61,14 +61,15 @@ class CalibrationDesignTests(unittest.TestCase):
     def test_diagnostics_evidence_requires_actual_native(self):
         with self.assertRaisesRegex(ValueError, "actual native"):
             diagnose({"schema": "ffnds.calibration.source_statistics.v2",
-                      "evidence_kind": "PLANNED", "records": []}, keep_groups=54)
+                      "evidence_kind": "PLANNED", "records": []}, keep_groups_by_step=[54,108,108,162])
         a = [0.] * 216
         a[0] = 1
         p = {"schema": "ffnds.calibration.source_statistics.v2",
              "evidence_kind": "ACTUAL_NATIVE_OBSERVATION",
              "records": [{"source_id": "A", "image_id": "A", "source_state": "teacher_input",
-                          "step": 0, "block": 0, "group_energy": a}]}
-        r = diagnose(p, keep_groups=54)
+                          "step": 0, "block": 0, "group_energy": a,
+                          "statistic_semantics": "native_gate_times_W2_group_contribution_l2_squared"}]}
+        r = diagnose(p, keep_groups_by_step=[54,108,108,162])
         self.assertEqual(r["new_video_scores"], "NOT_RUN")
 
 if __name__ == "__main__":

@@ -189,7 +189,10 @@ def source_support_diagnostic(records, *, keep_groups, bootstrap=0, seed=42):
             "student_state_and_motion": "NOT_MEASURED"}
 
 
-def diagnose(profile, *, keep_groups, bootstrap=0, seed=42):
+def diagnose(profile, *, keep_groups_by_step, bootstrap=0, seed=42):
+    if (not isinstance(keep_groups_by_step, (tuple, list)) or len(keep_groups_by_step) != 4
+            or any(type(n) is not int or not 1 <= n <= 216 for n in keep_groups_by_step)):
+        raise ValueError("Specify four real step-specific support counts (e.g. 54,108,108,162)")
     if profile.get("schema") != PROFILE or profile.get("evidence_kind") != "ACTUAL_NATIVE_OBSERVATION":
         raise ValueError("Require source statistics explicitly labeled actual native observations")
     grouped = defaultdict(list)
@@ -199,13 +202,15 @@ def diagnose(profile, *, keep_groups, bootstrap=0, seed=42):
             raise ValueError("Invalid native step/block coordinate")
         if state not in ("teacher_input", "student_input"):
             raise ValueError("Undefined native input-state semantics")
+        if r.get("statistic_semantics") != "native_gate_times_W2_group_contribution_l2_squared":
+            raise ValueError("Group statistic must be actual native gated W2 contribution energy")
         grouped[(step, block, state)].append(r)
     if not grouped:
         raise ValueError("No actual source statistics recorded")
     out = {}
     for key in sorted(grouped):
         out[f"step{key[0]}_block{key[1]:02d}_{key[2]}"] = source_support_diagnostic(
-            grouped[key], keep_groups=keep_groups, bootstrap=bootstrap, seed=seed)
+            grouped[key], keep_groups=keep_groups_by_step[key[0]], bootstrap=bootstrap, seed=seed)
     return {"schema": "ffnds.calibration.diagnostic.v2", "status": "SOURCE_LEVEL_DIAGNOSTICS_ONLY",
             "actual_native_record_count": len(profile["records"]), "positions": out,
             "fit": "NOT_RUN", "new_video_scores": "NOT_RUN",
@@ -221,7 +226,8 @@ def main():
     a.add_argument("--out", type=Path, required=True)
     a = cmd.add_parser("diagnose")
     a.add_argument("--statistics", type=Path, required=True)
-    a.add_argument("--keep-groups", type=int, required=True)
+    a.add_argument("--keep-groups-by-step", type=str, required=True,
+                   help="Four comma-separated UB1 (or candidate) group widths per denoising step")
     a.add_argument("--bootstrap", type=int, default=200)
     a.add_argument("--seed", type=int, default=42)
     a.add_argument("--out", type=Path, required=True)
@@ -231,7 +237,8 @@ def main():
     else:
         if args.bootstrap < 0:
             raise ValueError("bootstrap must be nonnegative")
-        result = diagnose(read(args.statistics), keep_groups=args.keep_groups,
+        support = [int(v) for v in args.keep_groups_by_step.split(",")]
+        result = diagnose(read(args.statistics), keep_groups_by_step=support,
                           bootstrap=args.bootstrap, seed=args.seed)
     write_new(args.out, result)
     print(json.dumps({"status": result["status"], "out": str(args.out)}, ensure_ascii=False))
