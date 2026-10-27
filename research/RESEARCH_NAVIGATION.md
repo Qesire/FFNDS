@@ -1,10 +1,14 @@
 # FFNDS · 当前研究导航（2026-10-27）
 
-**一页进入研究：** [FFN与实时视频/量化信息的统一综合报告](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) → [G0–G12权威源码计算图与外部机制分支](../docs/98_端到端计算图与证据注解_20261025.md) → [12机制分组/节点关系/成本/证据矩阵](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) → [79篇研究与真实原文审计状态](literature/20261026/PRIMARY_LITERATURE_INDEX.json)。
+**一页进入研究：** [FFN与实时视频/量化信息的统一综合报告](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) → [G0–G12权威源码计算图与外部机制分支](../docs/98_端到端计算图与证据注解_20261025.md) → [14机制分组/节点关系/成本/证据矩阵](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) → [79篇研究与真实原文审计状态](literature/20261026/PRIMARY_LITERATURE_INDEX.json)。
 
-**索引状态**：79项相关研究、153个稳定图节点、313条有类型关系；G7–G12论文的阅读深度不同，26条跨机制关联只作条件性比较。
+**索引状态**：85项相关研究、171个稳定图节点、354条有类型关系；G7–G12论文的阅读深度不同，26条跨机制关联只作条件性比较。
 
 **研究对象：** LightX2V Wan2.2 I2V A14B 四步D-Q，high/high/low/low，原HiF4 fake-QDQ→BF16 FFN；existing native 10个独立source身份、12个source×seed完整生成轨迹、1920个全深度FFN site，已有方法自由视频质量尚未正式验收。**当前允许论文、代码阅读、数学推导、文档与图；全部新模型CPU/GPU/视频实验暂停**。当前唯一状态：[ACTIVE_RESEARCH.json](ACTIVE_RESEARCH.json)。
+
+## 当前先解决的两个问题
+
+**哪些FFN输出函数在完整视频和生成状态上有意义？哪些真实计算结构承担它们？** 先看[G13行为函数定位报告](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[行为/函数/计算结构登记](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[原视频与signed flow证据](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md)，再查[真实W1→Q2→gate×W2图G0–G13](../docs/98_端到端计算图与证据注解_20261025.md)。**量化FP4 signed-code推测和proxy路线为结构发现后的竞争执行手段。** 当前85篇、171节点、354关系、14研究机制家族，无新原生功能干预。
 
 ## 按问题检索，而不是按累计更新记录检索
 
