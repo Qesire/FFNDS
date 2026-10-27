@@ -3,6 +3,8 @@
 **2026-10-27｜独立科研方案 v1｜状态：OPEN / DISCUSSION_ONLY（不含新模型执行授权）**  
 **研究对象**：LightX2V Wan2.2 I2V A14B 四步蒸馏 D-Q/HiF4 FFN；UB1是现有的可靠工程与研究基线，而非默认的最终算法。
 
+**后续完成的独立证据（保持本v1方案的探索身份）**：[fixed-RR训练内24来源、160位置](UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)约83.01%局部gate误差恢复；[两条已暴露开发来源六条原生视频](UB1_FIXED_RR_CONSUMER_VIDEO_RESULTS_20261027.md)和[原版八轴官方函数＋连续运动](UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)发现成像部分恢复、RAFT运动仍低于Dense且主体aesthetic有取舍；[latent有符号几何](UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)中最终状态距离可增加。故新方案应区分局部拟合、原生数值、source泛化、动作/观测和全视频成本。[Calibration V2](CALIBRATION_V2_METHOD_SNAPSHOT.md)提供控制来源数、行密度、teacher/student状态的可实现设计（CPU合同，尚未做新的原生拟合）；[并行路线总表](PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)提供跨方案竞争解释。以上不将2条开发source提升为确认集，也不更改原始方案注册。
+
 > **中心问题**：在少步视频生成中，为什么一个可以真实减少FFN运算、在原20来源接近Dense的按步固定预算模型，会对另一些来源产生集中的画质退化？哪些条件决定有限预算应该被分配到哪些step、block、组或新的计算单元？能否通过充分的校准、成熟方法迁移、合理的函数/轨迹目标或更好的系统实现，获得更稳健的质量—成本折中？
 
 **研究原则**：复现与采用有效成熟方法是完全合理的研究策略。近期核实的TARDIS/LLMFolder、Model Preserving Compression、FLAP、BRECQ、RT-Lynx分别在部分线性、消费者重构、结构可恢复性、块间误差与真实N:M kernel上提供直接参照；DyDiT、DIFS、SlimDiff、OBS-Diff、2ndMatch和CTEC继续覆盖时间预算和跨步目标。它们都能启发UB1的改进，而不要求每种改法刻意不同。共同的逐篇一手方法与Wan适配边界集中在[文献审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)，本方案只保留实验决策。I/F/C并行，成功复现与系统改进也是真实成果。

@@ -2,6 +2,8 @@
 
 **统一科学目标**：发现视频生成FFN中信息、计算与生成行为的组织规律，发展保持完整视频能力、降低真实物理成本的表示和执行机制。**信息与表示（I）、函数与动力学（F）、计算与执行（C）是并行且互相反馈的起点**；科学规律与部署方法可以分别构成成果。详见[统一研究目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
+**现行各方案共享的研究路线组合**：[I/F/C路径与候选方法对照](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)；它按科学问题整理G11/G12、G13、UB1/运动、Affine54/函数折叠、激活2:4/packed低位与轻量后训练，明确已完成对象和最小下一判别。Calibration V2提供按estimand分目标的独立来源/行数/状态评测接口。方法QUEUE只登记真实独立Agent的方案讨论，ACTIVE是唯一运行授权。
+
 统一入口：[领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md) · [研究导航](research/RESEARCH_NAVIGATION.md) · [G13函数研究（F线）](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P专题方法](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [G0–G13原生计算图](docs/98_端到端计算图与证据注解_20261025.md) · [跨机制综合](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [ACTIVE状态与授权](research/ACTIVE_RESEARCH.json)。
 
 **基准对象与证据**：LightX2V Wan2.2 I2V A14B 四步D-Q，high/high/low/low，40 blocks；\`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续attention/flow/scheduler/video\`。原QDQ和BF16 GEMM与外部native NVFP4格式分别建立数值/物理比较。历史原生10个source、12条source×seed轨迹、1920个嵌套FFN观测位置，已有真实速度收益和自由视频功能失配的研究资产。

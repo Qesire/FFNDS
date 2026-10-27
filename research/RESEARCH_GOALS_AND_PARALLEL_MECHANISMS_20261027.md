@@ -50,8 +50,9 @@
 
 - **本文件**定义研究目标和并行路径；[OBJECTIVE_CONTRACT.json](OBJECTIVE_CONTRACT.json)给出机器可读目标及保留的历史验收合同；[ACTIVE_RESEARCH.json](ACTIVE_RESEARCH.json)给出当前允许的操作及历史运行状态。
 - **源级机制和功能**：[G13功能定位](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P专题方法](20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[Function–Structure登记](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)仅管理F线定位对象；[计算图](../docs/98_端到端计算图与证据注解_20261025.md)为所有路径提供可追溯源边。
+- **现行路线组合**：[I/F/C跨路线证据—竞争机制—判别表](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)整合UB1/固定RR、Affine54、激活2:4、G11/G12、G13、Calibration V2与轻量后训练，明确方法间可共享的对象及不共享的质量/成本身份。
 - **综合与文献**：[研究综合报告](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)跨I/F/C提炼有争议机制及证据；详细论文方程、源码、已核阅读等级留在原source ledger；[研究导航](RESEARCH_NAVIGATION.md)按问题提供入口。
 - **多Agent**：独立Agent可提出数学信息机制、功能因果机制或物理算子机制，按照[研究队列](method_discussion/QUEUE.md)独立评议。图上可新增独立节点和条件关系，无须把I/C发现硬映射成F线的某个函数标签。
 - **交付标准**：每个新发现保留对象/条件、数学或源锚点、竞争机制、不同预测、最小判别、可能的真实成本/视频后果。仅当其主张需要时，才进入功能注册、模型干预、视频生成或硬件性能验证。
 
-**当下边界**：目前开展一手原文/作者代码、数学与已保存证据、图谱和文档研究；新CPU/GPU/模型/视频执行仍暂停。本文不新增任何实验授权、候选通过状态或历史数值结果。
+**现行执行边界（2026-10-27）**：用户已恢复I/F/C研究及经过具体范围、代码、数据、预算冻结登记的有限原生/CPU/GPU研究；最多四张空闲GPU的上限不等于自动分配或本文件授权模型实验。实时/流式实验继续按ACTIVE保持暂停；旧阶段暂停指令与已完成RUN仍是历史事实。最终执行身份、运行权限和已完成结果以[ACTIVE_RESEARCH.json](ACTIVE_RESEARCH.json)当前注册为准。本文仅定义研究对象及方法学。

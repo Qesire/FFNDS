@@ -1,6 +1,8 @@
 # FFNDS · 量化一致的FFN函数表示与跨步响应研究方案
 
-**2026-10-27｜独立方案 v1｜机制与方法并行探索｜研究状态：OPEN（未授权新模型执行）**
+**2026-10-27｜独立方案 v1｜机制与方法并行探索｜研究状态：OPEN（本方案不单独授权新模型执行；具体已恢复的有限实验范围由ACTIVE注册）**
+
+**现行跨路线同步**：[I/F/C方案与证据表](PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)保留本线独立的函数表示/量化一致性目标，并纳入[Calibration V2](CALIBRATION_V2_METHOD_SNAPSHOT.md)对来源广度、行密度、Student状态与原生QDQ的因素消融。[UB1 fixed-RR六视频八轴](UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)显示局部修正可改善成像和连续运动但其它轴仍有取舍，支持将局部数值边界、后缀传播、终端视频和物理执行分别验收；该实测属于UB1，不是Affine54恢复效果。[A100激活2:4预打包布局](E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)属于另一个算子族的合成SYS证据，不代表本函数折叠法已经采用2:4。
 
 ## 0. 研究主张与原则
 

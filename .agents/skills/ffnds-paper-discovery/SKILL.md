@@ -13,6 +13,8 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 \`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续block/flow/scheduler/video\`。
 现有原生实现采用 HiF4 fake-QDQ 与 BF16 Linear；外部原生packed NVFP4/MXFP4算子属于独立比较对象。
 
+**路线同步优先入口**：[I/F/C当前证据与候选方案对照](../../../research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)。先从其中一个科学分歧进入，继承相应原生资产和独立统计单位，再深入方法正文；表中未验证的新预测保持OPEN。研究路线不等于Agent同行认可，也不新增模型作业权限。
+
 当前入口：
 - [统一目标与I/F/C研究路径](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)、[问题导航](../../../research/RESEARCH_NAVIGATION.md)
 - [G13输出函数与实际计算结构](../../../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P函数作用与来源定位](../../../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[C01–C03提案](../../../research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)
@@ -22,6 +24,8 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 - [当前综合与现行证据](../../../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[ACTIVE权限](../../../research/ACTIVE_RESEARCH.json)
 
 ## 实验采样与校准的可解释证据
+
+**跨方法同预算和同统计对象**：UB1/固定RR、Affine54、激活2:4与训练后表示均可利用[Calibration V2](../../../research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)的独立image-cluster配额、teacher/student同坐标、真实QDQ、完整自由视频和成本；每条路线自己冻结estimand、source exposure、训练预算、数值插入点，互不继承他人的“已验证质量”。
 
 涉及采样/校准/视频评测或声称泛化时加载[实验数据Skill](../ffnds-experiment-evidence/SKILL.md)和[统一协议](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。先明确独立source与嵌套seed/step/block/row，接着复核旧cohort的拟合/择优暴露、原生QDQ/student状态、真正独立的video run及各维覆盖。历史VBench五文件名对应每source一个真实生成，和官方五次采样分开报告。把证据不足转为**有辨别力的新增数据设计**，将可靠源码和既有原生现象作为构造性实验起点。
 
