@@ -44,7 +44,7 @@
 ~~~bash
 python tools/graph_agent_bridge.py validate
 python tools/graph_agent_bridge.py inspect F08R
-python tools/graph_agent_bridge.py trace U07 F12
+python tools/graph_agent_bridge.py trace G18 P12
 python tools/graph_agent_bridge.py mechanisms
 python tools/graph_agent_bridge.py mechanism M13
 ~~~
