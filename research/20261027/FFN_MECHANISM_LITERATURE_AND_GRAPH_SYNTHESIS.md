@@ -1,12 +1,12 @@
 # FFNDS · 研究综合地图：有意义的输出函数、计算结构与高效执行
 
-> **现行综合入口，2026-10-27** · G0–G13计算图、85项论文索引、既有完整原生实验的证据映射。此文收束 G7–G13 的研究解释，而非另起算法路线。各个原论文正文、公式、审计账本作为精确一手证据继续保留。**原生CPU/GPU/模型/视频实验暂停，文献、数学和计算图研究继续。** 当前任务和权限以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为准。
+> **现行综合入口，2026-10-27** · G0–G13计算图、89项论文索引、既有完整原生实验的证据映射。此文收束 G7–G13 的研究解释，而非另起算法路线。各个原论文正文、公式、审计账本作为精确一手证据继续保留。**原生CPU/GPU/模型/视频实验暂停，文献、数学和计算图研究继续。** 当前任务和权限以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为准。
 
 
 
 ## 0. 研究主轴：发现有意义的输出函数及其真实计算结构
 
-> **当前科学问题**：**哪些随状态、step、expert与视频行为变化的FFN输出函数具有实际作用？哪些正常前向计算结构承担它们？** 以这两个对象为中心，发现可共享、可重组或可预测的计算结构，再评估信息可得性与执行代价。完整现行理论/论文审查见 [G13科学报告](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[功能候选与计算结构分别登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[权威G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)。
+> **当前科学问题**：**哪些随状态、step、expert与视频行为变化的FFN输出函数具有实际作用？哪些正常前向计算结构承担它们？** 以这两个对象为中心，发现可共享、可重组或可预测的计算结构，再评估信息可得性与执行代价。完整现行理论/论文审查见 [G13科学报告](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[原生O/D/Q/P作用和结构定位](G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[功能候选与计算结构分别登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[权威G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)。
 
 **优先层级**：
 
@@ -116,13 +116,13 @@ W1点积区间 \([L_j,U_j]\) 若处于一侧可认证解码点积的符号；继
 ## 7. 论文的证据级别、当前未解问题及维护契约
 
 - **原 Wan证据：** G0–G5 SRC/OBS/NATIVE-ACT/VIDEO/SYS、[EXPERIMENT_FINDINGS_ATLAS](../EXPERIMENT_FINDINGS_ATLAS.md)各结论绑定原有RUN或保存统计。原Affine/HWG方案存在具体已测问题，但“所有conditional FFN思路”仍为开放科学空间。
-- **外部论文：** 85个L01–L85构成可检索的研究索引，每条按已核摘要、原始方程、作者代码及本模型实测记录各自的阅读深度。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
+- **外部论文：** 89个L01–L89构成可检索的研究索引，每条按已核摘要、原始方程、作者代码及本模型实测记录各自的阅读深度。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
 - **数学：** G12重排界是经典定理在本研究编码信息层的应用；single-row tight≠joint gate×W2 tight；多token GEMM有效性≠single-vector已实现。
 - **维护：** 新论文只写一遍原始方法到其审计来源，更新LID/来源等级/信息时点/训练/成本，并给机器图节点添加准确的**比较边**；综合文档仅更新**机制类别、改变判断的证据和研究问题**，图上不能把LIT边画成Wan实线。阅读指南/Agent/Navigation只放稳定指针，不用一段新研究进展覆盖旧导航。
 - **权限：** 一切原生新CPU/GPU/模型/视频须用户再次明确批准，当前实验状态仍 PAUSED_BY_EXPLICIT_USER_REQUEST_20261027。
 
 ## 8. 检索与复核入口
 
-**权威可读图** [G0–G12全图](../../docs/98_端到端计算图与证据注解_20261025.md) · **功能定位与结构候选** [FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · **机器节点/边** [GRAPH_AGENT_BINDINGS.json](../agent_protocol/GRAPH_AGENT_BINDINGS.json) · **机制交叉矩阵** [MECHANISM_GRAPH_CROSSWALK.json](../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) · **85篇论文索引** [PRIMARY_LITERATURE_INDEX.json](../literature/20261026/PRIMARY_LITERATURE_INDEX.json) · **一手文献分级** [20261027论文与源码审计目录](../literature/20261027/) · **Agent协作协议** [GRAPH_AGENT_COLLABORATION.md](../agent_protocol/GRAPH_AGENT_COLLABORATION.md) · **研究导航** [RESEARCH_NAVIGATION.md](../RESEARCH_NAVIGATION.md)。
+**权威可读图** [G0–G12全图](../../docs/98_端到端计算图与证据注解_20261025.md) · **功能定位与结构候选** [FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · **机器节点/边** [GRAPH_AGENT_BINDINGS.json](../agent_protocol/GRAPH_AGENT_BINDINGS.json) · **机制交叉矩阵** [MECHANISM_GRAPH_CROSSWALK.json](../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) · **89篇论文索引** [PRIMARY_LITERATURE_INDEX.json](../literature/20261026/PRIMARY_LITERATURE_INDEX.json) · **一手文献分级** [20261027论文与源码审计目录](../literature/20261027/) · **Agent协作协议** [GRAPH_AGENT_COLLABORATION.md](../agent_protocol/GRAPH_AGENT_COLLABORATION.md) · **研究导航** [RESEARCH_NAVIGATION.md](../RESEARCH_NAVIGATION.md)。
 
 此文件是现行研究解释的单一综合入口。旧章节继续保留原实验与原始论文审查证据，旧时代数字和来源状态只用于说明历史版本，不参与新的结论推断。

@@ -104,10 +104,10 @@ class GraphAgentBridgeTests(unittest.TestCase):
         result = validate_crosswalk(self.registry)
         self.assertIsNotNone(crosswalk)
         self.assertEqual(result["mechanism_families"], 14)
-        self.assertEqual(result["primary_papers"], 85)
-        self.assertEqual(result["crossgraph_comparison_edges"], 67)
-        self.assertEqual(len(self.registry["nodes"]), 171)
-        self.assertEqual(len(self.registry["edges"]), 354)
+        self.assertEqual(result["primary_papers"], 89)
+        self.assertEqual(result["crossgraph_comparison_edges"], 84)
+        self.assertEqual(len(self.registry["nodes"]), 177)
+        self.assertEqual(len(self.registry["edges"]), 371)
         self.assertTrue(all(e["edge_type"] == "SCIENTIFIC_COMPARISON_OR_CONDITIONAL"
                             for e in crosswalk["synthesis_edges"]))
         families = {f["id"]: f for f in crosswalk["families"]}
@@ -135,6 +135,29 @@ class GraphAgentBridgeTests(unittest.TestCase):
                             for e in self.registry["edges"]))
         self.assertEqual(len(self.registry["function_first_graph_20261027"]["node_ids"]), 18)
         self.assertTrue(self.registry["function_first_graph_20261027"]["no_new_native_runs"])
+
+    def test_four_intervention_boundaries_and_quant_coupling_math_are_registered(self):
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[1]
+        cards = json.loads((root / "research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json")
+                           .read_text(encoding="utf-8"))
+        self.assertEqual({b["id"] for b in cards["boundaries"]}, {"O","D","Q","P"})
+        self.assertEqual({c["id"] for c in cards["cards"]}, {"C01","C02","C03"})
+        self.assertTrue(all(c["status"] == "PROPOSED_NOT_EXECUTED"
+                            for c in cards["cards"]))
+        self.assertEqual(cards["resources"]["new_cpu_gpu_model_video_executions"], 0)
+        nodes = {n["id"]: n for n in self.registry["nodes"]}
+        self.assertEqual(nodes["U19"]["evidence_type"], "OPEN")
+        self.assertEqual(nodes["U20"]["evidence_type"], "ALG")
+        self.assertEqual(nodes["U21"]["evidence_type"], "ALG")
+        self.assertEqual(nodes["U22"]["evidence_type"], "OPEN")
+        self.assertEqual(nodes["U23"]["evidence_type"], "ALG")
+        self.assertEqual(nodes["U24"]["evidence_type"], "ALG")
+        self.assertEqual(self.registry["function_localization_methodology_20261027"]["new_comparison_edges"], 17)
+        relation = {(e["from"],e["to"],e["relation"]) for e in self.registry["edges"]}
+        self.assertIn(("U20","U23","G13M_fixed_post_quant_direct_term"), relation)
+        self.assertIn(("U21","U23","G13M_recomputed_pre_quant_direct_complement_coupling"), relation)
+        self.assertIn(("U19","U24","G13M_two_action_same_boundary_joint_output_interaction"), relation)
 
     def test_unregistered_discovery_needs_curator(self):
         with self.assertRaises(SystemExit):

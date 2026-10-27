@@ -4,16 +4,16 @@
 
 研究以 LightX2V Wan2.2 I2V A14B 四步D-Q 的源码、已完成的真实自由视频和原生数值证据为起点，通过AutoResearcher、原论文及有类型计算图不断扩展。**先定位行为与函数，再辨认计算承担结构，最后研究信息源及高效实现。**
 
-当前索引：**85项相关论文、171个稳定计算图节点、354条类型化关系、14个机制家族**；G13包含18个功能定位节点和41条研究关系。不同论文的实际阅读层级可在source ledger中逐项追溯。
+当前索引：**89项相关论文、177个稳定计算图节点、371条类型化关系、14个机制家族**；G13包含24个定位节点和58条研究关系。不同论文的实际阅读层级可在source ledger中逐项追溯。
 
 ## 研究入口
 
 | 研究目标 | 当前资料 |
 |---|---|
-| 定位有意义的FFN输出函数、联合计算结构 | [G13功能发现与结构定位](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[行为/函数/结构登记](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) |
+| 定位有意义的FFN输出函数、联合计算结构 | [G13功能发现与结构定位](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P四层定位方法学](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[三张机器定位卡](research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)、[行为/函数/结构登记](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) |
 | 沿真实Wan算子、残差、flow逐坐标追踪 | [G0–G13权威计算图](docs/98_端到端计算图与证据注解_20261025.md)与[Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) |
 | 综合已有实验、竞争机制与原论文 | [FFN科学综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md) |
-| 检索原论文、机制家族与实际源码证据 | [85项文献索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[机制Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)、[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
+| 检索原论文、机制家族与实际源码证据 | [89项文献索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[机制Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)、[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
 | 使用科研Skill与多Agent独立讨论 | [FFNDS领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md)、[AGENTS](AGENTS.md)、[Graph↔Agent协作](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) |
 | 实际研究状态、运行历史和授权 | [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)、[研究导航](research/RESEARCH_NAVIGATION.md) |
 

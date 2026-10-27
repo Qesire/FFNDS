@@ -1,0 +1,218 @@
+{
+  "schema": "ffnds.g13.function_localization_method_cards.v1",
+  "updated": "2026-10-27",
+  "method_document": "research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md",
+  "active_evidence": "research/ACTIVE_RESEARCH.json",
+  "science_priority": [
+    "identify_natural_behavior_and_output_function",
+    "locate_function_carrying_normal_forward_computation",
+    "differentiate_direct_scale_coupling_and_downstream_effect",
+    "compare_future_observers_and_physical_savings"
+  ],
+  "evidence_contract": {
+    "OBS": "Existing natural video, signed full-step state or source-dependent observation; never automatically a neuron-level causal role",
+    "ALG": "Conditional exact fixed-q/gate real-vector formulas and counterexamples; BF16 faithful verification is a distinct followup",
+    "LIT": "Primary paper methodology specific to LLM or image/video settings; transferred idea is a new FFNDS hypothesis",
+    "SRC": "Native Wan true compute edges, dtype, HiF4 group Q2 and consumer path",
+    "OPEN": "Targeted functional-causal intervention has not been executed; cards are proposals",
+    "current_execution_permission": "PAUSED_BY_EXPLICIT_USER_REQUEST_20261027",
+    "new_native_interventions": 0
+  },
+  "intervention_identity_fields": [
+    "model_digest",
+    "config_commit",
+    "base_source",
+    "base_seed",
+    "base_step",
+    "expert",
+    "block",
+    "token_positions",
+    "boundary",
+    "target_set",
+    "replacement_source",
+    "replacement_values",
+    "upstream_state_policy",
+    "q1_q2_dtype_scale_policy",
+    "w2_gate_bias_policy",
+    "downstream_policy",
+    "witness_receiver_policy",
+    "rng_policy",
+    "behavior_metric",
+    "non_target_metrics",
+    "full_video_metric_identity",
+    "sham_control"
+  ],
+  "boundaries": [
+    {
+      "id": "O",
+      "name": "Gated output / BF16 residual location",
+      "actual_cut": [
+        "pre_gate_W2",
+        "post_gate_u",
+        "post_BF16_residual"
+      ],
+      "mechanism": "Identify which vector-valued output difference changes a chosen behavior when suffix recomputed",
+      "rounding": "Record exactly where gate/bias/BF16 writeback happens",
+      "status": "OPEN"
+    },
+    {
+      "id": "D",
+      "name": "Fixed post-Q2 column decomposition",
+      "actual_cut": [
+        "post_Smooth2_HiF4_QDQ"
+      ],
+      "mechanism": "Remove or change selected quantized hidden values a while holding full original a and all Q2 scales as actually computed",
+      "rounding": "Rerun W2/gate/native writeback with same q/input",
+      "status": "ALG_OPEN"
+    },
+    {
+      "id": "Q",
+      "name": "Valid pre-Q2 dependency-closure modification",
+      "actual_cut": [
+        "post_GELU_pre_Smooth2"
+      ],
+      "mechanism": "Apply explicit I_S(h) and rerun native Smooth2 / HiF4 Q2 / W2 / gate / BF16",
+      "rounding": "Inspect original group64->8->4 dependency closure and complement changes",
+      "status": "SRC_ALG_OPEN"
+    },
+    {
+      "id": "P",
+      "name": "Full suffix or explicit witness/path intervention",
+      "actual_cut": [
+        "next_block_attention",
+        "later_FFN",
+        "flow_scheduler",
+        "video"
+      ],
+      "mechanism": "Compare free suffix versus explicit receiver/witness fixed value with sham control",
+      "rounding": "Keep old prefix identical, record all base/donor state and compute graph dependence",
+      "status": "OPEN"
+    }
+  ],
+  "identities": [
+    {
+      "id": "ALG01",
+      "scope": "Fixed q,g,W2,bias exact real-vector identity",
+      "formula": "delta_u_pre = delta_u_post + diag(e5) @ W2 @ (a_prime - a_post), where a_post[S]=0, a_post[~S]=a",
+      "signed_target": "delta_u_post = - diag(e5) W2[:,S] a[S]",
+      "partition": "a_prime-a_post = 1_S*a_prime + 1_complement*(a_prime-a)",
+      "assumptions": [
+        "exact common base full a",
+        "unchanged q gate W2 bias",
+        "a_prime is truly recomputed after explicit pre-Q2 I_S(h)"
+      ],
+      "bf16_status": "native_bit_exactness_not_assumed",
+      "interpretation": "separate target residual from complement coupling before testing downstream behavior",
+      "evidence": "ALG"
+    },
+    {
+      "id": "ALG02",
+      "scope": "Same base and two independent defined actions A,C",
+      "formula": "J_X = X11 - X10 - X01 + X00 for X in {native FFN output u, first receiver R, behavior b}",
+      "linear_counterexample": "u_ij = i*a+j*c, b(u)=norm2_squared(u) implies J_b=2< a,c > while J_u=0",
+      "assumptions": [
+        "same base and controlled inputs across four arms",
+        "same intervention boundary and explicitly defined compositions"
+      ],
+      "interpretation": "first observed nonadditivity layer distinguishes computation, downstream and metric sources",
+      "evidence": "ALG"
+    }
+  ],
+  "cards": [
+    {
+      "id": "C01",
+      "title": "source425 signed cross flip: writeback change or suffix transport?",
+      "behavior_refs": [
+        "B02"
+      ],
+      "function_refs": [
+        "FUN01"
+      ],
+      "structure_refs": [
+        "STR02",
+        "STR03"
+      ],
+      "evidence": "research/20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "hypotheses": [
+        {
+          "id": "H_write",
+          "prediction": "Across seed42/54 the native same-rule gated FFN delta_u direction/magnitude differs before first suffix receiver"
+        },
+        {
+          "id": "H_transport",
+          "prediction": "Similar native delta_u classes lead to distinct first receiver/flow/behavior under seed-dependent current state"
+        }
+      ],
+      "current_static_action": "Inventory available per seed/step input, postgate u, initial receiver and paired dense/candidate state; explicitly distinguish saved aggregate cross from missing group tensor",
+      "future_authorized_discriminator": "Apply matched per-seed fixed-rule O intervention independently in each native base, measure delta_u, receiver, step_post, full video behavior; crossseed patch only in separate compatibility test",
+      "quantization_role": "later when important normal output function established"
+    },
+    {
+      "id": "C02",
+      "title": "Direct signed W2 group function or HiF4 scale regulator?",
+      "behavior_refs": [
+        "B02",
+        "B03"
+      ],
+      "function_refs": [
+        "FUN01"
+      ],
+      "structure_refs": [
+        "STR01"
+      ],
+      "evidence": "research/20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "hypotheses": [
+        {
+          "id": "H_direct",
+          "prediction": "A fixed postQ2 deletion and legal preQ2 modification yield similar gated W2 direction and target behavior"
+        },
+        {
+          "id": "H_scale",
+          "prediction": "Complement a_prime[~S]-a[~S] and its signed W2 contribution explain a large D vs Q difference"
+        }
+      ],
+      "current_static_action": "Read exact source Smooth2/Q2 group scale ownership and group64->8->4 closure, W2 gate bias and real dtype sequence",
+      "future_authorized_discriminator": "Same-base paired D/Q native variants, direct signed target, target residual, complement code/scale delta, normal suffix/video, matched groups and cost",
+      "quantization_role": "numerical scale is a candidate structural mediator; no upfront online FP4 proxy assumed"
+    },
+    {
+      "id": "C03",
+      "title": "Spatiotemporal FFN coordination or inherited-state/decoder appearance?",
+      "behavior_refs": [
+        "B01",
+        "B03"
+      ],
+      "function_refs": [
+        "FUN02",
+        "FUN03"
+      ],
+      "structure_refs": [
+        "STR02",
+        "STR03",
+        "STR04"
+      ],
+      "evidence": "research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md",
+      "status": "PROPOSED_NOT_EXECUTED",
+      "hypotheses": [
+        {
+          "id": "H_coordination",
+          "prediction": "Behavior-specific distributed gated FFN response precedes and mediates registered background illumination instability"
+        },
+        {
+          "id": "H_propagation",
+          "prediction": "State inheritance, attention/flow or decoder differences produce the observed appearance regardless of chosen FFN group effect"
+        }
+      ],
+      "current_static_action": "Align available videos and flow/latent states, define background ROI with camera trajectory and visibility; capture readout identity separately from model evidence",
+      "future_authorized_discriminator": "Controlled function-level distributed O/Q/P and sham-witness compares target and nontarget video behavior against matched groups and decoded full rollout",
+      "quantization_role": "consider temporal shared compute only if a normal-forward function relationship is supported"
+    }
+  ],
+  "resources": {
+    "new_cpu_gpu_model_video_executions": 0,
+    "branch_work": "literature and text evidence only",
+    "validation": "static objects/graph/link consistency; native causal effect and full video metrics await independent permission"
+  }
+}

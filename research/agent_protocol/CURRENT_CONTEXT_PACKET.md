@@ -1,6 +1,6 @@
 # FFNDS · 当前科研最小上下文（E0_OPEN_DISCOVERY · 2026-10-27）
 
-**首要科学问题**：在四步Wan视频生成中，哪些FFN输出函数真正对生成行为有意义？由哪些正常计算结构承担它们？参考[G13功能定位与结构研究](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)和[BEHAVIOR/FUNCTION/STRUCTURE独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)。
+**首要科学问题**：在四步Wan视频生成中，哪些FFN输出函数真正对生成行为有意义？由哪些正常计算结构承担它们？参考[G13功能定位与结构研究](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P真实边界定位](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [C01–C03卡](FUNCTION_LOCALIZATION_METHOD_CARDS.json)和[BEHAVIOR/FUNCTION/STRUCTURE独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)。
 
 **研究方法**：[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[AutoResearcher机制研究](../../.agents/skills/mechanism-research/SKILL.md)、[扩展探索](../../.agents/skills/research-expansion/SKILL.md)、[问题重构](../../.agents/skills/problem-reformulation/SKILL.md)及[深度论文/源码检索](DEEP_WEB_RESEARCH.md)。科研成果由新的现象/函数/结构、关键数学或源码、竞争解释和可区分预测组成。
 
@@ -29,7 +29,7 @@
 
 **FUNCTION → STRUCTURE**：从真实共享q的W1行、GELU、HiF4 Q2原group64依赖、W2有符号合成、门控、attention/后续层及high-low跨step递推找到实际承担者。研究联合作用、跨路径补偿、正常前向与有限干预的差异；按具体证据逐渐提高从观察到因果的可信度。
 
-**STRUCTURE → IMPLEMENTATION**：以[G7–G12机制比较](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)及[85项文献原文深度索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)探索训练分工、历史复用、时空分块、量化符号/尺度、LUT或物理稀疏；后续信息可用时间、付费代价和终端视频表现由方法决定。
+**STRUCTURE → IMPLEMENTATION**：以[G7–G12机制比较](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)及[89项文献原文深度索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)探索训练分工、历史复用、时空分块、量化符号/尺度、LUT或物理稀疏；后续信息可用时间、付费代价和终端视频表现由方法决定。
 
 ## 有效科研交接
 

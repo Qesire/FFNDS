@@ -1,6 +1,6 @@
 # FFNDS · 科研Agent与真实计算图的双向协作
 
-**科学对象**：[G13具有行为意义的输出函数与正常前向承担结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)。结合[行为/函数/结构独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点关系](GRAPH_AGENT_BINDINGS.json)进行研究。当前图谱85项文献、171节点、354关系、14机制家族；[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)维护跨机制比较。
+**科学对象**：[G13具有行为意义的输出函数与正常前向承担结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [具体O/D/Q/P定位方法](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [C01–C03](FUNCTION_LOCALIZATION_METHOD_CARDS.json)。结合[行为/函数/结构独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点关系](GRAPH_AGENT_BINDINGS.json)进行研究。当前图谱89项文献、177节点、371关系、14机制家族；[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)维护跨机制比较。
 
 研究者可从自然视频行为、数值张力、真实源码或外部数学/论文发现新功能候选和计算关系，再把它落实到实际源图。图谱支持研究的可追溯性，也为新的科学表示留下空间。
 
@@ -49,7 +49,7 @@ python tools/graph_agent_bridge.py inspect F08R
 python tools/graph_agent_bridge.py trace G18 P12
 ~~~
 
-validate检查JSON结构、证据文件、节点、85项论文ID、14机制家族和67条跨机制关系；mechanism按家族返回函数/结构及先例；inspect/trace沿登记边检索。结果是科学图谱/条件关系的索引，真实数值、因果作用与性能另由对应证据支持。
+validate检查JSON结构、证据文件、节点、89项论文ID、14机制家族和84条跨机制关系；mechanism按家族返回函数/结构及先例；inspect/trace沿登记边检索。结果是科学图谱/条件关系的索引，真实数值、因果作用与性能另由对应证据支持。
 
 ## 5. 科研状态与记录维护
 

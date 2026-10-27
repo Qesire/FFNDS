@@ -1,6 +1,6 @@
 # FFNDS · 多Agent函数/结构发现与独立方法评议
 
-当前科学任务为 **E0_OPEN_DISCOVERY / G13：先识别具有行为意义的FFN输出函数，再追索承担这些函数的原生计算子图**。从[首要科研文档](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[行为/函数/结构登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[当前科研状态](../ACTIVE_RESEARCH.json)和[FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)进入。
+当前科学任务为 **E0_OPEN_DISCOVERY / G13：先识别具有行为意义的FFN输出函数，再追索承担这些函数的原生计算子图**。从[首要科研文档](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [函数作用与计算来源定位](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[行为/函数/结构登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[当前科研状态](../ACTIVE_RESEARCH.json)和[FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)进入。
 
 **方法**：发现真实视频或数学张力→建立函数/结构候选→原生源码/原论文及数学支持→有不同预测的竞争解释→最廉价的有辨识力下一证据。[深度文献检索](../agent_protocol/DEEP_WEB_RESEARCH.md)包括基础/近期论文、数学变体、消融、原生作者代码及相反发现。AutoResearcher 机制研究、扩展与问题重构允许提出超出已有图谱的OPEN机制。
 

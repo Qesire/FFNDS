@@ -2,11 +2,11 @@
 
 **现行科学问题**：在四步Wan视频生成中，**哪些FFN输出函数具有真实行为意义？哪些正常前向计算结构承担这些函数？** 依次追索观测函数、因果贡献、实际计算和未来高效实现，同时欢迎从新论文、数学表达或原生反直觉数据引入开放的解释。
 
-统一入口：[领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md) · [G13研究](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [行为/函数/结构索引](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [G0–G13原生计算图和研究分支](docs/98_端到端计算图与证据注解_20261025.md) · [研究综合](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [ACTIVE状态与授权](research/ACTIVE_RESEARCH.json)。
+统一入口：[领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md) · [G13研究](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P定位方法学](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [三张定位卡](research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json) · [行为/函数/结构索引](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [G0–G13原生计算图和研究分支](docs/98_端到端计算图与证据注解_20261025.md) · [研究综合](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [ACTIVE状态与授权](research/ACTIVE_RESEARCH.json)。
 
 **基准对象与证据**：LightX2V Wan2.2 I2V A14B 四步D-Q，high/high/low/low，40 blocks；\`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续attention/flow/scheduler/video\`。原QDQ和BF16 GEMM与外部native NVFP4格式分别建立数值/物理比较。历史原生10个source、12条source×seed轨迹、1920个嵌套FFN观测位置，已有真实速度收益和自由视频功能失配的研究资产。
 
-**图谱现状**：85项LID、171个稳定节点、354条类型化关系，14个机制族。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
+**图谱现状**：89项LID、177个稳定节点、371条类型化关系，14个机制族。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
 
 ## 一、科学研究的默认语言与思路
 

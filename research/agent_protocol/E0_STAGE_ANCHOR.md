@@ -2,7 +2,7 @@
 
 **当前科学问题：** [G13视频FFN输出函数与真实计算承担结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)。先发现哪类自然行为/无标签有符号输出函数需要解释，再定位由正常执行中的哪些W1/GELU/HiF4-Q2/W2/attention/step子图承担；新函数/结构及竞争机制可随原论文与原生证据继续扩展。
 
-**统一资料**：[当前第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) · [Function–Structure registry](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [主计算图G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph-Agent双向协议](GRAPH_AGENT_COLLABORATION.md) · [85项论文索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json) · [当前ACTIVE研究状态](../ACTIVE_RESEARCH.json)。[早期FFN本征重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)与[2026-10-26机制审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留其已测研究线索。
+**统一资料**：[当前第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md) · [O/D/Q/P函数/结构定位](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [Function–Structure registry](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [主计算图G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph-Agent双向协议](GRAPH_AGENT_COLLABORATION.md) · [89项论文索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json) · [当前ACTIVE研究状态](../ACTIVE_RESEARCH.json)。[早期FFN本征重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)与[2026-10-26机制审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留其已测研究线索。
 
 ## 科研材料与可比较的结构
 
