@@ -1,27 +1,17 @@
-**G12 signed-code quantization computation information (2026-10-27):** [primary paper audit and mathematical proof](../literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md), [source ledger](../literature/20261027/G12_SOURCE_LEDGER.json), [canonical graph G12 I01–I16](../../docs/98_端到端计算图与证据注解_20261025.md). Mark exact classical rearrangement histogram bounds as ALG conditional on aligned group scale and known signed histograms, progressive pair disclosure as ALG with charged memory reads; bitplane compute as ALG not a novel implementation; L75–L79 external LIT source tiers. Relate to F04 preW1, F06 nonmonotone GELU, F08R original HiF4 Q2 64→8→4, F09/F12 signed gate output and G10 realtime smallM. No new native model/GPU/video experiment.
-
-
-**G11 Q19–Q33 primary source graph (2026-10-27):** [five deeply audited papers](../literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md), [SharQ original equations and actual NVFP4 kernel/video context](../literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md), [master execution graph](../../docs/98_端到端计算图与证据注解_20261025.md). Q19–Q33 LIT only, mapping paid Prox proxy, jointly-trained Spark router, decode-only SpQt/CodeGEMM fast paths, SQ-DM architecture-created zero and SharQ's sparse GEMM plus dense GEMM. Always track sign information timing, original HiF4 64→8→4 dependency, real physical Q2/W2 and free-running video quality. Model experiments remain paused.
-
-**G11 low-bit functional-information graph (2026-10-27):** [mechanism mathematics and original HiF4 QDQ read](../literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md), [source ledger](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json), [G11 Q01-Q18](../../docs/98_端到端计算图与证据注解_20261025.md). Separate weight-code offline metadata, current post-Q1 activation codes, costly aligned pairs, proof intervals, post-hoc W1/GELU/Q2 labels, original shared-group Q2 dependency, signed functional value, and actual low-bit GEMM/physical SLO. Paper L69-L73 source depth and original unmodified experiment pause are mandatory.
-
-**G10实时生成文献与图同步（2026-10-27）：** [14源模型方法/源码与FFN代价分解](../literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)、[tier账本](../literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)以及[权威G10图](../../docs/98_端到端计算图与证据注解_20261025.md)。S01–S18/S21–S25 LIT，S19/S20 OPEN；和G0–G5的跨边只是模型结构、代数和物理成本比较。用户已恢复实时文献/计算图研究，原生模型实验仍暂停。
-
-**G9论文与计算图同步（2026-10-27）：** [跨步函数历史预测/树路径稀疏/协同训练后职责转移](../literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)现在是外部LIT K28–K37，[逐来源账本](../literature/20261027/G9_METHOD_SOURCE_LEDGER.json)记录真实阅读深度。与G7/G8共37个外部K节点，以实际信息时点、计算代价、训练与冻权区别连接SRC图；沿着论文原始函数和已经冻结的Wan证据提出竞争机制。新增纸面发现回写权威图和节点注册表；原生GPU/model执行遵循ACTIVE暂停。
-
-**G8论文执行路径扩展（2026-10-27）**：[四组原始论文方法与源码比照](../literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)加入K13–K27的N:M激活、共享/TopK专家及连续MoB、SVD主/残差缓存和MLP稀疏增量；G7仍是step、frame、width和activation spectrum。所有K节点均LIT，不授予新原生算子执行权限；新增文献要求节点、数学、真实数据时点、训练成本、跨模型变更和可用证据同步更新。
-
-**G7外部论文同步协议（2026-10-27）**：[论文原始方法](../literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)和[计算图](../../docs/98_端到端计算图与证据注解_20261025.md)的节点K01–K12为LIT。研究者读原文后应同步修改图、论文证据等级、实际数值时点和下游消费者；原Wan的G0–G5实线只由本项目源码/原生执行证据更新。
-
 # FFNDS · 科研 Agent × 源码计算图双向协作协议
+
+**现行图谱状态（2026-10-27）**：153个稳定节点、313条有类型边、79项研究索引。G0–G5是原生Wan源码/原生实验，G6是历史场景图，G7–G12是外部论文LIT/原理ALG/SPEC/开放OPEN；[统一综合报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)解释研究关系，[12机制Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)登记何时可观察、付费算子、对应源码、主要竞争论文和下一可证伪观测。**原实验CPU/GPU/model/video仍全部暂停。**
+
+**双向维护规则**：一手文献原方程、实际算法代码和原Wan节点分别留在来源账本、结构化graph、native实验RUN；Crosswalk加入有类型的**比较/条件**边，结论不能自动升级为SRC原生执行。新的理论发现可以先独立于既有图提出，随后绑定到最相关的操作与消费者。更新数值实验原始文件必须独立授权并保留历史哈希；清理文档不改变RUN本身。
+
 
 **统一研究边界**：[全层省算、真实视频失配与方法族审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)将局部函数重写、GELU奇偶解释、已测权重常驻与已经产生完整视频但质量不合格的原型结果分开。G5提供Affine候选、视频结果与成本的证据节点。Agent可以从全新数学结构或视频异常起步，建立新的源图节点与判别性计算边。
 
-**当前任务**：[E0 FFN本征机制发现](../20261025/E0_FFN_FIRST_TASK_20261025.md)；**权威可读计算图**：[G0–G9](../../docs/98_端到端计算图与证据注解_20261025.md)；**结构化索引**：[GRAPH_AGENT_BINDINGS.json](GRAPH_AGENT_BINDINGS.json)；**研究范例与竞争解释**：[E0机制再审](../20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md)。
+**当前任务**：以[当前统一机制报告](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)和[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)为综合入口；[G0–G12权威图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点边](GRAPH_AGENT_BINDINGS.json)同步。历史FFN第一任务和本征审计继续作为原生证据来源。
 
 ## 协作定义
 
-**图是研究问题的可定位计算对象，Agent 是提出/验证新解释的主体。** G0–G5 是源码绑定的计算流与证据注解，G6为用户暂停的假设应用场景；`GRAPH_AGENT_BINDINGS.json` 提供图中稳定ID、语义、信息时点、证据文件、未解分歧和必要的跨层边。它是源码与证据索引；实际运行时动态轨迹及候选硬件执行由独立RUN与对应实验范围证实。
+**图是研究问题的可定位计算对象，Agent 是提出/验证新解释的主体。** G0–G5 是源码绑定的计算流与证据注解，G6为2026-10-26历史假设应用场景，2026-10-27另由G10恢复**实时文献与计算图研究**，原生流式实验尚未授权；`GRAPH_AGENT_BINDINGS.json` 提供图中稳定ID、语义、信息时点、证据文件、未解分歧和必要的跨层边。它是源码与证据索引；实际运行时动态轨迹及候选硬件执行由独立RUN与对应实验范围证实。
 
 双向反馈：
 1. **图→Agent**：从科研问题选图节点（例如 `F06→F08R→F08→F09`），沿执行边追溯上游输入与合法状态（G0/G1），沿消费者追踪功能后果（F12/F13/G21/D09），将数值证据、真实源码和未知边组成小型上下文。
@@ -56,6 +46,12 @@
 
 三个入口互补；新解释可来自 WARD 查到的相邻理论、其它计算图节点或者独立先例，不以此列举限制创意。
 
+## 新的只读机制检索与静态一致性检查
+
+运行**python tools/graph_agent_bridge.py validate**确认原主图标签、每节点绑定文件、节点证据身份、crosswalk所有M01–M12源节点和L01–L79论文引用以及26条真实登记的比较边；**python tools/graph_agent_bridge.py mechanisms**列出12个研究家族；**python tools/graph_agent_bridge.py mechanism M02**可查看某一理论信息源对应的已知条件与竞争边。**inspect F08R**、**trace I04 F12**只返回当前注册表最短路，不说明条件已证明或模型已执行。
+
+对应[轻量静态测试](../../tests/test_graph_agent_bridge.py)包括已升级为真实NATIVE-OBS的P23/P24、量化SPEC类型、开放函数下游，以及实时G10与G12共同输入有符号信息的索引。此检查只在修改图谱时具有技术一致性价值；运行许可只看ACTIVE。
+
 ## 具体操作（不启动模型）
 
 从仓库根目录使用无第三方依赖的索引工具：
@@ -77,6 +73,6 @@ python tools/graph_agent_bridge.py trace G18 P12
 
 原生编译/真实时序优先以 pin源码、实际runtime分支和冻结配置为准；图注的 SRC/OBS/OPEN代表其具体命题的证据身份。源修订变化先提出图差异并定位真正改变的节点，保持历史实验自身身份，不直接修改旧收据/JSON/SHA。
 
-**Agent使用图不会获得实验许可。** `ACTIVE_RESEARCH.json` 是唯一活跃目标与授权源；目前 E0，历史原生范围已完成，另有paired-native v2固定授权范围；实际排队/运行/结束状态以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)与原生RUN为准。新的 GPU/模型/视频/训练须用户另外指定；计算图注解与独立研究讨论保持为分析工作。
+**Agent使用图不会获得实验许可。** `ACTIVE_RESEARCH.json` 是唯一活跃目标与授权源；目前E0原生固定范围已全部完成并按用户要求暂停；实际RUN和未来授权以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)为准。新的 GPU/模型/视频/训练须用户另外指定；计算图注解与独立研究讨论保持为分析工作。
 
 **协作完成标准**：新 Agent 能从一个图节点检索到真实证据及当前开放问题，提出一项带图锚点的不同机制与最低成本判别；另一 Agent 能沿相同节点验证并指出具体争议；整合者能更新图/图谱的注释而不把建议误画成已执行算子。

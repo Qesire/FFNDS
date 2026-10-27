@@ -1,12 +1,8 @@
-# FFNDS · 机制先行文献目录（2026-10-26）
+# FFNDS · 首批51篇历史文献的机制注解（2026-10-26）
 
-**研究阶段：先系统检索和审阅相关工作，再提出新方法。** 本目录按实际研究对象而非指标名分类；作者原文报告和FFNDS已复现实验分开。对应[51项结构化索引](PRIMARY_LITERATURE_INDEX.json)、[机制交叉比较](MECHANISM_COMPETITION_MATRIX.md)。前期[2026-10-25五族目录](../../20261025/E0_FFN_INTRINSIC_PRIOR_ART_20261025.md)作为历史记录继续保留。
+> **来源子集/历史时间身份**：本文件保留最早的L01–L51研究观察、类别表和当时的原始对照，不再负责记录最新论文数量、证据等级或研究总论。现行权威入口是[FFN 机制综合报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[全部79篇索引](PRIMARY_LITERATURE_INDEX.json)、[新版竞争矩阵](MECHANISM_COMPETITION_MATRIX.md)与[G0–G12计算图](../../../docs/98_端到端计算图与证据注解_20261025.md)。
 
-**阅读深度：**多数条目已核对正式会议/预印本官方摘要；Chipmunk作者技术正文、NVIDIA格式规范、TinyFusion相关原文段落做了更深入阅读。此轮未全面逐篇核验方法伪代码、训练步骤、完整消融或代码，实现核对将由独立文献Agent在同一索引追补；不可把摘要论断当Wan可迁移定律。
-
-**第二轮实际深入记录：** [五篇直接竞争者的原论文/源码核查](FIVE_PAPER_METHOD_AUDIT.md) · [证据层级与准确性账本](METHOD_AUDIT_LEDGER.json)。最重要的纠错：DiffSparse四步实验为FLUX.1-schnell，其Wan2.1-1.3B视频实验为25步；Chipmunk的掩码决策在缩小token均值上运行W1并依赖历史缓存，公开实现含>=10步cache-mask分支。RT-Lynx和Dense2MoE的部分细节只能取自二手自动概述，尚未原文确认。
-
-**第三轮完整扩展：** [新增18项直接Wan四步、frame×layer、结构剪枝和非线性特征谱先例](ADJACENT_METHOD_EXPANSION_20261026.md) · [源码审查及核验边界](ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。目录现有**51项**，不再局限RT-Lynx/Dense2MoE等旧五篇。新重点包括Dynamic-in-Few-Step、FIS-DiT、Mobile Video DiT和NerVE。
+**时间序列说明**：2026-10-26初步的33→51篇与18篇新增工作属于历史研究进展；2026-10-27随后逐步升级至79项。旧记录中的“仅摘要/二手”的认识以更晚的逐原文审计为准：DIFS与FIS已核[正式原文v1方法方程](PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)，Dense2MoE与SVD-Cache已核[G8公式](../20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)，Prox/Spark/SpQt/SQ-DM/CodeGEMM/SharQ已核[G11深读](../20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)及[SharQ源码](../20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)。RT-Lynx完整正文/实现和G9 L54仍按其较低阅读级别。以下早期条目只应以**当时已阅读部分**解释，最新结论以对应原始审计为准。
 
 ## 研究逻辑
 

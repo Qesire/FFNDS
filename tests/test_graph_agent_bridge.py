@@ -1,11 +1,11 @@
-"""Pure-static tests of G0–G5 graph ↔ Agent node/evidence index."""
+"""Pure-static tests for original Wan source graph plus literature and mechanism crosswalk."""
 import json
 import sys
 import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from graph_agent_bridge import load, validate, inspect, trace
+from graph_agent_bridge import load, validate, inspect, trace, load_crosswalk, validate_crosswalk
 
 
 class GraphAgentBridgeTests(unittest.TestCase):
@@ -51,8 +51,9 @@ class GraphAgentBridgeTests(unittest.TestCase):
 
     def test_full_depth_video_diagnostics_remain_open_and_policy_is_not_native_evidence(self):
         kinds={n["id"]:n["evidence_type"] for n in self.registry["nodes"]}
-        self.assertEqual(kinds["P23"], "OPEN")
-        self.assertEqual(kinds["P24"], "OPEN")
+        # Prior open hypotheses were later grounded by completed native observations.
+        self.assertEqual(kinds["P23"], "NATIVE-OBS")
+        self.assertEqual(kinds["P24"], "NATIVE-OBS")
         self.assertEqual(kinds["P25"], "POLICY")
         self.assertTrue(any(e["from"]=="P23" and e["to"]=="P24"
                             for e in self.registry["edges"]))
@@ -77,6 +78,42 @@ class GraphAgentBridgeTests(unittest.TestCase):
             result = trace(self.registry, *pair)
             self.assertTrue(result["edges"])
             self.assertIn("not proof", result["warning"])
+
+    def test_quant_code_spec_nodes_and_hif4_coupling_are_indexed(self):
+        nodes = {n["id"]: n for n in self.registry["nodes"]}
+        self.assertEqual(nodes["Q01"]["evidence_type"], "SPEC")
+        self.assertEqual(nodes["Q03"]["evidence_type"], "SPEC")
+        self.assertEqual(nodes["I04"]["evidence_type"], "ALG")
+        self.assertEqual(nodes["Q11"]["evidence_type"], "OBS")
+        self.assertEqual(nodes["I08"]["evidence_type"], "OPEN")
+        self.assertTrue(any(e["from"]=="I06" and e["to"]=="I07"
+                            for e in self.registry["edges"]))
+        self.assertTrue(any(e["from"]=="Q32" and e["to"]=="I08"
+                            for e in self.registry["edges"]))
+
+    def test_realtime_studies_are_not_native_wan_streaming(self):
+        nodes = {n["id"]: n for n in self.registry["nodes"]}
+        self.assertEqual(nodes["S13"]["evidence_type"], "LIT")
+        self.assertEqual(nodes["S15"]["evidence_type"], "LIT")
+        self.assertEqual(nodes["S20"]["evidence_type"], "OPEN")
+        self.assertEqual(nodes["Q33"]["evidence_type"], "LIT")
+        self.assertIn("G10", self.registry["graph_roles"])
+
+    def test_current_mechanism_crosswalk_anchors_papers_and_exact_synthesis_edges(self):
+        crosswalk = load_crosswalk(self.registry)
+        result = validate_crosswalk(self.registry)
+        self.assertIsNotNone(crosswalk)
+        self.assertEqual(result["mechanism_families"], 12)
+        self.assertEqual(result["primary_papers"], 79)
+        self.assertEqual(result["crossgraph_comparison_edges"], 26)
+        self.assertEqual(len(self.registry["nodes"]), 153)
+        self.assertEqual(len(self.registry["edges"]), 313)
+        self.assertTrue(all(e["edge_type"] == "SCIENTIFIC_COMPARISON_OR_CONDITIONAL"
+                            for e in crosswalk["synthesis_edges"]))
+        families = {f["id"]: f for f in crosswalk["families"]}
+        self.assertIn("I04", families["M02"]["home"])
+        self.assertIn("L74", families["M05"]["papers"])
+        self.assertIn("S20", families["M10"]["home"])
 
     def test_unregistered_discovery_needs_curator(self):
         with self.assertRaises(SystemExit):

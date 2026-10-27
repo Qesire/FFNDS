@@ -1,28 +1,31 @@
-**2026-10-27 G12新增一手原理：** [L75–L79及重排内积有符号证书](../20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)、[论文与源码审计分级](../20261027/G12_SOURCE_LEDGER.json)。最新总数79篇；新增BiQGEMM(SC2020)、LUT-GEMM(ICLR2024，源码单向量LUT/多token反量化cuBLAS)、XNOR-Net(ECCV2016)、Optimal Quantization for MatMul(TIT2026)、MACKO(ICML2026静态稀疏FP16 SpMV)。经典重排不等式给出hist信息约束下最紧pair-agnostic区间，数学界限≠模型结构已存在≠native GEMM可省。G12 I01–I16为ALG/SPEC/LIT/OPEN分级。
+# FFNDS · 文献Agent的一手核读、证据等级与计算图回写契约
 
+> 现行版本：2026-10-27。全部研究记录索引：[79篇唯一论文](PRIMARY_LITERATURE_INDEX.json)；综合机制解释：[现行研究报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；机器关系：[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)。原2026-10-26首批33/51篇是历史检索阶段，而非当前总数。文献研究持续，原生CPU/GPU/模型/视频执行暂停。
 
-**G11六篇重点的一手精读：** [L69–L73原始算子、成本与消融](../20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)，[L74 SharQ、Win T2V 4×RTX5090论文表格及实际CUDA路径](../20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)，[逐篇来源等级及CodeGEMM/SharQ blob SHAs](../20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)。目录现74条，研究图137节点/254关系；区分论文的硬件速度与FFNDS原生I2V结果。
+## 一个paper ID应回答什么
 
-**G11最新研究近邻**：[符号与幅值量化信息/动态scale/严格证书/FFN有符号函数](../20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)；[5篇强对照Prox/SpQt/Spark/SQ-DM/CodeGEMM及MXFP4/NVFP4一手规格和来源深度](../20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)。现73项研究。不能把量化sign/scale天然有→点积符号可免算，或后验mask→W1合法空tile。冻结原生实验权限。
+原始论文/论文版本与正式会议；确切读过的摘要、原文§/Eq/Table/Fig、公开源码文件与blob SHA；作者所**实际采用的架构、训练/蒸馏、quant格式和步数**；真实当次输入/历史/量化code在**哪个计算节点之前可用**；额外router、proxy、量化scale、KV/cache、metadata、tensor gather、weight读与GPU调度价格；缩减的W1/W2 GEMM、frame、block或whole-step调用；作者报告质量/速度的硬件、source、step和任务；最强同构先例、替代机制和可区分预测。
 
-**2026-10-27 独立实时模型文献线：** [14项原始论文/报告及作者源码](../20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)与[一手证据分级](../20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)新增 G10 S01–S25。优先比较Causal Forcing++ v4的1–2步framewise蒸馏、EdenLive LightX2V/5090的外部参考条件与原Wan FFN、SCD时间功能分离、LongLive2 NVFP4原生GEMM和KV、StreamDiffusionV2 SLO。论文集现68项；模型执行继续暂停。
+分别给出四级认知身份：**摘要/作者描述**、**原文方程+消融**、**作者代码实际分支**、**本Wan原生数值/视频RUN**。只有后者才支持本模型已实现和达到质量。实现存在不等于其全部默认配置开启；速度提升要区分模型算子/单核/完整pipeline以及多GPU/单流/TTFF/p99。
 
-**G9条件计算与跨步预测（2026-10-27）：** [L²P / FFF / FFN↔attention训练期迁移一手研究](../20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)和[逐论文证据账本](../20261027/G9_METHOD_SOURCE_LEDGER.json)已加入[计算图 G9 K28–K37](../../../docs/98_端到端计算图与证据注解_20261025.md)。L²P已读取CVPR官方发布与作者FLUX历史预测源码；FFF已核原始v1方法公式/消融；Sparsity Moves Computation只有作者摘要，需深读方法正文。研究比较分清“缓存整个模型输出”“新训练的树状条件函数”“训练期全网角色迁移”三种不同的省算机制；现实Wan四步执行仍暂停。
+## 按机制研究，而非按发表日期排序
 
-**G8 methods and method-status audit (2026-10-27):** [RT-Lynx, Dense2MoE, SVD-Cache and Chipmunk computations](../20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md) + [per-paper source tier](../20261027/G8_FOUR_METHOD_SOURCE_LEDGER.json). Dense2MoE and SVD-Cache now have original v1 method equations read, correcting earlier abstract-only and no-method claims. RT-Lynx official main-paper method remains unavailable; use author HF post as primary author statement, not verified formula/code. When reviewing other related works, attach each to G7/G8 or create a distinct branch with tensor shape, legal runtime signal and costs.
+| 科学交集 | 首选一手材料 | 迁移至原四步Wan的条件 |
+|---|---|---|
+| FFN hidden条件决策/代价 | [Prox/Spark/SpQt/SQ-DM/CodeGEMM原论文核查](../20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ算子代码与T2V](../20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md) | 在线数据真实可用、group64 Q2闭包、native packed dense强基线和完整视频功能 |
+| FP4有符号直方图与编码域 | [G11原理](../20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)、[G12单行紧证书和LUT](../20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) | weight/input scale同步分段、signed多重集合获取成本、shared-input多W1行joint约束、真实可跳tile |
+| 当前GEMM N:M、训练MoE和部分历史缓存 | [G8四篇审计](../20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md) | W1前or W2前信息时点、same expert历史、router/cost；RT-Lynx原文PDF仍待深入 |
+| 逐step/逐frame/训练压缩 | [DIFS/FIS v1原始公式](PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)、[G9历史/树结构](../20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md) | 训练后新函数与冻权FFN区分，I2V vs T2V任务及time/expert区别 |
+| 实时causal视频与FFN SLO | [14项模型方法及源码](../20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)、[source ledger](../20261027/REALTIME_VIDEO_SOURCE_LEDGER.json) | causal新模型与原全片双向DiT分开，chunk真实M、KV/decoder总成本和p99/TTFF |
+| 数学/理论/解释与质量 | [机制交叉索引](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)、[当前研究综合](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[原生证据谱系](../../EXPERIMENT_FINDINGS_ATLAS.md) | 预先定义终端功能而非后验SSE；同源seed、流状态与完整视频指标 |
 
-# FFNDS · 文献Agent阅读与升级证据契约
+阅读升级顺序：从强相关原论文**精准对象/公式**入手，再读其最强先例/失败消融及实际源码分支，最后把数学表示连接到**原Wan对应SRC或native证据节点**。独立Agent可以同时提出不同科学机制；研究的排序由新信息价值决定而非固定TopK、dense恢复或现成proxy。
 
-**第二轮可复核深读：** [五篇近邻方法审查](FIVE_PAPER_METHOD_AUDIT.md)与[5篇证据等级账本](METHOD_AUDIT_LEDGER.json)。后续Agent首先补齐RT-Lynx/Dense2MoE完整原始方法源码，Activation Concentration阈值/列的严格定义，以及DiffSparse原Wan分项VBench；Chipmunk已亲读MLP源，但没有Wan四步实验。
+## 实际回写顺序
 
-**研究版本演进：初期51项、G9扩展54项、G10现68项。**先读[新研究地图](ADJACENT_METHOD_EXPANSION_20261026.md)和[已检查原始源码与公开代码状态](ADJACENT_SOURCE_METHOD_REVIEW_20261026.md)。下一轮方法级重点扩至Dynamic-in-Few-Step、FIS-DiT、Mobile Video DiT、NerVE、SVD-Cache、FastLightGen、PARE，再结合RT-Lynx/Chipmunk/Dense2MoE/Activation Concentration/DiffSparse。阅读顺序按科学重叠和证据变化选择，而非要求固定一条算法路线。
+1. 在[PRIMARY_LITERATURE_INDEX.json](PRIMARY_LITERATURE_INDEX.json)保持一个稳定LID，记录论文/版本/一手阅读级别与最强竞争解释，原方法详细内容放独立审计与source ledger。
+2. 在[Graph Bindings](../../agent_protocol/GRAPH_AGENT_BINDINGS.json)定位原生F/G节点，必要时增加新的**方法级LIT/ALG/OPEN节点**及有类型比较边；SOURCE/LIT边不可画成原生已经运行的实线。合成关系更新[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)与[可读图G0–G12](../../../docs/98_端到端计算图与证据注解_20261025.md)。
+3. **仅当新原文改变机制分类、证据资格、在线可用性、真实成本或可区分结论时**，更新[统一综合报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)，避免在所有导航文件再写一遍进度。
+4. 用轻量静态检查确保论文ID唯一、边端点存在、相互链接及权限不被覆盖；数学/数值/视频必须分别有相应来源，不把CI“通过”解释为科学成立。
 
-**当前优先级：原始文献查验与竞争机制分类。** 完整68项记录在[持续维护的文献索引](PRIMARY_LITERATURE_INDEX.json)，研究总图见[Atlas](PRIMARY_LITERATURE_ATLAS.md)，关系见[矩阵](MECHANISM_COMPETITION_MATRIX.md)。
-
-每个paper ID深读时分别填写：原论文及版本、实际阅读章节/图、中心计算方程和前提、方法究竟使用什么已知输入及何时可知、训练/校准类型、online重算/缓存/GEMM与显存成本、原生kernel和真实时延、分项视频指标、失败消融、竞争论文与本项目现有机制的同构/不同，以及能区分两种解释的最低成本观测。
-
-**阅读深度升级**：OFFICIAL_ABSTRACT仅说明已查到作者在摘要报告的机制。只有读过方法和消融才能升级为PAPER_METHOD_CHECKED；只有核对原始可执行实现、commit及数据shape才能升级为CODE_CHECKED；只有真实可绑定Wan模型/输入/硬件RUN才算WAN_NATIVE_VERIFIED。切忌以读过PDF标题代表读完方法，或以参考实现benchmark冒充WanFFN省算。
-
-建议四个并行但独立专题：①直接DiT FFN：RT-Lynx/Chipmunk/Dense2MoE/OBS-Diff/Activation Concentration；②条件复用及四步：DiffSparse/TeaCache/ToCa/HyCa/背景反例；③表征和数学：Geva/superposition/FLAP/SliceGPT/TinyFusion；④物理与评价：GPU稀疏tensor tile/NVFP4、VBench/VMBench、注意力类比的严格转移条件。Agent间可互相质疑，但研究不需要强制收敛到某算法或评分。
-
-**对外声称方式**：PRIMARY PAPER作者结论、已有WAN实验事实、TRANSFER HYPOTHESIS分别书写；对不同模型、步数、双专家、Quant/QDQ、CFG状态给出源代码层面的适用条件。依照AutoResearcher原则提出开放探索和可证伪机制，避免表述变成冗长限制清单。
+对于摘要无法获得的方法，明确记录摘要可支持的结论和进一步要核的公式；正式PDF读取和作者源码核对缺一项时只提升已实际检查的层级。所有原本历史审查文件作为那个时点的真实工作记录保留，现行科学解释由本页引用的综合报告给出。
