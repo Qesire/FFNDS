@@ -46,6 +46,12 @@
 
 三个入口互补；新解释可来自 WARD 查到的相邻理论、其它计算图节点或者独立先例，不以此列举限制创意。
 
+## 新的只读机制检索与静态一致性检查
+
+运行**python tools/graph_agent_bridge.py validate**确认原主图标签、每节点绑定文件、节点证据身份、crosswalk所有M01–M12源节点和L01–L79论文引用以及26条真实登记的比较边；**python tools/graph_agent_bridge.py mechanisms**列出12个研究家族；**python tools/graph_agent_bridge.py mechanism M02**可查看某一理论信息源对应的已知条件与竞争边。**inspect F08R**、**trace I04 F12**只返回当前注册表最短路，不说明条件已证明或模型已执行。
+
+对应[轻量静态测试](../../tests/test_graph_agent_bridge.py)包括已升级为真实NATIVE-OBS的P23/P24、量化SPEC类型、开放函数下游，以及实时G10与G12共同输入有符号信息的索引。此检查只在修改图谱时具有技术一致性价值；运行许可只看ACTIVE。
+
 ## 具体操作（不启动模型）
 
 从仓库根目录使用无第三方依赖的索引工具：
