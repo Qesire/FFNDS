@@ -34,6 +34,34 @@ class StageTests(unittest.TestCase):
             with self.assertRaises(FileNotFoundError):
                 collect(plan, p / "runs")
 
+    def test_custom_image_lookup_matches_official_vbench_prompt_extractor(self):
+        import re
+        with tempfile.TemporaryDirectory() as root:
+            p = Path(root)
+            image = p / "original.png"
+            image.write_bytes(b"actual input")
+            vids = []
+            for i in range(2):
+                v = p / f"clip{i}.mp4"
+                v.write_bytes(f"real separately generated clip{i}".encode())
+                vids.append({"source_id": "s", "variant": "dense", "sample_index": i,
+                             "video_path": str(v)})
+            complete = {"sources": [{"source_id": "s", "image_id": "i",
+                       "prompt": "camera pans left", "image_name": "original.png",
+                       "image_path": str(image)}],
+                        "samples": vids, "mode": "CUSTOM_PAIRED"}
+            stage(complete, [{"prompt_en": "camera pans left",
+                             "image_name": "original.png",
+                             "dimension": ["i2v_subject"]}], p / "staged")
+            videos = sorted((p / "staged/dense/i2v_subject/videos").glob("*.mp4"))
+            photos = list((p / "staged/dense/i2v_subject/images").glob("*"))
+            self.assertEqual(len(videos), 2)
+            self.assertEqual(len(photos), 1)
+            self.assertEqual(photos[0].stem, "camera pans left")
+            for video in videos:
+                key = re.sub(r"-\d+$", "", video.stem)
+                self.assertTrue((photos[0].parent / (key + ".png")).is_file())
+
     def test_staging_requires_exact_original_metadata(self):
         complete = {"sources": [{"source_id": "src", "image_id": "img", "prompt": "p",
                                  "image_name": "p.jpg", "image_path": "/not/read.jpg"}],

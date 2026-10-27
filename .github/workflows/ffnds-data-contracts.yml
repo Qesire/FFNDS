@@ -7,6 +7,8 @@ on:
       - 'tools/ffnds_*'
       - 'tests/test_ffnds_*'
       - 'research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md'
+      - 'research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md'
+      - 'config/calibration_design_v2_20261027.json'
       - '.github/workflows/ffnds-data-contracts.yml'
   workflow_dispatch:
 
@@ -24,11 +26,12 @@ jobs:
           python-version: '3.11'
       - name: Compile concrete experiment code
         run: |
-          python -m py_compile tools/ffnds_experiment_plans.py tools/ffnds_native_geometry.py tools/ffnds_validate_calibration_operands.py tools/ffnds_run_registered_video.py tools/ffnds_stage_registered_i2v.py tools/ffnds_cluster_metric_report.py
+          python -m py_compile tools/ffnds_calibration_design.py tools/ffnds_experiment_plans.py tools/ffnds_native_geometry.py tools/ffnds_validate_calibration_operands.py tools/ffnds_run_registered_video.py tools/ffnds_stage_registered_i2v.py tools/ffnds_cluster_metric_report.py
       - name: Synthetic source, calibration, video and statistics acceptance
         run: |
           python tests/test_ffnds_cohort_preflight.py
           python tests/test_ffnds_experiment_plans.py
+          python tests/test_ffnds_calibration_design.py
           python tests/test_ffnds_native_geometry.py
           python tests/test_ffnds_validate_calibration_operands.py
           python tests/test_ffnds_stage_registered_i2v.py

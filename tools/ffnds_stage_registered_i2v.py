@@ -103,6 +103,7 @@ def stage(complete, original_full_info, output):
         raise FileExistsError("A new evaluation staging directory is required: " + str(root))
     root.mkdir(parents=True)
     names = set()
+    image_bindings = {}
     count = defaultdict(int)
     sources = {s["source_id"]: s for s in complete["sources"]}
     for job in complete["samples"]:
@@ -123,15 +124,24 @@ def stage(complete, original_full_info, output):
                 raise ValueError(f"Official filename collision: {key}")
             names.add(key)
             clip = videos / (basename + ".mp4")
-            image = images / (basename + Path(source["image_name"]).suffix)
+            # VBench custom_input strips only the trailing "-index" from
+            # video names, then searches custom images using exactly "prompt".
+            image = images / (prompt + Path(source["image_name"]).suffix)
+            image_key = (job["variant"], dim, prompt)
+            existing = image_bindings.get(image_key)
+            if existing is not None and (Path(existing).suffix.lower() != image.suffix.lower()
+                                         or not filecmp.cmp(existing, source["image_path"], shallow=False)):
+                raise ValueError("Original VBench prompt maps to multiple distinct conditioning images")
+            image_bindings[image_key] = source["image_path"]
             try:
                 os.link(job["video_path"], clip)
             except OSError:
                 shutil.copyfile(job["video_path"], clip)
-            try:
-                os.link(source["image_path"], image)
-            except OSError:
-                shutil.copyfile(source["image_path"], image)
+            if not image.exists():
+                try:
+                    os.link(source["image_path"], image)
+                except OSError:
+                    shutil.copyfile(source["image_path"], image)
             count[(job["variant"], dim)] += 1
     for (variant, dim), n in count.items():
         save_new(root / variant / dim / "RUN.json",

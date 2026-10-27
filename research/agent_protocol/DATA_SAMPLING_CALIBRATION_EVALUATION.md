@@ -30,6 +30,10 @@
 
 `source_id` 是经数据集版本绑定的语义标识，`image_id` 指向同一原始视觉内容，`conditioning_id` 指输入图像+prompt+裁剪/预处理。历史SHA可继续用于原始RUN内容完整性，本协议新增 manifest 不依赖摘要值推断独立性。确认集 eligibility 由**全部历史拟合/选择/评测暴露**决定；旧disjoint20已被分析，不再是新方法的首次确认集。
 
+## CALIBRATION V2 方法升级
+
+新实验优先以 [CALIBRATION_V2_METHOD_SNAPSHOT](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md) 和 [注册设计](../../config/calibration_design_v2_20261027.json) 描述校准对象、来源×行数配额、状态及停止条件。旧稿中的12×512/24×256/48×128是候选预算，只有真实可得操作数/新拟合/独立视频验证后才能从注册计划转为科研证据。组支持稳定性、联合signed作用、bias、RRR谱、Student轨迹和运动是不同估计对象，数据充分性独立判定。
+
 ## 3. 校准：独立考察来源广度、空间抽样和模型状态
 
 真实 Q1→W1→GELU(tanh)→HiF4 Q2(64→8→4)→W2→e5→后续 flow 是校准语义。每条校准记录包含 `source_id, seed, step, expert, block, source_state, tensor_boundary, grid, sampled_row_ids, n_rows, population_rows, row_draw_id, inclusion_rule, dtype, quantization_revision, operand_locator`；使用与实际学习/部署一致的QDQ、gate、后缀。预先写明只采数值还是用于拟合。

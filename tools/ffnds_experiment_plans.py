@@ -136,7 +136,9 @@ def row_draw(population, rows, *, base_seed, source_index, step, block, state_pa
     return sorted(random.Random(seed).sample(range(population), take)[:rows]), seed
 
 
-def plan_calibration(bank, geometry, *, strata, rows, seed, output):
+def plan_calibration(bank, geometry, *, strata, rows, seed, output, source_state="teacher_input"):
+    if source_state not in ("teacher_input", "student_input"):
+        raise ValueError("Calibrated source_state must be teacher_input or student_input")
     all_sources = source_bank(bank)
     selected = choose(all_sources, "CALIBRATION", parse_strata(strata), seed)
     native_ordinals = {s["source_id"]: s.get("native_source_ordinal") for s in selected}
@@ -165,7 +167,7 @@ def plan_calibration(bank, geometry, *, strata, rows, seed, output):
                                    state_pair=True)
                 result.append({"source_id": s["source_id"], "step": step, "block": block,
                                "expert": "high_noise_model" if step < 2 else "low_noise_model",
-                               "source_state": "teacher_input",
+                               "source_state": source_state,
                                "n_rows": rows, "population_rows": by_geometry[key],
                                "selected_row_ids": ids, "sampling_seed": rs,
                                "inclusion_probability": rows / by_geometry[key],
@@ -173,6 +175,8 @@ def plan_calibration(bank, geometry, *, strata, rows, seed, output):
     value = {"schema": "ffnds.cohort.v1", "mode": "CUSTOM_PAIRED",
              "sources": selected, "samples": [], "calibration": result,
              "phase": "REGISTERED_CALIBRATION_ROW_PLAN",
+             "calibration_input_state": source_state,
+             "draw_protocol": "FFNDS_V2_PYTHON_RANDOM_NESTED; distinct from historical CAL24 NumPy",
              "training_rows_per_position": len(selected) * rows,
              "source_count": len(selected), "rows_per_source_per_position": rows,
              "native_scope_count": len(result), "actual_expert_steps": ["high", "high", "low", "low"]}
@@ -235,6 +239,7 @@ def main():
     a.add_argument("--geometry", required=True, help="JSON list of actually observed source/step/block populations")
     a.add_argument("--strata", required=True)
     a.add_argument("--rows", type=int, required=True)
+    a.add_argument("--source-state", choices=("teacher_input", "student_input"), default="teacher_input")
     a.add_argument("--seed", type=int, default=42)
     a.add_argument("--out", required=True)
     a = sub.add_parser("video-plan")
@@ -258,7 +263,7 @@ def main():
         print(f"Source bank: {len(result['sources'])} records (exposure recorded)")
     elif args.command == "calibration-plan":
         v = plan_calibration(args.bank, args.geometry, strata=args.strata, rows=args.rows,
-                             seed=args.seed, output=args.out)
+                             seed=args.seed, output=args.out, source_state=args.source_state)
         print(f"Calibrated row plan: {v['source_count']} sources × {args.rows} rows × 160 native scopes")
     else:
         v = plan_video(args.bank, role=args.role, strata=args.strata, seed=args.seed,
