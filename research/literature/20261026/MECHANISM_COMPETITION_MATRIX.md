@@ -6,6 +6,8 @@
 
 | 研究机制 | 最强公开先例（LID / 图节点） | 何时可观察、何处产生真实费用 | 反向预测与当前Wan待验证边 |
 |---|---|---|---|
+| **先识别有意义的输出函数（M13）** | JMLR2025 Causal Abstraction L80；ICLR2024 Patching方法L81/幻象L82；CVPR2026 IMAP L84 | 来自已有自由视频、有限P/N/cross与原FFN写回函数的自然条件变化；真实因果定位需额外合法干预 | 语义/频带/SAE线索仅供观察，可能由休眠备份通路解释patch效果；先从behavior定义验收函数身份 |
+| **再定位正常计算结构（M14）** | G0–G5原生Wan SRC；TIDE L83 / 视频时空SAE L85作为可解释表示先例；FFF L53作训练重构对照 | 共享q的W1多行、GELU、HiF4 Q2的64组耦合、W2 signed gate、后续attention/flow和step共同承担或补偿功能 | 区分联合功能与单列“重要性”，建立函数必要性/充分性和physically realizable subgraph后才选量化码/稀疏mask |
 | **冻结FFN有符号函数可预测** | Geva L01/superposition L02；NerVE L50/K10–K12；Prox L69/Q19–20 | preW1 q能读、weight静态统计能离线预处理；postQ2 signed函数是后验标签 | 可能只有W1/GELU后才分辨，或shared Q2 group/跨行相消使单通道不足；验证原gate×W2和整视频 |
 | **FP4有符号直方图与严格区间** | XNOR-Net L77/I13、量化乘积理论 L78/I14；经典重排定理（G12 I04） | 当前激活先Q1才能生成signed histogram；每行每token分组查询/partial-pair读价必须计算 | 单行紧界可能宽，所有行共享输入导致joint vector界不紧；与低位dense相比每组检查可能不划算 |
 | **付费INT4 proxy/MLP预测** | Prox L69/Q19–20；Chipmunk L09/K25；Spark L70/Q21–22 | 代理投影和mask不免费；Prox对LLM SwiGLU的两次proxy分摊到三次selected GEMV | 原Wan是W1/GELU/Q2/W2，不是SwiGLU 3投影；比较不支付proxy的码字证书及实际Q2 group |
