@@ -38,7 +38,7 @@
 
 ## 新实验的具体执行入口
 
-[可执行实验手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)给出真实命令、输入/输出和验收路径。新cohort依次使用 `ffnds_experiment_plans.py`、`ffnds_native_geometry.py`、`ffnds_validate_calibration_operands.py`、`ffnds_run_registered_video.py`、`ffnds_stage_registered_i2v.py` 和 `ffnds_cluster_metric_report.py`。原生模型运行检查活动研究授权及本实验注册的run IDs；校准记录必须携带真实行坐标与操作数header；多样本视频经过逐run完整验证后再交原版VBench。数据和质量主张按各自真实RUN标记，主动给出能够区分机制的下一步，而不是把静态计划写成已测结果。
+[可执行实验手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)给出真实命令、输入/输出和验收路径。新cohort依次使用 `ffnds_experiment_plans.py`、`ffnds_native_geometry.py`、`ffnds_validate_calibration_operands.py`、`ffnds_run_registered_video.py`、`ffnds_stage_registered_i2v.py` 和 `ffnds_cluster_metric_report.py`（seed×sample重复观测→source/prompt等权→独立图像簇等权）。原生模型运行检查活动研究授权及本实验注册的run IDs；校准记录必须携带真实行坐标与操作数header；多样本视频经过逐run完整验证后再交原版VBench。数据和质量主张按各自真实RUN标记，主动给出能够区分机制的下一步，而不是把静态计划写成已测结果。
 
 ## 三、原生证据、论文及真实成本
 
