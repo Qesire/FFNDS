@@ -67,6 +67,7 @@ def validate_design(design):
 def validate_bank(sources):
     errors = []
     source_ids, roles, image_roles = set(), defaultdict(int), defaultdict(set)
+    image_strata = defaultdict(set)
     for s in sources:
         sid, image_id, role = s.get("source_id"), s.get("image_id"), s.get("role")
         if not sid or sid in source_ids:
@@ -78,11 +79,14 @@ def validate_bank(sources):
             errors.append("unregistered data role")
         roles[role] += 1
         image_roles[image_id].add(role)
+        image_strata[image_id].add(s.get("scene_stratum"))
         if role == "FROZEN_CONFIRMATION" and any(s.get("exposure_history", {}).values()):
             errors.append("exposed source cannot be new confirmation")
     for image, members in image_roles.items():
         if len(members) > 1:
             errors.append(f"same image cluster {image} crosses data purposes")
+        if len(image_strata[image]) > 1:
+            errors.append(f"same image cluster {image} occupies incompatible scene strata")
     return errors
 
 

@@ -34,6 +34,10 @@ class CalibrationDesignTests(unittest.TestCase):
         bank["sources"].append({"source_id": "fresh", "image_id": "0",
             "role": "FROZEN_CONFIRMATION", "scene_stratum": "i2v_subject"})
         self.assertEqual(coverage(self.plan, bank)["status"], "INVALID")
+        bank["sources"][-1]["role"] = "CALIBRATION"
+        bank["sources"][-1]["scene_stratum"] = "i2v_background"
+        self.assertIn("incompatible scene strata",
+                      " ".join(coverage(self.plan, bank)["errors"]))
 
     def test_jackknife_support_detects_source_shift(self):
         a = [0.] * 216
