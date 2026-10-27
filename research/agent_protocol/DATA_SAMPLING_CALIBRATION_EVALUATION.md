@@ -52,7 +52,7 @@
 
 ## 5. 资产、预检和Agent执行
 
-新实验登记 `REUSABLE_ASSET_PLAN`：数据切片、原始/抽样状态、行坐标、模型配置、真实run/noise、逐视频指标、统计表、文件索引及历史暴露记录的 producer、shape/units、版本、locator、可复用范围和失效条件。预检时先使用 `python tools/ffnds_cohort_preflight.py --manifest <path>` 检查来源泄漏、视频伪重复、Dense配对、校准坐标及模式身份；它是**静态/文件级预检，不替代官方模型评分**。确认集和 leaderboard 采样为与校准和本地模式发现不同的协议，不能由修改文件名来满足样本数。
+新实验登记 `REUSABLE_ASSET_PLAN`：数据切片、原始/抽样状态、行坐标、模型配置、真实run/noise、逐视频指标、统计表、文件索引及历史暴露记录的 producer、shape/units、版本、locator、可复用范围和失效条件。预检时先使用 `python tools/ffnds_cohort_preflight.py --manifest <path>` 检查来源泄漏、视频伪重复、Dense配对、校准坐标及模式身份；它是**静态/文件级预检，不替代官方模型评分**；即使五个不同 run ID 的样本检查通过，也只证明一个条件的记录一致性，正式VBench-I2V榜单可比性仍须独立核对完整Image Suite、图像处理、九维覆盖、官方权重与汇总。结果中的 `official_comparability_verified=false` 明确标示该边界。确认集和 leaderboard 采样为与校准和本地模式发现不同的协议，不能由修改文件名来满足样本数。
 
 **正向科研提示**：先说现有资料支持的科学发现，接着写可区分的来源/随机性/校准/指标问题；优先调用已有真实数据与成熟实现，选一个最低成本能改变解释的检验。回答固定包含：`观察对象 → 已确认实现 → 竞争解释 → 独立数据单位与分割 → 冻结的计量/判据 → 实际运行状态与资产 → 下一有效行动`。无证据的环节标 `OPEN` 并给出能使其成为证据的具体动作；已有负结果严格限定在被测试的对象和抽样范围。
 

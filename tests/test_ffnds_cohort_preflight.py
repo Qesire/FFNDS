@@ -39,6 +39,11 @@ class CohortTests(unittest.TestCase):
         self.assertEqual(audit(d)["status"], "INVALID")
         self.assertTrue(any("reused run_id" in e for e in audit(d)["errors"]))
 
+    def test_five_samples_are_not_full_official_leaderboard(self):
+        result = audit(dataset("OFFICIAL_I2V_5SAMPLE", 5))
+        self.assertFalse(result["summary"]["official_comparability_verified"])
+        self.assertTrue(any("Image Suite" in x for x in result["warnings"]))
+
     def test_one_video_with_five_aliases_is_not_official(self):
         d = dataset("OFFICIAL_I2V_5SAMPLE", 1)
         self.assertIn("five distinct", " ".join(audit(d)["errors"]))

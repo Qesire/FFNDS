@@ -52,7 +52,9 @@ def audit(data, verify_files=False):
             errors.append(f"previously exposed source {sid} cannot be a fresh confirmation")
     for img, roles in image_roles.items():
         if len(roles) > 1:
-            errors.append(f"image_id {img} is present in multiple data roles: {sorted(roles)}")
+            errors.append(f"image_id {img} is present in multiple data roles: {sorted(map(str, roles))}")
+        elif sum(s.get("image_id") == img for s in by_source.values()) > 1:
+            warnings.append(f"multiple source IDs share image_id {img}; count one independent image cluster")
     observed, by_key, run_scopes, asset_scopes = defaultdict(list), {}, {}, {}
     for i, x in enumerate(samples):
         if not isinstance(x, dict):
@@ -139,13 +141,17 @@ def audit(data, verify_files=False):
             errors.append(f"invalid within-source sampled row coordinates for calibration[{i}]")
         if row.get("source_state") not in ("teacher_input", "student_input"):
             errors.append(f"undefined calibration input-state semantics for calibration[{i}]")
+    if mode == "OFFICIAL_I2V_5SAMPLE":
+        warnings.append("Five-run preflight checks per-condition sampling; full official Image Suite, evaluator versions, dimensions, and leaderboard aggregation require separate verification")
     summary = {
         "source_count": len(by_source),
+        "independent_image_clusters": len(image_roles),
         "source_count_by_role": {role: sum(s.get("role") == role for s in by_source.values()) for role in sorted(ROLES)},
-        "independent_generation_runs": len(run_scopes),
+        "unique_generation_run_ids": len(run_scopes),
         "sample_records": len(samples),
         "calibration_records": len(calibration),
-        "independent_unit": "source_id; seeds are within-source repetitions; FFN positions and rows are nested",
+        "independent_unit": "image_id cluster; source IDs may share image; seeds are within-cluster repetitions; FFN positions/rows nested",
+        "official_comparability_verified": False,
         "sampling_mode": mode,
     }
     return {"status": "PASS" if not errors else "INVALID", "errors": errors, "warnings": warnings, "summary": summary}
