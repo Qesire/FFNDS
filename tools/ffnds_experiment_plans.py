@@ -169,7 +169,7 @@ def plan_calibration(bank, geometry, *, strata, rows, seed, output):
                                "n_rows": rows, "population_rows": by_geometry[key],
                                "selected_row_ids": ids, "sampling_seed": rs,
                                "inclusion_probability": rows / by_geometry[key],
-                               "row_draw_id": f"draw:{seed}:{source_index}:{step}:{block}"})
+                               "row_draw_id": f"draw:{seed}:{native_ordinals[s['source_id']]}:{step}:{block}"})
     value = {"schema": "ffnds.cohort.v1", "mode": "CUSTOM_PAIRED",
              "sources": selected, "samples": [], "calibration": result,
              "phase": "REGISTERED_CALIBRATION_ROW_PLAN",
