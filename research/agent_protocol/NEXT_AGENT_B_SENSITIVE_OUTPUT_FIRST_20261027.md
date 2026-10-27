@@ -3,6 +3,8 @@
 **用户当前指令：下一项新方法研究先从 B 开始。**  
 **状态：NEXT_AGENT_TASK / DISCUSSION_ONLY / NOT_EXECUTED。** 这是一项有限的**下轮优先任务**，不把B变成所有未来Agent的永久唯一方向，也不改变I/F/C科学框架、ACTIVE运行授权、已完成实验或QUEUE的独立评议身份。
 
+**统一五操作术语（更新）**：先读[五操作×I/F/C科学分类](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)和[机器方法映射](METHOD_OPERATION_CROSSWALK.json)。这里用户指定的“B”是**M-B候选（下游敏感函数坐标）**，不是操作分类中的O-B整个函数表示家族。M-B当前为**O-B改变函数表示＋O-E学习/验证目标**，B-Factored/Fused才有可额外讨论的O-D执行改写；不要求加O-A稀疏选择或O-C跨步缓存。Agent如认为O-A/O-C有关键增益，可作为竞争性新候选，但先完成当前M-B数学方法交付。
+
 ## 0. 明确分工和交付
 
 给下一位研究Agent的直接要求：
