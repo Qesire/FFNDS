@@ -2,7 +2,7 @@
 
 **研究定位：2026-10-27** · 从真实视频行为、FFN写回及跨状态差异出发，发现**哪些输出函数值得保持、哪些原生计算结构实际承担它们**。进一步研究联合函数能否共享、重组、预测或更高效求值。此阶段开放多种数学表示和计算机制；量化code、稀疏mask、proxy、cache和训练后结构为后续设计资源。
 
-**原生对象**：LightX2V Wan2.2 I2V A14B，四步蒸馏D-Q、high/high/low/low双专家、40 blocks。主图：[G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md)；[行为/函数/计算结构分别登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)。具体证据与实验权限以[ACTIVE](../ACTIVE_RESEARCH.json)为准；本次为源码、原文、数学和已有结果的研究整理。
+**原生对象**：LightX2V Wan2.2 I2V A14B，四步蒸馏D-Q、high/high/low/low双专家、40 blocks。主图：[G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md)；[行为/函数/计算结构分别登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)；[O/D/Q/P函数定位方法学](G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)与[三张源码/行为定位卡](../agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)。具体证据与实验权限以[ACTIVE](../ACTIVE_RESEARCH.json)为准；本次为源码、原文、数学和已有结果的研究整理。
 
 ## 1. 发现函数：输出具有什么行为作用？
 
