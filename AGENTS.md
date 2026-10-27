@@ -40,6 +40,10 @@
 
 [可执行实验手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)给出真实命令、输入/输出和验收路径。新cohort依次使用 `ffnds_experiment_plans.py`、`ffnds_native_geometry.py`、`ffnds_validate_calibration_operands.py`、`ffnds_run_registered_video.py`、`ffnds_stage_registered_i2v.py` 和 `ffnds_cluster_metric_report.py`（seed×sample重复观测→source/prompt等权→独立图像簇等权）。原生模型运行检查活动研究授权及本实验注册的run IDs；校准记录必须携带真实行坐标与操作数header；多样本视频经过逐run完整验证后再交原版VBench。数据和质量主张按各自真实RUN标记，主动给出能够区分机制的下一步，而不是把静态计划写成已测结果。
 
+## 分目标校准 · 2026-10-27 新实验优先规则
+
+[Calibration V2 数学与实操快照](research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)和[冻结设计](config/calibration_design_v2_20261027.json)定义支持选择、gain/bias、rank256、Student状态、完整视频不同 estimand。对新研究的校准判断以source-cluster有效性和heldout/原生功能证据决定采样扩容，旧24×256是冻结基线预算。先执行 `ffnds_calibration_design.py coverage/diagnose`，数据配额、teacher/student真实坐标和历史暴露依各自新版本注册；缺数据状态保持NOT_MEASURED，提出明确producer。结论从观察到的有价值现象与区分性解释出发，支持、误差和时空视频结论分别定位。
+
 ## 三、原生证据、论文及真实成本
 
 - **原生**：[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md)、[证据优先级](research/EXPERIMENT_EVIDENCE_INDEX.md)、[已有full-flow finite-map](research/20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。source425相同图片prompt跨seed的P/N cross符号改变和部分频带与全域交叉项异号，是函数定位的现实入口。过去的Affine54等候选已经测到局部误差/速度及视频失配，作为有界机制证据保留。

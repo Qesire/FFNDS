@@ -15,6 +15,20 @@ python -m py_compile tools/ffnds_experiment_plans.py tools/ffnds_native_geometry
 
 上述静态与CPU测试仅覆盖协议数学/记录解析；其中聚合测试涵盖同图像多prompt不等重复次数，采样测试涵盖实际抽样与注册身份一致。模型加载、原生HiF4及官方评测须在实际集群环境另作fresh run。
 
+## 校准方法V2的直接命令
+
+方法：[METHOD_SNAPSHOT](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)，设计：[calibration_design_v2_20261027.json](../../config/calibration_design_v2_20261027.json)。
+
+```bash
+python tools/ffnds_calibration_design.py coverage --design config/calibration_design_v2_20261027.json --bank /path/to/new_experiment/source_bank.json --out /path/to/new_experiment/CALIBRATION_COVERAGE.json
+python tools/ffnds_experiment_plans.py calibration-plan --bank /path/to/new_experiment/source_bank.json --geometry /path/to/new_experiment/native_geometry.json --strata i2v_subject:12,i2v_background:12 --rows 256 --source-state teacher_input --out /path/to/new_experiment/C24_teacher.json
+python tools/ffnds_experiment_plans.py calibration-plan --bank /path/to/new_experiment/source_bank.json --geometry /path/to/new_experiment/native_geometry.json --strata i2v_subject:12,i2v_background:12 --rows 256 --source-state student_input --out /path/to/new_experiment/C24_student.json
+# actual native per-source group statistics exist only after native operand capture/derivation:
+python tools/ffnds_calibration_design.py diagnose --statistics /path/to/actual_source_group_statistics.json --keep-groups 54 --bootstrap 500 --out /path/to/new_experiment/SUPPORT_DIAGNOSTIC.json
+```
+
+`coverage` 只证明 source bank 是否具备预设分层配额；实际native操作数和 Student 状态必须由真正捕获并通过校准索引验证。诊断 `ffnds.calibration.source_statistics.v2` 的 `group_energy[216]` 是从原生 gated group contributions 导出、以source/image聚合的非负量；测到的统计仅构成SOURCE_LEVEL_DIAGNOSTICS，不会写出拟合/官方视频已成功的结论。
+
 ## 1. 真实来源库与历史暴露
 
 ```bash
