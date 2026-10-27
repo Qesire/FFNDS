@@ -14,7 +14,7 @@ python tests/test_ffnds_cluster_metric_report.py
 python -m py_compile tools/ffnds_calibration_design.py tools/ffnds_experiment_plans.py tools/ffnds_native_geometry.py tools/ffnds_run_registered_video.py tools/ffnds_stage_registered_i2v.py tools/ffnds_cluster_metric_report.py
 ```
 
-上述静态与CPU测试仅覆盖协议数学/记录解析；其中聚合测试涵盖同图像多prompt不等重复次数，采样测试涵盖实际抽样与注册身份一致。模型加载、原生HiF4及官方评测须在实际集群环境另作fresh run。
+上述静态与CPU测试包含图像簇优先抽样、多prompt配额、重复来源诊断及类型错误的回归控制，仅覆盖协议数学/记录解析；其中聚合测试涵盖同图像多prompt不等重复次数，采样测试涵盖实际抽样与注册身份一致。模型加载、原生HiF4及官方评测须在实际集群环境另作fresh run。
 
 ## 校准方法V2的直接命令
 
@@ -27,6 +27,8 @@ python tools/ffnds_experiment_plans.py calibration-plan --bank /path/to/new_expe
 # actual native per-source group statistics exist only after native operand capture/derivation:
 python tools/ffnds_calibration_design.py diagnose --statistics /path/to/actual_source_group_statistics.json --keep-groups-by-step 54,108,108,162 --bootstrap 500 --out /path/to/new_experiment/SUPPORT_DIAGNOSTIC.json
 ```
+
+`coverage` 按独立image cluster判断每个stratum的候选配额；`calibration-plan` 首先抽取image cluster，再为每簇登记一条明确prompt/source，保持同一冻结bank和seed内12/24/48来源嵌套；新增图像或重分类后建立新cohort，不以旧清单的前缀性质推断跨版本嵌套。正式Image Suite的image-prompt条件选取独立于校准簇配额。
 
 `coverage` 只证明 source bank 是否具备预设分层配额；实际native操作数和 Student 状态必须由真正捕获并通过校准索引验证。诊断 `ffnds.calibration.source_statistics.v2` 的 `group_energy[216]` 是从原生 gated group contributions 导出、以source/image聚合的非负量；测到的统计仅构成SOURCE_LEVEL_DIAGNOSTICS，不会写出拟合/官方视频已成功的结论。
 
