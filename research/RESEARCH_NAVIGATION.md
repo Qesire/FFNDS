@@ -1,5 +1,7 @@
 # FFNDS · 研究导航（2026-10-27）
 
+**G14论文先验反向审计**：[现有M-A/M-B/M-C哪些已经符合、哪些尚未充分使用G14计算图知识](20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)。重点是M-B真实gate/后缀方向的正常作用、GELU/量化后可生成性、时间可预测性与低rank真正省算，另审A0的跨模块/rollout学习和M-C的大M LUT/信息瓶颈。文档提出可核验的E_m/E_j二维反例；新增科学方法约束不改变已有RUN/ACTIVE。
+
 **现行方法论（五种可组合操作）**：[五操作×I/F/C×当前FFNDS方案的完整交叉矩阵](20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，[G14文献操作机器交叉表](agent_protocol/METHOD_OPERATION_CROSSWALK.json)。将论文中的实际动作区分为O-A计算选择、O-B替代函数、O-C跨步历史复用、O-D低位/表/内核代数、O-E校准/蒸馏/因果评测；旧候选统一别名M-A/M-B/M-C，下一位Agent继续以**M-B gate-conditioned敏感坐标**为首项任务。
 
 **2026-10-28最新完成**：[20来源40条原生主对照](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)、[八维质量与连续运动](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)和[全81帧独立缩略图复核](20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)已完成。Consumer成像相对Dense均值−1.38%，但RAFT幅值−83.28%、二值dynamic6/20→0/20；这条固定支持恢复尚未保住完整视频运动。[真实步长的状态增量](20261027/UB1_DISJOINT20_LATENT_INCREMENT_RESULTS_20261027.md)说明大末步原增量主要受步长尺度影响，不能反推原flow。[四位置CAL24来源诊断](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)逐bit复现原C_mean且LOO支持较稳定。下一方法重点按[A/B/C新表示](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)准备等预算6016窄FFN适配，B敏感坐标与C编码求值各自开放。
