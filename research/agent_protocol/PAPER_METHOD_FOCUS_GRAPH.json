@@ -1,12 +1,12 @@
 {
   "schema": "ffnds.paper_method_focus_graph.v2",
   "status": "STATIC_LITERATURE_AND_METHOD_MAPPING_NOT_NATIVE_EXECUTION",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "purpose": "Every indexed paper gets a machine-checkable graph lens: focal native boundary, observed mechanism, decision-time information, physical/training action, transfer discriminator, and reading depth. Does not claim Wan method deployment.",
   "original_graph": "research/agent_protocol/GRAPH_AGENT_BINDINGS.json",
   "primary_index": "research/literature/20261026/PRIMARY_LITERATURE_INDEX.json",
   "existing_family_map": "research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json",
-  "supplemental_scope": "10 independently verified calibration method sources mentioned in FFNDS research beyond the 89-item frozen master index; IDs C01-C10 are separate stable namespace",
+  "supplemental_scope": "10 independently verified calibration sources in separate C01-C10 namespace; original 89-item primary index extended to92 by actual B sensitivity primary-method reading on2026-10-28.",
   "graph_document": "docs/98_端到端计算图与证据注解_20261025.md",
   "focus_nodes": [
     {
@@ -1850,6 +1850,73 @@
         "U09"
       ],
       "source_url": "https://arxiv.org/html/2403.00745v1"
+    },
+    {
+      "id": "L90",
+      "focus_nodes": [
+        "T08",
+        "T09",
+        "T15",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "PRIMARY_ARXIV_V4_METHOD_SECTIONS_2_3_AND_SELECTED_RESULTS_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "State and output-gradient covariances define an oblique projection balancing variability and sensitivity; snapshot cross-covariance SVD yields dual projection bases.",
+      "intervention": "Offline state/adjoint-gradient snapshot sampling, cross-covariance SVD and reduced model construction; no native Wan operator executed.",
+      "decision_time": "Offline after sampling trajectory states and adjoint responses, before reduced model deployment.",
+      "wan_transfer_question": "Bound assumes conditional Gaussian conditions and particular marginal covariances; averaged state/gradient covariance is not an exact same-source gate-conditioned joint suffix objective. Test paired versus shuffled responses and native finite perturbations.",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [
+        "F12",
+        "F13",
+        "U08",
+        "P20"
+      ],
+      "source_url": "https://arxiv.org/html/2207.14387v4"
+    },
+    {
+      "id": "L91",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T14",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "PRIMARY_ARXIV_V2_METHOD_SECTION_4_AND_SELECTED_EXPERIMENTS_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Randomly projected stepwise J^T J metric matching aligns teacher/student local perturbation sensitivity during diffusion-model finetuning.",
+      "intervention": "Train a pruned student with noise prediction, teacher output distillation and projected Jacobian-metric matching; teacher and derivative work are paid offline.",
+      "decision_time": "During post-pruning finetuning on noisy inputs and selected diffusion timesteps.",
+      "wan_transfer_question": "J^T J is a second-order metric, not a Hessian; stepwise metric matching is not an exact multi-step suffix Jacobian, and the image-diffusion evidence does not establish four-step Wan video or HiF4 behavior.",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [
+        "G02",
+        "F13",
+        "G21",
+        "P20"
+      ],
+      "source_url": "https://arxiv.org/html/2506.05398v2"
+    },
+    {
+      "id": "L92",
+      "focus_nodes": [
+        "T12",
+        "T14",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "PRIMARY_ARXIV_V1_METHOD_SECTION_3_AND_SELECTED_EXPERIMENTS_ABLATIONS_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Individually compress each transformer block, rank by generated-set CMMD, allocate projection SVD ranks under a global budget and optionally recover with modular distillation plus rectified-flow training.",
+      "intervention": "Offline probe generated images, construct truncated-SVD projection factors, allocate block ranks and finetune; compare training-free and trained models.",
+      "decision_time": "Offline block probing and rank allocation before optional recovery finetuning and inference.",
+      "wan_transfer_question": "CMMD ranks image-distribution degradation after one-block compression, not a paired local gate-conditioned sensitivity matrix; image-model parameter savings do not establish HiF4 FFN full-video latency or quality.",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [
+        "D09",
+        "G21",
+        "P20"
+      ],
+      "source_url": "https://arxiv.org/html/2609.04646v1"
     }
   ],
   "supplemental_papers": [

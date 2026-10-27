@@ -8,7 +8,7 @@
 
 **科学导航**：[研究导航](../RESEARCH_NAVIGATION.md) · [I/C/F跨机制综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [G13函数定位（F线）](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P专题](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [最小上下文](CURRENT_CONTEXT_PACKET.md) · [阶段入口](E0_STAGE_ANCHOR.md) · [ACTIVE](../ACTIVE_RESEARCH.json)。[2026-10-25首项任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)属于历史过程。
 
-**数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前89篇相关研究、186个稳定节点、397条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
+**数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前92篇相关研究、205个稳定节点、424条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
 
 ## 数据与实验可信度
 
@@ -20,7 +20,7 @@
 
 [FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)按当前三条并行科研路径组织；通用源由[固定AutoResearcher manifest](ACTIVE_SOURCE_MANIFEST.json)绑定，执行[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)和[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)。通过[深度Web原论文/源码协议](DEEP_WEB_RESEARCH.md)持续发现前沿与强先例、读方法、消融及作者实际实现，从机制差异拓展信息、函数与计算的研究空间。
 
-[89篇索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)与[Mechanism Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)记录论文阅读等级和方法竞争；G13主要对照JMLR causal abstraction、ICLR patching与CVPR Video-DiT时空定位，G7–G12提供高效计算/实时系统竞争。
+[92篇索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)与[Mechanism Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)记录论文阅读等级和方法竞争；G13主要对照JMLR causal abstraction、ICLR patching与CVPR Video-DiT时空定位，G7–G12提供高效计算/实时系统竞争。
 
 ## 科研Agent独立讨论
 

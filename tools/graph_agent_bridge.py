@@ -85,7 +85,7 @@ def validate_paper_focus(data):
     papers=lens["paper_links"]; other=lens["supplemental_links"]
     assert len(papers)==spec["primary_papers"]==len(catalogue)
     assert len(other)==len(lens["supplemental_papers"])==spec["supplemental_papers"]
-    assert {p["id"] for p in papers}==set(catalogue), "Main 89 paper IDs must all be linked"
+    assert {p["id"] for p in papers}==set(catalogue), "All indexed primary paper IDs must be linked"
     assert len({p["id"] for p in other})==len(other)
     assert not ({p["id"] for p in other}&set(catalogue))
     additions={p["id"]:p for p in lens["supplemental_papers"]}

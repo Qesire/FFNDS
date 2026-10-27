@@ -4,7 +4,7 @@
 
 以 LightX2V Wan2.2 I2V A14B 四步D-Q为原生证据锚点，沿**信息与表示（I）／函数与动力学（F）／计算与执行（C）**三条互相反馈的研究路径探索。G13是函数因果与承担结构的专题，G7–G12的量化、复用、重构、系统机制也能独立产生新发现。研究路线从现象、数学、源码或性能任一入口开始，见[统一目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-当前索引：**89项相关论文、186个稳定计算图节点、397条类型化关系、14个机制家族**；G13包含27个定位节点；新增保存操作数观察与OPEN后缀分别标注。不同论文的实际阅读层级可在source ledger中逐项追溯。
+当前索引：**92项相关论文、205个稳定计算图节点、424条类型化关系、14个机制家族**；G13包含27个定位节点；新增保存操作数观察与OPEN后缀分别标注。不同论文的实际阅读层级可在source ledger中逐项追溯。
 
 ## 研究入口
 
@@ -14,7 +14,7 @@
 | 定位有意义的FFN输出函数、联合计算结构（F线） | [G13功能发现与结构定位](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P四层定位方法学](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[三张机器定位卡](research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)、[行为/函数/结构登记](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) |
 | 沿真实Wan算子、残差、flow逐坐标追踪 | [G0–G13权威计算图](docs/98_端到端计算图与证据注解_20261025.md)与[Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) |
 | 综合已有实验、竞争机制与原论文 | [FFN科学综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md) |
-| 检索原论文、机制家族与实际源码证据 | [89项文献索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[机制Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)、[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
+| 检索原论文、机制家族与实际源码证据 | [92项文献索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[机制Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)、[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
 | 使用科研Skill与多Agent独立讨论 | [FFNDS领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md)、[AGENTS](AGENTS.md)、[Graph↔Agent协作](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) |
 | 实际研究状态、运行历史和授权 | [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)、[研究导航](research/RESEARCH_NAVIGATION.md) |
 | 数据抽样、校准、生成与评价 | [Calibration V2 方法快照](research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)、[实验Skill](.agents/skills/ffnds-experiment-evidence/SKILL.md)、[可执行手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)、[数据协议](research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) |
@@ -46,6 +46,8 @@
 2026-10-27合并的实验管线提供来源登记、全160位置校准行**计划**、原生操作数索引/文件头核验、注册后Dense/UB1原生视频生成入口、原版VBench分维调用入口，以及图像簇配对统计工具。各环节独立读取真实收据：**计划生成 ≠ 原生操作数已采集或拟合；原版评测函数执行 ≠ 九维完整官方榜单；来源级重采样 ≠ 新的独立来源**。
 
 同一图像簇内先对各source/prompt的seed×sample重复观测求均值，再对source/prompt等权，最后对独立图像簇等权。历史单视频复制五个文件名的VBench结果仍按单次生成的旧协议解释。当前工作与模型执行权限统一以 `research/ACTIVE_RESEARCH.json` 为入口；`research/CURRENT_DECISION.json` 中的早期暂停状态及旧RUN保留为对应阶段的历史记录。CPU静态/统计测试与真实GPU/官方质量运行分别验收。
+
+**2026-10-28 当前推进**：[20来源完整视频与运动结果](research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)显示consumer成像均值约−1.38%、RAFT幅值约−83.28%；[A0四位置6016恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)已获得八份可重载原生Q2窄学生，完整80与自由视频未运行。当前首项为[M-B门控后缀敏感坐标](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)，新末层数学由真实LN/head源码约束，原生有限响应正在准备。
 
 **最新原生判别（不同证据对象）**：[固定R256 consumer](research/20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24来源校准训练内恢复83.01%的局部gate误差；[六条配对视频的八维官方函数结果](research/20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)仅覆盖两条已暴露来源，连续RAFT运动相对neutral部分恢复，仍低于Dense，camera motion未运行；[保存latent有符号几何](research/20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)显示局部纠偏与末步距离增大并存。[A100合成激活2:4比较](research/20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)找到部分更快的预打包乘法布局，在线动态选择、压缩与完整视频收益仍分别验证。该组发现已索引于[研究导航](research/RESEARCH_NAVIGATION.md)。
 

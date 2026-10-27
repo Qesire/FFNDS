@@ -1,3 +1,7 @@
+**M-B首份方法已完成（2026-10-28）**：[gate/suffix敏感坐标快照](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)给出同source配对代理、末层64个head坐标＋均值/范数有限身份及folded/factored真实预算；[独立数学/SRC评议](discoveries/E0/b-sensitive-coordinates-method-independent-review-20261028.md)只支持所绑定版本的推导与分阶段设计。B0状态采集还待代码/资产冻结；该快照不自动成为formal proposal/endorsement，A0四位置pilot完成、full80仅草案。
+
+**P30/I19独立评议**：[6016适配代码审阅](discoveries/E0/compact6016-pilot-independent-code-audit-20261028.md)后已完成[限定四位置原生先导](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)。[B加权投影与配对](discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)由独立Agent推导、root核对反例全斜投影范围；ALG支持不等于模型实验通过。全80新范围仍按ACTIVE单独冻结。
+
 **2026-10-28独立讨论与完成证据**：[20来源视觉review](../20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)、[质量审计](../20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)、[来源能量审计](../20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)均有独立Agent来源；[动作竞争机制提案](discoveries/E0/ub1-disjoint20-motion-mechanism-independent-proposal-20261027.md)把同状态2×2诊断的决策价值与A/B/C新表示区分。[6016适配准备](discoveries/E0/compact6016-adaptation-readiness-20261028.md)为独立SRC/ALG，训练还未执行；[C5结果审计](../20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)是合成GPU观察，不是模型质量。科研讨论标签与ACTIVE运行状态继续分开。
 
 **下一轮方法讨论起点（用户指定，尚非方法提案）**：[B下游敏感函数坐标的下一Agent任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。其首个成果应是独立数学METHOD_SNAPSHOT与可判别的gate/后缀/真实低秩计算对象；是否正式进入下面的proposal/review/endorsement依实际Agent原创提交和独立评议，不以此任务链接自动新增方法行。

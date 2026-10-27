@@ -1,6 +1,6 @@
 # FFNDS · 五种计算方法操作 × I/F/C 科学入口 × 当前候选结构
 
-**2026-10-27 · 统一方法分析法 / METHOD_SNAPSHOT_TAXONOMY / STATIC_ONLY。** 依据用户提出的五操作分类、FFNDS AutoResearcher Skills、[G14 全99项论文到真实计算边的映射](../agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)、[现行I/F/C证据组合](PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)及[独立A/B/C评议](COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)。这是方法分析与下一Agent指引，不是新实验、独立同行认可或ACTIVE执行注册。
+**2026-10-27 · 统一方法分析法 / METHOD_SNAPSHOT_TAXONOMY / STATIC_ONLY。** 依据用户提出的五操作分类、FFNDS AutoResearcher Skills、[G14 全102项论文到真实计算边的映射](../agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)、[现行I/F/C证据组合](PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)及[独立A/B/C评议](COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)。这是方法分析与下一Agent指引，不是新实验、独立同行认可或ACTIVE执行注册。
 
 > **核心原则：先说明算法实际改变哪一项计算，再研究它为什么有效、在线是否省掉物理工作、行为是否得到保留。稀疏（sparsity）是多种方法可能产生的结构或执行结果，不是独立、完备的机制分类。**
 
@@ -42,7 +42,7 @@
 
 ## 3. G14原文先例：同名稀疏方法可能是不同操作组合
 
-**本表按真正的论文动作打标签**，不是给每篇论文一个唯一类别。括号内LID/CID是当前G14/补充论文索引；“外部补充”未伪造冻结89项库的新LID。
+**本表按真正的论文动作打标签**，不是给每篇论文一个唯一类别。括号内LID/CID是当前G14/补充论文索引；“外部补充”未伪造主索引的新LID；2026-10-28经原方法阅读新增L90–L92，主索引现为92项。
 
 | 论文 / G14身份 | 主要操作 | 同时发生的第二操作与具体事实 |
 | --- | --- | --- |

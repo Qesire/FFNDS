@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
-  "updated": "2026-10-27",
-  "status": "G13_FUNCTIONAL_INTERVENTION_PRIMARY_METHODS_89_RESEARCH_ITEMS",
+  "updated": "2026-10-28",
+  "status": "G14_B_SENSITIVITY_PRIMARY_METHODS_92_RESEARCH_ITEMS",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -26,7 +26,10 @@
     "evaluation_hardware": "视频功能评测与低位硬件",
     "surveys": "交叉检索用综述入口",
     "architecture_joint": "联合步数/结构剪枝与路由（少步视频）",
-    "frame_token_step": "帧级/token级时空分配、缓存与代价"
+    "frame_token_step": "帧级/token级时空分配、缓存与代价",
+    "sensitivity_model_reduction": "状态与下游敏感度降阶",
+    "diffusion_sensitivity_recovery": "扩散模型敏感度恢复",
+    "diffusion_projection_compression": "扩散投影压缩与恢复"
   },
   "records": [
     {
@@ -1665,6 +1668,51 @@
       ],
       "graph_method_reference": "research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md",
       "method_source_ledger": "research/literature/20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json"
+    },
+    {
+      "id": "L90",
+      "group": "sensitivity_model_reduction",
+      "title": "Model Reduction for Nonlinear Systems by Balanced Truncation of State and Gradient Covariance",
+      "year": 2023,
+      "venue": "arXiv:2207.14387v4",
+      "url": "https://arxiv.org/html/2207.14387v4",
+      "model": "nonlinear dynamical systems; toy system and axisymmetric jet",
+      "observed_mechanism": "State and output-gradient covariances define an oblique projection balancing variability and sensitivity; snapshot cross-covariance SVD yields dual projection bases.",
+      "decision_time": "Offline after sampling trajectory states and adjoint responses, before reduced model deployment.",
+      "physical_action": "Offline state/adjoint-gradient snapshot sampling, cross-covariance SVD and reduced model construction; no native Wan operator executed.",
+      "training": "Regression is used for learned nonlinear feature models; Petrov-Galerkin is a separate option.",
+      "wan_specific_discriminator": "Bound assumes conditional Gaussian conditions and particular marginal covariances; averaged state/gradient covariance is not an exact same-source gate-conditioned joint suffix objective. Test paired versus shuffled responses and native finite perturbations.",
+      "reading_depth": "PRIMARY_ARXIV_V4_METHOD_SECTIONS_2_3_AND_SELECTED_RESULTS_READ_CODE_NOT_REVIEWED_20261028"
+    },
+    {
+      "id": "L91",
+      "group": "diffusion_sensitivity_recovery",
+      "title": "2ndMatch: Finetuning Pruned Diffusion Models via Second-Order Jacobian Matching",
+      "year": 2026,
+      "venue": "arXiv:2506.05398v2",
+      "url": "https://arxiv.org/html/2506.05398v2",
+      "model": "pruned image diffusion U-Nets and diffusion transformers",
+      "observed_mechanism": "Randomly projected stepwise J^T J metric matching aligns teacher/student local perturbation sensitivity during diffusion-model finetuning.",
+      "decision_time": "During post-pruning finetuning on noisy inputs and selected diffusion timesteps.",
+      "physical_action": "Train a pruned student with noise prediction, teacher output distillation and projected Jacobian-metric matching; teacher and derivative work are paid offline.",
+      "training": "Yes: finetuning with dense teacher and Jacobian-related gradients.",
+      "wan_specific_discriminator": "J^T J is a second-order metric, not a Hessian; stepwise metric matching is not an exact multi-step suffix Jacobian, and the image-diffusion evidence does not establish four-step Wan video or HiF4 behavior.",
+      "reading_depth": "PRIMARY_ARXIV_V2_METHOD_SECTION_4_AND_SELECTED_EXPERIMENTS_READ_CODE_NOT_REVIEWED_20261028"
+    },
+    {
+      "id": "L92",
+      "group": "diffusion_projection_compression",
+      "title": "Importance-Aware Low-Rank Distillation of Diffusion Transformers",
+      "year": 2026,
+      "venue": "arXiv:2609.04646v1",
+      "url": "https://arxiv.org/html/2609.04646v1",
+      "model": "FLUX.dev image diffusion transformer and temporally distilled image model",
+      "observed_mechanism": "Individually compress each transformer block, rank by generated-set CMMD, allocate projection SVD ranks under a global budget and optionally recover with modular distillation plus rectified-flow training.",
+      "decision_time": "Offline block probing and rank allocation before optional recovery finetuning and inference.",
+      "physical_action": "Offline probe generated images, construct truncated-SVD projection factors, allocate block ranks and finetune; compare training-free and trained models.",
+      "training": "Main method uses modular teacher distillation plus rectified-flow finetuning; a separate training-free SVD evaluation is reported.",
+      "wan_specific_discriminator": "CMMD ranks image-distribution degradation after one-block compression, not a paired local gate-conditioned sensitivity matrix; image-model parameter savings do not establish HiF4 FFN full-video latency or quality.",
+      "reading_depth": "PRIMARY_ARXIV_V1_METHOD_SECTION_3_AND_SELECTED_EXPERIMENTS_ABLATIONS_READ_CODE_NOT_REVIEWED_20261028"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -1805,5 +1853,15 @@
       "L88",
       "L89"
     ]
+  },
+  "b_sensitive_coordinate_reading_20261028": {
+    "new_papers": [
+      "L90",
+      "L91",
+      "L92"
+    ],
+    "existing_comparator": "L11",
+    "source_ledger": "research/literature/20261028/B_SENSITIVITY_PRIMARY_SOURCE_LEDGER.json",
+    "reading_scope": "Primary method sections, author code not reviewed; no native execution for these external methods."
   }
 }

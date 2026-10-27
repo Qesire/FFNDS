@@ -1,6 +1,6 @@
 # FFNDS · 科研Agent与真实计算图的双向协作
 
-**科学对象**：并行研究[I信息、F函数动力学、C计算执行](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)是F线专题；[G0–G13源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[机器节点关系](GRAPH_AGENT_BINDINGS.json)和[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)连接所有路线。目前图谱89项文献、177节点、371关系、14机制家族。
+**科学对象**：并行研究[I信息、F函数动力学、C计算执行](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)是F线专题；[G0–G13源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[机器节点关系](GRAPH_AGENT_BINDINGS.json)和[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)连接所有路线。目前图谱92项文献、205节点、424关系、14机制家族。
 
 研究者可从数学信息界、代码结构、执行成本或自然视频作用任一方面生成新的图节点与有类型关系；新I/C机制可直接登记，不需先被解释成既有FUNCTION/STRUCTURE标签。
 
@@ -49,7 +49,7 @@ python tools/graph_agent_bridge.py inspect F08R
 python tools/graph_agent_bridge.py trace G18 P12
 ~~~
 
-validate检查JSON结构、证据文件、节点、89项论文ID、14机制家族和84条跨机制关系；mechanism按家族返回函数/结构及先例；inspect/trace沿登记边检索。结果是科学图谱/条件关系的索引，真实数值、因果作用与性能另由对应证据支持。
+validate检查JSON结构、证据文件、节点、92项论文ID、14机制家族和84条跨机制关系；mechanism按家族返回函数/结构及先例；inspect/trace沿登记边检索。结果是科学图谱/条件关系的索引，真实数值、因果作用与性能另由对应证据支持。
 
 ## 5. 科研状态与记录维护
 
@@ -60,4 +60,4 @@ validate检查JSON结构、证据文件、节点、89项论文ID、14机制家�
 
 ## G14 · 逐论文计算作用注释
 
-原文事实/源码阅读层级继续在 `PRIMARY_LITERATURE_INDEX.json`及各原文ledger维护；G14 `PAPER_METHOD_FOCUS_GRAPH.json`对每篇文献绑定稳定T01–T16 focus、原生Wan锚点、决策时点、具体行动、适用性判别。图G14将所有L01–L89和校准C01–C10逐项落入可读Mermaid图，用`graph_agent_bridge.py paper L34`/`focus T06`进行双向访问。映射边保留LIT，不自动升级成本仓库NATIVE/VIDEO/SYS的执行结果。数据/校准/评测型论文优先进入T01/T02/T16及视频作用边，训练结构方法保留其训练前提与物理算子。
+原文事实/源码阅读层级继续在 `PRIMARY_LITERATURE_INDEX.json`及各原文ledger维护；G14 `PAPER_METHOD_FOCUS_GRAPH.json`对每篇文献绑定稳定T01–T16 focus、原生Wan锚点、决策时点、具体行动、适用性判别。图G14将所有L01–L92和校准C01–C10逐项落入可读Mermaid图，用`graph_agent_bridge.py paper L34`/`focus T06`进行双向访问。映射边保留LIT，不自动升级成本仓库NATIVE/VIDEO/SYS的执行结果。数据/校准/评测型论文优先进入T01/T02/T16及视频作用边，训练结构方法保留其训练前提与物理算子。

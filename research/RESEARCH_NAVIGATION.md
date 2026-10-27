@@ -2,7 +2,9 @@
 
 **现行方法论（五种可组合操作）**：[五操作×I/F/C×当前FFNDS方案的完整交叉矩阵](20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，[G14文献操作机器交叉表](agent_protocol/METHOD_OPERATION_CROSSWALK.json)。将论文中的实际动作区分为O-A计算选择、O-B替代函数、O-C跨步历史复用、O-D低位/表/内核代数、O-E校准/蒸馏/因果评测；旧候选统一别名M-A/M-B/M-C，下一位Agent继续以**M-B gate-conditioned敏感坐标**为首项任务。
 
-**2026-10-28最新完成**：[20来源40条原生主对照](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)、[八维质量与连续运动](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)和[全81帧独立缩略图复核](20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)已完成。Consumer成像相对Dense均值−1.38%，但RAFT幅值−83.28%、二值dynamic6/20→0/20；这条固定支持恢复尚未保住完整视频运动。[真实步长的状态增量](20261027/UB1_DISJOINT20_LATENT_INCREMENT_RESULTS_20261027.md)说明大末步原增量主要受步长尺度影响，不能反推原flow。[四位置CAL24来源诊断](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)逐bit复现原C_mean且LOO支持较稳定。下一方法重点按[A/B/C新表示](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)准备等预算6016窄FFN适配，B敏感坐标与C编码求值各自开放。
+**新表示首个原生结果（P30）**：[四位置6016恢复先导](20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)完成1024次更新、8份可重载BF16学生。相同预算下energy94在8个旧诊断来源的四位置误差为1.06%–2.55%，random94为1.46%–3.65%，尚未跑完整80/两个step或视频。[B条件敏感度配对推导（I19）](method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)证明固定度量的加权投影解与source/state配对的必要边界。A0为NATIVE-OBS强基线、I19为ALG；全80双step仅保留未运行草案。当前优先[M-B方法快照](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)：U28给出末层head坐标与LayerNorm均值/范数的有限身份，先生产同状态原生u，再判别有限响应；具体运行以ACTIVE为准。
+
+**2026-10-28最新完成**：[20来源40条原生主对照](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)、[八维质量与连续运动](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)和[全81帧独立缩略图复核](20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)已完成。Consumer成像相对Dense均值−1.38%，但RAFT幅值−83.28%、二值dynamic6/20→0/20；这条固定支持恢复尚未保住完整视频运动。[真实步长的状态增量](20261027/UB1_DISJOINT20_LATENT_INCREMENT_RESULTS_20261027.md)说明大末步原增量主要受步长尺度影响，不能反推原flow。[四位置CAL24来源诊断](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)逐bit复现原C_mean且LOO支持较稳定。当前按最新用户指引先推进[M-B敏感坐标](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)，A0作为匹配基线、C编码求值保留独立候选。
 
 **P29成本更新**：[C3分项](20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.md)与[C4双后端](20261027/E0_ACTIVATION24_CUTLASS_BACKEND_RESULTS_20261027.md)识别通用转换开销；[C5直接生成packed表示](20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)已消除大部分该开销，完整合成算子相对dense仅剩3.5%/0.7%中位数余量。后续执行研究须关注乘法本体或新的表示。
 
@@ -10,7 +12,7 @@
 
 [I/F/C并行研究路线、方法与证据组合](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)是当前跨路线的统一对照表：G11/G12编码证书、G13函数/流传播、UB1/A5视频运动、UB1与Affine54函数表示、SpTC 2:4与packed低位、轻量后训练，以及Calibration V2的共用数据接口。该表管理**科学对象及下一判别**，不替代方法QUEUE的同行评议或ACTIVE的执行登记。
 
-**研究规模**：89项相关论文、186个计算图节点、397条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
+**研究规模**：92项相关论文、205个计算图节点、424条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
 
 **UB1历史来源对照与开放判别**：[来源级泛化审计](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)保留两批已暴露来源的成像尾部与同源对照；[原M一致性及独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)对应图P26；[匹配恢复及独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)对应P27。后者在12/12探索折上比较支持和消费者；它自身尚无独立确认来源质量证据。后续fixed-RR已完成另两个开发来源的实际完整视频与分维评分（见下文），但不把后续结果回填为这项旧测试当时已经运行；执行状态以ACTIVE为准。
 
@@ -37,7 +39,7 @@
 | **哪些信息/表示能改变真实计算？（I）** | [G11编码信息](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)、[G12编码区间数学](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) | [原生信息与成本比较](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[信息→决策→省算](../docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md) |
 | **哪些输出函数具有视频行为意义？（F）** | [G13函数发现](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) | [历史视频/函数失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)、[多来源signed响应](20261026/E0_SIX_SOURCE_DIRECTIONAL_RESULTS.md)、[交叉seed](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md) |
 | **哪些真实计算子结构承担这些函数？** | [功能/结构索引](agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13主图](../docs/98_端到端计算图与证据注解_20261025.md) | [Wan真实配置/shape](20261022/R12_E0_runtime_reconstruction.json)、[HiF4组尺度反例](20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json)、[全网络finite response](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md) |
-| **哪个先例有不同的科学机制？** | [综合文献研究](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[Crosswalk](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) | [89项论文索引及阅读等级](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[竞争矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[一手阅读指南](literature/20261026/READING_GUIDE.md) |
+| **哪个先例有不同的科学机制？** | [综合文献研究](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[Crosswalk](agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) | [92项论文索引及阅读等级](literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[竞争矩阵](literature/20261026/MECHANISM_COMPETITION_MATRIX.md)、[一手阅读指南](literature/20261026/READING_GUIDE.md) |
 | **实时模型的FFN职责和物理形状如何改变？** | [G10实时视频生成/架构/FFN](literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md) | [真实外部模型/源码账本](literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)、[两线机制衔接](20261027/PARALLEL_FFN_MECHANISM_AND_STREAMING_RESEARCH_BRIEF.md) |
 | **哪些计算或执行结构可独立重组？（C）** | [RT-Lynx真实2:4 activation operand](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)、[G11 FP4信息](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)、[G12编码](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) | [G11 Prox/SpQt/CodeGEMM原文与代码](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ](literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md) |
 | **已有原生结果支持到哪一层？** | [实验发现谱系](EXPERIMENT_FINDINGS_ATLAS.md)、[证据索引](EXPERIMENT_EVIDENCE_INDEX.md) | [原生全深度与视频验收协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)、[保存状态频谱](20261026/E0_SAVED_FLOW_SPECTRUM.md) |
@@ -56,6 +58,6 @@
 
 ## G14 · 全文献逐计算算子入口（2026-10-27）
 
-- [分组计算图G14](../docs/98_端到端计算图与证据注解_20261025.md)：89项主文献与10项补充校准研究均有Mermaid方法图和原生聚焦边界。
+- [分组计算图G14](../docs/98_端到端计算图与证据注解_20261025.md)：92项主文献与10项补充校准研究均有Mermaid方法图和原生聚焦边界。
 - [机器图谱](agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)：逐论文保留原文阅读深度、观察时点、真实行动、迁移判别。
-- `python tools/graph_agent_bridge.py paper L34` / `focus T06` 和 `validate`：分别检查论文、算子聚类及全部99项索引的可见图关系。
+- `python tools/graph_agent_bridge.py paper L34` / `focus T06` 和 `validate`：分别检查论文、算子聚类及全部102项索引的可见图关系。

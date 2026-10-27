@@ -26,3 +26,14 @@
 先到[Graph Bindings](../../agent_protocol/GRAPH_AGENT_BINDINGS.json)找具体 F/G/P/K/S/Q/I 节点；[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) 的M01–M12对每族给出**源节点→最早信息时点→真实计算开销→强比较论文→最小反例**；再读[精确原始论文方法/源码](../20261027/)及[实验谱系](../../EXPERIMENT_FINDINGS_ATLAS.md)。每一条声称性能有效的路径都需绑定同format、同模型/任务、同质量和完整生成/实时系统的物理比较器。
 
 **证据身份必须可定位**：原Wan本地观察不支持外部论文新模型已在本repo运行；作者论文摘要只证明作者报告的结果；原文公式与原生源码检查只提升它们所覆盖的部分。用户暂停的模型/GPU试验不因本矩阵自动恢复。
+
+
+### 2026-10-28 · M-B敏感坐标的原文竞争机制
+
+| LID | 实际方法动作 | 当前Wan判别 |
+|---|---|---|
+| L90 CoBRAS | 离线状态/adjoint协方差平衡，双基斜投影与降阶 | 固定平均代理与同source联合目标何时相同；条件高斯原定理不直接覆盖BF16/QDQ |
+| L91 2ndMatch v2 | 扩散剪枝后，用stepwise JᵀJ随机投影、teacher蒸馏恢复 | 付费导数训练与本项目同state后缀读出/坐标编译分开；不把JᵀJ称Hessian |
+| L92 SVDtrunc | 按单block压缩生成质量分配SVD秩，模块蒸馏＋flow恢复 | 强rank/训练基线；作者图像CMMD与Wan视频、HiF4和整系统成本分开 |
+
+[原方法阅读与未审代码边界](../20261028/B_SENSITIVITY_PRIMARY_SOURCE_LEDGER.json)；全部论文已映射G14。当前[M-B方法](../../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)将末层LN/head作为可控制读出，原生有限响应待采集。

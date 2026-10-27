@@ -1,10 +1,10 @@
 # FFNDS · 文献Agent的一手核读、证据等级与计算图回写契约
 
-> 现行版本：2026-10-27。全部研究记录索引：[89篇唯一论文](PRIMARY_LITERATURE_INDEX.json)；综合机制解释：[现行研究报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；机器关系：[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)。原2026-10-26首批33/51篇是历史检索阶段，而非当前总数。文献研究持续，原生CPU/GPU/模型/视频执行暂停。
+> 现行版本：2026-10-28。全部研究记录索引：[92篇唯一论文](PRIMARY_LITERATURE_INDEX.json)；综合机制解释：[现行研究报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；机器关系：[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)。原2026-10-26首批33/51篇是历史检索阶段，而非当前总数。文献研究持续，有限原生执行由ACTIVE当前登记控制；旧暂停范围保留历史身份。
 
 ## 首要文献辨识：功能意义与承担功能的计算结构
 
-**从真实视频/状态差和原W1/GELU/Q2/W2发现有意义的功能、条件响应与实际承担路径**。论文阅读围绕这些功能结构寻找新的数学对象、相似机制及相反预测，随后比较FP4码、mask、路由、cache等实现路径。新增[L80–L89 功能–因果–时空与干预定位原文](../20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)和[O/D/Q/P方法学](../../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)，以及[G13研究综合](../../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)。语义concept/SAE为函数候选提供观察轴；normal-forward路径、necessity/sufficiency和物理可执行性依次构成有价值的进一步研究问题。当前目录89项，机器图177节点/371关系，14机制家族。
+**从真实视频/状态差和原W1/GELU/Q2/W2发现有意义的功能、条件响应与实际承担路径**。论文阅读围绕这些功能结构寻找新的数学对象、相似机制及相反预测，随后比较FP4码、mask、路由、cache等实现路径。新增[L80–L89 功能–因果–时空与干预定位原文](../20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)和[O/D/Q/P方法学](../../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)，以及[G13研究综合](../../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)。语义concept/SAE为函数候选提供观察轴；normal-forward路径、necessity/sufficiency和物理可执行性依次构成有价值的进一步研究问题。当前目录92项，机器图205节点/424关系，14机制家族。
 
 ## 一个paper ID应回答什么
 

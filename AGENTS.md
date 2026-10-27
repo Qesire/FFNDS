@@ -12,7 +12,7 @@
 
 **基准对象与证据**：LightX2V Wan2.2 I2V A14B 四步D-Q，high/high/low/low，40 blocks；\`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续attention/flow/scheduler/video\`。原QDQ和BF16 GEMM与外部native NVFP4格式分别建立数值/物理比较。历史原生10个source、12条source×seed轨迹、1920个嵌套FFN观测位置，已有真实速度收益和自由视频功能失配的研究资产。
 
-**图谱现状**：89项主文献和10项补充校准研究，202个稳定节点、413条类型化关系，14个既有机制族与G14文献聚焦图。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
+**图谱现状**：92项主文献和10项补充校准研究，205个稳定节点、424条类型化关系，14个既有机制族与G14文献聚焦图。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
 
 ## 一、科学研究的默认语言与思路
 
@@ -53,7 +53,7 @@
 ## 三、原生证据、论文及真实成本
 
 - **原生**：[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md)、[证据优先级](research/EXPERIMENT_EVIDENCE_INDEX.md)、[已有full-flow finite-map](research/20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。source425相同图片prompt跨seed的P/N cross符号改变和部分频带与全域交叉项异号，是函数定位的现实入口。过去的Affine54等候选已经测到局部误差/速度及视频失配，作为有界机制证据保留。
-- **文献**：按[广域原文检索](.agents/skills/web-research-discovery/SKILL.md)探索基础/前沿及相邻论文，核对公式、默认实际源码路径、消融、训练、硬件与任务身份。[89项索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)提供LID和阅读层级，[G14全99论文机制映射](research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)提供算子位置、信息可见时点、真实动作和迁移判别，[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md)和[Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)提供对照。
+- **文献**：按[广域原文检索](.agents/skills/web-research-discovery/SKILL.md)探索基础/前沿及相邻论文，核对公式、默认实际源码路径、消融、训练、硬件与任务身份。[92项索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)提供LID和阅读层级，[G14全102论文机制映射](research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)提供算子位置、信息可见时点、真实动作和迁移判别，[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md)和[Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)提供对照。
 - **机制与代价**：量化code/FP4 signed直方图的理论界（G12）、Prox付费代理、SharQ两路GEMM、CodeGEMM/LUT-GEMM单vector快路、训练后稀疏、step/history cache、实时因果系统都可成为候选的真实实现路径。模型对象、首次信息可用时间、online observer/metadata/cache/packing价格和完整FFN/video成本共同确定其物理意义。
 - **质量与运行时**：[全深度与完整视频质量规则](research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)维护same-source/seed、40层×4步、gate×W2、质量、latency/setup/显存与SHA。独立的正式VBench/人工验收按实际运行标记。外部作者成绩依其自身模型、硬件、任务登记。
 - **静态工具**：\`python tools/graph_agent_bridge.py validate\`检查节点、边、论文、机制家族；\`mechanisms\`、\`mechanism M13\`支持只读索引。静态一致性属于文档/代码协议级证据，数值真实性与视频因果作用仍由相应对象证明。

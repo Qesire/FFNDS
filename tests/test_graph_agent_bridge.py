@@ -16,11 +16,11 @@ class GraphAgentBridgeTests(unittest.TestCase):
 
     def test_full_literature_index_is_linked_to_actual_native_focus_nodes(self):
         result=validate_paper_focus(self.registry)
-        self.assertEqual(result["paper_focus_primary"],89)
+        self.assertEqual(result["paper_focus_primary"],92)
         self.assertEqual(result["paper_focus_supplemental"],10)
         self.assertEqual(result["paper_focus_stages"],16)
         self.assertGreaterEqual(result["paper_to_stage_links"],150)
-        for paper in ("L01","L09","L14","L34","L74","L84","L89","C01","C05","C10"):
+        for paper in ("L01","L09","L14","L34","L74","L84","L89","L90","L91","L92","C01","C05","C10"):
             looked=inspect_paper(self.registry,paper)
             self.assertTrue(looked["native_stage_analogies"])
             self.assertEqual(looked["method_graph"]["source_url"],looked["paper"]["url"])
@@ -128,14 +128,17 @@ class GraphAgentBridgeTests(unittest.TestCase):
         result = validate_crosswalk(self.registry)
         self.assertIsNotNone(crosswalk)
         self.assertEqual(result["mechanism_families"], 14)
-        self.assertEqual(result["primary_papers"], 89)
+        self.assertEqual(result["primary_papers"], 92)
         self.assertEqual(result["crossgraph_comparison_edges"], 84)
-        self.assertEqual(len(self.registry["nodes"]), 202)
-        self.assertEqual(len(self.registry["edges"]), 413)
+        self.assertEqual(len(self.registry["nodes"]), 205)
+        self.assertEqual(len(self.registry["edges"]), 424)
         nodes = {n["id"]: n for n in self.registry["nodes"]}
         self.assertEqual(nodes["I17"]["evidence_type"], "ALG")
         self.assertEqual(nodes["I18"]["evidence_type"], "ALG")
         self.assertEqual(nodes["U27"]["evidence_type"], "NATIVE-OBS")
+        self.assertEqual(nodes["I19"]["evidence_type"], "ALG")
+        self.assertEqual(nodes["U28"]["evidence_type"], "ALG")
+        self.assertEqual(nodes["P30"]["evidence_type"], "NATIVE-OBS")
         self.assertTrue(all(e["edge_type"] == "SCIENTIFIC_COMPARISON_OR_CONDITIONAL"
                             for e in crosswalk["synthesis_edges"]))
         families = {f["id"]: f for f in crosswalk["families"]}

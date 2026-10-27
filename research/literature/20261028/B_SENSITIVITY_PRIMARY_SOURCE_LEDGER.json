@@ -1,0 +1,119 @@
+{
+  "schema": "ffnds.b_sensitivity_primary_source_ledger.v1",
+  "status": "PRIMARY_METHOD_READ_REGISTERED_G14_L90_L92_CODE_NOT_REVIEWED",
+  "date": "2026-10-28",
+  "source_policy": "Primary arXiv HTML method sections read; author code not reviewed; L90-L92 centrally registered and mapped into G14. OBS-Diff remains L11 and is not duplicated.",
+  "records": [
+    {
+      "id": "L90",
+      "group": "sensitivity_model_reduction",
+      "title": "Model Reduction for Nonlinear Systems by Balanced Truncation of State and Gradient Covariance",
+      "year": 2023,
+      "venue": "arXiv:2207.14387v4",
+      "url": "https://arxiv.org/html/2207.14387v4",
+      "model": "nonlinear dynamical systems; toy system and axisymmetric jet",
+      "observed_mechanism": "State and output-gradient covariances define an oblique projection balancing variability and sensitivity; snapshot cross-covariance SVD yields dual projection bases.",
+      "physical_action": "Offline state/adjoint-gradient snapshot sampling, cross-covariance SVD and reduced model construction; no native Wan operator executed.",
+      "decision_time": "Offline after sampling trajectory states and adjoint responses, before reduced model deployment.",
+      "training": "Regression is used for learned nonlinear feature models; Petrov-Galerkin is a separate option.",
+      "wan_specific_discriminator": "Bound assumes conditional Gaussian conditions and particular marginal covariances; averaged state/gradient covariance is not an exact same-source gate-conditioned joint suffix objective. Test paired versus shuffled responses and native finite perturbations.",
+      "reading_depth": "PRIMARY_ARXIV_V4_METHOD_SECTIONS_2_3_AND_SELECTED_RESULTS_READ_CODE_NOT_REVIEWED_20261028",
+      "focus_nodes": [
+        "T08",
+        "T09",
+        "T15",
+        "T16"
+      ],
+      "graph_anchor": [
+        "F12",
+        "F13",
+        "U08",
+        "P20"
+      ],
+      "method_details": {
+        "equations": "Theorem 3: for Wx=XX^T, Wg=YY^T, Y^T X=UΣV^T, Φ=XV_rΣ_r^-1/2, Ψ=YU_rΣ_r^-1/2, P=ΦΨ^T; Gaussian-conditional result bounds expectation by C tr(Wg(I-P)Wx(I-P)^T).",
+        "sampling": "Uses independent zero-mean isotropic output probes to sample projected gradients; state and gradient snapshots provide covariance factors.",
+        "limit": "The bound is not a generic theorem for discrete BF16/QDQ Wan or source-coupled costs."
+      }
+    },
+    {
+      "id": "L91",
+      "group": "diffusion_sensitivity_recovery",
+      "title": "2ndMatch: Finetuning Pruned Diffusion Models via Second-Order Jacobian Matching",
+      "year": 2026,
+      "venue": "arXiv:2506.05398v2",
+      "url": "https://arxiv.org/html/2506.05398v2",
+      "model": "pruned image diffusion U-Nets and diffusion transformers",
+      "observed_mechanism": "Randomly projected stepwise J^T J metric matching aligns teacher/student local perturbation sensitivity during diffusion-model finetuning.",
+      "physical_action": "Train a pruned student with noise prediction, teacher output distillation and projected Jacobian-metric matching; teacher and derivative work are paid offline.",
+      "decision_time": "During post-pruning finetuning on noisy inputs and selected diffusion timesteps.",
+      "training": "Yes: finetuning with dense teacher and Jacobian-related gradients.",
+      "wan_specific_discriminator": "J^T J is a second-order metric, not a Hessian; stepwise metric matching is not an exact multi-step suffix Jacobian, and the image-diffusion evidence does not establish four-step Wan video or HiF4 behavior.",
+      "reading_depth": "PRIMARY_ARXIV_V2_METHOD_SECTION_4_AND_SELECTED_EXPERIMENTS_READ_CODE_NOT_REVIEWED_20261028",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T14",
+        "T16"
+      ],
+      "graph_anchor": [
+        "G02",
+        "F13",
+        "G21",
+        "P20"
+      ],
+      "method_details": {
+        "objective": "Combines noise-prediction loss, teacher-output knowledge distillation and second-order Jacobian-metric matching.",
+        "sampling": "Uses random projections to estimate v^T J^T J v at individual steps instead of tracking a full multi-step Jacobian.",
+        "limit": "Does not establish target-specific motion sensitivity, output direction sign, or full-suffix causal fidelity."
+      }
+    },
+    {
+      "id": "L92",
+      "group": "diffusion_projection_compression",
+      "title": "Importance-Aware Low-Rank Distillation of Diffusion Transformers",
+      "year": 2026,
+      "venue": "arXiv:2609.04646v1",
+      "url": "https://arxiv.org/html/2609.04646v1",
+      "model": "FLUX.dev image diffusion transformer and temporally distilled image model",
+      "observed_mechanism": "Individually compress each transformer block, rank by generated-set CMMD, allocate projection SVD ranks under a global budget and optionally recover with modular distillation plus rectified-flow training.",
+      "physical_action": "Offline probe generated images, construct truncated-SVD projection factors, allocate block ranks and finetune; compare training-free and trained models.",
+      "decision_time": "Offline block probing and rank allocation before optional recovery finetuning and inference.",
+      "training": "Main method uses modular teacher distillation plus rectified-flow finetuning; a separate training-free SVD evaluation is reported.",
+      "wan_specific_discriminator": "CMMD ranks image-distribution degradation after one-block compression, not a paired local gate-conditioned sensitivity matrix; image-model parameter savings do not establish HiF4 FFN full-video latency or quality.",
+      "reading_depth": "PRIMARY_ARXIV_V1_METHOD_SECTION_3_AND_SELECTED_EXPERIMENTS_ABLATIONS_READ_CODE_NOT_REVIEWED_20261028",
+      "focus_nodes": [
+        "T12",
+        "T14",
+        "T16"
+      ],
+      "graph_anchor": [
+        "D09",
+        "G21",
+        "P20"
+      ],
+      "method_details": {
+        "probing": "Compress one block at a time with matched prompts/seeds; use set-level CMMD for rank ordering, not just per-sample LPIPS.",
+        "compression": "Allocate nonuniform block budgets then truncate projection matrices; apply modular teacher distillation and rectified-flow objective for trained method.",
+        "limit": "Reported paper is image generation and parameter budget; no measured Wan I2V full-system result."
+      }
+    }
+  ],
+  "central_sync_contract": {
+    "primary_index": "Add three records L90-L92; update status/count prose and current primary-index contract as applicable.",
+    "focus_graph": "Add three paper_links with exact source_url, review_depth, mechanism, intervention, decision_time and wan_transfer_question matching primary records; proposed focus_nodes and anchors are mappings only.",
+    "bindings": "GRAPH_AGENT_BINDINGS.json paper_method_focus_v2.primary_papers 89→92; retain 16 focus nodes and existing typed edges unless new T nodes are actually added.",
+    "visible_graph": "G14 Mermaid exactly one L90/L91/L92 node each and one literal focus edge per listed target; add corresponding human-readable tables and update 89+10→92+10 counts.",
+    "validator": "graph_agent_bridge.py equality is dynamic, but error string says Main 89; validate all new URL/depth/mechanism/action/time/transfer exact consistency.",
+    "tests": "tests/test_graph_agent_bridge.py asserts 89 at lines 19 and 131: update to 92; paper_to_stage_links lower bound is not exact.",
+    "other_counts": "Review current navigation/skill/AGENTS statements that describe 89 primary/99 combined as current; preserve historical dated original counts and G13 L86–L89 identity.",
+    "graph_semantics": "LIT mapping only, no implied native execution; focus nodes unchanged means native graph node and typed analogue edge counts need not increase."
+  },
+  "central_registration": {
+    "primary_index": "research/literature/20261026/PRIMARY_LITERATURE_INDEX.json",
+    "paper_focus_graph": "research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json",
+    "primary_records": 92,
+    "supplemental_calibration_records": 10,
+    "new_native_model_executions": 0
+  }
+}

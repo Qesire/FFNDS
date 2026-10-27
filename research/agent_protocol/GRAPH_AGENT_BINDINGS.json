@@ -2403,6 +2403,42 @@
         "research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json"
       ],
       "open_question": "Which paper method operates here, what information/time/compute does it require, and what native Wan evidence would discriminate its transfer?"
+    },
+    {
+      "id": "P30",
+      "graph_section": "G5",
+      "meaning": "Ordinary6016 native-Q2 FFN recovery pilot at four teacher-state sites: equal128-step rank32 budgets, train16/exposed heldout8 image clusters. Energy94 and random94 both recover local outputs; energy94 ends lower at all four positions. Eight folded BF16 packs with no online LoRA exported and reloaded.",
+      "availability": "four_nested_step_block_sites_eight_compact_students_no_full80_no_rollout_or_video",
+      "evidence_type": "NATIVE-OBS",
+      "evidence": [
+        "research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.json",
+        "research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md",
+        "research/method_discussion/discoveries/E0/compact6016-pilot-independent-code-audit-20261028.md"
+      ],
+      "open_question": "Does matched recovery extend to all80 shared expert-block FFNs across both steps/expert, then preserve real free-video behavior and lower full-system cost? Local output error is not a motion acceptance gate."
+    },
+    {
+      "id": "I19",
+      "graph_section": "G13",
+      "meaning": "ALG: fixed SPD suffix metric yields optimal weighted rank-r idempotent output projection from G^1/2 C G^1/2. Source/state-dependent metric and covariance require paired statistics; a two-source example makes the marginal-product optimum100x worse than the paired optimum, including all oblique projections.",
+      "availability": "exact_matrix_proof_and_constructed_two_source_counterexample_not_Wan_sensitivity_measurement",
+      "evidence_type": "ALG",
+      "evidence": [
+        "research/method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md"
+      ],
+      "open_question": "Do source/state-paired actual suffix sensitivities expose a stable compilable subspace beyond energy PCA, shuffled pairing and equally trained ordinary compact students? Fixed caller gates at measured CAL24 sites are source-identical; this counterexample does not reject gate-only consumer fitting."
+    },
+    {
+      "id": "U28",
+      "graph_section": "G13",
+      "meaning": "ALG/SRC: terminal block39 LN-modulation-head continuous response is determined by64 head coordinates plus mean and norm. State-dependent rowspace lies in span(Dg T^T,Dg1,Dgz); first-order head-null changes can still act through finite normalization variance.",
+      "availability": "exact_real_valued_fixed_condition_terminal_head_model_with_actual64x5120_head_headers; native_BF16_finite_response_OPEN",
+      "evidence_type": "ALG",
+      "evidence": [
+        "research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md",
+        "research/method_discussion/discoveries/E0/b-final-block-head-source-audit-20261028.md"
+      ],
+      "open_question": "Do full-M byte-equivalent native head replay and finite perturbations validate useful conditional sensitivity coordinates beyond linear head/PCA, at a cost that can be predicted before W1? No shared global66-dimensional basis or video preservation has been measured."
     }
   ],
   "edges": [
@@ -4470,6 +4506,61 @@
       "from": "T16",
       "to": "P20",
       "relation": "literature_focus_mapping_not_native_execution"
+    },
+    {
+      "from": "P27",
+      "to": "P30",
+      "relation": "OBS_distinct_matched_support_and_trainable_compact_recovery"
+    },
+    {
+      "from": "P28",
+      "to": "P30",
+      "relation": "OPEN_motion_failure_motivates_new_trainable_capacity_not_proven_repair"
+    },
+    {
+      "from": "P14",
+      "to": "P30",
+      "relation": "CONDITIONAL_output_function_representation_and_compact_capacity"
+    },
+    {
+      "from": "P30",
+      "to": "D09",
+      "relation": "OPEN_full_model_quality_and_physical_cost"
+    },
+    {
+      "from": "I19",
+      "to": "P23",
+      "relation": "OPEN_paired_suffix_sensitivity_not_reconstructed_from_scalar_trace"
+    },
+    {
+      "from": "I19",
+      "to": "P30",
+      "relation": "OPEN_compile_sensitive_output_coordinates_into_narrow_FFN"
+    },
+    {
+      "from": "P27",
+      "to": "I19",
+      "relation": "CONDITIONAL_fixed_caller_gate_vs_state_dependent_suffix_metric"
+    },
+    {
+      "from": "I19",
+      "to": "U28",
+      "relation": "conditional_source_pairing_requires_actual_state_suffix_metric"
+    },
+    {
+      "from": "U28",
+      "to": "P23",
+      "relation": "native_terminal_state_capture_and_finite_suffix_response_open"
+    },
+    {
+      "from": "U28",
+      "to": "P30",
+      "relation": "sensitive_coordinates_vs_matched_ordinary_compact_baseline_open"
+    },
+    {
+      "from": "U28",
+      "to": "D09",
+      "relation": "terminal_flow_identity_does_not_establish_full_video_quality"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -4937,8 +5028,8 @@
       "U26",
       "U27"
     ],
-    "current_stable_nodes": 186,
-    "current_typed_edges": 397,
+    "current_stable_nodes": 205,
+    "current_typed_edges": 424,
     "current_scope": "I/F/C parallel research: ALG, finite synthetic and saved-operand native evidence; new edges retain exact local/conditional identity."
   },
   "literature_mapping_v7": {
@@ -5088,14 +5179,33 @@
     "activation24_direct_packed_result": "research/20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.json",
     "consumer20_quality_result": "research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.json",
     "legacyCAL24_source_profile": "research/20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.json",
-    "next_representation_proposal": "research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md"
+    "next_representation_proposal": "research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md",
+    "compact_recovery_pilot": "research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.json",
+    "sensitivity_pairing_math": "research/method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md"
   },
   "paper_method_focus_v2": {
     "overlay": "research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json",
-    "primary_papers": 89,
+    "primary_papers": 92,
     "supplemental_papers": 10,
     "focus_nodes": 16,
     "typed_analogical_edges": 16,
     "evidence_status": "LIT_AND_STATIC_MAPPING_ONLY"
+  },
+  "b_sensitive_terminal_coordinates_20261028": {
+    "document": "research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md",
+    "node": "U28",
+    "evidence": "ALG_SRC_NATIVE_STATE_CAPTURE_PENDING",
+    "operations": [
+      "O-B",
+      "O-E"
+    ],
+    "optional_deployment_operation": "O-D; only after factored/fused implementation is tested",
+    "primary_papers": [
+      "L90",
+      "L91",
+      "L92"
+    ],
+    "existing_comparator": "L11",
+    "native_finite_response": "OPEN"
   }
 }
