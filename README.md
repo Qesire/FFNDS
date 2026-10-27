@@ -6,10 +6,23 @@
 
 当前索引：**92项相关论文、205个稳定计算图节点、424条类型化关系、14个机制家族**；G13包含27个定位节点；新增保存操作数观察与OPEN后缀分别标注。不同论文的实际阅读层级可在source ledger中逐项追溯。
 
+## 当前工作入口（2026-10-28）
+
+以[**M-A/M-B/M-C现行整合研究方案 v2**](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为**方法设计的权威入口**；[I/F/C路径与证据组合](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)负责科学路线索引，[五操作O-A～O-E](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)负责可组合计算动作，[G14全论文计算图](research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)与[先验约束机器索引](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)负责数学/源码先例；[ACTIVE](research/ACTIVE_RESEARCH.json)及[方法讨论队列](research/method_discussion/QUEUE.md)分别记录模型运行与真实独立评议。
+
+| 当前方法 | 已有证据 | 最近应完成的具体工作 |
+|---|---|---|
+| **M-A0：普通6016维紧凑FFN** | [4位置×energy94/random94同预算真实Q2恢复pilot](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)，train16 / 暴露heldout8；仍只是teacher-state局部恢复 | 作为M-B/M-C的强比较器，后续需要覆盖全80个函数与完整student自由轨迹 |
+| **M-B：门控/后缀敏感函数（当前优先）** | [同来源联合敏感数学、真实final LN/head 65个连续充分中间统计](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已完成ALG+SRC | [从B0原生post-write u/head/flow producer与neutral重放准备继续](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)，再做B1有限响应，B-H/B-F函数实现保持OPEN |
+| **M-C：编码直接求值** | [输入信息充分性、输出秩和码表大M物理成本的数学模型](research/20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) | 检查真实量化非线性函数的编码冲突与与连续紧凑学生的实际成本比较 |
+
+**来源范围分别记录**：历史原生12条source×seed完整轨迹是特定早期机制研究；后续还有[20来源40条fresh Dense/UB1消费端配对视频](research/20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)和[运动/画质评测](research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)，其20个开发暴露来源不能与旧来源或嵌套token/step计数直接合成“独立确认样本数”。所有新训练和模型任务需冻结实际source级划分、状态、数值及收据。
+
 ## 研究入口
 
 | 研究目标 | 当前资料 |
 |---|---|
+| **现行三方法方案与G14约束** | [统一方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)、[M-B v2](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)、[五操作交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)、[B0/B1任务](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) |
 | **统一目标与三条并行入口** | [研究北极星与I/F/C路径](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)、[现行路线/方法/证据对照](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)、[研究导航](research/RESEARCH_NAVIGATION.md)、[Objective Contract](research/OBJECTIVE_CONTRACT.json) |
 | 定位有意义的FFN输出函数、联合计算结构（F线） | [G13功能发现与结构定位](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P四层定位方法学](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[三张机器定位卡](research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)、[行为/函数/结构登记](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) |
 | 沿真实Wan算子、残差、flow逐坐标追踪 | [G0–G13权威计算图](docs/98_端到端计算图与证据注解_20261025.md)与[Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) |
@@ -31,11 +44,11 @@
 
 原HiF4 Q2带64→8→4共享尺度，原数值实现使用**fake-QDQ + BF16 Linear**；packed NVFP4/MXFP4 GEMM是独立物理比较对象。代表性一次FFN尺寸 \(M=31668,D=5120,H=13824\)，81个最终视频帧对应21个latent时间位置等真实shape须沿源码确认。
 
-已经完成**10个独立source、12条source×seed完整轨迹、1920个嵌套FFN观察位置**。旧候选的局部误差和原生计算速度提供了有用的候选对照，而跨seed signed状态作用、完整dense有限响应与视频背景/光照时序失配指出了**仍需定位的联合输出函数**。正式VBench与人工画质验收使用各自记录的真实状态。
+**早期特定原生机制实验**覆盖10个source、12条source×seed完整轨迹、1920个嵌套FFN观察位置（这是当时的来源范围，并不包括后续consumer20视频集合）。旧候选的局部误差和原生计算速度提供了有用的候选对照，而跨seed signed状态作用、完整dense有限响应与视频背景/光照时序失配指出了**仍需定位的联合输出函数**。正式VBench与人工画质验收使用各自记录的真实状态。
 
 [并行机制证据组合](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)展示四项开放机制、当前已知证据和下一项可区分检验；图谱不预设算法优先级。
 
-**本轮已完成**：[共享输入联合支持与精确投影强比较器](research/20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)、[原M Q2直接/补集数值判别](research/20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)、[W2形状控制](research/20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)。用户要求的[UB1独立全帧复核](research/20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)覆盖两组历史配对；完整视频质量与新方法优势仍按精确范围判断。
+**较早完成的机制证据（按原报告时间解释）**：[共享输入联合支持与精确投影强比较器](research/20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)、[原M Q2直接/补集数值判别](research/20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)、[W2形状控制](research/20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)。用户要求的[UB1独立全帧复核](research/20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)覆盖两组历史配对；完整视频质量与新方法优势仍按精确范围判断。
 
 ## 校准方法与评价管线的实际状态
 
@@ -47,7 +60,7 @@
 
 同一图像簇内先对各source/prompt的seed×sample重复观测求均值，再对source/prompt等权，最后对独立图像簇等权。历史单视频复制五个文件名的VBench结果仍按单次生成的旧协议解释。当前工作与模型执行权限统一以 `research/ACTIVE_RESEARCH.json` 为入口；`research/CURRENT_DECISION.json` 中的早期暂停状态及旧RUN保留为对应阶段的历史记录。CPU静态/统计测试与真实GPU/官方质量运行分别验收。
 
-**2026-10-28 当前推进**：[20来源完整视频与运动结果](research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)显示consumer成像均值约−1.38%、RAFT幅值约−83.28%；[A0四位置6016恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)已获得八份可重载原生Q2窄学生，完整80与自由视频未运行。当前首项为[M-B门控后缀敏感坐标](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)，新末层数学由真实LN/head源码约束，原生有限响应正在准备。
+**2026-10-28 最近已完成并进入现行方案**：[20来源完整视频与运动结果](research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)显示consumer成像均值约−1.38%、RAFT幅值约−83.28%；[A0四位置6016恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)已获得八份可重载原生Q2窄学生，完整80与自由视频未运行。当前首项为[M-B的B0原生post-write采集准备与B1有限响应](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)：LN/head实数充分统计已推导，B0采集及原生有限响应尚未实际完成。
 
 **最新原生判别（不同证据对象）**：[固定R256 consumer](research/20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24来源校准训练内恢复83.01%的局部gate误差；[六条配对视频的八维官方函数结果](research/20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)仅覆盖两条已暴露来源，连续RAFT运动相对neutral部分恢复，仍低于Dense，camera motion未运行；[保存latent有符号几何](research/20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)显示局部纠偏与末步距离增大并存。[A100合成激活2:4比较](research/20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)找到部分更快的预打包乘法布局，在线动态选择、压缩与完整视频收益仍分别验证。该组发现已索引于[研究导航](research/RESEARCH_NAVIGATION.md)。
 
