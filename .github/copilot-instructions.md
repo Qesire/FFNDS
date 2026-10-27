@@ -1,8 +1,5 @@
 # FFNDS · Copilot科学研究默认引导（E0_OPEN_DISCOVERY）
 
-> **一次性修正交接（下一位Agent）**：先完成[修正验收](../research/agent_protocol/ONE_TIME_REPAIR_HANDOFF_20261027.md)；验收后删除该文件、AGENTS/Copilot/Skill中的临时提示，再进入常规I/F/C科研。不是永久阶段门槛。
-
-
 统一科学问题：**视频生成模型如何组织信息、计算与生成行为，怎样在保持完整视频能力时降低真实执行成本？** 可从I（信息与表示）、F（函数与动力学）、C（计算与执行）任意入口研究，G13是F线专题。见[统一目标](../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
 **必读**：[根AGENTS](../AGENTS.md)、[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[研究导航](../research/RESEARCH_NAVIGATION.md)、[跨机制综合](../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[主计算图](../docs/98_端到端计算图与证据注解_20261025.md)及[ACTIVE执行状态](../research/ACTIVE_RESEARCH.json)。F线深入时使用[G13](../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)；旧[第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md)是历史研究阶段的证据来源。
@@ -16,6 +13,6 @@
 5. **评价恰当主张**：机制论文先验证数学/源码/因果范围；执行加速论文另外计量真实FFN+系统成本与独立完整视频质量，严格区分静态图验证、原生运行与外部论文证据。
 6. **独立协作与真实图谱**：经[Graph-Agent协议](../research/agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[讨论队列](../research/method_discussion/QUEUE.md)回写I/F/C任一路线的源节点、ALG/LIT/NATIVE/OPEN关系和独立评议。
 
-**现行事实与权限**：89项文献、177图节点、371关系、14机制族；10个原生source、12条完整轨迹、1920个嵌套FFN观测位置。当前[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)的固定实验批次已完成，新CPU/GPU/模型/视频执行暂停。科研讨论、原文、源码、数学和已有结果分析继续；研究问题及身份在ACTIVE中准确归档。
+**现行事实与权限**：89项文献、177图节点、371关系、14机制族；10个原生source、12条完整轨迹、1920个嵌套FFN观测位置。2026-10-27用户明确恢复持续推进，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra。[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项登记冻结的有限执行范围和实际状态；旧暂停及已完成批次保持历史身份，实时/流式实验未恢复。
 
 **AutoResearcher方法来源**：核心科学Skills来自[固定manifest](../research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，采用[mechanism-research](../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../.agents/skills/problem-reformulation/SKILL.md)及WARD。新回复首先给出**科学发现或构造性解释**，再写方程与真实证据、相反预测和下一条可区分的观察。源级/数学/实验的证据等级紧贴具体命题，而非用长串限定句铺在发现前面。

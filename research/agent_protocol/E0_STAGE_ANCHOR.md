@@ -26,7 +26,7 @@
 
 ## 状态、质量和交接
 
-**当前科学活动**：论文/源码、数学推导、已存证据解释、独立讨论与文档/图谱。**新CPU/GPU/模型/视频原生执行暂停**；先前paired-native固定范围已完成并保存RUN。后续运行需用户明确授权，以[ACTIVE](../ACTIVE_RESEARCH.json)控制。
+**当前科学活动（2026-10-27恢复）**：用户明确要求持续推进I/F/C研究及登记后的有限实验，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra。[ACTIVE](../ACTIVE_RESEARCH.json)控制冻结范围与真实状态；先前paired-native、历史暂停和RUN保持原样，实时/流式实验未恢复。
 
 新模型或视频方法的质量需覆盖40层×4step、自由视频主体/背景/时序表现、same-source/seed比较及实际cost/SLO（见[统一指标协议](VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)）。纯理论和已测观察以各自数学/来源证据交付。
 

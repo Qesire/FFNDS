@@ -31,6 +31,37 @@ def git_blob_sha1(data):
     return hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
 
 
+def current_execution_authority_is_consistent(active):
+    """Accept the historical pause or the specifically evidenced bounded resumption."""
+    authority = active.get("experiment_authority", {})
+    stage = active.get("current_stage", {})
+    g13 = active.get("function_first_structure_localization_20261027", {})
+    if stage.get("new_experiment_authority") != "NONE":
+        return False
+    if authority.get("new_model_experiment_requires_separate_explicit_user_instruction") is True:
+        return (authority.get("all_cpu_gpu_model_experiments") == "PAUSED_BY_EXPLICIT_USER_REQUEST_20261027"
+                and authority.get("explicit_user_resume_required") is True
+                and g13.get("model_execution_authority") == "PAUSED_BY_EXPLICIT_USER_REQUEST_20261027")
+    resume = active.get("user_continuation_authorization_20261027", {})
+    marker = "USER_RESUME_OFFLINE_IFC_20261027; EXACT_REGISTERED_SCOPES_ONLY"
+    return (authority.get("new_model_experiment_requires_separate_explicit_user_instruction") is False
+            and authority.get("all_cpu_gpu_model_experiments") == "USER_RESUMED_EXACT_REGISTERED_SCOPES_ONLY"
+            and authority.get("explicit_user_resume_required") is False
+            and authority.get("current_user_authorization") == "user_continuation_authorization_20261027"
+            and active.get("model_execution_authority") == marker
+            and g13.get("model_execution_authority") == marker
+            and resume.get("id") == "USER_RESUME_OFFLINE_IFC_20261027"
+            and resume.get("date") == "2026-10-27"
+            and isinstance(resume.get("user_instruction"), str)
+            and bool(resume["user_instruction"].strip())
+            and resume.get("status") == "ACTIVE_CURRENT_USER_DIRECTED_SESSION"
+            and type(resume.get("max_simultaneously_assigned_idle_GPUs")) is int
+            and resume.get("max_simultaneously_assigned_idle_GPUs") == 4
+            and resume.get("protocol_code_asset_budget_freeze_before_launch") is True
+            and resume.get("automatic_retry") is False
+            and resume.get("historical_pause_receipts_preserved") is True)
+
+
 def fixed_depth_scope_is_registered(active):
     """A later explicit fixed scope is distinct from standing stage authority."""
     depth = active["current_stage"].get("full_depth_trajectory_analysis", {})
@@ -175,8 +206,7 @@ def main():
            "research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md" and
            g13.get("structured_research_objects") ==
            "research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json" and
-           g13.get("model_execution_authority") ==
-           "PAUSED_BY_EXPLICIT_USER_REQUEST_20261027" and
+           current_execution_authority_is_consistent(active) and
            all((ROOT / g13[key]).is_file() for key in
                ("current_document", "structured_research_objects")),
            "Current function/structure scientific problem is not linked to ACTIVE")
@@ -274,7 +304,8 @@ def main():
     ensure(result["nodes"] >= 20 and result["edges"] >= 18 and
            "GRAPH_AGENT_COLLABORATION.md" in text("AGENTS.md") and
            "GRAPH_AGENT_BINDINGS.json" in text(".agents/skills/ffnds-paper-discovery/SKILL.md") and
-           "graph_annotations/E0/README.md" in text("research/method_discussion/AGENTS.md"),
+           "GRAPH_AGENT_BINDINGS.json" in text("research/method_discussion/AGENTS.md") and
+           "GRAPH_AGENT_COLLABORATION.md" in text("research/method_discussion/AGENTS.md"),
            "Graph Agent registry / multi-agent discovery routing drift")
     # One scientific audit owns current interpretation; original frozen reports
     # and independently authored evidence remain separate primary sources.
@@ -367,7 +398,7 @@ def main():
     ensure("AutoResearcher" in discussion_agents and
            "../agent_protocol/ACTIVE_SOURCE_MANIFEST.json" in discussion_agents and
            "E0_OPEN_DISCOVERY" in discussion_agents and
-           "discoveries/E0/README.md" in discussion_agents and
+           "discoveries/E0/<agent-id>-<phenomenon>.md" in discussion_agents and
            "reviews/<method-id>/vN/<review-id>.json" in discussion_agents,
            "Discussion-scoped AutoResearcher research routes are incomplete")
     for required in ("AGENTS.md", "README.md", "TEMPLATES.md", "QUEUE.md"):
@@ -417,7 +448,7 @@ def main():
     authority = active["experiment_authority"]
     bounded = authority.get("resume_scope", {})
     ensure(authority.get("completed_authorization_is_not_future_permission") is True and
-           authority.get("new_model_experiment_requires_separate_explicit_user_instruction") is True and
+           current_execution_authority_is_consistent(active) and
            authority.get("automatic_followups") is False and
            bounded.get("execution_status") == "COMPLETE" and
            bounded.get("pending_model_jobs") == 0,

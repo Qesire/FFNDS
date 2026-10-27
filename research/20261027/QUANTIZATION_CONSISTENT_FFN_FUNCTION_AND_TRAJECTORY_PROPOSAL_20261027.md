@@ -46,6 +46,8 @@ A_{\mathrm{bank}}q_1(x)+b_{\mathrm{bank}}
 
 来源：[bank构建](../../tools/build_e0_reconstruction_bank.py)、[实际运行hook](../../tools/e0_reconstructed_runtime.py)、[全层匹配对照](../20261026/E0_ALL_BLOCK_RECONSTRUCTION.md)、[六视频原生记录](../20261026/E0_RECONSTRUCTED_VIDEOS.md)、[此前Skill审查](UB1_TO_FFNDS_EVIDENCE_DRIVEN_ROUTE_REASSESSMENT_20261027.md)。
 
+**已完成的相关数值控制**：[W2形状对照](E0_W2_SHAPE_CONTROL_RESULTS.md)在八个原Dense保存条件上，M160有约0.292%差异，恢复原M/row位置则全部输出逐字节复现；[原M D/Q](E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)严格通过Q2和W2基线，保留直接/补集两种作用。该结果支持WP0–1的精确数值边界研究，尚未核对Affine54全部partial bank或解释其视频失败。本方案的H1–H3与A1–A4继续分别保留OPEN。
+
 ## 2. 最重要的三个机制解释及其不同可观察结果
 
 | 假说 | 具体机制 | 区分性预测 | 已有证据状态 |

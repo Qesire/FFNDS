@@ -1,0 +1,53 @@
+{
+  "schema": "ffnds.e0.w2_shape_control.v1",
+  "id": "E0_W2_SHAPE_CONTROL_20261027",
+  "created": "2026-10-27",
+  "purpose": "Separate full-M versus sampled-row W2 numerical behavior using original saved q2 rows. Two shapes, same ordered rows/weights/bias and original matmul default settings; no QDQ or new candidate.",
+  "limits": {
+    "bf16_linear": 16,
+    "qdq": 0,
+    "fp32_projection": 0,
+    "w1": 0,
+    "full_model": 0
+  },
+  "full_rows": 31668,
+  "saved_rows": 160,
+  "old_protocol": {
+    "path": "config/e0_q2_direct_collateral_20261027_v1.json",
+    "sha256": "d182d0e7d7eea7e8be7a1224a6931e0e16f5907c182f53a167c607301b3ff6db"
+  },
+  "old_run": {
+    "path": "ffnds-derived/e0_q2_direct_collateral_20261027/attempt1/RUN.json",
+    "sha256": "c2e23b2a3650c017f7c87daa14c42318f2187df7869c082537dfa8b199b10d29"
+  },
+  "sources": [
+    {
+      "path": "tools/e0_w2_shape_control.py",
+      "sha256": "35b2dbb23488a0499ee8176488dddeb7dd58244e7601b6aacd8d662423035a07"
+    },
+    {
+      "path": "tests/test_e0_w2_shape_control.py",
+      "sha256": "fd82b9eb6e178d06b00530dbe563d0884ab16cc1891d611fdea479f4350b189e"
+    }
+  ],
+  "output": "ffnds-derived/e0_w2_shape_control_20261027/attempt1",
+  "resource_limits": {
+    "simultaneously_assigned_idle_GPUs": 1,
+    "user_GPU_ceiling": 4,
+    "cpu_threads": 2,
+    "wall_seconds": 900,
+    "new_HF_output_bytes": 1048576,
+    "free_disk_reserve_bytes": 10737418240
+  },
+  "controls": "Unknown token rows are zero; measured160 rows occupy their original full-M coordinates. Dense Linear is mathematically independent across rows; compare actual BF16 results at those rows. No original full-state or whole-FFN equivalence is inferred.",
+  "hypotheses": {
+    "H_shape": "If GEMM M/row placement controls the discrepancy, restoring original M and row positions should reduce it or recover byte equality.",
+    "H_other": "If reduced scope still differs, source/config/runtime, captures or precision/layout remain competing explanations."
+  },
+  "source_snapshot_policy": "Reuse and verify all37 immutable previous C02 source snapshots; copy only new tool/test and this protocol. All original eight operands and four weight shards are rehashed.",
+  "automatic_retry": false,
+  "training_updates": 0,
+  "new_videos": 0,
+  "official_scores": 0,
+  "quality_accepted": false
+}

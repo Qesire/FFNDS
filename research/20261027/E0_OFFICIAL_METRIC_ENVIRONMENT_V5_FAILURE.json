@@ -1,0 +1,84 @@
+{
+  "id": "E0_OFFICIAL_I2V_IMPORT_COMPATIBILITY_V5",
+  "status": "FAILED_SCOPE_DEBIT_PRESERVED",
+  "protocol_sha256": "de9ff342f93e0283935fdb4ce2abe8fd563a6dc80b7e79f69d5cd8d16e79c4c8",
+  "raw_run_sha256": "47c38f3dabdf34c7e371f9a53b8627e65a44316e5d80634c041fc6cdde994bf2",
+  "import_result_sha256": "0ce3f7e6690458f18309e2466cefa791f5468b29073780dfc9cf688316ebf864",
+  "attempt_sha256": "cded2ab0f3bca571b1228198dbefd0e589aa79232d1e535414d9856383624d5c",
+  "import_attempt_sha256": "6c10467967ea2b7242770a3f24158c6a83ccf4f6e49f1ac1654778e4153e00fe",
+  "elapsed_seconds": 18.851678542792797,
+  "new_files_bytes": 138929,
+  "completed_official_function_imports": 4,
+  "functions": [
+    {
+      "dimension": "i2v_subject",
+      "module_sha256": "cf29896eddad3478c0ba91073b621d49cc311d8fbca8079d783115a10e0f7a80",
+      "signature": "(json_dir, device, submodules_list, **kwargs)",
+      "module_HF_relative": "derived/ffnds/R17_metric_assets/installed_source_view/vbench2_beta_i2v/i2v_subject.py"
+    },
+    {
+      "dimension": "i2v_background",
+      "module_sha256": "fb5335849590ef49772ca4a064e3925eb68a2aa7b1f1fb70f5c2b206d72ab950",
+      "signature": "(json_dir, device, submodules_list, **kwargs)",
+      "module_HF_relative": "derived/ffnds/R17_metric_assets/installed_source_view/vbench2_beta_i2v/i2v_background.py"
+    },
+    {
+      "dimension": "camera_motion",
+      "module_sha256": "de0b9d9b532ffcdbbd8492aea6be8a6606c0be71fda97fa121cb350d565cf41c",
+      "signature": "(json_dir, device, submodules_list, **kwargs)",
+      "module_HF_relative": "derived/ffnds/R17_metric_assets/installed_source_view/vbench2_beta_i2v/camera_motion.py"
+    },
+    {
+      "dimension": "subject_consistency",
+      "module_sha256": "55f5c9a3e5be543380a709b94712903fa67a76340c3c0cb2414ac090dbd1b78d",
+      "signature": "(json_dir, device, submodules_list, **kwargs)",
+      "module_HF_relative": "derived/ffnds/R17_metric_assets/installed_source_view/vbench/subject_consistency.py"
+    }
+  ],
+  "stateless_activation_wrapper_constructions": 8,
+  "local_font_queries": [
+    {
+      "argv": [
+        "fc-list",
+        "--help"
+      ],
+      "binary": "/usr/bin/fc-list",
+      "binary_sha256": "30ced2d92eb30d217b509070e5b38c5d061294f0e7da93cc2f2a8f4583799422",
+      "font_manager_sha256": "e630f2e5a443227d06af60d9c3f3869cd815ab0c4958742f711e95095f31a868",
+      "exit_status": 0
+    },
+    {
+      "argv": [
+        "fc-list",
+        "--format=%{file}\\n"
+      ],
+      "binary": "/usr/bin/fc-list",
+      "binary_sha256": "30ced2d92eb30d217b509070e5b38c5d061294f0e7da93cc2f2a8f4583799422",
+      "font_manager_sha256": "e630f2e5a443227d06af60d9c3f3869cd815ab0c4958742f711e95095f31a868",
+      "exit_status": 0
+    }
+  ],
+  "denied_attempts": [],
+  "failure": {
+    "current_import": "background_consistency",
+    "error_type": "ModuleNotFoundError",
+    "error": "No module named 'pkg_resources'",
+    "source_chain": "Pinned VBench background_consistency imports pinned CLIP, which imports pkg_resources.packaging. Installed Setuptools no longer provides pkg_resources.",
+    "primary_cause_reference": "https://setuptools.pypa.io/en/stable/history.html#v82-0-0",
+    "next_action": "Use a separately frozen compatible original dependency distribution in an isolated metric environment; preserve generation and completed v2 environments."
+  },
+  "actual_budget": {
+    "checkpoint_loads": 0,
+    "model_constructions": 0,
+    "parameter_creations": 0,
+    "buffer_creations": 0,
+    "model_forwards": 0,
+    "official_scores": 0,
+    "gpu_assignments": 0,
+    "package_installs": 0,
+    "package_network_fetches": 0
+  },
+  "formal_quality_accepted": false,
+  "previous_failures_preserved": true,
+  "reused_environment_metadata_unchanged": true
+}

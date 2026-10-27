@@ -106,8 +106,12 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(result["mechanism_families"], 14)
         self.assertEqual(result["primary_papers"], 89)
         self.assertEqual(result["crossgraph_comparison_edges"], 84)
-        self.assertEqual(len(self.registry["nodes"]), 177)
-        self.assertEqual(len(self.registry["edges"]), 371)
+        self.assertEqual(len(self.registry["nodes"]), 182)
+        self.assertEqual(len(self.registry["edges"]), 381)
+        nodes = {n["id"]: n for n in self.registry["nodes"]}
+        self.assertEqual(nodes["I17"]["evidence_type"], "ALG")
+        self.assertEqual(nodes["I18"]["evidence_type"], "ALG")
+        self.assertEqual(nodes["U27"]["evidence_type"], "NATIVE-OBS")
         self.assertTrue(all(e["edge_type"] == "SCIENTIFIC_COMPARISON_OR_CONDITIONAL"
                             for e in crosswalk["synthesis_edges"]))
         families = {f["id"]: f for f in crosswalk["families"]}
@@ -143,8 +147,17 @@ class GraphAgentBridgeTests(unittest.TestCase):
                            .read_text(encoding="utf-8"))
         self.assertEqual({b["id"] for b in cards["boundaries"]}, {"O","D","Q","P"})
         self.assertEqual({c["id"] for c in cards["cards"]}, {"C01","C02","C03"})
-        self.assertTrue(all(c["status"] == "PROPOSED_NOT_EXECUTED"
-                            for c in cards["cards"]))
+        by_id = {c["id"]: c for c in cards["cards"]}
+        self.assertEqual(by_id["C01"]["status"], "PROPOSED_NOT_EXECUTED")
+        self.assertEqual(by_id["C03"]["status"], "PROPOSED_NOT_EXECUTED")
+        self.assertEqual(by_id["C02"]["status"],
+                         "LOCAL_SAVED_OPERAND_DQ_COMPLETE_SUFFIX_AND_BEHAVIOR_OPEN")
+        local = by_id["C02"]["completed_local_discriminator"]
+        self.assertFalse(local["quality_accepted"])
+        self.assertEqual(local["graph_nodes"], ["U25", "U26", "U27"])
+        observed = json.loads((root / local["result"]).read_text())
+        self.assertEqual(observed["actual_budget"]["full_model_generations"], 0)
+        self.assertEqual(observed["controls"]["strict_BF16_W2_base_bit_patterns_passed"], 8)
         self.assertEqual(cards["resources"]["new_cpu_gpu_model_video_executions"], 0)
         nodes = {n["id"]: n for n in self.registry["nodes"]}
         self.assertEqual(nodes["U19"]["evidence_type"], "OPEN")

@@ -6,7 +6,9 @@
 
 **研究方法**：[领域Skill](../../../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[WARD](../../../agent_protocol/DEEP_WEB_RESEARCH.md)促进从反直觉数据、新数学、实际源码/原论文及执行表现中产生竞争假说。记录精确依赖、证据身份、不同预测和最小判别。历史方法、审阅和原生视频结论保留原始版本。
 
-**当前执行状态**：[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)保留已完成模型范围及质量记录；新CPU/GPU/模型/视频执行暂停。发现目录用于数学、源码、论文和原证据上的科研讨论。
+**当前执行状态**：用户已恢复离线I/F/C持续推进，最多同时四张空卡；[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)登记每个冻结范围及实际状态。原暂停和已完成模型范围作为历史记录保留；实时/流式模型实验仍暂停。
+
+**本轮发现**：[共享排列联合支持与精确投影强对照](../../../20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)完成604有限排列及[独立推导](independent-shared-permutation-functional-bound-review-20261027.md)；[原M Q2直接/补集分解](../../../20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)及[W2形状控制](../../../20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)完成保存操作数研究和[独立复核](independent-q2-direct-collateral-results-audit-20261027.md)。这些分别提供ALG与局部NATIVE-OBS，视频功能和部署优势保留OPEN。
 
 **当前原生证据**：10个独立source身份、12条source×seed完整轨迹、1920个嵌套FFN位置。[cross-seed有符号作用](../../../20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md)、[整步有限状态响应](../../../20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)、[既有视频失配](../../../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)和[HiF4/物理tile](../../../20261025/E0_SHARED_TILE_PRE_W1.md)是研究功能和结构的互补入口。[初始FFN本征研究](../../../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[第一任务](../../../20261025/E0_FFN_FIRST_TASK_20261025.md)与旧A4/N12、SM120研究继续作为精确历史证据。
 
@@ -37,7 +39,7 @@
 **实际 Web 检索与学术关系：** 日期、关键词簇、原论文/代码、最接近机制和区别。
 ```
 
-评价发现的重点是**新增的解释力与可证伪性**。挑战者通过独立论证使科学问题更锐利，整理者根据真实不同作者的记录归纳结果。当前目录用于方法和机理讨论；模型/CPU/GPU 的新增执行由用户另行授权。
+评价发现的重点是**新增的解释力与可证伪性**。挑战者通过独立论证使科学问题更锐利，整理者根据真实不同作者的记录归纳结果。当前目录用于方法和机理讨论；实际新增执行按ACTIVE中当前用户授权逐项登记。
 
 ## 已归档发现
 

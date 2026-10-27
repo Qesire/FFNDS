@@ -2,6 +2,8 @@
 
 > 2026-10-27 · 本文**直接修订原交叉推理稿**，依FFNDS的mechanism-research、research-expansion、problem-reformulation、web-research-discovery及AutoResearcher v2.4准则，使用P7「从重复调参中发现固定假设」重审。结果区分 ALG数学、SRC源码、NATIVE已测、LIT论文及OPEN待判别。现存研究目标是I信息/表示、F函数/动力学、C计算/执行三线并行，科学发现与部署算法可分别成立。没有启动新CPU/GPU模型、训练或视频实验；本次只读既有JSON/CSV与原论文。ACTIVE权限、一次性交接、原始RUN及历史门槛不变。
 
+**后续已完成的实测与构造**：[共享输入联合支持](E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)把第5节的信息种子推进为ALG＋604有限核对，同时给出固定方向精确投影这一强比较器；[原M D/Q](E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)将真实量化直接/补集作用分开并严格复现基线。用户要求的[UB1全帧复核](UB1_INDEPENDENT_VISUAL_REVIEW.md)与[四原视频RAFT补评](UB1_DYNAMIC_DEGREE_RESULTS.md)发现外观保留及运动量差异可并存，原二值对这两对均为0。本段记录后续不同范围，原20/新20聚合、旧RUN及文献分析不覆盖改写；当前逐项授权见ACTIVE。
+
 ## 1. 此次改变了什么理解？
 
 **中心发现**：原Wan视频FFN内**有意义的可变函数、可提前获得的信息、真实可省的物理计算**属于三个不同的对象。后验25%隐藏单元可以解释相当多的同expert变化量（限定的五block相对SSE 2.44–7.07%），却需要覆盖几乎全部原64组和M16/K64 tile；独立组能量选择还可能破坏联合有符号功能；而比原型更好的局部FFN SSE又未保证自由视频保真。由此打开的不只有动态稀疏，而是**新表示/函数重参数/共享计算/量化代数/时序计算**的宽泛空间。

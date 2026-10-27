@@ -4,7 +4,7 @@
 
 [I/F/C机制证据组合与最小判别](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)集成信息界、行为传播、物理算子和训练后职责迁移的竞争解释。它是研究导航，不是实验执行队列。
 
-**研究规模**：89项相关论文、177个计算图节点、371条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。新模型CPU/GPU/视频运行处于暂停状态；当前[ACTIVE](ACTIVE_RESEARCH.json)提供任务和授权身份。
+**研究规模**：89项相关论文、182个计算图节点、381条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
 
 ## 按科研问题选择证据
 
@@ -27,4 +27,4 @@
 4. **按主张升级证据**：机制性数学/因果成果可独立推进；拟发表的加速/视频方法核算真实W1/Q2/W2或整体执行和独立视频质量，按[指标协议](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)检验。
 5. **当前合成**：只有改变认识的跨机制结论进入[综合报告](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)。
 
-**历史与权限**：[早期科学任务](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[2026-10-25第一任务原始记录](20261025/E0_FFN_FIRST_TASK_20261025.md)、[原方法反例](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)继续提供真实的时间点证据；现行ACTIVE统一当前优先级与运行授权。相关模型新执行暂停，科研文献、源码、数学、图谱及已保存证据的解释整理继续推进。
+**历史与权限**：[早期科学任务](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[2026-10-25第一任务原始记录](20261025/E0_FFN_FIRST_TASK_20261025.md)、[原方法反例](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)继续提供真实的时间点证据；现行ACTIVE统一当前优先级与运行授权。用户本轮恢复I/F/C研究及登记后的有限实验；旧暂停和历史RUN保持原样，实时/流式实验未恢复。

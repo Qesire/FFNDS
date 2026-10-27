@@ -1,15 +1,12 @@
 # FFNDS · AutoResearcher 科研Agent默认约定
 
-> **下一位Agent的一次性交接**：先执行[修正验收清单](research/agent_protocol/ONE_TIME_REPAIR_HANDOFF_20261027.md)，验证和修正完成后在收尾提交中删除清单及所有临时入口，再恢复正常I/F/C科研。本提醒不属于长期研究规则或执行授权。
-
-
 **统一科学目标**：发现视频生成FFN中信息、计算与生成行为的组织规律，发展保持完整视频能力、降低真实物理成本的表示和执行机制。**信息与表示（I）、函数与动力学（F）、计算与执行（C）是并行且互相反馈的起点**；科学规律与部署方法可以分别构成成果。详见[统一研究目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
 统一入口：[领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md) · [研究导航](research/RESEARCH_NAVIGATION.md) · [G13函数研究（F线）](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P专题方法](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [G0–G13原生计算图](docs/98_端到端计算图与证据注解_20261025.md) · [跨机制综合](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [ACTIVE状态与授权](research/ACTIVE_RESEARCH.json)。
 
 **基准对象与证据**：LightX2V Wan2.2 I2V A14B 四步D-Q，high/high/low/low，40 blocks；\`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续attention/flow/scheduler/video\`。原QDQ和BF16 GEMM与外部native NVFP4格式分别建立数值/物理比较。历史原生10个source、12条source×seed轨迹、1920个嵌套FFN观测位置，已有真实速度收益和自由视频功能失配的研究资产。
 
-**图谱现状**：89项LID、177个稳定节点、371条类型化关系，14个机制族。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
+**图谱现状**：89项LID、182个稳定节点、381条类型化关系，14个机制族。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
 
 ## 一、科学研究的默认语言与思路
 
@@ -51,6 +48,6 @@
 
 ## 五、当前研究权限与交接
 
-**现阶段**：I/F/C各线的源码、数学、原文、已保存证据复核与科研讨论、图与文档优化继续。**所有新的CPU/GPU/模型/视频实验暂停**，另获用户明确指令后按具体授权范围启动。2026-10-25/26的四GPU预算、dense视频及多来源运行属于已经完成的历史范围；[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)保存真实授权与运行状态。
+**现阶段（2026-10-27用户恢复推进）**：I/F/C科研及登记后的有限CPU/GPU/原生实验继续。用户本轮明确授权持续推进，同时最多使用**四张空闲GPU**；简单委派使用GPT‑6.1 Terra。协调者在运行前冻结具体问题、对照、代码/资产和预算并登记[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)，按实际结果继续下一项有辨别力的工作。旧暂停、已完成范围和失败记录保持历史身份；本轮恢复不自动重跑旧失败，也不扩展实时/流式实验。
 
 交接只需**新机制/功能发现、证据出处、真正分歧、对应图节点、最小后续判别和已完成的原生范围**。历史文档当时的“Next/Active/Run”用于溯源，由现行研究导航与ACTIVE区分当前状态。新研究以构造性内容优先、以真实证据调整确定度。

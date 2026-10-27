@@ -1,0 +1,66 @@
+{
+  "schema": "ffnds.metric.import.compatibility.failure.v1",
+  "id": "E0_OFFICIAL_I2V_IMPORT_COMPATIBILITY_V7",
+  "status": "FAILED_SCOPE_DEBIT_PRESERVED",
+  "protocol": "config/e0_official_metric_environment_20261027_v7.json",
+  "protocol_sha256": "a7b56cfd18c4254fd55ab4a16cade654ddbbffcee852ac9775a8617dbace546b",
+  "raw_HF_relative": "derived/ffnds/E0_official_metric_environment_v7/RUN.json",
+  "raw_sha256": "2d4218e76abae769711d5e56f02ff1a8e7e8060bfc84aa0acde8e0d540f9373e",
+  "import_result_HF_relative": "derived/ffnds/E0_official_metric_environment_v7/IMPORT_RESULT.json",
+  "import_result_sha256": "832d3000666cc655df00348a790500a7254d62f9368da3e415ccb83197e64bde",
+  "import_log_sha256": "f65c694341019ec674a2928af3f47b5df5fd12d5189c2fe9cf500b8cd34daa08",
+  "launcher_exit_code": 1,
+  "actual": {
+    "elapsed_seconds": 91.08602373674512,
+    "new_files_bytes": 4382221,
+    "completed_official_function_imports": 10,
+    "completed_dimensions": [
+      "i2v_subject",
+      "i2v_background",
+      "camera_motion",
+      "subject_consistency",
+      "background_consistency",
+      "motion_smoothness",
+      "dynamic_degree",
+      "aesthetic_quality",
+      "imaging_quality",
+      "temporal_flickering"
+    ],
+    "stateless_activation_wrapper_constructions": 8,
+    "stateless_pool_wrapper_constructions": 1,
+    "denied_attempts": [
+      "CHECKPOINT_FILE_READ"
+    ],
+    "checkpoint_loads": 0,
+    "learned_model_constructions": 0,
+    "parameter_creations": 0,
+    "buffer_creations": 0,
+    "model_forwards": 0,
+    "GPU_assignments": 0,
+    "official_scores": 0,
+    "package_installs": 0,
+    "asset_fetches": 0
+  },
+  "completed_checks": {
+    "all_ten_official_functions_imported": true,
+    "all_four_additional_modules_imported": true,
+    "effective_metadata_closure": true,
+    "compatibility_origins": {
+      "pkg_resources": "setuptools_overlay/pkg_resources/__init__.py",
+      "packaging": "packaging/__init__.py",
+      "vendor": "setuptools_overlay/setuptools/_vendor"
+    },
+    "base_reused_metadata_unchanged": true,
+    "final_overlay_content_verification": "FAILED_AT_TEXT_PTH_HASH_READ_NOT_COMPLETED"
+  },
+  "failure": {
+    "error_type": "RuntimeError",
+    "error": "Import preflight denied: CHECKPOINT_FILE_READ",
+    "source_chain": "import_preflight final verify_overlay -> sha(original wheel member distutils-precedence.pth) -> generic checkpoint suffix read guard",
+    "meaning": "Original .pth text is an overlay package member, not a loaded model checkpoint. It was not executed; final content verification did not complete.",
+    "evidence": "Recorded denial stack points to verify_overlay hash generator after all imports/metadata/module-origin checks; exact original text member in verified wheel."
+  },
+  "automatic_retry": false,
+  "quality_accepted": false,
+  "next_action": "A separately frozen scope may allow only this exact text read from the actual overlay hash-verification code path; all model loaders and general .pth reads remain guarded."
+}

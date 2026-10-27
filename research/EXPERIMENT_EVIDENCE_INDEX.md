@@ -1,3 +1,5 @@
+**2026-10-27当前跟进：** [原M Q2/W2局部干预](20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)、[W2严格形状控制](20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)、[I线联合域有限判别](20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)及[用户要求的UB1全帧复核](20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)分别绑定实际范围。旧排序不替代这些新证据，也不授予执行权；用户恢复后的逐项授权见[ACTIVE](ACTIVE_RESEARCH.json)。
+
 # Experiment file importance — FFNDS
 
 **Current scientific priority, not historical execution authority.** Start with [curated evidence ranking](experiment_evidence/PRIORITY_RANKING.json). Search the [complete experimental file inventory](experiment_evidence/FILE_INVENTORY.json) only when you need a specific source or protocol. The inventory's automated filename roles are **not** a scientific evaluation of unread files.
@@ -40,6 +42,6 @@ Read the structured list for all **28 verified, individually ranked** artifacts,
 1. Read the smallest top-ranked result related to the scientific fork; follow its exact protocol, source hash and original payload locator when a claim depends on reproduction.
 2. Where two results disagree, keep their source populations, horizons, available input state and action operators separate. Compare at matched physical costs and terminal evidence level.
 3. The remaining experimental inventory is ordered by **curated rank first**, then by experimental family/name. Its role classifier is a retrieval aid, not an automatic negative/positive verdict.
-4. [Archive](../ARCHIVE.md) applies to superseded task directives and duplicate handoffs. Native result JSON, frozen protocols, media, raw receipts and independent source metadata stay at original paths. Model experiments and automatic retries remain paused.
+4. [Archive](../ARCHIVE.md) applies to superseded task directives and duplicate handoffs. Native result JSON, frozen protocols, media, raw receipts and independent source metadata stay at original paths. Historical pause receipts remain intact. Current bounded scopes follow the user resumption in ACTIVE; automatic retries remain disabled.
 
 Related: [active research](ACTIVE_RESEARCH.json), [current evidence packet](agent_protocol/CURRENT_CONTEXT_PACKET.md), [academic metrics](../docs/77_FFNDS学术指标族与评测协议_20261023.md).

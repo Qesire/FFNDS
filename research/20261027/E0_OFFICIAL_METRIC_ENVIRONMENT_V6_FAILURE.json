@@ -1,0 +1,69 @@
+{
+  "schema": "ffnds.metric.import.compatibility.failure.v1",
+  "id": "E0_OFFICIAL_I2V_IMPORT_COMPATIBILITY_V6",
+  "status": "FAILED_SCOPE_DEBIT_PRESERVED",
+  "protocol": "config/e0_official_metric_environment_20261027_v6.json",
+  "protocol_sha256": "465bca4337027126e4da0d7fd88614c679bd28d25ee0509ce195c7dac483a31b",
+  "raw_HF_relative": "derived/ffnds/E0_official_metric_environment_v6/RUN.json",
+  "raw_sha256": "9f8fd720efd1b6f4df03fa634391b94d8b7603e4f162993221cfdde356a7cdb3",
+  "import_result_HF_relative": "derived/ffnds/E0_official_metric_environment_v6/IMPORT_RESULT.json",
+  "import_result_sha256": "369a273cce52f0524e8d5feb1ff6dac619d4fd1e264926193394e6c6172e93a7",
+  "import_log_sha256": "501d92a26fc7720434305671049da01d5c86816f0c2ce9ce3c57b90210af31eb",
+  "launcher_exit_code": 1,
+  "actual": {
+    "elapsed_seconds": 124.57637402415276,
+    "new_files_bytes": 4347585,
+    "completed_official_function_imports": 8,
+    "completed_dimensions": [
+      "i2v_subject",
+      "i2v_background",
+      "camera_motion",
+      "subject_consistency",
+      "background_consistency",
+      "motion_smoothness",
+      "dynamic_degree",
+      "aesthetic_quality"
+    ],
+    "stateless_activation_wrapper_constructions": 8,
+    "denied_attempts": [
+      "NN_MODULE_CONSTRUCTION_OUTSIDE_EXACT_ACTIVATION_DEFAULTS"
+    ],
+    "font_query_exit_statuses": [
+      0,
+      0
+    ],
+    "checkpoint_loads": 0,
+    "learned_model_constructions": 0,
+    "parameter_creations": 0,
+    "buffer_creations": 0,
+    "model_forwards": 0,
+    "GPU_assignments": 0,
+    "official_scores": 0,
+    "package_installs": 0,
+    "asset_fetches": 1,
+    "fetched_original_wheel_bytes": 1201486
+  },
+  "failure": {
+    "current_import": "imaging_quality",
+    "error_type": "RuntimeError",
+    "error": "Import preflight denied: NN_MODULE_CONSTRUCTION_OUTSIDE_EXACT_ACTIVATION_DEFAULTS",
+    "source_chain": "imaging_quality -> pyiqa.archs dynamic import -> mad_arch.py:23 global MAX=nn.MaxPool2d((2,2),stride=1,padding=1) -> strict NN module construction guard",
+    "scientific_meaning": "Imports-only guard boundary; no score or algorithm-quality finding."
+  },
+  "compatibility_scope": {
+    "original_setuptools_wheel": {
+      "wheel_HF_relative": "derived/ffnds/metric_dependency_artifacts/setuptools-80.9.0-py3-none-any.whl",
+      "sha256": "062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922",
+      "bytes": 1201486,
+      "max_unpacked_bytes": 104857600
+    },
+    "overlay_manifest_sha256": "a377d5a3f48255b51ab19f817af3ab2e7c98af85bdc25e9c4d58415e4ef49f06",
+    "pkg_resources_missing_error_crossed": true,
+    "effective_metadata_and_final_origin_checks_reached": false,
+    "note": "Pinned CLIP imported through original pkg_resources; later imaging-quality import failed before final effective-metadata/provenance validation. Full overlay compatibility not accepted.",
+    "reused_environment_metadata_unchanged": true
+  },
+  "automatic_retry": false,
+  "quality_accepted": false,
+  "next_action": "Source-only inventory of all pinned pyiqa import-time stateless module defaults before proposing any separately frozen scope."
+}

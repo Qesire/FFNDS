@@ -4,7 +4,7 @@
 
 以 LightX2V Wan2.2 I2V A14B 四步D-Q为原生证据锚点，沿**信息与表示（I）／函数与动力学（F）／计算与执行（C）**三条互相反馈的研究路径探索。G13是函数因果与承担结构的专题，G7–G12的量化、复用、重构、系统机制也能独立产生新发现。研究路线从现象、数学、源码或性能任一入口开始，见[统一目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-当前索引：**89项相关论文、177个稳定计算图节点、371条类型化关系、14个机制家族**；G13包含24个定位节点和58条研究关系。不同论文的实际阅读层级可在source ledger中逐项追溯。
+当前索引：**89项相关论文、182个稳定计算图节点、381条类型化关系、14个机制家族**；G13包含27个定位节点；新增保存操作数观察与OPEN后缀分别标注。不同论文的实际阅读层级可在source ledger中逐项追溯。
 
 ## 研究入口
 
@@ -34,6 +34,8 @@
 
 [并行机制证据组合](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)展示四项开放机制、当前已知证据和下一项可区分检验；图谱不预设算法优先级。
 
+**本轮已完成**：[共享输入联合支持与精确投影强比较器](research/20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)、[原M Q2直接/补集数值判别](research/20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)、[W2形状控制](research/20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)。用户要求的[UB1独立全帧复核](research/20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)覆盖两组历史配对；完整视频质量与新方法优势仍按精确范围判断。
+
 ## 当前科研方向
 
 **I · 信息与表示**：研究何种输入、权重编码、历史状态或时空共享信息在何时可得，以及其获取/使用的净计算价值。G11–G12的signed码、重排界和编码域计算可作为独立数学或算子研究，而非某类mask的附属筛选器。
@@ -56,4 +58,4 @@ python tools/graph_agent_bridge.py mechanism M13
 
 该工具验证节点ID、关系、证据文件和机制索引，提供源图检索。模型数值、因果功能和物理加速各有独立的证据层级。[静态测试](tests/test_graph_agent_bridge.py)与[真实视频完整指标规则](research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)分别服务于图谱可靠性和正式生成评价。
 
-**当前工作权限**：论文原文/作者源码、数学、现有数据与研究文档/图谱分析。**新CPU/GPU/模型/视频执行暂停**，未来原生干预或生成由用户另行明确授权；历史RUN、SHA、先前候选的具体质量结论继续保留在原始材料中。
+**当前工作权限（2026-10-27恢复）**：用户明确要求按最新main持续推进，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra。I/F/C研究及冻结登记后的有限实验由[ACTIVE](research/ACTIVE_RESEARCH.json)统一维护；历史暂停、RUN、SHA和质量结论保持原样，实时/流式实验未恢复。

@@ -1,7 +1,9 @@
 """Pure-static research-entrypoint and historical permission regression tests."""
 import json
+import copy
 from pathlib import Path
 import unittest
+from tools.check_autoresearcher_binding import current_execution_authority_is_consistent
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -45,11 +47,30 @@ class ParallelResearchScopeTests(unittest.TestCase):
         a = load("research/ACTIVE_RESEARCH.json")
         c = load("research/OBJECTIVE_CONTRACT.json")
         self.assertEqual(a["current_stage"]["new_experiment_authority"], "NONE")
-        self.assertIn("PAUSED", a["working_mode"])
+        self.assertTrue(current_execution_authority_is_consistent(a))
         old = c["existing_joint_acceptance"]
         self.assertEqual([old["main_gemm_MAC_fraction_max"],
                           old["complete_original_FFN_speedup_min"],
                           old["per_axis_relative_quality_drop_max"]], [0.5, 1.5, 0.02])
+
+    def test_resume_rejects_missing_instruction_excess_budget_or_unfrozen_scope(self):
+        active = load("research/ACTIVE_RESEARCH.json")
+        self.assertTrue(current_execution_authority_is_consistent(active))
+        for key, value in (("user_instruction", "  "),
+                           ("max_simultaneously_assigned_idle_GPUs", 5),
+                           ("protocol_code_asset_budget_freeze_before_launch", False)):
+            with self.subTest(key=key):
+                changed = copy.deepcopy(active)
+                changed["user_continuation_authorization_20261027"][key] = value
+                self.assertFalse(current_execution_authority_is_consistent(changed))
+
+    def test_historical_pause_remains_valid(self):
+        active = load("research/ACTIVE_RESEARCH.json")
+        active["experiment_authority"]["new_model_experiment_requires_separate_explicit_user_instruction"] = True
+        active["experiment_authority"]["all_cpu_gpu_model_experiments"] = "PAUSED_BY_EXPLICIT_USER_REQUEST_20261027"
+        active["experiment_authority"]["explicit_user_resume_required"] = True
+        active["function_first_structure_localization_20261027"]["model_execution_authority"] = "PAUSED_BY_EXPLICIT_USER_REQUEST_20261027"
+        self.assertTrue(current_execution_authority_is_consistent(active))
 
 if __name__ == "__main__":
     unittest.main()

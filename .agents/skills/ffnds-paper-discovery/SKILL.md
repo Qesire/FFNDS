@@ -3,8 +3,6 @@ name: ffnds-paper-discovery
 description: Apply AutoResearcher science to parallel information, function/dynamics and computation/execution discovery for efficient video FFN research.
 ---
 
-> **一次性交接（仅下一位Agent）**：[先修正并实际验证](../../../research/agent_protocol/ONE_TIME_REPAIR_HANDOFF_20261027.md)，完成后删除该清单及所有临时指针，然后恢复常规I/F/C研究。此提醒非长期Skill步骤。
-
 # FFNDS · Parallel information, function and compute discovery (2026-10-27)
 
 ## 研究对象与可扩展目标
@@ -61,6 +59,6 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 截至2026-10-27，原生覆盖 **10个source身份、12条source×seed轨迹、1920个嵌套FFN位置**。旧候选的局部误差与实际视频失配已有明确观察；G13功能–结构的针对性因果定位仍在探索阶段。
 
-**当前活动**：论文/源码、数学、保存证据阅读、功能与结构整理、图谱/科研Agent讨论。**模型CPU/GPU/视频新执行暂停**，未来需要用户新的明确授权；[ACTIVE_RESEARCH.json](../../../research/ACTIVE_RESEARCH.json)负责最终执行状态。原视频质量结果及每次独立正式评估继续保持真实记录。历史四GPU并发预算属于已经完成的授权范围。
+**当前活动（2026-10-27恢复）**：按用户本轮明确指令持续推进I/F/C研究及冻结登记后的有限实验，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra；[ACTIVE_RESEARCH.json](../../../research/ACTIVE_RESEARCH.json)保存当前范围与真实状态。旧暂停、已完成范围、原视频质量和每次独立评估保持历史身份；实时/流式实验未恢复。
 
 质量/部署论断最终以[统一全深度视频指标协议](../../../research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)的same-source/seed、全40层×4步、gate×W2、完整视频/系统指标和物理成本支持。纯数学与源码研究按其自身证据等级交付，无须为每个探索种子制造完整生成任务。

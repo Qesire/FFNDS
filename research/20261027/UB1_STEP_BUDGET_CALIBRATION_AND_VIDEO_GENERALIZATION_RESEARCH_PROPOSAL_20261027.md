@@ -45,6 +45,8 @@ UB1原配置：
 
 证据：[联合工程RUN](../../reports/worker_20261020/UB1_joint_engineering_acceptance_RUN.json)、[原20 CSV](../../reports/worker_20261020/formal20_UB1_paired_sources.csv)、[新20 CSV](../../reports/worker_20261020/disjoint20_UB1_paired_sources.csv)、[补充20审查](../../docs/29_冻结候选的来源分离补充验证.md)、[R17全系统时延](../20261023/R17E0_system_timing_prefix.json)、[UB2真实失败和完整轨迹](../../docs/38_固定预算下恢复末步完整FFN.md)、[OP3比较](../../docs/46_真实状态重拟合与导入延迟修正.md)。
 
+**当前会话的局部跟进**：[Terra逐帧复核](UB1_INDEPENDENT_VISUAL_REVIEW.md)与[原版运动补评](UB1_DYNAMIC_DEGREE_RESULTS.md)实际覆盖两个已暴露formal20来源、四原视频，光流均值约为dense的38.1%/9.19%，而二值dynamic degree四条均0。它们为外观/运动观察提供补充，保留原20/新20聚合以及WP3独立来源设计的完整范围。
+
 ## 3. 研究机制：五个能够分别修订的假说
 
 ### H-Data：来源覆盖和有效独立样本不足
@@ -152,7 +154,7 @@ R17中的resident dense FFN含modulation约占完整生成19.50%。若非FFN部�
 
 **与并行Affine54方案的关系**：[Affine54/量化一致函数与轨迹研究](QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)关注**函数表示**（仿射+必要非线性）和部署数值；本UB1方案以**已有原数值子组支持+rank补偿**研究校准、预算/step和泛化。两者共享原Wan图、真实video/speed标准、论文工具与信息/传播理论，可互相提供对照，却不要求彼此先完成或采用对方函数结构。
 
-**执行范围**：当前[ACTIVE_RESEARCH](../ACTIVE_RESEARCH.json)为\`E0_OPEN_DISCOVERY_PAUSED_BY_USER\`。WP0–2只涉及现存仓库文档、数学、公开论文与已保存可读证据；WP3–6中任何新CPU模型测量、GPU/视频/训练都等待用户另行明确授权，本文不改变ACTIVE、CI、原历史RUN或[下一Agent一次性交接](../agent_protocol/ONE_TIME_REPAIR_HANDOFF_20261027.md)。静态科研计划完成不是新实验完成，也不预设新的方法验收状态。
+**执行范围**：本方案自身保持OPEN/DISCUSSION_ONLY。用户已在当前会话恢复离线I/F/C持续推进，当前状态及逐项冻结授权以[ACTIVE_RESEARCH](../ACTIVE_RESEARCH.json)为准，最多同时四张空卡；原暂停保留历史身份。WP3–6的具体来源、代码、资产和预算仍须分别冻结登记，本文不派发这些实验。已完成一次性交接已删除，稳定入口为[当前上下文](../agent_protocol/CURRENT_CONTEXT_PACKET.md)；原始RUN、CI及质量验收保持各自身份。
 
 ## 8. 参考入口
 

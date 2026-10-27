@@ -4,7 +4,7 @@
 
 **研究方法**：[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[AutoResearcher机制研究](../../.agents/skills/mechanism-research/SKILL.md)、[扩展探索](../../.agents/skills/research-expansion/SKILL.md)、[问题重构](../../.agents/skills/problem-reformulation/SKILL.md)及[深度论文/源码检索](DEEP_WEB_RESEARCH.md)。科研成果由新的现象/函数/结构、关键数学或源码、竞争解释和可区分预测组成。
 
-**当前状态**：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为科学阶段、模型执行授权、历史RUN和质量身份来源。目前允许阅读源码/文献、数学推导、已保存证据解释、图与文档维护；**新的CPU/GPU/模型/视频实验暂停**。原E0固定实验批次均已完成；此上下文包仅提供科研导航，不建立执行任务。
+**当前状态**：[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为科学阶段、模型执行授权、历史RUN和质量身份来源。2026-10-27用户明确恢复持续推进I/F/C研究及冻结登记后的有限实验，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra。原E0固定批次和历史暂停保持原始身份；此上下文包仅提供导航，具体范围在ACTIVE登记，实时/流式实验未恢复。
 
 ## 真实计算对象
 
@@ -22,6 +22,8 @@
 - **时空/物理结构**：[保存状态频带](../20261026/E0_SAVED_FLOW_SPECTRUM.md)出现不同范围signed cross异号；[全hidden及真实共享tile](../20261025/E0_SHARED_TILE_PRE_W1.md)揭示逐token后验选择与合法GEMM执行单位不同；[HiF4组尺度源码数学](../20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json)说明部分隐藏坐标对其它坐标存在量化尺度依赖。
 
 这些证据定位了具有科学价值的现象与真实计算依赖；具体的FFN行为函数、联合承担路径和compensation机制保留为 G13 FUNCTIONAL-OBS/OPEN/ALG 的可检验研究对象。现有P23/P24为已完成的 **NATIVE-OBS**，具体组件因果归属仍OPEN。
+
+**本轮的新判别**：[共享输入联合支持/精确投影比较器](../20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)为ALG＋604有限排列；[原M Q2直接/补集](../20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)及[W2形状控制](../20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)为保存操作数NATIVE-OBS，未知行填零、无后缀/新视频。用户另要求的[UB1静态全帧复核](../20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)有原视频SHA及三项历史逐视频评分，属于LLM视觉观察。
 
 ## 并行可发展的机制问题
 

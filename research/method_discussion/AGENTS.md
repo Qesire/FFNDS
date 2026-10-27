@@ -25,6 +25,6 @@
 
 **真实研究对象**：LightX2V Wan2.2 I2V A14B四步双expert，已完成10独立source、12条source×seed生成轨迹及1920个嵌套site。source425跨seed有符号P/N交叉项翻转、视频背景/光照失配与物理tile占用等都提供具有信息价值的函数/结构问题。[原生全深度反事实](../20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)已有固定证据。
 
-目前执行科学讨论、源码、原文、数学、保存数据和文档/图谱工作。**新CPU/GPU/模型/视频实验暂停**，任何后续原生干预需用户新授权；旧paired-native v2/v3及其它用户批准的范围已经完成或明确关闭，真实RUN按[ACTIVE](../ACTIVE_RESEARCH.json)保存。
+2026-10-27用户明确恢复持续推进I/F/C研究及登记后的有限实验，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra。协调者在[ACTIVE](../ACTIVE_RESEARCH.json)登记冻结代码、资产、对照和预算后启动；旧paired-native v2/v3、暂停及其它已完成/关闭范围保持历史身份，实时/流式实验未恢复。
 
 **默认交接**：新发现 → 数学/源码来源 → 竞争机制与相反预测 → 最低成本有区分度的下一证据 → 图与函数/结构登记。

@@ -1,4 +1,6 @@
-**外部文献不混入原生实验的最新映射（2026-10-27）：** [G8 15个论文节点与四机制直接对照](literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)；Dense2MoE是训练后的FFN专家及连续MoB而非本Wan原high/low，SVD-Cache在full feature refresh之后复用低能量残差，Chipmunk跨step系数增量，RT-Lynx当前输入N:M。G8全部是LIT，不是本Wan新实测。ACTIVE已完成十来源采集并按用户要求暂停，研究图只提供科学对照和后续待验证关系。
+**2026-10-27本轮I/F/C新证据：** [共享输入联合支持及精确投影比较器](20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)为ALG＋604有限排列；[原M Q2直接/补集](20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)与[W2形状控制](20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)为八条件保存操作数NATIVE-OBS。原M基线恢复全部BF16字节，最大坐标动作的门控FP32补集/直接范数为13.36%–23.63%；未执行后缀或新视频。[UB1全帧静态复核](20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)保持历史基线与本轮新机制的证据区别。用户已恢复离线推进，精确范围及同时最多四张空卡见[ACTIVE](ACTIVE_RESEARCH.json)；下文暂停为此前完成范围的历史状态。
+
+**外部文献不混入原生实验的最新映射（2026-10-27）：** [G8 15个论文节点与四机制直接对照](literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)；Dense2MoE是训练后的FFN专家及连续MoB而非本Wan原high/low，SVD-Cache在full feature refresh之后复用低能量残差，Chipmunk跨step系数增量，RT-Lynx当前输入N:M。G8全部是LIT，不是本Wan新实测。十来源采集完成后的用户暂停为历史记录；外部研究图提供科学对照，当前授权单独看ACTIVE。
 
 # FFNDS · 实验发现谱系、机制分类与对照矩阵
 
