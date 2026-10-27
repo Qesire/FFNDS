@@ -1,10 +1,10 @@
 # FFNDS · 科研Agent与真实计算图的双向协作
 
-**科学对象**：[G13具有行为意义的输出函数与正常前向承担结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [具体O/D/Q/P定位方法](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [C01–C03](FUNCTION_LOCALIZATION_METHOD_CARDS.json)。结合[行为/函数/结构独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)与[机器节点关系](GRAPH_AGENT_BINDINGS.json)进行研究。当前图谱89项文献、177节点、371关系、14机制家族；[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)维护跨机制比较。
+**科学对象**：并行研究[I信息、F函数动力学、C计算执行](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)是F线专题；[G0–G13源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[机器节点关系](GRAPH_AGENT_BINDINGS.json)和[Crosswalk](MECHANISM_GRAPH_CROSSWALK.json)连接所有路线。目前图谱89项文献、177节点、371关系、14机制家族。
 
-研究者可从自然视频行为、数值张力、真实源码或外部数学/论文发现新功能候选和计算关系，再把它落实到实际源图。图谱支持研究的可追溯性，也为新的科学表示留下空间。
+研究者可从数学信息界、代码结构、执行成本或自然视频作用任一方面生成新的图节点与有类型关系；新I/C机制可直接登记，不需先被解释成既有FUNCTION/STRUCTURE标签。
 
-## 1. 从功能意义推进到计算结构
+## 1. 功能定位专题与跨线路回写
 
 **图→Agent**：沿G18→F03/F04→F06→F08R→F09→F12→F13/G21重建当前输入条件、共享q上的多W1行、GELU、HiF4 Q2整组尺度、门控输出及下游真实路径；结合自然视频和跨step/seed的已保存状态变化。
 
@@ -12,7 +12,7 @@
 
 **独立评议→图谱**：另一个Agent核对源码时序、公式和实验身份，对函数的正常计算路径提供支持、具体反例或替代解释；整合者将成熟命题标为SRC/ALG/OBS/NATIVE、原作者LIT或OPEN条件边。函数候选、物理执行单元和后验oracle信息分别登记，便于未来完整因果验证。
 
-**信息与效率**：对已定位功能与结构，再比较G7–G12中的FP4 code/sign、proxy、码本查表、合法group稀疏、cache、step策略或小训练模型。解释信息获取点、物理观察成本以及实际变化的W1/Q2/W2和视频行为。
+**信息与效率（I/C）**：独立比较G7–G12中的FP4 code/sign、proxy、码本查表、合法group稀疏、cache、step策略或小训练模型；G13的已定位功能也可为这些方法提供额外约束。解释信息获取点、物理观察成本以及实际变化的W1/Q2/W2和视频行为。
 
 ## 2. Graph Evidence Packet：足够支持新认识的最小信息
 
@@ -55,4 +55,4 @@ validate检查JSON结构、证据文件、节点、89项论文ID、14机制家�
 
 **当前范围**：原论文/源码、数学、已有证据、函数/结构索引与独立讨论。**新的CPU/GPU/模型/视频执行暂停**；用户未来按[ACTIVE](../ACTIVE_RESEARCH.json)单独授权。历史RUN、质量、SHA与对应失败结论保留原始身份。
 
-当研究发现改变函数或承担结构的认识，依次更新[Function–Structure](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[主图](../../docs/98_端到端计算图与证据注解_20261025.md)与[科学综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；原论文详细方法与阅读等级保留在各自source ledger。好的交接留下**新的科学认识、真实证据、竞争预测和下一条有信息价值的图边**。
+当F线研究发现改变函数或承担结构的认识，按对应命题更新[Function–Structure](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G13](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[主图](../../docs/98_端到端计算图与证据注解_20261025.md)与[科学综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；I/C线的新表示、算子和成本结构可直接更新Graph Bindings与Crosswalk。原论文详细方法与阅读等级保留在各自source ledger。好的交接留下**新的科学认识、真实证据、竞争预测和下一条有信息价值的图边**。

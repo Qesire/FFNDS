@@ -1,38 +1,41 @@
 ---
 name: ffnds-paper-discovery
-description: Apply AutoResearcher science to locate meaningful video-FFN output functions, identify their actual computation structures, and develop evidence-grounded efficiency ideas.
+description: Apply AutoResearcher science to parallel information, function/dynamics and computation/execution discovery for efficient video FFN research.
 ---
 
-# FFNDS · Function-led scientific discovery (2026-10-27)
+# FFNDS · Parallel information, function and compute discovery (2026-10-27)
 
 ## 研究对象与可扩展目标
 
-本项目的科学目标：**发现视频生成FFN中具有行为意义的输出函数及其实际计算承担结构，研究这些结构如何以更低的真实计算成本实现，同时保持完整视频功能**。探索以问题与真实证据驱动，允许从新数学、新论文、视频现象或源码异常提出大胆、可证伪的机制；新机制可以先以 OPEN 登记。
+本项目的共同科学目标：**研究视频生成FFN中信息、计算与生成行为的组织规律，发现更低物理代价实现高质量生成的表示、函数机制或执行结构**。机制科学与部署方法都是可独立成立的成果。**I信息与表示、F函数与动力学、C计算与执行并列且互相反馈**；从实际现象、数学恒等式、源实现、原论文或性能现象任意起步，形成OPEN假说并逐步判别。详细[统一目标](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
 固定原生基准：LightX2V Wan2.2 I2V A14B 四步 D-Q，high/high/low/low 两套独立专家、40 Transformer blocks。典型 FFN：
 \`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续block/flow/scheduler/video\`。
 现有原生实现采用 HiF4 fake-QDQ 与 BF16 Linear；外部原生packed NVFP4/MXFP4算子属于独立比较对象。
 
 当前入口：
+- [统一目标与I/F/C研究路径](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)、[问题导航](../../../research/RESEARCH_NAVIGATION.md)
 - [G13输出函数与实际计算结构](../../../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P函数作用与来源定位](../../../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[C01–C03提案](../../../research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)
 - [行为／函数／结构独立索引](../../../research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)
 - [完整G0–G13图](../../../docs/98_端到端计算图与证据注解_20261025.md)与[机器绑定](../../../research/agent_protocol/GRAPH_AGENT_BINDINGS.json)
 - [机制交叉索引](../../../research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)
 - [当前综合与现行证据](../../../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[ACTIVE权限](../../../research/ACTIVE_RESEARCH.json)
 
-## 默认科学思路：功能 → 承担结构 → 低成本实现
+## 默认研究思路：三种入口、共同判别、分别验证
 
-**一、发现真实功能（DISCOVER）。** 从自然视频/latent/flow现象，以及有符号FFN写回的条件响应，提出行为功能候选。观察轴可以是运动、相机、主体、背景、照明、细小物体和长期稳定性，也可以是未命名的联合有符号函数。以 \`source × seed × step × expert × block × token\` 限定条件。区分 FUNCTIONAL-OBS（可追溯的相关现象）与未来经合法干预支持的 FUNCTIONAL-CAUSAL（条件性的真实贡献）；探索阶段的候选可以只有一个引人注目的现象及不同预测。
+**I · 信息与表示（DISCOVER）**：从已知权重、当前输入、数值编码、跨token/step状态或历史信息发现条件性结构；给出信息首次可用的时间、获取价与信息利用机制。允许直接探索编码域内积、有限码本、低秩统计、信息证书及无需语义标签的算术。
 
-**二、定位计算承担者（MAP）。** 沿真实源码/配置/张量/数值顺序重建该函数的路径：共享q上的多W1行、GELU、HiF4 Q2整组尺度、W2正负组合、门控写回、后续attention/深层残差、四步状态与两套expert。研究联合协作、互相抵消、条件分工、补偿通路、跨token/跨帧/跨层/跨step的功能结构。**功能身份可以是分布式与条件性的**；观察手段与真实承担计算的子图分别建档。
+**F · 函数与动力学（DISCOVER / MAP）**：从自然视频/latent/flow现象和无标签signed响应寻找有意义的函数，沿W1→GELU→HiF4 Q2(64→8→4)→W2→e5写回和下游attention/step定位正常计算承担者；这条专门路线使用[G13](../../../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../../../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)。FUNCTIONAL-OBS / CAUSAL / IMPLEMENTABLE是这类功能主张的证据层级。
 
-**三、扩展机制（DERIVE / EXPAND）。** 寻找能改变理解的数学关系、可预测不变量、联合函数、非线性交互、执行单位与共享计算。以最强竞争机制提出能观察到不同结果的预测，研究者可以独立探索低维表示、时间尺度、物理重编码、训练职责迁移或其它新方向。**量化code/sign/scale、Proxy、TopK/SAE、补算、Cache、稀疏tile与LUT是定位后可研究的信息与执行手段**，允许发挥启发作用，并由其实际数据时点与成本决定物理价值。
+**C · 计算与执行（DISCOVER / BUILD）**：从真实M/D/H shape、有效GEMM/QDQ、内核、访存与时延出发研究算子重写、低位dense、稀疏/共享计算、时空复用及轻量后训练后的新函数结构。**I/C线不需要先在原模型中找到语义功能子图**；性能异常本身也可倒逼新信息或动力学解释。
 
-**四、判别并推动（DISCRIMINATE）。** 选取最低成本、有决策意义的一项或多项证据：代数/反例 → 原始源码与论文 → 已保存数据 → 经单独授权的原生局部干预 → 完整视频质量与真实加速。必要性、充分性、补偿/备用路径和normal-forward忠实性分别检查，避免把由干预触发的新通路与日常计算职责混为一谈。测试次数取决于科学分歧；早期探索保持广阔候选空间。
+**DERIVE / EXPAND**：调用research-expansion、problem-reformulation及mechanism-research，用新坐标、不同训练状态、替代动作空间或时空尺度构造竞争解释。仅针对当前关键命题重建完整的决策相关源码路径和数值语义，确认必要的输入、输出和依赖。
+
+**DISCRIMINATE / ADVANCE**：用可区分的数学证明/反例、原始论文与作者源码、已有证据及未来被授权的定点实验推进。功能因果论文使用正常路径忠实性；经济计算论文使用前置可得信息、强同条件基线、真实物理开销；宣称视频级改善必须加上完整free-rollout/正式质量与系统速度证据。无需为了探索种子先提供整段视频。
 
 ## 科学写法：积极构造、明确对象与证据
 
-默认陈述顺序：**有趣的结构或现象 → 对应实际函数/数学 → 至少一个竞争性机制及不同预测 → 最便宜的辨别证据 → 对计算图/视频目标的启示**。
+默认陈述顺序：**有趣的结构或现象 → 对应数学/真实机制 → 至少一个竞争性解释及不同预测 → 最便宜的辨别证据 → 对信息、功能或执行的启示**。
 
 - 将真实负例写成**作用于指定版本、输入、算子和指标的正面事实**。例：“旧token mask在M16/K64 tile上100%占用，说明现有布局仍执行所有tile；新的候选空间转向联合输出结构或另一合法执行单位。”
 - 将来源边界贴近相应结果：LIT=外部作者论文/代码；ALG=数学推导；SPEC=可用的表示定义；SRC=当前Wan实现；NATIVE-OBS/VIDEO/SYS=既有真实实验；OPEN=待判别机制。用证据分级促进新方向，**重复的自我免责声明与限制性前言通常只会遮蔽研究结论**。
@@ -48,9 +51,9 @@ description: Apply AutoResearcher science to locate meaningful video-FFN output 
 
 ## 文献、计算图和协作回写
 
-广泛搜索基础/前沿工作和相邻学科，以**原论文方程→训练/执行实际动作→作者代码分支→适用模型/系统形状→竞争性机制**记录一手阅读深度。对G7–G12已验证论文保留其source ledger：[G11核心深读](../../../research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[G12原理](../../../research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)、[G13因果与干预方法原文L80–L89](../../../research/literature/20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)。先分析对应的实际机制和功能角色，再补图节点与**有类型**对照边；原始作者结果在LIT层保留、现行原生证据在SRC/NATIVE层保留。
+广泛搜索基础/前沿工作和相邻学科，以**原论文方程→训练/执行实际动作→作者代码分支→适用模型/系统形状→竞争性机制**记录一手阅读深度。对G7–G12已验证论文保留其source ledger：[G11核心深读](../../../research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[G12原理](../../../research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)、[G13因果与干预方法原文L80–L89](../../../research/literature/20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)。先分析对应的实际机制、信息或功能角色，再补图节点与**有类型**对照边；原始作者结果在LIT层保留、现行原生证据在SRC/NATIVE层保留。
 
-独立研究Agent可以分别提出新函数、计算结构和检验思路，写入[讨论队列](../../../research/method_discussion/QUEUE.md)；独立审阅以公式、源码、证据和真正不同的预测支持/质疑；串行整合者更新综合报告、图谱及研究登记。旧方法的明确失败边界作为研究资源，已关闭RUN和哈希保持原样。图节点可以由真实新问题生成，无须从已列候选中选一个。
+独立研究Agent可以分别提出信息/表示、行为函数、计算执行和检验思路，写入[讨论队列](../../../research/method_discussion/QUEUE.md)；独立审阅以公式、源码、证据和真正不同的预测支持/质疑；串行整合者更新综合报告、图谱及研究登记。旧方法的明确失败边界作为研究资源，已关闭RUN和哈希保持原样。图节点可以由真实新问题生成，无须从已列候选中选一个。
 
 ## 状态与运行时资源
 

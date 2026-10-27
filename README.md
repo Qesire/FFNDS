@@ -1,8 +1,8 @@
-# FFNDS · Wan2.2 四步视频生成的FFN函数与计算结构研究
+# FFNDS · 视频生成FFN的信息、功能与高效计算研究
 
-**科学问题**：视频生成模型的FFN输出中，哪些函数对真实生成行为有意义？这些函数由哪些正常前向计算结构承担？怎样保留或重组重要功能，同时减少W1、GELU、量化、W2及完整生成的物理成本？
+**共同科学问题**：视频生成模型如何组织信息、计算与真实生成行为？能否据此发现更优的表示、运算结构和实际执行方式，在维持完整视频能力的同时减少物理成本？
 
-研究以 LightX2V Wan2.2 I2V A14B 四步D-Q 的源码、已完成的真实自由视频和原生数值证据为起点，通过AutoResearcher、原论文及有类型计算图不断扩展。**先定位行为与函数，再辨认计算承担结构，最后研究信息源及高效实现。**
+以 LightX2V Wan2.2 I2V A14B 四步D-Q为原生证据锚点，沿**信息与表示（I）／函数与动力学（F）／计算与执行（C）**三条互相反馈的研究路径探索。G13是函数因果与承担结构的专题，G7–G12的量化、复用、重构、系统机制也能独立产生新发现。研究路线从现象、数学、源码或性能任一入口开始，见[统一目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
 当前索引：**89项相关论文、177个稳定计算图节点、371条类型化关系、14个机制家族**；G13包含24个定位节点和58条研究关系。不同论文的实际阅读层级可在source ledger中逐项追溯。
 
@@ -10,7 +10,8 @@
 
 | 研究目标 | 当前资料 |
 |---|---|
-| 定位有意义的FFN输出函数、联合计算结构 | [G13功能发现与结构定位](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P四层定位方法学](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[三张机器定位卡](research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)、[行为/函数/结构登记](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) |
+| **统一目标与三条并行入口** | [研究北极星与I/F/C路径](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)、[研究导航](research/RESEARCH_NAVIGATION.md)、[Objective Contract](research/OBJECTIVE_CONTRACT.json) |
+| 定位有意义的FFN输出函数、联合计算结构（F线） | [G13功能发现与结构定位](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P四层定位方法学](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[三张机器定位卡](research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)、[行为/函数/结构登记](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) |
 | 沿真实Wan算子、残差、flow逐坐标追踪 | [G0–G13权威计算图](docs/98_端到端计算图与证据注解_20261025.md)与[Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) |
 | 综合已有实验、竞争机制与原论文 | [FFN科学综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md) |
 | 检索原论文、机制家族与实际源码证据 | [89项文献索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[机制Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)、[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
@@ -33,11 +34,13 @@
 
 ## 当前科研方向
 
-**G13 功能研究**：从真实运动、背景、照明、主体与无标签signed响应发现条件性的函数候选；追踪共享q的多W1行、GELU、HiF4 Q2尺度、W2正负合成及attention/后续step，研究共同驱动、抵消、补偿与时空职责。分别登记FUNCTIONAL-OBS、FUNCTIONAL-CAUSAL、FUNCTIONAL-IMPLEMENTABLE；目前新G13因果定位仍是待独立判别的研究对象。
+**I · 信息与表示**：研究何种输入、权重编码、历史状态或时空共享信息在何时可得，以及其获取/使用的净计算价值。G11–G12的signed码、重排界和编码域计算可作为独立数学或算子研究，而非某类mask的附属筛选器。
 
-**G7–G12 提供实现和竞争先例**：step-specific compact FFN、frame×layer分工、缓存/函数轨迹预测、实时causal chunk、FP4代理、SharQ双GEMM、编码域查表和G12 signed-code区间等，都可以帮助进一步解释或重构已定位的实际函数。选择实现时共同评价在线信息时间、真实W1/Q2/W2工作、部署代价和完整视频质量。
+**F · 函数与动力学（G13）**：从真实运动、背景、照明、主体与无标签signed响应提出函数候选，研究共享q的多W1行、GELU、HiF4 Q2尺度、W2正负合成、下游attention/step及正常前向的联合职责。O/D/Q/P服务于这一因果定位问题；其新的具体承担结构仍需证据判别。
 
-后续阶段三个执行问题彼此联系：可用信息是什么、获取/使用信息的净价值如何、真正降低什么计算。科学研究先从**函数/结构意义**获得目标，再运用这些问题构造候选方法。
+**C · 计算与执行**：独立探索step-specific紧凑FFN、跨步复用、稀疏tile、低位dense与编码域算术、训练后函数重分配以及端到端部署。以真实GEMM/QDQ、布局和访存、全视频质量、latency/VRAM及可比先例建立Pareto。
+
+**两个可独立成立的成果**：新的可检验信息/函数/计算规律，及具有竞争力的完整质量–成本方法。Q1可用信息、Q2净决策价值、Q3实际省算彼此关联，但不是必须按顺序完成的前置关卡。
 
 ## 只读计算图与验证
 

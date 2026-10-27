@@ -1,20 +1,18 @@
 # FFNDS · 独立科研Agent（E0_OPEN_DISCOVERY）
 
-**科学研究中心**：先定位具有行为意义的Wan视频FFN输出函数，再定位正常执行中承担这些函数的联合计算结构。从真实视频与状态差、数学与原作者论文寻找开放解释；通过不同机制的可判别预测推动下一次研究。
+**科学研究中心**：从信息与表示（I）、函数与动力学（F）、计算与执行（C）任一路线提出独立且可证伪的机制。共享科学北极星为[理解生成FFN的信息/计算/行为组织并降低真实成本](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。G13是F线的因果功能定位专题，不约束I/C线必须从行为标签开始。
 
-**科研入口**：[根目录AGENTS](../../AGENTS.md) · [FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md) · [当前G13功能定位](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P四边界与C01–C03](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [Function–Structure对象](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [主计算图G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md) · [一手证据包](../agent_protocol/CURRENT_CONTEXT_PACKET.md) · [ACTIVE状态](../ACTIVE_RESEARCH.json)。
+**科研入口**：[根目录AGENTS](../../AGENTS.md) · [FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md) · [当前G13功能定位（F线专题）](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P四边界与C01–C03](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [Function–Structure对象](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [主计算图G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md) · [一手证据包](../agent_protocol/CURRENT_CONTEXT_PACKET.md) · [ACTIVE状态](../ACTIVE_RESEARCH.json)。
 
 **AutoResearcher 来源**：[ACTIVE_SOURCE_MANIFEST.json](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)的固定版本，结合[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)和[本项目原文/源码深度检索协议](../agent_protocol/DEEP_WEB_RESEARCH.md)。
 
 ## 新发现、数学及独立反证
 
-1. **观察与命名**：来自完整视频/latent/flow的行为差异、自然q上的FFN signed输出关系或无标签时空规律，可以先作为FUNCTIONAL-OBS与新数学假说。
-2. **源码定位**：根据实际配置重建norm2/AdaLN→Q1→W1→GELU→HiF4 Q2(group64)→W2→e5门控BF16写回→后续attention/step/视频；比较同一q驱动的多行联合响应和下游补偿。
-3. **推导与探索**：给出一种新的表示、函数交互、时空共享或其他数学自由度，提出与最强相关论文/旧原生解释不同的预测。新构造可早于形式化候选注册而留作探索种子。
-4. **独立审查**：其他Agent亲自核实原论文、数学、实际源码、条件反例和证据来源，给出具体支持、挑战或建设性替代结构。观察级结论、功能因果证据与物理可省计算分别定位。
-5. **逐步交付**：留下新函数/结构认识、真实source/seed/step范围、图节点或新OPEN边、最有判别力的下一项证明/已有数据对照/未来授权的实验。研究成果由实际解释力与可证伪性评价。
-
-方法学追随[科研协作总则](README.md)、[独立发现目录](discoveries/E0/README.md)和[图锚点目录](graph_annotations/E0/README.md)，原生数值判断沿[实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)与[真实视频指标](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)审查。
+1. **独立选取切入点**：自然完整视频/latent/flow功能，原生/低位计算代数，已可得信息、共享依赖或硬件kernel瓶颈均可提出OPEN研究种子。
+2. **精确重建相关源图**：对当前主张涉及的norm2/AdaLN→Q1→W1→GELU→HiF4 Q2(group64)→W2→e5写回→后续flow，确认shape、输入和执行时点；函数因果主张可借G13 O/D/Q/P。
+3. **扩展和推导**：导出新的信息界、函数交互、时空共享、职责迁移或运算形式，与最相近原论文/既有原生结果作不同预测的比较。
+4. **同行独立反证**：评议者检查论文原始方程、源码、证明与真实证据范围；清楚区分假说、观察、因果功能、算子性能与最终视频质量。
+5. **分别交付**：I/C机制可直接加入发现目录、方法提案及计算图；F线再维护Function–Structure；任何部署质量/速度主张最后走真实成本和完整视频评价。
 
 ## 多Agent讨论与共享记录
 

@@ -4,23 +4,21 @@
 
 
 
-## 0. 研究主轴：发现有意义的输出函数及其真实计算结构
+## 0. 统一研究主轴：信息、函数与执行并行
 
-> **当前科学问题**：**哪些随状态、step、expert与视频行为变化的FFN输出函数具有实际作用？哪些正常前向计算结构承担它们？** 以这两个对象为中心，发现可共享、可重组或可预测的计算结构，再评估信息可得性与执行代价。完整现行理论/论文审查见 [G13科学报告](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[原生O/D/Q/P作用和结构定位](G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[功能候选与计算结构分别登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[权威G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)。
+**科学北极星**：[统一目标与I/F/C并行研究](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。FFNDS同时争取**独立可证伪的计算机制认识**和**有真实质量–成本优势的部署方法**。三个机制入口为：
 
-**优先层级**：
+1. **I · 信息与表示**：哪些状态/码字/统计/历史在决策时实际可得，是否存在共享信息、认证界或新编码结构？G11/G12的信息价格、signed界、编码域算术可先研究其本体。
+2. **F · 函数与动力学**：哪些有标签或无标签的联合FFN响应有真实视频行为作用？哪些正常前向结构承担或迁移这些作用？[G13科学专题](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P](G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)和[Function–Structure](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)在此使用。
+3. **C · 计算与执行**：直接从W1/GELU/Q2/W2、低位packed dense/稀疏核、历史缓存、训练后函数重组及系统瓶颈建立物理代价更低的新实现；其科学动机和因果解释可反过来促成I/F的发现。
 
-1. **从自然源/seed/step/行为差异定位有意义的输出函数**。对原生\(u_{l,t}(q)=e_5\odot W_2Q_2(\mathrm{GELU}(W_1Q_1(q)))\)及真实写回，同时探索有标签行为与无标签联合输出响应，开放多种函数坐标、稀疏/能量表示与计算描述。视频中的主体/运动/背景/光照只是现象观测轴；无标签的signed共变、协作、抵消与不变量同样可作为功能候选。首先分开 FUNCTIONAL-OBS 与未来需授权验证的 FUNCTIONAL-CAUSAL。
-2. **找出正常原生前向究竟如何计算这些函数**：共享q的多W1行、GELU、HiF4 Q2 group64闭包、W2有符号价值合成、e5门控、后续attention/FFN、四步flow/scheduler以及同expert/不同expert的时间职责。辨别补偿/备份路径，检查功能在不同source/seed/step的变化。路径重要性由**上下文×行为×干预**刻画；单列幅值、局部SSE、频谱和SAE标签各提供一种候选观测坐标，最终在原生图与下游行为中建立其作用身份。
-3. **在定位后讨论最小可执行结构和成本**。结合G7–G12先例判断结构可以训练重组、时间复用、全组跳算、低秩联合求值或进行编码域重写。量化code/FP4 sign、Prox/SAE/神经元mask、tensor tile等作为**可选观察与实现**，并列比较可付费与free-running video/SLO。
+**并行选择规则**：函数识别、信息表示或物理执行均可成为一个新机制的第一结果；按具体主张追究必要的源码路径、数学预测和真实证据。功能因果结论需合法normal-forward干预，执行加速则需同条件真实wall/显存与完整视频质量，二者证据义务不同。
 
-**最重要的原生依据**：先前六来源/四新来源说明局部FFN raw误差改小而完整state仍可能放大，source425仅seed不同就使cross符号反转；历史频带内外cross可异号；完整video中主体、背景与光照损失可能不一致。这些数据先为“某些功能必须区分”提供动机，并未识别具体W1/Q2子图。严格的目标是研究**具有行为价值的联合函数计算结构**，而不是用某个code格式证明先前定义的函数可以被预测。
+**最重要的原生依据**：过去六来源/四新来源显示局部FFN raw误差降低与完整状态放大可能并存；source425跨seed的signed cross变号、子频带异号和背景/光照不稳定揭示当前单一局部代理与行为响应之间的张力。全M物理tile、原HiF4分组和完整四步传播提供可独立研究的数值/执行约束。旧结果对其已测方案保持有效，新候选不预设任何特定mask、补算或G13功能标签。
 
-**研究文献上的判别**：JMLR2025 causal abstraction（L80）要求将高层行为和低层机制经干预绑定；ICLR2024 patching best practices/interpretability illusion（L81/L82）说明干预/指标选择与休眠通路可误导定位；AAAI2026 TIDE（L83）与CVPR2026 motion IMAP（L84）提供特征或时空语义观测；ACMMM2026 video encoder时空SAE（L85）则提示重建/可解释指标可能与时间稳定冲突。以上以正式摘要/作者公开资料为主，还未完成G13功能因果实验。
+**一手文献分工**：L80–L89因果抽象/patching等启发F线；G7–G12的分时计算、函数复用、trainable重组、FP4算法、码本运算与物理布局直接供I/C线研究。图上的原生SRC/NATIVE、外部LIT和数学ALG仍各保留证据身份。
 
-**五类执行改造与G11/G12提供丰富的后续表示和实现备选**，但下述“同等重要Q1/Q2/Q3”和所有关于量化signed证书的技术分析，现在属于*定位功能与结构之后*的实现和信息价值研究。G13 U01–U18 / M13–M14 为当前首要科学图入口。
-
-## 1. 唯一固定的原研究对象：真正执行什么
+## 1. 当前原生证据锚点：真正执行什么
 
 原生对象是 **LightX2V Wan2.2 I2V A14B，四步蒸馏D-Q、high/high/low/low两套独立expert，40 blocks**。Wan2.1 T2V、Wan2.2 TI2V 5B、FLUX及训练后因果student作为独立的论文比较对象。研究日志中的代表性一次模型形状：M=31668个token行、D=5120、FFN hidden H=13824（216×64）、81 decoded video frames/21 latent-temporal bins。一步只有相应expert运行。
 
@@ -38,7 +36,7 @@ y=r_2+e_5\odot (W_2\tilde h+b_2).
 \]
 实际数值边界按 [G2原算子与BF16写回](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [原HiF4算子反例](../20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json) 确定：本项目原生实现采用 **HiF4 fake-QDQ后BF16 Linear**；外部NVFP4/MXFP4 packed Tensor Core GEMM按其独立数值、内核和硬件条件比较。HiF4 Q2受64→8→4共享尺度耦合，不能在已删除hidden列的情况下自由重算其余列并声称仍是原相同FFN。
 
-**科学目标**是找出保持真实生成行为所需的联合FFN功能与其计算承担结构，进而减少W1/GELU/Q2/W2或整体视频生成工作。功能和结构定位之后，信息可用时间、观察成本与实际可省物理操作（原Q1/Q2/Q3）作为相互促进的三个实施问题；量化符号、通道TopK、历史cache与训练后函数等都是可用的候选表达。
+**共同科学目标**是揭示信息、函数与计算之间可复用的新机制，并推动真实省算与完整视频质量的Pareto。信息可用时间、净信息价值及可省物理操作（原Q1/Q2/Q3）相互促进；函数/结构定位、编码域代数、算子优化与训练后职责迁移可以独立起步。
 
 ### 已有实验证据提供的结构线索
 
@@ -46,9 +44,9 @@ y=r_2+e_5\odot (W_2\tilde h+b_2).
 - 对完整40层×4步的既有原生替换，局部FFN raw误差可能改善，生成latent继续偏移；历史候选有真实FFN或生成速度增益但视频存在质量失配，尤其背景光照和细物体时序稳定性。这一结果揭示了**局部算子误差与终端视频功能的独立评价轴**，促使研究从行为功能及其承载结构重新识别可减计算。[实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)
 - 已覆盖10个独立source身份、12条source×seed完整轨迹、1920个全深度FFN观察位置；严格区分**site数量**与独立视频数；已有视频形成实际观测证据，正式VBench与人工验收继续按[协议](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)独立登记其状态。现行[视频与全深度指标协议](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)和[ACTIVE](../ACTIVE_RESEARCH.json)独立决定质量与实验许可。
 
-## 2. 定位功能与结构之后：五种不同的高效计算改造
+## 2. 可独立启动的五种高效计算机制
 
-| 计算层面 | 可行的物理动作/原理 | 必须先拥有的信息 | 原Wan合法性与证据 | 论文强先例 |
+| 计算层面 | 可行的物理动作/原理 | 执行该方案时实际所需的信息 | 原Wan合法性与证据 | 论文强先例 |
 |---|---|---|---|---|
 | **A. 冻结FFN本征函数** | 提前证实或统计预测一组gate×W2有符号函数足够小、成组共享或可复用；才考虑少算W1→W2 | 当前q/Q1/离线weight、可能少量配对或时序历史；不得读取尚未计算的完整W1/GELU/Q2当免费决策器 | 原HiF4 Q2 group closure、下游signed抵消及tile支持严格约束；目前预测可省性质未成立 | G11 Prox L69仅为付费INT4代理近邻；G12经典重排区间为ALG而非模型实测 |
 | **B. 编码域直接计算表示** | 将量化码的有限组合改为bitplanes/XNOR-popcount、预计算LUT或vector-code Psumbook；无需先找到无用通道 | 当前activation、weight codes及scale、索引与足够可复用的量化codebook | LUT-GEMM/CodeGEMM公开实现只为单向量提供查表快路，多token退解权重+cuBLAS/matmul；与原fakeQDQ和native packed FP4的比较未完成 | L73 CodeGEMM、L75 BiQGEMM、L76 LUT-GEMM、L77 XNOR-Net |

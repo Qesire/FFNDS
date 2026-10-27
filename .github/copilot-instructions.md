@@ -1,17 +1,17 @@
 # FFNDS · Copilot科学研究默认引导（E0_OPEN_DISCOVERY）
 
-首要问题：**哪些Wan视频FFN输出函数具有行为意义，哪些正常前向计算结构承担它们？** 从真实视频/flow现象与无标签有符号函数响应出发，沿实际计算路径寻找联合功能结构；再讨论量化code、proxy、稀疏、cache、训练后的经济实现。
+统一科学问题：**视频生成模型如何组织信息、计算与生成行为，怎样在保持完整视频能力时降低真实执行成本？** 可从I（信息与表示）、F（函数与动力学）、C（计算与执行）任意入口研究，G13是F线专题。见[统一目标](../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-**必读**：[根AGENTS](../AGENTS.md)、[FFNDS科研Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[G13行为/函数/结构文档](../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P定位方法](../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[独立函数/结构档案](../research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[真实G0–G13计算图](../docs/98_端到端计算图与证据注解_20261025.md)。[第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md)与[历史本征科学纲领](../research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)为该阶段的研究与来源入口。
+**必读**：[根AGENTS](../AGENTS.md)、[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[研究导航](../research/RESEARCH_NAVIGATION.md)、[跨机制综合](../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[主计算图](../docs/98_端到端计算图与证据注解_20261025.md)及[ACTIVE执行状态](../research/ACTIVE_RESEARCH.json)。F线深入时使用[G13](../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)；旧[第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md)是历史研究阶段的证据来源。
 
 ## 默认科研动作
 
-1. **发现有意义的函数**：定位自然source/seed/step/expert、主体/运动/背景/光照与无标签有符号联合响应。区分函数的自然行为关联、在normal-forward的因果角色及实际可执行结构。
-2. **沿原生计算流找承担者**：LightX2V Wan2.2 I2V A14B 4step D-Q（high/high/low/low，40blocks）；检查norm2/AdaLN→Smooth1/Q1→W1→tanh-GELU→Smooth2/HiF4 Q2(group64→8→4)→W2→e5 BF16 gate/residual→下游attention/flow/video。当前原实验使用HiF4 fake-QDQ+BF16 GEMM。
-3. **构造性推导与独立反例**：发现一项数学交互/共享/条件职责，提出最强替代机制、各自不同预测以及最少的一项源码/已有数据/证明证据。新问题可增设图节点，不局限于旧Affine、TopK、FP4或可执行tile路径。
-4. **主动深入文献**：使用固定[AutoResearcher WARD Skill](../.agents/skills/web-research-discovery/SKILL.md)及[原文深度检索](../research/agent_protocol/DEEP_WEB_RESEARCH.md)；从基础到近期论文，读公式、消融、作者源码并沿引用链查竞争思想。精确注明外部模型、训练、技术实现和实际阅读层级。
-5. **保留真实原生证据**：[全深度与视频功能审查](../research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)、[源/seed的P/N数据](../research/20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md)、[有限整步响应](../research/20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)以及已测有效计算。实验的有界失败解释下一种可研究结构，外部作者成绩按LIT登记。
-6. **双向图/科研讨论**：按[Graph-Agent协议](../research/agent_protocol/GRAPH_AGENT_COLLABORATION.md)链接真实源与消费者，通过[独立讨论目录](../research/method_discussion/AGENTS.md)提出功能与结构解释、原文支持及不同预测，由同行独立审阅。
+1. **任选真实入口**：从有趣的视频行为/有符号差异、已可得的信息与表示、数学算子恒等式、硬件执行异常或原论文机制提出新构造及竞争解释。
+2. **追溯关键计算**：按主张定位真实Wan2.2四步D-Q的norm2/AdaLN→Q1→W1→GELU→HiF4 Q2→W2→e5 BF16 gate/residual→flow/scheduler；仅对功能因果主张使用G13 O/D/Q/P完整定位方法。
+3. **推导不同预测**：信息时点、计算粒度、功能迁移、因果路径和部署代价都可成为独立新规律；按AutoResearcher MEAR/PRD分析，结合最强相近方法与反例。
+4. **主动深读原文与源码**：使用[WARD](../.agents/skills/web-research-discovery/SKILL.md)查原始数学、消融、作者代码、负例及引用链；保留实际模型、训练、数值与运行环境。
+5. **评价恰当主张**：机制论文先验证数学/源码/因果范围；执行加速论文另外计量真实FFN+系统成本与独立完整视频质量，严格区分静态图验证、原生运行与外部论文证据。
+6. **独立协作与真实图谱**：经[Graph-Agent协议](../research/agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[讨论队列](../research/method_discussion/QUEUE.md)回写I/F/C任一路线的源节点、ALG/LIT/NATIVE/OPEN关系和独立评议。
 
 **现行事实与权限**：89项文献、177图节点、371关系、14机制族；10个原生source、12条完整轨迹、1920个嵌套FFN观测位置。当前[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)的固定实验批次已完成，新CPU/GPU/模型/视频执行暂停。科研讨论、原文、源码、数学和已有结果分析继续；研究问题及身份在ACTIVE中准确归档。
 

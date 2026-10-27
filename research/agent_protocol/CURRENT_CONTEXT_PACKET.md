@@ -1,6 +1,6 @@
 # FFNDS · 当前科研最小上下文（E0_OPEN_DISCOVERY · 2026-10-27）
 
-**首要科学问题**：在四步Wan视频生成中，哪些FFN输出函数真正对生成行为有意义？由哪些正常计算结构承担它们？参考[G13功能定位与结构研究](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P真实边界定位](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [C01–C03卡](FUNCTION_LOCALIZATION_METHOD_CARDS.json)和[BEHAVIOR/FUNCTION/STRUCTURE独立登记](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)。
+**共同科学问题**：生成FFN的信息、计算与视频行为如何组织？如何发现更廉价的表示、计算或执行？I（信息/表示）、F（函数/动力学）、C（计算/执行）并列推进。参考[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；G13的[行为/函数/结构](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)仅用于F线具体定位。
 
 **研究方法**：[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[AutoResearcher机制研究](../../.agents/skills/mechanism-research/SKILL.md)、[扩展探索](../../.agents/skills/research-expansion/SKILL.md)、[问题重构](../../.agents/skills/problem-reformulation/SKILL.md)及[深度论文/源码检索](DEEP_WEB_RESEARCH.md)。科研成果由新的现象/函数/结构、关键数学或源码、竞争解释和可区分预测组成。
 
@@ -23,16 +23,18 @@
 
 这些证据定位了具有科学价值的现象与真实计算依赖；具体的FFN行为函数、联合承担路径和compensation机制保留为 G13 FUNCTIONAL-OBS/OPEN/ALG 的可检验研究对象。现有P23/P24为已完成的 **NATIVE-OBS**，具体组件因果归属仍OPEN。
 
-## 研究可发展的结构问题
+## 并行可发展的机制问题
 
-**BEHAVIOR → FUNCTION**：根据自然source/seed/step视频行为及无标签signed共变，寻找条件性输出函数（主体、运动、背景/光照、时间稳定或尚未命名的关系）。
+**I · 信息与表示**：从Q1输入何时可得、权重/码字、共享比例尺、已有latent/历史状态和有符号约束出发，探索新信息界、等价代数与信息获取净价值；允许先产生直接编码或可证明省算机制。
 
-**FUNCTION → STRUCTURE**：从真实共享q的W1行、GELU、HiF4 Q2原group64依赖、W2有符号合成、门控、attention/后续层及high-low跨step递推找到实际承担者。研究联合作用、跨路径补偿、正常前向与有限干预的差异；按具体证据逐渐提高从观察到因果的可信度。
+**F · 函数与动力学**：从真实source/seed/step视频、无标签signed共变和下游状态变化提出行为/函数候选，定位真实共享q的W1、GELU、HiF4 Q2、W2 gate、attention和专家/步间的正常贡献；登记观察与因果证据。
 
-**STRUCTURE → IMPLEMENTATION**：以[G7–G12机制比较](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)及[89项文献原文深度索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)探索训练分工、历史复用、时空分块、量化符号/尺度、LUT或物理稀疏；后续信息可用时间、付费代价和终端视频表现由方法决定。
+**C · 计算与执行**：从实际M/D/H、物理tile占用、QDQ/packed内核、内存访问、延迟和训练预算出发发明可执行算子或重组函数，再由质量/速度和可能的信息/功能解释反馈研究。
+
+三类研究都可参考[G7–G13综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)和[89项原文](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)。它们共享真实原生证据，主张分别验证，无固定先后。
 
 ## 有效科研交接
 
-从[当前第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)与[研究导航](../RESEARCH_NAVIGATION.md)选择最有信息量的科学分歧。给出新发现与数学/源码证据、最强竞争解释及不同预测、下一条最经济的可判别来源/证明/未来干预。沿[Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md)登记新函数及OPEN图边，独立同行评议进入[讨论目录](../method_discussion/discoveries/E0/README.md)。
+从[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)与[研究导航](../RESEARCH_NAVIGATION.md)选择最有信息量的I/F/C科学分歧；[2026-10-25第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)保留为历史阶段证据。给出新发现与数学/源码证据、最强竞争解释及不同预测、下一条最经济的可判别来源/证明/未来干预。沿[Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md)登记新函数及OPEN图边，独立同行评议进入[讨论目录](../method_discussion/discoveries/E0/README.md)。
 
 历史原生观察、早期[研究重置纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)和各次源审计仍作为有版本的研究证据。新文献可从经典与最新学科自由扩展，进入新数学表达和新有类型图节点。
