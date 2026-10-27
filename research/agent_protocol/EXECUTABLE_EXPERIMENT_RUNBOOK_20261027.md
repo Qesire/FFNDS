@@ -47,7 +47,7 @@ python tools/ffnds_experiment_plans.py calibration-plan \
   --out /path/to/new_experiment/cal24_rows256.json
 ```
 
-48×128只在已采集**48个独立来源及全部160个真实native grid**后运行。相同来源的行坐标由全局source ID、step/block和固定seed确定，128/256/512设计具有前缀嵌套关系。输入 `calibration.json` 为校准**采样计划**，新来源的 V1/V2/Y 操作数需经实际native hook按 `selected_row_ids` 采集，并用原Q1/GELU/HiF4 Q2/W2/gate数值契约验证。历史 `fit_step_budget.py` 固定24×256，继续承担旧UB1复现；新设计拟合时必须提供显式source与行索引接口，不能直接把该计划冒充已完成的模型重拟合。
+48×128只在已采集**48个独立来源及全部160个真实native grid**后运行。相同来源的行坐标由全局source ID、step/block和固定seed确定，128/256/512设计具有前缀嵌套关系。每个source使用冻结metadata中的原始 `native_source_ordinal`，即使增删其它source或改动校准cohort也保持相同抽样随机过程。输入 `calibration.json` 为校准**采样计划**，新来源的 V1/V2/Y 操作数需经实际native hook按 `selected_row_ids` 采集，并用原Q1/GELU/HiF4 Q2/W2/gate数值契约验证。历史 `fit_step_budget.py` 固定24×256，继续承担旧UB1复现；新设计拟合时必须提供显式source与行索引接口，不能直接把该计划冒充已完成的模型重拟合。
 
 ## 2.1 原生校准操作数核对（新拟合的实际入口）
 

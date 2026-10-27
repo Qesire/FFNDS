@@ -16,7 +16,7 @@ def bank(sizes=(12, 12), role="CALIBRATION"):
     for group, n in zip(("i2v_subject", "i2v_background"), sizes):
         for i in range(n):
             sid = group + ":" + str(i)
-            data.append(dict(source_id=sid, image_id="image:" + sid,
+            data.append(dict(source_id=sid, native_source_ordinal=(0 if group == "i2v_subject" else 1000) + i, image_id="image:" + sid,
                              prompt_id="prompt:" + sid, conditioning_id="condition:" + sid,
                              role=role, scene_stratum=group, prompt=sid,
                              image_name=sid + ".jpg", image_path="/fake/" + sid + ".jpg",
@@ -80,7 +80,7 @@ class PipelineTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             p = Path(tmp)
             sample = [{"source_group": "i2v_subject:0", "prompt": "A dog",
-                       "image_name": "dog.jpg", "image_path": "dog.jpg",
+                       "image_name": "dog.jpg", "image_path": "dog.jpg", "source_index": 21,
                        "input_provenance": {"repository": "repo", "revision": "rev",
                                             "image_sha256": "historical"}}]
             save_new(p / "cal.json", sample)

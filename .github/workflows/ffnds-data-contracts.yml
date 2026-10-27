@@ -33,3 +33,7 @@ jobs:
           python tests/test_ffnds_validate_calibration_operands.py
           python tests/test_ffnds_stage_registered_i2v.py
           python tests/test_ffnds_cluster_metric_report.py
+      - name: Recompute existing UB1 source-cluster statistics using actual frozen CSV
+        run: |
+          python tools/ffnds_cluster_metric_report.py --pairs reports/worker_20261020/disjoint20_UB1_paired_sources.csv --bootstrap 100 --out /tmp/ffnds_ub1_cluster.json
+          python -c 'import json; d=json.load(open("/tmp/ffnds_ub1_cluster.json")); x=d["metrics"]["imaging_quality"]; assert x["independent_source_clusters"]==20; assert abs(x["relative_percent"]+3.166)<0.02'

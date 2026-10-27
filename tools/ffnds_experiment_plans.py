@@ -62,6 +62,7 @@ def sources_from_legacy(specs):
                 "scene_stratum": str(row.get("dimension", "UNCLASSIFIED")),
                 "image_type": str(row.get("image_type", "UNCLASSIFIED")),
                 "image_name": image_name, "image_path": str(image_path),
+                "native_source_ordinal": row.get("source_index"),
                 "prompt": prompt, "source_group": group,
                 "legacy_image_fingerprint": fingerprint,
                 "exposure_history": {
@@ -138,7 +139,11 @@ def row_draw(population, rows, *, base_seed, source_index, step, block, state_pa
 def plan_calibration(bank, geometry, *, strata, rows, seed, output):
     all_sources = source_bank(bank)
     selected = choose(all_sources, "CALIBRATION", parse_strata(strata), seed)
-    global_indices = {s["source_id"]: i for i, s in enumerate(sorted(all_sources, key=lambda x: x["source_id"]))}
+    native_ordinals = {s["source_id"]: s.get("native_source_ordinal") for s in selected}
+    if any(not isinstance(x, int) or x < 0 for x in native_ordinals.values()):
+        raise ValueError("Calibration requires stable original native_source_ordinal per source")
+    if len(set(native_ordinals.values())) != len(native_ordinals):
+        raise ValueError("Original calibration source ordinals must be independent and unique")
     by_geometry = {}
     for x in load(geometry):
         key = (x["source_id"], x["step"], x["block"])
@@ -156,7 +161,7 @@ def plan_calibration(bank, geometry, *, strata, rows, seed, output):
                 if key not in by_geometry:
                     raise ValueError("Missing observed native geometry " + repr(key))
                 ids, rs = row_draw(by_geometry[key], rows, base_seed=seed,
-                                   source_index=global_indices[s["source_id"]], step=step, block=block,
+                                   source_index=native_ordinals[s["source_id"]], step=step, block=block,
                                    state_pair=True)
                 result.append({"source_id": s["source_id"], "step": step, "block": block,
                                "expert": "high_noise_model" if step < 2 else "low_noise_model",
