@@ -5,13 +5,35 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from graph_agent_bridge import load, validate, inspect, trace, load_crosswalk, validate_crosswalk
+from graph_agent_bridge import load, validate, inspect, trace, load_crosswalk, validate_crosswalk, validate_paper_focus, inspect_paper, inspect_focus
 
 
 class GraphAgentBridgeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.registry = load()
+
+
+    def test_full_literature_index_is_linked_to_actual_native_focus_nodes(self):
+        result=validate_paper_focus(self.registry)
+        self.assertEqual(result["paper_focus_primary"],89)
+        self.assertEqual(result["paper_focus_supplemental"],10)
+        self.assertEqual(result["paper_focus_stages"],16)
+        self.assertGreaterEqual(result["paper_to_stage_links"],150)
+        for paper in ("L01","L09","L14","L34","L74","L84","L89","C01","C05","C10"):
+            looked=inspect_paper(self.registry,paper)
+            self.assertTrue(looked["native_stage_analogies"])
+            self.assertEqual(looked["method_graph"]["source_url"],looked["paper"]["url"])
+            self.assertEqual(looked["method_graph"]["review_depth"],looked["paper"]["reading_depth"])
+
+    def test_quantization_stage_groups_distinct_papers_and_is_lit_only(self):
+        focus=inspect_focus(self.registry,"T06")
+        self.assertEqual(focus["focus"]["native_anchor"],"F08R")
+        self.assertIn("L74",focus["primary_papers"])
+        self.assertIn("C04",focus["supplemental_papers"])
+        stages=[p for p in self.registry["nodes"] if p["graph_section"]=="G14"]
+        self.assertEqual(len(stages),16)
+        self.assertTrue(all(n["evidence_type"]=="LIT" for n in stages))
 
     def test_registry_matches_mermaid_and_existing_sources(self):
         result = validate(self.registry)
@@ -106,8 +128,8 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(result["mechanism_families"], 14)
         self.assertEqual(result["primary_papers"], 89)
         self.assertEqual(result["crossgraph_comparison_edges"], 84)
-        self.assertEqual(len(self.registry["nodes"]), 186)
-        self.assertEqual(len(self.registry["edges"]), 397)
+        self.assertEqual(len(self.registry["nodes"]), 202)
+        self.assertEqual(len(self.registry["edges"]), 413)
         nodes = {n["id"]: n for n in self.registry["nodes"]}
         self.assertEqual(nodes["I17"]["evidence_type"], "ALG")
         self.assertEqual(nodes["I18"]["evidence_type"], "ALG")
