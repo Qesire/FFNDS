@@ -36,6 +36,10 @@
 
 [数据/采样/校准/评测统一协议](research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)与[专用实验Skill](.agents/skills/ffnds-experiment-evidence/SKILL.md)适用于涉及独立source、采样行、Student/Dense状态、校准拟合、视频随机数及结果泛化的新任务。先确认研究对象和独立观察单位，再匹配成熟VBench/Wan/压缩实践、复核历史暴露、冻结对照、指标和真实可重用资产。历史UB1一个视频复制五个VBench文件名属于单seed自定义历史比较；新官方五采样必须是五次真实独立生成。以已有结果揭示的新机制、可区分预测和最小有效实验作为正向引导，证据等级贴着相应主张。
 
+## 新实验的具体执行入口
+
+[可执行实验手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)给出真实命令、输入/输出和验收路径。新cohort依次使用 `ffnds_experiment_plans.py`、`ffnds_native_geometry.py`、`ffnds_validate_calibration_operands.py`、`ffnds_run_registered_video.py`、`ffnds_stage_registered_i2v.py` 和 `ffnds_cluster_metric_report.py`。原生模型运行检查活动研究授权及本实验注册的run IDs；校准记录必须携带真实行坐标与操作数header；多样本视频经过逐run完整验证后再交原版VBench。数据和质量主张按各自真实RUN标记，主动给出能够区分机制的下一步，而不是把静态计划写成已测结果。
+
 ## 三、原生证据、论文及真实成本
 
 - **原生**：[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md)、[证据优先级](research/EXPERIMENT_EVIDENCE_INDEX.md)、[已有full-flow finite-map](research/20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。source425相同图片prompt跨seed的P/N cross符号改变和部分频带与全域交叉项异号，是函数定位的现实入口。过去的Affine54等候选已经测到局部误差/速度及视频失配，作为有界机制证据保留。

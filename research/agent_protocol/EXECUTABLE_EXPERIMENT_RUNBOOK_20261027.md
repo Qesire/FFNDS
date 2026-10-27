@@ -49,6 +49,19 @@ python tools/ffnds_experiment_plans.py calibration-plan \
 
 48×128只在已采集**48个独立来源及全部160个真实native grid**后运行。相同来源的行坐标由全局source ID、step/block和固定seed确定，128/256/512设计具有前缀嵌套关系。输入 `calibration.json` 为校准**采样计划**，新来源的 V1/V2/Y 操作数需经实际native hook按 `selected_row_ids` 采集，并用原Q1/GELU/HiF4 Q2/W2/gate数值契约验证。历史 `fit_step_budget.py` 固定24×256，继续承担旧UB1复现；新设计拟合时必须提供显式source与行索引接口，不能直接把该计划冒充已完成的模型重拟合。
 
+## 2.1 原生校准操作数核对（新拟合的实际入口）
+
+从对应的原生observer生成 `operands_index.json`，每条绑定 `source_id,step,block,selected_row_ids,n_rows,population_rows,source_state,expert,tensor_boundary,operand_path`。对应的 `tensor_boundary` 为 `original_native_Q1_V1_Q2_V2_W2_Y_b2_gate`。
+
+```bash
+python tools/ffnds_validate_calibration_operands.py \
+  --calibration-plan /path/to/new_experiment/cal24_rows256.json \
+  --operands-index /path/to/new_experiment/operands_index.json \
+  --verify-payload --out /path/to/new_experiment/operands_checked.json
+```
+
+**拟合准入**：完整160位置、每来源真实选择行坐标、BF16 `V1/V2/Y/gate/b2` header与模型QDQ边界均通过后，才将该cohort作为新校准拟合输入。对没有新采集的12×512/48×128明确标 `AWAITING_NATIVE_CAPTURE`，不能从旧256抽样更名冒充。新的cohort-aware support/gain/R256拟合与部署仍需实现、数值验证并注册独立版本，旧UB1不随数据计划自动变更。
+
 ## 3. 冻结真正独立的 Dense/UB1 视频任务
 
 ```bash
@@ -71,7 +84,9 @@ python tools/ffnds_run_registered_video.py --plan /path/to/new_experiment/video_
 # 在冻结资源预算与ACTIVE范围后，逐项运行实际任务；去掉--dry-run才启动真实推理。
 ```
 
-真实 GPU 运行另传 `--registration /path/to/frozen_gpu_scope.json`。登记为 `ffnds.native.scope.v1`，含 `status=REGISTERED_BOUNDED_GPU_EXECUTION`、`experiment=ED1`、从冻结计划提取的 `allowed_run_ids`、`max_visible_GPUs=1`、`user_authorization=USER_RESUME_OFFLINE_IFC_20261027`。入口与 ACTIVE 现行科研权限核对。注册文件由实际预算/任务/资源的事前冻结生成。\n\n每条job保存 `STARTED.json`、`RUN.json`、实际`video.mp4`、`initial_noise.safetensors`；同时记录4步trace和原生160个FFN位置覆盖。执行失败保留 `FAILED.json`，重试需新attempt目录/版本。
+真实 GPU 运行另传 `--registration /path/to/frozen_gpu_scope.json`。登记为 `ffnds.native.scope.v1`，含 `status=REGISTERED_BOUNDED_GPU_EXECUTION`、`experiment=ED1`、从冻结计划提取的 `allowed_run_ids`、`max_visible_GPUs=1`、`user_authorization=USER_RESUME_OFFLINE_IFC_20261027`。入口与 ACTIVE 现行科研权限核对。注册文件由实际预算/任务/资源的事前冻结生成。
+
+每条job保存 `STARTED.json`、`RUN.json`、实际`video.mp4`、`initial_noise.safetensors`；同时记录4步trace和原生160个FFN位置覆盖。执行失败保留 `FAILED.json`，重试需新attempt目录/版本。
 
 ## 4. 严格来源+原生噪声配对，再启动官方评价
 

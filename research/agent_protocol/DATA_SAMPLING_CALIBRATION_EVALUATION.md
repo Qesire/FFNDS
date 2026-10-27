@@ -56,6 +56,12 @@
 
 **正向科研提示**：先说现有资料支持的科学发现，接着写可区分的来源/随机性/校准/指标问题；优先调用已有真实数据与成熟实现，选一个最低成本能改变解释的检验。回答固定包含：`观察对象 → 已确认实现 → 竞争解释 → 独立数据单位与分割 → 冻结的计量/判据 → 实际运行状态与资产 → 下一有效行动`。无证据的环节标 `OPEN` 并给出能使其成为证据的具体动作；已有负结果严格限定在被测试的对象和抽样范围。
 
+## 5.1 真正参与运行的代码合同（本轮实现）
+
+[执行手册](EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)连接以下入口：
+`ffnds_experiment_plans.py source-bank/calibration-plan/video-plan` → `ffnds_native_geometry.py`（实际Native grid）→ `ffnds_validate_calibration_operands.py`（真实BF16 payload边界）→ `ffnds_run_registered_video.py`（LightX2V Dense/UB1及原生噪声）→ `ffnds_stage_registered_i2v.py`（视频与噪声双重验证、原版VBench）→ `ffnds_cluster_metric_report.py`（source簇统计）。
+其中计划、校准数据捕获、拟合、原生生成与正式VBench分别形成可独立核验的状态。旧固定24×256拟合属于历史算法，变更cohort后重新进行算子/校准系数及独立确认版本注册。
+
 ## 6. 已核对的一手成熟实现
 
 - VBench++ I2V 官方数据/指标及5次采样：https://github.com/Vchitect/VBench/tree/master/vbench2_beta_i2v
