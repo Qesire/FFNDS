@@ -49,6 +49,10 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 [web-research-discovery](../web-research-discovery/SKILL.md)（原文、正反先例和源码链）。
 从项目[GOAL_ALIGNMENT](../../../core/GOAL_ALIGNMENT.md)、[EXPANSION_PROTOCOL](../../../core/EXPANSION_PROTOCOL.md)、[PROMPT_PLAYBOOK](../../../core/PROMPT_PLAYBOOK.md)按当前研究分歧取用提示操作，作为生成创造性解释的工具，而非合规问卷。
 
+### 历史A5+HWG提醒：视频时空功能的科学问题
+
+[A5+HWG背景闪烁与小物体模糊的重审](../../../research/20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)提供一个适合NOTICE→DERIVE→DISCRIMINATE的开放样例：主体结构基本保持时，静态/运动背景闪烁与小目标模糊仍可能发生。将**空间细节**（小物体、纹理）、**视频时间相干**（运动补偿后的背景光度/结构）、**真实动作幅度**分开；四个去噪step与81帧输出不能混为同一时轴。对逐token mask，区分阈值切换与长期弱信号固定遗失；若mask在HiF4 Q2前，还需原64组尺度连带与BF16，若postQ2则不能把preQ2效应当作已测因果。现有A5是历史视频定性记录，Affine54/UB1的后续VIDEO/RAFT另有来源身份。视频功能研究可使用G13因果定位，I/C路线也可直接研究时空共享信息与2:4物理算子；**不以找到语义神经元、发明新的loss或独创方法为推进门槛**。
+
 ## 文献、计算图和协作回写
 
 广泛搜索基础/前沿工作和相邻学科，以**原论文方程→训练/执行实际动作→作者代码分支→适用模型/系统形状→竞争性机制**记录一手阅读深度。对G7–G12已验证论文保留其source ledger：[G11核心深读](../../../research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[G12原理](../../../research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)、[G13因果与干预方法原文L80–L89](../../../research/literature/20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)。先分析对应的实际机制、信息或功能角色，再补图节点与**有类型**对照边；原始作者结果在LIT层保留、现行原生证据在SRC/NATIVE层保留。
