@@ -1,6 +1,24 @@
 # FFNDS · 研究综合地图：从冻结 Wan FFN 的信息结构到真实可执行计算
 
-> **现行综合入口，2026-10-27** · G0–G12计算图、79项论文索引、既有完整原生实验的证据映射。此文收束 G7–G12 的研究解释，而非另起算法路线。各个原论文正文、公式、审计账本作为精确一手证据继续保留。**原生CPU/GPU/模型/视频实验暂停，文献、数学和计算图研究继续。** 当前任务和权限以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为准。
+> **现行综合入口，2026-10-27** · G0–G13计算图、85项论文索引、既有完整原生实验的证据映射。此文收束 G7–G13 的研究解释，而非另起算法路线。各个原论文正文、公式、审计账本作为精确一手证据继续保留。**原生CPU/GPU/模型/视频实验暂停，文献、数学和计算图研究继续。** 当前任务和权限以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为准。
+
+
+
+## 0. 根本科研顺序：先“输出函数为何有意义”，再“什么结构真正承担它”
+
+> **2026-10-27用户最新修正。** 此前把量化码/信息是否能预测gate×W2功能放到研究中心，先行假定了“功能”已经被定位。现在首先要回答：**哪些随状态、step、expert、视频行为而变化的FFN输出函数实际有意义？哪些正常原生计算结构承担这些函数？** 只有完成辨识与独立证据分级，才研究可得信息、代价及实现。完整现行理论/论文审查见 [G13科学报告](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[功能候选与计算结构分别登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[权威G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)。
+
+**优先层级**：
+
+1. **从自然源/seed/step/行为差异定位有意义的输出函数**。对原生\(u_{l,t}(q)=e_5\odot W_2Q_2(\mathrm{GELU}(W_1Q_1(q)))\)及真实写回，不预先规定语义、单neuron重要性、稀疏/能量坐标或编解码表示。视频中的主体/运动/背景/光照只是现象观测轴；无标签的signed共变、协作、抵消与不变量同样可作为功能候选。首先分开 FUNCTIONAL-OBS 与未来需授权验证的 FUNCTIONAL-CAUSAL。
+2. **找出正常原生前向究竟如何计算这些函数**：共享q的多W1行、GELU、HiF4 Q2 group64闭包、W2有符号价值合成、e5门控、后续attention/FFN、四步flow/scheduler以及同expert/不同expert的时间职责。辨别补偿/备份路径，检查功能在不同source/seed/step的变化。路径重要性是**上下文×行为×干预**的属性，不能从单列幅值/局部SSE/频谱/SAE标签直接推出。
+3. **在定位后讨论最小可执行结构和成本**。结合G7–G12先例判断结构可以训练重组、时间复用、全组跳算、低秩联合求值或进行编码域重写。量化code/FP4 sign、Prox/SAE/神经元mask、tensor tile等作为**可选观察与实现**，并列比较可付费与free-running video/SLO。
+
+**最重要的原生依据**：先前六来源/四新来源说明局部FFN raw误差改小而完整state仍可能放大，source425仅seed不同就使cross符号反转；历史频带内外cross可异号；完整video中主体、背景与光照损失可能不一致。这些数据先为“某些功能必须区分”提供动机，并未识别具体W1/Q2子图。严格的目标是研究**具有行为价值的联合函数计算结构**，而不是用某个code格式证明先前定义的函数可以被预测。
+
+**研究文献上的判别**：JMLR2025 causal abstraction（L80）要求将高层行为和低层机制经干预绑定；ICLR2024 patching best practices/interpretability illusion（L81/L82）说明干预/指标选择与休眠通路可误导定位；AAAI2026 TIDE（L83）与CVPR2026 motion IMAP（L84）提供特征或时空语义观测；ACMMM2026 video encoder时空SAE（L85）则提示重建/可解释指标可能与时间稳定冲突。以上以正式摘要/作者公开资料为主，还未完成G13功能因果实验。
+
+**旧的五类计算技术路线与G11/G12仍然保留**，但下述“同等重要Q1/Q2/Q3”和所有关于量化signed证书的技术分析，现在属于*定位功能与结构之后*的实现和信息价值研究。G13 U01–U18 / M13–M14 为当前首要科学图入口。
 
 ## 1. 唯一固定的原研究对象：真正执行什么
 
@@ -28,7 +46,7 @@ y=r_2+e_5\odot (W_2\tilde h+b_2).
 - 对完整40层×4步的既有原生替换，局部FFN raw误差可能改善，生成latent继续偏移；历史候选有真实FFN或生成速度增益但视频存在质量失配，尤其背景光照和细物体时序稳定性。不能把后验全局SSE当唯一机制起点，也不能由失败断定全部低复杂度FFN函数结构不可行。[实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)
 - 已覆盖10个独立source身份、12条source×seed完整轨迹、1920个全深度FFN观察位置；严格区分**site数量**与独立视频数；已有生成作品不能替代正式全指标/VBench+人工验收。现行[视频与全深度指标协议](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)和[ACTIVE](../ACTIVE_RESEARCH.json)独立决定质量与实验许可。
 
-## 2. 五种真正不同的科学操作：统一分类、不按论文标题类比
+## 2. 定位功能与结构之后：五种不同的高效计算改造
 
 | 计算层面 | 可行的物理动作/原理 | 必须先拥有的信息 | 原Wan合法性与证据 | 论文强先例 |
 |---|---|---|---|---|
@@ -38,9 +56,9 @@ y=r_2+e_5\odot (W_2\tilde h+b_2).
 | **D. 历史、帧、step层级省算** | 跳某block/step/frame，对整个函数值或历史部分做预测/插值/缓存 | 已产生的同expert/同权重、同条件历史，或者训练得到的专用预测器 | 四步中两次high/两次low；跨expert函数身份不同；无偿历史不能保证当前q、gate、Q2一致；要带未来latent反馈 | L34 DIFS、L35 FIS-DiT、L39 SVD-Cache、L09 Chipmunk、L52 L²P |
 | **E. 训练形成的新函数** | 重新训练小路由/稀疏FFN/专家树/step子网络/时间encoder-renderer，令可跳结构真正存在 | 训练/蒸馏数据、目标与预算，新参数定义及部署内核 | 训练后质量与原冻结模型的后验天然结构是不同命题；可作为低成本后训练研究分支 | L70 Spark、L72 SQ-DM、L10 Dense2MoE、L53 tree FFF、L60 SCD、L61 LongLive2 |
 
-这五种动作既可能互相组合也可能产生反向预测；优先比较**得到信息后实际省掉的计算与功能损失**，而不是把已发表的方法换名重现。并列参考 [论文原始索引 L01–L79](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)。
+这五种动作既可能互相组合也可能产生反向预测；优先比较**得到信息后实际省掉的计算与功能损失**，而不是把已发表的方法换名重现。并列参考 [论文原始索引 L01–L85](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)。
 
-## 3. G7–G12原始研究如何投射到同一张计算图
+## 3. G7–G13研究如何投射到同一张计算图
 
 **G7：时间与宽度的真实计算颗粒。** DIFS K01–03按step经过大规模蒸馏得到不同W1/W2组（训练且压紧参数）；FIS-DiT K04–06按frame×layer选择anchor并插值恢复完整状态（改变M行和attention上下文）；Mobile Video DiT K07–09训练出更窄FFN通道并部署compact dense GEMM；NerVE K10–12计算pre/post-GELU协方差特征值描述维数（后验观察，不提供推理免费坐标方向）。DIFS与FIS已核原PDF方程：[G7方法审查](../literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)。
 
@@ -98,13 +116,13 @@ W1点积区间 \([L_j,U_j]\) 若处于一侧可认证解码点积的符号；继
 ## 7. 论文的证据级别、当前未解问题及维护契约
 
 - **原 Wan证据：** G0–G5 SRC/OBS/NATIVE-ACT/VIDEO/SYS、[EXPERIMENT_FINDINGS_ATLAS](../EXPERIMENT_FINDINGS_ATLAS.md)各结论绑定原有RUN或保存统计。原Affine/HWG方案存在具体已测问题，但“所有conditional FFN思路”仍为开放科学空间。
-- **外部论文：** 79个 L01–L79 只是索引规模，不等于79篇均读完整方法。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
+- **外部论文：** 85个 L01–L85 只是索引规模，不等于79篇均读完整方法。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
 - **数学：** G12重排界是经典定理在本研究编码信息层的应用，不是声称第一次发明；single-row tight≠joint gate×W2 tight；多token GEMM有效性≠single-vector已实现。
 - **维护：** 新论文只写一遍原始方法到其审计来源，更新LID/来源等级/信息时点/训练/成本，并给机器图节点添加准确的**比较边**；综合文档仅更新**机制类别、改变判断的证据和研究问题**，图上不能把LIT边画成Wan实线。阅读指南/Agent/Navigation只放稳定指针，不用一段新研究进展覆盖旧导航。
 - **权限：** 一切原生新CPU/GPU/模型/视频须用户再次明确批准，当前实验状态仍 PAUSED_BY_EXPLICIT_USER_REQUEST_20261027。
 
 ## 8. 检索与复核入口
 
-**权威可读图** [G0–G12全图](../../docs/98_端到端计算图与证据注解_20261025.md) · **机器节点/边** [GRAPH_AGENT_BINDINGS.json](../agent_protocol/GRAPH_AGENT_BINDINGS.json) · **机制交叉矩阵** [MECHANISM_GRAPH_CROSSWALK.json](../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) · **79篇原始论文** [PRIMARY_LITERATURE_INDEX.json](../literature/20261026/PRIMARY_LITERATURE_INDEX.json) · **一手文献分级** [20261027论文与源码审计目录](../literature/20261027/) · **Agent协作协议** [GRAPH_AGENT_COLLABORATION.md](../agent_protocol/GRAPH_AGENT_COLLABORATION.md) · **研究导航** [RESEARCH_NAVIGATION.md](../RESEARCH_NAVIGATION.md)。
+**权威可读图** [G0–G12全图](../../docs/98_端到端计算图与证据注解_20261025.md) · **功能定位与结构候选** [FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · **机器节点/边** [GRAPH_AGENT_BINDINGS.json](../agent_protocol/GRAPH_AGENT_BINDINGS.json) · **机制交叉矩阵** [MECHANISM_GRAPH_CROSSWALK.json](../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) · **85篇论文索引** [PRIMARY_LITERATURE_INDEX.json](../literature/20261026/PRIMARY_LITERATURE_INDEX.json) · **一手文献分级** [20261027论文与源码审计目录](../literature/20261027/) · **Agent协作协议** [GRAPH_AGENT_COLLABORATION.md](../agent_protocol/GRAPH_AGENT_COLLABORATION.md) · **研究导航** [RESEARCH_NAVIGATION.md](../RESEARCH_NAVIGATION.md)。
 
 此文件是现行研究解释的单一综合入口。旧章节继续保留原实验与原始论文审查证据，旧时代数字和来源状态只用于说明历史版本，不参与新的结论推断。
