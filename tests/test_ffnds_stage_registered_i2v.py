@@ -59,7 +59,7 @@ class StageTests(unittest.TestCase):
             self.assertEqual(len(photos), 1)
             self.assertEqual(photos[0].stem, "camera pans left")
             for video in videos:
-                key = re.sub(r"-\\d+$", "", video.stem)
+                key = re.sub(r"-\d+$", "", video.stem)
                 self.assertTrue((photos[0].parent / (key + ".png")).is_file())
 
     def test_staging_requires_exact_original_metadata(self):
