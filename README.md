@@ -1,88 +1,51 @@
-# FFNDS · Wan2.2 four-step video FFN research
+# FFNDS · Wan2.2 四步视频生成中的 FFN 函数与真实计算研究
 
-## Current E0 science — intrinsic FFN computation first
+FFNDS研究**能以什么信息和数学表示减少真正的 FFN / 整段视频计算，同时保持生成视频的运动、主体、背景、光照与时间一致性**。研究从真实 LightX2V Wan2.2 I2V A14B 四步D-Q代码出发，并沿原始科研论文扩展函数、信息、时间和硬件机制。文献与计算图是研究工具，不是某一候选稀疏算子的实现声明。
 
-**2026-10-26 扩展决策更新**：[六来源起步、10+来源迁移与有符号视频功能评价](research/20261026/E0_MULTISOURCE_DIRECTIONAL_EVALUATION_20261026.md)。全局SSE保留为诊断，方法比较基于真实同输入signed状态贡献、互斥频带、跨源多维视频质量与原生物理成本；本计划为新设计，非新增GPU结果。
+## 现行研究入口（2026-10-27）
 
-**统一机制与质量科学结论**：[Wan FFN完整视频失败与Affine54方法族审查](research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)。此页是科研导航；**v3两来源全深度原生观测已完成**，原生RUN与[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)负责精确执行状态及后续授权。
+| 目的 | 权威资料 |
+|---|---|
+| 当前已经知道的事实、竞争假说及研究综合 | [统一 FFN 机制、文献与计算图研究报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) |
+| 一张可逐算子追踪的 Wan + 外部方法计算图 | [G0–G12 完整源码计算图与证据注解](docs/98_端到端计算图与证据注解_20261025.md) |
+| 机器可读的稳定节点、边和12类机制互联 | [Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) / [Mechanism Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) |
+| 79篇论文及各自真实阅读等级 | [Primary Literature Index](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) / [机制竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md) |
+| 已完成原生实验的发现、证据身份和验收范围 | [Experiment Findings Atlas](research/EXPERIMENT_FINDINGS_ATLAS.md) / [研究导航](research/RESEARCH_NAVIGATION.md) |
+| 默认AutoResearcher原则与科研Agent讨论 | [AGENTS.md](AGENTS.md) / [Graph↔Agent协作](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) |
+| 当前模型执行、实验权限和工作阶段 | [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json) |
 
-**Research source expansion (2026-10-26):** [51-source research catalog](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json), [18 new four-step Wan/FFN-neuron/frame-level/functional-spectrum studies](research/literature/20261026/ADJACENT_METHOD_EXPANSION_20261026.md). Direct related work is no longer just RT-Lynx/Chipmunk/Dense2MoE; now includes Dynamic-in-Few-Step, FIS-DiT, Mobile Video DiT and NerVE. Source tiers remain separate; no experiments launched.
+**研究状态**：已覆盖10个独立source身份、12条source×seed生成轨迹、1920处全深度FFN观察位置（不是1920条独立视频）。既有候选完整四步视频呈现可见质量失配，正式外部VBench与人工验收状态不属于已通过。原已授权任务全部结束，**所有新的CPU/GPU/模型/视频实验暂停**；仅文献原文与源码、数学、保存证据分析、研究讨论及计算图维护继续进行。新执行需用户另行授权。
 
-**Current FFNDS literature-first research (2026-10-26):** [33 primary source and official spec index](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json), [readable literature atlas](research/literature/20261026/PRIMARY_LITERATURE_ATLAS.md) and [mechanism overlap matrix](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md). The next scientific objective is original-paper method analysis, transfer assumptions and nearest-prior-art comparison; no new GPU or candidate is implied by this index.
+## 原始模型：准确的计算对象
 
-**Research direction reset, 2026-10-25:** [intrinsic FFN mechanism program](research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) and [current sole discovery task](research/20261025/E0_FFN_FIRST_TASK_20261025.md). For specific missing source fields, mathematical contrasts and cheapest discriminators, read [knowledge gaps K1–K5](research/20261025/E0_FFN_KNOWLEDGE_GAPS_AND_DISCRIMINATORS_20261025.md). Study W1–GELU–W2 signed contributions, conditional token/step/expert structure, downstream functional effect, and actual avoidable GEMM work. The old [E0 gap dossier](research/20261025/E0_GAPS_REMEDIATION_REQUIREMENTS.md), radial pairing, four-arm and HiF4/NVFP4 comparison now serve as historical/scoped evidence rather than default science agenda. Default [deep Web Search](research/agent_protocol/DEEP_WEB_RESEARCH.md) and AutoResearcher v2.4 remain in force.
+- **Wan2.2 I2V A14B D-Q四步蒸馏模型**，40 blocks，去噪四个step按 **high/high/low/low** 启用两套独立的专家网络。
+- 原生运行中代表性一次FFN输入 **M=31668 token行、D=5120、hidden H=13824**。81个最终视频帧和21个latent时间bin是不同对象。
+- 原FFN实际顺序：**cross-attention residual → norm2 / AdaLN → Smooth1 / HiF4 Q1 → W1 → tanh-GELU → Smooth2 / HiF4 Q2（64→8→4共享尺度依赖）→ W2 → e5 gated BF16 residual → downstream blocks / flow / scheduler / video**。
+- 本仓库原生数值是**HiF4 fake-QDQ + BF16 Linear**，不能与作者论文或外部示例的packed NVFP4/MXFP4 Tensor Core kernel替换理解。真正的W1、W2以及Q2依赖和物理代价都在[计算图G0–G5](docs/98_端到端计算图与证据注解_20261025.md)中标明。
 
-**Goal:** Discover new, testable mathematical and execution mechanisms for reducing actual FFN/end-to-end compute while preserving complete free-running video quality. Dense restoration, R256 compensation, masks and alternative function representations remain competing candidates, selected by mechanism and evidence.
+## 三个相互连接的科研问题
 
-## Agent × computation-graph scientific workflow
+1. **信息（Q1）：** 是否存在本来已可廉价读取的信息，例如当前q、离线权重统计、量化code/scale/sign、time/expert或合法历史，足以描述某个FFN函数所需的结构？
+2. **决策（Q2）：** 取得这些信息、router/proxy、code读取、group界计算、缓存、packed layout是否比直接完整计算更便宜？其对有符号gate×W2和视频功能的预测力在不同source/seed/step是否保持？
+3. **真实省算（Q3）：** 到底跳过或改写了哪些W1/GELU/HiF4 Q2/W2/GEMM tile、step/frame/block，在同等模型质量与部署硬件上是否降低完整生成或实时TTFF/p99成本？
 
-All FFNDS research agents now use the [G0–G5 source graph](docs/98_端到端计算图与证据注解_20261025.md) together with the [Graph↔Agent collaboration protocol](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) and [node/edge/evidence registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json). Agents retrieve relevant computation/decision-time/downstream paths, independently attach hypotheses and evidence to [E0 graph claims](research/method_discussion/graph_annotations/E0/README.md), review one another's mechanisms, and the serialized integrator annotates supported findings back into the graph and experiment atlas. The graph interface offers **static source/evidence lookup with reviewed annotation**; executable native traces are separately specified and evidenced by their actual RUN records.
+这三个问题可以并行提出不同假说，无需先规定TopK、Dense恢复、SSE、FP4格式、特定路由或单一路线。局部raw SSE改善不等于最终视频稳定，也不反证其它未来函数表示。
 
-## Experiment findings and source-linked computation graph
+## 论文与图谱的六条主线
 
-The [updated G0–G6 source-anchored computation graph](docs/98_端到端计算图与证据注解_20261025.md) traces four-step scheduling, self/cross attention, norm2/AdaLN, W1–GELU–W2, **HiF4 group64/8/4 Q2 scale dependencies**, gated residual, and propagation into flow/video. New G4 distinguishes posthoc coefficient concentration, native tile occupancy, micro16 pre-W1 observation with its extra W1 cost, shared-column innovation and the distinct W1/W2 operand closures. Every graph boundary links to a relevant historical or E0 result with an explicit evidence scope. The companion [experiment findings atlas](research/EXPERIMENT_FINDINGS_ATLAS.md) classifies early mask/quantization, group support, R256, temporal reuse, native finite actions, information-value, system timing and current intrinsic-FFN discoveries. They synthesize existing evidence; no paused experiments were resumed.
+| 外部图分区 | 比较什么 | 一手材料 |
+|---|---|---|
+| **G7** | 按step训练的精简模型、frame×layer分配、FFN宽度与谱 | [DIFS/FIS原文审查](research/literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md) |
+| **G8** | 当前GEMM的N:M、训练MoE、跨步主/残差或FFN缓存 | [四种方法一手分析](research/literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md) |
+| **G9** | 整个函数历史预测、硬树条件执行、全网功能迁移 | [G9一手阅读](research/literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md) |
+| **G10** | 普通视频teacher如何变成实时causal/rolling学生及其系统SLO | [实时视频14项论文与源码](research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md) |
+| **G11** | FP4符号/尺度的信息时点，Prox、CodeGEMM、SharQ等计算代价 | [核心5篇深读](research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ的Wan-T2V强对照](research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md) |
+| **G12** | 有符号量化直方图的单行紧内积区间、部分配对精读与bitplane/LUT/GEMV | [严格代数和作者源码](research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) |
 
-**Latest mechanism re-evaluation (2026-10-25):** [Open intrinsic FFN discovery after full-hidden and shared-tile studies](research/20261025/E0_INTRINSIC_DIVERGENCE_AUDIT_20261025.md). Posterior per-token innovations concentrate in selected channels, while native-layout tile occupancy and shared-column functions behave differently. The active task now investigates competing signed-function, nonlinear, spatiotemporal, downstream-video and physical execution explanations instead of another default top-k/group64 search.
+G7–G12新外部节点使用LIT/ALG/SPEC/OPEN证据等级。CodeGEMM、LUT-GEMM的公开实现单向量查表与多token解量化dense回退、SharQ的sparse加dense residual GEMM是实质性的**原作者源码实现边界**；相关结果不是当前Wan本地运行。
 
-## Current scientific questions
+## 复核、科研协作和实验权限
 
-The three questions are **complementary, not a compulsory sequence**. Discovery may begin with either upstream information, native FFN algebra/physical execution, or downstream video behavior, and revise the others.
+先通过[研究导航](research/RESEARCH_NAVIGATION.md)定位原始配置、论文ID和evidence类型。每项研究形成**可检验的结构或机制 → 最强竞争解释 → 最低成本区分方法 → 实际省算范围与视频功能**，并回写[图谱](research/agent_protocol/GRAPH_AGENT_BINDINGS.json)和[综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)。静态graph/文档检查说明链接及关系一致；数值证明要源代码/数学，真实速度与质量需授权后原生完整试验。
 
-1. **Information:** Which already-available signals before FFN/block execution reveal the necessity or downstream value of different computations?
-2. **Decision:** Which signals have positive *net* value after observation, routing and physical execution costs over strong static same-cost alternatives?
-3. **Compute:** Which FFN computations are avoidable or reparameterizable while maintaining four-step I2V quality, including residual/step propagation and eventual native hardware deployment?
-
-Read [ranked experimental evidence](research/EXPERIMENT_EVIDENCE_INDEX.md), [current live research](research/ACTIVE_RESEARCH.json), [short evidence packet](research/agent_protocol/CURRENT_CONTEXT_PACKET.md), [research navigation](research/RESEARCH_NAVIGATION.md) and [mechanism & information study](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md). The source-informed C0 residual-scale example is a synthetic construction, not a measured Wan speed/quality win.
-
-## Default scientific workflow
-
-Every research agent uses [AutoResearcher](https://github.com/Qesire/AutoResearcher/tree/8b88a52d894568dc303db727decfbf13b5fabf3b) automatically through [AGENTS.md](AGENTS.md): discover a mechanism → reconstruct relevant source → derive and discriminate → compare closest published work → implement/measure when authorized → record what was learned. The minimal [FFNDS paper-discovery skill](.agents/skills/ffnds-paper-discovery/SKILL.md) provides domain context. Suggestions and exploratory math are not gated by whether an exact experiment already exists.
-
-**Mandatory research quality protocol (2026-10-26):** [every generated video must have all-frame quality and runtime analysis; all-layer FFN claims must trace actual cumulative 40×4 student inputs](research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md). New tools: [video analyzer](tools/ffnds_video_metrics.py), [per-video SHA-bound evidence gate](tools/ffnds_video_metric_gate.py), [unexecuted full-depth design template](config/e0_full_depth_quality_discriminator_TEMPLATE_20261026.json). The six original videos retain immutable reports; [separate 486-frame core-metric backfill](research/20261026/E0_EXISTING_VIDEO_QUALITY_BACKFILL.md) includes corrected motion proxies. Official quality, semantic background evaluation and human full-video acceptance remain separate evidence requirements. Realtime research is paused.
-
-## 最新全深度机制发现 · 2026-10-26
-
-[两来源320处原生paired数据](research/20261026/E0_PAIRED_FULL_DEPTH_RESULTS.md)在来源0/12各40层×4步记录了teacher/student输入上的四臂FFN、实际writeback、完整flow/latent以及四视频/16个latent身份校验。318/320处Student-prefix raw局部绝对算子误差**低于**Teacher-prefix，其余2处相等；与此同时latent偏差在去噪步中持续增大，后3步flow差与已有状态偏移方向明显相反。由此得到新的可判别问题：需要额外的完整dense `v_D(z_S)`响应，将流差分成部署算子作用与原生Dense状态响应，再考察哪些改变关联完整视频的运动、光照、细节。这个反事实尚未执行；新的模型计算需要单独授权。v2两条DD视频虽与历史Dense字节相同，详细trace因后处理路径错误未落盘，独立记录为失败而不折算为320处证据。v3全帧与严格身份检查通过，但官方/人工质量未验收。
-
-## Project state
-
-**Full native prototypes, 2026-10-26:** [six complete paired videos](research/20261026/E0_RECONSTRUCTED_VIDEOS.md) execute fixed whole94/affine54 reconstructions at all160 FFN sites. Warm affine54 reduces the native FFN boundary9.707→4.449s (2.182×) and full generation50.750→45.313s (1.120×), with setup excluded and new BF16 parameters disclosed. Both prototypes visibly lose video quality; no quality/speed acceptance. [Matched four-source256-row/all40-layer controls](research/20261026/E0_ALL_BLOCK_RECONSTRUCTION.md) give15.35% anchored input-ridge versus8.54% affine54 local SSE, so training-coverage confounding alone does not explain that fixed-estimator comparison. Four calibration captures, a separately frozen pre-generation recovery and160 finite operator packs are complete. The historical six-video prototype scope was completed. Current paired-native v2 activity and resource state are tracked only in [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json) and native RUN receipts. [Perturbed-prefix/trajectory target derivation](research/method_discussion/discoveries/E0/transported-function-and-trajectory-target-20261026.md) opens competing functional explanations rather than more group-count tuning. [Earlier four studies](research/20261026/E0_FUNCTION_RECONSTRUCTION.md) and [ACTIVE_RESEARCH](research/ACTIVE_RESEARCH.json) preserve exact evidence and authorization.
-
-**Newest direction review:** [E0 all-depth function vs exact-dense residency and competing mechanisms](research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md). The G5 graph keeps original dense system speed, sampled affine improvement, GELU odd/even explanatory alternatives, and video-functional/open real FFN savings separate; no method selected.
-
-**Exact-output runtime improvement and all-depth FFN followthrough:** [dense weight residency](research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md) reduces warm complete generation on the same A100 80GB from75.17/75.37s to50.42/50.79s (~1.49×), at77.08GiB sampled physical peak. All18 videos and72 scheduler latent hashes match historical dense. FFN MACs are unchanged. Original/no-flush reciprocal card controls, first-generation costs, memory and opt-in reusable helpers are retained; no automatic default switch or research-stage promotion.
-
-[All40-depth tangent, cross-source affine and whole-group residual results](research/20261025/E0_AFFINE_FFN_DISCOVERY.md) show that a linear function base beats exact matched projection pruning, while middle-depth errors and unfused observation costs remain substantial. An [independent reconstruction](research/method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md) opens a competing GELU odd/even and signed-cancellation explanation. The new observations use two exposed input/seed clusters, source0/seed42 and source12/seed54. All fixed scopes are complete; no jobs pending. Claims connect back to G0–G4 without turning approximate algebra into an executed sparse path.
-
-**Contiguous-token and pre-W1 followthrough, 2026-10-25:** [shared columns, nonlinear observation and native dependency](research/20261025/E0_SHARED_TILE_PRE_W1.md) adds two unchanged native videos on two idle A100s and120 W1/2280 W2 saved diagnostic projections. At25% columns, pre-W1 micro16 GELU/value selection has6.55% innovation SSE at Block39, but42%–47% in observed middle blocks. Shared posthoc support also loses much of the pointwise advantage there. All tested25% arbitrary shared sets touch every native HiF4 group64; one-input-change original-reference counterexample changes all64 Q2 outputs. W1 and W2 budgets must therefore be distinguished. All native identity controls pass; no sparse speed/quality acceptance, stage change or pending jobs.
-
-**Intrinsic FFN GPU followthrough, 2026-10-25:** [full-hidden signed-value and native support study](research/20261025/E0_INTRINSIC_FULL_HIDDEN.md) expands to all13824 coefficients/216 groups on six saved sources, plus two unchanged native four-step videos. At25% retained channels, same-expert innovation reconstruction SSE is2.44%–7.07% across the five observed blocks, versus32.42%–54.67% with a same-budget whole64 group-energy reference. Full native token coverage shows every tested original M16/64/128×K64 support block remains nonempty even at12.5% retained elements. Both videos, all8 latent hashes and40 FFN sample hashes match historical dense controls. One idle A100 used and released; no sparse speed or quality claim. This follows the user's new explicit GPU continuation; completed12/40-generation scopes remain unchanged.
-
-**Saved radial mechanism followthrough, 2026-10-25:** [pairing, common-mode and source-transfer controls](research/20261025/E0_RADIAL_PAIRING.md) show that Block0 raw radial alignment survives wrong token pairing (19.79% paired,20.54% deranged). Position-centered directions retain a pairing relation (8.84% versus3.59%); neither observation is a deletion or speed claim. A common residual direction from the other five sources transfers at cosine0.99645, within this six-source seed42 cohort. All1440 historical radial values reproduce; zero new model/GPU calls. This separates shared geometry from token dependence before investing in conditional routing.
-
-**Saved temporal followthrough, 2026-10-25:** [source-held-out calibration and mechanism comparison](research/20261025/E0_TEMPORAL_CALIBRATION.md) finds transferable common-component drift: Block39 relative SSE falls from37.34% with reuse to8.32% with fixed scale and4.35% with fixed affine correction. Position-centered variation still has39.25% relative SSE under the affine reference. Current-input RMS adds some expert-dependent information, while strong fixed controls remain essential. This uses existing dense-prefix observations: zero new model/GPU calls, no executed cache, and no speed or video-quality acceptance.
-
-Following the independently authored mechanism record synchronized at `0bd9bbc`, [full four-arm distance and subspace checks](research/20261025/E0_SHARED_REFERENCE_MOMENTS.md) quantify the shared-reference decorrelation alternative. The best nonnegative moment fit has2.24%–20.01% discrepancy on final-flow squared distances; whole-output subadditivity can coexist with superadditive low-energy components. This is a saved-tensor diagnostic, not proof of independent noise or beneficial functional cancellation.
-
-**E0 native finite-action discovery, 2026-10-25:** [current scope](research/ACTIVE_RESEARCH.json), [results and competing explanations](research/20261025/E0_FOLLOWTHROUGH.md), and [six-source numerical results](research/20261025/E0_FINITE_GROUP_DIAGNOSTIC.json). Thirty complete four-step generations establish that BF16 residual writeback is a measurable boundary between continuous group predictions and native actions; local and final-flow rankings differ in three of six exposed sources. Ten [cross-worker technical generations](research/20261025/E0_CROSS_WORKER_REPRODUCTION.json) also completed, with all210 tensor/video hash comparisons matching. The user ceiling is four simultaneous idle GPUs; actual peak was two, using four distinct cards in batches. No jobs remain. This remains phenomenon discovery, with full dense GEMMs and no speed or video-quality acceptance.
-
-The preceding [passive six-source study](research/20261025/E0_DISCOVERY.md) completed twelve dense generations with historical latent/video identity. Its geometry, quantization and temporal observations remain evidence at their original scope. The [earlier pause receipt](research/20261024/EXPERIMENT_PAUSE.json) and historical closures are preserved.
-
-**Experimental file importance:** [28 curated, source-hash-bound priority records](research/experiment_evidence/PRIORITY_RANKING.json) and a [searchable inventory of 1,348 historical experiment-related files](research/experiment_evidence/FILE_INVENTORY.json). Priority means usefulness to current scientific questions, not experiment authorization or a quality verdict.
-
-**Frozen evidence is preserved** in [historical decisions](research/CURRENT_DECISION.json), [method outcomes](research/20261021/method_triage.json), `research/`, `reports/`, `docs/` and `upstream_audit/`. These are archives of measured or proposed *past* work, not active tasks. Historical registration rules and results remain unchanged. See [archival lifecycle and redirect index](ARCHIVE.md) and [metric/quality protocol](docs/77_FFNDS学术指标族与评测协议_20261023.md) for eventual native full-video evaluation.
-
-### Key reproducibility references
-
-- [Native FFN structure and conditional computation evidence](docs/86_归一化前信息与净动作耦合的离线检验_20261023.md)
-- [Historical objective drift / optional completion analysis](docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md)
-- [Full four-step video quality gate](docs/75_备选算法必须完整生成与防止视频质量崩溃_20261022.md)
-- [Q1/Q2/Q3 competing mechanism record](research/20261024/three_question_information_first_exploration.json)
-
-The 2026-10-20 release/hardware restoration details remain in [ARCHIVE.md](ARCHIVE.md). Old plans that say `ACTIVE` or `mandatory` remain historical snapshots and do not supersede the active file.
-
-## Multi-agent method discussion
-
-**Default research method:** AutoResearcher applies automatically to **every** participating discussion agent (proposer, independent reviewer, challenger or integrator), according to [the nested agent instructions](research/method_discussion/AGENTS.md) and pinned [source manifest](research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json). Apply its substantive discover → source-ground → mathematical reformulation → discriminating prediction → constructive advance principles without making them a creativity gate.
-
-Agents collaborate **only at the scientific method-discussion level**: each independently proposes an operator/mechanism, other agents review and challenge its mathematics and source evidence, and independent agreement is stored with traceable review records. Start at the [method discussion queue](research/method_discussion/QUEUE.md), [rules](research/method_discussion/README.md), and [record templates](research/method_discussion/TEMPLATES.md). A method supported by another agent is not an executed or validated method; reviews cannot resume paused experiments or authorize implementation.
+[AutoResearcher](https://github.com/Qesire/AutoResearcher)原则默认生效；多科研Agent可通过[讨论队列](research/method_discussion/QUEUE.md)独立提出方法与复核。所有历史实验的run协议、source SHA、指标与失败结论保留在原始报告和[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md)，当前任务与权限只在[ACTIVE](research/ACTIVE_RESEARCH.json)中确定。
