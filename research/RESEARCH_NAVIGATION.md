@@ -12,6 +12,8 @@
 
 **新增视频时空函数入口**：[A5+HWG历史背景闪烁与小物体模糊的机制推导](20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)。研究区分主体结构、细节保持、背景时序协调，拆分空间高低频与视频时间变化，并分别检验mask开关、持续弱功能遗漏、量化尺度和下游传播。它是HISTORY-OBS/ALG/OPEN组合，不是新A5原生实验；[指标协议细化](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)保留已有工程gate，不要求每个数学种子立即跑完整视频。
 
+**UB1运动保真已提升为正式研究假说**：[原始RAFT 40-pair×4 clips重检与运动衰减因果审查](20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)。两个已暴露formal20来源的连续motion幅值UB1/Dense约38.13%（犀牛38/40采样对较小）/9.19%（住宅40/40较小），官方二值Dynamic Degree全0；相对减幅不等于动作语义失败或普遍动态能力崩溃，**纹理模糊降低RAFT可追踪性**是优先判别的对手。按motion-rich subject/camera/static分层，在已有四步源图上区分static appearance、motion function、trajectory propagation；[UB1方案](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)和[视频指标合同](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)已联动修正。VideoJAM/Motive/DCM是成熟运动监督/来源选择近邻，供直接迁移，不要求另造loss。
+
 ## 按科研问题选择证据
 
 | 要回答的问题 | 主入口 | 精确证据与下一层 |
