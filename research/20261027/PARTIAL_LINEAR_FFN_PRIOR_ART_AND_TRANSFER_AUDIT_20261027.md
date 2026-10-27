@@ -71,11 +71,17 @@ P_t=T_D(z_t^S)-T_D(z_t^D),\quad N_t=T_S(z_t^S)-T_D(z_t^S),
 
 **TCEC（ICML2026）**又提供了量化模型的误差递推和补偿；较早的arXiv版本闭式索引式在本项目审查中出现与边界条件不一致的代数问题。可采用核心机制但必须独立从原Wan步进推出递推，并以终稿核对，不能不经核查把其推导中的一个特定展开当作定理。[TCEC正式页](https://proceedings.mlr.press/v306/liu26fv.html)。
 
-## 4. 不采用仿射表示的强系统竞争者：RT-Lynx
+## 4. 不采用仿射表示的强系统竞争者：RT-Lynx（已深入重审）
 
-**RT-Lynx（Cong等，ICML 2026）**不是TARDIS/Affine54的进一步仿射折叠。其原文§4在DiT GEMM输入侧施加在线**2:4半结构化激活稀疏**，使用范数恢复与约2000步LoRA微调补偿，在H20上设计融合稀疏化/压缩/SpTC-GEMM/LoRA输出的专用kernel，作者报告线性层平均最高约1.55×加速。实际测试Qwen-Image、FLUX、Z-Image等图像DiT，并非Wan2.2-I2V四步；不支持称作免训练或已经拥有本视频任务1.55×速度。[ICML正式页](https://proceedings.mlr.press/v306/cong26a.html)、[arXiv逐节全文](https://arxiv.org/html/2605.26632)。
+**本节只保留方法映射；原文Table1/3/5/6、原数学及解释性反例统一参见[RT-Lynx专题一手审查](RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)。**
 
-原文还表明未经融合在线N:M动作本身可占较大总运行时间，LoRA也需要成本，故真正突破不是发现“激活可以变稀疏”这一后验统计，而是**合法N:M硬件形状＋在线成本融合＋质量恢复**。这对Wan真实大M/HiF4+BF16值得认真竞争测量，并可能与UB1和Affine54并列，不要求合并成一个复杂算法。
+**RT-Lynx，Cong等ICML2026** 将普通GEMM的**输入激活**而不是原权重施加逐token **2:4 semi-structured Top2**，接每token输入范数缩放、rank64的LoRA密集补偿，使用融合在线Top2/压缩/SpTC稀疏GEMM/LoRA的CUDA kernel。图像DiT H20结果是线性层最高约1.55×、图像整端约1.2×；最终方法需要约2k步LoRA训练，不是无需后训练的简单Top2。论文中Qwen-Image/MJHQ FID从naive weight2:4的51.63、naive activation2:4的35.85，经norm补偿25.28，最终norm+LoRA至21.25（dense21.98），**既不支持只剪激活即无损，也不支持weight sparsity全类失败**。
+
+**重审改变的最重要执行边界**：FFNDS原来whole64组/原M tile全满是对传统hidden通道剪枝的物理负例，**不能阻止输入operand内部2:4 Sparse Tensor Core**。如果在**Q1之后的W1输入**执行2:4，能潜在减少W1乘加而保留所有W1行；如果在**Q2之后的W2输入**执行2:4，原Q2尺度已算完，仅降低W2 GEMM，W1和Q2成本照付。这两种位置与先在GELU前删神经元使Q2缩放传播的动作不同。实际BF16 SpTC核布局、A100的packed/fake-QDQ组合及线上metadata、LoRA成本必须证明；Qwen-Image/FLUX/Z-Image都是**图像而非Wan视频**。
+
+**解释性准确性**：作者看到近零激活约5–10%“active”与稠密权重近高斯，将其联系到superposition。这是有用的函数使用直觉，不等于「神经元=唯一语义feature」。[Toy Models of Superposition](https://www.anthropic.com/research/toy-models-of-superposition)中的features可以共享neurons；[Gao等ICML2026](https://proceedings.mlr.press/v306/gao26w.html)还用训练期权重稀疏得到更可解释电路。原RT-Lynx关于权重不宜强制2:4的结论只覆盖其现成稠密预训练模型/既定方法/稀疏率，而不是应永久禁止新的权重重组、蒸馏或训练后稀疏。
+
+[ICML正式页](https://proceedings.mlr.press/v306/cong26a.html)、[作者arXiv全文](https://arxiv.org/abs/2605.26632)；作者CUDA仓库尚未被本轮验证，不能把正文kernel实现视为已有可执行复现。
 
 ## 5. 新假说与最经济的先行判别
 
@@ -84,15 +90,15 @@ P_t=T_D(z_t^S)-T_D(z_t^D),\quad N_t=T_S(z_t^S)-T_D(z_t^S),
 | TARDIS条件热区/动态修正 | Wan各step/block/原64组是否存在跨来源稳定的“近线性工作区”？ | 从可读保存的preW1+postQ2恢复合法组尺度，测按来源/step预测outlier的召回/成本；若outlier打满M/K tile，在线修正不省算 | 预测器+修正+元数据实际成本低于减少的工作 |
 | MPC+FLAP/OBS重构 | 为什么原54组或UB1 C_mean的固定支持在不同来源失稳？ | 固定group/MAC、同数据比较joint/ID/FLAP/OBS选择与V_S/rank校准；避免同时改变来源、loss、预算 | 完整原生W1/Q2/W2仍合法，独立视频改善 |
 | BRECQ/2ndMatch/CTEC | 局部近似函数和跨步视频行为为何分离？ | 单点值/有限响应/同前缀suffix/完整trajectory多边界分开核对；若相同局部SSE产生不同真实后缀作用，则需新目标 | 已有成熟目标确实改善真实视频且训练成本可接受 |
-| RT-Lynx N:M | 更换物理动作能否优于固定whole64/折叠？ | 仿真实际M=31668，核对2:4可执行形状、HiF4量化顺序与LoRA/kernel成本 | 有可交付的实际GPU native kernel和完整video评测 |
+| RT-Lynx 2:4输入operand | W1与W2输入稀疏是否能在保留稠密权重函数容量下换取真实SpTC乘加收益？ | 分开Q1后W1输入与Q2后W2输入，两种量化和真实执行边；原whole64全tile不构成2:4反例 | 实际可执行A100稀疏核、在线成本及完整视频质量 |
 
 **不要预判**“既然TARDIS有预测器，Wan必然需要动态补算”，亦不预判“最后一步预算越多越好”。上面每条路径都可以形成有用的证据、可复现迁移或实际方法。
 
 ## 6. 文献覆盖与尚待核验
 
-- **已逐节阅读**：TARDIS v1 §§3–7（线性化、predictor、fixing与CUDA开销），RT-Lynx arXiv v2 §§2–5（activation N:M、LoRA、kernel、图像评测），BRECQ arXiv论文的方法及二阶推导；**阅读作者/正式出版方法与摘要**：Chee/MPC原文主要ID构造、FLAP/AAAI、CTEC/AAAI；用户提供的仓库E0源码与真实RUN另单独核对。
+- **已逐节阅读**：TARDIS v1 §§3–7（线性化、predictor、fixing与CUDA开销），RT-Lynx arXiv可访问v2全文及附录（activation N:M、superposition解释、LoRA、kernel、图像与速度原表），v3逐版本差异未核实，BRECQ arXiv论文的方法及二阶推导；**阅读作者/正式出版方法与摘要**：Chee/MPC原文主要ID构造、FLAP/AAAI、CTEC/AAAI；用户提供的仓库E0源码与真实RUN另单独核对。
 - **出版记录已确认、技术公式待核验**：LLMFolder（Hu等，EuroSys 2026，DOI 10.1145/3767295.3769339）。不可由相同作者/标题推定与TARDIS所有算法一一对应或已经超越TARDIS；取得合法全文后再修订其专门设计。
 - **应用界限**：TARDIS主要LLM自回归/I/O，MPC主要分类网络，FLAP主要LLM，BRECQ主要CNN PTQ，CTEC图像扩散，RT-Lynx图像DiT；它们的精度百分比、参数减少及线性层时延与Wan的VBench/4step生成wall均不同量纲。
 - **查重原则**：先利用高质量已有构造解决真实模型问题，之后依据具体、可证实贡献如实描述原创性。只因思路已出现而放弃改进是错误的；只因复现成功就宣称全新数学原理也不准确。
 
-**本文件仅为一手文献研究与原实验解释：没有新权重拟合、模型任务、GPU/video运行；不改变ACTIVE和一次性Agent交接。**
+**本文件仅为一手文献研究与原实验解释：没有新权重拟合、模型任务、GPU/video运行；不改变ACTIVE或当前科研交接，已删除的一次性交接不再作为现行入口。**
