@@ -69,7 +69,7 @@ A_{\mathrm{bank}}q_1(x)+b_{\mathrm{bank}}
 | **Model Preserving Compression / FLAP** | 在真实非线性子集上用ID恢复消费者；激活波动度量与bias补偿，均可直接复现 | 原量化全组合法性、校准来源泛化及是否需额外D×D主干 |
 | **BRECQ / OBS-Diff** | block/组级重构、二阶感知支持/时间敏感性 | 是否能在原native BF16/QDQ和实际后缀上稳定改善，而非只改局部损失 |
 | **2ndMatch / CTEC / TCEC** | 扰动响应保留、跨时间状态蒸馏与低成本补偿 | 原真实scheduler、同源同seed教师/学生配对、离线可见Teacher与在线真实信息的区别 |
-| **RT-Lynx ICML2026** | 独立2:4 activation-sparse GEMM+范数恢复+LoRA+融合CUDA，比折叠之外有更强物理执行对照 | 是图像DiT/H20的成果，不是Wan I2V native HiF4验证；实际融合、训练和全生成成本另算 |
+| **RT-Lynx ICML2026** | 对GEMM**输入激活**施加token-wise 2:4、范数恢复、rank64 LoRA和融合SpTC；与Affine54固定whole64真实残差是独立方法，也可作为替代函数族 | Q1后W1输入与Q2后W2输入位置不同，后者不省W1/Q2；原whole64满tile不限制SpTC 2:4；H20图像结果不能当Wan视频结果 |
 
 Affine54的数学表示是 \(\widehat F=Aq_1(x)+b+V_Sq_S\)。TARDIS最关键的新增对照是条件性**异常修正**，而非“论文首次允许保留真实非线性”；MPC的 \(H\approx H_ST\Rightarrow HW_2\approx H_S(TW_2)\)表明重构消费者亦早有先例。我们已经有\(V_S\) ridge，所以应比较其选择/泛化效果与论文实现，而不是再次命名同一操作。
 
@@ -89,7 +89,7 @@ Affine54的数学表示是 \(\widehat F=Aq_1(x)+b+V_Sq_S\)。TARDIS最关键的�
 | **A：固定部分线性** | 现有Affine54（D×D+54 whole64）；same-cost Whole94；MPC式真实激活子集+消费者重构 | 视频退化来自支持/表示能力，还是数值校准失配？ | 固定source/seed/FFN成本和真实HiF4路径 |
 | **B：条件线性+修正** | 直接复现TARDIS热区、在线预测及“减近似加真实”，必要时以whole64组或更合适的合法算子为单位 | 校准区间在不同step/来源是否稳定？online outlier支持是否实际集中成省算tile？ | 观察器先于原W1/GELU/Q2有信息、并计2-bit proxy/metadata、group scale和kernel价 |
 | **C：函数/训练恢复** | FLAP/ID/OBS/BRECQ支持与消费者恢复、2ndMatch/CTEC/TCEC的局部和轨迹目标，允许直接采用 | 额外训练或不同评价边界能否改善独立视频质量？ | 相同校准来源及时间/参数预算比较，不把模型整体teacher状态当在线标签 |
-| **D：不同物理计算表示** | RT-Lynx的N:M activation sparse+LoRA+SpTC，原生packed FP4或其它量化代码域/融合、可选块耦合近似 | 既有D×D折叠与原whole64是否已经受限于布局/数值闭包？ | 实际大M形状、现有设备和native kernel；不能用后验SSE替换部署成本 |
+| **D：不同物理计算表示** | RT-Lynx的输入operand 2:4+norm+LoRA+SpTC；原生packed FP4、低成本重编码、量化域/融合与可选块耦合 | **保留全部稠密权重长期能力**时，是否能仅压缩一次输入的乘加？对Q1后W1与Q2后W2分别做合同；静态group full-tile结果不排除2:4 | 实际大M下A100 SpTC与HiF4 QDQ接口、在线Top2/metadata/LoRA和kernel开销；先用强Dense同条件测量 |
 
 可保留一个开放数学种子：以合法64组内的 \(q_g(z_g)\) 拟合 \(K_gz_g+d_g+r_g\)；A0的逐坐标仿射是对角近邻。这种共享scale块映射可能解释Q2条件关联，**但64×64块需要大量参数**，4来源×每函数256行校准不足以先验保证持出稳定，也不能自动减少GEMM。若证据不支持，直接转向TARDIS、MPC或其它更有效的已知基线。
 
@@ -102,6 +102,8 @@ Affine54的数学表示是 \(\widehat F=Aq_1(x)+b+V_Sq_S\)。TARDIS最关键的�
 
 **WP1｜数值与表示的第一分歧（静态推导与已有载荷）**  
 将(A)完整native执行和(B)校准标签/折叠bank与原Dense在同条件下的偏差分离。来源相同、同Q1输入、同AdaLN/gate时，先检验Q2 scale/round/bias；再比较原Affine54、同成本Whole94、MPC式消费者重构与TARDIS式热区残差，若已有材料足够只需读取/数学检验。成功判据是找到**决定下一构造的数值原因或稳定反例**，不要求某个方法必须新。
+
+**RT-Lynx新增解释性分支（与A54训练/部署分开）**：在相同真实Wan输入上将「权重跨source长期保留的能力」与「当前激活使用」区分。两条2:4候选：Q1后W1输入压缩、Q2后W2输入压缩，第二条完整支付W1/GELU/Q2；它们不同于基于原64隐藏组缩窄形状的Affine54/UB1。研究原生Q2 strict zeros与作者near-zero active统计的不同定义、投影权重和gate有符号贡献及动态图像/视频细节/运动。直接使用论文norm+LoRA为强baseline，但不能把activation小/near-zero等同semantic无用或将权重稀疏视为普遍不可行。[一手RT-Lynx深读](RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)。
 
 **WP2｜条件计算可行性（允许静态成本/数学构造）**  
 按真实分布考察逐组热区、当前输入outlier频度和在M/K tiles上的占用；在不执行实际模型前，构造必要W1提前信息的成本下界/方案并比较TARDIS原2-bit predictor。一个有价值的反例是outlier分布跨所有tiles，使索引/补算超过saved GEMM；即使如此也只关闭指定粒度/硬件路径，仍可采用固定方法/其它函数。
@@ -133,7 +135,8 @@ Affine54的数学表示是 \(\widehat F=Aq_1(x)+b+V_Sq_S\)。TARDIS最关键的�
 
 ## 7. 精简后的唯一证据与论文入口
 
-- [部分线性FFN与条件修正一手文献主审查（本轮新增）](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)：TARDIS、LLMFolder、MPC、FLAP、BRECQ、CTEC、RT-Lynx与实际Wan迁移边界
+- [部分线性FFN与条件修正一手文献共用审查](PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md)：TARDIS、LLMFolder、MPC、FLAP、BRECQ、CTEC与Wan适配
+- [RT-Lynx激活/权重、superposition与Wan真正2:4物理动作](RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)：S1/Q1后W1输入、S2/Q2后W2输入、兼容性/性能/解释性
 
 - [已审核UB1和科研空间](UB1_TO_FFNDS_EVIDENCE_DRIVEN_ROUTE_REASSESSMENT_20261027.md)
 - [E0全40层匹配局部](../20261026/E0_ALL_BLOCK_RECONSTRUCTION.md)、[六视频与系统计时](../20261026/E0_RECONSTRUCTED_VIDEOS.md)
