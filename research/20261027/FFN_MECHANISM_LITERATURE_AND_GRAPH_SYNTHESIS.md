@@ -1,28 +1,28 @@
-# FFNDS · 研究综合地图：从冻结 Wan FFN 的信息结构到真实可执行计算
+# FFNDS · 研究综合地图：有意义的输出函数、计算结构与高效执行
 
 > **现行综合入口，2026-10-27** · G0–G13计算图、85项论文索引、既有完整原生实验的证据映射。此文收束 G7–G13 的研究解释，而非另起算法路线。各个原论文正文、公式、审计账本作为精确一手证据继续保留。**原生CPU/GPU/模型/视频实验暂停，文献、数学和计算图研究继续。** 当前任务和权限以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为准。
 
 
 
-## 0. 根本科研顺序：先“输出函数为何有意义”，再“什么结构真正承担它”
+## 0. 研究主轴：发现有意义的输出函数及其真实计算结构
 
-> **2026-10-27用户最新修正。** 此前把量化码/信息是否能预测gate×W2功能放到研究中心，先行假定了“功能”已经被定位。现在首先要回答：**哪些随状态、step、expert、视频行为而变化的FFN输出函数实际有意义？哪些正常原生计算结构承担这些函数？** 只有完成辨识与独立证据分级，才研究可得信息、代价及实现。完整现行理论/论文审查见 [G13科学报告](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[功能候选与计算结构分别登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[权威G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)。
+> **当前科学问题**：**哪些随状态、step、expert与视频行为变化的FFN输出函数具有实际作用？哪些正常前向计算结构承担它们？** 以这两个对象为中心，发现可共享、可重组或可预测的计算结构，再评估信息可得性与执行代价。完整现行理论/论文审查见 [G13科学报告](G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[功能候选与计算结构分别登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[权威G13主图](../../docs/98_端到端计算图与证据注解_20261025.md)。
 
 **优先层级**：
 
-1. **从自然源/seed/step/行为差异定位有意义的输出函数**。对原生\(u_{l,t}(q)=e_5\odot W_2Q_2(\mathrm{GELU}(W_1Q_1(q)))\)及真实写回，不预先规定语义、单neuron重要性、稀疏/能量坐标或编解码表示。视频中的主体/运动/背景/光照只是现象观测轴；无标签的signed共变、协作、抵消与不变量同样可作为功能候选。首先分开 FUNCTIONAL-OBS 与未来需授权验证的 FUNCTIONAL-CAUSAL。
-2. **找出正常原生前向究竟如何计算这些函数**：共享q的多W1行、GELU、HiF4 Q2 group64闭包、W2有符号价值合成、e5门控、后续attention/FFN、四步flow/scheduler以及同expert/不同expert的时间职责。辨别补偿/备份路径，检查功能在不同source/seed/step的变化。路径重要性是**上下文×行为×干预**的属性，不能从单列幅值/局部SSE/频谱/SAE标签直接推出。
+1. **从自然源/seed/step/行为差异定位有意义的输出函数**。对原生\(u_{l,t}(q)=e_5\odot W_2Q_2(\mathrm{GELU}(W_1Q_1(q)))\)及真实写回，同时探索有标签行为与无标签联合输出响应，开放多种函数坐标、稀疏/能量表示与计算描述。视频中的主体/运动/背景/光照只是现象观测轴；无标签的signed共变、协作、抵消与不变量同样可作为功能候选。首先分开 FUNCTIONAL-OBS 与未来需授权验证的 FUNCTIONAL-CAUSAL。
+2. **找出正常原生前向究竟如何计算这些函数**：共享q的多W1行、GELU、HiF4 Q2 group64闭包、W2有符号价值合成、e5门控、后续attention/FFN、四步flow/scheduler以及同expert/不同expert的时间职责。辨别补偿/备份路径，检查功能在不同source/seed/step的变化。路径重要性由**上下文×行为×干预**刻画；单列幅值、局部SSE、频谱和SAE标签各提供一种候选观测坐标，最终在原生图与下游行为中建立其作用身份。
 3. **在定位后讨论最小可执行结构和成本**。结合G7–G12先例判断结构可以训练重组、时间复用、全组跳算、低秩联合求值或进行编码域重写。量化code/FP4 sign、Prox/SAE/神经元mask、tensor tile等作为**可选观察与实现**，并列比较可付费与free-running video/SLO。
 
 **最重要的原生依据**：先前六来源/四新来源说明局部FFN raw误差改小而完整state仍可能放大，source425仅seed不同就使cross符号反转；历史频带内外cross可异号；完整video中主体、背景与光照损失可能不一致。这些数据先为“某些功能必须区分”提供动机，并未识别具体W1/Q2子图。严格的目标是研究**具有行为价值的联合函数计算结构**，而不是用某个code格式证明先前定义的函数可以被预测。
 
 **研究文献上的判别**：JMLR2025 causal abstraction（L80）要求将高层行为和低层机制经干预绑定；ICLR2024 patching best practices/interpretability illusion（L81/L82）说明干预/指标选择与休眠通路可误导定位；AAAI2026 TIDE（L83）与CVPR2026 motion IMAP（L84）提供特征或时空语义观测；ACMMM2026 video encoder时空SAE（L85）则提示重建/可解释指标可能与时间稳定冲突。以上以正式摘要/作者公开资料为主，还未完成G13功能因果实验。
 
-**旧的五类计算技术路线与G11/G12仍然保留**，但下述“同等重要Q1/Q2/Q3”和所有关于量化signed证书的技术分析，现在属于*定位功能与结构之后*的实现和信息价值研究。G13 U01–U18 / M13–M14 为当前首要科学图入口。
+**五类执行改造与G11/G12提供丰富的后续表示和实现备选**，但下述“同等重要Q1/Q2/Q3”和所有关于量化signed证书的技术分析，现在属于*定位功能与结构之后*的实现和信息价值研究。G13 U01–U18 / M13–M14 为当前首要科学图入口。
 
 ## 1. 唯一固定的原研究对象：真正执行什么
 
-原生对象是 **LightX2V Wan2.2 I2V A14B，四步蒸馏D-Q、high/high/low/low两套独立expert，40 blocks**，并非普通未蒸馏Wan、Wan2.1 T2V、Wan2.2 TI2V 5B、离线FLUX或训练后因果student。研究日志中的代表性一次模型形状：M=31668个token行、D=5120、FFN hidden H=13824（216×64）、81 decoded video frames/21 latent-temporal bins。一步只有相应expert运行。
+原生对象是 **LightX2V Wan2.2 I2V A14B，四步蒸馏D-Q、high/high/low/low两套独立expert，40 blocks**。Wan2.1 T2V、Wan2.2 TI2V 5B、FLUX及训练后因果student作为独立的论文比较对象。研究日志中的代表性一次模型形状：M=31668个token行、D=5120、FFN hidden H=13824（216×64）、81 decoded video frames/21 latent-temporal bins。一步只有相应expert运行。
 
 **原生依赖**：
 \[
@@ -36,15 +36,15 @@ z=W_1x_1+b_1,\quad h=\operatorname{GELU}_{\tanh}(z),\quad
 \quad
 y=r_2+e_5\odot (W_2\tilde h+b_2).
 \]
-实际数值边界按 [G2原算子与BF16写回](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [原HiF4算子反例](../20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json) 确定：本项目原生是 **HiF4 fake-QDQ后BF16 Linear**，不是已有NVFP4/MXFP4原生packed Tensor Core GEMM。HiF4 Q2受64→8→4共享尺度耦合，不能在已删除hidden列的情况下自由重算其余列并声称仍是原相同FFN。
+实际数值边界按 [G2原算子与BF16写回](../../docs/98_端到端计算图与证据注解_20261025.md) 和 [原HiF4算子反例](../20261025/E0_HIF4_COLUMN_DEPENDENCY_COUNTEREXAMPLE.json) 确定：本项目原生实现采用 **HiF4 fake-QDQ后BF16 Linear**；外部NVFP4/MXFP4 packed Tensor Core GEMM按其独立数值、内核和硬件条件比较。HiF4 Q2受64→8→4共享尺度耦合，不能在已删除hidden列的情况下自由重算其余列并声称仍是原相同FFN。
 
-研究问的是 **减少真实 FFN W1/GELU/Q2/W2与整体视频生成成本，同时保留自由生成的视频功能**。三个入口等价重要：**Q1信息是否真实存在？Q2何时、以多少钱能得到？Q3最终实际省了哪段真实计算，是否损害终端视频？** 量化符号、通道TopK、历史cache、训练后的条件函数都是开放的候选研究对象，不是默认目标。
+**科学目标**是找出保持真实生成行为所需的联合FFN功能与其计算承担结构，进而减少W1/GELU/Q2/W2或整体视频生成工作。功能和结构定位之后，信息可用时间、观察成本与实际可省物理操作（原Q1/Q2/Q3）作为相互促进的三个实施问题；量化符号、通道TopK、历史cache与训练后函数等都是可用的候选表达。
 
-### 已有证据必须保留的边界
+### 已有实验证据提供的结构线索
 
-- 原始 full-M 后验逐token小比例支持仍在 M16/K64 等合法计算tile上产生100%活跃；未说明所有未来结构均不可能稀疏，只说明**该掩码×该kernel布局并不省这些tile**。[原实验报告](../20261025/E0_SHARED_TILE_PRE_W1.md)
-- 对完整40层×4步的既有原生替换，局部FFN raw误差可能改善，生成latent继续偏移；历史候选有真实FFN或生成速度增益但视频存在质量失配，尤其背景光照和细物体时序稳定性。不能把后验全局SSE当唯一机制起点，也不能由失败断定全部低复杂度FFN函数结构不可行。[实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)
-- 已覆盖10个独立source身份、12条source×seed完整轨迹、1920个全深度FFN观察位置；严格区分**site数量**与独立视频数；已有生成作品不能替代正式全指标/VBench+人工验收。现行[视频与全深度指标协议](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)和[ACTIVE](../ACTIVE_RESEARCH.json)独立决定质量与实验许可。
+- 原始 full-M 后验逐token小比例支持在 M16/K64 等合法计算tile上产生100%活跃：**该掩码与该布局仍需执行全部tile**。由此可研究输出函数的自然分组、共享输入和新的物理执行单位。[原实验报告](../20261025/E0_SHARED_TILE_PRE_W1.md)
+- 对完整40层×4步的既有原生替换，局部FFN raw误差可能改善，生成latent继续偏移；历史候选有真实FFN或生成速度增益但视频存在质量失配，尤其背景光照和细物体时序稳定性。这一结果揭示了**局部算子误差与终端视频功能的独立评价轴**，促使研究从行为功能及其承载结构重新识别可减计算。[实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)
+- 已覆盖10个独立source身份、12条source×seed完整轨迹、1920个全深度FFN观察位置；严格区分**site数量**与独立视频数；已有视频形成实际观测证据，正式VBench与人工验收继续按[协议](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)独立登记其状态。现行[视频与全深度指标协议](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)和[ACTIVE](../ACTIVE_RESEARCH.json)独立决定质量与实验许可。
 
 ## 2. 定位功能与结构之后：五种不同的高效计算改造
 
@@ -56,7 +56,7 @@ y=r_2+e_5\odot (W_2\tilde h+b_2).
 | **D. 历史、帧、step层级省算** | 跳某block/step/frame，对整个函数值或历史部分做预测/插值/缓存 | 已产生的同expert/同权重、同条件历史，或者训练得到的专用预测器 | 四步中两次high/两次low；跨expert函数身份不同；无偿历史不能保证当前q、gate、Q2一致；要带未来latent反馈 | L34 DIFS、L35 FIS-DiT、L39 SVD-Cache、L09 Chipmunk、L52 L²P |
 | **E. 训练形成的新函数** | 重新训练小路由/稀疏FFN/专家树/step子网络/时间encoder-renderer，令可跳结构真正存在 | 训练/蒸馏数据、目标与预算，新参数定义及部署内核 | 训练后质量与原冻结模型的后验天然结构是不同命题；可作为低成本后训练研究分支 | L70 Spark、L72 SQ-DM、L10 Dense2MoE、L53 tree FFF、L60 SCD、L61 LongLive2 |
 
-这五种动作既可能互相组合也可能产生反向预测；优先比较**得到信息后实际省掉的计算与功能损失**，而不是把已发表的方法换名重现。并列参考 [论文原始索引 L01–L85](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)。
+五种动作能够组合，也可能给出不同的反向预测；后续以**已定位函数、实际执行收益与完整视频作用**比较这些实现，并检验与原论文机制的重叠及差异。并列参考 [论文原始索引 L01–L85](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)。
 
 ## 3. G7–G13研究如何投射到同一张计算图
 
@@ -116,8 +116,8 @@ W1点积区间 \([L_j,U_j]\) 若处于一侧可认证解码点积的符号；继
 ## 7. 论文的证据级别、当前未解问题及维护契约
 
 - **原 Wan证据：** G0–G5 SRC/OBS/NATIVE-ACT/VIDEO/SYS、[EXPERIMENT_FINDINGS_ATLAS](../EXPERIMENT_FINDINGS_ATLAS.md)各结论绑定原有RUN或保存统计。原Affine/HWG方案存在具体已测问题，但“所有conditional FFN思路”仍为开放科学空间。
-- **外部论文：** 85个 L01–L85 只是索引规模，不等于79篇均读完整方法。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
-- **数学：** G12重排界是经典定理在本研究编码信息层的应用，不是声称第一次发明；single-row tight≠joint gate×W2 tight；多token GEMM有效性≠single-vector已实现。
+- **外部论文：** 85个L01–L85构成可检索的研究索引，每条按已核摘要、原始方程、作者代码及本模型实测记录各自的阅读深度。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
+- **数学：** G12重排界是经典定理在本研究编码信息层的应用；single-row tight≠joint gate×W2 tight；多token GEMM有效性≠single-vector已实现。
 - **维护：** 新论文只写一遍原始方法到其审计来源，更新LID/来源等级/信息时点/训练/成本，并给机器图节点添加准确的**比较边**；综合文档仅更新**机制类别、改变判断的证据和研究问题**，图上不能把LIT边画成Wan实线。阅读指南/Agent/Navigation只放稳定指针，不用一段新研究进展覆盖旧导航。
 - **权限：** 一切原生新CPU/GPU/模型/视频须用户再次明确批准，当前实验状态仍 PAUSED_BY_EXPLICIT_USER_REQUEST_20261027。
 

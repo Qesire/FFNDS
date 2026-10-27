@@ -1,95 +1,51 @@
-# FFNDS — AutoResearcher 默认科研协议
+# FFNDS · AutoResearcher 科研Agent默认约定
 
-**当前解释入口（2026-10-27）**：[FFN机理与文献综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [权威G0–G13计算图](docs/98_端到端计算图与证据注解_20261025.md) · [14类机制/源码/论文/计算成本映射](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json) · [79篇文献分级索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) · [当前研究状态与权限](research/ACTIVE_RESEARCH.json)。
+**现行科学问题**：在四步Wan视频生成中，**哪些FFN输出函数具有真实行为意义？哪些正常前向计算结构承担这些函数？** 依次追索观测函数、因果贡献、实际计算和未来高效实现，同时欢迎从新论文、数学表达或原生反直觉数据引入开放的解释。
 
-**当前来源与图谱规模**：85个LID、171个稳定节点、354条有类型关系。新增的26条跨机制边均为文献/ALG/OPEN比较，不是新native execution。
+统一入口：[领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md) · [G13研究](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [行为/函数/结构索引](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [G0–G13原生计算图和研究分支](docs/98_端到端计算图与证据注解_20261025.md) · [研究综合](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [ACTIVE状态与授权](research/ACTIVE_RESEARCH.json)。
 
-**研究现场**：原生 LightX2V Wan2.2-I2V-A14B D-Q 四步high/high/low/low，40 blocks；FFN是norm2/AdaLN→Smooth1/Q1→W1→tanh-GELU→Smooth2/HiF4 Q2(64→8→4)→W2→e5 BF16 gated residual→后续blocks/flow/video。现已覆盖10个独立source身份、12条source×seed完整轨迹、1920个全深度FFN观察位置，旧方法曾有真实速度收益和视频质量失配。原生fake-QDQ不是已部署NVFP4/MXFP4 packed GEMM。外部G7–G12论文、数学与实时video均是可检验研究参考。
+**基准对象与证据**：LightX2V Wan2.2 I2V A14B 四步D-Q，high/high/low/low，40 blocks；\`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续attention/flow/scheduler/video\`。原QDQ和BF16 GEMM与外部native NVFP4格式分别建立数值/物理比较。历史原生10个source、12条source×seed轨迹、1920个嵌套FFN观测位置，已有真实速度收益和自由视频功能失配的研究资产。
 
-**研究权限**：当前主动进行论文原文/源码核查、机制推导、已保存证据整理、计算图增量与Agent独立讨论。全部**新CPU/GPU/模型/视频**实验暂停，另行明确授权才能运行。AGENTS/图/论文索引/CI不授予执行权限；历史授权不能自动续用。
+**图谱现状**：85项LID、171个稳定节点、354条类型化关系，14个机制族。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
 
-## 当前最优先的科学工作：输出函数与计算结构定位
+## 一、科学研究的默认语言与思路
 
-**用户2026-10-27明确修正**：研究先从**实际生成视频、当前状态与FFN gated residual功能**中发现有意义的输出函数（包括不带预设语义名称的signed联合功能），随后沿真实正常前向建立函数承担者：输入调制/W1共享输入、GELU、HiF4-Q2整个64组尺度、W2有符号合成、attention/后续block、flow/step状态。先整理现象/可重复函数候选，再以独立有效干预确认因果作用，之后才能确定真正重要的计算结构与减算空间。**量化符号、激活mask、proxy、LUT、单列重要性或SSE均为可选的后续实现与诊断，不是现在定义功能的条件。**
+研究回答以**构造性内容**开始：一个真实现象、特别的数学依赖或新的功能假说；随后给出最强竞争机制、彼此不同的预测、代价最低且有辨识力的下一证据、与视频功能和真实执行的联系。
 
-权威[G13研究对象和一手论文](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[独立功能/结构索引](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G0–G13全图](docs/98_端到端计算图与证据注解_20261025.md)、[M13/M14顶层机制](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)。现在**85篇、171节点、354关系、14家族**；原ACTIVE的暂停与历史RUN不变。建议所有科研Agent首先从具体行为/输出函数提出竞争解释，再调查其真实计算子结构，最后才研究量化存储能否廉价观察或者算子加速。
+**表达原则**：
+- 用**“这个数据说明什么、揭示什么自由度、允许怎样的新机制”**取代连串“不能/不是/没有”开头的免责句。数学证明和实验反例保留准确的对象、前提、位置与指标，负面结果帮助发现另一可探索的表示或行动单位。
+- 像“后验token级稀疏在原M16×K64物理tile仍100%占用”这样的具体结论应明确保留，并由此提问联合函数分组、不同执行颗粒、权重/状态共享是否可改善。将失败范围写成**已检验结构的有界结论**。
+- 对未完成的科学问题积极提出OPEN机制及可证伪预测。对已测量的数值、作者论文和原生运行分别贴上ALG/SRC/OBS/NATIVE/VIDEO/LIT证据来源；精准的证据身份足以校准结论。
+- 函数发现允许先从自然视频、无标签有符号关系、数学结构或文献得到灵感，**无需预先选择TopK、SSE、proxy、FP4格式、补算和某一种部署算子**。这些手段在已识别函数与结构后作为可付费的实现备选进行比较。
 
-## Constructive research-language policy (AutoResearcher v2.4)
+## 二、从正常计算定位具有行为意义的函数
 
-每次研究以**正向机制、真实数学对象或反直觉数据发现**开场，接着给出最强竞争解释、可区分的观测、最低成本下一证据、真实FFN/视频意义。真实负例保留**明确对象与证据范围**，其它条件性假说保持开放。用真实源码建立Q1/Q2/Q3：**何种信息真实存在/何时可用、获取与决策成本是否值得、可以省哪些物理工作且视频功能如何**；这三个问题可以任意顺序驱动研究。
+**DISCOVER：现象到函数。** 用已有source×seed×step×expert条件、真实视频与保存状态提出候选行为轴（运动、相机、主体、背景、光照、时序、细节）和未命名函数轴（联合signed响应、抵消、稳定性、非线性协作）。在[注册表](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)区别BEHAVIOR / FUNCTION / STRUCTURE。FUNCTIONAL-OBS可以推动机理研究；FUNCTIONAL-CAUSAL需要合法normal-forward有限干预；FUNCTIONAL-IMPLEMENTABLE再核查真实执行和完整视频。
 
-保持 DISCOVERY（假说、表示）、EVIDENCE（数学/SRC/OBS/NATIVE/VIDEO/SYS）、EXECUTION（授权的具体RUN）三个独立层级。SRC只绑定原Wan固定算子；外部作者论文和源码是LIT；经典不等式或代数重写是ALG；尚待当前Wan检验的是OPEN。新论文的来源等级和原文/实现版本逐项审查；不要把作者FPS、单核microbenchmark或单向量decode移为原I2V全模型证明。强制给出真实信息时点和物理价；无需预先挑选SSE、TopK、proxy、码本、稀疏format或单一路线。
+**MAP_FLOW：函数到承担者。** 对决策关键子图查真实版本/权重/配置、输入输出维度、数据类型、step/expert、Q1、W1行对同一q的依赖、GELU、HiF4 Q2完整组尺度、W2列组有符号合成、e5写回、下游层/flow/视频消费者。数学式须保留真实非线性、数值闭包、残差和状态。跨layer/step补偿、共同输入驱动、条件性职责分配以及备用通路都能形成新的结构解释。
 
-**科研文书维护规则**：上述综合报告承载**现行跨机制解释**，G0–G13图和Graph Bindings承载唯一稳定节点/有类型比较边；论文原方法细节保留在对应一手审计与来源账本；本文件只保留默认原则与稳定指针。避免逐轮把新进展大段插到标题前、复制旧论文数量或撤销历史原始证据。要更正旧报告时保留具体版本/原始数据并标注其后来源级复审结果。
+**DERIVE / EXPAND：放宽研究表示。** 用[research-expansion](.agents/skills/research-expansion/SKILL.md)和[problem-reformulation](.agents/skills/problem-reformulation/SKILL.md)寻找不同的函数坐标、时空计算单位、代数恒等式、因果目标与跨模型方法。可以先提出有趣的条件性假说，随后按其真实源路径验证决定性前提。
 
-**CI使用**：脚本语法/链接/图ID/边端点验证可以快测；独立数值等价需单独原生验证、视频效果需完整质量验证。重复手动CI输出不代替科研证据，不为无决策价值的检查浪费资源。
+**DISCRIMINATE：区分科学机制。** 优先比较有不同预测的解释，依序利用证明/反例、原论文+作者源码、已有保存证据、未来获准的原生定点干预和完整视频。区分低局部误差、已继承状态的dense响应、当前候选signed作用及自由视频实际质量；把独立source/seed当成独立性单位，把全层site视为嵌套测量。
 
-## Default G0–G13 computational-graph research collaboration
+**ADVANCE：把发现写到应在的位置。** 行为和候选FUNCTION/STRUCTURE登记其上下文与证据；原文方程和作者代码只写到source ledger；综合报告只维护改变判断的机制解释；Graph Agent Bindings更新合法源码/数学/文献/OPEN节点与有类型关系。共享路径可检索，新的数学发现可以增设节点，图索引用来支持探索而非限定探索。
 
-**Use the [Graph↔Agent protocol](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md) with the [source/evidence node registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) and the [canonical G0–G13 computation graph](docs/98_端到端计算图与证据注解_20261025.md) in every substantive FFN research task.** Pull only the relevant upstream/downstream nodes, actual frozen source configuration, evidence scope and decision-time cost; start from a mechanism, source operation, literature clue or video anomaly. Create graph-anchored hypotheses/counterexamples via the [E0 graph annotation surface](research/method_discussion/graph_annotations/E0/README.md). Independent peers review mathematics/source and exact evidence; the serialized curator incorporates supported claims and OPEN edges back into graph + findings atlas. Graph labels and registry queries are research indexes, not an automatic runnable trace, new model authorization or a mandate to optimize G4 shared columns.
+## 三、原生证据、论文及真实成本
 
-Quick read-only lookup: `python tools/graph_agent_bridge.py inspect F08`; `python tools/graph_agent_bridge.py trace G18 P12`. Report the node IDs and if a proposed edge is `posthoc` or `conditional`, not a dense execution fact. Distinguish before-W1 information from an observer that pays extra W1, and `q2_post` from GELU hidden.
+- **原生**：[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md)、[证据优先级](research/EXPERIMENT_EVIDENCE_INDEX.md)、[已有full-flow finite-map](research/20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。source425相同图片prompt跨seed的P/N cross符号改变和部分频带与全域交叉项异号，是函数定位的现实入口。过去的Affine54等候选已经测到局部误差/速度及视频失配，作为有界机制证据保留。
+- **文献**：按[广域原文检索](.agents/skills/web-research-discovery/SKILL.md)探索基础/前沿及相邻论文，核对公式、默认实际源码路径、消融、训练、硬件与任务身份。[85项索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json)提供LID和阅读层级，[竞争矩阵](research/literature/20261026/MECHANISM_COMPETITION_MATRIX.md)和[Crosswalk](research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)提供对照。
+- **机制与代价**：量化code/FP4 signed直方图的理论界（G12）、Prox付费代理、SharQ两路GEMM、CodeGEMM/LUT-GEMM单vector快路、训练后稀疏、step/history cache、实时因果系统都可成为候选的真实实现路径。模型对象、首次信息可用时间、online observer/metadata/cache/packing价格和完整FFN/video成本共同确定其物理意义。
+- **质量与运行时**：[全深度与完整视频质量规则](research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)维护same-source/seed、40层×4步、gate×W2、质量、latency/setup/显存与SHA。独立的正式VBench/人工验收按实际运行标记。外部作者成绩依其自身模型、硬件、任务登记。
+- **静态工具**：\`python tools/graph_agent_bridge.py validate\`检查节点、边、论文、机制家族；\`mechanisms\`、\`mechanism M13\`支持只读索引。静态一致性属于文档/代码协议级证据，数值真实性与视频因果作用仍由相应对象证明。
 
-## Current stage: E0_OPEN_DISCOVERY — discover and explain real structure
+## 四、多Agent独立方法讨论
 
-The single live [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json) defines priority and authorization. Read the [new FFN first task](research/20261025/E0_FFN_FIRST_TASK_20261025.md), [research reset](research/20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md), and [stage anchor](research/agent_protocol/E0_STAGE_ANCHOR.md). Old E0 quantization-first plans and radial-focused suggestions are scientific history.
+所有Agent继承[项目领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md)及[讨论约定](research/method_discussion/AGENTS.md)。独立提出函数或结构、新机制、数学或原始源码对照，接着由其它Agent发表独立支持、具体反例或替代解释；通过[QUEUE](research/method_discussion/QUEUE.md)保留方法版本和独立审阅。\`SUPPORT\`、\`PEER_SUPPORTED\`、\`CROSS_CONFIRMED\`、\`CONTESTED\`等标签针对**确切版本**，表达讨论证据，不是实验通过或部署结论。
 
-**Latest science handoff:** Full hidden (13,824), two-source full-M/contiguous token support and native HiF4 closure studies are complete. The counterintuitive opening is **strong posterior per-token innovation concentration vs poor shared-column support/occupied native tiles**. Research alternative explanations in signed FFN function representations, nonlinear identities, spatial/temporal organization, downstream video sensitivity, obtainable information and actual physical operators; include four-step distilled expert/layer heterogeneity. The original HiF4 group dependency applies to the measured QDQ path and does not predetermine other numerical/functional representations. Avoid repeatedly treating completed K1 fields, micro16 top-k or raster M128 as the default task. Carefully separate `q2_post` (actual W2 input) from pre-Q2 GELU `h`, and charge the aggregate-token W1/GELU used by the pre-W1 micro16 observer. See [the corrected active first task](research/20261025/E0_FFN_FIRST_TASK_20261025.md).
+图是实际研究对象的导航而非运行授权，既有RUN和source SHA保持原始身份；新图节点、研究假说和读文献可以独立展开，随后将最有信息价值的区别回写到[Graph↔Agent协议](research/agent_protocol/GRAPH_AGENT_COLLABORATION.md)。
 
-**Continuing research opportunity:** derive a **feature/coefficient/value-vector** account of Wan W1–GELU–W2, contrast concentration with superposition or signed cancellation, and follow the distinction through spatial-temporal innovation and downstream video function. Explore what information arrives before W1, after W1/GELU and after W2; derive a computation representation only when it explains a real phenomenon. Earlier radial/four-arm mechanisms remain precise evidence for later causal questions. A good exploration can produce a new mathematical basis without picking an operator.
+## 五、当前研究权限与交接
 
-**Deep Web Search is the default:** follow [DEEP_WEB_RESEARCH.md](research/agent_protocol/DEEP_WEB_RESEARCH.md) through seminal and recent papers, adjacent fields, backward/forward citations, actual equations, ablations, original code and strong counterexamples. Each agent records what sources it actually read, the closest competing mechanism and how the search changed its explanation.
+**现阶段**：功能与计算结构的原始源码/数学、文献、已有证据复核、科研讨论、图与文档优化继续。**所有新的CPU/GPU/模型/视频实验暂停**，另获用户明确指令后按具体授权范围启动。2026-10-25/26的四GPU预算、dense视频及多来源运行属于已经完成的历史范围；[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)保存真实授权与运行状态。
 
-**AutoResearcher is the default operating method** for every scientific FFNDS task: discover a mechanism, reconstruct the decisive real computation, derive an informative representation, distinguish competing predictions, and carry the result into the next useful action. Use the pinned [research harness](core/AGENT_HARNESS.md) and [current study](research/ACTIVE_RESEARCH.json) automatically, including when the user simply says “继续探索” or “继续推进”. The local [evidence packet](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) is a retrieval index, not a substitute for original evidence.
-
-**Direction re-audit after latest E0 evidence:** [all-depth affine versus exact-dense residency and open scientific alternatives](research/20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md). See the new G5 graph evidence: all40 old-derivative means are measured but approximation SSE only concerns sampled 128/32 rows; fixed other-source affine+27 beats the **particular** matched 67-group fixed-energy comparator on saved panels, not all functions or policies; real tanh-GELU odd/even symmetry is an alternative explanatory theorem, not an observed Wan mechanism. Exact decoded-weight residency improves warm complete-generation wall time from ~75s to ~50s with unchanged hashes and FFN MACs at ~77GiB sampled peak. Keep it as an optional, memory-expensive strong dense comparator—not a substitute for intrinsic FFN compute reduction.
-
-**Graph-Agent discovery remains extensible, not graph-bound:** the [G0–G5 graph](docs/98_端到端计算图与证据注解_20261025.md) and [node registry](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) help identify exact source and scoped evidence, but new functional ideas, video-driven explanations, new mathematical coordinates and new nodes may begin outside the existing graph. Independently compare mechanisms before naming an operator; do not route all agents to affine/group64/half-slope tuning. New scientific results must be explained in terms of true W1/W2 work, online observation, downstream video impact, and deployment cost as appropriate to the claim.
-
-## Scientific aim and three complementary lenses
-
-**Later completed followthrough:** [All40-depth tangent/affine mechanisms](research/20261025/E0_AFFINE_FFN_DISCOVERY.md) and [independent odd/even/signed-residual challenge](research/method_discussion/discoveries/E0/independent-affine-residency-audit-20261025.md) now distinguish shared slope statistics, nonlinear residual and physical observation cost. Full-M describes old derivative statistics; error panels remain128/32 sampled rows. [Exact dense weight residency](research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md) preserves18 video/72 latent hashes while reducing same-card warm generation ~75→50s, using77.08GiB sampled physical memory and unchanged FFN MACs. Use it as a strong scoped timing reference. These fixed scopes are complete under the four-idle-GPU ceiling; no jobs or automatic new model scope. Seeds are42/54 for sources0/12. Keep other open mechanisms available; half-slope versus affine hot range is an unexecuted next discriminator, not a selected method.
-
-Improve the **real FFN / end-to-end compute versus full four-step I2V quality** frontier through intrinsic FFN mechanisms. The existing Wan2.2 D-Q/HiF4 execution is one evidence-backed baseline, not a required future quantization method. The problem is to discover what information, mathematical structure and execution unit actually makes computation dispensable.
-
-- **Information (Q1):** What state is already available and what does it tell us? Distinguish cheap prediction of local FFN computation from prediction of the downstream consequence of changing that computation.
-- **Decision (Q2):** When is an input/state-dependent choice worth its observation, routing, memory and physical packing cost? Compare its *net decision value* with a strong matched fixed alternative.
-- **Compute (Q3):** What operations can be eliminated, shared, transformed or amortized, and what happens through quantization, nonlinearities, residuals, attention, later blocks and the free four-step video?
-
-**These are interacting questions, not sequential gates.** An information discrepancy may suggest a new operator; an algebraic simplification or physical execution discovery may reveal what information a selector should collect; a full-video artifact can force a new representation of both. Develop useful operator-first and information-first ideas in parallel when they make distinct predictions. Dense completion, R256, SVD, static sparsity, conditional operators and post-training remain available as *hypotheses or comparators* according to mechanism and actual costs, not as required recipes.
-
-## Default scientific moves
-
-**EXPLORE / research-expansion:** Turn a meaningful anomaly or mathematical tension into distinct mechanisms. Seek freedoms in representation, timing, information, causality, spatial/temporal structure and physical execution. Produce a concrete equation or construction, including bold exploratory conjectures whose decisive assumptions are explicit.
-
-**REFORMULATE / problem-reformulation (PRD):** Try exact or conditional rewrites (E), a new mechanism taxonomy (T) or reduction to a better-understood task (R). Change the unit of explanation when repetitive scores/thresholds fail to explain outcomes.
-
-**GROUND / mechanism-research:** Follow the actual Wan source/config, Q1→W1→GELU→Q2→W2, AdaLN/gate, residual and downstream path for the *decision-critical* question. A creative seed can precede a complete source read; confirm semantics before asserting implementation equivalence or measured performance.
-
-**DISCRIMINATE:** Derive predictions that separate candidate mechanisms. Choose an algebraic proof, saved trace, paper/code check or—when separately permitted—small native study with actual action/compute accounting. Borrow prior science as a source of mechanisms and strong controls; distinguish complete-method equivalence from valuable use of an existing primitive.
-
-**ADVANCE:** Deliver a new structural insight, valid refutation, source-grounded correction, useful implementation or decisive next move. Tie evidence scope to the specific claim instead of expanding local negative results into universal exclusions. Start handoffs with the new result and the alternative it opens.
-
-Use the [FFNDS domain skill](.agents/skills/ffnds-paper-discovery/SKILL.md) for model-specific application. Pull [mechanism-research](.agents/skills/mechanism-research/SKILL.md), [research-expansion](.agents/skills/research-expansion/SKILL.md) and [problem-reformulation](.agents/skills/problem-reformulation/SKILL.md) on demand; combine their methods when a real scientific question spans them. The source-pinned [AutoResearcher research harness](core/AGENT_HARNESS.md), [prompt evaluation](core/PROMPT_EVALUATION.md) and [behavior cases](research/agent_protocol/DEFAULT_BEHAVIOR_CASES.json) guide further improvement. Their existence alone does not establish research quality.
-
-## Evidence and execution
-
-Retrieve empirical claims through the [ranked experimental evidence index](research/EXPERIMENT_EVIDENCE_INDEX.md), whose file priority and maturity labels never grant execution authority. Historical runs and closed branches remain source evidence at their original scope: [method/authorization ledger](research/CURRENT_DECISION.json), [triage and archived methods](research/20261021/method_triage.json), [research navigation](research/RESEARCH_NAVIGATION.md). Research priority comes from **one live task**: `research/ACTIVE_RESEARCH.json`. The [dated handoff archive](archive/20261024/historical_handoffs/README.md) retains old agent instructions and run-status narratives as source material. Dated “ACTIVE”, “NEXT”, or “RUN” in old reports describes the historical snapshot.
-
-**Historical execution scopes (all completed; no standing GPU permission):** 用户于2026-10-25曾明确授权固定E0被动观测与有限数值研究，设置最多四张空闲GPU的历史并发上限，后来授权并完成额外的dense视频、全部hidden及shared-tile测量。[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)保留所有原始RUN、40次及后续source×seed原生实验的完成状态、哈希和质量身份。**2026-10-27起用户要求原生CPU/GPU/模型/视频新执行暂停**，以当前ACTIVE的PAUSED字段为权威。此前四GPU上限仅属旧授权预算，不产生未来新的计算权限；历史[20261024 pause](research/20261024/EXPERIMENT_PAUSE.json)、[completed followthrough](research/20261025/E0_FOLLOWTHROUGH.md)仍为时间点证据。
-
-For a later authorized empirical contribution, compare the original dense D-Q reference, strong matched competitors, native FFN plus total wall time, and independent full free-running four-step videos. Mathematical identities, synthetic counterexamples and local error metrics already contribute scientific insight at their actual scope.
-
-## Multi-agent method discussion — default repository behavior
-
-All discovery agents, external reviewers, challengers and integrators inherit the pinned AutoResearcher methodology and the [discussion-scoped AGENTS](research/method_discussion/AGENTS.md). Each contributes real source reconstruction, meaningful mathematical derivation and a different prediction, rather than a formulaic support statement.
-
-**E0 discoverers** independently record a phenomenon, competing explanations and an observation in the [discovery directory](research/method_discussion/discoveries/E0/README.md). **Method proposers** separately preserve candidate versions under `proposals/<method-id>/vN.json`; **reviewers** write original reasoning and counterexamples under `reviews/<method-id>/vN/<review-id>.json`. One external independent SUPPORT can underpin `PEER_SUPPORTED`; two distinct external supporters can underpin `CROSS_CONFIRMED`; unresolved substantive disagreement remains `CONTESTED`. These labels attach to exact claims/versions and represent scientific discussion.
-
-The [QUEUE](research/method_discussion/QUEUE.md), [discussion protocol](research/method_discussion/README.md) and endorsement summaries are maintained by a serialized integrator. Agents use separate files and preserve all prior source hashes and version history. The main research stage and execution authorization continue to come from [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json).
-
-**Recent completed extensions:** After a separate explicit user instruction, the completed full-hidden study used 180 GPU saved-operand descriptions plus two unchanged native dense videos; a later user instruction enabled two more unchanged dense videos for original contiguous M128 capture, with saved shared-column/pre-W1 and native HiF4 closure analysis. Reports: [full-hidden study](research/20261025/E0_INTRINSIC_FULL_HIDDEN.md) and [shared-tile study](research/20261025/E0_SHARED_TILE_PRE_W1.md). Their outcome is mechanism evidence, not a sparse speed/quality claim; all are complete with zero new-model/GPU jobs pending. The maximum-four-idle-GPU rule belonged to those explicit scopes, not to standing automatic permission.
-
-**Completed experiment scopes:** The user-approved 2026-10-25 passive E0 collection completed12 generations. The later fixed native study completed40 generations including cross-worker repeats; both had an actual two-card peak under the user's four-card ceiling. No jobs remain. [Historical pause](research/20261024/EXPERIMENT_PAUSE.json), frozen protocols and [completed followthrough](research/20261025/E0_FOLLOWTHROUGH.md) remain accessible. Current method discussion explores source, literature, mathematics and authorized saved-data analysis; new CPU/GPU/model scopes follow a separate explicit user instruction.
-
-Use the [record templates](research/method_discussion/TEMPLATES.md) for registered proposals and reviews; use the [E0 discovery template](research/method_discussion/discoveries/E0/README.md) for scientific exploration. Q1/Q2/Q3 are connected questions that can each initiate a discovery.
+交接只需**新机制/功能发现、证据出处、真正分歧、对应图节点、最小后续判别和已完成的原生范围**。历史文档当时的“Next/Active/Run”用于溯源，由现行研究导航与ACTIVE区分当前状态。新研究以构造性内容优先、以真实证据调整确定度。
