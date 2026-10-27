@@ -14,6 +14,8 @@
 
 **并行选择规则**：函数识别、信息表示或物理执行均可成为一个新机制的第一结果；按具体主张追究必要的源码路径、数学预测和真实证据。功能因果结论需合法normal-forward干预，执行加速则需同条件真实wall/显存与完整视频质量，二者证据义务不同。
 
+**时空功能的历史问题入口**：[A5+HWG背景闪烁、小物体模糊机制分析](A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)将原主体结构保持与背景局部不稳定区分，提出mask切换、低幅值但持续重要的功能、数值耦合及后缀传播的不同预测。它是历史定性观察+新ALG推理，尚非A5原生逐帧ROI因果发现；与后续Affine54/UB1的不同视频身份各自保留。背景照明的空间低频×时间高频、细节模糊的空间高频×时间低频可能并存，不能只称“一种高频丢失”。
+
 **最重要的原生依据**：过去六来源/四新来源显示局部FFN raw误差降低与完整状态放大可能并存；source425跨seed的signed cross变号、子频带异号和背景/光照不稳定揭示当前单一局部代理与行为响应之间的张力。全M物理tile、原HiF4分组和完整四步传播提供可独立研究的数值/执行约束。旧结果对其已测方案保持有效，新候选不预设任何特定mask、补算或G13功能标签。
 
 **一手文献分工**：L80–L89因果抽象/patching等启发F线；G7–G12的分时计算、函数复用、trainable重组、FP4算法、码本运算与物理布局直接供I/C线研究。图上的原生SRC/NATIVE、外部LIT和数学ALG仍各保留证据身份。
@@ -66,7 +68,7 @@ y=r_2+e_5\odot (W_2\tilde h+b_2).
 
 **G7：时间与宽度的真实计算颗粒。** DIFS K01–03按step经过大规模蒸馏得到不同W1/W2组（训练且压紧参数）；FIS-DiT K04–06按frame×layer选择anchor并插值恢复完整状态（改变M行和attention上下文）；Mobile Video DiT K07–09训练出更窄FFN通道并部署compact dense GEMM；NerVE K10–12计算pre/post-GELU协方差特征值描述维数（后验观察，不提供推理免费坐标方向）。DIFS与FIS已核原PDF方程：[G7方法审查](../literature/20261026/PRIMARY_METHOD_EQUATION_AUDIT_20261027.md)。
 
-**G8：FFN动态稀疏、训练MoE和跨步复用。** RT-Lynx K13–15当前GEMM的在线N:M pack及补偿（本仓库目前作者摘要/解释，完整方法未读）；Dense2MoE K16–19训练shared+TopK normal experts/MoB连续block组（不同于Wan high/low）；SVD-Cache K20–23先对已计算的特征做主/残差分解、后续跳步主空间预测和残差复用；Chipmunk K24–27首先支付blockmean与W1 proxy的费用才能做hidden增量及W2 scatter。[G8原始审计](../literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)
+**G8：FFN动态稀疏、训练MoE和跨步复用。** RT-Lynx K13–15当前GEMM输入的在线2:4 activation压缩、norm/LoRA补偿及SpTC执行（[本轮原文方法与Wan插入点审查](RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)已核arXiv正文/附录，作者CUDA仓库及Wan原生复现尚未核实；旧G8账本为其当时阅读状态）；Dense2MoE K16–19训练shared+TopK normal experts/MoB连续block组（不同于Wan high/low）；SVD-Cache K20–23先对已计算的特征做主/残差分解、后续跳步主空间预测和残差复用；Chipmunk K24–27首先支付blockmean与W1 proxy的费用才能做hidden增量及W2 scatter。[G8原始审计](../literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)
 
 **G9：历史预测、树结构与全网职责迁移。** L²P K28–31预测50-step FLUX的**整段网络特征输出**，必须计入少量拟合和作者实现的额外FFT/历史读；FFF K32–35训练硬树符号路径，其value函数并非原Wan的W2列；“Sparsity Moves Computation” K36–37目前为一层玩具模型的作者摘要，说明与attention训练重分工的可能，不是视频实测。[G9审查](../literature/20261027/G9_CONDITIONAL_EXECUTION_TRAJECTORY_AND_FUNCTION_REALLOCATION.md)
 
@@ -120,7 +122,7 @@ W1点积区间 \([L_j,U_j]\) 若处于一侧可认证解码点积的符号；继
 ## 7. 论文的证据级别、当前未解问题及维护契约
 
 - **原 Wan证据：** G0–G5 SRC/OBS/NATIVE-ACT/VIDEO/SYS、[EXPERIMENT_FINDINGS_ATLAS](../EXPERIMENT_FINDINGS_ATLAS.md)各结论绑定原有RUN或保存统计。原Affine/HWG方案存在具体已测问题，但“所有conditional FFN思路”仍为开放科学空间。
-- **外部论文：** 89个L01–L89构成可检索的研究索引，每条按已核摘要、原始方程、作者代码及本模型实测记录各自的阅读深度。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx尚未完整读；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
+- **外部论文：** 89个L01–L89构成可检索的研究索引，每条按已核摘要、原始方程、作者代码及本模型实测记录各自的阅读深度。G7 DIFS/FIS v1已核原文方法；G8 Dense2MoE/SVD-Cache已核原文公式，RT-Lynx后续已读arXiv正文/附录（见[2026-10-27专题](RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)），作者CUDA仓库仍待复核；G9 L54仅作者摘要；G10部分作者论文、系统码层，作者FPS均属各自协议；G11六篇核心论文已按其具体源码和公式升级；G12 L75/L77/L78阅读级较低，L76/L79已核源码；准确阅读深度逐条以 [索引](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)、[G11账本](../literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)、[G12账本](../literature/20261027/G12_SOURCE_LEDGER.json)为准。
 - **数学：** G12重排界是经典定理在本研究编码信息层的应用；single-row tight≠joint gate×W2 tight；多token GEMM有效性≠single-vector已实现。
 - **维护：** 新论文只写一遍原始方法到其审计来源，更新LID/来源等级/信息时点/训练/成本，并给机器图节点添加准确的**比较边**；综合文档仅更新**机制类别、改变判断的证据和研究问题**，图上不能把LIT边画成Wan实线。阅读指南/Agent/Navigation只放稳定指针，不用一段新研究进展覆盖旧导航。
 - **执行：** 当前用户持续推进授权已登记；每个实际新范围绑定代码、资产、预算及结果，失败保留且不自动重试。既有暂停和原始失败保留历史身份，指标环境工程不等于新质量评分。
