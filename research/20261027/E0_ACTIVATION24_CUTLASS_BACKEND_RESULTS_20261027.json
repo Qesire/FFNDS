@@ -1,0 +1,161 @@
+{
+  "id": "E0_ACTIVATION24_CUTLASS_BACKEND_PROBE_20261027",
+  "status": "COMPLETE_SYNTHETIC_DUAL_BACKEND_ONLY",
+  "raw_run_sha256": "e79dae0174c71dda110043ddf4ba639bffd3db2791ac3a8e5a0de82741bacf8a",
+  "protocol_sha256": "3903306e68db2dd70584cb0d2941f5eca65fc8b7472a93c0da7512edc3580e07",
+  "launch_exit_sha256": "c5725b385ed011512c580da1041d4b618e80ac195d7440432d00d697248afabf",
+  "tool_sha256": "7972ff6dbaf09cf5e8bb09a3a803a7ae33ed11dd5816d62fdcfde589ffca9f7a",
+  "tests_sha256": "f47e1ac8a9e5feb3afc9ef9935ef4493251d169621fcb0ffe04453ea4a2cb3b7",
+  "executed_source_snapshots_verified": 19,
+  "counts": {
+    "random_tensor_init": 4,
+    "stable_select": 2,
+    "triton_select": 30,
+    "cutlass_compress": 30,
+    "cusparselt_compress": 30,
+    "cutlass_reconstruct": 2,
+    "dense_gemm": 16,
+    "cutlass_sparse_gemm": 30,
+    "cusparselt_sparse_gemm": 30,
+    "search_api": 0,
+    "model_calls": 0,
+    "fits": 0,
+    "video_generations": 0
+  },
+  "warmups": 2,
+  "measurements": 5,
+  "cases": [
+    {
+      "M": 31668,
+      "M_padded": 31680,
+      "K": 5120,
+      "N": 13824,
+      "algorithm": {
+        "alg_id": 1,
+        "split_k": 1,
+        "split_k_mode": 1,
+        "transpose_result": false
+      },
+      "triton_stable_mask_byte_equal": true,
+      "cutlass_reconstruction_bf16_value_equal": true,
+      "cutlass_packed_shape": [
+        31680,
+        2560
+      ],
+      "cutlass_meta_shape": [
+        31680,
+        320
+      ],
+      "cutlass_meta_dtype": "torch.int16",
+      "triton_initial_dispatch_including_compilation_seconds": 2.344496131874621,
+      "correctness": {
+        "cutlass": {
+          "relative_l2": 5.512720305954629e-05,
+          "max_abs": 2.0,
+          "output_shape": [
+            31668,
+            13824
+          ],
+          "output_contiguous": true
+        },
+        "cusparselt": {
+          "relative_l2": 6.066737178064239e-05,
+          "max_abs": 2.0,
+          "output_shape": [
+            31668,
+            13824
+          ],
+          "output_contiguous": true
+        }
+      },
+      "cuda_ms_median": {
+        "dense": 17.122304916381836,
+        "cutlass_compress": 10.357760429382324,
+        "cusparselt_compress": 8.428544044494629,
+        "cutlass_prepacked_functional": 15.123456001281738,
+        "cusparselt_prepacked_functional": 14.740480422973633,
+        "cutlass_online": 26.08025550842285,
+        "cusparselt_online": 22.48192024230957
+      }
+    },
+    {
+      "M": 31668,
+      "M_padded": 31680,
+      "K": 13824,
+      "N": 5120,
+      "algorithm": {
+        "alg_id": 1,
+        "split_k": 1,
+        "split_k_mode": 1,
+        "transpose_result": false
+      },
+      "triton_stable_mask_byte_equal": true,
+      "cutlass_reconstruction_bf16_value_equal": true,
+      "cutlass_packed_shape": [
+        31680,
+        6912
+      ],
+      "cutlass_meta_shape": [
+        31680,
+        864
+      ],
+      "cutlass_meta_dtype": "torch.int16",
+      "triton_initial_dispatch_including_compilation_seconds": 0.2689017909578979,
+      "correctness": {
+        "cutlass": {
+          "relative_l2": 0.00012010468607611755,
+          "max_abs": 2.0,
+          "output_shape": [
+            31668,
+            5120
+          ],
+          "output_contiguous": true
+        },
+        "cusparselt": {
+          "relative_l2": 0.00012237660495654164,
+          "max_abs": 2.0,
+          "output_shape": [
+            31668,
+            5120
+          ],
+          "output_contiguous": true
+        }
+      },
+      "cuda_ms_median": {
+        "dense": 16.686080932617188,
+        "cutlass_compress": 27.291648864746094,
+        "cusparselt_compress": 22.396928787231445,
+        "cutlass_prepacked_functional": 14.458880424499512,
+        "cusparselt_prepacked_functional": 14.799872398376465,
+        "cutlass_online": 43.07353591918945,
+        "cusparselt_online": 36.763648986816406
+      }
+    }
+  ],
+  "runtime": {
+    "torch": "2.10.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "cusparselt": 701,
+    "gpu": "NVIDIA A100 80GB PCIe"
+  },
+  "loaded_backends": {
+    "torch_cuda": {
+      "binding_path": ".venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so",
+      "sha256": "82ae4f56e5f4e766a862bfe8f5d38e5d678eef33f301cb9fab4c6abfd251070f"
+    },
+    "cusparselt": {
+      "binding_path": ".venv/lib/python3.11/site-packages/nvidia/cusparselt/lib/libcusparseLt.so.0",
+      "sha256": "b3d85a0311eadfd3cec86b0291c9a4b5769cba2f248a9e7e8167fbf3ffa99863"
+    }
+  },
+  "triton_library_binding_verified": true,
+  "sample_count": 5,
+  "sampled_isolation_pass": true,
+  "monitor_violations": [],
+  "sampled_peak_gpu_mib": 16082,
+  "compute_elapsed_seconds": 12.931060533970594,
+  "launcher_returncode": 0,
+  "outer_seconds": 15.640504404902458,
+  "scope": "synthetic BF16, no model or video"
+}

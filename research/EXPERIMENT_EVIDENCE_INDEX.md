@@ -1,4 +1,8 @@
+**2026-10-28新完成、证据单位分开：** [20来源原生配对](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)与[来源簇质量](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)：40主视频、20独立已暴露开发图像、1seed/臂；另3次隔离生成扣账，不增加N。Consumer相对Dense成像−1.38%、RAFT−83.28%，不是完整视频通过。[全帧独立视觉](20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)与[实际state增量](20261027/UB1_DISJOINT20_LATENT_INCREMENT_RESULTS_20261027.md)分别是低分辨率观察和状态几何。[四位置24来源能量](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)复现原C_mean并测得较高LOO支持稳定，不能升级为校准充分性。[C5融合packed](20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)为合成两shape真实GPU字节/成本证据，完整相对dense余量仅3.5%/0.7%，无Wan完整FFN收益。
+
 **2026-10-27当前跟进：** [原M Q2/W2局部干预](20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)、[W2严格形状控制](20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)、[I线联合域有限判别](20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)及[用户要求的UB1全帧复核](20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)分别绑定实际范围。旧排序不替代这些新证据，也不授予执行权；用户恢复后的逐项授权见[ACTIVE](ACTIVE_RESEARCH.json)。
+
+**P29 complete online evidence:** [C3 components](20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.md) isolates cheap fused stable selection and expensive generic compression. [C4 two backends](20261027/E0_ACTIVATION24_CUTLASS_BACKEND_RESULTS_20261027.md) verifies same masked inputs and contiguous outputs: both tested online paths remain slower than same-run dense. Direct packed-format generation is an open representation mechanism, not a universal packing lower bound.
 
 # Experiment file importance — FFNDS
 

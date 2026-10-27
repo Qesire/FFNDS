@@ -1,4 +1,8 @@
+**2026-10-28新完成、证据单位分开：** [20来源原生配对](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)与[来源簇质量](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)：40主视频、20独立已暴露开发图像、1seed/臂；另3次隔离生成扣账，不增加N。Consumer相对Dense成像−1.38%、RAFT−83.28%，不是完整视频通过。[全帧独立视觉](20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)与[实际state增量](20261027/UB1_DISJOINT20_LATENT_INCREMENT_RESULTS_20261027.md)分别是低分辨率观察和状态几何。[四位置24来源能量](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)复现原C_mean并测得较高LOO支持稳定，不能升级为校准充分性。[C5融合packed](20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)为合成两shape真实GPU字节/成本证据，完整相对dense余量仅3.5%/0.7%，无Wan完整FFN收益。
+
 **2026-10-27本轮I/F/C新证据：** [共享输入联合支持及精确投影比较器](20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)为ALG＋604有限排列；[原M Q2直接/补集](20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)与[W2形状控制](20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)为八条件保存操作数NATIVE-OBS。原M基线恢复全部BF16字节，最大坐标动作的门控FP32补集/直接范数为13.36%–23.63%；未执行后缀或新视频。[UB1全帧静态复核](20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md)保持历史基线与本轮新机制的证据区别。用户已恢复离线推进，精确范围及同时最多四张空卡见[ACTIVE](ACTIVE_RESEARCH.json)；下文暂停为此前完成范围的历史状态。
+
+**2026-10-27 P29在线成本规律**：[C3分项](20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.md)显示稳定等价选择为0.463/1.151ms，cuSPARSELt压缩8.441/22.445ms；[C4两后端](20261027/E0_ACTIVATION24_CUTLASS_BACKEND_RESULTS_20261027.md)中通用CUTLASS转换也较贵，完整在线26.080/43.074ms对同次dense17.122/16.686ms。物理分歧从selector移至packed表示的生产方式，两合成shape不含Wan质量。
 
 **外部文献不混入原生实验的最新映射（2026-10-27）：** [G8 15个论文节点与四机制直接对照](literature/20261027/G8_FOUR_METHOD_PRIMARY_GRAPH_AUDIT.md)；Dense2MoE是训练后的FFN专家及连续MoB而非本Wan原high/low，SVD-Cache在full feature refresh之后复用低能量残差，Chipmunk跨step系数增量，RT-Lynx当前输入N:M。G8全部是LIT，不是本Wan新实测。十来源采集完成后的用户暂停为历史记录；外部研究图提供科学对照，当前授权单独看ACTIVE。
 

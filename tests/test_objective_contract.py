@@ -75,7 +75,18 @@ class ObjectiveContractTests(unittest.TestCase):
         ])
         self.assertEqual(parallel["g13_role"],
                          "SCOPED_FUNCTIONAL_CAUSAL_LOCALIZATION_NOT_GLOBAL_GATE")
-        self.assertEqual(parallel["model_execution_authority"], "NONE_CURRENTLY_PAUSED")
+        authority = parallel["model_execution_authority"]
+        if authority == "NONE_CURRENTLY_PAUSED":
+            self.assertTrue(live["experiment_authority"]["explicit_user_resume_required"])
+        else:
+            self.assertEqual(authority,
+                             "research/ACTIVE_RESEARCH.json: USER_RESUMED_EXACT_REGISTERED_SCOPES_ONLY")
+            self.assertEqual(live["experiment_authority"]["all_cpu_gpu_model_experiments"],
+                             "USER_RESUMED_EXACT_REGISTERED_SCOPES_ONLY")
+            resume = live["user_continuation_authorization_20261027"]
+            self.assertEqual(resume["status"], "ACTIVE_CURRENT_USER_DIRECTED_SESSION")
+            self.assertEqual(resume["max_simultaneously_assigned_idle_GPUs"], 4)
+            self.assertTrue(resume["protocol_code_asset_budget_freeze_before_launch"])
         self.assertIn("DIRECT_SPARSE_NO_RECOVERY",
                       self.contract["goal_reconciliation_20261024"]["candidate_classes"])
         self.assertEqual([q["id"] for q in live["questions"]], ["Q1", "Q2", "Q3"])

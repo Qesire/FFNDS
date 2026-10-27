@@ -1,0 +1,291 @@
+{
+  "id": "E0_ACTIVATION24_FUSED_CUTLASS_PROBE_20261027",
+  "status": "FROZEN_BYTE_GATED_DIRECT_PACKED_EXECUTION",
+  "assets_finalized": true,
+  "scope": "Synthetic encoding/execution comparison only. Same finite BF16 stable absolute top2 and same CUTLASS numerical representation. Fused selector/value-pack/metadata-swizzle versus materialized selector+original Torch converter. No selector tuning, backend fallback, model, fitting, real Wan Q2/W2 or video claim.",
+  "question": "Is the slow online conversion attributable to the generic multi-kernel tensor converter and intermediate traffic rather than intrinsic compressed-format cost?",
+  "competing_predictions": [
+    "Same exact packed/meta bytes from one-pass packing are much cheaper than generic conversion, reducing complete online time.",
+    "Even cheap encoding leaves limited speedup because CUTLASS SpMM/layout/tile/output costs do not achieve ideal half-MAC scaling; end-to-end full FFN benefit remains unmeasured."
+  ],
+  "shapes": [
+    [
+      31668,
+      5120,
+      13824
+    ],
+    [
+      31668,
+      13824,
+      5120
+    ]
+  ],
+  "edge_shapes": [
+    [
+      35,
+      64
+    ],
+    [
+      33,
+      128
+    ]
+  ],
+  "random_seeds": [
+    20261027,
+    20261028,
+    20261029,
+    20261030
+  ],
+  "limits": {
+    "random_tensor_init": 4,
+    "edge_tensor_upload": 2,
+    "finite_input_check": 6,
+    "stable_reference_select": 4,
+    "materialize_selector": 30,
+    "fused_select_pack": 32,
+    "torch_converter": 32,
+    "cutlass_wrapper": 48,
+    "packed_meta_byte_check": 4,
+    "masked_byte_check": 2,
+    "dense_gemm": 16,
+    "cutlass_sparse_gemm": 44,
+    "search_api": 0,
+    "model_calls": 0,
+    "fits": 0,
+    "video_generations": 0,
+    "official_scores": 0
+  },
+  "timing_costs": {
+    "dense": {
+      "dense_gemm": 1
+    },
+    "materialize_selector": {
+      "materialize_selector": 1
+    },
+    "torch_converter": {
+      "torch_converter": 1,
+      "cutlass_wrapper": 1
+    },
+    "fused_select_pack": {
+      "fused_select_pack": 1
+    },
+    "cutlass_prepacked_contiguous": {
+      "cutlass_sparse_gemm": 1
+    },
+    "reference_online_contiguous": {
+      "materialize_selector": 1,
+      "torch_converter": 1,
+      "cutlass_wrapper": 1,
+      "cutlass_sparse_gemm": 1
+    },
+    "fused_online_contiguous": {
+      "fused_select_pack": 1,
+      "cutlass_wrapper": 1,
+      "cutlass_sparse_gemm": 1
+    }
+  },
+  "warmups": 2,
+  "repetitions": 5,
+  "resource_limits": {
+    "simultaneously_assigned_idle_GPUs": 1,
+    "global_user_GPU_max": 4,
+    "cpu_threads": 2,
+    "HF_free_min_bytes": 10737418240,
+    "HF_output_max_bytes": 104857600,
+    "new_HF_bytes": 104857600,
+    "compute_wall_seconds": 480,
+    "external_total_wall_seconds": 600,
+    "torch_peak_allocated_max_bytes": 68719476736
+  },
+  "block_groups": 256,
+  "num_warps": 4,
+  "selector": "same stable descending absolute BF16 top2, lower-index ties",
+  "converter_sha256": "1759d16ca5dbdcf0a5cef676eafbd4f1477af5e961b18a8fc8dd83a1c1c6728e",
+  "byte_conformance_required_in_this_GPU_run": true,
+  "byte_gate_order": "two actual GPU small cases before full shapes; each full shape original packed+meta bytes must match before its SpMM/timings; any mismatch stops permanently without fallback",
+  "finite_BF16_semantics": "Raw unsigned absolute BF16 bits preserve all finite values, signed-zero comparisons, subnormals and stable ties; pruned entries/padded rows are +0; canonical zero-placeholder indices follow the pinned Torch converter after nonzero detection.",
+  "backend": "CUTLASS_ONLY_NO_FALLBACK",
+  "autotuning": "NOT_CALLED",
+  "automatic_retry": false,
+  "relative_l2_tolerance": 0.02,
+  "output_HF_relative": "ffnds-derived/e0_activation24_fused_cutlass_probe_20261027/attempt1",
+  "runtime_versions": {
+    "torch": "2.10.0+cu128",
+    "triton": "3.6.0"
+  },
+  "bindings": [
+    {
+      "path": "tools/e0_activation24_spmm_probe.py",
+      "sha256": "17e819121b51fcfd915e1c2ace480f7049d9932a6140f18471ec7bedcaae2535",
+      "bytes": 11872
+    },
+    {
+      "path": "tests/test_e0_activation24_spmm_probe.py",
+      "sha256": "17671b7308e860b72d74698097b1ee2b08080cfa345ffe699fdd42cfd6729d40",
+      "bytes": 3164
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+      "bytes": 2562
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+      "bytes": 3559
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+      "bytes": 2529
+    },
+    {
+      "path": "config/worker.env",
+      "sha256": "0dd88ae89887232dc5c50c1bcbed1a0bbcffb7de0ceeea891ce827452f52de66",
+      "bytes": 1027
+    },
+    {
+      "path": "scripts/worker_wait_uuid_idle_exec.sh",
+      "sha256": "38f055289300e9d52b0e4ee27cb19174e804ba178fad0815ae52f4ab97774a53",
+      "bytes": 1919
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/semi_structured.py",
+      "sha256": "adbd51da067c149fa7833383a72910a014bbb0f5e1f816ab0f76b09264a1c3dd",
+      "bytes": 28722
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/_semi_structured_ops.py",
+      "sha256": "6a614407b422b630cffff76ba6a686979104d62bb1bc2ec0cc060f1b354fddb3",
+      "bytes": 6433
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/_semi_structured_conversions.py",
+      "sha256": "1759d16ca5dbdcf0a5cef676eafbd4f1477af5e961b18a8fc8dd83a1c1c6728e",
+      "bytes": 14094
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/backends/cusparselt/__init__.py",
+      "sha256": "0278b6be1de552ceced370a4fc2ca5cfef3d90c84811d55dffee8d90ba0b75c0",
+      "bytes": 1285
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so",
+      "sha256": "82ae4f56e5f4e766a862bfe8f5d38e5d678eef33f301cb9fab4c6abfd251070f",
+      "bytes": 1043840721
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/nvidia/cusparselt/lib/libcusparseLt.so.0",
+      "sha256": "b3d85a0311eadfd3cec86b0291c9a4b5769cba2f248a9e7e8167fbf3ffa99863",
+      "bytes": 451980513
+    },
+    {
+      "path": "tools/e0_activation24_online_components_probe.py",
+      "sha256": "76aae1a11ce28d667ad3e47b649be0c68d989128b015e09f27337ba602458a24",
+      "bytes": 11548
+    },
+    {
+      "path": "tests/test_e0_activation24_online_components_probe.py",
+      "sha256": "1018191fa913ff7789c49e994c6772f5bb6223c9c7653fb7b0aa3537f5bbc2a7",
+      "bytes": 1753
+    },
+    {
+      "path": "tools/e0_activation24_backend_layout_probe.py",
+      "sha256": "72113234a9859dafdba5460b4788ae04bf0e439a35aae1c6aef17419a9d43794",
+      "bytes": 10742
+    },
+    {
+      "path": "research/20261027/E0_ACTIVATION24_SPMM_PROBE_RESULTS_20261027.json",
+      "sha256": "b044f5334d6d1b8cf91f71ad5f2aa43a095a694b77eb70effd8a444242c2fe24",
+      "bytes": 11210
+    },
+    {
+      "path": "research/20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.json",
+      "sha256": "a3d5e487d572d30fcabe8a103b413f6370ae6b4068462d629fcfdecbb0524eb0",
+      "bytes": 52607
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/__init__.py",
+      "sha256": "96e68192cab5dd11fa30d5dc95d56c29ceecda53477fc3af8f37bee026b7a021",
+      "bytes": 1661
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/runtime/jit.py",
+      "sha256": "0b70358d901afd70937a344a7811e4a2bcd10edca8a7c241e47842dc9ac660c8",
+      "bytes": 41084
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/language/core.py",
+      "sha256": "9394c60071ea0bbca6c290c44a5a371b8b4a02683d529debc3be04401d93e198",
+      "bytes": 123101
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/compiler/compiler.py",
+      "sha256": "2a063bb7909777d3659945244277e900d9f7cfc35de9a758578469ee4b90fce9",
+      "bytes": 20548
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/_C/libtriton.so",
+      "sha256": "77cde538443515d7ba30851754334fc52860096b8725063858a0afe0fcd04ca0",
+      "bytes": 415583664
+    },
+    {
+      "path": "tools/e0_activation24_cutlass_backend_probe.py",
+      "sha256": "7972ff6dbaf09cf5e8bb09a3a803a7ae33ed11dd5816d62fdcfde589ffca9f7a",
+      "bytes": 14773
+    },
+    {
+      "path": "tests/test_e0_activation24_cutlass_backend_probe.py",
+      "sha256": "f47e1ac8a9e5feb3afc9ef9935ef4493251d169621fcb0ffe04453ea4a2cb3b7",
+      "bytes": 2943
+    },
+    {
+      "path": "config/e0_activation24_online_components_probe_20261027_v1.json",
+      "sha256": "08335a84e8f22f3991e0bbce2d8a69f1e0bbe67e17084e385eccf02b3e03e0a2",
+      "bytes": 6260
+    },
+    {
+      "path": "research/20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.json",
+      "sha256": "f074230b8fe5f51fbe15ab823619547e18a488067a9654a1610c8be8f12695d9",
+      "bytes": 17242
+    },
+    {
+      "path": "tools/activation24_fused_cutlass_pack.py",
+      "sha256": "f8eaac49f1a7737bad8ec27b46a2d66d7a69533af7fba657af508776dc265b11",
+      "bytes": 9912
+    },
+    {
+      "path": "tools/e0_activation24_fused_cutlass_probe.py",
+      "sha256": "15ea7103abbf1563721cf98b8df2e139220a1bd159b412718af3ae2f09b3588e",
+      "bytes": 22942
+    },
+    {
+      "path": "tests/test_e0_activation24_fused_cutlass_probe.py",
+      "sha256": "e9c3eeb86b47566ed9596c5a7a07de2e1bca4967e6cc1bcabb522fa239c89267",
+      "bytes": 9209
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/runtime/interpreter.py",
+      "sha256": "3cb6ed2fda070e4b211f2ff65fddef842287bf321a61e8874ebc93f6c570c953",
+      "bytes": 65073
+    }
+  ],
+  "prior_C4_RUN": {
+    "path": "ffnds-derived/e0_activation24_cutlass_backend_probe_20261027/attempt1/RUN.json",
+    "sha256": "e79dae0174c71dda110043ddf4ba639bffd3db2791ac3a8e5a0de82741bacf8a",
+    "bytes": 14580
+  },
+  "cost_denominator": "Full select+values+int16 metadata+padding+wrapper+SpMM+slice+contiguous output. Timings include allocations and wrapper work. Component timings and prepacked are separately labeled, compilation/setup reported separately; no inferred FFN/video speedup.",
+  "counter_semantics": "Operation upper bounds predebited before dispatch; successful-return completed counts separate. Individual internal Torch converter CUDA-kernel count is not claimed. Diagnostic elementwise checks counted by their public operation.",
+  "new_input_parameter_fits": 0,
+  "model_calls": 0,
+  "video_generations": 0,
+  "pending_items": [
+    "Root and independent software review",
+    "Actual worker CPU source/backend preflight",
+    "Final exact protocol registration in ACTIVE",
+    "Actual GPU small/full byte gates remain mandatory in the same new run"
+  ],
+  "independent_review": "research/method_discussion/discoveries/E0/activation24-fused-cutlass-independent-review-20261027.md",
+  "attempt_boundary": "CPU-only immutable source/worker/prior-receipt validation precedes ATTEMPT; no GPU operation occurs there. External600s covers both preflight and registered GPU attempt, internal480s covers CUDA/setup/compile/byte-gates/timings. No automatic retry after any GPU attempt."
+}

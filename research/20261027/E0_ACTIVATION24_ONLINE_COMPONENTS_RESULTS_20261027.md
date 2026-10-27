@@ -1,0 +1,14 @@
+# A100 activation 2:4: online component cost
+
+**[NATIVE-OBS, synthetic BF16]** A Triton selection kernel reduced stable top-2 selection plus row padding from 108.535/292.913 ms to 0.463/1.151 ms for the two fixed Wan FFN shapes. The selected-and-padded BF16 bytes exactly matched the generic stable selector in both cases. Compression still cost 8.441/22.445 ms, exceeding the approximately 2.067/1.804 ms margin between dense and the prepacked functional sparse result **in this same run**. Thus the measured online Triton paths were slower than dense: 22.533 versus 16.801 ms, and 36.610 versus 16.181 ms. This is a bounded result for the tested PyTorch/cuSPARSELt format and A100, not a verdict on other sparse backends or fused representations.
+
+| M×K×N, padded M=31680 | Dense | Stable select+pad | Triton select+pad | Compress | Prepacked sparse functional | Stable online | Triton online |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 31668×5120×13824 | 16.801 | 108.535 | 0.463 | 8.441 | 14.733 | 133.095 | 22.533 |
+| 31668×13824×5120 | 16.181 | 292.913 | 1.151 | 22.445 | 14.377 | 330.706 | 36.610 |
+
+All numbers are median CUDA milliseconds over five measured repetitions after two warmups. The complete online boundary includes selection, padding, compression, sparse multiplication, row crop and contiguous output. Prepacked timing excludes selection and compression. Weight transpose is a view; no search is performed. The fixed C2-selected parameters are alg=1, split=1, mode=1, transpose-result=false. The initial Triton dispatch including compilation was separately recorded as 4.836 s and 0.254 s; it is outside the timed online repetitions and must be amortized in any real deployment. Component medians are not assumed to add exactly to the end-to-end median.
+
+Sparse outputs passed the predeclared masked-dense relative-L2 guard with 6.07e-5 and 1.22e-4. This check is against the same masked input, not unmasked model quality. The attempt exited 0, with 44.037 s compute and 118.233 s outer wall; 14 monitor samples had no reported violations, and sampled physical peak memory was 12,332 MiB. The exact ledger was 4 random initializations, 30 generic selections, 30 Triton selections, 44 compressions, 16 dense and 44 sparse calls, with zero search calls. PyTorch, cuSPARSELt and Triton loaded-library bindings were verified. Seventeen source snapshots and the protocol matched their frozen SHA identities; see [machine results](E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.json).
+
+The raw RUN SHA-256 is `0a1bb3fa475b5f86072f2b5dc4e333c2f709ace5a2fe1269282686434df9cdc1`; protocol SHA is `08335a84e8f22f3991e0bbce2d8a69f1e0bbe67e17084e385eccf02b3e03e0a2`. This is a source/result self-audit by the probe author, rather than an external independent peer review. It establishes no original FFN quality, full video behavior or system speed.

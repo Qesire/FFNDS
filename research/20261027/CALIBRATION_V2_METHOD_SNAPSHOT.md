@@ -133,3 +133,10 @@ R_S=\mathbb E_{x\sim P_S}\|f_S(x)-f_D(x)\|^2.
 - `OPEN_BINDING`：实际24来源的 `group_energy[216]` 和 signed Gram 原生采集者；cohort-aware支持/gain-bias/R256拟合及消费者级的数值验收；运动完整视频与独立确认集。
 - **研究结论**：历史CAL24是可追溯基线预算，尚无新方法质量、运行成本和最优校准来源数的实测证据。
 
+
+
+## 项目专属校准研究操作
+
+遇到校准量、校准数据或剪枝/量化模型状态问题，加载 [FFNDS calibration METHOD_SNAPSHOT](CALIBRATION_V2_METHOD_SNAPSHOT.md)。先提炼当前已有数据揭示的结构：源间方差、signed group crossing、rank-256协方差有效维度或Student分布转移；将每项信息对应到独立的科学estimand，再用来源级稳定性、同预算对照、真实原生算子/视频结果分别判别。借鉴SparseGPT的scale ablation、Q-Diffusion的时间覆盖、S²Q-VDiT的显著数据选择，通过实际资产可得性确定最小区分性研究。用真实producer和可复用数据使下一步可执行；以`NOT_MEASURED`记录尚需的校准资产，继续积极推进理论与静态证据。
+
+本段保留项目提交 `ec949769` 的领域指导；通用 AutoResearcher 文件继续与 ACTIVE_SOURCE_MANIFEST 的上游 blob 保持一致。

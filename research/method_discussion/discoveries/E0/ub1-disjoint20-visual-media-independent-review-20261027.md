@@ -1,0 +1,5 @@
+# disjoint20 三臂媒体资产：独立只读核对
+
+冻结配置 `5a7928cd1bcd186430a7dc87035dbb29f82836d0b3b569279e0be52168be8e20`，工具 `0bc61f1ddfc96f5c03a9b4fdf9d02ccc0ea1a9b6ac05b75dd94c40ef667c8927`，测试 `11993e89f23d898869e2d55adeedc6885c157ada0dcbfc6712eb236c8275aa3d`。3项CPU合成测试通过、exit 0。
+
+只读核对20来源、168项绑定、60视频字节身份、40 fresh generation与noise配对，以及历史view来源身份通过。fresh generation含完整160位置记录，原历史neutral没有保存initial noise。四份producer RUN/exit在媒体工具中以SHA绑定；其成功状态和复合来源由质量工具的独立实际preflight核验，不能称媒体工具自行核验这些语义。本次未解码视频、生成媒体或进行人工完整播放；输出接触表不能代替后者。

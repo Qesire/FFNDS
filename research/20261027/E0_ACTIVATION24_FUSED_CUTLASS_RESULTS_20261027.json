@@ -1,0 +1,1231 @@
+{
+  "id": "E0_ACTIVATION24_FUSED_CUTLASS_PROBE_20261027",
+  "status": "COMPLETE_SYNTHETIC_FUSED_CUTLASS_ONLY",
+  "run_sha256": "a2d8f79fa8bee0a9023b5705c5d145c1c18dabd86169efc04b69866273dac125",
+  "protocol_sha256": "3237d21b5fd5778edb99cfff9991849cc06d1a4245a7cd79b8e0b6d24629b7ac",
+  "launch_exit_sha256": "5667c51e6c907a26a142c61ff167fc1362f546bd060701969720dc5b782d0f05",
+  "binding_count": 31,
+  "snapshots_verified": 23,
+  "snapshot_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    9,
+    10,
+    13,
+    14,
+    15,
+    18,
+    19,
+    20,
+    21,
+    23,
+    24,
+    27,
+    28,
+    29,
+    30
+  ],
+  "predebited_work": {
+    "random_tensor_init": 4,
+    "edge_tensor_upload": 2,
+    "finite_input_check": 6,
+    "stable_reference_select": 4,
+    "materialize_selector": 30,
+    "fused_select_pack": 32,
+    "torch_converter": 32,
+    "cutlass_wrapper": 48,
+    "packed_meta_byte_check": 4,
+    "masked_byte_check": 2,
+    "dense_gemm": 16,
+    "cutlass_sparse_gemm": 44,
+    "search_api": 0,
+    "model_calls": 0,
+    "fits": 0,
+    "video_generations": 0,
+    "official_scores": 0
+  },
+  "completed_operation_counts": {
+    "random_tensor_init": 4,
+    "edge_tensor_upload": 2,
+    "finite_input_check": 6,
+    "stable_reference_select": 4,
+    "materialize_selector": 30,
+    "fused_select_pack": 32,
+    "torch_converter": 32,
+    "cutlass_wrapper": 48,
+    "packed_meta_byte_check": 4,
+    "masked_byte_check": 2,
+    "dense_gemm": 16,
+    "cutlass_sparse_gemm": 44,
+    "search_api": 0,
+    "model_calls": 0,
+    "fits": 0,
+    "video_generations": 0,
+    "official_scores": 0
+  },
+  "warmups": 2,
+  "measurements": 5,
+  "edge_cases": [
+    {
+      "M": 35,
+      "K": 64,
+      "M_padded": 64,
+      "gpu_converter_byte_gate": {
+        "packed_bytes_equal": true,
+        "metadata_bytes_equal": true,
+        "device": "cuda:0"
+      },
+      "initial_dispatch_including_compilation_seconds": 7.428918979130685
+    },
+    {
+      "M": 33,
+      "K": 128,
+      "M_padded": 64,
+      "gpu_converter_byte_gate": {
+        "packed_bytes_equal": true,
+        "metadata_bytes_equal": true,
+        "device": "cuda:0"
+      },
+      "initial_dispatch_including_compilation_seconds": 1.8183316180948168
+    }
+  ],
+  "cases": [
+    {
+      "M": 31668,
+      "K": 5120,
+      "N": 13824,
+      "M_padded": 31680,
+      "input_seed": 20261027,
+      "weight_seed": 20261028,
+      "gpu_converter_byte_gate": {
+        "packed_bytes_equal": true,
+        "metadata_bytes_equal": true,
+        "device": "cuda:0"
+      },
+      "initial_dispatch_including_compilation_seconds": 1.709573864005506,
+      "packed_shape": [
+        31680,
+        2560
+      ],
+      "meta_shape": [
+        31680,
+        320
+      ],
+      "materialized_selector_byte_equal": true,
+      "same_mask_correctness": {
+        "relative_l2": 5.512720305954629e-05,
+        "max_abs": 2.0,
+        "output_contiguous": true,
+        "output_shape": [
+          31668,
+          13824
+        ]
+      },
+      "cuda_median_ms": {
+        "dense": 16.246784210205078,
+        "materialize_selector": 0.5539839863777161,
+        "torch_converter": 10.381312370300293,
+        "fused_select_pack": 0.6430720090866089,
+        "cutlass_prepacked_contiguous": 15.11731243133545,
+        "reference_online_contiguous": 25.87238311767578,
+        "fused_online_contiguous": 15.683584213256836
+      },
+      "samples": {
+        "dense": [
+          {
+            "cuda_ms": 16.2293758392334,
+            "wall_ms": 16.29522512666881,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1859277312,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 16.271360397338867,
+            "wall_ms": 16.33498608134687,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1859277312,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 16.246784210205078,
+            "wall_ms": 16.31046482361853,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1859277312,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 16.22425651550293,
+            "wall_ms": 16.289185034111142,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1859277312,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 16.258047103881836,
+            "wall_ms": 16.320185968652368,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1859277312,
+            "peak_reserved_bytes": 9365880832
+          }
+        ],
+        "materialize_selector": [
+          {
+            "cuda_ms": 0.5539839863777161,
+            "wall_ms": 0.6123560015112162,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1308779008,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 0.5754879713058472,
+            "wall_ms": 0.6347571033984423,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1308779008,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 0.5509120225906372,
+            "wall_ms": 0.6106758955866098,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1308779008,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 0.5591040253639221,
+            "wall_ms": 0.6198449991643429,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1308779008,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 0.5488640069961548,
+            "wall_ms": 0.6080358289182186,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1308779008,
+            "peak_reserved_bytes": 9365880832
+          }
+        ],
+        "torch_converter": [
+          {
+            "cuda_ms": 10.366975784301758,
+            "wall_ms": 10.426206048578024,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3357950464,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 10.381312370300293,
+            "wall_ms": 10.439886013045907,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3357950464,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 10.396672248840332,
+            "wall_ms": 10.457216063514352,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3357950464,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 10.365951538085938,
+            "wall_ms": 10.424424894154072,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3357950464,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 10.404864311218262,
+            "wall_ms": 10.467557003721595,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3357950464,
+            "peak_reserved_bytes": 9365880832
+          }
+        ],
+        "fused_select_pack": [
+          {
+            "cuda_ms": 0.6420480012893677,
+            "wall_ms": 0.7008779793977737,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1166197248,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 1.1786240339279175,
+            "wall_ms": 1.2380019761621952,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1166197248,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 0.6461439728736877,
+            "wall_ms": 0.7055078167468309,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1166197248,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 0.6430720090866089,
+            "wall_ms": 0.7023769430816174,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1166197248,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 0.6399999856948853,
+            "wall_ms": 0.6983170751482248,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1166197248,
+            "peak_reserved_bytes": 9365880832
+          }
+        ],
+        "cutlass_prepacked_contiguous": [
+          {
+            "cuda_ms": 15.081472396850586,
+            "wall_ms": 15.142516000196338,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1860329984,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 15.158271789550781,
+            "wall_ms": 15.227047959342599,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1860329984,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 15.0763521194458,
+            "wall_ms": 15.138095011934638,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1860329984,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 15.16543960571289,
+            "wall_ms": 15.225506853312254,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1860329984,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 15.11731243133545,
+            "wall_ms": 15.1774559635669,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 1860329984,
+            "peak_reserved_bytes": 9365880832
+          }
+        ],
+        "reference_online_contiguous": [
+          {
+            "cuda_ms": 25.90719985961914,
+            "wall_ms": 25.981080951169133,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3682353664,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 25.73619270324707,
+            "wall_ms": 25.806718040257692,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3682353664,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 25.89798355102539,
+            "wall_ms": 25.95899091102183,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3682353664,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 25.788415908813477,
+            "wall_ms": 25.84951790049672,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3682353664,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 25.87238311767578,
+            "wall_ms": 25.934580946341157,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 3682353664,
+            "peak_reserved_bytes": 9365880832
+          }
+        ],
+        "fused_online_contiguous": [
+          {
+            "cuda_ms": 15.67846393585205,
+            "wall_ms": 15.739931957796216,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 2042806784,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 15.683584213256836,
+            "wall_ms": 15.744670992717147,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 2042806784,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 15.69279956817627,
+            "wall_ms": 15.755800995975733,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 2042806784,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 15.674367904663086,
+            "wall_ms": 15.735670924186707,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 2042806784,
+            "peak_reserved_bytes": 9365880832
+          },
+          {
+            "cuda_ms": 15.684608459472656,
+            "wall_ms": 15.74674085713923,
+            "allocated_before_bytes": 983720448,
+            "peak_allocated_bytes": 2042806784,
+            "peak_reserved_bytes": 9365880832
+          }
+        ]
+      }
+    },
+    {
+      "M": 31668,
+      "K": 13824,
+      "N": 5120,
+      "M_padded": 31680,
+      "input_seed": 20261029,
+      "weight_seed": 20261030,
+      "gpu_converter_byte_gate": {
+        "packed_bytes_equal": true,
+        "metadata_bytes_equal": true,
+        "device": "cuda:0"
+      },
+      "initial_dispatch_including_compilation_seconds": 1.297104804078117,
+      "packed_shape": [
+        31680,
+        6912
+      ],
+      "meta_shape": [
+        31680,
+        864
+      ],
+      "materialized_selector_byte_equal": true,
+      "same_mask_correctness": {
+        "relative_l2": 0.00012010468607611755,
+        "max_abs": 2.0,
+        "output_contiguous": true,
+        "output_shape": [
+          31668,
+          5120
+        ]
+      },
+      "cuda_median_ms": {
+        "dense": 15.981568336486816,
+        "materialize_selector": 1.2339199781417847,
+        "torch_converter": 27.286527633666992,
+        "fused_select_pack": 1.5370240211486816,
+        "cutlass_prepacked_contiguous": 14.47935962677002,
+        "reference_online_contiguous": 42.81856155395508,
+        "fused_online_contiguous": 15.866880416870117
+      },
+      "samples": {
+        "dense": [
+          {
+            "cuda_ms": 15.981568336486816,
+            "wall_ms": 16.0424190107733,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 16.0501766204834,
+            "wall_ms": 16.11085096374154,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 16.038911819458008,
+            "wall_ms": 16.08730899170041,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 15.963135719299316,
+            "wall_ms": 16.009308164939284,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 15.969280242919922,
+            "wall_ms": 16.003666911274195,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          }
+        ],
+        "materialize_selector": [
+          {
+            "cuda_ms": 1.2339199781417847,
+            "wall_ms": 1.2931530363857746,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3271148032,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 1.2339199781417847,
+            "wall_ms": 1.2993430718779564,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3271148032,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 1.2369920015335083,
+            "wall_ms": 1.2970231473445892,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3271148032,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 1.235967993736267,
+            "wall_ms": 1.2956829741597176,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3271148032,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 1.2124160528182983,
+            "wall_ms": 1.2599318288266659,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3271148032,
+            "peak_reserved_bytes": 12868124672
+          }
+        ],
+        "torch_converter": [
+          {
+            "cuda_ms": 27.289600372314453,
+            "wall_ms": 27.35307696275413,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 8800195072,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 27.288576126098633,
+            "wall_ms": 27.349547017365694,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 8800195072,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 27.276287078857422,
+            "wall_ms": 27.336596976965666,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 8800195072,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 27.279359817504883,
+            "wall_ms": 27.339896885678172,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 8800195072,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 27.286527633666992,
+            "wall_ms": 27.349986834451556,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 8800195072,
+            "peak_reserved_bytes": 12868124672
+          }
+        ],
+        "fused_select_pack": [
+          {
+            "cuda_ms": 1.5278079509735107,
+            "wall_ms": 1.5863110311329365,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2887946752,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 1.5370240211486816,
+            "wall_ms": 1.597641035914421,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2887946752,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 5.01043176651001,
+            "wall_ms": 5.073759006336331,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2887946752,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 1.5575040578842163,
+            "wall_ms": 1.6188409645110369,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2887946752,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 1.5329279899597168,
+            "wall_ms": 1.5929508954286575,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2887946752,
+            "peak_reserved_bytes": 12868124672
+          }
+        ],
+        "cutlass_prepacked_contiguous": [
+          {
+            "cuda_ms": 14.418944358825684,
+            "wall_ms": 14.476978918537498,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 14.47935962677002,
+            "wall_ms": 14.538320945575833,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 14.504960060119629,
+            "wall_ms": 14.561511110514402,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 14.428159713745117,
+            "wall_ms": 14.48509912006557,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 14.491647720336914,
+            "wall_ms": 14.549371087923646,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 2720317952,
+            "peak_reserved_bytes": 12868124672
+          }
+        ],
+        "reference_online_contiguous": [
+          {
+            "cuda_ms": 42.821632385253906,
+            "wall_ms": 42.88275307044387,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 9676083712,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 42.75507354736328,
+            "wall_ms": 42.801340110599995,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 9676083712,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 42.905601501464844,
+            "wall_ms": 42.94985393062234,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 9676083712,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 42.804222106933594,
+            "wall_ms": 42.84711182117462,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 9676083712,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 42.81856155395508,
+            "wall_ms": 42.8830930031836,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 9676083712,
+            "peak_reserved_bytes": 12868124672
+          }
+        ],
+        "fused_online_contiguous": [
+          {
+            "cuda_ms": 15.847423553466797,
+            "wall_ms": 15.909045934677124,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3213005312,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 15.866880416870117,
+            "wall_ms": 15.929455170407891,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3213005312,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 15.851519584655762,
+            "wall_ms": 15.91536495834589,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3213005312,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 15.903743743896484,
+            "wall_ms": 15.965976985171437,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3213005312,
+            "peak_reserved_bytes": 12868124672
+          },
+          {
+            "cuda_ms": 15.868927955627441,
+            "wall_ms": 15.929564833641052,
+            "allocated_before_bytes": 2395259392,
+            "peak_allocated_bytes": 3213005312,
+            "peak_reserved_bytes": 12868124672
+          }
+        ]
+      }
+    }
+  ],
+  "runtime": {
+    "versions": {
+      "torch": "2.10.0+cu128",
+      "triton": "3.6.0"
+    },
+    "CUDA": "12.8",
+    "GPU": "NVIDIA A100 80GB PCIe",
+    "TF32": false,
+    "BF16_reduced_precision_reduction": true
+  },
+  "loaded_native_libraries": {
+    "libtorch_cuda.so": ".venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so",
+    "libtriton.so": ".venv/lib/python3.11/site-packages/triton/_C/libtriton.so"
+  },
+  "assigned_gpu_resources": {
+    "physical_GPU_index": 3,
+    "sampling_interval_seconds": 2,
+    "other_GPUs_required_idle": false,
+    "samples": [
+      {
+        "monotonic_seconds": 1580582.311998446,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 75.11",
+            " 40"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 438
+      },
+      {
+        "monotonic_seconds": 1580584.445209798,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 76.50",
+            " 40"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580586.579378938,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 76.03",
+            " 40"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580588.715395129,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.09",
+            " 40"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580590.831390313,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 76.80",
+            " 40"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580592.947440622,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 76.72",
+            " 40"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580595.087931716,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 76.34",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580597.219394524,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.09",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580599.315419943,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 76.61",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580601.449532725,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.13",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580603.637672195,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 76.98",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580605.79836287,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.76",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580607.917985444,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.29",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580610.035066655,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.35",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580612.178680616,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.49",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 514
+      },
+      {
+        "monotonic_seconds": 1580614.33255021,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 76.99",
+            " 42"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 3598
+      },
+      {
+        "monotonic_seconds": 1580616.451859278,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.40",
+            " 41"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 3598
+      },
+      {
+        "monotonic_seconds": 1580618.604393805,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.98",
+            " 42"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 9462
+      },
+      {
+        "monotonic_seconds": 1580620.689076948,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.78",
+            " 42"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 9462
+      },
+      {
+        "monotonic_seconds": 1580622.796073943,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 78.78",
+            " 42"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 9462
+      },
+      {
+        "monotonic_seconds": 1580624.93014912,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1395",
+            " 1512",
+            " P0",
+            " 78.86",
+            " 43"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 9462
+      },
+      {
+        "monotonic_seconds": 1580627.049404482,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 78.37",
+            " 43"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 9462
+      },
+      {
+        "monotonic_seconds": 1580629.187646062,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 78.07",
+            " 43"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 12802
+      },
+      {
+        "monotonic_seconds": 1580631.309102527,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 78.78",
+            " 43"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 12802
+      },
+      {
+        "monotonic_seconds": 1580633.411828889,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1395",
+            " 1512",
+            " P0",
+            " 87.77",
+            " 44"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 12802
+      },
+      {
+        "monotonic_seconds": 1580635.511890255,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 79.05",
+            " 43"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 12802
+      },
+      {
+        "monotonic_seconds": 1580637.629520322,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 78.46",
+            " 43"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 12802
+      },
+      {
+        "monotonic_seconds": 1580639.736256415,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1395",
+            " 1512",
+            " P0",
+            " 77.09",
+            " 44"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 12802
+      },
+      {
+        "monotonic_seconds": 1580641.84922668,
+        "hardware": [
+          [
+            "NVIDIA A100 80GB PCIe",
+            " 550.54.14",
+            " 81920",
+            " 1410",
+            " 1512",
+            " P0",
+            " 77.78",
+            " 44"
+          ]
+        ],
+        "foreign_process_count_on_assigned_GPU": 0,
+        "physical_GPU_used_memory_MiB": 12802
+      }
+    ],
+    "violations": [],
+    "sampled_isolation_pass": true,
+    "peak_physical_used_memory_MiB": 12802
+  },
+  "elapsed_seconds": 90.51656362507492,
+  "elapsed_seconds_including_setup_and_compile": 90.51678864122368,
+  "launch": {
+    "id": "E0_ACTIVATION24_FUSED_CUTLASS_PROBE_20261027",
+    "protocol_sha256": "3237d21b5fd5778edb99cfff9991849cc06d1a4245a7cd79b8e0b6d24629b7ac",
+    "launcher_returncode": 0,
+    "process_exited": true,
+    "outer_seconds": 94.99291790649295,
+    "automatic_retry": false
+  }
+}

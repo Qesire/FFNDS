@@ -1,5 +1,9 @@
 # FFNDS · 研究导航（2026-10-27）
 
+**2026-10-28最新完成**：[20来源40条原生主对照](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)、[八维质量与连续运动](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)和[全81帧独立缩略图复核](20261027/UB1_DISJOINT20_INDEPENDENT_VISUAL_REVIEW_20261027.md)已完成。Consumer成像相对Dense均值−1.38%，但RAFT幅值−83.28%、二值dynamic6/20→0/20；这条固定支持恢复尚未保住完整视频运动。[真实步长的状态增量](20261027/UB1_DISJOINT20_LATENT_INCREMENT_RESULTS_20261027.md)说明大末步原增量主要受步长尺度影响，不能反推原flow。[四位置CAL24来源诊断](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)逐bit复现原C_mean且LOO支持较稳定。下一方法重点按[A/B/C新表示](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)准备等预算6016窄FFN适配，B敏感坐标与C编码求值各自开放。
+
+**P29成本更新**：[C3分项](20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.md)与[C4双后端](20261027/E0_ACTIVATION24_CUTLASS_BACKEND_RESULTS_20261027.md)识别通用转换开销；[C5直接生成packed表示](20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)已消除大部分该开销，完整合成算子相对dense仅剩3.5%/0.7%中位数余量。后续执行研究须关注乘法本体或新的表示。
+
 **现行科研目标**：理解并改进视频生成FFN中信息、函数与实际计算的组织方式，获得独立的新机制科学结论或质量–成本Pareto方法。**I信息与表示、F函数与动力学、C计算与执行三条研究入口并行且相互反馈**。[统一目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [G13 F线专题](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P定位方法](20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [G0–G13源图](../docs/98_端到端计算图与证据注解_20261025.md)。
 
 [I/F/C并行研究路线、方法与证据组合](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)是当前跨路线的统一对照表：G11/G12编码证书、G13函数/流传播、UB1/A5视频运动、UB1与Affine54函数表示、SpTC 2:4与packed低位、轻量后训练，以及Calibration V2的共用数据接口。该表管理**科学对象及下一判别**，不替代方法QUEUE的同行评议或ACTIVE的执行登记。
@@ -14,7 +18,7 @@
 
 **UB1运动保真已提升为正式研究假说**：[原始RAFT 40-pair×4 clips重检与运动衰减因果审查](20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)。两个已暴露formal20来源的连续motion幅值UB1/Dense约38.13%（犀牛38/40采样对较小）/9.19%（住宅40/40较小），官方二值Dynamic Degree全0；相对减幅不等于动作语义失败或普遍动态能力崩溃，**纹理模糊降低RAFT可追踪性**是优先判别的对手。按motion-rich subject/camera/static分层，在已有四步源图上区分static appearance、motion function、trajectory propagation；[UB1方案](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)和[视频指标合同](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)已联动修正。VideoJAM/Motive/DCM是成熟运动监督/来源选择近邻，供直接迁移，不要求另造loss。
 
-**新训练、视频与执行结果**：[固定R256 consumer bank](20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24校准来源160位置的训练内gate误差下降83.01%；[两开发来源六条完整视频](20261027/UB1_FIXED_RR_CONSUMER_VIDEO_RESULTS_20261027.md)通过历史Dense/neutral四步latent与视频字节复现。[八轴官方函数评分](20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)显示成像更接近Dense、连续运动部分恢复而美学等轴有取舍；[保存latent几何](20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)揭示负交叉项与末步距离略增可以并存。下一项保持参数不变，扩大到旧disjoint20开发来源。[合成2:4布局对照](20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)发现部分预打包路径较快，在线选择与压缩仍另计。图P28/P29分别保留模型恢复与合成物理算子的身份。
+**新训练、视频与执行结果**：[固定R256 consumer bank](20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24校准来源160位置的训练内gate误差下降83.01%；[两开发来源六条完整视频](20261027/UB1_FIXED_RR_CONSUMER_VIDEO_RESULTS_20261027.md)通过历史Dense/neutral四步latent与视频字节复现。[八轴官方函数评分](20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)显示成像更接近Dense、连续运动部分恢复而美学等轴有取舍；[保存latent几何](20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)揭示负交叉项与末步距离略增可以并存。后续另20来源结果见本页最新完成项，保持其独立执行与统计身份。[合成2:4布局对照](20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)发现部分预打包路径较快，在线选择与压缩仍另计。图P28/P29分别保留模型恢复与合成物理算子的身份。
 
 **Calibration V2 当前边界**：[冻结设计及METHOD_SNAPSHOT](20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)将来源数、每源行数、Student状态与校准目标拆开；`coverage/diagnose`目前是CPU层的配额与来源级诊断合同，新原生操作数、cohort-aware拟合和冻结视频确认各有独立完成条件。抽样先选独立image cluster，再在簇内登记source/prompt；标准VBench Image Suite可以包含同图多prompt条件，须把条件计数与独立image数分别报告。
 
