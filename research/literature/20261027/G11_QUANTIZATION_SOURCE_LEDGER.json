@@ -117,6 +117,31 @@
       "code_review": "AUTHOR_PYTORCH_CUDA_DETERMINED_GEMV_B1T1_AND_FULL_DENSE_FALLBACK",
       "evidence": "ARXIV_22_PAGE_AUTHOR_CODE_BLOBS_20261027",
       "primary_method_document": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md"
+    },
+    {
+      "id": "L74",
+      "name": "SharQ: Bridging Activation Sparsity and FP4 Quantization for LLM Inference",
+      "url": "https://arxiv.org/html/2606.26587",
+      "reading_depth": "ARXIV_V1_ORIGINAL_EQ6_13_TABLE3_4_5_FIG4_AUTHOR_CODE_REVIEWED",
+      "system": "Wan2.2 T2V A14B 4xRTX5090 + LLM",
+      "method": "activation outlier 4:8 in-pairs sparse FP4 backbone; R=x-DQ(Q(backbone)); one sparse FP4 GEMM PLUS full dense FP4 residual GEMM",
+      "benchmarks": "480P FP16 223.41 SharQ 182.21 1.23x SharQ+Sage 141.63 1.58x; 720P FP16 717.88 SharQ 648.04 1.11x SharQ+Sage 457.88 1.57x; dense NVFP4 prefill is faster than total SharQ (100 vs111.2%)",
+      "difference": "not I2V D-Q or fourstep; HiF4 sim path not native; no pure skip due dense residual",
+      "primary_method_document": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md",
+      "source_blobs": [
+        {
+          "path": "model/qLinearLayer.py",
+          "sha": "1db675d181663d4bd76868f40279e40db8428c31"
+        },
+        {
+          "path": "kernels/src/fused_sparse_prepare.cu",
+          "sha": "687470cc965cfd524157d7ea16afedba35b84a76"
+        },
+        {
+          "path": "kernels/README.md",
+          "sha": "8a09910a72256969ed94ca3d482fc8407e131c2b"
+        }
+      ]
     }
   ],
   "engineering": [
