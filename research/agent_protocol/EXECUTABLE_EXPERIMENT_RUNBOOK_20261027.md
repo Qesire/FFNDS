@@ -13,7 +13,7 @@ python tests/test_ffnds_cluster_metric_report.py
 python -m py_compile tools/ffnds_experiment_plans.py tools/ffnds_native_geometry.py tools/ffnds_run_registered_video.py tools/ffnds_stage_registered_i2v.py tools/ffnds_cluster_metric_report.py
 ```
 
-上述静态与CPU测试仅覆盖协议数学/记录解析；模型加载、原生HiF4及官方评测须在实际集群环境另作fresh run。
+上述静态与CPU测试仅覆盖协议数学/记录解析；其中聚合测试涵盖同图像多prompt不等重复次数，采样测试涵盖实际抽样与注册身份一致。模型加载、原生HiF4及官方评测须在实际集群环境另作fresh run。
 
 ## 1. 真实来源库与历史暴露
 
@@ -47,7 +47,7 @@ python tools/ffnds_experiment_plans.py calibration-plan \
   --out /path/to/new_experiment/cal24_rows256.json
 ```
 
-48×128只在已采集**48个独立来源及全部160个真实native grid**后运行。相同来源的行坐标由全局source ID、step/block和固定seed确定，128/256/512设计具有前缀嵌套关系。每个source使用冻结metadata中的原始 `native_source_ordinal`，即使增删其它source或改动校准cohort也保持相同抽样随机过程。输入 `calibration.json` 为校准**采样计划**，新来源的 V1/V2/Y 操作数需经实际native hook按 `selected_row_ids` 采集，并用原Q1/GELU/HiF4 Q2/W2/gate数值契约验证。历史 `fit_step_budget.py` 固定24×256，继续承担旧UB1复现；新设计拟合时必须提供显式source与行索引接口，不能直接把该计划冒充已完成的模型重拟合。
+48×128只在已采集**48个独立来源及全部160个真实native grid**后运行。相同来源的行坐标由冻结的 `native_source_ordinal`、step/block和固定seed确定，128/256/512设计具有前缀嵌套关系。每个source使用冻结metadata中的原始 `native_source_ordinal`，即使增删其它source或改动校准cohort也保持相同抽样随机过程。输入 `calibration.json` 为校准**采样计划**，新来源的 V1/V2/Y 操作数需经实际native hook按 `selected_row_ids` 采集，并用原Q1/GELU/HiF4 Q2/W2/gate数值契约验证。历史 `fit_step_budget.py` 固定24×256，继续承担旧UB1复现；新设计拟合时必须提供显式source与行索引接口，不能直接把该计划冒充已完成的模型重拟合。
 
 ## 2.1 原生校准操作数核对（新拟合的实际入口）
 
@@ -115,7 +115,7 @@ python tools/ffnds_cluster_metric_report.py \
   --bootstrap 2000 --seed 42 --out /path/to/new_experiment/ub1_disjoint_cluster.json
 ```
 
-支持源级 `source_group,dimension,D_Q,candidate` 与新评价的 `source_id,image_id,seed,metric,dense,candidate`；先平均同image内不同seed，然后对image cluster等权、cluster bootstrap。输出相对变化百分比、逐来源尾部、95%区间和真实独立样本数量。对于未运行official维度，维持 `NOT_RUN`。
+支持源级 `source_group,dimension,D_Q,candidate` 与新评价的 `source_id,image_id,seed,metric,dense,candidate`；以 `seed × sample_index` 联合识别source/prompt的真实重复观测；先按source/prompt均值，再对同一 `image_id` 内多个source/prompt等权，最后对image cluster等权并按cluster bootstrap。输出相对变化百分比、逐来源尾部、95%区间和真实独立样本数量。对于未运行official维度，维持 `NOT_RUN`。
 
 ## 6. 代理人执行规范
 
