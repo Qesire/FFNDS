@@ -4,6 +4,8 @@
 
 # FFNDS · 实验发现谱系、机制分类与对照矩阵
 
+**UB1 新有界证据（2026-10-27）**：[来源泛化](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)记录两批逐源尾部；[原M一致性/独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)为两暴露来源16位置的位一致；[匹配恢复/独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)为24暴露来源的12/12训练折、4位置 M256 局部结果。相应图 P26/P27 不表明完整视频或加速通过。
+
 **2026-10-27 completed fresh replication:** [4project-new identities/6nested seed paths/12videos/960sites](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md):942smaller/6equal/12larger; source425 changes all three post-initial cross signs between seed42/54, source437step2/3 has beneficial finite one-step N+cross despite large divergent trajectory. Together with6exposed sources there are10identities/12paths/1,920nested sites. Formal quality remains NOT_RUN; user finish-then-pause is serialized in ACTIVE and all model jobs exited.
 
 > 2026-10-25 | 基于 AutoResearcher v2.4 **Ground → Derive → Discriminate → Learn** 的历史证据重组；链接至 [实际计算图 G0–G6](../docs/98_端到端计算图与证据注解_20261025.md)。这是一份**研究知识图谱**而非新增任务单，不改变原有冻结协议、失败决定、授权或当前唯一 E0 方向。

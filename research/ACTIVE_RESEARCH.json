@@ -2061,6 +2061,145 @@
         },
         "execution_exit_verified": true,
         "assigned_GPU_released": true
+      },
+      {
+        "id": "UB1_SOURCE_GENERALIZATION_AUDIT_20261027",
+        "date": "2026-10-27",
+        "user_authority": "USER_RESUME_OFFLINE_IFC_20261027",
+        "protocol": "config/ub1_source_generalization_audit_20261027_v1.json",
+        "protocol_sha256": "462ff85c58e542903c3ca6ad3c4cdec278e58eab3baa643fa658d9eb734e4d68",
+        "scope": "Existing 40-source quality descriptions, five frozen method/cohort tables, four paired four-step trajectory tables and OP3 summaries; no fitting, scoring, hypothesis significance test or future confirmation selection.",
+        "execution_status": "COMPLETE_DESCRIPTIVE_EXISTING_SOURCE_AUDIT_NOT_NEW_QUALITY",
+        "max_gpu_cards": 0,
+        "pending_CPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "pending_GPU_analysis_jobs": 0,
+        "automatic_retry": false,
+        "limits": {
+          "cpu_threads_max": 1,
+          "wall_seconds_max": 60,
+          "memory_bytes_max": 268435456,
+          "output_bytes_max": 2097152,
+          "gpu": 0,
+          "model_imports": 0,
+          "fitting": 0,
+          "network": 0
+        },
+        "completed_result": "research/20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.json",
+        "result_sha256": "1a771269b0bf280a7aa02299dda729d219117eda3873c193431acc27c5144e41",
+        "execution_receipt": "research/20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027_RUN.json",
+        "actual_budget": {
+          "CPU_analysis_runs": 1,
+          "GPU_calls": 0,
+          "model_forwards": 0,
+          "new_scores": 0,
+          "new_videos": 0,
+          "fits": 0,
+          "quality_source_metric_rows": 300,
+          "trajectory_source_step_rows": 320,
+          "independent_source_groups": 40,
+          "wall_seconds": 0.10274944454431534
+        }
+      },
+      {
+        "id": "E0_UB1_NATIVE_CONSISTENCY_20261027",
+        "date": "2026-10-27",
+        "user_authority": "USER_RESUME_OFFLINE_IFC_20261027",
+        "protocol": "config/e0_ub1_native_consistency_20261027_v1.json",
+        "protocol_sha256": "eaca70a26f4cedfd3f76ac52c3ed7b4ee1a849f7a3738975cf023c32584421e6",
+        "scope": "Existing original UB1 parameters on source0(seed42)/12(seed54), two already calibration-exposed dense trajectories; 16 nested sites, not16 independent sources. W1/GELU/Q2/W2 gate-only observed rows; unknown rows padded zero at original M31668 and IDs. No residual writeback, suffix or video.",
+        "execution_status": "COMPLETE_ORIGINAL_M_SCOPED_NUMERICAL_IDENTITY_NOT_QUALITY",
+        "max_gpu_cards": 1,
+        "limits": {
+          "BF16_GEMM": 192,
+          "native_Q2": 48,
+          "full_model_calls": 0,
+          "fits": 0,
+          "video_generations": 0
+        },
+        "automatic_retry": false,
+        "pending_model_jobs": 0,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_CPU_analysis_jobs": 0,
+        "completed_result": "research/20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.json",
+        "result_sha256": "2c0b08a673b5ac05d5e3f82ce048d0de8486f4c2189ef4712c936bba6b025cd1",
+        "actual_budget": {
+          "BF16_GEMM": 192,
+          "native_Q2": 48,
+          "model_forwards": 0,
+          "fits": 0,
+          "videos": 0,
+          "source_identities": 2,
+          "nested_sites": 16,
+          "peak_GPUs": 1,
+          "elapsed_seconds": 50.556144278496504
+        }
+      },
+      {
+        "id": "E0_UB1_MATCHED_RECOVERY_20261027",
+        "date": "2026-10-27",
+        "user_authority": "USER_RESUME_OFFLINE_IFC_20261027",
+        "protocol": "config/e0_ub1_matched_recovery_20261027_v1.json",
+        "protocol_sha256": "a07cf64e62633aeedfa0f18ebe456504acaaa0875d64b67a1c5c4fedfa86f70c",
+        "scope": "Train-only source-matched2x2 support scoring and output-consumer recovery: distinguish recoverability/selection without changing source count, whole64 widths or R256 budget. Corrected gated source-relative SSE is primary local descriptive response; mean and paired individual source/position results, no significance/quality/speed acceptance.",
+        "execution_status": "COMPLETE_FOUR_SITE_SOURCE_MATCHED_CV_NOT_VIDEO",
+        "limits": {
+          "group_weight_gram": 4,
+          "group_activation_gram": 8,
+          "scalar_signal_FP32_linear": 192,
+          "dense_FP32_linear": 96,
+          "consumer_ridge_fit": 16,
+          "RR_fit": 32,
+          "BF16_forward_linear": 2304,
+          "optimizer_steps": 0,
+          "W1_calls": 0,
+          "QDQ_calls": 0,
+          "full_model_calls": 0,
+          "video_generations": 0
+        },
+        "fitting_budget": {
+          "R256_whitened_ridge_fits": 32,
+          "R256_Cholesky_decompositions": 32,
+          "R256_randomized_SVD_calls": 32,
+          "consumer_ridge_fits_and_Cholesky": 16,
+          "optimizer_steps": 0,
+          "persisted_fitted_tensor_files": 0
+        },
+        "max_gpu_cards": 1,
+        "automatic_retry": false,
+        "pending_CPU_analysis_jobs": 0,
+        "pending_GPU_analysis_jobs": 0,
+        "pending_model_jobs": 0,
+        "pre_execution_guard_events": [
+          {
+            "status": "PRE_EXECUTION_GUARD_REJECTED_EARLY_START",
+            "launcher_exit_code": 1,
+            "GPU_compute_calls": 0,
+            "fits": 0,
+            "ATTEMPT_created": false,
+            "reason": "Launcher was issued before the independent asset-preparation process completed. authorize() rejected draft before ATTEMPT, torch import, CUDA reservation or any fit/forward. Exact finalized protocol is now registered and independently checked."
+          }
+        ],
+        "completed_result": "research/20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.json",
+        "result_sha256": "bd2d4337e7a870bba84c6ebcde9d8f8bf5acc9f37927d6e70893f71a13ef8b97",
+        "actual_budget": {
+          "source_identities": 24,
+          "fixed_source_split_swaps": 2,
+          "positions": 4,
+          "closed_form_R256_fits": 32,
+          "consumer_ridge_fits": 16,
+          "BF16_prediction_linears": 2304,
+          "dense_FP32_prediction_linears": 96,
+          "scalar_FP32_prediction_linears": 192,
+          "group_Gram_batches": 12,
+          "optimizer_steps": 0,
+          "new_videos": 0,
+          "official_scores": 0,
+          "persisted_fitted_weight_files": 0,
+          "peak_GPUs": 1,
+          "compute_scope_seconds": 28.995881646871567,
+          "sampled_peak_GPU_MiB": 6156
+        }
       }
     ],
     "prior_control_state_before_user_resume_20261027": {
@@ -3227,6 +3366,41 @@
     "synchronized_main_at_start": "0ca46a2",
     "static_repair": "Completed required binding/graph checks and25 objective/parallel/graph tests after authority negative cases; removed one-use handoff and temporary pointers. Two stale checker routes corrected; pinned upstream sources unchanged.",
     "synchronized_main_after_completed_scopes": "cc62b69; five added UB1/colleague-brief commits read, fast-forward applied with no frozen executable source changed.",
-    "synchronized_main_before_publication": "2d51c77; two further user research proposals read and integrated, exact scientific/execution boundaries retained."
+    "synchronized_main_before_publication": "2d51c77; two further user research proposals read and integrated, exact scientific/execution boundaries retained.",
+    "latest_user_continuation": "你停下干啥啊，继续同步最新仓库，跟着指示，持续推进",
+    "synchronized_main_at_latest_continuation": "3a4ef38"
+  },
+  "latest_ub1_research_followthrough_20261027": {
+    "status": "THREE_SCOPES_COMPLETE_PREPARING_FIXED_SUPPORT_CONSUMER_AND_VIDEO",
+    "research_basis": [
+      "research/20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md",
+      "research/20261027/PARTIAL_LINEAR_FFN_PRIOR_ART_AND_TRANSFER_AUDIT_20261027.md"
+    ],
+    "scientific_discriminator": "Separate same-input deployment numerical difference from fixed-support recovery and independent-source coverage; source-level historical tails inform bounded competing predictions.",
+    "current_CPU_scope": "UB1_SOURCE_GENERALIZATION_AUDIT_20261027",
+    "pending_CPU_analysis_jobs": 0,
+    "pending_GPU_analysis_jobs": 0,
+    "pending_model_jobs": 0,
+    "max_simultaneously_assigned_idle_GPUs": 4,
+    "source_audit": "research/20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.json",
+    "native_consistency_scope": "E0_UB1_NATIVE_CONSISTENCY_20261027",
+    "native_consistency_protocol": "config/e0_ub1_native_consistency_20261027_v1.json",
+    "source_level_conclusion": "UB1 imaging tail and opposing UB2 aesthetic/imaging ordering motivate separate support/recovery and temporal questions; source count is40, not metric/site count.",
+    "native_consistency_result": "research/20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.json",
+    "native_conclusion": "All16 original-M narrow W1/GELU/Q2 and same-R256 gate paths bitwise identical to dense-selected paths; small-M differences scoped to arithmetic shape. Move to same-source support/recovery comparison.",
+    "matched_recovery_protocol": "config/e0_ub1_matched_recovery_20261027_v1.json",
+    "matched_recovery_scope": "E0_UB1_MATCHED_RECOVERY_20261027",
+    "matched_recovery_result": "research/20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.json",
+    "matched_recovery_conclusion": "Train-only source matched2x2 at4 positions: Cmean corrected mean relativeSSE0.0047007092 versus consumer ridge0.0028644633; FLAP scalar0.0051129571, FLAP ridge0.0027764457. Source-balanced24-source means; first-step block39 reverses. Next isolate original UB1 support/alpha/R256 and fit consumer only, then early full video.",
+    "graph_nodes": [
+      "P26",
+      "P27"
+    ],
+    "current_graph_counts": {
+      "nodes": 184,
+      "edges": 389,
+      "mechanism_families": 14,
+      "primary_papers": 89
+    }
   }
 }

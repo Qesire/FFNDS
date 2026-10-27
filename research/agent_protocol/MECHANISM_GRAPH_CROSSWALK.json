@@ -335,7 +335,9 @@
         "K03",
         "K07",
         "K08",
-        "K09"
+        "K09",
+        "P26",
+        "P27"
       ],
       "source": [
         "G02",
@@ -352,7 +354,7 @@
       ],
       "information": "step identity or trained architecture masks learned during distillation",
       "cost": "train, compact weight storage, per-step weight gather/union; actual shape reduced",
-      "observed": "DIFS uses trained 8-wide channel chunk, distinct from HiF4 64-group; original Wan D-Q only 2 full experts",
+      "observed": "DIFS uses trained 8-wide channel chunk, distinct from HiF4 64-group; original Wan D-Q only 2 full experts; UB1 original-M saved-row selected/narrow paths match at 16 exposed sites; source-disjoint exploratory CV tests support and consumer, not full-video acceptance.",
       "falsifier": "Group scales, expert switching and total model quality degrade after compact conversion",
       "tier": "LIT_PAPER_METHOD",
       "linked_doc": "research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md"
@@ -477,7 +479,8 @@
         "P23",
         "P24",
         "P25",
-        "D09"
+        "D09",
+        "P27"
       ],
       "source": [
         "F08R",
@@ -497,7 +500,7 @@
       ],
       "information": "native matched source/seed independent full-depth 40x4 FFN and full-frame delivered video",
       "cost": "metrics, SHA-bound video, actual GPU source code and FP4/Tensor Core timing",
-      "observed": "10 source identities/12 nested seed paths/1920sites observed; prior local wins with terminal quality failure",
+      "observed": "10 source identities/12 nested seed paths/1920sites observed; prior local wins with terminal quality failure; UB1 formal/disjoint source-level imaging tails differ, exploratory exposed cohorts; full held-out quality remains separate.",
       "falsifier": "Method's local error reduction cannot survive full free-running video temporal and motion metrics",
       "tier": "NATIVE_OBS_EXISTING_AND_POLICY",
       "linked_doc": "research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md"
@@ -513,7 +516,8 @@
         "Q14",
         "I09",
         "I16",
-        "S20"
+        "S20",
+        "P26"
       ],
       "source": [
         "F03",
@@ -537,7 +541,7 @@
       ],
       "information": "runtime actual M/K tiling, lowbit packing/Q1 scaling, data dispatch and device",
       "cost": "observer and code bytes, shape changes, launch/weight residency, packed native dense comparator",
-      "observed": "fullM token-wise sparse posthoc 100% tile occupancy, kernel mix depends on shape; original-M W2 replay restores saved BF16 bytes while M160 differs0.292%",
+      "observed": "fullM token-wise sparse posthoc 100% tile occupancy, kernel mix depends on shape; original-M W2 replay restores saved BF16 bytes while M160 differs0.292%; UB1 narrowed W1/GELU/Q2 paths are bit-identical at original M in 16 saved-row sites, while M160 differs at steps1–3; this is numerical shape control, not a new speed measurement.",
       "falsifier": "The proposed observer costs more than physical work it avoids on matched hardware",
       "tier": "ALG_SYS_PREEXISTING_AND_OPEN",
       "linked_doc": "research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md"

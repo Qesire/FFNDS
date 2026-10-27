@@ -1,0 +1,13 @@
+# UB1 固定组训练与原生缩窄路径：一致性预检
+
+**SRC / OPEN，2026-10-27。** 一个可判别的差异位于 W1 的 BF16 输出舍入：拟合使用完整 Dense 已保存 post-Q2 的目标组；实际 UB1 从同一 post-Q1 输入运行窄 W1，再走 GELU、Smooth2 和 Q2。即使支持由完整64组组成、量化组内依赖不跨组，窄 W1 的不同输出形状仍可能改变 BF16 结果并跨越 Q2 阈值。另一预测是对应列及其Q2码一致，训练/部署差异在此选定位置可忽略。这里没有新增数值执行。
+
+原路径在 [step_budget_runtime.py](../../../..//tools/step_budget_runtime.py:56) 按排序组选择 W1 行、W2 列和 Smooth2；step 0/1/2/3 分别保留 54/108/108/162 组，隐藏宽度3456/6912/6912/10368。W1 的原始 b1 按同一列选择；Q2 后以 FP32 乘 alpha 再转 BF16，W2 加校准折叠 b2，最后加由同一 post-Q1 输入产生的 R256，两次辅助线性；之后才是正常 gate 与残差。拟合在 [fit_step_budget.py](../../../..//tools/fit_step_budget.py:33) 使用 24×256 行原始 V1、完整 Dense V2 及 Y：固定支持来自输出贡献，非负 alpha 是 centered gated 输出的标量回归，b2 是原 bias 加均值修正，R256 拟合原 Y 对该近似的剩余。step 1/2 沿用 C24，step 0/3 各自重拟合。
+
+**已有比较的范围。** [UB1 native replay](../../../..//tools/ub1_native_replay.py:135) 对真实 UB1 状态用原 M/stride 复演 packed 主支路与 R256，并要求与原生 BaseY/StudentY 字节一致；这说明部署重放一致。历史[注册协议](../../../..//reports/worker_20261020/step_budget_ub1_registered_protocol.json)明确指出 saved Dense post-Q2 子集训练近似不保证窄 W1 部署的舍入一致。我没有找到同时配对 Dense post-Q2 子集、实际窄 Q2 与原 M 形状控制的同一对照；这是检索范围内的判断。已完成的 C02/W2 形状控制表明 M160 与原 M31668 可产生实际 BF16 W2 差异，故应把形状作为单独控制，而非归因于量化。
+
+**可定位素材。** [UB1 policy](../../../..//reports/worker_20261020/UB1_policy.json) SHA `bd3f031ffc002fe81858e7e68912693b088966ea43da5f34c4c8fae2bf8f5e5d`；本地父策略及 step0/3 fit 报告分别重新哈希匹配 `9dca0c5f154e1c58cb7416eefd79a1447cf2582cab5ce81dad42ca68915e483a`、`2929ad339ab32cfd00dfb164f932c801f7cf87f63eb80e6dbc1d410be69492d4`、`8e3119e2bcdf98f8b24faf6eacf4be5599e953af1a52f0718647be03416944a1`。实际分片位置和系数 chunk 仍需执行前按策略指纹、每文件 SHA 复核，不凭报告存在推断全部参数可读。
+
+已完成 all-block native 观察的 source0/step0/block0 面板：原 RUN SHA `918dedc21ae5263763beafa0e749fadeab2f8f9016b6c994c91f89bd202ee4aa`，该面板 SHA `21d63d00a821d6756a7b2caafea76a85f1e15f7959601d17e57c1c4db25e7673`，160行；`q1_post` [160,5120]，`z`/`gelu`/`q2_post` [160,13824]，gate [1,5120]、b1 [13824]、b2 [5120]。对应 high/block0 权重 shard SHA `5c8e9c4c85e5ecc3646c5cd03db4adbe59d25225a2778d15cb3ca6a8ff733c79`。这些身份来自此前只读SHA/header核对；不等于本轮再次读取或重放。原始 HF 相对资产及校验索引见 [E0观察汇总](../../../..//research/20261025/E0_ALL_BLOCK_TANGENT_OBSERVATIONS.json)；精确私有路径及行ID由原RUN和本地运行清单恢复，不放公开节点信息。
+
+**最小未来判别（单位置、单卡，尚未登记或执行）。** 固定 source0/step0/block0 的真实54组、alpha、折叠b2及原160行，对同一真实q1先恢复原M=31668的零填充行位置。一次窄W1 + 原GELU/Smooth2/Q2，把 `z_S`、`gelu_S`、`q2_S`逐位对照已存 Dense 值；对 saved Dense `q2_S` 与窄路径 `q2_S` 各进行一次相同alpha与BF16 W2，比较有符号门控输出。另用M160重复对应三次BF16 GEMM和一次Q2，报告与原M的误差及码变化；预算合计 **6 BF16 GEMM、2 native Q2**，均不含Q1/full-model调用。若要报告完整UB1支路，可共享执行一次R256两GEMM，账本变为 **8 GEMM、2 Q2**。两臂相同 R256 只在固定同一输入时相同；BF16加法及gate舍入应单独记录。保留baseline捕获差、位相等计数、signed差、逐行和组内变化，任何原M零填充都只恢复算子形状，未知其他行不是完整模型状态。此结果仅为局部数值一致性，视频功能与真实速度分别另需证据。

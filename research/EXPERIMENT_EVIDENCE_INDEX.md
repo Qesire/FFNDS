@@ -2,6 +2,8 @@
 
 # Experiment file importance — FFNDS
 
+**2026-10-27 scoped additions:** [source-level audit](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md), [original-M UB1 consistency and independent audit](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md), and [matched support/consumer recovery with independent audit](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md). These preserve exposed-source, saved-row and local-CV bounds; P26/P27 do not establish free-video or deployable gains.
+
 **Current scientific priority, not historical execution authority.** Start with [curated evidence ranking](experiment_evidence/PRIORITY_RANKING.json). Search the [complete experimental file inventory](experiment_evidence/FILE_INVENTORY.json) only when you need a specific source or protocol. The inventory's automated filename roles are **not** a scientific evaluation of unread files.
 
 **New scoped E0 evidence (2026-10-26):** [all40 matched controls](20261026/E0_ALL_BLOCK_RECONSTRUCTION.md) and [six native full-video prototypes](20261026/E0_RECONSTRUCTED_VIDEOS.md) follow the [four function studies](20261026/E0_FUNCTION_RECONSTRUCTION.md). Real warm FFN2.182× and generation1.120× are observed, setup excluded; both fixed prototypes visibly fail video quality. Local affine54 SSE8.54% versus matched anchored input15.35% does not certify downstream behavior. Exact raw/source/parameter/media bindings, neutral controls, failed pre-generation capture accounting and independent reviews are preserved. All current scopes complete; no automatic followup authority. Historical ranking below remains unchanged.

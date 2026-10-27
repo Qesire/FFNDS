@@ -4,7 +4,9 @@
 
 [I/F/C机制证据组合与最小判别](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)集成信息界、行为传播、物理算子和训练后职责迁移的竞争解释。它是研究导航，不是实验执行队列。
 
-**研究规模**：89项相关论文、182个计算图节点、381条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
+**研究规模**：89项相关论文、184个计算图节点、389条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
+
+**UB1 当前证据与开放判别**：[来源级泛化审计](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)保留两批已暴露来源的成像尾部与同源对照；[原M一致性及独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)对应图P26；[匹配恢复及独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)对应P27。后者在12/12探索折上比较支持和消费者；未见来源、原M性能和完整视频仍待检验。下一native bank仅在准备，执行状态以ACTIVE为准。
 
 **近期一手论文与原生算子重要更新**：[RT-Lynx激活/权重稀疏、superposition解释和Wan 2:4实际执行审查](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md)提出三个各自有证据身份的问题：稠密权重的跨输入长期能力、当前输入的2:4使用、SpTC真实硬件操作。原whole64满tile负例**只适用于相应原布局group剪枝**，不是稀疏Tensor Core 2:4的反例。该审查直接关联[修订后的UB1](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)与[Affine54](20261027/QUANTIZATION_CONSISTENT_FFN_FUNCTION_AND_TRAJECTORY_PROPOSAL_20261027.md)方案；原Wan速度和视频质量未新增运行。
 
