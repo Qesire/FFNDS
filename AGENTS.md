@@ -4,7 +4,7 @@
 
 **五操作方法分析（现行统一动作语法）**：[O-A计算选择、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证目标](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[机器索引](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)。以I/F/C明确研究问题，以多个O-A～E组成真实方法，以G14原论文/代码和Wan物理执行边界核对；“稀疏”是可能的结构或结果，不是方法的唯一类别。旧三候选加前缀M-A/M-B/M-C以区别操作类。本轮仍是**先推进M-B敏感函数坐标**，而非把所有O-B研究排在其它科学方向之前。
 
-**下一位方法研究Agent的优先任务（用户指定、单轮）**：[先从B下游敏感函数坐标开始](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。按独立评议重建gate-conditioned联合后缀响应，先区分平均敏感与同源联合敏感、folded与factored真实计算，然后产出独立METHOD_SNAPSHOT；A0作为matched基线，C暂为并行候选。此任务不改变I/F/C开放框架、不自动授权运行或填写方法QUEUE的同行支持。
+**现行统一研究方案与下一位Agent的实际交接（2026-10-28 v2）**：[M-A/M-B/M-C整合方案](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)把G14先验约束及已完成A0 P30（4位置native恢复）、M-B v2（末层64维head+中心方差的连续65统计）融入方法设计；[M-B下一阶段任务](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)要求**从已完成v2继续B0 post-write u/head/flow源码与资产绑定、中性验证，再B1原生有限响应**，之后对比B-H direct-stat student与B-F generic factored student。不要重新要求创建已存在的M-B初版快照或用A0训练替代本轮B；M-C保留独立候选。本交接不自动授权新CPU/GPU/视频，不填写QUEUE的同行支持。
 
 **现行各方案共享的研究路线组合**：[I/F/C路径与候选方法对照](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)；它按科学问题整理G11/G12、G13、UB1/运动、Affine54/函数折叠、激活2:4/packed低位与轻量后训练，明确已完成对象和最小下一判别。Calibration V2提供按estimand分目标的独立来源/行数/状态评测接口。方法QUEUE只登记真实独立Agent的方案讨论，ACTIVE是唯一运行授权。
 

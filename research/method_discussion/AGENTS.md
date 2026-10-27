@@ -2,7 +2,7 @@
 
 **科学研究中心**：从信息与表示（I）、函数与动力学（F）、计算与执行（C）任一路线提出独立且可证伪的机制。共享科学北极星为[理解生成FFN的信息/计算/行为组织并降低真实成本](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。G13是F线的因果功能定位专题，不约束I/C线必须从行为标签开始。
 
-**本轮方法讨论的首个独立研究主题：B**。[指定任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)要求下一位研究者先独立推导gate-conditioned后缀敏感坐标、数学反例及折叠/分解两类执行表示。初步科学记录可放discoveries；方法成熟后由提出者另投proposals，独立Agent实际审查后才更新QUEUE/endorsements。此路由不代表队列自动形成新方法或取得SUPPORT。
+**现行M-B研究进入v2续作而不是重复初审**。[统一三路线整合方案](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)已利用G14先验和P30 A0四位置native实测；[M-B v2数学/SRC](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已包含I19/U28、连续末层65充分统计与B-H/B-F两种可部署候选。[指定下一任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)要求首先核原生B0 postwrite u/head/flow producer和neutral身份，再完成B1有限响应与B-H/B-F函数比较。真正新成果归discoveries，成熟提案由独立提出者投proposals、review另行形成，任务路由不自动取得SUPPORT。
 
 **科研入口**：[根目录AGENTS](../../AGENTS.md) · [FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md) · [当前G13功能定位（F线专题）](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P四边界与C01–C03](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [Function–Structure对象](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) · [主计算图G0–G13](../../docs/98_端到端计算图与证据注解_20261025.md) · [一手证据包](../agent_protocol/CURRENT_CONTEXT_PACKET.md) · [ACTIVE状态](../ACTIVE_RESEARCH.json)。
 
