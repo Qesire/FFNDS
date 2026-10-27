@@ -1,52 +1,36 @@
-# FFNDS · 多 Agent 科学发现、方法构想与独立评议
+# FFNDS · 多Agent函数/结构发现与独立方法评议
 
-本目录服务于 `E0_OPEN_DISCOVERY` 的研究目标，实时阶段以活动状态为准。科学重点为 [FFN 本征机制](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 与 [第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)：FFN 激活与有符号净贡献、条件时空创新、下游功能重要性和计算可替代性。量化尺度只作为辅助幅值信号，当前旧六来源径向几何结果属于可回访的专项证据。阶段与权限读取 [唯一活跃状态](../ACTIVE_RESEARCH.json)，角色遵循 [锚点](../agent_protocol/E0_STAGE_ANCHOR.md) 与 [独立发现目录](discoveries/E0/README.md)。
+当前科学任务为 **E0_OPEN_DISCOVERY / G13：先识别具有行为意义的FFN输出函数，再追索承担这些函数的原生计算子图**。从[首要科研文档](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[行为/函数/结构登记](../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[当前科研状态](../ACTIVE_RESEARCH.json)和[FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)进入。
 
-**共同科研方法：** 所有 Agent 自动应用固定 [AutoResearcher 来源](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，按科学问题选择 mechanism-research、research-expansion 与 problem-reformulation。从**发现 → 数学/源码重建 → 竞争解释 → 决定性观察**推进；来源绑定的精确结论与高质量反例都有科学价值。
+**方法**：发现真实视频或数学张力→建立函数/结构候选→原生源码/原论文及数学支持→有不同预测的竞争解释→最廉价的有辨识力下一证据。[深度文献检索](../agent_protocol/DEEP_WEB_RESEARCH.md)包括基础/近期论文、数学变体、消融、原生作者代码及相反发现。AutoResearcher 机制研究、扩展与问题重构允许提出超出已有图谱的OPEN机制。
 
-**深入搜索：** 按 [DEEP_WEB_RESEARCH.md](../agent_protocol/DEEP_WEB_RESEARCH.md) 主动检索广泛领域、经典/最新文献、原始公式和源码、引用链与相邻机制，独立 reviewer 着重寻找最接近的同构方法和反证。
+## 独立讨论的两种科研成果
 
-## A · 两类并行成果
+**发现记录**：\`discoveries/E0/<agent-id>-<phenomenon>.md\`，记录行为/无标签FFN响应、条件、源码/数学、候选计算结构、竞争性解释和最有信息价值的观察。[独立发现说明](discoveries/E0/README.md)提供示例及历史结果。
 
-**E0 科学发现：** `discoveries/E0/<agent-id>-<phenomenon>.md`，提出可重建的结构、解释 A/B、不同预测和下一条最有区分力的来源或观测；质疑者建立独立的挑战记录。这是当前默认输出。
+**方法提案**：\`proposals/<METHOD_ID>/v<N>.json\`，用[模板](TEMPLATES.md)登记具体构造、作用在什么真实计算边、预计的功能价值与不同预测。提出新表示、功能协作/重组、时空或量化信息机制均可以先作为早期探索种子；真正形成明确方案与版本时进入方法队列。
 
-**方法探索种子：** `proposals/<METHOD_ID>/v<N>.json`，保存可证伪的计算机制、方法构造和相关数学。发现阶段欢迎引入大胆算法想法，最终实现方向由后续证据与用户研究阶段决定。使用 [模板](TEMPLATES.md) 记录与他人方法的联系和实际前提。
+## 独立角色与证据身份
 
-## B · 独立评议的科学职责
-
-| 角色 | 工作重点 | 保存方式 |
+| 角色 | 科研职责 | 落点 |
 | --- | --- | --- |
-| 提案者 | 描述结构与构造的关键方程、原始计算边界、竞争解释与最有力反例 | `proposals/<id>/vN.json` |
-| 独立 reviewer | 亲自复建源码/数学、提出异议或支持**精确版本上的精确命题** | `reviews/<id>/vN/<review-id>.json` |
-| 挑战者 | 追踪另一个解释、构造反例与较强的修订方式 | 自己的独立 review / discovery 文件 |
-| 整理者 | 根据真实独立记录呈现共同结论、核心分歧与下一观察 | `endorsements/<id>/vN.json`，再串行更新 [QUEUE.md](QUEUE.md) |
+| 发现者/提案者 | 构造新机制、数学/原始源码依据、精确上下文、不同预测与下一判别 | \`discoveries/E0/\` 或 \`proposals/<id>/vN.json\` |
+| 独立评议者 | 独立复建源码、原论文和公式，对精确命题形成支持、挑战或建设性修改 | \`reviews/<id>/vN/<review-id>.json\` |
+| 挑战者 | 构造替代解释、条件反例或新的表示，指出实验设计如何区分 | 自己的discoveries/reviews |
+| 串行整理者 | 保留独立审阅版本，汇总具体共识/争议及其对应原生图节点 | \`endorsements/<id>/vN.json\`、[QUEUE](QUEUE.md) |
 
-评议者从原始论证开始，之后参考其他评论并记录 `prior_reviews_seen`；`reviewer.agent_id` 与提案作者有区别，`proposal_git_blob_sha` 绑定所审查的原始版本。身份与独立性以实际科研过程中的不同来源和推导来体现。
+\`PEER_SUPPORTED\` 表示一位外部独立reviewer对精确版本有具体支持，\`CROSS_CONFIRMED\` 表示两位不同外部reviewer形成交叉支持，\`CONTESTED\` 记录有证据支撑的实质性分歧。它们评价科学讨论证据；已运行数值、自由视频与部署的结论有各自的真实RUN/证据身份。
 
-### 认可状态
+提案字段：\`schema_version, method_id, version, title, proposer, origin, related_method_ids, lenses, mechanism, competing_explanations, falsifiable_predictions, best_counterexample, evidence_links, discussion_questions, claim_level\`。
 
-| 状态 | 科学含义 |
-| --- | --- |
-| `OPEN` | 已登记科学方法，等待新的独立讨论 |
-| `PEER_SUPPORTED` | 至少一位外部 reviewer 对该精确机制给出独立论证的 `SUPPORT`，主要实质异议已处理 |
-| `CROSS_CONFIRMED` | 至少两位不同外部 reviewer 独立支持，主要实质异议已处理 |
-| `CONTESTED` | 存在具有明确数学、源码或实验依据的待解 `CHALLENGE`，并行保留支持记录 |
-| `SUPERSEDED` | 新版本或新研究解释取代旧构造，旧版作为可追溯证据保留 |
+评议字段：\`schema_version, review_id, method_id, version, proposal_git_blob_sha, reviewer, verdict, independent_reconstruction, decisive_argument, counterexample_or_discriminator, constructive_revision, evidence_links, prior_reviews_seen\`。
 
-`SUPPORT` / `CHALLENGE` / `REVISE` / `ABSTAIN` 指向具体命题；`PEER_SUPPORTED` / `CROSS_CONFIRMED` 表示**方法讨论的意见状态**。新版本通过独立评议形成自己的证据链。
+认可快照字段：\`schema_version, method_id, version, proposal_git_blob_sha, state, supporting_reviews, challenging_reviews, resolved_challenges, endorsed_claim, remaining_unknowns, summarized_by\`。
 
-## C · 文件与字段结构
+**版本规则**：每位Agent保有自己的发现/评议文件，原始Git blob SHA、真正独立论证、提案身份和不同观点持续可追溯；串行整理者更新共享表。新错误通过有界勘误说明，不改变旧实验数据及原始版本记录。
 
-提案字段：`schema_version, method_id, version, title, proposer, origin, related_method_ids, lenses, mechanism, competing_explanations, falsifiable_predictions, best_counterexample, evidence_links, discussion_questions, claim_level`。
+## 函数定位与算子研究如何连接
 
-评议字段：`schema_version, review_id, method_id, version, proposal_git_blob_sha, reviewer, verdict, independent_reconstruction, decisive_argument, counterexample_or_discriminator, constructive_revision, evidence_links, prior_reviews_seen`。
+从现有原生视频背景光照/运动与source×seed signed响应中定位FUNC-OBS，然后沿W1/GELU/HiF4-Q2/W2有符号合成、attention/残差与四步状态寻找实际计算承担者。对已识别功能再研究量化存储信号、共享计算、训练职责迁移、cache和物理执行tile。对应[G0–G13图](../../docs/98_端到端计算图与证据注解_20261025.md)及[Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md)；来自外部作者的机制保持LIT，数学恒等式保持ALG，有效原生观察和功能因果各按证据等级保存。
 
-认可快照字段：`schema_version, method_id, version, proposal_git_blob_sha, state, supporting_reviews, challenging_reviews, resolved_challenges, endorsed_claim, remaining_unknowns, summarized_by`。
-
-每个 Agent 在单独的版本文件中提交，保留 Git SHA、来源及上一版本的审查。**一个串行整理者**更新共享 `QUEUE.md` 和 endorsement 快照；所有其他 Agent 通过独立文件参与讨论。对已发现的错误，写出精确修订及该修订如何改变核心科学预言。
-
-## D · 当前研究优先事项与执行范围
-
-首要推进 FFN 本身：`W1→GELU→W2` 的隐单元/组/方向贡献，输入依赖与跨步时空结构，残差/attention/视频功能价值，以及是否存在真实可避免的 GEMM 工作。Agent 可自主提出机制和抽象而不拘于通道稀疏或缓存。旧 FP4/QDQ、径向几何、局部四臂研究作为证据，非研究路线的默认源头。
-
-本目录只进行独立科学讨论、数学、源码、文献及许可范围内已存数据分析。旧固定原生实验已完成，但paired-native v2另获有界授权；当前是否运行以[ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json)及原生RUN为准。该有界权限不包含额外实验或训练。
+**当前研究范围**：独立科学讨论、原论文/源码、数学、已有数据和计算图工作。**新的CPU/GPU/模型/视频运行暂停**；旧E0/paired-native固定实验均已完成或关闭，后续许可看[ACTIVE](../ACTIVE_RESEARCH.json)。所有新视频质量按[全深度指标与画质协议](../agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)独立记录。
