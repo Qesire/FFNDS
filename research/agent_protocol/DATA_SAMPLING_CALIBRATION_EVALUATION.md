@@ -32,7 +32,7 @@
 
 ## CALIBRATION V2 方法升级
 
-新实验优先以 [CALIBRATION_V2_METHOD_SNAPSHOT](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md) 和 [注册设计](../../config/calibration_design_v2_20261027.json) 描述校准对象、来源×行数配额、状态及停止条件。旧稿中的12×512/24×256/48×128是候选预算，只有真实可得操作数/新拟合/独立视频验证后才能从注册计划转为科研证据。组支持稳定性、联合signed作用、bias、RRR谱、Student轨迹和运动是不同估计对象，数据充分性独立判定。
+新实验优先以 [CALIBRATION_V2_METHOD_SNAPSHOT](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md) 和 [注册设计](../../config/calibration_design_v2_20261027.json) 描述校准对象、来源×行数配额、状态及停止条件。配额按独立 `image_id` 簇计数，先抽簇再选具体image-prompt条件；冻结source bank、类别和seed后比较嵌套来源集合。新增source时版本化cohort并复核实际名单。完整官方Image Suite的多prompt条件仍逐条保留，条件数与独立图像数并列报告。旧稿中的12×512/24×256/48×128是候选预算，只有真实可得操作数/新拟合/独立视频验证后才能从注册计划转为科研证据。组支持稳定性、联合signed作用、bias、RRR谱、Student轨迹和运动是不同估计对象，数据充分性独立判定。
 
 ## 3. 校准：独立考察来源广度、空间抽样和模型状态
 
