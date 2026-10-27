@@ -1,18 +1,12 @@
 # FFNDS · AutoResearcher 科研Agent默认约定
 
-**统一科学目标**：发现视频生成FFN中信息、计算与生成行为的组织规律，发展保持完整视频能力、降低真实物理成本的表示和执行机制。**信息与表示（I）、函数与动力学（F）、计算与执行（C）是并行且互相反馈的起点**；科学规律与部署方法可以分别构成成果。详见[统一研究目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
+> **先阅读：[P0–P4现行优先级导航](research/RESEARCH_NAVIGATION.md)。** 此文件定义Agent行为原则，**不是**第二份研究进度报告；研究科学目标由[统一I/F/C目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)定义，方法正文以[整合M-A/M-B/M-C方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为准；真实实验运行范围归[ACTIVE](research/ACTIVE_RESEARCH.json)。
 
-**五操作方法分析（现行统一动作语法）**：[O-A计算选择、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证目标](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[机器索引](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)。以I/F/C明确研究问题，以多个O-A～E组成真实方法，以G14原论文/代码和Wan物理执行边界核对；“稀疏”是可能的结构或结果，不是方法的唯一类别。旧三候选加前缀M-A/M-B/M-C以区别操作类。本轮仍是**先推进M-B敏感函数坐标**，而非把所有O-B研究排在其它科学方向之前。
+**方法语法**：I（信息与表示）、F（函数与动力学）、C（真实执行）是可并行的研究问题；O-A选择计算、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证是可组合的操作。[五操作框架](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[G14论文/typed先验交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)负责论文和真实计算位置。原三候选统一记为M-A、M-B、M-C，避免与O-A/B/C同名。
 
-**现行统一研究方案与下一位Agent的实际交接（2026-10-28 v2）**：[M-A/M-B/M-C整合方案](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)把G14先验约束及已完成A0 P30（4位置native恢复）、M-B v2（末层64维head+中心方差的连续65统计）融入方法设计；[M-B下一阶段任务](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)要求**从已完成v2继续B0 post-write u/head/flow源码与资产绑定、中性验证，再B1原生有限响应**，之后对比B-H direct-stat student与B-F generic factored student。不要重新要求创建已存在的M-B初版快照或用A0训练替代本轮B；M-C保留独立候选。本交接不自动授权新CPU/GPU/视频，不填写QUEUE的同行支持。
+**当前下一任务（用户指定M-B先行）**：已完成[A0四位置原生局部恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)和[M-B v2 ALG/SRC及末层65个连续充分统计](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)；下一Agent按[B0/B1具体交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)从真实post-write u/head/flow producer与neutral开始，之后才是finite和B-H/B-F学生。M-C仍为独立开放研究。首个实验、质量和系统成果需实际执行，不由文档/独立讨论推定。
 
-**现行各方案共享的研究路线组合**：[I/F/C路径与候选方法对照](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)；它按科学问题整理G11/G12、G13、UB1/运动、Affine54/函数折叠、激活2:4/packed低位与轻量后训练，明确已完成对象和最小下一判别。Calibration V2提供按estimand分目标的独立来源/行数/状态评测接口。方法QUEUE只登记真实独立Agent的方案讨论，ACTIVE是唯一运行授权。
-
-统一入口：[领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md) · [研究导航](research/RESEARCH_NAVIGATION.md) · [G13函数研究（F线）](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P专题方法](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [G0–G14计算图](docs/98_端到端计算图与证据注解_20261025.md) · [跨机制综合](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [ACTIVE状态与授权](research/ACTIVE_RESEARCH.json)。
-
-**基准对象与证据**：LightX2V Wan2.2 I2V A14B 四步D-Q，high/high/low/low，40 blocks；\`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续attention/flow/scheduler/video\`。原QDQ和BF16 GEMM与外部native NVFP4格式分别建立数值/物理比较。历史原生10个source、12条source×seed轨迹、1920个嵌套FFN观测位置，已有真实速度收益和自由视频功能失配的研究资产。
-
-**图谱现状**：92项主文献和10项补充校准研究，205个稳定节点、424条类型化关系，14个既有机制族与G14文献聚焦图。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
+**最短工作链**：[当前上下文](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → [现行研究方案](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) → [有关SRC/G14论文计算图](docs/98_端到端计算图与证据注解_20261025.md) → [方法专属实验/运行合同](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)。完整文献或历史材料仅在相应科学问题需要时按照阅读导航P1–P4深入；不必逐份阅读历史 handoff。
 
 ## 一、科学研究的默认语言与思路
 
@@ -66,7 +60,7 @@
 
 ## 五、当前研究权限与交接
 
-**现阶段（2026-10-27用户恢复推进）**：I/F/C科研及登记后的有限CPU/GPU/原生实验继续。用户本轮明确授权持续推进，同时最多使用**四张空闲GPU**；简单委派使用GPT‑6.1 Terra。协调者在运行前冻结具体问题、对照、代码/资产和预算并登记[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)，按实际结果继续下一项有辨别力的工作。旧暂停、已完成范围和失败记录保持历史身份；本轮恢复不自动重跑旧失败，也不扩展实时/流式实验。
+**运行授权核验（2026-10-27用户恢复的历史授权见ACTIVE）**：I/F/C科研及登记后的有限CPU/GPU/原生实验继续。历史用户指令要求持续推进，同时最多使用**四张空闲GPU**；简单委派使用GPT‑6.1 Terra。协调者在运行前冻结具体问题、对照、代码/资产和预算并登记[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)，按实际结果继续下一项有辨别力的工作。旧暂停、已完成范围和失败记录保持历史身份；本轮恢复不自动重跑旧失败，也不扩展实时/流式实验。
 
 交接只需**新机制/功能发现、证据出处、真正分歧、对应图节点、最小后续判别和已完成的原生范围**。历史文档当时的“Next/Active/Run”用于溯源，由现行研究导航与ACTIVE区分当前状态。新研究以构造性内容优先、以真实证据调整确定度。
 

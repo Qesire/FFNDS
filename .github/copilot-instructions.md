@@ -6,7 +6,7 @@
 
 **当前方法交接已更新至v2**：[现行整合计划](../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)和[从M-B B0/B1继续的实际任务](../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。M-B的连续head/LN数学和来源配对反例**已做完**；下一Agent从真实post-write u/head/flow生产者、冻结资产/neutral重放开始，再完成原生有限响应、B-H 65充分统计直接学生与B-F因子化通用函数构造。M-A0四位置pilot已完成而完整40×4视频OPEN；新来源、GPU及原生模型RUN按ACTIVE登记，队列仅登记真实peer review。
 
-**必读**：[根AGENTS](../AGENTS.md)、[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)、[研究导航](../research/RESEARCH_NAVIGATION.md)、[跨机制综合](../research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[主计算图](../docs/98_端到端计算图与证据注解_20261025.md)及[ACTIVE执行状态](../research/ACTIVE_RESEARCH.json)。F线深入时使用[G13](../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)；旧[第一任务](../research/20261025/E0_FFN_FIRST_TASK_20261025.md)是历史研究阶段的证据来源。
+**阅读优先级**：先按[P0–P4导航](../research/RESEARCH_NAVIGATION.md)的P0恢复上下文/方法/当前任务/ACTIVE；需要具体数学、原文、G13或历史失配时再选择性阅读P1–P4。根[AGENTS](../AGENTS.md)及[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)是行为规则，不要求每次独立Agent重读全部G0–G14报告和历史handoff。
 
 ## 数据、校准与评测的实验思维
 
@@ -21,6 +21,6 @@
 5. **评价恰当主张**：机制论文先验证数学/源码/因果范围；执行加速论文另外计量真实FFN+系统成本与独立完整视频质量，严格区分静态图验证、原生运行与外部论文证据。
 6. **独立协作与真实图谱**：经[Graph-Agent协议](../research/agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[讨论队列](../research/method_discussion/QUEUE.md)回写I/F/C任一路线的源节点、ALG/LIT/NATIVE/OPEN关系和独立评议。
 
-**现行事实与权限**：89项文献、177图节点、371关系、14机制族；10个原生source、12条完整轨迹、1920个嵌套FFN观测位置。2026-10-27用户明确恢复持续推进，同时最多使用四张空闲GPU，简单委派使用GPT‑6.1 Terra。[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项登记冻结的有限执行范围和实际状态；旧暂停及已完成批次保持历史身份，实时/流式实验未恢复。
+**事实与权限**：当前G14为**92主＋10补充论文、16个算子焦点**，原生研究图205节点/424关系；[机器先验索引](../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)额外登记12条typed方法约束。旧10source/12条轨迹/1920站点属于早期机制研究，不是后续consumer20/P30来源集合。2026-10-27历史用户恢复指令的资源范围以[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项核验；新模型与视频按真实来源、冻结代码和执行scope登记，实时/流式实验仍未恢复。
 
 **AutoResearcher方法来源**：核心科学Skills来自[固定manifest](../research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，采用[mechanism-research](../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../.agents/skills/problem-reformulation/SKILL.md)及WARD。新回复首先给出**科学发现或构造性解释**，再写方程与真实证据、相反预测和下一条可区分的观察。源级/数学/实验的证据等级紧贴具体命题，而非用长串限定句铺在发现前面。
