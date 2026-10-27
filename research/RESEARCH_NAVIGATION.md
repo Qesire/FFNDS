@@ -2,6 +2,8 @@
 
 **现行科研目标**：理解并改进视频生成FFN中信息、函数与实际计算的组织方式，获得独立的新机制科学结论或质量–成本Pareto方法。**I信息与表示、F函数与动力学、C计算与执行三条研究入口并行且相互反馈**。[统一目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [G13 F线专题](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P定位方法](20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [G0–G13源图](../docs/98_端到端计算图与证据注解_20261025.md)。
 
+[I/F/C机制证据组合与最小判别](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)集成信息界、行为传播、物理算子和训练后职责迁移的竞争解释。它是研究导航，不是实验执行队列。
+
 **研究规模**：89项相关论文、177个计算图节点、371条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。新模型CPU/GPU/视频运行处于暂停状态；当前[ACTIVE](ACTIVE_RESEARCH.json)提供任务和授权身份。
 
 ## 按科研问题选择证据

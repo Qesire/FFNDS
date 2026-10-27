@@ -4,28 +4,28 @@
 
 ## 计算图协作是讨论的共同定位方式
 
-参阅 [G0–G4计算图](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md) 和 [稳定节点/证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json)。Agent 可以从真实源码、论文或视频现象开始，但提出可审查机制时关联相关节点及上游/下游边界，并记录自己的 [E0图锚点claim](graph_annotations/E0/README.md)。独立 reviewer 复核其真实代码路径、数学、source/step范围和时序成本；整合者将确认的解释回填计算图的节点注释与实验图谱。现有历史提案不需要倒填新的JSON字段；新候选可在下面示例中添加 `graph_context`。
+参阅 [G0–G13计算图](../../docs/98_端到端计算图与证据注解_20261025.md)、[Graph-Agent协议](../agent_protocol/GRAPH_AGENT_COLLABORATION.md) 和 [稳定节点/证据索引](../agent_protocol/GRAPH_AGENT_BINDINGS.json)。Agent 可以从真实源码、论文或视频现象开始，但提出可审查机制时关联相关节点及上游/下游边界，并记录自己的 [E0图锚点claim](graph_annotations/E0/README.md)。独立 reviewer 复核其真实代码路径、数学、source/step范围和时序成本；整合者将确认的解释回填计算图的节点注释与实验图谱。现有历史提案不需要倒填新的JSON字段；新候选可在下面示例中添加 `graph_context`。
 
 ## 原始论文和源码是创造新机制的默认资源
 
 所有 E0 发现、后续 proposal 和 review 均主动开展 [深度 Web Search](../agent_protocol/DEEP_WEB_RESEARCH.md)：跨经典与最新论文、相关数学、源代码、引用链和竞争解释深化。重点记录与研究问题有关的**方法公式、实际实现、实验差异和反例**。独立 reviewer 带回自己核查的最强先例，说明检索结果如何拓展或修正假说。检索范围与可访问来源按实际记录。
 
 
-## E0_OPEN_DISCOVERY：FFN 本征现象发现优先
+## E0_OPEN_DISCOVERY：I/F/C并行研究的不同交付
 
-当前主要参照 [FFN 本征研究纲领](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) 与 [新第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)：明确激活 vs 有符号 FFN 净贡献 vs downstream 价值 vs 物理可省算单位。量化元信息只作为可选幅值线索。发现阶段优先交付有数学结构与可判别预测的研究种子；进入成熟 proposal 后补充精确计算边界和部署假设。
+当前以[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)和[四组证据组合](../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)为问题入口。
 
+- **机制科学**：在 `discoveries/E0/` 记录信息界、计算代数、因果函数或时空动力学的新命题、条件、反例、竞争预测及下一个最小判别。尚无加速方案时可独立保持研究价值。
+- **方法与算子**：当存在具体替换/重组的计算动作时进入 `proposals/<id>/vN.json`，陈述真正节省的运算、额外观察/部署成本与最强比较器。视频质量和实际加速是进一步部署主张的证据。
+- **跨线迁移**：I/C数学发现可激发F线因果假说；F线机制可启发新表示及系统方案。各命题保留各自证据身份，不要求统一先定位行为函数。
 
-以 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 为阶段权威。当前优先采用 [E0 独立发现模板](discoveries/E0/README.md) 报告真实结构、两种竞争解释和区分性观察。下方的 versioned `proposals/<id>/vN.json` 用于保存成熟候选方法或由现象启发的新算子种子，由未来阶段再确定实现时机。
-
-
-将下方示例字段替换为真实命题与本人来源；保存路径见 [README.md](README.md)。每个 Agent 用自己的独立推理与身份创建记录，实验和性能结论由实际结果另行支持。
+[2026-10-25本征研究](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)与[旧第一任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)作为历史证据保留；[ACTIVE](../ACTIVE_RESEARCH.json)管辖新执行权限。
 
 ## 所有角色的默认科学方法（AutoResearcher）
 
 使用 [本目录 AGENTS.md](AGENTS.md) 和 [已钉住的 AutoResearcher manifest](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，选择最适合当前科学争论的 mechanism-research、research-expansion、problem-reformulation 模式，可以结合使用。**按科学问题灵活组合这些方法，以获得更有区别力的解释与检验。**
 
-- **独立提案：** 在 `mechanism` 中体现**新结构或计算自由度 → 数学构造 → 真正省下什么工作**；在 `competing_explanations`、`falsifiable_predictions` 中体现机制竞争与可区分预言。将开放的源码证明和性能检验作为后续研究机会记录在相应命题旁边。
+- **独立提案：** 在 `mechanism` 中体现**新结构或计算自由度 → 数学构造 → 不同预测**；涉及部署算法时再推导真实省下什么运算；在 `competing_explanations`、`falsifiable_predictions` 中体现机制竞争与可区分预言。将开放的源码证明和性能检验作为后续研究机会记录在相应命题旁边。
 - **独立评议：** `independent_reconstruction` 要有 reviewer 自己复建的数学、源码或历史证据推导；`decisive_argument` 直接说明支持/质疑的关键机制；`counterexample_or_discriminator` 应能真正改变对方法的判断。优先寻找构造性修改和真正改变判断的竞争解释。
 - **整理者：** 根据不同 reviewer 的实质论证归纳其精确同意的命题与条件，同时保留未决反例；将数学支持、实际测量与仍有分歧的条件分别清楚陈列。
 
@@ -51,6 +51,8 @@
     "note": "创意来源；是否已看过他人意见"
   },
   "related_method_ids": [],
+  "research_track": "I | F | C (choose one primary entry)",
+  "contribution_kind": "METHOD_PROPOSAL; pure science uses discoveries/E0",
   "lenses": ["Q3", "Q1", "Q2"],
   "graph_context": {
     "node_ids": ["F04", "F08", "F09", "F12"],
@@ -62,7 +64,7 @@
     "action": "明确要替换/改变的实际算子，而不只提出评分函数",
     "mathematical_representation": "公式、结构或条件定理",
     "distinguishing_feature": "与旧方法或现有论文机制上有什么实质差异",
-    "expected_compute_saving": "哪块实际 GEMM/QDQ/搬运预计减少，纯设想则写假说"
+    "expected_compute_saving": "有部署主张时说明实际改变的GEMM/QDQ/搬运；纯机制成果应记录在独立发现目录"
   },
   "competing_explanations": [
     "反机制 A",

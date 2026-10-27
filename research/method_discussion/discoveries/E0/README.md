@@ -2,6 +2,8 @@
 
 **当前科研目标**：依据[统一研究目标](../../../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)并行探索 **I/F/C**。该发现目录接纳无需语义标签的编码/信息新定理、真正FFN函数/动力学假说与物理算子重组。F线的[G13专题](../../../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[Function–Structure](../../../agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[源图](../../../../docs/98_端到端计算图与证据注解_20261025.md)为需要行为因果定位的研究提供支持。
 
+[I/F/C开放机制研究组合](../../../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)提供不同主线的竞争假说和最低成本判别，可直接生成独立科学发现。
+
 **研究方法**：[领域Skill](../../../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[WARD](../../../agent_protocol/DEEP_WEB_RESEARCH.md)促进从反直觉数据、新数学、实际源码/原论文及执行表现中产生竞争假说。记录精确依赖、证据身份、不同预测和最小判别。历史方法、审阅和原生视频结论保留原始版本。
 
 **当前执行状态**：[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)保留已完成模型范围及质量记录；新CPU/GPU/模型/视频执行暂停。发现目录用于数学、源码、论文和原证据上的科研讨论。

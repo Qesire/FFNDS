@@ -238,6 +238,26 @@ def main():
            "I/F/C" in text("research/method_discussion/README.md"),
            "Parallel scientific objective or scoped G13 route drift")
 
+    # Static cross-track regression without requiring function patching or a
+    # chosen deployment operator for independent scientific mechanisms.
+    corpus = record("research/agent_protocol/DEFAULT_BEHAVIOR_CASES.json")
+    parallel = corpus.get("parallel_research_behavior_extension_20261027", {})
+    corpus_ids = {case.get("id") for case in corpus.get("cases", [])}
+    ensure(parallel.get("authority") == north.get("authority_document") and
+           set(parallel.get("tracks", [])) == set(north.get("parallel_entries", [])) and
+           set(parallel.get("case_ids", [])).issubset(corpus_ids) and
+           len(parallel.get("case_ids", [])) >= 5 and
+           corpus.get("g13_function_first_behavior_extension", {}).get("scope") ==
+           "F_LINE_ONLY_NOT_GLOBAL_SEQUENCING" and
+           (ROOT / "research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md").is_file(),
+           "Research entrypoint or scoped G13 behavior cases drifted")
+    claim_template = record("research/method_discussion/GRAPH_CLAIM_TEMPLATE.json")
+    ensure(claim_template.get("research_track") == "SELECT_I_F_OR_C" and
+           claim_template.get("contribution_kind") ==
+           "SELECT_MECHANISM_OR_METHOD" and
+           claim_template.get("model_experiment_authorized") is False,
+           "Independent mechanism science and method claims were conflated")
+
     # Graph↔Agent index must resolve to real Mermaid node labels, source/evidence
     # files and link to current E0 study. This is a purely static integrity check.
     from graph_agent_bridge import load as load_graph_registry, validate as validate_graph_registry
