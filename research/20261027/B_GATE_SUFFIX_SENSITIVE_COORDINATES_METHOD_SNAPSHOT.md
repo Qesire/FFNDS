@@ -1,8 +1,8 @@
 # B：门控与后缀敏感坐标，先从真实末层读出建立可检验机制
 
-**2026-10-28 · v1 · METHOD_SNAPSHOT / ALG + SRC + LIT，新增 B 原生采集尚未执行。** 本轮首先交付 [B-first 任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。原生对象为 LightX2V Wan2.2 I2V A14B 四步 D-Q；A0 普通6016维学生是匹配恢复基线，C 编码求值保留独立候选。本文件中的后缀数学、条件与采集计划分别登记，独立评议保留真实作者与版本，不把讨论支持写成实验通过。
+**2026-10-28 · v2 · METHOD_SNAPSHOT / ALG + SRC + LIT，新增 B 原生采集尚未执行。** v1已完成末层SRC/ALG，v2结合[G14先验反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)及[现行三路线整合方案](COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，把已知结构下沉为下一步的低成本候选和可核实验。原首轮任务参见 [B-first 任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。原生对象为 LightX2V Wan2.2 I2V A14B 四步 D-Q；A0 普通6016维学生是匹配恢复基线，C 编码求值保留独立候选。本文件中的后缀数学、条件与采集计划分别登记，独立评议保留真实作者与版本，不把讨论支持写成实验通过。
 
-**METHOD_OPERATION_FINGERPRINT**：按最新[五操作语法](FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，本方案为 **M-B**，主操作 **O-B（替代函数坐标，OPEN）＋O-E（同状态响应/验证，B0待注册）**；B-FACTORED/FUSED 才额外讨论 O-D。O-A、O-C 当前为 NONE。实际边为 pre-W1 x→窄函数→pre-gate y→e5→LN/head/flow；从 x、合法 conditioning/residual 预测坐标，敏感度仅离线付费取得。数值类别为连续条件恒等＋待验证 BF16 学习近似；减少原 W1/W2 的物理工作只由第6节的实际部署形式决定。强基线为同输入/来源/训练成本的 A0、同 rank PCA/random/marginal；新增采集、拟合、第三 GEMM、QDQ/暂存均入账，首个区别由第7节分阶段实验判断。
+**METHOD_OPERATION_FINGERPRINT**：按最新[五操作语法](FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，本方案为 **M-B**，主操作 **O-B（替代函数坐标，OPEN）＋O-E（同状态响应/验证，B0待注册）**；B-FACTORED/FUSED 才额外讨论 O-D。O-A、O-C 当前为 NONE。实际边为 pre-W1 x→窄函数→pre-gate y→e5→LN/head/flow；从 x、合法 conditioning/residual 预测坐标，敏感度仅离线付费取得。数值类别为连续条件恒等＋待验证 BF16 学习近似；减少原 W1/W2 的物理工作只由第6节的实际部署形式决定。强基线为同输入/来源/训练成本的 A0、同 rank PCA/random/marginal；新增采集、拟合、第三 GEMM、QDQ/暂存均入账，首个区别由第7节分阶段实验判断；第9节将理论末层读出进一步拆成从合法输入可预测的学生函数和实际部署算子。
 
 **构造性起点**：真实 block39 的 FFN 写回之后没有另一层 attention，而是直接进入 final LayerNorm、时间调制和64维输出头。这个后缀允许分开研究三条通路：head 的线性读出、LayerNorm 的均值，以及依赖当前状态的范数。低能方向即使不落在 head 行空间，也可能通过归一化分母改变全部输出。先核对这一具体有限响应，再研究跨来源敏感坐标能否编译进低成本 FFN。
 
@@ -200,3 +200,60 @@ W2 单项降低的必要 rank 条件 r<Dh/(h+D)≈2766。r=512 的在线中间 M
 | 自由视频与系统结果 | 待完整40×4原生实验；same-noise、每来源分维质量、冷/热 setup和显存 | 已暴露开发来源与正式隔离确认分别报告；当前无 B 视频 |
 
 **下一动作**：先完成 B0 代码/实际资产绑定及独立审阅，再登记这4次 Dense flow 并运行；随后依据真实 u 和 neutral replay 冻结 B1。科学节点分别为 I19（条件配对 ALG）与 U28（末层归一化敏感坐标 ALG/SRC）。新机制的真假由有限响应决定，A0 的恢复效果保留为之后的强匹配比较器。
+
+
+## 9. v2直接整合：从G14约束走向两个具体B函数（不重置v1已经证明的部分）
+
+### 9.1 优先区分自然承担、可预测、可计算三种不同科学对象
+
+- **NATURAL/F科学对象**：在同source/step/state的原生Dense路径，哪些有限扰动对指定末层flow或完整step后缀有贡献？L82、L86–L89已说明patch使输出改变不自动等于正常通路功能，所以记录自然变化、baseline、方向、组作用及matched有限改变；当前v1得到的$J_s$只是一个局部实数模型。
+- **PREDICTABLE/I函数对象**：这些方向或读出统计能否由原生FFN前已可得的post-Q1 $x$、residual $r$、原time conditioning和gate，经过比原FFN廉价的函数得到？teacher完整$y$和事后student flow仅作离线监督/验证，不出现在部署入口。
+- **COMPUTABLE/C执行对象**：上述函数是否能够降低**原生完整在线总成本**（W1/GELU/Q2/W2、head、layout/pack、workspace、kernel、驻留及多步生成）？严禁将低rank结果、head只有64输出或数学相等写成既有SYS加速。
+
+G14 L02/L50的hidden非线性谱和L06的特定旋转不变量只支持合法函数替代，不允许随意在原GELU/Q2内换基；L39的低能残差不必可预测；L60时序推理/渲染分工是另一个架构的先例，不能直接推论当前Wan末层有视频动作专属子空间。旧CAL24固定位置的gate在来源间保持相同，B-JOINT优先估计有条件的**真实suffix J_s**而不是重复对常量gate²分组。
+
+### 9.2 更精确的末层输出坐标：64个中心化线性头读出＋1个中心方差
+
+令$P_0=I-\mathbf1\mathbf1^\top/D$，$u=r+D_g y$，定义$q=T P_0u\in\mathbb R^{64}$、$v=\|P_0u\|_2^2/D$。固定head modulation，则已证明的连续LN/head恒等式可进一步化为
+\[
+F(u)=\frac{q}{\sqrt{v+\epsilon}}+W_{head}shift+b.
+\]
+**ALG/PROVED**：这是**65个中间充分统计**（64维$q$和1个$v$），较v1采用$Tu$、mean$(u)$、$\|u\|^2$的“最多66量”表示更紧凑；二者只是不同的充分统计坐标。不是信息最小性定理（直接head输出本身只有64维），也不是BF16指令位级等价。$v\ge0$在实数域成立；若学生直接预测$v$，选用非负参数化并对数值稳定性及小$\epsilon$原生误差做检查。
+
+**B-H / direct terminal-statistic student（OPEN）**：
+\[
+(\widehat q,\widehat v)=h_\phi(x,r,g,t,\mathrm{expert}),\qquad
+\widehat F=\widehat q/\sqrt{\widehat v+\epsilon}+W_{head}shift+b.
+\]
+这个函数可以完全替代**block39的输出读出计算**，但如果h_\phi仍先计算完整teacher W1/Q2/W2才能得到$q,v$，则只是分析量而非优化。必须冻结输入时间、学生表达和完整运算账，并以正常head和完整video为终端比较。由于它是末层特例，尚不代表可用于前39 blocks或全80个FFN。
+
+**B-F / generic factored gated FFN（OPEN）**：
+\[
+\widehat y=\Phi c_\phi(x),\quad
+c_\phi(x)=B_c\,Q_{2,\phi}[\operatorname{GELU}(W_{1,\phi}x)]
+\]
+或者其它在post-Q1阶段即可得的可计算c函数。保留真实e5/residual，在各step/block测试来源配对$s$的读出代理及student rollout。部署选择：FOLDED对真实GEMM总MAC不产生lowrank加速；FACTORED才有$r<2766$的W2理论交叉点，native BF16/QDQ及新一层GEMM分别计价。
+
+### 9.3 从低rank FFN到末层head的**精确实数代数**（揭示真实在线成本）
+
+若$\widehat y=\Phi c$、并在**本位置固定条件**下gate已知，令$a=P_0r$，$B=P_0D_g\Phi$，则
+\[
+q=T(a+Bc)=Ta+(TB)c,\quad
+Dv=\|a\|^2+2c^\top B^\top a+c^\top(B^\top B)c.
+\]
+**ALG/PROVED**：只要采用这个低rank$\widehat y$，就可在**实数模型**中直接计算最终head，而无需先显式materialize$D$维的$\widehat u$。但形成$B^\top a$一般需要$O(Dr)$，$c$需要其学生计算，$c^\top B^\top Bc$需要$O(r^2)$；若$g$变动则$TB$及$B^\top B$是否可离线复用也改变。对r=512，它**并不自动优于**常规FACTORED W2＋final LN/head的MAC，可能主要影响中间物化、融合和kernel数量；这些是物理实验后才能判断的新O-D自由度。若有bias$b_2$，可将$D_gb_2$并入已可得$a$并完整计其均值与常数；本式省写bias仅为符号清晰。BF16的实际LN reduction、舍入以及逐token scalar gate需另作数值测试。
+
+**新的设计分歧**：是使用**直接预测65量**的h_\phi，还是使用**普通低rank y计算后从中提取65量**？二者优化问题和线上成本不同。对于第二方案，只有真实保留head信息的低rank基以及性能优化才可能与普通A0/F相较体现增量。
+
+### 9.4 依据先验重写首个实验/研究交付
+
+| 阶段 | 本轮精准目标 | 证据和停止/转向规则 |
+| --- | --- | --- |
+| **B0资产** | 继承v1已完成head SRC、U28、I19；先核worker数据producer再生产2已暴露来源×step0/3同状态postwrite $u$/head/flow及真实modulation | 实际身份/中性行为PASS，源码/GPU状态不足则明确OPEN；**本次v2更新没有执行B0** |
+| **B1有限响应** | 原生full-M no-op先行；比较中心化head-null、改变中心方差、head方向，paired/marginal/shuffled；固定幅度与来源层级、BF16数值噪声 | 真实有限响应对65统计理论的偏离可诊断舍入/错误绑定。仅2来源或差值接近numerical noise为INCONCLUSIVE，不做运动保真结论 |
+| **B2科学/函数判别** | 分开中间65量的可恢复性、pre-W1学生可预测性、原生正常作用和量化后稳定性；M-A0同宽/同训练参数作为强比较器；G14 L50/L39/L82为竞争条件 | 若同source联合排序无优势、或student预测失败，修正basis/条件化/结构，保存这项有限判别；无需因为某个代理失败而关闭整个O-B |
+| **B3算子与视频** | B-H direct、B-F factored/folded同预算与same-noise真实学生；记录完整QDQ、online kernel、显存，完整40×4视频分维motion与画质 | 只有实际NATIVE/SYS和来源级VIDEO方可声明真实质量–速度Pareto；末层单site的成本/功能推广到其余block另需实测 |
+
+**新原论文和已有成果的归因**：CoBRAS/2ndMatch/OBS-Diff/SVDtrunc是低rank/敏感/蒸馏成熟先例；L82对subspace patch幻象、L39对低能时序、L50对非线性谱的警示成为上述三层对象及B1/B2必须包含的对照。该整合扩大了函数空间和研究问题，不把一张方法检查表当作探索停止条件。
+
+**当前主动下一项：B0原生状态捕获的源码/资产冻结与中性对照实现，随后B1。** 从此v2继续原[B-first Agent任务](../agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)，不要回到已完成v1的“第一轮提出三种敏感假说”；本文件新增的B-H/B-F属于METHOD_DESIGN_OPEN，不是新增未经授权的模型运行。
