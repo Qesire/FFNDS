@@ -48,7 +48,7 @@
 
 官方 VBench-I2V 的 `i2v_subject/i2v_background/camera_motion` 与 `subject_consistency/background_consistency/motion_smoothness/dynamic_degree/aesthetic_quality/imaging_quality` 分轴报告；`temporal_flickering` 等额外指标以独立自定义附加轴注册。裁剪/分辨率保持 Image Suite 的自适应原则，锁定实际图像预处理与视频采样规则。单维 `NOT_RUN` 是缺测，**不是数值0**。官方二值 Dynamic Degree 同时配一项事先定义的连续 motion magnitude、时间窗口、ROI/相机动作分层，附逐视频信息。
 
-**聚合与不确定性**：先计算同一来源多seed的均值/分布，再等权聚合来源，另报告每类 source 的 n、效应与尾部。以来源为cluster进行bootstrap置信区间（少量来源时描述为主）；不同seed/step/block/row不能增大独立来源n。Paired delta同时给绝对差、百分点（百分制）、相对百分比 `100×(candidate/dense−1)`；分母为0时相对比记 `UNDEFINED_ZERO_BASELINE`。度量方向、mask/帧采样/权重、缺测处理和阈值事前冻结；多方法择优与最终确认相分离。真实性能同时包含完整FFN wall、end-to-end generation wall、显存、驻留/packing/校准代价与可信Dense baseline。
+**聚合与不确定性**：先计算同一source/prompt多 `seed × sample_index` 真实重复观测的均值/分布，对同一 `image_id` 内source/prompt等权，再等权聚合独立image cluster；另报告每类image cluster和source的 n、效应与尾部。以来源为cluster进行bootstrap置信区间（少量来源时描述为主）；不同seed/step/block/row不能增大独立来源n。Paired delta同时给绝对差、百分点（百分制）、相对百分比 `100×(candidate/dense−1)`；分母为0时相对比记 `UNDEFINED_ZERO_BASELINE`。度量方向、mask/帧采样/权重、缺测处理和阈值事前冻结；多方法择优与最终确认相分离。真实性能同时包含完整FFN wall、end-to-end generation wall、显存、驻留/packing/校准代价与可信Dense baseline。
 
 ## 5. 资产、预检和Agent执行
 
@@ -59,8 +59,10 @@
 ## 5.1 真正参与运行的代码合同（本轮实现）
 
 [执行手册](EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)连接以下入口：
-`ffnds_experiment_plans.py source-bank/calibration-plan/video-plan` → `ffnds_native_geometry.py`（实际Native grid）→ `ffnds_validate_calibration_operands.py`（真实BF16 payload边界）→ `ffnds_run_registered_video.py`（LightX2V Dense/UB1及原生噪声）→ `ffnds_stage_registered_i2v.py`（视频与噪声双重验证、原版VBench）→ `ffnds_cluster_metric_report.py`（source簇统计）。
+`ffnds_experiment_plans.py source-bank/calibration-plan/video-plan` → `ffnds_native_geometry.py`（实际Native grid）→ `ffnds_validate_calibration_operands.py`（真实BF16 payload边界）→ `ffnds_run_registered_video.py`（LightX2V Dense/UB1及原生噪声）→ `ffnds_stage_registered_i2v.py`（视频与噪声双重验证、原版VBench）→ `ffnds_cluster_metric_report.py`（seed/sample→source/prompt→image cluster分层统计）。
 其中计划、校准数据捕获、拟合、原生生成与正式VBench分别形成可独立核验的状态。旧固定24×256拟合属于历史算法，变更cohort后重新进行算子/校准系数及独立确认版本注册。
+
+**校准行随机性与身份**：`row_draw_id` 使用冻结的 `native_source_ordinal`、step、block和抽样seed，与实际行抽样随机数来源保持一致。当前cohort排序只用于迭代；复用前核对原生 `selected_row_ids`、`sampling_seed` 和操作数索引，以采样计划与真实捕获分别报告状态。
 
 ## 6. 已核对的一手成熟实现
 
