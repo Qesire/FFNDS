@@ -4,7 +4,7 @@
 
 ## 0.1 评议过程中主分支新增的原生证据（2026-10-28归档版本）
 
-在本评议进行时，main又合并了[consumer独立20来源评测](UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)、[源级状态与原生生成](UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)、[A0 Whole94适配就绪审查](../method_discussion/discoveries/E0/compact6016-adaptation-readiness-20261028.md)、[四位置来源稳定诊断](../20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)和[真实GPU fused 2:4数据](E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)。据此更新本评议的证据条件：
+在本评议进行时，main又合并了[consumer独立20来源评测](https://github.com/Qesire/FFNDS/blob/main/research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)、[源级状态与原生生成](https://github.com/Qesire/FFNDS/blob/main/research/20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)、[A0 Whole94适配就绪审查](https://github.com/Qesire/FFNDS/blob/main/research/method_discussion/discoveries/E0/compact6016-adaptation-readiness-20261028.md)、[四位置来源稳定诊断](https://github.com/Qesire/FFNDS/blob/main/research/20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)和[真实GPU fused 2:4数据](https://github.com/Qesire/FFNDS/blob/main/research/20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)。据此更新本评议的证据条件：
 
 - **VIDEO，已暴露开发20来源**：fresh Dense/consumer有20对同源同initial-noise真实81帧视频；相对Dense，消费者RAFT 6.894→1.152（−83.28%），官方dynamic degree二值6/20→0/20，imaging 72.629→71.626（−1.38%）；一致性升高可能伴随静止。另有20条历史neutral，初始噪声字节对齐未证实，勿将其作为同噪声强配对。此次60条视频/20来源、原版八个独特指标不等于正式VBench九维和camera motion，也不是独立未暴露确认集。**这使A/B的运动保留成为更具跨来源一致性的研究动机，不证明B低能高敏方向存在。**
 - **NATIVE/OBS，四teacher位置**：旧CAL24源删除时whole64固定支持Jaccard均值0.980–0.998，说明在测量的四位置、该能量统计下，支持对单来源移除较稳定。它让“由于这四位置的来源支持选择不稳而直接失去运动”成为相对弱的解释；**其余156位置、Student-state/轨迹及量化数值仍需单独辨别**。
