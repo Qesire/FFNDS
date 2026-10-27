@@ -2,15 +2,15 @@
 
 **当前研究问题**：在真实视频生成FFN中发现信息、函数与计算的组织规律，并探索在保持完整视频质量下的真实低成本实现。**I/F/C并行入口**为信息与表示、函数与动力学、计算与执行。见[统一目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-**并行机制组合**：[四组开放研究问题及判别](../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)供科学推导与独立评议使用。
+**并行机制组合**：[多条开放机制、现有方法与最小判别](../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)供科学推导与独立评议使用。
 
 **科学导航**：[研究导航](../RESEARCH_NAVIGATION.md) · [I/C/F跨机制综合](../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md) · [G13函数定位（F线）](../20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) · [O/D/Q/P专题](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) · [最小上下文](CURRENT_CONTEXT_PACKET.md) · [阶段入口](E0_STAGE_ANCHOR.md) · [ACTIVE](../ACTIVE_RESEARCH.json)。[2026-10-25首项任务](../20261025/E0_FFN_FIRST_TASK_20261025.md)属于历史过程。
 
-**数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前89篇相关研究、177个稳定节点、371条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
+**数据与图**：[G0–G13权威计算图](../../docs/98_端到端计算图与证据注解_20261025.md) · [Graph Bindings](GRAPH_AGENT_BINDINGS.json) · [Graph-Agent协作](GRAPH_AGENT_COLLABORATION.md) · [实验发现谱系](../EXPERIMENT_FINDINGS_ATLAS.md)。当前89篇相关研究、186个稳定节点、397条有类型关系、14个机制族。原始研究从[本征机制重置](../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)到[全模型方法审查](../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)保留完整历史证据。
 
 ## 数据与实验可信度
 
-[采样/校准/评测数据合同](DATA_SAMPLING_CALIBRATION_EVALUATION.md) · [实验专用Skill](../../.agents/skills/ffnds-experiment-evidence/SKILL.md) · [2026-10-27源码审查](../20261027/FFNDS_DATA_PROTOCOL_AUDIT_20261027.md) · [CPU预检](../../tools/ffnds_cohort_preflight.py)。正式官方多次采样、单视频自定义诊断、Dense/Student校准及独立新确认数据采用各自明确的统计单位和用途；历史RUN保持原样。优先从来源级效果差异提出竞争机制和低成本有区别的对照。
+[Calibration V2 方法与资产边界](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md) · [采样/校准/评测数据合同](DATA_SAMPLING_CALIBRATION_EVALUATION.md) · [实验专用Skill](../../.agents/skills/ffnds-experiment-evidence/SKILL.md) · [2026-10-27源码审查](../20261027/FFNDS_DATA_PROTOCOL_AUDIT_20261027.md) · [CPU预检](../../tools/ffnds_cohort_preflight.py)。正式官方多次采样、单视频自定义诊断、Dense/Student校准及独立新确认数据采用各自明确的统计单位和用途；历史RUN保持原样。优先从来源级效果差异提出竞争机制和低成本有区别的对照。
 
 ## 科学方法与实际检索
 
