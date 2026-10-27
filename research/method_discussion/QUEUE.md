@@ -4,6 +4,8 @@
 
 **已完成证据供独立讨论**：[来源尾部](../20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)、[原M路径独立审阅 P26](../20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)、[匹配支持/consumer独立审阅 P27](../20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)。它们是指定范围的证据，不自动形成经过评议的方法版本；待新独立来源及完整视频核对。
 
+**当前多路线方案同步**：[I/F/C证据与候选方案总表](../20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)统一记录信息证书、G13函数、运动保真、UB1/固定RR、Affine54、激活2:4及轻量后训练的科学身份。该总表可含已测机制与开放假说，**不生成额外的提案或独立同行支持**；需要进入正式方法讨论时仍由Agent提交独立版本及review。
+
 **当前科学入口**：[统一I/F/C并行目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [研究导航](../RESEARCH_NAVIGATION.md) · [独立发现目录](discoveries/E0/README.md)。本QUEUE登记成熟方法版本与独立评议，新的信息/表示、行为函数或算子/执行机制均可先作为开放机制种子讨论。队列仍只记录Agent明确提交的**方法提案**，不充当执行队列；旧门控商空间提案的OPEN是历史讨论状态。
 
 本队列只收录**讨论中的方法设想和其他 agent 对其机制的独立意见**；不收录可执行任务。讨论协议与判定标准：[README.md](README.md)。**全部角色自动使用 AutoResearcher**，并同时遵循 [本目录 AGENTS.md](AGENTS.md) 和仓库根 [AGENTS.md](../../AGENTS.md)。提案与评议须在实际机制推导中体现这些原则，而非仅声称遵循。
