@@ -28,9 +28,18 @@
 
 **证据身份**：ALG/SRC/LIT定义数学或既有实现；NATIVE-OBS/VIDEO/SYS只对指定本项目运行负责；STATIC_ONLY只代表代码合同或软件诊断；OPEN是下一段可证伪工作。所有上述“下一判别”均为**研究建议**，具体新模型或GPU执行以ACTIVE的独立冻结范围为准。
 
-## 2.1 由旧诊断资产提出的新方法空间（独立提案）
+## 2.1 三候选已整合为现行方法设计与分阶段证据
 
-[《从旧候选材料到可恢复的新FFN计算结构：A/B/C三方法方案》](COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)将目前的实验缺口转化为**三个跨I/F/C、相互独立的可实现候选**：A（同Affine54主GEMM预算的6016维可恢复紧凑学生）、B（后缀敏感的低能输出坐标及离线折叠）、C（小投影＋编码直接求值完整非线性FFN）。A的等MAC为ALG，B/C为OPEN可证伪新函数类；此前UB1/定宽原生结果是比较器，并不是三方法的视频成功声明。**方法方案优先级不构成项目全局排他性排序，也不作为训练/实验授权或Agent独立评议。** 研究者可任选其中一个结构假设进入原生边界、既有资产和最小判别；[Calibration V2](CALIBRATION_V2_METHOD_SNAPSHOT.md)继续定义跨方法独立来源、数值状态与评测证据。
+[现行三路线整合研究方案 v2](COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)以[G14先验约束审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)为输入，并由[机器可读先验约束关系](../agent_protocol/METHOD_OPERATION_CROSSWALK.json)绑定主论文边、算术/数值条件及真实工程问题。I/F/C保留并行，O-A～E是可组合动作；原三候选依次记为**M-A/M-B/M-C**，防止与操作类别同名混淆。
+
+| 路线 | 真实研究状态（当前） | 由G14明确要求的数学/物理对象 | 下一项准确任务 |
+| --- | --- | --- | --- |
+| **M-A0普通6016学生** | [已完成4位置、train16/heldout8（旧暴露来源）、两种初始化、native Q2的128次更新/臂pilot](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)，energy94局部误差1.06%–2.55%；全80/视频未做 | 非线性谱L50、DIFS L34少步student rollout、L54可能的跨模块职责，但只能以不同训练estimand检验 | 与M-B/C匹配的真实强基线，扩展teacher/state vs student rollout和source级视频 |
+| **M-B gate/suffix敏感函数** | [v2方法ALG+SRC已形成](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)：条件配对反例、末层LN→64head有限统计；**B0原生full u/head/flow尚未捕获** | T05–T08的GELU/HiF4/e5合法函数；L82等正常路径faithfulness；L39低能时序可预测性；真实B-H/B-F低成本计算 | 下一Agent**先B0生产者/同状态neutral→B1有限响应**，再对照65-stat direct student与factored generic student |
+| **M-C整层非线性编码求值** | 只有数学模型、源论文及资源账本，尚无本地M-C模型或系统性能 | Rx输入充分性、U输出rank、HiF4非线性码交互与大M LUT/缓存代价 | 现存数据上的输入碰撞与输出谱＋物理成本；与A0和连续同rank学生比较 |
+
+此前UB1、Affine54、已完成A0/2:4、G12、G13保留历史RUN身份；三候选的数学/论文进展与真实模型性能分别声明。**M-B优先是用户指定的下一方法任务，而非限制其他独立研究者提出O-A/C/D或历史复用新组合。** 当前运行授权仍以[ACTIVE](../ACTIVE_RESEARCH.json)为准。
+
 
 ## 3. 四种容易被错误合并的“动态”
 
