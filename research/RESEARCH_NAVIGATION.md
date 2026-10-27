@@ -1,3 +1,6 @@
+
+**G11论文与计算图深读（2026-10-27）：** [5篇直接方法的方程/源码/证据](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)，[新增SharQ原论文、NVFP4双GEMM/HiF4仿真核、Wan T2V视频量化](literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)，[统一计算图 G11 Q01–Q33](../docs/98_端到端计算图与证据注解_20261025.md)。累计74项、137节点、254连边。当前只进行只读源与数学分析，原生模型实验暂停。
+
 **2026-10-27 新研究 G11：** [量化码符号/幅值与有符号FFN功能（严格区间、统计信息与真实省算）](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md)，[来源账本](literature/20261027/G11_QUANTIZATION_SOURCE_LEDGER.json)，[权威G11图](../docs/98_端到端计算图与证据注解_20261025.md)。新增Prox/Spark/SpQt/SQ-DM/CodeGEMM强先例，73篇文献、122节点、219连边。以Q1/Q2/Q3信息可用性/实际成本/功能省算判别，遵守原生HiF4组尺度耦合，零新增模型执行。
 
 **2026-10-27 研究双线同步：** [FFN本征与实时FFN竞争机制](20261027/PARALLEL_FFN_MECHANISM_AND_STREAMING_RESEARCH_BRIEF.md)；[14项实时模型深度综述与原始源码](literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)；[证据账本](literature/20261027/REALTIME_VIDEO_SOURCE_LEDGER.json)；[G10计算图](../docs/98_端到端计算图与证据注解_20261025.md)。文献68项，计算图104节点、183条关系。实时研究已恢复文献/计算图，模型与GPU实验仍暂停。
