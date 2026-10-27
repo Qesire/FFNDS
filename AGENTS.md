@@ -6,7 +6,7 @@
 
 **基准对象与证据**：LightX2V Wan2.2 I2V A14B 四步D-Q，high/high/low/low，40 blocks；\`norm2/AdaLN → Smooth1/Q1 → W1 → GELU(tanh) → Smooth2/HiF4 Q2(64→8→4) → W2 → e5门控BF16残差 → 后续attention/flow/scheduler/video\`。原QDQ和BF16 GEMM与外部native NVFP4格式分别建立数值/物理比较。历史原生10个source、12条source×seed轨迹、1920个嵌套FFN观测位置，已有真实速度收益和自由视频功能失配的研究资产。
 
-**图谱现状**：89项LID、184个稳定节点、389条类型化关系，14个机制族。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
+**图谱现状**：89项LID、186个稳定节点、397条类型化关系，14个机制族。G0–G5包含真实SRC及既有native证据；G6为历史场景；G7–G12为各方法论文、理论与开放候选；G13专门研究行为–功能–结构定位。研究与实验状态由[ACTIVE](research/ACTIVE_RESEARCH.json)控制。
 
 ## 一、科学研究的默认语言与思路
 

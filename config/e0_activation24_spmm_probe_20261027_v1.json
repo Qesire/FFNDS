@@ -1,0 +1,115 @@
+{
+  "id": "E0_ACTIVATION24_SPMM_PROBE_20261027",
+  "status": "FROZEN_SYNTHETIC_SCOPE_AWAITING_REGISTRATION",
+  "assets_finalized": true,
+  "shapes": [
+    [
+      31668,
+      5120,
+      13824
+    ],
+    [
+      31668,
+      13824,
+      5120
+    ]
+  ],
+  "limits": {
+    "random_tensor_init": 4,
+    "top2_select": 16,
+    "compress": 16,
+    "dense_gemm": 18,
+    "sparse_gemm": 30,
+    "model_calls": 0,
+    "video_generations": 0,
+    "fits": 0,
+    "official_scores": 0
+  },
+  "warmups": 2,
+  "repetitions": 5,
+  "wall_seconds": 300,
+  "relative_l2_tolerance": 0.02,
+  "output_HF_relative": "ffnds-derived/e0_activation24_spmm_probe_20261027/attempt1",
+  "bindings": [
+    {
+      "path": "tools/e0_activation24_spmm_probe.py",
+      "sha256": "17e819121b51fcfd915e1c2ace480f7049d9932a6140f18471ec7bedcaae2535",
+      "bytes": 11872
+    },
+    {
+      "path": "tests/test_e0_activation24_spmm_probe.py",
+      "sha256": "17671b7308e860b72d74698097b1ee2b08080cfa345ffe699fdd42cfd6729d40",
+      "bytes": 3164
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+      "bytes": 2562
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+      "bytes": 3559
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+      "bytes": 2529
+    },
+    {
+      "path": "config/worker.env",
+      "sha256": "0dd88ae89887232dc5c50c1bcbed1a0bbcffb7de0ceeea891ce827452f52de66",
+      "bytes": 1027
+    },
+    {
+      "path": "scripts/worker_wait_uuid_idle_exec.sh",
+      "sha256": "38f055289300e9d52b0e4ee27cb19174e804ba178fad0815ae52f4ab97774a53",
+      "bytes": 1919
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/semi_structured.py",
+      "sha256": "adbd51da067c149fa7833383a72910a014bbb0f5e1f816ab0f76b09264a1c3dd",
+      "bytes": 28722
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/_semi_structured_ops.py",
+      "sha256": "6a614407b422b630cffff76ba6a686979104d62bb1bc2ec0cc060f1b354fddb3",
+      "bytes": 6433
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/_semi_structured_conversions.py",
+      "sha256": "1759d16ca5dbdcf0a5cef676eafbd4f1477af5e961b18a8fc8dd83a1c1c6728e",
+      "bytes": 14094
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/backends/cusparselt/__init__.py",
+      "sha256": "0278b6be1de552ceced370a4fc2ca5cfef3d90c84811d55dffee8d90ba0b75c0",
+      "bytes": 1285
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so",
+      "sha256": "82ae4f56e5f4e766a862bfe8f5d38e5d678eef33f301cb9fab4c6abfd251070f",
+      "bytes": 1043840721
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/nvidia/cusparselt/lib/libcusparseLt.so.0",
+      "sha256": "b3d85a0311eadfd3cec86b0291c9a4b5769cba2f248a9e7e8167fbf3ffa99863",
+      "bytes": 451980513
+    }
+  ],
+  "scope": "Synthetic seeded BF16, original M zero padding to 31680; no norm compensation or model evaluation. Freeze bindings and exact SHA in ACTIVE before execution.",
+  "precision_acceptance": "RelativeL2<=0.02 sparse versus masked dense is a coarse BF16 arithmetic guard, not bitwise identity or model quality.",
+  "resource_limits": {
+    "simultaneously_assigned_idle_GPUs": 1,
+    "global_user_GPU_max": 4,
+    "cpu_threads": 2,
+    "HF_free_min_bytes": 10737418240,
+    "HF_output_max_bytes": 33554432,
+    "wall_seconds": 300,
+    "external_total_wall_seconds": 600
+  },
+  "runtime_versions": {
+    "torch": "2.10.0+cu128",
+    "nvidia-cusparselt-cu12": "0.7.1"
+  }
+}

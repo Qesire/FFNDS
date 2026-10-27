@@ -6,6 +6,8 @@
 
 # FFNDS · 实验发现谱系、机制分类与对照矩阵
 
+**2026-10-27 局部新增 P28/P29：** [固定R256 consumer bank](20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)仅训练内160位置；[A100合成激活2:4探针](20261027/E0_ACTIVATION24_SPMM_PROBE_RESULTS_20261027.json)在两种已测形状的默认稀疏算子慢于dense，在线压缩另计。[两开发来源六视频](20261027/UB1_FIXED_RR_CONSUMER_VIDEO_RESULTS_20261027.md)及[八轴官方函数](20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)已完成，质量混合，camera motion未运行；[latent几何](20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)是同两来源描述。[布局算法探针](20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)显示部分预打包路径有收益，在线代价另计。
+
 **UB1 新有界证据（2026-10-27）**：[来源泛化](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)记录两批逐源尾部；[原M一致性/独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)为两暴露来源16位置的位一致；[匹配恢复/独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)为24暴露来源的12/12训练折、4位置 M256 局部结果。相应图 P26/P27 不表明完整视频或加速通过。
 
 **2026-10-27 completed fresh replication:** [4project-new identities/6nested seed paths/12videos/960sites](20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md):942smaller/6equal/12larger; source425 changes all three post-initial cross signs between seed42/54, source437step2/3 has beneficial finite one-step N+cross despite large divergent trajectory. Together with6exposed sources there are10identities/12paths/1,920nested sites. Formal quality remains NOT_RUN; user finish-then-pause is serialized in ACTIVE and all model jobs exited.

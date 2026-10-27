@@ -261,7 +261,8 @@
         "Q30",
         "Q31",
         "Q32",
-        "Q33"
+        "Q33",
+        "P29"
       ],
       "source": [
         "F04",
@@ -283,7 +284,7 @@
       ],
       "information": "current activation magnitudes and FP4/CUTLASS pack; not free sign hist skip",
       "cost": "sparse packing and sparse GEMM PLUS dense FP4 residual GEMM, two scale views, fusion and resource use",
-      "observed": "SharQ 4x5090 T2V not same I2V; source full two GEMMs; unpaired benchmark and prefill slowdown shown",
+      "observed": "SharQ 4x5090 T2V not same I2V; source full two GEMMs; unpaired benchmark and prefill slowdown shown; P29 tests default BF16 cuSPARSELt activation 2:4, not SharQ FP4, RT-Lynx author kernel, or whole64 removal.; P29 backend algorithm/layout study reports bounded prepacked speedups, not online or video-level evidence.",
       "falsifier": "Compared to dense native FP4 full operator is slower or fails free-running video fidelity",
       "tier": "LIT_PRIMARY_SOURCE",
       "linked_doc": "research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md"
@@ -337,7 +338,8 @@
         "K08",
         "K09",
         "P26",
-        "P27"
+        "P27",
+        "P28"
       ],
       "source": [
         "G02",
@@ -354,7 +356,7 @@
       ],
       "information": "step identity or trained architecture masks learned during distillation",
       "cost": "train, compact weight storage, per-step weight gather/union; actual shape reduced",
-      "observed": "DIFS uses trained 8-wide channel chunk, distinct from HiF4 64-group; original Wan D-Q only 2 full experts; UB1 original-M saved-row selected/narrow paths match at 16 exposed sites; source-disjoint exploratory CV tests support and consumer, not full-video acceptance.",
+      "observed": "DIFS uses trained 8-wide channel chunk, distinct from HiF4 64-group; original Wan D-Q only 2 full experts; UB1 original-M saved-row selected/narrow paths match at 16 exposed sites; source-disjoint exploratory CV tests support and consumer, not full-video acceptance.; fixed original support and R256 full-160 consumer training reduces in-sample gated SSE 0.05551→0.009434, with heldout/video pending.; subsequent six paired development videos complete: eight official function dimensions give mixed quality, not held-out acceptance.",
       "falsifier": "Group scales, expert switching and total model quality degrade after compact conversion",
       "tier": "LIT_PAPER_METHOD",
       "linked_doc": "research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md"
@@ -480,7 +482,8 @@
         "P24",
         "P25",
         "D09",
-        "P27"
+        "P27",
+        "P28"
       ],
       "source": [
         "F08R",
@@ -500,7 +503,7 @@
       ],
       "information": "native matched source/seed independent full-depth 40x4 FFN and full-frame delivered video",
       "cost": "metrics, SHA-bound video, actual GPU source code and FP4/Tensor Core timing",
-      "observed": "10 source identities/12 nested seed paths/1920sites observed; prior local wins with terminal quality failure; UB1 formal/disjoint source-level imaging tails differ, exploratory exposed cohorts; full held-out quality remains separate.",
+      "observed": "10 source identities/12 nested seed paths/1920sites observed; prior local wins with terminal quality failure; UB1 formal/disjoint source-level imaging tails differ, exploratory exposed cohorts; full held-out quality remains separate.; P28 is training-only and two development-source three-arm videos now have eight official function dimensions; mixed results, camera motion and human acceptance remain open.",
       "falsifier": "Method's local error reduction cannot survive full free-running video temporal and motion metrics",
       "tier": "NATIVE_OBS_EXISTING_AND_POLICY",
       "linked_doc": "research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md"
@@ -517,7 +520,9 @@
         "I09",
         "I16",
         "S20",
-        "P26"
+        "P26",
+        "P28",
+        "P29"
       ],
       "source": [
         "F03",
@@ -541,7 +546,7 @@
       ],
       "information": "runtime actual M/K tiling, lowbit packing/Q1 scaling, data dispatch and device",
       "cost": "observer and code bytes, shape changes, launch/weight residency, packed native dense comparator",
-      "observed": "fullM token-wise sparse posthoc 100% tile occupancy, kernel mix depends on shape; original-M W2 replay restores saved BF16 bytes while M160 differs0.292%; UB1 narrowed W1/GELU/Q2 paths are bit-identical at original M in 16 saved-row sites, while M160 differs at steps1–3; this is numerical shape control, not a new speed measurement.",
+      "observed": "fullM token-wise sparse posthoc 100% tile occupancy, kernel mix depends on shape; original-M W2 replay restores saved BF16 bytes while M160 differs0.292%; UB1 narrowed W1/GELU/Q2 paths are bit-identical at original M in 16 saved-row sites, while M160 differs at steps1–3; this is numerical shape control, not a new speed measurement.; P29 synthetic A100 default activation 2:4 prepacked and online are slower than dense for the two tested original shapes; no model timing or blanket sparse-kernel conclusion.; searched/default alternative layouts can improve prepacked multiplication for P29 but selection, compression, search and full pipeline remain separately priced.",
       "falsifier": "The proposed observer costs more than physical work it avoids on matched hardware",
       "tier": "ALG_SYS_PREEXISTING_AND_OPEN",
       "linked_doc": "research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md"

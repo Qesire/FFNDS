@@ -1,5 +1,7 @@
 # FFNDS · Agent 方法讨论工作队列
 
+**新讨论证据 P28/P29：** [训练内consumer bank](../20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)与[合成激活2:4物理探针](../20261027/E0_ACTIVATION24_SPMM_PROBE_RESULTS_20261027.json)分别限定训练与实际后端形状；[两开发来源八轴评分](../20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)与[latent几何](../20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)已完成、质量混合；[后端布局](../20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)的预打包收益仍需在线代价核算。均不自动构成方法通过。
+
 **已完成证据供独立讨论**：[来源尾部](../20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)、[原M路径独立审阅 P26](../20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)、[匹配支持/consumer独立审阅 P27](../20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)。它们是指定范围的证据，不自动形成经过评议的方法版本；待新独立来源及完整视频核对。
 
 **当前科学入口**：[统一I/F/C并行目标](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [研究导航](../RESEARCH_NAVIGATION.md) · [独立发现目录](discoveries/E0/README.md)。本QUEUE登记成熟方法版本与独立评议，新的信息/表示、行为函数或算子/执行机制均可先作为开放机制种子讨论。队列仍只记录Agent明确提交的**方法提案**，不充当执行队列；旧门控商空间提案的OPEN是历史讨论状态。

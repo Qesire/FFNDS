@@ -1,0 +1,310 @@
+{
+  "id": "E0_ACTIVATION24_SPMM_PROBE_20261027",
+  "status": "COMPLETE_SYNTHETIC_DEFAULT_BACKEND_COMPARISON",
+  "protocol": "config/e0_activation24_spmm_probe_20261027_v1.json",
+  "protocol_sha256": "d94036ada6b2303e3489070a84f14ee888aff6c6357b60a717d7c05b3affe11c",
+  "raw_RUN": {
+    "HF_relative": "ffnds-derived/e0_activation24_spmm_probe_20261027/attempt1/RUN.json",
+    "sha256": "1a5831cf00f84bcb668a238489005027a1f74c526b6dab60b84f76fa4aec43a6"
+  },
+  "launch_exit": {
+    "HF_relative": "ffnds-derived/e0_activation24_spmm_probe_20261027/attempt1/LAUNCH_EXIT.json",
+    "sha256": "33119acd0d1befa38fc197722defc1c0de8f37666bd310638726787fd8f55c12"
+  },
+  "runtime": {
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "cusparselt": 701,
+    "gpu": "NVIDIA A100 80GB PCIe",
+    "bf16_reduced_precision_reduction": true
+  },
+  "loaded_backends": {
+    "torch_cuda": {
+      "binding_path": ".venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so",
+      "sha256": "82ae4f56e5f4e766a862bfe8f5d38e5d678eef33f301cb9fab4c6abfd251070f"
+    },
+    "cusparselt": {
+      "binding_path": ".venv/lib/python3.11/site-packages/nvidia/cusparselt/lib/libcusparseLt.so.0",
+      "sha256": "b3d85a0311eadfd3cec86b0291c9a4b5769cba2f248a9e7e8167fbf3ffa99863"
+    }
+  },
+  "counts": {
+    "random_tensor_init": 4,
+    "top2_select": 16,
+    "compress": 16,
+    "dense_gemm": 18,
+    "sparse_gemm": 30,
+    "model_calls": 0,
+    "video_generations": 0,
+    "fits": 0,
+    "official_scores": 0
+  },
+  "results": [
+    {
+      "M": 31668,
+      "M_padded": 31680,
+      "K": 5120,
+      "N": 13824,
+      "sparse_vs_masked_relative_l2": 6.066737178064239e-05,
+      "masked_vs_dense_relative_l2_SYNTHETIC_ONLY": 0.3639659939617038,
+      "median_cuda_ms": {
+        "dense": 19.39967918395996,
+        "prepacked": 29.190143585205078,
+        "online": 148.2987518310547
+      },
+      "prepacked_speedup_over_dense": 0.6645969084507217,
+      "online_speedup_over_dense": 0.1308148514025291,
+      "timing_samples": {
+        "dense": [
+          {
+            "cuda_ms": 18.58252716064453,
+            "wall_ms": 18.611785024404526,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2184335872,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 19.402751922607422,
+            "wall_ms": 19.432663917541504,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2184335872,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 19.4017276763916,
+            "wall_ms": 19.43087950348854,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2184335872,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 19.398656845092773,
+            "wall_ms": 19.426889717578888,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2184335872,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 19.39967918395996,
+            "wall_ms": 19.427958875894547,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2184335872,
+            "peak_reserved_bytes": 11500781568
+          }
+        ],
+        "prepacked": [
+          {
+            "cuda_ms": 29.190143585205078,
+            "wall_ms": 29.220763593912125,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2205663744,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 29.199359893798828,
+            "wall_ms": 29.228657484054565,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2205663744,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 29.180927276611328,
+            "wall_ms": 29.20915186405182,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2205663744,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 29.16556739807129,
+            "wall_ms": 29.19391542673111,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2205663744,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 29.208576202392578,
+            "wall_ms": 29.237903654575348,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 2205663744,
+            "peak_reserved_bytes": 11500781568
+          }
+        ],
+        "online": [
+          {
+            "cuda_ms": 148.0273895263672,
+            "wall_ms": 148.06297048926353,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 3417616896,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 148.2987518310547,
+            "wall_ms": 148.33327382802963,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 3417616896,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 149.58181762695312,
+            "wall_ms": 149.61443468928337,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 3417616896,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 147.5952606201172,
+            "wall_ms": 147.62766659259796,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 3417616896,
+            "peak_reserved_bytes": 11500781568
+          },
+          {
+            "cuda_ms": 148.30079650878906,
+            "wall_ms": 148.33582937717438,
+            "allocated_before_bytes": 1308779008,
+            "peak_allocated_bytes": 3417616896,
+            "peak_reserved_bytes": 11500781568
+          }
+        ]
+      }
+    },
+    {
+      "M": 31668,
+      "M_padded": 31680,
+      "K": 13824,
+      "N": 5120,
+      "sparse_vs_masked_relative_l2": 0.00012237660495654164,
+      "masked_vs_dense_relative_l2_SYNTHETIC_ONLY": 0.3639201796604651,
+      "median_cuda_ms": {
+        "dense": 18.910207748413086,
+        "prepacked": 27.5281925201416,
+        "online": 345.7873840332031
+      },
+      "prepacked_speedup_over_dense": 0.686939679551319,
+      "online_speedup_over_dense": 0.05468738485438004,
+      "timing_samples": {
+        "dense": [
+          {
+            "cuda_ms": 18.498559951782227,
+            "wall_ms": 18.52654665708542,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3596595712,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 18.705408096313477,
+            "wall_ms": 18.7324620783329,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3596595712,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 18.910207748413086,
+            "wall_ms": 18.93659308552742,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3596595712,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 18.9880313873291,
+            "wall_ms": 19.014187157154083,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3596595712,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 19.06278419494629,
+            "wall_ms": 19.090648740530014,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3596595712,
+            "peak_reserved_bytes": 15003025408
+          }
+        ],
+        "prepacked": [
+          {
+            "cuda_ms": 27.563007354736328,
+            "wall_ms": 27.59343385696411,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3651338752,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 27.51487922668457,
+            "wall_ms": 27.544766664505005,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3651338752,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 27.52511978149414,
+            "wall_ms": 27.554817497730255,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3651338752,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 27.5281925201416,
+            "wall_ms": 27.55694091320038,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3651338752,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 27.53228759765625,
+            "wall_ms": 27.561359107494354,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 3651338752,
+            "peak_reserved_bytes": 15003025408
+          }
+        ],
+        "online": [
+          {
+            "cuda_ms": 345.7873840332031,
+            "wall_ms": 345.8267003297806,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 8962681344,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 345.5774841308594,
+            "wall_ms": 345.61382606625557,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 8962681344,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 347.41656494140625,
+            "wall_ms": 347.45488315820694,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 8962681344,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 346.44378662109375,
+            "wall_ms": 346.4817889034748,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 8962681344,
+            "peak_reserved_bytes": 15003025408
+          },
+          {
+            "cuda_ms": 345.5846252441406,
+            "wall_ms": 345.62136232852936,
+            "allocated_before_bytes": 3271537152,
+            "peak_allocated_bytes": 8962681344,
+            "peak_reserved_bytes": 15003025408
+          }
+        ]
+      }
+    }
+  ],
+  "scope": "Synthetic seeded Gaussian BF16 matrices at Wan FFN shapes, no native model weights/states, norm recovery, training, or video. Default torch/cuSPARSELt algorithm and stable generic argsort; not RT-Lynx fused implementation. Prepacked comparator excludes every-input selection/packing; online includes selection/pad/compress/SpMM/crop.",
+  "actual_elapsed_seconds": 24.34477861970663,
+  "outer_launcher_seconds": 64.41931056976318,
+  "assigned_GPU_samples": 6,
+  "GPU_resource_violations": [],
+  "HF_regular_file_bytes": 88614,
+  "new_model_forwards": 0,
+  "new_videos": 0,
+  "quality_accepted": false,
+  "next_discriminator": "Source-check default algorithm/layout and actual exposed cuSPARSELt search cost before choosing a bounded new execution; measure full online again only if a fast prepacked path exists."
+}

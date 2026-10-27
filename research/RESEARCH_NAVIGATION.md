@@ -4,7 +4,7 @@
 
 [I/F/C机制证据组合与最小判别](20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)集成信息界、行为传播、物理算子和训练后职责迁移的竞争解释。它是研究导航，不是实验执行队列。
 
-**研究规模**：89项相关论文、184个计算图节点、389条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
+**研究规模**：89项相关论文、186个计算图节点、397条有类型关系、14机制家族。原生视频/状态实验覆盖10个source、12个source×seed完整轨迹及1920处嵌套FFN观测。2026-10-27用户已明确恢复推进，同时最多使用四张空闲GPU；当前[ACTIVE](ACTIVE_RESEARCH.json)登记每项冻结范围及真实执行状态。
 
 **UB1 当前证据与开放判别**：[来源级泛化审计](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md)保留两批已暴露来源的成像尾部与同源对照；[原M一致性及独立审阅](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md)对应图P26；[匹配恢复及独立审阅](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md)对应P27。后者在12/12探索折上比较支持和消费者；未见来源、原M性能和完整视频仍待检验。下一native bank仅在准备，执行状态以ACTIVE为准。
 
@@ -13,6 +13,8 @@
 **新增视频时空函数入口**：[A5+HWG历史背景闪烁与小物体模糊的机制推导](20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)。研究区分主体结构、细节保持、背景时序协调，拆分空间高低频与视频时间变化，并分别检验mask开关、持续弱功能遗漏、量化尺度和下游传播。它是HISTORY-OBS/ALG/OPEN组合，不是新A5原生实验；[指标协议细化](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)保留已有工程gate，不要求每个数学种子立即跑完整视频。
 
 **UB1运动保真已提升为正式研究假说**：[原始RAFT 40-pair×4 clips重检与运动衰减因果审查](20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)。两个已暴露formal20来源的连续motion幅值UB1/Dense约38.13%（犀牛38/40采样对较小）/9.19%（住宅40/40较小），官方二值Dynamic Degree全0；相对减幅不等于动作语义失败或普遍动态能力崩溃，**纹理模糊降低RAFT可追踪性**是优先判别的对手。按motion-rich subject/camera/static分层，在已有四步源图上区分static appearance、motion function、trajectory propagation；[UB1方案](20261027/UB1_STEP_BUDGET_CALIBRATION_AND_VIDEO_GENERALIZATION_RESEARCH_PROPOSAL_20261027.md)和[视频指标合同](agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)已联动修正。VideoJAM/Motive/DCM是成熟运动监督/来源选择近邻，供直接迁移，不要求另造loss。
+
+**新训练、视频与执行结果**：[固定R256 consumer bank](20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24校准来源160位置的训练内gate误差下降83.01%；[两开发来源六条完整视频](20261027/UB1_FIXED_RR_CONSUMER_VIDEO_RESULTS_20261027.md)通过历史Dense/neutral四步latent与视频字节复现。[八轴官方函数评分](20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)显示成像更接近Dense、连续运动部分恢复而美学等轴有取舍；[保存latent几何](20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)揭示负交叉项与末步距离略增可以并存。下一项保持参数不变，扩大到旧disjoint20开发来源。[合成2:4布局对照](20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)发现部分预打包路径较快，在线选择与压缩仍另计。图P28/P29分别保留模型恢复与合成物理算子的身份。
 
 ## 按科研问题选择证据
 

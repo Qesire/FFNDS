@@ -2,6 +2,8 @@
 
 # Experiment file importance — FFNDS
 
+**Scoped P28/P29:** [fixed R256 consumer training bank](20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md) is training-only; [synthetic A100 activation 2:4](20261027/E0_ACTIVATION24_SPMM_PROBE_RESULTS_20261027.json) reports default backend cost and masked numerical comparison, not model or video quality. [Six paired development videos](20261027/UB1_FIXED_RR_CONSUMER_VIDEO_RESULTS_20261027.md), [eight official-function dimensions](20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md), and [saved latent geometry](20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md) now exist; quality is mixed and camera motion remains unrun. [Algorithm/layout probe](20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md) measures prepacked paths, not online performance.
+
 **2026-10-27 scoped additions:** [source-level audit](20261027/UB1_SOURCE_GENERALIZATION_AUDIT_20261027.md), [original-M UB1 consistency and independent audit](20261027/UB1_NATIVE_CONSISTENCY_RESULTS_20261027.md), and [matched support/consumer recovery with independent audit](20261027/UB1_MATCHED_RECOVERY_RESULTS_20261027.md). These preserve exposed-source, saved-row and local-CV bounds; P26/P27 do not establish free-video or deployable gains.
 
 **Current scientific priority, not historical execution authority.** Start with [curated evidence ranking](experiment_evidence/PRIORITY_RANKING.json). Search the [complete experimental file inventory](experiment_evidence/FILE_INVENTORY.json) only when you need a specific source or protocol. The inventory's automated filename roles are **not** a scientific evaluation of unread files.
