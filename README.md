@@ -10,7 +10,7 @@
 
 | 研究目标 | 当前资料 |
 |---|---|
-| **统一目标与三条并行入口** | [研究北极星与I/F/C路径](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)、[研究导航](research/RESEARCH_NAVIGATION.md)、[Objective Contract](research/OBJECTIVE_CONTRACT.json) |
+| **统一目标与三条并行入口** | [研究北极星与I/F/C路径](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)、[现行路线/方法/证据对照](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)、[研究导航](research/RESEARCH_NAVIGATION.md)、[Objective Contract](research/OBJECTIVE_CONTRACT.json) |
 | 定位有意义的FFN输出函数、联合计算结构（F线） | [G13功能发现与结构定位](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)、[O/D/Q/P四层定位方法学](research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[三张机器定位卡](research/agent_protocol/FUNCTION_LOCALIZATION_METHOD_CARDS.json)、[行为/函数/结构登记](research/agent_protocol/FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json) |
 | 沿真实Wan算子、残差、flow逐坐标追踪 | [G0–G13权威计算图](docs/98_端到端计算图与证据注解_20261025.md)与[Graph Bindings](research/agent_protocol/GRAPH_AGENT_BINDINGS.json) |
 | 综合已有实验、竞争机制与原论文 | [FFN科学综合报告](research/20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)、[实验发现谱系](research/EXPERIMENT_FINDINGS_ATLAS.md) |
@@ -48,6 +48,8 @@
 同一图像簇内先对各source/prompt的seed×sample重复观测求均值，再对source/prompt等权，最后对独立图像簇等权。历史单视频复制五个文件名的VBench结果仍按单次生成的旧协议解释。当前工作与模型执行权限统一以 `research/ACTIVE_RESEARCH.json` 为入口；`research/CURRENT_DECISION.json` 中的早期暂停状态及旧RUN保留为对应阶段的历史记录。CPU静态/统计测试与真实GPU/官方质量运行分别验收。
 
 **最新原生判别（不同证据对象）**：[固定R256 consumer](research/20261027/UB1_FIXED_RR_CONSUMER_BANK_RESULTS_20261027.md)在24来源校准训练内恢复83.01%的局部gate误差；[六条配对视频的八维官方函数结果](research/20261027/UB1_CONSUMER_OFFICIAL_QUALITY_RESULTS_20261027.md)仅覆盖两条已暴露来源，连续RAFT运动相对neutral部分恢复，仍低于Dense，camera motion未运行；[保存latent有符号几何](research/20261027/UB1_CONSUMER_LATENT_GEOMETRY_RESULTS_20261027.md)显示局部纠偏与末步距离增大并存。[A100合成激活2:4比较](research/20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.md)找到部分更快的预打包乘法布局，在线动态选择、压缩与完整视频收益仍分别验证。该组发现已索引于[研究导航](research/RESEARCH_NAVIGATION.md)。
+
+**跨路线同步原则**：UB1为按step离线固定Whole64支持，Affine54为固定仿射＋部分原非线性，不把两者称作内容自适应在线路由；原版RAFT连续运动与视频语义动作分开；2:4合成预打包速度与真实在线选择/压缩/QDQ全链成本分开。方法方案、原论文、可复用数据资产、运行权限分别留在各自原生文件；[现行路线组合](research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md)负责跨线证据更新与竞争解释。
 
 ## 当前科研方向
 
