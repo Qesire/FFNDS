@@ -1,5 +1,7 @@
 # FFNDS · 量化元信息的决策价值、函数耦合与真实稀疏：恢复研究路线
 
+> **HiF4事实纠正（2026-10-28）**：Q1/Q2 论文格式的 **S1P2是原本带符号的4-bit码（1bit sign + 3bit数值）**，32bit/64共享尺度无符号；Wan当前QDQ在GPU上写回带符号BF16而非持久packed码。本路线的I-Q是“怎样低成本取得码字已有的符号与位置，并赶在W1前做有效选择”，不是“给HiF4补符号”或“把scale-only当完整码”。[原格式与当前SRC审计](HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)。
+
 > **本路线后续跨线综合（2026-10-28）：** [QCFB 量化条件联合函数组束与动作依赖 Q2 研究前沿](INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)将本文的 NetVOI、signed joint error 和 Q1/Q2 决策时点联合 lowering 为完整 HiF4 64组合法计算动作；本文保留为 v1 数学/文献起点，二者相互补充，不重复登记实测或更改 M-B B0/B1 优先级。
 
 > 2026-10-28 · METHOD_SNAPSHOT v1 / PARALLEL I+F+C RESEARCH · ALG+SRC+LIT+OPEN。新路线恢复，不替换 M-B B0/B1 的既定执行顺序；不修改 ACTIVE_RESEARCH.json，不登记/启动 GPU、模型、训练、视频作业。本文是独立的机制与实验设计，**不是**新的原生 Wan 实测、正式同行投票或已验证新算子。
