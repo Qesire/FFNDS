@@ -8,6 +8,8 @@
 
 **阅读优先级**：先按[P0–P4导航](../research/RESEARCH_NAVIGATION.md)的P0恢复上下文/方法/当前任务/ACTIVE；需要具体数学、原文、G13或历史失配时再选择性阅读P1–P4。根[AGENTS](../AGENTS.md)及[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)是行为规则，不要求每次独立Agent重读全部G0–G14报告和历史handoff。
 
+**量化operator/时间强类型**：[源码和成熟FP4审计](../research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)区别静态W1/W2权重码/scale与每次调用在线Q1/A1、Q2/A2激活码/scale；原生W4A4具两侧scale，局部activation尺度动态，global可能提前校准。看见scale不等于能及时/免费读。W4A16无activation FP4 scale；任何QCFB路由同时声明可得时点/producer和访问代价。
+
 ## 数据、校准与评测的实验思维
 
 遵循[新实验数据协议](../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)与[专用Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md)。恢复真实来源与source×seed独立性、样本行坐标和状态来源、候选/ Dense完全配对、指标覆盖与视频原始证据；用VBench-I2V官方五次真实生成和CUSTOM_PAIRED单次自定义评价的严格区分建立科学结论。每个问题正向给出来源级对照和最便宜的可判别实验；官方未测维度保留NOT_RUN。历史记录维持原有身份。
