@@ -9,7 +9,7 @@
 | 12 energy | 557.581, 533.788, 642.944, 679.536 | 310.896, 284.929, 413.376, 461.769 |
 | 12 random | 575.349, 553.885, 707.075, 712.287 | 331.026, 306.788, 499.956, 507.353 |
 
-这是 `Δe=-a(F_S(x_S)-F_D(x_D))+(ρ_S-ρ_D)` 的 post-state 标量，`ρ` 是各自原生 BF16 cast 余项；不能改名为同输入 flow error。精确平方值、输入 SHA 和零模型/零 tensor-read 工作见 [stdlib 标量审计](../../../20261028/COMPACT6016_STEP_WEIGHT_SCALAR_AUDIT_20261028.json)。B-F 的同 teacher-state final/oracle head 差距仍为约45–98倍；它提示可表示空间与已训预测器之间有明显余量，没有区分特征限制、优化和 gated-Y 目标。
+这是 `Δe=-a(F_S(x_S)-F_D(x_D))+(ρ_S-ρ_D)` 的 post-state 标量，`ρ` 合并各自原生 FP32 减/加运算与最终 BF16 cast 余项；不能改名为同输入 flow error。精确平方值、输入 SHA 和零模型/零 tensor-read 工作见 [stdlib 标量审计](../../../20261028/COMPACT6016_STEP_WEIGHT_SCALAR_AUDIT_20261028.json)。B-F 的同 teacher-state final/oracle head 差距仍为约45–98倍；它提示可表示空间与已训预测器之间有明显余量，没有区分特征限制、优化和 gated-Y 目标。
 
 **建议下一固定 scope：原 BF16 low/block39、最后两步、两暴露来源，12 个 full-flow replay，零训练、零视频解码。** 先做可部署的表示控制，去掉新预测器这个自由度：保持原 raw `W1/GELU`，仅用原 raw `W2` 构造一个固定 rank512 输出投影。行形式 `Y=H A+b`，候选 `Yhat=(H B)Phi^T+b`、`B=A Phi`；`Phi` 包含两 step 的原 `diag(g_t)K_t` head 空间，以 raw W2 在正交补中的 weight-PCA 补足512维。`b` 始终保留原 b2，等价于中心取 b2；无需 teacher Y 在线、无需旧 HiF4 scale/QDQ/训练权重。静态 Phi/B 转 BF16 并回读，实际三 GEMM，保持 GELU(tanh)，无新中间量化。它是原 BF16 的表示控制，不是原6016学生的跨格式重标。
 

@@ -115,12 +115,13 @@
       "venue": "ICLR",
       "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/316648eb8b4ffb6010f531b07848c300-Abstract-Conference.html",
       "model": "LLM",
-      "observed_mechanism": "Computational invariance enables narrow dense networks under specific transformations",
-      "decision_time": "offline transform",
-      "physical_action": "narrow dense GEMM",
+      "observed_mechanism": "Square orthogonal residual-coordinate invariance preserves RMS norm before slicing; LayerNorm mean and affine maps are fused into adjacent linear operations. Rectangular deletion then approximates the signal and can change its normalizer.",
+      "decision_time": "offline norm fusion, calibration PCA and weight slicing; online residual coordinate maps",
+      "physical_action": "smaller dense matrices plus paid residual coordinate transformations",
       "training": "post-training transform",
-      "wan_specific_discriminator": "Nonlinear GELU and QDQ prevent arbitrary hidden basis rotations from being free",
-      "reading_depth": "OFFICIAL_ABSTRACT"
+      "wan_specific_discriminator": "Full square rotation preserves norm; current rectangular headspan output projection does not. Test fixed step normalization bias versus state-dependent norm completion while retaining Wan gate, nativeBF16 and original shift/bias.",
+      "reading_depth": "PRIMARY_SEC3_1_TO3_4_EQ2_THEOREM1_EQ9_SELECTED_AUTHOR_NORM_CODE_RECHECK_20261028",
+      "norm_source_recheck": "research/literature/20261028/SLICEGPT_NORMALIZATION_AND_TRUNCATION_RECHECK_20261028.json"
     },
     {
       "id": "L07",

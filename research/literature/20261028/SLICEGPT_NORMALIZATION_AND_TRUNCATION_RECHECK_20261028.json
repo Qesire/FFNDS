@@ -1,0 +1,59 @@
+{
+  "schema": "ffnds.primary_method_recheck.v1",
+  "date": "2026-10-28",
+  "id": "L06",
+  "question": "Does orthogonal computational invariance imply that rectangular output projection preserves the downstream normalizer?",
+  "paper_url": "https://arxiv.org/html/2401.15024v1",
+  "sections_read": [
+    "3.1 Eq2 and Theorem1: square orthogonal transformation preserves RMS norm",
+    "3.2 Fig3: absorb LayerNorm mean/affine terms in adjacent linear maps",
+    "3.3: per-block residual coordinate changes have paid online D-by-D work",
+    "3.4 Eq9: rectangular deletion is approximation after exact rotation"
+  ],
+  "author_code_revision": "e9191559ffc78592a8f311b27583ba153064f925",
+  "author_sources": [
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/TransformerCompression/e9191559ffc78592a8f311b27583ba153064f925/src/slicegpt/layernorm_fusion.py",
+      "HF_relative": "ffnds-derived/primary_sources/slicegpt_norm_20261028/layernorm_fusion.py",
+      "bytes": 5676,
+      "sha256": "d70aa8a1e5df533c13f1c115b2b34d3f2efcac964b636a525b145bcdc5c0814e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/TransformerCompression/e9191559ffc78592a8f311b27583ba153064f925/src/slicegpt/modules.py",
+      "HF_relative": "ffnds-derived/primary_sources/slicegpt_norm_20261028/modules.py",
+      "bytes": 1074,
+      "sha256": "b072e505ba6b0ce4ebf2123a9ddadc63a0c42490244057c7ba7719dbdba3b29d"
+    }
+  ],
+  "code_sections_read": [
+    "layernorm_fusion.py fuse_modules, bake_mean_into_linear, fuse_ln_linear",
+    "modules.py RMSN.__init__/forward: sum(x^2)/stored mean_dim and epsilon1e-5"
+  ],
+  "source_conclusion": "Square orthogonal reparameterization preserves norm in exact arithmetic. Deleting coordinates removes norm energy; the rotation theorem does not restore it. Original RMSN code explicitly retains a stored denominator dimension.",
+  "native_connection": "U43 observed tiny normalized linear readout error with radial variance-dominated actual head error after a rectangular raw W2 projection. Its D=5120 denominator stays fixed. U45 shows a transferable step-biased norm deficit on two development sources.",
+  "method_action_and_time": "Offline centering/affine fusion and PCA rotation/deletion, plus online rotated residual maps; distinct from the current raw Wan headspan output projection and its conditioning-specific diagonal gate.",
+  "strong_competitor": "A fixed timestep normalization-gain adjustment may remove most observed bias; expensive per-state variance predictors should earn their cost against this control.",
+  "different_predictions": "If fixed-step bias dominates, source0-frozen1/kappa reduces source12 native head error; if state-specific variance is essential, row-proxy improvements fail to transfer to full-M or own-state outputs.",
+  "transfer_limits": [
+    "SliceGPT studies compressed LLM residual width, not the current Wan FFN output factorization.",
+    "The square rotation theorem is an exact-arithmetic statement before deletion; it does not prove BF16 equivalence, a free hidden rotation through GELU/QDQ, or variance preservation after rank truncation.",
+    "Original author RMSN epsilon1e-5 and stored dimensions are source facts; this native Wan uses epsilon1e-6 and unchanged5120 channels."
+  ],
+  "search_trace": {
+    "queries": [
+      "transformer compression LayerNorm variance preserving low rank projection norm SVD",
+      "SliceGPT layer normalization RMSNorm deletion variance computation invariance paper",
+      "random projection LayerNorm variance estimator transformer compression norm preservation"
+    ],
+    "reviewed_primary": "L06 only deepened in this record; other discovered titles were not adopted as mechanism evidence.",
+    "author_blog_candidate": "LayerNorm expressivity author page was discovered/read as a neighboring lead; its attention claims are not transferred to this terminal-head result."
+  },
+  "model_GPU_calls": 0,
+  "G14_focus_nodes": [
+    "T04",
+    "T07",
+    "T08",
+    "T09",
+    "T14"
+  ]
+}

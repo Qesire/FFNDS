@@ -1,7 +1,7 @@
 # FFNDS · 下一Agent最小上下文（2026-10-28）
 
 
-**新增实际证据与下一步：**[轨迹漂移](../20261028/COMPACT6016_TRAJECTORY_DRIFT_RESULTS_20261028.md) CPU exit0，两个暴露来源的自由轨迹绝对误差随step增长；[六视频quality v4](../20261028/COMPACT6016_CONSUMER_QUALITY_RESULTS_20261028.md) actual exit0，两个来源energy/random连续RAFT候选/Dense为0.135/0.141和0.145/0.233，画质与运动显著下降，单seed且人审未验；v1/v2/v3失败各自保留。[原始BF16两视频](../20261028/ORIGINAL_BF16_TWO_VIDEO_RESULTS_20261028.md) actual exit0，2来源各81帧、8flow、320 FFN、零QDQ；质量与公平系统速度尚未验收。下一项原始BF16低噪block39末两步、两来源12flow同输入/交叉状态判别正在实现草案，尚未注册或运行：保留完整raw W1/GELU，raw W2采用唯一headspan128+weightPCA384基底。当前GPU分配0，本会话A100最多2卡。
+**最新原始BF16实测：**[12flow交叉状态判别](../20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](../20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](../20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。下一项为source0系数向source12的8flow原生范数校正，producer准备中、尚未登记或运行。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
 
 
 **最新实测与当前运行**：[B-F固定基底结果](../20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)实际exit0：两expert×两基底，held8 head SSE high 0.000587/0.000590、low 0.000638/0.000633，均低于同域A0 energy 0.000609/0.000661；这是M256局部证据，视频与系统速度未测。[BF16/NVFP4 R0只读就绪](../20261028/BF16_NVFP4_R0_READINESS_20261028.md)：两原始BF16 checkpoint header已核；历史SM120是RTX PRO 6000，用户明确本会话没有5090，使用A100继续BF16；NVFP4执行暂缓，匹配NVFP4 checkpoint未知。原始BF16两视频已实际exit0。六视频quality v4实际exit0，保留v1/v2/v3失败历史；人审仍待完成，当前GPU占用0。当前会话最多2 GPU，通用动态默认无全局预设上限。
@@ -18,7 +18,7 @@
 
 **HiF4格式确定性**：[S1P2 signed存储审计](../20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)：64×4bit signed elements（每元素1bit符号）＋32bit unsigned base/micro-scale；原Wan Q1/Q2 fake-QDQ只输出带符号BF16，packed code/scale未作为常驻tensor导出。scale-only不含符号，signed code本身包含符号；所有I/F/C路线按[机器合同](HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)解释。
 
-固定LightX2V Wan2.2 I2V A14B四步D-Q：high/high/low/low，每个expert 40 blocks。当前FFN `norm2/AdaLN→Smooth1/Q1→W1(5120→13824)→GELU(tanh)→Smooth2/HiF4 Q2(64→8→4)→W2(13824→5120)→e5 gate+BF16残差→downstream flow`。典型M=31668；**4去噪step、21 latent时间槽、81 RGB帧不同**。本地fake-QDQ与BF16 GEMM是原生数值边界，外部packed NVFP4/MXFP4另设对照身份。G14有98主＋10补充论文、16焦点；220节点/457原始图边；[方法typed先验](METHOD_OPERATION_CROSSWALK.json)另有12条，不算NATIVE。
+固定LightX2V Wan2.2 I2V A14B四步D-Q：high/high/low/low，每个expert 40 blocks。当前FFN `norm2/AdaLN→Smooth1/Q1→W1(5120→13824)→GELU(tanh)→Smooth2/HiF4 Q2(64→8→4)→W2(13824→5120)→e5 gate+BF16残差→downstream flow`。典型M=31668；**4去噪step、21 latent时间槽、81 RGB帧不同**。本地fake-QDQ与BF16 GEMM是原生数值边界，外部packed NVFP4/MXFP4另设对照身份。G14有98主＋10补充论文、16焦点；223节点/463原始图边；[方法typed先验](METHOD_OPERATION_CROSSWALK.json)另有12条，不算NATIVE。
 
 ## 二、已完成与尚未完成的最短事实表
 

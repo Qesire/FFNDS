@@ -1,0 +1,9 @@
+# Raw saved-row norm diagnostic independent review · 2026-10-28
+
+**SUPPORT, exact draft:** `tools/ffnds_raw_norm_rows.py` SHA256 `05d93e750fab1d9ee0e8dbc5b9703f7aa69e9a0609cf8238880835d098ba5128`; tests SHA256 `9c928e5bba2fb460e05a9f62169ea44a0e2451a8327334e9795fb4bc7e61a7ae`; draft SHA256 `4d40b4d48ed3dd212d8d435880b671be9fb070b3a39c223a63a83b51d2fb6264`. This is SRC and synthetic CPU evidence; actual saved-row results remain unmeasured.
+
+The producer binds the completed parent protocol, RUN and actual exit0 by SHA, then reconstructs its fixed eight DD/SD row-pack bindings from parent metadata. Each actual load checks complete pack SHA/bytes and each selected tensor's header, shape, dtype, offsets and raw SHA, including exact original 256 row indices. Paired rows, V1, residual, gate and head conditioning must match. Grid decoding uses 31668 = 21×29×52 and records the actual per-slot counts.
+
+For centered states, variance change is checked against `2 mean(d_centered·delta) + mean(delta²)`; the writeback error retains both squared remainder and signed cross. The diagnostic computes `tau = sigma_D / sigma_S`, four train-source geometric means κ, and held-source and optimistic `(tau/κ − 1)²` proxies. These describe 256 nested saved rows from each of two historically exposed sources, not a full-M head error, independent validation cohort or video quality.
+
+The registered scope must match protocol SHA, resource and operation budgets, and a fresh confined output; all eight loads, four pairs, eight sigma calculations, four fits and eight evaluations are predebited and recorded after return. Failures after ledger creation preserve a failed RUN and do not retry. The 180-second wall is checked at load boundaries and after analysis, so the external launcher must enforce its actual timeout for a long individual operation. Four synthetic CPU controls passed; no real operand, model, Torch, CUDA or large-file hash was executed in this review.

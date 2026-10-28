@@ -1,7 +1,7 @@
 # FFNDS · 阅读优先级与当前研究导航（2026-10-28）
 
 
-**新增实际证据与下一步：**[轨迹漂移](20261028/COMPACT6016_TRAJECTORY_DRIFT_RESULTS_20261028.md) CPU exit0，两个暴露来源的自由轨迹绝对误差随step增长；[六视频quality v4](20261028/COMPACT6016_CONSUMER_QUALITY_RESULTS_20261028.md) actual exit0，两个来源energy/random连续RAFT候选/Dense为0.135/0.141和0.145/0.233，画质与运动显著下降，单seed且人审未验；v1/v2/v3失败各自保留。[原始BF16两视频](20261028/ORIGINAL_BF16_TWO_VIDEO_RESULTS_20261028.md) actual exit0，2来源各81帧、8flow、320 FFN、零QDQ；质量与公平系统速度尚未验收。下一项原始BF16低噪block39末两步、两来源12flow同输入/交叉状态判别正在实现草案，尚未注册或运行：保留完整raw W1/GELU，raw W2采用唯一headspan128+weightPCA384基底。当前GPU分配0，本会话A100最多2卡。
+**最新原始BF16实测：**[12flow交叉状态判别](20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。下一项为source0系数向source12的8flow原生范数校正，producer准备中、尚未登记或运行。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
 
 
 **最新实测与当前运行**：[B-F固定基底结果](20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)实际exit0：两expert×两基底，held8 head SSE high 0.000587/0.000590、low 0.000638/0.000633，均低于同域A0 energy 0.000609/0.000661；这是M256局部证据，视频与系统速度未测。[BF16/NVFP4 R0只读就绪](20261028/BF16_NVFP4_R0_READINESS_20261028.md)：两原始BF16 checkpoint header已核；历史SM120是RTX PRO 6000，用户明确本会话没有5090，使用A100继续BF16；NVFP4执行暂缓，匹配NVFP4 checkpoint未知。原始BF16两视频已实际exit0。六视频quality v4实际exit0，保留v1/v2/v3失败历史；人审仍待完成，当前GPU占用0。当前会话最多2 GPU，通用动态默认无全局预设上限。
@@ -42,7 +42,7 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为220节点/457原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为223节点/463原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 
