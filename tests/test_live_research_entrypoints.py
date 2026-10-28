@@ -103,6 +103,44 @@ class LiveEntrypointConsistencyTests(unittest.TestCase):
                   ".agents/skills/ffnds-paper-discovery/SKILL.md"):
             self.assertIn("DYNAMIC_GPU_RESOURCE_POLICY_20261028.md", text(p))
 
+    def test_bf16_primary_nvfp4_is_deferred_without_local_5090(self):
+        ledger = record("research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json")
+        scope = ledger["authority_and_scope"]
+        self.assertEqual(scope["user_local_deployment_hardware"]["hardware"],
+                         "NO_LOCAL_RTX_5090_USER_CONFIRMED")
+        self.assertEqual(scope["user_local_deployment_hardware"]["native_NVFP4_W4A4_status"],
+                         "DEFERRED_BY_USER_NOT_URGENT")
+        sm120_tasks = [task for task in ledger["tasks"] if "SM120" in task["id"]]
+        self.assertEqual(len(sm120_tasks), 5)
+        for task in sm120_tasks:
+            self.assertEqual(task["status"], "DEFERRED")
+            self.assertGreaterEqual(task["priority"], 4)
+            self.assertEqual(task["execution"], "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP")
+
+        policy = text("research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md")
+        for label in ("BF16_ORIGINAL", "NVFP4_NATIVE_W4A4",
+                      "HIF4_FAKE_QDQ_DIAGNOSTIC", "DEFERRED",
+                      "RTX PRO 6000 Blackwell"):
+            self.assertIn(label, policy)
+        self.assertNotIn("单张已有", policy)
+
+        for path in ("README.md", "AGENTS.md",
+                     ".agents/skills/ffnds-paper-discovery/SKILL.md",
+                     "research/RESEARCH_NAVIGATION.md",
+                     "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+                     "research/agent_protocol/README.md",
+                     ".github/copilot-instructions.md"):
+            doc = text(path)
+            with self.subTest(entry=path):
+                self.assertIn("没有本地", doc)
+                self.assertNotIn("用户已有5090", doc)
+                self.assertIn("BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md", doc)
+
+        readiness = record("research/20261028/BF16_NVFP4_R0_READINESS_20261028.json")
+        self.assertIn("RTX PRO 6000", readiness["hardware"]["previous_20261026_primitive"])
+        self.assertEqual(readiness["matching_NVFP4_checkpoint"]["status"], "UNKNOWN")
+
+
 
 if __name__ == "__main__":
     unittest.main()
