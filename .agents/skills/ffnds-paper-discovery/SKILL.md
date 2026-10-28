@@ -13,6 +13,8 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 原生基础：LightX2V Wan2.2 I2V A14B四步high/high/low/low，两套expert、每套40 blocks；`norm2/AdaLN→Q1→W1→GELU(tanh)→HiF4 Q2(64→8→4)→W2→e5 gated BF16 residual→downstream flow`。当前原生实现为fake-QDQ＋BF16 GEMM，新的packed NVFP4/MXFP4属于需要另验证的算子路径。
 
+**资源调度（2026-10-28最新指令）**：按[现行动态GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际可申请并运行的最多GPU；没有预设全局张数限制。旧2/4卡是冻结实验历史字段，新scope仍按ACTIVE冻结模型/来源/预算；不要凭旧上限拒绝并行的独立已注册工作。
+
 **目前指定先研究M-B（不等于O-B全部）**：[已完成M-B ALG/SRC v2](../../../research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)包含配对敏感度及末层连续65统计；下一[Agent从B0真实u/head/flow producer及neutral开始](../../../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)，随后B1原生有限响应、B-H/B-F候选函数比较；A0已完成四位置局部恢复、M-C保持独立OPEN。这是针对本轮方法接手者的顺序，不限制其它Agent的I/F/C新科学假说。
 
 ## 实验采样与校准的可解释证据
