@@ -1,0 +1,139 @@
+{
+  "design": {
+    "experts": [
+      "high",
+      "low"
+    ],
+    "block": 0,
+    "native_source_ordinal": 894,
+    "raw_teacher_steps": [
+      0,
+      2
+    ],
+    "rows": 256,
+    "M_cost": [
+      256,
+      31668
+    ],
+    "fullM_input": "ROW_i_IS_TRUE_V1_ROW_i_MOD_256_REPEATED_OPERATOR_COST_NOT_FULL_STATE",
+    "checkpoint": "PUBLIC_NVFP4_QAT_DISTILLED_IDENTITY_NOT_BF16_ORIGINAL_OR_HIF4",
+    "pipeline": "DYNAMIC_Q1_PACKED_W1_BIAS_BF16_TANH_GELU_DYNAMIC_Q2_PACKED_W2_BIAS_BF16",
+    "Q2_producer": "THIS_CALL_NATIVE_W1_AND_GELU_ONLY_NO_TEACHER_OR_DENSE_H",
+    "W": "STATIC_CHECKPOINT_PACKED_U8_E2M1_AND_SWIZZLED_E4M3_SCALE",
+    "A": "EACH_REAL_CALL_DYNAMIC_GROUP16_PACKED_E2M1_AND_SWIZZLED_E4M3_SCALE",
+    "global_scales": "CHECKPOINT_F32_INPUT_GLOBAL_SCALE_AND_ALPHA_NO_REFIT",
+    "reference": "M256_ACTUAL_PACKED_A_SA_W_SW_FP32_GEMM_ALPHA_BIAS",
+    "Dense": "SAME_CHECKPOINT_DECODED_BF16_W_EQUALS_CODE_TIMES_SF_TIMES_ALPHA_TIMES_INPUT_GLOBAL_SCALE",
+    "timing": {
+      "warmup": 2,
+      "repeats": 5,
+      "modes": [
+        "Q1",
+        "Q2",
+        "packed_W1",
+        "packed_W2",
+        "NVFP4_FFN",
+        "decoded_BF16_FFN"
+      ],
+      "ledger_IO": "BEFORE_AND_AFTER_CUDA_EVENT_WINDOW"
+    },
+    "kernel_reference_BF16_relative_SSE_max": 0.0001,
+    "quality_acceptance": "PREPARATORY_OPERATOR_PROBE_NOT_FULL160_MULTISOURCE_VIDEO_OR_SYS_ACCEPTANCE",
+    "automatic_retry": false
+  },
+  "automatic_retry": false,
+  "assets_finalized": false,
+  "private_worker_config_sha256": "fa8a9da592292ec1560135e40ae1a6e0222a23c08af023e8e87f310580c7070d",
+  "repo_sources": [
+    {
+      "path": "tests/test_e0_nvfp4_real_ffn_probe.py",
+      "bytes": 3980,
+      "sha256": "410a423a720781c644049e6f0a800d7b30663ce9227395fb93e3bf1b62edcd04"
+    },
+    {
+      "path": "tests/test_nvfp4_real_ffn_probe.py",
+      "bytes": 3602,
+      "sha256": "a0ce83b785a9a7a766297b6f5b3f6696742c2493c5681b1f12e3bffc00b077e4"
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "bytes": 2529,
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0"
+    },
+    {
+      "path": "tools/e0_nvfp4_real_ffn_probe.py",
+      "bytes": 29193,
+      "sha256": "6faebc17ed96ab7ebb6ea8310fbcd5fbbbd43265c997f335160b58f1295b977b"
+    },
+    {
+      "path": "tools/nvfp4_checkpoint_byte_producer.py",
+      "bytes": 8406,
+      "sha256": "2c5a57224afed33b7b38e64403fde7f4f458b7c3006826c4b33168dcc625f98d"
+    },
+    {
+      "path": "tools/nvfp4_real_ffn_assets.py",
+      "bytes": 13662,
+      "sha256": "645269de8780272a50f3b131dd66372aab10b884591b0142858402066d883948"
+    },
+    {
+      "path": "tools/nvfp4_real_ffn_probe.py",
+      "bytes": 5300,
+      "sha256": "d2cb735494adfe3ca21f265454e3c513355eff45b54657075bc1c056b266611c"
+    },
+    {
+      "path": "tools/raw_bf16_assigned_gpu_monitor_v4.py",
+      "bytes": 3404,
+      "sha256": "ebadc013381590d0266ccc097de048fd3865706fc82890f991cea40ef352a97d"
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "bytes": 3559,
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    }
+  ],
+  "id": "E0_NVFP4_REAL_WAN_FFN_PACKED_PROBE_20261029",
+  "status": "DRAFT_ACTUAL_CPU_ASSETS_EXIT0_NOT_BOUND",
+  "resources": {
+    "GPU": 1,
+    "CPU_threads": 4,
+    "GPU_reserved_max_bytes": 25769803776,
+    "wall_seconds": 600,
+    "outer_seconds": 900,
+    "new_HF_bytes": 536870912,
+    "single_file_RLIMIT_FSIZE_bytes": 134217728,
+    "session_max_GPUs": 2,
+    "automatic_retry": false
+  },
+  "limits": {
+    "dynamic_NVFP4_quant": 120,
+    "packed_NVFP4_GEMM": 120,
+    "decoded_BF16_GEMM": 62,
+    "FP32_reference_GEMM": 8,
+    "tanh_GELU": 62,
+    "CUDA_timed_samples": 120,
+    "repeat_real_rows_to_fullM": 2,
+    "static_weight_decodes": 4,
+    "M256_activation_decodes": 4,
+    "numerical_linear_cases": 4,
+    "numerical_FFN_cases": 2,
+    "new_weight_quantizations": 0,
+    "training_updates": 0,
+    "full_model_flows": 0,
+    "generated_videos": 0,
+    "checkpoint_tensor_ranges": 20,
+    "checkpoint_tensor_bytes": 159328288,
+    "checkpoint_H2D_tensors": 20,
+    "checkpoint_H2D_bytes": 159328288,
+    "real_V1_H2D_tensors": 2,
+    "real_V1_H2D_bytes": 5242880,
+    "fullM_native_output_finiteness_checks": 2,
+    "saved_M256_capsules": 2
+  },
+  "CPU_assets": null,
+  "output_HF_relative": "ffnds-derived/e0_nvfp4_real_ffn_packed_probe_20261029/attempt1/worker/results"
+}

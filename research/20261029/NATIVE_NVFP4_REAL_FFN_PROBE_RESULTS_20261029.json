@@ -1,0 +1,680 @@
+{
+  "status": "ACTUAL_CPU_AND_GPU_EXIT0_PREPARATORY_OPERATOR_ONLY",
+  "protocol_sha256": "68152d0f396e11d7332e70a8856e860448e7d6b7562597df415fe37d6673fd71",
+  "RUN_sha256": "7c90d29928faeecadc7238305898c3a79be59a574bf634e590c0c858fdb2a3b8",
+  "EXIT_sha256": "780aee0948875c158c70e24b10070f644506774c76a134b4b709e8e7a1b2ca84",
+  "outer_seconds": 90.85933644208126,
+  "CPU_assets": {
+    "protocol": {
+      "path": "config/e0_nvfp4_real_ffn_inputs_cpu_20261029_v1.json",
+      "bytes": 6972,
+      "sha256": "1ca54313c53348df87f66aab751aae7363bd3acb01f7794c8273e3efd2ecf3f4"
+    },
+    "RUN": {
+      "path": "ffnds-derived/e0_nvfp4_real_ffn_inputs_cpu_20261029/attempt1/worker/results/RUN.json",
+      "bytes": 189983,
+      "sha256": "c5a272f345064134645197dfa0657ab9e6d6e780b04632191ff5c13c3e3eac64"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_nvfp4_real_ffn_inputs_cpu_20261029/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 527,
+      "sha256": "76e4191a75932d0aef5e2859453fd365ec6bbb739bb3c97cf86159df719c70d4"
+    }
+  },
+  "CPU_RUN_status": "COMPLETE_FRESH_NVFP4_CHECKPOINT_SHA_STAT_ISOLATED_PACKAGE_TRUE_V1",
+  "matmul_policy": {
+    "allow_tf32": false,
+    "allow_bf16_reduced_precision_reduction": false,
+    "reference": "FP32_ADDMM_SAME_PACKED_OPERANDS_NO_AUTOCAST"
+  },
+  "operations": {
+    "predebited": {
+      "checkpoint_tensor_ranges": 20,
+      "checkpoint_tensor_bytes": 159328288,
+      "checkpoint_H2D_tensors": 20,
+      "checkpoint_H2D_bytes": 159328288,
+      "static_weight_decodes": 4,
+      "real_V1_H2D_tensors": 2,
+      "real_V1_H2D_bytes": 5242880,
+      "dynamic_NVFP4_quant": 120,
+      "packed_NVFP4_GEMM": 120,
+      "tanh_GELU": 62,
+      "decoded_BF16_GEMM": 62,
+      "M256_activation_decodes": 4,
+      "FP32_reference_GEMM": 8,
+      "numerical_linear_cases": 4,
+      "numerical_FFN_cases": 2,
+      "saved_M256_capsules": 2,
+      "CUDA_timed_samples": 120,
+      "repeat_real_rows_to_fullM": 2,
+      "fullM_native_output_finiteness_checks": 2
+    },
+    "invoked": {
+      "checkpoint_tensor_bytes": 159328288,
+      "checkpoint_tensor_ranges": 20,
+      "checkpoint_H2D_bytes": 159328288,
+      "checkpoint_H2D_tensors": 20,
+      "static_weight_decodes": 4,
+      "real_V1_H2D_bytes": 5242880,
+      "real_V1_H2D_tensors": 2,
+      "dynamic_NVFP4_quant": 120,
+      "packed_NVFP4_GEMM": 120,
+      "tanh_GELU": 62,
+      "decoded_BF16_GEMM": 62,
+      "M256_activation_decodes": 4,
+      "FP32_reference_GEMM": 8,
+      "numerical_linear_cases": 4,
+      "numerical_FFN_cases": 2,
+      "saved_M256_capsules": 2,
+      "CUDA_timed_samples": 120,
+      "repeat_real_rows_to_fullM": 2,
+      "fullM_native_output_finiteness_checks": 2
+    },
+    "returned": {
+      "checkpoint_tensor_ranges": 20,
+      "checkpoint_tensor_bytes": 159328288,
+      "checkpoint_H2D_tensors": 20,
+      "checkpoint_H2D_bytes": 159328288,
+      "static_weight_decodes": 4,
+      "real_V1_H2D_tensors": 2,
+      "real_V1_H2D_bytes": 5242880,
+      "dynamic_NVFP4_quant": 120,
+      "packed_NVFP4_GEMM": 120,
+      "tanh_GELU": 62,
+      "decoded_BF16_GEMM": 62,
+      "M256_activation_decodes": 4,
+      "FP32_reference_GEMM": 8,
+      "numerical_linear_cases": 4,
+      "numerical_FFN_cases": 2,
+      "saved_M256_capsules": 2,
+      "CUDA_timed_samples": 120,
+      "repeat_real_rows_to_fullM": 2,
+      "fullM_native_output_finiteness_checks": 2
+    }
+  },
+  "cells": [
+    {
+      "expert": "high",
+      "M": 256,
+      "input_identity": "TRUE_256_SAVED_V1_ROWS",
+      "timings": [
+        {
+          "mode": "Q1",
+          "CUDA_ms": [
+            0.05846399813890457,
+            0.06310400366783142,
+            0.04572800174355507,
+            0.05612799897789955,
+            0.04553600028157234
+          ],
+          "CUDA_ms_mean": 0.05379200056195259,
+          "CUDA_ms_std_population": 0.0070311801196528065,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.0014545880258083344,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "Q2",
+          "CUDA_ms": [
+            0.04726399853825569,
+            0.044096000492572784,
+            0.050464000552892685,
+            0.047520000487565994,
+            0.04287999868392944
+          ],
+          "CUDA_ms_mean": 0.04644479975104332,
+          "CUDA_ms_std_population": 0.002690939723110262,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.0011220818851143122,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "packed_W1",
+          "CUDA_ms": [
+            0.08556800335645676,
+            0.0926079973578453,
+            0.08675199747085571,
+            0.09100800007581711,
+            0.08646400272846222
+          ],
+          "CUDA_ms_mean": 0.08848000019788742,
+          "CUDA_ms_std_population": 0.002791455131693608,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.001175579847767949,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "packed_W2",
+          "CUDA_ms": [
+            0.09151999652385712,
+            0.08956799656152725,
+            0.09084799885749817,
+            0.08912000060081482,
+            0.08790399879217148
+          ],
+          "CUDA_ms_mean": 0.08979199826717377,
+          "CUDA_ms_std_population": 0.00127807784326304,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.001389367040246725,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "NVFP4_FFN",
+          "CUDA_ms": [
+            0.20822399854660034,
+            0.20867200195789337,
+            0.19974400103092194,
+            0.2016959935426712,
+            0.2025279998779297
+          ],
+          "CUDA_ms_mean": 0.2041727989912033,
+          "CUDA_ms_std_population": 0.003608579385271114,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.0018146820366382599,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "decoded_BF16_FFN",
+          "CUDA_ms": [
+            0.3900800049304962,
+            0.3871360123157501,
+            0.3838079869747162,
+            0.38227200508117676,
+            0.3880000114440918
+          ],
+          "CUDA_ms_mean": 0.3862592041492462,
+          "CUDA_ms_std_population": 0.002839152805107928,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.002751910127699375,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        }
+      ],
+      "numerical": {
+        "linears": [
+          {
+            "linear": 0,
+            "packed_kernel_vs_same_packed_FP32": {
+              "relative_SSE": 2.82365085507207e-06,
+              "max_abs_error": 0.015620708465576172,
+              "RMSE": 0.0014240374411939145,
+              "reference_RMS": 0.8474535640317047,
+              "bitwise_equal": false
+            },
+            "packed_kernel_vs_same_packed_reference_cast_BF16": {
+              "relative_SSE": 4.692659143244518e-14,
+              "max_abs_error": 0.000244140625,
+              "RMSE": 1.8357951058602e-07,
+              "reference_RMS": 0.847451207388309,
+              "bitwise_equal": false
+            },
+            "A_quantization_same_W_FP32": {
+              "relative_SSE": 0.0003301904997843531,
+              "max_abs_error": 0.14553093910217285,
+              "RMSE": 0.015444823106525946,
+              "reference_RMS": 0.8499642350406316,
+              "bitwise_equal": false
+            },
+            "BF16_decoded_weight_and_GEMM_vs_FP32": {
+              "relative_SSE": 3.0520801426586644e-06,
+              "max_abs_error": 0.01899576187133789,
+              "RMSE": 0.0014849048249591633,
+              "reference_RMS": 0.8499642350406316,
+              "bitwise_equal": false
+            }
+          },
+          {
+            "linear": 1,
+            "packed_kernel_vs_same_packed_FP32": {
+              "relative_SSE": 2.759367942161293e-06,
+              "max_abs_error": 0.053928375244140625,
+              "RMSE": 0.002304152340883529,
+              "reference_RMS": 1.3870955620027745,
+              "bitwise_equal": false
+            },
+            "packed_kernel_vs_same_packed_reference_cast_BF16": {
+              "relative_SSE": 1.1085240846832675e-10,
+              "max_abs_error": 0.015625,
+              "RMSE": 1.4604184066974734e-05,
+              "reference_RMS": 1.3870902892945187,
+              "bitwise_equal": false
+            },
+            "A_quantization_same_W_FP32": {
+              "relative_SSE": 0.00040292854856447866,
+              "max_abs_error": 0.2589383125305176,
+              "RMSE": 0.027868752769913394,
+              "reference_RMS": 1.3883645408411558,
+              "bitwise_equal": false
+            },
+            "BF16_decoded_weight_and_GEMM_vs_FP32": {
+              "relative_SSE": 2.8708171749819513e-06,
+              "max_abs_error": 0.061801910400390625,
+              "RMSE": 0.0023523735146954382,
+              "reference_RMS": 1.3883645408411558,
+              "bitwise_equal": false
+            }
+          }
+        ],
+        "FFN_native_vs_same_checkpoint_decoded_BF16": {
+          "relative_SSE": 0.0010466988949970695,
+          "max_abs_error": 0.43914794921875,
+          "RMSE": 0.045030270359146,
+          "reference_RMS": 1.3918539670695464,
+          "bitwise_equal": false
+        }
+      },
+      "capsule": {
+        "path": "ffnds-derived/e0_nvfp4_real_ffn_packed_probe_20261029/attempt1/worker/results/high_M256.safetensors",
+        "bytes": 73248096,
+        "sha256": "0029f83efbe53f30da65173c8f2c2186685ac0c3521f89da834cdb144c8711df"
+      }
+    },
+    {
+      "expert": "high",
+      "M": 31668,
+      "input_identity": "ROW_i_IS_TRUE_V1_ROW_i_MOD_256_REPEATED_OPERATOR_COST_NOT_FULL_STATE",
+      "timings": [
+        {
+          "mode": "Q1",
+          "CUDA_ms": [
+            0.35676801204681396,
+            0.3415359854698181,
+            0.3394240140914917,
+            0.33504000306129456,
+            0.33875200152397156
+          ],
+          "CUDA_ms_mean": 0.342304003238678,
+          "CUDA_ms_std_population": 0.007529596992420436,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.004175571957603097,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "Q2",
+          "CUDA_ms": [
+            0.8142399787902832,
+            0.8131840229034424,
+            0.8147519826889038,
+            0.8112319707870483,
+            0.8105599880218506
+          ],
+          "CUDA_ms_mean": 0.8127935886383056,
+          "CUDA_ms_std_population": 0.0016436187314424666,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.0062495379243046045,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "packed_W1",
+          "CUDA_ms": [
+            4.316544055938721,
+            4.3024001121521,
+            4.290431976318359,
+            4.291935920715332,
+            4.289792060852051
+          ],
+          "CUDA_ms_mean": 4.298220825195313,
+          "CUDA_ms_std_population": 0.010241264412640493,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.02314642700366676,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "packed_W2",
+          "CUDA_ms": [
+            4.1141438484191895,
+            4.095712184906006,
+            4.106847763061523,
+            4.1029438972473145,
+            4.09657621383667
+          ],
+          "CUDA_ms_mean": 4.103244781494141,
+          "CUDA_ms_std_population": 0.006827466196231594,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.021326123969629407,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "NVFP4_FFN",
+          "CUDA_ms": [
+            10.599871635437012,
+            10.585375785827637,
+            11.192319869995117,
+            11.256959915161133,
+            11.608672142028809
+          ],
+          "CUDA_ms_mean": 11.048639869689941,
+          "CUDA_ms_std_population": 0.3984178382967114,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.056127883959561586,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "decoded_BF16_FFN",
+          "CUDA_ms": [
+            33.22227096557617,
+            34.87977600097656,
+            35.67193603515625,
+            35.60483169555664,
+            35.353790283203125
+          ],
+          "CUDA_ms_mean": 34.94652099609375,
+          "CUDA_ms_std_population": 0.905865474588916,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.17568262410350144,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        }
+      ]
+    },
+    {
+      "expert": "low",
+      "M": 256,
+      "input_identity": "TRUE_256_SAVED_V1_ROWS",
+      "timings": [
+        {
+          "mode": "Q1",
+          "CUDA_ms": [
+            0.057792000472545624,
+            0.04601600021123886,
+            0.043807998299598694,
+            0.04508800059556961,
+            0.04435199871659279
+          ],
+          "CUDA_ms_mean": 0.047411199659109116,
+          "CUDA_ms_std_population": 0.005243026442052012,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.001134771853685379,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "Q2",
+          "CUDA_ms": [
+            0.044224001467227936,
+            0.0427200011909008,
+            0.04355200007557869,
+            0.04310400038957596,
+            0.04156799986958504
+          ],
+          "CUDA_ms_mean": 0.04303360059857368,
+          "CUDA_ms_std_population": 0.0008873644642118433,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.001001324038952589,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "packed_W1",
+          "CUDA_ms": [
+            0.08755200356245041,
+            0.08736000210046768,
+            0.08575999736785889,
+            0.09593600034713745,
+            0.08790399879217148
+          ],
+          "CUDA_ms_mean": 0.08890240043401718,
+          "CUDA_ms_std_population": 0.003592926242954628,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.0015763349365442991,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "packed_W2",
+          "CUDA_ms": [
+            0.09750399738550186,
+            0.0902400016784668,
+            0.08991999924182892,
+            0.08988799899816513,
+            0.08934400230646133
+          ],
+          "CUDA_ms_mean": 0.0913791999220848,
+          "CUDA_ms_std_population": 0.0030759028840826545,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.0011784830130636692,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "NVFP4_FFN",
+          "CUDA_ms": [
+            0.20345599949359894,
+            0.19817599654197693,
+            0.19551999866962433,
+            0.201664000749588,
+            0.1982399970293045
+          ],
+          "CUDA_ms_mean": 0.19941119849681854,
+          "CUDA_ms_std_population": 0.0028097831210094045,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.0018022570293396711,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "decoded_BF16_FFN",
+          "CUDA_ms": [
+            0.3846080005168915,
+            0.3811199963092804,
+            0.3845759928226471,
+            0.38284799456596375,
+            0.38361600041389465
+          ],
+          "CUDA_ms_mean": 0.38335359692573545,
+          "CUDA_ms_std_population": 0.0012947000539835318,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.0030388140585273504,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        }
+      ],
+      "numerical": {
+        "linears": [
+          {
+            "linear": 0,
+            "packed_kernel_vs_same_packed_FP32": {
+              "relative_SSE": 2.730810012776595e-06,
+              "max_abs_error": 0.015619754791259766,
+              "RMSE": 0.001547066703185071,
+              "reference_RMS": 0.9361884866475966,
+              "bitwise_equal": false
+            },
+            "packed_kernel_vs_same_packed_reference_cast_BF16": {
+              "relative_SSE": 4.427558025527367e-11,
+              "max_abs_error": 0.0078125,
+              "RMSE": 6.229374559628195e-06,
+              "reference_RMS": 0.9361863704473133,
+              "bitwise_equal": false
+            },
+            "A_quantization_same_W_FP32": {
+              "relative_SSE": 0.00024529389692235426,
+              "max_abs_error": 0.156744122505188,
+              "RMSE": 0.014702168245914766,
+              "reference_RMS": 0.9387242063993875,
+              "bitwise_equal": false
+            },
+            "BF16_decoded_weight_and_GEMM_vs_FP32": {
+              "relative_SSE": 2.9257353207858242e-06,
+              "max_abs_error": 0.01783895492553711,
+              "RMSE": 0.0016056671942985777,
+              "reference_RMS": 0.9387242063993875,
+              "bitwise_equal": false
+            }
+          },
+          {
+            "linear": 1,
+            "packed_kernel_vs_same_packed_FP32": {
+              "relative_SSE": 2.745204041035525e-06,
+              "max_abs_error": 0.031241416931152344,
+              "RMSE": 0.0017158169153271494,
+              "reference_RMS": 1.0355799424186025,
+              "bitwise_equal": false
+            },
+            "packed_kernel_vs_same_packed_reference_cast_BF16": {
+              "relative_SSE": 2.5854318034678526e-10,
+              "max_abs_error": 0.015625,
+              "RMSE": 1.6651331346300658e-05,
+              "reference_RMS": 1.0355770555977062,
+              "bitwise_equal": false
+            },
+            "A_quantization_same_W_FP32": {
+              "relative_SSE": 0.0005884925819187853,
+              "max_abs_error": 0.1988520622253418,
+              "RMSE": 0.02511802786288434,
+              "reference_RMS": 1.0354164046054863,
+              "bitwise_equal": false
+            },
+            "BF16_decoded_weight_and_GEMM_vs_FP32": {
+              "relative_SSE": 3.2345710414920078e-06,
+              "max_abs_error": 0.03517913818359375,
+              "RMSE": 0.0018621874201191413,
+              "reference_RMS": 1.0354164046054863,
+              "bitwise_equal": false
+            }
+          }
+        ],
+        "FFN_native_vs_same_checkpoint_decoded_BF16": {
+          "relative_SSE": 0.0011452329134033724,
+          "max_abs_error": 0.328125,
+          "RMSE": 0.03512237704091356,
+          "reference_RMS": 1.0378557369210104,
+          "bitwise_equal": false
+        }
+      },
+      "capsule": {
+        "path": "ffnds-derived/e0_nvfp4_real_ffn_packed_probe_20261029/attempt1/worker/results/low_M256.safetensors",
+        "bytes": 73248096,
+        "sha256": "b270b69ec0dd9fc7d4eae0c9f21d0c0d6d17da54eb3e44da2f61c34067763927"
+      }
+    },
+    {
+      "expert": "low",
+      "M": 31668,
+      "input_identity": "ROW_i_IS_TRUE_V1_ROW_i_MOD_256_REPEATED_OPERATOR_COST_NOT_FULL_STATE",
+      "timings": [
+        {
+          "mode": "Q1",
+          "CUDA_ms": [
+            0.29769599437713623,
+            0.2921600043773651,
+            0.29078400135040283,
+            0.28963199257850647,
+            0.2921920120716095
+          ],
+          "CUDA_ms_mean": 0.29249280095100405,
+          "CUDA_ms_std_population": 0.0027705115036146494,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.00235535204410553,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "Q2",
+          "CUDA_ms": [
+            0.7672960162162781,
+            0.7678080201148987,
+            0.7684159874916077,
+            0.7673280239105225,
+            0.7658560276031494
+          ],
+          "CUDA_ms_mean": 0.7673408150672912,
+          "CUDA_ms_std_population": 0.000846290808521117,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.004652590025216341,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "packed_W1",
+          "CUDA_ms": [
+            4.268896102905273,
+            4.260767936706543,
+            4.267039775848389,
+            4.261568069458008,
+            4.258080005645752
+          ],
+          "CUDA_ms_mean": 4.263270378112793,
+          "CUDA_ms_std_population": 0.004048633666419618,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.022564828861504793,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "packed_W2",
+          "CUDA_ms": [
+            4.097248077392578,
+            4.0900797843933105,
+            4.088287830352783,
+            4.089888095855713,
+            4.094207763671875
+          ],
+          "CUDA_ms_mean": 4.091942310333252,
+          "CUDA_ms_std_population": 0.003296284782649751,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.021258241962641478,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "NVFP4_FFN",
+          "CUDA_ms": [
+            10.622048377990723,
+            10.947615623474121,
+            11.121055603027344,
+            11.444512367248535,
+            11.644415855407715
+          ],
+          "CUDA_ms_mean": 11.155929565429688,
+          "CUDA_ms_std_population": 0.3609816901090857,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.05675836210139096,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        },
+        {
+          "mode": "decoded_BF16_FFN",
+          "CUDA_ms": [
+            34.63478469848633,
+            35.1451530456543,
+            35.23593521118164,
+            35.36819076538086,
+            35.567039489746094
+          ],
+          "CUDA_ms_mean": 35.19022064208984,
+          "CUDA_ms_std_population": 0.3118640108302519,
+          "host_timed_batch_seconds_including_synchronization_and_ledger": 0.17753798002377152,
+          "warmup_calls": 2,
+          "timed_calls": 5
+        }
+      ]
+    }
+  ],
+  "capsule_SHA_verification": "BOTH_EXACT_BYTES_AND_SHA_ACTUAL_READ",
+  "source_identity": {
+    "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_subject:22",
+    "native_source_ordinal": 894,
+    "consumer20_index": 0,
+    "image_sha256": "d81a54bec2ef6862ac0642b4c84bfba7cd9a9ea698a76abc110e204e2674cd06",
+    "prompt_sha256": "a46e83215d488895539f6d589afd2291c9d31c10ade24efa20fdc66aa3411ffe",
+    "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+    "cases": [
+      {
+        "expert": "high",
+        "step": 0,
+        "block": 0,
+        "payload": {
+          "root": "hf",
+          "path": "ffnds-derived/e0_original_bf16_full_depth_collect_v3_20261029/part0/attempt1/worker/results/raw_full_depth_ord894_seed42_dense/step0_block00.safetensors",
+          "bytes": 17597080,
+          "sha256": "d8b786ffd2d6e6dd47c419265cc8e16c95f591bf75a0662dfcc05f910a8d14c6"
+        },
+        "V1_raw_sha256": "9ac248348ab35d6519e5fda9314f645044ee0bf9e1aba40010ca8eba1759322c",
+        "rows_raw_sha256": "5209cc4f745fef743636650c3bc1f5087d3b6361d22e83d338bebea0fc089cd9"
+      },
+      {
+        "expert": "low",
+        "step": 2,
+        "block": 0,
+        "payload": {
+          "root": "hf",
+          "path": "ffnds-derived/e0_original_bf16_full_depth_collect_v3_20261029/part0/attempt1/worker/results/raw_full_depth_ord894_seed42_dense/step2_block00.safetensors",
+          "bytes": 17597080,
+          "sha256": "8d24986b60cdb97879e4368d90aedd23d6da518dae3136013025f2a39b6bcac4"
+        },
+        "V1_raw_sha256": "5e43799063eb34f9173c0d3f8e8ff70d5801922965a2d664b8cf279e09ddedee",
+        "rows_raw_sha256": "2e35e8cbc44a60c2072911f177e9be04c12244ddc4f8015da43a45c6e843dc1b"
+      }
+    ],
+    "identity": "RAW_BF16_TEACHER_V1_OPERATOR_INPUT_ONLY_NOT_NVFP4_NATIVE_STATE"
+  },
+  "limits": "M31668 repeats true source-894 256 teacher rows; shape cost only; no quality/full video/full state; decoded BF16 same public NVFP4 checkpoint, strict BF16 accumulation setting, not original BF16 checkpoint."
+}

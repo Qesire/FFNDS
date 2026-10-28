@@ -1,0 +1,15 @@
+# Independent review: real-operand NVFP4 FFN probe
+
+**SUPPORT — fixed source design and synthetic controls.** SHA-256 bindings:
+
+- Driver `tools/e0_nvfp4_real_ffn_probe.py`: `6faebc17ed96ab7ebb6ea8310fbcd5fbbbd43265c997f335160b58f1295b977b`.
+- CPU assets helper `tools/nvfp4_real_ffn_assets.py`: `645269de8780272a50f3b131dd66372aab10b884591b0142858402066d883948`.
+- Numerical core `tools/nvfp4_real_ffn_probe.py`: `d2cb735494adfe3ca21f265454e3c513355eff45b54657075bc1c056b266611c`.
+- Infrastructure tests: `410a423a720781c644049e6f0a800d7b30663ce9227395fb93e3bf1b62edcd04`; core tests: `a0ce83b785a9a7a766297b6f5b3f6696742c2493c5681b1f12e3bffc00b077e4`.
+- CPU draft: `fa3960a0aecba4eb4aea7ff65690a7c5f7ab183a2ace630514e250946a01d58d`; GPU draft: `c95abe7e72cc4d48decd3df1998190771b5fcfeb83f3d002865a6042a4d56054`. Each draft's ten source hashes match the current files. The GPU draft correctly leaves its independent CPU receipt unbound until that scope actually exits successfully.
+
+The CPU producer requires closed actual-exit proofs for the checkpoint download, overlay export, build and source corpus, checks the current private worker and runtime identity, predebits and accounts 16,759,667,184 bytes of fresh checkpoint SHA reads, binds the six regular package files to build SHA identities, and validates the two original source-894 V1 packets and row coordinates. The extracted package and input bundle are confined and bound by SHA; input writes reserve space and observe a partial file on failure. The GPU entrance requires the completed CPU proof, matching current checkpoint stats, software file stats and hashes, same worker/runtime, and actual isolated module/ELF origins before the fixed SM120 path.
+
+The measured operation sequence uses dynamic Q1, packed W1, tanh GELU, then Q2 from that call's actual W1/GELU output and packed W2. The decoded same-checkpoint comparison uses the documented alpha and input-global-scale relationship; packed linear results are checked against a same-packed FP32 reference. The 256 real saved rows are repeated deterministically for the M31668 cost shape and do not represent a full native state. Ledger calls predebit compound budgets and preserve invoked versus returned counts on failure. The fixed four-cell schedule closes at 120 quant calls, 120 packed GEMMs, 62 decoded BF16 GEMMs, 62 GELUs and 120 timed samples. This is a preparatory local operator probe, not full-depth multisource video quality or end-to-end system evidence.
+
+Actual synthetic tests: `python3 -m unittest discover -s tests -p test_e0_nvfp4_real_ffn_probe.py` passed 5 tests, exit 0; `CUDA_VISIBLE_DEVICES='' .venv/bin/python -m unittest discover -s tests -p test_nvfp4_real_ffn_probe.py` passed 4 tests, exit 0. These cover predebit/failure behavior, counts, strict archive members, typed exit identity, nonnumeric import, swizzled scales, nibble decode, and Q2 provenance. No real checkpoint payload, model or GPU was executed in this review. Runtime compatibility and measured accuracy remain to be established by the registered actual run.
