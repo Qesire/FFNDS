@@ -2,10 +2,7 @@
 
 **2026-10-28 · CURRENT / CAL24_B1_COMPLETE / B-H_PILOT_COMPLETE。** 用户指定M-B优先；[当日任务台账](CURRENT_TASK_LEDGER_20261028.json)和[ACTIVE](../ACTIVE_RESEARCH.json)分别导航依赖与真实运行权限。[CAL24实际结果](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)完成24来源×4步96flow、byte audit、固定字典paired判别和B0四case的16次full-M选中行neutral。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256不是native floor，一般paired机制仍OPEN。
 
-**当前续作（2026-10-29）**：[新结果评议与最小判别](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)已将B-H、同head A0、B-F、A0全80/六视频及原始BF16 fixed-gain结果纳入权威方案v3。B-H H128准确率落后A0；B-F末层head误差略低且逻辑MAC较小，完整部署未证实；当前6016视频有明显质量与运动损失。原始BF16 headspan投影以径向项为主且固定gain跨一个暴露来源有效，实际B-F学生以分子项为主。下一位先核跨深度校准/consumer，设计bare、固定gain、付费动态norm及分子修正的匹配对照，不重跑B0或把BH/A0比较列为待办。RTX PRO6000原生NVFP4按独立R0→R4与A100并行；各会话/作业资源按ACTIVE精确范围解释。
-
-
-**2026-10-29 · 紧急方法排序更正：**[多来源×全深度×视频优先合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)覆盖本文件中以末层head/分子/分母为下一首要方法验收的旧顺序。**第一项交付现在是复用UB1 20source、Affine54 320site、A0六视频做多source视频质量/成本矩阵；第二项是可覆盖40×4真实native路径的M-B构造；第三项是真正多source配对完整视频及SYS实测。** 已完成的末层B-H/B-F/fixed-gain保留为局部机制与低价函数构造先验，不为其单source局部增益追加方法成功票。无新GPU作业授权，依ACTIVE。\n\n## 0. 已完成的工作：作为下一任务的输入，不重复创造
+**当前续作（2026-10-29 v4）**：优先将[多来源×全深度×视频优先合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)落实为每个新方法的全160-site可执行表示和≥20独立image-cluster的配对完整生成。已有B-H、同head A0、B-F、原始BF16 fixed-gain用于机制和候选构造，低39单来源增益不作为方法晋级。先复算20-source UB1、Affine54 320-site、compact6016视频的分维异常与来源尾部，再从视频失败定位具体step/block/consumer，模型/源/seed和真实SYS作为新的方法判据。NVFP4 Pro6000独立并行且按ACTIVE精确scope执行。\n\n## 0. 已完成的工作：作为下一任务的输入，不重复创造
 
 1. [现行统一研究方案 v3](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)是M-A/M-B/M-C的**唯一现行研究路线图**，其中G14先验已转化为数学/数值/执行约束；原独立审计[在此](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)保留作为推导来源。
 2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。同状态BF16 head有限响应与固定候选配对比较已实测；[B-H H128 pilot](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)及同head A0对照已完成；B-F末层pilot已完成；一般配对机制及B-F视频/系统效能仍OPEN。
