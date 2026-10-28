@@ -13,7 +13,7 @@ description: Discover better mathematical representations, mechanism taxonomies,
 3. **FIND FREEDOM:** expose an implicit basis, dependency, state, decision time, action granularity or target that can be changed. Derive one minimal mathematical or algorithmic construction.
 4. **PREDICT:** identify a different observable from the closest prior mechanism and a counterexample or condition in which the construction would fail.
 5. **GROUND:** connect the decisive subgraph, source and shape semantics; check normalization, conditioning, chronology, randomness and true information costs before promoting an exactness or deployment claim.
-6. **DISCRIMINATE:** use algebra/CPU/source/existing artifacts before registered native experiments; compare relevant nearest work and real end-to-end metrics.
+6. **DISCRIMINATE / REOBSERVE:** use algebra, CPU, SRC and existing artifacts where they answer the reformulated question; if the new representation needs a different variable, latent-time pairing, source type, quantization producer or causal rollout, actively collect that data through a bounded registered experiment. Let a new scientific representation redefine what is observed rather than limiting it to old samples. Compare nearest prior mechanisms and true end-to-end evidence.
 7. **CARRY:** save a compact exploratory seed or optional representation-ledger entry. Existing research_state v2.1, closed branches and experiment criteria stay unchanged.
 
 The output shape is: **new viewpoint -> unlocked freedom -> new mechanism -> predicted difference -> cheapest next check**. A mathematical identity, a mechanism analogy and a task transfer have different relation types, without differing in their right to inspire research.

@@ -1,6 +1,9 @@
 # FFNDS · 独立方法提案与同行讨论队列
 
-> **职责是记录由Agent实际提交、评议的具体方法**，不是研究阅读导航、B0实现任务表或GPU作业队列。现行方法/研究顺序见[三路线整合方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)和[P0–P4研究导航](../RESEARCH_NAVIGATION.md)；真实运行权限见[ACTIVE](../ACTIVE_RESEARCH.json)。讨论协议：[本目录README](README.md)及[本目录AGENTS](AGENTS.md)。
+> **2026-10-29方法研究状态**：S1共享函数、S4行动收益动态秩、S2视频时空函数单元、S3量化提前合法动作以及既有BF16低秩视频基线，是[统一交接](../agent_protocol/ASSET_FIRST_AGENT_HANDOFF_20261029.md)中的科研任务；它们**不是独立Agent已提案且已通过同行评议的正式队列项目**。本队列只保存真实提出者的提案及其他Agent独立评议，继续执行原有实名/证据程序。
+
+
+> **职责是记录由Agent实际提交、评议的具体方法**，不是研究阅读导航、B0实现任务表或GPU作业队列。现行方法/研究顺序见[现行资产先行研究队列](../agent_protocol/ASSET_FIRST_AGENT_HANDOFF_20261029.md)和[研究导航](../RESEARCH_NAVIGATION.md)；真实运行权限见[ACTIVE](../ACTIVE_RESEARCH.json)。讨论协议：[本目录README](README.md)及[本目录AGENTS](AGENTS.md)。
 
 ## 1. 当前方法讨论的实际状态（2026-10-28）
 

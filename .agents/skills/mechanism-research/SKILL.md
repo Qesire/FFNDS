@@ -10,7 +10,7 @@ description: Examine actual computations, derive structural mathematics and buil
 
 3. **DERIVE:** translate focal computation to mathematics and find identities, geometric interactions, noncommutativity, bounds or constructive counterexamples; use conditional theorems to release effort for new open questions.
 4. **EXPAND:** explore a distinctive representation or action based on the derived structure. Use research-expansion for new scientific directions; use problem-reformulation when a new mathematical basis, mechanism taxonomy or cross-task solver changes the question. Preserve exact/conditional/heuristic relation types.
-5. **DISCRIMINATE:** select key hypotheses and use the smallest proof, source check, reuse of artifacts, or controlled empirical intervention that changes the mechanism decision.
+5. **DISCRIMINATE & ACQUIRE:** select key hypotheses and use algebra, source inspection, saved tensors or an actual targeted experiment to distinguish their predictions. If decisive variables, independent sources, genuine temporal coordinates, model states or execution-time signals were never captured, expand the source cohort and implement the missing native observation before selecting an operator. Reuse saved data when it answers the question; acquisition is an equally valid primary research action, not a last resort.
 6. **BUILD & COMPARE:** where appropriate, define a feasible intervention and matched classic/prior-art baseline. Preserve actual numerical and GPU execution costs.
 7. **RECORD:** store source/proof/measurement status, exact closed candidate scopes and open exploration seeds separately.
 

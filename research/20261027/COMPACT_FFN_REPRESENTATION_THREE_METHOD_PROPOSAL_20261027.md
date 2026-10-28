@@ -1,13 +1,8 @@
-# FFNDS · 三条新函数路线的现行整合研究方案（M-A / M-B / M-C）
+# FFNDS · M-A / M-B / M-C：原三函数方法专题（现行数学与历史证据）
 
-**2026-10-29 · 当前科学探索入口已从旧M-B末层顺序调整为资产先行并行机制发现。** [S1跨步共享函数、S4行动收益秩路由、S2时空计算单元、S3量化前置合法动作的完整推导](../20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)、[源级/算子成本再计算](../20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)。本文件保存M-A/B/C三族的原有有效推导及历史评议，**不再作为“默认先M-B单末层方法”的唯一队列**。新的第一条完整视频模型验证以已经导出的原始BF16 shared80-r960与同checkpoint Dense、step160-r960进行四步40层多source同条件比较；各种新的S路先在existing资产上找可辨识结构/净价值再进video。每条假设仍需原生全深度视频与系统收益、来源独立验证后才能排序。
-
-
-**2026-10-29 v4 · 视频行为与真实成本作为方法选择主目标。** [完整评议与推导](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)及[125项标量/有限代数检查](../20261029/RESEARCH_ROUTE_REVIEW_SCALAR_AUDIT_20261029.json)：B0/CAL24/B1固定池、B-H、同head A0、B-F末层、A0全80与六视频均已有结果。当前A0视频明显退化；B-H H128准确率落后A0；B-F有局部小幅改善与逻辑MAC下降，SYS未证实。原始BF16末层固定范数转移是定点正证据，B-F学生则仍分子误差主导。原B线继续用于分子/分母竞争机制的限定诊断；新S1/S4/S2/S3方法优先级由资产判别与完整视频证据确定，A100 BF16与RTX PRO 6000原生NVFP4并行；QCFB先做可复用资产T0与有限归一化风险。本次只改研究路线，不新增ACTIVE运行。
-
-**补充真正的20来源全深度证据（2026-10-29）：**[UB1 20来源视频质量×四步latent状态联合实算](../20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)表明：20/20 source的四步poststate与latent时间差分误差逐步增长；末步新增能量47.82%来自正有符号交叉。但同源`T3`与RAFT保留比例的原始秩相关−0.424在控制Dense本身运动幅值与场景类别后仅+0.086，不能再以换一个“全局时间差分SSE”代理作为视频改进主目标。此方法数据与Aff54/M-B先验必须按原实验身份分开，下一次方法优劣仍由多source完整视频质量及实际成本决定。\n\n**最新独立纠正（方法选择优先级覆盖旧局部顺序）：**[全深度×多来源×完整视频质量优先方法合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。由已有UB1 20来源真实视频、Affine54 320-site全深度双轨、compact6016六视频表明：方法优劣必须以四步40×4真实自由生成的运动/语义/画质/时序质量和实测成本为准；局部末层head/分子/分母分析改为解释和构造分支，不再占据下一方法选择的先决地位。新候选首先具备全160-site可执行定义，并设计多独立source配对视频/成本；历史B-F与fixed-gain目前为机制实验，不作为新方法视频通过票。历史RUN、ACTIVE与独立评议不变。\n\n> **平行创新交界层（2026-10-28，不替代三方法权威正文及现行M-B后续任务）：** [QCFB/Q-STAGE跨 QMeta×M-A/M-B/M-C 统一前沿](../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)与[typed prior crosswalk](../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)具体推导原HiF4完整64组的动作闭包、条件有符号联合删除风险、量化误差交互和动作依赖Q2信息。它是研究种子，尚非任何原生部署结果或同行支持票。
-
-> **2026-10-29 · INTEGRATED_METHOD_PLAN v4 · CURRENT RESEARCH PLAN / MIXED ALG+SRC+NATIVE+LIT+OPEN。** 此文件是三方案**现行权威整合入口**。首次2026-10-27讨论版本可由[原始合并提交dd21c539](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)审阅，旧版本时间点的推测不再作为当前操作指令。修订依据：[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)、[原独立评议](COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)、[五操作框架](FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[现行M-B数学快照](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)和[历史A0四位置pilot](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)。研究方案和方法讨论不代替[ACTIVE研究与运行授权](../ACTIVE_RESEARCH.json)，本次编辑没有运行新的模型、实验或视频。
+> **2026-10-29 · 科学路径已扩展。** 全项目科研首先阅读[资产先行结构发现与S1/S4/S2/S3独立推导](../20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)和[统一Agent交接](../agent_protocol/ASSET_FIRST_AGENT_HANDOFF_20261029.md)。本文件集中提供M-A紧凑学生、M-B后缀敏感函数、M-C编码计算的**正确数学、原生证据与历史比较器**，支持四条新线路交叉使用，不再承担全局方法优先级排序。
+>
+> **终端质量和成本合同**：[全深度多来源视频验证](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。原B0/B1/B-H/B-F、CAL24、A0视频、末层固定gain的实验结论按各原生RUN范围保留，相关更新见[2026-10-29路线与125项静态检查](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)；QCFB/Q-STAGE的独立条件动作分析见[量化信息前沿](../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)。后续方法的实际GPU/model范围仍由[ACTIVE](../ACTIVE_RESEARCH.json)冻结；历史评议不替代真实同行支持票。
 
 ## 0. 研究目标、三层组织和现在的成果边界
 
@@ -19,7 +14,7 @@
 | **O-A / O-B / O-C / O-D / O-E** | 选择需要算的量 / 改变函数表示 / 历史复用 / 计算代数 / 学习与验证目标 | 方法动作可组合；**稀疏是一种可能的结构/结果，不是独立路线** |
 | **M-A / M-B / M-C** | 具体候选及原生实现 | **M-A0** 普通紧凑学生；**M-B** 后缀敏感低成本函数；**M-C** 整层编码直接求值。名称不与操作O-A～E混淆 |
 
-**下一位方法研究Agent将 M-B 推进为全深度视频候选**：从UB1 20来源、Affine54全160-site/两来源双轨及compact6016失败视频构建来源×语义×运动×时间质量矩阵；按40×4真实图重建可缩减计算的候选作用与实际consumer，首个可排序实验覆盖≥20不同image-clusters的匹配完整视频及真实FFN/整机开销。原末层B0/CAL24/B-H/B-F、固定gain用作解释和构造，不能替代候选主排序。新未暴露确认来源以现行数据协议预先冻结；M-C及I/C线并行开放。
+**M-B专题中的全深度候选检验（历史保留）**：从UB1 20来源、Affine54全160-site/两来源双轨及compact6016失败视频构建来源×语义×运动×时间质量矩阵；按40×4真实图重建可缩减计算的候选作用与实际consumer，首个可排序实验覆盖≥20不同image-clusters的匹配完整视频及真实FFN/整机开销。原末层B0/CAL24/B-H/B-F、固定gain用作解释和构造，不能替代候选主排序。新未暴露确认来源以现行数据协议预先冻结；M-C及I/C线并行开放。
 
 **历史HiF4诊断边界**：LightX2V Wan2.2 I2V A14B，四步高/高/低/低、2个expert×40 blocks；post-Q1输入 $x\in\mathbb R^{M\times5120}$ → W1 (5120→13824) → GELU(tanh) → Smooth2/HiF4 Q2 (64→8→4) → W2 (13824→5120) → pre-gate $y$ → e5门控及BF16残差 → 后续attention、最终LN/head、flow和去噪状态。现有本地计算是fake-QDQ＋BF16 GEMM；真实native FP4与它的格式和耗时分别建证。4 denoise steps、21 latent时间槽和81 RGB视频帧是不同的研究坐标。
 

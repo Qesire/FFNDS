@@ -1,10 +1,12 @@
-# FFNDS · 从保存的真实计算资产重新推导方法
+# FFNDS · 从已存证据与新增原生采集共同推导方法
 
 2026-10-29 · METHOD_SNAPSHOT · **已保存数据复算 + 数学推导 + 原生计算路径 + 文献映射**。本轮不是新GPU、生成、训练或视频评测。科学对象为Wan2.2 I2V A14B、四步high/high/low/low、40 Block、每个完整视频160次FFN执行；现有原BF16、旧HiF4 fake-QDQ、待跑原生NVFP4严格区分。
 
 本报告按 **真实观察 → 可重复的结构判断 → 竞争解释 → 可实现函数 → 最便宜的判别证据 → 完整视频与系统成本** 构造。旧M-B末层读出和signed误差保留为解释工具；新研究不预先把“补算/消除SSE/符号抵消”放在中心。
 
 数值审计：[资产交叉复算 JSON](ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)；直接依据：[原BF16八来源160位置实物](ORIGINAL_BF16_FULL_DEPTH_CORPUS_RESULTS_20261029.md)、[全80物理函数rank960](RAW_BF16_FULL80_R960_SPECTRUM_RESULTS_20261029.md)、[连续tile实测](../20261025/E0_SHARED_TILE_PRE_W1.md)、[Q2 64组闭包](../20261025/E0_SHARED_TILE_CLOSURE.json)、[UB1二十来源视频/四步误差](UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)。
+
+**扩大研究的执行解释**：本文提供旧资产中导出的四个竞争机制，不是算法候选或数据规模的天花板。若旧8源BF16的256随机行无法推断视频时间结构，应主动采集全40层×4步的时空tubelet；若shared-r960留源不稳定，应进一步获取来源分层/新状态；若需要native NVFP4的W/A量化尺度、全局尺度或动态码字，应采集真实producer。新物理问题或论文先例可以开启第五、第六条机制线。科学问题与反例决定何时扩大数据，而不强制在已有数据上寻找可用答案。详见[数据采集合同](../agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)。
 
 ## 1. 原始计算图和信息时点
 

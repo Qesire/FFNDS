@@ -2,6 +2,60 @@
 
 > 本手册对应 `tools/ffnds_experiment_plans.py`、`ffnds_native_geometry.py`、`ffnds_run_registered_video.py`、`ffnds_stage_registered_i2v.py`、`ffnds_cluster_metric_report.py`。所有输出使用新目录；旧 CAL12/CAL24/UB1/R17/E0 原始RUN和视频维持原样。新脚本已接入原生 LightX2V 的验证资产、HiF4 D-Q 与 UB1 运行时；**GPU结果须按真实执行收据确认**。 GPU并行资源按[2026-10-28动态调度规则](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)采用当前真实可调用最大量，不设置预先2/4张的全局上限；单个worker的GPU需求与历史冻结scope仍分别记录。
 
+## 2026-10-29 · 开放式新采集的可执行入口（当前优先于旧固定来源例子）
+
+本手册以前的 CAL24、旧source-bank和UB1 runner命令是**历史兼容示例**。现行新采集按[科学问题与producer协议](EVIDENCE_DRIVEN_ACQUISITION_20261029.md)、[新增需求队列](ACQUISITION_QUEUE_20261029.json)执行，不限制在旧 CAL24 / consumer20 或五个Block。特别是S2的真实视频latent时间—空间配对、S3原生动态Q1/Q2、S4学生prefix新增tensor必须真正扩展observer，不能把旧随机行/已输出的fake-QDQ重命名为新观测。
+
+**A. 新来源库可用性**。用实际可读、带曝光记录的原始输入清单构造/扩展新source-bank。历史基础脚本只接受符合所约定结构的 legacy canonical 来源；新数据集需先实现输入适配器，记录真实 dataset/revision、image簇、prompt/裁剪、各类别及input locator。以下只建计划，不运行模型：
+
+~~~bash
+python tools/ffnds_experiment_plans.py source-bank \
+  --legacy CALIBRATION=/path/to/actual/new_calibration_canonical.json \
+  --legacy DEVELOPMENT=/path/to/actual/new_development_canonical.json \
+  --out /path/to/experiment/new_source_bank.json
+python tools/ffnds_calibration_design.py coverage \
+  --design config/calibration_design_v2_20261027.json \
+  --bank /path/to/experiment/new_source_bank.json \
+  --out /path/to/experiment/coverage.json
+~~~
+
+如果数据适配器或某类source不足，首先采集或接入新的真实图像来源并验证独立image簇，再重建source-bank，不使用重复裁剪或seed补数。校准拟合源和未触碰确认源需要隔离；不同来源规模12/24/48是可调整的研究对照。
+
+**B. 新机制与原生观测**。明确必须在FFN哪个真实生产时点采数据：pre-W1输入、GELU h、Q1动态A元信息、post-W1 Q2元信息、gate、student自己输入、video latent τ与空间(y,x)配对、native K/M tile等。对已经存在的native geometry使用以下计划，**只有真正运行原生observer并通过payload验证才获得新数据**：
+
+~~~bash
+python tools/ffnds_experiment_plans.py calibration-plan \
+  --bank /path/to/experiment/new_source_bank.json \
+  --geometry /path/to/experiment/native_geometry.json \
+  --strata i2v_subject:12,i2v_background:12 \
+  --rows 256 --source-state teacher_input --seed 42 \
+  --out /path/to/experiment/new_calibration_plan.json
+python tools/ffnds_validate_calibration_operands.py \
+  --calibration-plan /path/to/experiment/new_calibration_plan.json \
+  --operands-index /path/to/experiment/actual_native_operands_index.json \
+  --verify-payload --out /path/to/experiment/operands_verified.json
+~~~
+
+其中 native_geometry 和 actual_native_operands_index 必须由**这些新来源的真实采集**产生，不能用旧已暴露来源的几何或tensor模拟；如果科学目标需要21时间槽的tubelet而不是均匀随机row，先新增专门的捕获计划/observer，再单独验证视频坐标一致性；现有 calibration-plan 不是tubelet采集器。上述12/12类配额仅为示例，真实配额由本次科学分层决定。
+
+**C. 新完整视频**。当新BF16 shared80/step160、原生NVFP4或其他方法进入视频级检验时，先确认该backend的实际candidate runner已实现并具有中性路径/160 FFN执行覆盖。老 UB1 runner**不会自动支持**新variant。可用通用现存工具冻结视频来源与种子：
+
+~~~bash
+python tools/ffnds_experiment_plans.py video-plan \
+  --bank /path/to/experiment/new_source_bank.json \
+  --role DEVELOPMENT --strata i2v_subject:10,i2v_background:7,camera_motion:3 \
+  --samples-per-source 1 --variants dense shared80_r960 step160_r960 \
+  --experiment RAWBF16_FFND_EXPAND \
+  --out /path/to/experiment/new_video_plan.json
+python tools/ffnds_cohort_preflight.py \
+  --manifest /path/to/experiment/new_video_plan.json
+~~~
+
+新数据集能否满足以上实际strata，以及video-plan接受的具体stratum名称，须先由source-bank和脚本检验。计划生成的variant**不表示**run_registered_video.py已支持该真实算子；完成相应本地runner/核对、冻结ACTIVE中的checkpoint与source/预算，再提交实际完整视频。用同checkpoint、同seed/noise和数值recipe做Dense配对，并保存全部motion/semantic/temporal/visual指标、latency、真实RUN/EXIT。可根据新出现的source尾部、相机缺失、动作事件和核数量不确定性继续注册下一批，而不是以第一次20来源为科研上限。
+
+**D. 实际采集收据**：每个采集需求从 NEEDS_PRODUCER → REAL_COHORT_READY → SCOPE_REGISTERED → NATIVE_CAPTURED → VALIDATED_PAYLOAD → SOURCE_HELD_ANALYZED → NEXT_DECISION 更新。任务书不越过中间状态宣称完成，失败保留原始receipt并根据竞争机制修改下一版本。每批有限预算的注册和真实GPU选择继续遵循ACTIVE与动态资源策略。
+
+
 ## 0. 一次性环境检查
 
 ```bash

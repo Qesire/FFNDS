@@ -1,0 +1,13 @@
+# Independent review: raw BF16 full160 video20
+
+**SUPPORT — fixed source design and synthetic controls.** Exact SHA-256 bindings:
+
+- Driver `tools/e0_raw_bf16_full160_video20.py`: `ab45ece7163c2adbc3b5bc8fb38089cfa0ccf1504aca0195183b767561c7ddde`.
+- Driver tests `tests/test_e0_raw_bf16_full160_video20.py`: `15ecfd96338348a461462f17976073305d228d190aa0e574a43c0f35130355f6`.
+- Part 0 draft: `5594175e1850cb2536ddbf42c26d013267d63aa7a52a26ce89705c35379ffd17`; part 1 draft: `1a3aff359320af2355c5975e8971e81cf9429533b7bc0c64c2e59368f48640aa`. All 933 source bindings in each draft matched at review.
+
+Both parts retain ten fixed historically exposed development images, cyclic three-arm ordering, 30 distinct video run IDs and a source-equal paired design. Static `registration`/cohort audit completed for both parts with 10 sources and 30 jobs each. Independent CPU proof must verify actual closed parent exit, all 240 factor file and tensor SHA identities, 20 image identities, current master stat and frozen source closure before GPU use. The GPU side rechecks proof and factor stats, loads only the fixed all-six exports, validates coordinates, switches one resident GPU factor family at a time, and synchronizes before releasing it. Dense, shared and step all retain original W1/GELU/gate/residual; the native tap resets both expert offload buffers per phase, and shared or step W2 skips are bound to the actual buffer's expert and block. The original manager's init, prefetch and swap synchronization remain in place.
+
+Each part budgets 30 complete videos, 120 full model flows, 4,800 FFN positions, 4,860 block-buffer loads and 6,400 factor GEMMs. The Dense arms of the two applicable historical sources require ten state-byte checks each in part 0. Each triad verifies actual raw FP32 and initial BF16 noise identities across arms; output video geometry and 30 CORE reports are required. Accounting distinguishes requested prefetch-copy bytes from measured bus traffic and includes observers; single-order timing is not a warmed system acceptance. Official quality axes and human full-video review remain separate and pending. Completion of a 20-source comparison requires both actual part exits and subsequent cohort audit.
+
+`python3 -m unittest discover -s tests -p test_e0_raw_bf16_full160_video20.py` passed **6 synthetic tests, exit 0**, covering part counts and balanced order, factor coordinate/header/payload rejection, same-source triads, failed-work predebit and stdlib-only import. Review did not load a real factor tensor, execute a model, or use a GPU. This supports the frozen implementation and its CPU controls; actual full-depth generation, factor stream behavior, video quality and system performance remain to be measured.

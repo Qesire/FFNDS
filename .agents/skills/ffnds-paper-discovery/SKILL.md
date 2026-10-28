@@ -1,20 +1,22 @@
 ---
-
-**2026-10-29 · 当前研究生成原则（资产先行）：** [从8源BF16全深度、r960留源、旧tile/闭包与20源完整视频重建计算结构和四个新方法分支](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)。任一Agent先确认已观测的原生结构、它的竞争解释、在线可用信息的时点、合法执行变换与成本，再设想方法；S1跨step共享函数/S4条件rank作用价值/S2条件时空FFN单元/S3前置可得signed whole64动作均有独立优先级。历史M-B“先末层”的既定次序被本机制发现流程取代；局部SSE/符号抵消、补算/gain只作为候选机制与诊断。现成BF16 shared80 r960因子可直接作为全160位配对视频的首个经济验证对象，但其真实质量和部署速度尚未测。全方法继续执行完整视频终端准入，不得将teacher-state代表free student轨迹。
-
 name: ffnds-paper-discovery
-description: Apply AutoResearcher science to parallel information, function/dynamics and computation/execution discovery for efficient video FFN research.
+description: Apply AutoResearcher science to independent information, function/dynamics and compute execution discovery with source-grounded Wan FFN research.
 ---
 
-# FFNDS · AutoResearcher 机制方法 Skill（更新至2026-10-28）
+# FFNDS · AutoResearcher 机制方法 Skill
+
+**当前机制研究入口（2026-10-29，开放式证据获取）：** [资产先行的方法发现和四支路线](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)与[原生资产交叉复算](../../../research/20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)。以真实计算结构/行为/执行异常为研究起点；构造至少两种不同机制及其相反预测，利用保存资产给出最小判别，只有随后才冻结在线动作和完整生成测试。S1跨步共享函数、S4条件rank的行动收益、S2时空函数单位、S3前置量化动作并行且互不互为准入条件。M-A/M-B/M-C、符号交叉、norm/gain、补算为可复用机制及强对照，而不是默认的研究方向。新方法的可用性由全160-site真实视频质量、来源级运动/语义/时间指标和实测系统成本决定。
+
+
+**开放式证据与新增采集**：[问题驱动新增资产协议](../../../research/agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)和[机器采集队列](../../../research/agent_protocol/ACQUISITION_QUEUE_20261029.json)与现存原生资产有同等科研优先级。现有6/8/20来源、5个Block和随机256行只描述过去观测；新机制可能需要新数据集、独立来源/相机运动分层、40×4全深度时空tubelet、student-prefix状态、Q1/Q2在线code/scale及实际native kernel。只要旧资产无法区分主要竞争机制，Agent就应给出具体可采集量、原生producer、来源与坐标、预算和新注册RUN；在真正新观测产生后继续推理。采集可以先于选定算法，采集批次可逐轮扩张，不预设总体数据上限。
 
 ## 开始研究前的阅读顺序与工作对象
 
-**最短阅读链**：[P0–P4统一阅读优先级](../../../research/RESEARCH_NAVIGATION.md) → [现行M-A/M-B/M-C整合方案](../../../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) → 当前研究对象对应的[真实计算图G14](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)或[原生数据协议](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。本Skill约束**科学方法与证据表达**，进度数字、后续任务及历史实验以P0–P4入口和[ACTIVE](../../../research/ACTIVE_RESEARCH.json)为准，不在每次更新时重复抄写。
+**最短阅读链**：[当前导航](../../../research/RESEARCH_NAVIGATION.md) → [资产先行四支方法及证据](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md) → [现行任务和交接](../../../research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → 根据具体科学问题选读[原三方案](../../../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)、[G14真实计算图](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)、[数据实验协议](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。本Skill约束**科学方法与证据表达**，进度数字、后续任务及历史实验以P0–P4入口和[ACTIVE](../../../research/ACTIVE_RESEARCH.json)为准，不在每次更新时重复抄写。
 
 研究北极星：解释视频FFN的信息、函数及真实计算组织规律，产生可证伪的科学机制或维持完整视频能力的低成本表示与执行。[I/F/C并行目标](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)允许从有趣的数学恒等式、原生异常、真实行为、论文或kernel任一端开始。**O-A计算选择、O-B函数替代、O-C历史复用、O-D代数/原生执行、O-E学习/验证**是[可组合操作语法](../../../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，不是五个互斥方法。论文与新方法的typed关系收录在[机器交叉表](../../../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)。
 
-**2026-10-29 · 视频级科学准入（覆盖下文过时的B末层任务顺序）**：[全深度×多来源×视频优先方法合同](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。从已完成UB1的20个source真实质量与Affine54 320site状态数据出发，所有待排序的部署候选先说明40×4全160site的可执行动作，并给出≥20独立image-cluster的Dense配对完整视频、运动/动作/主体/背景/时序/成像/语义来源级向量和FFN/整机成本；正式确认须未暴露来源并按官方独立seed协议冻结。末层head/范数修正、局部SSE、MAC/token是创造和机制定位工具，不再作为新方法优胜的默认首步。源/step/block/token嵌套不能充作来源规模。只开展ALG/SRC时可提出全深度设计，但不要以局部改善宣称部署视频有效。
+**部署候选的终端证据协议（2026-10-29）**：[全深度×多来源×视频优先方法合同](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。从已完成UB1的20个source真实质量与Affine54 320site状态数据出发，所有待排序的部署候选先说明40×4全160site的可执行动作，并给出≥20独立image-cluster的Dense配对完整视频、运动/动作/主体/背景/时序/成像/语义来源级向量和FFN/整机成本；正式确认须未暴露来源并按官方独立seed协议冻结。末层head/范数修正、局部SSE、MAC/token是创造和机制定位工具，不再作为新方法优胜的默认首步。源/step/block/token嵌套不能充作来源规模。只开展ALG/SRC时可提出全深度设计，但不要以局部改善宣称部署视频有效。
 
 **双数值原生实验轨（2026-10-28最新指令）**：[A100原始BF16与RTX PRO 6000 Blackwell NVFP4并行](../../../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。没有本地RTX5090，但RTX PRO 6000可作为SM120原生FP4目标；BF16功能/视频与原生NVFP4源码/准备任务同时READY，互不阻塞。PRO6000 R0先核验真实可访问权限/MIG/环境及匹配模型，保留历史E0在Pro6000跑过的证据；后续native作业先绑定ACTIVE。当前上游nvfp4_rtn_backend.py 是 Fake-QDQ后接BF16线性算子，不等于packed W4A4，必须区分。HiF4 Fake-QDQ仅保留为格式/数值机制诊断。
 
@@ -26,7 +28,7 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 **资源调度（2026-10-28最新指令）**：按[现行动态GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际可申请并运行的最多GPU；没有预设全局张数限制。旧2/4卡可属于历史实验的冻结字段；新scope按实际可调度量和ACTIVE冻结模型/来源/预算；不要凭旧上限拒绝并行的独立已注册工作。
 
-**历史M-B诊断专项（非当前默认科研入口）**：复用B0/CAL24/B-H/A0/B-F现存数值与20-source UB1、320-site Affine54以及A0六视频的真实证据；**首个可排序方法实验**从全160-site可执行函数、≥20独立image clusters同源Dense完整视频、运动/画质/主体/背景/时序/语义和真实FFN/全wall共同决策。末层L39/head/gain保留为推导、解释和诊断；它单独的成功不提升全模型部署方法状态。开发历史曝光与未暴露确认严格分离；R0原生NVFP4并行。最新合同见[视频先行](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
+**M-B后缀与末层诊断专题**：复用B0/CAL24/B-H/A0/B-F和Affine54既有证据，研究自然函数承担、下游读出及分子/分母竞争机制。该专题可主动提出新的全深度函数结构；不会成为S1/S2/S3/S4的串行前置。任何自称部署可用的方法都必须提供真实4步×40层学生自由生成、多来源Dense配对视频及完整执行账本；仅数学、源码或teacher-state阶段则先提交与最强解释相反的可测预测。
 
 已完成机制证据复用：[B-H Direct65](../../../research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)、[同head A0](../../../research/20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)、[B-F](../../../research/20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)。这些已完成pilot保留原范围，由现行全深度多来源视频合同决定后续方法排序。
 

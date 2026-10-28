@@ -1,0 +1,207 @@
+{
+  "id": "E0_RAW_BF16_S2_TEMPORAL_PAIR_OBS_CPU_20261029",
+  "status": "DRAFT_NOT_REGISTERED",
+  "assets_finalized": false,
+  "binding_status": "BOUND_INPUTS_REVIEW_AND_FREEZE_PENDING",
+  "resources": {
+    "GPU": 0,
+    "CPU_threads": 4,
+    "wall_seconds": 900,
+    "outer_seconds": 1200,
+    "packet_full_SHA_stream_bytes_max": 34359738368,
+    "new_HF_bytes": 67108864,
+    "automatic_retry": false
+  },
+  "design": {
+    "evidence": "SAVED_TEACHER_STATE_OBSERVATIONAL_GEOMETRY",
+    "sources": "ALL8_HISTORICALLY_EXPOSED_IMAGES_6CAL_2DEV_NO_SELECTION_OR_NEW_SAMPLING",
+    "unit": "PAIRS_NESTED_IN_SOURCE_STEP_BLOCK_THEN_POSITION_EQUAL_THEN_IMAGE_SOURCE_EQUAL",
+    "row": "tau*(29*52)+y*52+x; actual original row IDs; no motion alignment",
+    "temporal": "ALL_UNORDERED_SAME_XY_CROSS_TAU_PAIRS_ORIENTED_TAU_A_LT_TAU_B",
+    "control": "SAME_PACKET_SAME_TAU_B_NEXT_ROW_ID_CYCLIC_DIFFERENT_XY_KEEP_IA_FIXED",
+    "missing_control": "NOT_AVAILABLE_NO_IMPUTATION_TEMPORAL_ALL_AND_MATCHED_REPORTED_SEPARATELY",
+    "X": "ACTUAL_RAW_BF16_V1_FIRST_FFN_MM_INPUT_NO_Q1_QUANTIZATION",
+    "gY": "FP64_PRODUCT_OF_DECODED_BF16_Y_AND_ACTUAL_POSITION_BF16_GATE_NOT_NATIVE_ROUNDED_WRITE",
+    "rowLN_u": "FP64_ROW_CENTER_AND_POPULATION_VARIANCE_EPS1E-6_GEOMETRY_NO_AFFINE",
+    "energy": "SUM_F64((a-b)^2)/(SUM_F64(a^2)+SUM_F64(b^2)+1E-30)",
+    "cosine": "SUM_F64(a*b)/SQRT(SUM_F64(a^2)*SUM_F64(b^2)); ZERO_NORM_IS_NULL",
+    "cosine_missingness": "EACH_COSINE_HAS_ITS_OWN_NONZERO_NORM_COUNT; PAIRED_COSINE_DELTA_REQUIRES_BOTH; DO_NOT_SUBTRACT_DIFFERENT_ELIGIBILITY_MEANS",
+    "paired_difference": "TEMPORAL_MINUS_CONTROL_ON_IDENTICAL_AVAILABLE_PAIR_SET",
+    "strata": "TAU0_PARTICIPATION_AND_DELTA_TAU_SEPARATE; STEP_AND_BLOCK_SEPARATE; FULL_JOINT_COORDINATES_IN_PAIR_RECORDS",
+    "interpretation": "SPARSE_OBS_NOT_COMPLETE21_TEMPORAL_VARIANCE_OR_MOTION_ALIGNMENT_OR_VIDEO_QUALITY_RANKING",
+    "numerical": "BF16_U16_TO_U32_SHIFT16_TO_F32; F64_GEOMETRY_AND_SUMS; SINGLE_PACKET_LIFETIME",
+    "full_model_calls": 0,
+    "GPU_calls": 0,
+    "fitting": 0,
+    "decompositions": 0,
+    "automatic_retry": false
+  },
+  "automatic_retry": false,
+  "output_HF_relative": "ffnds-derived/e0_raw_bf16_s2_temporal_pair_obs_cpu_20261029/attempt1/worker/results",
+  "operand_audit": {
+    "protocol": {
+      "path": "config/e0_raw_bf16_full_depth_asset_audit_20261029_v1.json",
+      "bytes": 8372,
+      "sha256": "a9eb385b94a2763322c642dd183866568188350070d53fc6ac4df2db098b8635"
+    },
+    "RUN": {
+      "path": "ffnds-derived/e0_raw_bf16_full_depth_asset_audit_20261029/attempt1/worker/results/RUN.json",
+      "bytes": 789,
+      "sha256": "9b41717cb09d42a53c497efaf6471db5e7a5051bc0d7b43793bf2c7f0afb6fdc"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_raw_bf16_full_depth_asset_audit_20261029/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 532,
+      "sha256": "62966159e12334cc4267a56cfb7cd5540e4b0bb549fdd7109569800307d0ee85"
+    },
+    "manifest": {
+      "root": "hf",
+      "path": "ffnds-derived/e0_raw_bf16_full_depth_asset_audit_20261029/attempt1/worker/results/MANIFEST.json",
+      "bytes": 4000902,
+      "sha256": "960adf05eee748e2303d1c60b552da1530da0dda02111632136de6cf0736297e"
+    }
+  },
+  "corpus_report": {
+    "path": "research/20261029/ORIGINAL_BF16_FULL_DEPTH_CORPUS_RESULTS_20261029.json",
+    "bytes": 46209,
+    "sha256": "0beb97ed0e8d8a65cb72ee45093f979472add0c7d3ac5a1468e1da311cce85a2"
+  },
+  "row_replay": {
+    "path": "research/20261029/RAW_BF16_TEMPORAL_ROW_REPLAY_20261029.json",
+    "bytes": 380502,
+    "sha256": "e99903ab697f3bf646d40a5f815735f85516221bf7496302d5bcfe8d97df4358"
+  },
+  "numpy_version": "2.4.6",
+  "repo_sources": [
+    {
+      "path": "tools/e0_raw_bf16_temporal_pair_diagnostic.py",
+      "bytes": 37241,
+      "sha256": "32eb9764cbe1309a0fb825ffeff43f0051ae31bc3a6c21faea1a56f7a6c76e2e"
+    },
+    {
+      "path": "tests/test_e0_raw_bf16_temporal_pair_diagnostic.py",
+      "bytes": 3983,
+      "sha256": "bf6d1655ec0ad780399ee624a8dd764c8c6136b62d8ced260e81dd68be61b4b3"
+    },
+    {
+      "path": "tools/raw_bf16_temporal_row_replay.py",
+      "bytes": 5586,
+      "sha256": "f727229eed582083378ee6977b2b8cda0758b51bd26cc18b3195a377985a3ce1"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    }
+  ],
+  "research_question": "Does same-xy cross-tau geometry differ from strictly time-matched different-xy controls across the full native FFN depth?",
+  "competing_mechanisms": [
+    "SOURCE_SPATIAL_APPEARANCE_OR_RESIDUAL_ANCHOR_EXPLAINS_SIMILARITY_ALREADY_PRESENT_IN_X_OR_R",
+    "LAYER_AND_STEP_DEPENDENT_FFN_OUTPUT_GEOMETRY_ADDS_CONDITIONAL_TEMPORAL_SHARING_VISIBLE_IN_Y_GY_OR_ROWLN_U"
+  ],
+  "claim_boundary": "OBSERVATIONAL_SOURCE_EQUAL_GEOMETRY_NO_PREDICTOR_NO_INLINE_ACTION_NO_MOTION_OR_VIDEO_ACCEPTANCE",
+  "row_schedule": {
+    "packets": 1280,
+    "temporal_pairs": 26389,
+    "available_controls": 26389,
+    "NOT_AVAILABLE_controls": 0,
+    "tau0_pairs": 2561,
+    "adjacent_tau_pairs": 2511,
+    "packets_without_adjacent_tau_pair": 178,
+    "complete_21_tau_xy_trajectories": 0,
+    "pair_schedule_sha256": "7d64ce254d7a1415d6b4939b6f4345ecdece15e9445ef51a0c32a03512186358"
+  },
+  "limits": {
+    "packet_full_SHA_reads": 1280,
+    "packet_full_SHA_bytes": 22524262400,
+    "packet_metadata_reads": 1280,
+    "packet_metadata_bytes": 8890278,
+    "tensor_raw_SHA_checks": 11520,
+    "row_coordinate_checks": 1280,
+    "pair_index_constructions": 1280,
+    "operand_pair_evaluations": 8960,
+    "temporal_pair_comparisons": 184723,
+    "matched_control_comparisons": 184723,
+    "gY_FP64_products": 1280,
+    "rowLN_FP64_calls": 1280,
+    "model_calls": 0,
+    "GPU_calls": 0,
+    "fits": 0,
+    "decompositions": 0,
+    "new_videos": 0
+  },
+  "sources": [
+    {
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_background:30",
+      "native_source_ordinal": 240,
+      "image_sha256": "5a6064080d5ba29e51da6cf7276cb5063ac5f4216c7947a4efe3eeab761158bf",
+      "prompt_sha256": "1da2fc475a4e5e247dd980cff3266798be02d5569b939eb61d2bb5fc5af03fc5",
+      "role": "calibration",
+      "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+      "source_state": "teacher_input"
+    },
+    {
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_background:32",
+      "native_source_ordinal": 256,
+      "image_sha256": "a05eafaf196f89194eb4ce862831af431f2dc6483f67f6578d522715b68a55a8",
+      "prompt_sha256": "73f848bd48337a713bc704dc403602101ebf82046cb3b22fecb48387f86c2b68",
+      "role": "development",
+      "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+      "source_state": "teacher_input"
+    },
+    {
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_background:36",
+      "native_source_ordinal": 288,
+      "image_sha256": "9cfdb3a69b75eca8b898eac186ade42c2282501f3d1d9611390f17104ce99e39",
+      "prompt_sha256": "89dbb7da87b0609518604896012436fb806fa17a87eee6e6eeadd53d61df21aa",
+      "role": "calibration",
+      "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+      "source_state": "teacher_input"
+    },
+    {
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_background:38",
+      "native_source_ordinal": 304,
+      "image_sha256": "88dc355aa2ab85ef8351546e6f0b2f5e3a751736cbf111a2858ea826e80fa5cc",
+      "prompt_sha256": "2fb2ec1211fc734562df4540b7ec47a625566da7d74633486cf781f7648657eb",
+      "role": "calibration",
+      "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+      "source_state": "teacher_input"
+    },
+    {
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_subject:22",
+      "native_source_ordinal": 894,
+      "image_sha256": "d81a54bec2ef6862ac0642b4c84bfba7cd9a9ea698a76abc110e204e2674cd06",
+      "prompt_sha256": "a46e83215d488895539f6d589afd2291c9d31c10ade24efa20fdc66aa3411ffe",
+      "role": "development",
+      "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+      "source_state": "teacher_input"
+    },
+    {
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_subject:24",
+      "native_source_ordinal": 896,
+      "image_sha256": "f54d07892badc85967bfac68a2e1115a488c4a5c94174e8ddecaa0a46aa60384",
+      "prompt_sha256": "2cf0e6fbd1f6de829055491612bad2cb84056529236688ee2c2a2cab7e5daf3d",
+      "role": "calibration",
+      "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+      "source_state": "teacher_input"
+    },
+    {
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_subject:25",
+      "native_source_ordinal": 897,
+      "image_sha256": "b1ec9be7041a576b797cd7a63af4d074708fa18871a9302114f602c667928004",
+      "prompt_sha256": "0a914b1933030a649cb15bde60ff2c407195a835c7530f02df9f367e00eea847",
+      "role": "calibration",
+      "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+      "source_state": "teacher_input"
+    },
+    {
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_subject:27",
+      "native_source_ordinal": 899,
+      "image_sha256": "e85b2bdf24dba963eff5e9116a0cb5b2930c62797701bccfd40e53545ac27822",
+      "prompt_sha256": "feb08b0ac480250cab068458c91a06eb5b44529a0a069bfcbd56accf2fc67dd6",
+      "role": "calibration",
+      "history": "HISTORICALLY_EXPOSED_CONSUMER20_DEVELOPMENT",
+      "source_state": "teacher_input"
+    }
+  ]
+}

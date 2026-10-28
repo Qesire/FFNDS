@@ -64,7 +64,10 @@
       "availability": "after_FFN",
       "evidence_type": "SRC",
       "evidence": [
-        "research/20261025/E0_FOLLOWTHROUGH.md"
+        "research/20261025/E0_FOLLOWTHROUGH.md",
+        "research/20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.json",
+        "research/20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.json",
+        "research/20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.json"
       ],
       "open_question": "How does numerical writeback change signed function effects?"
     },
@@ -90,7 +93,9 @@
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
         "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
         "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
-        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json",
+        "research/method_discussion/discoveries/E0/native-nvfp4-full-model-execution-src-audit-20261029.md"
       ],
       "open_question": "Can a new representation reduce true W1 work rather than posthoc W2 work?"
     },
@@ -104,7 +109,9 @@
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
         "research/20261025/E0_SHARED_TILE_PRE_W1.md",
         "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
-        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "research/20261029/RAW_BF16_TEMPORAL_ROW_REPLAY_20261029.json",
+        "research/20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.json"
       ],
       "open_question": "Half slope failed the320-case control; Gaussian/empirical statistical gains approach OLS but correlated nonlinear residual remains. Explain transfer and the strong signed odd/even cancellation without claiming joint Gaussianity."
     },
@@ -143,7 +150,13 @@
         "research/20261025/E0_INTRINSIC_FULL_HIDDEN.md",
         "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
         "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
-        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md"
+        "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
+        "research/20261029/RAW_BF16_FULL80_R960_SPECTRUM_RESULTS_20261029.json",
+        "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json",
+        "research/method_discussion/discoveries/E0/s1-common-left-step-readout-normal-equations-20261029.md",
+        "research/method_discussion/discoveries/E0/s4-frank-sketch-variance-and-execution-audit-20261029.md",
+        "research/20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.json",
+        "research/20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.json"
       ],
       "open_question": "What signed net output patterns can be computed more cheaply?"
     },
@@ -154,7 +167,8 @@
       "availability": "after_FFN",
       "evidence_type": "NATIVE-ACT",
       "evidence": [
-        "research/20261025/E0_FOLLOWTHROUGH.md"
+        "research/20261025/E0_FOLLOWTHROUGH.md",
+        "research/20261029/RAW_BF16_FULL80_R960_SPECTRUM_RESULTS_20261029.json"
       ],
       "open_question": "What finite numerical effects survive the writeback into the next block?"
     },
@@ -214,7 +228,9 @@
         "research/EXPERIMENT_FINDINGS_ATLAS.md",
         "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
         "research/20261027/UB1_INDEPENDENT_VISUAL_REVIEW.md",
-        "research/20261027/UB1_DYNAMIC_DEGREE_RESULTS.md"
+        "research/20261027/UB1_DYNAMIC_DEGREE_RESULTS.md",
+        "research/20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.json",
+        "research/20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.json"
       ],
       "open_question": "Which full-video dimension and execution counterfactual distinguish rival mechanisms? Exact-output allocation controls now match18 exposed-source video/72 latent hashes; this is not broader source quality or universal speed acceptance. Two exposed UB1/dense pairs have identical zero original dynamic-degree binary but different continuous image flow; prompt-specific action and wider independent quality remain OPEN."
     },
@@ -5868,5 +5884,97 @@
     "bytes_full_SHA": 16759667184,
     "native_kernel_execution_this_asset_scope": false,
     "backend_build_scope": "E0_SM120_LIGHTX2V_KERNEL_BUILD_CPU_20261029"
+  },
+  "asset_first_method_followthrough_20261029": {
+    "shared_step_rank960": {
+      "node": "F09",
+      "report": "research/20261029/RAW_BF16_FULL80_R960_SPECTRUM_RESULTS_20261029.json",
+      "evidence": "NATIVE_LOCAL_TEACHER_STATE",
+      "actual_exit": 0,
+      "physical_functions": 80,
+      "exported_BF16_banks": 240,
+      "full_free_video_followup": "research/20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.json"
+    },
+    "S1_readout": {
+      "node": "F09",
+      "evidence": "ALG_SRC_OPEN",
+      "document": "research/method_discussion/discoveries/E0/s1-common-left-step-readout-normal-equations-20261029.md",
+      "claim": "Literal unweighted ridge needs gate-column shrink; one C eigendecomposition broadcasts all5120 columns. Same-training exactridge alpha clips to1, so separate shrinkage needs cross-fitting/prior.",
+      "actual_fit_or_video": false
+    },
+    "S2_row_coverage": {
+      "node": "F06",
+      "evidence": "OBS_REAL_SAVED_ROW_COORDINATES",
+      "report": "research/20261029/RAW_BF16_TEMPORAL_ROW_REPLAY_20261029.json",
+      "packets": 1280,
+      "same_xy_cross_tau_pairs": 26389,
+      "adjacent_tau_pairs": 2511,
+      "complete21_tau_trajectories": 0,
+      "complete_M16_or_M128_tiles": 0,
+      "FFN_tensor_payload_read": false,
+      "next": "Source/state-specific sparse-pair geometry; fulltrajectory/tile claims need new matched capture."
+    },
+    "S4_paired_probe": {
+      "node": "F09",
+      "evidence": "ALG_SRC_OPEN",
+      "document": "research/method_discussion/discoveries/E0/s4-frank-sketch-variance-and-execution-audit-20261029.md",
+      "claim": "Paired Gaussian benefit variance retains covariance and shared-probe tile cross-row terms; staged BF16 rank640+320 differs from rank960 rounding.",
+      "actual_numerical_or_kernel_test": false
+    },
+    "NVFP4_packed_FFN": {
+      "node": "F09",
+      "evidence": "NATIVE_OPERATOR_NOT_FULL_MODEL_VIDEO",
+      "report": "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json",
+      "actual_exit": 0,
+      "fullM_identity": "M31668 repeats256 trueBF16teacher V1 rows; differentpublishedQATcheckpoint",
+      "baseline": "SamecheckpointdecodedBF16, strictreducedprecisionreductionFalse, noTF32",
+      "whole_shape_operator_speed_ratio_approximately": 3.16,
+      "full_model_video_or_fair_system_speed_claim": false,
+      "next_SRC": "research/method_discussion/discoveries/E0/native-nvfp4-full-model-execution-src-audit-20261029.md"
+    },
+    "full160_video20": {
+      "nodes": [
+        "F09",
+        "G20",
+        "D09"
+      ],
+      "evidence": "NATIVE_VIDEO_OFFICIAL_EIGHT_AXES_OBSERVED_COST",
+      "generation_report": "research/20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.json",
+      "quality_report": "research/20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.json",
+      "image_clusters": 20,
+      "genuine_videos": 60,
+      "native_sites": 9600,
+      "RAFT_source_equal_mean_ratios": {
+        "shared": 0.4898308577486579,
+        "step": 0.47665138012732217
+      },
+      "quality_accepted": false,
+      "fullplay_human": "PENDING",
+      "warmed_repeat_controlled_SYS": "NOT_MEASURED"
+    },
+    "S2_sparse_pairs": {
+      "nodes": [
+        "F06",
+        "F09",
+        "G20"
+      ],
+      "evidence": "OBS_DENSE_TEACHER_SAVED_PAIR_CPU_ACTUAL_EXIT0",
+      "report": "research/20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.json",
+      "image_clusters": 8,
+      "actual_same_xy_temporal_pairs": 26389,
+      "complete_21tau_trajectories": 0,
+      "new_capture": "E0_RAW_BF16_FULL21TAU_NEW10_DENSE_ACQUISITION_20261029_PART0",
+      "new_source_bank": "config/e0_raw_bf16_fresh10_full21tau_sources_20261029_v1.json",
+      "claim": "Temporal same-xy advantage already appears in V1; FFN-created sharing vs inherited smoothness needs genuine complete trajectories."
+    },
+    "temporal_DC_AC": {
+      "nodes": [
+        "F09",
+        "G20"
+      ],
+      "evidence": "ALG_SRC_OPEN_NO_NEW_TENSOR_COMPARISON",
+      "document": "research/method_discussion/discoveries/E0/raw-bf16-r960-temporal-dc-ac-discrimination-20261029.md",
+      "claim": "Complete21tau mean/innovation errors separate static and temporal teacher-state loss, distinct from student-prefix drift or motion metric bias."
+    }
   }
 }
