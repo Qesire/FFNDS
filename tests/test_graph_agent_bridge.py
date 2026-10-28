@@ -16,7 +16,7 @@ class GraphAgentBridgeTests(unittest.TestCase):
 
     def test_full_literature_index_is_linked_to_actual_native_focus_nodes(self):
         result=validate_paper_focus(self.registry)
-        self.assertEqual(result["paper_focus_primary"],92)
+        self.assertEqual(result["paper_focus_primary"],94)
         self.assertEqual(result["paper_focus_supplemental"],10)
         self.assertEqual(result["paper_focus_stages"],16)
         self.assertGreaterEqual(result["paper_to_stage_links"],150)
@@ -128,7 +128,7 @@ class GraphAgentBridgeTests(unittest.TestCase):
         result = validate_crosswalk(self.registry)
         self.assertIsNotNone(crosswalk)
         self.assertEqual(result["mechanism_families"], 14)
-        self.assertEqual(result["primary_papers"], 92)
+        self.assertEqual(result["primary_papers"], 94)
         self.assertEqual(result["crossgraph_comparison_edges"], 84)
         self.assertEqual(len(self.registry["nodes"]), 205)
         self.assertEqual(len(self.registry["edges"]), 424)
@@ -266,7 +266,8 @@ class GraphAgentBridgeTests(unittest.TestCase):
             self.assertIn(method, entry)
         self.assertIn("NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md", nav)
         self.assertIn("B0", context)
-        self.assertIn("92", skill)
+        self.assertIn("CURRENT_TASK_LEDGER_20261028.json", nav)
+        self.assertIn("94个主LID", skill)
         self.assertNotIn("89个主LID", skill)
         self.assertNotIn("89项文献、177图节点、371关系", copilot)
 
