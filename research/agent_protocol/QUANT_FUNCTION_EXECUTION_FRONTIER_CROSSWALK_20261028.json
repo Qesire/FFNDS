@@ -11,7 +11,7 @@
       "id": "Q1_Z",
       "meaning": "affordable current Q1 metadata at pre-W1 causal boundary",
       "source_anchor": "F03",
-      "conditions": "Must pay read, scale-recipe and synchronization; historical HiF4 metadata not persisted"
+      "conditions": "Must pay read, scale-recipe and synchronization; historical HiF4 metadata not persisted S1P2 element code is natively signed; metadata scales are unsigned; current QDQ exports BF16 not packed codes."
     },
     {
       "id": "GROUP64",
@@ -138,6 +138,12 @@
       "to": "QCFB_SIGNED_BUNDLES",
       "type": "COMPETES_WITH",
       "reason": "Permutation hardware alignment prior art; ours only whole64 closed moves allowed and signed action risk"
+    },
+    {
+      "from": "HIF4_FORMAT_NATIVE_S1P2_SIGN",
+      "to": "QCFB_SIGNED_BUNDLES",
+      "type": "FORMAT_CONSTRAINT",
+      "reason": "Sign is intrinsic to four-bit S1P2; the scientific question is timely cheap extraction of ordered signed features, not adding a missing sign bit. Current fake-QDQ does not persist 4-bit codes."
     }
   ],
   "candidate_tests": [
@@ -297,5 +303,7 @@
     "oracle": "tools/qmeta_observation_oracle.py",
     "model_runs": 0,
     "current_M_B_task_unchanged": true
-  }
+  },
+  "format_contract": "research/agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json",
+  "format_semantics": "HiF4 S1P2 contains native sign bit per element; unsigned scale hierarchy only. Actual Wan fake-QDQ exports signed BF16 values, not persistent 4-bit packed code. Costed signed sketches remain OPEN."
 }
