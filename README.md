@@ -8,7 +8,7 @@
 
 | 角色 / 目标 | 第一份该读的材料 | 下一份 |
 | --- | --- | --- |
-| **接手当前任务的 Agent** | [当前最小上下文](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) | [现行M-A/M-B/M-C方案](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) → [M-B B0/B1实际交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) |
+| **接手当前任务的 Agent** | [任务状态与依赖](research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json)＋[当前最小上下文](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) | [现行M-A/M-B/M-C方案](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) → [M-B B0/B1实际交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) |
 | **机制/数学研究者** | [五操作×I/F/C方法分类](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md) | [G14反向先验审计](research/20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md) → [真实计算图](docs/98_端到端计算图与证据注解_20261025.md) |
 | **原文与源码研究者** | [G14论文→真实计算焦点](research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json) | [源论文索引](research/literature/20261026/PRIMARY_LITERATURE_INDEX.json) → [方法先验关系](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json) |
 | **实验/数据/质量研究者** | [实验专用Skill](.agents/skills/ffnds-experiment-evidence/SKILL.md) | [数据协议](research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) → [执行手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) |
@@ -32,7 +32,7 @@
 \]
 原实现使用**HiF4 fake-QDQ+BF16 GEMM**；packed FP4/NVFP4/MXFP4需另立数值/系统证据。旧10 source/12 source×seed/1920 sites、consumer20的20个开发来源与A0的训练/诊断来源，是**不同研究数据范围**；seed、row、block/step和多prompt不当作独立image-cluster。
 
-**论文/图状态**：92项主文献＋10项补充，16个G14算子焦点；主图205个稳定节点/424条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
+**论文/图状态**：94项主文献＋10项补充，16个G14算子焦点；主图205个稳定节点/424条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
 
 ## 科研与运行约束
 
