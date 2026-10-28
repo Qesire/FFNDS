@@ -7,7 +7,7 @@
 本文是**一个增量实验设计**，不是新的统一研究目标、现行方法权威正文、GPU 授权或新方法讨论队列。现行顺序仍为：
 1. [当前上下文](../agent_protocol/CURRENT_CONTEXT_PACKET.md)和[现行M-A/M-B/M-C方案](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)中用户指定的 **M-B B0 → B1 → 合法 B-H/B-F 学生**；M-A0 6016 维真实组剪枝学生是强对照/可用结构稀疏起点；M-C 维持独立。
 2. **UB1 失配机制的离线并行分析**：仅复用已存在的视频、真实原生统计、RUN及SHA；出现缺失资产时登记 locator/producer 与 NOT_MEASURED。下述 U0-U2 是机理研究，不是另设 GPU 主任务。
-3. **语义实验先设计后激活**：只有主线出现通过 S1-S3 的稀疏候选，才考虑登记新增文本对照视频；当前所有新增生成、作者 ML LM 评分 API、原生干预、量化重拟合与新 GPU 作业均为 **NOT_REGISTERED / NOT_RUN**。每次执行须先检查 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 并冻结确切范围。
+3. **语义实验先设计后激活**：只有主线出现通过 S1-S4 的稀疏候选（原生少算、完整视频质量可用、真实系统成本有益），才考虑登记新增文本对照视频；当前所有新增生成、作者 ML LM 评分 API、原生干预、量化重拟合与新 GPU 作业均为 **NOT_REGISTERED / NOT_RUN**。每次执行须先检查 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 并冻结确切范围。
 
 原始证据：
 - [A0 局部6016恢复](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)已完成4个(step,block)×两初始化、16训练/8旧诊断来源、真实窄 HiF4 Q2；尚非全部80个 expert-block FFN 与自由视频。
@@ -30,8 +30,8 @@
 |---|---|---|
 | S1 NUMERIC_SPARSE | 非零省算，真实组边界合法，原生QDQ/Q1/W1/GELU/Q2/W2/gate、重载/中性合同，完整native算子校核 | A0局部四site已有；尚需全部适用site的编译/验证 |
 | S2 FULL_ROLLOUT | 当前实际4-step high/high/low/low、两套expert的40 blocks都按声明的方法执行；视频完整81帧，声称的工作没有偷偷Dense补算 | 尚未完成该新方法合同 |
-| S3 VIDEO_USABLE | 预冻结包含动作、静态、camera、细小目标的独立image来源；完整视频质量、相机与主体运动、纹理/光照/语义动作复核；无严重崩溃，独立失配率/尾部和源级配对效应通过事前质量界 | **触发新增ACL语义实验的最低门槛** |
-| S4 PHYSICAL_VALUE | 实测完整 FFN wall、整端 generation wall、显存、packing、QDQ、observer/kernel成本；质量/成本匹配对照 | 支撑“有效率收益” |
+| S3 VIDEO_USABLE | 预冻结包含动作、静态、camera、细小目标的独立image来源；完整视频质量、相机与主体运动、纹理/光照/语义动作复核；无严重崩溃，独立失配率/尾部和源级配对效应通过事前质量界 | **视频质量最低门槛；新增语义生成仍需 S4 物理收益** |
+| S4 PHYSICAL_VALUE | 实测完整 FFN wall、整端 generation wall、显存、packing、QDQ、observer/kernel成本；匹配对照至少显示真实 FFN wall 正收益且整端不因新增机制退化；若宣称端到端加速需测到实际正收益 | 支撑“有效率收益” |
 | S5 INDEPENDENT_CONFIRMATION | 冻结模型和阈值，在真正未暴露来源+独立seed上复验质量/成本 Pareto | 支撑最终投稿结论 |
 
 S3验收界限不要事后按UB1坏结果选定。建议在开发集先冻结：画面/动作关键场景的人工严重故障定义、运动失真要素及允许退化边界、Image/Aesthetic或LPIPS的有向不劣阈值，另记录不同seed Dense自然变异的参考水平。真正确认时用source配对CI+坏例尾部。**有动作要求的提示词**要同时看事件完成和物理轨迹；**静态提示词**不要求保持Dense可能多余的运动。S1-S2任何时候可独立研究，不等待语义指标。
@@ -84,7 +84,7 @@ d = D(Y_D); e = Y_S - Y_D
 
 U0/U1能产生对新方法的“必须避免什么、在哪里检测”的信息，但**绝不以UB1失败为理由直接更改当前M-B目标、强制引入语义loss或大量新GPU实验**。
 
-## 3. 语义研究：仅 S3 达成后开始新增生成
+## 3. 语义研究：仅 S3 与 S4 均达成后开始新增生成
 
 ### 3.1 主要研究命题与模型对象
 
@@ -117,7 +117,7 @@ B. **状态转移 / no-op**：如“手提起桌上的杯子”与“手接触�
 
 **Stage E0（现在，可不做新模型生成）**：UB1历史视频盲评、测试标注schema、开源OSC/TC评估器与样例标注一致性；可预备小规模语义评估器对抗测试（blur/overlay/静态欺骗），但不接入方法选择。
 
-**Stage E1（S3之后的小规模可辨识性pilot）**：8 个真正新image簇 ×2对照prompt ×1 seed ×2臂（同版Dense/稀疏）=**32个完整视频**。按明确动作/状态变迁与静态/镜头等分层，至少每个可检验类别有代表；目的是检查 I2V 中文本操纵、读出、标注一致性，不能用于声称独立泛化。Dense若两种文本都无响应，记录“模型能力/数据天花板”，调整下一版本输入条件，而非静默丢样本。E1执行前必须按ACTIVE独立登记上限与资产。
+**Stage E1（S3+S4之后的小规模可辨识性pilot）**：8 个真正新image簇 ×2对照prompt ×1 seed ×2臂（同版Dense/稀疏）=**32个完整视频**。按明确动作/状态变迁与静态/镜头等分层，至少每个可检验类别有代表；目的是检查 I2V 中文本操纵、读出、标注一致性，不能用于声称独立泛化。Dense若两种文本都无响应，记录“模型能力/数据天花板”，调整下一版本输入条件，而非静默丢样本。E1执行前必须按ACTIVE独立登记上限与资产。
 
 **Stage E2（冻结确认建议）**：24 个真正未暴露image簇 ×2 prompt ×2 seed ×2臂 = **192个完整视频**（如source方差很大，再由pilot估计样本量，不把24视为保证统计功效的神奇常数）。按scene/semantic类型和prompt pair源级分层；所有来源都未进入校准、训练、方法择优或E1；每个生成保留完整逐帧收据。正式VBench-I2V的Image Suite、每prompt五个实际独立视频和九维工具属于另一**官方可比性**任务，不以本192视频实验冒充官方leaderboard。
 
@@ -152,7 +152,7 @@ B. **状态转移 / no-op**：如“手提起桌上的杯子”与“手接触�
 
 - source bank/实验注册：`tools/ffnds_experiment_plans.py`（新source先分簇再选prompt、正确标记历史暴露）
 - source/row/native身份：`tools/ffnds_native_geometry.py`、`tools/ffnds_validate_calibration_operands.py`
-- 登记的视频生成与官方I2V：`tools/ffnds_run_registered_video.py`、`tools/ffnds_stage_registered_i2v.py`（只在S3后并有具体ACTIVE scope时启动）
+- 登记的视频生成与官方I2V：`tools/ffnds_run_registered_video.py`、`tools/ffnds_stage_registered_i2v.py`（只在S3+S4后并有具体ACTIVE scope时启动）
 - 视频解码/真实质量收据：`tools/ffnds_video_metrics.py`、`tools/ffnds_video_metric_gate.py`
 - source聚类：`tools/ffnds_cluster_metric_report.py`
 - 机制图：G13自然/因果/可执行三级；G14论文→真实算子焦点新增 LIT 语义读出节点时，保留原20来源视频的VIDEO身份与作者文献LIT身份分离。
