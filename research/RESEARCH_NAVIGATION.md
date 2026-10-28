@@ -2,6 +2,8 @@
 
 > **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；[动态资源规则](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)通用默认不预设全局上限；具体实验的冻结资源预算与ACTIVE中的当前授权单独核对，GPU/模型/视频作业范围仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
 
+**数值执行路线已调整（2026-10-28）**：[BF16与RTX5090 NVFP4双轨Agent执行合同](agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。主机制基线为原始BF16 Dense/候选；低比特系统目标为已具备的RTX5090 SM120上成熟NVFP4 W4A4（需先核对CUDA/编译/32GB显存、完整Wan模型身份）；HiF4 fake-QDQ退为数值诊断。旧HiF4 weight_qdq非原始BF16。官方NVFP4预设的时刻/attention与旧HiF4不同，先在同一recipe内配对Dense/候选。现有 M-B/B-H、A0未完成的公平对照继续，并行F0无需新GPU。
+
 ## P0 · 立即阅读：恢复上下文与当前首项研究
 
 | 顺序 | 阅读对象 | 得到的具体信息 | 进入下一步的条件 |
