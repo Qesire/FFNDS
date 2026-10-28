@@ -25,6 +25,9 @@
 | **需要采样、校准与官方指标？** | [实验Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md)；[统一数据协议](agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)；[Calibration V2](20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)；[可执行手册](agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) | source image-cluster隔离、teacher/student配对、真实评测合同 |
 | **需要提出或审阅方法？** | [机制Skill](../.agents/skills/mechanism-research/SKILL.md)；[FFNDS领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)；[独立方法讨论队列](method_discussion/QUEUE.md) | 方法/反例、独立Agent来源、独立评议及版本身份 |
 
+
+**量化operand来源与原生FP4动态元信息（SRC/LIT）**：[权重静态 × 激活动态时序审计](20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md) · [机器时序合同](agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)。W1/W2权重在PTQ离线固定、Q1/A1和Q2/A2激活在当前FFN动态编码；原生NVFP4/MXFP4 W4A4含两侧scale载荷，weight-only W4A16没有activation FP4元信息。Native FP4要按实际量化核/scale布局和合法路由截止测量。
+
 **HiF4 存储带符号的权威澄清**：[HiF4 S1P2 码字与现行 fake-QDQ 对照](20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md) · [signed format 机器合同](agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。元素码字自带1bit符号，纯scale/micro-exponent无符号；现行Wan当前写出的是带符号BF16，不是持久 packed S1P2。该区别直接约束QCFB、G12及Q-Meta的观察成本。
 
 **QCFB/Q-STAGE 研究整合与三轮交锋（并行分析，非新的模型作业）**：[统一前沿v2](20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md) · [原数学命题审计](20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md) · [R1–R3评议/回应顺序](independent_reviews/QCFB_20261028/README.md) · [QCFB机器判别关系](agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)。R3已澄清：分箱碰撞不能充当原连续Q1信号的信息下界；native数值余项需要和行动差距比较；类地址不自动修复tile不可执行性；跨步Gram须使用状态空间注入、合法时序可见信息。**真实Q1信息净价值、native、省算与完整运动仍OPEN；M-B B0/B1优先不变。**
