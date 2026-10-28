@@ -38,7 +38,7 @@
 
 - **方法研究**：按[AutoResearcher领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md)、[机制Skill](.agents/skills/mechanism-research/SKILL.md)由计算流→等价数学/信息条件→最强竞争解释→可区分证据形成方案。当前方法权威正文仅以[整合方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为准。
 - **数据与评价**：按[Calibration V2](research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)区分source image-cluster与token/行、teacher与student轨迹、开发与独立确认、VBench自定义函数与官方采样协议；每个真实视频候选记录连续运动、主体/背景、相机行为、原生latency/VRAM。
-- **授权与协作**：[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)是执行/资源唯一权威，历史已完成范围不自动成为下轮许可；[QUEUE](research/method_discussion/QUEUE.md)仅登记独立Agent实际提交/评议的方法，不是作业队列。实时/流式GPU实验仍暂停。
+- **授权与协作**：[动态GPU调度规则](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)要求按实际可调用GPU最大量调度，无预设全局卡数上限；[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)是执行/资源唯一权威，历史已完成范围不自动成为下轮许可；[QUEUE](research/method_discussion/QUEUE.md)仅登记独立Agent实际提交/评议的方法，不是作业队列。实时/流式GPU实验仍暂停。
 - **证据语言**：公式或源图ALG/SRC，作者文献LIT，真实原生运行NATIVE，完整视频VIDEO，物理成本SYS，尚未产生数据OPEN；静态CI通过只表明合同/引用一致。
 
 ## 只读复核（不启动GPU或模型）
