@@ -1,0 +1,56 @@
+{
+  "schema": "ffnds.primary_method_recheck.v1",
+  "date": "2026-10-28",
+  "question": "Separate same-input approximation, own-state feedback and task-objective/normalization mismatch before further compression training.",
+  "model_calls": 0,
+  "records": [
+    {
+      "id": "L13",
+      "paper_read": "https://arxiv.org/html/2412.01199v1",
+      "sections": ["3.2 joint optimization with recoverability", "4.3 calibration loss versus recovery", "4.4 and supplement8 distillation"],
+      "code_url": "https://github.com/VainF/TinyFusion/blob/a147de7c33c2bc12872b9913f459119068b81ac8/prune_by_learning.py",
+      "code_bytes": 21871,
+      "code_sha256": "ad1f397a25417f693dec0e47a9f5b2b0dd60432bba6795bff16b9e45241bba83",
+      "code_sections_read": "convert_to_lora_model; trainable/gate parameter groups; lines309-330 diffusion.training_losses, backward, clipping and optimizer",
+      "consequence": "Immediate local calibration loss is a different estimand from post-recovery task loss. Fixed loss and trainable graph must be matched before attributing recovery failure to capacity.",
+      "transfer_limit": "Image-model depth pruning and task training; does not establish Wan FFN compression quality or imply a local-SSE optimizer suffices.",
+      "focus_nodes_unchanged": ["T09", "T14"]
+    },
+    {
+      "id": "L56",
+      "paper_read": "https://arxiv.org/html/2506.08009v1",
+      "sections": ["3.2 self-rollout and stochastic gradient truncation", "3.3 holistic distribution matching"],
+      "code_url": "https://github.com/guandeh17/Self-Forcing/blob/33593df3e81fa3ec10239271dd2c100facac6de1/pipeline/self_forcing_training.py",
+      "code_bytes": 12841,
+      "code_sha256": "0fbef7cae39a13338ae555acc2f114dc28a0e15f4dfcf4303640192e42ab7e96",
+      "code_sections_read": "inference_with_trajectory lines121-200: own previous denoised state, selected-step gradient, detached zero-timestep cache update",
+      "consequence": "Own-state exposure and loss target are separable interventions. D(student_state), S(teacher_state), S(student_state) are needed to identify state propagation versus a changing approximation residual.",
+      "transfer_limit": "AR chunk/KV training is not this bidirectional four-step Wan recipe. Transfer the discriminator, not an unregistered realtime model or the claimed hardware throughput.",
+      "focus_nodes_unchanged": ["T11", "T16"],
+      "related_implementation_not_a_new_primary_paper": {
+        "identity": "GoatWu Self-Forcing-Plus, unofficial extension; not proof of the held checkpoint's exact training recipe",
+        "code_url": "https://github.com/GoatWu/Self-Forcing-Plus/blob/67b8016498b5fc3b7ce753df7c8c97820acd6baa/model/dmd.py",
+        "code_bytes": 16281,
+        "code_sha256": "e20d86febfa2fc5368f2835cc2414e8f692cc3da09fc56743434531f6c7f47bf",
+        "read": "_compute_kl_grad: paid real/fake score calls, CFG and per-sample absolute-error gradient normalizer"
+      }
+    },
+    {
+      "id": "L92",
+      "paper_read": "https://arxiv.org/html/2609.04646v1",
+      "sections": ["3.3 equations5-10", "4.1 and training appendices recheck"],
+      "consequence": "Eq7 feeds student blocks their own hhat prefix; velocity KD and rectified-flow task loss accompany feature alignment. Equalize feature-loss magnitudes rather than silently comparing differently normalized local errors.",
+      "author_repository_read": "https://github.com/vislearn/SVDtrunc/tree/896e8c72f784d393479e8b6fd8b3e300fb8c63af",
+      "code_status": "README_ONLY_TRAINING_CODE_RELEASE_PENDING; no training implementation claimed reviewed",
+      "transfer_limit": "FLUX image-model projection compression and backbone parameter budgets; not a measured Wan four-step video or native speed result.",
+      "focus_nodes_unchanged": ["T12", "T14", "T16"]
+    }
+  ],
+  "local_native_source_recheck": [
+    {"path": ".runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py", "sha256": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db", "read": "Wan22StepDistillScheduler.step_post FP32 flow arithmetic followed by BF16 latent cast"},
+    {"path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py", "sha256": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225", "read": "infer_block/infer_ffn/post_process original norm/modulation/W1/GELU/W2/gated residual"},
+    {"path": ".runtime/code/LightX2V/lightx2v_train/lightx2v_train/trainers/flow.py", "sha256": "988e839cff424e438ddf8926ede90bb61f0f878a866c84f2a873e67838594437", "read": "FlowMatchingTrainer.compute_loss_on_sample: data latent/noise/timestep draw and FP32 velocity-target MSE"},
+    {"path": ".runtime/code/LightX2V/lightx2v_train/lightx2v_train/trainers/dmd.py", "sha256": "42274ba73307f30bacb1cf4d3da8c9c4977d3b67513c09a4807f5a01c67b1f03", "read": "run_back_simulation and forward_loss: own sampling trajectory, only selected end-step gradient and paid teacher/fake counterfactual"}
+  ],
+  "G14_sync": "L13/L56 reading_depth and matching review_depth updated; L13/L56/L92 retain the same stable nodes and native anchors. Literature mappings are not new native evidence."
+}

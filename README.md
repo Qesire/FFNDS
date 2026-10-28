@@ -36,7 +36,7 @@
 \]
 原实现使用**HiF4 fake-QDQ+BF16 GEMM**；HiF4元素码字本来是**带符号S1P2（4bit含1bit符号）**，其64组共享尺度只编码幅值，当前QDQ输出带符号BF16而非持久packed码字。详见[格式及存储语义审计](research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)。packed FP4/NVFP4/MXFP4需另立数值/系统证据。旧10 source/12 source×seed/1920 sites、consumer20的20个开发来源与A0的训练/诊断来源，是**不同研究数据范围**；seed、row、block/step和多prompt不当作独立image-cluster。
 
-**论文/图状态**：98项主文献＋10项补充，16个G14算子焦点；主图217个稳定节点/451条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
+**论文/图状态**：98项主文献＋10项补充，16个G14算子焦点；主图220个稳定节点/457条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
 
 ## 科研与运行约束
 

@@ -1,0 +1,53 @@
+{
+  "schema": "ffnds.saved_trajectory.step_weight_scalar_audit.v1",
+  "source_summary": {
+    "path": "research/20261028/COMPACT6016_TRAJECTORY_DRIFT_RESULTS_20261028.json",
+    "bytes": 15430,
+    "sha256": "6dcbefe774dcdd6cd202386002787fc76928b8aed9965080dc04da22ef9d1f43"
+  },
+  "source_result_sha256": "bf6634fb8f75cf3f1b51aeb814a48632d8b83ed73b1d89e6fe1cd13705341134",
+  "numeric_path": "HIF4_FAKE_QDQ_DIAGNOSTIC",
+  "delta_sigma": [0.0625, 0.10416668653488159, 0.2083333134651184, 0.625],
+  "cumulative_delta_sigma": [0.0625, 0.1666666865348816, 0.375, 1.0],
+  "identity": "e_next-e = -delta_sigma*(flow_S(x_S)-flow_D(x_D)) + rho_S-rho_D; rho is each native BF16 step_post rounding residual",
+  "estimand": "Native post-error increment divided by original step size; not measured same-input flow error",
+  "source_count": 2,
+  "model_calls": 0,
+  "GPU_calls": 0,
+  "tensor_payload_reads": 0,
+  "groups": [
+    {
+      "source": 0,
+      "mode": "energy94",
+      "scaled_increment_squared": [218112.3029501472, 316109.06220249727, 385889.039314745, 469790.58996073774],
+      "scaled_increment_norm": [467.02494895898997, 562.2357710093669, 621.1996774908572, 685.4127150562191],
+      "last_over_first_squared": 2.153893125726683,
+      "cumulative_error_norm_divided_by_cumulative_step": [467.02494895898997, 497.58867158899426, 539.5455639602029, 615.2265816286682]
+    },
+    {
+      "source": 0,
+      "mode": "random94",
+      "scaled_increment_squared": [214720.50543611846, 302076.1450590479, 370955.85752491956, 416482.38410836115],
+      "scaled_increment_norm": [463.3794400230965, 549.6145422557958, 609.0614562791833, 645.3544639253386],
+      "last_over_first_squared": 1.9396488624244084,
+      "cumulative_error_norm_divided_by_cumulative_step": [463.3794400230965, 489.14787093401816, 523.3741744083368, 584.8218872151766]
+    },
+    {
+      "source": 12,
+      "mode": "energy94",
+      "scaled_increment_squared": [310896.36233460205, 284929.3323616823, 413376.40583690733, 461768.8631716725],
+      "scaled_increment_norm": [557.5808123802343, 533.7877221908371, 642.943547939403, 679.5357703400701],
+      "last_over_first_squared": 1.485282296981957,
+      "cumulative_error_norm_divided_by_cumulative_step": [557.5808123802343, 526.2880864526868, 570.1153646329961, 627.5666452025024]
+    },
+    {
+      "source": 12,
+      "mode": "random94",
+      "scaled_increment_squared": [331026.06570269587, 306788.4182856164, 499955.62604204676, 507352.5165942447],
+      "scaled_increment_norm": [575.3486470851356, 553.8848420796659, 707.0754033637761, 712.2868218591755],
+      "last_over_first_squared": 1.5326663642551723,
+      "cumulative_error_norm_divided_by_cumulative_step": [575.3486470851356, 545.4674028498054, 612.11988459672, 665.7852176634607]
+    }
+  ],
+  "inference": "A nearly aligned, moderately changing flow bias integrated with increasing step sizes is a strong competing mechanism. Time/expert/state/rounding remain confounded; this does not identify feedback instability."
+}
