@@ -8,7 +8,7 @@
 
 > **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；[动态资源规则](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)通用默认不预设全局上限；具体实验的冻结资源预算与ACTIVE中的当前授权单独核对，GPU/模型/视频作业范围仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
 
-**当前可执行数值路线（2026-10-28）**：[BF16原始机制优先，NVFP4未来部署保留](agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户明确**没有本地RTX5090且NVFP4暂不着急**，SM120 R0–R4任务均DEFERRED，勿再为此启动设备探查、构建或checkpoint迁移。现有A100及原始BF16视频/low39/fixed-norm的实测作为下一步科学起点；HiF4 fake-QDQ保留历史数值对照，解码BF16权重不是原始BF16。成熟NVFP4技术资料、历史RTX PRO 6000 Blackwell小shape算子与新格式scale时点合同继续保留，未来重新具备条件时再恢复。
+**当前双轨并行数值路线（2026-10-28）**：[A100 BF16 × RTX PRO 6000 Blackwell NVFP4](agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户无本地5090，但明确同意PRO6000原生NVFP4与A100 BF16机制研究同时推进。BF16已有low39四角与fixed-norm、视频八轴等证据，继续跨深度/独立来源；NVFP4 R0恢复READY_STATIC核验PRO6000**当前访问**和匹配checkpoint，R1后续Native需新ACTIVE scope，R2–R4按依赖。历史SM120实际为RTX PRO 6000，不能把过去可运行视为目前已经分配。当前源树NVFP4 RTN仍是Fake-QDQ+BF16 GEMM，真实packed路径须另行核实。
 
 ## P0 · 立即阅读：恢复上下文与当前首项研究
 
