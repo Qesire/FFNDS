@@ -1,6 +1,6 @@
 # FFNDS · 下一位研究Agent的现行任务：从已完成的M-B方法继续
 
-**2026-10-28 · NEXT_AGENT_TASK v2 / CURRENT / EXPERIMENT_NOT_TRIGGERED。** 用户明确“从B开始”，所指为**M-B敏感函数坐标候选**，即O-B表示＋O-E训练/验证、可选O-D真实代数，而非五操作分类的全部O-B。对现有I/F/C、M-A0强基线与独立M-C探索没有排他性约束；[ACTIVE](../ACTIVE_RESEARCH.json)管理所有原生运行权限，[方法讨论](../method_discussion/QUEUE.md)只登记真实独立提案和评议。
+**2026-10-28 · NEXT_AGENT_TASK v2 / CURRENT / EXPERIMENT_NOT_TRIGGERED。** [当日任务状态台账](CURRENT_TASK_LEDGER_20261028.json)区分已完成的SRC核验、尚缺的B0 producer实现、需精确注册的native采集与其后B1依赖；本文件继续提供**B0/B1技术任务内容**，台账不替换它。 用户明确“从B开始”，所指为**M-B敏感函数坐标候选**，即O-B表示＋O-E训练/验证、可选O-D真实代数，而非五操作分类的全部O-B。对现有I/F/C、M-A0强基线与独立M-C探索没有排他性约束；[ACTIVE](../ACTIVE_RESEARCH.json)管理所有原生运行权限，[方法讨论](../method_discussion/QUEUE.md)只登记真实独立提案和评议。
 
 ## 0. 已完成的工作：作为下一任务的输入，不重复创造
 
@@ -8,7 +8,7 @@
 2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。**对原生离散BF16的同状态有限响应尚未实测。**
 3. [A0四位置native恢复P30](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)：同预算energy94/random94、4个站点、已暴露的train16/heldout8、实际Q2和folded可回读权重，已证明局部恢复，尚未有全80函数与完整视频。
 4. 既有[consumer20质量](../20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)证实当前UB1固定RR在20个开发来源的连续RAFT大幅下降；不能将其当作M-B函数成功/失败。
-5. [G14计算图](PAPER_METHOD_FOCUS_GRAPH.json)已有92项主论文＋10项校准，配[五操作机器交叉表](METHOD_OPERATION_CROSSWALK.json)。新研究重点是T05/T06真实GELU与Q2、T07 W2、T08 e5门控、T09及T12视频/后缀、T13核、T15因果；不再以“先广泛扫摘要”代替当前已证明的数学结论。
+5. [G14计算图](PAPER_METHOD_FOCUS_GRAPH.json)已有94项主论文＋10项校准，配[五操作机器交叉表](METHOD_OPERATION_CROSSWALK.json)。新研究重点是T05/T06真实GELU与Q2、T07 W2、T08 e5门控、T09及T12视频/后缀、T13核、T15因果；不再以“先广泛扫摘要”代替当前已证明的数学结论。
 
 ## 1. 现在立即进行的任务：把已知数学落实为B0原生对象
 
