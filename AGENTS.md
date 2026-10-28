@@ -4,12 +4,13 @@
 
 ## 当前方法研究的默认行动
 
-1. **从已存资产找结构**：先对照真实来源、step/expert/block/token/视频时间轴、原生计算图、权重和激活时点、历史真实视频及成本，指出一个确实存在的异常/自由度。不要将最方便计算的局部SSE变成科学目标。
-2. **推出竞争机制**：为同一个发现给出至少两种具有不同预测的机制解释；先用代数证明、反例、原有tensor manifest、source-held结果或原论文方法判别，再申请新native/video数据。
+1. **开放式机制发现与证据获取**：从真实源码、论文、数学结构、已测视频或现有资产任一入口提出科学问题。旧资产优先复用以减少重复；**一旦需要未采集的source、时空匹配token、全深度状态、student轨迹、原生FP4动态量化元信息或其他变量，主动设计并扩展新的真实采集**。所需数据和采集范围由问题决定，不以旧8源/20源、5个Block、256行、固定rank或S1–S4为永久边界。
+2. **提出并检验竞争机制**：为同一个发现给出至少两种具有不同预测的机制解释；先用能直接判别的代数、反例或已有原生证据开展研究；**若缺数据，则首先补采有区分力的新source/状态/计算边界**，而不是降低问题规模或调整结论。新数据也可以用于探索此前未被观察到的结构。
 3. **扩展动作而非锁定算子**：[S1跨步共享函数＋S4行动价值变秩＋S2时空函数单元＋S3量化前置合法组动作](research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)是**并行研究分支**，可增删新机制，互不强制依赖；历史M-B末层、QCFB组间符号抵消、补算、gain均为专题工具或强对照。执行前写清可用信息截止、合法的物理行动、真正改变的W1/W2/量化支路和成本。
 4. **结构发现与部署验收分层**：ALG/SRC/已存OBS可以产生独立科研发现；若声称可用的低计算方案，必须在真实4步×40层160位置学生自由生成上，用多来源、同checkpoint/数值recipe的Dense配对完整视频、动作/运动/语义/时间/画质及实测FFN/全系统成本证明；历史暴露来源用于开发，冻结的新来源及独立seed用于确认。参见[视频证据合同](research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
-5. **真实研究资源**：CPU/GPU、来源、原始/量化checkpoint、seed、模型状态和最大预算按[ACTIVE](research/ACTIVE_RESEARCH.json)冻结每个新的有限范围，任务文档不自动授权，也不自动重跑失败或已完成范围。GPU使用实际可调用的最大有效数量，按[动态资源政策](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)分配，不继承旧实验2/4卡历史上限。
-6. **写回与协作**：科学主张按ALG/SRC/LIT/NATIVE/VIDEO/SYS分开；来源身份与negative evidence精确保留，复算另行版本化。[独立Agent方法讨论队列](research/method_discussion/QUEUE.md)只登记真实提出者和独立评议，不预填同意票。新研究结果同步计算图与当前任务，避免复制一套新的“权威进度文档”。
+5. **有需求就持续扩展采集**：按[问题驱动新增资产协议](research/agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)与[采集需求队列](research/agent_protocol/ACQUISITION_QUEUE_20261029.json)，把缺失观测、来源分层、全40层×4步与动作/语义影响转为具体producer和下一批新source；一次有限范围结束后允许基于新的科学问题继续注册采集，避免把历史配额当科研天花板。
+6. **真实研究资源**：CPU/GPU、来源、原始/量化checkpoint、seed、模型状态和最大预算按[ACTIVE](research/ACTIVE_RESEARCH.json)冻结每个新的有限范围，任务文档不自动授权，也不自动重跑失败或已完成范围。GPU使用实际可调用的最大有效数量，按[动态资源政策](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)分配，不继承旧实验2/4卡历史上限。
+7. **写回与协作**：科学主张按ALG/SRC/LIT/NATIVE/VIDEO/SYS分开；来源身份与negative evidence精确保留，复算另行版本化。[独立Agent方法讨论队列](research/method_discussion/QUEUE.md)只登记真实提出者和独立评议，不预填同意票。新研究结果同步计算图与当前任务，避免复制一套新的“权威进度文档”。
 
 **数值机制事实**：原BF16路径没有激活FP4 Q1/Q2；旧HiF4 fake-QDQ有带符号S1P2码字、BF16重建与W1前Q1/W1后Q2；原生NVFP4/MXFP4的静态W scale、动态A scale、packed layout和实际生产时点独立验证。已有[权重/激活时序审计](research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)与[HiF4有符号码字审计](research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)。A100 BF16与RTX PRO 6000原生NVFP4可并行研究；可用硬件与可执行范围以实际核查为准。
 
