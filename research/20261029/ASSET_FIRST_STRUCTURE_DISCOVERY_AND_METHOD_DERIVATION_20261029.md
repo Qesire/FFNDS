@@ -1,4 +1,4 @@
-# FFNDS · 从保存的真实计算资产重新推导方法
+# FFNDS · 从已存证据与新增原生采集共同推导方法
 
 2026-10-29 · METHOD_SNAPSHOT · **已保存数据复算 + 数学推导 + 原生计算路径 + 文献映射**。本轮不是新GPU、生成、训练或视频评测。科学对象为Wan2.2 I2V A14B、四步high/high/low/low、40 Block、每个完整视频160次FFN执行；现有原BF16、旧HiF4 fake-QDQ、待跑原生NVFP4严格区分。
 
