@@ -2,6 +2,8 @@
 
 **现行METHOD HANDOFF · 2026-10-29 · 探索与部署分别验收。** 科研协议：[AutoResearcher技能](../../.agents/skills/ffnds-paper-discovery/SKILL.md) → [资产与四支机制推导](../20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md) → [数据交叉复算](../20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json) → [视频终端证据](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。运行状态以[ACTIVE](../ACTIVE_RESEARCH.json)为准；历史[2026-10-28任务台账](CURRENT_TASK_LEDGER_20261028.json)是任务状态登记，不再定义科研优先级。任何Agent无需从旧M-B末层handoff开始。
 
+**本交接的“资产先行”指先了解已有证据、节约重复实验；并不要求在现有资产内完成研究。** [问题驱动开放采集](EVIDENCE_DRIVEN_ACQUISITION_20261029.md)及[新增采集队列](ACQUISITION_QUEUE_20261029.json)是**并行P0科研工作**。若缺独立source、40层×4步的时空匹配token、学生自身状态、真实Q1/Q2动态code/scale、额外领域/视频行为数据，立即建设所需数据producer和新source cohort，完成真正的原生采集后继续推导；采集可以先于具体算法。允许引入新的课题与算子，S1/S4/S2/S3及既有rank960并不是方法空间边界。
+
 ## 0. 协作起手式
 
 1. **观察与信息差距**：列出已有 *原始source-cluster、step×layer×token坐标、producer、numeric backend、teacher或student状态、latent视频时间位置*；明确一个使旧策略失效的已见现象。
