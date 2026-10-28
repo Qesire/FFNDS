@@ -1,0 +1,277 @@
+{
+  "schema": "ffnds.weight_activation_quantization_timing.v1",
+  "date": "2026-10-28",
+  "status": "SRC_LIT_ALG_RECONSTRUCTION_NATIVE_DYNAMIC_FP4_OBSERVER_NOT_RUN",
+  "report": "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md",
+  "prior_contracts": [
+    "research/agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json",
+    "research/agent_protocol/QMETA_OBSERVATION_CONTRACT_20261028.json"
+  ],
+  "true_wan_path": {
+    "model": "LightX2V Wan2.2 I2V A14B distilled 4step high/high/low/low 40 blocks per expert",
+    "dimensions": {
+      "M": 31668,
+      "D": 5120,
+      "H": 13824
+    },
+    "operand_sequence": [
+      {
+        "id": "W1_STATIC_WEIGHT",
+        "kind": "weight",
+        "quantization_schedule": "PTQ_BEFORE_INFERENCE",
+        "logical_shape": "[H,D]",
+        "offline_metadata": "Potentially computable from weight quantizer; original cache stores BF16 weight_qdq, not packed S1P2+scale arrays",
+        "earliest_legal_decision": "before_current_invocation",
+        "runtime_role": "weight-side fixed features/layout/compiled candidates"
+      },
+      {
+        "id": "A1_Q1_CURRENT_ACTIVATION",
+        "kind": "activation",
+        "quantization_schedule": "DYNAMIC_EVERY_FFN_CALL",
+        "logical_shape": "[M,D]",
+        "producer": "after norm2/AdaLN and Smooth1, before W1",
+        "persistent_output": "BF16 signed decoded activation",
+        "metadata": "current HiF4 scales generated inside CUDA, no independent export",
+        "earliest_legal_decision": "Q1 producer observation complete and shared action resolved, pre W1",
+        "runtime_role": "new state-conditioned W1/alternative function decision"
+      },
+      {
+        "id": "W2_STATIC_WEIGHT",
+        "kind": "weight",
+        "quantization_schedule": "PTQ_BEFORE_INFERENCE",
+        "logical_shape": "[D,H]",
+        "offline_metadata": "Potentially precomputed fixed group profile; weight_qdq BF16 currently resident/streamed; no packed runtime metadata requirement",
+        "earliest_legal_decision": "before_current_invocation",
+        "runtime_role": "weight-side prepacked K panels/coordinate coefficients"
+      },
+      {
+        "id": "A2_Q2_CURRENT_ACTIVATION",
+        "kind": "activation",
+        "quantization_schedule": "DYNAMIC_EVERY_FFN_CALL",
+        "logical_shape": "[M,H]",
+        "producer": "after W1 and GELU(tanh) and Smooth2, before W2",
+        "persistent_output": "BF16 signed decoded activation",
+        "metadata": "current HiF4 magnitude scale hierarchy internal to Q2; depends on actual current W1/GELU output",
+        "earliest_legal_decision": "after valid Q2 observation; for in-kernel scale-before-code consumer after reduction but before code only if implemented",
+        "runtime_role": "remaining W2 K-panels, group64 observations and future steps"
+      }
+    ],
+    "native_quantization": "HiF4 activation fake-QDQ + prequantized BF16 weight_qdq + torch.nn.functional.linear GEMM, not native packed FP4 tensorcore",
+    "source_paths": [
+      "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/runtime/hifx4_linear.py",
+      "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/adapters/lightx2v_wan_distill.py",
+      "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/algorithms/rtn.py"
+    ]
+  },
+  "formats": [
+    {
+      "id": "HIF4_FAKEDQ_NOW",
+      "element": "signed S1P2",
+      "weight_quantization": "offline fixed BF16 dequantized weight",
+      "activation_quantization": "online Q1/Q2",
+      "weight_metadata_runtime": "not persisted as packed W code/scale in current native cache",
+      "activation_metadata_runtime": "internal magnitude lv0/lv1/lv2; CUDA returns BF16 values",
+      "scale_granularity": "64-element nested 64/8/4",
+      "kernel_operand": "BF16/BF16 GEMM",
+      "availability": "SRC_CONFIRMED"
+    },
+    {
+      "id": "NVFP4_W4A4",
+      "element": "signed E2M1 4bit",
+      "weight_quantization": "offline packed W with fixed FP8 block scales and FP32 global scale",
+      "activation_quantization": "online dynamic block-16 scales; global FP32 scale may be offline calibrated or dynamic according to recipe",
+      "weight_metadata_runtime": "separate packed W scale storage; layout may be swizzled or 2D depending on recipe",
+      "activation_metadata_runtime": "runtime block-16 E4M3 scale and packed A code created by quantizer; scalar global may be static for calibrated vLLM ModelOpt path",
+      "scale_granularity": "16 per activation block; 2D 16x16 weight option; FP32 global",
+      "kernel_operand": "native block-scaled FP4 GEMM on supported Blackwell; W4A16 branch is different",
+      "availability": "LIT_AUTHOR_CODE_VERIFIED_NOT_WAN_NATIVE"
+    },
+    {
+      "id": "MXFP4_W4A4",
+      "element": "signed E2M1 4bit",
+      "weight_quantization": "offline MX packed W + E8M0 block32 scales",
+      "activation_quantization": "online MX activation block32 reduction, E8M0 scale plus packed code",
+      "weight_metadata_runtime": "separate weight E8M0 scale tensor; may be swizzled",
+      "activation_metadata_runtime": "activation E8M0 scale tensor produced at runtime, may be fused/embedded in kernel scheduling",
+      "scale_granularity": "32 per K block",
+      "kernel_operand": "native block-scaled GEMM on compatible device/backend; fallback changes semantics/cost",
+      "availability": "OCP_SPEC_TORCHAO_CUTLASS_SOURCE_NOT_WAN_NATIVE"
+    },
+    {
+      "id": "NVFP4_W4A16",
+      "element": "signed E2M1 weight only",
+      "weight_quantization": "offline packed W+scales",
+      "activation_quantization": "NONE; incoming BF16/FP16 remains high precision",
+      "weight_metadata_runtime": "fixed W scales",
+      "activation_metadata_runtime": "NONE",
+      "scale_granularity": "16 W block",
+      "kernel_operand": "weight-only dequant+GEMM (backend-dependent)",
+      "availability": "VLLM_MODEL_OPT_DOCUMENTED"
+    }
+  ],
+  "static_dynamic_orthogonality": {
+    "format_does_not_imply_schedule": true,
+    "global_scale_static_does_not_imply_local_scale_static": true,
+    "native_gemm_consumes_scale_factors": true,
+    "native_scale_existence_does_not_imply_free_router_observation": true,
+    "native_code_and_scale_may_be_kernel_inputs_but_require_reader_cost": true,
+    "weight_metadata_not_current_activation_observation": true,
+    "Q2_activation_not_pre_W1_observation": true,
+    "swapping_HiF4_to_NVFP4_or_MXFP4_changes_group_closure_and_numeric_reference": true
+  },
+  "information_filtration": [
+    {
+      "when": "OFFLINE_MODEL_LOAD",
+      "available": [
+        "fixed W1 quantized W/scale",
+        "fixed W2 quantized W/scale",
+        "calibration constants",
+        "step/expert program"
+      ],
+      "legal_actions": [
+        "fixed layout",
+        "precomputed weight-group projection and candidate dictionary"
+      ]
+    },
+    {
+      "when": "POST_ADALN_PRE_Q1",
+      "available": [
+        "current BF16 A1",
+        "fixed W1/W2 features",
+        "legal state/step/gate if computed"
+      ],
+      "legal_actions": [
+        "cheap BF16 summary",
+        "lookahead current-input decision"
+      ]
+    },
+    {
+      "when": "POST_DYNAMIC_Q1_PRE_W1",
+      "available": [
+        "current Q1 signed code and scale only if actual implementation materializes or shares them",
+        "fixed W1/W2 features"
+      ],
+      "legal_actions": [
+        "pre-W1 group/dictionary decision",
+        "current activation-weight interaction"
+      ],
+      "already_paid": [
+        "A1 input read and Q1 quantization"
+      ]
+    },
+    {
+      "when": "POST_W1_GELU_PRE_DYNAMIC_Q2",
+      "available": [
+        "actual intermediate A2 BF16",
+        "fixed W2 features"
+      ],
+      "legal_actions": [
+        "pre-Q2 input observation if charged"
+      ],
+      "already_paid": [
+        "W1",
+        "GELU"
+      ]
+    },
+    {
+      "when": "POST_DYNAMIC_Q2_PRE_W2",
+      "available": [
+        "actual Q2 code and scale under deployed format if exposed",
+        "fixed W2 features"
+      ],
+      "legal_actions": [
+        "W2 remaining GEMM work",
+        "next-step information"
+      ],
+      "already_paid": [
+        "W1",
+        "GELU",
+        "Q2 producer"
+      ]
+    }
+  ],
+  "research_arms": [
+    "weight_static_only_fixed_action",
+    "weight_static_plus_step_conditioned",
+    "current_A1_BF16_cheap_summary",
+    "current_A1_Q1_activation_scale_only",
+    "current_A1_Q1_signed_position_summary",
+    "weight_conditioned_A1_Q1_interaction",
+    "Q2_A2_activation_scale_and_signed_summary_for_W2_only",
+    "native_NVFP4_observer_only_noop",
+    "native_MXFP4_observer_only_noop",
+    "native_packed_tensorcore_original_noop",
+    "same_cost_reader_scan_vs_fused_quant_observer",
+    "different_format_numerical_baseline"
+  ],
+  "required_fields": [
+    "source_id",
+    "source_cluster",
+    "step",
+    "expert",
+    "block",
+    "operand_kind",
+    "operand_role",
+    "quantizer_schedule",
+    "format",
+    "scale_granularity",
+    "scale_axis",
+    "scale_dtype",
+    "global_scale_source",
+    "buffer_residency",
+    "producer_op",
+    "availability_time",
+    "decision_deadline",
+    "already_paid_ops",
+    "access_cost",
+    "kernel_backend",
+    "native_or_qdq",
+    "packed_payload_identity",
+    "scale_layout",
+    "model_version",
+    "model_state",
+    "comparison_mode"
+  ],
+  "primary_sources": [
+    {
+      "name": "pinned FFNDS native adapter",
+      "url": "https://github.com/Qesire/FFNDS/blob/main/upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/adapters/lightx2v_wan_distill.py",
+      "depth": "ACTUAL_NATIVE_SRC"
+    },
+    {
+      "name": "pinned FFNDS RTN + linear runtime",
+      "url": "https://github.com/Qesire/FFNDS/blob/main/upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/runtime/hifx4_linear.py",
+      "depth": "ACTUAL_NATIVE_SRC"
+    },
+    {
+      "name": "Transformer Engine NVFP4",
+      "url": "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+      "depth": "VENDOR_FORMAT_IMPLEMENTATION"
+    },
+    {
+      "name": "torchao MX/NVFP4 inference_workflow.py",
+      "url": "https://github.com/pytorch/ao/blob/main/torchao/prototype/mx_formats/inference_workflow.py",
+      "depth": "AUTHOR_SOURCE"
+    },
+    {
+      "name": "vLLM ModelOpt NVFP4 source doc",
+      "url": "https://docs.vllm.ai/en/latest/api/vllm/model_executor/layers/quantization/modelopt/",
+      "depth": "AUTHOR_SOURCE"
+    },
+    {
+      "name": "CUTLASS Blackwell block scaled GEMM",
+      "url": "https://github.com/NVIDIA/cutlass/blob/main/media/docs/cpp/blackwell_functionality.md",
+      "depth": "VENDOR_CODE_DOC"
+    },
+    {
+      "name": "CUTLASS scale operand/layout",
+      "url": "https://docs.nvidia.com/cutlass/latest/media/docs/operators/api_reference/arguments.html",
+      "depth": "VENDOR_API_DOC"
+    },
+    {
+      "name": "OCP Microscaling MX v1",
+      "url": "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+      "depth": "OFFICIAL_SPEC_PAGE10"
+    }
+  ]
+}
