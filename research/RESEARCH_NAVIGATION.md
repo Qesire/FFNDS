@@ -1,8 +1,11 @@
 # FFNDS · 阅读优先级与当前研究导航（2026-10-28）
 
+**2026-10-29 · 资产先行的计算结构再发现：最新方法推理入口。** [新方法总览与数学推导](20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)、[来源级数据/真实MAC/HiF4闭包交叉复算](20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)。原BF16已有8不同来源×160位置teacher资产及完整80物理函数r960：跨步shared在6来源LOO同rank中6/6改善，旧两开发来源2/2改善，但本轮只证明局部teacher-state泛化；共享r960有现成可运行因子，真实视频与速度仍需GPU。新科学优先从S1跨step共享函数、S4行动收益草图、S2函数条件时空tile、S3合法HiF4/NVFP4前置信息四线并行推导；末层M-B、signed抵消与局部SSE回到解释工具。完整视频方法排序和ACTIVE授权维持原政策。
+
+
 **2026-10-29 · 新增20来源视频×四步状态联合复算（当前优先阅读证据）：**[完整研究报告](20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)、[原始四JSON对齐的机器结果](20261029/UB1_FULL_DEPTH_VIDEO_LATENT_JOINT_RECOMPUTATION_20261029.json)、[Dense幅值混杂复核](20261029/UB1_VIDEO_LATENT_ASSOCIATION_PERMUTATION_20261029.json)、[可重放脚本](../tools/recompute_ub1_video_latent_joint.py)。20/20来源四步latent与时间差分误差逐步增长、step1–3各来源有符号交叉正；末步增长的47.82%来自同向交叉。与视频运动的原始Spearman −0.424在控制Dense本身运动幅值和场景类别后降至+0.086，故全局latent/temporal SSE不得当运动质量代理。源级真实RAFT均值比0.1672，成像平均−1.0035，6/20来源成像上升但RAFT下降；现行v4候选准入按完整视频行为+系统成本进行。所有数值来自暴露开发集原始报告的再计算，没有新生成、新GPU作业。
 
-**2026-10-29 · 优先级修正：多来源×完整160-site×视频质量与实测成本成为新方法排序的首要证据。**[现行新合同](20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)重算UB1 20来源质量、Aff54 320-site与A0六视频历史证据，推翻旧v3先单末层误差再按需视频的研究排序；下一Agent首先建立source×方法×视频分维×系统成本矩阵，然后构造可完整40×4执行的M-B候选，按真正多source Dense配对生成判定。旧v3评议保留为历史分析，现行M-A/B/C权威正文更新为v4；GPU新scope仍依ACTIVE。
+**2026-10-29 · 视频准入历史修订：完整160-site和多source配对视频、实测成本是候选部署的终端证据。**[现行新合同](20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)重算UB1 20来源质量、Aff54 320-site与A0六视频历史证据，推翻旧v3先单末层误差再按需视频的研究排序；下一Agent首先建立source×方法×视频分维×系统成本矩阵，然后构造可完整40×4执行的M-B候选，按真正多source Dense配对生成判定。旧v3评议保留为历史分析，现行M-A/B/C权威正文更新为v4；GPU新scope仍依ACTIVE。
 
 **2026-10-29 · 当前路线修订**：[新结果评议、数学修正和下一判别](20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)。复用已完成B0/B1、BH/匹配A0/BF，不重复启动；当前6016视频明显退化。原始BF16投影的范数修正有效但仅一个暴露转移来源，B-F实际学生则分子错误主导；下一步区分这两种机制并核查跨深度consumer。A100 BF16与RTX PRO6000原生NVFP4并行，QCFB从已有V2/W2资产推进T0；通用group64和“A100 only”指令已纠正。此更新未核验实时GPU分配，以下运行/资源数字保留各原观察时点，以ACTIVE为准。
 
