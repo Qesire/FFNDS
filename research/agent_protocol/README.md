@@ -15,6 +15,8 @@
 
 ## P1 · 按研究主张再打开相应协议
 
+**QMeta操作数来源与可用时点**：[W1/W2离线静态weight × Q1/Q2逐调用动态activation与原生FP4](../20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md) · [类型合同](WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)，首先区分weight-only W4A16、W4A4的W/A双scale与HiF4 fake-QDQ，再考虑合法决策窗口及实测成本。
+
 **当前量化格式的源事实**：HiF4原码为带符号S1P2，尺度元信息无符号；现行Q1/Q2是BF16 fake-QDQ输出，具体见[HiF4符号存储审计](../20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)与[signed格式机器合同](HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
 
 | 场景 | 主协议与工具 |
