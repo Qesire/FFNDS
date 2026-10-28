@@ -4,7 +4,7 @@
 
 **方法统一五操作分类**：[O-A计算选择、O-B表示、O-C历史复用、O-D算子代数、O-E学习/验证](../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)。与I/F/C科学入口正交，按G14一手论文source+decision_time+runtime action建立组合指纹。原三候选明确为M-A/M-B/M-C，下一Agent先研究**M-B敏感坐标**，避免与操作O-B同名混用；现有方法讨论批准及运行范围不变。
 
-**当前方法交接已更新至v2**：[现行整合计划](../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)和[从M-B B0/B1继续的实际任务](../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。M-B的连续head/LN数学和来源配对反例**已做完**；下一Agent从真实post-write u/head/flow生产者、冻结资产/neutral重放开始，再完成原生有限响应、B-H 65充分统计直接学生与B-F因子化通用函数构造。M-A0四位置pilot已完成而完整40×4视频OPEN；新来源、GPU及原生模型RUN按ACTIVE登记，队列仅登记真实peer review。
+**当前方法交接**：[现行M-A/M-B/M-C整合方案](../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)与[下一任务技术合同](../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。B0原生捕获、CAL24 96flow标签与第一轮B1固定候选池、B-H Direct65 H128真实训练pilot已完成（[B1](../research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)、[B-H](../research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)），**下一Agent应做原M同head及A0匹配对照、B-F与视频/成本验证**。M-A0全80函数160局部学生已完成metadata组装，tensor加载与自由视频OPEN。新来源/GPU/模型作业按ACTIVE精确scope登记；讨论队列只登记真实peer review。
 
 **阅读优先级**：先按[P0–P4导航](../research/RESEARCH_NAVIGATION.md)的P0恢复上下文/方法/当前任务/ACTIVE；需要具体数学、原文、G13或历史失配时再选择性阅读P1–P4。根[AGENTS](../AGENTS.md)及[领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)是行为规则，不要求每次独立Agent重读全部G0–G14报告和历史handoff。
 
@@ -21,6 +21,8 @@
 5. **评价恰当主张**：机制论文先验证数学/源码/因果范围；执行加速论文另外计量真实FFN+系统成本与独立完整视频质量，严格区分静态图验证、原生运行与外部论文证据。
 6. **独立协作与真实图谱**：经[Graph-Agent协议](../research/agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[讨论队列](../research/method_discussion/QUEUE.md)回写I/F/C任一路线的源节点、ALG/LIT/NATIVE/OPEN关系和独立评议。
 
-**事实与权限**：当前G14为**94主＋10补充论文、16个算子焦点**，原生研究图205节点/424关系；[机器先验索引](../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)额外登记12条typed方法约束。旧10source/12条轨迹/1920站点属于早期机制研究，不是后续consumer20/P30来源集合。2026-10-28最新用户要求按[动态GPU调度规则](../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际能调用的GPU最大量，不预先设2/4卡全局限额；旧限制按历史冻结scope追溯。[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项核验实验身份；新模型与视频按真实来源、冻结代码和执行scope登记，实时/流式实验仍未恢复。
+**事实与权限**：当前G14为**98主＋10补充论文、16个算子焦点**，原生研究图214节点/442关系；[机器先验索引](../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)额外登记12条typed方法约束。旧10source/12条轨迹/1920站点属于早期机制研究，不是后续consumer20/P30来源集合。2026-10-28最新用户要求按[动态GPU调度规则](../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际能调用的GPU最大量，不预先设2/4卡全局限额；旧限制按历史冻结scope追溯。[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项核验实验身份；新模型与视频按真实来源、冻结代码和执行scope登记，实时/流式实验仍未恢复。
+
+**HiF4源码事实**：[格式审计](../research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)确认元素**signed S1P2 自带符号位**，尺度无符号；当前Wan CUDA fake-QDQ写出带符号BF16，不直接导出packed code/scale。符号信息可研究，提取与在线决策时点的成本要实际计算。
 
 **AutoResearcher方法来源**：核心科学Skills来自[固定manifest](../research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，采用[mechanism-research](../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../.agents/skills/problem-reformulation/SKILL.md)及WARD。新回复首先给出**科学发现或构造性解释**，再写方程与真实证据、相反预测和下一条可区分的观察。源级/数学/实验的证据等级紧贴具体命题，而非用长串限定句铺在发现前面。
