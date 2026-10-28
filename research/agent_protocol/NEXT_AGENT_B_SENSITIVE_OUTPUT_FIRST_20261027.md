@@ -2,7 +2,7 @@
 
 **2026-10-28 · NEXT_AGENT_TASK v3 / CURRENT / B0_COMPLETE_B1_PARTIAL。** [当日任务状态台账](CURRENT_TASK_LEDGER_20261028.json)记录实际B0完成、B1有限head子范围完成及其后source配对/学生依赖；本文件继续提供**B0/B1技术任务内容**，台账不替换它。 用户明确“从B开始”，所指为**M-B敏感函数坐标候选**，即O-B表示＋O-E训练/验证、可选O-D真实代数，而非五操作分类的全部O-B。对现有I/F/C、M-A0强基线与独立M-C探索没有排他性约束；[ACTIVE](../ACTIVE_RESEARCH.json)管理所有原生运行权限，[方法讨论](../method_discussion/QUEUE.md)只登记真实独立提案和评议。
 
-**实际续作差异**：[B0/B1原生报告](../20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)已完成4Denseflows/160FFN和72显式head/LN调用；B0无需重做。B1尚需paired/marginal/PCA/random/shuffle同rank判别及弱响应BF16分辨率。先按[CAL24标签producer审计](../method_discussion/discoveries/E0/bh-bf-cal24-aligned-label-source-audit-20261028.md)构建真实r/u/head源配对数据，再进入同信息/预算的B-H/B-F；不能用两个consumer开发来源替代train16/held8。以下B0合同保留以供原生复核，已完成范围以原始RUN和台账为准。当前用户GPU上限2，新运行另按ACTIVE冻结。
+**实际续作差异**：[B0/B1原生报告](../20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)已完成4Denseflows/160FFN和72显式head/LN调用；B0无需重做。B1尚需paired/marginal/PCA/random/shuffle同rank判别及弱响应BF16分辨率。先按[CAL24标签producer审计](../method_discussion/discoveries/E0/bh-bf-cal24-aligned-label-source-audit-20261028.md)构建真实r/u/head源配对数据，再进入同信息/预算的B-H/B-F；不能用两个consumer开发来源替代train16/held8。以下B0合同保留以供原生复核，已完成范围以原始RUN和台账为准。当前用户已撤销预设GPU数量上限；按[动态可调用GPU策略](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)在调度时使用实际能调用的最大量，新运行仍按ACTIVE冻结范围、证据和作业合同。
 
 ## 0. 已完成的工作：作为下一任务的输入，不重复创造
 
