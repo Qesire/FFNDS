@@ -2,7 +2,7 @@
 
 统一科学问题：**视频生成模型如何组织信息、计算与生成行为，怎样在保持完整视频能力时降低真实执行成本？** 可从I（信息与表示）、F（函数与动力学）、C（计算与执行）任意入口研究，G13是F线专题。见[统一目标](../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-**数值/实验优先级（用户最新纠正）**：[原始BF16主线、NVFP4未来部署](../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。当前没有本地5090，原生NVFP4的设备/工具链建设复杂且用户明确暂缓；SM120 R0–R4全DEFERRED，不再启动相关环境准备或GPU作业。利用已有A100与原始BF16实测，继续M-B/B-F/A0低成本函数、范数自由度、源独立验证、视频动态及系统成本。HiF4 fake-QDQ仍具研究/历史数值价值，不能充当原生FP4加速结果。
+**数值/实验优先级（2026-10-28最新）**：[A100 BF16与RTX PRO 6000 Blackwell NVFP4并行](../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。无本地RTX5090但可调查/使用PRO6000 SM120；两条lane独立推进。A100继续原始BF16范数/跨状态/视频/功能；PRO6000 R0静态＋真实硬件访问/匹配NVFP4模型核验已READY，注册ACTIVE后再运行原生R1+。2026-10-26原生E0曾在PRO6000通过但不证明当前可访问；源树NVFP4_RTN Fake-QDQ不能冒称原生FP4。HiF4 Fake-QDQ只是数值科学工具。
 
 **方法统一五操作分类**：[O-A计算选择、O-B表示、O-C历史复用、O-D算子代数、O-E学习/验证](../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)。与I/F/C科学入口正交，按G14一手论文source+decision_time+runtime action建立组合指纹。原三候选明确为M-A/M-B/M-C，下一Agent先研究**M-B敏感坐标**，避免与操作O-B同名混用；现有方法讨论批准及运行范围不变。
 
