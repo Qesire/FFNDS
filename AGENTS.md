@@ -4,7 +4,7 @@
 
 **方法语法**：I（信息与表示）、F（函数与动力学）、C（真实执行）是可并行的研究问题；O-A选择计算、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证是可组合的操作。[五操作框架](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[G14论文/typed先验交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)负责论文和真实计算位置。原三候选统一记为M-A、M-B、M-C，避免与O-A/B/C同名。
 
-**当前下一任务（用户指定M-B先行）**：已完成[A0四位置原生局部恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)和[M-B v2 ALG/SRC及末层65个连续充分统计](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)；下一Agent按[B0/B1具体交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)从真实post-write u/head/flow producer与neutral开始，之后才是finite和B-H/B-F学生。M-C仍为独立开放研究。首个实验、质量和系统成果需实际执行，不由文档/独立讨论推定。
+**当前状态/依赖**按[2026-10-28任务台账](research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json)核对：此台账不授权执行，也不改变本文件方法原则。**当前下一任务（用户指定M-B先行）**：已完成[A0四位置原生局部恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)和[M-B v2 ALG/SRC及末层65个连续充分统计](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)；下一Agent按[B0/B1具体交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)从真实post-write u/head/flow producer与neutral开始，之后才是finite和B-H/B-F学生。M-C仍为独立开放研究。首个实验、质量和系统成果需实际执行，不由文档/独立讨论推定。
 
 **最短工作链**：[当前上下文](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → [现行研究方案](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) → [有关SRC/G14论文计算图](docs/98_端到端计算图与证据注解_20261025.md) → [方法专属实验/运行合同](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)。完整文献或历史材料仅在相应科学问题需要时按照阅读导航P1–P4深入；不必逐份阅读历史 handoff。
 
