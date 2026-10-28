@@ -3,12 +3,14 @@
 **2026-10-29 · 当前路线修订**：[新结果评议、数学修正和下一判别](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)。复用已完成B0/B1、BH/匹配A0/BF，不重复启动；当前6016视频明显退化。原始BF16投影的范数修正有效但仅一个暴露转移来源，B-F实际学生则分子错误主导；下一步区分这两种机制并核查跨深度consumer。A100 BF16与RTX PRO6000原生NVFP4并行，QCFB从已有V2/W2资产推进T0；通用group64和“A100 only”指令已纠正。此更新未核验实时GPU分配，以下运行/资源数字保留各原观察时点，以ACTIVE为准。
 
 
+**2026-10-29 · 视频优先纠正覆盖前段旧任务排序：**[全深度×多来源×视频保真方法合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)已依据20来源UB1质量和全深度Affine54双轨修订。下一位优先汇总多source视频质量并形成全160-site候选；末层q/sigma与fixed-gain属于构造/机制解释，禁止以末层单source局部改善进入方法胜负/成功判断。现行v4方案替换之前的v3方法顺序。
+
 **最新原始BF16实测：**[12flow交叉状态判别](../20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](../20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](../20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。[固定范数原生转移](../20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.md)已实际exit0，同状态误差降93.7%/82.5%、own-state降69.6%；下一项核查原始BF16跨深度校准覆盖。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
 
 
 **最新实测与当前运行**：[B-F固定基底结果](../20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)实际exit0：两expert×两基底，held8 head SSE high 0.000587/0.000590、low 0.000638/0.000633，均低于同域A0 energy 0.000609/0.000661；这是M256局部证据，视频与系统速度未测。[BF16/NVFP4 R0只读就绪](../20261028/BF16_NVFP4_R0_READINESS_20261028.md)：两原始BF16 checkpoint header已核；历史SM120是RTX PRO 6000，用户没有本地5090，但最新允许RTX PRO 6000 Blackwell与A100 BF16双轨并行；NVFP4 R0已恢复READY_STATIC，匹配NVFP4 checkpoint仍待核，真实PRO6000访问尚未在本轮验证。原始BF16两视频已实际exit0。六视频quality v4实际exit0，保留v1/v2/v3失败历史；人审仍待完成，当前GPU占用0。当前会话最多2 GPU，通用动态默认无全局预设上限。
 
-> **职责**：使接手者正确恢复现行状态，**不重复解释**所有论文与历史实验。全文阅读顺序由[P0–P4优先级导航](../RESEARCH_NAVIGATION.md)管理；研究数学/方法的权威正文是[M-A/M-B/M-C方案v3](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，具体B0/B1交接在[下一Agent任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。[当日任务状态/依赖台账](CURRENT_TASK_LEDGER_20261028.json)负责READY/BLOCKED/DEFERRED状态；此上下文不触发新模型实验。
+> **职责**：使接手者正确恢复现行状态，**不重复解释**所有论文与历史实验。全文阅读顺序由[P0–P4优先级导航](../RESEARCH_NAVIGATION.md)管理；研究数学/方法的权威正文是[M-A/M-B/M-C方案v4](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，具体B0/B1交接在[下一Agent任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。[当日任务状态/依赖台账](CURRENT_TASK_LEDGER_20261028.json)负责READY/BLOCKED/DEFERRED状态；此上下文不触发新模型实验。
 
 **当前执行数值策略（2026-10-28最新用户指令）**：[A100原始BF16与RTX PRO 6000 Blackwell原生NVFP4并行](BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户无本地5090，但支持PRO6000作为SM120实验目标；BF16机制/视频不等FP4，NVFP4 R0立即可做静态和当前真实访问核验，R1–R4按设备、模型、Native证据逐项依赖并需ACTIVE scope。2026-10-26 RTX PRO 6000小矩阵FP4通过仅是历史primitive，匹配checkpoint/当前可访问性待确认。
 
@@ -42,7 +44,7 @@
 
 [ACTIVE](../ACTIVE_RESEARCH.json)记录所有真实CPU/GPU/model/video执行权限及历史范围；新范围应由协调者按实际研究问题、资产、来源、对照、预算冻结。数学/文献/源码/保存数据可优先探索。独立方法提案和真实peer审阅按[method_discussion/QUEUE](../method_discussion/QUEUE.md)；QUEUE不是GPU任务队列，已完成M-B数学快照不自动成为认可的部署方法。
 
-**下一位Agent有价值的交付**：利用已完成B-H与同head A0匹配对照发展下一机制，继续B-F真实函数图和线上成本及原始BF16比较，逐项分开ALG/SRC/NATIVE/VIDEO/SYS/OPEN，变化同步主图和方法快照。已有历史失配/论文记录照原证据身份保留，不再重复撰写“B首轮设计任务”。
+**下一位Agent有价值的交付**：先完成按方法×多独立source×seed×四步全160site×动作/语义/画质/时序×真实成本的现有证据矩阵；然后提出可覆盖全部40×4真实计算的M-B新构造，并明确完整多来源生成/评测实验与性能预算。B-H/B-F和fixed gain可并行解释数学，但单末层指标不能决定方法路线成功；沿真实视频异常追溯到gate/attention/scheduler和对应深度。证据标注ALG/SRC/NATIVE/VIDEO/SYS/OPEN，ACTIVE登记前不发起原生GPU任务。
 
 **跨线同步补充**：QCFB/Q-STAGE的R1–R3讨论已整理在[独立评议目录](../independent_reviews/QCFB_20261028/README.md)，R3提供字典覆盖/信息/学习误差三项分解及跨step合法状态空间注入纠错；这仍是ALG/SRC/LIT+OPEN，优先开展旧数据资产可用性检查，而不是将其视为现行GPU任务。当前`ACTIVE`中的历史暂停、已完成scopes和后来的`user_continuation_authorization_20261027`须按**时间与精确scope**解读；B0、CAL24配对标签及固定字典B1均已完成；后续运行以ACTIVE精确scope为准。
 
