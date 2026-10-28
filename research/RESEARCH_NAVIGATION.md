@@ -27,6 +27,8 @@
 
 **2026-10-28 新跨线研究整合（与现行 M-B B0/B1 并行、非新 GPU 任务）**：[QCFB 量化条件联合函数组束 / 两阶段量化决策研究前沿](20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)；[先验→新机制→判别 typed crosswalk](agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)；[计算图OPEN claim](method_discussion/graph_annotations/E0/E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)。从原R12完整64组 Q2可交换、条件有符号组间误差、Q1真实提前可得性，导出**合法原W1+GELU+Q2+W2省算动作**与物理tile/视频判别；这是ALG/SRC/LIT+OPEN，旧QMeta v1是起点，未证明新的预测/速度/视频收益。
 
+**2026-10-28 QCFB 数学修订后第二轮独立交锋（不替代方法投票）**：[评议目录](independent_reviews/QCFB_20261028/README.md) · [本轮回应与新可证伪边界](independent_reviews/QCFB_20261028/SECOND_ROUND_INDEPENDENT_RESPONSE_AND_NEW_FRONTIER_20261028.md)。承认可测性/联合PSD/Q-STAGE修正；新增Q1动作碰撞下界、motion尾部、native舍入margin、跨160调用的transferred Gram、少数resident action字典。新结论仍为ALG/LIT+OPEN、无真实模型或视频新试验。
+
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前下一模型方法任务仍按 P0 的 B0/B1 交接执行**。
 
 **使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**94主＋10补充，共104项**；主计算图为205节点/424原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
