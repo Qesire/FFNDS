@@ -1,8 +1,11 @@
 # FFNDS · 阅读优先级与当前研究导航（2026-10-28）
 
+
+**最新实测与当前运行**：[B-F固定基底结果](20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)实际exit0：两expert×两基底，held8 head SSE high 0.000587/0.000590、low 0.000638/0.000633，均低于同域A0 energy 0.000609/0.000661；这是M256局部证据，视频与系统速度未测。[BF16/NVFP4 R0只读就绪](20261028/BF16_NVFP4_R0_READINESS_20261028.md)：两原始BF16 checkpoint header已核；历史SM120是RTX PRO 6000，用户明确本会话没有5090，使用A100继续BF16；NVFP4执行暂缓，匹配NVFP4 checkpoint未知。原始BF16两视频producer正在实现，尚未注册或执行。六视频quality isolated v2的byte CPU proof实际exit0、imports CPU proof实际exit1，未产生新官方评分、GPU占用0；保留v1失败；人审仍待完成。当前会话最多2 GPU，通用动态默认无全局预设上限。
+
 > **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；[动态资源规则](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)通用默认不预设全局上限；具体实验的冻结资源预算与ACTIVE中的当前授权单独核对，GPU/模型/视频作业范围仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
 
-**数值执行路线已调整（2026-10-28）**：[BF16与RTX5090 NVFP4双轨Agent执行合同](agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。主机制基线为原始BF16 Dense/候选；低比特系统目标为已具备的RTX5090 SM120上成熟NVFP4 W4A4（需先核对CUDA/编译/32GB显存、完整Wan模型身份）；HiF4 fake-QDQ退为数值诊断。旧HiF4 weight_qdq非原始BF16。官方NVFP4预设的时刻/attention与旧HiF4不同，先在同一recipe内配对Dense/候选。现有 M-B/B-H、A0未完成的公平对照继续，并行F0无需新GPU。
+**数值执行路线已调整（2026-10-28）**：[BF16与RTX5090 NVFP4双轨Agent执行合同](agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。主机制基线为原始BF16 Dense/候选；低比特系统目标为RTX5090 SM120上成熟NVFP4 W4A4（本会话用户明确没有5090，使用A100；NVFP4执行暂缓）（需先核对CUDA/编译/32GB显存、完整Wan模型身份）；HiF4 fake-QDQ退为数值诊断。旧HiF4 weight_qdq非原始BF16。官方NVFP4预设的时刻/attention与旧HiF4不同，先在同一recipe内配对Dense/候选。现有 M-B/B-H、A0未完成的公平对照继续，并行F0无需新GPU。
 
 ## P0 · 立即阅读：恢复上下文与当前首项研究
 
@@ -14,7 +17,7 @@
 | **4** | [下一Agent B0/B1交接](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 原生producer/资产/neutral→有限响应→学生函数判别与输出合同 | 复用已完成B0及CAL24配对判别；B-H训练状态按ACTIVE核验 |
 | **5** | [ACTIVE真实研究状态](ACTIVE_RESEARCH.json) | 当轮模型/资源权限、已完成的原始RUN、模型和实验范围 | 不将任务文档视为自动运行授权 |
 
-**M-B仍为首要研究：** [CAL24 96flow对齐及byte audit、B1配对判别和B0选中行neutral](20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)已完成。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256结果不是native数值floor。[B-H真实学生](20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)已完成两expert各256次Adam，held8 head SSE高/低0.003958/0.003615；[原M几何同head A0对照](20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)已完成：held8高/低A0 energy 0.000609/0.000661，B-H 0.003958/0.003615，B-H对两A0均0/8胜；B-F与一般paired机制仍OPEN。[A0全80函数/160学生](20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)已完成局部训练和metadata组装，160 export/1920 tensor独立字节审计exit0；[六视频v2实际exit0](20261028/COMPACT6016_SIX_VIDEO_NATIVE_RESULTS_20261028.md)：两暴露来源、shared seed42、960 FFN、两Dense历史字节一致；v1首block前失败保留原身份。正式质量/人审和公平系统速度仍OPEN。具体运行以[ACTIVE](ACTIVE_RESEARCH.json)为准。
+**M-B仍为首要研究：** [CAL24 96flow对齐及byte audit、B1配对判别和B0选中行neutral](20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)已完成。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256结果不是native数值floor。[B-H真实学生](20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)已完成两expert各256次Adam，held8 head SSE高/低0.003958/0.003615；[原M几何同head A0对照](20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)已完成：held8高/低A0 energy 0.000609/0.000661，B-H 0.003958/0.003615，B-H对两A0均0/8胜；B-F局部学生已完成，一般paired机制仍OPEN。[A0全80函数/160学生](20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)已完成局部训练和metadata组装，160 export/1920 tensor独立字节审计exit0；[六视频v2实际exit0](20261028/COMPACT6016_SIX_VIDEO_NATIVE_RESULTS_20261028.md)：两暴露来源、shared seed42、960 FFN、两Dense历史字节一致；v1首block前失败保留原身份。正式质量/人审和公平系统速度仍OPEN。具体运行以[ACTIVE](ACTIVE_RESEARCH.json)为准。
 
 ## P1 · 研究方法必备：按问题选择阅读，不必全读
 
@@ -36,7 +39,7 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为216节点/448原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为217节点/451原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 

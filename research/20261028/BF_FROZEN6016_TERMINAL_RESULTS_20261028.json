@@ -1,0 +1,1783 @@
+{
+  "schema": "ffnds.bf_frozen6016_terminal.scalar_results.v1",
+  "scope": "E0_BF_FROZEN6016_R512_TERMINAL_20261028",
+  "status": "COMPLETE_BF_FROZEN6016_R512_TERMINAL_FOUR_STUDENTS",
+  "provenance": {
+    "protocol": {
+      "path": "config/e0_bf_frozen6016_terminal_20261028_v1.json",
+      "sha256": "8a74628b8160d237b42ed4badc20b8aa7602d0d2431e6b36a7c6cc4e270d06c3"
+    },
+    "run": {
+      "root": "hf",
+      "path": "ffnds-derived/e0_bf_frozen6016_terminal_20261028/attempt1/worker/results/RUN.json",
+      "sha256": "12bc19935b69ab0e5207350ab9241e95fc2718b4268ae7a1a5b3bf2e584d0dc6"
+    },
+    "exit_receipt": {
+      "root": "hf",
+      "path": "ffnds-derived/e0_bf_frozen6016_terminal_20261028/attempt1/worker/EXIT_RECEIPT.json",
+      "sha256": "97b6967e3ffca55a101c4305ccb66d776d20ff4575b329b4e7de439b3168408a",
+      "child_returncode": 0,
+      "timeout": false,
+      "outer_seconds": 629.4436388460454
+    },
+    "parent_selected_A0_results": {
+      "high_noise_model": {
+        "path": "ffnds-derived/e0_compact6016_full80_completion_20261028/attempt1/part1/cells/compact6016complete_high_b39_energy94/RESULT.json",
+        "sha256": "2aa7394db41a2b0f6d1128b80c5ca253fc7a20d6704d041f5ecaf5896249d64d",
+        "bytes": 153440
+      },
+      "low_noise_model": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part3/cells/compact6016remain_low_b39_energy94/RESULT.json",
+        "sha256": "646be1f9e5ff37062fa104a9460dea1c2a9de3fb5990e5d4abb414a2f82cef23",
+        "bytes": 153510
+      }
+    },
+    "parent_head_comparison": {
+      "protocol": {
+        "path": "config/e0_bh_a0_matched_head_20261028_v1.json",
+        "bytes": 22645,
+        "sha256": "766e83105775bfccc2862a92f7b24b55b28e4a2ebcf93c92c2070ef739994714"
+      },
+      "run": {
+        "path": "ffnds-derived/e0_bh_a0_matched_terminal_head_20261028/attempt1/results/RUN.json",
+        "bytes": 312348,
+        "sha256": "31baab02b506aa965da6f07e91d72e47bd749f5425ae4faae92bb62f57c27716"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_bh_a0_matched_terminal_head_20261028/attempt1/EXIT_RECEIPT.json",
+        "bytes": 528,
+        "sha256": "b4deb31cee2ca0568f1a510831af734a734281886e869663998e6b55e587c619"
+      }
+    }
+  },
+  "design": {
+    "functions": "two terminal block39 expert functions",
+    "sources": "16 train, 8 historically exposed held-out; 2 steps per expert per source, source equal means",
+    "geometry": "M256 FFN/own dynamic Q2; original full-M geometry selected-row heads with other rows synthetic zero fill",
+    "dtype": "BF16 static factors and native activation QDQ; FP64 error reductions",
+    "oracle": "teacher Y projected onto the fixed basis; reference, not trained student",
+    "basis": [
+      "PCA512",
+      "HEAD128_PCA384"
+    ],
+    "mathematics": {
+      "common_mean": "Per expert mean of all train16 x2steps x256 BF16 teacherY values, in FP64; one shared mu for both bases; no per-source centering and no heldout fitting.",
+      "PCA512": "Top512 eigenvectors of exact train output covariance; fixed rank and no sweep.",
+      "HEAD128_PCA384": "Reduced QR of two step gate*centered(BF16(1+scale)*head) matrices,128 fixed columns including deterministic QR completion; append384 top complement-covariance directions and QR. Continuous head numerator preservation is measured before BF16; no native-exact claim.",
+      "initialization": "Bc0=Phi^T W2_A0, bc=Phi^T(b2_A0-mu). Output bias is mu. Freeze Phi,mu,bc,W1,b1,smooth2. Train only Bc rank32 A/B=208896 parameters/student.",
+      "objective": "Same normalized FP32 gatedY squared loss as A0; Adam256updates/student, batch256originalrows,8epochs x32source-step, lr0.0005/betas0.9,0.999/eps1e-8/no weight decay; deterministic source-step order and seed42 for fixed initialization.",
+      "native_head": "Original M31668/D5120 row-local LN/modulation/addmm geometry with true selected256 rows at original coordinates and zero synthetic other rows, not full-state replay. 96neutral+192oracle+384initial/final=672head calls.",
+      "errors": "Continuous q/sigma error decomposed into direct numerator and radial variance terms with signed cross; actual BF16 head remainder and signed remainder cross close native head SSE. Also gatedY pre-gate and real BF16 gate errors.",
+      "deployment": "Current original postQ1 -> inherited static BF16 W1+b1 -> tanhGELU -> current own6016 Smooth2/native HiF4 group64 Q2 -> BF16 Bc+bc -> BF16 Phi+mu. Three GEMMs, no middle quantizer, no online LoRA or teacherY. Q1 and Q2 remain per-call dynamic activations; new static factors are BF16, not newly quantized HiF4 weights."
+    }
+  },
+  "results": {
+    "high_noise_model": {
+      "PCA512": {
+        "train16": {
+          "A0_energy94": {
+            "head_relative_SSE": 0.0007197875931026043,
+            "actual_BF16_gate_relative_SSE": 0.00768688408693852
+          },
+          "oracle": {
+            "equal_source_mean": {
+              "head_relative_SSE": 1.1126186246087104e-05,
+              "actual_BF16_gate_relative_SSE": 0.0007434416729043328,
+              "gated_pre_gate_relative_SSE": 0.0007398314938874915,
+              "direct_relative_SSE": 2.1419085728623193e-06,
+              "radial_relative_SSE": 4.600047957167103e-06,
+              "signed_cross_relative_SSE": -1.8449438429076708e-08,
+              "continuous_relative_SSE": 6.723507091600345e-06,
+              "BF16_remainder_relative_SSE": 4.3998234855463915e-06,
+              "BF16_signed_remainder_cross": 2.855668940366976e-09
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 1.1101721790301323e-05,
+                "actual_BF16_gate_relative_SSE": 0.0006460071933043581
+              },
+              "1": {
+                "head_relative_SSE": 1.1489731603391554e-05,
+                "actual_BF16_gate_relative_SSE": 0.0009191721886273126
+              },
+              "2": {
+                "head_relative_SSE": 1.0580393324061902e-05,
+                "actual_BF16_gate_relative_SSE": 0.0006500144146464829
+              },
+              "3": {
+                "head_relative_SSE": 1.2040418314986203e-05,
+                "actual_BF16_gate_relative_SSE": 0.0008194035106528087
+              },
+              "4": {
+                "head_relative_SSE": 1.1318224733487073e-05,
+                "actual_BF16_gate_relative_SSE": 0.0007769042450308636
+              },
+              "5": {
+                "head_relative_SSE": 1.3399607785357394e-05,
+                "actual_BF16_gate_relative_SSE": 0.0007823475040618017
+              },
+              "6": {
+                "head_relative_SSE": 1.2434215019532432e-05,
+                "actual_BF16_gate_relative_SSE": 0.0007030006169416801
+              },
+              "7": {
+                "head_relative_SSE": 1.1271326378705879e-05,
+                "actual_BF16_gate_relative_SSE": 0.0006378862202464338
+              },
+              "8": {
+                "head_relative_SSE": 1.1045367019103162e-05,
+                "actual_BF16_gate_relative_SSE": 0.0006733843378208192
+              },
+              "9": {
+                "head_relative_SSE": 1.0162350298350631e-05,
+                "actual_BF16_gate_relative_SSE": 0.0006836515230523072
+              },
+              "10": {
+                "head_relative_SSE": 9.208076634467356e-06,
+                "actual_BF16_gate_relative_SSE": 0.0005273779937747682
+              },
+              "11": {
+                "head_relative_SSE": 1.1798743193974143e-05,
+                "actual_BF16_gate_relative_SSE": 0.0009072923969068809
+              },
+              "12": {
+                "head_relative_SSE": 1.0185503015366364e-05,
+                "actual_BF16_gate_relative_SSE": 0.0007669188500545837
+              },
+              "13": {
+                "head_relative_SSE": 1.1632503605575664e-05,
+                "actual_BF16_gate_relative_SSE": 0.0007687615292160052
+              },
+              "14": {
+                "head_relative_SSE": 1.0983755204669159e-05,
+                "actual_BF16_gate_relative_SSE": 0.0009041300492820304
+              },
+              "15": {
+                "head_relative_SSE": 9.367042016063423e-06,
+                "actual_BF16_gate_relative_SSE": 0.0007288141928501889
+              }
+            }
+          },
+          "initial": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0007042650148482002,
+              "actual_BF16_gate_relative_SSE": 0.006482890803432792,
+              "gated_pre_gate_relative_SSE": 0.006476578724868386,
+              "direct_relative_SSE": 0.0006603209836714552,
+              "radial_relative_SSE": 4.574582339481794e-05,
+              "signed_cross_relative_SSE": -8.444394467236418e-06,
+              "continuous_relative_SSE": 0.0006976224125990367,
+              "BF16_remainder_relative_SSE": 7.034627563916564e-06,
+              "BF16_signed_remainder_cross": -3.920253147531495e-07
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 0.0007672011109398369,
+                "actual_BF16_gate_relative_SSE": 0.006094520433767217
+              },
+              "1": {
+                "head_relative_SSE": 0.0005493467700220945,
+                "actual_BF16_gate_relative_SSE": 0.007552055328855112
+              },
+              "2": {
+                "head_relative_SSE": 0.0009365582171724258,
+                "actual_BF16_gate_relative_SSE": 0.007762136818351161
+              },
+              "3": {
+                "head_relative_SSE": 0.000840989753418199,
+                "actual_BF16_gate_relative_SSE": 0.006421341140109367
+              },
+              "4": {
+                "head_relative_SSE": 0.0005197553109692201,
+                "actual_BF16_gate_relative_SSE": 0.005681891227891159
+              },
+              "5": {
+                "head_relative_SSE": 0.0010091309574966354,
+                "actual_BF16_gate_relative_SSE": 0.008586758154642887
+              },
+              "6": {
+                "head_relative_SSE": 0.0011436816384620472,
+                "actual_BF16_gate_relative_SSE": 0.0075375478686564475
+              },
+              "7": {
+                "head_relative_SSE": 0.0007184828127891549,
+                "actual_BF16_gate_relative_SSE": 0.006127447572520304
+              },
+              "8": {
+                "head_relative_SSE": 0.0006258138583524959,
+                "actual_BF16_gate_relative_SSE": 0.005278177991094845
+              },
+              "9": {
+                "head_relative_SSE": 0.0005455445458734733,
+                "actual_BF16_gate_relative_SSE": 0.00594857576385888
+              },
+              "10": {
+                "head_relative_SSE": 0.0005040995220998092,
+                "actual_BF16_gate_relative_SSE": 0.004932666895632118
+              },
+              "11": {
+                "head_relative_SSE": 0.0007004189330552206,
+                "actual_BF16_gate_relative_SSE": 0.006821381899345835
+              },
+              "12": {
+                "head_relative_SSE": 0.0005196208933570051,
+                "actual_BF16_gate_relative_SSE": 0.005815773344168145
+              },
+              "13": {
+                "head_relative_SSE": 0.0007603102899832161,
+                "actual_BF16_gate_relative_SSE": 0.0061144774820703005
+              },
+              "14": {
+                "head_relative_SSE": 0.0005425737891678764,
+                "actual_BF16_gate_relative_SSE": 0.006804722380762373
+              },
+              "15": {
+                "head_relative_SSE": 0.0005847118344124918,
+                "actual_BF16_gate_relative_SSE": 0.006246778553198525
+              }
+            }
+          },
+          "final": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0006787397453554605,
+              "actual_BF16_gate_relative_SSE": 0.0057850858623817725,
+              "gated_pre_gate_relative_SSE": 0.005779389292051523,
+              "direct_relative_SSE": 0.0006274384350094316,
+              "radial_relative_SSE": 3.903188785438513e-05,
+              "signed_cross_relative_SSE": 5.412793369900454e-06,
+              "continuous_relative_SSE": 0.0006718831162337172,
+              "BF16_remainder_relative_SSE": 6.996867202492458e-06,
+              "BF16_signed_remainder_cross": -1.402380807491904e-07
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 0.0007389900020317451,
+                "actual_BF16_gate_relative_SSE": 0.005410885289804465
+              },
+              "1": {
+                "head_relative_SSE": 0.0005129226682240001,
+                "actual_BF16_gate_relative_SSE": 0.006602830438785767
+              },
+              "2": {
+                "head_relative_SSE": 0.0008790207583828419,
+                "actual_BF16_gate_relative_SSE": 0.0064389553925805875
+              },
+              "3": {
+                "head_relative_SSE": 0.0008278603233137717,
+                "actual_BF16_gate_relative_SSE": 0.0060142791710418204
+              },
+              "4": {
+                "head_relative_SSE": 0.0005019387488809067,
+                "actual_BF16_gate_relative_SSE": 0.005253052316206519
+              },
+              "5": {
+                "head_relative_SSE": 0.0009209936330957559,
+                "actual_BF16_gate_relative_SSE": 0.006951387832750957
+              },
+              "6": {
+                "head_relative_SSE": 0.0010767466579028244,
+                "actual_BF16_gate_relative_SSE": 0.0061583204400255855
+              },
+              "7": {
+                "head_relative_SSE": 0.000706972902958093,
+                "actual_BF16_gate_relative_SSE": 0.00542213016425468
+              },
+              "8": {
+                "head_relative_SSE": 0.0006067601211341776,
+                "actual_BF16_gate_relative_SSE": 0.004828679419293934
+              },
+              "9": {
+                "head_relative_SSE": 0.0005296135898861028,
+                "actual_BF16_gate_relative_SSE": 0.005407769464368125
+              },
+              "10": {
+                "head_relative_SSE": 0.0004858606755064078,
+                "actual_BF16_gate_relative_SSE": 0.004481661092720215
+              },
+              "11": {
+                "head_relative_SSE": 0.0006935224137653415,
+                "actual_BF16_gate_relative_SSE": 0.006374913081304489
+              },
+              "12": {
+                "head_relative_SSE": 0.000510469482125545,
+                "actual_BF16_gate_relative_SSE": 0.005407620356352546
+              },
+              "13": {
+                "head_relative_SSE": 0.0007617706820138948,
+                "actual_BF16_gate_relative_SSE": 0.005648188677206461
+              },
+              "14": {
+                "head_relative_SSE": 0.0005350553664650036,
+                "actual_BF16_gate_relative_SSE": 0.00639241766491226
+              },
+              "15": {
+                "head_relative_SSE": 0.000571337900000956,
+                "actual_BF16_gate_relative_SSE": 0.005768282996499952
+              }
+            }
+          },
+          "final_head_sources_better_than_A0_energy94": 16
+        },
+        "heldout8_exposed": {
+          "A0_energy94": {
+            "head_relative_SSE": 0.0006087888215755087,
+            "actual_BF16_gate_relative_SSE": 0.008392522987844145
+          },
+          "oracle": {
+            "equal_source_mean": {
+              "head_relative_SSE": 1.3055483454332541e-05,
+              "actual_BF16_gate_relative_SSE": 0.0011177170901079865,
+              "gated_pre_gate_relative_SSE": 0.001113458179133827,
+              "direct_relative_SSE": 2.655971324108221e-06,
+              "radial_relative_SSE": 5.666116241506596e-06,
+              "signed_cross_relative_SSE": 2.809073628297852e-09,
+              "continuous_relative_SSE": 8.324896639243115e-06,
+              "BF16_remainder_relative_SSE": 4.725197693479909e-06,
+              "BF16_signed_remainder_cross": 5.3891216095177595e-09
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 1.3257212649681982e-05,
+                "actual_BF16_gate_relative_SSE": 0.001330602744767879
+              },
+              "17": {
+                "head_relative_SSE": 1.306778961622205e-05,
+                "actual_BF16_gate_relative_SSE": 0.0011400672985999896
+              },
+              "18": {
+                "head_relative_SSE": 1.2743358001175945e-05,
+                "actual_BF16_gate_relative_SSE": 0.0011536875197450157
+              },
+              "19": {
+                "head_relative_SSE": 1.1826945322258357e-05,
+                "actual_BF16_gate_relative_SSE": 0.0007729655611623493
+              },
+              "20": {
+                "head_relative_SSE": 1.3870700506783318e-05,
+                "actual_BF16_gate_relative_SSE": 0.0008516834028840336
+              },
+              "21": {
+                "head_relative_SSE": 1.5496463330865423e-05,
+                "actual_BF16_gate_relative_SSE": 0.0016272634714683237
+              },
+              "22": {
+                "head_relative_SSE": 1.3092271191214724e-05,
+                "actual_BF16_gate_relative_SSE": 0.0013182129324297532
+              },
+              "23": {
+                "head_relative_SSE": 1.1089127016458534e-05,
+                "actual_BF16_gate_relative_SSE": 0.0007472537898065476
+              }
+            }
+          },
+          "initial": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.000598917650497424,
+              "actual_BF16_gate_relative_SSE": 0.007412455156660305,
+              "gated_pre_gate_relative_SSE": 0.0074090131547599365,
+              "direct_relative_SSE": 0.0005720001042876283,
+              "radial_relative_SSE": 5.803903045522143e-05,
+              "signed_cross_relative_SSE": -3.8093569444671426e-05,
+              "continuous_relative_SSE": 0.0005919455652981782,
+              "BF16_remainder_relative_SSE": 7.192553694750089e-06,
+              "BF16_signed_remainder_cross": -2.2046849550431014e-07
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 0.00048705579513770147,
+                "actual_BF16_gate_relative_SSE": 0.008811388708858087
+              },
+              "17": {
+                "head_relative_SSE": 0.0005526335152685874,
+                "actual_BF16_gate_relative_SSE": 0.006968362266766628
+              },
+              "18": {
+                "head_relative_SSE": 0.0005745118990479824,
+                "actual_BF16_gate_relative_SSE": 0.007258232506764897
+              },
+              "19": {
+                "head_relative_SSE": 0.0006610522585876143,
+                "actual_BF16_gate_relative_SSE": 0.00641846225491945
+              },
+              "20": {
+                "head_relative_SSE": 0.0006875815881254482,
+                "actual_BF16_gate_relative_SSE": 0.005195510813117946
+              },
+              "21": {
+                "head_relative_SSE": 0.0004953359370031639,
+                "actual_BF16_gate_relative_SSE": 0.01073331925531501
+              },
+              "22": {
+                "head_relative_SSE": 0.0007443179570816997,
+                "actual_BF16_gate_relative_SSE": 0.008225462077534395
+              },
+              "23": {
+                "head_relative_SSE": 0.0005888522537271946,
+                "actual_BF16_gate_relative_SSE": 0.005688903370006025
+              }
+            }
+          },
+          "final": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0005865308529492986,
+              "actual_BF16_gate_relative_SSE": 0.006894632165229962,
+              "gated_pre_gate_relative_SSE": 0.0068910687602192055,
+              "direct_relative_SSE": 0.0005547631389602953,
+              "radial_relative_SSE": 5.251003862997991e-05,
+              "signed_cross_relative_SSE": -2.7327528451020672e-05,
+              "continuous_relative_SSE": 0.0005799456491392545,
+              "BF16_remainder_relative_SSE": 7.1301442909297085e-06,
+              "BF16_signed_remainder_cross": -5.449404808856563e-07
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 0.0004403164025902463,
+                "actual_BF16_gate_relative_SSE": 0.007624274124016887
+              },
+              "17": {
+                "head_relative_SSE": 0.0005421167469247981,
+                "actual_BF16_gate_relative_SSE": 0.006590432705853145
+              },
+              "18": {
+                "head_relative_SSE": 0.0005588831685295634,
+                "actual_BF16_gate_relative_SSE": 0.006774869102743464
+              },
+              "19": {
+                "head_relative_SSE": 0.0006646499362490874,
+                "actual_BF16_gate_relative_SSE": 0.006014515143271477
+              },
+              "20": {
+                "head_relative_SSE": 0.0006799081940169602,
+                "actual_BF16_gate_relative_SSE": 0.004761191603473115
+              },
+              "21": {
+                "head_relative_SSE": 0.0004956054573322069,
+                "actual_BF16_gate_relative_SSE": 0.010393339689738072
+              },
+              "22": {
+                "head_relative_SSE": 0.0007296120823851286,
+                "actual_BF16_gate_relative_SSE": 0.007596261495096885
+              },
+              "23": {
+                "head_relative_SSE": 0.0005811548355663979,
+                "actual_BF16_gate_relative_SSE": 0.005402173457646651
+              }
+            }
+          },
+          "final_head_sources_better_than_A0_energy94": 7
+        }
+      },
+      "HEAD128_PCA384": {
+        "train16": {
+          "A0_energy94": {
+            "head_relative_SSE": 0.0007197875931026043,
+            "actual_BF16_gate_relative_SSE": 0.00768688408693852
+          },
+          "oracle": {
+            "equal_source_mean": {
+              "head_relative_SSE": 8.791937848921998e-06,
+              "actual_BF16_gate_relative_SSE": 0.0008716704498143359,
+              "gated_pre_gate_relative_SSE": 0.0008684192814527528,
+              "direct_relative_SSE": 3.4582522290929114e-07,
+              "radial_relative_SSE": 4.976682547462581e-06,
+              "signed_cross_relative_SSE": -1.2929207111205712e-09,
+              "continuous_relative_SSE": 5.321214849660752e-06,
+              "BF16_remainder_relative_SSE": 3.4874228194533805e-06,
+              "BF16_signed_remainder_cross": -1.669982019213506e-08
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 9.17618667113712e-06,
+                "actual_BF16_gate_relative_SSE": 0.0007610170626352959
+              },
+              "1": {
+                "head_relative_SSE": 9.749365836446322e-06,
+                "actual_BF16_gate_relative_SSE": 0.0010692336684665206
+              },
+              "2": {
+                "head_relative_SSE": 8.821467919003768e-06,
+                "actual_BF16_gate_relative_SSE": 0.0007764208453838898
+              },
+              "3": {
+                "head_relative_SSE": 9.852373024737343e-06,
+                "actual_BF16_gate_relative_SSE": 0.0009565636716256303
+              },
+              "4": {
+                "head_relative_SSE": 9.037675159817156e-06,
+                "actual_BF16_gate_relative_SSE": 0.0009013879895999565
+              },
+              "5": {
+                "head_relative_SSE": 9.5627319571068e-06,
+                "actual_BF16_gate_relative_SSE": 0.0009374095671660493
+              },
+              "6": {
+                "head_relative_SSE": 9.283731158245459e-06,
+                "actual_BF16_gate_relative_SSE": 0.0008360818088021334
+              },
+              "7": {
+                "head_relative_SSE": 8.455671247967969e-06,
+                "actual_BF16_gate_relative_SSE": 0.0007540415489698648
+              },
+              "8": {
+                "head_relative_SSE": 8.575187610790474e-06,
+                "actual_BF16_gate_relative_SSE": 0.0007828068720185162
+              },
+              "9": {
+                "head_relative_SSE": 7.981035535552145e-06,
+                "actual_BF16_gate_relative_SSE": 0.0007904993913754594
+              },
+              "10": {
+                "head_relative_SSE": 7.435415956857023e-06,
+                "actual_BF16_gate_relative_SSE": 0.0006100974084970283
+              },
+              "11": {
+                "head_relative_SSE": 9.122304658736574e-06,
+                "actual_BF16_gate_relative_SSE": 0.0010574246140763926
+              },
+              "12": {
+                "head_relative_SSE": 8.463176574535958e-06,
+                "actual_BF16_gate_relative_SSE": 0.0009007563462894057
+              },
+              "13": {
+                "head_relative_SSE": 8.33867687915697e-06,
+                "actual_BF16_gate_relative_SSE": 0.0009040067390693332
+              },
+              "14": {
+                "head_relative_SSE": 9.056684282891342e-06,
+                "actual_BF16_gate_relative_SSE": 0.0010522990070716098
+              },
+              "15": {
+                "head_relative_SSE": 7.759321109769525e-06,
+                "actual_BF16_gate_relative_SSE": 0.0008566806559822883
+              }
+            }
+          },
+          "initial": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.00071900067414918,
+              "actual_BF16_gate_relative_SSE": 0.006600453655183963,
+              "gated_pre_gate_relative_SSE": 0.006594755354885301,
+              "direct_relative_SSE": 0.0006667592024219579,
+              "radial_relative_SSE": 4.778963758938729e-05,
+              "signed_cross_relative_SSE": -2.340164751085072e-06,
+              "continuous_relative_SSE": 0.0007122086752602601,
+              "BF16_remainder_relative_SSE": 7.041985818916073e-06,
+              "BF16_signed_remainder_cross": -2.499869299962538e-07
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 0.0007855429101470286,
+                "actual_BF16_gate_relative_SSE": 0.006194633722302211
+              },
+              "1": {
+                "head_relative_SSE": 0.0005617303638091608,
+                "actual_BF16_gate_relative_SSE": 0.007715437400118307
+              },
+              "2": {
+                "head_relative_SSE": 0.0009453462541400571,
+                "actual_BF16_gate_relative_SSE": 0.0078448041546052
+              },
+              "3": {
+                "head_relative_SSE": 0.0008442636940146585,
+                "actual_BF16_gate_relative_SSE": 0.006531620516742281
+              },
+              "4": {
+                "head_relative_SSE": 0.0005326402319444647,
+                "actual_BF16_gate_relative_SSE": 0.005823737976269172
+              },
+              "5": {
+                "head_relative_SSE": 0.001039401213690564,
+                "actual_BF16_gate_relative_SSE": 0.00872357342619849
+              },
+              "6": {
+                "head_relative_SSE": 0.0011731609362813427,
+                "actual_BF16_gate_relative_SSE": 0.007685153163883032
+              },
+              "7": {
+                "head_relative_SSE": 0.0007327985179676505,
+                "actual_BF16_gate_relative_SSE": 0.006218935220773981
+              },
+              "8": {
+                "head_relative_SSE": 0.0006407197095448599,
+                "actual_BF16_gate_relative_SSE": 0.00536735534189561
+              },
+              "9": {
+                "head_relative_SSE": 0.0005610037732847845,
+                "actual_BF16_gate_relative_SSE": 0.006068921344145477
+              },
+              "10": {
+                "head_relative_SSE": 0.0005151081944477812,
+                "actual_BF16_gate_relative_SSE": 0.005016352205092863
+              },
+              "11": {
+                "head_relative_SSE": 0.0007086424880620992,
+                "actual_BF16_gate_relative_SSE": 0.006969018212798037
+              },
+              "12": {
+                "head_relative_SSE": 0.0005302237604259055,
+                "actual_BF16_gate_relative_SSE": 0.005908765223806412
+              },
+              "13": {
+                "head_relative_SSE": 0.0007799456686556107,
+                "actual_BF16_gate_relative_SSE": 0.006230453208369832
+              },
+              "14": {
+                "head_relative_SSE": 0.0005557805245446099,
+                "actual_BF16_gate_relative_SSE": 0.006938044351365151
+              },
+              "15": {
+                "head_relative_SSE": 0.0005977025454263008,
+                "actual_BF16_gate_relative_SSE": 0.006370453014577348
+              }
+            }
+          },
+          "final": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0006877363957535277,
+              "actual_BF16_gate_relative_SSE": 0.00595028651403006,
+              "gated_pre_gate_relative_SSE": 0.005944664106319833,
+              "direct_relative_SSE": 0.000626933363143282,
+              "radial_relative_SSE": 4.163635626472915e-05,
+              "signed_cross_relative_SSE": 1.2184780203716929e-05,
+              "continuous_relative_SSE": 0.0006807544996117282,
+              "BF16_remainder_relative_SSE": 6.981942718827325e-06,
+              "BF16_signed_remainder_cross": -4.6577027737947914e-11
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 0.0007370694938634866,
+                "actual_BF16_gate_relative_SSE": 0.00555942512023128
+              },
+              "1": {
+                "head_relative_SSE": 0.0005185734117365594,
+                "actual_BF16_gate_relative_SSE": 0.006801087774121424
+              },
+              "2": {
+                "head_relative_SSE": 0.0008785337184208874,
+                "actual_BF16_gate_relative_SSE": 0.006581848291886181
+              },
+              "3": {
+                "head_relative_SSE": 0.0008250385111424702,
+                "actual_BF16_gate_relative_SSE": 0.0061252096447577745
+              },
+              "4": {
+                "head_relative_SSE": 0.000514147048811764,
+                "actual_BF16_gate_relative_SSE": 0.005418421558334947
+              },
+              "5": {
+                "head_relative_SSE": 0.00094625377552747,
+                "actual_BF16_gate_relative_SSE": 0.007293036756238018
+              },
+              "6": {
+                "head_relative_SSE": 0.0010937131555642473,
+                "actual_BF16_gate_relative_SSE": 0.006436141224988196
+              },
+              "7": {
+                "head_relative_SSE": 0.000724352313571993,
+                "actual_BF16_gate_relative_SSE": 0.0056349327374147756
+              },
+              "8": {
+                "head_relative_SSE": 0.0006175463626309403,
+                "actual_BF16_gate_relative_SSE": 0.00491370793568416
+              },
+              "9": {
+                "head_relative_SSE": 0.0005269125485090259,
+                "actual_BF16_gate_relative_SSE": 0.0055448858621294644
+              },
+              "10": {
+                "head_relative_SSE": 0.0004951988010497129,
+                "actual_BF16_gate_relative_SSE": 0.0045846622851389565
+              },
+              "11": {
+                "head_relative_SSE": 0.0007002237113173312,
+                "actual_BF16_gate_relative_SSE": 0.006548050671995187
+              },
+              "12": {
+                "head_relative_SSE": 0.000524513040002174,
+                "actual_BF16_gate_relative_SSE": 0.005549526968707914
+              },
+              "13": {
+                "head_relative_SSE": 0.0007814068828820918,
+                "actual_BF16_gate_relative_SSE": 0.005780188119321196
+              },
+              "14": {
+                "head_relative_SSE": 0.0005443606767035782,
+                "actual_BF16_gate_relative_SSE": 0.006527244047747642
+              },
+              "15": {
+                "head_relative_SSE": 0.0005759388803227114,
+                "actual_BF16_gate_relative_SSE": 0.005906215225783843
+              }
+            }
+          },
+          "final_head_sources_better_than_A0_energy94": 15
+        },
+        "heldout8_exposed": {
+          "A0_energy94": {
+            "head_relative_SSE": 0.0006087888215755087,
+            "actual_BF16_gate_relative_SSE": 0.008392522987844145
+          },
+          "oracle": {
+            "equal_source_mean": {
+              "head_relative_SSE": 1.026829458753254e-05,
+              "actual_BF16_gate_relative_SSE": 0.0012423220001988814,
+              "gated_pre_gate_relative_SSE": 0.0012379950907559357,
+              "direct_relative_SSE": 3.5962814654492774e-07,
+              "radial_relative_SSE": 6.214509458634521e-06,
+              "signed_cross_relative_SSE": -1.1947788426078921e-08,
+              "continuous_relative_SSE": 6.562189816753369e-06,
+              "BF16_remainder_relative_SSE": 3.7290639668802163e-06,
+              "BF16_signed_remainder_cross": -2.2959196101045277e-08
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 1.0016813974407008e-05,
+                "actual_BF16_gate_relative_SSE": 0.001471153578017309
+              },
+              "17": {
+                "head_relative_SSE": 1.1477276798271609e-05,
+                "actual_BF16_gate_relative_SSE": 0.0012716356813328032
+              },
+              "18": {
+                "head_relative_SSE": 9.72946277814116e-06,
+                "actual_BF16_gate_relative_SSE": 0.001286058405790666
+              },
+              "19": {
+                "head_relative_SSE": 9.538698537538582e-06,
+                "actual_BF16_gate_relative_SSE": 0.0008604927914230905
+              },
+              "20": {
+                "head_relative_SSE": 1.1104300192399548e-05,
+                "actual_BF16_gate_relative_SSE": 0.0009433798715773493
+              },
+              "21": {
+                "head_relative_SSE": 1.2460817386928395e-05,
+                "actual_BF16_gate_relative_SSE": 0.0018137684003206454
+              },
+              "22": {
+                "head_relative_SSE": 8.929628144341485e-06,
+                "actual_BF16_gate_relative_SSE": 0.001457531620746788
+              },
+              "23": {
+                "head_relative_SSE": 8.889358888232533e-06,
+                "actual_BF16_gate_relative_SSE": 0.0008345556523824003
+              }
+            }
+          },
+          "initial": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0006051436788806977,
+              "actual_BF16_gate_relative_SSE": 0.007499252325604381,
+              "gated_pre_gate_relative_SSE": 0.0074940860329659065,
+              "direct_relative_SSE": 0.0005735930528022822,
+              "radial_relative_SSE": 5.734390450583366e-05,
+              "signed_cross_relative_SSE": -3.249870324002093e-05,
+              "continuous_relative_SSE": 0.0005984382540680951,
+              "BF16_remainder_relative_SSE": 7.128572605648733e-06,
+              "BF16_signed_remainder_cross": -4.2314779304607437e-07
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 0.0005004758226805851,
+                "actual_BF16_gate_relative_SSE": 0.009003918829547984
+              },
+              "17": {
+                "head_relative_SSE": 0.0005652738573862241,
+                "actual_BF16_gate_relative_SSE": 0.007132746269920673
+              },
+              "18": {
+                "head_relative_SSE": 0.0005788725522444115,
+                "actual_BF16_gate_relative_SSE": 0.00736210763533832
+              },
+              "19": {
+                "head_relative_SSE": 0.0006582801008308978,
+                "actual_BF16_gate_relative_SSE": 0.006355269720678538
+              },
+              "20": {
+                "head_relative_SSE": 0.0006983963033637407,
+                "actual_BF16_gate_relative_SSE": 0.00522542596627114
+              },
+              "21": {
+                "head_relative_SSE": 0.0005009783106332117,
+                "actual_BF16_gate_relative_SSE": 0.01092694061354857
+              },
+              "22": {
+                "head_relative_SSE": 0.0007454116697121539,
+                "actual_BF16_gate_relative_SSE": 0.008324283139680685
+              },
+              "23": {
+                "head_relative_SSE": 0.0005934608141943564,
+                "actual_BF16_gate_relative_SSE": 0.005663326429849135
+              }
+            }
+          },
+          "final": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0005898060530878562,
+              "actual_BF16_gate_relative_SSE": 0.007009461868085898,
+              "gated_pre_gate_relative_SSE": 0.0070068566744657555,
+              "direct_relative_SSE": 0.0005527104891946459,
+              "radial_relative_SSE": 5.117235339059367e-05,
+              "signed_cross_relative_SSE": -2.0800743490868183e-05,
+              "continuous_relative_SSE": 0.0005830820990943714,
+              "BF16_remainder_relative_SSE": 7.123898833196433e-06,
+              "BF16_signed_remainder_cross": -3.999448397117537e-07
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 0.0004513575026967519,
+                "actual_BF16_gate_relative_SSE": 0.00791785818946268
+              },
+              "17": {
+                "head_relative_SSE": 0.0005478735993076045,
+                "actual_BF16_gate_relative_SSE": 0.006743802848223878
+              },
+              "18": {
+                "head_relative_SSE": 0.0005668417389968522,
+                "actual_BF16_gate_relative_SSE": 0.006904791938977962
+              },
+              "19": {
+                "head_relative_SSE": 0.0006568720283614566,
+                "actual_BF16_gate_relative_SSE": 0.005989694443511535
+              },
+              "20": {
+                "head_relative_SSE": 0.0006762107494332927,
+                "actual_BF16_gate_relative_SSE": 0.004818151283885297
+              },
+              "21": {
+                "head_relative_SSE": 0.0004988703975568233,
+                "actual_BF16_gate_relative_SSE": 0.010580817953431238
+              },
+              "22": {
+                "head_relative_SSE": 0.0007349030351840914,
+                "actual_BF16_gate_relative_SSE": 0.007742042014187147
+              },
+              "23": {
+                "head_relative_SSE": 0.0005855193731659765,
+                "actual_BF16_gate_relative_SSE": 0.005378536273007451
+              }
+            }
+          },
+          "final_head_sources_better_than_A0_energy94": 7
+        }
+      }
+    },
+    "low_noise_model": {
+      "PCA512": {
+        "train16": {
+          "A0_energy94": {
+            "head_relative_SSE": 0.0008244732387798931,
+            "actual_BF16_gate_relative_SSE": 0.011047567253897642
+          },
+          "oracle": {
+            "equal_source_mean": {
+              "head_relative_SSE": 1.081578457786994e-05,
+              "actual_BF16_gate_relative_SSE": 0.0011594134244516533,
+              "gated_pre_gate_relative_SSE": 0.0011567245717974768,
+              "direct_relative_SSE": 3.6566106866241132e-06,
+              "radial_relative_SSE": 2.3695158461575617e-06,
+              "signed_cross_relative_SSE": 6.905335386054659e-09,
+              "continuous_relative_SSE": 6.03303186816773e-06,
+              "BF16_remainder_relative_SSE": 4.758963239181006e-06,
+              "BF16_signed_remainder_cross": 2.378947052120402e-08
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 1.0081529907046249e-05,
+                "actual_BF16_gate_relative_SSE": 0.0009348637464583196
+              },
+              "1": {
+                "head_relative_SSE": 1.1448577614418285e-05,
+                "actual_BF16_gate_relative_SSE": 0.0014897389719348572
+              },
+              "2": {
+                "head_relative_SSE": 1.2122696331881269e-05,
+                "actual_BF16_gate_relative_SSE": 0.0010654265504781576
+              },
+              "3": {
+                "head_relative_SSE": 1.0823904197990225e-05,
+                "actual_BF16_gate_relative_SSE": 0.001213241804104336
+              },
+              "4": {
+                "head_relative_SSE": 1.149218093727141e-05,
+                "actual_BF16_gate_relative_SSE": 0.0010406757088621665
+              },
+              "5": {
+                "head_relative_SSE": 1.492660929731973e-05,
+                "actual_BF16_gate_relative_SSE": 0.0017282392309108494
+              },
+              "6": {
+                "head_relative_SSE": 1.2817838467782092e-05,
+                "actual_BF16_gate_relative_SSE": 0.0014937959101493795
+              },
+              "7": {
+                "head_relative_SSE": 1.109549646897652e-05,
+                "actual_BF16_gate_relative_SSE": 0.0011530671648527118
+              },
+              "8": {
+                "head_relative_SSE": 8.853117464056095e-06,
+                "actual_BF16_gate_relative_SSE": 0.00105577444796912
+              },
+              "9": {
+                "head_relative_SSE": 9.363864654840706e-06,
+                "actual_BF16_gate_relative_SSE": 0.0010166972539962288
+              },
+              "10": {
+                "head_relative_SSE": 8.905095427110277e-06,
+                "actual_BF16_gate_relative_SSE": 0.0007263995389277978
+              },
+              "11": {
+                "head_relative_SSE": 1.0580033292985702e-05,
+                "actual_BF16_gate_relative_SSE": 0.00153113250302746
+              },
+              "12": {
+                "head_relative_SSE": 1.0931322049210592e-05,
+                "actual_BF16_gate_relative_SSE": 0.00100304812669696
+              },
+              "13": {
+                "head_relative_SSE": 1.0557143597384962e-05,
+                "actual_BF16_gate_relative_SSE": 0.001074000906185121
+              },
+              "14": {
+                "head_relative_SSE": 1.0233887899531932e-05,
+                "actual_BF16_gate_relative_SSE": 0.0010453651492184591
+              },
+              "15": {
+                "head_relative_SSE": 8.819255638112988e-06,
+                "actual_BF16_gate_relative_SSE": 0.0009791477774545268
+              }
+            }
+          },
+          "initial": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0008115410039508287,
+              "actual_BF16_gate_relative_SSE": 0.009732574104837325,
+              "gated_pre_gate_relative_SSE": 0.009727283729803905,
+              "direct_relative_SSE": 0.0008259472714658464,
+              "radial_relative_SSE": 3.7077884391746974e-05,
+              "signed_cross_relative_SSE": -5.7744757073767746e-05,
+              "continuous_relative_SSE": 0.0008052803987838255,
+              "BF16_remainder_relative_SSE": 6.499887171068254e-06,
+              "BF16_signed_remainder_cross": -2.392820040650507e-07
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 0.0008433645843976284,
+                "actual_BF16_gate_relative_SSE": 0.007809680022379147
+              },
+              "1": {
+                "head_relative_SSE": 0.00087269636335196,
+                "actual_BF16_gate_relative_SSE": 0.012209994473577537
+              },
+              "2": {
+                "head_relative_SSE": 0.0011269065509915029,
+                "actual_BF16_gate_relative_SSE": 0.009037963234188606
+              },
+              "3": {
+                "head_relative_SSE": 0.0008404394425486637,
+                "actual_BF16_gate_relative_SSE": 0.008903257341346877
+              },
+              "4": {
+                "head_relative_SSE": 0.0007123073659259974,
+                "actual_BF16_gate_relative_SSE": 0.00791924742454777
+              },
+              "5": {
+                "head_relative_SSE": 0.001128484409875305,
+                "actual_BF16_gate_relative_SSE": 0.014632560414156877
+              },
+              "6": {
+                "head_relative_SSE": 0.0010433613575321385,
+                "actual_BF16_gate_relative_SSE": 0.01444413937926304
+              },
+              "7": {
+                "head_relative_SSE": 0.0008338828294068245,
+                "actual_BF16_gate_relative_SSE": 0.010371243002298794
+              },
+              "8": {
+                "head_relative_SSE": 0.000628974070487739,
+                "actual_BF16_gate_relative_SSE": 0.009155561327091331
+              },
+              "9": {
+                "head_relative_SSE": 0.0006763397288685853,
+                "actual_BF16_gate_relative_SSE": 0.009163434102344447
+              },
+              "10": {
+                "head_relative_SSE": 0.0007789960780356839,
+                "actual_BF16_gate_relative_SSE": 0.006553526954064935
+              },
+              "11": {
+                "head_relative_SSE": 0.0008036364677755347,
+                "actual_BF16_gate_relative_SSE": 0.012661255758826878
+              },
+              "12": {
+                "head_relative_SSE": 0.0007274421065912567,
+                "actual_BF16_gate_relative_SSE": 0.0080799372020409
+              },
+              "13": {
+                "head_relative_SSE": 0.0007882236092831801,
+                "actual_BF16_gate_relative_SSE": 0.00798347395400157
+              },
+              "14": {
+                "head_relative_SSE": 0.0005465010839645176,
+                "actual_BF16_gate_relative_SSE": 0.008049087234156498
+              },
+              "15": {
+                "head_relative_SSE": 0.0006331000141767428,
+                "actual_BF16_gate_relative_SSE": 0.008746823853112
+              }
+            }
+          },
+          "final": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0007782916161034798,
+              "actual_BF16_gate_relative_SSE": 0.008114639231663685,
+              "gated_pre_gate_relative_SSE": 0.008108886315605905,
+              "direct_relative_SSE": 0.0007720674295282045,
+              "radial_relative_SSE": 2.5604992129148975e-05,
+              "signed_cross_relative_SSE": -2.5562997471458827e-05,
+              "continuous_relative_SSE": 0.0007721094241858947,
+              "BF16_remainder_relative_SSE": 6.439983978220743e-06,
+              "BF16_signed_remainder_cross": -2.57792060635652e-07
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 0.0008039313099130469,
+                "actual_BF16_gate_relative_SSE": 0.006703443793512358
+              },
+              "1": {
+                "head_relative_SSE": 0.0008211443356757967,
+                "actual_BF16_gate_relative_SSE": 0.009844350446752163
+              },
+              "2": {
+                "head_relative_SSE": 0.0010742001070046419,
+                "actual_BF16_gate_relative_SSE": 0.007464531942511466
+              },
+              "3": {
+                "head_relative_SSE": 0.0008218058241496328,
+                "actual_BF16_gate_relative_SSE": 0.007773933313857552
+              },
+              "4": {
+                "head_relative_SSE": 0.0006996635611067952,
+                "actual_BF16_gate_relative_SSE": 0.006682438532217467
+              },
+              "5": {
+                "head_relative_SSE": 0.001014400709662881,
+                "actual_BF16_gate_relative_SSE": 0.011909270744648997
+              },
+              "6": {
+                "head_relative_SSE": 0.0009302277170653993,
+                "actual_BF16_gate_relative_SSE": 0.011857190609644424
+              },
+              "7": {
+                "head_relative_SSE": 0.0007739284636772184,
+                "actual_BF16_gate_relative_SSE": 0.00865457688584427
+              },
+              "8": {
+                "head_relative_SSE": 0.0006098560833807679,
+                "actual_BF16_gate_relative_SSE": 0.007629364651835455
+              },
+              "9": {
+                "head_relative_SSE": 0.0006451572526209243,
+                "actual_BF16_gate_relative_SSE": 0.007591905246224551
+              },
+              "10": {
+                "head_relative_SSE": 0.0007900390163139735,
+                "actual_BF16_gate_relative_SSE": 0.005705579713117223
+              },
+              "11": {
+                "head_relative_SSE": 0.0007830739623451847,
+                "actual_BF16_gate_relative_SSE": 0.010522948318162272
+              },
+              "12": {
+                "head_relative_SSE": 0.0007328838738320845,
+                "actual_BF16_gate_relative_SSE": 0.00666184346993802
+              },
+              "13": {
+                "head_relative_SSE": 0.0008001304212635279,
+                "actual_BF16_gate_relative_SSE": 0.006876950650946205
+              },
+              "14": {
+                "head_relative_SSE": 0.0005569090327575569,
+                "actual_BF16_gate_relative_SSE": 0.006655089349071476
+              },
+              "15": {
+                "head_relative_SSE": 0.0005953141868862452,
+                "actual_BF16_gate_relative_SSE": 0.007300810038335061
+              }
+            }
+          },
+          "final_head_sources_better_than_A0_energy94": 16
+        },
+        "heldout8_exposed": {
+          "A0_energy94": {
+            "head_relative_SSE": 0.0006609661528059577,
+            "actual_BF16_gate_relative_SSE": 0.009983402987865396
+          },
+          "oracle": {
+            "equal_source_mean": {
+              "head_relative_SSE": 1.1292529271661852e-05,
+              "actual_BF16_gate_relative_SSE": 0.0013044220550772264,
+              "gated_pre_gate_relative_SSE": 0.0013017338784128522,
+              "direct_relative_SSE": 4.01858116799339e-06,
+              "radial_relative_SSE": 2.541579187170441e-06,
+              "signed_cross_relative_SSE": -4.6205791593005576e-08,
+              "continuous_relative_SSE": 6.513954563570825e-06,
+              "BF16_remainder_relative_SSE": 4.816923409988075e-06,
+              "BF16_signed_remainder_cross": -3.834870189704904e-08
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 1.2853735966005702e-05,
+                "actual_BF16_gate_relative_SSE": 0.0019301913727107708
+              },
+              "17": {
+                "head_relative_SSE": 1.1759859056552616e-05,
+                "actual_BF16_gate_relative_SSE": 0.001152033309969193
+              },
+              "18": {
+                "head_relative_SSE": 1.0898849458199748e-05,
+                "actual_BF16_gate_relative_SSE": 0.0013142664122085092
+              },
+              "19": {
+                "head_relative_SSE": 1.080728968823904e-05,
+                "actual_BF16_gate_relative_SSE": 0.0010100820276559412
+              },
+              "20": {
+                "head_relative_SSE": 1.2350934009101064e-05,
+                "actual_BF16_gate_relative_SSE": 0.0013561086955097654
+              },
+              "21": {
+                "head_relative_SSE": 1.0241731745947217e-05,
+                "actual_BF16_gate_relative_SSE": 0.0010198289159413943
+              },
+              "22": {
+                "head_relative_SSE": 1.2590423833171961e-05,
+                "actual_BF16_gate_relative_SSE": 0.0017440615950837864
+              },
+              "23": {
+                "head_relative_SSE": 8.837410416077463e-06,
+                "actual_BF16_gate_relative_SSE": 0.0009088041115384508
+              }
+            }
+          },
+          "initial": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0006514555367966556,
+              "actual_BF16_gate_relative_SSE": 0.009102955187513223,
+              "gated_pre_gate_relative_SSE": 0.009099061527269423,
+              "direct_relative_SSE": 0.0006782491089363485,
+              "radial_relative_SSE": 5.0581953347095165e-05,
+              "signed_cross_relative_SSE": -8.380214430458881e-05,
+              "continuous_relative_SSE": 0.0006450289179788548,
+              "BF16_remainder_relative_SSE": 6.502627549507204e-06,
+              "BF16_signed_remainder_cross": -7.600873170639531e-08
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 0.0007515947278326277,
+                "actual_BF16_gate_relative_SSE": 0.013208950266128762
+              },
+              "17": {
+                "head_relative_SSE": 0.000592228354345235,
+                "actual_BF16_gate_relative_SSE": 0.007715835581478267
+              },
+              "18": {
+                "head_relative_SSE": 0.0006678339989863249,
+                "actual_BF16_gate_relative_SSE": 0.009919100874577248
+              },
+              "19": {
+                "head_relative_SSE": 0.0007020712270575003,
+                "actual_BF16_gate_relative_SSE": 0.007594389381069916
+              },
+              "20": {
+                "head_relative_SSE": 0.0007145012599013198,
+                "actual_BF16_gate_relative_SSE": 0.008115821220467407
+              },
+              "21": {
+                "head_relative_SSE": 0.00050086051857058,
+                "actual_BF16_gate_relative_SSE": 0.0074817939722937096
+              },
+              "22": {
+                "head_relative_SSE": 0.0006829190942042126,
+                "actual_BF16_gate_relative_SSE": 0.0108795370150454
+              },
+              "23": {
+                "head_relative_SSE": 0.0005996351134754445,
+                "actual_BF16_gate_relative_SSE": 0.007908213189045072
+              }
+            }
+          },
+          "final": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0006381920027864358,
+              "actual_BF16_gate_relative_SSE": 0.007731917145335192,
+              "gated_pre_gate_relative_SSE": 0.007727037406345028,
+              "direct_relative_SSE": 0.0006476318999595539,
+              "radial_relative_SSE": 3.7479061717960825e-05,
+              "signed_cross_relative_SSE": -5.322532940157398e-05,
+              "continuous_relative_SSE": 0.0006318856322759408,
+              "BF16_remainder_relative_SSE": 6.451364111660283e-06,
+              "BF16_signed_remainder_cross": -1.4499360116528595e-07
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 0.0007183281285222352,
+                "actual_BF16_gate_relative_SSE": 0.011287370016114212
+              },
+              "17": {
+                "head_relative_SSE": 0.0005948438381428346,
+                "actual_BF16_gate_relative_SSE": 0.006578728433429316
+              },
+              "18": {
+                "head_relative_SSE": 0.0006480970410303827,
+                "actual_BF16_gate_relative_SSE": 0.00811899667055728
+              },
+              "19": {
+                "head_relative_SSE": 0.0006841386251634628,
+                "actual_BF16_gate_relative_SSE": 0.0065511699663249184
+              },
+              "20": {
+                "head_relative_SSE": 0.0007160009244156179,
+                "actual_BF16_gate_relative_SSE": 0.007354908127790402
+              },
+              "21": {
+                "head_relative_SSE": 0.0004815242373033383,
+                "actual_BF16_gate_relative_SSE": 0.006113025985668951
+              },
+              "22": {
+                "head_relative_SSE": 0.0006674856647147392,
+                "actual_BF16_gate_relative_SSE": 0.009214687473335016
+              },
+              "23": {
+                "head_relative_SSE": 0.0005951175629988754,
+                "actual_BF16_gate_relative_SSE": 0.006636450489461446
+              }
+            }
+          },
+          "final_head_sources_better_than_A0_energy94": 8
+        }
+      },
+      "HEAD128_PCA384": {
+        "train16": {
+          "A0_energy94": {
+            "head_relative_SSE": 0.0008244732387798931,
+            "actual_BF16_gate_relative_SSE": 0.011047567253897642
+          },
+          "oracle": {
+            "equal_source_mean": {
+              "head_relative_SSE": 6.158334846733622e-06,
+              "actual_BF16_gate_relative_SSE": 0.0013679081810188197,
+              "gated_pre_gate_relative_SSE": 0.0013652722457406388,
+              "direct_relative_SSE": 2.566312181585215e-07,
+              "radial_relative_SSE": 2.622302990426733e-06,
+              "signed_cross_relative_SSE": -4.095968811016297e-10,
+              "continuous_relative_SSE": 2.8785246117041525e-06,
+              "BF16_remainder_relative_SSE": 3.2864745764006333e-06,
+              "BF16_signed_remainder_cross": -6.66434137116329e-09
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 5.664715231507648e-06,
+                "actual_BF16_gate_relative_SSE": 0.0010948217203951885
+              },
+              "1": {
+                "head_relative_SSE": 6.533942342446353e-06,
+                "actual_BF16_gate_relative_SSE": 0.001753148603772012
+              },
+              "2": {
+                "head_relative_SSE": 6.300284747917785e-06,
+                "actual_BF16_gate_relative_SSE": 0.0012773884700689362
+              },
+              "3": {
+                "head_relative_SSE": 6.0841820951029595e-06,
+                "actual_BF16_gate_relative_SSE": 0.001434892853030916
+              },
+              "4": {
+                "head_relative_SSE": 6.3046447838904215e-06,
+                "actual_BF16_gate_relative_SSE": 0.0012208548062673853
+              },
+              "5": {
+                "head_relative_SSE": 7.864318623002692e-06,
+                "actual_BF16_gate_relative_SSE": 0.0020755931068395846
+              },
+              "6": {
+                "head_relative_SSE": 7.131003101494068e-06,
+                "actual_BF16_gate_relative_SSE": 0.0017766728578651834
+              },
+              "7": {
+                "head_relative_SSE": 6.659336312017157e-06,
+                "actual_BF16_gate_relative_SSE": 0.0013589061060947413
+              },
+              "8": {
+                "head_relative_SSE": 5.303221882624709e-06,
+                "actual_BF16_gate_relative_SSE": 0.0012282540921794494
+              },
+              "9": {
+                "head_relative_SSE": 5.314543065542011e-06,
+                "actual_BF16_gate_relative_SSE": 0.001192977357685285
+              },
+              "10": {
+                "head_relative_SSE": 5.486052436998303e-06,
+                "actual_BF16_gate_relative_SSE": 0.0008481064091289533
+              },
+              "11": {
+                "head_relative_SSE": 6.258891475830703e-06,
+                "actual_BF16_gate_relative_SSE": 0.0018132089557978607
+              },
+              "12": {
+                "head_relative_SSE": 6.254219087832713e-06,
+                "actual_BF16_gate_relative_SSE": 0.0011743883093641178
+              },
+              "13": {
+                "head_relative_SSE": 5.913989021651791e-06,
+                "actual_BF16_gate_relative_SSE": 0.0012635545124454468
+              },
+              "14": {
+                "head_relative_SSE": 6.006164084222208e-06,
+                "actual_BF16_gate_relative_SSE": 0.00121837672262851
+              },
+              "15": {
+                "head_relative_SSE": 5.453849255656441e-06,
+                "actual_BF16_gate_relative_SSE": 0.0011553860127375437
+              }
+            }
+          },
+          "initial": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0008232633446902339,
+              "actual_BF16_gate_relative_SSE": 0.009918017604836257,
+              "gated_pre_gate_relative_SSE": 0.009912589879033333,
+              "direct_relative_SSE": 0.0008373547802855827,
+              "radial_relative_SSE": 3.675487072410183e-05,
+              "signed_cross_relative_SSE": -5.712317064224516e-05,
+              "continuous_relative_SSE": 0.0008169864803674393,
+              "BF16_remainder_relative_SSE": 6.501753923707877e-06,
+              "BF16_signed_remainder_cross": -2.2488960091334136e-07
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 0.0008595168520813341,
+                "actual_BF16_gate_relative_SSE": 0.007981081630599447
+              },
+              "1": {
+                "head_relative_SSE": 0.0008845376674918671,
+                "actual_BF16_gate_relative_SSE": 0.012402970633089507
+              },
+              "2": {
+                "head_relative_SSE": 0.0011422814757450976,
+                "actual_BF16_gate_relative_SSE": 0.009204889146023
+              },
+              "3": {
+                "head_relative_SSE": 0.000848585051665576,
+                "actual_BF16_gate_relative_SSE": 0.009078487518100134
+              },
+              "4": {
+                "head_relative_SSE": 0.0007277898348656352,
+                "actual_BF16_gate_relative_SSE": 0.00809028455470822
+              },
+              "5": {
+                "head_relative_SSE": 0.00115153263395474,
+                "actual_BF16_gate_relative_SSE": 0.014964172818152576
+              },
+              "6": {
+                "head_relative_SSE": 0.0010603264397332532,
+                "actual_BF16_gate_relative_SSE": 0.014745301004786103
+              },
+              "7": {
+                "head_relative_SSE": 0.0008428074379477021,
+                "actual_BF16_gate_relative_SSE": 0.01058223091609746
+              },
+              "8": {
+                "head_relative_SSE": 0.0006344662015166508,
+                "actual_BF16_gate_relative_SSE": 0.00930137903811556
+              },
+              "9": {
+                "head_relative_SSE": 0.0006837581287221918,
+                "actual_BF16_gate_relative_SSE": 0.00928663633440541
+              },
+              "10": {
+                "head_relative_SSE": 0.0007887687532760843,
+                "actual_BF16_gate_relative_SSE": 0.006668293293241737
+              },
+              "11": {
+                "head_relative_SSE": 0.0008110395736244627,
+                "actual_BF16_gate_relative_SSE": 0.012880166475179384
+              },
+              "12": {
+                "head_relative_SSE": 0.0007409468777037822,
+                "actual_BF16_gate_relative_SSE": 0.008226777413149608
+              },
+              "13": {
+                "head_relative_SSE": 0.0008014287859705799,
+                "actual_BF16_gate_relative_SSE": 0.008152931749578759
+              },
+              "14": {
+                "head_relative_SSE": 0.0005561742125317212,
+                "actual_BF16_gate_relative_SSE": 0.00821628598408579
+              },
+              "15": {
+                "head_relative_SSE": 0.0006382535882130634,
+                "actual_BF16_gate_relative_SSE": 0.008906393168067421
+              }
+            }
+          },
+          "final": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0007726413860890474,
+              "actual_BF16_gate_relative_SSE": 0.008299214865127342,
+              "gated_pre_gate_relative_SSE": 0.00829410670274476,
+              "direct_relative_SSE": 0.0007665557856235531,
+              "radial_relative_SSE": 2.6387417664928877e-05,
+              "signed_cross_relative_SSE": -2.6508219425169303e-05,
+              "continuous_relative_SSE": 0.0007664349838633126,
+              "BF16_remainder_relative_SSE": 6.471230682518304e-06,
+              "BF16_signed_remainder_cross": -2.648284567835471e-07
+            },
+            "per_source_head_and_Y": {
+              "0": {
+                "head_relative_SSE": 0.0007811482827505797,
+                "actual_BF16_gate_relative_SSE": 0.0067257093656651595
+              },
+              "1": {
+                "head_relative_SSE": 0.0008220297553709712,
+                "actual_BF16_gate_relative_SSE": 0.010061162372288091
+              },
+              "2": {
+                "head_relative_SSE": 0.00106391930951896,
+                "actual_BF16_gate_relative_SSE": 0.007588689887535393
+              },
+              "3": {
+                "head_relative_SSE": 0.0008104581174248793,
+                "actual_BF16_gate_relative_SSE": 0.007957245964349819
+              },
+              "4": {
+                "head_relative_SSE": 0.0006944851556128935,
+                "actual_BF16_gate_relative_SSE": 0.006874890397930169
+              },
+              "5": {
+                "head_relative_SSE": 0.001029494570213286,
+                "actual_BF16_gate_relative_SSE": 0.012215267645795428
+              },
+              "6": {
+                "head_relative_SSE": 0.0009124456070608296,
+                "actual_BF16_gate_relative_SSE": 0.011906530221605802
+              },
+              "7": {
+                "head_relative_SSE": 0.0007779234299625684,
+                "actual_BF16_gate_relative_SSE": 0.008933789532476751
+              },
+              "8": {
+                "head_relative_SSE": 0.0006049840894066629,
+                "actual_BF16_gate_relative_SSE": 0.007750608977566688
+              },
+              "9": {
+                "head_relative_SSE": 0.0006488865829188946,
+                "actual_BF16_gate_relative_SSE": 0.007777665426276235
+              },
+              "10": {
+                "head_relative_SSE": 0.0007777368238606736,
+                "actual_BF16_gate_relative_SSE": 0.0058362505454470455
+              },
+              "11": {
+                "head_relative_SSE": 0.0007880038342470673,
+                "actual_BF16_gate_relative_SSE": 0.010879697215443546
+              },
+              "12": {
+                "head_relative_SSE": 0.0007301175456812382,
+                "actual_BF16_gate_relative_SSE": 0.006883047306630913
+              },
+              "13": {
+                "head_relative_SSE": 0.0007910841745418693,
+                "actual_BF16_gate_relative_SSE": 0.007060310930564703
+              },
+              "14": {
+                "head_relative_SSE": 0.0005448612423266663,
+                "actual_BF16_gate_relative_SSE": 0.006884795904744552
+              },
+              "15": {
+                "head_relative_SSE": 0.0005846836565267186,
+                "actual_BF16_gate_relative_SSE": 0.007451776147717177
+              }
+            }
+          },
+          "final_head_sources_better_than_A0_energy94": 16
+        },
+        "heldout8_exposed": {
+          "A0_energy94": {
+            "head_relative_SSE": 0.0006609661528059577,
+            "actual_BF16_gate_relative_SSE": 0.009983402987865396
+          },
+          "oracle": {
+            "equal_source_mean": {
+              "head_relative_SSE": 6.438836977003856e-06,
+              "actual_BF16_gate_relative_SSE": 0.0014644069423643048,
+              "gated_pre_gate_relative_SSE": 0.001461555305742476,
+              "direct_relative_SSE": 2.521199025889971e-07,
+              "radial_relative_SSE": 2.9106992891424233e-06,
+              "signed_cross_relative_SSE": -1.2977910940091306e-09,
+              "continuous_relative_SSE": 3.161521400637411e-06,
+              "BF16_remainder_relative_SSE": 3.307593303253514e-06,
+              "BF16_signed_remainder_cross": -3.0277726887068496e-08
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 6.5505574034756625e-06,
+                "actual_BF16_gate_relative_SSE": 0.0021817429110904956
+              },
+              "17": {
+                "head_relative_SSE": 6.992993200089578e-06,
+                "actual_BF16_gate_relative_SSE": 0.0012879254914723167
+              },
+              "18": {
+                "head_relative_SSE": 5.862738124108309e-06,
+                "actual_BF16_gate_relative_SSE": 0.0014670272553957652
+              },
+              "19": {
+                "head_relative_SSE": 5.756119480248758e-06,
+                "actual_BF16_gate_relative_SSE": 0.001128679197491396
+              },
+              "20": {
+                "head_relative_SSE": 7.197040520337515e-06,
+                "actual_BF16_gate_relative_SSE": 0.001515054620737511
+              },
+              "21": {
+                "head_relative_SSE": 5.998726035178395e-06,
+                "actual_BF16_gate_relative_SSE": 0.0011509751751755956
+              },
+              "22": {
+                "head_relative_SSE": 7.18082420408287e-06,
+                "actual_BF16_gate_relative_SSE": 0.0019558349833422094
+              },
+              "23": {
+                "head_relative_SSE": 5.971696848509766e-06,
+                "actual_BF16_gate_relative_SSE": 0.0010280159042091498
+              }
+            }
+          },
+          "initial": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0006580021080720132,
+              "actual_BF16_gate_relative_SSE": 0.00924332289633167,
+              "gated_pre_gate_relative_SSE": 0.009238738953916279,
+              "direct_relative_SSE": 0.0006844644172788425,
+              "radial_relative_SSE": 5.0127049824179494e-05,
+              "signed_cross_relative_SSE": -8.292220442821279e-05,
+              "continuous_relative_SSE": 0.0006516692626748091,
+              "BF16_remainder_relative_SSE": 6.539457771460159e-06,
+              "BF16_signed_remainder_cross": -2.066123742561189e-07
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 0.0007632568235884606,
+                "actual_BF16_gate_relative_SSE": 0.013434465431197454
+              },
+              "17": {
+                "head_relative_SSE": 0.0005931698288203709,
+                "actual_BF16_gate_relative_SSE": 0.007826500997840448
+              },
+              "18": {
+                "head_relative_SSE": 0.000676770429967493,
+                "actual_BF16_gate_relative_SSE": 0.01006065904783649
+              },
+              "19": {
+                "head_relative_SSE": 0.0007040027224824771,
+                "actual_BF16_gate_relative_SSE": 0.0076969405234711095
+              },
+              "20": {
+                "head_relative_SSE": 0.0007225349999668037,
+                "actual_BF16_gate_relative_SSE": 0.008253010360143129
+              },
+              "21": {
+                "head_relative_SSE": 0.0005095025768522788,
+                "actual_BF16_gate_relative_SSE": 0.007618881553176044
+              },
+              "22": {
+                "head_relative_SSE": 0.0006908135015126287,
+                "actual_BF16_gate_relative_SSE": 0.011061654287151288
+              },
+              "23": {
+                "head_relative_SSE": 0.0006039659813855929,
+                "actual_BF16_gate_relative_SSE": 0.007994470969837401
+              }
+            }
+          },
+          "final": {
+            "equal_source_mean": {
+              "head_relative_SSE": 0.0006328571552612221,
+              "actual_BF16_gate_relative_SSE": 0.007923384145791804,
+              "gated_pre_gate_relative_SSE": 0.00791880096790972,
+              "direct_relative_SSE": 0.0006396935226273487,
+              "radial_relative_SSE": 3.877650511665411e-05,
+              "signed_cross_relative_SSE": -5.1936234368680454e-05,
+              "continuous_relative_SSE": 0.0006265337933753223,
+              "BF16_remainder_relative_SSE": 6.505439653457832e-06,
+              "BF16_signed_remainder_cross": -1.8207776755802107e-07
+            },
+            "per_source_head_and_Y": {
+              "16": {
+                "head_relative_SSE": 0.0007148783834800057,
+                "actual_BF16_gate_relative_SSE": 0.011543141844009144
+              },
+              "17": {
+                "head_relative_SSE": 0.0005848070873751123,
+                "actual_BF16_gate_relative_SSE": 0.006748703568578694
+              },
+              "18": {
+                "head_relative_SSE": 0.0006314164057096278,
+                "actual_BF16_gate_relative_SSE": 0.008308018706010164
+              },
+              "19": {
+                "head_relative_SSE": 0.0006875095518121572,
+                "actual_BF16_gate_relative_SSE": 0.00672619319956551
+              },
+              "20": {
+                "head_relative_SSE": 0.0007251681161444135,
+                "actual_BF16_gate_relative_SSE": 0.007511532833085673
+              },
+              "21": {
+                "head_relative_SSE": 0.00048165866633522483,
+                "actual_BF16_gate_relative_SSE": 0.006358037449789203
+              },
+              "22": {
+                "head_relative_SSE": 0.0006597359307959148,
+                "actual_BF16_gate_relative_SSE": 0.009478376942263519
+              },
+              "23": {
+                "head_relative_SSE": 0.000577683100437321,
+                "actual_BF16_gate_relative_SSE": 0.006713068623032523
+              }
+            }
+          },
+          "final_head_sources_better_than_A0_energy94": 8
+        }
+      }
+    }
+  },
+  "operation_limits_and_actual": {
+    "head_pack_loads": 2,
+    "head_tensor_checks": 4,
+    "A0_energy_pack_loads": 2,
+    "native_quantizer_setup": 1,
+    "A0_tensor_checks": 16,
+    "label_pack_loads": 96,
+    "label_tensor_checks": 672,
+    "V1_Y_gate_pack_loads": 96,
+    "original_operand_checks": 384,
+    "A0_own_feature_cache_calls": 96,
+    "A0_GELU": 96,
+    "A0_Q2": 96,
+    "A0_original_Q2_SHA_checks": 96,
+    "A0_original_Y_SHA_checks": 96,
+    "conditioning_cross_source_checks": 4,
+    "geometry_BF16_gain_add": 4,
+    "geometry_head_build": 4,
+    "train_mean_fits": 2,
+    "train_covariance_cases": 64,
+    "step_conditioning_identity_checks": 2,
+    "two_step_head_QR": 2,
+    "head_projector_build": 2,
+    "complement_covariance_build": 2,
+    "output_covariance_eigh": 4,
+    "final_head_space_QR": 2,
+    "output_basis_orthogonality_checks": 4,
+    "head_span_preservation_checks": 2,
+    "coefficient_initialization": 4,
+    "adapter_random_draws": 4,
+    "adapter_random_H2D_copies": 4,
+    "adapter_random_H2D_bytes": 3080192,
+    "coefficient_merges": 1032,
+    "factored_forward_calls": 1408,
+    "gated_Y_loss_calls": 1024,
+    "backward_calls": 1024,
+    "finite_gradient_checks": 2048,
+    "Adam_updates": 1024,
+    "training_batches": 1024,
+    "oracle_projection_cases": 192,
+    "oracle_precast_q_preservation_cases": 192,
+    "BF16_gate_multiply": 576,
+    "BF16_residual_add": 576,
+    "neutral_cases": 96,
+    "neutral_head_byte_checks": 96,
+    "padded_zero_states": 672,
+    "selected_row_writes": 672,
+    "fullM_LN": 672,
+    "BF16_head_gain_add": 672,
+    "BF16_head_modulation": 672,
+    "fullM_head_GEMM": 672,
+    "selected_u_unchanged_checks": 672,
+    "selected_head_hashes": 672,
+    "GPU_original_layout_restores": 12,
+    "FP64_q_variance_cases": 672,
+    "head_error_decomposition_cases": 576,
+    "gated_Y_diagnostic_cases": 576,
+    "BF16_matrix_products": 5728,
+    "FP32_matrix_products": 3080,
+    "FP64_matrix_products": 1330,
+    "student_export_writes": 4,
+    "student_export_reload_checks": 4,
+    "analysis_geometry_writes": 2,
+    "analysis_geometry_reload_checks": 2,
+    "head_prediction_writes": 2,
+    "head_prediction_reload_checks": 2,
+    "head_prediction_row_copies": 576,
+    "Q1_calls": 0,
+    "teacher_V2_numeric_reads": 0,
+    "online_teacher_Y_reads": 0,
+    "new_weight_quantizations": 0,
+    "intermediate_new_quantizations": 0,
+    "full_model_calls": 0,
+    "encoder_calls": 0,
+    "video_generations": 0,
+    "official_quality_calls": 0,
+    "asset_H2D_tensor_copies": 694,
+    "asset_H2D_payload_bytes": 1258859264
+  },
+  "checks": {
+    "predebited_invoked_completed_equal_protocol_limits": true,
+    "source_two_step_and_mean_recomputed": true,
+    "neutral_head_bitwise": 96,
+    "A0_Q2_and_Y_SHA_matches": 96,
+    "signed_decomposition_closure": true
+  },
+  "static_cost": {
+    "A0_MAC_per_row": 61603840,
+    "BF_MAC_per_row": 36503552,
+    "BF_to_A0_MAC_ratio": 0.5925531914893617,
+    "deployed_BF16_GEMM": 3,
+    "deployed_Q1": 1,
+    "deployed_Q2": 1,
+    "intermediate_new_quantizer": 0,
+    "online_adapter_GEMM": 0,
+    "trainable_parameters_per_student": 208896
+  },
+  "inherited_A0_offline_cost": {
+    "selected_energy_functions": 2,
+    "A0_trainable_parameters_per_parent": 712704,
+    "A0_Adam_updates_per_parent": 256,
+    "A0_inherited_recovery_updates": 512,
+    "BF_additional_updates": 1024,
+    "bank_manifest": {
+      "path": "ffnds-derived/compact6016_full160_metadata_20261028/v1/MANIFEST.json",
+      "bytes": 903037,
+      "sha256": "e3c4f4020951913f9cffb2e2cf244137e94db2031ea64aabea7bc65a7aff6a50"
+    },
+    "selected_result_bindings": [
+      {
+        "path": "ffnds-derived/e0_compact6016_full80_completion_20261028/attempt1/part1/cells/compact6016complete_high_b39_energy94/RESULT.json",
+        "sha256": "2aa7394db41a2b0f6d1128b80c5ca253fc7a20d6704d041f5ecaf5896249d64d",
+        "bytes": 153440
+      },
+      {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part3/cells/compact6016remain_low_b39_energy94/RESULT.json",
+        "sha256": "646be1f9e5ff37062fa104a9460dea1c2a9de3fb5990e5d4abb414a2f82cef23",
+        "bytes": 153510
+      }
+    ],
+    "selection_and_full_A0_offline_cost": "Already paid, inherited immutable support selection/calibration/recovery; parent protocol and part ledgers remain part of total lineage. No zero-cost or matched-total-offline-cost claim; parent cost not divided between the two child bases."
+  },
+  "timing": {
+    "worker_wall_seconds": 613.7391665619798,
+    "outer_seconds": 629.4436388460454
+  },
+  "scope_limits": "Local static MAC comparison only; no measured full-model speed, video, quality or system acceptance. Held sources historically exposed; two functions do not establish full80 behavior."
+}

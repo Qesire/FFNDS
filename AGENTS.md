@@ -2,7 +2,7 @@
 
 > **先阅读：[P0–P4现行优先级导航](research/RESEARCH_NAVIGATION.md)。** 此文件定义Agent行为原则，**不是**第二份研究进度报告；研究科学目标由[统一I/F/C目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)定义，方法正文以[整合M-A/M-B/M-C方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为准；真实实验运行范围归[ACTIVE](research/ACTIVE_RESEARCH.json)。
 
-**新实验数值环境指令（2026-10-28）**：采用 [BF16原始高精度机制 + RTX5090(SM120)原生NVFP4 W4A4部署双轨](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。已有一张RTX5090（32GB），**原生NVFP4硬件可执行**；先验证工具链/packed+双scale真实kernel，再复用LightX2V四步I2V NVFP4 checkpoint，包含显存与量化动态激活生产者预检。HiF4 fake-QDQ保留为旧实验与分组/舍入数值诊断，低比特加速证据必须来自原生W4A4。原始BF16 checkpoint与旧HiF4解码BF16权重严格分开；vLLM等W4A16/Marlin fallback不算W4A4。两轨任务按ACTIVE精确scope执行，方法数学与A0/B-H继续并行。
+**新实验数值环境指令（2026-10-28）**：采用 [BF16原始高精度机制 + RTX5090(SM120)原生NVFP4 W4A4部署双轨](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。**本会话用户最新确认没有RTX5090，使用A100，最多同时2张空闲GPU**；先推进原始BF16实验。原生NVFP4部署保留为未来具备SM120设备时的独立路线，届时先验证工具链/packed+双scale真实kernel，再复用匹配checkpoint。HiF4 fake-QDQ保留为旧实验与分组/舍入数值诊断，低比特加速证据必须来自原生W4A4。原始BF16 checkpoint与旧HiF4解码BF16权重严格分开；vLLM等W4A16/Marlin fallback不算W4A4。两轨任务按ACTIVE精确scope执行，方法数学与A0/B-H继续并行。
 
 **权重静态／激活动态的强制区分**：W1/W2是离线PTQ的固定权重，Q1/A1与Q2/A2是每次真实FFN调用时的在线激活量化；Q2激活只在W1/GELU后可用。Native MXFP4/NVFP4 W4A4都有独立权重/激活scale，不能把scale存在等同于免费可见。要求QCFB/G12/Q-STAGE方案注明kind、scale来源、producer、backend和早/晚决策时间。[源级审计](research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md) · [机器合同](research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)。
 
@@ -10,7 +10,7 @@
 
 **方法语法**：I（信息与表示）、F（函数与动力学）、C（真实执行）是可并行的研究问题；O-A选择计算、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证是可组合的操作。[五操作框架](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[G14论文/typed先验交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)负责论文和真实计算位置。原三候选统一记为M-A、M-B、M-C，避免与O-A/B/C同名。
 
-**当前状态/依赖**按[2026-10-28任务台账](research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json)核对：此台账不授权执行，也不改变本文件方法原则。**当前下一任务（用户指定M-B优先）**：[A0全80函数160学生本地恢复](research/20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)、[CAL24来源配对及固定候选B1](research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)、[B-H Direct65 H128 pilot](research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)都已有真实结果；下一Agent复用现有证据进行同head的A0/B-H公平比较、原BF16强对照、B-F函数和满足运行条件的RTX5090原生NVFP4预检，旧B0不重跑。M-C仍为独立开放研究。首个实验、质量和系统成果需实际执行，不由文档/独立讨论推定。
+**当前状态/依赖**按[2026-10-28任务台账](research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json)核对：此台账不授权执行，也不改变本文件方法原则。**当前下一任务（用户指定M-B优先）**：[A0全80函数160学生本地恢复](research/20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)、[CAL24来源配对及固定候选B1](research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)、[B-H Direct65 H128 pilot](research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)都已有真实结果；同head的A0/B-H比较和B-F固定输出空间pilot已实际完成，详见唯一任务台账；下一Agent根据实测证据推进原始BF16强对照及视频功能，旧B0不重跑。M-C仍为独立开放研究。首个实验、质量和系统成果需实际执行，不由文档/独立讨论推定。
 
 **最短工作链**：[当前上下文](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → [现行研究方案](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) → [有关SRC/G14论文计算图](docs/98_端到端计算图与证据注解_20261025.md) → [方法专属实验/运行合同](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)。完整文献或历史材料仅在相应科学问题需要时按照阅读导航P1–P4深入；不必逐份阅读历史 handoff。
 

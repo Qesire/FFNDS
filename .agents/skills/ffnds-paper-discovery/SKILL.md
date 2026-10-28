@@ -11,7 +11,7 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 研究北极星：解释视频FFN的信息、函数及真实计算组织规律，产生可证伪的科学机制或维持完整视频能力的低成本表示与执行。[I/F/C并行目标](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)允许从有趣的数学恒等式、原生异常、真实行为、论文或kernel任一端开始。**O-A计算选择、O-B函数替代、O-C历史复用、O-D代数/原生执行、O-E学习/验证**是[可组合操作语法](../../../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，不是五个互斥方法。论文与新方法的typed关系收录在[机器交叉表](../../../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)。
 
-**数值执行轨默认（2026-10-28）**：[BF16机制验证 + RTX5090 SM120 原生NVFP4 W4A4 执行规则](../../../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。高精度函数/运动研究用原始BF16权重，低位部署用成熟LightX2V/CUTLASS原生packed NVFP4（包括动态激活尺度），HiF4 Fake-QDQ只保留针对性的量化数值消融。先设备、CUDA>=12.8、真实backend及32GB显存预检，确认不是W4A16/Marlin；随后同checkpoint/native dense→候选对照。若本机环境尚不成熟，BF16研究继续推进；不得从原QDQ的BF16 GEMM推定FP4加速。
+**数值执行轨默认（2026-10-28）**：[BF16机制验证 + RTX5090 SM120 原生NVFP4 W4A4 执行规则](../../../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。高精度函数/运动研究用原始BF16权重；本会话用户最新确认没有5090、使用A100且同时最多2卡。未来SM120低位部署用成熟LightX2V/CUTLASS原生packed NVFP4（包括动态激活尺度），HiF4 Fake-QDQ只保留针对性的量化数值消融。先设备、CUDA>=12.8、真实backend及32GB显存预检，确认不是W4A16/Marlin；随后同checkpoint/native dense→候选对照。若本机环境尚不成熟，BF16研究继续推进；不得从原QDQ的BF16 GEMM推定FP4加速。
 
 **量化operand强类型规则**：**W1/W2权重是离线静态量化**，本次FFN的**Q1/A1、Q2/A2激活各自在线动态量化**；Q1在W1前，Q2在W1/GELU后。原生NVFP4/MXFP4的W4A4分别有W和A的packed code及block-scale，A scale动态求取（NVFP4的global激活scale可按recipe预校准），原生scale存在但是否可免费/及时读到取决于kernel布局。W4A16没有A FP4 scale。每个研究方案必须指明operand role、producer、scale来源与决策截止；固定weight信息不能被称为输入动态证据。[真实源和成熟后端审计](../../../research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)。
 

@@ -2,7 +2,7 @@
 
 研究目标：理解 Wan 视频生成 FFN **如何组织信息、函数作用和时空行为**，并构造可在完整视频质量与真实系统成本之间取得竞争力的低成本表示和执行方式。科学入口为 **I（信息与表示）/ F（函数与动力学）/ C（计算与执行）**；O-A～O-E 是可组合的方法动作，“稀疏”不是唯一方法范畴。详见[统一科学目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-**执行环境切换（2026-10-28）**：[BF16原始机制 + RTX5090原生NVFP4 W4A4 Agent指令](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户已有 RTX5090 32GB (SM120)，CUDA>=12.8能支持成熟原生block-scaled FP4；先环境和32GB显存预检，再基于LightX2V同checkpoint Dense/候选验证部署。旧HiF4 Fake-QDQ用于历史数值机制，低位性能需原生packed W4A4；必须区分原始BF16权重与被HiF4量化再解码的BF16权重。
+**执行环境切换（2026-10-28）**：[BF16原始机制 + RTX5090原生NVFP4 W4A4 Agent指令](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。本会话用户最新确认使用 A100、没有 RTX5090，最多同时2张空闲GPU；当前推进原始BF16，原生NVFP4待将来具备SM120设备时独立验证。旧HiF4 Fake-QDQ用于历史数值机制，低位性能需原生packed W4A4；必须区分原始BF16权重与被HiF4量化再解码的BF16权重。
 
 ## 从这里开始
 
@@ -36,7 +36,7 @@
 \]
 原实现使用**HiF4 fake-QDQ+BF16 GEMM**；HiF4元素码字本来是**带符号S1P2（4bit含1bit符号）**，其64组共享尺度只编码幅值，当前QDQ输出带符号BF16而非持久packed码字。详见[格式及存储语义审计](research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)。packed FP4/NVFP4/MXFP4需另立数值/系统证据。旧10 source/12 source×seed/1920 sites、consumer20的20个开发来源与A0的训练/诊断来源，是**不同研究数据范围**；seed、row、block/step和多prompt不当作独立image-cluster。
 
-**论文/图状态**：98项主文献＋10项补充，16个G14算子焦点；主图216个稳定节点/448条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
+**论文/图状态**：98项主文献＋10项补充，16个G14算子焦点；主图217个稳定节点/451条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
 
 ## 科研与运行约束
 

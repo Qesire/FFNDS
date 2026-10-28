@@ -264,10 +264,10 @@ class GenerationControls(unittest.TestCase):
 
 
 class MathAndDispatchControls(unittest.TestCase):
-    def test_four_new_only_and_image_group_dispatch(self):
+    def test_six_same_environment_and_original_image_group_dispatch(self):
         clips = [{"source": s, "mode": m} for s in q.SOURCES for m in q.MODES]
         for d in q.COMMON:
-            rows = q.rows_for_dimension(clips, d); self.assertEqual(len(rows), 4); self.assertNotIn("dense", [r["mode"] for r in rows])
+            rows = q.rows_for_dimension(clips, d); self.assertEqual(len(rows), 6); self.assertEqual({r["mode"] for r in rows}, set(q.MODES))
         self.assertEqual({r["source"] for r in q.rows_for_dimension(clips, "i2v_subject")}, {0})
         self.assertEqual({r["source"] for r in q.rows_for_dimension(clips, "i2v_background")}, {12})
 
@@ -293,8 +293,8 @@ class MathAndDispatchControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Official binary"):
             q.validate_raft(bad)
 
-    def test_actual_fake_raft_160_call_dispatch_and_restore(self):
-        report = {}; ledger = q.Ledger(report, limits={"RAFT_forwards": 160, "RAFT_iterations": 3200})
+    def test_actual_fake_raft_240_call_dispatch_and_restore(self):
+        report = {}; ledger = q.Ledger(report, limits={"RAFT_forwards": 240, "RAFT_iterations": 4800})
         class RAFT:
             def __call__(self, *args, **kwargs): return self.forward(*args, **kwargs)
             def forward(self, a, b, *, iters, test_mode): return None, 2.
@@ -306,14 +306,14 @@ class MathAndDispatchControls(unittest.TestCase):
                 for _ in range(40):
                     _, flow = self.model(object(), object(), iters=20, test_mode=True); values.append(self.get_score(None, flow))
                 return sum(v > 10.875 for v in values) >= 10
-        module = types.SimpleNamespace(RAFT=RAFT, DynamicDegree=Dynamic); rows = []; paths = [f"clip{i}" for i in range(4)]
+        module = types.SimpleNamespace(RAFT=RAFT, DynamicDegree=Dynamic); rows = []; paths = [f"clip{i}" for i in range(6)]
         original = RAFT.forward
         with q.raft_observer(module, rows, ledger, paths):
             dynamic = Dynamic()
             for path in paths: self.assertFalse(dynamic.infer(path))
             with self.assertRaisesRegex(ValueError, "Wrong/duplicate"):
                 dynamic.infer(paths[0])
-        self.assertIs(RAFT.forward, original); ledger.finish(); self.assertEqual(len(rows), 4)
+        self.assertIs(RAFT.forward, original); ledger.finish(); self.assertEqual(len(rows), 6)
 
     def test_wrong_raft_signature_blocks_before_invocation(self):
         report = {}; ledger = q.Ledger(report, limits={"RAFT_forwards": 1, "RAFT_iterations": 20}); called = []
@@ -332,7 +332,7 @@ class MathAndDispatchControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "budget exceeded"):
             q.observed_raft_forward(fail, ledger)(None, 1, 2, iters=20, test_mode=True)
 
-    def test_full_8dimension_statistics_are_source_equal_and_reuse_n0(self):
+    def test_full_8dimension_statistics_all_six_new_and_history_does_not_set_denominator(self):
         clips = [{"source": s, "mode": m, "source_id": f"s{s}", "image_sha256": f"image{s}",
                   "video": {"path": f"{s}_{m}.mp4"}} for s in q.SOURCES for m in q.MODES]
         plan = {"videos": clips, "hf_root_for_report": "/tmp"}
@@ -345,7 +345,9 @@ class MathAndDispatchControls(unittest.TestCase):
             if d == "dynamic_degree": entry["RAFT_observations"] = [raft(r["video_path"], 2.) for r in rows]
             completed.append(entry)
         x = q.summarize(plan, reused, flows, completed)
-        self.assertEqual(x["equal_source_descriptive_means_common_six_only"]["imaging_quality"], {"dense": 16., "energy94": 6., "random94": 6.})
+        self.assertEqual(x["equal_source_descriptive_means_common_six_only"]["imaging_quality"], {"dense": 6., "energy94": 6., "random94": 6.})
+        self.assertEqual(x["per_source"][0]["motion"]["energy94"]["candidate_to_Dense_mean_ratio"]["value"], 1.)
+        self.assertEqual(x["per_source"][0]["historical_same_byte_Dense_sanity_only"]["new_minus_old_score"]["imaging_quality"], -10.)
         self.assertEqual(x["independent_image_clusters"], 2); self.assertEqual(x["Dense_score_reuse_adds_independent_samples"], 0)
         self.assertNotIn("i2v_subject", x["equal_source_descriptive_means_common_six_only"])
         completed[0]["result"][-1][0] = completed[0]["result"][-1][1]
@@ -365,13 +367,13 @@ class AuthorityControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "CPU preflight NOT_BOUND"):
             q.require_cpu_receipt({}, {}, "a" * 64, Path("/tmp"))
         with tempfile.TemporaryDirectory() as t:
-            hf = Path(t); plan = {"repo_sources": [], "parent": {"RUN": {"sha256": "b" * 64}, "exit": {"sha256": "c" * 64}}}
+            hf = Path(t); plan = {"repo_sources": [], "import_environment": {}, "parent": {"RUN": {"sha256": "b" * 64}, "exit": {"sha256": "c" * 64}}}
             report = q.cpu_report(plan, "a" * 64); rp = hf / "CPU.json"; rp.write_text(json.dumps(report)); rb = q.binding(rp, hf)
             exit = {"id": q.ID, "protocol_sha256": "a" * 64, "child_returncode": 0, "process_exited": True,
                     "timeout": False, "automatic_retry": False, "run_sha256": rb["sha256"]}
             ep = hf / "EXIT.json"; ep.write_text(json.dumps(exit)); scope = {"cpu_preflight": {"RUN": rb, "launch_exit": q.binding(ep, hf)}}
             q.require_cpu_receipt(scope, plan, "a" * 64, hf)
-            report["new_scored_videos"] = 6; rp.write_text(json.dumps(report)); scope["cpu_preflight"]["RUN"] = q.binding(rp, hf)
+            report["new_scored_videos"] = 4; rp.write_text(json.dumps(report)); scope["cpu_preflight"]["RUN"] = q.binding(rp, hf)
             exit["run_sha256"] = scope["cpu_preflight"]["RUN"]["sha256"]; ep.write_text(json.dumps(exit)); scope["cpu_preflight"]["launch_exit"] = q.binding(ep, hf)
             with self.assertRaisesRegex(ValueError, "CPU preflight proof"):
                 q.require_cpu_receipt(scope, plan, "a" * 64, hf)
@@ -397,7 +399,10 @@ class AuthorityControls(unittest.TestCase):
                 "legacy": {"protocol": {"path": q.LEGACY_PROTOCOL, "sha256": q.LEGACY_PROTOCOL_SHA},
                            "published_results": {"path": q.LEGACY_REPORT}, "parts": [{"part": p} for p in (0, 1)]},
                 "repo_sources": [{"path": p} for p in q.REQUIRED_SOURCES], "hf_bindings": [],
-                "environment": dict.fromkeys(q.ENVIRONMENT_KEYS, None), "output_HF_relative": "ffnds-derived/test-quality"}
+                "environment": dict.fromkeys(q.ENVIRONMENT_KEYS, None), "output_HF_relative": "ffnds-derived/test-quality",
+                "import_environment": {"policy": "ISOLATED_I_S_ORIGINAL_V8_SITE_NO_PROJECT_SITE_FALLBACK",
+                    "limits": q.IMPORT_LIMITS, "resources": q.IMPORT_RESOURCES, "flags": ["-I", "-S"],
+                    "modules": dict.fromkeys(q.IMPORT_NAMES, {}), "legacy_score_actual_module_origins": "NOT_RECORDED"}}
         scope = {"id": q.ID, "protocol_sha256": "a" * 64, "execution_status": "AUTHORIZED_NOT_STARTED",
                  "max_gpu_cards": 1, "limits": q.LIMITS, "resources": q.RESOURCES}
         active = {"user_continuation_authorization_20261027": {"status": "ACTIVE_CURRENT_USER_DIRECTED_SESSION", "new_scope_registration_allowed": True},
@@ -427,6 +432,147 @@ class AuthorityControls(unittest.TestCase):
 
     def test_no_tensor_libraries_imported(self):
         self.assertNotIn("torch", sys.modules); self.assertNotIn("numpy", sys.modules)
+
+
+class IsolatedEnvironmentControls(unittest.TestCase):
+    def environment_fixture(self, root):
+        hf = root / "hf"; hf.mkdir()
+        site, source, overlay, stdlib = [hf / x for x in ("metric-site", "source", "overlay", "stdlib")]
+        for path in (site, source, overlay, stdlib): path.mkdir()
+        interpreter = hf / "python"; interpreter.write_text("original interpreter identity")
+        old = hf / "V8_IMPORT.json"; old.write_text(json.dumps({"status": "PASS_IMPORTS_ONLY"}))
+        modules = {}
+        for name in ("numpy", "pyiqa", "torch"):
+            path = site / name / "__init__.py"; path.parent.mkdir()
+            path.write_text("raise RuntimeError('package code must not execute during spec precheck')\n")
+            modules[name] = {"root": "HF", **q.binding(path, hf), "distribution": name,
+                             "version": "1.26.4" if name == "numpy" else "fixture"}
+        plan = {"environment": {"site": "metric-site", "source_root": "source", "overlay": "overlay"},
+                "import_environment": {"python_HF_relative": "python", "python_sha256": q.sha(interpreter),
+                                       "v8_actual_import_result": q.binding(old, hf), "modules": modules}, "repo_sources": []}
+        return hf, plan, interpreter, stdlib
+
+    def test_isolated_paths_reject_project_site_and_arbitrary_cwd(self):
+        self.assertEqual(q.isolated_paths(["/python/lib/python3.11", str(q.ROOT / "tools")], "/python", q.ROOT / "tools"), ["/python/lib/python3.11"])
+        for paths in (["/python/lib/python3.11/site-packages"], ["/tmp/shadow"], [""], [str(q.ROOT / "tools")]):
+            with self.subTest(paths=paths), self.assertRaisesRegex(ValueError, "import fallback|Missing interpreter"):
+                q.isolated_paths(paths, "/python", q.ROOT / "tools")
+
+    def test_pre_Torch_selects_numpy126_and_pyiqa_spec_without_execution(self):
+        with tempfile.TemporaryDirectory() as t:
+            hf, plan, interpreter, stdlib = self.environment_fixture(Path(t))
+            flags = types.SimpleNamespace(isolated=1, no_site=1, ignore_environment=1)
+            with mock.patch.object(q.sys, "executable", str(interpreter)), mock.patch.object(q.sys, "base_prefix", str(stdlib)), \
+                    mock.patch.object(q.sys, "path", [str(stdlib), str(q.ROOT / "tools")]), mock.patch.object(q.sys, "dont_write_bytecode", True):
+                record = q.configure_import_environment(plan, hf, flags=flags)
+                self.assertEqual(record["pre_Torch_specs"]["numpy"]["version"], "1.26.4")
+                self.assertEqual(q.sys.path[:3], [str(hf / "source"), str(hf / "overlay"), str(hf / "metric-site")])
+                self.assertFalse(record["project_site_fallback"])
+                self.assertNotIn("numpy", sys.modules); self.assertNotIn("torch", sys.modules)
+
+    def test_isolation_wrong_flags_preloaded_numpy_and_wrong_spec_fail_before_import(self):
+        with tempfile.TemporaryDirectory() as t:
+            hf, plan, interpreter, stdlib = self.environment_fixture(Path(t))
+            with self.assertRaisesRegex(ValueError, "Python -I -S"):
+                q.configure_import_environment(plan, hf, flags=types.SimpleNamespace(isolated=0, no_site=0, ignore_environment=0))
+            flags = types.SimpleNamespace(isolated=1, no_site=1, ignore_environment=1)
+            with mock.patch.dict(sys.modules, {"numpy": types.SimpleNamespace()}), self.assertRaisesRegex(ValueError, "before numeric imports"):
+                q.configure_import_environment(plan, hf, flags=flags)
+            with mock.patch.object(q.sys, "executable", str(interpreter)), mock.patch.object(q.sys, "base_prefix", str(stdlib)), \
+                    mock.patch.object(q.sys, "path", [str(stdlib)]), mock.patch.object(q.importlib.util, "find_spec", return_value=types.SimpleNamespace(origin="/project/numpy/__init__.py")):
+                with self.assertRaisesRegex(ValueError, "Pre-Torch original package spec differs: numpy"):
+                    q.configure_import_environment(plan, hf, flags=flags)
+
+    def test_module_observation_checks_real_origin_version_and_bytes(self):
+        with tempfile.TemporaryDirectory() as t:
+            hf, plan, interpreter, stdlib = self.environment_fixture(Path(t))
+            item = plan["import_environment"]["modules"]["numpy"]; module = types.SimpleNamespace(__file__=str(hf / item["path"]))
+            with mock.patch.object(q.importlib.metadata, "version", return_value="1.26.4"):
+                self.assertEqual(q.module_observation(module, "numpy", plan, hf)["version"], "1.26.4")
+                module.__file__ = str(hf / "wrong.py")
+                with self.assertRaisesRegex(ValueError, "Actual imported module origin/version differs: numpy"):
+                    q.module_observation(module, "numpy", plan, hf)
+                module.__file__ = str(hf / item["path"])
+            with mock.patch.object(q.importlib.metadata, "version", return_value="2.4.6"), self.assertRaisesRegex(ValueError, "Actual imported module origin/version"):
+                q.module_observation(module, "numpy", plan, hf)
+            (hf / item["path"]).write_text("changed package implementation")
+            with self.assertRaisesRegex(ValueError, "Asset bytes/SHA differ"):
+                q.module_observation(module, "numpy", plan, hf)
+
+    def official_fixture(self, hf):
+        modules = {}
+        def compute(json_dir, device, submodules_list):
+            raise AssertionError("imports-only must never execute compute")
+        for dimension in q.DIMENSIONS:
+            package = "vbench2_beta_i2v" if dimension.startswith("i2v_") else "vbench"
+            path = hf / "source" / package / (dimension + ".py"); path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("# immutable original author fixture\n" + dimension)
+            modules[package + "." + dimension] = types.SimpleNamespace(__file__=str(path), **{"compute_" + dimension: compute})
+        return modules
+
+    def test_all_eight_function_imports_are_real_callable_lookups_without_compute(self):
+        with tempfile.TemporaryDirectory() as t:
+            hf, plan, _, _ = self.environment_fixture(Path(t)); modules = self.official_fixture(hf)
+            with mock.patch.object(q.importlib, "import_module", side_effect=modules.__getitem__) as imported:
+                records = [q.original_metric_module(d, plan, hf)[1] for d in q.DIMENSIONS]
+            self.assertEqual(imported.call_count, 8); self.assertEqual([r["dimension"] for r in records], list(q.DIMENSIONS))
+
+    def test_wrong_official_origin_and_signature_rejected_without_compute(self):
+        with tempfile.TemporaryDirectory() as t:
+            hf, plan, _, _ = self.environment_fixture(Path(t)); modules = self.official_fixture(hf)
+            module = modules["vbench.imaging_quality"]; original = module.__file__
+            with mock.patch.object(q.importlib, "import_module", return_value=module):
+                module.__file__ = str(hf / "wrong.py")
+                with self.assertRaisesRegex(ValueError, "function origin/signature"):
+                    q.original_metric_module("imaging_quality", plan, hf)
+                module.__file__ = original; module.compute_imaging_quality = lambda wrong: None
+                with self.assertRaisesRegex(ValueError, "function origin/signature"):
+                    q.original_metric_module("imaging_quality", plan, hf)
+
+    def test_import_CPU_receipt_exact_scope_RUN_origin_counts_resources_and_zero_NN(self):
+        with tempfile.TemporaryDirectory() as t:
+            hf, plan, _, _ = self.environment_fixture(Path(t)); modules = self.official_fixture(hf)
+            with mock.patch.object(q.importlib, "import_module", side_effect=modules.__getitem__):
+                functions = [q.original_metric_module(d, plan, hf)[1] for d in q.DIMENSIONS]
+            good = q.import_report(plan, "a" * 64)
+            good.update(predebited_official_module_imports=8, completed_official_module_imports=8,
+                        denied_attempts=[], stateless_activation_wrapper_constructions=8, stateless_pool_wrapper_constructions=1,
+                        isolation={"flags": {"isolated": 1, "no_site": 1, "ignore_environment": 1}, "project_site_fallback": False},
+                        wall_seconds=1., new_HF_bytes=100, functions=functions,
+                        module_origins={n: {"origin": str(hf / b["path"]), "sha256": b["sha256"], "distribution": b["distribution"], "version": b["version"]} for n,b in plan["import_environment"]["modules"].items()})
+            rp, ep = hf / "IMPORT_CPU.json", hf / "EXIT.json"
+            def resigned(value, *, run_sha=None):
+                rp.write_text(json.dumps(value)); rb = q.binding(rp, hf)
+                ep.write_text(json.dumps({"id": q.ID, "protocol_sha256": "a" * 64, "child_returncode": 0,
+                    "process_exited": True, "timeout": False, "automatic_retry": False, "run_sha256": rb["sha256"] if run_sha is None else run_sha}))
+                return {"cpu_import_preflight": {"RUN": rb, "launch_exit": q.binding(ep, hf)}}
+            with self.assertRaisesRegex(ValueError, "imports-only CPU preflight NOT_BOUND"):
+                q.require_import_receipt({}, plan, "a" * 64, hf)
+            q.require_import_receipt(resigned(good), plan, "a" * 64, hf)
+            for field, value, reason in [("protocol_sha256", "stale", "proof differs"), ("checkpoint_loads", 1, "proof differs"),
+                    ("model_forwards", 1, "proof differs"), ("CUDA_initialized", True, "proof differs"),
+                    ("completed_official_module_imports", 7, "observed budget"), ("denied_attempts", ["blocked"], "observed budget"),
+                    ("wall_seconds", 301., "isolation/resource"), ("new_HF_bytes", 33 << 20, "isolation/resource")]:
+                wrong = copy.deepcopy(good); wrong[field] = value
+                with self.subTest(field=field), self.assertRaisesRegex(ValueError, reason):
+                    q.require_import_receipt(resigned(wrong), plan, "a" * 64, hf)
+            wrong = copy.deepcopy(good); wrong["module_origins"]["numpy"]["version"] = "2.4.6"
+            with self.assertRaisesRegex(ValueError, "actual origins"):
+                q.require_import_receipt(resigned(wrong), plan, "a" * 64, hf)
+            wrong = copy.deepcopy(good); wrong["functions"][0]["module_sha256"] = "f" * 64
+            with self.assertRaisesRegex(ValueError, "official module bytes"):
+                q.require_import_receipt(resigned(wrong), plan, "a" * 64, hf)
+            with self.assertRaisesRegex(ValueError, "Actual exit0/exact RUN SHA"):
+                q.require_import_receipt(resigned(good, run_sha="f" * 64), plan, "a" * 64, hf)
+
+    def test_v2_exact_six_video_budgets(self):
+        self.assertEqual(q.LIMITS["new_video_dimension_results"], 42)
+        self.assertEqual(q.LIMITS["reused_Dense_video_dimension_results"], 0)
+        self.assertEqual(q.LIMITS["RAFT_forwards"], 240); self.assertEqual(q.LIMITS["RAFT_iterations"], 4800)
+        clips = [{"source": s, "mode": m} for s in q.SOURCES for m in q.MODES]
+        self.assertEqual(sum(len(q.rows_for_dimension(clips, d)) for d in q.DIMENSIONS), 42)
+        self.assertEqual(q.COSTS["imaging_quality"], {"MUSIQ": 486})
+        self.assertEqual(q.COSTS["i2v_subject"], {"DINO": 246})
 
 
 if __name__ == "__main__":
