@@ -1,4 +1,4 @@
-# FFNDS · 资产先行的统一Agent交接与研究队列
+# FFNDS · 开放式证据驱动的统一Agent交接与研究队列
 
 **现行METHOD HANDOFF · 2026-10-29 · 探索与部署分别验收。** 科研协议：[AutoResearcher技能](../../.agents/skills/ffnds-paper-discovery/SKILL.md) → [资产与四支机制推导](../20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md) → [数据交叉复算](../20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json) → [视频终端证据](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。运行状态以[ACTIVE](../ACTIVE_RESEARCH.json)为准；历史[2026-10-28任务台账](CURRENT_TASK_LEDGER_20261028.json)是任务状态登记，不再定义科研优先级。任何Agent无需从旧M-B末层handoff开始。
 
