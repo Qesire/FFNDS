@@ -1,5 +1,7 @@
 # FFNDS · 三条新函数路线的现行整合研究方案（M-A / M-B / M-C）
 
+> **平行创新交界层（2026-10-28，不替代三方法权威正文及B0/B1任务）：** [QCFB/Q-STAGE跨 QMeta×M-A/M-B/M-C 统一前沿](../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)与[typed prior crosswalk](../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)具体推导原HiF4完整64组的动作闭包、条件有符号联合删除风险、量化误差交互和动作依赖Q2信息。它是研究种子，尚非任何原生部署结果或同行支持票。
+
 > **2026-10-28 · INTEGRATED_METHOD_PLAN v2 · CURRENT RESEARCH PLAN / MIXED ALG+SRC+NATIVE+LIT+OPEN。** 此文件是三方案**现行权威整合入口**。首次2026-10-27讨论版本可由[原始合并提交dd21c539](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)审阅，旧版本时间点的推测不再作为当前操作指令。修订依据：[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)、[原独立评议](COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)、[五操作框架](FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[现行M-B数学快照](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)和[最新A0真实pilot](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)。研究方案和方法讨论不代替[ACTIVE研究与运行授权](../ACTIVE_RESEARCH.json)，本次编辑没有运行新的模型、实验或视频。
 
 ## 0. 研究目标、三层组织和现在的成果边界
