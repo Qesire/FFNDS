@@ -1,6 +1,6 @@
 # FFNDS · 每次生成必有指标；全40层/四步必须评估真实误差传播
 
-**新实验采样与校准上游合同**：[统一数据协议](DATA_SAMPLING_CALIBRATION_EVALUATION.md)。此处负责每个实际视频的质量/物理证据；前者定义独立source、真实生成run、校准数据和官方评价用途。历史VBench三轴的每source一条生成+五份文件名属于`HISTORICAL_REPLICATED_FILENAME_SINGLE_GENERATION`，R17 one-video-per-source官方函数调用属于自定义子集；正式VBench-I2V五次采样由独立生成执行而不是复制实现。所有实际生成的视频继续记录完整逐帧工程诊断，官方指标缺项真实标记NOT_RUN。
+**2026-10-29 · 视频先行、全深度、多来源方法准入（新方法排序时优先执行）：**[完整METHOD_CORRECTION](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)及[20来源分层机器复算](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_REAUDIT_20261029.json)。任一候选**被比较为更优FFN省算方法**之前，至少具备4去噪step×40blocks=160处真实可执行原生路径、≥20个不同image-cluster的完整同seed Dense/Student配对生成、源级多维画质/运动幅度及动作语义/主体背景/时序质量、原生FFN及整段真实wall；相机源/静态源/动态源分层，适用维度不能静默缺失。单末层、两来源、local-SSE、head-SSE、MAC/token或同状态数值gain的结果进入MECHANISM_ONLY，不构成更优方法或质量通过。新盲确认集与VBench正式5条独立生成按具体冻结新协议记录；已有20源UB1是暴露开发证据，不是任何新M-B方法的确认结果。已有本文件的全帧bundle与官方评估是**视频文件级**，本增补是**来源簇与方法声明级**的第二道验收，两者都需要真实数据；未知源或缺指标必须列出需补产物和下一次可执行动作。科研机制探索不受此方法选择门槛束缚；每项新原生作业仍需ACTIVE精确scope。\n\n**新实验采样与校准上游合同**：[统一数据协议](DATA_SAMPLING_CALIBRATION_EVALUATION.md)。此处负责每个实际视频的质量/物理证据；前者定义独立source、真实生成run、校准数据和官方评价用途。历史VBench三轴的每source一条生成+五份文件名属于`HISTORICAL_REPLICATED_FILENAME_SINGLE_GENERATION`，R17 one-video-per-source官方函数调用属于自定义子集；正式VBench-I2V五次采样由独立生成执行而不是复制实现。所有实际生成的视频继续记录完整逐帧工程诊断，官方指标缺项真实标记NOT_RUN。
 
 **适用**：2026-10-26之后所有新视频生成任务（Dense、候选、对照、失败视频、调参、定性演示）。已有冻结协议和原始视频RUN字节不修改；后验补评必须使用有原始视频SHA的单独版本。**用户当前暂停实时生成**，本文件只针对四步Wan整段I2V。
 
