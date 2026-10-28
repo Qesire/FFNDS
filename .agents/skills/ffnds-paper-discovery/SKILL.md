@@ -11,7 +11,7 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 研究北极星：解释视频FFN的信息、函数及真实计算组织规律，产生可证伪的科学机制或维持完整视频能力的低成本表示与执行。[I/F/C并行目标](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)允许从有趣的数学恒等式、原生异常、真实行为、论文或kernel任一端开始。**O-A计算选择、O-B函数替代、O-C历史复用、O-D代数/原生执行、O-E学习/验证**是[可组合操作语法](../../../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，不是五个互斥方法。论文与新方法的typed关系收录在[机器交叉表](../../../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)。
 
-**数值执行轨（2026-10-28 用户最新纠正）**：[原始BF16优先／NVFP4部署暂缓](../../../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户没有本地RTX5090，搭建NVFP4有较高工程摩擦，当前不再安排SM120设备环境检查、CUDA编译、量化checkpoint下载或部署实验。科学主线使用**原始BF16权重**和已有可用A100研究证据，继续M-B/B-F、A0、跨深度范数与全视频动态/系统成本。HiF4 Fake-QDQ保留数值机制、signed/group64及历史实验复现。将来明确复启NVFP4时再检查实际可访问SM120、两侧scale和动态activation producer，BF16 weight_qdq不可混称原始BF16，W4A16不混称原生W4A4。
+**双数值原生实验轨（2026-10-28最新指令）**：[A100原始BF16与RTX PRO 6000 Blackwell NVFP4并行](../../../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。没有本地RTX5090，但RTX PRO 6000可作为SM120原生FP4目标；BF16功能/视频与原生NVFP4源码/准备任务同时READY，互不阻塞。PRO6000 R0先核验真实可访问权限/MIG/环境及匹配模型，保留历史E0在Pro6000跑过的证据；后续native作业先绑定ACTIVE。当前上游nvfp4_rtn_backend.py 是 Fake-QDQ后接BF16线性算子，不等于packed W4A4，必须区分。HiF4 Fake-QDQ仅保留为格式/数值机制诊断。
 
 **量化operand强类型规则**：**W1/W2权重是离线静态量化**，本次FFN的**Q1/A1、Q2/A2激活各自在线动态量化**；Q1在W1前，Q2在W1/GELU后。原生NVFP4/MXFP4的W4A4分别有W和A的packed code及block-scale，A scale动态求取（NVFP4的global激活scale可按recipe预校准），原生scale存在但是否可免费/及时读到取决于kernel布局。W4A16没有A FP4 scale。每个研究方案必须指明operand role、producer、scale来源与决策截止；固定weight信息不能被称为输入动态证据。[真实源和成熟后端审计](../../../research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)。
 
