@@ -306,11 +306,16 @@ def authorize(plan, digest, active, part, run_id=None):
         validate_frozen_design(plan, _read_binding(ROOT, plan["completion_protocol"]))
     functions_for(part)
     authority = active.get("user_continuation_authorization_20261027", {})
+    current_resources = active.get("resource_scheduling_policy_20261028", {})
     if (authority.get("id") != "USER_RESUME_OFFLINE_IFC_20261027"
             or authority.get("status") != "ACTIVE_CURRENT_USER_DIRECTED_SESSION"
-            or authority.get("max_simultaneously_assigned_idle_GPUs") != 2
+            or authority.get("max_simultaneously_assigned_idle_GPUs") is not None
+            or active.get("experiment_authority", {}).get("active_resource_policy") != "resource_scheduling_policy_20261028"
+            or current_resources.get("status") != "ACTIVE_OVERRIDES_PRIOR_NUMERIC_GLOBAL_CAPS"
+            or current_resources.get("mode") != "DYNAMIC_MAX_ACTUALLY_CALLABLE"
+            or current_resources.get("global_gpu_card_cap") is not None
             or authority.get("new_scope_registration_allowed") is not True):
-        raise ValueError("Current user continuation authority inactive")
+        raise ValueError("Current dynamic GPU authority inactive")
     scopes = [s for s in active.get("experiment_authority", {}).get("current_user_authorized_scopes", [])
               if s.get("id") == ID]
     if len(scopes) != 1:
@@ -320,6 +325,8 @@ def authorize(plan, digest, active, part, run_id=None):
             or scope.get("execution_status") not in ("AUTHORIZED_NOT_STARTED", "RUNNING_FIXED_SCOPE")
             or scope.get("allowed_run_ids") != run_ids()
             or scope.get("limits_per_part") != [part_limits(p) for p in range(4)] or scope.get("limits_total") != TOTAL_LIMITS
+            # The previously frozen v2 scope recorded 2; this is NOT the current global cap.
+            # To launch this same study with different concurrency, register a new versioned scope.
             or scope.get("max_simultaneously_assigned_idle_GPUs") != 2):
         raise ValueError("Exact protocol/run IDs/part budgets not registered")
     if run_id is not None and run_id not in run_ids(part):
