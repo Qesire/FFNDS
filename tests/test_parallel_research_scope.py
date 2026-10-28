@@ -57,8 +57,8 @@ class ParallelResearchScopeTests(unittest.TestCase):
         active = load("research/ACTIVE_RESEARCH.json")
         self.assertTrue(current_execution_authority_is_consistent(active))
         for key, value in (("user_instruction", "  "),
-                           ("max_simultaneously_assigned_idle_GPUs", 2),
-                           ("max_simultaneously_assigned_idle_GPUs", 4),
+                           ("max_simultaneously_assigned_idle_GPUs", 0),
+                           ("max_simultaneously_assigned_idle_GPUs", 5),
                            ("protocol_code_asset_budget_freeze_before_launch", False)):
             with self.subTest(key=key):
                 changed = copy.deepcopy(active)
@@ -72,6 +72,8 @@ class ParallelResearchScopeTests(unittest.TestCase):
                          "DYNAMIC_MAX_ACTUALLY_CALLABLE")
         self.assertEqual(active["user_continuation_authorization_20261027"]
                          ["historical_previous_GPU_limit_20261028"], 2)
+        self.assertEqual(active["user_continuation_authorization_20261027"]
+                         ["max_simultaneously_assigned_idle_GPUs"], 2)  # historical, not active global
         for limit in (1, 2, 4, 8, 16, 64):
             with self.subTest(actual_callable=limit):
                 # Actual allocation is external; the active authority contains no cap to compare it against.
