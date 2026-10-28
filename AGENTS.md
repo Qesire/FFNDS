@@ -2,6 +2,8 @@
 
 > **先阅读：[P0–P4现行优先级导航](research/RESEARCH_NAVIGATION.md)。** 此文件定义Agent行为原则，**不是**第二份研究进度报告；研究科学目标由[统一I/F/C目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)定义，方法正文以[整合M-A/M-B/M-C方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为准；真实实验运行范围归[ACTIVE](research/ACTIVE_RESEARCH.json)。
 
+**权重静态／激活动态的强制区分**：W1/W2是离线PTQ的固定权重，Q1/A1与Q2/A2是每次真实FFN调用时的在线激活量化；Q2激活只在W1/GELU后可用。Native MXFP4/NVFP4 W4A4都有独立权重/激活scale，不能把scale存在等同于免费可见。要求QCFB/G12/Q-STAGE方案注明kind、scale来源、producer、backend和早/晚决策时间。[源级审计](research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md) · [机器合同](research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)。
+
 **HiF4带符号存储**：原4bit S1P2每元素自带符号位，尺度层级只编码幅值；现行Wan fake-QDQ写回带符号BF16，未常驻packed code。QCFB/G12/M-C研究时区分格式已有信息与昂贵的在线提取、位置信息。详见[HiF4源码审计](research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)和[机器合同](research/agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
 
 **方法语法**：I（信息与表示）、F（函数与动力学）、C（真实执行）是可并行的研究问题；O-A选择计算、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证是可组合的操作。[五操作框架](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[G14论文/typed先验交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)负责论文和真实计算位置。原三候选统一记为M-A、M-B、M-C，避免与O-A/B/C同名。
