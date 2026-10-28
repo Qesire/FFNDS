@@ -1,6 +1,6 @@
 # FFNDS 数据/校准/真实视频/官方评价：可执行操作手册
 
-> 本手册对应 `tools/ffnds_experiment_plans.py`、`ffnds_native_geometry.py`、`ffnds_run_registered_video.py`、`ffnds_stage_registered_i2v.py`、`ffnds_cluster_metric_report.py`。所有输出使用新目录；旧 CAL12/CAL24/UB1/R17/E0 原始RUN和视频维持原样。新脚本已接入原生 LightX2V 的验证资产、HiF4 D-Q 与 UB1 运行时；**GPU结果须按真实执行收据确认**。
+> 本手册对应 `tools/ffnds_experiment_plans.py`、`ffnds_native_geometry.py`、`ffnds_run_registered_video.py`、`ffnds_stage_registered_i2v.py`、`ffnds_cluster_metric_report.py`。所有输出使用新目录；旧 CAL12/CAL24/UB1/R17/E0 原始RUN和视频维持原样。新脚本已接入原生 LightX2V 的验证资产、HiF4 D-Q 与 UB1 运行时；**GPU结果须按真实执行收据确认**。 GPU并行资源按[2026-10-28动态调度规则](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)采用当前真实可调用最大量，不设置预先2/4张的全局上限；单个worker的GPU需求与历史冻结scope仍分别记录。
 
 ## 0. 一次性环境检查
 
