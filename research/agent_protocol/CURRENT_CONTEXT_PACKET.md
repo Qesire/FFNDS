@@ -1,12 +1,14 @@
 # FFNDS · 下一Agent最小上下文（2026-10-28）
 
+**2026-10-29 · 当前路线修订**：[新结果评议、数学修正和下一判别](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)。复用已完成B0/B1、BH/匹配A0/BF，不重复启动；当前6016视频明显退化。原始BF16投影的范数修正有效但仅一个暴露转移来源，B-F实际学生则分子错误主导；下一步区分这两种机制并核查跨深度consumer。A100 BF16与RTX PRO6000原生NVFP4并行，QCFB从已有V2/W2资产推进T0；通用group64和“A100 only”指令已纠正。此更新未核验实时GPU分配，以下运行/资源数字保留各原观察时点，以ACTIVE为准。
+
 
 **最新原始BF16实测：**[12flow交叉状态判别](../20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](../20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](../20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。[固定范数原生转移](../20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.md)已实际exit0，同状态误差降93.7%/82.5%、own-state降69.6%；下一项核查原始BF16跨深度校准覆盖。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
 
 
 **最新实测与当前运行**：[B-F固定基底结果](../20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)实际exit0：两expert×两基底，held8 head SSE high 0.000587/0.000590、low 0.000638/0.000633，均低于同域A0 energy 0.000609/0.000661；这是M256局部证据，视频与系统速度未测。[BF16/NVFP4 R0只读就绪](../20261028/BF16_NVFP4_R0_READINESS_20261028.md)：两原始BF16 checkpoint header已核；历史SM120是RTX PRO 6000，用户没有本地5090，但最新允许RTX PRO 6000 Blackwell与A100 BF16双轨并行；NVFP4 R0已恢复READY_STATIC，匹配NVFP4 checkpoint仍待核，真实PRO6000访问尚未在本轮验证。原始BF16两视频已实际exit0。六视频quality v4实际exit0，保留v1/v2/v3失败历史；人审仍待完成，当前GPU占用0。当前会话最多2 GPU，通用动态默认无全局预设上限。
 
-> **职责**：使接手者正确恢复现行状态，**不重复解释**所有论文与历史实验。全文阅读顺序由[P0–P4优先级导航](../RESEARCH_NAVIGATION.md)管理；研究数学/方法的权威正文是[M-A/M-B/M-C方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，具体B0/B1交接在[下一Agent任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。[当日任务状态/依赖台账](CURRENT_TASK_LEDGER_20261028.json)负责READY/BLOCKED/DEFERRED状态；此上下文不触发新模型实验。
+> **职责**：使接手者正确恢复现行状态，**不重复解释**所有论文与历史实验。全文阅读顺序由[P0–P4优先级导航](../RESEARCH_NAVIGATION.md)管理；研究数学/方法的权威正文是[M-A/M-B/M-C方案v3](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，具体B0/B1交接在[下一Agent任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。[当日任务状态/依赖台账](CURRENT_TASK_LEDGER_20261028.json)负责READY/BLOCKED/DEFERRED状态；此上下文不触发新模型实验。
 
 **当前执行数值策略（2026-10-28最新用户指令）**：[A100原始BF16与RTX PRO 6000 Blackwell原生NVFP4并行](BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户无本地5090，但支持PRO6000作为SM120实验目标；BF16机制/视频不等FP4，NVFP4 R0立即可做静态和当前真实访问核验，R1–R4按设备、模型、Native证据逐项依赖并需ACTIVE scope。2026-10-26 RTX PRO 6000小矩阵FP4通过仅是历史primitive，匹配checkpoint/当前可访问性待确认。
 
@@ -25,14 +27,14 @@
 | 方法/证据 | 已完成 | 后续开放 |
 | --- | --- | --- |
 | **M-B数学v2** | [I19同来源联合敏感度](../method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)、[U28/block39固定调制的LN/head 65连续中间充分统计](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)、实际head源码/权重形状SRC | [CAL24 96flow/byte audit、B1固定字典及B0 selected-row neutral](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)已完成；一般paired机制及视频OPEN；B-F局部学生已完成 |
-| **M-A0/P30** | [全80函数160学生真实窄Q2局部恢复与metadata组装](../20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)；已暴露train16/heldout8 | 160 export/1920 tensor独立字节审计exit0；[两来源六视频v2实际完成](../20261028/COMPACT6016_SIX_VIDEO_NATIVE_RESULTS_20261028.md)；正式质量/人审、独立新来源及公平测速OPEN |
+| **M-A0/P30** | [全80函数160学生真实窄Q2局部恢复与metadata组装](../20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)；已暴露train16/heldout8 | 160 export/1920 tensor独立字节审计exit0；[两来源六视频v2实际完成](../20261028/COMPACT6016_SIX_VIDEO_NATIVE_RESULTS_20261028.md)；quality v4已测且未通过；人审、独立新来源及公平测速OPEN |
 | **M-C** | 输入信息充分性、输出秩、量化后非线性、码表预算ALG/LIT：[独立A/B/C评议](../20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) | 原生训练、Wan真实系统加速与视频未证实 |
 | **旧UB1/RR consumer** | [20来源40条原生视频及质量](../20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)：开发来源画质≈Dense，RAFT运动幅值明显衰减；保留其source/version | 结果是视频运动与代理机制的动机，不是M-B失败或已通过 |
 | **O-D物理竞争** | [合成BF16 activation 2:4 C5](../20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)；online相对dense收益有限 | 真实Wan整端QDQ/视频/系统Pareto独立测量 |
 
 **来源口径**：旧10个source/12个source×seed/1920 site是早期机制研究；consumer20与P30另有独立的历史曝光及统计单位。按image-cluster计真正独立来源，不以tokens/rows/steps/同图多prompt增加样本数。校准先读[实验Skill](../../.agents/skills/ffnds-experiment-evidence/SKILL.md)和[Calibration V2](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)。
 
-## 三、当前工作：B-H真实学生与一般配对机制
+## 三、已完成学生对照与当前机制问题
 
 [CAL24实测汇总](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)记录96个原生flow及byte audit；固定16维span/rank4/18候选中paired、shuffle、marginal、PCA、head-only同选PCA，CPU M256不代表native floor；B0四case的16次full-M选中行neutral已通过。B-H v1（协议SHA `2832d5be8c5d248c923c3a3b244c5d3c4f84e957efbf95bf36d9605af2a88ce1`）已实际完成GPU训练和worker exit0；[结果](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)：两expert各256次Adam，held8 head SSE高/低0.003958/0.003615；[同head A0比较](../20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)已完成：高/低held8 A0 energy 0.000609/0.000661，B-H 0.003958/0.003615，B-H对两A0均0/8胜；96原M neutral和192原A0输出SHA匹配。A0六视频v1首block前失败并保留原身份，[v2六视频actual exit0](../20261028/COMPACT6016_SIX_VIDEO_NATIVE_RESULTS_20261028.md)；quality v4已实测，人审仍待验；B-F局部学生已完成，一般paired机制保持OPEN。当前会话最多2张GPU覆盖[通用动态策略](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的无预设全局上限默认；新范围仍须ACTIVE登记。
 

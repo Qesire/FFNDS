@@ -224,7 +224,7 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(result["method_project_routes"], 10)
         self.assertGreaterEqual(result["method_prior_constraint_relations"], 12)
         self.assertEqual(result["method_next_agent"], "M-B")
-        self.assertEqual(result["method_next_stage"], "M-B_B1_CAL24_FIXED_DICTIONARY_COMPLETE__BH_BF_STUDENT_STAGE")
+        self.assertEqual(result["method_next_stage"], "M-B_BH_BF_TERMINAL_COMPLETE__RAW_BF16_CROSS_DEPTH_NUMERATOR_NORM_STATE")
         output = validate(self.registry)
         self.assertEqual(output["method_next_agent"], "M-B")
         self.assertEqual(output["method_operation_types"], 5)
@@ -247,7 +247,7 @@ class GraphAgentBridgeTests(unittest.TestCase):
         progress = {x["method"]: x for x in cross["methods_progress"]}
         self.assertIn("ALL80_LOCAL_RECOVERY_COMPLETE", progress["M-A"]["status"])
         self.assertIn("B0_CAL24_LABELS_B1_FIXED_POOL_COMPLETE", progress["M-B"]["status"])
-        self.assertIn("BF_OPEN", progress["M-B"]["status"])
+        self.assertIn("BH_BF_TERMINAL_COMPLETE", progress["M-B"]["status"])
         self.assertEqual({n["id"]: n for n in self.registry["nodes"]}["U30"]["evidence_type"], "NATIVE-OBS")
         self.assertIn("MATHEMATICAL_INPUT_OUTPUT_LIMITS_ONLY", progress["M-C"]["status"])
         self.assertEqual(cross["one_turn_next_agent"], "M-B")

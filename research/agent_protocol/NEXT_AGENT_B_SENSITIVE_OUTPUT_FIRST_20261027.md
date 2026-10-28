@@ -2,13 +2,14 @@
 
 **2026-10-28 · CURRENT / CAL24_B1_COMPLETE / B-H_PILOT_COMPLETE。** 用户指定M-B优先；[当日任务台账](CURRENT_TASK_LEDGER_20261028.json)和[ACTIVE](../ACTIVE_RESEARCH.json)分别导航依赖与真实运行权限。[CAL24实际结果](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)完成24来源×4步96flow、byte audit、固定字典paired判别和B0四case的16次full-M选中行neutral。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256不是native floor，一般paired机制仍OPEN。
 
-**当前续作：** B-H v1（协议SHA `2832d5be8c5d248c923c3a3b244c5d3c4f84e957efbf95bf36d9605af2a88ce1`）已实际完成GPU训练并worker exit0；[结果](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)给出两expert各256次Adam、held8 head SSE高/低0.003958/0.003615；[原M几何同head A0对照](../20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)已完成：高/低held8 A0 energy 0.000609/0.000661，B-H 0.003958/0.003615，B-H对两A0均0/8胜；B-F保持OPEN。[A0全80函数160学生](../20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)已完成局部训练和metadata组装，160 export/1920 tensor独立字节审计exit0，六视频v1首block前失败；[v2两来源六视频actual exit0](../20261028/COMPACT6016_SIX_VIDEO_NATIVE_RESULTS_20261028.md)，正式质量/人审和公平测速待验。本会话最多同时2张GPU，覆盖[动态资源策略](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的无预设全局上限通用默认。以下保留已完成B0/B1的技术对象供复核，不作为重复运行指令。
+**当前续作（2026-10-29）**：[新结果评议与最小判别](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)已将B-H、同head A0、B-F、A0全80/六视频及原始BF16 fixed-gain结果纳入权威方案v3。B-H H128准确率落后A0；B-F末层head误差略低且逻辑MAC较小，完整部署未证实；当前6016视频有明显质量与运动损失。原始BF16 headspan投影以径向项为主且固定gain跨一个暴露来源有效，实际B-F学生以分子项为主。下一位先核跨深度校准/consumer，设计bare、固定gain、付费动态norm及分子修正的匹配对照，不重跑B0或把BH/A0比较列为待办。RTX PRO6000原生NVFP4按独立R0→R4与A100并行；各会话/作业资源按ACTIVE精确范围解释。
+
 
 ## 0. 已完成的工作：作为下一任务的输入，不重复创造
 
-1. [现行统一研究方案 v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)是M-A/M-B/M-C的**唯一现行研究路线图**，其中G14先验已转化为数学/数值/执行约束；原独立审计[在此](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)保留作为推导来源。
-2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。同状态BF16 head有限响应与固定候选配对比较已实测；[B-H H128 pilot](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)及同head A0对照已完成；一般配对机制、B-F及视频效能仍OPEN。
-3. [A0全80函数局部恢复](../20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)：160学生训练、已暴露train16/heldout8和metadata bank已完成；独立原始字节审计和两来源六视频v2均实际exit0，正式质量/人审仍待验。
+1. [现行统一研究方案 v3](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)是M-A/M-B/M-C的**唯一现行研究路线图**，其中G14先验已转化为数学/数值/执行约束；原独立审计[在此](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)保留作为推导来源。
+2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。同状态BF16 head有限响应与固定候选配对比较已实测；[B-H H128 pilot](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)及同head A0对照已完成；B-F末层pilot已完成；一般配对机制及B-F视频/系统效能仍OPEN。
+3. [A0全80函数局部恢复](../20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)：160学生训练、已暴露train16/heldout8和metadata bank已完成；独立原始字节审计和两来源六视频v2均实际exit0，quality v4已完成且未通过；人工全播与公平测速仍待验。
 4. 既有[consumer20质量](../20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)证实当前UB1固定RR在20个开发来源的连续RAFT大幅下降；不能将其当作M-B函数成功/失败。
 5. [G14计算图](PAPER_METHOD_FOCUS_GRAPH.json)已有98项主论文＋10项校准，配[五操作机器交叉表](METHOD_OPERATION_CROSSWALK.json)。新研究重点是T05/T06真实GELU与Q2、T07 W2、T08 e5门控、T09及T12视频/后缀、T13核、T15因果；不再以“先广泛扫摘要”代替当前已证明的数学结论。
 
@@ -41,7 +42,7 @@
 ## 4. 完整项目交接和实际文件产出
 
 首个可验收交付**不再是重新创建M-B方法快照**（已经存在且有v2数学）；应提交：
-- 复用[B-H真实训练结果](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)及原RUN/exit，先做同来源同head的A0比较及原M数值验收；
+- 复用[B-H真实训练结果](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)及原RUN/exit，复用已完成同来源同head A0比较及原M数值验收，避免重复；
 - B1科学对象的预先冻结读出/方向/扰动量与相反预测，具体实现计划，若有实际原生RUN必须单独落原始receipt；
 - B-H/B-F两个真正不同的学生计算图、参数/数据/在线成本以及与A0的matched对照；G14论文的真实作用边、先验限制及新自由度一一匹配；
 - 按科学方法输出**M-B snapshot的下一版本变化摘要**，并以Graph Agent的节点/有类型关系记录新SRC/ALG与OPEN条件；不要凭任务计划伪造MODEL/NATIVE/VIDEO/SYS或Agent PEER_SUPPORTED。

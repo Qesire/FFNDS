@@ -1,12 +1,14 @@
 # FFNDS · 阅读优先级与当前研究导航（2026-10-28）
 
+**2026-10-29 · 当前路线修订**：[新结果评议、数学修正和下一判别](20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)。复用已完成B0/B1、BH/匹配A0/BF，不重复启动；当前6016视频明显退化。原始BF16投影的范数修正有效但仅一个暴露转移来源，B-F实际学生则分子错误主导；下一步区分这两种机制并核查跨深度consumer。A100 BF16与RTX PRO6000原生NVFP4并行，QCFB从已有V2/W2资产推进T0；通用group64和“A100 only”指令已纠正。此更新未核验实时GPU分配，以下运行/资源数字保留各原观察时点，以ACTIVE为准。
+
 
 **最新原始BF16实测：**[12flow交叉状态判别](20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。[固定范数原生转移](20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.md)已实际exit0，同状态误差降93.7%/82.5%、own-state降69.6%；下一项核查原始BF16跨深度校准覆盖。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
 
 
 **最新实测与当前运行**：[B-F固定基底结果](20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)实际exit0：两expert×两基底，held8 head SSE high 0.000587/0.000590、low 0.000638/0.000633，均低于同域A0 energy 0.000609/0.000661；这是M256局部证据，视频与系统速度未测。[BF16/NVFP4 R0只读就绪](20261028/BF16_NVFP4_R0_READINESS_20261028.md)：两原始BF16 checkpoint header已核；历史SM120是RTX PRO 6000，用户没有本地5090，但最新允许RTX PRO 6000 Blackwell与A100 BF16双轨并行；NVFP4 R0已恢复READY_STATIC，匹配NVFP4 checkpoint仍待核，真实PRO6000访问尚未在本轮验证。原始BF16两视频已实际exit0。六视频quality v4实际exit0，保留v1/v2/v3失败历史；人审仍待完成，当前GPU占用0。当前会话最多2 GPU，通用动态默认无全局预设上限。
 
-> **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；[动态资源规则](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)通用默认不预设全局上限；具体实验的冻结资源预算与ACTIVE中的当前授权单独核对，GPU/模型/视频作业范围仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
+> **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v3](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；[动态资源规则](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)通用默认不预设全局上限；具体实验的冻结资源预算与ACTIVE中的当前授权单独核对，GPU/模型/视频作业范围仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
 
 **当前双轨并行数值路线（2026-10-28）**：[A100 BF16 × RTX PRO 6000 Blackwell NVFP4](agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户无本地5090，但明确同意PRO6000原生NVFP4与A100 BF16机制研究同时推进。BF16已有low39四角与fixed-norm、视频八轴等证据，继续跨深度/独立来源；NVFP4 R0恢复READY_STATIC核验PRO6000**当前访问**和匹配checkpoint，R1后续Native需新ACTIVE scope，R2–R4按依赖。历史SM120实际为RTX PRO 6000，不能把过去可运行视为目前已经分配。当前源树NVFP4 RTN仍是Fake-QDQ+BF16 GEMM，真实packed路径须另行核实。
 
@@ -15,9 +17,9 @@
 | 顺序 | 阅读对象 | 得到的具体信息 | 进入下一步的条件 |
 | --- | --- | --- | --- |
 | **1** | [当前最小上下文包](agent_protocol/CURRENT_CONTEXT_PACKET.md) | Wan原生FFN/QDQ/step、已完成与OPEN边界、当前用户指定的M-B | 确认本轮研究对象及source/模型版本 |
-| **2** | [M-A/M-B/M-C统一方案v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | 三种新函数、G14约束、强比较器与已登记研究顺序 | 不把旧初版A/B/C意见作为新任务 |
+| **2** | [M-A/M-B/M-C统一方案v3](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | 三种新函数、G14约束、强比较器与已登记研究顺序 | 不把旧初版A/B/C意见作为新任务 |
 | **3** | [M-B数学快照v2](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 配对敏感度、末层65个连续充分统计、B-H/B-F学生及线上代价 | 继承ALG/SRC及实际B0/B1结果；区分已测固定字典与一般配对机制 |
-| **4** | [下一Agent B0/B1交接](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 原生producer/资产/neutral→有限响应→学生函数判别与输出合同 | 复用已完成B0及CAL24配对判别；B-H训练状态按ACTIVE核验 |
+| **4** | [下一Agent B0/B1交接](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 原生producer/资产/neutral→有限响应→学生函数判别与输出合同 | 复用已完成B0及CAL24配对判别；复用已完成B-H/A0/B-F，按最新判别续作 |
 | **5** | [ACTIVE真实研究状态](ACTIVE_RESEARCH.json) | 当轮模型/资源权限、已完成的原始RUN、模型和实验范围 | 不将任务文档视为自动运行授权 |
 
 **M-B仍为首要研究：** [CAL24 96flow对齐及byte audit、B1配对判别和B0选中行neutral](20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)已完成。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256结果不是native数值floor。[B-H真实学生](20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)已完成两expert各256次Adam，held8 head SSE高/低0.003958/0.003615；[原M几何同head A0对照](20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)已完成：held8高/低A0 energy 0.000609/0.000661，B-H 0.003958/0.003615，B-H对两A0均0/8胜；B-F局部学生已完成，一般paired机制仍OPEN。[A0全80函数/160学生](20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)已完成局部训练和metadata组装，160 export/1920 tensor独立字节审计exit0；[六视频v2实际exit0](20261028/COMPACT6016_SIX_VIDEO_NATIVE_RESULTS_20261028.md)：两暴露来源、shared seed42、960 FFN、两Dense历史字节一致；v1首block前失败保留原身份。人审和公平系统速度仍OPEN；quality v4已实测。具体运行以[ACTIVE](ACTIVE_RESEARCH.json)为准。
@@ -38,7 +40,7 @@
 
 **HiF4 存储带符号的权威澄清**：[HiF4 S1P2 码字与现行 fake-QDQ 对照](20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md) · [signed format 机器合同](agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。元素码字自带1bit符号，纯scale/micro-exponent无符号；现行Wan当前写出的是带符号BF16，不是持久 packed S1P2。该区别直接约束QCFB、G12及Q-Meta的观察成本。
 
-**QCFB/Q-STAGE 研究整合与三轮交锋（并行分析，非新的模型作业）**：[统一前沿v2](20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md) · [原数学命题审计](20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md) · [R1–R3评议/回应顺序](independent_reviews/QCFB_20261028/README.md) · [QCFB机器判别关系](agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)。R3已澄清：分箱碰撞不能充当原连续Q1信号的信息下界；native数值余项需要和行动差距比较；类地址不自动修复tile不可执行性；跨步Gram须使用状态空间注入、合法时序可见信息。**真实Q1信息净价值、native、省算与完整运动仍OPEN；M-B B0/B1优先不变。**
+**QCFB/Q-STAGE 研究整合与三轮交锋（并行分析，非新的模型作业）**：[统一前沿v2](20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md) · [原数学命题审计](20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md) · [R1–R3评议/回应顺序](independent_reviews/QCFB_20261028/README.md) · [QCFB机器判别关系](agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)。R3已澄清：分箱碰撞不能充当原连续Q1信号的信息下界；native数值余项需要和行动差距比较；类地址不自动修复tile不可执行性；跨步Gram须使用状态空间注入、合法时序可见信息。**真实Q1净价值与省算仍OPEN；B0/B1已完成，当前M-B后续优先级见v3方案。**
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 

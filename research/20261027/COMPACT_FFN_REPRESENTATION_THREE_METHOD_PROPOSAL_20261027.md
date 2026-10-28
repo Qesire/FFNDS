@@ -1,8 +1,10 @@
 # FFNDS · 三条新函数路线的现行整合研究方案（M-A / M-B / M-C）
 
-> **平行创新交界层（2026-10-28，不替代三方法权威正文及B0/B1任务）：** [QCFB/Q-STAGE跨 QMeta×M-A/M-B/M-C 统一前沿](../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)与[typed prior crosswalk](../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)具体推导原HiF4完整64组的动作闭包、条件有符号联合删除风险、量化误差交互和动作依赖Q2信息。它是研究种子，尚非任何原生部署结果或同行支持票。
+**2026-10-29 v3 · 实测驱动修订。** [完整评议与推导](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)及[125项标量/有限代数检查](../20261029/RESEARCH_ROUTE_REVIEW_SCALAR_AUDIT_20261029.json)：B0/CAL24/B1固定池、B-H、同head A0、B-F末层、A0全80与六视频均已有结果。当前A0视频明显退化；B-H H128准确率落后A0；B-F有局部小幅改善与逻辑MAC下降，SYS未证实。原始BF16末层固定范数转移是定点正证据，B-F学生则仍分子误差主导。下一步按第7节区分两种机制，A100 BF16与RTX PRO 6000原生NVFP4并行；QCFB先做可复用资产T0与有限归一化风险。本次只改研究路线，不新增ACTIVE运行。
 
-> **2026-10-28 · INTEGRATED_METHOD_PLAN v2 · CURRENT RESEARCH PLAN / MIXED ALG+SRC+NATIVE+LIT+OPEN。** 此文件是三方案**现行权威整合入口**。首次2026-10-27讨论版本可由[原始合并提交dd21c539](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)审阅，旧版本时间点的推测不再作为当前操作指令。修订依据：[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)、[原独立评议](COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)、[五操作框架](FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[现行M-B数学快照](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)和[最新A0真实pilot](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)。研究方案和方法讨论不代替[ACTIVE研究与运行授权](../ACTIVE_RESEARCH.json)，本次编辑没有运行新的模型、实验或视频。
+> **平行创新交界层（2026-10-28，不替代三方法权威正文及现行M-B后续任务）：** [QCFB/Q-STAGE跨 QMeta×M-A/M-B/M-C 统一前沿](../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)与[typed prior crosswalk](../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)具体推导原HiF4完整64组的动作闭包、条件有符号联合删除风险、量化误差交互和动作依赖Q2信息。它是研究种子，尚非任何原生部署结果或同行支持票。
+
+> **2026-10-29 · INTEGRATED_METHOD_PLAN v3 · CURRENT RESEARCH PLAN / MIXED ALG+SRC+NATIVE+LIT+OPEN。** 此文件是三方案**现行权威整合入口**。首次2026-10-27讨论版本可由[原始合并提交dd21c539](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)审阅，旧版本时间点的推测不再作为当前操作指令。修订依据：[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)、[原独立评议](COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)、[五操作框架](FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[现行M-B数学快照](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)和[历史A0四位置pilot](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)。研究方案和方法讨论不代替[ACTIVE研究与运行授权](../ACTIVE_RESEARCH.json)，本次编辑没有运行新的模型、实验或视频。
 
 ## 0. 研究目标、三层组织和现在的成果边界
 
@@ -14,11 +16,11 @@
 | **O-A / O-B / O-C / O-D / O-E** | 选择需要算的量 / 改变函数表示 / 历史复用 / 计算代数 / 学习与验证目标 | 方法动作可组合；**稀疏是一种可能的结构/结果，不是独立路线** |
 | **M-A / M-B / M-C** | 具体候选及原生实现 | **M-A0** 普通紧凑学生；**M-B** 后缀敏感低成本函数；**M-C** 整层编码直接求值。名称不与操作O-A～E混淆 |
 
-**下一位方法研究Agent先继续 M-B**，并非重新做最初的提案初审：已经有B v1的末层head/LN有限数学身份、配对敏感度定理及源码审计；下一步是验证native同状态有限响应与合法、低成本的学生函数构造。**M-A0已完成四位置真实恢复pilot**，作为强基线；M-C仍为独立OPEN路线。原 UB1/Affine54/2:4、G12、G13和历史缓存是竞争材料、先例和可复用资产，不因失败范围被视为整个路线家族失败。
+**下一位方法研究Agent继续 M-B 的实际机制判别**：复用已完成的原生末层捕获、CAL24配对固定池、B-H/A0/B-F和原始BF16四角/固定gain结果。优先核查跨来源/深度的实际consumer和校准覆盖，分别检验分子预测与分母偏差。M-A0全80局部恢复及视频已完成，当前视频质量未通过；它仍是匹配局部基线。M-C保持独立开放；历史失败不扩展为整个家族失败。
 
-**真实边界固定**：LightX2V Wan2.2 I2V A14B，四步高/高/低/低、2个expert×40 blocks；post-Q1输入 $x\in\mathbb R^{M\times5120}$ → W1 (5120→13824) → GELU(tanh) → Smooth2/HiF4 Q2 (64→8→4) → W2 (13824→5120) → pre-gate $y$ → e5门控及BF16残差 → 后续attention、最终LN/head、flow和去噪状态。现有本地计算是fake-QDQ＋BF16 GEMM；真实native FP4与它的格式和耗时分别建证。4 denoise steps、21 latent时间槽和81 RGB视频帧是不同的研究坐标。
+**历史HiF4诊断边界**：LightX2V Wan2.2 I2V A14B，四步高/高/低/低、2个expert×40 blocks；post-Q1输入 $x\in\mathbb R^{M\times5120}$ → W1 (5120→13824) → GELU(tanh) → Smooth2/HiF4 Q2 (64→8→4) → W2 (13824→5120) → pre-gate $y$ → e5门控及BF16残差 → 后续attention、最终LN/head、flow和去噪状态。现有本地计算是fake-QDQ＋BF16 GEMM；真实native FP4与它的格式和耗时分别建证。4 denoise steps、21 latent时间槽和81 RGB视频帧是不同的研究坐标。
 
-## 1. 已有证据不是门槛，而是新版设计的起点
+## 1. 历史起点与证据边界（最新结果见v3评议）
 
 | 证据 | 实际观察 | 对设计的推动 |
 | --- | --- | --- |
@@ -76,7 +78,7 @@ F(u)=Tz/\sigma+W_{head}\,shift+b
 
 **将其转为两个真正可比较的新函数构造**：
 - **B-H / readout-sufficient student**：预测目标是$\widehat q,\widehat m,\widehat n$，它们分别代表该末层post-write状态的$T u$、mean(u)、||u||²；预测器仅接收当前post-Q1$x$、已可得$r$、gate/time conditioning，产生同一head流形的读出。用真实student路径加上原生post-norm/head等价/近似求值，而不是从已付费完整W2得到这些统计后再宣称节省W2。
-- **B-F / generic gated-output factorization**：每expert/block以新的可训练紧凑表示$\widehat y=\Phi c_\phi(x)$或$\widehat y=\Phi B_c Q_{2,\phi}[\mathrm{GELU}(W_{1,\phi}x)]$替代原pre-gateFFN，并保留原真实gate/residual。此方案能扩展到其余78个非末层FFN；从B0自然后缀的作用权重指导训练，具体Q2缩窄/量化闭包需重新建立。
+- **B-F / generic gated-output factorization**：每expert/block以新的可训练紧凑表示$\widehat y=\Phi c_\phi(x)$或$\widehat y=\Phi B_c Q_{2,\phi}[\mathrm{GELU}(W_{1,\phi}x)]$替代原pre-gateFFN，并保留原真实gate/residual。该因子化结构可用于其余78个非末层FFN，但效果与实际后缀权重需要重新验证，不能移植末层65量充分性，具体Q2缩窄/量化闭包需重新建立。
 - **共同反例**：原生full y可由head读出压缩成几个标量，并**不**推出这些标量由post-Q1 x以低成本精确得到。尤其$||r+D_gy||^2$含残差交叉及W2二次项：若仍通过fullW2或巨大的Gram求得，B-H只是离线分析而不是效率方法。
 
 将**时间预测/历史复用O-C**作为独立后续组合：四步high/high/low/low专家变换，只有历史同形状且条件、时间和数值可用时才允许使用；L39低能振荡残差的reuse现象不能自动传到当前Wan。
@@ -92,9 +94,10 @@ F(u)=Tz/\sigma+W_{head}\,shift+b
 | 光流可观测性、量化/状态漂移是主因 | RAFT与语义ROI/相机行为不一致，或student rollout偏差远大于同状态head替换 | 完整free-rollout/来源级运动、纹理及attention/flow状态拆分 |
 
 **现行方法进度，不重置**：
-- **已完成**：二维联合配对反例；固定度量斜投影代数；block39真实head/LN源码和权重核验；连续末层有限充分统计及Jacobian；A0四位置native恢复pilot。
-- **未执行、须完成实际绑定/冻结范围**：**B0**同状态最后block u/head/flow的原生捕获；**B1**full-M中性重放、指定BF16有限响应、paired与shuffled比较；**B2**真正只用pre-W1可得信息的B-H与B-F学生对照；**B3**真实部署与完整40×4自由视频质量。明确来源排除历史曝光、统计按独立image cluster；本研究文档不触发GPU执行。
-- 已登记的B-v1计划以真实[SRC+ALG快照](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)的producer/range/预扣预算为准。若准备已完成、protocol冻结后才进入新模型流程；任何实际来源变更必须形成新版本，不在本文件静默扩大。
+- **已完成**：数学与源码身份；B0原生捕获/neutral；CAL24同坐标96flow；B1固定16D/rank4/18候选；B-H H128、同head A0和B-F两个末层expert pilot。配对与打乱同选PCA，不能据此判定一般paired机制无效。
+- **已有局部结论**：B-H对A0均0/8胜；B-F head误差较A0低约3.1–4.3%、逻辑MAC为59.26%，但主要剩余项是分子预测。原始BF16保留headspan投影相反地以分母误差为主，source0冻结gain转移到source12有实际改善。
+- **后续开放**：跨深度真实consumer、固定gain与动态补全的净价值、学生状态上的有限损失、独立来源完整视频和实际FFN/系统成本。末层65统计不自动是中间attention后缀的充分表示；新工作逐scope登记，不重复已完成B0/BH。
+
 
 ### B-3. 编译与实际成本的两个分支
 
@@ -118,7 +121,7 @@ F(u)=Tz/\sigma+W_{head}\,shift+b
 - **rollout-aware adaptation**：冻结FFN-only LoRA路径，与保持其余变量一致、改用同预算student-prefix/terminal rollout监督比较；L34/DIFS的输出rollout是最强同类先例，独立新贡献需额外明确原Wan量化边界、来源/行为约束。
 - **whole-model role transfer**：如果允许attention/norm参与训练则是另一模型类和另一estimand，不可把全网络共同适配的收益归于FFN独有的函数压缩。
 
-**A0下一步**：继续将已验证4个位置扩展到包含中间层和双expert/所有位置的source-heldout诊断，再以实际student自由轨迹和完整视频按独立image cluster做动作/外观/速度比较；不把旧pilot的8来源称为未暴露确认。M-B配对/学生设计不依赖A1先完成。
+**A0下一步**：保留全80恢复、字节审计及六视频的真实资产与负结果，作为函数/状态/目标机制和M-B/C的匹配对照。当前energy94视频在两个暴露来源的RAFT仅为Dense约13.5%/14.5%，MUSIQ均值46.94对76.02；不再默认重复全80训练或将其列为质量已通过候选。新的目标/状态变体先作有判别力的有限比较。
 
 ## 5. M-C：直接预测完整量化后非线性函数，而非另造线性GEMM查表
 
@@ -136,20 +139,20 @@ F(u)=Tz/\sigma+W_{head}\,shift+b
 1. **操作指纹与源图**：I/F/C科学问题；O-A～E主/辅动作；G14 T03–T16定位；真正动作在信息可得前还是后；原Wan shape、quant、gate、后缀状态与候选替换后的shape/参数/计算；
 2. **DERIVATION_GRAPH**：证明确切等式、边界和反例（PROVED/CONDITIONAL/OPEN），具体source/原文先例的**REQUIRES/CONSTRAINS/COMPETES_WITH/PREDICTS_DIFFERENTLY**关系；
 3. **独立来源资产**：image-cluster级训练/验证/未暴露确认，seed/row/step嵌套；真实post-Q1/pre-gate/gate/Q2、teacher/student同坐标、时间与expert身份、原生producer SHA。旧CAL24的6144行不是6144独立源。
-4. **相同条件比较**：Dense原生BF16+HiF4、M-A0同训练预算、同rank随机/PCA/marginal/paired、相同用时/数据/算子边界的最佳近邻；oracle teacher target与在线student分开报告；
+4. **相同条件比较**：各自recipe内部的原始BF16 Dense或真正NVFP4 Dense（HiF4单列诊断）、M-A0同训练预算、同rank随机/PCA/marginal/paired、相同用时/数据/算子边界的最佳近邻；oracle teacher target与在线student分开报告；
 5. **分阶段证据**：ALG证明→SRC/numeric neutral→source-level finite/local→真实完整40×4 student自由视频（主体、背景、成像、连续motion、相机/ROI、prompt）→在线FFN及整机墙时/VRAM/系统Pareto。每个阶段回答自己的命题，不把数学实验先验变成所有创新种子的强制GPU门；
 6. **竞争机制**：真实作用 vs patch dormant；低能高影响 vs source bias；数量敏感 vs student预测不足；QDQ数值 vs 后缀放大；RAFT可观测性 vs 真实动作改变；MAC减小 vs packing/访存抵消；
 7. **开放性**：新研究可以在任何I/F/C位置提出新的表示或历史复用/算子组合，不要求从M-A/M-B/M-C三者选一个；作为开放新方法独立写入discovery、竞争/审阅按QUEUE，运行按ACTIVE。
 
-## 7. 当前可实际执行的工作顺序（本方案的唯一现行下一步指引）
+## 7. 当前研究顺序（2026-10-29现行下一步）
 
-| 顺序 | 负责人/研究动作 | 现有输入与具体产物 | 验收及状态 |
-| --- | --- | --- | --- |
-| **① M-B / B0源路径** | 下一Agent先重核已完成B v1 source/LN/head和可复用资产，对完整post-write u、modulation/head/flow的采集器给出真实producer、dtype、对照状态和中性实验协议 | [B方法v1](B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)、[B0真实SRC审计](../method_discussion/discoveries/E0/b-final-block-head-source-audit-20261028.md) | **OPEN**：完成冻结范围/代码资产后才注册并执行；不是本次Git文档改动已经获取u |
-| **② M-B / B1有限判别** | 相同状态native no-op→同幅有限扰动比较head-null、范数通路、普通/PCA/marginal/joint与source打乱 | B0真实full-M u、gate/head、来源一致身份及旧finite方法 | **OPEN**：依据来源级效果判别是否存在稳定差异；BF16扰动被量化吞没判INCONCLUSIVE |
-| **③ M-B / B2结构构造** | 有区分性时并行给出B-H充分统计学生和B-F通用因子化学生，严格只用pre-W1合法信息，比较同rank同预算A0与量化/在线价格 | B1 finite、A0八包（仅四site），训练与真实数据另设版本 | **OPEN**：可表达性、可预测性与成本分开给出，优先小规模有分辨力实验 |
-| **④ M-A0强化比较** | 扩展四site pilot的来源/深度覆盖，区分teacher-state和student-free-run；以A0作为B及C共同基线 | 已完成P30结果与原生Q2重载，CAL24旧source roles | **PARTIAL NATIVE**：强局部基线成立、终端质量OPEN |
-| **⑤ M-C数学/系统小判别** | 先检验R输入信息及U输出rank下界、码本32MiB交互表、真实M布局，再提出可训练码本 | G12 / 保存$x,y$ / G14 LUT作者路径 | **OPEN**：先验约束优先于盲调表参数 |
-| **⑥ 全深度+系统确认** | 对已形成的候选完成source-disjoint 40×4配对视频、分维评测及真实QDQ/native kernel成本；不要求数学路线一开始全通过 | 新student、freeze模型版本、运行授权和官方分维协议 | **NOT_RUN for M-B/M-C**；A0也尚未完整视频 |
+| 轨道 | 下一项与最小对照 | 状态及边界 |
+| --- | --- | --- |
+| **M-B / A100原始BF16** | 核验CalibrationV2跨来源/深度及实际consumer；同一候选bare、冻结fixed gain、合法动态norm修正、同成本分子修正 | **READY_STATIC设计**；low39一转移来源成功不等于全80；新模型scope未注册 |
+| **B-F函数预测** | 固定基底/输入下先比Y目标与finite/head目标，再单独改变合法输入；保存teacher投影参考与A0/BH强对照 | **PARTIAL_NATIVE**；区分表示、信息、训练目标；大oracle差距不单独证明瓶颈 |
+| **状态与视频** | a+p+c四角及signed交叉/step权重；同预算teacher/student-state；需要时有界完整视频，最终独立image-cluster确认 | 当前A0六视频质量未通过；新候选VIDEO/SYS仍OPEN |
+| **RTX PRO6000原生NVFP4** | 独立R0访问/模型/packed后端→R1数值→R2 Wan Dense→R3候选→R4完整视频/速度 | 与BF16并行；遵循[现行双轨政策](../agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)；历史primitive不等于当前设备已分配 |
+| **QCFB/Q-STAGE** | 已保存V2/W2/gate绑定后T0，有限归一化/尾部风险；T1合法前置信息与净价值；后端特定闭包 | 数学/资产并行，不把缺失packed Q1作为全部T0阻断，不直接移植HiF4 group64 |
+| **M-C** | 信息/输出表示、真实M与查表/编码成本的独立最小判别 | OPEN，不要求其他方法先成功 |
 
-**核心决策**：下一位Agent的第一份**实质新工作**是将已完成的M-B末层数学结果化成可运行、可核数值的B0/B1判别，而不是再做B最初的理论survey或跳到A0全80训练。数学/CPU静态研究可立即推进，GPU/模型/视频执行依ACTIVE逐项冻结与登记；候选队列只登记真实提出者/审阅者记录，不提前投支持票。
+**核心决策**：从已完成实测继续，优先回答“哪类读出误差、在哪些实际状态和消费者上、可被何种低成本函数修复”。[完整评议](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)给出方差联合动作恒等式、归一化反例、量化global-scale闭包条件与最小对照。模型/GPU运行仍依ACTIVE冻结scope；这份路线更新没有改变历史RUN、资源授权或独立评议票。

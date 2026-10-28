@@ -119,9 +119,10 @@
       "decision_time": "offline norm fusion, calibration PCA and weight slicing; online residual coordinate maps",
       "physical_action": "smaller dense matrices plus paid residual coordinate transformations",
       "training": "post-training transform",
-      "wan_specific_discriminator": "Full square rotation preserves norm; current rectangular headspan output projection does not. Test fixed step normalization bias versus state-dependent norm completion while retaining Wan gate, nativeBF16 and original shift/bias.",
+      "wan_specific_discriminator": "Square orthogonal invariance does not survive arbitrary rectangular truncation. Raw Wan headspan projection is radial-dominated, whereas trained BF remains numerator-dominated. Compare fixed gain with paid dynamic norm completion by actual consumer/depth; terminal sufficient statistics do not cover intermediate attention.",
       "reading_depth": "PRIMARY_SEC3_1_TO3_4_EQ2_THEOREM1_EQ9_SELECTED_AUTHOR_NORM_CODE_RECHECK_20261028",
-      "norm_source_recheck": "research/literature/20261028/SLICEGPT_NORMALIZATION_AND_TRUNCATION_RECHECK_20261028.json"
+      "norm_source_recheck": "research/literature/20261028/SLICEGPT_NORMALIZATION_AND_TRUNCATION_RECHECK_20261028.json",
+      "route_result_recheck": "research/literature/20261029/ROUTE_REVIEW_PRIMARY_RECHECK_20261029.json"
     },
     {
       "id": "L07",
@@ -535,8 +536,9 @@
       "decision_time": "packed operand",
       "physical_action": "FP4 Tensor Core GEMM",
       "training": "n/a",
-      "wan_specific_discriminator": "FFNDS successful synthetic CUTLASS primitive is not a Wan kernel or arithmetic reduction",
-      "reading_depth": "OFFICIAL_SPEC_BODY"
+      "wan_specific_discriminator": "Whole16 local quantization closure requires unchanged global scale and backend recipe; tensor-amax-derived global scales can couple retained and omitted groups. Pin calibrated versus dynamic global scale, W/A roles, packed layouts and physical tiles; historical SM120 primitive does not prove present full-Wan execution.",
+      "reading_depth": "OFFICIAL_FORMAT_GLOBAL_AMAX_LOCAL_SCALE_AND_LAYOUT_RECHECK_20261029",
+      "route_result_recheck": "research/literature/20261029/ROUTE_REVIEW_PRIMARY_RECHECK_20261029.json"
     },
     {
       "id": "L32",
@@ -978,7 +980,7 @@
       "decision_time": "training time and inference rolled history",
       "physical_action": "cache current generated sequence and full causal model per frame",
       "training": "self forcing/posttraining",
-      "wan_specific_discriminator": "Student-prefix drift across stream may exceed four-step movie effects",
+      "wan_specific_discriminator": "AR frame/KV rollout is not Wan four-step denoising. Test teacher/student-state matched fitting and signed four-corner a+p+c against step-weighted local-bias accumulation; current growth alone does not identify unstable feedback.",
       "reading_depth": "PRIMARY_ARXIV_V1_SECTIONS_3_2_3_3_AND_PINNED_ROLLOUT_CODE_READ_20261028",
       "primary_recheck": "research/literature/20261028/LOCAL_STATE_OBJECTIVE_PRIMARY_RECHECK_20261028.json",
       "graph_anchor": [
@@ -986,7 +988,8 @@
         "S05",
         "S09"
       ],
-      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md"
+      "graph_method_reference": "research/literature/20261027/REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md",
+      "route_result_recheck": "research/literature/20261029/ROUTE_REVIEW_PRIMARY_RECHECK_20261029.json"
     },
     {
       "id": "L57",
@@ -1985,5 +1988,6 @@
       "L69",
       "L74"
     ]
-  }
+  },
+  "route_result_recheck": "research/literature/20261029/ROUTE_REVIEW_PRIMARY_RECHECK_20261029.json"
 }

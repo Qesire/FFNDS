@@ -178,7 +178,7 @@ def validate_method_operation_crosswalk(data):
     assert method_map["schema"] == "ffnds.method_operation_crosswalk.v2"
     assert method_map["current_method_plan"] == pointer["method_plan"]
     assert (ROOT / method_map["next_agent_task"]).is_file()
-    assert method_map["next_agent_current_stage"] == "M-B_B1_CAL24_FIXED_DICTIONARY_COMPLETE__BH_BF_STUDENT_STAGE"
+    assert method_map["next_agent_current_stage"] == "M-B_BH_BF_TERMINAL_COMPLETE__RAW_BF16_CROSS_DEPTH_NUMERATOR_NORM_STATE"
     assert method_map["one_turn_next_agent"] == "M-B"
 
     operations = set(method_map["operation_definitions"])
@@ -205,6 +205,11 @@ def validate_method_operation_crosswalk(data):
         assert (ROOT / item["evidence"]).is_file(), f"Missing project evidence: {item['evidence']}"
     b_progress = next(item for item in progress if item["method"] == "M-B")
     assert b_progress["status"].startswith("B0_CAL24_LABELS_B1_FIXED_POOL_COMPLETE__")
+    for recent in b_progress["recent_completed_results"]:
+        recent_path = (ROOT / recent["path"]).resolve()
+        assert recent_path.is_relative_to(ROOT.resolve()), "Recent report must stay in repository"
+        recent_raw = recent_path.read_bytes()
+        assert len(recent_raw) == recent["bytes"] and hashlib.sha256(recent_raw).hexdigest() == recent["sha256"], "Changed recent result binding"
     binding = b_progress["native_result"]
     result_path = (ROOT / binding["path"]).resolve()
     assert result_path.is_relative_to(ROOT.resolve()), "Native report must stay in repository"

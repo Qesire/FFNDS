@@ -1,0 +1,69 @@
+{
+  "schema": "ffnds.route_review.primary_recheck.v1",
+  "date": "2026-10-29",
+  "report": "research/20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md",
+  "search_domains": [
+    "normalization invariance and truncation",
+    "student rollout and competing cumulative-bias explanations",
+    "native FP4 scale producer timing and closure"
+  ],
+  "read_scope": "Primary PDF/body targeted recheck plus existing pinned deeper source audits. SliceGPT PDF first fetch succeeded; repeated targeted page fetch timed out, so section details rely additionally on the existing bound audit. No new paper IDs or uninspected author-code claims.",
+  "records": [
+    {
+      "id": "L06",
+      "url": "https://spcl.ethz.ch/Publications/.pdf/2024_iclr_sliceGPT.pdf",
+      "material_read": "Primary introduction and normalization equation; repository prior Section3/author-norm-code recheck retained.",
+      "existing_deep_audit": "research/literature/20261028/SLICEGPT_NORMALIZATION_AND_TRUNCATION_RECHECK_20261028.json",
+      "focus_nodes": [
+        "T04",
+        "T07",
+        "T08",
+        "T09",
+        "T14"
+      ],
+      "anchors": [
+        "F04",
+        "F09",
+        "F12",
+        "F13",
+        "G21"
+      ],
+      "relation": "CONSTRAINS",
+      "transfer": "Square orthogonal invariance does not survive arbitrary rectangular truncation. Raw Wan headspan projection is radial-dominated, whereas trained BF remains numerator-dominated. Compare fixed gain with paid dynamic norm completion by actual consumer/depth; terminal sufficient statistics do not cover intermediate attention."
+    },
+    {
+      "id": "L56",
+      "url": "https://self-forcing.github.io/static/self_forcing.pdf",
+      "material_read": "Primary self-rollout/truncation Section3.2, holistic objective Section3.3 and long-context limitation.",
+      "existing_deep_audit": "research/literature/20261028/LOCAL_STATE_OBJECTIVE_PRIMARY_RECHECK_20261028.json",
+      "focus_nodes": [
+        "T11",
+        "T16"
+      ],
+      "anchors": [
+        "S04",
+        "S05",
+        "S09"
+      ],
+      "relation": "PREDICTS_DIFFERENTLY",
+      "transfer": "AR frame/KV rollout is not Wan four-step denoising. Test teacher/student-state matched fitting and signed four-corner a+p+c against step-weighted local-bias accumulation; current growth alone does not identify unstable feedback."
+    },
+    {
+      "id": "L31",
+      "url": "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+      "material_read": "Official format, global amax/local scale equations, training versus inference recipe, transposed/padded scale layout and swizzle.",
+      "local_source": "upstream_audit/source_deltas/Wan2.2-I2V-A14B-W4A4/files/quant/nvfp4_rtn_backend.py",
+      "focus_nodes": [
+        "T06",
+        "T13"
+      ],
+      "anchors": [
+        "F08R",
+        "P12"
+      ],
+      "relation": "REQUIRES",
+      "transfer": "Whole16 local quantization closure requires unchanged global scale and backend recipe; tensor-amax-derived global scales can couple retained and omitted groups. Pin calibrated versus dynamic global scale, W/A roles, packed layouts and physical tiles; historical SM120 primitive does not prove present full-Wan execution."
+    }
+  ],
+  "new_native_experiments": 0
+}

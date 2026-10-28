@@ -1,11 +1,13 @@
 # FFNDS · 量化侧信道 × 有符号联合函数 × 真实可执行省算：综合研究前沿
 
+**2026-10-29 · 新结果约束**：[路线评议§2–4](../20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)补充：投影中联合抵消不保证LN分母不变；方差改变含signed线性项和组间二次项，T0应比较有限归一化风险。已有V2/W2/gate可绑定形成旧HiF4组标签，不等packed Q1。NVFP4须独立验证whole16/global-scale及物理tile闭包；动态Dense Q2全局amax不能假定在跳过相应W1/GELU时免费可得。B0/B1已完成，M-B后续与PRO6000原生lane按现行方案推进。
+
 > **权重/激活时序重构（2026-10-28）**：[统一W-static × A-dynamic × NativeFP4审核](WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)明确四种操作数——W1/W2离线静态量化、Q1/A1与Q2/A2逐调用动态量化。原生NVFP4/MXFP4 **W、A有各自scale/码载荷**，动态activation metadata随当前输入产生（NVFP4全局激活scale也可能先校准为静态常数），是否能提前给router读取取决于量化producer和布局；W4A16根本没有A FP4 scale。机器合同：[timing contract](../agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)。
 
 
 > **格式基础纠正（2026-10-28）**：原 HiF4 元素码字是 **signed S1P2（4bit 含 1bit 符号）**；仅 E6M2 base / micro-exponent 是 unsigned 幅值信息。现行 Wan 的 HiF4 fake-QDQ 最终保留的是**有符号 BF16 重建值**，并未持久写出 packed S1P2。QCFB 的创新窗口是提取**原有符号与位置的低成本可用信息**、预测真实合法动作及处理成本，不是向 HiF4 补一位符号。[源码/格式审计](HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md) · [机器合同](../agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
 
-2026-10-28 · INTEGRATED_RESEARCH_FRONTIER v2 · ALG/SRC/LIT/OPEN。本文整合现行 M-A/M-B/M-C、Q-Meta/NetVOI、G6D/E/F、G11/G12/G14、A0 与 M-B 四轮评议；是研究机制扩展而非替换现行 M-B B0/B1 优先级。未运行新 Wan/GPU/训练/视频/性能实验；不变更 ACTIVE_RESEARCH.json、独立Agent评议票或旧 RUN。
+2026-10-28 · INTEGRATED_RESEARCH_FRONTIER v2 · ALG/SRC/LIT/OPEN。本文整合现行 M-A/M-B/M-C、Q-Meta/NetVOI、G6D/E/F、G11/G12/G14、A0 与 M-B 四轮评议；是研究机制扩展而非替换现行 M-B 后续机制优先级。未运行新 Wan/GPU/训练/视频/性能实验；不变更 ACTIVE_RESEARCH.json、独立Agent评议票或旧 RUN。
 
 > **v2严格审计**：[命题推导、反例、源码与先例](QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md)。新增策略可测性、条件协方差、联合矩PSD、跨token读出、Q-STAGE内层条件风险；模型实验状态不变。
 
@@ -87,7 +89,7 @@ $$ Z_{Q1}\xrightarrow{A_1}W1_{A_1}\to\phi\to Q2_{A_1}\to Z_{Q2}(A_1)\xrightarrow
 
 文献证据等级：Prox/SharQ/G12由仓库原文与作者源码Ledger提供；新增FANG、Learnable Permutation、Veda/DFSAttn及DVD-Quant的初版检索为**官方摘要/元数据层**。v2已补读FANG、Learnable Permutation、QuantSparse与Veda的原论文方法段，见[原文ledger](../literature/20261028/QCFB_PRIMARY_METHOD_AUDIT.json)；作者代码仍未审。DFSAttn及DVD-Quant维持初版读取层级。原始页面：[FANG](https://ojs.aaai.org/index.php/AAAI/article/view/40021)、[Learnable Permutation](https://arxiv.org/abs/2601.22980)、[QuantSparse](https://proceedings.iclr.cc/paper_files/paper/2026/hash/94359ca6e248af69b8b6854668ae9782-Abstract-Conference.html)、[Veda](https://proceedings.mlr.press/v306/han26y.html)、[DFSAttn](https://proceedings.mlr.press/v306/hu26p.html)、[DVD-Quant](https://proceedings.iclr.cc/paper_files/paper/2026/hash/3bd28dd5cc4e15f9e019da13cc0c4844-Abstract-Conference.html)、[SharQ](https://arxiv.org/abs/2606.26587)、[Prox](https://arxiv.org/abs/2607.27591)。
 
-## 5. 最短科学推进（不要抢 M-B B0/B1）
+## 5. QCFB并行科学推进（B0/B1已完成，按新结果修正）
 
 **T0 数学与既有资产/源码核实**：逐site确认原生Q1/Q2真正code/scale producer（原HiF4只有kernel局部临时值），真实postgain BF16和gate/e5读出。确认现有saved tensor是否保存相同source、row、step的完整组贡献；旧OFFLINE_ASSET_QUANT_STRUCTURE_R1只有聚合标量，不能由它反推raw Q1/Q2和Gamma。R12 group-extraction和单坐标 collateral作为已有证据直接复用。对2组toy严格复核、source/rowtile Gamma的定义证明足够，不用为恒等式重复模型试验。
 
@@ -95,7 +97,7 @@ $$ Z_{Q1}\xrightarrow{A_1}W1_{A_1}\to\phi\to Q2_{A_1}\to Z_{Q2}(A_1)\xrightarrow
 
 **T2 前置条件信息价值**：在已有真实Q1 payload上或冻结最小producer采集后，比较 F0 static, F1 cheap RMS+step, Q1 scale-shape, Q1 + few signed codes, static joint, conditional joint lowrank, matched same-cost tiny head、shuffled-sign/paired-source、oracle后验。**源级**report物理动作regret vs真正NetVOI而非Pearson/SSE; 对每个特征的读价和quantizer layout做独立费用记录。若scale rank collapse或sign sketch没价值，转向Q2 W2-only、static A0 / Q-CODE，而不是重复负样本。
 
-**T3 真实执行与视频**：先约束少数rowtile级可预pack whole64 action class、共享两step专家权重真实运行时视图，证明减少W1/GELU/Q2/W2且所有quant group合法，并计resident权重、QDQ、observer和kernel wall；再做完整160 FFN调用的四步Student free-rollout，图像、主体/背景、光照、纹理、camera/motion、动作事件与独立source尾部质量/完整端到端wall、显存。UB1的20个已暴露开发源appearance -1.38%、RAFT -83.28%为明确的动态退化警告，不能用局部低SSE回避。M-B B0/B1是独立既定优先执行项，QCFB平行做离线/数学和文献，不替换授权。
+**T3 真实执行与视频**：对HiF4诊断先约束少数rowtile级可预pack whole64 action class；原生NVFP4另证whole16/global-scale/layout闭包。随后核验共享两step专家权重的真实运行时视图，证明减少W1/GELU/Q2/W2且所有quant group合法，并计resident权重、QDQ、observer和kernel wall；再做完整160 FFN调用的四步Student free-rollout，图像、主体/背景、光照、纹理、camera/motion、动作事件与独立source尾部质量/完整端到端wall、显存。UB1的20个已暴露开发源appearance -1.38%、RAFT -83.28%为明确的动态退化警告，不能用局部低SSE回避。M-B后续与原生NVFP4是现行并行研究项，QCFB平行做离线/数学和文献，不替换授权。
 
 预冻结**竞争假说与分叉**：H1有负交互但Q1不可预测→研究固定A0恢复/低rank编码；H2逐row负交互而physical tile聚合消失→few action classes/固定紧凑或换可执行单位；H3 scale只是量化配方/amax伪相关→对signed code/等价quantizer view强ablation；H4末层readout低误差却自由视频运动衰减→M-B后缀、Student prefix及多site交互；H5已有native packed dense全开销优于动态策略→保留信息规律不宣称效率方法。以上否定只对对应scope有效。
 

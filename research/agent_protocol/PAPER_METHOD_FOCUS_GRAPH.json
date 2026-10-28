@@ -237,7 +237,7 @@
       "mechanism": "Square orthogonal residual-coordinate invariance preserves RMS norm before slicing; LayerNorm mean and affine maps are fused into adjacent linear operations. Rectangular deletion then approximates the signal and can change its normalizer.",
       "intervention": "smaller dense matrices plus paid residual coordinate transformations",
       "decision_time": "offline norm fusion, calibration PCA and weight slicing; online residual coordinate maps",
-      "wan_transfer_question": "Full square rotation preserves norm; current rectangular headspan output projection does not. Test fixed step normalization bias versus state-dependent norm completion while retaining Wan gate, nativeBF16 and original shift/bias.",
+      "wan_transfer_question": "Square orthogonal invariance does not survive arbitrary rectangular truncation. Raw Wan headspan projection is radial-dominated, whereas trained BF remains numerator-dominated. Compare fixed gain with paid dynamic norm completion by actual consumer/depth; terminal sufficient statistics do not cover intermediate attention.",
       "associated_mechanism_families": [],
       "graph_anchor_existing": [
         "F04",
@@ -247,7 +247,8 @@
         "G21"
       ],
       "source_url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/316648eb8b4ffb6010f531b07848c300-Abstract-Conference.html",
-      "norm_source_recheck": "research/literature/20261028/SLICEGPT_NORMALIZATION_AND_TRUNCATION_RECHECK_20261028.json"
+      "norm_source_recheck": "research/literature/20261028/SLICEGPT_NORMALIZATION_AND_TRUNCATION_RECHECK_20261028.json",
+      "route_result_recheck": "research/literature/20261029/ROUTE_REVIEW_PRIMARY_RECHECK_20261029.json"
     },
     {
       "id": "L07",
@@ -671,14 +672,18 @@
         "T13"
       ],
       "index": "PRIMARY_LITERATURE_INDEX.json",
-      "review_depth": "OFFICIAL_SPEC_BODY",
+      "review_depth": "OFFICIAL_FORMAT_GLOBAL_AMAX_LOCAL_SCALE_AND_LAYOUT_RECHECK_20261029",
       "mechanism": "E2M1 with E4M3 block and FP32 global scales; packed layouts change real cost",
       "intervention": "FP4 Tensor Core GEMM",
       "decision_time": "packed operand",
-      "wan_transfer_question": "FFNDS successful synthetic CUTLASS primitive is not a Wan kernel or arithmetic reduction",
+      "wan_transfer_question": "Whole16 local quantization closure requires unchanged global scale and backend recipe; tensor-amax-derived global scales can couple retained and omitted groups. Pin calibrated versus dynamic global scale, W/A roles, packed layouts and physical tiles; historical SM120 primitive does not prove present full-Wan execution.",
       "associated_mechanism_families": [],
-      "graph_anchor_existing": [],
-      "source_url": "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html"
+      "graph_anchor_existing": [
+        "F08R",
+        "P12"
+      ],
+      "source_url": "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+      "route_result_recheck": "research/literature/20261029/ROUTE_REVIEW_PRIMARY_RECHECK_20261029.json"
     },
     {
       "id": "L32",
@@ -1145,14 +1150,15 @@
       "mechanism": "train with student-generated KV rollouts, video-level loss and truncation",
       "intervention": "cache current generated sequence and full causal model per frame",
       "decision_time": "training time and inference rolled history",
-      "wan_transfer_question": "Student-prefix drift across stream may exceed four-step movie effects",
+      "wan_transfer_question": "AR frame/KV rollout is not Wan four-step denoising. Test teacher/student-state matched fitting and signed four-corner a+p+c against step-weighted local-bias accumulation; current growth alone does not identify unstable feedback.",
       "associated_mechanism_families": [],
       "graph_anchor_existing": [
         "S04",
         "S05",
         "S09"
       ],
-      "source_url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f4823f831af67a3ef15e41a85434422a-Abstract-Conference.html"
+      "source_url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f4823f831af67a3ef15e41a85434422a-Abstract-Conference.html",
+      "route_result_recheck": "research/literature/20261029/ROUTE_REVIEW_PRIMARY_RECHECK_20261029.json"
     },
     {
       "id": "L57",
@@ -2419,5 +2425,6 @@
     "machine": "paper <-> [focus stages] <-> existing Wan native anchor; paper() and focus() queries"
   },
   "qcfb_primary_audit": "research/literature/20261028/QCFB_PRIMARY_METHOD_AUDIT.json",
-  "qmeta_timing_primary_audit": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
+  "qmeta_timing_primary_audit": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json",
+  "route_result_recheck": "research/literature/20261029/ROUTE_REVIEW_PRIMARY_RECHECK_20261029.json"
 }
