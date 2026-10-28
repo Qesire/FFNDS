@@ -134,10 +134,10 @@ $$
 
 ### 3.1 gate 中心化次序必须精确
 
-学生目标为 $P_C D_g e$，一般**不等于** $D_gP_Ce$，因为：
+学生目标为 $R_C D_g e$，一般**不等于** $D_gR_Ce$，因为：
 
 $$
-[P_C,D_g]=\frac{g\mathbf1_D^\top-\mathbf1_Dg^\top}{D}.
+[R_C,D_g]=\frac{g\mathbf1_D^\top-\mathbf1_Dg^\top}{D}.
 $$
 
 所以实施 B-QUOTIENT 时，应先做 $E=(\hat y-y)\odot g$，再沿**通道轴**去均值；不可用已有的行平均、不可先 center pre-gate $y$ 然后 gate。优化时的 source-normalized denominator应与 A0 baseline 保持一致，至少同时报告原 gated loss、同分母 quotient loss 和真正 BF16 writeback 的 finite/control。
