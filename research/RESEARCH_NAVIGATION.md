@@ -25,6 +25,8 @@
 | **需要采样、校准与官方指标？** | [实验Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md)；[统一数据协议](agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)；[Calibration V2](20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)；[可执行手册](agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) | source image-cluster隔离、teacher/student配对、真实评测合同 |
 | **需要提出或审阅方法？** | [机制Skill](../.agents/skills/mechanism-research/SKILL.md)；[FFNDS领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)；[独立方法讨论队列](method_discussion/QUEUE.md) | 方法/反例、独立Agent来源、独立评议及版本身份 |
 
+**HiF4 存储带符号的权威澄清**：[HiF4 S1P2 码字与现行 fake-QDQ 对照](20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md) · [signed format 机器合同](agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。元素码字自带1bit符号，纯scale/micro-exponent无符号；现行Wan当前写出的是带符号BF16，不是持久 packed S1P2。该区别直接约束QCFB、G12及Q-Meta的观察成本。
+
 **QCFB/Q-STAGE 研究整合与三轮交锋（并行分析，非新的模型作业）**：[统一前沿v2](20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md) · [原数学命题审计](20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md) · [R1–R3评议/回应顺序](independent_reviews/QCFB_20261028/README.md) · [QCFB机器判别关系](agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)。R3已澄清：分箱碰撞不能充当原连续Q1信号的信息下界；native数值余项需要和行动差距比较；类地址不自动修复tile不可执行性；跨步Gram须使用状态空间注入、合法时序可见信息。**真实Q1信息净价值、native、省算与完整运动仍OPEN；M-B B0/B1优先不变。**
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前下一模型方法任务仍按 P0 的 B0/B1 交接执行**。
