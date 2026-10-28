@@ -1,6 +1,6 @@
 # FFNDS · 阅读优先级与当前研究导航（2026-10-28）
 
-> **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。GPU/模型/视频权限以[ACTIVE](ACTIVE_RESEARCH.json)为准；本导航不改实验授权或独立评议。
+> **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；GPU/模型/视频权限仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
 
 ## P0 · 立即阅读：恢复上下文与当前首项研究
 
@@ -25,9 +25,7 @@
 | **需要采样、校准与官方指标？** | [实验Skill](../.agents/skills/ffnds-experiment-evidence/SKILL.md)；[统一数据协议](agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)；[Calibration V2](20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)；[可执行手册](agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) | source image-cluster隔离、teacher/student配对、真实评测合同 |
 | **需要提出或审阅方法？** | [机制Skill](../.agents/skills/mechanism-research/SKILL.md)；[FFNDS领域Skill](../.agents/skills/ffnds-paper-discovery/SKILL.md)；[独立方法讨论队列](method_discussion/QUEUE.md) | 方法/反例、独立Agent来源、独立评议及版本身份 |
 
-**2026-10-28 新跨线研究整合（与现行 M-B B0/B1 并行、非新 GPU 任务）**：[QCFB 量化条件联合函数组束 / 两阶段量化决策研究前沿](20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)；[先验→新机制→判别 typed crosswalk](agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)；[计算图OPEN claim](method_discussion/graph_annotations/E0/E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)。从原R12完整64组 Q2可交换、条件有符号组间误差、Q1真实提前可得性，导出**合法原W1+GELU+Q2+W2省算动作**与物理tile/视频判别；这是ALG/SRC/LIT+OPEN，旧QMeta v1是起点，未证明新的预测/速度/视频收益。
-
-**2026-10-28 QCFB 数学修订后第二轮独立交锋（不替代方法投票）**：[评议目录](independent_reviews/QCFB_20261028/README.md) · [本轮回应与新可证伪边界](independent_reviews/QCFB_20261028/SECOND_ROUND_INDEPENDENT_RESPONSE_AND_NEW_FRONTIER_20261028.md)。承认可测性/联合PSD/Q-STAGE修正；新增Q1动作碰撞下界、motion尾部、native舍入margin、跨160调用的transferred Gram、少数resident action字典。新结论仍为ALG/LIT+OPEN、无真实模型或视频新试验。
+**QCFB/Q-STAGE 研究整合与三轮交锋（并行分析，非新的模型作业）**：[统一前沿v2](20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md) · [原数学命题审计](20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md) · [R1–R3评议/回应顺序](independent_reviews/QCFB_20261028/README.md) · [QCFB机器判别关系](agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)。R3已澄清：分箱碰撞不能充当原连续Q1信号的信息下界；native数值余项需要和行动差距比较；类地址不自动修复tile不可执行性；跨步Gram须使用状态空间注入、合法时序可见信息。**真实Q1信息净价值、native、省算与完整运动仍OPEN；M-B B0/B1优先不变。**
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前下一模型方法任务仍按 P0 的 B0/B1 交接执行**。
 
@@ -60,5 +58,3 @@
 [ARCHIVE总索引](../ARCHIVE.md) · [早期机制重置](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [旧first-task时间点](20261025/E0_FFN_FIRST_TASK_20261025.md) · [旧Affine54失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) · [原A/B/C独立评议](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) · [最初提案Git版本](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。
 
 历史报告的“现在运行”“下一步”“暂停/恢复”只对当时冻结scope成立；目前方法进度依P0及[ACTIVE](ACTIVE_RESEARCH.json)核验。历史RUN、HASH、模型/来源、独立同行评议和失败边界不通过此索引重写。只在实际新的SRC/ALG/NATIVE/VIDEO或论文结论改变研究理解时，升级P0–P2；否则将新材料归入对应专题/历史证据而非新增并列权威方案。
-
-**QCFB严格审计补充**：[推导与反例](20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md)、[独立数学评议](independent_reviews/QCFB_20261028/INDEPENDENT_MATH_REVIEW.md)。组分解/条件风险成立；联合矩PSD、mask可测性、跨token项及Q-STAGE条件期望须保留。17项合成校验不代表Wan实测；M-B B0/B1优先级不变。
