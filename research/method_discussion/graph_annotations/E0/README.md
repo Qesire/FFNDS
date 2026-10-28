@@ -6,6 +6,8 @@
 
 当前 Agent 每次**实质性 FFN 科学研究**都应使用 [图↔Agent协作协议](../../../agent_protocol/GRAPH_AGENT_COLLABORATION.md) 与 [稳定节点索引](../../../agent_protocol/GRAPH_AGENT_BINDINGS.json)。图的原始来源为 [G0–G6](../../../../docs/98_端到端计算图与证据注解_20261025.md)。
 
+**2026-10-28 新OPEN图机制：** [QCFB跨计算边有符号组束与动作依赖Q2](E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)，连接 F03→F04/F06/F08/F09→F12/F13，采用原R12 SRC/reference交换条件、条件Gram与量化交叉项ALG，前置Q1可预测性及真实video/SYS均OPEN。完整[综合方案](../../../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)和[机器typed crosswalk](../../../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)。不擅自把OPEN边加成原生因果边或同行审查结果。
+
 这里记录原始贡献，不是算子实现或实验排队：
 1. 研究者选择**恰好相关的**节点/边，从源代码和上游/下游查证，允许反向从视频现象或一篇新论文定位节点；
 2. 将 [GRAPH_CLAIM_TEMPLATE.json](../../GRAPH_CLAIM_TEMPLATE.json) 拷贝为唯一名称的 `<claim-id>.json`，填入 `anchor_nodes`、来源、机理、反解释与判别式，依据实际身份标注 `SRC/ALG/OBS/NATIVE-OBS/NATIVE-ACT/SYN/VIDEO/SYS/OPEN`；
