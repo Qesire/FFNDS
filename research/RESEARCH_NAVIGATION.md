@@ -6,6 +6,8 @@
 
 **实际数值后端**：原始BF16与HiF4 fake-QDQ是不同模型执行配方；已完成[PRO6000 native NVFP4真实FFN的有限原生对照](20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.md)，可用作后端/执行研究锚点，但没有因此获得NVFP4视频候选质量。权重离线静态、激活在线动态量化的producer/时点分别由[数值合同](agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)核验；HiF4原4bit S1P2含符号。新源簇、新作业和实际GPU资源必须按ACTIVE每个范围冻结；资源遵循[动态政策](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)，不提前设卡数上限。
 
+**P0开放式数据获取**：[问题驱动采集与判别协议](agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)＋[真实采集需求队列](agent_protocol/ACQUISITION_QUEUE_20261029.json)。对每个机制先判断现有观测是否足够；缺失真实source分层、video latent时间配对、完整160-site、student state、动态FP4代码/尺度或真实Kernel成本时，主动设计并执行注册的新采集。现有资产是第一批证据，不是科研边界；允许增加新机制/新数据域/新变量，不预设固定样本上限。
+
 ## P0 · 当前最短阅读和行动路径
 
 | 顺序 | 读取对象 | 立即产生的工作成果 |
