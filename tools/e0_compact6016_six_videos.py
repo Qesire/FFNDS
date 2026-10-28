@@ -26,12 +26,12 @@ from ub1_consumer_runtime import confined, sha256, verify_binding
 from b_final_block_capture import patch_method, read_state_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
-ID = "E0_COMPACT6016_CONSUMER00_12_SIX_VIDEOS_20261028"
+ID = "E0_COMPACT6016_CONSUMER00_12_SIX_VIDEOS_OFFLOAD_AUX_V2_20261028"
 AUTHORIZATION = "USER_RESUME_OFFLINE_IFC_20261027"
 MODES = ("dense", "energy94", "random94")
 LINEAR_SUFFIXES = ("self_attn.q", "self_attn.k", "self_attn.v", "self_attn.o", "cross_attn.q", "cross_attn.k", "cross_attn.v", "cross_attn.o", "ffn.0", "ffn.2")
 INDICES = (0, 12)
-RUN_IDS = tuple(f"compact6016_video_source{s:02d}_seed42_{m}" for m in MODES for s in INDICES)
+RUN_IDS = tuple(f"compact6016_v2_video_source{s:02d}_seed42_{m}" for m in MODES for s in INDICES)
 BANK_SCHEMA = "ffnds.compact6016.deployment_bank.mixed_lineage.v1"
 BANK_SHA = "e3c4f4020951913f9cffb2e2cf244137e94db2031ea64aabea7bc65a7aff6a50"
 VIDEO = {"frames": 81, "width": 832, "height": 464, "fps": 16, "steps": 4, "blocks": 40,
@@ -73,6 +73,8 @@ REQUIRED_SOURCES = {"tools/e0_compact6016_six_videos.py", "tests/test_e0_compact
     ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/offload/transformer_infer.py",
     ".runtime/code/LightX2V/lightx2v/common/offload/manager.py",
     ".runtime/code/LightX2V/lightx2v/common/modules/weight_module.py",
+    ".runtime/code/LightX2V/lightx2v/common/ops/utils.py",
+    ".runtime/code/LightX2V/lightx2v/common/ops/norm/rms_norm_weight.py",
     ".runtime/code/LightX2V/lightx2v/common/ops/norm/layer_norm_weight.py",
     ".runtime/code/LightX2V/lightx2v/models/networks/wan/model.py",
     ".runtime/code/LightX2V/lightx2v/models/networks/wan/distill_model.py",
@@ -273,7 +275,7 @@ def registered_cohort(plan, hf_root):
             "exposure_history": {"fitting": False, "method_selection": True, "prior_evaluation": True}})
     for mode in MODES:
         for case in plan["cases"]:
-            run_id = f"compact6016_video_source{case['index']:02d}_seed42_{mode}"
+            run_id = f"compact6016_v2_video_source{case['index']:02d}_seed42_{mode}"
             samples.append({"source_id": case["source_id"], "variant": mode, "seed": 42, "sample_index": 0,
                 "run_id": run_id, "asset_id": "video:" + run_id, "conditioning_id": case["conditioning_id"],
                 "initial_noise_id": ID + ":" + case["source_id"] + ":noise:0",
@@ -467,6 +469,80 @@ class Ledger:
         return all(self.record[k].get(name, 0) == value for k in ("predebited", "observed") for name, value in self.limits.items())
 
 
+def original_rms_auxiliaries(block, block_index):
+    """Bind native source RMS auxiliary objects without reading tensor values.
+
+    RMSWeightTemplate constructs a scalar zero on AI_DEVICE even when has_diff
+    is false. Its state_dict includes that object alongside pinned CPU weights.
+    The zero-initialization statement is SRC evidence, not a numeric observation
+    by this observer. No tensor is copied, transformed, or synchronized here.
+    """
+    expected = {f"blocks.{block_index}.{attention}.norm_{axis}.weight"
+                for attention in ("self_attn", "cross_attn") for axis in ("q", "k")}
+    found, visited = {}, set()
+    def walk(owner):
+        if id(owner) in visited:
+            return
+        visited.add(id(owner))
+        weight_name = getattr(owner, "weight_name", None)
+        if weight_name in expected:
+            if (type(owner).__module__ != "lightx2v.common.ops.norm.rms_norm_weight"
+                    or getattr(owner, "base_attrs", None) != [(weight_name, "weight", False)]
+                    or getattr(owner, "lora_attrs", None) != {"weight_diff": "weight_diff_name"}
+                    or getattr(owner, "lora_prefix", None) != "blocks"
+                    or getattr(owner, "has_diff", True) or getattr(owner, "has_lora_branch", True)):
+                raise ValueError("Unexpected original RMS auxiliary owner/adapter contract")
+            key = owner.weight_diff_name
+            if key != weight_name.removesuffix(".weight") + ".diff" or key in found:
+                raise ValueError("Original RMS auxiliary state key differs")
+            found[key] = {"owner": owner, "tensor": owner.weight_diff, "weight_name": weight_name}
+        for field in ("_modules", "_parameters"):
+            for child in getattr(owner, field, {}).values():
+                if child is not None:
+                    walk(child)
+    walk(block)
+    if {item["weight_name"] for item in found.values()} != expected:
+        raise ValueError("Four real source-block RMS auxiliary owners required")
+    return found
+
+
+def checkpoint_source_metadata(torch, destination, block_index, auxiliaries):
+    """Classify the unchanged native state; allow only bound RMS CUDA scalars.
+
+    These are passed source bytes, not a hardware H2D/D2D transfer estimate.
+    In particular, the small native CUDA auxiliary copies are not reclassified
+    as checkpoint H2D traffic. Actual source-object identity is preserved.
+    """
+    if type(block_index) is not int or block_index not in range(40) or not isinstance(destination, dict):
+        raise ValueError("Original block state/coordinate differs")
+    counts, sizes, total, ffn, cuda_aux = {}, {}, 0, 0, []
+    for name, value in destination.items():
+        if not torch.is_tensor(value):
+            if value is not None:
+                raise ValueError("Unexpected non-tensor native state item: " + str(name))
+            continue
+        device = value.device.type
+        size = value.numel() * value.element_size()
+        if device != "cpu":
+            registered = auxiliaries.get(name)
+            if (device != "cuda" or value.device.index not in (None, 0) or registered is None
+                    or value is not registered["tensor"] or value is not registered["owner"].weight_diff
+                    or value.dtype != torch.bfloat16 or tuple(value.shape) != ()):
+                raise ValueError("Unregistered non-CPU block source tensor: " + str(name))
+            cuda_aux.append({"name": name, "device": str(value.device), "dtype": str(value.dtype),
+                "shape": list(value.shape), "bytes": size,
+                "identity": "original source RMS weight_diff object; constructor zero is SRC, not re-read numerically"})
+        counts[device] = counts.get(device, 0) + 1
+        sizes[device] = sizes.get(device, 0) + size
+        total += size
+        if ".ffn." in name:
+            ffn += size
+    return {"source_tensor_bytes": total, "source_FFN_tensor_bytes": ffn,
+            "source_tensor_count": sum(counts.values()), "source_tensor_count_by_device": counts,
+            "source_tensor_bytes_by_device": sizes, "source_CUDA_RMS_auxiliaries": cuda_aux,
+            "source_devices": "original checkpoint CPU weights plus bound native CUDA RMS auxiliary scalars; no observer copies"}
+
+
 class NativeCallTap:
     """Count the actual unchanged native path, not a synthetic full-flow budget."""
     def __init__(self, pipe, adapter, base, runtime, ledger, run_id, mode, persist=lambda: None,
@@ -618,22 +694,25 @@ class NativeCallTap:
             manager = getattr(infer, "offload_manager", None)
             if manager is None or manager.offload_granularity != "block" or manager.lazy_load:
                 raise ValueError("Original non-lazy block-offload path required")
+            if len(weights.blocks) != 40:
+                raise ValueError("Forty original source blocks required for native prefetch")
+            auxiliary_sources = {b: original_rms_auxiliaries(source, b) for b, source in enumerate(weights.blocks)}
             for buffer in manager.cuda_buffers:
                 original_load = buffer.load_state_dict
-                def load(destination, block_index, adapter_block_index=None, _original=original_load, _index=index):
+                def load(destination, block_index, adapter_block_index=None, _original=original_load, _index=index,
+                         _auxiliary_sources=auxiliary_sources):
                     import torch
                     self.step(_index)
-                    tensors = {k: v for k, v in destination.items() if torch.is_tensor(v)}
-                    if any(v.device.type != "cpu" for v in tensors.values()):
-                        raise ValueError("Original block source is not a CPU checkpoint tensor")
                     observation = {"step": self.step(_index), "expert_index": _index, "block": int(block_index),
-                        "source_tensor_bytes": sum(v.numel() * v.element_size() for v in tensors.values()),
-                        "source_FFN_tensor_bytes": sum(v.numel() * v.element_size() for k, v in tensors.items() if ".ffn." in k),
-                        "source_tensor_count": len(tensors), "status": "INVOKED_BEFORE_ORIGINAL_BLOCK_BUFFER_LOAD"}
+                        "native_copy_invoked": False, "status": "RESERVED_SOURCE_VALIDATION_BEFORE_NATIVE_BUFFER_COPY"}
                     self.checkpoint_buffer_loads.append(observation)
-                    value = self.ledger.call(self.run_id, {"original_checkpoint_block_buffer_loads": 1}, _original, destination, block_index, adapter_block_index)
-                    observation["status"] = "ORIGINAL_BLOCK_BUFFER_LOAD_RETURNED"
-                    return value
+                    def dispatch():
+                        observation.update(checkpoint_source_metadata(torch, destination, block_index, _auxiliary_sources.get(block_index, {})))
+                        observation.update(native_copy_invoked=True, status="INVOKED_BEFORE_ORIGINAL_BLOCK_BUFFER_LOAD")
+                        value = _original(destination, block_index, adapter_block_index)
+                        observation["status"] = "ORIGINAL_BLOCK_BUFFER_LOAD_RETURNED"
+                        return value
+                    return self.ledger.call(self.run_id, {"original_checkpoint_block_buffer_loads": 1}, dispatch)
                 self.stack.enter_context(patch_method(buffer, "load_state_dict", load))
 
     def report(self):
@@ -641,7 +720,7 @@ class NativeCallTap:
                 "native_FFN_coverage": self.ffns, "invoked_method_counts": self.attempted,
                 "method_dispatch_wall_seconds_including_nested_calls": self.wall,
                 "checkpoint_block_buffer_loads": self.checkpoint_buffer_loads,
-                "checkpoint_copy_scope": "actual source tensor bytes passed to unchanged full block buffer load; includes original FFN; not a hardware H2D profiler total"}
+                "checkpoint_copy_scope": "actual unchanged source objects/bytes by device, including original CPU FFN and native CUDA RMS scalar auxiliaries; not a hardware H2D/D2D profiler total"}
 
     def verify_complete(self):
         expected = dict.fromkeys(("input_encoder_requests", "T5_positive_prompt_encodes", "VAE_encodes",
@@ -702,7 +781,7 @@ def generate_phase(pipe, adapter, base, runtime, mode, case, out, hf_root, ledge
     from safetensors.torch import save_file
     from ub1_consumer_runtime import tensor_sha
     from run_ub1_consumer_videos import inspect_video
-    run_id = f"compact6016_video_source{case['index']:02d}_seed42_{mode}"
+    run_id = f"compact6016_v2_video_source{case['index']:02d}_seed42_{mode}"
     guard(run_id)
     ledger.reserve(run_id, {"video_generations": 1})
     parent = out / run_id

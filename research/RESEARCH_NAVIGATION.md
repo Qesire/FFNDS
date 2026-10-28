@@ -12,7 +12,7 @@
 | **4** | [下一Agent B0/B1交接](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 原生producer/资产/neutral→有限响应→学生函数判别与输出合同 | 复用已完成B0及CAL24配对判别；B-H训练状态按ACTIVE核验 |
 | **5** | [ACTIVE真实研究状态](ACTIVE_RESEARCH.json) | 当轮模型/资源权限、已完成的原始RUN、模型和实验范围 | 不将任务文档视为自动运行授权 |
 
-**M-B仍为首要研究：** [CAL24 96flow对齐及byte audit、B1配对判别和B0选中行neutral](20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)已完成。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256结果不是native数值floor。[B-H真实学生](20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)已完成两expert各256次Adam，held8 head SSE高/低0.003958/0.003615；原M/A0同head对照待测；B-F与一般paired机制仍OPEN。[A0全80函数/160学生](20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)已完成局部训练和metadata组装，tensor加载与视频仍OPEN。具体运行以[ACTIVE](ACTIVE_RESEARCH.json)为准。
+**M-B仍为首要研究：** [CAL24 96flow对齐及byte audit、B1配对判别和B0选中行neutral](20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)已完成。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256结果不是native数值floor。[B-H真实学生](20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)已完成两expert各256次Adam，held8 head SSE高/低0.003958/0.003615；[原M几何同head A0对照](20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)已完成：held8高/低A0 energy 0.000609/0.000661，B-H 0.003958/0.003615，B-H对两A0均0/8胜；B-F与一般paired机制仍OPEN。[A0全80函数/160学生](20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)已完成局部训练和metadata组装，160 export/1920 tensor独立字节审计exit0；[六视频v2实际exit0](20261028/COMPACT6016_SIX_VIDEO_NATIVE_RESULTS_20261028.md)：两暴露来源、shared seed42、960 FFN、两Dense历史字节一致；v1首block前失败保留原身份。正式质量/人审和公平系统速度仍OPEN。具体运行以[ACTIVE](ACTIVE_RESEARCH.json)为准。
 
 ## P1 · 研究方法必备：按问题选择阅读，不必全读
 
@@ -34,13 +34,13 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为214节点/442原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为216节点/448原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 
 | 原生证据及身份 | 结论的精确适用范围 | 用于哪条研究问题 |
 | --- | --- | --- |
-| [M-A0全80函数6016恢复](20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)（NATIVE局部） | 160学生训练及metadata组装完成；train16/旧暴露heldout8，tensor加载与自由视频待验 | M-B/B-F与M-C的共同强比较器 |
+| [M-A0全80函数6016恢复](20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)（NATIVE局部） | 160学生训练、metadata组装及完整原始字节审计exit0；train16/旧暴露heldout8，v2两来源自由视频已实际完成；正式质量/人审与系统测速待验 | M-B/B-F与M-C的共同强比较器 |
 | [M-B配对敏感度I19](method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)（ALG）和[原始head SRC](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 平均代理与联合代理可反向排序；末层固定调制下65个连续充分统计；[CAL24配对字典与B0 neutral](20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)已实测；一般paired机制与学生结果仍OPEN | M-B B0/B1的数学及数值任务 |
 | [20来源40条原生配对视频](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)和[质量/连续运动](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)（VIDEO） | 当前fixed-RR consumer成像平均−1.38%，RAFT幅值−83.28%；20个开发暴露来源，不能归因为M-B已失效或已恢复 | 视频动作与静态画面差异的科学动机 |
 | [CAL24来源组稳定性](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)（NATIVE/统计） | 4个teacher位置支持选择较稳定；不是配对$s$的真实后缀$J_s$ | 区分固定gate和联合后缀敏感假说 |

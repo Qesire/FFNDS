@@ -1,0 +1,926 @@
+{
+  "id": "E0_COMPACT6016_CONSUMER00_12_SIX_VIDEOS_OFFLOAD_AUX_V2_20261028",
+  "status": "FROZEN_CONSUMER00_12_FULL160_FFN_SIX_NATIVE_VIDEOS",
+  "assets_finalized": true,
+  "method_priority": "M-B: B0 native neutral -> B1 finite -> B-H direct65 / B-F; this scope is matched M-A0 baseline only",
+  "modes": [
+    "dense",
+    "energy94",
+    "random94"
+  ],
+  "source_indices": [
+    0,
+    12
+  ],
+  "seed": 42,
+  "allowed_run_ids": [
+    "compact6016_v2_video_source00_seed42_dense",
+    "compact6016_v2_video_source12_seed42_dense",
+    "compact6016_v2_video_source00_seed42_energy94",
+    "compact6016_v2_video_source12_seed42_energy94",
+    "compact6016_v2_video_source00_seed42_random94",
+    "compact6016_v2_video_source12_seed42_random94"
+  ],
+  "mode_order": "dense both sources under one all-weight context, release; energy94 both, release; random94 both, release",
+  "automatic_retry": false,
+  "limits": {
+    "video_generations": 6,
+    "input_encoder_requests": 6,
+    "T5_positive_prompt_encodes": 6,
+    "VAE_encodes": 6,
+    "CLIP_encodes": 0,
+    "scheduler_prepare": 6,
+    "FP32_initial_noise_draws": 6,
+    "native_full_model_flows": 24,
+    "native_blocks": 960,
+    "native_FFN_calls": 960,
+    "native_FFN_linears": 1920,
+    "native_FFN_activation_QDQ": 1920,
+    "native_original_width_FFN_linears": 640,
+    "native_narrow6016_FFN_linears": 1280,
+    "native_non_FFN_linears": 7680,
+    "native_non_FFN_activation_QDQ": 7680,
+    "pre_infer_calls": 24,
+    "pre_Default_MM_calls": 120,
+    "patch_Conv3D_calls": 24,
+    "head_Default_MM_calls": 24,
+    "final_LayerNorm_calls": 24,
+    "post_unpatchify_calls": 24,
+    "scheduler_step_pre": 24,
+    "scheduler_step_post": 24,
+    "VAE_decodes": 6,
+    "core_CPU_video_reports": 6,
+    "actual_initial_noise_files": 6,
+    "actual_raw_FP32_noise_files": 6,
+    "matched_offload_buffer_resets": 12,
+    "original_checkpoint_block_buffer_loads": 972,
+    "post_step_FP32_latent_files": 24,
+    "FFN_boundary_timer_records": 960,
+    "narrow160_site_complete_reports": 4,
+    "native_decoded_cache_matrix_transfers_setup": 2400,
+    "native_decoded_cache_matrix_H2D_bytes_setup": 143025766400,
+    "narrow_bias_smooth_tensor_transfers_setup": 640,
+    "narrow_bias_smooth_H2D_bytes_setup": 10690560,
+    "offline_training_updates": 0,
+    "online_LoRA_GEMM": 0,
+    "new_weight_quantizations": 0,
+    "weight_decompositions": 0,
+    "official_quality_calls": 0,
+    "head_sensitivity_probes": 0,
+    "extra_teacher_FFN_calls": 0
+  },
+  "resource_limits": {
+    "GPU": 1,
+    "CPU_threads": 8,
+    "compute_wall_seconds": 2400,
+    "external_wall_seconds": 2700,
+    "new_HF_bytes": 1073741824,
+    "HF_free_min_bytes": 21474836480,
+    "host_available_min_bytes": 137438953472,
+    "resident_cache_max_bytes": 68719476736,
+    "reference_original_peak_physical_MiB": 21390,
+    "GPU_memory_safety_bytes": 2147483648,
+    "session_max_idle_GPUs": 2,
+    "repository_GPU_policy": "DYNAMIC_MAX_ACTUALLY_CALLABLE"
+  },
+  "video_contract": {
+    "frames": 81,
+    "width": 832,
+    "height": 464,
+    "fps": 16,
+    "steps": 4,
+    "blocks": 40,
+    "denoising_steps": [
+      1000,
+      750,
+      500,
+      250
+    ],
+    "latent_shape": [
+      16,
+      21,
+      58,
+      104
+    ]
+  },
+  "cases": [
+    {
+      "index": 0,
+      "seed": 42,
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_subject:22",
+      "source_group": "i2v_subject:22",
+      "image": {
+        "root": "hf",
+        "path": "ffnds-derived/vbench-i2v/577ba45c1653ede26e29996737f42841f2ec9eea/crop/16-9/a brown and white cow eating hay.jpg",
+        "bytes": 2528076,
+        "sha256": "d81a54bec2ef6862ac0642b4c84bfba7cd9a9ea698a76abc110e204e2674cd06"
+      },
+      "image_sha256": "d81a54bec2ef6862ac0642b4c84bfba7cd9a9ea698a76abc110e204e2674cd06",
+      "prompt": "a brown and white cow eating hay",
+      "prompt_sha256": "a46e83215d488895539f6d589afd2291c9d31c10ade24efa20fdc66aa3411ffe",
+      "conditioning_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_subject:22:native_crop_condition",
+      "exposure": "PREVIOUSLY_EXPOSED_DEVELOPMENT_N2_SHARED_SEED42",
+      "historical_dense": {
+        "producer_RUN": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/RUN.json",
+          "bytes": 1539533,
+          "sha256": "828c13921abee168fd556457078d6f0629d73ef8e88a4b178308bf7fd05a86fb"
+        },
+        "producer_exit": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/LAUNCH_EXIT.json",
+          "bytes": 280,
+          "sha256": "e6e6a7be7c64119b8c764f5589d9c8d2dc12356e7d42625fc8847a51d261826b"
+        },
+        "producer_protocol": {
+          "root": "repo",
+          "path": "config/ub1_consumer_disjoint20_recovery_20261027_v1.json",
+          "bytes": 54865,
+          "sha256": "e4f69ed3784bb0ff940bafe6400c7f637aeb468d46ff23ab4ebe264afe259d79"
+        },
+        "generation": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/source00_seed42/dense/GENERATION.json",
+          "bytes": 19048,
+          "sha256": "daaa82156d9e86b418a7cd5de0323be5b8d90e537d8f99fb7bd52c4789ee5a67"
+        },
+        "initial": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/source00_seed42/dense/initial_noise.safetensors",
+          "bytes": 4053592,
+          "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65"
+        },
+        "post": [
+          {
+            "root": "hf",
+            "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/source00_seed42/dense/latent_step0.safetensors",
+            "bytes": 8107096,
+            "sha256": "a1801da8ffa31fef41ba49321365c1e37ecfd44a3514d9a74d13937e0b8358f7"
+          },
+          {
+            "root": "hf",
+            "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/source00_seed42/dense/latent_step1.safetensors",
+            "bytes": 8107096,
+            "sha256": "5681ab6d744d21a1842700e1518334dbc921040137d28be34916f99daf880e93"
+          },
+          {
+            "root": "hf",
+            "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/source00_seed42/dense/latent_step2.safetensors",
+            "bytes": 8107096,
+            "sha256": "139fa9e1a08f4d56edc1246611fd73a06018070f5e10df7993e7b30a2eaa5fd3"
+          },
+          {
+            "root": "hf",
+            "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/source00_seed42/dense/latent_step3.safetensors",
+            "bytes": 8107096,
+            "sha256": "7a0796c152c0024dc0bfda0578c457b97d2facf85ca7ff39604bf92d4d05bcdc"
+          }
+        ],
+        "initial_raw_BF16_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+        "post_raw_FP32_sha256": [
+          "14bf15091a9ac5497f89b1f26682ceb2afc0f844263c361fcf45d6fdeee9d0e7",
+          "183987d281df4fb72b40a5c096d1aa38e64d62c68e3f2f825e19fe7f8e04400a",
+          "a6e2879cff36f1f17598cf1c9dcaf6ef3443c57b29645e5bc2517a5c0f40fbf8",
+          "0b1b1fdd4ce9bbd9842adf4d4d655b5820509d703f8000dd2fa8586faffe2948"
+        ],
+        "video": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_part0_recovery_20261027_v1/part0/source00_seed42/dense/output.mp4",
+          "bytes": 1626523,
+          "sha256": "43ceb4770c42fb4b7edd98acc99068b053bc7cfb1b3cfd5be74cb292fcecfa36"
+        }
+      }
+    },
+    {
+      "index": 12,
+      "seed": 42,
+      "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_background:32",
+      "source_group": "i2v_background:32",
+      "image": {
+        "root": "hf",
+        "path": "ffnds-derived/vbench-i2v/577ba45c1653ede26e29996737f42841f2ec9eea/crop/16-9/an asian city street at night with people and bicycles.jpg",
+        "bytes": 1716287,
+        "sha256": "a05eafaf196f89194eb4ce862831af431f2dc6483f67f6578d522715b68a55a8"
+      },
+      "image_sha256": "a05eafaf196f89194eb4ce862831af431f2dc6483f67f6578d522715b68a55a8",
+      "prompt": "an asian city street at night with people and bicycles",
+      "prompt_sha256": "73f848bd48337a713bc704dc403602101ebf82046cb3b22fecb48387f86c2b68",
+      "conditioning_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:i2v_background:32:native_crop_condition",
+      "exposure": "PREVIOUSLY_EXPOSED_DEVELOPMENT_N2_SHARED_SEED42",
+      "historical_dense": {
+        "producer_RUN": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/RUN.json",
+          "bytes": 1619343,
+          "sha256": "6bcbdab41716ac07432fce38b6cba6d57e256c0676b563726f164a3c1289a3a0"
+        },
+        "producer_exit": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/LAUNCH_EXIT.json",
+          "bytes": 285,
+          "sha256": "ae5a40139af388c670acd742d3936b2cd7578d16e2778b7f95d695702490b5c4"
+        },
+        "producer_protocol": {
+          "root": "repo",
+          "path": "config/ub1_consumer_disjoint20_20261027_v1.json",
+          "bytes": 146392,
+          "sha256": "ad81fffb73256c14e65c4221d255080072bcc9902cf420b541e4da4f61254ca6"
+        },
+        "generation": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/source12_seed42/dense/GENERATION.json",
+          "bytes": 18980,
+          "sha256": "816b5a0b1199f1304317bae2128e78a3ac80dafb9efc66075974e253b99e2c6d"
+        },
+        "initial": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/source12_seed42/dense/initial_noise.safetensors",
+          "bytes": 4053592,
+          "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65"
+        },
+        "post": [
+          {
+            "root": "hf",
+            "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/source12_seed42/dense/latent_step0.safetensors",
+            "bytes": 8107096,
+            "sha256": "35e02d98beca9cd44d54af1fe8f1157112a6fd265cdcf9a4e4c554845f1e187d"
+          },
+          {
+            "root": "hf",
+            "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/source12_seed42/dense/latent_step1.safetensors",
+            "bytes": 8107096,
+            "sha256": "1787d8e7cba34b1b40d2cb5d9229aa9c87a52be27f2b038215c1c5625c9d66c3"
+          },
+          {
+            "root": "hf",
+            "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/source12_seed42/dense/latent_step2.safetensors",
+            "bytes": 8107096,
+            "sha256": "4987dad28b94a55c6218fe15a0b7fe2134a821366fb5161699b05f217f10b50e"
+          },
+          {
+            "root": "hf",
+            "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/source12_seed42/dense/latent_step3.safetensors",
+            "bytes": 8107096,
+            "sha256": "f284e5f209379f55e72c97de3270bcea12c63dc204b587dabf1cd28e47059e06"
+          }
+        ],
+        "initial_raw_BF16_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+        "post_raw_FP32_sha256": [
+          "0652a9b8e0355f2308e50e8da6bc9572b83dfc66e013468319ad45170e4e2d56",
+          "b64b05878a43462d1a1cbeb23dd377e0e1b0b47578cabdf8b315fef2b14c7a30",
+          "0e7ba6d722fc069113f6e849820ba85eee23257b656021c53202eca8059eb983",
+          "12a5d9baa7243dc109ace2c6eac7a08f47baa38d15a1cee5477058531fafc5b7"
+        ],
+        "video": {
+          "root": "hf",
+          "path": "ffnds-derived/ub1_fixed_rr_consumer_disjoint20_20261027_v1/part2/source12_seed42/dense/output.mp4",
+          "bytes": 1527748,
+          "sha256": "f5456d095fa05f7118d5a1f534e98b6205bf8c9652e2491ef80e976d4ef8cfa1"
+        }
+      }
+    }
+  ],
+  "training_protocol": {
+    "path": "config/e0_compact6016_remaining66_20261028_v2.json",
+    "bytes": 153871,
+    "sha256": "08682651892f3a4d7c80bcc12b4c2c6b5c2ded3792c3f3f64c20bad19846b992"
+  },
+  "bank_manifest": {
+    "root": "hf",
+    "path": "ffnds-derived/compact6016_full160_metadata_20261028/v1/MANIFEST.json",
+    "bytes": 903037,
+    "sha256": "e3c4f4020951913f9cffb2e2cf244137e94db2031ea64aabea7bc65a7aff6a50"
+  },
+  "producer_part_receipts": [
+    {
+      "part": 0,
+      "RUN": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part0/RUN.json",
+        "bytes": 181035,
+        "sha256": "ff624cb215ed13e5bbf3439a182d8e995b2f966830b82e3c920ead6a8392556f"
+      },
+      "launch_exit": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part0/LAUNCH_EXIT.json",
+        "bytes": 795,
+        "sha256": "4e35fbb1d7d51e88c0584df77ba501915617bf5f74face3587e5dbf976326f87"
+      }
+    },
+    {
+      "part": 1,
+      "RUN": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part1/RUN.json",
+        "bytes": 171150,
+        "sha256": "265ffd4a6d34163c737188457f86abcde0ba8ea7c2f9221314f94394ee9decc6"
+      },
+      "launch_exit": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part1/LAUNCH_EXIT.json",
+        "bytes": 794,
+        "sha256": "253b9c87fd032e17645f8e6e909a4938ae28e52ebfaa0a1ee302f7fa66aced14"
+      }
+    },
+    {
+      "part": 2,
+      "RUN": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part2/RUN.json",
+        "bytes": 161251,
+        "sha256": "5b2be9f5b53f618fa784632e170fe3879bf4a1c8f695771f4d9acc7028d86476"
+      },
+      "launch_exit": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part2/LAUNCH_EXIT.json",
+        "bytes": 796,
+        "sha256": "914033abb5ba183c3b0dd58009f51c8f2e127875f01b854f7d9ab63d64d155a3"
+      }
+    },
+    {
+      "part": 3,
+      "RUN": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part3/RUN.json",
+        "bytes": 164933,
+        "sha256": "989985e8af664fb2ee58a3742ec1bcc39c9f474904a84663f2f8ece2c14b76d1"
+      },
+      "launch_exit": {
+        "path": "ffnds-derived/e0_compact6016_remaining66_20261028/attempt1/part3/LAUNCH_EXIT.json",
+        "bytes": 796,
+        "sha256": "7c9bcdeb227a324130fe3af2af37eea24b1b55eb13b7d6d1ed3c455f4776a20c"
+      }
+    }
+  ],
+  "asset_view": {
+    "path": "ffnds-derived/e0_source_views/compact6016_full80_assets_20261028/VIEW_MANIFEST.json",
+    "bytes": 228191,
+    "sha256": "a712dde22f79f79a8e90007b26f04d7b3746ab5ec36346ba2bff6304a866455a"
+  },
+  "bank_schema": "ffnds.compact6016.deployment_bank.mixed_lineage.v1",
+  "bank_requirement": "new94-old/66-new mixed160 full final students with actual exits, metadata completeness plus real streaming all160 payload preflight; native load/parent tensor validation still required",
+  "physical_cache": {
+    "dense_decoded_matrix_bytes": 56203673600,
+    "candidate_attention_decoded_bytes": 33554432000,
+    "candidate_FFN_matrix_bytes_per_init": 9856614400,
+    "candidate_bias_smooth_bytes_per_init": 5345280,
+    "candidate_total_resident_tensor_bytes_per_init": 43416391680,
+    "FFN_unique_functions_per_init": 80,
+    "FFN_weight_pair_sharing": "high steps0/1, low steps2/3; exact same objects",
+    "native_checkpoint_block_buffers": "unchanged full native buffers/prefetch even for bypassed FFN matrices; must include in physical VRAM/H2D/end-to-end time",
+    "attention_Smooth_QDQ_bias_transfers": "original base.apply unchanged; report actual profiler/setup/model wall costs; cache-byte figures exclude these online native temporaries",
+    "residency_policy": "Dense all800 decoded matrices only OR original nonFFN640 plus one80-function160-matrix folded bank; release/emptycache before switching, no overlapping modes"
+  },
+  "FFN_operator_contract": {
+    "dim": 5120,
+    "original_hidden": 13824,
+    "student_hidden": 6016,
+    "groups": 94,
+    "group_size": 64,
+    "input_boundary": "native norm2/AdaLN, preSmooth1/Q1 MM.apply",
+    "Q1": "original fixed Smooth1 then exact native HiF4, once",
+    "W1": "folded BF16[6016,5120] and selected original BF16 b1[6016], never original full13824 b1",
+    "GELU": "original native GELU(tanh), actualM6016",
+    "Q2": "student-own GELU / selected original FP32 smooth2 -> BF16 -> native HiF4 force_fp32 -> BF16",
+    "W2": "folded BF16[5120,6016] and original BF16 b2[5120]",
+    "e5_residual": "original native BF16 gate/writeback",
+    "GEMM_MAC_per_token": 61603840,
+    "GEMM_MAC_ratio_to_original": 0.4351851851851852
+  },
+  "evidence_contract": {
+    "Dense": "require actual initial BF16 and four post FP32 raw hashes plus old MP4 bytes; stop candidate phases on mismatch",
+    "paired_noise": "reset scheduler.generator=None every request; save native actual initial; allthree arms same source/seed noise bits",
+    "FFN": "original FFNStageTimer all160(step,block) per video; runtime all320 narrow-linears/1280 delegated attention per candidate, no online LoRA/hash",
+    "cost": "shared model init, asset checks, each mode preload, 40x4 native model/FFN time, VAEdecode/encode, totalwall and physical VRAM separate",
+    "quality": "all81frames CPU core paired metrics; official dimensions/human fullplay still separate; no automatic quality/deployment pass",
+    "independent_unit": "two already exposed independent image/source clusters; one shared seed; step/block/frame are nested",
+    "registered_generation_collection": "six jobNNNNNN/RUN.json views bind immutable phase native receipts; after all complete, original ffnds_stage_registered_i2v.collect verifies actual files and pairing into VERIFIED_GENERATIONS.json; no original quality evaluator invoked",
+    "noise": "Original torch.randn FP32 draw captured without extra RNG; separately save conditioned initial BF16. Both rawFP32 and actualBF16 files byte-paired to freshDense, with six real generations.",
+    "timing_comparability": "Each mode uses decoded matrix residency with no within-request cache transfers; absolute bank bytes differ by method. Fixed Dense/energy/random order, model/encoder/kernel warm effects and journal/observers remain inside measured time; no speed fairness or system acceptance implied."
+  },
+  "pipeline_entry": "original adapter.build_lightx2v_distill_pipeline + native pipe.generate; no upstream edits",
+  "Dense_residency": "tools.ffnds_all_weight_residency.AllWeightResidency(all_resident_no_flush)",
+  "candidate_runtime": "tools.compact6016_remaining_runtime.load_bank + frozen Compact6016Runtime/Compact6016Residency",
+  "FFN_timer": "tools.run_e0_all_weight_residency.FFNStageTimer",
+  "execution_driver": "tools/e0_compact6016_six_videos.py --protocol <frozen> --hf-root <HF> --local-root <verified local package mirror> --execute-native",
+  "repo_sources": [
+    {
+      "path": ".agents/skills/ffnds-experiment-evidence/SKILL.md",
+      "bytes": 6301,
+      "sha256": "5fae0a939110f43b1f3c627972db3886531283ef54fc2652140b2d2c4539c663"
+    },
+    {
+      "path": ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/build/lib.linux-x86_64-cpython-311/hifxg_quant.cpython-311-x86_64-linux-gnu.so",
+      "bytes": 12866024,
+      "sha256": "95d5e52535a37a04ae696408f313a8f7401664c7c67a6d3cb709bcc3cac8d37e"
+    },
+    {
+      "path": ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/build/lib.linux-x86_64-cpython-311/lowbit_quant.cpython-311-x86_64-linux-gnu.so",
+      "bytes": 12538608,
+      "sha256": "241a62ef4ed7c8cc2a1336f93d7017e9450ca38465a1aecf04695ac43e1d2bf1"
+    },
+    {
+      "path": ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant.cpython-311-x86_64-linux-gnu.so",
+      "bytes": 12866024,
+      "sha256": "95d5e52535a37a04ae696408f313a8f7401664c7c67a6d3cb709bcc3cac8d37e"
+    },
+    {
+      "path": ".runtime/code/HiF4_Sp/HiFloat4/hif4_gpu/quant_cy/base/cusrc/lowbit_quant.cpython-311-x86_64-linux-gnu.so",
+      "bytes": 12538608,
+      "sha256": "241a62ef4ed7c8cc2a1336f93d7017e9450ca38465a1aecf04695ac43e1d2bf1"
+    },
+    {
+      "path": ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill.py",
+      "bytes": 37819,
+      "sha256": "076482829b8ba542c109b63982b7501f131f8035f40a6f1807c8ef080ea00da3"
+    },
+    {
+      "path": ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/lightx2v_wan_distill_contract.json",
+      "bytes": 1463,
+      "sha256": "f6104c256b9fb881fe33fda2707095cd8591c4010f6fff1be2cffd2b648d56aa"
+    },
+    {
+      "path": ".runtime/code/HiF4_Sp/HiFloat4/ptq/adapters/wan_i2v.py",
+      "bytes": 48323,
+      "sha256": "d5a9be8ddb777fe360e66ba8e4ccde033b4a2969d2a0b853c7aefa0f45c44293"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/common/modules/weight_module.py",
+      "bytes": 8928,
+      "sha256": "264927800f22068b48e74d521de3b795fbc2b49a6fcf5f76e22b04d38dc2c6a1"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/common/offload/manager.py",
+      "bytes": 7240,
+      "sha256": "dbd68ff7af9626f128bf74baed97885f7610853067dd184010d8f3325d8aa5c0"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py",
+      "bytes": 98361,
+      "sha256": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/common/ops/norm/layer_norm_weight.py",
+      "bytes": 9924,
+      "sha256": "0dbfed5c94745a58f0993c29fa211822775243f77478e77354cb32e91b2a24a8"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/common/ops/norm/rms_norm_weight.py",
+      "bytes": 18108,
+      "sha256": "8306d78230fd5b0616e7d5916ab9b2d3af8c2ca69e25d323e944565a5581ee73"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/common/ops/utils.py",
+      "bytes": 15342,
+      "sha256": "ca6148845674399252a8c849d0b3b96b11db32dbe38d69ccf395a4700f67a2ba"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/distill_model.py",
+      "bytes": 1623,
+      "sha256": "d4c9e76b9046ec9fc8d83bc5569e44b69efbcf7d97b30d5152d85c16051f72cc"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/offload/transformer_infer.py",
+      "bytes": 7494,
+      "sha256": "c66f594739c4737f4d77e27db31ac990a82c539ada1d2ec267e0203b90a5fe25"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/post_infer.py",
+      "bytes": 865,
+      "sha256": "6567c439e2f16f322a9f10cd2ca326d3f924e9da75b3ae2ae442ec1327a327a2"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/pre_infer.py",
+      "bytes": 9869,
+      "sha256": "f3f88ca8ccbbd778206f8f04805c124beb84c19dcd22c4c38a6028b42c1502b5"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py",
+      "bytes": 18352,
+      "sha256": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/model.py",
+      "bytes": 9367,
+      "sha256": "f0b0e9904d9708ff67412d8c98cb3f384b86426bb96ebf84d17e439e7a8580ff"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/weights/pre_weights.py",
+      "bytes": 6423,
+      "sha256": "d92974083f3b911a373a9c43a567c53fae343e540af5e4493c1e42b1ecec2445"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/networks/wan/weights/transformer_weights.py",
+      "bytes": 27135,
+      "sha256": "c14e7eeaf085762cf4148a6745d9208098693dca5dbc5971737bbc4c344452a7"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/runners/default_runner.py",
+      "bytes": 34077,
+      "sha256": "4f8e4295e5301b1465c4e320641c98855f2f7e6e5734e714d17af1acb2fd4f18"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/runners/wan/wan_distill_runner.py",
+      "bytes": 11544,
+      "sha256": "26a2a503137b0125cf4a2f8b2c9fc5dae716121c6e600b7ce85517af5ee62dc3"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/runners/wan/wan_runner.py",
+      "bytes": 60353,
+      "sha256": "e12bf49dfa76a3c5bde0d284952d7f8c2dcee2043737b310d51d46e7ff3d0f69"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/schedulers/scheduler.py",
+      "bytes": 879,
+      "sha256": "0b43c8452ee734fffbd0a753f8176a5b530980723aa54981b34a8070c68db7f7"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/schedulers/wan/scheduler.py",
+      "bytes": 14423,
+      "sha256": "c86af28a3b8d709692fb3a88d67ec441a77624929d397c216e0106f1c0142f4a"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/models/schedulers/wan/step_distill/scheduler.py",
+      "bytes": 4022,
+      "sha256": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db"
+    },
+    {
+      "path": ".runtime/code/LightX2V/lightx2v/pipeline.py",
+      "bytes": 21182,
+      "sha256": "6b3eb5aa5a9ad9c3046df3baf8d2bd7feeda12adb327954a5d7298842b265062"
+    },
+    {
+      "path": ".runtime/code/Wan2.2-I2V-A14B-W4A4/quant/hif4_backend.py",
+      "bytes": 4026,
+      "sha256": "8d7589f6b65acb8e96ce14cf18adbce44f729110536725a825da47f521befbb6"
+    },
+    {
+      "path": "config/worker.env",
+      "bytes": 1027,
+      "sha256": "0dd88ae89887232dc5c50c1bcbed1a0bbcffb7de0ceeea891ce827452f52de66"
+    },
+    {
+      "path": "reports/worker_20261020/UB1_policy.json",
+      "bytes": 1656,
+      "sha256": "bd3f031ffc002fe81858e7e68912693b088966ea43da5f34c4c8fae2bf8f5e5d"
+    },
+    {
+      "path": "research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md",
+      "bytes": 12821,
+      "sha256": "7fe0a2a4c2669d1cbe4c94cd1f4d019bfc0cd7a26182eb938c2f6d795611a546"
+    },
+    {
+      "path": "research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md",
+      "bytes": 12053,
+      "sha256": "549426f8f942c6e798341b75b7e00c1f198484a0c8aee5fc4987359da14b3aac"
+    },
+    {
+      "path": "scripts/worker_wait_uuid_idle_exec.sh",
+      "bytes": 1919,
+      "sha256": "38f055289300e9d52b0e4ee27cb19174e804ba178fad0815ae52f4ab97774a53"
+    },
+    {
+      "path": "tests/test_compact6016_native_runtime.py",
+      "bytes": 13836,
+      "sha256": "2fe8ceb5551faf1f6dd9561ae7264c895e2ba2576cab129c06c0504137e11472"
+    },
+    {
+      "path": "tests/test_e0_compact6016_six_videos.py",
+      "bytes": 44217,
+      "sha256": "68d3b92e7870517e6e4be0e5b41a84bf3294b54257260641a04f20e33e619545"
+    },
+    {
+      "path": "tests/test_run_ub1_consumer_disjoint20.py",
+      "bytes": 16735,
+      "sha256": "aa457d8170598ae960c38aaf97196b1dbe8b32e911916346fe49346864d04ae2"
+    },
+    {
+      "path": "tests/test_ub1_consumer_runtime.py",
+      "bytes": 24601,
+      "sha256": "a8ee5441bf17beeaccf58e99c74582151e7c641df67d681ba2ef8ea84b2bb410"
+    },
+    {
+      "path": "tools/analyze_ffnds_observations.py",
+      "bytes": 9121,
+      "sha256": "c20003603ceb4bd0f263254464dedf02eff544a428b0c1137a9fd122bb4f2da7"
+    },
+    {
+      "path": "tools/ar2_checkpoint.py",
+      "bytes": 3346,
+      "sha256": "e252164ebfe4524de9f60cfb1340654851d01d6d8dca814411ad26913ceaacb3"
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "bytes": 2529,
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0"
+    },
+    {
+      "path": "tools/audit_compact6016_completion_partial.py",
+      "bytes": 12544,
+      "sha256": "01f1b99084cf65d2a2b2f9abe1c0642d113bec055f26680b8639228bc9a3367e"
+    },
+    {
+      "path": "tools/b_final_block_capture.py",
+      "bytes": 21568,
+      "sha256": "7b266df5657ca7bfc24a307334e19d4b55e6223cb0f81fc1fd8e6f79dbc84c10"
+    },
+    {
+      "path": "tools/check_e0_full_depth_interface.py",
+      "bytes": 4611,
+      "sha256": "2aa2e9e4ef5c0fc4860c2566ebb20b1b263f44166a1b1ddfe52f763f5021e128"
+    },
+    {
+      "path": "tools/compact6016_adapter.py",
+      "bytes": 6966,
+      "sha256": "15e70ea3418f7927b0b5b201c436f2d5dc0271f9e50190134b5dd6809550f31c"
+    },
+    {
+      "path": "tools/compact6016_native_runtime.py",
+      "bytes": 28358,
+      "sha256": "d33fac1edb9eb109198b39b3a9cea1f7758dd29b43f51088a4118167539fbffb"
+    },
+    {
+      "path": "tools/compact6016_remaining_contract.py",
+      "bytes": 5942,
+      "sha256": "177d675f1f68519968c814a634ab7e8495f833674c0dd2f6bac3970eee868674"
+    },
+    {
+      "path": "tools/compact6016_remaining_runtime.py",
+      "bytes": 6140,
+      "sha256": "f7c752f0899fcdf12fef135ced0841a9879338b64bca365d599b769e726e84c6"
+    },
+    {
+      "path": "tools/durable_worker_job.py",
+      "bytes": 9319,
+      "sha256": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2"
+    },
+    {
+      "path": "tools/e0_b_final_block_capture.py",
+      "bytes": 42774,
+      "sha256": "a81466c2852f6375d0a9d243f61fd54c750d45e8a27c2114cc34503380215e42"
+    },
+    {
+      "path": "tools/e0_b_final_block_capture_local_package.py",
+      "bytes": 6186,
+      "sha256": "c29d1a2324b7b630c707197bacc5a96d3f6ae3c2414dc460ce5b9b1295707e3e"
+    },
+    {
+      "path": "tools/e0_compact6016_full80_bank.py",
+      "bytes": 46860,
+      "sha256": "7dc280d8dbc65c14a585d4430f37e162a950b1e71c861148a9e1a9b7fe0b1b28"
+    },
+    {
+      "path": "tools/e0_compact6016_full80_completion.py",
+      "bytes": 65095,
+      "sha256": "9b9de00fd43417136b542b5e4b0307c56b4b0b9129894368b852a5eee1cdc7ce"
+    },
+    {
+      "path": "tools/e0_compact6016_recovery_pilot.py",
+      "bytes": 41462,
+      "sha256": "9c3603522f7c0bc8128a5fbcf14089f2adf5e01287374669b06c9de90c12a3bf"
+    },
+    {
+      "path": "tools/e0_compact6016_remaining66.py",
+      "bytes": 63604,
+      "sha256": "1653e40dc0c46ee51bc0503aa1aaa3e7a851921439189730db1f2db27a142d06"
+    },
+    {
+      "path": "tools/e0_compact6016_six_videos.py",
+      "bytes": 83115,
+      "sha256": "b7764eecd05552f5dc4fb33175055fd4d4c054cd27a6b574e14c28c79e2f1347"
+    },
+    {
+      "path": "tools/e0_intrinsic_math.py",
+      "bytes": 8144,
+      "sha256": "8af6014373bbee83422dd4c26c1c3b41f98754d02954d62e8f5099ebff7573ad"
+    },
+    {
+      "path": "tools/e0_intrinsic_temporal_support.py",
+      "bytes": 2336,
+      "sha256": "3623ab3f0079c51bc0449c2dfa8e95f0b10de4bc71d7dfe996c98e21a35e9170"
+    },
+    {
+      "path": "tools/e0_ub1_native_consistency.py",
+      "bytes": 19249,
+      "sha256": "26dd19c93793965a49365c5905fbb86a48cf4ab0feb5fb12b6197cb070c55bd1"
+    },
+    {
+      "path": "tools/ffnds_all_weight_residency.py",
+      "bytes": 2886,
+      "sha256": "d19c14f57b17426f6f3497c2af1fd726c1fb9756a46cb559d60108e8103147d4"
+    },
+    {
+      "path": "tools/ffnds_cluster_metric_report.py",
+      "bytes": 6143,
+      "sha256": "f74fef1c98c0a8caafcfec0be1c4daebeda708859b3515ab714a59e43033f693"
+    },
+    {
+      "path": "tools/ffnds_cohort_preflight.py",
+      "bytes": 9094,
+      "sha256": "b9068877a7532db794c99e4206d609154485a72a8c3430e5f763e280f1303472"
+    },
+    {
+      "path": "tools/ffnds_experiment_plans.py",
+      "bytes": 15810,
+      "sha256": "1a16babdde1f978f430067a0a21ac56d8e9aff49f7a9dcf96e0bb885a92323a8"
+    },
+    {
+      "path": "tools/ffnds_observation_common.py",
+      "bytes": 5960,
+      "sha256": "00f37e676820bfb16f28b206d0ddab325007679a1c410e22856145e5869a413b"
+    },
+    {
+      "path": "tools/ffnds_stage_registered_i2v.py",
+      "bytes": 11970,
+      "sha256": "a82c02ca7731a1f120ac60241648b344d928a831a446a7f9c94b568ba70413b3"
+    },
+    {
+      "path": "tools/ffnds_video_metrics.py",
+      "bytes": 24316,
+      "sha256": "0c6ab066674adb2a04097978ced52abcd7cbf1125918b74d59cf976a56ffec66"
+    },
+    {
+      "path": "tools/generate_formal_suite.py",
+      "bytes": 8651,
+      "sha256": "09cc7ed8203f2bc12aca473091fc4f38316b7696ee7e9eb110e6fd890963026a"
+    },
+    {
+      "path": "tools/historical_source_snapshot.py",
+      "bytes": 2438,
+      "sha256": "4929f41712a64140da5a17de456e6bc5b9fbb78650b03babb94fd95689082030"
+    },
+    {
+      "path": "tools/local_python_package_mirror.py",
+      "bytes": 7939,
+      "sha256": "73586d1b6ea0bdb6cd883d3e933938f3b872139544da0350757f953b4d9fec86"
+    },
+    {
+      "path": "tools/prepare_ffnds_observations.py",
+      "bytes": 11067,
+      "sha256": "08e73ec99c535fa3c0ebf551ab6627b45a19173c410e233c2296d5430684245a"
+    },
+    {
+      "path": "tools/reduced_rank_residual.py",
+      "bytes": 2270,
+      "sha256": "1608b1329d2f20d3d2d6d92153530606815db63af4fa88c54fce23f6fd298862"
+    },
+    {
+      "path": "tools/restored_assets.py",
+      "bytes": 2962,
+      "sha256": "c89580fb1d2b42260d8a5fbea5ec3ba97125560e22d08979c2806692d655b839"
+    },
+    {
+      "path": "tools/run_e0_all_weight_residency.py",
+      "bytes": 10908,
+      "sha256": "219db1478a52afc36ad6daa879607a1f44589223ced79a5d7e25a31a311f1428"
+    },
+    {
+      "path": "tools/run_e0_intrinsic_native_support.py",
+      "bytes": 11467,
+      "sha256": "08d269b39185d8ff2638753caee703a284912a9f78059ef63582857494e7bf83"
+    },
+    {
+      "path": "tools/run_ub1_consumer_disjoint20.py",
+      "bytes": 49708,
+      "sha256": "8a5fa265fe585e944bbace3b7f351a43225dd8b1adf2489eaac1be14abf40748"
+    },
+    {
+      "path": "tools/run_ub1_consumer_videos.py",
+      "bytes": 42899,
+      "sha256": "05b2f1042b3d4b4126590158da2d374102c7d8addeb3b936e2e1722a9706fa73"
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "bytes": 3559,
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d"
+    },
+    {
+      "path": "tools/step_budget_runtime.py",
+      "bytes": 10406,
+      "sha256": "93469f2ae10407d13907c06a331d19a277b81ac84aefa78e387eab8f0b658b5c"
+    },
+    {
+      "path": "tools/trained_packed_runtime.py",
+      "bytes": 12669,
+      "sha256": "0617ae6d8f13a81403fc97450a91ec30de5919dfa80dce341a89f372279be02c"
+    },
+    {
+      "path": "tools/ub1_consumer_runtime.py",
+      "bytes": 22979,
+      "sha256": "bd47565a8e1014f7893d4f15f4b72302e8fc8bbe137ff691102d7c654daa6383"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    }
+  ],
+  "pending_freeze_items": [
+    "Independent CUDA-hidden worker full160 byte/lineage/source/mirror preflight must actually exit0 before any GPU model work; bind receipt in ACTIVE."
+  ],
+  "new_runtime_tests": "30 meaningful tiny CPU controls PASS, actual unittest exit0 (4.333s), including real native-source AST mixed-device/copy-identity and failed-debit counterexamples; no real checkpoint tensor/model/GPU execution.",
+  "bank_binding_status": "BOUND_COMPLETE_MIXED160",
+  "candidate_loader": "tools.compact6016_remaining_runtime.load_bank",
+  "local_transformers": {
+    "transport": "BYTE_IDENTICAL_NODE_LOCAL_TRANSFORMERS_NO_SOURCE_OR_MODEL_CHANGE",
+    "version": "5.6.2",
+    "producer_protocol_sha256": "323269de466a89fcd25df363a9332201d85279a1d52b0600be73b0541d7209d1",
+    "producer_RUN": {
+      "root": "hf",
+      "path": "ffnds-derived/e0_source_views/b0_local_transformers_20261028_v2/CPU_IMPORT_ATTEMPT1/RUN.json",
+      "sha256": "feac8760e2594a4333e1707e70ce5d3a9ce72f223ffc137d67759d62fbd7d09a",
+      "bytes": 5264
+    },
+    "producer_exit": {
+      "root": "hf",
+      "path": "ffnds-derived/e0_source_views/b0_local_transformers_20261028_v2/CPU_IMPORT_ATTEMPT1/LAUNCH_EXIT.json",
+      "sha256": "46343e9ba4ca8dd10c020e0400769627bb608808b4dd5e6c79a57adbcb1d681f",
+      "bytes": 393
+    },
+    "inventory": {
+      "root": "hf",
+      "path": "ffnds-derived/e0_source_views/b0_local_transformers_20261028_v2/CPU_IMPORT_ATTEMPT1/MIRROR_INVENTORY.json",
+      "sha256": "8ba51990debb9f3f2142f9a2e80f4a251bb0552dba08634e00e12bbc1e07f6d0",
+      "bytes": 395486
+    },
+    "inventory_sha256": "6474f246507365a272d17372e966dce03941e8a13c4629b5ee6d39277ab6e980",
+    "archive_sha256": "422deac7e35c1120dad8d390bd55778e2788d26de662ab6d1ebd9ff89f606830",
+    "local_root_path_sha256": "adf404e1681486be0b5222c704aef055d106220a6e99b7289286a4fa9dd8207a",
+    "actual_CPU_import_origins_verified": 62,
+    "source_files": 2302,
+    "CPU_cuda_initialized": false
+  },
+  "runtime_versions": {
+    "torch": "2.10.0+cu128",
+    "torchvision": "0.25.0+cu128",
+    "transformers": "5.6.2",
+    "diffusers": "0.38.0",
+    "safetensors": "0.8.0",
+    "numpy": "2.4.6",
+    "triton": "3.6.0"
+  },
+  "native_cache_identity": {
+    "bytes": 56223524243,
+    "sha256": "bfb400f94ce42760070bab5916721fd942b0864907bb4e4e5207c008dc4c3df3"
+  },
+  "native_logical_model_view": {
+    "root": "repo",
+    "path": ".runtime/model_view.json",
+    "bytes": 10384,
+    "sha256": "932bc14ec0cd8d73a13532191ea202b0bc22478d7da26ba5029658329f257df3"
+  },
+  "canonical_inputs": {
+    "root": "repo",
+    "path": ".runtime/inputs/disjoint20/canonical.json",
+    "sha256": "656f85c0415f407f0e07972fd1e756e2559062ae2dd7876741ef0ceb6e4b8392",
+    "bytes": 23291
+  },
+  "original_cohort_protocol": {
+    "root": "repo",
+    "path": "config/ub1_consumer_disjoint20_20261027_v1.json",
+    "bytes": 146392,
+    "sha256": "ad81fffb73256c14e65c4221d255080072bcc9902cf420b541e4da4f61254ca6"
+  },
+  "private_worker_config_sha256": [
+    "f2d4d146e019bb15aee904e2c5b175c44179558626044038301ab44e7244d289"
+  ],
+  "output_HF_relative": "ffnds-derived/e0_compact6016_consumer00_12_six_videos_offload_aux_v2_20261028/attempt1/worker/results",
+  "cost_observation_contract": {
+    "predebit": "small append-only OPERATIONS.jsonl event before each actual wrapped call; aggregate RUN snapshots per step; failing reservations remain",
+    "timing": "actual FFN CUDA events and generation wall include journal/tensor observers; journal dispatch wall measured separately, never naively subtracted; nested dispatch walls not additively summed; one bank-load/preload per two-source mode",
+    "checkpoint_prefetch": "original full block buffer load receives unchanged mixed-device source dictionary; reports CPU checkpoint and native CUDA RMS auxiliary source counts/bytes separately, not hardware H2D/D2D traffic",
+    "quality": "six all81-frame CPU diagnostic reports; separate official metrics and fullplay remain pending",
+    "matched_offload_reset": "Both original expert managers reset need_init_first_buffer=True before EACH measured generation. The same original copy implementation performs162 block loads/video,972total including retained bypassed original FFN tensors."
+  },
+  "prior_failed_scope": {
+    "id": "E0_COMPACT6016_CONSUMER00_12_SIX_VIDEOS_20261028",
+    "protocol": {
+      "root": "repo",
+      "path": "config/e0_compact6016_six_videos_20261028_v1.json",
+      "bytes": 38822,
+      "sha256": "1c59832c790d1b3689d3bd5d03652e1dc79ae9f98f7d2f5c0476dc70fb8d858f"
+    },
+    "RUN_HF_relative": "ffnds-derived/e0_compact6016_consumer00_12_six_videos_20261028/attempt1/worker/results/RUN.json",
+    "RUN_sha256": "45bf97bdbce2e554118c59cbf7e8e3f2364cc60484fca69bc5d6be9de450a9d6",
+    "actual_exit": 1,
+    "completed_videos": 0,
+    "native_FFN_calls": 0,
+    "boundary": "positive T5/VAE, original raw noise/conditioned initial and pre-infer complete; observer rejected legal CUDA RMS auxiliary before first native block-buffer copy",
+    "charged_failed_work": "preserved in immutable prior RUN/actual exit; no refund/retry or result reuse as a generated video"
+  },
+  "offload_source_observer_contract": {
+    "main_state": "original CPU checkpoint weight/bias/modulation tensors remain unchanged",
+    "legal_CUDA_state": "four per-block RMSWeightTemplate weight_diff scalar BF16 objects, bound by actual source RMS owners/lora_attrs/name/object identity",
+    "zero_identity": "SRC-only original constructor zero plus fixed no external adapter path; observer does not numerically read, copy or synchronize GPU values",
+    "delegation": "original dictionary and value identities passed unchanged to original load_state_dict; no data filtering, conversion or prefetch removal",
+    "accounting": "passed source bytes/counts grouped by device; original native block load count retained; source bytes are not hardware H2D/D2D traffic"
+  },
+  "independent_review": {
+    "task": "completion_lineage_review",
+    "conclusion": "SUPPORT_FOR_FIXED_SIX_VIDEO_SCOPE",
+    "driver_sha256": "b7764eecd05552f5dc4fb33175055fd4d4c054cd27a6b574e14c28c79e2f1347",
+    "test_sha256": "68d3b92e7870517e6e4be0e5b41a84bf3294b54257260641a04f20e33e619545",
+    "draft_sha256": "02af8441007df10c65495aafc0772d8b3be984d95d8af8b08455266a10cade81",
+    "independent_tiny_CPU_controls": 30,
+    "actual_exit_code": 0,
+    "seconds": 8.163,
+    "source_bindings": 79,
+    "scope": "Exact newv2 software and actual RMS constructor/state_dict/load_state_dict AST counterexample. Original dictionaries and tensor objects delegated unchanged; no GPU numeric value read or synchronization added. Algorithms/sources/seed/budget unchanged; v1 failure preserved.",
+    "GPU_or_real_payload_calls": 0,
+    "provenance": "Coordinator transcription of actual independent agent review message; not a fabricated native receipt."
+  }
+}

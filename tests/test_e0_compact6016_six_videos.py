@@ -1,4 +1,5 @@
 import copy
+import ast
 import importlib.util
 import json
 from pathlib import Path
@@ -19,7 +20,7 @@ spec.loader.exec_module(six)
 
 class ContractTest(unittest.TestCase):
     def setUp(self):
-        self.plan = json.loads((ROOT / 'config/e0_compact6016_six_videos_20261028_draft.json').read_text())
+        self.plan = json.loads((ROOT / 'config/e0_compact6016_six_videos_20261028_v2_draft.json').read_text())
 
     def test_contract_and_wrong_bank(self):
         self.assertTrue(six.validate_plan(self.plan))
@@ -268,7 +269,8 @@ class PayloadByteControls(unittest.TestCase):
 
 
 def fake_native():
-    """A Python-only call topology; no real model tensor/GEMM or GPU."""
+    """Synthetic call topology and tiny CPU metadata; no model/GEMM or GPU."""
+    import torch
     def identity(*args, **kwargs): return args[0] if args else None
     adapter = SimpleNamespace(native_hif4_activation_qdq=lambda x, **kw: x)
     scheduler = SimpleNamespace(step_index=0, generator=None, prepare=identity, prepare_latents=identity)
@@ -286,6 +288,20 @@ def fake_native():
         return x
     base.apply = apply
     models = []
+    rms_class = type('TinyRMS', (), {'__module__': 'lightx2v.common.ops.norm.rms_norm_weight'})
+    def source_block(block):
+        modules = {}
+        for attention in ('self_attn', 'cross_attn'):
+            for axis in ('q', 'k'):
+                owner = rms_class()
+                owner.weight_name = f'blocks.{block}.{attention}.norm_{axis}.weight'
+                owner.base_attrs = [(owner.weight_name, 'weight', False)]
+                owner.lora_attrs = {'weight_diff': 'weight_diff_name'}
+                owner.lora_prefix = 'blocks'; owner.has_diff = owner.has_lora_branch = False
+                owner.weight_diff_name = owner.weight_name.removesuffix('.weight') + '.diff'
+                owner.weight_diff = torch.zeros((), dtype=torch.bfloat16)
+                modules[owner.weight_name] = owner
+        return SimpleNamespace(_modules=modules)
     for expert in range(2):
         infer = SimpleNamespace(block_idx=0, offload_manager=SimpleNamespace(offload_granularity='block',
             lazy_load=False, need_init_first_buffer=True, cuda_buffers=[SimpleNamespace(load_state_dict=identity) for _ in range(2)]))
@@ -306,7 +322,8 @@ def fake_native():
         pre_weight = SimpleNamespace(**{name: SimpleNamespace(apply=identity) for name in
             ('time_embedding_0', 'time_embedding_2', 'time_projection_1', 'text_embedding_0', 'text_embedding_2', 'patch_embedding')})
         models.append(SimpleNamespace(transformer_infer=infer, transformer_weights=SimpleNamespace(
-            norm=SimpleNamespace(apply=identity), head=SimpleNamespace(apply=identity)),
+            norm=SimpleNamespace(apply=identity), head=SimpleNamespace(apply=identity),
+            blocks=[source_block(b) for b in range(40)]),
             pre_infer=SimpleNamespace(infer=identity), post_infer=SimpleNamespace(infer=identity), pre_weight=pre_weight))
     model_wrapper = SimpleNamespace(model=models)
     def flow(x):
@@ -331,6 +348,127 @@ def fake_native():
 
 
 class NativePathControls(unittest.TestCase):
+    def actual_source_fixture(self):
+        """Execute selected original source AST with metadata-only fake devices.
+
+        This uses the real RMS initialization, WeightModule recursion and
+        utils.state_dict/load_state_dict implementations without importing
+        LightX2V, allocating a GPU tensor or loading checkpoint weights.
+        """
+        class Device:
+            def __init__(self, name): self.type, self.index = name, 0 if name == 'cuda' else None
+            def __str__(self): return 'cuda:0' if self.type == 'cuda' else self.type
+        class Tensor:
+            def __init__(self, shape=(), device='cpu', dtype='BF16'):
+                self.shape, self.device, self.dtype = tuple(shape), Device(device), dtype
+            def numel(self): return __import__('math').prod(self.shape)
+            def element_size(self): return 2 if self.dtype == 'BF16' else 4
+        copies, draws = [], []
+        class Buffer(Tensor):
+            def copy_(self, value, non_blocking=False):
+                copies.append((self, value, non_blocking)); return self
+            def to(self, device):
+                self.device = Device(device); return self
+        def tensor(value, dtype, device):
+            self.assertEqual(value, 0.0)
+            draws.append((value, dtype, device)); return Tensor((), device, dtype)
+        fake_torch = SimpleNamespace(bfloat16='BF16', is_tensor=lambda x: isinstance(x, Tensor), tensor=tensor)
+        namespace = {'torch': fake_torch, 'GET_DTYPE': lambda: 'BF16', 'AI_DEVICE': 'cuda', 're': __import__('re')}
+        code_root = ROOT / '.runtime/code/LightX2V/lightx2v'
+        utils = code_root / 'common/ops/utils.py'
+        tree = ast.parse(utils.read_text())
+        definitions = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name in
+                       ('build_lora_and_diff_names', 'resolve_block_name', 'state_dict', 'load_state_dict')]
+        self.assertEqual(len(definitions), 4)
+        exec(compile(ast.Module(body=definitions, type_ignores=[]), str(utils), 'exec'), namespace)
+        rms = code_root / 'common/ops/norm/rms_norm_weight.py'
+        rms_class = next(n for n in ast.parse(rms.read_text()).body if isinstance(n, ast.ClassDef) and n.name == 'RMSWeightTemplate')
+        initialize = next(n for n in rms_class.body if isinstance(n, ast.FunctionDef) and n.name == '_get_lora_attr_mapping')
+        exec(compile(ast.Module(body=[initialize], type_ignores=[]), str(rms), 'exec'), namespace)
+        modules = code_root / 'common/modules/weight_module.py'
+        definitions = [n for n in ast.parse(modules.read_text()).body if isinstance(n, ast.ClassDef)]
+        exec(compile(ast.Module(body=definitions, type_ignores=[]), str(modules), 'exec'), namespace)
+        rms_type = type('SourceRMS', (), {'__module__': 'lightx2v.common.ops.norm.rms_norm_weight'})
+        def owner(attention, axis, prefix='blocks', target=False):
+            item = rms_type(); item.weight_name = f'blocks.0.{attention}.norm_{axis}.weight'
+            item.base_attrs = [(item.weight_name, 'weight', False)]; item.lora_prefix = prefix
+            item.has_diff = item.has_lora_branch = item.is_post_adapter = False
+            namespace['_get_lora_attr_mapping'](item)
+            item.weight = None; item.pin_weight = Tensor((4,))
+            item.weight_cuda_buffer = Buffer((4,), 'cuda')
+            if target: item.weight_diff = Buffer((), 'cuda')
+            item.state_dict = lambda destination=None: namespace['state_dict'](item, item.base_attrs, item.lora_attrs, destination)
+            item.load_state_dict = lambda destination, block, adapter=None: namespace['load_state_dict'](item, item.base_attrs, item.lora_attrs, destination, block, adapter)
+            return item
+        source, target = namespace['WeightModule'](), namespace['WeightModule']()
+        for attention in ('self_attn', 'cross_attn'):
+            for axis in ('q', 'k'):
+                source.add_module(attention + axis, owner(attention, axis))
+                target.add_module(attention + axis, owner(attention, axis, target=True))
+        return fake_torch, Tensor, source, target, copies, draws, owner
+
+    def test_real_source_AST_mixed_CPU_weights_CUDA_RMS_scalars_delegate_unchanged(self):
+        torch, _, source, target, copies, draws, _ = self.actual_source_fixture()
+        state = source.state_dict()
+        self.assertTrue(any(value.device.type != 'cpu' for value in state.values()))  # Exact old-v1 counterexample.
+        self.assertEqual(draws, [(0.0, 'BF16', 'cuda')] * 8)
+        allowed = six.original_rms_auxiliaries(source, 0)
+        self.assertEqual(set(allowed), {f'blocks.0.{a}.norm_{q}.diff' for a in ('self_attn', 'cross_attn') for q in ('q', 'k')})
+        pipe, adapter, base = fake_native()
+        model = pipe.runner.model.model[0]
+        model.transformer_weights.blocks[0] = source
+        model.transformer_infer.offload_manager.cuda_buffers[0] = target
+        ledger = six.Ledger(six.LIMITS)
+        with six.NativeCallTap(pipe, adapter, base, base, ledger, six.RUN_IDS[0], 'dense') as tap:
+            with mock.patch.dict(sys.modules, {'torch': torch}):
+                self.assertIs(target.load_state_dict(state, 0), state)
+            report = tap.report()['checkpoint_block_buffer_loads'][0]
+        self.assertEqual(report['source_tensor_count_by_device'], {'cpu': 4, 'cuda': 4})
+        self.assertEqual(report['source_tensor_bytes_by_device'], {'cpu': 32, 'cuda': 8})
+        self.assertEqual(len(report['source_CUDA_RMS_auxiliaries']), 4)
+        self.assertTrue(report['native_copy_invoked'])
+        self.assertEqual(len(copies), 8)
+        self.assertEqual({id(value) for _, value, _ in copies}, {id(value) for value in state.values()})
+        self.assertTrue(all(non_blocking for _, _, non_blocking in copies))
+        self.assertEqual(ledger.record['predebited']['original_checkpoint_block_buffer_loads'], 1)
+        self.assertEqual(ledger.record['observed']['original_checkpoint_block_buffer_loads'], 1)
+
+    def test_unregistered_GPU_matrix_wrong_scalar_dtype_shape_or_replaced_identity_is_rejected(self):
+        torch, Tensor, source, target, copies, _, _ = self.actual_source_fixture()
+        allowed = six.original_rms_auxiliaries(source, 0)
+        key = next(iter(allowed))
+        for name, value in (('blocks.0.ffn.0.weight', Tensor((2, 3), 'cuda')),
+                            (key, Tensor((1,), 'cuda')), (key, Tensor((), 'cuda', 'F32')),
+                            (key, Tensor((), 'cuda')), (key, Tensor((), 'meta'))):
+            bad = dict(source.state_dict()); bad[name] = value
+            with self.subTest(name=name, shape=value.shape, dtype=value.dtype, device=value.device.type):
+                with self.assertRaisesRegex(ValueError, 'Unregistered non-CPU'):
+                    six.checkpoint_source_metadata(torch, bad, 0, allowed)
+        wrong_key = 'diffusion_model.' + key
+        with self.assertRaisesRegex(ValueError, 'Unregistered non-CPU'):
+            six.checkpoint_source_metadata(torch, {wrong_key: allowed[key]['tensor']}, 0, allowed)
+        pipe, adapter, base = fake_native()
+        model = pipe.runner.model.model[0]
+        model.transformer_weights.blocks[0] = source
+        model.transformer_infer.offload_manager.cuda_buffers[0] = target
+        ledger = six.Ledger(six.LIMITS)
+        invalid = dict(source.state_dict()); invalid['blocks.0.ffn.0.weight'] = Tensor((2, 3), 'cuda')
+        with six.NativeCallTap(pipe, adapter, base, base, ledger, six.RUN_IDS[0], 'dense') as tap:
+            with mock.patch.dict(sys.modules, {'torch': torch}), self.assertRaisesRegex(ValueError, 'Unregistered non-CPU'):
+                target.load_state_dict(invalid, 0)
+            self.assertFalse(tap.report()['checkpoint_block_buffer_loads'][0]['native_copy_invoked'])
+        self.assertFalse(copies)
+        self.assertEqual(ledger.record['predebited']['original_checkpoint_block_buffer_loads'], 1)
+        self.assertEqual(ledger.record['observed'].get('original_checkpoint_block_buffer_loads', 0), 0)
+
+    def test_actual_RMS_default_prefix_is_distinct_from_explicit_native_Wan_prefix(self):
+        _, _, source, _, _, _, owner = self.actual_source_fixture()
+        replacement = owner('self_attn', 'q', prefix='diffusion_model.blocks')
+        self.assertEqual(replacement.weight_diff_name, 'diffusion_model.blocks.0.self_attn.norm_q.diff')
+        source._modules['self_attnq'] = replacement
+        with self.assertRaisesRegex(ValueError, 'owner/adapter'):
+            six.original_rms_auxiliaries(source, 0)
+
     def test_swapped_modules_and_duplicate_QDQ_fail_before_unregistered_work(self):
         pipe, adapter, base = fake_native()
         ledger = six.Ledger(six.LIMITS)
@@ -460,7 +598,7 @@ class NativePathControls(unittest.TestCase):
         scheduler.step_pre = step_pre
         def post(): scheduler.latents += 1
         scheduler.step_post = post
-        case = copy.deepcopy(json.loads((ROOT / 'config/e0_compact6016_six_videos_20261028_draft.json').read_text())['cases'][0])
+        case = copy.deepcopy(json.loads((ROOT / 'config/e0_compact6016_six_videos_20261028_v2_draft.json').read_text())['cases'][0])
         case['image']['path'] = 'input.jpg'
         (root / 'input.jpg').write_bytes(b'synthetic input not decoded')
         old = case['historical_dense']
