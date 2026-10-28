@@ -1,5 +1,7 @@
 # G12 | 量化码“计算前粗信息”到有符号功能证书：重排界、可辨识性与编码计算
 
+> **HiF4格式约束（2026-10-28 SRC/LIT 更新）**：原 HiF4 的 4-bit S1P2 **本身已含1bit符号位**，不是无符号码字；E6M2和层级微指数是unsigned的幅值共享信息。当前Wan CUDA fake-QDQ写回带符号BF16，并未向调用方持久导出论文的packed S1P2/scale。G12里的“有符号码信息”已存在于格式，但是否在W1前低成本可访问是另一命题。区分 signed histogram、带位置的 signed codes、原生BF16解码张量与真正packed存储；不得把新增sign bit计为方法创新。审计见[HiF4带符号格式与QDQ](../../20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)。
+
 **日期：2026-10-27。** 继[G11六篇方法深读](G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[SharQ](G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md)以及[G10实时流式](REALTIME_VIDEO_ARCHITECTURES_AND_FFN_METHOD_AUDIT.md)后，将用户的假说推进成**可严格判定的信息边界**以及不同原理的强竞争方案。下述是数学证明、原始论文、官方源码审阅；全新CPU/GPU/模型、视频实验均为0。原模型仍是Wan2.2 I2V A14B 4step D-Q HiF4 FFN \`q→W1→tanh-GELU→HiF4-Q2→W2→e5-gate→residual\`，不把外部LLM或T2V的成绩冒称现有模型。
 
 ## 1. 新信息理论观察：只有block内直方图，依然可得**严格且最紧的配对无关内积区间**
