@@ -22,7 +22,7 @@
 
 ## 三、下一项工作：B1源配对判别和对齐标签
 
-已完成对象、真实分歧和下一依赖只按[任务台账](CURRENT_TASK_LEDGER_20261028.json)核对；不重复B0或把B1 head有限子实验当成paired学生通过。当前数据缺口是原CAL24的residual/u/head，原V1/Y/gate和真实256行已存在；按[producer审计](../method_discussion/discoveries/E0/bh-bf-cal24-aligned-label-source-audit-20261028.md)重建原四步链，逐步核原poststate SHA及同坐标V1/Y/gate。现有A0资产与任务状态见台账；后续资源先投M-B，全球同时GPU上限2。新native范围必须先在ACTIVE冻结登记。
+已完成对象、真实分歧和下一依赖只按[任务台账](CURRENT_TASK_LEDGER_20261028.json)核对；不重复B0或把B1 head有限子实验当成paired学生通过。当前数据缺口是原CAL24的residual/u/head，原V1/Y/gate和真实256行已存在；按[producer审计](../method_discussion/discoveries/E0/bh-bf-cal24-aligned-label-source-audit-20261028.md)重建原四步链，逐步核原poststate SHA及同坐标V1/Y/gate。现有A0资产与任务状态见台账；后续研究优先M-B；GPU并发按[动态资源政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用当前实际可调度的最大数量，不预设全局上限。新native范围必须先在ACTIVE冻结登记，当前真实获批GPU数需运行时记录。
 
 **研究先验顺序**：[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md) → [原生论文/焦点图](PAPER_METHOD_FOCUS_GRAPH.json) → [typed先验/强对照](METHOD_OPERATION_CROSSWALK.json) → 需要时再开[完整计算图](../../docs/98_端到端计算图与证据注解_20261025.md)。核查非线性/Q2合法性、正常path与patch幻象、跨step可预测性和真实big-M/kernel成本。
 
