@@ -2,6 +2,8 @@
 
 > **先阅读：[P0–P4现行优先级导航](research/RESEARCH_NAVIGATION.md)。** 此文件定义Agent行为原则，**不是**第二份研究进度报告；研究科学目标由[统一I/F/C目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)定义，方法正文以[整合M-A/M-B/M-C方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为准；真实实验运行范围归[ACTIVE](research/ACTIVE_RESEARCH.json)。
 
+**HiF4带符号存储**：原4bit S1P2每元素自带符号位，尺度层级只编码幅值；现行Wan fake-QDQ写回带符号BF16，未常驻packed code。QCFB/G12/M-C研究时区分格式已有信息与昂贵的在线提取、位置信息。详见[HiF4源码审计](research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)和[机器合同](research/agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
+
 **方法语法**：I（信息与表示）、F（函数与动力学）、C（真实执行）是可并行的研究问题；O-A选择计算、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证是可组合的操作。[五操作框架](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[G14论文/typed先验交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)负责论文和真实计算位置。原三候选统一记为M-A、M-B、M-C，避免与O-A/B/C同名。
 
 **当前状态/依赖**按[2026-10-28任务台账](research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json)核对：此台账不授权执行，也不改变本文件方法原则。**当前下一任务（用户指定M-B先行）**：已完成[A0四位置原生局部恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)和[M-B v2 ALG/SRC及末层65个连续充分统计](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)；已完成[B0真实post-write u/head/flow捕获与B1首轮有限head验证](research/20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)，下一Agent按[B0/B1具体交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)推进B1同来源标签与paired/marginal判别，之后才是B-H/B-F学生。M-C仍为独立开放研究。首个实验、质量和系统成果需实际执行，不由文档/独立讨论推定。
