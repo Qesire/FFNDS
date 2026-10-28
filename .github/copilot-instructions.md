@@ -21,6 +21,6 @@
 5. **评价恰当主张**：机制论文先验证数学/源码/因果范围；执行加速论文另外计量真实FFN+系统成本与独立完整视频质量，严格区分静态图验证、原生运行与外部论文证据。
 6. **独立协作与真实图谱**：经[Graph-Agent协议](../research/agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[讨论队列](../research/method_discussion/QUEUE.md)回写I/F/C任一路线的源节点、ALG/LIT/NATIVE/OPEN关系和独立评议。
 
-**事实与权限**：当前G14为**92主＋10补充论文、16个算子焦点**，原生研究图205节点/424关系；[机器先验索引](../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)额外登记12条typed方法约束。旧10source/12条轨迹/1920站点属于早期机制研究，不是后续consumer20/P30来源集合。2026-10-27历史用户恢复指令的资源范围以[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项核验；新模型与视频按真实来源、冻结代码和执行scope登记，实时/流式实验仍未恢复。
+**事实与权限**：当前G14为**94主＋10补充论文、16个算子焦点**，原生研究图205节点/424关系；[机器先验索引](../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)额外登记12条typed方法约束。旧10source/12条轨迹/1920站点属于早期机制研究，不是后续consumer20/P30来源集合。2026-10-27历史用户恢复指令的资源范围以[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项核验；新模型与视频按真实来源、冻结代码和执行scope登记，实时/流式实验仍未恢复。
 
 **AutoResearcher方法来源**：核心科学Skills来自[固定manifest](../research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json)，采用[mechanism-research](../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../.agents/skills/problem-reformulation/SKILL.md)及WARD。新回复首先给出**科学发现或构造性解释**，再写方程与真实证据、相反预测和下一条可区分的观察。源级/数学/实验的证据等级紧贴具体命题，而非用长串限定句铺在发现前面。
