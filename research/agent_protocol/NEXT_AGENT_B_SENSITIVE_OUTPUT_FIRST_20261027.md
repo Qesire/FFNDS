@@ -1,10 +1,13 @@
-# FFNDS · 下一位研究Agent的现行任务：从已完成的M-B方法继续
+# FFNDS · M-B 专题历史交接：已完成的末层函数研究与可复用技术合同
 
-**2026-10-28 · CURRENT / CAL24_B1_COMPLETE / B-H_PILOT_COMPLETE。** 用户指定M-B优先；[当日任务台账](CURRENT_TASK_LEDGER_20261028.json)和[ACTIVE](../ACTIVE_RESEARCH.json)分别导航依赖与真实运行权限。[CAL24实际结果](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)完成24来源×4步96flow、byte audit、固定字典paired判别和B0四case的16次full-M选中行neutral。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256不是native floor，一般paired机制仍OPEN。
+> **CURRENT ROUTE CHANGE · 2026-10-29**：本文件从“下一Agent默认任务”改为M-B专题实验历史与技术合同；全项目当前研究入口是[资产先行统一队列](ASSET_FIRST_AGENT_HANDOFF_20261029.md)。B0/B1及末层数学继续有效，其历史“下一步”不再决定S1/S4/S2/S3的先后。
 
-**当前续作（2026-10-29 v4）**：优先将[多来源×全深度×视频优先合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)落实为每个新方法的全160-site可执行表示和≥20独立image-cluster的配对完整生成。已有B-H、同head A0、B-F、原始BF16 fixed-gain用于机制和候选构造，低39单来源增益不作为方法晋级。先复算20-source UB1、Affine54 320-site、compact6016视频的分维异常与来源尾部，再从视频失败定位具体step/block/consumer，模型/源/seed和真实SYS作为新的方法判据。NVFP4 Pro6000独立并行且按ACTIVE精确scope执行。\n\n## 0. 已完成的工作：作为下一任务的输入，不重复创造
 
-1. [现行统一研究方案 v3](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)是M-A/M-B/M-C的**唯一现行研究路线图**，其中G14先验已转化为数学/数值/执行约束；原独立审计[在此](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)保留作为推导来源。
+**2026-10-28 · HISTORICAL SPECIALIST HANDOFF / CAL24_B1_COMPLETE / B-H_PILOT_COMPLETE。** 本文件记录当时M-B专题优先的实验背景；[当日任务台账](CURRENT_TASK_LEDGER_20261028.json)和[ACTIVE](../ACTIVE_RESEARCH.json)分别导航依赖与真实运行权限。[CAL24实际结果](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)完成24来源×4步96flow、byte audit、固定字典paired判别和B0四case的16次full-M选中行neutral。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256不是native floor，一般paired机制仍OPEN。
+
+**当时v4续作的历史描述（2026-10-29）**：优先将[多来源×全深度×视频优先合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)落实为每个新方法的全160-site可执行表示和≥20独立image-cluster的配对完整生成。已有B-H、同head A0、B-F、原始BF16 fixed-gain用于机制和候选构造，低39单来源增益不作为方法晋级。先复算20-source UB1、Affine54 320-site、compact6016视频的分维异常与来源尾部，再从视频失败定位具体step/block/consumer，模型/源/seed和真实SYS作为新的方法判据。NVFP4 Pro6000独立并行且按ACTIVE精确scope执行。\n\n## 0. 已完成的工作：作为下一任务的输入，不重复创造
+
+1. [原M-A/M-B/M-C整合方案 v4](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)是M-A/M-B/M-C的**唯一现行研究路线图**，其中G14先验已转化为数学/数值/执行约束；原独立审计[在此](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)保留作为推导来源。
 2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。同状态BF16 head有限响应与固定候选配对比较已实测；[B-H H128 pilot](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)及同head A0对照已完成；B-F末层pilot已完成；一般配对机制及B-F视频/系统效能仍OPEN。
 3. [A0全80函数局部恢复](../20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)：160学生训练、已暴露train16/heldout8和metadata bank已完成；独立原始字节审计和两来源六视频v2均实际exit0，quality v4已完成且未通过；人工全播与公平测速仍待验。
 4. 既有[consumer20质量](../20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)证实当前UB1固定RR在20个开发来源的连续RAFT大幅下降；不能将其当作M-B函数成功/失败。
