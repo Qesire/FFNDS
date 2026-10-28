@@ -55,7 +55,9 @@ def current_execution_authority_is_consistent(active):
             and isinstance(resume.get("user_instruction"), str)
             and bool(resume["user_instruction"].strip())
             and resume.get("status") == "ACTIVE_CURRENT_USER_DIRECTED_SESSION"
-            and resume.get("max_simultaneously_assigned_idle_GPUs") is None
+            # The old value 2 is a frozen historical scope field, not a global GPU ceiling.
+            and resume.get("max_simultaneously_assigned_idle_GPUs") == 2
+            and resume.get("resource_cap_field_semantics", "").startswith("HISTORICAL_20261027_SCOPE")
             and resume.get("resource_scheduling_policy") == "resource_scheduling_policy_20261028"
             and authority.get("active_resource_policy") == "resource_scheduling_policy_20261028"
             and active.get("resource_scheduling_policy_20261028", {}).get("status")
