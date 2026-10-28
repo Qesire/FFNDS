@@ -15,6 +15,8 @@
 
 ## P1 · 按研究主张再打开相应协议
 
+**当前量化格式的源事实**：HiF4原码为带符号S1P2，尺度元信息无符号；现行Q1/Q2是BF16 fake-QDQ输出，具体见[HiF4符号存储审计](../20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)与[signed格式机器合同](HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
+
 | 场景 | 主协议与工具 |
 | --- | --- |
 | 原论文映射到Wan计算边 | [94＋10篇G14机器焦点图](PAPER_METHOD_FOCUS_GRAPH.json)、[G0–G14可见源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[原生Graph Bindings](GRAPH_AGENT_BINDINGS.json) |
