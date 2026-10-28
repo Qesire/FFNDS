@@ -2,7 +2,7 @@
 
 > **先阅读：[P0–P4现行优先级导航](research/RESEARCH_NAVIGATION.md)。** 此文件定义Agent行为原则，**不是**第二份研究进度报告；研究科学目标由[统一I/F/C目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)定义，方法正文以[整合M-A/M-B/M-C方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为准；真实实验运行范围归[ACTIVE](research/ACTIVE_RESEARCH.json)。
 
-**新实验数值环境指令（2026-10-28）**：采用 [BF16原始高精度机制 + RTX5090(SM120)原生NVFP4 W4A4部署双轨](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。**本会话用户最新确认没有RTX5090，使用A100，最多同时2张空闲GPU**；先推进原始BF16实验。原生NVFP4部署保留为未来具备SM120设备时的独立路线，届时先验证工具链/packed+双scale真实kernel，再复用匹配checkpoint。HiF4 fake-QDQ保留为旧实验与分组/舍入数值诊断，低比特加速证据必须来自原生W4A4。原始BF16 checkpoint与旧HiF4解码BF16权重严格分开；vLLM等W4A16/Marlin fallback不算W4A4。两轨任务按ACTIVE精确scope执行，方法数学与A0/B-H继续并行。
+**最新数值路线与用户设备纠正（2026-10-28）**：[原始BF16优先，原生NVFP4部署暂缓](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。**没有本地RTX5090，NVFP4环境复杂且用户暂不要求推进**；SM120 R0–R4均DEFERRED，不安排专项硬件探查/下载/编译/新GPU作业。继续利用已经验证的原始BF16 checkpoint及A100研究环境，优先M-B/B-F/A0真实功能、跨深度范数自由度、视频动态及物理成本。未来设备和研究时机具备再重启原生NVFP4。HiF4 fake-QDQ保留为旧实验与分组/舍入数值诊断，低比特加速证据必须来自原生W4A4。原始BF16 checkpoint与旧HiF4解码BF16权重严格分开；vLLM等W4A16/Marlin fallback不算W4A4。两轨任务按ACTIVE精确scope执行，方法数学与A0/B-H继续并行。
 
 **权重静态／激活动态的强制区分**：W1/W2是离线PTQ的固定权重，Q1/A1与Q2/A2是每次真实FFN调用时的在线激活量化；Q2激活只在W1/GELU后可用。Native MXFP4/NVFP4 W4A4都有独立权重/激活scale，不能把scale存在等同于免费可见。要求QCFB/G12/Q-STAGE方案注明kind、scale来源、producer、backend和早/晚决策时间。[源级审计](research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md) · [机器合同](research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)。
 
