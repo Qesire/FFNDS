@@ -1,5 +1,8 @@
 # 量化元信息的时点、消费操作与成本：QCFB / Q-STAGE 的论文先验检验
 
+> **新增operand分型审计（2026-10-28）**：本节Q1、Q2均为**每次调用的激活动态量化**；W1/W2是**提前量化的固定权重**，静态weight码/scale不是当前输入的source-conditioned动态信号。原生NVFP4/MXFP4 W4A4仍有独立的W和A scales，A的local scales在运行时产生，是否可见与是否赶得上决策分别核验。参见[格式/时序源级审计](WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)。
+
+
 2026-10-28 · ALG / SRC / LIT / OPEN。基准仓库 d60e7e6fc225970609023382c5bb66ec1023b060。承接[R3反思](../independent_reviews/QCFB_20261028/THIRD_ROUND_AUTHOR_REFLECTION_AND_RESPONSE_20261028.md)，本轮新增的是观察与消费合同、条件推导和原论文/源码复核。现行M-B工作按[任务台账](../agent_protocol/CURRENT_TASK_LEDGER_20261028.json)继续；本轮无新模型、GPU、训练、视频或计时运行。
 
 ## 1. 新判断：把“使用量化特征”改成“共同设计观察与执行”
