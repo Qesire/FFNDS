@@ -2669,6 +2669,18 @@
         "research/20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md"
       ],
       "open_question": "Test source0-frozen1/kappa on source12 native full-flow after LayerNorm and before modulation, preserving shift and bias; compare stable step bias with state-dependent norm completion."
+    },
+    {
+      "id": "U46",
+      "graph_section": "G13",
+      "meaning": "Source0-frozen step norm gains transferred to source12 in8 full40block flows after4Dense/bare bitwise neutrals. Same-state head/flow SSE falls93.67%/82.45%;own-state step3total falls69.59%. Shift/headbias retained;3actualFP32/BF16gain calls,0fit/decomposition/video.",
+      "availability": "One previously exposed development transfer image,seed42,lowblock39steps2/3;actualexit0,909sourceSHA,320FFN/328buffer/5factorizedW2/3gain;raw andeffective sigmas distinct",
+      "evidence_type": "NATIVE-OBS",
+      "evidence": [
+        "research/20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.json",
+        "research/20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.md"
+      ],
+      "open_question": "Corrected Dense-state propagation exceeds corrected local step3error. Which cross-depth raw calibration andlarger deployable function canretain fullvideo ability under matched physical cost?"
     }
   ],
   "edges": [
@@ -4985,7 +4997,17 @@
     {
       "from": "U45",
       "to": "F13",
-      "relation": "OPEN_native_fixed_norm_transfer_intervention"
+      "relation": "OPEN_source_disjoint_function_and_full_video_transfer"
+    },
+    {
+      "from": "U45",
+      "to": "U46",
+      "relation": "source0_frozen_norm_gain_native_source12_transfer"
+    },
+    {
+      "from": "U46",
+      "to": "F13",
+      "relation": "NATIVE_controlled_radial_correction_and_own_state_effect"
     }
   ],
   "claim_protocol": "research/agent_protocol/GRAPH_AGENT_COLLABORATION.md",
@@ -5792,6 +5814,12 @@
       "node": "U45",
       "report": "research/20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.json",
       "RUN_sha256": "6e265ed29bb6a018e8fe2312259d29a9f12f6e26d38d7c6040870422ffe43a40",
+      "actual_exit0": true
+    },
+    "fixed_norm_native_transfer": {
+      "node": "U46",
+      "report": "research/20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.json",
+      "RUN_sha256": "783e22952f70ab5a8cb0563587f098a674833113b16d31ec65d0acf8ccd72b2c",
       "actual_exit0": true
     }
   }

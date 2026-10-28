@@ -1,0 +1,2024 @@
+{
+  "schema": "ffnds.raw_fixed_norm_native_transfer.v1",
+  "scope": "E0_ORIGINAL_BF16_LOW39_FIXED_NORM_TRANSFER_20261028",
+  "status": "COMPLETE_RAW_BF16_FIXED_NORM_SOURCE12_EIGHT_FLOWS_NO_VIDEO",
+  "protocol": {
+    "path": "config/e0_original_bf16_low39_fixed_norm_20261028_v1.json",
+    "bytes": 232143,
+    "sha256": "44ba9f0cd16da06bcb92ae904322fbc36b6930fa7c13315ea82c429991d8fcaa"
+  },
+  "RUN": {
+    "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/RUN.json",
+    "bytes": 1759200,
+    "sha256": "783e22952f70ab5a8cb0563587f098a674833113b16d31ec65d0acf8ccd72b2c"
+  },
+  "actual_exit": {
+    "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/EXIT_RECEIPT.json",
+    "bytes": 541,
+    "sha256": "117740de4db5a57a179e92279c84308cc8c90bb1ae9dbdf170030c75940f92cc",
+    "child_returncode": 0,
+    "timeout": false,
+    "outer_seconds": 192.42931453092024
+  },
+  "fitted_source": 0,
+  "native_transfer_source": 12,
+  "independent_native_transfer_image_clusters": 1,
+  "source_role": "PREVIOUSLY_EXPOSED_DEVELOPMENT_NOT_NEW_HELDOUT",
+  "fixed_kappas": {
+    "2": 1.039908414775213,
+    "3": 1.020973593727097
+  },
+  "native_action": "Native BF16 LN output,explicitFP32 reciprocal multiply,BF16 copyback,original modulation shift andhead bias retained.",
+  "same_state_comparison": [
+    {
+      "step": 2,
+      "bare_head_relative_SSE": 0.0012235714005111615,
+      "corrected_head_relative_SSE": 7.74165097034182e-05,
+      "corrected_over_bare": 0.06327093757755088,
+      "reduction_fraction": 0.9367290624224491
+    },
+    {
+      "step": 3,
+      "bare_head_relative_SSE": 0.0003964990357143936,
+      "corrected_head_relative_SSE": 6.958473919053466e-05,
+      "corrected_over_bare": 0.17549787747947507,
+      "reduction_fraction": 0.8245021225205249
+    }
+  ],
+  "own_state_comparison": {
+    "bare_own_state_flow_relative_SSE": 0.0006608726703443656,
+    "corrected_own_state_flow_relative_SSE": 0.00020097638573664408,
+    "corrected_over_bare": 0.3041075758692214,
+    "reduction_fraction": 0.6958924241307787
+  },
+  "flows": [
+    {
+      "run_id": "raw_fixed_norm_source12_DD2",
+      "source_index": 12,
+      "operation": "DD2",
+      "step": 2,
+      "mode": "D",
+      "status": "COMPLETE_FULL40_FIXED_NORM_FLOW_NOT_VIDEO",
+      "prefix": "HISTORICAL_RAW_DENSE",
+      "kappa_sigmaD_over_sigmaS": 1.0,
+      "deployed_FP32_reciprocal_alpha": 1.0,
+      "V1_role": "RAW_PRE_W1_BF16_WITH_NO_Q1",
+      "hidden_role": "RAW_GELU_TANH_WITH_NO_Q2",
+      "online_teacher_values_used": false,
+      "input_after_step_pre": {
+        "shape": [
+          16,
+          21,
+          58,
+          104
+        ],
+        "dtype": "bfloat16",
+        "raw_tensor_sha256": "5e0807c71a54335a444fef6caaeefe9de0a84537be8108865ad4c07c30ef08d4"
+      },
+      "original_raw_flow_and_post_bitwise_passed": true,
+      "prior_parent_flow_and_post_bitwise_passed": true,
+      "scheduler_rounding": {
+        "arithmetic_squared": 2.1315387749785027e-09,
+        "BF16_cast_squared": 2.7144376317079324
+      },
+      "normalizer_diagnostics": {
+        "fitted_kappa_sigmaD_over_sigmaS": 1.0,
+        "deployed_FP32_reciprocal_alpha": 1.0,
+        "effective_kappa_from_deployed_alpha": 1.0,
+        "raw_u_sigma_mean": 1.8368663509052905,
+        "raw_u_sigma_min": 1.5911340925843842,
+        "raw_u_sigma_max": 1.8821751368134003,
+        "effective_readout_sigma_mean": 1.8368663509052905,
+        "effective_readout_sigma_min": 1.5911340925843842,
+        "effective_readout_sigma_max": 1.8821751368134003,
+        "identity": "Raw u was not modified; gain acts on native BF16 LN output; gain/LN/modulation/GEMM rounding stays in native remainder"
+      },
+      "capture": {
+        "root": "hf",
+        "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/raw_fixed_norm_source12_DD2.safetensors",
+        "bytes": 26733392,
+        "sha256": "ba18c427c68975bc5fab1eb036426705c2accd349b17874eae4f763cdcc5b0e9"
+      },
+      "tensor_metadata": {
+        "flow": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "float32",
+          "raw_tensor_sha256": "3752de6ed2d7eb74ecd44242fc301d67551094de144084bcd5483fa77a7eea90"
+        },
+        "latents": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "6b4c1c1b70a183cc89c78a63d2f763cea4be17f66efaade93fa7f014fd8dc22d"
+        },
+        "head": {
+          "shape": [
+            31668,
+            64
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "658c46775c483436ec5c236b9a499429cc33a7d1c38d28a93c1a0729fc8cc69b"
+        },
+        "rows": {
+          "shape": [
+            256
+          ],
+          "dtype": "int64",
+          "raw_tensor_sha256": "7012c872da85b44572b9fe2e37cea2d80edafacab98c8858c5a342793b7a3bcf"
+        },
+        "gate": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "82a4b5b7a80975a2be9266ea32fe3ff134af68bae77f168e9adefd331179289a"
+        },
+        "V1": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "8a0b5f396e3c0dde3bd2242a59dd7dd883dc3c9bdd4e425e879f1ec1059399c5"
+        },
+        "Y": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "c5a5f3be8f08d837383b7a2f54a63f124f9540d616f606bb8ffca9ce57e6b692"
+        },
+        "r": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "eeaa0567dcfa14311c26b59c1ea48ef4afbf5822ad3989682622da22efd51484"
+        },
+        "head_shift": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "3d0f4a8f4dc775e079cc65bcfa51731aa5fda8820e56b6ea8cf6b7367c9b6b10"
+        },
+        "head_scale": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "793bc460745a73549d3b4e5f2064c9feb4f14d24bfe9742ccda882bcc6d49c89"
+        },
+        "u": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "a896bb477c71abd348c9d3db3fd8acb36651ed24a29abc635058673cb020737f"
+        }
+      },
+      "wall_seconds": 12.403669915162027,
+      "FFN_CUDA_seconds": 1.5685406646728515
+    },
+    {
+      "run_id": "raw_fixed_norm_source12_DD3",
+      "source_index": 12,
+      "operation": "DD3",
+      "step": 3,
+      "mode": "D",
+      "status": "COMPLETE_FULL40_FIXED_NORM_FLOW_NOT_VIDEO",
+      "prefix": "HISTORICAL_RAW_DENSE",
+      "kappa_sigmaD_over_sigmaS": 1.0,
+      "deployed_FP32_reciprocal_alpha": 1.0,
+      "V1_role": "RAW_PRE_W1_BF16_WITH_NO_Q1",
+      "hidden_role": "RAW_GELU_TANH_WITH_NO_Q2",
+      "online_teacher_values_used": false,
+      "input_after_step_pre": {
+        "shape": [
+          16,
+          21,
+          58,
+          104
+        ],
+        "dtype": "bfloat16",
+        "raw_tensor_sha256": "6b4c1c1b70a183cc89c78a63d2f763cea4be17f66efaade93fa7f014fd8dc22d"
+      },
+      "original_raw_flow_and_post_bitwise_passed": true,
+      "prior_parent_flow_and_post_bitwise_passed": true,
+      "scheduler_rounding": {
+        "arithmetic_squared": 6.215167269729704e-14,
+        "BF16_cast_squared": 4.293084167963301
+      },
+      "normalizer_diagnostics": {
+        "fitted_kappa_sigmaD_over_sigmaS": 1.0,
+        "deployed_FP32_reciprocal_alpha": 1.0,
+        "effective_kappa_from_deployed_alpha": 1.0,
+        "raw_u_sigma_mean": 1.5157983140795948,
+        "raw_u_sigma_min": 1.2904275642732461,
+        "raw_u_sigma_max": 1.552927466246245,
+        "effective_readout_sigma_mean": 1.5157983140795948,
+        "effective_readout_sigma_min": 1.2904275642732461,
+        "effective_readout_sigma_max": 1.552927466246245,
+        "identity": "Raw u was not modified; gain acts on native BF16 LN output; gain/LN/modulation/GEMM rounding stays in native remainder"
+      },
+      "capture": {
+        "root": "hf",
+        "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/raw_fixed_norm_source12_DD3.safetensors",
+        "bytes": 26733392,
+        "sha256": "ac16ac2b2859640cc9f59dbc304be9af970198570f9d5f2f971256b2f9cffe2d"
+      },
+      "tensor_metadata": {
+        "flow": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "float32",
+          "raw_tensor_sha256": "d7d4b5fff7c9bb8c8dbba1c6e787f2ff50e9e7999a6e3fb20b500e494d8c1ae5"
+        },
+        "latents": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "622676e015ed7d185a790db840339048c9314ba07b19cf7f23fb572f410ef9f4"
+        },
+        "head": {
+          "shape": [
+            31668,
+            64
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "11502aa8b76ffe10ae1ca1e69bb9dd417a630cefe632cf5a2eebb2fabb8b4527"
+        },
+        "rows": {
+          "shape": [
+            256
+          ],
+          "dtype": "int64",
+          "raw_tensor_sha256": "c9ddf681562b688ad4edd04b0e727f17bf0040d6b77b6049ae8dc87c7adb5684"
+        },
+        "gate": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "8062aa87664f65ddba8f67ecbefe9a6899b9f4f70479b0ff9209d37eabb741e1"
+        },
+        "V1": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "f17e3bfd22b3f9dc31682f6a3c2f25efe64576d65e149895e5eb89b5956a1c3b"
+        },
+        "Y": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "dcfe3a08841214c949ae0b0182ebfb9c592fc092cd19f5f966e90cbba52abcda"
+        },
+        "r": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "1f5b0c0dc9a0ca3b733bfff1c7827adb99c0262bb1654c902267973acca653ca"
+        },
+        "head_shift": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "12845144375c2b1f89650464d3914a107931ef861c2d12a635840df03a7351ca"
+        },
+        "head_scale": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "9dea29b847f5b0132a1d63cd5980c291fd165294a3978e961f922405d8637892"
+        },
+        "u": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "b0ddd8174bf3d67315d884eaa521547828b8541d8e596dcfa0f1d287fd70c78d"
+        }
+      },
+      "wall_seconds": 9.4114695568569,
+      "FFN_CUDA_seconds": 1.579849723815918
+    },
+    {
+      "run_id": "raw_fixed_norm_source12_SD2",
+      "source_index": 12,
+      "operation": "SD2",
+      "step": 2,
+      "mode": "S",
+      "status": "COMPLETE_FULL40_FIXED_NORM_FLOW_NOT_VIDEO",
+      "prefix": "HISTORICAL_RAW_DENSE",
+      "kappa_sigmaD_over_sigmaS": 1.0,
+      "deployed_FP32_reciprocal_alpha": 1.0,
+      "V1_role": "RAW_PRE_W1_BF16_WITH_NO_Q1",
+      "hidden_role": "RAW_GELU_TANH_WITH_NO_Q2",
+      "online_teacher_values_used": false,
+      "input_after_step_pre": {
+        "shape": [
+          16,
+          21,
+          58,
+          104
+        ],
+        "dtype": "bfloat16",
+        "raw_tensor_sha256": "5e0807c71a54335a444fef6caaeefe9de0a84537be8108865ad4c07c30ef08d4"
+      },
+      "prior_parent_flow_and_post_bitwise_passed": true,
+      "scheduler_rounding": {
+        "arithmetic_squared": 2.2292605972356286e-09,
+        "BF16_cast_squared": 2.6848561278796916
+      },
+      "normalizer_diagnostics": {
+        "fitted_kappa_sigmaD_over_sigmaS": 1.0,
+        "deployed_FP32_reciprocal_alpha": 1.0,
+        "effective_kappa_from_deployed_alpha": 1.0,
+        "raw_u_sigma_mean": 1.7760510638333973,
+        "raw_u_sigma_min": 1.5577041650278398,
+        "raw_u_sigma_max": 1.8179669641467744,
+        "effective_readout_sigma_mean": 1.7760510638333973,
+        "effective_readout_sigma_min": 1.5577041650278398,
+        "effective_readout_sigma_max": 1.8179669641467744,
+        "identity": "Raw u was not modified; gain acts on native BF16 LN output; gain/LN/modulation/GEMM rounding stays in native remainder"
+      },
+      "head_diagnostics_vs_same_step_Dense_teacher_state": {
+        "head_target_energy": 3425632.481671764,
+        "head_SSE": 4191.505933235646,
+        "head_relative_SSE": 0.0012235714005111615,
+        "direct_relative_SSE": 3.3825856689364173e-07,
+        "radial_relative_SSE": 0.0012161880101992921,
+        "signed_cross_relative_SSE": 1.5919058906458264e-07,
+        "continuous_relative_SSE": 0.0012166854593552506,
+        "native_remainder_relative_SSE": 6.835978048596271e-06,
+        "native_signed_remainder_cross": 4.99631073145684e-08,
+        "q_SSE": 3.899199332453894,
+        "variance_SSE": 1608.0007859786963,
+        "closure_residual": 5.568579883706982e-20
+      },
+      "head_diagnostics_normalizer_identity": "Effective sigma = raw_u_sigma / deployed_FP32_alpha; q is raw_u q, not fitted; native remainder includes gain FP32/BF16 rounding",
+      "gated_Y_SSE": 935153.8692494979,
+      "gated_Y_target_energy": 33781188.09208625,
+      "gated_Y_relative_SSE": 0.027682681458695402,
+      "capture": {
+        "root": "hf",
+        "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/raw_fixed_norm_source12_SD2.safetensors",
+        "bytes": 26733392,
+        "sha256": "06b779b2da0d1709101dd336b207dfb4bfdbce02a4f860160611f4b08179512a"
+      },
+      "tensor_metadata": {
+        "flow": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "float32",
+          "raw_tensor_sha256": "eb00ccd40e815ad1f7332a5587b02469fb6600faa0c56b29605acfd0a56753bc"
+        },
+        "latents": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "c42db2ea5e6a71adfd6bf9db2ebbaa5e5926b9ffa591ff6c8e400dc596ef7725"
+        },
+        "head": {
+          "shape": [
+            31668,
+            64
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "e3d4c7c0d88a47650ce9dfe7bf889813c17661338d68fe10355ec049f44c205c"
+        },
+        "rows": {
+          "shape": [
+            256
+          ],
+          "dtype": "int64",
+          "raw_tensor_sha256": "7012c872da85b44572b9fe2e37cea2d80edafacab98c8858c5a342793b7a3bcf"
+        },
+        "gate": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "82a4b5b7a80975a2be9266ea32fe3ff134af68bae77f168e9adefd331179289a"
+        },
+        "V1": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "8a0b5f396e3c0dde3bd2242a59dd7dd883dc3c9bdd4e425e879f1ec1059399c5"
+        },
+        "Y": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "7e6ea4760437dfe6f9107c39fe0e9ea712159a6dec786aef2a4f1270f94a08d7"
+        },
+        "r": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "eeaa0567dcfa14311c26b59c1ea48ef4afbf5822ad3989682622da22efd51484"
+        },
+        "head_shift": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "3d0f4a8f4dc775e079cc65bcfa51731aa5fda8820e56b6ea8cf6b7367c9b6b10"
+        },
+        "head_scale": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "793bc460745a73549d3b4e5f2064c9feb4f14d24bfe9742ccda882bcc6d49c89"
+        },
+        "u": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "5048c5009c30a6a5b0ed4edb45b5db277a2b8eeb89f46764c9a6cc73dcc65261"
+        }
+      },
+      "wall_seconds": 9.423868202138692,
+      "FFN_CUDA_seconds": 1.5787828483581543
+    },
+    {
+      "run_id": "raw_fixed_norm_source12_SD3",
+      "source_index": 12,
+      "operation": "SD3",
+      "step": 3,
+      "mode": "S",
+      "status": "COMPLETE_FULL40_FIXED_NORM_FLOW_NOT_VIDEO",
+      "prefix": "HISTORICAL_RAW_DENSE",
+      "kappa_sigmaD_over_sigmaS": 1.0,
+      "deployed_FP32_reciprocal_alpha": 1.0,
+      "V1_role": "RAW_PRE_W1_BF16_WITH_NO_Q1",
+      "hidden_role": "RAW_GELU_TANH_WITH_NO_Q2",
+      "online_teacher_values_used": false,
+      "input_after_step_pre": {
+        "shape": [
+          16,
+          21,
+          58,
+          104
+        ],
+        "dtype": "bfloat16",
+        "raw_tensor_sha256": "6b4c1c1b70a183cc89c78a63d2f763cea4be17f66efaade93fa7f014fd8dc22d"
+      },
+      "prior_parent_flow_and_post_bitwise_passed": true,
+      "scheduler_rounding": {
+        "arithmetic_squared": 5.382586737434636e-14,
+        "BF16_cast_squared": 4.403602866658374
+      },
+      "normalizer_diagnostics": {
+        "fitted_kappa_sigmaD_over_sigmaS": 1.0,
+        "deployed_FP32_reciprocal_alpha": 1.0,
+        "effective_kappa_from_deployed_alpha": 1.0,
+        "raw_u_sigma_mean": 1.488599404505028,
+        "raw_u_sigma_min": 1.2860078460517477,
+        "raw_u_sigma_max": 1.5231767323913894,
+        "effective_readout_sigma_mean": 1.488599404505028,
+        "effective_readout_sigma_min": 1.2860078460517477,
+        "effective_readout_sigma_max": 1.5231767323913894,
+        "identity": "Raw u was not modified; gain acts on native BF16 LN output; gain/LN/modulation/GEMM rounding stays in native remainder"
+      },
+      "head_diagnostics_vs_same_step_Dense_teacher_state": {
+        "head_target_energy": 3421094.480324423,
+        "head_SSE": 1356.4606625364681,
+        "head_relative_SSE": 0.0003964990357143936,
+        "direct_relative_SSE": 3.8718966015158994e-07,
+        "radial_relative_SSE": 0.00038973468942675985,
+        "signed_cross_relative_SSE": -4.0767632302473173e-07,
+        "continuous_relative_SSE": 0.0003897142027638866,
+        "native_remainder_relative_SSE": 6.86219813349091e-06,
+        "native_signed_remainder_cross": -7.736518298396083e-08,
+        "q_SSE": 3.0269218314081665,
+        "variance_SSE": 251.20560332056203,
+        "closure_residual": 3.5072457972248373e-20
+      },
+      "head_diagnostics_normalizer_identity": "Effective sigma = raw_u_sigma / deployed_FP32_alpha; q is raw_u q, not fitted; native remainder includes gain FP32/BF16 rounding",
+      "gated_Y_SSE": 336084.61595304694,
+      "gated_Y_target_energy": 10964631.238549368,
+      "gated_Y_relative_SSE": 0.030651702610065275,
+      "capture": {
+        "root": "hf",
+        "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/raw_fixed_norm_source12_SD3.safetensors",
+        "bytes": 26733392,
+        "sha256": "b84241290745ef96361ed18c4261581a57f0d91c19143cdc5d0a02cf5f95e3ae"
+      },
+      "tensor_metadata": {
+        "flow": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "float32",
+          "raw_tensor_sha256": "e9d70486f402818f3c320d09a8d59ab0a3b5ca10620a2b85492a484b9959b97a"
+        },
+        "latents": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "4601075b7452edda4123a3e2e20983ef95b8f3a993601e291649f6374fb69eeb"
+        },
+        "head": {
+          "shape": [
+            31668,
+            64
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "c647062cf9852ee64176fa193cee0f1395def72d73e14397a97108abe0a4b8f0"
+        },
+        "rows": {
+          "shape": [
+            256
+          ],
+          "dtype": "int64",
+          "raw_tensor_sha256": "c9ddf681562b688ad4edd04b0e727f17bf0040d6b77b6049ae8dc87c7adb5684"
+        },
+        "gate": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "8062aa87664f65ddba8f67ecbefe9a6899b9f4f70479b0ff9209d37eabb741e1"
+        },
+        "V1": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "f17e3bfd22b3f9dc31682f6a3c2f25efe64576d65e149895e5eb89b5956a1c3b"
+        },
+        "Y": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "b80f915ad60357f61d48b7fca9cbb9691944604edfedf9a0b2ad38ed6bc7f94a"
+        },
+        "r": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "1f5b0c0dc9a0ca3b733bfff1c7827adb99c0262bb1654c902267973acca653ca"
+        },
+        "head_shift": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "12845144375c2b1f89650464d3914a107931ef861c2d12a635840df03a7351ca"
+        },
+        "head_scale": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "9dea29b847f5b0132a1d63cd5980c291fd165294a3978e961f922405d8637892"
+        },
+        "u": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "e6de28eeda353ca15f6b885b62baa8f32aaa86d5e81909ba50285750b1bedc1a"
+        }
+      },
+      "wall_seconds": 9.396621312946081,
+      "FFN_CUDA_seconds": 1.5805059852600098
+    },
+    {
+      "run_id": "raw_fixed_norm_source12_CD2",
+      "source_index": 12,
+      "operation": "CD2",
+      "step": 2,
+      "mode": "S",
+      "status": "COMPLETE_FULL40_FIXED_NORM_FLOW_NOT_VIDEO",
+      "prefix": "HISTORICAL_RAW_DENSE",
+      "kappa_sigmaD_over_sigmaS": 1.039908414775213,
+      "deployed_FP32_reciprocal_alpha": 0.9616231322288513,
+      "V1_role": "RAW_PRE_W1_BF16_WITH_NO_Q1",
+      "hidden_role": "RAW_GELU_TANH_WITH_NO_Q2",
+      "online_teacher_values_used": false,
+      "input_after_step_pre": {
+        "shape": [
+          16,
+          21,
+          58,
+          104
+        ],
+        "dtype": "bfloat16",
+        "raw_tensor_sha256": "5e0807c71a54335a444fef6caaeefe9de0a84537be8108865ad4c07c30ef08d4"
+      },
+      "scheduler_rounding": {
+        "arithmetic_squared": 2.119124289556436e-09,
+        "BF16_cast_squared": 2.7199919538739525
+      },
+      "normalizer_diagnostics": {
+        "fitted_kappa_sigmaD_over_sigmaS": 1.039908414775213,
+        "deployed_FP32_reciprocal_alpha": 0.9616231322288513,
+        "effective_kappa_from_deployed_alpha": 1.0399084282448559,
+        "raw_u_sigma_mean": 1.7760510638333973,
+        "raw_u_sigma_min": 1.5577041650278398,
+        "raw_u_sigma_max": 1.8179669641467744,
+        "effective_readout_sigma_mean": 1.8469304702735925,
+        "effective_readout_sigma_min": 1.6198696899245664,
+        "effective_readout_sigma_max": 1.8905191682869444,
+        "identity": "Raw u was not modified; gain acts on native BF16 LN output; gain/LN/modulation/GEMM rounding stays in native remainder"
+      },
+      "head_diagnostics_vs_same_step_Dense_teacher_state": {
+        "head_target_energy": 3425632.481671764,
+        "head_SSE": 265.2005102576867,
+        "head_relative_SSE": 7.74165097034182e-05,
+        "direct_relative_SSE": 3.3825856689364173e-07,
+        "radial_relative_SSE": 7.136763749964687e-05,
+        "signed_cross_relative_SSE": -4.847207333616473e-09,
+        "continuous_relative_SSE": 7.170104885920689e-05,
+        "native_remainder_relative_SSE": 6.873262344061195e-06,
+        "native_signed_remainder_cross": -1.1578014998499033e-06,
+        "q_SSE": 3.899199332453894,
+        "variance_SSE": 101.63128370499408,
+        "closure_residual": 1.9481757786848908e-20
+      },
+      "head_diagnostics_normalizer_identity": "Effective sigma = raw_u_sigma / deployed_FP32_alpha; q is raw_u q, not fitted; native remainder includes gain FP32/BF16 rounding",
+      "gated_Y_SSE": 935153.8692494979,
+      "gated_Y_target_energy": 33781188.09208625,
+      "gated_Y_relative_SSE": 0.027682681458695402,
+      "capture": {
+        "root": "hf",
+        "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/raw_fixed_norm_source12_CD2.safetensors",
+        "bytes": 26733392,
+        "sha256": "fa8ed30251bd9a87c638348a8c89ab1bce65d8705d03eba78d9e1d7343a2bff0"
+      },
+      "tensor_metadata": {
+        "flow": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "float32",
+          "raw_tensor_sha256": "ce43a7c9222f0cdc8bcf08d74937771a9bdd8f6b9491f1a9bc6ae7bde2d20647"
+        },
+        "latents": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "b480a41d2b78a39f961afe75d7acc3a37f4174bed6a67dad81e8fe637bd7511e"
+        },
+        "head": {
+          "shape": [
+            31668,
+            64
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "2072d8067f92dda827a3ad5cba2875502a14df0508910df6cbfa9c58a356c623"
+        },
+        "rows": {
+          "shape": [
+            256
+          ],
+          "dtype": "int64",
+          "raw_tensor_sha256": "7012c872da85b44572b9fe2e37cea2d80edafacab98c8858c5a342793b7a3bcf"
+        },
+        "gate": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "82a4b5b7a80975a2be9266ea32fe3ff134af68bae77f168e9adefd331179289a"
+        },
+        "V1": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "8a0b5f396e3c0dde3bd2242a59dd7dd883dc3c9bdd4e425e879f1ec1059399c5"
+        },
+        "Y": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "7e6ea4760437dfe6f9107c39fe0e9ea712159a6dec786aef2a4f1270f94a08d7"
+        },
+        "r": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "eeaa0567dcfa14311c26b59c1ea48ef4afbf5822ad3989682622da22efd51484"
+        },
+        "head_shift": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "3d0f4a8f4dc775e079cc65bcfa51731aa5fda8820e56b6ea8cf6b7367c9b6b10"
+        },
+        "head_scale": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "793bc460745a73549d3b4e5f2064c9feb4f14d24bfe9742ccda882bcc6d49c89"
+        },
+        "u": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "5048c5009c30a6a5b0ed4edb45b5db277a2b8eeb89f46764c9a6cc73dcc65261"
+        }
+      },
+      "wall_seconds": 9.419025263981894,
+      "FFN_CUDA_seconds": 1.58320068359375
+    },
+    {
+      "run_id": "raw_fixed_norm_source12_CD3",
+      "source_index": 12,
+      "operation": "CD3",
+      "step": 3,
+      "mode": "S",
+      "status": "COMPLETE_FULL40_FIXED_NORM_FLOW_NOT_VIDEO",
+      "prefix": "HISTORICAL_RAW_DENSE",
+      "kappa_sigmaD_over_sigmaS": 1.020973593727097,
+      "deployed_FP32_reciprocal_alpha": 0.9794572591781616,
+      "V1_role": "RAW_PRE_W1_BF16_WITH_NO_Q1",
+      "hidden_role": "RAW_GELU_TANH_WITH_NO_Q2",
+      "online_teacher_values_used": false,
+      "input_after_step_pre": {
+        "shape": [
+          16,
+          21,
+          58,
+          104
+        ],
+        "dtype": "bfloat16",
+        "raw_tensor_sha256": "6b4c1c1b70a183cc89c78a63d2f763cea4be17f66efaade93fa7f014fd8dc22d"
+      },
+      "scheduler_rounding": {
+        "arithmetic_squared": 5.862197120960755e-14,
+        "BF16_cast_squared": 4.286028168104961
+      },
+      "normalizer_diagnostics": {
+        "fitted_kappa_sigmaD_over_sigmaS": 1.020973593727097,
+        "deployed_FP32_reciprocal_alpha": 0.9794572591781616,
+        "effective_kappa_from_deployed_alpha": 1.0209735959679092,
+        "raw_u_sigma_mean": 1.488599404505028,
+        "raw_u_sigma_min": 1.2860078460517477,
+        "raw_u_sigma_max": 1.5231767323913894,
+        "effective_readout_sigma_mean": 1.5198206869731863,
+        "effective_readout_sigma_min": 1.3129800550263981,
+        "effective_readout_sigma_max": 1.5551232257642864,
+        "identity": "Raw u was not modified; gain acts on native BF16 LN output; gain/LN/modulation/GEMM rounding stays in native remainder"
+      },
+      "head_diagnostics_vs_same_step_Dense_teacher_state": {
+        "head_target_energy": 3421094.480324423,
+        "head_SSE": 238.05596715955267,
+        "head_relative_SSE": 6.958473919053466e-05,
+        "direct_relative_SSE": 3.8718966015158994e-07,
+        "radial_relative_SSE": 6.255809637652096e-05,
+        "signed_cross_relative_SSE": -1.0880790776792879e-07,
+        "continuous_relative_SSE": 6.283647812890463e-05,
+        "native_remainder_relative_SSE": 6.5624227324898535e-06,
+        "native_signed_remainder_cross": 1.8583832914017114e-07,
+        "q_SSE": 3.0269218314081665,
+        "variance_SSE": 38.68847286111519,
+        "closure_residual": 8.999725064576941e-21
+      },
+      "head_diagnostics_normalizer_identity": "Effective sigma = raw_u_sigma / deployed_FP32_alpha; q is raw_u q, not fitted; native remainder includes gain FP32/BF16 rounding",
+      "gated_Y_SSE": 336084.61595304694,
+      "gated_Y_target_energy": 10964631.238549368,
+      "gated_Y_relative_SSE": 0.030651702610065275,
+      "capture": {
+        "root": "hf",
+        "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/raw_fixed_norm_source12_CD3.safetensors",
+        "bytes": 26733392,
+        "sha256": "e6b0e346037519facd4e29887ee65447596bb7cbf91853b01f85a0da66de3c9d"
+      },
+      "tensor_metadata": {
+        "flow": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "float32",
+          "raw_tensor_sha256": "92309876799279dfeea4228010c7314c58a9d200c3240d1c9ffe2023ac58005a"
+        },
+        "latents": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "091eb0073cd8a0ffe6e4566cec3f7ee8b39b1b60a48dbcbafa22c8630d429e6a"
+        },
+        "head": {
+          "shape": [
+            31668,
+            64
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "84371b76852f6044856906e52067660440003317dfe6d5a7b58cd10323122331"
+        },
+        "rows": {
+          "shape": [
+            256
+          ],
+          "dtype": "int64",
+          "raw_tensor_sha256": "c9ddf681562b688ad4edd04b0e727f17bf0040d6b77b6049ae8dc87c7adb5684"
+        },
+        "gate": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "8062aa87664f65ddba8f67ecbefe9a6899b9f4f70479b0ff9209d37eabb741e1"
+        },
+        "V1": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "f17e3bfd22b3f9dc31682f6a3c2f25efe64576d65e149895e5eb89b5956a1c3b"
+        },
+        "Y": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "b80f915ad60357f61d48b7fca9cbb9691944604edfedf9a0b2ad38ed6bc7f94a"
+        },
+        "r": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "1f5b0c0dc9a0ca3b733bfff1c7827adb99c0262bb1654c902267973acca653ca"
+        },
+        "head_shift": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "12845144375c2b1f89650464d3914a107931ef861c2d12a635840df03a7351ca"
+        },
+        "head_scale": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "9dea29b847f5b0132a1d63cd5980c291fd165294a3978e961f922405d8637892"
+        },
+        "u": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "e6de28eeda353ca15f6b885b62baa8f32aaa86d5e81909ba50285750b1bedc1a"
+        }
+      },
+      "wall_seconds": 9.44655742822215,
+      "FFN_CUDA_seconds": 1.587425952911377
+    },
+    {
+      "run_id": "raw_fixed_norm_source12_DC3",
+      "source_index": 12,
+      "operation": "DC3",
+      "step": 3,
+      "mode": "D",
+      "status": "COMPLETE_FULL40_FIXED_NORM_FLOW_NOT_VIDEO",
+      "prefix": "CORRECTED_C_STEP2_POST",
+      "kappa_sigmaD_over_sigmaS": 1.0,
+      "deployed_FP32_reciprocal_alpha": 1.0,
+      "V1_role": "RAW_PRE_W1_BF16_WITH_NO_Q1",
+      "hidden_role": "RAW_GELU_TANH_WITH_NO_Q2",
+      "online_teacher_values_used": false,
+      "input_after_step_pre": {
+        "shape": [
+          16,
+          21,
+          58,
+          104
+        ],
+        "dtype": "bfloat16",
+        "raw_tensor_sha256": "b480a41d2b78a39f961afe75d7acc3a37f4174bed6a67dad81e8fe637bd7511e"
+      },
+      "scheduler_rounding": {
+        "arithmetic_squared": 3.747366254650865e-14,
+        "BF16_cast_squared": 4.297585285672274
+      },
+      "normalizer_diagnostics": {
+        "fitted_kappa_sigmaD_over_sigmaS": 1.0,
+        "deployed_FP32_reciprocal_alpha": 1.0,
+        "effective_kappa_from_deployed_alpha": 1.0,
+        "raw_u_sigma_mean": 1.5171801304320567,
+        "raw_u_sigma_min": 1.2912388951050477,
+        "raw_u_sigma_max": 1.5549151641317618,
+        "effective_readout_sigma_mean": 1.5171801304320567,
+        "effective_readout_sigma_min": 1.2912388951050477,
+        "effective_readout_sigma_max": 1.5549151641317618,
+        "identity": "Raw u was not modified; gain acts on native BF16 LN output; gain/LN/modulation/GEMM rounding stays in native remainder"
+      },
+      "head_diagnostics_vs_same_step_Dense_teacher_state": {
+        "head_target_energy": 3421094.480324423,
+        "head_SSE": 553.1018735190557,
+        "head_relative_SSE": 0.00016167395454878085,
+        "direct_relative_SSE": 0.0001534584681924491,
+        "radial_relative_SSE": 4.530771817679779e-06,
+        "signed_cross_relative_SSE": -2.9072023505357667e-06,
+        "continuous_relative_SSE": 0.0001550820376595931,
+        "native_remainder_relative_SSE": 6.573071745212732e-06,
+        "native_signed_remainder_cross": 1.8845143974974392e-08,
+        "q_SSE": 1206.6791937957087,
+        "variance_SSE": 3.0756971431829543,
+        "closure_residual": 4.237149969741629e-20
+      },
+      "head_diagnostics_normalizer_identity": "Effective sigma = raw_u_sigma / deployed_FP32_alpha; q is raw_u q, not fitted; native remainder includes gain FP32/BF16 rounding",
+      "gated_Y_SSE": 4404.054057263978,
+      "gated_Y_target_energy": 10964631.238549368,
+      "gated_Y_relative_SSE": 0.0004016600249883679,
+      "capture": {
+        "root": "hf",
+        "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/raw_fixed_norm_source12_DC3.safetensors",
+        "bytes": 26733392,
+        "sha256": "6cfb5b906b599a609595da06f626fe1e619ad237c9cfbb97901939a6f54b99c8"
+      },
+      "tensor_metadata": {
+        "flow": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "float32",
+          "raw_tensor_sha256": "66f33e86f9ce734e8dab53e0ed7a517a7a904ac0bce4feee22aa420142d9e571"
+        },
+        "latents": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "69549ca57281265ef8728f46c11e47b997702efa54055274b344c5bf6ded54a7"
+        },
+        "head": {
+          "shape": [
+            31668,
+            64
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "4d7972f04ec1bb61c789e54154b27368308e2adf4e5d8267b4021bf2acf685a8"
+        },
+        "rows": {
+          "shape": [
+            256
+          ],
+          "dtype": "int64",
+          "raw_tensor_sha256": "c9ddf681562b688ad4edd04b0e727f17bf0040d6b77b6049ae8dc87c7adb5684"
+        },
+        "gate": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "8062aa87664f65ddba8f67ecbefe9a6899b9f4f70479b0ff9209d37eabb741e1"
+        },
+        "V1": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "af061d1b810e5be6082bdf1812d6a9b2c1b1cd40e24ed07f21614301fd55925e"
+        },
+        "Y": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "9555de2f86ba4d1c35e3dd97a25b0e22d350c7a8bc38d27546214b7b0d979603"
+        },
+        "r": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "053735372ad98b01648ce5b8d0a1f976cc624b8ac8fd86b549b680887243b142"
+        },
+        "head_shift": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "12845144375c2b1f89650464d3914a107931ef861c2d12a635840df03a7351ca"
+        },
+        "head_scale": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "9dea29b847f5b0132a1d63cd5980c291fd165294a3978e961f922405d8637892"
+        },
+        "u": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "0e81d15ab0fbc60a12a751cbdd02dfda4f175561e6411d64ba1d4ced458785b1"
+        }
+      },
+      "wall_seconds": 9.485297507140785,
+      "FFN_CUDA_seconds": 1.608592185974121
+    },
+    {
+      "run_id": "raw_fixed_norm_source12_CC3",
+      "source_index": 12,
+      "operation": "CC3",
+      "step": 3,
+      "mode": "S",
+      "status": "COMPLETE_FULL40_FIXED_NORM_FLOW_NOT_VIDEO",
+      "prefix": "CORRECTED_C_STEP2_POST",
+      "kappa_sigmaD_over_sigmaS": 1.020973593727097,
+      "deployed_FP32_reciprocal_alpha": 0.9794572591781616,
+      "V1_role": "RAW_PRE_W1_BF16_WITH_NO_Q1",
+      "hidden_role": "RAW_GELU_TANH_WITH_NO_Q2",
+      "online_teacher_values_used": false,
+      "input_after_step_pre": {
+        "shape": [
+          16,
+          21,
+          58,
+          104
+        ],
+        "dtype": "bfloat16",
+        "raw_tensor_sha256": "b480a41d2b78a39f961afe75d7acc3a37f4174bed6a67dad81e8fe637bd7511e"
+      },
+      "scheduler_rounding": {
+        "arithmetic_squared": 5.480707034044574e-14,
+        "BF16_cast_squared": 4.285735777199949
+      },
+      "normalizer_diagnostics": {
+        "fitted_kappa_sigmaD_over_sigmaS": 1.020973593727097,
+        "deployed_FP32_reciprocal_alpha": 0.9794572591781616,
+        "effective_kappa_from_deployed_alpha": 1.0209735959679092,
+        "raw_u_sigma_mean": 1.4895868128777345,
+        "raw_u_sigma_min": 1.2882504397168608,
+        "raw_u_sigma_max": 1.5230507689983497,
+        "effective_readout_sigma_mean": 1.5208288048501577,
+        "effective_readout_sigma_min": 1.3152696839449636,
+        "effective_readout_sigma_max": 1.5549946204659344,
+        "identity": "Raw u was not modified; gain acts on native BF16 LN output; gain/LN/modulation/GEMM rounding stays in native remainder"
+      },
+      "head_diagnostics_vs_same_step_Dense_teacher_state": {
+        "head_target_energy": 3421094.480324423,
+        "head_SSE": 687.5592039191852,
+        "head_relative_SSE": 0.00020097638573664408,
+        "direct_relative_SSE": 0.00015368534978659872,
+        "radial_relative_SSE": 6.960021463565944e-05,
+        "signed_cross_relative_SSE": -2.934074386339192e-05,
+        "continuous_relative_SSE": 0.00019394482055886626,
+        "native_remainder_relative_SSE": 6.843114611002688e-06,
+        "native_signed_remainder_cross": 1.8845056677518042e-07,
+        "q_SSE": 1208.4518038802098,
+        "variance_SSE": 42.94153595230266,
+        "closure_residual": -4.573977915173222e-20
+      },
+      "head_diagnostics_normalizer_identity": "Effective sigma = raw_u_sigma / deployed_FP32_alpha; q is raw_u q, not fitted; native remainder includes gain FP32/BF16 rounding",
+      "gated_Y_SSE": 340307.4225587493,
+      "gated_Y_target_energy": 11107294.405260608,
+      "gated_Y_relative_SSE": 0.030638192357409184,
+      "capture": {
+        "root": "hf",
+        "path": "ffnds-derived/e0_original_bf16_low39_fixed_norm_transfer_20261028/attempt1/worker/results/raw_fixed_norm_source12_CC3.safetensors",
+        "bytes": 26733392,
+        "sha256": "e4afdfb3025ffe0bbdc54a0c6411191e30876397fcada8cfac8abb30840d19d3"
+      },
+      "tensor_metadata": {
+        "flow": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "float32",
+          "raw_tensor_sha256": "0171c8d09ed7fe0f067db7240f8a50ee9b9b9ad4233d5e46bfae09b6da2ac4c4"
+        },
+        "latents": {
+          "shape": [
+            16,
+            21,
+            58,
+            104
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "04715d1f9c6b5180307c4ad7e41596876e3ea0736a5b609e46ca12b5b66313bf"
+        },
+        "head": {
+          "shape": [
+            31668,
+            64
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "cb3041706ded8d8ca95b16d6b7f1a5a0a0e55d8a2ee64a19a1c25442c74a7a7a"
+        },
+        "rows": {
+          "shape": [
+            256
+          ],
+          "dtype": "int64",
+          "raw_tensor_sha256": "c9ddf681562b688ad4edd04b0e727f17bf0040d6b77b6049ae8dc87c7adb5684"
+        },
+        "gate": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "8062aa87664f65ddba8f67ecbefe9a6899b9f4f70479b0ff9209d37eabb741e1"
+        },
+        "V1": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "af061d1b810e5be6082bdf1812d6a9b2c1b1cd40e24ed07f21614301fd55925e"
+        },
+        "Y": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "f52ec2e65c6e2519c0153db310ba2a5c0fbc61ebf0d3ffee78c7d633ac316740"
+        },
+        "r": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "053735372ad98b01648ce5b8d0a1f976cc624b8ac8fd86b549b680887243b142"
+        },
+        "head_shift": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "12845144375c2b1f89650464d3914a107931ef861c2d12a635840df03a7351ca"
+        },
+        "head_scale": {
+          "shape": [
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "9dea29b847f5b0132a1d63cd5980c291fd165294a3978e961f922405d8637892"
+        },
+        "u": {
+          "shape": [
+            256,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "raw_tensor_sha256": "5ebb29c5775a82f3852272492792cf647ae7e306bd8113003d0f0749a86350b5"
+        }
+      },
+      "wall_seconds": 9.469233273994178,
+      "FFN_CUDA_seconds": 1.5905433197021484
+    }
+  ],
+  "four_corner": {
+    "Dense_target_energy": 3421094.480324423,
+    "total_squared": 687.5592039191852,
+    "terms": {
+      "teacher_state_local": 238.05596715955267,
+      "Dense_state_propagation": 553.1018735190556,
+      "approximation_state_change": 64.76267283849148,
+      "local_state_cross": -38.821623807182405,
+      "local_change_cross": -68.47400625876529,
+      "state_change_cross": -61.06567953196689
+    },
+    "relative_terms": {
+      "teacher_state_local": 6.958473919053466e-05,
+      "Dense_state_propagation": 0.0001616739545487808,
+      "approximation_state_change": 1.8930395875050497e-05,
+      "local_state_cross": -1.134772045333894e-05,
+      "local_change_cross": -2.001523391200581e-05,
+      "state_change_cross": -1.784974951237711e-05
+    },
+    "closure_residual": -1.1368683772161603e-13,
+    "time_slots": [
+      {
+        "slot": 0,
+        "Dense_target_energy": 131845.38297909574,
+        "total_squared": 47.890314363781734,
+        "terms": {
+          "teacher_state_local": 58.48596987898567,
+          "Dense_state_propagation": 16.472599114458525,
+          "approximation_state_change": 2.9966270370183583,
+          "local_state_cross": -23.028229046366846,
+          "local_change_cross": -3.6568657025320874,
+          "state_change_cross": -3.379786917781887
+        },
+        "closure_residual": -7.105427357601002e-15
+      },
+      {
+        "slot": 1,
+        "Dense_target_energy": 148070.2898859998,
+        "total_squared": 23.97282438612502,
+        "terms": {
+          "teacher_state_local": 6.691668819832108,
+          "Dense_state_propagation": 20.817770855039946,
+          "approximation_state_change": 2.810929049028741,
+          "local_state_cross": -0.49025743061968363,
+          "local_change_cross": -3.1821780468263334,
+          "state_change_cross": -2.675108860329758
+        },
+        "closure_residual": -3.552713678800501e-15
+      },
+      {
+        "slot": 2,
+        "Dense_target_energy": 159949.2859298754,
+        "total_squared": 29.66897794666933,
+        "terms": {
+          "teacher_state_local": 13.48232183143222,
+          "Dense_state_propagation": 22.05353318220763,
+          "approximation_state_change": 3.167517493249396,
+          "local_state_cross": -2.002759107368888,
+          "local_change_cross": -3.931952511395032,
+          "state_change_cross": -3.099682941455997
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 3,
+        "Dense_target_energy": 164140.3552231898,
+        "total_squared": 32.75789538354217,
+        "terms": {
+          "teacher_state_local": 10.683753037485204,
+          "Dense_state_propagation": 26.438559392716847,
+          "approximation_state_change": 3.146913684932086,
+          "local_state_cross": -0.7771120476832891,
+          "local_change_cross": -3.6986164339226946,
+          "state_change_cross": -3.035602249985981
+        },
+        "closure_residual": -7.105427357601002e-15
+      },
+      {
+        "slot": 4,
+        "Dense_target_energy": 165995.54245641778,
+        "total_squared": 32.399870566485944,
+        "terms": {
+          "teacher_state_local": 15.358696274168267,
+          "Dense_state_propagation": 23.143513536805322,
+          "approximation_state_change": 3.2548549007842187,
+          "local_state_cross": -1.740809936220785,
+          "local_change_cross": -4.241293211876268,
+          "state_change_cross": -3.375090997174805
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 5,
+        "Dense_target_energy": 165587.8665646671,
+        "total_squared": 31.10040329254646,
+        "terms": {
+          "teacher_state_local": 8.47525898430889,
+          "Dense_state_propagation": 26.09607515439633,
+          "approximation_state_change": 3.209671680914835,
+          "local_state_cross": 0.06608721769465475,
+          "local_change_cross": -3.5498072418363567,
+          "state_change_cross": -3.1968825029318957
+        },
+        "closure_residual": -1.0658141036401503e-14
+      },
+      {
+        "slot": 6,
+        "Dense_target_energy": 165500.57581240172,
+        "total_squared": 33.446507397240694,
+        "terms": {
+          "teacher_state_local": 14.844990645326263,
+          "Dense_state_propagation": 24.438852390368055,
+          "approximation_state_change": 3.181487690250351,
+          "local_state_cross": -2.359833059408288,
+          "local_change_cross": -3.454984646120778,
+          "state_change_cross": -3.2040056231749077
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 7,
+        "Dense_target_energy": 165753.636085131,
+        "total_squared": 32.803093010066,
+        "terms": {
+          "teacher_state_local": 7.322950673041646,
+          "Dense_state_propagation": 28.512985565322015,
+          "approximation_state_change": 3.0931233055616447,
+          "local_state_cross": -0.22492057091639595,
+          "local_change_cross": -3.0752551432293274,
+          "state_change_cross": -2.8257908197135837
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 8,
+        "Dense_target_energy": 165762.4976529001,
+        "total_squared": 35.25156701181716,
+        "terms": {
+          "teacher_state_local": 17.322996281592555,
+          "Dense_state_propagation": 25.244524823699557,
+          "approximation_state_change": 3.1692048466455365,
+          "local_state_cross": -3.6701032626076753,
+          "local_change_cross": -3.7856423140200164,
+          "state_change_cross": -3.029413363492795
+        },
+        "closure_residual": -7.105427357601002e-15
+      },
+      {
+        "slot": 9,
+        "Dense_target_energy": 165691.46270440967,
+        "total_squared": 33.97731649659538,
+        "terms": {
+          "teacher_state_local": 9.438112884337308,
+          "Dense_state_propagation": 28.842342140357758,
+          "approximation_state_change": 3.1071290605832775,
+          "local_state_cross": -1.0274604975149302,
+          "local_change_cross": -3.3160255750842254,
+          "state_change_cross": -3.0667815160838043
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 10,
+        "Dense_target_energy": 166244.0757456585,
+        "total_squared": 30.896640569609463,
+        "terms": {
+          "teacher_state_local": 12.057965045277257,
+          "Dense_state_propagation": 24.11580777088524,
+          "approximation_state_change": 3.1989620101591676,
+          "local_state_cross": -1.8773044143433424,
+          "local_change_cross": -3.491591850631096,
+          "state_change_cross": -3.1071979917377632
+        },
+        "closure_residual": 3.552713678800501e-15
+      },
+      {
+        "slot": 11,
+        "Dense_target_energy": 166962.3062548322,
+        "total_squared": 30.798016651029492,
+        "terms": {
+          "teacher_state_local": 6.78700657769935,
+          "Dense_state_propagation": 26.635243793445635,
+          "approximation_state_change": 3.0928062125779308,
+          "local_state_cross": 0.2265395472351419,
+          "local_change_cross": -3.0101351385888053,
+          "state_change_cross": -2.9334443413397584
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 12,
+        "Dense_target_energy": 166084.63325395793,
+        "total_squared": 30.70289138614386,
+        "terms": {
+          "teacher_state_local": 6.451071223153669,
+          "Dense_state_propagation": 26.99602031033301,
+          "approximation_state_change": 3.0331178863182586,
+          "local_state_cross": -0.05580206177452851,
+          "local_change_cross": -3.0399593459817003,
+          "state_change_cross": -2.6815566259048467
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 13,
+        "Dense_target_energy": 166334.4749755815,
+        "total_squared": 33.36156996078769,
+        "terms": {
+          "teacher_state_local": 6.031842821309525,
+          "Dense_state_propagation": 29.52658108367236,
+          "approximation_state_change": 3.075914920221032,
+          "local_state_cross": 0.4037444898326914,
+          "local_change_cross": -3.0218225180920246,
+          "state_change_cross": -2.654690836155895
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 14,
+        "Dense_target_energy": 165479.69064465468,
+        "total_squared": 31.774343398073995,
+        "terms": {
+          "teacher_state_local": 5.832335386519746,
+          "Dense_state_propagation": 28.475789706592224,
+          "approximation_state_change": 2.989903316169248,
+          "local_state_cross": 0.0516666026483108,
+          "local_change_cross": -2.9679980832172834,
+          "state_change_cross": -2.6073535306382496
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 15,
+        "Dense_target_energy": 164406.06694845983,
+        "total_squared": 31.03120786726389,
+        "terms": {
+          "teacher_state_local": 5.866155504147528,
+          "Dense_state_propagation": 27.940997469936264,
+          "approximation_state_change": 3.0970284385632754,
+          "local_state_cross": -0.15545607838654973,
+          "local_change_cross": -2.8678067075095726,
+          "state_change_cross": -2.8497107594870545
+        },
+        "closure_residual": -3.552713678800501e-15
+      },
+      {
+        "slot": 16,
+        "Dense_target_energy": 165418.0259205174,
+        "total_squared": 33.2744593346755,
+        "terms": {
+          "teacher_state_local": 6.603905829172737,
+          "Dense_state_propagation": 28.622716721261586,
+          "approximation_state_change": 2.998867334993192,
+          "local_state_cross": 0.44567896722433176,
+          "local_change_cross": -2.8765964584461123,
+          "state_change_cross": -2.5201130595302335
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 17,
+        "Dense_target_energy": 166060.48084561861,
+        "total_squared": 32.1303567345959,
+        "terms": {
+          "teacher_state_local": 6.598392390640345,
+          "Dense_state_propagation": 28.7295032260606,
+          "approximation_state_change": 3.0320017193201694,
+          "local_state_cross": -0.6547536323100966,
+          "local_change_cross": -2.864664756717936,
+          "state_change_cross": -2.7101222123971853
+        },
+        "closure_residual": 7.105427357601002e-15
+      },
+      {
+        "slot": 18,
+        "Dense_target_energy": 165437.78870862664,
+        "total_squared": 32.65057790947472,
+        "terms": {
+          "teacher_state_local": 6.62323979786871,
+          "Dense_state_propagation": 29.182421534051286,
+          "approximation_state_change": 3.0153606291341433,
+          "local_state_cross": -0.7635432594611302,
+          "local_change_cross": -2.6181022305043555,
+          "state_change_cross": -2.7887985616139304
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 19,
+        "Dense_target_energy": 165821.6494892059,
+        "total_squared": 33.03895899761696,
+        "terms": {
+          "teacher_state_local": 6.147918206149441,
+          "Dense_state_propagation": 29.92521264877321,
+          "approximation_state_change": 3.0696243856651506,
+          "local_state_cross": -0.5303523249627631,
+          "local_change_cross": -2.841342598110856,
+          "state_change_cross": -2.7321013198972253
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 20,
+        "Dense_target_energy": 164548.39224322158,
+        "total_squared": 34.63141125504383,
+        "terms": {
+          "teacher_state_local": 6.949415067104226,
+          "Dense_state_propagation": 30.89082309867224,
+          "approximation_state_change": 3.021627236401467,
+          "local_state_cross": -0.6566439018723429,
+          "local_change_cross": -2.981365744122428,
+          "state_change_cross": -2.592444501139332
+        },
+        "closure_residual": 0.0
+      }
+    ],
+    "source_index": 12,
+    "step": 3,
+    "delta_sigma": 0.625,
+    "post_error_squared": 322.53501437522687,
+    "input_error_squared": 15.574826248581488,
+    "native_rounding_difference_squared": 8.399812415119076,
+    "native_rounding_signed_cross": -0.10281742630252969,
+    "post_identity_residual_squared": 0.0
+  },
+  "bare_four_corner": {
+    "Dense_target_energy": 3421094.480324423,
+    "total_squared": 2260.907844712371,
+    "terms": {
+      "teacher_state_local": 1356.4606625364681,
+      "Dense_state_propagation": 1164.6586049764414,
+      "approximation_state_change": 84.79994491892685,
+      "local_state_cross": -34.544539087797894,
+      "local_change_cross": -293.8710525396408,
+      "state_change_cross": -16.595776092026743
+    },
+    "relative_terms": {
+      "teacher_state_local": 0.0003964990357143936,
+      "Dense_state_propagation": 0.00034043450471031616,
+      "approximation_state_change": 2.4787372990320123e-05,
+      "local_state_cross": -1.0097510982661323e-05,
+      "local_change_cross": -8.589971841753197e-05,
+      "state_change_cross": -4.851013670471025e-06
+    },
+    "closure_residual": 4.547473508864641e-13,
+    "time_slots": [
+      {
+        "slot": 0,
+        "Dense_target_energy": 131845.38297909574,
+        "total_squared": 19.486103997939924,
+        "terms": {
+          "teacher_state_local": 2.391187065091245,
+          "Dense_state_propagation": 19.761457897408732,
+          "approximation_state_change": 3.1760310229290134,
+          "local_state_cross": 0.8778063859850818,
+          "local_change_cross": -3.0065287479435767,
+          "state_change_cross": -3.713849625530571
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 1,
+        "Dense_target_energy": 148070.2898859998,
+        "total_squared": 101.06273357358529,
+        "terms": {
+          "teacher_state_local": 51.55506946810331,
+          "Dense_state_propagation": 60.31216937110807,
+          "approximation_state_change": 3.69716441191534,
+          "local_state_cross": -2.6132848523379177,
+          "local_change_cross": -11.831822361176885,
+          "state_change_cross": -0.05656246402663534
+        },
+        "closure_residual": 1.4210854715202004e-14
+      },
+      {
+        "slot": 2,
+        "Dense_target_energy": 159949.2859298754,
+        "total_squared": 82.88026963677171,
+        "terms": {
+          "teacher_state_local": 36.28005125722056,
+          "Dense_state_propagation": 53.377572677602544,
+          "approximation_state_change": 4.000994874499692,
+          "local_state_cross": 2.1927870656987807,
+          "local_change_cross": -11.582239967789606,
+          "state_change_cross": -1.3888962704602719
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 3,
+        "Dense_target_energy": 164140.3552231898,
+        "total_squared": 101.53081298074149,
+        "terms": {
+          "teacher_state_local": 44.50307546547313,
+          "Dense_state_propagation": 63.62315717870975,
+          "approximation_state_change": 4.03318018038172,
+          "local_state_cross": 2.511111390458865,
+          "local_change_cross": -12.264361354759842,
+          "state_change_cross": -0.8753498795221333
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 4,
+        "Dense_target_energy": 165995.54245641778,
+        "total_squared": 78.35856797922705,
+        "terms": {
+          "teacher_state_local": 36.248109588656774,
+          "Dense_state_propagation": 49.54104621781619,
+          "approximation_state_change": 4.062272228584036,
+          "local_state_cross": 2.2293662246701516,
+          "local_change_cross": -11.902560862325894,
+          "state_change_cross": -1.8196654181742105
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 5,
+        "Dense_target_energy": 165587.8665646671,
+        "total_squared": 97.08134231973364,
+        "terms": {
+          "teacher_state_local": 51.20558266011692,
+          "Dense_state_propagation": 56.11636597479885,
+          "approximation_state_change": 4.178643640693053,
+          "local_state_cross": 0.6197680186873242,
+          "local_change_cross": -13.947840550115956,
+          "state_change_cross": -1.0911774244465562
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 6,
+        "Dense_target_energy": 165500.57581240172,
+        "total_squared": 85.24974105648313,
+        "terms": {
+          "teacher_state_local": 41.86885620195294,
+          "Dense_state_propagation": 51.42276518452809,
+          "approximation_state_change": 4.106026753225533,
+          "local_state_cross": 1.9016745031311189,
+          "local_change_cross": -12.313263892602606,
+          "state_change_cross": -1.7363176937519373
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 7,
+        "Dense_target_energy": 165753.636085131,
+        "total_squared": 109.12108914192761,
+        "terms": {
+          "teacher_state_local": 61.6118271937941,
+          "Dense_state_propagation": 59.401257511453295,
+          "approximation_state_change": 4.154587479048779,
+          "local_state_cross": -0.5997249687255533,
+          "local_change_cross": -14.71594037563623,
+          "state_change_cross": -0.7309176980067846
+        },
+        "closure_residual": -1.4210854715202004e-14
+      },
+      {
+        "slot": 8,
+        "Dense_target_energy": 165762.4976529001,
+        "total_squared": 89.34730691048115,
+        "terms": {
+          "teacher_state_local": 42.57535800686135,
+          "Dense_state_propagation": 54.40500056559564,
+          "approximation_state_change": 3.978469968301826,
+          "local_state_cross": 1.499683056159519,
+          "local_change_cross": -11.485408817846709,
+          "state_change_cross": -1.6257958685904654
+        },
+        "closure_residual": -1.4210854715202004e-14
+      },
+      {
+        "slot": 9,
+        "Dense_target_energy": 165691.46270440967,
+        "total_squared": 112.5344802123959,
+        "terms": {
+          "teacher_state_local": 57.77260780951211,
+          "Dense_state_propagation": 64.15924329081747,
+          "approximation_state_change": 4.177227489139942,
+          "local_state_cross": 1.2159562766099228,
+          "local_change_cross": -13.989041018683759,
+          "state_change_cross": -0.8015136349997789
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 10,
+        "Dense_target_energy": 166244.0757456585,
+        "total_squared": 96.66874345943418,
+        "terms": {
+          "teacher_state_local": 53.3126135220941,
+          "Dense_state_propagation": 50.83837055711041,
+          "approximation_state_change": 4.23325593800798,
+          "local_state_cross": 3.7468247696612202,
+          "local_change_cross": -13.751538386388287,
+          "state_change_cross": -1.7107829410512387
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 11,
+        "Dense_target_energy": 166962.3062548322,
+        "total_squared": 114.8897664167585,
+        "terms": {
+          "teacher_state_local": 71.97672597948099,
+          "Dense_state_propagation": 54.674803743093086,
+          "approximation_state_change": 4.0831991166009445,
+          "local_state_cross": 0.11773834522843929,
+          "local_change_cross": -14.94353518721666,
+          "state_change_cross": -1.019165580428294
+        },
+        "closure_residual": -1.4210854715202004e-14
+      },
+      {
+        "slot": 12,
+        "Dense_target_energy": 166084.63325395793,
+        "total_squared": 116.087903255475,
+        "terms": {
+          "teacher_state_local": 74.97489876134736,
+          "Dense_state_propagation": 54.933025976242746,
+          "approximation_state_change": 4.063643779047716,
+          "local_state_cross": -2.0516363327580223,
+          "local_change_cross": -15.438065500922391,
+          "state_change_cross": -0.39396342748241864
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 13,
+        "Dense_target_energy": 166334.4749755815,
+        "total_squared": 121.7127411417216,
+        "terms": {
+          "teacher_state_local": 78.05011317915387,
+          "Dense_state_propagation": 56.64925385768498,
+          "approximation_state_change": 4.11795347086789,
+          "local_state_cross": -0.7894673879638656,
+          "local_change_cross": -15.699465578146391,
+          "state_change_cross": -0.6156463998748993
+        },
+        "closure_residual": 1.4210854715202004e-14
+      },
+      {
+        "slot": 14,
+        "Dense_target_energy": 165479.69064465468,
+        "total_squared": 126.60740311756328,
+        "terms": {
+          "teacher_state_local": 86.79638594425924,
+          "Dense_state_propagation": 57.26459261653277,
+          "approximation_state_change": 4.148209644655318,
+          "local_state_cross": -4.896721408715166,
+          "local_change_cross": -16.575223962529265,
+          "state_change_cross": -0.1298397166396228
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 15,
+        "Dense_target_energy": 164406.06694845983,
+        "total_squared": 129.77082042505583,
+        "terms": {
+          "teacher_state_local": 88.79309271757474,
+          "Dense_state_propagation": 57.220150077855706,
+          "approximation_state_change": 3.9646946332574267,
+          "local_state_cross": -4.636713279348868,
+          "local_change_cross": -15.347224392837035,
+          "state_change_cross": -0.22317933144611857
+        },
+        "closure_residual": -2.842170943040401e-14
+      },
+      {
+        "slot": 16,
+        "Dense_target_energy": 165418.0259205174,
+        "total_squared": 130.6197110048161,
+        "terms": {
+          "teacher_state_local": 94.83761629714542,
+          "Dense_state_propagation": 55.523889331267085,
+          "approximation_state_change": 4.235460578374185,
+          "local_state_cross": -6.103887946761063,
+          "local_change_cross": -17.740631375764778,
+          "state_change_cross": -0.13273587944473775
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 17,
+        "Dense_target_energy": 166060.48084561861,
+        "total_squared": 133.8720357726599,
+        "terms": {
+          "teacher_state_local": 96.56696025390049,
+          "Dense_state_propagation": 57.718214277347464,
+          "approximation_state_change": 4.082960209479914,
+          "local_state_cross": -7.563154147914268,
+          "local_change_cross": -17.09503540103524,
+          "state_change_cross": 0.16209058088152473
+        },
+        "closure_residual": 2.842170943040401e-14
+      },
+      {
+        "slot": 18,
+        "Dense_target_energy": 165437.78870862664,
+        "total_squared": 141.71118957170827,
+        "terms": {
+          "teacher_state_local": 98.54154840673868,
+          "Dense_state_propagation": 64.43388266868239,
+          "approximation_state_change": 4.204669484879809,
+          "local_state_cross": -8.4519848125002,
+          "local_change_cross": -17.762806698823177,
+          "state_change_cross": 0.7458805227307649
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 19,
+        "Dense_target_energy": 165821.6494892059,
+        "total_squared": 136.69550129078,
+        "terms": {
+          "teacher_state_local": 93.77661439779538,
+          "Dense_state_propagation": 61.08126631507291,
+          "approximation_state_change": 4.030245898056938,
+          "local_state_cross": -5.608887718762247,
+          "local_change_cross": -16.707536706476333,
+          "state_change_cross": 0.12379910509335446
+        },
+        "closure_residual": 0.0
+      },
+      {
+        "slot": 20,
+        "Dense_target_energy": 164548.39224322158,
+        "total_squared": 135.6195814471115,
+        "terms": {
+          "teacher_state_local": 92.82236836019544,
+          "Dense_state_propagation": 62.20111968571332,
+          "approximation_state_change": 4.071054116979786,
+          "local_state_cross": -8.141792268301145,
+          "local_change_cross": -15.770981400620188,
+          "state_change_cross": 0.43781295314428803
+        },
+        "closure_residual": 0.0
+      }
+    ],
+    "source_index": 12,
+    "step": 3,
+    "delta_sigma": 0.625,
+    "post_error_squared": 1598.5322611311751,
+    "input_error_squared": 187.23838658769736,
+    "native_rounding_difference_squared": 8.827799624024767,
+    "native_rounding_signed_cross": -0.16538748258191438,
+    "post_identity_residual_squared": 0.0
+  },
+  "actual_counts": {
+    "control_pack_loads": 6,
+    "prior_capture_pack_loads": 4,
+    "original_expert_loads": 2,
+    "raw_Default_MM_loads": 812,
+    "buffer_Default_MM_loads": 40,
+    "T5_buffer_Default_MM_loads": 7,
+    "T5_raw_Default_MM_loads": 168,
+    "VAE_encodes": 1,
+    "T5_checkpoint_block_buffer_loads": 24,
+    "T5_Default_MM_calls": 168,
+    "T5_positive_prompt_encodes": 1,
+    "input_encoder_requests": 1,
+    "raw_noise_byte_controls": 1,
+    "FP32_initial_noise_draws": 1,
+    "scheduler_prepare": 1,
+    "source_conditioning_setups": 1,
+    "input_state_uploads": 8,
+    "input_state_upload_bytes": 32428032,
+    "row_index_uploads": 8,
+    "row_index_upload_bytes": 16384,
+    "scheduler_step_pre": 8,
+    "input_after_step_pre_byte_checks": 8,
+    "offload_buffer_resets": 8,
+    "patch_Conv3D_calls": 8,
+    "pre_Default_MM_calls": 40,
+    "pre_infer_calls": 8,
+    "original_checkpoint_block_buffer_loads": 328,
+    "native_non_FFN_linears": 2560,
+    "native_FFN_linears": 635,
+    "native_FFN_calls": 320,
+    "FFN_CUDA_event_pairs": 320,
+    "native_blocks": 320,
+    "teacher_full_Y_references_retained": 3,
+    "actual_head_conditioning_captures": 8,
+    "geometry_BF16_gain_add": 2,
+    "geometry_head_build": 2,
+    "FP64_stat_matrix_products": 8,
+    "FP64_q_variance_cases": 8,
+    "normalization_storage_identity_checks": 8,
+    "normalization_identity_noops": 5,
+    "final_LayerNorm_calls": 8,
+    "head_Default_MM_calls": 8,
+    "post_unpatchify_calls": 8,
+    "native_full_model_flows": 8,
+    "native_boundary_capture_cases": 8,
+    "scheduler_step_post": 8,
+    "original_raw_flow_post_byte_checks": 4,
+    "prior_parent_flow_post_byte_checks": 8,
+    "native_scheduler_rounding_cases": 8,
+    "raw_effective_normalizer_diagnostic_cases": 8,
+    "flow_capture_pack_writes": 8,
+    "projection_pack_reload_checks": 1,
+    "projection_H2D": 3,
+    "projection_H2D_bytes": 19408896,
+    "candidate_coefficient_GEMMs": 5,
+    "candidate_output_GEMMs": 5,
+    "candidate_overridden_W2_dispatches": 5,
+    "fullM_gated_Y_diagnostic_cases": 6,
+    "conditioning_equal_checks": 6,
+    "native_head_decomposition_cases": 6,
+    "same_input_prefix_byte_checks": 5,
+    "norm_gain_BF16_to_FP32_casts": 3,
+    "norm_gain_FP32_multiplies": 3,
+    "norm_gain_FP32_to_BF16_copies": 3,
+    "conditioning_normalization_gain_calls": 3,
+    "effective_normalizer_cases": 3,
+    "flow_four_corner_decompositions": 1,
+    "post_error_identity_cases": 1
+  },
+  "CPU_preflight": {
+    "RUN": {
+      "path": "ffnds-derived/e0_original_bf16_fixed_norm_cpu_preflight_20261028/attempt1/worker/CPU/RUN.json",
+      "bytes": 1287,
+      "sha256": "e5c2cb7719853c5fe87bcdec4af0dc6169ce3f2190bea413db7fe5b5933fdcc3"
+    },
+    "launch_exit": {
+      "path": "ffnds-derived/e0_original_bf16_fixed_norm_cpu_preflight_20261028/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 541,
+      "sha256": "6a53f8179bda0194bae1619f31357c8dbe46bf0b383f48a74cf0adf6a5f5fc17"
+    }
+  },
+  "wall_seconds": 177.32155884220265,
+  "raw_model_setup_seconds": 70.66531557403505,
+  "peak_cuda_reserved_bytes": 22387097600,
+  "monitor_violations": [],
+  "executed_source_files_verified": 909,
+  "new_result_bytes": 224291000,
+  "new_GEMM_basis_fits": 0,
+  "new_training_updates": 0,
+  "new_video_generations": 0,
+  "evidence_implication": "Source0-frozen step gain causes large same-state and own-state full-M flow improvements onsource12. Normalization bias is an actual controllable cause for this fixed terminal projection, beyond the saved-row ratio proxy.",
+  "next_scientific_question": "Corrected Dense-state propagation now exceeds corrected step3 local error. Decide cross-depth raw calibration and a deployable broader function rather than continue terminal scalar tuning.",
+  "limitations": [
+    "Only lowexpertblock39 andsteps2/3 ononealreadyexposedtransfer image;notindependentconfirmation/full80quality.",
+    "Reuses the same fullW1 andrank512rawW2projection. Does not identify the old6016/HiF4 training bottleneck.",
+    "No new full videos or system acceptance. Original W2 prefetch remains paid; explicit gain adds fullM-byD casts/copy andmemory traffic.",
+    "Raw-u variance and effective readout denominator are distinct; native remainder includes new gain/LN/modulation/GEMM rounding."
+  ],
+  "full_original_MM_traces": "Preserved in SHA-bound HF RUN; public result retains measured scalar diagnostics and tensor bindings without duplicating repeated operator traces."
+}

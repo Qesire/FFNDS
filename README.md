@@ -26,7 +26,7 @@
 | **M-C**（完整非线性函数编码求值） | [输入充分性、输出秩和大M查表成本](research/20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)，**ALG＋LIT** | 完成数学/保存资产判别，再进入合法原生执行；尚无Wan实际速度/视频 |
 | **旧固定支持与执行竞争器** | [consumer20真实视频质量](research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)，[A100合成2:4 C5](research/20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md) | 分别支持视频功能失配与受限kernel物理证据，不能替代新学生质量/整端速度 |
 
-**最新原始BF16实测：**[12flow交叉状态判别](research/20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](research/20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](research/20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。下一项为source0系数向source12的8flow原生范数校正，producer准备中、尚未登记或运行。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
+**最新原始BF16实测：**[12flow交叉状态判别](research/20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](research/20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](research/20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。[固定范数原生转移](research/20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.md)已实际exit0，同状态误差降93.7%/82.5%、own-state降69.6%；下一项核查原始BF16跨深度校准覆盖。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
 
 **Quant 关键区别**：[W-static × A-dynamic × Native FP4时序审计](research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)：W1/W2是提前量化的固定权重；Q1/A1和Q2/A2是每次调用动态激活量化。原生NVFP4/MXFP4 W4A4仍有静态W尺度、动态A局部尺度参加GEMM；W4A16没有FP4激活scale。HiF4当前runtime则是预量化BF16权重、动态激活fake-QDQ、BF16 GEMM。读取metadata做动态选择的价格独立核算。
 
@@ -38,7 +38,7 @@
 \]
 原实现使用**HiF4 fake-QDQ+BF16 GEMM**；HiF4元素码字本来是**带符号S1P2（4bit含1bit符号）**，其64组共享尺度只编码幅值，当前QDQ输出带符号BF16而非持久packed码字。详见[格式及存储语义审计](research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)。packed FP4/NVFP4/MXFP4需另立数值/系统证据。旧10 source/12 source×seed/1920 sites、consumer20的20个开发来源与A0的训练/诊断来源，是**不同研究数据范围**；seed、row、block/step和多prompt不当作独立image-cluster。
 
-**论文/图状态**：98项主文献＋10项补充，16个G14算子焦点；主图223个稳定节点/463条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
+**论文/图状态**：98项主文献＋10项补充，16个G14算子焦点；主图224个稳定节点/465条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
 
 ## 科研与运行约束
 

@@ -130,8 +130,8 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(result["mechanism_families"], 14)
         self.assertEqual(result["primary_papers"], 98)
         self.assertEqual(result["crossgraph_comparison_edges"], 84)
-        self.assertEqual(len(self.registry["nodes"]), 223)
-        self.assertEqual(len(self.registry["edges"]), 463)
+        self.assertEqual(len(self.registry["nodes"]), 224)
+        self.assertEqual(len(self.registry["edges"]), 465)
         nodes = {n["id"]: n for n in self.registry["nodes"]}
         self.assertEqual(nodes["I17"]["evidence_type"], "ALG")
         self.assertEqual(nodes["I18"]["evidence_type"], "ALG")

@@ -16,7 +16,7 @@ source12、seed42、末两步的固定八次完整 40-block flow：DD₂/DD₃ �
 
 若 native 同状态与自身状态都改善，固定条件 norm 偏差得到这一个 transfer 来源的直接支持；若同状态改善但自身状态收益弱，继续区分 Dense 状态传播与 state-dependent correction，而不是增加网络宽度。若 unweighted proxy 改善却 full-M head 不改善，优先查 q 加权/tail 行和离散读出余项。单末层局部成功只决定是否保留这条表示路线。
 
-预算建议：1 A100、4 CPU、32 GiB、wall900/outer1200s、HF≤0.5 GiB；320 FFN、5 次 W2 override（635 次原 FFN linear＋10 次因子 GEMM）、328 次原 block-buffer load、3 次 1/κ gain，保留原 W2 预取成本。每次 M=31668、D=5120 的 BF16 inplace norm-gain 触及 162140160 个值，至少读写 648560640B；它是有成本的新算子。仅该 W2 的 MAC 从 70778880/row 变为 9699328/row，完整 W1 70778880/row 仍保留；没有当前系统加速主张。
+预算建议：1 A100、4 CPU、32 GiB、wall900/outer1200s、HF≤0.5 GiB；320 FFN、5 次 W2 override（635 次原 FFN linear＋10 次因子 GEMM）、328 次原 block-buffer load、3 次 1/κ gain，保留原 W2 预取成本。薄 wrapper 把 reciprocal 明确舍入为 FP32，原 LN 的 BF16 返回值先转 FP32、原地乘 gain、再 copy 回该 BF16 返回对象；每次增加648560640B临时缓冲，三个未融合算子的读写量下界合计3242803200B。κ=1走相同storage gate并直接返回；全部8次拒绝与原u的storage别名。仅该 W2 的 MAC 从70778880/row变为9699328/row，完整W1 70778880/row仍保留；没有当前系统加速主张。
 
 ## 固定 gain 的竞争者及合法信息时点
 
