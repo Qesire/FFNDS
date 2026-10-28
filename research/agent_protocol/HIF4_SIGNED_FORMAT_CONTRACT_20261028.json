@@ -1,0 +1,79 @@
+{
+  "schema": "ffnds.hif4_signed_storage_contract.v1",
+  "date": "2026-10-28",
+  "evidence": "SRC_LIT_FORMAT_SEMANTICS_NO_NEW_NATIVE",
+  "audit": "research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md",
+  "paper": {
+    "url": "https://arxiv.org/abs/2602.11287",
+    "section": "Format Definition / Element Encoding / Table I / Eq.(2)",
+    "element": "S1P2",
+    "element_bits": 4,
+    "sign_bits_per_element": 1,
+    "integer_bits": 1,
+    "fractional_bits": 2,
+    "representable_levels": [
+      -1.75,
+      -1.5,
+      -1.25,
+      -1,
+      -0.75,
+      -0.5,
+      -0.25,
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.25,
+      1.5,
+      1.75
+    ],
+    "positive_and_negative_zero_codewords_in_paper": true
+  },
+  "unit": {
+    "elements": 64,
+    "element_code_bits_total": 256,
+    "scale_metadata_bits_total": 32,
+    "base_E6M2_unsigned_bits": 8,
+    "micro_exponent_groups_8": 8,
+    "micro_exponent_groups_4": 16,
+    "total_bits": 288,
+    "effective_bits_per_value": 4.5
+  },
+  "code_value_formula": "signed S1P2 c_i = (-1)^s_i * (b_integer + b_frac / 4); reconstructed xhat_i = positive_base_E6M2 * pow2(e8[i//8]+e4[i//4]) * c_i",
+  "source_proofs": [
+    {
+      "path": "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+      "lines": "187-206,229-287,503-527",
+      "evidence": "round_mant reads IEEE sign bit (x_int & 0x80000000) and restores sign in reconstructed BF16 result; magnitude hierarchy uses abs; kernel writes BF16 rather than packed code/scale outputs"
+    },
+    {
+      "path": "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/formats/hifx4.py",
+      "lines": "59-72,303-334,408-426",
+      "evidence": "Explicit software emulated codes are torch.int8 signed -7..7 and dequantized using positive full_scale; not actual 4-bit packed storage"
+    }
+  ],
+  "native_wan_path": {
+    "Q1": "fake HiF4 quant-dequant, signed output BF16 into W1",
+    "Q2": "fake HiF4 quant-dequant, signed output BF16 into W2",
+    "persistent_packed_code": false,
+    "scale_and_code_out_args": false,
+    "actual_BF16_result": true,
+    "native_bitwise_negative_zero_confirmed": false,
+    "software_int8_vs_native_rounding_bitwise_equal": "NOT_MEASURED",
+    "codec_sign_preserved_by_source": true
+  },
+  "research_rules": [
+    "S1P2_HAS_NATIVE_SIGN_BIT",
+    "UNSIGNED_ONLY_BASE_AND_MICRO_SCALES_NOT_ELEMENTS",
+    "SIGNED_CODE_EXISTS_FORMAT_BUT_NOT_EXPORTED_FROM_CURRENT_QDQ",
+    "SIGNED_INT8_SOFTWARE_CODES_ARE_NOT_PACKED_4BIT_GPU_STORAGE",
+    "SIGNED_POSITION_ASSOCIATION_REQUIRED_FOR_WEIGHTED_DIRECTION",
+    "DO_NOT_CHARGE_ADDITIONAL_SIGN_BIT_WHEN_ALREADY_IN_PACKED_CODE",
+    "CHARGE_FUSED_OBSERVER_OR_BF16_SCAN_REAL_COST",
+    "NO_Q2_INFORMATION_BEFORE_ACTUAL_W1_GELU_Q2",
+    "COMPLETE64_AND_PHYSICAL_TILE_LEGAL_ACTIONS",
+    "NO_NEW_GPU_OR_VIDEO_CLAIM"
+  ],
+  "research_question": "How to acquire useful ordered sign-and-position sketches from existing signed S1P2 or BF16 QDQ values at legal W1/W2 decision time, faster than alternative same-cost features?"
+}
