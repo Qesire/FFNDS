@@ -72,4 +72,4 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 ## G14 全文献逐计算边聚焦（现行索引）
 
-提出和评议新的 FFN 方法时，先按[机器G14逐论文映射](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)查论文作用节点、需要的前置信息、真实选择/训练/缓存/计算行动、原文核验深度和与冻结Wan的异同。当前已收录94个主LID及10个补充校准研究，分组Mermaid见[全计算图G14](../../../docs/98_端到端计算图与证据注解_20261025.md)。`python tools/graph_agent_bridge.py paper L74`检索作者方法与原生锚点，`focus T06`检索针对相同Q2阶段的替代论文。先从作者明确实际做了什么总结方法贡献，形成同一算子多方法竞争假说；以原Wan输入state/shape、HiF4 QDQ及消费者数据判断可迁移性。G14的LIT类比不会成为真实本地跑通的NATIVE/VIDEO/SYS。索引增删更新原始来源、机器映射与可见图，并执行`graph_agent_bridge.py validate`。
+提出和评议新的 FFN 方法时，先按[机器G14逐论文映射](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)查论文作用节点、需要的前置信息、真实选择/训练/缓存/计算行动、原文核验深度和与冻结Wan的异同。当前已收录98个主LID及10个补充校准研究，分组Mermaid见[全计算图G14](../../../docs/98_端到端计算图与证据注解_20261025.md)。`python tools/graph_agent_bridge.py paper L74`检索作者方法与原生锚点，`focus T06`检索针对相同Q2阶段的替代论文。先从作者明确实际做了什么总结方法贡献，形成同一算子多方法竞争假说；以原Wan输入state/shape、HiF4 QDQ及消费者数据判断可迁移性。G14的LIT类比不会成为真实本地跑通的NATIVE/VIDEO/SYS。索引增删更新原始来源、机器映射与可见图，并执行`graph_agent_bridge.py validate`。

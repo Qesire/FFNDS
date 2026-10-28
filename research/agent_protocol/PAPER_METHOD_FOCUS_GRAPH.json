@@ -381,14 +381,16 @@
       "id": "L14",
       "focus_nodes": [
         "T09",
-        "T11"
+        "T11",
+        "T03",
+        "T13"
       ],
       "index": "PRIMARY_LITERATURE_INDEX.json",
-      "review_depth": "OFFICIAL_ABSTRACT",
-      "mechanism": "Cheap timestep-modulated input difference predicts expensive output difference",
-      "intervention": "timestep output cache",
-      "decision_time": "input + time before full forward",
-      "wan_transfer_question": "Wan only four steps, expert switch and CFG false require conditional validation",
+      "review_depth": "PRIMARY_ARXIV_V2_METHOD_EQ4_7_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Time-modulated input differences are polynomial-rescaled and accumulated to decide output-cache refresh",
+      "intervention": "Refresh or reuse cached diffusion model output according to cumulative estimated change",
+      "decision_time": "Current modulated input plus past actual input/output cache, before full current forward",
+      "wan_transfer_question": "Scale-only stability misses sign changes; four steps and expert transitions require new matched tests for action-summary reuse",
       "associated_mechanism_families": [],
       "graph_anchor_existing": [],
       "source_url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Timestep_Embedding_Tells_Its_Time_to_Cache_for_Video_Diffusion_CVPR_2025_paper.html"
@@ -1947,6 +1949,77 @@
       "intervention": "Coordinated weight/channel permutation followed by N:M pruning",
       "decision_time": "Offline permutation optimization before structured sparse inference",
       "wan_transfer_question": "Arbitrary channel permutation does not preserve HiF4 hierarchical group quantization; restrict to complete ordered64 groups or establish a new recipe"
+    },
+    {
+      "id": "L95",
+      "focus_nodes": [
+        "T03",
+        "T04",
+        "T11",
+        "T13"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://proceedings.mlr.press/v202/liu23am.html",
+      "review_depth": "PRIMARY_ICML_PDF_SEC4_1_4_3_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Learned contextual sparsity predictor with cross-layer lookahead to overlap prediction and preceding computation",
+      "intervention": "Select MLP neurons and attention heads with hardware-aware sparse execution",
+      "decision_time": "Earlier layer inputs for lookahead; exact target-layer inputs only available later",
+      "wan_transfer_question": "Current Q1 is after attention/AdaLN and cannot overlap with its own prerequisites; earlier-state predictions and large-M resource contention require separate validation"
+    },
+    {
+      "id": "L96",
+      "focus_nodes": [
+        "T03",
+        "T06",
+        "T13"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2602.11287",
+      "review_depth": "PRIMARY_ARXIV_V2_SEC_II_B_ALG1_III_B_EQ3_AND_PINNED_LOCAL_CUDA_READ_20261028",
+      "mechanism": "64-value group; 32-bit E6M2/E1_8/E1_16 magnitude metadata produced before signed S1P2 codes",
+      "intervention": "Hierarchical quantization and integer/shift-oriented dot-product representation",
+      "decision_time": "After current group magnitude reductions; not before loading current activations",
+      "wan_transfer_question": "Published packed representation differs from pinned fake-QDQ BF16 output API; metadata is sign-invariant and requires an explicit consumer"
+    },
+    {
+      "id": "L97",
+      "focus_nodes": [
+        "T04",
+        "T06",
+        "T07",
+        "T13"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2511.04477",
+      "review_depth": "PRIMARY_ARXIV_V1_SEC3_4_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Column-aligned quantization groups with row-major superblock storage, sparse index collection and custom GEMV",
+      "intervention": "Skip quantized weight blocks through zigzag layout and specialized sparse GEMV",
+      "decision_time": "Runtime index collection from current activation before GEMV; weight layout prepared offline",
+      "wan_transfer_question": "Layout co-design prior, not a full-M video GEMM or preserved HiF4 quantization-group permutation guarantee"
+    },
+    {
+      "id": "L98",
+      "focus_nodes": [
+        "T03",
+        "T06",
+        "T13",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://papers.nips.cc/paper_files/paper/2018/hash/e5841df2166dd424a57127423d276bbe-Abstract.html",
+      "review_depth": "PRIMARY_NEURIPS2018_PDF_SEC3_EQ1_MDP_AND_LIMITATIONS_READ_20261028",
+      "mechanism": "Jointly learn acquisition policy and predictor with stop/observe actions and explicit feature costs",
+      "intervention": "Acquire selected feature values or stop and classify",
+      "decision_time": "Sequentially acquired features only; acquisition outcome unknown when chosen",
+      "wan_transfer_question": "Transferable decision formulation; Wan observations can execute target operators, change action feasibility and exhaust savings"
     }
   ],
   "supplemental_papers": [
@@ -2336,5 +2409,6 @@
     "mermaid": "one graph per source research group, plus a global focal-native axis",
     "machine": "paper <-> [focus stages] <-> existing Wan native anchor; paper() and focus() queries"
   },
-  "qcfb_primary_audit": "research/literature/20261028/QCFB_PRIMARY_METHOD_AUDIT.json"
+  "qcfb_primary_audit": "research/literature/20261028/QCFB_PRIMARY_METHOD_AUDIT.json",
+  "qmeta_timing_primary_audit": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
 }

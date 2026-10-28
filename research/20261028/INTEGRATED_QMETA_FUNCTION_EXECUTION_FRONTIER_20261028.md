@@ -104,3 +104,7 @@ $$ Z_{Q1}\xrightarrow{A_1}W1_{A_1}\to\phi\to Q2_{A_1}\to Z_{Q2}(A_1)\xrightarrow
 - REUSABLE_ASSET_PLAN：QCFB-WPROFILE（离线W1/W2 decoded+quant recipe+valid group index）, QCFB-Q1PAYLOAD（source/step/rowtile码与尺度、producer和额外读价）, QCFB-Q2WHOLE（真实post-gain/cast与组闭包）, QCFB-DIRECTIONGRAM（group输出、gate/readout、tileGamma、量化b）, QCFB-ACTIONLABEL（同state合法完整组选择动作及成本）, QCFB-PAK/KERNEL（真实物理mask、packed shape、memory/clock）, QCFB-VIDEO（81帧、四步、独立source/seed、各轴指标/视频）。逐资产记录producer、model/quant版本、shape/axes/dtype/coordinate、输入依赖、locator、随机性、验证/复用边界及失效条件。**本轮全部为PLANNED / NOT_PRODUCED**，没有新模型native/GPU/SYS/VIDEO结论。
 
 [研究导航](../RESEARCH_NAVIGATION.md)、[量化路线v1](QMETA_DECISION_VALUE_AND_FUNCTION_FUSION_METHOD_SNAPSHOT_20261028.md)、[现行三方法](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)、[M-B四轮评议](../independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)为互补入口，而非四份互斥权威路线。正式独立方法提案与同行投票仍由method_discussion/QUEUE按真实独立作者处理。
+
+## 量化元信息观察与消费补充（2026-10-28）
+
+[论文先验、时点及高效利用推导](QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md)将QCFB/Q-STAGE落到producer内部→持久可读→决策消费→省算截止四个时点。Q1尺度缺符号，短位置摘要可在生产时提取；当前CUDA每row跨两个CTA，不能把归约视为免费。有限动作可直接预测风险差，按需补观察需考虑互补信息与已付工作；当前Q2不能追溯节省W1。对照必须包含同成本普通输入摘要、付费代理及lookahead。该补充是ALG/SRC/LIT+OPEN，不改变现行M-B任务和ACTIVE。

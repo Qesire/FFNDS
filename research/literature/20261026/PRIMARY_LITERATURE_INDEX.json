@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
   "updated": "2026-10-28",
-  "status": "G14_QCFB_PRIMARY_METHOD_AUDIT_94_RESEARCH_ITEMS",
+  "status": "G14_QMETA_TIMING_PRIMARY_AUDIT_98_RESEARCH_ITEMS",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -268,12 +268,13 @@
       "venue": "CVPR",
       "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Timestep_Embedding_Tells_Its_Time_to_Cache_for_Video_Diffusion_CVPR_2025_paper.html",
       "model": "video DiT",
-      "observed_mechanism": "Cheap timestep-modulated input difference predicts expensive output difference",
-      "decision_time": "input + time before full forward",
-      "physical_action": "timestep output cache",
+      "observed_mechanism": "Time-modulated input differences are polynomial-rescaled and accumulated to decide output-cache refresh",
+      "decision_time": "Current modulated input plus past actual input/output cache, before full current forward",
+      "physical_action": "Refresh or reuse cached diffusion model output according to cumulative estimated change",
       "training": "training free",
-      "wan_specific_discriminator": "Wan only four steps, expert switch and CFG false require conditional validation",
-      "reading_depth": "OFFICIAL_ABSTRACT"
+      "wan_specific_discriminator": "Scale-only stability misses sign changes; four steps and expert transitions require new matched tests for action-summary reuse",
+      "reading_depth": "PRIMARY_ARXIV_V2_METHOD_EQ4_7_READ_CODE_NOT_REVIEWED_20261028",
+      "qmeta_timing_recheck": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
     },
     {
       "id": "L15",
@@ -1257,7 +1258,8 @@
       "graph_method_reference": "research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md",
       "method_review": "Cprox=2alpha(1-s1)+3(1-s2), effective e=s2-[2alpha(1-s1)]/3. Two INT4 proxy projections and exact fullprecision three selected projections.",
       "code_review": "NO_VERIFIED_AUTHOR_IMPLEMENTATION_FOUND_IN_THIS_READING",
-      "independent_benchmark_scope": "NVIDIA A6000 batch1 decode; author 1.51-1.99x at effective FFN sparsity60-70%; Fig3 82.77% single overlap, 82.04% 512-token mean; A3 Qwen3-8B aggregate70% 68.6->44.3."
+      "independent_benchmark_scope": "NVIDIA A6000 batch1 decode; author 1.51-1.99x at effective FFN sparsity60-70%; Fig3 82.77% single overlap, 82.04% 512-token mean; A3 Qwen3-8B aggregate70% 68.6->44.3.",
+      "qmeta_timing_recheck": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
     },
     {
       "id": "L70",
@@ -1369,7 +1371,8 @@
         "Q32",
         "Q33"
       ],
-      "graph_method_reference": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md"
+      "graph_method_reference": "research/literature/20261027/G11_SHARQ_FP4_VIDEO_SOURCE_AND_FUNCTION_AUDIT.md",
+      "qmeta_timing_recheck": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
     },
     {
       "id": "L75",
@@ -1743,6 +1746,74 @@
       "training": "End-to-end permutation optimization",
       "wan_specific_discriminator": "Arbitrary channel permutation does not preserve HiF4 hierarchical group quantization; restrict to complete ordered64 groups or establish a new recipe",
       "reading_depth": "PRIMARY_METHOD_EQ1_3_AND_PERMUTATOR_READ_CODE_NOT_REVIEWED_20261028"
+    },
+    {
+      "id": "L95",
+      "title": "Deja Vu: Contextual Sparsity for Efficient LLMs at Inference Time",
+      "year": 2023,
+      "venue": "ICML / PMLR 202",
+      "url": "https://proceedings.mlr.press/v202/liu23am.html",
+      "group": "evaluation_hardware",
+      "model": "OPT autoregressive LLM decoding",
+      "observed_mechanism": "Learned contextual sparsity predictor with cross-layer lookahead to overlap prediction and preceding computation",
+      "decision_time": "Earlier layer inputs for lookahead; exact target-layer inputs only available later",
+      "physical_action": "Select MLP neurons and attention heads with hardware-aware sparse execution",
+      "training": "Offline predictor training from dense activation labels; base model unchanged",
+      "wan_specific_discriminator": "Current Q1 is after attention/AdaLN and cannot overlap with its own prerequisites; earlier-state predictions and large-M resource contention require separate validation",
+      "reading_depth": "PRIMARY_ICML_PDF_SEC4_1_4_3_READ_CODE_NOT_REVIEWED_20261028",
+      "graph_method_reference": "research/20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md",
+      "method_source_ledger": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
+    },
+    {
+      "id": "L96",
+      "title": "HiFloat4 Format for Language Model Inference",
+      "year": 2026,
+      "venue": "arXiv:2602.11287v2",
+      "url": "https://arxiv.org/abs/2602.11287",
+      "group": "evaluation_hardware",
+      "model": "Hierarchical block floating-point format and LLM quantization",
+      "observed_mechanism": "64-value group; 32-bit E6M2/E1_8/E1_16 magnitude metadata produced before signed S1P2 codes",
+      "decision_time": "After current group magnitude reductions; not before loading current activations",
+      "physical_action": "Hierarchical quantization and integer/shift-oriented dot-product representation",
+      "training": "Format design and PTQ; no FFNDS training",
+      "wan_specific_discriminator": "Published packed representation differs from pinned fake-QDQ BF16 output API; metadata is sign-invariant and requires an explicit consumer",
+      "reading_depth": "PRIMARY_ARXIV_V2_SEC_II_B_ALG1_III_B_EQ3_AND_PINNED_LOCAL_CUDA_READ_20261028",
+      "graph_method_reference": "research/20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md",
+      "method_source_ledger": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
+    },
+    {
+      "id": "L97",
+      "title": "Enabling Dynamic Sparsity in Quantized LLM Inference",
+      "year": 2025,
+      "venue": "arXiv:2511.04477v1 (SpQt; preliminary version)",
+      "url": "https://arxiv.org/abs/2511.04477",
+      "group": "evaluation_hardware",
+      "model": "Quantized LLM decode on Apple silicon GPUs, K-quant/Metal GEMV",
+      "observed_mechanism": "Column-aligned quantization groups with row-major superblock storage, sparse index collection and custom GEMV",
+      "decision_time": "Runtime index collection from current activation before GEMV; weight layout prepared offline",
+      "physical_action": "Skip quantized weight blocks through zigzag layout and specialized sparse GEMV",
+      "training": "Offline threshold calibration and quantized weight conversion",
+      "wan_specific_discriminator": "Layout co-design prior, not a full-M video GEMM or preserved HiF4 quantization-group permutation guarantee",
+      "reading_depth": "PRIMARY_ARXIV_V1_SEC3_4_READ_CODE_NOT_REVIEWED_20261028",
+      "graph_method_reference": "research/20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md",
+      "method_source_ledger": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
+    },
+    {
+      "id": "L98",
+      "title": "Joint Active Feature Acquisition and Classification with Variable-Size Set Encoding",
+      "year": 2018,
+      "venue": "NeurIPS 2018",
+      "url": "https://papers.nips.cc/paper_files/paper/2018/hash/e5841df2166dd424a57127423d276bbe-Abstract.html",
+      "group": "evaluation_hardware",
+      "model": "Cost-sensitive sequential feature acquisition and classification",
+      "observed_mechanism": "Jointly learn acquisition policy and predictor with stop/observe actions and explicit feature costs",
+      "decision_time": "Sequentially acquired features only; acquisition outcome unknown when chosen",
+      "physical_action": "Acquire selected feature values or stop and classify",
+      "training": "Joint classifier and RL policy learning",
+      "wan_specific_discriminator": "Transferable decision formulation; Wan observations can execute target operators, change action feasibility and exhaust savings",
+      "reading_depth": "PRIMARY_NEURIPS2018_PDF_SEC3_EQ1_MDP_AND_LIMITATIONS_READ_20261028",
+      "graph_method_reference": "research/20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md",
+      "method_source_ledger": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -1893,5 +1964,22 @@
     "existing_comparator": "L11",
     "source_ledger": "research/literature/20261028/B_SENSITIVITY_PRIMARY_SOURCE_LEDGER.json",
     "reading_scope": "Primary method sections, author code not reviewed; no native execution for these external methods."
+  },
+  "qmeta_timing_audit": {
+    "ledger": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json",
+    "report": "research/20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md",
+    "new_papers": [
+      "L95",
+      "L96",
+      "L97",
+      "L98"
+    ],
+    "deepened_existing": [
+      "L14"
+    ],
+    "reverified_existing": [
+      "L69",
+      "L74"
+    ]
   }
 }

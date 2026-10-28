@@ -1,0 +1,150 @@
+{
+  "schema": "ffnds.qmeta_observation_contract.v1",
+  "date": "2026-10-28",
+  "basis_sha": "d60e7e6fc225970609023382c5bb66ec1023b060",
+  "status": "DESIGN_SRC_ALG_LIT_NOT_NATIVE_IMPLEMENTATION",
+  "report": "research/20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md",
+  "ledger": "research/literature/20261028/QMETA_TIMING_PRIMARY_AUDIT_20261028.json",
+  "native_context": {
+    "M": 31668,
+    "D": 5120,
+    "H": 13824,
+    "group": 64,
+    "Q1_groups_per_row": 80,
+    "Q2_groups_per_row": 216,
+    "producer_values_per_CTA": 4096,
+    "producer_threads": 64,
+    "implementation": "HiF4 fake-QDQ then BF16 GEMM",
+    "priority": "Current M-B task ledger unchanged"
+  },
+  "objects": [
+    {
+      "id": "OFFLINE_ACTION_DICTIONARY",
+      "producer": "Offline weights/calibration",
+      "first_visible": "before invocation",
+      "residency": "prepared views/statistics; memory costs required",
+      "read_cost": "metadata lookup/view residency",
+      "consumer": "fixed or conditional class selection",
+      "savings_scope": "future selected operators",
+      "status": "DESIGN_REUSES_EXISTING_R3"
+    },
+    {
+      "id": "CURRENT_Q1_SCALES",
+      "producer": "hifx_quant_cuda_inner lv0/lv1/lv2",
+      "first_visible": "after current input read and magnitude hierarchy",
+      "residency": "local temporary in pinned kernel; no standalone persistent output",
+      "read_cost": "sidecar emission/packing or reconstruction plus read/reduction",
+      "consumer": "magnitude-conditioned pre-W1 policy",
+      "savings_scope": "W1 and later; not completed Q1",
+      "status": "SRC_AVAILABLE_INTERNALLY_EXPORT_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "CURRENT_Q1_ORDERED_SIGNED_SKETCH",
+      "producer": "proposed fused Q1 collector",
+      "first_visible": "input-load sign sketch OR after actual Q1 reconstruction, depending on declared feature",
+      "residency": "proposed CTA row-segment partials and reduced summary",
+      "read_cost": "local arithmetic/registers plus cross-CTA merge, optional sidecar",
+      "consumer": "K-minus-one action-loss differences",
+      "savings_scope": "whole64 W1/GELU/Q2/W2 if complete before dispatch",
+      "status": "OPEN_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "CURRENT_Q2_ACTUAL",
+      "producer": "GELU Smooth2 actual retained whole64 Q2",
+      "first_visible": "after actual W1/GELU/Q2 on retained groups",
+      "residency": "decoded BF16 currently; internal metadata not separately exported",
+      "read_cost": "already paid upstream work plus consumer cost",
+      "consumer": "remaining W2 action or future policy",
+      "savings_scope": "not retroactive W1/GELU/Q2 savings",
+      "status": "SRC_TIMING_NOT_NEW_MEASUREMENT"
+    },
+    {
+      "id": "CURRENT_Q2_SCALE_BEFORE_ELEMENT_CODE",
+      "producer": "actual Q2 magnitude hierarchy before per-element rounding",
+      "first_visible": "after W1/GELU/Smooth2 and Q2 scale reduction, before final Q2 codes/writeback",
+      "residency": "local temporary; no early-consumer branch in current kernel",
+      "read_cost": "additional decision arithmetic, optional sidecar/cross-CTA merge or reread",
+      "consumer": "conservative complete-group bound or trained remaining-work action",
+      "savings_scope": "remaining Q2 encoding/writeback and W2 only if legal tile decision is timely",
+      "status": "CONDITIONAL_DESIGN_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "LOOKAHEAD_HISTORY",
+      "producer": "earlier actual state/invocation",
+      "first_visible": "before current Q1 if dependency permits",
+      "residency": "explicit cache with source state/step/expert identity",
+      "read_cost": "cache/predict/update plus resource contention",
+      "consumer": "predict current action and optionally validate at Q1",
+      "savings_scope": "overlapped prediction or refresh; prediction quality open",
+      "status": "OPEN"
+    },
+    {
+      "id": "PAID_COMPLETE_GROUP_PROBE",
+      "producer": "selected whole64 W1/GELU/Q2 probe",
+      "first_visible": "after probe execution",
+      "residency": "actual probe results",
+      "read_cost": "probe compute plus reuse/dispatch bookkeeping",
+      "consumer": "select uncomputed actions from new history",
+      "savings_scope": "only remaining work; maintain complete Q2 group closure",
+      "status": "OPEN_NO_PROBE_RUN"
+    }
+  ],
+  "required_provenance": [
+    "source_id",
+    "image_cluster_id",
+    "seed",
+    "step",
+    "expert",
+    "block",
+    "state_kind",
+    "sampled_row_ids",
+    "row_draw_id",
+    "recipe_sha",
+    "smooth_gain_cast_boundary",
+    "producer_sha",
+    "layout",
+    "feature_version",
+    "action_dictionary_sha",
+    "observation_history",
+    "already_paid_work",
+    "prediction_time",
+    "decision_deadline",
+    "actual_completion_time"
+  ],
+  "decision_objects": [
+    "dictionary_coverage_gap",
+    "conditional_information_gap",
+    "learned_policy_gap",
+    "observer_critical_path_and_memory_cost",
+    "native_risk_and_video_behavior"
+  ],
+  "contrasts": [
+    "best_fixed_and_step_class",
+    "same_cost_nonquantized_input_features",
+    "scale_only",
+    "scale_plus_position_signed_sketch",
+    "matched_paid_proxy",
+    "full_information_offline_oracle"
+  ],
+  "runtime_arms": [
+    "original_noop",
+    "observer_only_noop",
+    "producer_sidecar",
+    "extra_BF16_scan",
+    "fused_short_summary_with_merge",
+    "full_class_dispatch"
+  ],
+  "rules": [
+    "actual_Q2_after_action_only",
+    "code_not_assumed_persisted",
+    "HiF4_S1P2_not_NVFP4_E2M1",
+    "complete64_closure",
+    "retain_row_coordinates",
+    "no_prepool_signed_cancellation_for_row_SSE",
+    "nonmyopic_feature_complementarity_possible",
+    "critical_path_cost_not_FLOPs_only",
+    "source_cluster_exposure_preserved"
+  ],
+  "model_runs": 0,
+  "implementation_status": "PROPOSED_CONSUMERS_NOT_IMPLEMENTED"
+}

@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-28",
+  "base_commit": "d60e7e6fc225970609023382c5bb66ec1023b060",
+  "evidence": "LIT_SRC_ALG_OPEN_NO_NEW_NATIVE",
+  "report": "research/20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md",
+  "tools": [
+    "web.run",
+    "GitHub connector",
+    "local pinned source",
+    "stdlib Python"
+  ],
+  "query_families": [
+    "quantization metadata and preactivation sparse prediction",
+    "Prox SharQ paid versus fused observation",
+    "DejaVu lookahead critical path",
+    "HiFloat4 format conversion and code timing",
+    "SpQt group layout and sparse index overhead",
+    "TeaCache early input changes and history",
+    "active feature acquisition stop observe cost"
+  ],
+  "citation_paths": [
+    "Prox/SharQ related work -> DejaVu; SharQ format appendix -> original HiFloat4 paper and pinned local CUDA",
+    "Quantized sparsity search -> SpQt layout; dynamic input reuse -> TeaCache method",
+    "Sequential observation formulation -> NeurIPS 2018 active feature acquisition original MDP and negative acquisition limitation"
+  ],
+  "retrieval_limits": [
+    "CVPR2025 TeaCache PDF returned403; read official entry and author arXiv v2 methods instead",
+    "Prox author implementation not inspected; all efficiency statements retained in original decode scope",
+    "SpQt read pinned v1, not a claim about later releases",
+    "No literature-priority proof, hardware benchmark or global exhaustive search"
+  ],
+  "records": [
+    {
+      "id": "L95",
+      "title": "Deja Vu: Contextual Sparsity for Efficient LLMs at Inference Time",
+      "url": "https://proceedings.mlr.press/v202/liu23am.html",
+      "primary_text": "https://proceedings.mlr.press/v202/liu23am/liu23am.pdf",
+      "sections": "§4.1 pp.6 and §4.3 pp.7; predictor and asynchronous scheduling",
+      "reading_depth": "PRIMARY_ICML_PDF_SEC4_1_4_3_READ_CODE_NOT_REVIEWED_20261028",
+      "relation": "CLOSE_SYSTEM_MECHANISM_PRIOR",
+      "decision_time": "Earlier layer inputs for lookahead; exact target-layer inputs only available later",
+      "wan_discriminator": "Current Q1 is after attention/AdaLN and cannot overlap with its own prerequisites; earlier-state predictions and large-M resource contention require separate validation"
+    },
+    {
+      "id": "L96",
+      "title": "HiFloat4 Format for Language Model Inference",
+      "url": "https://arxiv.org/abs/2602.11287",
+      "primary_text": "https://arxiv.org/html/2602.11287v2",
+      "sections": "§II-A/B Algorithm 1; §III-B Eq.(3); local pinned hifx_quant_cuda_inner",
+      "reading_depth": "PRIMARY_ARXIV_V2_SEC_II_B_ALG1_III_B_EQ3_AND_PINNED_LOCAL_CUDA_READ_20261028",
+      "relation": "FORMAT_AND_PRODUCER_CONSTRAINT",
+      "decision_time": "After current group magnitude reductions; not before loading current activations",
+      "wan_discriminator": "Published packed representation differs from pinned fake-QDQ BF16 output API; metadata is sign-invariant and requires an explicit consumer"
+    },
+    {
+      "id": "L97",
+      "title": "Enabling Dynamic Sparsity in Quantized LLM Inference",
+      "url": "https://arxiv.org/abs/2511.04477",
+      "primary_text": "https://arxiv.org/html/2511.04477v1",
+      "sections": "§3.1–3.3; §4.1–4.2 layout, scheduling and index collection",
+      "reading_depth": "PRIMARY_ARXIV_V1_SEC3_4_READ_CODE_NOT_REVIEWED_20261028",
+      "relation": "CLOSE_SYSTEM_MECHANISM_PRIOR",
+      "decision_time": "Runtime index collection from current activation before GEMV; weight layout prepared offline",
+      "wan_discriminator": "Layout co-design prior, not a full-M video GEMM or preserved HiF4 quantization-group permutation guarantee"
+    },
+    {
+      "id": "L98",
+      "title": "Joint Active Feature Acquisition and Classification with Variable-Size Set Encoding",
+      "url": "https://papers.nips.cc/paper_files/paper/2018/hash/e5841df2166dd424a57127423d276bbe-Abstract.html",
+      "primary_text": "https://papers.nips.cc/paper/2018/file/e5841df2166dd424a57127423d276bbe-Paper.pdf",
+      "sections": "§3 Eq.(1), §3.1 state/action/reward; §5 limitation on excessive acquisition",
+      "reading_depth": "PRIMARY_NEURIPS2018_PDF_SEC3_EQ1_MDP_AND_LIMITATIONS_READ_20261028",
+      "relation": "TRANSFERABLE_COSTLY_OBSERVATION_FRAMEWORK",
+      "decision_time": "Sequentially acquired features only; acquisition outcome unknown when chosen",
+      "wan_discriminator": "Transferable decision formulation; Wan observations can execute target operators, change action feasibility and exhaust savings"
+    },
+    {
+      "id": "L14",
+      "title": "TeaCache",
+      "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Liu_Timestep_Embedding_Tells_Its_Time_to_Cache_for_Video_Diffusion_CVPR_2025_paper.html",
+      "primary_text": "https://arxiv.org/html/2411.19108v2",
+      "sections": "§3.2–3.3 Eq.(4)–(7), Table1 step counts",
+      "reading_depth": "PRIMARY_ARXIV_V2_METHOD_EQ4_7_READ_CODE_NOT_REVIEWED_20261028",
+      "relation": "EARLY_PROXY_AND_REFRESH_POLICY_ANALOGY",
+      "finding": "Time-modulated input differences are polynomial-rescaled and accumulated for cache decisions; this does not certify scale-only action reuse across four steps or expert switches."
+    },
+    {
+      "id": "L69",
+      "title": "Prox",
+      "primary_text": "https://arxiv.org/html/2607.27591v1",
+      "sections": "§3.2, §4.1–4.3; reread timing and resident INT4 proxies",
+      "reading_depth": "PRIMARY_METHOD_RECHECK_EXISTING_DEEP_AUDIT",
+      "finding": "Extra proxy computation buys a selection mask; exact retained values are recomputed. Paid proxy is a matched-cost baseline, not free native metadata."
+    },
+    {
+      "id": "L74",
+      "title": "SharQ",
+      "primary_text": "https://arxiv.org/html/2606.26587v1",
+      "sections": "§3.3–3.4 Eq.(6)–(9), author prepare_input/apply_prepared and fused_sparse_residual_x_kernel",
+      "reading_depth": "PRIMARY_PAPER_AND_TWO_AUTHOR_CODE_BLOBS_REVERIFIED",
+      "finding": "Fuse selection and sparse/residual quantization with current activation preparation; two GEMMs remain. Applicable lesson is producer fusion and shared payload, not whole-FFN omission."
+    }
+  ],
+  "source_code": [
+    {
+      "repository": "Qesire/FFNDS",
+      "ref": "d60e7e6fc225970609023382c5bb66ec1023b060",
+      "path": "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+      "sha256": "07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c",
+      "lines": "229–286; 446–522",
+      "observation": "Local scales, BF16 reconstructed output only; 64 threads and4096 values per CTA; no independent code/scale output argument."
+    },
+    {
+      "repository": "actypedef/SharQ",
+      "path": "model/qLinearLayer.py",
+      "blob_sha": "1db675d181663d4bd76868f40279e40db8428c31",
+      "url": "https://github.com/actypedef/SharQ/blob/main/model/qLinearLayer.py",
+      "lines": "65–87;113–163",
+      "observation": "prepare_input yields sparse/residual payloads; apply_prepared runs sparse GEMM then dense accumulation"
+    },
+    {
+      "repository": "actypedef/SharQ",
+      "path": "kernels/src/fused_sparse_prepare.cu",
+      "blob_sha": "687470cc965cfd524157d7ea16afedba35b84a76",
+      "url": "https://github.com/actypedef/SharQ/blob/main/kernels/src/fused_sparse_prepare.cu",
+      "lines": "89–249",
+      "observation": "Current x loaded, local pair selection, quantized sparse backbone and actual residual packed in same producer"
+    }
+  ]
+}
