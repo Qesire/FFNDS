@@ -1,4 +1,7 @@
 ---
+
+**2026-10-29 · 当前研究生成原则（资产先行）：** [从8源BF16全深度、r960留源、旧tile/闭包与20源完整视频重建计算结构和四个新方法分支](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)。任一Agent先确认已观测的原生结构、它的竞争解释、在线可用信息的时点、合法执行变换与成本，再设想方法；S1跨step共享函数/S4条件rank作用价值/S2条件时空FFN单元/S3前置可得signed whole64动作均有独立优先级。历史M-B“先末层”的既定次序被本机制发现流程取代；局部SSE/符号抵消、补算/gain只作为候选机制与诊断。现成BF16 shared80 r960因子可直接作为全160位配对视频的首个经济验证对象，但其真实质量和部署速度尚未测。全方法继续执行完整视频终端准入，不得将teacher-state代表free student轨迹。
+
 name: ffnds-paper-discovery
 description: Apply AutoResearcher science to parallel information, function/dynamics and computation/execution discovery for efficient video FFN research.
 ---
@@ -23,7 +26,7 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 **资源调度（2026-10-28最新指令）**：按[现行动态GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际可申请并运行的最多GPU；没有预设全局张数限制。旧2/4卡可属于历史实验的冻结字段；新scope按实际可调度量和ACTIVE冻结模型/来源/预算；不要凭旧上限拒绝并行的独立已注册工作。
 
-**当前指定继续M-B（方法研究）**：复用B0/CAL24/B-H/A0/B-F现存数值与20-source UB1、320-site Affine54以及A0六视频的真实证据；**首个可排序方法实验**从全160-site可执行函数、≥20独立image clusters同源Dense完整视频、运动/画质/主体/背景/时序/语义和真实FFN/全wall共同决策。末层L39/head/gain保留为推导、解释和诊断；它单独的成功不提升全模型部署方法状态。开发历史曝光与未暴露确认严格分离；R0原生NVFP4并行。最新合同见[视频先行](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
+**历史M-B诊断专项（非当前默认科研入口）**：复用B0/CAL24/B-H/A0/B-F现存数值与20-source UB1、320-site Affine54以及A0六视频的真实证据；**首个可排序方法实验**从全160-site可执行函数、≥20独立image clusters同源Dense完整视频、运动/画质/主体/背景/时序/语义和真实FFN/全wall共同决策。末层L39/head/gain保留为推导、解释和诊断；它单独的成功不提升全模型部署方法状态。开发历史曝光与未暴露确认严格分离；R0原生NVFP4并行。最新合同见[视频先行](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
 
 已完成机制证据复用：[B-H Direct65](../../../research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)、[同head A0](../../../research/20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)、[B-F](../../../research/20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)。这些已完成pilot保留原范围，由现行全深度多来源视频合同决定后续方法排序。
 
