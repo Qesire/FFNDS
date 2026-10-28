@@ -1,72 +1,42 @@
-# FFNDS · Agent 执行规则：原始 BF16 研究优先，原生 NVFP4 部署暂缓
+# FFNDS · 并行执行策略：A100 原始 BF16 × RTX PRO 6000 Blackwell 原生 NVFP4
 
-2026-10-28 · **CURRENT POLICY / 用户研究决定**。本文件明确后续研究和实验的数值环境选择；不改变 [M-A/M-B/M-C方法主体](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，不修改已有 HiF4/CAL24/A0/B-H 运行收据和冻结模型范围，不自动批准GPU/视频实验。各Agent从 [任务台账](CURRENT_TASK_LEDGER_20261028.json) 恢复实际进度。
+2026-10-28 · CURRENT POLICY。**用户最新指令：RTX PRO 6000 Blackwell可以作为更适合的原生NVFP4目标，允许与A100 BF16科学研究并行推进。**此前“没有本地5090”仍有效，但不再意味着所有NVFP4任务延期。两个lane分别维护进展、算子身份、GPU与实验凭据；本文件不自动发起任何GPU运行或更改冻结实验。
 
-**2026-10-28 最新用户纠正（优先于下文原计划）**：用户**没有本地 RTX 5090**，原生NVFP4部署的设备和环境准备复杂，明确要求**暂不着急推进**。现行执行优先项为**原始BF16机制、合法同条件对照、完整视频质量与实际BF16省算**，已有可用A100和研究资产继续发挥作用。SM120原生NVFP4 R0–R4 五项任务统一为 **DEFERRED / 暂不排入READY队列**；无需为其进行设备搜索、环境搭建、额外下载、checkpoint转换、CUDA编译、专项GPU占用或模型运行。未来用户明确重新启动且真实可用SM120资源与匹配checkpoint到位时，才从R0恢复。历史SM120原生primitive在 **RTX PRO 6000 Blackwell** 跑过，**不是5090**，不代表当前能够访问该机器。**本规则不修改过去冻结RUN/报告或已绑定证据。**
+## 1. 两条并行P0研究轨道
 
-## 一、必须使用的三条路径身份
+| 数值路径 | 设备 | 承担的问题 | 工作状态 |
+| --- | --- | --- | --- |
+| **BF16_ORIGINAL（P0）** | A100、原始BF16 high/low checkpoint | M-B/B-F/A0，跨深度范数自由度，低成本新函数，真实FFN算术和系统耗时、完整视频运动与语义 | 继续已开展工作，不等待FP4 |
+| **NVFP4_NATIVE_W4A4（并行P0）** | RTX PRO 6000 Blackwell，SM120，96GB名义规格；**当前可访问性和MIG配额待验证** | 真正packed E2M1 GEMM、weight static与activation dynamic两侧scale、Dense baseline、候选FFN实算/速度 | R0只读准备READY，R1–R4按实际依赖与新scope逐次启动 |
+| HIF4_FAKE_QDQ_DIAGNOSTIC | 旧模型及必要的合适设备 | HiF4 signed S1P2、64/8/4 scale耦合、历史数字与机制诊断 | 按需 |
+| NVFP4_DECODED_BF16_GEMM | 同量化checkpoint | 解码权重BF16 GEMM对照，以隔离kernel和量化差异 | 专用控制组 |
+| NVFP4_W4A16_FALLBACK | 具体软件后端 | Marlin/weight-only fallback识别 | 不算native W4A4 |
 
-| 路径标签 | 优先级 | 角色 |
-| --- | --- | --- |
-| **BF16_ORIGINAL** | P0 | 原始BF16模型 Dense / FFN Sparse / 学生：研究函数、运动、算术和真实BF16省算，主要高精度科学基准 |
-| **NVFP4_NATIVE_W4A4** | **DEFERRED（未来部署目标）** | 当有明确可访问SM120且用户重新启用部署线时，复用成熟LightX2V/CUTLASS原生NVFP4 W4A4；本次没有本地5090，也不启动配套实验 |
-| **HIF4_FAKE_QDQ_DIAGNOSTIC** | P2/按需 | 维持冻结的HiF4 S1P2 signed、64/8/4 scale联动、数值敏感性、历史结果归因和旧方法重放；不以BF16 F.linear推定native FP4提速 |
-| **NVFP4_DECODED_BF16_GEMM** | 控制组 | *同一份NVFP4量化checkpoint* 的解码BF16矩阵，用来分离数值量化与kernel；绝不写成BF16_ORIGINAL |
-| **NVFP4_W4A16_FALLBACK** | 兼容性诊断 | packed weight + BF16 activation，Marlin或其它权重专用kernel；不能计入 native W4A4 speedup |
+**资源事实**：用户没有本地RTX5090；RTX PRO 6000是另一个Blackwell目标。NVIDIA官方产品规格为96GB显存、CC12.0，实际可分配显存取决于型号、MIG及当前使用情况。历史 [SM120 CUTLASS原生基元](../20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md)于**RTX PRO 6000 Blackwell**真实执行两个小shape packed GEMM并通过参考，**不是RTX5090，也不是完整Wan NVFP4模型**。[旧R0调查](../20261028/BF16_NVFP4_R0_READINESS_20261028.md)当时没有通过已批准入口重新访问那台机器、匹配完整NVFP4 checkpoint也未验证，历史access failure不推论当下无法访问。当前重查以真实设备管理入口为准。
 
-**BF16_ORIGINAL 的权重必须是原始 BF16 checkpoint**。旧仓库离线 HiF4 PTQ 的 BF16 weight_qdq 是**被量化后再解码**的BF16，不能通过关掉activation QDQ即当作原始 BF16。
+## 2. 必须先区分源码中的两类NVFP4
 
-**未来可选设备事实（非当前资源）**：RTX 5090 的 Compute Capability 为12.0（SM120）、32GB显存，硬件上可运行原生NVFP4；目前**用户没有这张本地GPU**。NVIDIA CUTLASS 79a要求对应SM120/CUDA工具链。FFNDS历史成功的两组小shape packed FP4 primitive实际运行于**RTX PRO 6000 Blackwell**，仅证明当时的原生算子数值能力，不证明当前Wan W4A4已跑通或那台机器现在可用。W4A16/Marlin与原生W4A4分别记账。
+- **NVFP4 Fake-QDQ研究实现**：[nvfp4_rtn_backend.py](../../upstream_audit/source_deltas/Wan2.2-I2V-A14B-W4A4/files/quant/nvfp4_rtn_backend.py)明确记录weight_storage为float_QDQ_weight、activation_storage为float_runtime_QDQ、packed_kernel为False、compute_backend为bf16_or_fp16_F.linear。它每调用重新量化group16激活，权重是离线RTN，提供数值近似，但**不能作为原生NVFP4 Tensor Core加速证明**。
+- **NVFP4原生W4A4计算**：优先复用固定版本[NVIDIA CUTLASS SM120 79a](https://github.com/NVIDIA/cutlass/blob/main/examples/79_blackwell_geforce_gemm/79a_blackwell_geforce_nvfp4_bf16_gemm.cu)或可核对的[LightX2V](https://github.com/ModelTC/LightX2V)成熟pack/scale/GEMM链路；weight packed码及静态scale离线生成，Q1和Q2激活码/每16元素局部scale在本次FFN调用在线生成，全局activation scale可能来自校准。实际需要记录两侧scale物理驻留、swizzle、量化producer及packed kernel名称、真实延迟。
 
-## 二、原生NVFP4的已归档后续技术路线（现已全部DEFERRED）
+原始BF16 checkpoint 与任何HiF4/NVFP4量化后再解码的BF16权重必须分开；NVFP4 group16不能不加论证直接沿用HiF4 group64闭包。Q1在线码在W1前才可能消费，Q2在线码在W1/GELU后只能作用于剩余W2。LightX2V官方四步NVFP4配置可能同时改变scheduler和sparse attention，**先做每种recipe内部Dense→候选的配对比较**，跨配置只做经确认身份后的质量Pareto。
 
-以下R0–R4只用于日后复用已有设计，**不是当前Agent行动项**。禁止根据文中的命令、依赖或技术可行性自动启动环境/模型工作。当前 P0 是原始 BF16 与功能实验，R3仅是 BF16 科学线的技术背景，不需要以R0为依赖。
+## 3. 研究队列与真实执行门槛
 
-**R0：设备/环境无模型预检（DEFERRED；未来重新启用时才做）**
+**A100 BF16并行科学主线（持续）**：继续利用CAL24、B-H、同head A0、B-F学生、A0视频、原始BF16 Dense两视频、low39四角cross-state分解、fixed-norm转移。下一次设计以**跨来源/跨深度范数补全、独立source校准、视频运动与语义、低成本实际FFN物理算子**为中心；保留已暴露开发来源的证据边界。没有前置NVFP4依赖。
 
-Agent先收集：GPU名称、VRAM、CUDA compute capability、driver、torch版本/torch CUDA版本、nvcc版本、CMAKE_CUDA_ARCHITECTURES、ninja、FlashInfer/CUTLASS版本与实际后端。建议命令：
+**RTX PRO 6000 NVFP4原生lane：**
 
-- nvidia-smi
-- python -c "import torch;print(torch.__version__,torch.version.cuda,torch.cuda.get_device_name(0),torch.cuda.get_device_capability(0))"
-- nvcc --version
-- python -m pip show ninja flashinfer-python torch
+1. **R0 / READY_STATIC：**按受许可入口核验当前RTX PRO 6000访问权限和可调用GPU资源，查询真实device name/compute capability/MIG/可用显存/驱动/CUDA>=12.8/torch/CUTLASS版本；复用已有SM120 primitive记录；pin与现有Wan原始BF16高低专家及四步蒸馏版本相容的**实际NVFP4 checkpoint或正式转换/校准生产者**。若暂时只有GitHub权限，写ACCESS_NOT_VERIFIED、CHECKPOINT_UNKNOWN，可继续代码级准备；不要声称当前分配了Pro6000。
+2. **R1 / OPEN_NEEDS_REGISTERED_NATIVE：**实际可用SM120和新ACTIVE scope满足后，做packed W4A4非零kernel/数值no-op，核验W与A scale输入和编译架构，识别Fake-QDQ/W4A16 fallback；历史E0已经完成相同数值基元的情况下优先复用它而非无效重跑。
+3. **R2 / WAITING_ON_EVIDENCE：**有匹配NVFP4 checkpoint、动态activation quantizer、原生GEMM执行路径后，跑Wan真实W1和W2全M Dense；量化、packed、scale swizzle、GEMM、offload及内存峰值分别计时。使用Pro6000可利用较大显存降低offload，但必须核验实际96GB驻留是否可用。
+4. **R3 / WAITING_ON_EVIDENCE：**同一NVFP4 checkpoint/scheduler/attention/源与seed，Dense FFN对比实际candidate FFN；分别报告省掉的物理tile/MAC、前置量化观察成本和整个FFN真实wall，不把不同模型/步数/attention混成单一量化/稀疏收益。
+5. **R4 / WAITING_ON_EVIDENCE：**R3条件通过后，进行真实四步两专家40block、完整视频source-disjoint与相同seed配对、运动幅值/光流、主体背景、camera、时序语义、失败尾例和端到端速度。
 
-期望 5090 为 (12,0)；工具链对 CUTLASS SM120 编译至少 CUDA12.8。若系统为Windows、CUDA环境复杂或FlashInfer尚不匹配，优先使用隔离Linux/WSL2或成熟LightX2V可用镜像，**先完成一个原生no-op而非重建全部工程**。上述命令仅供未来明确复启、且实际获准访问SM120主机时使用；用户当前没有本地5090，无需执行。GitHub读取不能证明任何当前GPU可用性。
+两轨同为科研优先级，不必等待彼此完成；各轨内部按producer→consumer依赖。当前全局资源政策为实际可调用量，不以历史固定卡数推导当前权益；任何模型/GPU运行必须按[ACTIVE](../ACTIVE_RESEARCH.json)已有会话限制、独立冻结scope、资产与运行收据授权。新增Pro6000真实GPU执行需重查授权并注册，政策文件本身不构成作业提交。
 
-**R1：最小SM120 NVFP4原生W4A4基元（依赖R0）**
+## 4. 下轮Agent可立即交付
 
-复用已检过的 pinned CUTLASS 79a或匹配的成熟backend。真实 packed A/W 两份scale tensor、输出与FP32/BF16参考吻合、记录GPU arch及native kernel签名和数值误差，证明使用原生block-scaled MMA。CUTLASS在架构不匹配时的示例可能返回exit0 no-op，**必须有非零的实际GPU调用及结果对比**。若安装vLLM仍出现Marlin、W4A16或软件回退，应报告精确子层、格式和kernel，不据此淘汰RTX5090。
+BF16 lane 给出利用最新原始BF16结果的科学判别；NVFP4 lane 给出R0可重用source与硬件/权重就绪表，分别标注ACCESS_VERIFIED或ACCESS_NOT_VERIFIED、CHECKPOINT_VERIFIED或UNKNOWN、真实packed W4A4还是Fake-QDQ。等真正可分配Pro6000后独立安排R1–R4的新原生/VIDEO/SYS证据。保留旧R0报告、已冻结实测和哈希，不重写历史时间点。
 
-**R2：成熟LightX2V Wan2.2-I2V-4step-NVFP4 Dense（需精确新scope）**
-
-优先采用 [LightX2V NVFP4 I2V四步脚本](https://github.com/ModelTC/LightX2V/blob/main/scripts/wan22/extreme/run_wan22_moe_i2v_extreme.sh) 与 [官方NVFP4配置](https://github.com/ModelTC/LightX2V/blob/main/configs/wan22/extreme/wan_moe_i2v_distill_nvfp4_sparse_attn.json) 及**匹配的high/low真实checkpoint**。先确认是否为同一量化感知蒸馏模型：其公开preset为 timesteps 1000/750/500/250、dynamic_sparse_attn/sage2、cross sage_attn2、81帧、480×832；旧FFNDS HiF4先验为1000/937.5/833.333313/625。配置不是可以直接混用的因果对照。先用官方支持的 checkpoint/时间表/attention 跑native Dense FFN no-op，确认真实FP4 kernel而非weight-only fallback。显存优先保留T5 offload；OOM时可依据官方配置逐项调整offload/分辨率/图像编码器，但每个改变生成新的正式运行身份与质量比较，记录吞吐、VRAM、offload成本，不偷偷混入实验组。
-
-**R3：BF16方法、M-B/B-H/A0/B-F（当前P0；不依赖R0-R2）**
-
-继续利用CAL24、B-H Direct65 H128、A0全160学生与完成的**同head A0/B-H匹配对照、B-F固定基底pilot**。最新原始BF16工作已有两来源Dense视频/八轴评分、低39跨状态四角分析及fixed-norm原生转移；下一步优先做**跨来源/跨深度的范数补全机制、Calibration V2分层、可执行低成本函数、完整自由视频运动质量和真实BF16系统wall**。已暴露开发源与新独立来源分别统计，任何新GPU作业依照ACTIVE登记。不因NVFP4暂缓而停顿BF16功能与方法实验。
-
-**R4：原生NVFP4 FFN候选与完整视频（依赖R2真实Dense通过）**
-
-以**同一NVFP4 checkpoint和量化recipe**成对比较 dense FFN / sparse or compact FFN。W1/W2权重离线静态量化，Q1/A1与Q2/A2在线动态量化；NVFP4元素signed E2M1、16-element E4M3局部A/W scales、FP32全局scale；动态A1 scale必须赶在pre-W1决策前实际可用，A2只能影响真实W1/GELU后剩余W2动作。记录动态激活quantization、scale生成/读取、layout/swizzle、路由和物理kernel成本。同源/同seed/同调度/同attention验证全4step 160 FFN、连续运动、subject/background、camera/语义与质量尾例及整端wall。
-
-## 三、物理与科学对照的强制身份
-
-1. **同格式原生Dense→候选**是测量FFN增量收益的主要比较；不是“换checkpoint+换schedule+换attention+换稀疏方法”的混杂比较。
-2. **BF16 original vs NVFP4 checkpoint**可以作为跨格式质量Pareto，但若蒸馏数据、四步时刻与attention不同，不能把差别归因为低位量化。
-3. **NVFP4 W4A4** 与 W4A16权重专用模式分开。静态weight side / 动态activation side及实际量化kernel的scale元信息完整登记；别因看到checkpoint文件扩展名 nvfp4 就声称原生W4A4。
-4. **HiF4 Fake-QDQ** 保留其数值科学功能和历史证据，不再是新低位FFN速度评测的默认后端。
-5. **设备与时序优先**：当前没有本地5090且用户明确暂缓原生FP4部署；SM120原生目标是未来可选选项，现阶段不开展专项安装或GPU调度。历史RTX PRO 6000 Blackwell primitive只提供基础能力证明。
-
-## 四、完整验收证据与运行权限
-
-对 R1-R4 的新运行登记 NUMERIC_PATH、master_model/高低噪声checkpoint+SHA、scheduler/step、attention backend、quantizer/weight scale+activation dynamic scale、scale layout、GPU CC和显存、M/N/K、actual kernel name、code/protocol SHA、quantization+GEMM+overhead latency、RUN/EXIT、source image-cluster/seed、整端wall、运动及语义质量。Native只有实际kernel证据；VIDEO/SYS只有真实free rollout及测量证据。
-
-具体原生GPU/视频作业需在 [ACTIVE_RESEARCH.json](../ACTIVE_RESEARCH.json) 登记精确scope/用户授权、源与预算，历史冻结配置不改。全局 GPU 不设预先限额，但各会话资源指令与实际可调用量仍须核对。当前仓库编辑仅同步行动规则；**本次不启动NVFP4相关工作，也不声称存在可访问的本地5090**。历史实验按既有source hash原样保存。
-
-## 五、源级起点
-
-- [LightX2V Wan2.2 I2V NVFP4 preset](https://github.com/ModelTC/LightX2V/blob/main/configs/wan22/extreme/wan_moe_i2v_distill_nvfp4_sparse_attn.json) 与 [Wan22脚本总览](https://github.com/ModelTC/LightX2V/blob/main/scripts/wan22/README.md)。
-- [NVIDIA CUTLASS SM120 79a](https://github.com/NVIDIA/cutlass/blob/main/examples/79_blackwell_geforce_gemm/79a_blackwell_geforce_nvfp4_bf16_gemm.cu)。
-- [NVIDIA compute capability](https://developer.nvidia.com/cuda/gpus)。
-- [当前W1/W2权重与A1/A2激活时点审计](../20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)。
-- [FFNDS已有SM120 NVFP4 primitive](../20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md)。
+资料：[RTX PRO 6000官方型号](https://www.nvidia.com/en-sg/products/workstations/professional-desktop-gpus/rtx-pro-6000-family/) · [官方CUDA GPU CC](https://developer.nvidia.com/cuda/gpus) · [权重静态/激活动态与NVFP4时序](../20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)。
