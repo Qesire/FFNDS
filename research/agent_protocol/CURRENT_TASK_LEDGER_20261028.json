@@ -25,11 +25,12 @@
     "quantization_operand_contract": "research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json",
     "numeric_execution_policy": "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
     "user_local_deployment_hardware": {
-      "hardware": "NO_LOCAL_RTX_5090_USER_CONFIRMED",
-      "verification_state": "User explicitly confirms no local RTX5090; remote SM120 access not established; historical RTX PRO 6000 primitive is not a current device entitlement.",
-      "current_primary_numeric_path": "BF16_ORIGINAL",
-      "current_accessible_model_family": "A100 BF16 research already evidenced; do not infer live GPU allocations from historical runs",
-      "native_NVFP4_W4A4_status": "DEFERRED_BY_USER_NOT_URGENT",
+      "hardware": "NO_LOCAL_RTX_5090; RTX_PRO_6000_BLACKWELL_IS_PARALLEL_NATIVE_TARGET",
+      "verification_state": "User authorizes parallel NVFP4 investigation using RTX PRO 6000 instead of local RTX5090. Prior E0 primitive did execute on PRO6000; present machine availability, scheduling entitlement/MIG and model NVFP4 checkpoint remain unverified.",
+      "current_primary_numeric_path": "BF16_ORIGINAL_ON_A100",
+      "parallel_native_numeric_path": "NVFP4_NATIVE_W4A4_ON_RTX_PRO_6000_IF_ACCESS_VERIFIED",
+      "native_NVFP4_W4A4_status": "PARALLEL_R0_READINESS_ACTIVE_NATIVE_EXECUTION_GATED",
+      "gpu_source_authority": "research/ACTIVE_RESEARCH.json",
       "new_gpu_work_permission": "REQUIRES_EXACT_ACTIVE_SCOPE"
     },
     "quality_v2": {
@@ -174,7 +175,17 @@
       }
     ],
     "next_original_BF16_probe": "IN_DESIGN_NOT_REGISTERED_NOT_RUN: cross-depth original-BF16 calibration/function discrimination after actual fixed-norm transfer; CalibrationV2 coverage first, no automatic full80fit/rank sweep.",
-    "current_user_hardware_correction_20261028": "No local RTX5090; NVFP4 setup difficult, not urgent. Pause all SM120/NVFP4 preparation and model runs. BF16 mechanism/quality/system scientific work continues. Resume only after renewed explicit instruction and actual accessible appropriate hardware."
+    "current_user_hardware_correction_20261028": "No local RTX5090 remains true. Latest user allows RTX PRO 6000 Blackwell NVFP4 lane to proceed in parallel with A100 BF16; R0 now READY_STATIC, R1 requires verified Pro6000 access + newly registered exact ACTIVE model scope; preserve old readiness observation and no claim of current GPU access.",
+    "parallel_execution_policy": {
+      "lanes": [
+        "A100_BF16_ORIGINAL_SCIENCE",
+        "RTX_PRO_6000_NATIVE_NVFP4"
+      ],
+      "execution_model": "Independent READY queues, source/model scopes and signed evidence; neither lane waits for other to finish.",
+      "actual_pro6000_entitlement": "ACCESS_NOT_VERIFIED_CURRENT_TURN",
+      "original_bf16_entitlement": "Prior A100 native evidence; live slots not sampled in this GitHub edit.",
+      "last_user_scope": "Native NVFP4 may be advanced in parallel on RTX PRO 6000, with actual device availability verified before model/GPU runs."
+    }
   },
   "status_legend": {
     "READY_STATIC": "Can progress by reading source, existing evidence and creating bounded code/protocol without new model runs",
@@ -584,9 +595,9 @@
     },
     {
       "id": "P0-SM120-R0-ENV",
-      "track": "Numeric backend migration / RTX5090",
-      "priority": 4,
-      "status": "DEFERRED",
+      "track": "Numeric backend parallel lane / RTX PRO 6000 Blackwell",
+      "priority": 0,
+      "status": "READY_STATIC",
       "dependencies": [],
       "basis": [
         "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
@@ -595,18 +606,19 @@
         "research/20261028/BF16_NVFP4_R0_READINESS_20261028.json",
         "research/20261028/BF16_NVFP4_R0_READINESS_20261028.md"
       ],
-      "output": "Completed read-only R0 asset evidence: two original BF16 checkpoint headers, historical RTX PRO 6000 Blackwell SM120 primitive; NVFP4 checkpoint still UNKNOWN. Future device readiness DEFERRED by user, not pending action.",
-      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
-      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
+      "output": "Historical R0 read-only audit complete; now ready to re-verify authorized RTX PRO 6000 hardware access, device 96GB nominal/MIG and toolchain plus exact NVFP4 checkpoint binding. Existing matching checkpoint remains UNKNOWN until verified.",
+      "next_action": "Run immediate read-only R0: verify authorized RTX PRO 6000 Blackwell re-access (historical E0 native success is not present access), actual CC/MIG/available VRAM/toolchain/queue, pinned native packed W4A4 backend, and matching real Wan I2V high/low NVFP4 checkpoint. If GitHub-only access, report ACCESS_NOT_VERIFIED, CHECKPOINT_UNKNOWN. Continue A100 BF16 in parallel.",
+      "execution": "READY_STATIC_SOURCE_AND_RESOURCE_DISCOVERY",
       "result_sha256": "33b99e2f1364dc9f458f5c4311d7a96bbb1a23df2fce6340920c2ad6ba6b1d6e",
-      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
-      "previous_pre_defer_priority": 0
+      "current_session_hardware_override": "NO_LOCAL_RTX5090; PRO6000_NATIVE_LANE_PERMITTED_BUT_LIVE_ACCESS_UNVERIFIED",
+      "previous_pre_defer_priority": 0,
+      "status_basis": "2026-10-28 latest user: RTX PRO 6000 is preferable and native NVFP4 may be pursued concurrently with A100 BF16; original E0 primitive proven on PRO6000 but current access not confirmed."
     },
     {
       "id": "P1-SM120-R1-FP4-NATIVE",
-      "track": "Numeric backend migration / RTX5090",
-      "priority": 4,
-      "status": "DEFERRED",
+      "track": "Numeric backend parallel lane / RTX PRO 6000 Blackwell",
+      "priority": 1,
+      "status": "OPEN_NEEDS_REGISTERED_NATIVE",
       "dependencies": [
         "P0-SM120-R0-ENV"
       ],
@@ -616,16 +628,17 @@
         "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
       ],
       "output": "Single bounded real SM120 CUTLASS/LightX2V backend packed E2M1 W4A4 native GEMM and two scale operand numerical check, with kernel/CC/evidence; exclude Marlin W4A16/fakeQDQ or zero-call exit0.",
-      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
-      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
-      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
-      "previous_pre_defer_priority": 1
+      "next_action": "Once actual PRO6000 access, native packed backend and exact ACTIVE scope are verified, reuse historical CUTLASS SM120 79a proof and conduct only the discriminating native W4A4 vs fake-QDQ/W4A16 no-op, separate W/A scale + kernel ID and numerical check. Do not schedule unregistered model/GPU jobs.",
+      "execution": "OPEN_NATIVE_ACCESS_AND_ACTIVE_SCOPE_GATE",
+      "current_session_hardware_override": "NO_LOCAL_RTX5090; PRO6000_NATIVE_LANE_PERMITTED_BUT_LIVE_ACCESS_UNVERIFIED",
+      "previous_pre_defer_priority": 1,
+      "status_basis": "2026-10-28 latest user: RTX PRO 6000 is preferable and native NVFP4 may be pursued concurrently with A100 BF16; original E0 primitive proven on PRO6000 but current access not confirmed."
     },
     {
       "id": "P1-SM120-R2-WAN-NVFP4-DENSE",
-      "track": "Numeric backend migration / RTX5090",
-      "priority": 4,
-      "status": "DEFERRED",
+      "track": "Numeric backend parallel lane / RTX PRO 6000 Blackwell",
+      "priority": 1,
+      "status": "WAITING_ON_EVIDENCE",
       "dependencies": [
         "P1-SM120-R1-FP4-NATIVE"
       ],
@@ -635,19 +648,19 @@
         "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
       ],
       "output": "M=Wan I2V actual full M original native NVFP4 W4A4 dense baseline from matching high/low checkpoints and dynamic activation scale producer, with wall/VRAM/noop; not merely random shape primitive.",
-      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
-      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
-      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
-      "previous_pre_defer_priority": 1
+      "next_action": "After R1 and correct original/different distilled checkpoint identities are pinned, load actual Wan I2V high/low NVFP4 W4A4 matched checkpoint; test dynamic activation group16 online scales/packed W1 and W2 at full M and record quantizer+layout+GEMM wall and VRAM. Distinguish existing NVFP4_RTN FakeQDQ BF16 F.linear from true native path; only run under ACTIVE.",
+      "execution": "WAIT_NATIVE_R1_AND_MATCHED_CHECKPOINT",
+      "current_session_hardware_override": "NO_LOCAL_RTX5090; PRO6000_NATIVE_LANE_PERMITTED_BUT_LIVE_ACCESS_UNVERIFIED",
+      "previous_pre_defer_priority": 1,
+      "status_basis": "2026-10-28 latest user: RTX PRO 6000 is preferable and native NVFP4 may be pursued concurrently with A100 BF16; original E0 primitive proven on PRO6000 but current access not confirmed."
     },
     {
       "id": "P2-SM120-R3-WAN-NVFP4-CANDIDATE",
-      "track": "Numeric backend migration / RTX5090",
-      "priority": 4,
-      "status": "DEFERRED",
+      "track": "Numeric backend parallel lane / RTX PRO 6000 Blackwell",
+      "priority": 2,
+      "status": "WAITING_ON_EVIDENCE",
       "dependencies": [
-        "P1-SM120-R2-WAN-NVFP4-DENSE",
-        "P1-B2-STUDENT"
+        "P1-SM120-R2-WAN-NVFP4-DENSE"
       ],
       "basis": [
         "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
@@ -655,16 +668,18 @@
         "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
       ],
       "output": "Same NVFP4 checkpoint/scheduler/attention Dense vs FFN candidate, true physically skipped W1/GELU/W2 MACs/tiles, online activation quantization/scale read/route/dispatch/VRAM and native wall, paired numerical residual risk.",
-      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
-      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
-      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
-      "previous_pre_defer_priority": 2
+      "next_action": "After native Wan Dense is established, select any mechanically sound low-cost FFN method (M-B/B-F/A0/QCFB or new one) without waiting for whole A100 lane completion; same NVFP4 checkpoint/scheduler/attention and seeds, physical tile savings, dynamic activation scale/route overhead, no-op and wall.",
+      "execution": "WAIT_NATIVE_DENSE_ANY_VALID_METHOD",
+      "current_session_hardware_override": "NO_LOCAL_RTX5090; PRO6000_NATIVE_LANE_PERMITTED_BUT_LIVE_ACCESS_UNVERIFIED",
+      "previous_pre_defer_priority": 2,
+      "status_basis": "2026-10-28 latest user: RTX PRO 6000 is preferable and native NVFP4 may be pursued concurrently with A100 BF16; original E0 primitive proven on PRO6000 but current access not confirmed.",
+      "method_selection": "Any candidate with legal native executable form and matched controls; A100 method lane independent."
     },
     {
       "id": "P3-SM120-R4-WAN-NVFP4-VIDEO",
-      "track": "Numeric backend migration / RTX5090",
-      "priority": 4,
-      "status": "DEFERRED",
+      "track": "Numeric backend parallel lane / RTX PRO 6000 Blackwell",
+      "priority": 3,
+      "status": "WAITING_ON_EVIDENCE",
       "dependencies": [
         "P2-SM120-R3-WAN-NVFP4-CANDIDATE"
       ],
@@ -674,10 +689,11 @@
         "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
       ],
       "output": "Full81frame/fourstep/twoexpert×40blocks video Dense/candidate paired source and independent-heldout diagnostics: subject/background, actual motion, camera, prompt-semantic event, tail failure and end-to-end wall.",
-      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
-      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
-      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
-      "previous_pre_defer_priority": 3
+      "next_action": "After R3 candidate native and physically meaningful saved work, run full actual 4step I2V dense/candidate video paired and source-disjoint QA/RAFT/camera/background/semantics, end-to-end wall, report VIDEO+SYS and exposure tails.",
+      "execution": "WAIT_NATIVE_CANDIDATE_AND_VIDEO_GATE",
+      "current_session_hardware_override": "NO_LOCAL_RTX5090; PRO6000_NATIVE_LANE_PERMITTED_BUT_LIVE_ACCESS_UNVERIFIED",
+      "previous_pre_defer_priority": 3,
+      "status_basis": "2026-10-28 latest user: RTX PRO 6000 is preferable and native NVFP4 may be pursued concurrently with A100 BF16; original E0 primitive proven on PRO6000 but current access not confirmed."
     }
   ],
   "historical_not_new_tasks": [
