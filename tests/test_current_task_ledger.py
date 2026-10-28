@@ -67,7 +67,11 @@ class CurrentTaskLedgerTests(unittest.TestCase):
         self.assertEqual(auth["execution_authority"], "research/ACTIVE_RESEARCH.json")
         self.assertTrue(auth["independent_review_not_peer_vote"])
         self.assertGreaterEqual(auth["last_verified_pending_cpu_gpu_model_jobs"], 0)
-        self.assertEqual(auth["current_global_GPU_limit"], 2)
+        self.assertIsNone(auth["current_global_GPU_limit"])
+        active = json.loads((ROOT / "research/ACTIVE_RESEARCH.json").read_text())
+        self.assertEqual(active["experiment_authority"]["active_resource_policy"],
+                         "resource_scheduling_policy_20261028")
+        self.assertIsNone(active["resource_scheduling_policy_20261028"]["global_gpu_card_cap"])
         self.assertIn("CURRENT_TASK_LEDGER_20261028.json",
                       (ROOT / "research/RESEARCH_NAVIGATION.md").read_text(encoding="utf-8"))
 
