@@ -12,6 +12,8 @@
 
 **当前原生证据**：10个独立source身份、12条source×seed完整轨迹、1920个嵌套FFN位置。[cross-seed有符号作用](../../../20261026/E0_FRESH_FOUR_SOURCE_SIX_PAIR_RESULTS.md)、[整步有限状态响应](../../../20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)、[既有视频失配](../../../20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md)和[HiF4/物理tile](../../../20261025/E0_SHARED_TILE_PRE_W1.md)是研究功能和结构的互补入口。[初始FFN本征研究](../../../20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md)、[第一任务](../../../20261025/E0_FFN_FIRST_TASK_20261025.md)与旧A4/N12、SM120研究继续作为精确历史证据。
 
+**2026-10-28 QCFB 跨路线研究前沿（ALG/SRC/LIT+OPEN）**：[量化侧信道×有符号整64函数束×真实执行](../../../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)，对应[typed先验—机制—判别表](../../../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)与[图谱claim](../../graph_annotations/E0/E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)。核心判别：原R12完整HiF4 64组交换律允许早期合法省算；真实负Gram联合交互是否跨来源/物理rowtile存在；能否由付费Q1元信息提前预测而不是从teacher后验读取。仍为研究发现，不视为其它Agent已支持的正式方案；原M-B B0/B1执行优先级不变。
+
 ## 探索的三种互补科学入口
 
 - **F · FFN函数与动力学**：从自然输入的gate×W2输出、共享q多W1行、GELU/HiF4分组与不同符号叠加出发，探索实际承担行为作用的联合函数或其它新坐标。
