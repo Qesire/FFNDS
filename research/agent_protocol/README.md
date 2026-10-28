@@ -1,11 +1,12 @@
 # FFNDS · Agent协议与实际操作索引（2026-10-28）
 
-> **优先级和研究进度的权威入口**：[P0–P4阅读导航](../RESEARCH_NAVIGATION.md)。本目录负责协议、程序约束、计算图的机器索引，不维护第二份完整“当前研究状态”。[根AGENTS](../../AGENTS.md)和[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)决定科研行为；[ACTIVE](../ACTIVE_RESEARCH.json)决定原生模型作业权限。
+> **优先级和研究进度的权威入口**：[P0–P4阅读导航](../RESEARCH_NAVIGATION.md)。本目录负责协议、程序约束、计算图的机器索引，不维护第二份完整“当前研究状态”。[任务状态与依赖台账](CURRENT_TASK_LEDGER_20261028.json)仅记录READY/WAITING/DEFERRED及当前证据身份，不是新的科研路线或实验授权。[根AGENTS](../../AGENTS.md)和[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)决定科研行为；[ACTIVE](../ACTIVE_RESEARCH.json)决定原生模型作业权限。
 
 ## P0 · 下一位Agent直接使用
 
 | 文件 | 应当读到/执行的合同 |
 | --- | --- |
+| [任务状态台账](CURRENT_TASK_LEDGER_20261028.json) | 当前M-B B0先行、QCFB/UB1并行已存数据分析、M-A0仅局部完成及模型作业的依赖/冻结状态 |
 | [最小上下文包](CURRENT_CONTEXT_PACKET.md) | 原生Wan/QDQ/step、M-A0已完成局部实验、M-B代数已完成而B0 OPEN、M-C开放 |
 | [三方法权威方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | G14科学先验转换成M-A/M-B/M-C真正的函数与部署约束 |
 | [B0/B1当前任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | post-write u/head/flow的producer/neutral准备→有限响应、B-H/B-F学生 |
@@ -15,7 +16,7 @@
 
 | 场景 | 主协议与工具 |
 | --- | --- |
-| 原论文映射到Wan计算边 | [92＋10篇G14机器焦点图](PAPER_METHOD_FOCUS_GRAPH.json)、[G0–G14可见源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[原生Graph Bindings](GRAPH_AGENT_BINDINGS.json) |
+| 原论文映射到Wan计算边 | [94＋10篇G14机器焦点图](PAPER_METHOD_FOCUS_GRAPH.json)、[G0–G14可见源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[原生Graph Bindings](GRAPH_AGENT_BINDINGS.json) |
 | 五操作与方法先验查重 | [O-A～E×I/F/C](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[12条typed prior机器索引](METHOD_OPERATION_CROSSWALK.json)、[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md) |
 | 新数据、校准、配对视频、来源分割 | [数据采样/校准/评价合同](DATA_SAMPLING_CALIBRATION_EVALUATION.md)、[Calibration V2](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)、[实验专用Skill](../../.agents/skills/ffnds-experiment-evidence/SKILL.md)、[可执行实验手册](EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) |
 | 新功能/因果定位或Graph Agent | [Function–Structure Objects](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G13函数/结构方法](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[Graph Agent协作](GRAPH_AGENT_COLLABORATION.md) |
