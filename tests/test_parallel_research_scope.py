@@ -53,23 +53,33 @@ class ParallelResearchScopeTests(unittest.TestCase):
                           old["complete_original_FFN_speedup_min"],
                           old["per_axis_relative_quality_drop_max"]], [0.5, 1.5, 0.02])
 
-    def test_resume_rejects_missing_instruction_excess_budget_or_unfrozen_scope(self):
+    def test_dynamic_gpu_authority_rejects_old_hard_caps_or_unfrozen_scope(self):
         active = load("research/ACTIVE_RESEARCH.json")
         self.assertTrue(current_execution_authority_is_consistent(active))
         for key, value in (("user_instruction", "  "),
-                           ("max_simultaneously_assigned_idle_GPUs", 5),
-                           ("max_simultaneously_assigned_idle_GPUs", 0),
+                           ("max_simultaneously_assigned_idle_GPUs", 2),
+                           ("max_simultaneously_assigned_idle_GPUs", 4),
                            ("protocol_code_asset_budget_freeze_before_launch", False)):
             with self.subTest(key=key):
                 changed = copy.deepcopy(active)
                 changed["user_continuation_authorization_20261027"][key] = value
                 self.assertFalse(current_execution_authority_is_consistent(changed))
 
-    def test_user_can_reduce_the_current_global_limit(self):
+    def test_actual_callable_resource_policy_has_no_numeric_global_ceiling(self):
         active = load("research/ACTIVE_RESEARCH.json")
-        for limit in (1, 2, 3, 4):
-            active["user_continuation_authorization_20261027"]["max_simultaneously_assigned_idle_GPUs"] = limit
-            self.assertTrue(current_execution_authority_is_consistent(active))
+        self.assertIsNone(active["resource_scheduling_policy_20261028"]["global_gpu_card_cap"])
+        self.assertEqual(active["resource_scheduling_policy_20261028"]["mode"],
+                         "DYNAMIC_MAX_ACTUALLY_CALLABLE")
+        self.assertEqual(active["user_continuation_authorization_20261027"]
+                         ["historical_previous_GPU_limit_20261028"], 2)
+        for limit in (1, 2, 4, 8, 16, 64):
+            with self.subTest(actual_callable=limit):
+                # Actual allocation is external; the active authority contains no cap to compare it against.
+                self.assertTrue(current_execution_authority_is_consistent(active))
+        for bad_policy in (1, 2, 4, 8):
+            changed = copy.deepcopy(active)
+            changed["resource_scheduling_policy_20261028"]["global_gpu_card_cap"] = bad_policy
+            self.assertFalse(current_execution_authority_is_consistent(changed))
 
     def test_historical_pause_remains_valid(self):
         active = load("research/ACTIVE_RESEARCH.json")
