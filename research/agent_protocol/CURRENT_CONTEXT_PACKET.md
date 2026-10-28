@@ -1,12 +1,12 @@
 # FFNDS · 下一Agent最小上下文（2026-10-28）
 
-> **职责**：使接手者正确恢复现行状态，**不重复解释**所有论文与历史实验。全文阅读顺序由[P0–P4优先级导航](../RESEARCH_NAVIGATION.md)管理；研究数学/方法的权威正文是[M-A/M-B/M-C方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，具体B0/B1交接在[下一Agent任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。此上下文不触发新模型实验。
+> **职责**：使接手者正确恢复现行状态，**不重复解释**所有论文与历史实验。全文阅读顺序由[P0–P4优先级导航](../RESEARCH_NAVIGATION.md)管理；研究数学/方法的权威正文是[M-A/M-B/M-C方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，具体B0/B1交接在[下一Agent任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。[当日任务状态/依赖台账](CURRENT_TASK_LEDGER_20261028.json)负责READY/BLOCKED/DEFERRED状态；此上下文不触发新模型实验。
 
 ## 一、科学对象与真实计算边
 
 科学入口：I信息/表示、F函数/动力学、C实际计算；方法操作O-A计算选择、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证可组合。用户指定从**M-B候选**继续研究（O-B＋O-E，可选O-D）；它**不是**要研究所有操作分类O-B。由[FFNDS领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[五操作分析](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)统一研究方法。
 
-固定LightX2V Wan2.2 I2V A14B四步D-Q：high/high/low/low，每个expert 40 blocks。当前FFN `norm2/AdaLN→Smooth1/Q1→W1(5120→13824)→GELU(tanh)→Smooth2/HiF4 Q2(64→8→4)→W2(13824→5120)→e5 gate+BF16残差→downstream flow`。典型M=31668；**4去噪step、21 latent时间槽、81 RGB帧不同**。本地fake-QDQ与BF16 GEMM是原生数值边界，外部packed NVFP4/MXFP4另设对照身份。G14有92主＋10补充论文、16焦点；205节点/424原始图边；[方法typed先验](METHOD_OPERATION_CROSSWALK.json)另有12条，不算NATIVE。
+固定LightX2V Wan2.2 I2V A14B四步D-Q：high/high/low/low，每个expert 40 blocks。当前FFN `norm2/AdaLN→Smooth1/Q1→W1(5120→13824)→GELU(tanh)→Smooth2/HiF4 Q2(64→8→4)→W2(13824→5120)→e5 gate+BF16残差→downstream flow`。典型M=31668；**4去噪step、21 latent时间槽、81 RGB帧不同**。本地fake-QDQ与BF16 GEMM是原生数值边界，外部packed NVFP4/MXFP4另设对照身份。G14有94主＋10补充论文、16焦点；205节点/424原始图边；[方法typed先验](METHOD_OPERATION_CROSSWALK.json)另有12条，不算NATIVE。
 
 ## 二、已完成与尚未完成的最短事实表
 
@@ -22,7 +22,7 @@
 
 ## 三、下一项工作：从B0推进，不重开初版文献评议
 
-**B0-PREP**：按[当前任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)定位真实producer、源状态/seed/step/expert/模型SHA与真实$u$、residual、gate、head modulation、flow；依据原始源码/已保存资产建立full-M中性同状态重放的精确代码与协议。**实际捕获需运行授权**，不要将仅存在的Q1/Q2/teacher pre-gate数据当作post-write状态。进入B1后以预冻结方向和幅度比较真实native finite head/flow；再构造合法pre-W1输入的B-H direct-65与B-F通用factored学生，对照A0、PCA、marginal/joint、source shuffle。数学反例已证明联合假说可能不同；Wan真正差异仍需native确认。
+**B0-PREP**（与[台账P0-B0-PREP](CURRENT_TASK_LEDGER_20261028.json)对应，已有B0-source审计作为输入，不重建数学快照）：按[当前任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)定位真实producer、源状态/seed/step/expert/模型SHA与真实$u$、residual、gate、head modulation、flow；依据原始源码/已保存资产建立full-M中性同状态重放的精确代码与协议。**实际捕获需运行授权**，不要将仅存在的Q1/Q2/teacher pre-gate数据当作post-write状态。进入B1后以预冻结方向和幅度比较真实native finite head/flow；再构造合法pre-W1输入的B-H direct-65与B-F通用factored学生，对照A0、PCA、marginal/joint、source shuffle。数学反例已证明联合假说可能不同；Wan真正差异仍需native确认。
 
 **研究先验顺序**：[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md) → [原生论文/焦点图](PAPER_METHOD_FOCUS_GRAPH.json) → [typed先验/强对照](METHOD_OPERATION_CROSSWALK.json) → 需要时再开[完整计算图](../../docs/98_端到端计算图与证据注解_20261025.md)。核查非线性/Q2合法性、正常path与patch幻象、跨step可预测性和真实big-M/kernel成本。
 
@@ -31,3 +31,5 @@
 [ACTIVE](../ACTIVE_RESEARCH.json)记录所有真实CPU/GPU/model/video执行权限及历史范围；新范围应由协调者按实际研究问题、资产、来源、对照、预算冻结。数学/文献/源码/保存数据可优先探索。独立方法提案和真实peer审阅按[method_discussion/QUEUE](../method_discussion/QUEUE.md)；QUEUE不是GPU任务队列，已完成M-B数学快照不自动成为认可的部署方法。
 
 **下一位Agent有价值的交付**：可重放的B0 producer/asset/neutral实现与测试、对B1对向预测及finite数值界的冻结合同、B-H/B-F真实函数图和线上成本，逐项分开ALG/SRC/NATIVE/VIDEO/SYS/OPEN，变化同步主图和方法快照。已有历史失配/论文记录照原证据身份保留，不再重复撰写“B首轮设计任务”。
+
+**跨线同步补充**：QCFB/Q-STAGE的R1–R3讨论已整理在[独立评议目录](../independent_reviews/QCFB_20261028/README.md)，R3提供字典覆盖/信息/学习误差三项分解及跨step合法状态空间注入纠错；这仍是ALG/SRC/LIT+OPEN，优先开展旧数据资产可用性检查，而不是将其视为现行GPU任务。当前`ACTIVE`中的历史暂停、已完成scopes和后来的`user_continuation_authorization_20261027`须按**时间与精确scope**解读；B0原生捕获仍未登记启动。
