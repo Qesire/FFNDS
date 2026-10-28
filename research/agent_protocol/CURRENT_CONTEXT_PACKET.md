@@ -8,7 +8,7 @@
 
 > **职责**：使接手者正确恢复现行状态，**不重复解释**所有论文与历史实验。全文阅读顺序由[P0–P4优先级导航](../RESEARCH_NAVIGATION.md)管理；研究数学/方法的权威正文是[M-A/M-B/M-C方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，具体B0/B1交接在[下一Agent任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。[当日任务状态/依赖台账](CURRENT_TASK_LEDGER_20261028.json)负责READY/BLOCKED/DEFERRED状态；此上下文不触发新模型实验。
 
-**当前执行数值策略（用户新指令）**：[BF16机制与RTX5090原生NVFP4部署双轨](BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)；目标RTX5090 SM120支持NVFP4 W4A4，本会话用户明确没有5090，使用A100；NVFP4执行暂缓；先在可访问目标上无模型环境/CUTLASS原生基元和成熟LightX2V/Wan2.2模型兼容性检查，确认原生kernel、dynamic activation与scale；严谨比较原始BF16及同checkpoint NVFP4 Dense/候选。HiF4 fake-QDQ保留原生历史数值证据，不用于低位系统加速结论。M-B B-H/A0科学任务并行，不等待5090调试。
+**当前执行数值策略（用户最新纠正）**：[原始BF16研究优先，NVFP4部署暂缓](BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)；用户没有本地5090、暂不推进复杂NVFP4环境。Agent 当前主要利用A100、已验证两套原始BF16模型、low39跨状态误差/范数补全、B-F/B-H/A0方法与视频质量证据；SM120 R0–R4所有阶段DEFERRED，原生NVFP4只作为未来可行时的部署目标保留文献/源代码，不主动安装/申请机器。HiF4 fake-QDQ仍用于signed Q1/Q2数值诊断和历史证据，不能据此声称FP4速度。
 
 ## 一、科学对象与真实计算边
 
