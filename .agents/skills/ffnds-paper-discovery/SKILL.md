@@ -11,6 +11,8 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 研究北极星：解释视频FFN的信息、函数及真实计算组织规律，产生可证伪的科学机制或维持完整视频能力的低成本表示与执行。[I/F/C并行目标](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)允许从有趣的数学恒等式、原生异常、真实行为、论文或kernel任一端开始。**O-A计算选择、O-B函数替代、O-C历史复用、O-D代数/原生执行、O-E学习/验证**是[可组合操作语法](../../../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，不是五个互斥方法。论文与新方法的typed关系收录在[机器交叉表](../../../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)。
 
+**HiF4事实边界**：每个4-bit **S1P2码字自带1bit符号**，64元素共享32bit unsigned尺度元信息；不要把“scales不含符号”误说成“HiF4没存符号”。现行CUDA fake-QDQ将带符号量化重建为BF16而不持久导出packed码字，相关研究必须计入提取signed/position摘要的真实代价。参见[格式审计](../../../research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)和[机器合同](../../../research/agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
+
 原生基础：LightX2V Wan2.2 I2V A14B四步high/high/low/low，两套expert、每套40 blocks；`norm2/AdaLN→Q1→W1→GELU(tanh)→HiF4 Q2(64→8→4)→W2→e5 gated BF16 residual→downstream flow`。当前原生实现为fake-QDQ＋BF16 GEMM，新的packed NVFP4/MXFP4属于需要另验证的算子路径。
 
 **资源调度（2026-10-28最新指令）**：按[现行动态GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际可申请并运行的最多GPU；没有预设全局张数限制。旧2/4卡是冻结实验历史字段，新scope仍按ACTIVE冻结模型/来源/预算；不要凭旧上限拒绝并行的独立已注册工作。
