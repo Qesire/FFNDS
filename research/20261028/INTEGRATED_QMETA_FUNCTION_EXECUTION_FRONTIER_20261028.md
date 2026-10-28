@@ -90,6 +90,8 @@ $$ Z_{Q1}\xrightarrow{A_1}W1_{A_1}\to\phi\to Q2_{A_1}\to Z_{Q2}(A_1)\xrightarrow
 
 预冻结**竞争假说与分叉**：H1有负交互但Q1不可预测→研究固定A0恢复/低rank编码；H2逐row负交互而physical tile聚合消失→few action classes/固定紧凑或换可执行单位；H3 scale只是量化配方/amax伪相关→对signed code/等价quantizer view强ablation；H4末层readout低误差却自由视频运动衰减→M-B后缀、Student prefix及多site交互；H5已有native packed dense全开销优于动态策略→保留信息规律不宣称效率方法。以上否定只对对应scope有效。
 
+**本轮独立ALG可复核脚本**：[tools/qcfb_algebra_oracle.py](../../tools/qcfb_algebra_oracle.py) 检查tanh-GELU有符号幅值碰撞、条件Gram PSD、量化交叉项及rowtile聚合反例；这是合成数学对照，不是Wan的真实Q1/Q2、native或视频验证。
+
 ## 6. 方法与资产合同
 
 - MATHEMATICAL_MODEL：原组分解 → group-selection Q2 commutation → conditional signed Gamma PSD/两组交叉 → relative high-precision error 的 linear b + quadratic Gamma → action-dependent Q2 observation → executable tile action、terminal rollout。
