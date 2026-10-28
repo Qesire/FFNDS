@@ -25,9 +25,11 @@
     "quantization_operand_contract": "research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json",
     "numeric_execution_policy": "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
     "user_local_deployment_hardware": {
-      "hardware": "Current session: A100; user states no RTX 5090",
-      "verification_state": "A100 used for BF16; native NVFP4 deferred: no appropriate device",
-      "primary_native_format": "NVFP4_W4A4",
+      "hardware": "NO_LOCAL_RTX_5090_USER_CONFIRMED",
+      "verification_state": "User explicitly confirms no local RTX5090; remote SM120 access not established; historical RTX PRO 6000 primitive is not a current device entitlement.",
+      "current_primary_numeric_path": "BF16_ORIGINAL",
+      "current_accessible_model_family": "A100 BF16 research already evidenced; do not infer live GPU allocations from historical runs",
+      "native_NVFP4_W4A4_status": "DEFERRED_BY_USER_NOT_URGENT",
       "new_gpu_work_permission": "REQUIRES_EXACT_ACTIVE_SCOPE"
     },
     "quality_v2": {
@@ -171,7 +173,8 @@
         "protocol_sha256": "44ba9f0cd16da06bcb92ae904322fbc36b6930fa7c13315ea82c429991d8fcaa"
       }
     ],
-    "next_original_BF16_probe": "IN_DESIGN_NOT_REGISTERED_NOT_RUN: cross-depth original-BF16 calibration/function discrimination after actual fixed-norm transfer; CalibrationV2 coverage first, no automatic full80fit/rank sweep."
+    "next_original_BF16_probe": "IN_DESIGN_NOT_REGISTERED_NOT_RUN: cross-depth original-BF16 calibration/function discrimination after actual fixed-norm transfer; CalibrationV2 coverage first, no automatic full80fit/rank sweep.",
+    "current_user_hardware_correction_20261028": "No local RTX5090; NVFP4 setup difficult, not urgent. Pause all SM120/NVFP4 preparation and model runs. BF16 mechanism/quality/system scientific work continues. Resume only after renewed explicit instruction and actual accessible appropriate hardware."
   },
   "status_legend": {
     "READY_STATIC": "Can progress by reading source, existing evidence and creating bounded code/protocol without new model runs",
@@ -582,7 +585,7 @@
     {
       "id": "P0-SM120-R0-ENV",
       "track": "Numeric backend migration / RTX5090",
-      "priority": 0,
+      "priority": 4,
       "status": "DEFERRED",
       "dependencies": [],
       "basis": [
@@ -592,16 +595,17 @@
         "research/20261028/BF16_NVFP4_R0_READINESS_20261028.json",
         "research/20261028/BF16_NVFP4_R0_READINESS_20261028.md"
       ],
-      "output": "Read-only R0 verified original BF16 headers; historical SM120 primitive used RTX PRO 6000. User states no 5090; this session uses A100. Matching NVFP4 checkpoint UNKNOWN.",
-      "next_action": "Current user explicitly has no RTX5090/SM120 and requests A100 only. Defer this deployment experiment until an appropriate device is explicitly available; continue raw BF16 mechanism/native/video work now. Preserve prior readiness evidence.",
-      "execution": "DEFERRED_NO_APPROPRIATE_DEVICE_BF16_CONTINUES",
+      "output": "Completed read-only R0 asset evidence: two original BF16 checkpoint headers, historical RTX PRO 6000 Blackwell SM120 primitive; NVFP4 checkpoint still UNKNOWN. Future device readiness DEFERRED by user, not pending action.",
+      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
+      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
       "result_sha256": "33b99e2f1364dc9f458f5c4311d7a96bbb1a23df2fce6340920c2ad6ba6b1d6e",
-      "current_session_hardware_override": "A100_ONLY_NO_5090_USER_DIRECT_CHAT"
+      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
+      "previous_pre_defer_priority": 0
     },
     {
       "id": "P1-SM120-R1-FP4-NATIVE",
       "track": "Numeric backend migration / RTX5090",
-      "priority": 1,
+      "priority": 4,
       "status": "DEFERRED",
       "dependencies": [
         "P0-SM120-R0-ENV"
@@ -612,14 +616,15 @@
         "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
       ],
       "output": "Single bounded real SM120 CUTLASS/LightX2V backend packed E2M1 W4A4 native GEMM and two scale operand numerical check, with kernel/CC/evidence; exclude Marlin W4A16/fakeQDQ or zero-call exit0.",
-      "next_action": "Current user explicitly has no RTX5090/SM120 and requests A100 only. Defer this deployment experiment until an appropriate device is explicitly available; continue raw BF16 mechanism/native/video work now. Preserve prior readiness evidence.",
-      "execution": "DEFERRED_NO_APPROPRIATE_DEVICE",
-      "current_session_hardware_override": "A100_ONLY_NO_5090_USER_DIRECT_CHAT"
+      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
+      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
+      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
+      "previous_pre_defer_priority": 1
     },
     {
       "id": "P1-SM120-R2-WAN-NVFP4-DENSE",
       "track": "Numeric backend migration / RTX5090",
-      "priority": 1,
+      "priority": 4,
       "status": "DEFERRED",
       "dependencies": [
         "P1-SM120-R1-FP4-NATIVE"
@@ -630,14 +635,15 @@
         "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
       ],
       "output": "M=Wan I2V actual full M original native NVFP4 W4A4 dense baseline from matching high/low checkpoints and dynamic activation scale producer, with wall/VRAM/noop; not merely random shape primitive.",
-      "next_action": "Current user explicitly has no RTX5090/SM120 and requests A100 only. Defer this deployment experiment until an appropriate device is explicitly available; continue raw BF16 mechanism/native/video work now. Preserve prior readiness evidence.",
-      "execution": "DEFERRED_NO_APPROPRIATE_DEVICE",
-      "current_session_hardware_override": "A100_ONLY_NO_5090_USER_DIRECT_CHAT"
+      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
+      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
+      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
+      "previous_pre_defer_priority": 1
     },
     {
       "id": "P2-SM120-R3-WAN-NVFP4-CANDIDATE",
       "track": "Numeric backend migration / RTX5090",
-      "priority": 2,
+      "priority": 4,
       "status": "DEFERRED",
       "dependencies": [
         "P1-SM120-R2-WAN-NVFP4-DENSE",
@@ -649,14 +655,15 @@
         "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
       ],
       "output": "Same NVFP4 checkpoint/scheduler/attention Dense vs FFN candidate, true physically skipped W1/GELU/W2 MACs/tiles, online activation quantization/scale read/route/dispatch/VRAM and native wall, paired numerical residual risk.",
-      "next_action": "Current user explicitly has no RTX5090/SM120 and requests A100 only. Defer this deployment experiment until an appropriate device is explicitly available; continue raw BF16 mechanism/native/video work now. Preserve prior readiness evidence.",
-      "execution": "DEFERRED_NO_APPROPRIATE_DEVICE",
-      "current_session_hardware_override": "A100_ONLY_NO_5090_USER_DIRECT_CHAT"
+      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
+      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
+      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
+      "previous_pre_defer_priority": 2
     },
     {
       "id": "P3-SM120-R4-WAN-NVFP4-VIDEO",
       "track": "Numeric backend migration / RTX5090",
-      "priority": 3,
+      "priority": 4,
       "status": "DEFERRED",
       "dependencies": [
         "P2-SM120-R3-WAN-NVFP4-CANDIDATE"
@@ -667,9 +674,10 @@
         "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
       ],
       "output": "Full81frame/fourstep/twoexpert×40blocks video Dense/candidate paired source and independent-heldout diagnostics: subject/background, actual motion, camera, prompt-semantic event, tail failure and end-to-end wall.",
-      "next_action": "Current user explicitly has no RTX5090/SM120 and requests A100 only. Defer this deployment experiment until an appropriate device is explicitly available; continue raw BF16 mechanism/native/video work now. Preserve prior readiness evidence.",
-      "execution": "DEFERRED_NO_APPROPRIATE_DEVICE",
-      "current_session_hardware_override": "A100_ONLY_NO_5090_USER_DIRECT_CHAT"
+      "next_action": "DEFERRED_BY_USER_20261028: no local RTX 5090, NVFP4 setup is difficult and not urgent. Do not schedule GPU, seek hardware, build CUDA, download/convert NVFP4 checkpoints, or run native FP4 model now. Continue original BF16 science independently. Only revisit after an explicit future user request and verification of actually accessible SM120 hardware, matching model/checkpoints, and registered execution scope.",
+      "execution": "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP",
+      "current_session_hardware_override": "NO_LOCAL_RTX_5090; NVFP4_NOT_URGENT",
+      "previous_pre_defer_priority": 3
     }
   ],
   "historical_not_new_tasks": [
