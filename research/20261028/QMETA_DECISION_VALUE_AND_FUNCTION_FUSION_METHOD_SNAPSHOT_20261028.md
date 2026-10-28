@@ -1,5 +1,7 @@
 # FFNDS · 量化元信息的决策价值、函数耦合与真实稀疏：恢复研究路线
 
+> **本路线后续跨线综合（2026-10-28）：** [QCFB 量化条件联合函数组束与动作依赖 Q2 研究前沿](INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)将本文的 NetVOI、signed joint error 和 Q1/Q2 决策时点联合 lowering 为完整 HiF4 64组合法计算动作；本文保留为 v1 数学/文献起点，二者相互补充，不重复登记实测或更改 M-B B0/B1 优先级。
+
 > 2026-10-28 · METHOD_SNAPSHOT v1 / PARALLEL I+F+C RESEARCH · ALG+SRC+LIT+OPEN。新路线恢复，不替换 M-B B0/B1 的既定执行顺序；不修改 ACTIVE_RESEARCH.json，不登记/启动 GPU、模型、训练、视频作业。本文是独立的机制与实验设计，**不是**新的原生 Wan 实测、正式同行投票或已验证新算子。
 >
 > 研究基础：[I/F/C北极星](../RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md) · [G14先验](G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md) · [G6D规模代理与审查](../method_discussion/proposals/MD-20261024-QMETA-GRAM-PROXY-G6D/DERIVATION.md) · [G6E Q2面板](../method_discussion/proposals/MD-20261024-Q2-NATIVE-SCALE-PANEL-G6E/v1.json) · [G6F K面板](../method_discussion/proposals/MD-20261024-QMETA-KPANEL-TRANSITION-G6F/v1.json) · [G11](../literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md) · [G12](../literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) · [M-A/B/C现行方案](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。
