@@ -2,6 +2,8 @@
 
 研究目标：理解 Wan 视频生成 FFN **如何组织信息、函数作用和时空行为**，并构造可在完整视频质量与真实系统成本之间取得竞争力的低成本表示和执行方式。科学入口为 **I（信息与表示）/ F（函数与动力学）/ C（计算与执行）**；O-A～O-E 是可组合的方法动作，“稀疏”不是唯一方法范畴。详见[统一科学目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
+**执行环境切换（2026-10-28）**：[BF16原始机制 + RTX5090原生NVFP4 W4A4 Agent指令](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户已有 RTX5090 32GB (SM120)，CUDA>=12.8能支持成熟原生block-scaled FP4；先环境和32GB显存预检，再基于LightX2V同checkpoint Dense/候选验证部署。旧HiF4 Fake-QDQ用于历史数值机制，低位性能需原生packed W4A4；必须区分原始BF16权重与被HiF4量化再解码的BF16权重。
+
 ## 从这里开始
 
 **首要入口：[P0–P4分级阅读导航](research/RESEARCH_NAVIGATION.md)。** 根据工作类型选最短链路：

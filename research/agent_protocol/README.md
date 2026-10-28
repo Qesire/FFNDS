@@ -2,6 +2,8 @@
 
 > **优先级和研究进度的权威入口**：[P0–P4阅读导航](../RESEARCH_NAVIGATION.md)。本目录负责协议、程序约束、计算图的机器索引，不维护第二份完整“当前研究状态”。[任务状态与依赖台账](CURRENT_TASK_LEDGER_20261028.json)仅记录READY/WAITING/DEFERRED及当前证据身份，不是新的科研路线或实验授权。[根AGENTS](../../AGENTS.md)和[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)决定科研行为；[ACTIVE](../ACTIVE_RESEARCH.json)决定原生模型作业权限。
 
+**新增部署验证规则**：[BF16原始模型机制与RTX5090原生NVFP4 W4A4](BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)，用户已有5090 32GB SM120；先原生toolchain/scale/kernels预检与官方LightX2V NVFP4 checkpoint相容性，HiF4 Fake-QDQ继续作为量化数值消融和历史复现。原始BF16权重≠HiF4 weight_qdq，Marlin/W4A16≠原生W4A4。静态协议本身不授权GPU作业。
+
 ## P0 · 下一位Agent直接使用
 
 | 文件 | 应当读到/执行的合同 |

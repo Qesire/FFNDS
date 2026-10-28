@@ -2,6 +2,8 @@
 
 统一科学问题：**视频生成模型如何组织信息、计算与生成行为，怎样在保持完整视频能力时降低真实执行成本？** 可从I（信息与表示）、F（函数与动力学）、C（计算与执行）任意入口研究，G13是F线专题。见[统一目标](../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
+**新数值/实验主线**：[原始BF16机制 + RTX5090 SM120成熟NVFP4 W4A4原生部署](../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)；用户具备单卡RTX5090 32GB，先验证CUDA/Blackwell原生kernel、packed W/A两侧scale和LightX2V实际Wan checkpoint/调度/attention兼容，再跑同recipe native Dense→候选。旧HiF4 fake-QDQ保留科学数值诊断和历史结果，不再充当原生低位加速证据。当前方法M-B/A0及QCFB分析保持并行，静态文档不触发GPU运行。
+
 **方法统一五操作分类**：[O-A计算选择、O-B表示、O-C历史复用、O-D算子代数、O-E学习/验证](../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)。与I/F/C科学入口正交，按G14一手论文source+decision_time+runtime action建立组合指纹。原三候选明确为M-A/M-B/M-C，下一Agent先研究**M-B敏感坐标**，避免与操作O-B同名混用；现有方法讨论批准及运行范围不变。
 
 **当前方法交接**：[现行M-A/M-B/M-C整合方案](../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)与[下一任务技术合同](../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。B0原生捕获、CAL24 96flow标签与第一轮B1固定候选池、B-H Direct65 H128真实训练pilot已完成（[B1](../research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)、[B-H](../research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)），**下一Agent应做原M同head及A0匹配对照、B-F与视频/成本验证**。M-A0全80函数160局部学生已完成metadata组装，tensor加载与自由视频OPEN。新来源/GPU/模型作业按ACTIVE精确scope登记；讨论队列只登记真实peer review。
