@@ -146,7 +146,14 @@
     "source_cluster_exposure_preserved",
     "signed_S1P2_code_is_part_of_HiF4_not_extra_added_bit",
     "scale_micro_exponents_unsigned_not_signed_elements",
-    "software_signed_int8_codes_not_4bit_packed_storage"
+    "software_signed_int8_codes_not_4bit_packed_storage",
+    "WEIGHT_AND_ACTIVATION_ARE_DISTINCT_OPERAND_ROLES",
+    "STATIC_WEIGHT_QUANTIZATION_DIFFERS_FROM_PER_CALL_DYNAMIC_ACTIVATION_QUANTIZATION",
+    "NATIVE_FP4_GEMM_CONSUMES_BOTH_OPERAND_SCALES_WHEN_W4A4",
+    "STATIC_ACTIVATION_GLOBAL_SCALE_CAN_COEXIST_WITH_DYNAMIC_LOCAL_BLOCK_SCALES",
+    "W4A16_DOES_NOT_HAVE_RUNTIME_FP4_ACTIVATION_SCALE",
+    "Q2_DYNAMIC_SCALE_AVAILABLE_ONLY_POST_W1_GELU",
+    "HIF4_GROUP64_NOT_UNIVERSAL_NVFP4_16_OR_MXFP4_32_GROUP"
   ],
   "model_runs": 0,
   "implementation_status": "PROPOSED_CONSUMERS_NOT_IMPLEMENTED",
@@ -160,5 +167,17 @@
     "signed_int8_emulator_equivalent_to_packed_bytes": false,
     "additional_sign_bit_for_packed_S1P2_required": false,
     "signed_position_feature_price": "producer fused extraction and cross-CTA aggregation OR post-QDQ BF16 scan, measured before actual action"
-  }
+  },
+  "operand_quantization_timing_contract": "research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json",
+  "operand_roles": {
+    "W1_STATIC_WEIGHT": "offline fixed PTQ weight_qdq BF16; original HiF4 weight packed code/scale not persisted in current adapter",
+    "Q1_A1_DYNAMIC_ACTIVATION": "actual current-source activation quantization per FFN call; internal scale/code before W1, BF16 result exposed",
+    "W2_STATIC_WEIGHT": "offline fixed PTQ weight_qdq BF16; offline group profiles available with explicit construction cost",
+    "Q2_A2_DYNAMIC_ACTIVATION": "actual current W1/GELU-dependent activation quantization per FFN call; usable for W2 only at legal time"
+  },
+  "native_fp4_metadata_cases": [
+    "MXFP4_W4A4_WEIGHT_STATIC_A_DYNAMIC_K32_E8M0",
+    "NVFP4_W4A4_WEIGHT_STATIC_A_DYNAMIC_K16_E4M3_GLOBAL_STATIC_OR_DYNAMIC",
+    "NVFP4_W4A16_WEIGHT_ONLY_NO_A_FP4_SCALE"
+  ]
 }

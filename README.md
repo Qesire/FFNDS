@@ -24,21 +24,23 @@
 | **M-C**（完整非线性函数编码求值） | [输入充分性、输出秩和大M查表成本](research/20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)，**ALG＋LIT** | 完成数学/保存资产判别，再进入合法原生执行；尚无Wan实际速度/视频 |
 | **旧固定支持与执行竞争器** | [consumer20真实视频质量](research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)，[A100合成2:4 C5](research/20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md) | 分别支持视频功能失配与受限kernel物理证据，不能替代新学生质量/整端速度 |
 
+**Quant 关键区别**：[W-static × A-dynamic × Native FP4时序审计](research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)：W1/W2是提前量化的固定权重；Q1/A1和Q2/A2是每次调用动态激活量化。原生NVFP4/MXFP4 W4A4仍有静态W尺度、动态A局部尺度参加GEMM；W4A16没有FP4激活scale。HiF4当前runtime则是预量化BF16权重、动态激活fake-QDQ、BF16 GEMM。读取metadata做动态选择的价格独立核算。
+
 **原生数值研究对象**：LightX2V Wan2.2 I2V A14B，high/high/low/low四个去噪step、两套expert、每套40个Transformer blocks；典型FFN
 \[
 \mathrm{norm2/AdaLN}\to Q1\to W_1\to\mathrm{GELU}_{\tanh}
 \to\mathrm{HiF4\ Q2}(64\to8\to4)\to W_2
 \to e_5\text{ gated residual}\to\text{downstream flow}.
 \]
-原实现使用**HiF4 fake-QDQ+BF16 GEMM**；packed FP4/NVFP4/MXFP4需另立数值/系统证据。旧10 source/12 source×seed/1920 sites、consumer20的20个开发来源与A0的训练/诊断来源，是**不同研究数据范围**；seed、row、block/step和多prompt不当作独立image-cluster。
+原实现使用**HiF4 fake-QDQ+BF16 GEMM**；HiF4元素码字本来是**带符号S1P2（4bit含1bit符号）**，其64组共享尺度只编码幅值，当前QDQ输出带符号BF16而非持久packed码字。详见[格式及存储语义审计](research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)。packed FP4/NVFP4/MXFP4需另立数值/系统证据。旧10 source/12 source×seed/1920 sites、consumer20的20个开发来源与A0的训练/诊断来源，是**不同研究数据范围**；seed、row、block/step和多prompt不当作独立image-cluster。
 
-**论文/图状态**：94项主文献＋10项补充，16个G14算子焦点；主图209个稳定节点/431条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
+**论文/图状态**：98项主文献＋10项补充，16个G14算子焦点；主图214个稳定节点/442条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
 
 ## 科研与运行约束
 
 - **方法研究**：按[AutoResearcher领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md)、[机制Skill](.agents/skills/mechanism-research/SKILL.md)由计算流→等价数学/信息条件→最强竞争解释→可区分证据形成方案。当前方法权威正文仅以[整合方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为准。
 - **数据与评价**：按[Calibration V2](research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)区分source image-cluster与token/行、teacher与student轨迹、开发与独立确认、VBench自定义函数与官方采样协议；每个真实视频候选记录连续运动、主体/背景、相机行为、原生latency/VRAM。
-- **授权与协作**：[动态GPU调度规则](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的通用默认不预设全局卡数上限；本会话最新用户上限为同时最多2张GPU，优先于通用默认。[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)是执行/资源唯一权威，历史已完成范围不自动成为下轮许可；[QUEUE](research/method_discussion/QUEUE.md)仅登记独立Agent实际提交/评议的方法，不是作业队列。实时/流式GPU实验仍暂停。
+- **授权与协作**：[动态GPU调度规则](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的通用默认不预设全局卡数上限；具体已冻结实验可有自己的实际申请量与并发预算；当前全局原则是**按实际能调度的GPU最大量使用，不预设全局数字上限**，具体运行按最新用户指令与ACTIVE对应scope核对。[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)是执行/资源唯一权威，历史已完成范围不自动成为下轮许可；[QUEUE](research/method_discussion/QUEUE.md)仅登记独立Agent实际提交/评议的方法，不是作业队列。实时/流式GPU实验仍暂停。
 - **证据语言**：公式或源图ALG/SRC，作者文献LIT，真实原生运行NATIVE，完整视频VIDEO，物理成本SYS，尚未产生数据OPEN；静态CI通过只表明合同/引用一致。
 
 ## 只读复核（不启动GPU或模型）
@@ -53,4 +55,4 @@ python tools/check_autoresearcher_binding.py
 
 原始实验收据、hash、历史错误与候选失配的证据保留在[ARCHIVE](ARCHIVE.md)及[原始报告](reports/)；新研究资料优先更新对应现行方法正文、证据谱系和P0–P4索引，不创建第二份并列“当前状态总览”。
 
-M-B已有[4个真实Dense捕获与同状态head有限结果](research/20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)；当前源配对判别与学生任务按唯一任务台账继续。F线专题见[G13](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)，运行权限定于[ACTIVE](research/ACTIVE_RESEARCH.json)。
+M-B已有[CAL24来源配对和固定候选池结果](research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)及[Direct65 H128真实学生pilot](research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)；当前需要原生同head公平对照、B-F、部署与完整视频验证，按唯一任务台账继续。F线专题见[G13](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)，运行权限定于[ACTIVE](research/ACTIVE_RESEARCH.json)。
