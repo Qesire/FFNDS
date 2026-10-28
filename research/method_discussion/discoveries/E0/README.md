@@ -14,6 +14,8 @@
 
 **2026-10-28 QCFB 跨路线研究前沿（ALG/SRC/LIT+OPEN）**：[量化侧信道×有符号整64函数束×真实执行](../../../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)，对应[typed先验—机制—判别表](../../../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)与[图谱claim](../../graph_annotations/E0/E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)。核心判别：原R12完整HiF4 64组交换律允许早期合法省算；真实负Gram联合交互是否跨来源/物理rowtile存在；能否由付费Q1元信息提前预测而不是从teacher后验读取。仍为研究发现，不视为其它Agent已支持的正式方案；原M-B B0/B1执行优先级不变。
 
+**交锋更新（2026-10-28，修订后独立R2）**：[新方法碰撞/动态尾部/数值margin/跨步transported Gram评议](../../../independent_reviews/QCFB_20261028/SECOND_ROUND_INDEPENDENT_RESPONSE_AND_NEW_FRONTIER_20261028.md)。正面接受另一Agent对PSD、可测性与Q-STAGE的修正，增加5项更可检验的I/F/C接口。仍属ALG/OPEN，不是稀疏模型已实测或审阅投票。
+
 ## 探索的三种互补科学入口
 
 - **F · FFN函数与动力学**：从自然输入的gate×W2输出、共享q多W1行、GELU/HiF4分组与不同符号叠加出发，探索实际承担行为作用的联合函数或其它新坐标。
