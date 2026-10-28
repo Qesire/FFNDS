@@ -1,8 +1,11 @@
 # FFNDS · 下一Agent最小上下文（2026-10-28）
 
+**2026-10-29 · 研究科学起点与当前候选已重排。** 阅读[资产先行完整推导](../20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)及[交叉复算JSON](../20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)。不再要求下一个Agent默认先M-B末层：新8源BF16完整1280包、已有shared80/step160 r960因子、旧2源5Block时空异质、HiF4 whole64真实闭包和UB1视频负例，支持S1共享函数（和free-video已有r960基线）、S4行动收益低价草图、S2时空计算单位、S3合法pre-W1量化组选择并行。所有真实video方法排序仍需全160位多source同后端Dense比较；M-B只辅助后缀功能识别，GPU新scope仍依ACTIVE。
+
+
 **2026-10-29 · 新的实测再计算证据：**[20来源全深度视频×状态联审](../20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)对齐UB1真实20source 40video/四步latent/官方8轴及180张历史接触图；所有来源四步latent及时间差分误差上升、末步正交叉占新增误差47.82%。但`T3→RAFT_ratio`秩相关−0.424经Dense运动幅值+主体背景控制后变+0.086，证明该数据下“全局误差小=动作质量好”的代理不成立。先读20来源原始配对和上述控制结果，再设计独立多来源完整视频候选；不得再转回末层单source函数损失排序。
 
-**2026-10-29 · CURRENT v4：**[多来源×全深度×视频优先方法合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)作为新的方法选择和Agent首任务。必须先复用UB1的20-source真实质量和Affine54的320-site双轨，再构造40×4完整可执行的M-B候选，以至少20个不同image-cluster的Dense配对视频质量/功能/成本衡量新方法；末层B-H/B-F/fixed-gain局部数学保留为机制研究，不能晋级部署算法。P0任务是分维来源证据矩阵、全深度候选计算图、真实多source视频/SYS的冻结设计。旧结果中A0六视频质量失败和原始BF16 fixed-gain局部有效仍保持原scope；BF16与PRO6000 NVFP4并行，GPU新scope依ACTIVE登记。
+**2026-10-29 · 历史CURRENT v4合同（视频终端验收仍有效）：**[多来源×全深度×视频优先方法合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)作为新的方法选择和Agent首任务。必须先复用UB1的20-source真实质量和Affine54的320-site双轨，再构造40×4完整可执行的M-B候选，以至少20个不同image-cluster的Dense配对视频质量/功能/成本衡量新方法；末层B-H/B-F/fixed-gain局部数学保留为机制研究，不能晋级部署算法。P0任务是分维来源证据矩阵、全深度候选计算图、真实多source视频/SYS的冻结设计。旧结果中A0六视频质量失败和原始BF16 fixed-gain局部有效仍保持原scope；BF16与PRO6000 NVFP4并行，GPU新scope依ACTIVE登记。
 
 **最新原始BF16实测：**[12flow交叉状态判别](../20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](../20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](../20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。[固定范数原生转移](../20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.md)已实际exit0，同状态误差降93.7%/82.5%、own-state降69.6%；下一项核查原始BF16跨深度校准覆盖。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
 
