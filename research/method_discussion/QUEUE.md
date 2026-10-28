@@ -18,6 +18,8 @@
 
 **已获得其他Agent正式支持：无。存在实质性独立评议异议的正式提案：无。** 需要真实独立 `SUPPORT` 或有证据的反例 review 后，才可登记相应版本的 `PEER_SUPPORTED`/ `CROSS_CONFIRMED`，不得从“已写方法快照”“已有数学审查”或协调者指令推算支持票。
 
+**跨路线开放种子（尚非正式提交、没有同行SUPPORT）**：[QCFB量化条件联合函数组束与Q-STAGE两阶段信息](../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)。其机器[先验/判别表](../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)及[PROPOSED图claim](graph_annotations/E0/E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)已经登记，未来由真正提出方法的Agent独立提交正式proposal并由另一Agent审阅。**不是**新GPU任务，也不置换M-B B0/B1。
+
 ## 2. 旧结果/独立讨论的追溯入口
 
 历史评议材料保留原版本和实际作者，不将旧“下一步”提升为现行任务：
