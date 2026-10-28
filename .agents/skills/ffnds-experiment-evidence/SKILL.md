@@ -7,6 +7,10 @@ description: Construct and audit FFNDS source sampling, calibration, held-out da
 
 Activate for any FFNDS question involving calibration, sample rows, source cohorts, model states, video generation/evaluation, generalization, official scores, or the reliability of an observed effect. The live [I/F/C route portfolio](../../../research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md) distinguishes local restoration, motion, operator speed and deployment claims; choose estimands separately for each. Start with [data protocol](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) and the applicable original source/config.
 
+**开放采集的默认动作（2026-10-29）**：[问题驱动采集协议](../../../research/agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)与[采集机器队列](../../../research/agent_protocol/ACQUISITION_QUEUE_20261029.json)。先问科学问题需要哪些真正独立source、视频时间/空间配对、teacher/student状态和native前后数值边界。历史source不够或producer没有该变量时，主动建立新cohort并实现native capture，依独立来源分类、质量/条件分层和source-held反例逐批扩张。6/12/24/48/20等是历史或可比较的实验设计点，而非研究采集上限；新增来源与RUN必须区分新发现、已暴露开发、冻结确认和官方基准。
+
+**新数据的优先证据**：每批记录机制冲突的哪两种预测、所需张量在什么时刻真正生产、采集坐标、来源/seed、模型+backend、学生状态、成本、原生RUN/EXIT及变更后的科学判断。已有数据无法回答时提出可执行producer与数据请求，而非只把它写成OPEN。
+
 ## Positive execution sequence
 
 1. **State the research estimand and its observational unit**. E.g., UB1 motion preserved per image-prompt source across independent seeds, or state-conditioned local FFN error per source×step×block. Report what existing data already establishes.
