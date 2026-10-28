@@ -56,3 +56,5 @@
 2026-10-26补充[匹配控制与全模型源码/计时审查](independent-matched-calibration-and-runtime-audit-20261026.md)，以及[功能后缀/受扰轨迹问题改写](transported-function-and-trajectory-target-20261026.md)。真实窄FFN提速已测，固定自由视频质量失败；局部风险、输入偏移和功能传递须区分。
 
 [独立受扰轨迹/CTEC/TCEC审查](independent-trajectory-error-and-correction-20261026.md)重建实际FP32调度与层内/跨步偏移，给出修复方向的有符号条件，并用原PDF核实一个近邻递推展开的边界反例；不授予新训练/生成。
+
+- [QCFB严格推导及反例](../../../20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md)：条件二阶矩、联合PSD、跨行度量和动作依赖观测；[独立审阅](../../../independent_reviews/QCFB_20261028/INDEPENDENT_MATH_REVIEW.md)。ALG/SRC/LIT，无新原生结果。

@@ -609,9 +609,9 @@
         "T10"
       ],
       "index": "PRIMARY_LITERATURE_INDEX.json",
-      "review_depth": "OFFICIAL_ABSTRACT",
-      "mechanism": "Quantization+attention sparsity interact; multi-scale distillation and second-order residual",
-      "intervention": "quant+sparse attention",
+      "review_depth": "PRIMARY_ARXIV_V4_SECTIONS_3_2_3_4_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Attention quantization and sparsity co-design using global/local distillation and temporally reused second-order residuals",
+      "intervention": "Calibrate quantization and execute sparse attention with residual reparameterization",
       "decision_time": "calibrated attention state",
       "wan_transfer_question": "Attention quantization effects and HiF4 FFN Q2 dependencies are not interchangeable",
       "associated_mechanism_families": [],
@@ -868,9 +868,9 @@
         "T16"
       ],
       "index": "PRIMARY_LITERATURE_INDEX.json",
-      "review_depth": "OFFICIAL_ICML_ABSTRACT",
-      "mechanism": "Attention quality governed by matched full-attention tile geometry; tile scoring/head-aware tiling and sparse tile kernel",
-      "intervention": "actual tile-skip attention kernel",
+      "review_depth": "PRIMARY_ARXIV_V1_SECTION4_METHOD_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Max-pooled teacher tile scores supervise TripPool/head-specific predictions, with head-aware hardware tiling",
+      "intervention": "Train tile estimator, choose head tiling offline and execute actual sparse attention tile skipping",
       "decision_time": "offline mask distillation and online tile selection",
       "wan_transfer_question": "Tile shape→quality observation is an analog, not evidence FFN Fourier modes define valuable compute",
       "associated_mechanism_families": [],
@@ -1917,6 +1917,36 @@
         "P20"
       ],
       "source_url": "https://arxiv.org/html/2609.04646v1"
+    },
+    {
+      "id": "L93",
+      "focus_nodes": [
+        "T04",
+        "T07",
+        "T14",
+        "T16"
+      ],
+      "source_url": "https://ojs.aaai.org/index.php/AAAI/article/view/40021",
+      "review_depth": "PRIMARY_METHOD_EQ4_7_APPENDIX_EQ11_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Context-conditioned grouping and weighted group reconstruction; within-group second-order compensation already exists",
+      "intervention": "Prune and compensate structured neuron groups using weighted reconstruction",
+      "decision_time": "Offline calibration with token context and activation/gradient statistics",
+      "wan_transfer_question": "Compare static function groups with cheap pre-W1 signed joint whole64 omission; functional grouping alone is not novelty"
+    },
+    {
+      "id": "L94",
+      "focus_nodes": [
+        "T04",
+        "T06",
+        "T07",
+        "T13"
+      ],
+      "source_url": "https://arxiv.org/abs/2601.22980",
+      "review_depth": "PRIMARY_METHOD_EQ1_3_AND_PERMUTATOR_READ_CODE_NOT_REVIEWED_20261028",
+      "mechanism": "Learn permutation costs and differentiable bipartite matching to align weights with N:M sparsity",
+      "intervention": "Coordinated weight/channel permutation followed by N:M pruning",
+      "decision_time": "Offline permutation optimization before structured sparse inference",
+      "wan_transfer_question": "Arbitrary channel permutation does not preserve HiF4 hierarchical group quantization; restrict to complete ordered64 groups or establish a new recipe"
     }
   ],
   "supplemental_papers": [
@@ -2305,5 +2335,6 @@
   "output_format": {
     "mermaid": "one graph per source research group, plus a global focal-native axis",
     "machine": "paper <-> [focus stages] <-> existing Wan native anchor; paper() and focus() queries"
-  }
+  },
+  "qcfb_primary_audit": "research/literature/20261028/QCFB_PRIMARY_METHOD_AUDIT.json"
 }

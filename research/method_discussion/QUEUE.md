@@ -34,3 +34,5 @@
 由方法真正提出者建立 `proposals/<NEW_METHOD_ID>/v1.json`，含 `origin.kind=AGENT_INDEPENDENT` 与 `proposer.agent_id`，独立审阅者另建 `reviews/<METHOD_ID>/vN/<REVIEW_ID>.json`，提出严格的支持/竞争反例和数学/源码证据。整理者只将真实来源的状态汇入队列和 `endorsements/`，不代写另一Agent结论。早期机制、图边和OPEN数学可先进入[独立发现](discoveries/E0/README.md)及[Graph-Agent图注](graph_annotations/E0/README.md)，不需要抢先改成算法提案。
 
 执行任务、GPU资源、视频采样和批准等都由[ACTIVE](../ACTIVE_RESEARCH.json)维护；本队列讨论的科学方向始终遵循[AutoResearcher](../../AGENTS.md)，保持可证伪且允许I/F/C开放扩展。
+
+**2026-10-28 QCFB独立数学审阅**：[/root/qcfb_review原文](../independent_reviews/QCFB_20261028/INDEPENDENT_MATH_REVIEW.md)审阅基准8b62fd2；[协调者严格推导与修订](../20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md)纳入可测性、联合矩PSD和时序信息修正。审阅针对基础版本，不是最终修订复审或正式proposal SUPPORT票；上述正式支持计数不变。

@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
   "updated": "2026-10-28",
-  "status": "G14_B_SENSITIVITY_PRIMARY_METHODS_92_RESEARCH_ITEMS",
+  "status": "G14_QCFB_PRIMARY_METHOD_AUDIT_94_RESEARCH_ITEMS",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -482,13 +482,13 @@
       "year": 2026,
       "venue": "ICLR",
       "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/94359ca6e248af69b8b6854668ae9782-Abstract-Conference.html",
-      "model": "HunyuanVideo",
-      "observed_mechanism": "Quantization+attention sparsity interact; multi-scale distillation and second-order residual",
+      "model": "HunyuanVideo and Wan2.1",
+      "observed_mechanism": "Attention quantization and sparsity co-design using global/local distillation and temporally reused second-order residuals",
       "decision_time": "calibrated attention state",
-      "physical_action": "quant+sparse attention",
+      "physical_action": "Calibrate quantization and execute sparse attention with residual reparameterization",
       "training": "distillation",
       "wan_specific_discriminator": "Attention quantization effects and HiF4 FFN Q2 dependencies are not interchangeable",
-      "reading_depth": "OFFICIAL_ABSTRACT"
+      "reading_depth": "PRIMARY_ARXIV_V4_SECTIONS_3_2_3_4_READ_CODE_NOT_REVIEWED_20261028"
     },
     {
       "id": "L29",
@@ -729,12 +729,12 @@
       "venue": "ICML2026",
       "url": "https://proceedings.mlr.press/v306/han26y.html",
       "model": "Waver-12B and Wan2.1",
-      "observed_mechanism": "Attention quality governed by matched full-attention tile geometry; tile scoring/head-aware tiling and sparse tile kernel",
+      "observed_mechanism": "Max-pooled teacher tile scores supervise TripPool/head-specific predictions, with head-aware hardware tiling",
       "decision_time": "offline mask distillation and online tile selection",
-      "physical_action": "actual tile-skip attention kernel",
+      "physical_action": "Train tile estimator, choose head tiling offline and execute actual sparse attention tile skipping",
       "training": "distillation",
       "wan_specific_discriminator": "Tile shape→quality observation is an analog, not evidence FFN Fourier modes define valuable compute",
-      "reading_depth": "OFFICIAL_ICML_ABSTRACT"
+      "reading_depth": "PRIMARY_ARXIV_V1_SECTION4_METHOD_READ_CODE_NOT_REVIEWED_20261028"
     },
     {
       "id": "L43",
@@ -1713,6 +1713,36 @@
       "training": "Main method uses modular teacher distillation plus rectified-flow finetuning; a separate training-free SVD evaluation is reported.",
       "wan_specific_discriminator": "CMMD ranks image-distribution degradation after one-block compression, not a paired local gate-conditioned sensitivity matrix; image-model parameter savings do not establish HiF4 FFN full-video latency or quality.",
       "reading_depth": "PRIMARY_ARXIV_V1_METHOD_SECTION_3_AND_SELECTED_EXPERIMENTS_ABLATIONS_READ_CODE_NOT_REVIEWED_20261028"
+    },
+    {
+      "id": "L93",
+      "title": "Improving Generalization in LLM Structured Pruning via Function-Aware Neuron Grouping",
+      "group": "ffn_function",
+      "year": 2026,
+      "venue": "AAAI26",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/40021",
+      "model": "LLM post-training structured pruning",
+      "observed_mechanism": "Context-conditioned grouping and weighted group reconstruction; within-group second-order compensation already exists",
+      "decision_time": "Offline calibration with token context and activation/gradient statistics",
+      "physical_action": "Prune and compensate structured neuron groups using weighted reconstruction",
+      "training": "Post-training calibration, no full fine-tuning required",
+      "wan_specific_discriminator": "Compare static function groups with cheap pre-W1 signed joint whole64 omission; functional grouping alone is not novelty",
+      "reading_depth": "PRIMARY_METHOD_EQ4_7_APPENDIX_EQ11_READ_CODE_NOT_REVIEWED_20261028"
+    },
+    {
+      "id": "L94",
+      "title": "Learnable Permutation for Structured Sparsity on Transformer Models",
+      "group": "ffn_function",
+      "year": 2026,
+      "venue": "arXiv",
+      "url": "https://arxiv.org/abs/2601.22980",
+      "model": "Vision, language and multimodal Transformers",
+      "observed_mechanism": "Learn permutation costs and differentiable bipartite matching to align weights with N:M sparsity",
+      "decision_time": "Offline permutation optimization before structured sparse inference",
+      "physical_action": "Coordinated weight/channel permutation followed by N:M pruning",
+      "training": "End-to-end permutation optimization",
+      "wan_specific_discriminator": "Arbitrary channel permutation does not preserve HiF4 hierarchical group quantization; restrict to complete ordered64 groups or establish a new recipe",
+      "reading_depth": "PRIMARY_METHOD_EQ1_3_AND_PERMUTATOR_READ_CODE_NOT_REVIEWED_20261028"
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",

@@ -29,7 +29,7 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前下一模型方法任务仍按 P0 的 B0/B1 交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**92主＋10补充，共102项**；主计算图为205节点/424原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**94主＋10补充，共104项**；主计算图为205节点/424原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 
@@ -58,3 +58,5 @@
 [ARCHIVE总索引](../ARCHIVE.md) · [早期机制重置](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [旧first-task时间点](20261025/E0_FFN_FIRST_TASK_20261025.md) · [旧Affine54失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) · [原A/B/C独立评议](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) · [最初提案Git版本](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。
 
 历史报告的“现在运行”“下一步”“暂停/恢复”只对当时冻结scope成立；目前方法进度依P0及[ACTIVE](ACTIVE_RESEARCH.json)核验。历史RUN、HASH、模型/来源、独立同行评议和失败边界不通过此索引重写。只在实际新的SRC/ALG/NATIVE/VIDEO或论文结论改变研究理解时，升级P0–P2；否则将新材料归入对应专题/历史证据而非新增并列权威方案。
+
+**QCFB严格审计补充**：[推导与反例](20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md)、[独立数学评议](independent_reviews/QCFB_20261028/INDEPENDENT_MATH_REVIEW.md)。组分解/条件风险成立；联合矩PSD、mask可测性、跨token项及Q-STAGE条件期望须保留。17项合成校验不代表Wan实测；M-B B0/B1优先级不变。

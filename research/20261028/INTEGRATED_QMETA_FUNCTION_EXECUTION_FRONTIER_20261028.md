@@ -1,6 +1,8 @@
 # FFNDS · 量化侧信道 × 有符号联合函数 × 真实可执行省算：综合研究前沿
 
-2026-10-28 · INTEGRATED_RESEARCH_FRONTIER v1 · ALG/SRC/LIT/OPEN。本文整合现行 M-A/M-B/M-C、Q-Meta/NetVOI、G6D/E/F、G11/G12/G14、A0 与 M-B 四轮评议；是研究机制扩展而非替换现行 M-B B0/B1 优先级。未运行新 Wan/GPU/训练/视频/性能实验；不变更 ACTIVE_RESEARCH.json、独立Agent评议票或旧 RUN。
+2026-10-28 · INTEGRATED_RESEARCH_FRONTIER v2 · ALG/SRC/LIT/OPEN。本文整合现行 M-A/M-B/M-C、Q-Meta/NetVOI、G6D/E/F、G11/G12/G14、A0 与 M-B 四轮评议；是研究机制扩展而非替换现行 M-B B0/B1 优先级。未运行新 Wan/GPU/训练/视频/性能实验；不变更 ACTIVE_RESEARCH.json、独立Agent评议票或旧 RUN。
+
+> **v2严格审计**：[命题推导、反例、源码与先例](QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md)。新增策略可测性、条件协方差、联合矩PSD、跨token读出、Q-STAGE内层条件风险；模型实验状态不变。
 
 ## 0. 新中心：动作不是“删最弱神经元”，而是省掉可预测、互相抵消且能够物理整块执行的函数束
 
@@ -22,12 +24,12 @@ $$ y_Q(x)=b_2+\sum_{j=1}^{216} v_j(x),\quad y_Q(x)-y_{Q,S}(x)=\sum_{j\in S}v_j(x
 
 ## 2. 由单组分数转为**条件联合组束**
 
-取当前有限原生状态、固定gate与冻结线性readout P（初步使用identity；仅当M-B条件证明真实后缀的LN常量规范时采用postgate channel-centering，未来真实finite/J仅做离线监督）。定义组有符号readout贡献 d_j=P diag(g) v_j。对省略向量 m_j∈{0,1}，固定Q2整组合法动作误差为 −sum_j m_j d_j；故
+取当前有限原生状态、固定gate与冻结线性readout P（初步使用identity；仅当M-B条件证明真实后缀的LN常量规范时采用postgate channel-centering，未来真实finite/J仅做离线监督）。定义组有符号readout贡献 d_j=P diag(g) v_j。对仅依赖前置Z的省略策略 m=π(Z)、m_j∈{0,1}，固定Q2整组合法动作误差为 −sum_j m_j d_j；故
 
 $$ \Gamma_{ij}(Z)=\mathbb E[\langle d_i,d_j\rangle\mid Z],\qquad
 \boxed{\mathbb E[\|\Delta_S\|^2\mid Z]=m^\top\Gamma(Z)m,\quad\Gamma(Z)\succeq0.} $$
 
-Z是**真正W1前可用且计成本**的Q1 side-information（例如scale-shape + few signed code moments）、step/expert与已有状态；不是当场读取完整teacher v/J。真实物理row-tile共享mask时，Gamma必须汇总tile内全部rows对应读出，不能把逐token的可跳率当作physical K/M tile跳率。
+Z是**真正W1前可用且计成本**的Q1 side-information（例如scale-shape + few signed code moments）、step/expert与已有状态；不是当场读取完整teacher v/J。真实物理row-tile共享mask时，在逐row可分的平方和目标下Gamma须汇总tile内所有row的Gram；若P混合token，先对整状态应用P并保留跨行/跨tile交叉项。逐token可跳率不等于physical K/M tile跳率。
 
 两个组同时省略相对单独误差之和恰多 2Gamma_ij。负offdiagonal意味着共同删除时有符号抵消；**被单组能量TopK保留的高能组也可能成对可删**。此事实是普通二次型代数，不据此宣称发现了真实Wan组束或数学首创。
 
@@ -42,13 +44,15 @@ $$ \boxed{\mathbb E[\|e_{total}\|^2\mid Z]=\mathbb E[\|e_Q\|^2\mid Z]-2b(Z)^\top
 
 b表示量化误差与要删组有符号贡献的**条件交互**，而不只是两个独立的误差预算。b可能使特定删算降低局部量化失真；这必须与原量化dense的视频目标、source-level长程质量另行比较，不能由local BF16/MSE改进推断视频等价。它区别于SharQ的两路FP4 GEMM残差恢复和QuantSparse的attention联合重参数化，真正作用在whole64 W1/GELU/Q2/W2组动作；然而“联合量化与稀疏”本身已经有先例，尚无经实证证立的独有论文创新。
 
+固定量化方案下，上式只优化省略m；若同时分配精度，需加入量化动作q并重新定义C(q)、b(q)、Gamma(q)、信息时点和真实成本。相对原量化dense的损失仍为m^T Gamma m，应单列约束/验收，不被负b项抵消。
+
 **可执行动作优化目标**：
 
 $$ m_T^*(Z_T)=\arg\min_{m\in\mathcal M_{physical}}\left[m^\top\widehat\Gamma_T(Z_T)m-2\widehat b_T(Z_T)^\top m+\lambda\,C_{native,T}(1-m,Z_T)\right]. $$
 
 M_physical应限制完整64组、物理row-tile共用的形状/掩码、已可驻留的少量prepacked execution views或编译器真实支持的packed sparse kernel；C包括quant producer额外输出、code/scale读取、selector/packing/权重resident、kernel launch、W1/GELU/Q2/W2及端到端cost。与native packed dense、现行BF16-QDQ dense、普通static-group A0做各自合法数值与硬件匹配。若成本不可写成各组线性之和，必须实测/近似真实C(action)，不可只使用理论MAC。
 
-可候选估计器：Gamma_hat(Z)=U(Z)^T U(Z)+diag(var(Z))，var≥0，U∈R^(r×216)，保证PSD但允许负offdiagonal；b_hat由冻结teacher high-precision与quantized pair离线蒸馏。是否能比static joint Gram、diagonal、RMS/step、旧HP1/NP1、同cost小MLP提供更低**行动后悔值**是OPEN。online每tile预测U的成本O(rG)仍需计价；不预设r小就一定更快。
+可候选估计器：Gamma_hat(Z)=U(Z)^T U(Z)+diag(var(Z))，var≥0，U∈R^(r×216)，保证PSD但允许负offdiagonal；此处Gamma是完整条件二阶矩，必须包含条件协方差；只对条件均值做Gram会失真。b_hat由冻结teacher high-precision与quantized pair离线蒸馏；若使用量化补偿目标，进一步要求整个H=[[C,b^T],[b,Gamma]]为PSD，可采用共同因子预测H，而非只约束Gamma。是否能比static joint Gram、diagonal、RMS/step、旧HP1/NP1、同cost小MLP提供更低**行动后悔值**是OPEN。online每tile预测U的成本O(rG)仍需计价；不预设r小就一定更快。
 
 ## 3. 两阶段动作改变后续信息：Q-STAGE
 
@@ -60,7 +64,7 @@ $$ Z_{Q1}\xrightarrow{A_1}W1_{A_1}\to\phi\to Q2_{A_1}\to Z_{Q2}(A_1)\xrightarrow
 - A1**W1输入K-panel**早删：多数隐藏预激活变化，Q2可能发生非线性scale/code跃迁；真实后段信息是Q2(A1)，不能把未执行dense反事实Q2作为免费router signal。这是G6F所提醒的关键差异。
 - A1**紧凑M-A/M-B函数替代**：新的学生隐空间和Q2 recipe可能不同，A2须按学生自己的producer与后缀重新定义信息；teacher Q2不能当学生真实code。
 
-抽象决策函数可以用V_1(z_1)=min_a1 [C_1(a1)+E_{Z2|z1,a1} min_a2 {C_2(a2)+lambda L(a1,a2)}]，但通用Bellman决策不是我们的首创。新研究机会在于组完整性交换律提供**不需要预测被改变Q2的合法可分阶段算子子类**，而W1-K/action改变观测的问题形成明确竞争机制。真实收益仍OPEN。
+抽象决策函数应为V_1(z_1)=min_a1 [C_1+E_{Z2|z1,a1} min_a2 E{C_2+lambda L(a1,a2)|z1,a1,Z2}]，其中a2只能使用真实产生的第二阶段信息，但通用Bellman决策不是我们的首创。新研究机会在于组完整性交换律提供**不需要预测被改变Q2的合法可分阶段算子子类**，而W1-K/action改变观测的问题形成明确竞争机制。真实收益仍OPEN。
 
 ## 4. 为什么“创新的缝隙”在论文之间，而不是简单串联算法
 
@@ -76,7 +80,7 @@ $$ Z_{Q1}\xrightarrow{A_1}W1_{A_1}\to\phi\to Q2_{A_1}\to Z_{Q2}(A_1)\xrightarrow
 | M-B最新四轮 | 后缀gate/head函数、规范自由度、source-joint和finite规划 | 让后缀敏感信号做离线监督，并由Q1**在线可预见**，避免teacher J泄漏 | 固定readout、gated loss、B0/B1、商空间损失 |
 | M-C / LUT/CodeGEMM | 码本计算/输出低秩、GEMV快路 | whole64 tile无法高效skip时直接把量化码信息变成**可执行函数** | 同rank连续compact、multi-token packed GEMM |
 
-文献证据等级：Prox/SharQ/G12由仓库原文与作者源码Ledger提供；新增FANG、Learnable Permutation、Veda/DFSAttn及DVD-Quant的本轮检索为**官方摘要/元数据层**，未宣称逐页源码核验。原始页面：[FANG](https://ojs.aaai.org/index.php/AAAI/article/view/40021)、[Learnable Permutation](https://arxiv.org/abs/2601.22980)、[QuantSparse](https://proceedings.iclr.cc/paper_files/paper/2026/hash/94359ca6e248af69b8b6854668ae9782-Abstract-Conference.html)、[Veda](https://proceedings.mlr.press/v306/han26y.html)、[DFSAttn](https://proceedings.mlr.press/v306/hu26p.html)、[DVD-Quant](https://proceedings.iclr.cc/paper_files/paper/2026/hash/3bd28dd5cc4e15f9e019da13cc0c4844-Abstract-Conference.html)、[SharQ](https://arxiv.org/abs/2606.26587)、[Prox](https://arxiv.org/abs/2607.27591)。
+文献证据等级：Prox/SharQ/G12由仓库原文与作者源码Ledger提供；新增FANG、Learnable Permutation、Veda/DFSAttn及DVD-Quant的初版检索为**官方摘要/元数据层**。v2已补读FANG、Learnable Permutation、QuantSparse与Veda的原论文方法段，见[原文ledger](../literature/20261028/QCFB_PRIMARY_METHOD_AUDIT.json)；作者代码仍未审。DFSAttn及DVD-Quant维持初版读取层级。原始页面：[FANG](https://ojs.aaai.org/index.php/AAAI/article/view/40021)、[Learnable Permutation](https://arxiv.org/abs/2601.22980)、[QuantSparse](https://proceedings.iclr.cc/paper_files/paper/2026/hash/94359ca6e248af69b8b6854668ae9782-Abstract-Conference.html)、[Veda](https://proceedings.mlr.press/v306/han26y.html)、[DFSAttn](https://proceedings.mlr.press/v306/hu26p.html)、[DVD-Quant](https://proceedings.iclr.cc/paper_files/paper/2026/hash/3bd28dd5cc4e15f9e019da13cc0c4844-Abstract-Conference.html)、[SharQ](https://arxiv.org/abs/2606.26587)、[Prox](https://arxiv.org/abs/2607.27591)。
 
 ## 5. 最短科学推进（不要抢 M-B B0/B1）
 
