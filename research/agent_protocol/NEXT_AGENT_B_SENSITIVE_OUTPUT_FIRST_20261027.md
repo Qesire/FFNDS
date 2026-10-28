@@ -1,18 +1,20 @@
 # FFNDS · 下一位研究Agent的现行任务：从已完成的M-B方法继续
 
-**2026-10-28 · NEXT_AGENT_TASK v2 / CURRENT / EXPERIMENT_NOT_TRIGGERED。** [当日任务状态台账](CURRENT_TASK_LEDGER_20261028.json)区分已完成的SRC核验、尚缺的B0 producer实现、需精确注册的native采集与其后B1依赖；本文件继续提供**B0/B1技术任务内容**，台账不替换它。 用户明确“从B开始”，所指为**M-B敏感函数坐标候选**，即O-B表示＋O-E训练/验证、可选O-D真实代数，而非五操作分类的全部O-B。对现有I/F/C、M-A0强基线与独立M-C探索没有排他性约束；[ACTIVE](../ACTIVE_RESEARCH.json)管理所有原生运行权限，[方法讨论](../method_discussion/QUEUE.md)只登记真实独立提案和评议。
+**2026-10-28 · NEXT_AGENT_TASK v3 / CURRENT / B0_COMPLETE_B1_PARTIAL。** [当日任务状态台账](CURRENT_TASK_LEDGER_20261028.json)记录实际B0完成、B1有限head子范围完成及其后source配对/学生依赖；本文件继续提供**B0/B1技术任务内容**，台账不替换它。 用户明确“从B开始”，所指为**M-B敏感函数坐标候选**，即O-B表示＋O-E训练/验证、可选O-D真实代数，而非五操作分类的全部O-B。对现有I/F/C、M-A0强基线与独立M-C探索没有排他性约束；[ACTIVE](../ACTIVE_RESEARCH.json)管理所有原生运行权限，[方法讨论](../method_discussion/QUEUE.md)只登记真实独立提案和评议。
+
+**实际续作差异**：[B0/B1原生报告](../20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)已完成4Denseflows/160FFN和72显式head/LN调用；B0无需重做。B1尚需paired/marginal/PCA/random/shuffle同rank判别及弱响应BF16分辨率。先按[CAL24标签producer审计](../method_discussion/discoveries/E0/bh-bf-cal24-aligned-label-source-audit-20261028.md)构建真实r/u/head源配对数据，再进入同信息/预算的B-H/B-F；不能用两个consumer开发来源替代train16/held8。以下B0合同保留以供原生复核，已完成范围以原始RUN和台账为准。当前用户GPU上限2，新运行另按ACTIVE冻结。
 
 ## 0. 已完成的工作：作为下一任务的输入，不重复创造
 
 1. [现行统一研究方案 v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)是M-A/M-B/M-C的**唯一现行研究路线图**，其中G14先验已转化为数学/数值/执行约束；原独立审计[在此](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)保留作为推导来源。
-2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。**对原生离散BF16的同状态有限响应尚未实测。**
+2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。同状态BF16 head有限响应已有实际子范围；配对基和学生比较仍待测。
 3. [A0四位置native恢复P30](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)：同预算energy94/random94、4个站点、已暴露的train16/heldout8、实际Q2和folded可回读权重，已证明局部恢复，尚未有全80函数与完整视频。
 4. 既有[consumer20质量](../20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)证实当前UB1固定RR在20个开发来源的连续RAFT大幅下降；不能将其当作M-B函数成功/失败。
 5. [G14计算图](PAPER_METHOD_FOCUS_GRAPH.json)已有94项主论文＋10项校准，配[五操作机器交叉表](METHOD_OPERATION_CROSSWALK.json)。新研究重点是T05/T06真实GELU与Q2、T07 W2、T08 e5门控、T09及T12视频/后缀、T13核、T15因果；不再以“先广泛扫摘要”代替当前已证明的数学结论。
 
-## 1. 现在立即进行的任务：把已知数学落实为B0原生对象
+## 1. 已完成B0的技术合同（复核用）
 
-**B0-PREP（下一位Agent的首要实际交付）**：依据v2快照第4、7、8、9节，完成两份已暴露source×step0/high和step3/low共4个Dense flow捕获的**源码实现/producer定位、资产SHA核验、标准协议与中性等价检查**。遵循source image-cluster身份；采集每一真实状态的full-M post-write $u$、原gate、residual、head调制与head/flow输出、绑定seed/噪声/调度器/两expert、真实Q2数值、shape/dtype/stride。任何缺失producer先按真实源码定位或标OPEN_BINDING，不把CAL24的post-Q1、post-Q2或pre-gate Y假设成full u。
+**B0-PREP（已完成实际V3捕获；保留原对象定义）**：依据v2快照第4、7、8、9节，完成两份已暴露source×step0/high和step3/low共4个Dense flow捕获的**源码实现/producer定位、资产SHA核验、标准协议与中性等价检查**。遵循source image-cluster身份；采集每一真实状态的full-M post-write $u$、原gate、residual、head调制与head/flow输出、绑定seed/噪声/调度器/两expert、真实Q2数值、shape/dtype/stride。任何缺失producer先按真实源码定位或标OPEN_BINDING，不把CAL24的post-Q1、post-Q2或pre-gate Y假设成full u。
 
 **GPU边界**：以上数学、SRC、协议及CPU静态测试可先展开；实际4个40-block Dense flow需要按ACTIVE已有精确scope或冻结后正式登记。不要依据本任务自行启动、隐式新增模型RUN或宣称采集成功。
 

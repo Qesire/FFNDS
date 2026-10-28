@@ -8,11 +8,11 @@
 | --- | --- | --- | --- |
 | **1** | [当前最小上下文包](agent_protocol/CURRENT_CONTEXT_PACKET.md) | Wan原生FFN/QDQ/step、已完成与OPEN边界、当前用户指定的M-B | 确认本轮研究对象及source/模型版本 |
 | **2** | [M-A/M-B/M-C统一方案v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | 三种新函数、G14约束、强比较器与已登记研究顺序 | 不把旧初版A/B/C意见作为新任务 |
-| **3** | [M-B数学快照v2](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 配对敏感度、末层65个连续充分统计、B-H/B-F学生及线上代价 | 继承已完成ALG/SRC；识别原生u尚未捕获 |
-| **4** | [下一Agent B0/B1交接](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 原生producer/资产/neutral→有限响应→学生函数判别与输出合同 | 准备B0，真正执行另按ACTIVE冻结登记 |
+| **3** | [M-B数学快照v2](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 配对敏感度、末层65个连续充分统计、B-H/B-F学生及线上代价 | 继承ALG/SRC及实际B0捕获；按台账区分已做finite与待做paired判别 |
+| **4** | [下一Agent B0/B1交接](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 原生producer/资产/neutral→有限响应→学生函数判别与输出合同 | 复用已完成B0；继续B1源配对标签/判别，新运行另冻结登记 |
 | **5** | [ACTIVE真实研究状态](ACTIVE_RESEARCH.json) | 当轮模型/资源权限、已完成的原始RUN、模型和实验范围 | 不将任务文档视为自动运行授权 |
 
-**现在的首项工作：M-B B0**，定位并核验原生block39 post-write \`u\`、gate、residual、final LN/head、flow的真实producer和state身份，给出合法的中性重放实现/冻结范围。随后是**B1**同来源原生有限响应。B-H直接预测head充分统计与B-F通用低秩函数仍是待实现的方法；A0是局部已实测的匹配基线，不需要重新做初步论证。
+**现在的首项工作以[任务台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)为准：B0已实际完成，B1有限head子范围已完成，继续B1源配对判别与标签。** [原生结果](20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)给出4Denseflow和72次同状态显式head/LN的证据。paired/marginal/PCA/shuffle、BF16弱响应及B-H/B-F真实学生仍开放；不能把有限公式拟合较好写成paired基已获胜。A0保留已完成资产，后续模型资源优先M-B，具体状态仅在任务台账维护。
 
 ## P1 · 研究方法必备：按问题选择阅读，不必全读
 
@@ -29,14 +29,14 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前下一模型方法任务仍按 P0 的 B0/B1 交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**94主＋10补充，共104项**；主计算图为205节点/424原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**94主＋10补充，共104项**；主计算图为209节点/431原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 
 | 原生证据及身份 | 结论的精确适用范围 | 用于哪条研究问题 |
 | --- | --- | --- |
 | [M-A0四位置6016恢复P30](20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)（NATIVE局部） | 4个(step,block)站点，train16/旧暴露heldout8、同预算energy94优于random94；不是全80/自由视频 | M-B/B-F与M-C的共同强比较器 |
-| [M-B配对敏感度I19](method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)（ALG）和[原始head SRC](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 平均代理与联合代理可反向排序；末层固定调制下65个连续充分统计；**B0/B1 native尚未执行** | M-B B0/B1的数学及数值任务 |
+| [M-B配对敏感度I19](method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)（ALG）和[原始head SRC](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 平均代理与联合代理可反向排序；末层固定调制下65个连续充分统计；B0已完成；B1实际head有限子范围见[原生报告](20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)，paired与学生仍OPEN | M-B B0/B1的数学及数值任务 |
 | [20来源40条原生配对视频](20261027/UB1_CONSUMER_DISJOINT20_NATIVE_RESULTS_20261027.md)和[质量/连续运动](20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)（VIDEO） | 当前fixed-RR consumer成像平均−1.38%，RAFT幅值−83.28%；20个开发暴露来源，不能归因为M-B已失效或已恢复 | 视频动作与静态画面差异的科学动机 |
 | [CAL24来源组稳定性](20261028/UB1_CAL24_SOURCE_ENERGY_PROFILE_RESULTS_20261028.md)（NATIVE/统计） | 4个teacher位置支持选择较稳定；不是配对$s$的真实后缀$J_s$ | 区分固定gate和联合后缀敏感假说 |
 | [激活2:4 C5 A100](20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md)（合成SYS） | 在线候选与Dense比较仅约3.5%/0.7%余量；未证明原Wan端到端质量与真实加速 | O-D选择真实算子与物理成本 |

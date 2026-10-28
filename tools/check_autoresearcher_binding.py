@@ -56,7 +56,7 @@ def current_execution_authority_is_consistent(active):
             and bool(resume["user_instruction"].strip())
             and resume.get("status") == "ACTIVE_CURRENT_USER_DIRECTED_SESSION"
             and type(resume.get("max_simultaneously_assigned_idle_GPUs")) is int
-            and resume.get("max_simultaneously_assigned_idle_GPUs") == 4
+            and 1 <= resume.get("max_simultaneously_assigned_idle_GPUs") <= 4
             and resume.get("protocol_code_asset_budget_freeze_before_launch") is True
             and resume.get("automatic_retry") is False
             and resume.get("historical_pause_receipts_preserved") is True)

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 from collections import deque
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -177,7 +178,7 @@ def validate_method_operation_crosswalk(data):
     assert method_map["schema"] == "ffnds.method_operation_crosswalk.v2"
     assert method_map["current_method_plan"] == pointer["method_plan"]
     assert (ROOT / method_map["next_agent_task"]).is_file()
-    assert method_map["next_agent_current_stage"] == "M-B_B0_NATIVE_POSTWRITE_CAPTURE_PREP"
+    assert method_map["next_agent_current_stage"] == "M-B_B0_NATIVE_COMPLETE__B1_PAIRING_AND_ALIGNED_LABELS_PREP"
     assert method_map["one_turn_next_agent"] == "M-B"
 
     operations = set(method_map["operation_definitions"])
@@ -202,9 +203,20 @@ def validate_method_operation_crosswalk(data):
     assert {item["method"] for item in progress} == {"M-A", "M-B", "M-C"}
     for item in progress:
         assert (ROOT / item["evidence"]).is_file(), f"Missing project evidence: {item['evidence']}"
-    assert "B0_NATIVE_STATE_CAPTURE_OPEN" in next(
-        item["status"] for item in progress if item["method"] == "M-B"
-    ), "Do not mark B0 native capture complete without its native record"
+    b_progress = next(item for item in progress if item["method"] == "M-B")
+    assert b_progress["status"] == "B0_NATIVE_STATE_CAPTURE_COMPLETE__B1_SAVED_HEAD_COMPLETE__STUDENTS_OPEN"
+    binding = b_progress["native_result"]
+    result_path = (ROOT / binding["path"]).resolve()
+    assert result_path.is_relative_to(ROOT.resolve()), "Native report must stay in repository"
+    raw = result_path.read_bytes()
+    assert len(raw) == binding["bytes"] and hashlib.sha256(raw).hexdigest() == binding["sha256"], "Changed native report binding"
+    report = json.loads(raw)
+    assert report["evidence"] == "NATIVE_CAPTURE_AND_SAVED_HEAD_DIAGNOSTIC"
+    assert report["b0"]["launch_exit"] == report["b1"]["launch_exit"] == 0
+    assert report["b0"]["historical_raw_fp32_poststate_match"] == 4
+    assert report["b0"]["FFN_calls"] == 160 and report["b0"]["independent_sources"] == 2
+    assert report["b1"]["observed"]["head_calls"] == 72
+    assert report["b1"]["observed"]["video"] == report["b1"]["observed"]["fit"] == 0
 
     allowed_relations = set(method_map["relation_types"])
     assert allowed_relations == {

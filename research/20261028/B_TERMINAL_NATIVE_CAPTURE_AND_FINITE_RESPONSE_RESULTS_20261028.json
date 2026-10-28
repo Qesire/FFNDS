@@ -1,0 +1,3454 @@
+{
+  "evidence": "NATIVE_CAPTURE_AND_SAVED_HEAD_DIAGNOSTIC",
+  "b0": {
+    "path": "ffnds-derived/e0_b_final_block_capture_head_asset_20261028/attempt1",
+    "run_sha256": "bd6594043891736fdf7711caf94edf90e6919158267e5e096f552a165c19cafb",
+    "status": "COMPLETE_B_FINAL_BLOCK_CAPTURE_HISTORICAL_POSTSTATE_BYTES_MATCH",
+    "launch_exit": 0,
+    "outer_seconds": 379.2308537848294,
+    "sources": [
+      1,
+      4
+    ],
+    "seed": 42,
+    "steps": [
+      0,
+      3
+    ],
+    "expert": [
+      "high",
+      "low"
+    ],
+    "independent_sources": 2,
+    "historical_exposure": true,
+    "native_blocks": 160,
+    "FFN_calls": 160,
+    "full_u": "4 BF16 tensors [31668,5120]",
+    "historical_raw_fp32_poststate_match": 4,
+    "historical_head_flow": "NOT_SAVED_BY_HISTORICAL_PRODUCER",
+    "runtime_head_KN_stride": [
+      1,
+      5120
+    ],
+    "cpu_head_view_KN_stride": [
+      64,
+      1
+    ],
+    "original_head_weight_bias_modulation_sha_verified": true,
+    "setup_decoded_weight_bytes": 56203673600,
+    "setup_transfers": 800,
+    "peak_physical_used_memory_MiB": 79162,
+    "new_output_bytes": 1519862929,
+    "new_videos": 0,
+    "prior_attempts": "B0 V1/V2 failed; retain original config and ACTIVE identities"
+  },
+  "b1": {
+    "path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1",
+    "run_sha256": "ef16fc599bcdc7d2d48d7424f1b1eef508eddfc13b77cfc480f10cbaa1973780",
+    "status": "COMPLETE_B1_SAVED_HEAD_DIAGNOSTIC",
+    "launch_exit": 0,
+    "outer_seconds": 44.15872371196747,
+    "receipt_provenance": "Original LAUNCH_EXIT has no RUN_sha field; recovered exact original receipt and separate LAUNCH_RECEIPT_RECOVERY record binds current RUN to previous observed SHA, no rerun.",
+    "operator": "source-equivalent explicit torch layer_norm, BF16 gain multiplication and shift addition, addmm; actual runtime stride and BF16 reduction restored; not original head class",
+    "observed": {
+      "head_calls": 72,
+      "layer_norm_calls": 72,
+      "qr_calls": 4,
+      "direction_rows": 1024,
+      "CPU_response_rows": 16384,
+      "full_model": 0,
+      "FFN": 0,
+      "QDQ": 0,
+      "fit": 0,
+      "video": 0
+    },
+    "neutral": "8 full-M neutral BF16 heads byte-equal B0; unchanged M-256 rows byte-equal in all 64 variants",
+    "direction": "unit L2 direction times amplitude times ||u||2; use actual BF16 effective delta in FP64 finite and linear comparison",
+    "pregate_scale": "uses ||Y||2, unlike postwrite ||u||2; no pure gate attenuation comparison",
+    "error_definition": "sqrt(error_SSE)/native_response_norm",
+    "quantization_floor": "NOT_MEASURED; repeat neutral difference zero is not a floor measurement",
+    "cases": [
+      {
+        "source_index": 1,
+        "step": 0,
+        "variants": [
+          {
+            "kind": "visible",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.005405657667407285,
+            "linear_relative_l2": 0.0069635560207224195,
+            "native_response_l2": 89.98891322410392,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.170648684898058,
+                "max": 10.4661892856707
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250249568453131,
+                "max": 0.0625493055848271
+              },
+              "mean_leakage": {
+                "mean": 0.00013301009575570564,
+                "max": 0.0004828954903762827
+              },
+              "head_leakage": {
+                "mean": 0.13773873019066193,
+                "max": 0.1377579759278071
+              },
+              "z_leakage": {
+                "mean": 0.011189159642338114,
+                "max": 0.03983535829231901
+              },
+              "native_vs_finite": {
+                "native_norm": 89.98891322410392,
+                "prediction_norm": 89.99876066039037,
+                "error_SSE": 0.23663288133990934,
+                "cosine": 0.9999853970179886
+              },
+              "native_vs_linear": {
+                "native_norm": 89.98891322410392,
+                "prediction_norm": 90.21315764928538,
+                "error_SSE": 0.3926812470182416,
+                "cosine": 0.9999789118056365
+              },
+              "finite_vs_linear": {
+                "native_norm": 89.99876066039037,
+                "prediction_norm": 90.21315764928538,
+                "error_SSE": 0.1499859547386092,
+                "cosine": 0.9999935941028129
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant00.safetensors",
+            "artifact_sha256": "85d027fce4ff94c6dfd7f158ee564765b4b36c78fc629bc6a0d58fda07a3202d"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.005454961203892536,
+            "linear_relative_l2": 0.006771677585923001,
+            "native_response_l2": 90.05803279037734,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.17077158729729,
+                "max": 10.46719416443455
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250323962115062,
+                "max": 0.06253898890936528
+              },
+              "mean_leakage": {
+                "mean": 0.00013109945232469465,
+                "max": 0.0004583154233424594
+              },
+              "head_leakage": {
+                "mean": 0.1377395233848788,
+                "max": 0.13775964415440725
+              },
+              "z_leakage": {
+                "mean": 0.011195269817584787,
+                "max": 0.039830969744646505
+              },
+              "native_vs_finite": {
+                "native_norm": 90.05803279037734,
+                "prediction_norm": 90.07930154528233,
+                "error_SSE": 0.24133940882936328,
+                "cosine": 0.9999851530929618
+              },
+              "native_vs_linear": {
+                "native_norm": 90.05803279037734,
+                "prediction_norm": 90.21474494930044,
+                "error_SSE": 0.37190965808411136,
+                "cosine": 0.9999786234053167
+              },
+              "finite_vs_linear": {
+                "native_norm": 90.07930154528233,
+                "prediction_norm": 90.21474494930044,
+                "error_SSE": 0.12259522664127849,
+                "cosine": 0.9999935857655856
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant01.safetensors",
+            "artifact_sha256": "b0412c2dbab27257646559fe6229f4e058aae1a150492cc1edfa834625218077"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.0024501062000070874,
+            "linear_relative_l2": 0.03546259701301715,
+            "native_response_l2": 349.53564775733196,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.67966741019791,
+                "max": 41.87647225218872
+              },
+              "delta_relative_l2": {
+                "mean": 0.2499920270353888,
+                "max": 0.25010721458966234
+              },
+              "mean_leakage": {
+                "mean": 3.450651000554581e-05,
+                "max": 0.0001182520845624224
+              },
+              "head_leakage": {
+                "mean": 0.1377456181384391,
+                "max": 0.13776047564511318
+              },
+              "z_leakage": {
+                "mean": 0.01124116075726524,
+                "max": 0.04004071014070264
+              },
+              "native_vs_finite": {
+                "native_norm": 349.53564775733196,
+                "prediction_norm": 349.5214028557739,
+                "error_SSE": 0.7334200311381188,
+                "cosine": 0.9999969991979462
+              },
+              "native_vs_linear": {
+                "native_norm": 349.53564775733196,
+                "prediction_norm": 360.8446635679739,
+                "error_SSE": 153.64697786595613,
+                "cosine": 0.999897908773982
+              },
+              "finite_vs_linear": {
+                "native_norm": 349.5214028557739,
+                "prediction_norm": 360.8446635679739,
+                "error_SSE": 153.15098616590046,
+                "cosine": 0.9999011490122706
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant02.safetensors",
+            "artifact_sha256": "0bd4b7be18f24fcf090cda81b166e12882b8c210a6b65fad6f3eae4ba341e8e2"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.002506686212983755,
+            "linear_relative_l2": 0.032384390885140696,
+            "native_response_l2": 350.70824233936827,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.680891322099384,
+                "max": 41.8777575998641
+              },
+              "delta_relative_l2": {
+                "mean": 0.2499995464241603,
+                "max": 0.250105505712556
+              },
+              "mean_leakage": {
+                "mean": 3.598938190274105e-05,
+                "max": 0.00012358897707107506
+              },
+              "head_leakage": {
+                "mean": 0.1377459320865799,
+                "max": 0.13775866201484882
+              },
+              "z_leakage": {
+                "mean": 0.011243859153011375,
+                "max": 0.040044815009624646
+              },
+              "native_vs_finite": {
+                "native_norm": 350.70824233936827,
+                "prediction_norm": 350.7171193472532,
+                "error_SSE": 0.7728440902114818,
+                "cosine": 0.9999968586619676
+              },
+              "native_vs_linear": {
+                "native_norm": 350.70824233936827,
+                "prediction_norm": 360.8563332611616,
+                "error_SSE": 128.99218855172154,
+                "cosine": 0.999897244757143
+              },
+              "finite_vs_linear": {
+                "native_norm": 350.7171193472532,
+                "prediction_norm": 360.8563332611616,
+                "error_SSE": 127.95562457571293,
+                "cosine": 0.999900631063754
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant03.safetensors",
+            "artifact_sha256": "0cb10807fd312f0d6358dd4d0da7f30006204b78ffb6204151d36a65e443adf1"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.04304118867978513,
+            "linear_relative_l2": 0.07452503681846799,
+            "native_response_l2": 10.431226765052386,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.189074061536585,
+                "max": 10.80548536013019
+              },
+              "delta_relative_l2": {
+                "mean": 0.06261361100115603,
+                "max": 0.06539813176640784
+              },
+              "mean_leakage": {
+                "mean": 0.0004624767728597488,
+                "max": 0.0010015004565724775
+              },
+              "head_leakage": {
+                "mean": 0.00016838153149333388,
+                "max": 0.00024549283965182175
+              },
+              "z_leakage": {
+                "mean": 0.9900356714861057,
+                "max": 0.9957661497283594
+              },
+              "native_vs_finite": {
+                "native_norm": 10.431226765052386,
+                "prediction_norm": 10.4262652140162,
+                "error_SSE": 0.20157621538370304,
+                "cosine": 0.9990734004255686
+              },
+              "native_vs_linear": {
+                "native_norm": 10.431226765052386,
+                "prediction_norm": 9.78739828534422,
+                "error_SSE": 0.6043314164640192,
+                "cosine": 0.9990703898189376
+              },
+              "finite_vs_linear": {
+                "native_norm": 10.4262652140162,
+                "prediction_norm": 9.78739828534422,
+                "error_SSE": 0.4086223362175785,
+                "cosine": 0.9999976903375963
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant04.safetensors",
+            "artifact_sha256": "e978da77af1e3e6dcf6a042daed2c746ad57e6fc8a3a42152a4ab8de8327d42b"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.04661715172726771,
+            "linear_relative_l2": 0.07682433022683942,
+            "native_response_l2": 9.228644481763668,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.180074716057423,
+                "max": 10.80659925212452
+              },
+              "delta_relative_l2": {
+                "mean": 0.06255408746930408,
+                "max": 0.06540198372362238
+              },
+              "mean_leakage": {
+                "mean": 0.00047217096667001216,
+                "max": 0.0010481755454196072
+              },
+              "head_leakage": {
+                "mean": 0.00017250112494041962,
+                "max": 0.0002516792034029814
+              },
+              "z_leakage": {
+                "mean": 0.9900172481992464,
+                "max": 0.9957216249232331
+              },
+              "native_vs_finite": {
+                "native_norm": 9.228644481763668,
+                "prediction_norm": 9.217047271080308,
+                "error_SSE": 0.18508332865746724,
+                "cosine": 0.998912843993069
+              },
+              "native_vs_linear": {
+                "native_norm": 9.228644481763668,
+                "prediction_norm": 9.78209714577992,
+                "error_SSE": 0.502658923702579,
+                "cosine": 0.998912500737968
+              },
+              "finite_vs_linear": {
+                "native_norm": 9.217047271080308,
+                "prediction_norm": 9.78209714577992,
+                "error_SSE": 0.319608042923922,
+                "cosine": 0.9999981883618477
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant05.safetensors",
+            "artifact_sha256": "676eea60fc8089990fe9f951556032e45e55f8956bca9bea871a1e879add7cc6"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.010144634355963387,
+            "linear_relative_l2": 0.24407688822686444,
+            "native_response_l2": 51.761262284503196,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.70186653811629,
+                "max": 41.95701813651969
+              },
+              "delta_relative_l2": {
+                "mean": 0.2501261984341278,
+                "max": 0.2514448710296009
+              },
+              "mean_leakage": {
+                "mean": 4.667016179992193e-05,
+                "max": 0.00013301253785896625
+              },
+              "head_leakage": {
+                "mean": 4.178831925638233e-05,
+                "max": 5.692613594574142e-05
+              },
+              "z_leakage": {
+                "mean": 0.9901711711411878,
+                "max": 0.9958556376973889
+              },
+              "native_vs_finite": {
+                "native_norm": 51.761262284503196,
+                "prediction_norm": 51.765097288781085,
+                "error_SSE": 0.2757290434801561,
+                "cosine": 0.9999485497535343
+              },
+              "native_vs_linear": {
+                "native_norm": 51.761262284503196,
+                "prediction_norm": 39.136520899092424,
+                "error_SSE": 159.61107885967726,
+                "cosine": 0.9999439755226708
+              },
+              "finite_vs_linear": {
+                "native_norm": 51.765097288781085,
+                "prediction_norm": 39.136520899092424,
+                "error_SSE": 159.49725632624967,
+                "cosine": 0.9999959734811082
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant06.safetensors",
+            "artifact_sha256": "cb26a1a5f6e7fdcba7d63cd7bf121e98b73d165af66a202f7c4a07c481590953"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.013050099877059138,
+            "linear_relative_l2": 0.24539657018986877,
+            "native_response_l2": 31.417850303782522,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.66917274748243,
+                "max": 42.01134914034596
+              },
+              "delta_relative_l2": {
+                "mean": 0.24992819976166314,
+                "max": 0.2528517673569095
+              },
+              "mean_leakage": {
+                "mean": 9.027652320055867e-05,
+                "max": 0.0002453710772331908
+              },
+              "head_leakage": {
+                "mean": 4.515379435920474e-05,
+                "max": 6.866075680930832e-05
+              },
+              "z_leakage": {
+                "mean": 0.9901644864678314,
+                "max": 0.9958524265137191
+              },
+              "native_vs_finite": {
+                "native_norm": 31.417850303782522,
+                "prediction_norm": 31.411260300101677,
+                "error_SSE": 0.16810498923424064,
+                "cosine": 0.9999148515846852
+              },
+              "native_vs_linear": {
+                "native_norm": 31.417850303782522,
+                "prediction_norm": 39.1138973889996,
+                "error_SSE": 59.44152037435174,
+                "cosine": 0.9999135877488452
+              },
+              "finite_vs_linear": {
+                "native_norm": 31.411260300101677,
+                "prediction_norm": 39.1138973889996,
+                "error_SSE": 59.33413915007888,
+                "cosine": 0.9999985670769039
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant07.safetensors",
+            "artifact_sha256": "2172d3ba4f1472dc372bcbbd79f33a8b33ed062fc84bb4b311c21cd2e83683f7"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.8308307625167942,
+            "linear_relative_l2": 1.0035886465621227,
+            "native_response_l2": 0.5508900495002196,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.170796573007845,
+                "max": 10.471421580225234
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250339145063594,
+                "max": 0.0625310113787238
+              },
+              "mean_leakage": {
+                "mean": 0.0001405897739089712,
+                "max": 0.0005705077003953463
+              },
+              "head_leakage": {
+                "mean": 0.00016905053239367533,
+                "max": 0.0002330950008381913
+              },
+              "z_leakage": {
+                "mean": 0.003993099392513896,
+                "max": 0.01360271984526947
+              },
+              "native_vs_finite": {
+                "native_norm": 0.5508900495002196,
+                "prediction_norm": 0.3049697451494443,
+                "error_SSE": 0.20948599447151794,
+                "cosine": 0.5565329081308235
+              },
+              "native_vs_linear": {
+                "native_norm": 0.5508900495002196,
+                "prediction_norm": 0.12138290445663419,
+                "error_SSE": 0.30566191878502497,
+                "cosine": 0.09385369904330161
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.3049697451494443,
+                "prediction_norm": 0.12138290445663419,
+                "error_SSE": 0.0949805170121458,
+                "cosine": 0.17234587008593583
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant08.safetensors",
+            "artifact_sha256": "eb20982582193c52f675ca9d622a26c6472cda1e65e4790d489fd0cfef8b4b72"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.7895683854988308,
+            "linear_relative_l2": 0.954058300930788,
+            "native_response_l2": 0.5951062604100933,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.170739172067645,
+                "max": 10.468866100261302
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250304019007624,
+                "max": 0.06253047174650055
+              },
+              "mean_leakage": {
+                "mean": 0.00014361845219146166,
+                "max": 0.000574243778131647
+              },
+              "head_leakage": {
+                "mean": 0.00016858774568364774,
+                "max": 0.0002389568938501798
+              },
+              "z_leakage": {
+                "mean": 0.0039911456638056534,
+                "max": 0.01359065011709558
+              },
+              "native_vs_finite": {
+                "native_norm": 0.5951062604100933,
+                "prediction_norm": 0.35543658123938254,
+                "error_SSE": 0.2207844789853663,
+                "cosine": 0.6138876547525418
+              },
+              "native_vs_linear": {
+                "native_norm": 0.5951062604100933,
+                "prediction_norm": 0.121289863427387,
+                "error_SSE": 0.32235830760895645,
+                "cosine": 0.32214016694596675
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.35543658123938254,
+                "prediction_norm": 0.121289863427387,
+                "error_SSE": 0.09478064648652029,
+                "cosine": 0.5365904760583037
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant09.safetensors",
+            "artifact_sha256": "0ae9cd0619c39457a0e9fd962eb7655f41454efb019a55f30992320d7216377a"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.0961215289330273,
+            "linear_relative_l2": 1.0186072426677426,
+            "native_response_l2": 4.6690547827440945,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.68069536002095,
+                "max": 41.861127046915975
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999832368121683,
+                "max": 0.25006451940818514
+              },
+              "mean_leakage": {
+                "mean": 6.357636334522056e-05,
+                "max": 0.00021727517422443724
+              },
+              "head_leakage": {
+                "mean": 4.681124966026935e-05,
+                "max": 6.515105473315322e-05
+              },
+              "z_leakage": {
+                "mean": 0.003804166708384904,
+                "max": 0.011093030193779342
+              },
+              "native_vs_finite": {
+                "native_norm": 4.6690547827440945,
+                "prediction_norm": 4.642465730283184,
+                "error_SSE": 0.20141846391894203,
+                "cosine": 0.9953701752211307
+              },
+              "native_vs_linear": {
+                "native_norm": 4.6690547827440945,
+                "prediction_norm": 0.2260796675700546,
+                "error_SSE": 22.618898872802134,
+                "cosine": -0.3636462845972934
+              },
+              "finite_vs_linear": {
+                "native_norm": 4.642465730283184,
+                "prediction_norm": 0.2260796675700546,
+                "error_SSE": 22.371935838050774,
+                "cosine": -0.3660250776316567
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant10.safetensors",
+            "artifact_sha256": "f91b4ea250d5b8f1d2278dde82a61472ec6d5e4e5e463b58719b622ce705a07b"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.09419671663280775,
+            "linear_relative_l2": 0.980373471882376,
+            "native_response_l2": 4.83040954518956,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.68045761915448,
+                "max": 41.86754469190704
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999687128423012,
+                "max": 0.2500658631689058
+              },
+              "mean_leakage": {
+                "mean": 6.690874064197339e-05,
+                "max": 0.00024454271282689136
+              },
+              "head_leakage": {
+                "mean": 4.7091198923208337e-05,
+                "max": 6.617507757328635e-05
+              },
+              "z_leakage": {
+                "mean": 0.0038088428331083607,
+                "max": 0.011096059735974476
+              },
+              "native_vs_finite": {
+                "native_norm": 4.83040954518956,
+                "prediction_norm": 4.809212709727723,
+                "error_SSE": 0.20703293450127752,
+                "cosine": 0.9955536057698696
+              },
+              "native_vs_linear": {
+                "native_norm": 4.83040954518956,
+                "prediction_norm": 0.22521209353265279,
+                "error_SSE": 22.42595828128463,
+                "cosine": 0.4401360145156458
+              },
+              "finite_vs_linear": {
+                "native_norm": 4.809212709727723,
+                "prediction_norm": 0.22521209353265279,
+                "error_SSE": 22.22409561369861,
+                "cosine": 0.44093715034144054
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant11.safetensors",
+            "artifact_sha256": "0336c9917b61276609d67ca4071be9b3e1d891314b27308ae553d8da88254d64"
+          },
+          {
+            "kind": "constant",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.75407674775372,
+            "linear_relative_l2": 0.7540672415849158,
+            "native_response_l2": 0.601599551882661,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.69215759898151,
+                "max": 41.85585397401575
+              },
+              "delta_relative_l2": {
+                "mean": 0.2500684561995375,
+                "max": 0.25049759373541025
+              },
+              "mean_leakage": {
+                "mean": 0.999940722680325,
+                "max": 0.9999929451320234
+              },
+              "head_leakage": {
+                "mean": 0.01364450690463559,
+                "max": 0.013667189811148691
+              },
+              "z_leakage": {
+                "mean": 0.009307185063105964,
+                "max": 0.011630961471409369
+              },
+              "native_vs_finite": {
+                "native_norm": 0.601599551882661,
+                "prediction_norm": 0.4000851688605923,
+                "error_SSE": 0.20580034899018035,
+                "cosine": 0.6568374754110401
+              },
+              "native_vs_linear": {
+                "native_norm": 0.601599551882661,
+                "prediction_norm": 0.39928475305700056,
+                "error_SSE": 0.20579516023311567,
+                "cosine": 0.6568331751241251
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.4000851688605923,
+                "prediction_norm": 0.39928475305700056,
+                "error_SSE": 6.505499542566457e-07,
+                "cosine": 0.9999999690622066
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant12.safetensors",
+            "artifact_sha256": "f3a0e311405f127b996f4e9394155377dde1621c267077eb1e8605261e20d2da"
+          },
+          {
+            "kind": "constant",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.7542864951884015,
+            "linear_relative_l2": 0.7542755125486225,
+            "native_response_l2": 0.6075850836645079,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.69180360297198,
+                "max": 41.852117333258406
+              },
+              "delta_relative_l2": {
+                "mean": 0.2500662821631508,
+                "max": 0.25044314295806147
+              },
+              "mean_leakage": {
+                "mean": 0.9999408912039041,
+                "max": 0.9999930133274393
+              },
+              "head_leakage": {
+                "mean": 0.01364383184219765,
+                "max": 0.013661154246169524
+              },
+              "z_leakage": {
+                "mean": 0.009364186613462992,
+                "max": 0.011121630742189493
+              },
+              "native_vs_finite": {
+                "native_norm": 0.6075850836645079,
+                "prediction_norm": 0.39531288177328117,
+                "error_SSE": 0.21003267850992038,
+                "cosine": 0.656572309924447
+              },
+              "native_vs_linear": {
+                "native_norm": 0.6075850836645079,
+                "prediction_norm": 0.3961136465960428,
+                "error_SSE": 0.2100265622756476,
+                "cosine": 0.6565743352460459
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.39531288177328117,
+                "prediction_norm": 0.3961136465960428,
+                "error_SSE": 6.515163695559037e-07,
+                "cosine": 0.9999999671366457
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant13.safetensors",
+            "artifact_sha256": "897bfba6438a5f229047b78af2e662cb2c7b6a7b7f592b3ff416ec2a6945b4d7"
+          },
+          {
+            "kind": "pregate",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.26227903041592715,
+            "linear_relative_l2": 0.2623599758982629,
+            "native_response_l2": 1.5971518209920543,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 1.5461929497315658,
+                "max": 2.320559257634276
+              },
+              "delta_relative_l2": {
+                "mean": 0.00951651484307183,
+                "max": 0.015966460334825367
+              },
+              "mean_leakage": {
+                "mean": 0.0017473015874335132,
+                "max": 0.005958075072446238
+              },
+              "head_leakage": {
+                "mean": 0.015190829768631951,
+                "max": 0.015623925164449447
+              },
+              "z_leakage": {
+                "mean": 0.003936660060872149,
+                "max": 0.014970415794915497
+              },
+              "native_vs_finite": {
+                "native_norm": 1.5971518209920543,
+                "prediction_norm": 1.5352065519845661,
+                "error_SSE": 0.17547673332297858,
+                "cosine": 0.9649994981228158
+              },
+              "native_vs_linear": {
+                "native_norm": 1.5971518209920543,
+                "prediction_norm": 1.5352769973164813,
+                "error_SSE": 0.175585062537456,
+                "cosine": 0.9649772361570818
+              },
+              "finite_vs_linear": {
+                "native_norm": 1.5352065519845661,
+                "prediction_norm": 1.5352769973164813,
+                "error_SSE": 6.53737319383075e-05,
+                "cosine": 0.9999861328646256
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant14.safetensors",
+            "artifact_sha256": "689f83e3e12ae26ae46434d7e6416436efee56a061cb74a4e59abbefa6c03b50"
+          },
+          {
+            "kind": "pregate",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.25923304125389623,
+            "linear_relative_l2": 0.2593058320752207,
+            "native_response_l2": 1.5859127932755512,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 1.5460891112447637,
+                "max": 2.3155279334409906
+              },
+              "delta_relative_l2": {
+                "mean": 0.009515864438210741,
+                "max": 0.01593184262881357
+              },
+              "mean_leakage": {
+                "mean": 0.0019152760083440328,
+                "max": 0.005754508163710297
+              },
+              "head_leakage": {
+                "mean": 0.015227093536364623,
+                "max": 0.015956999576447414
+              },
+              "z_leakage": {
+                "mean": 0.003973972220108004,
+                "max": 0.014902055392881598
+              },
+              "native_vs_finite": {
+                "native_norm": 1.5859127932755512,
+                "prediction_norm": 1.5370400542565412,
+                "error_SSE": 0.169020473816009,
+                "cosine": 0.9658206547339574
+              },
+              "native_vs_linear": {
+                "native_norm": 1.5859127932755512,
+                "prediction_norm": 1.5370315233628657,
+                "error_SSE": 0.1691154066715418,
+                "cosine": 0.9658011634621777
+              },
+              "finite_vs_linear": {
+                "native_norm": 1.5370400542565412,
+                "prediction_norm": 1.5370315233628657,
+                "error_SSE": 6.532654439813797e-05,
+                "cosine": 0.9999861741689179
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step0_variant15.safetensors",
+            "artifact_sha256": "668bd91682e5e71ed32b654e8d192f518eafd1d4d7f6e2589d4c4df49be2aa60"
+          }
+        ],
+        "paired_response": {
+          "visible": {
+            "0.0625": {
+              "odd_l2": 90.02191989205082,
+              "even_l2": 0.5299298191062762
+            },
+            "0.25": {
+              "odd_l2": 350.0863142823961,
+              "even_l2": 5.029184936026994
+            },
+            "odd_l2_high_over_low": 3.8889007777461284,
+            "even_l2_high_over_low": 9.490284854150474
+          },
+          "norm": {
+            "0.0625": {
+              "odd_l2": 9.822499985776819,
+              "even_l2": 0.7125162642217545
+            },
+            "0.25": {
+              "odd_l2": 41.5871739345011,
+              "even_l2": 10.18144192339977
+            },
+            "odd_l2_high_over_low": 4.233868566527888,
+            "even_l2_high_over_low": 14.28941686618262
+          },
+          "null": {
+            "0.0625": {
+              "odd_l2": 0.23714601140679453,
+              "even_l2": 0.5220894781382484
+            },
+            "0.25": {
+              "odd_l2": 0.3066248646361067,
+              "even_l2": 4.740511118186397
+            },
+            "odd_l2_high_over_low": 1.2929792190775238,
+            "even_l2_high_over_low": 9.079882504222999
+          }
+        },
+        "neutral_repeat_difference_l2": 0.0
+      },
+      {
+        "source_index": 1,
+        "step": 3,
+        "variants": [
+          {
+            "kind": "visible",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.0051396040010661765,
+            "linear_relative_l2": 0.006754341050368015,
+            "native_response_l2": 85.5570640047057,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.546808150271962,
+                "max": 6.73307510850091
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250107499500292,
+                "max": 0.0625274013949189
+              },
+              "mean_leakage": {
+                "mean": 0.00011371619832679038,
+                "max": 0.00041864960358756496
+              },
+              "head_leakage": {
+                "mean": 0.14101315975290066,
+                "max": 0.14103061403350287
+              },
+              "z_leakage": {
+                "mean": 0.011170665302228024,
+                "max": 0.04056796772875246
+              },
+              "native_vs_finite": {
+                "native_norm": 85.5570640047057,
+                "prediction_norm": 85.56169282069304,
+                "error_SSE": 0.19336197026964158,
+                "cosine": 0.9999867944133239
+              },
+              "native_vs_linear": {
+                "native_norm": 85.5570640047057,
+                "prediction_norm": 85.76608387818699,
+                "error_SSE": 0.33394713154770844,
+                "cosine": 0.9999802219948207
+              },
+              "finite_vs_linear": {
+                "native_norm": 85.56169282069304,
+                "prediction_norm": 85.76608387818699,
+                "error_SSE": 0.13543007260218198,
+                "cosine": 0.9999936187891638
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant00.safetensors",
+            "artifact_sha256": "4877ad67081e7f1411e2a9293fc3b3e02375d5909a678e25a5141e9964b92049"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.005119240511818639,
+            "linear_relative_l2": 0.006559610827011731,
+            "native_response_l2": 85.60992819570652,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.546985087515173,
+                "max": 6.736734354697049
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250275036287944,
+                "max": 0.06254116536811676
+              },
+              "mean_leakage": {
+                "mean": 0.00011355923000533666,
+                "max": 0.00045703019610956666
+              },
+              "head_leakage": {
+                "mean": 0.14101250387470035,
+                "max": 0.14103370343115612
+              },
+              "z_leakage": {
+                "mean": 0.011181445096227257,
+                "max": 0.040670885645872866
+              },
+              "native_vs_finite": {
+                "native_norm": 85.60992819570652,
+                "prediction_norm": 85.63964134225353,
+                "error_SSE": 0.19206991033416462,
+                "cosine": 0.9999869614445155
+              },
+              "native_vs_linear": {
+                "native_norm": 85.60992819570652,
+                "prediction_norm": 85.7679677398681,
+                "error_SSE": 0.3153584073534532,
+                "cosine": 0.9999802261921715
+              },
+              "finite_vs_linear": {
+                "native_norm": 85.63964134225353,
+                "prediction_norm": 85.7679677398681,
+                "error_SSE": 0.11035713390103791,
+                "cosine": 0.9999936087334492
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant01.safetensors",
+            "artifact_sha256": "d9207e935758601a88ce0133ecda0da557c7e2f312a2c3d556184af5b6a1e044"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.0024302758461091237,
+            "linear_relative_l2": 0.03548757369795342,
+            "native_response_l2": 332.3047012909982,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.187040742379107,
+                "max": 26.935272088678325
+              },
+              "delta_relative_l2": {
+                "mean": 0.25000224179504715,
+                "max": 0.25009726906783986
+              },
+              "mean_leakage": {
+                "mean": 3.013526199555878e-05,
+                "max": 0.00011972774900758939
+              },
+              "head_leakage": {
+                "mean": 0.1410196078801771,
+                "max": 0.14103334310344098
+              },
+              "z_leakage": {
+                "mean": 0.011171522200551932,
+                "max": 0.04050150464450154
+              },
+              "native_vs_finite": {
+                "native_norm": 332.3047012909982,
+                "prediction_norm": 332.30798075674176,
+                "error_SSE": 0.6522049823704744,
+                "cosine": 0.9999970469574961
+              },
+              "native_vs_linear": {
+                "native_norm": 332.3047012909982,
+                "prediction_norm": 343.0771580041684,
+                "error_SSE": 139.06748029440703,
+                "cosine": 0.9998990332707909
+              },
+              "finite_vs_linear": {
+                "native_norm": 332.30798075674176,
+                "prediction_norm": 343.0771580041684,
+                "error_SSE": 138.41898070460962,
+                "cosine": 0.999901568555154
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant02.safetensors",
+            "artifact_sha256": "b5d06f1dac0e63444d56e864956692c0bbddd71468291fe75560f1a217285c28"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.0024724212475556563,
+            "linear_relative_l2": 0.03231351167033415,
+            "native_response_l2": 333.45133939217453,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.187174344671682,
+                "max": 26.93057032853544
+              },
+              "delta_relative_l2": {
+                "mean": 0.2500035500501419,
+                "max": 0.2501222527096256
+              },
+              "mean_leakage": {
+                "mean": 3.118213060871987e-05,
+                "max": 0.00012077456235155484
+              },
+              "head_leakage": {
+                "mean": 0.14101993419351105,
+                "max": 0.14103226797767365
+              },
+              "z_leakage": {
+                "mean": 0.011170525345413629,
+                "max": 0.0405182587416505
+              },
+              "native_vs_finite": {
+                "native_norm": 333.45133939217453,
+                "prediction_norm": 333.43602172571383,
+                "error_SSE": 0.6796884137130055,
+                "cosine": 0.9999969444813185
+              },
+              "native_vs_linear": {
+                "native_norm": 333.45133939217453,
+                "prediction_norm": 343.079752125858,
+                "error_SSE": 116.10027474676914,
+                "cosine": 0.9998977541057952
+              },
+              "finite_vs_linear": {
+                "native_norm": 333.43602172571383,
+                "prediction_norm": 343.079752125858,
+                "error_SSE": 115.64138779111249,
+                "cosine": 0.9999010454017551
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant03.safetensors",
+            "artifact_sha256": "41792eb68f586dfdbe76f33b4be807a6e2d0418e8e799964cdc191488e083a02"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.04136144397772481,
+            "linear_relative_l2": 0.07394200098760541,
+            "native_response_l2": 9.862284508380236,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.556428278409644,
+                "max": 6.887457563408385
+              },
+              "delta_relative_l2": {
+                "mean": 0.06258622195394667,
+                "max": 0.06479097515513373
+              },
+              "mean_leakage": {
+                "mean": 0.0002988380107659112,
+                "max": 0.0008469944564649414
+              },
+              "head_leakage": {
+                "mean": 0.00013505387896252838,
+                "max": 0.00018259841977513817
+              },
+              "z_leakage": {
+                "mean": 0.99051043035153,
+                "max": 0.9961201535121423
+              },
+              "native_vs_finite": {
+                "native_norm": 9.862284508380236,
+                "prediction_norm": 9.853554248037236,
+                "error_SSE": 0.16639736246985923,
+                "cosine": 0.9991442497559389
+              },
+              "native_vs_linear": {
+                "native_norm": 9.862284508380236,
+                "prediction_norm": 9.249623196697753,
+                "error_SSE": 0.5317866763450897,
+                "cosine": 0.9991425748126144
+              },
+              "finite_vs_linear": {
+                "native_norm": 9.853554248037236,
+                "prediction_norm": 9.249623196697753,
+                "error_SSE": 0.36495130184990876,
+                "cosine": 0.9999988008388894
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant04.safetensors",
+            "artifact_sha256": "32fcdf723b4d1fafb4873477052cada4eb80a89420c570c08a22d9426513912e"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.04396244596898902,
+            "linear_relative_l2": 0.07534810913291042,
+            "native_response_l2": 8.724562479793866,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.5564298689776965,
+                "max": 6.887605672734238
+              },
+              "delta_relative_l2": {
+                "mean": 0.06258623501525214,
+                "max": 0.06478404767939082
+              },
+              "mean_leakage": {
+                "mean": 0.00030948827867833195,
+                "max": 0.0009691950455289699
+              },
+              "head_leakage": {
+                "mean": 0.00013638722833419318,
+                "max": 0.00019201798959616725
+              },
+              "z_leakage": {
+                "mean": 0.9905002757108193,
+                "max": 0.9961098499706843
+              },
+              "native_vs_finite": {
+                "native_norm": 8.724562479793866,
+                "prediction_norm": 8.715183321583213,
+                "error_SSE": 0.1471129855986253,
+                "cosine": 0.9990331901672864
+              },
+              "native_vs_linear": {
+                "native_norm": 8.724562479793866,
+                "prediction_norm": 9.24997948042618,
+                "error_SSE": 0.4321475254835934,
+                "cosine": 0.9990329579522262
+              },
+              "finite_vs_linear": {
+                "native_norm": 8.715183321583213,
+                "prediction_norm": 9.24997948042618,
+                "error_SSE": 0.28615689100436176,
+                "cosine": 0.9999990699063778
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant05.safetensors",
+            "artifact_sha256": "ac6bca3893920760193b3d3f57cf215064db7bb55270058575a65116c38affc9"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.009674995845444399,
+            "linear_relative_l2": 0.2440873413486843,
+            "native_response_l2": 48.87870892057787,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.169546024309284,
+                "max": 27.13648528157554
+              },
+              "delta_relative_l2": {
+                "mean": 0.2498366395417049,
+                "max": 0.25229326427185755
+              },
+              "mean_leakage": {
+                "mean": 6.932291095141743e-05,
+                "max": 0.00020371576823872682
+              },
+              "head_leakage": {
+                "mean": 3.405690237096781e-05,
+                "max": 4.7265202272211366e-05
+              },
+              "z_leakage": {
+                "mean": 0.9905724235498786,
+                "max": 0.9961953023734298
+              },
+              "native_vs_finite": {
+                "native_norm": 48.87870892057787,
+                "prediction_norm": 48.88344954757194,
+                "error_SSE": 0.2236356449680215,
+                "cosine": 0.9999532064693799
+              },
+              "native_vs_linear": {
+                "native_norm": 48.87870892057787,
+                "prediction_norm": 36.95581129439647,
+                "error_SSE": 142.34098469468742,
+                "cosine": 0.9999486542891298
+              },
+              "finite_vs_linear": {
+                "native_norm": 48.88344954757194,
+                "prediction_norm": 36.95581129439647,
+                "error_SSE": 142.2831009226059,
+                "cosine": 0.9999959738715037
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant06.safetensors",
+            "artifact_sha256": "ae3b5db9ecd426ada9425705d838f1fb14ae23f428940b9f4cdc87da0c666e41"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.012378129829033606,
+            "linear_relative_l2": 0.2456476129823917,
+            "native_response_l2": 29.67656528980335,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.167524815923645,
+                "max": 27.137699056719715
+              },
+              "delta_relative_l2": {
+                "mean": 0.24982043049145056,
+                "max": 0.2522846402602125
+              },
+              "mean_leakage": {
+                "mean": 7.444213087554624e-05,
+                "max": 0.0002226505265070075
+              },
+              "head_leakage": {
+                "mean": 3.563700561297857e-05,
+                "max": 4.9010803744834624e-05
+              },
+              "z_leakage": {
+                "mean": 0.9905696627968177,
+                "max": 0.9961966022542414
+              },
+              "native_vs_finite": {
+                "native_norm": 29.67656528980335,
+                "prediction_norm": 29.67443274709998,
+                "error_SSE": 0.13493895333635003,
+                "cosine": 0.9999233880275634
+              },
+              "native_vs_linear": {
+                "native_norm": 29.67656528980335,
+                "prediction_norm": 36.954816642843895,
+                "error_SSE": 53.14377085637238,
+                "cosine": 0.999922116649963
+              },
+              "finite_vs_linear": {
+                "native_norm": 29.67443274709998,
+                "prediction_norm": 36.954816642843895,
+                "error_SSE": 53.006356494241324,
+                "cosine": 0.9999989208479396
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant07.safetensors",
+            "artifact_sha256": "d76fd144ed6d893b87324423c762095947a18d8ee0a78e5c270319b3c3dc716b"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.8236876562161549,
+            "linear_relative_l2": 1.0071522560418769,
+            "native_response_l2": 0.5012980554100531,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.5468569172904205,
+                "max": 6.734254965625851
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250149506995117,
+                "max": 0.06252452805550779
+              },
+              "mean_leakage": {
+                "mean": 0.00011444788430088962,
+                "max": 0.0004035131785902574
+              },
+              "head_leakage": {
+                "mean": 0.00013843072422589008,
+                "max": 0.0001874957810678852
+              },
+              "z_leakage": {
+                "mean": 0.003474632705137287,
+                "max": 0.01180667220147143
+              },
+              "native_vs_finite": {
+                "native_norm": 0.5012980554100531,
+                "prediction_norm": 0.284931547988208,
+                "error_SSE": 0.17049716235508883,
+                "cosine": 0.5670453653104713
+              },
+              "native_vs_linear": {
+                "native_norm": 0.5012980554100531,
+                "prediction_norm": 0.09256989735068956,
+                "error_SSE": 0.25490731571003117,
+                "cosine": 0.05345974391061944
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.284931547988208,
+                "prediction_norm": 0.09256989735068956,
+                "error_SSE": 0.08478302652942199,
+                "cosine": 0.09425482525984968
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant08.safetensors",
+            "artifact_sha256": "bd37a4829a07902dc4289f7773b74a8d61309c3e7b02a544527bddd51e0c6705"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.7993548176754309,
+            "linear_relative_l2": 0.9632932881369252,
+            "native_response_l2": 0.5343947258358652,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.546832897565746,
+                "max": 6.73493545908403
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250125074644813,
+                "max": 0.06252541411192432
+              },
+              "mean_leakage": {
+                "mean": 0.00011602547459427022,
+                "max": 0.0004175069769891038
+              },
+              "head_leakage": {
+                "mean": 0.00013910158228428132,
+                "max": 0.0001990866702462033
+              },
+              "z_leakage": {
+                "mean": 0.0034636414281312973,
+                "max": 0.011766977248272244
+              },
+              "native_vs_finite": {
+                "native_norm": 0.5343947258358652,
+                "prediction_norm": 0.32524645885950426,
+                "error_SSE": 0.18247506207673686,
+                "cosine": 0.600908835181187
+              },
+              "native_vs_linear": {
+                "native_norm": 0.5343947258358652,
+                "prediction_norm": 0.09316703652559231,
+                "error_SSE": 0.2649972670980316,
+                "cosine": 0.2938516158588494
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.32524645885950426,
+                "prediction_norm": 0.09316703652559231,
+                "error_SSE": 0.08462399789854308,
+                "cosine": 0.4923951037480352
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant09.safetensors",
+            "artifact_sha256": "5831dbb86e57c7256933fbfd56a15b2c07dba61aeeeccb46f73815baea29dd59"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.09108077957256848,
+            "linear_relative_l2": 1.015065978416254,
+            "native_response_l2": 4.415366090123385,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.186792290832024,
+                "max": 26.937062132964883
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999988819084462,
+                "max": 0.2500640337959576
+              },
+              "mean_leakage": {
+                "mean": 5.8255093860984174e-05,
+                "max": 0.00020021629192520663
+              },
+              "head_leakage": {
+                "mean": 4.04561368405688e-05,
+                "max": 5.66522214615267e-05
+              },
+              "z_leakage": {
+                "mean": 0.003403791063142292,
+                "max": 0.008923747168737433
+              },
+              "native_vs_finite": {
+                "native_norm": 4.415366090123385,
+                "prediction_norm": 4.401202056615725,
+                "error_SSE": 0.16172863243225621,
+                "cosine": 0.9958439589474994
+              },
+              "native_vs_linear": {
+                "native_norm": 4.415366090123385,
+                "prediction_norm": 0.18281094503316342,
+                "error_SSE": 20.087319151187597,
+                "cosine": -0.34592253523663563
+              },
+              "finite_vs_linear": {
+                "native_norm": 4.401202056615725,
+                "prediction_norm": 0.18281094503316342,
+                "error_SSE": 19.963360798672298,
+                "cosine": -0.34760739556754233
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant10.safetensors",
+            "artifact_sha256": "96fc7e4e64cb1c3a4fe55233558549c0ee3ca5b6a7234692bf43a08b45d4a2d0"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.08961806339382185,
+            "linear_relative_l2": 0.9841257835430977,
+            "native_response_l2": 4.547153780602285,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.186696136956787,
+                "max": 26.936759551232125
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999897772893784,
+                "max": 0.2500402090529952
+              },
+              "mean_leakage": {
+                "mean": 5.9396294896379206e-05,
+                "max": 0.00022047338840420637
+              },
+              "head_leakage": {
+                "mean": 3.9878503364610044e-05,
+                "max": 5.100522451109999e-05
+              },
+              "z_leakage": {
+                "mean": 0.0034021045905412934,
+                "max": 0.008937972099994095
+              },
+              "native_vs_finite": {
+                "native_norm": 4.547153780602285,
+                "prediction_norm": 4.528375485668424,
+                "error_SSE": 0.16606204940438407,
+                "cosine": 0.9959762115265529
+              },
+              "native_vs_linear": {
+                "native_norm": 4.547153780602285,
+                "prediction_norm": 0.18281840297395904,
+                "error_SSE": 20.025367931999334,
+                "cosine": 0.4118004012120491
+              },
+              "finite_vs_linear": {
+                "native_norm": 4.528375485668424,
+                "prediction_norm": 0.18281840297395904,
+                "error_SSE": 19.853776036800145,
+                "cosine": 0.41421404371534726
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant11.safetensors",
+            "artifact_sha256": "e0b2588490decf4bf0b222a3e445822deefefb067acda11004b5c9ff27cb6e8f"
+          },
+          {
+            "kind": "constant",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.8580491763799171,
+            "linear_relative_l2": 0.8580569451452287,
+            "native_response_l2": 0.4245612826442083,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.189684753477735,
+                "max": 26.91575321532027
+              },
+              "delta_relative_l2": {
+                "mean": 0.25002812299733335,
+                "max": 0.2504181675867212
+              },
+              "mean_leakage": {
+                "mean": 0.9999828565529998,
+                "max": 0.9999864963105871
+              },
+              "head_leakage": {
+                "mean": 0.010367715718814736,
+                "max": 0.010392835662069834
+              },
+              "z_leakage": {
+                "mean": 0.004798415851480093,
+                "max": 0.007387655513534272
+              },
+              "native_vs_finite": {
+                "native_norm": 0.4245612826442083,
+                "prediction_norm": 0.21390032809008216,
+                "error_SSE": 0.13271045278208468,
+                "cosine": 0.5136619253223143
+              },
+              "native_vs_linear": {
+                "native_norm": 0.4245612826442083,
+                "prediction_norm": 0.2136924268646016,
+                "error_SSE": 0.13271285591015183,
+                "cosine": 0.5136584996839609
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.21390032809008216,
+                "prediction_norm": 0.2136924268646016,
+                "error_SSE": 4.46686488798531e-08,
+                "cosine": 0.9999999841854658
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant12.safetensors",
+            "artifact_sha256": "d21386c6eba966a17c483440fe0198e16010979d2a29f977d20f0bf692e10ea6"
+          },
+          {
+            "kind": "constant",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.8594121610398776,
+            "linear_relative_l2": 0.8594064805211868,
+            "native_response_l2": 0.4220619014294205,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.1897558068202,
+                "max": 26.916211344804122
+              },
+              "delta_relative_l2": {
+                "mean": 0.2500288266179214,
+                "max": 0.25044189040234416
+              },
+              "mean_leakage": {
+                "mean": 0.9999827831699291,
+                "max": 0.9999867269353002
+              },
+              "head_leakage": {
+                "mean": 0.010367384010555251,
+                "max": 0.01038651046320194
+              },
+              "z_leakage": {
+                "mean": 0.004796122297845984,
+                "max": 0.00769534503853938
+              },
+              "native_vs_finite": {
+                "native_norm": 0.4220619014294205,
+                "prediction_norm": 0.21118360432206956,
+                "error_SSE": 0.13156952051391924,
+                "cosine": 0.5114026199518409
+              },
+              "native_vs_linear": {
+                "native_norm": 0.4220619014294205,
+                "prediction_norm": 0.21138607336104975,
+                "error_SSE": 0.13156778123052465,
+                "cosine": 0.5114020218816111
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.21118360432206956,
+                "prediction_norm": 0.21138607336104975,
+                "error_SSE": 4.2496743116726276e-08,
+                "cosine": 0.9999999831654515
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant13.safetensors",
+            "artifact_sha256": "244fcf6698be4ad122ba0052638e22506b77029e3be5b18eb09a8e7fa6023bec"
+          },
+          {
+            "kind": "pregate",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.24670221571767562,
+            "linear_relative_l2": 0.24681206271755204,
+            "native_response_l2": 1.5208248081793816,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 1.212980910114668,
+                "max": 1.5970029847764218
+              },
+              "delta_relative_l2": {
+                "mean": 0.011581421802906642,
+                "max": 0.014865256272963234
+              },
+              "mean_leakage": {
+                "mean": 0.00413039302410235,
+                "max": 0.008324036918195329
+              },
+              "head_leakage": {
+                "mean": 0.013002487637036441,
+                "max": 0.01339273573042374
+              },
+              "z_leakage": {
+                "mean": 0.0035682345785088315,
+                "max": 0.015795258272329003
+              },
+              "native_vs_finite": {
+                "native_norm": 1.5208248081793816,
+                "prediction_norm": 1.4732274602866564,
+                "error_SSE": 0.14076817384587975,
+                "cosine": 0.9690914134760304
+              },
+              "native_vs_linear": {
+                "native_norm": 1.5208248081793816,
+                "prediction_norm": 1.4734450690699183,
+                "error_SSE": 0.1408935590521766,
+                "cosine": 0.9690633895389672
+              },
+              "finite_vs_linear": {
+                "native_norm": 1.4732274602866564,
+                "prediction_norm": 1.4734450690699183,
+                "error_SSE": 0.00010347747763087323,
+                "cosine": 0.9999761760760069
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant14.safetensors",
+            "artifact_sha256": "5bd78b8020a4e1e5af4afadec07927b1d1d0848f9fdafa60feadbd13ddbc1860"
+          },
+          {
+            "kind": "pregate",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.25256722294964107,
+            "linear_relative_l2": 0.25268857531487865,
+            "native_response_l2": 1.5200762535602712,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 1.2128873844975987,
+                "max": 1.5978994698081048
+              },
+              "delta_relative_l2": {
+                "mean": 0.011580505702099543,
+                "max": 0.014873600953510408
+              },
+              "mean_leakage": {
+                "mean": 0.004142381454743229,
+                "max": 0.007919188642248482
+              },
+              "head_leakage": {
+                "mean": 0.013002861592523215,
+                "max": 0.013359314481014616
+              },
+              "z_leakage": {
+                "mean": 0.0035448497647923172,
+                "max": 0.01618958798094788
+              },
+              "native_vs_finite": {
+                "native_norm": 1.5200762535602712,
+                "prediction_norm": 1.4733165480464938,
+                "error_SSE": 0.1473956705816431,
+                "cosine": 0.9675807698702876
+              },
+              "native_vs_linear": {
+                "native_norm": 1.5200762535602712,
+                "prediction_norm": 1.4732485618864077,
+                "error_SSE": 0.147537344628891,
+                "cosine": 0.9675490629634389
+              },
+              "finite_vs_linear": {
+                "native_norm": 1.4733165480464938,
+                "prediction_norm": 1.4732485618864077,
+                "error_SSE": 0.00010338819277059467,
+                "cosine": 0.9999761850628656
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source01_step3_variant15.safetensors",
+            "artifact_sha256": "da6d2cd4c268b1de8cf4759e647191963aa6a27282aafc5d9e07d04665637b9f"
+          }
+        ],
+        "paired_response": {
+          "visible": {
+            "0.0625": {
+              "odd_l2": 85.58211777493132,
+              "even_l2": 0.48643658111880234
+            },
+            "0.25": {
+              "odd_l2": 332.84472472691243,
+              "even_l2": 4.742820124483741
+            },
+            "odd_l2_high_over_low": 3.8891854207469634,
+            "even_l2_high_over_low": 9.75013045600985
+          },
+          "norm": {
+            "0.0625": {
+              "odd_l2": 9.287106198980114,
+              "even_l2": 0.6640644117079301
+            },
+            "0.25": {
+              "odd_l2": 39.27584703915799,
+              "even_l2": 9.608391953284082
+            },
+            "odd_l2_high_over_low": 4.2290726731940635,
+            "even_l2_high_over_low": 14.469066228939944
+          },
+          "null": {
+            "0.0625": {
+              "odd_l2": 0.19551428222408762,
+              "even_l2": 0.4798050615885007
+            },
+            "0.25": {
+              "odd_l2": 0.2570112473595084,
+              "even_l2": 4.474368986333075
+            },
+            "odd_l2_high_over_low": 1.3145395028734341,
+            "even_l2_high_over_low": 9.325389297727888
+          }
+        },
+        "neutral_repeat_difference_l2": 0.0
+      },
+      {
+        "source_index": 4,
+        "step": 0,
+        "variants": [
+          {
+            "kind": "visible",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.005460368198071652,
+            "linear_relative_l2": 0.007005119604975775,
+            "native_response_l2": 90.02200111268715,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.18938514030076,
+                "max": 10.512597379209463
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250474963584055,
+                "max": 0.06254328048272288
+              },
+              "mean_leakage": {
+                "mean": 0.00013488006985401646,
+                "max": 0.0005175594347607088
+              },
+              "head_leakage": {
+                "mean": 0.1377377904451792,
+                "max": 0.13775689084647333
+              },
+              "z_leakage": {
+                "mean": 0.012620932290988084,
+                "max": 0.040533282140968976
+              },
+              "native_vs_finite": {
+                "native_norm": 90.02200111268715,
+                "prediction_norm": 90.02451903948084,
+                "error_SSE": 0.2416246192163518,
+                "cosine": 0.9999850929976859
+              },
+              "native_vs_linear": {
+                "native_norm": 90.02200111268715,
+                "prediction_norm": 90.21766428500001,
+                "error_SSE": 0.397675133024189,
+                "cosine": 0.999977874299602
+              },
+              "finite_vs_linear": {
+                "native_norm": 90.02451903948084,
+                "prediction_norm": 90.21766428500001,
+                "error_SSE": 0.14938075425733027,
+                "cosine": 0.9999931003199384
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant00.safetensors",
+            "artifact_sha256": "df844e28309601297f34eef3759c0b5e07b8d20394c63d53012897b24a42e48c"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.005448622962890275,
+            "linear_relative_l2": 0.006794347611251074,
+            "native_response_l2": 90.07319959025004,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.189210999462464,
+                "max": 10.517114327164027
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250364276564661,
+                "max": 0.06254310966187769
+              },
+              "mean_leakage": {
+                "mean": 0.00013278473318136227,
+                "max": 0.00047432738904448394
+              },
+              "head_leakage": {
+                "mean": 0.1377373064318101,
+                "max": 0.13775706083835582
+              },
+              "z_leakage": {
+                "mean": 0.012625453604050771,
+                "max": 0.040555142851332146
+              },
+              "native_vs_finite": {
+                "native_norm": 90.07319959025004,
+                "prediction_norm": 90.05909092007546,
+                "error_SSE": 0.24086000603149996,
+                "cosine": 0.9999851661977592
+              },
+              "native_vs_linear": {
+                "native_norm": 90.07319959025004,
+                "prediction_norm": 90.21575561724325,
+                "error_SSE": 0.3745300813811897,
+                "cosine": 0.9999782053339918
+              },
+              "finite_vs_linear": {
+                "native_norm": 90.05909092007546,
+                "prediction_norm": 90.21575561724325,
+                "error_SSE": 0.1366637846533959,
+                "cosine": 0.9999931000971121
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant01.safetensors",
+            "artifact_sha256": "953a5065b025192f5ef483d4f33b21caef646036e85e074a8611b7b741feed0a"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.002496332143706148,
+            "linear_relative_l2": 0.0347006593741445,
+            "native_response_l2": 349.9108925850992,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.754238157709146,
+                "max": 42.06018095322699
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999845051323294,
+                "max": 0.25011611028733827
+              },
+              "mean_leakage": {
+                "mean": 3.5061236043707274e-05,
+                "max": 0.00016957091134581624
+              },
+              "head_leakage": {
+                "mean": 0.13774591302219213,
+                "max": 0.13775665344240942
+              },
+              "z_leakage": {
+                "mean": 0.012618962376294405,
+                "max": 0.040589653846856796
+              },
+              "native_vs_finite": {
+                "native_norm": 349.9108925850992,
+                "prediction_norm": 349.85909974698586,
+                "error_SSE": 0.7629914336504657,
+                "cosine": 0.9999968946578188
+              },
+              "native_vs_linear": {
+                "native_norm": 349.9108925850992,
+                "prediction_norm": 360.86235962890555,
+                "error_SSE": 147.43153208614885,
+                "cosine": 0.999891118343793
+              },
+              "finite_vs_linear": {
+                "native_norm": 349.85909974698586,
+                "prediction_norm": 360.86235962890555,
+                "error_SSE": 147.94518159959904,
+                "cosine": 0.9998935713072776
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant02.safetensors",
+            "artifact_sha256": "f33b3a6106107c9a7915ecf85cd42b4306ed1f59d2f6390f89215e983093b6a8"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.002510220753410674,
+            "linear_relative_l2": 0.0335216646726582,
+            "native_response_l2": 350.35230039745005,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.7536939617285,
+                "max": 42.06863724417198
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999510950094028,
+                "max": 0.2501079917061343
+              },
+              "mean_leakage": {
+                "mean": 3.685576738462863e-05,
+                "max": 0.00013426186824733196
+              },
+              "head_leakage": {
+                "mean": 0.13774599050502195,
+                "max": 0.13776237079909834
+              },
+              "z_leakage": {
+                "mean": 0.012619274214788612,
+                "max": 0.04064061559944555
+              },
+              "native_vs_finite": {
+                "native_norm": 350.35230039745005,
+                "prediction_norm": 350.40441221193686,
+                "error_SSE": 0.7734527330725258,
+                "cosine": 0.9999968609247639
+              },
+              "native_vs_linear": {
+                "native_norm": 350.35230039745005,
+                "prediction_norm": 360.85773666360046,
+                "error_SSE": 137.93075122956594,
+                "cosine": 0.9998909786423987
+              },
+              "finite_vs_linear": {
+                "native_norm": 350.40441221193686,
+                "prediction_norm": 360.85773666360046,
+                "error_SSE": 136.2048946218286,
+                "cosine": 0.9998935004980456
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant03.safetensors",
+            "artifact_sha256": "24fdc61e3105a255d9927cab754b11f54da42aca9c251a7dfb028db19ad7e3b9"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.04244225906357763,
+            "linear_relative_l2": 0.07476728574123723,
+            "native_response_l2": 10.687608649765872,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.20176258263616,
+                "max": 10.848258221037486
+              },
+              "delta_relative_l2": {
+                "mean": 0.06257951078892376,
+                "max": 0.06532431120431016
+              },
+              "mean_leakage": {
+                "mean": 0.0004259749406840052,
+                "max": 0.0009859466834440055
+              },
+              "head_leakage": {
+                "mean": 0.00016681724377944583,
+                "max": 0.000236568855789714
+              },
+              "z_leakage": {
+                "mean": 0.9898152609404949,
+                "max": 0.9950190541213116
+              },
+              "native_vs_finite": {
+                "native_norm": 10.687608649765872,
+                "prediction_norm": 10.674849825790561,
+                "error_SSE": 0.2057586346508739,
+                "cosine": 0.9990989642443406
+              },
+              "native_vs_linear": {
+                "native_norm": 10.687608649765872,
+                "prediction_norm": 10.020313976093208,
+                "error_SSE": 0.6385344236830345,
+                "cosine": 0.9990977379870379
+              },
+              "finite_vs_linear": {
+                "native_norm": 10.674849825790561,
+                "prediction_norm": 10.020313976093208,
+                "error_SSE": 0.42887821350212035,
+                "cosine": 0.999997844933072
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant04.safetensors",
+            "artifact_sha256": "150f5bc11e1c483f407a2e14b325fd140b032af1e09120f48be4ee0e1559d365"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.046074412078281814,
+            "linear_relative_l2": 0.07633830696939338,
+            "native_response_l2": 9.454337600851925,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.199863587372821,
+                "max": 10.849097204232404
+              },
+              "delta_relative_l2": {
+                "mean": 0.06256470287074833,
+                "max": 0.06562745481365113
+              },
+              "mean_leakage": {
+                "mean": 0.00044509928478857246,
+                "max": 0.0009824924817915881
+              },
+              "head_leakage": {
+                "mean": 0.000170963922591538,
+                "max": 0.00024750166202682026
+              },
+              "z_leakage": {
+                "mean": 0.9897879006637791,
+                "max": 0.9947636071721321
+              },
+              "native_vs_finite": {
+                "native_norm": 9.454337600851925,
+                "prediction_norm": 9.440018925552783,
+                "error_SSE": 0.18975001416263595,
+                "cosine": 0.9989381129068206
+              },
+              "native_vs_linear": {
+                "native_norm": 9.454337600851925,
+                "prediction_norm": 10.019504579020348,
+                "error_SSE": 0.5208914878105566,
+                "cosine": 0.9989365433404351
+              },
+              "finite_vs_linear": {
+                "native_norm": 9.440018925552783,
+                "prediction_norm": 10.019504579020348,
+                "error_SSE": 0.3361459486035274,
+                "cosine": 0.9999981903657251
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant05.safetensors",
+            "artifact_sha256": "5fda32faa83ed8df522532fbcb5566e7b8169443df0246c27914db7aedd69705"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.010024483722392398,
+            "linear_relative_l2": 0.24437709536116012,
+            "native_response_l2": 53.004122485982926,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.78724546267158,
+                "max": 42.20401884072011
+              },
+              "delta_relative_l2": {
+                "mean": 0.25019813684221465,
+                "max": 0.25142917115324487
+              },
+              "mean_leakage": {
+                "mean": 5.084230179437211e-05,
+                "max": 0.00016698096416824435
+              },
+              "head_leakage": {
+                "mean": 4.182810266137406e-05,
+                "max": 6.911162018804471e-05
+              },
+              "z_leakage": {
+                "mean": 0.9899496300541917,
+                "max": 0.9950357449040832
+              },
+              "native_vs_finite": {
+                "native_norm": 53.004122485982926,
+                "prediction_norm": 52.99648475721613,
+                "error_SSE": 0.2823210936873852,
+                "cosine": 0.9999497580052908
+              },
+              "native_vs_linear": {
+                "native_norm": 53.004122485982926,
+                "prediction_norm": 40.05983468027043,
+                "error_SSE": 167.78004048906809,
+                "cosine": 0.999946910509886
+              },
+              "finite_vs_linear": {
+                "native_norm": 52.99648475721613,
+                "prediction_norm": 40.05983468027043,
+                "error_SSE": 167.3665456759652,
+                "cosine": 0.999997731906584
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant06.safetensors",
+            "artifact_sha256": "d988f350099298780c0ef5aa41965fbd57423290daede1bae8338f0c9901725a"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.01284072639721608,
+            "linear_relative_l2": 0.24558369977057537,
+            "native_response_l2": 32.12746345236313,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.725348386383544,
+                "max": 42.20563942830217
+              },
+              "delta_relative_l2": {
+                "mean": 0.2498267753626334,
+                "max": 0.2528555576285364
+              },
+              "mean_leakage": {
+                "mean": 8.677717717626654e-05,
+                "max": 0.000263003763845854
+              },
+              "head_leakage": {
+                "mean": 4.453605538131893e-05,
+                "max": 6.396031694010998e-05
+              },
+              "z_leakage": {
+                "mean": 0.98994212526908,
+                "max": 0.9950315484812381
+              },
+              "native_vs_finite": {
+                "native_norm": 32.12746345236313,
+                "prediction_norm": 32.1279115026968,
+                "error_SSE": 0.1701892252208354,
+                "cosine": 0.9999175591197639
+              },
+              "native_vs_linear": {
+                "native_norm": 32.12746345236313,
+                "prediction_norm": 40.00382338339052,
+                "error_SSE": 62.251805527800144,
+                "cosine": 0.9999164502827685
+              },
+              "finite_vs_linear": {
+                "native_norm": 32.1279115026968,
+                "prediction_norm": 40.00382338339052,
+                "error_SSE": 62.03270845177916,
+                "cosine": 0.999998941637043
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant07.safetensors",
+            "artifact_sha256": "be9a084678a748c198cd2ac5bd68703671163b69d9c58059432da8b48a5bafb7"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.8321618665844522,
+            "linear_relative_l2": 1.0001042749918334,
+            "native_response_l2": 0.5475817633068404,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.189133298858877,
+                "max": 10.51464312418997
+              },
+              "delta_relative_l2": {
+                "mean": 0.0625031385182575,
+                "max": 0.06253131076920278
+              },
+              "mean_leakage": {
+                "mean": 0.00013650272507066233,
+                "max": 0.0004897479030161302
+              },
+              "head_leakage": {
+                "mean": 0.00016864795599312476,
+                "max": 0.00025264043524727707
+              },
+              "z_leakage": {
+                "mean": 0.003524736662299786,
+                "max": 0.015064451065105441
+              },
+              "native_vs_finite": {
+                "native_norm": 0.5475817633068404,
+                "prediction_norm": 0.31352379097702254,
+                "error_SSE": 0.20764122052934914,
+                "cosine": 0.5548166181778282
+              },
+              "native_vs_linear": {
+                "native_norm": 0.5475817633068404,
+                "prediction_norm": 0.11950940904062217,
+                "error_SSE": 0.2999083236006209,
+                "cosine": 0.10864691231267691
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.31352379097702254,
+                "prediction_norm": 0.11950940904062217,
+                "error_SSE": 0.09942997694890969,
+                "cosine": 0.17547404955082566
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant08.safetensors",
+            "artifact_sha256": "3e144b38cfd61be554a82dced9f78200fa94a8fffc8087fcfa0c55135dbc4e7d"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.7945897967746647,
+            "linear_relative_l2": 0.9566530245561528,
+            "native_response_l2": 0.5931544792326903,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 10.189242623217377,
+                "max": 10.515512831145083
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250383225242284,
+                "max": 0.06253932141968854
+              },
+              "mean_leakage": {
+                "mean": 0.00013915007032025675,
+                "max": 0.0006144409882626721
+              },
+              "head_leakage": {
+                "mean": 0.0001688661418628895,
+                "max": 0.0002793393685811725
+              },
+              "z_leakage": {
+                "mean": 0.003519466121529364,
+                "max": 0.015132500780232302
+              },
+              "native_vs_finite": {
+                "native_norm": 0.5931544792326903,
+                "prediction_norm": 0.35972267829395016,
+                "error_SSE": 0.22213735518556715,
+                "cosine": 0.6071470423530066
+              },
+              "native_vs_linear": {
+                "native_norm": 0.5931544792326903,
+                "prediction_norm": 0.11952803148142285,
+                "error_SSE": 0.32199158842219533,
+                "cosine": 0.3112022384536793
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.35972267829395016,
+                "prediction_norm": 0.11952803148142285,
+                "error_SSE": 0.09925688296877125,
+                "cosine": 0.5166701268017695
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant09.safetensors",
+            "artifact_sha256": "131879d97502a07b8a103d3d37fc6ceef6559cb739bb136831b044146b82c6fd"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.09485803568502577,
+            "linear_relative_l2": 1.0138654076493472,
+            "native_response_l2": 4.794296786267778,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.754281614523705,
+                "max": 42.0538255913888
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999881034010168,
+                "max": 0.2500668533305948
+              },
+              "mean_leakage": {
+                "mean": 5.99643649162772e-05,
+                "max": 0.00021387679408210435
+              },
+              "head_leakage": {
+                "mean": 4.6292146787732004e-05,
+                "max": 6.362068795160096e-05
+              },
+              "z_leakage": {
+                "mean": 0.0033402567582394662,
+                "max": 0.011916357996272785
+              },
+              "native_vs_finite": {
+                "native_norm": 4.794296786267778,
+                "prediction_norm": 4.77144495364896,
+                "error_SSE": 0.2068226433017154,
+                "cosine": 0.9954908433893063
+              },
+              "native_vs_linear": {
+                "native_norm": 4.794296786267778,
+                "prediction_norm": 0.20214492767398853,
+                "error_SSE": 23.627101185112792,
+                "cosine": -0.31004561593308017
+              },
+              "finite_vs_linear": {
+                "native_norm": 4.77144495364896,
+                "prediction_norm": 0.20214492767398853,
+                "error_SSE": 23.40733657378643,
+                "cosine": -0.3109240581278478
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant10.safetensors",
+            "artifact_sha256": "4ab8b68ed41a36d699ab6e2405db6bcbdd142035a00cf2cd27fd4bc969f64191"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.09255742394223554,
+            "linear_relative_l2": 0.9848746449821189,
+            "native_response_l2": 4.922170374875336,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.75450669208041,
+                "max": 42.0572200110952
+              },
+              "delta_relative_l2": {
+                "mean": 0.250000207079359,
+                "max": 0.2500770231191463
+              },
+              "mean_leakage": {
+                "mean": 6.26873527153851e-05,
+                "max": 0.0003083468445674792
+              },
+              "head_leakage": {
+                "mean": 4.678052256855986e-05,
+                "max": 7.120415666090474e-05
+              },
+              "z_leakage": {
+                "mean": 0.003341737238200416,
+                "max": 0.011886887849341362
+              },
+              "native_vs_finite": {
+                "native_norm": 4.922170374875336,
+                "prediction_norm": 4.9005747709812635,
+                "error_SSE": 0.20755624356130506,
+                "cosine": 0.9957073527166945
+              },
+              "native_vs_linear": {
+                "native_norm": 4.922170374875336,
+                "prediction_norm": 0.20362249760839168,
+                "error_SSE": 23.500396959569812,
+                "cosine": 0.38354459580305994
+              },
+              "finite_vs_linear": {
+                "native_norm": 4.9005747709812635,
+                "prediction_norm": 0.20362249760839168,
+                "error_SSE": 23.28653266271002,
+                "cosine": 0.38610472776635374
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant11.safetensors",
+            "artifact_sha256": "b019fd93dfb4d621eb0cca4aab18d3ff38aa1030ee40ae51f9e9d18961f057b6"
+          },
+          {
+            "kind": "constant",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.7492445167068944,
+            "linear_relative_l2": 0.7492591678866859,
+            "native_response_l2": 0.6223862708334726,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.76259769351351,
+                "max": 42.04663814033664
+              },
+              "delta_relative_l2": {
+                "mean": 0.2500493659811054,
+                "max": 0.2504983742000448
+              },
+              "mean_leakage": {
+                "mean": 0.9999409308109912,
+                "max": 0.9999947286429838
+              },
+              "head_leakage": {
+                "mean": 0.013646654497600073,
+                "max": 0.013671462152577845
+              },
+              "z_leakage": {
+                "mean": 0.009273840051489476,
+                "max": 0.012389278778166408
+              },
+              "native_vs_finite": {
+                "native_norm": 0.6223862708334726,
+                "prediction_norm": 0.4073580010146303,
+                "error_SSE": 0.21745387672902308,
+                "cosine": 0.6623397619733272
+              },
+              "native_vs_linear": {
+                "native_norm": 0.6223862708334726,
+                "prediction_norm": 0.406539990487009,
+                "error_SSE": 0.2174623812610505,
+                "cosine": 0.6623400331394957
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.4073580010146303,
+                "prediction_norm": 0.406539990487009,
+                "error_SSE": 6.805849033651236e-07,
+                "cosine": 0.9999999654493525
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant12.safetensors",
+            "artifact_sha256": "1ed9baeaa300b6d33f916332fea2c9657e589f68e898883de6d7c626f2ed5c4d"
+          },
+          {
+            "kind": "constant",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.7608816225183713,
+            "linear_relative_l2": 0.7608843872506769,
+            "native_response_l2": 0.6111393718329857,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 40.7626479527751,
+                "max": 42.047276889510925
+              },
+              "delta_relative_l2": {
+                "mean": 0.2500496859473308,
+                "max": 0.2504606174103376
+              },
+              "mean_leakage": {
+                "mean": 0.9999409908804997,
+                "max": 0.9999945900692784
+              },
+              "head_leakage": {
+                "mean": 0.013645973761319943,
+                "max": 0.01367025945137959
+              },
+              "z_leakage": {
+                "mean": 0.009306134905797892,
+                "max": 0.012235764417939391
+              },
+              "native_vs_finite": {
+                "native_norm": 0.6111393718329857,
+                "prediction_norm": 0.3972980037190227,
+                "error_SSE": 0.21622938666962907,
+                "cosine": 0.6488918258065971
+              },
+              "native_vs_linear": {
+                "native_norm": 0.6111393718329857,
+                "prediction_norm": 0.3981013603526347,
+                "error_SSE": 0.21623095805061432,
+                "cosine": 0.6488923486079065
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.3972980037190227,
+                "prediction_norm": 0.3981013603526347,
+                "error_SSE": 6.564003878958658e-07,
+                "cosine": 0.9999999651676547
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant13.safetensors",
+            "artifact_sha256": "a3d75cd5b66304afd6bcaa2ab3e7f15ea5768e6041416ec5f23ac761dc43b333"
+          },
+          {
+            "kind": "pregate",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.25063950075961,
+            "linear_relative_l2": 0.2506814275526741,
+            "native_response_l2": 1.7139543273476963,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 1.6423982265158816,
+                "max": 3.0782028090983014
+              },
+              "delta_relative_l2": {
+                "mean": 0.010093201130158127,
+                "max": 0.021741359762760107
+              },
+              "mean_leakage": {
+                "mean": 0.001848638037813061,
+                "max": 0.0074983825476060756
+              },
+              "head_leakage": {
+                "mean": 0.01523317793033651,
+                "max": 0.015768363855362857
+              },
+              "z_leakage": {
+                "mean": 0.004224295242122936,
+                "max": 0.014458823054887411
+              },
+              "native_vs_finite": {
+                "native_norm": 1.7139543273476963,
+                "prediction_norm": 1.654711559762857,
+                "error_SSE": 0.18454297747069662,
+                "cosine": 0.9680841173600188
+              },
+              "native_vs_linear": {
+                "native_norm": 1.7139543273476963,
+                "prediction_norm": 1.6546439067490615,
+                "error_SSE": 0.18460472306425985,
+                "cosine": 0.9680733403826095
+              },
+              "finite_vs_linear": {
+                "native_norm": 1.654711559762857,
+                "prediction_norm": 1.6546439067490615,
+                "error_SSE": 9.824535600271123e-05,
+                "cosine": 0.9999820594828831
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant14.safetensors",
+            "artifact_sha256": "48c66983e1b01902c0c36450aa70e59e9f597bfdb3da085d9f5c130c14b8e06f"
+          },
+          {
+            "kind": "pregate",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.2498097361315598,
+            "linear_relative_l2": 0.24992848995169514,
+            "native_response_l2": 1.696832890171183,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 1.6418447329889159,
+                "max": 3.0823743376004855
+              },
+              "delta_relative_l2": {
+                "mean": 0.010089758311583538,
+                "max": 0.02175718929265565
+              },
+              "mean_leakage": {
+                "mean": 0.0018045934711937645,
+                "max": 0.005215504255414916
+              },
+              "head_leakage": {
+                "mean": 0.015177438637244595,
+                "max": 0.015662307756966094
+              },
+              "z_leakage": {
+                "mean": 0.004341875635140935,
+                "max": 0.014562011660201046
+              },
+              "native_vs_finite": {
+                "native_norm": 1.696832890171183,
+                "prediction_norm": 1.6480756156795646,
+                "error_SSE": 0.1796788124554915,
+                "cosine": 0.9682994858348949
+              },
+              "native_vs_linear": {
+                "native_norm": 1.696832890171183,
+                "prediction_norm": 1.6482386556641864,
+                "error_SSE": 0.17984968343431615,
+                "cosine": 0.9682692362560192
+              },
+              "finite_vs_linear": {
+                "native_norm": 1.6480756156795646,
+                "prediction_norm": 1.6482386556641864,
+                "error_SSE": 9.827892697047249e-05,
+                "cosine": 0.9999819151171645
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step0_variant15.safetensors",
+            "artifact_sha256": "cd301c97c7db32d57bc440056b06406edd68a8637cb658a9977602fdad3edd0d"
+          }
+        ],
+        "paired_response": {
+          "visible": {
+            "0.0625": {
+              "odd_l2": 90.04598848533183,
+              "even_l2": 0.5393904692532328
+            },
+            "0.25": {
+              "odd_l2": 350.0937008148599,
+              "even_l2": 5.1559888962550815
+            },
+            "odd_l2_high_over_low": 3.887943335442299,
+            "even_l2_high_over_low": 9.55891731530475
+          },
+          "norm": {
+            "0.0625": {
+              "odd_l2": 10.063433505754334,
+              "even_l2": 0.7294142416881128
+            },
+            "0.25": {
+              "odd_l2": 42.56354257701845,
+              "even_l2": 10.447501973694107
+            },
+            "odd_l2_high_over_low": 4.229524898503115,
+            "even_l2_high_over_low": 14.32313955032607
+          },
+          "null": {
+            "0.0625": {
+              "odd_l2": 0.23729276342731398,
+              "even_l2": 0.5191639011863644
+            },
+            "0.25": {
+              "odd_l2": 0.28624665369177266,
+              "even_l2": 4.850214870529886
+            },
+            "odd_l2_high_over_low": 1.2063016568958873,
+            "even_l2_high_over_low": 9.342357701385719
+          }
+        },
+        "neutral_repeat_difference_l2": 0.0
+      },
+      {
+        "source_index": 4,
+        "step": 3,
+        "variants": [
+          {
+            "kind": "visible",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.005324138918652102,
+            "linear_relative_l2": 0.006916787058941129,
+            "native_response_l2": 85.5818311333576,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.499937254128385,
+                "max": 6.673762117676839
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250159704982691,
+                "max": 0.06253946917159615
+              },
+              "mean_leakage": {
+                "mean": 9.71383401768695e-05,
+                "max": 0.00032260615158669493
+              },
+              "head_leakage": {
+                "mean": 0.14101345104158344,
+                "max": 0.14102804625141144
+              },
+              "z_leakage": {
+                "mean": 0.013120785363617861,
+                "max": 0.050046228771858735
+              },
+              "native_vs_finite": {
+                "native_norm": 85.5818311333576,
+                "prediction_norm": 85.58697650661294,
+                "error_SSE": 0.20761651958404753,
+                "cosine": 0.999985829431697
+              },
+              "native_vs_linear": {
+                "native_norm": 85.5818311333576,
+                "prediction_norm": 85.78050240291974,
+                "error_SSE": 0.3504063440149013,
+                "cosine": 0.9999788226823771
+              },
+              "finite_vs_linear": {
+                "native_norm": 85.58697650661294,
+                "prediction_norm": 85.78050240291974,
+                "error_SSE": 0.14431619595783732,
+                "cosine": 0.9999927221206925
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant00.safetensors",
+            "artifact_sha256": "ea582df5fda7f8154052d0497edfc7393a1963d02fb445220cc933c7904822c5"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.00519900051751576,
+            "linear_relative_l2": 0.006595429673045949,
+            "native_response_l2": 85.64461684894304,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.499930810010411,
+                "max": 6.677569394474584
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250149995490932,
+                "max": 0.06252835796979783
+              },
+              "mean_leakage": {
+                "mean": 0.00010210324617979181,
+                "max": 0.00030046658894212
+              },
+              "head_leakage": {
+                "mean": 0.14101370632641755,
+                "max": 0.1410290345077787
+              },
+              "z_leakage": {
+                "mean": 0.013118921209932913,
+                "max": 0.05011533720592069
+              },
+              "native_vs_finite": {
+                "native_norm": 85.64461684894304,
+                "prediction_norm": 85.64142809053354,
+                "error_SSE": 0.19826217348774372,
+                "cosine": 0.9999864853867547
+              },
+              "native_vs_linear": {
+                "native_norm": 85.64461684894304,
+                "prediction_norm": 85.78052466469552,
+                "error_SSE": 0.31907026220749346,
+                "cosine": 0.9999795417142429
+              },
+              "finite_vs_linear": {
+                "native_norm": 85.64142809053354,
+                "prediction_norm": 85.78052466469552,
+                "error_SSE": 0.12634245707394479,
+                "cosine": 0.9999927178559516
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant01.safetensors",
+            "artifact_sha256": "53e7f6ff3eff3d79a6663853b238855384e67074c65679c85359e73a220cf094"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.002461316132380453,
+            "linear_relative_l2": 0.035591324154469785,
+            "native_response_l2": 332.4710657797928,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 25.99885787229327,
+                "max": 26.69202800854538
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999788189361472,
+                "max": 0.25009118637330585
+              },
+              "mean_leakage": {
+                "mean": 2.9893770362479198e-05,
+                "max": 0.00013116318001622106
+              },
+              "head_leakage": {
+                "mean": 0.14101969610351833,
+                "max": 0.14103038777462046
+              },
+              "z_leakage": {
+                "mean": 0.013127614074882374,
+                "max": 0.050084605105502514
+              },
+              "native_vs_finite": {
+                "native_norm": 332.4710657797928,
+                "prediction_norm": 332.5190186780903,
+                "error_SSE": 0.6696417268323082,
+                "cosine": 0.9999969817981739
+              },
+              "native_vs_linear": {
+                "native_norm": 332.4710657797928,
+                "prediction_norm": 343.1254867453217,
+                "error_SSE": 140.02191183855516,
+                "cosine": 0.99988382981578
+              },
+              "finite_vs_linear": {
+                "native_norm": 332.5190186780903,
+                "prediction_norm": 343.1254867453217,
+                "error_SSE": 138.09264055565103,
+                "cosine": 0.99988783335197
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant02.safetensors",
+            "artifact_sha256": "0c15cbd1dc6c6d98e344862e6e2ea96fdb35d5b383c278ece401d791bf599cb9"
+          },
+          {
+            "kind": "visible",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.0024667841862053373,
+            "linear_relative_l2": 0.033091519866198627,
+            "native_response_l2": 333.3675251961843,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 25.999360170053833,
+                "max": 26.70885460316154
+              },
+              "delta_relative_l2": {
+                "mean": 0.25000258330977265,
+                "max": 0.2501264210376988
+              },
+              "mean_leakage": {
+                "mean": 3.406753322777054e-05,
+                "max": 0.00013634992058249526
+              },
+              "head_leakage": {
+                "mean": 0.1410200234200814,
+                "max": 0.14103310585741702
+              },
+              "z_leakage": {
+                "mean": 0.013128113111770565,
+                "max": 0.050096698049783436
+              },
+              "native_vs_finite": {
+                "native_norm": 333.3675251961843,
+                "prediction_norm": 333.3305152222598,
+                "error_SSE": 0.6762525150243954,
+                "cosine": 0.9999969633133182
+              },
+              "native_vs_linear": {
+                "native_norm": 333.3675251961843,
+                "prediction_norm": 343.1327217171002,
+                "error_SSE": 121.69703878933181,
+                "cosine": 0.999884875708403
+              },
+              "finite_vs_linear": {
+                "native_norm": 333.3305152222598,
+                "prediction_norm": 343.1327217171002,
+                "error_SSE": 121.80948616278357,
+                "cosine": 0.999887537169146
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant03.safetensors",
+            "artifact_sha256": "26e9f0ace34be4145494feeea8abfcc5e9d70f04729848200e4d8e88427031e4"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.04063078488254218,
+            "linear_relative_l2": 0.0734665681708253,
+            "native_response_l2": 10.39826472477163,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.529862675337627,
+                "max": 6.839718686950972
+              },
+              "delta_relative_l2": {
+                "mean": 0.06278039960184534,
+                "max": 0.06491726195574077
+              },
+              "mean_leakage": {
+                "mean": 0.0002660477416915321,
+                "max": 0.0008660099555200168
+              },
+              "head_leakage": {
+                "mean": 0.0001372443518455199,
+                "max": 0.00019566102614806334
+              },
+              "z_leakage": {
+                "mean": 0.9897254506815361,
+                "max": 0.9948861064676361
+              },
+              "native_vs_finite": {
+                "native_norm": 10.39826472477163,
+                "prediction_norm": 10.39189879496594,
+                "error_SSE": 0.1784975104273886,
+                "cosine": 0.9991742515288173
+              },
+              "native_vs_linear": {
+                "native_norm": 10.39826472477163,
+                "prediction_norm": 9.753493184505981,
+                "error_SSE": 0.5835811371217764,
+                "cosine": 0.9991724916970501
+              },
+              "finite_vs_linear": {
+                "native_norm": 10.39189879496594,
+                "prediction_norm": 9.753493184505981,
+                "error_SSE": 0.4077330542007038,
+                "cosine": 0.999999154818103
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant04.safetensors",
+            "artifact_sha256": "8378c65444eb0bf7a6bec0c7e5be087b782e703f6ee723b47ac06ca8e03d001f"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.04340491825158573,
+            "linear_relative_l2": 0.0755671525607681,
+            "native_response_l2": 9.194512663573823,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.529850737506261,
+                "max": 6.839541189396923
+              },
+              "delta_relative_l2": {
+                "mean": 0.06278027693448958,
+                "max": 0.06490912606319643
+              },
+              "mean_leakage": {
+                "mean": 0.00027697524395375287,
+                "max": 0.0008321464004996034
+              },
+              "head_leakage": {
+                "mean": 0.0001394002946473801,
+                "max": 0.00019885008862348603
+              },
+              "z_leakage": {
+                "mean": 0.9897140544234266,
+                "max": 0.9948646418312959
+              },
+              "native_vs_finite": {
+                "native_norm": 9.194512663573823,
+                "prediction_norm": 9.189163526586574,
+                "error_SSE": 0.15927048986069847,
+                "cosine": 0.9990576275181354
+              },
+              "native_vs_linear": {
+                "native_norm": 9.194512663573823,
+                "prediction_norm": 9.75441445200147,
+                "error_SSE": 0.48275140497997304,
+                "cosine": 0.999056378138866
+              },
+              "finite_vs_linear": {
+                "native_norm": 9.189163526586574,
+                "prediction_norm": 9.75441445200147,
+                "error_SSE": 0.31962624821765323,
+                "cosine": 0.9999993437850503
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant05.safetensors",
+            "artifact_sha256": "a4a9abacb45d4aec7d13c30ffebe9905eb4402418c20f88b93b854c049cada2a"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.009486390248436059,
+            "linear_relative_l2": 0.2441628444415637,
+            "native_response_l2": 51.42651549561012,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.012336340747957,
+                "max": 26.71723272642261
+              },
+              "delta_relative_l2": {
+                "mean": 0.2501269568499461,
+                "max": 0.25222166660206397
+              },
+              "mean_leakage": {
+                "mean": 6.651094230857206e-05,
+                "max": 0.00020199534556520601
+              },
+              "head_leakage": {
+                "mean": 3.436280608892614e-05,
+                "max": 4.9606659880673926e-05
+              },
+              "z_leakage": {
+                "mean": 0.9897777649448145,
+                "max": 0.9950112137989183
+              },
+              "native_vs_finite": {
+                "native_norm": 51.42651549561012,
+                "prediction_norm": 51.42619072665193,
+                "error_SSE": 0.2379995691314431,
+                "cosine": 0.9999550039358084
+              },
+              "native_vs_linear": {
+                "native_norm": 51.42651549561012,
+                "prediction_norm": 38.87764921681252,
+                "error_SSE": 157.66429353751334,
+                "cosine": 0.9999524221840169
+              },
+              "finite_vs_linear": {
+                "native_norm": 51.42619072665193,
+                "prediction_norm": 38.87764921681252,
+                "error_SSE": 157.4767782153097,
+                "cosine": 0.9999972780395446
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant06.safetensors",
+            "artifact_sha256": "ac9879d1da29d37ac626c86e603d355f8f0be5d6fdfcf00d9f8e78399dda2229"
+          },
+          {
+            "kind": "norm",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.012023634257782684,
+            "linear_relative_l2": 0.24563598637722142,
+            "native_response_l2": 31.220933981831593,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.01225171532434,
+                "max": 26.716958601970653
+              },
+              "delta_relative_l2": {
+                "mean": 0.2501261700851083,
+                "max": 0.2522260907729564
+              },
+              "mean_leakage": {
+                "mean": 6.639130093408427e-05,
+                "max": 0.0002462638875334766
+              },
+              "head_leakage": {
+                "mean": 3.550082667628461e-05,
+                "max": 4.8650393832263984e-05
+              },
+              "z_leakage": {
+                "mean": 0.9897751817153604,
+                "max": 0.9949961696435208
+              },
+              "native_vs_finite": {
+                "native_norm": 31.220933981831593,
+                "prediction_norm": 31.216537489236902,
+                "error_SSE": 0.14091696993004646,
+                "cosine": 0.9999277158456127
+              },
+              "native_vs_linear": {
+                "native_norm": 31.220933981831593,
+                "prediction_norm": 38.878327529241076,
+                "error_SSE": 58.81332961492221,
+                "cosine": 0.9999268202813995
+              },
+              "finite_vs_linear": {
+                "native_norm": 31.216537489236902,
+                "prediction_norm": 38.878327529241076,
+                "error_SSE": 58.70491136661852,
+                "cosine": 0.9999992235180942
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant07.safetensors",
+            "artifact_sha256": "b5b730cdc39bfbbbdc5dfef3acee896e57b81f10d5a4af761df8e237522b9a79"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.0625,
+            "sign": -1,
+            "finite_relative_l2": 0.8136236342465347,
+            "linear_relative_l2": 0.9897577678508954,
+            "native_response_l2": 0.5321175927267654,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.5000022094241015,
+                "max": 6.674467869283785
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250223492372659,
+                "max": 0.06252672421682859
+              },
+              "mean_leakage": {
+                "mean": 0.00011238775491688862,
+                "max": 0.0004216283169166565
+              },
+              "head_leakage": {
+                "mean": 0.0001399210803740658,
+                "max": 0.00018792770256963935
+              },
+              "z_leakage": {
+                "mean": 0.0025581901884107806,
+                "max": 0.01190968451158816
+              },
+              "native_vs_finite": {
+                "native_norm": 0.5321175927267654,
+                "prediction_norm": 0.3146479288678956,
+                "error_SSE": 0.18744003058693504,
+                "cosine": 0.5814751589103524
+              },
+              "native_vs_linear": {
+                "native_norm": 0.5321175927267654,
+                "prediction_norm": 0.09116653577150492,
+                "error_SSE": 0.27737867747766354,
+                "cosine": 0.145139247569962
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.3146479288678956,
+                "prediction_norm": 0.09116653577150492,
+                "error_SSE": 0.09371263994365271,
+                "cosine": 0.23708985443142663
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant08.safetensors",
+            "artifact_sha256": "3de5420816f747295df1c51eef108ae04a3246dd8d59bcb1925a02ceb6cc0c9b"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.0625,
+            "sign": 1,
+            "finite_relative_l2": 0.8025795649813222,
+            "linear_relative_l2": 0.9783880267938266,
+            "native_response_l2": 0.5469640906218501,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 6.499967082573978,
+                "max": 6.676233246769508
+              },
+              "delta_relative_l2": {
+                "mean": 0.06250188969199573,
+                "max": 0.06252851569772647
+              },
+              "mean_leakage": {
+                "mean": 0.00011722094404910155,
+                "max": 0.00048064399471611953
+              },
+              "head_leakage": {
+                "mean": 0.00013907563776277267,
+                "max": 0.00019007945146594152
+              },
+              "z_leakage": {
+                "mean": 0.0025539419263576474,
+                "max": 0.011829112590809092
+              },
+              "native_vs_finite": {
+                "native_norm": 0.5469640906218501,
+                "prediction_norm": 0.3247765438123886,
+                "error_SSE": 0.19270537359523487,
+                "cosine": 0.5965515242901798
+              },
+              "native_vs_linear": {
+                "native_norm": 0.5469640906218501,
+                "prediction_norm": 0.0905395765945985,
+                "error_SSE": 0.2863781560477092,
+                "cosine": 0.21191610689752038
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.3247765438123886,
+                "prediction_norm": 0.0905395765945985,
+                "error_SSE": 0.09366835356085665,
+                "cosine": 0.3402274409175569
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant09.safetensors",
+            "artifact_sha256": "d53b6bf37914ee1e78907df288a374b85f16aae35a766f32abc2a1702596689f"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.08851711237274944,
+            "linear_relative_l2": 1.003430734126814,
+            "native_response_l2": 4.689344606760372,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 25.999054929331386,
+                "max": 26.698332299461995
+              },
+              "delta_relative_l2": {
+                "mean": 0.2499996494207712,
+                "max": 0.2500300447800567
+              },
+              "mean_leakage": {
+                "mean": 5.1741303501041876e-05,
+                "max": 0.0002014079033805834
+              },
+              "head_leakage": {
+                "mean": 3.9799578007006674e-05,
+                "max": 5.325262082492267e-05
+              },
+              "z_leakage": {
+                "mean": 0.0025219749126691466,
+                "max": 0.008939905729328488
+              },
+              "native_vs_finite": {
+                "native_norm": 4.689344606760372,
+                "prediction_norm": 4.677904635935616,
+                "error_SSE": 0.17229741972568835,
+                "cosine": 0.9960757627122323
+              },
+              "native_vs_linear": {
+                "native_norm": 4.689344606760372,
+                "prediction_norm": 0.157227732980626,
+                "error_SSE": 22.141095024621414,
+                "cosine": -0.08573340381543412
+              },
+              "finite_vs_linear": {
+                "native_norm": 4.677904635935616,
+                "prediction_norm": 0.157227732980626,
+                "error_SSE": 22.035262197274932,
+                "cosine": -0.0868460162383278
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant10.safetensors",
+            "artifact_sha256": "ef5fbbbe98dc62e0298162f23ea1bdcec2ba0719414617d7e21685d706c7ec32"
+          },
+          {
+            "kind": "null",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.08729535665160258,
+            "linear_relative_l2": 0.9952340088491862,
+            "native_response_l2": 4.730463786760432,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 25.998935210744698,
+                "max": 26.697798674149475
+              },
+              "delta_relative_l2": {
+                "mean": 0.24999850659768505,
+                "max": 0.2500395985085771
+              },
+              "mean_leakage": {
+                "mean": 5.17320261437966e-05,
+                "max": 0.0001666368875440542
+              },
+              "head_leakage": {
+                "mean": 4.06382171310658e-05,
+                "max": 5.3046150382093876e-05
+              },
+              "z_leakage": {
+                "mean": 0.0025238411697881998,
+                "max": 0.008896877170619391
+              },
+              "native_vs_finite": {
+                "native_norm": 4.730463786760432,
+                "prediction_norm": 4.7132818977374,
+                "error_SSE": 0.17052565707619954,
+                "cosine": 0.9961824908391589
+              },
+              "native_vs_linear": {
+                "native_norm": 4.730463786760432,
+                "prediction_norm": 0.15748398343500689,
+                "error_SSE": 22.164496020870523,
+                "cosine": 0.15946420302890812
+              },
+              "finite_vs_linear": {
+                "native_norm": 4.7132818977374,
+                "prediction_norm": 0.15748398343500689,
+                "error_SSE": 22.001787778374624,
+                "cosine": 0.1603465221777205
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant11.safetensors",
+            "artifact_sha256": "a3258c78e2af931af35c54e862a8113e849d80f0aef39ea667519f773e1e49cb"
+          },
+          {
+            "kind": "constant",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.8559898201225375,
+            "linear_relative_l2": 0.8559974934818602,
+            "native_response_l2": 0.44611368891664577,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.0004722315925,
+                "max": 26.728523886769313
+              },
+              "delta_relative_l2": {
+                "mean": 0.2500134369733102,
+                "max": 0.25036220538895554
+              },
+              "mean_leakage": {
+                "mean": 0.9999823856852246,
+                "max": 0.9999854695534749
+              },
+              "head_leakage": {
+                "mean": 0.010367473239161441,
+                "max": 0.010387199444871114
+              },
+              "z_leakage": {
+                "mean": 0.004930097548179609,
+                "max": 0.007535530618070813
+              },
+              "native_vs_finite": {
+                "native_norm": 0.44611368891664577,
+                "prediction_norm": 0.2242599715152736,
+                "error_SSE": 0.145823762335742,
+                "cosine": 0.517195949406079
+              },
+              "native_vs_linear": {
+                "native_norm": 0.44611368891664577,
+                "prediction_norm": 0.22403420876444538,
+                "error_SSE": 0.14582637676669719,
+                "cosine": 0.5171977359173422
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.2242599715152736,
+                "prediction_norm": 0.22403420876444538,
+                "error_SSE": 5.24104323426003e-08,
+                "cosine": 0.9999999856532841
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant12.safetensors",
+            "artifact_sha256": "5ef38ebdc67a546186b7a0c5d3f557a65991df1c9d9020d723b876d237a288bd"
+          },
+          {
+            "kind": "constant",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.8615985242005583,
+            "linear_relative_l2": 0.8615971789627261,
+            "native_response_l2": 0.4377108262070303,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 26.000348107823164,
+                "max": 26.728860745120326
+              },
+              "delta_relative_l2": {
+                "mean": 0.25001223382500876,
+                "max": 0.2503873603683201
+              },
+              "mean_leakage": {
+                "mean": 0.9999821557525763,
+                "max": 0.9999855607483505
+              },
+              "head_leakage": {
+                "mean": 0.010367755071151622,
+                "max": 0.010392382247284372
+              },
+              "z_leakage": {
+                "mean": 0.004918766492151275,
+                "max": 0.007483358740221913
+              },
+              "native_vs_finite": {
+                "native_norm": 0.4377108262070303,
+                "prediction_norm": 0.22074081522211725,
+                "error_SSE": 0.14222779258397888,
+                "cosine": 0.5076010551226013
+              },
+              "native_vs_linear": {
+                "native_norm": 0.4377108262070303,
+                "prediction_norm": 0.22095601138356935,
+                "error_SSE": 0.1422273484558783,
+                "cosine": 0.5076003828226187
+              },
+              "finite_vs_linear": {
+                "native_norm": 0.22074081522211725,
+                "prediction_norm": 0.22095601138356935,
+                "error_SSE": 4.7826271723892453e-08,
+                "cosine": 0.9999999844498758
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant13.safetensors",
+            "artifact_sha256": "19a3fc3e5543312276c7ee2e79ae7ea5b096d10b669013d8ee8afbfe6d7aec65"
+          },
+          {
+            "kind": "pregate",
+            "amplitude": 0.25,
+            "sign": -1,
+            "finite_relative_l2": 0.30254328568424166,
+            "linear_relative_l2": 0.3025321548117961,
+            "native_response_l2": 1.299882129686247,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 1.016266306861274,
+                "max": 1.6250913083207261
+              },
+              "delta_relative_l2": {
+                "mean": 0.009771799584085882,
+                "max": 0.015553473931754649
+              },
+              "mean_leakage": {
+                "mean": 0.004349299889730966,
+                "max": 0.0073122434960717075
+              },
+              "head_leakage": {
+                "mean": 0.01301793694886701,
+                "max": 0.013352902965804388
+              },
+              "z_leakage": {
+                "mean": 0.004717549554024968,
+                "max": 0.013858871848334713
+              },
+              "native_vs_finite": {
+                "native_norm": 1.299882129686247,
+                "prediction_norm": 1.2433256380411275,
+                "error_SSE": 0.15466177309681248,
+                "cosine": 0.9531415317971278
+              },
+              "native_vs_linear": {
+                "native_norm": 1.299882129686247,
+                "prediction_norm": 1.2433082366549566,
+                "error_SSE": 0.15465039298109498,
+                "cosine": 0.9531450057502198
+              },
+              "finite_vs_linear": {
+                "native_norm": 1.2433256380411275,
+                "prediction_norm": 1.2433082366549566,
+                "error_SSE": 5.8714303288714436e-05,
+                "cosine": 0.9999810089937589
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant14.safetensors",
+            "artifact_sha256": "5966c00bbbbe29375a242e60a795d48e3b511a580818db4bca882148aee57293"
+          },
+          {
+            "kind": "pregate",
+            "amplitude": 0.25,
+            "sign": 1,
+            "finite_relative_l2": 0.30192644014502185,
+            "linear_relative_l2": 0.3019574034728418,
+            "native_response_l2": 1.3074164868421796,
+            "scalar_readout": {
+              "delta_l2": {
+                "mean": 1.0161191072174276,
+                "max": 1.6257086247052843
+              },
+              "delta_relative_l2": {
+                "mean": 0.00977034620096642,
+                "max": 0.015559382162415727
+              },
+              "mean_leakage": {
+                "mean": 0.004113188341978787,
+                "max": 0.007003774476366991
+              },
+              "head_leakage": {
+                "mean": 0.013009524160478705,
+                "max": 0.013466829305616195
+              },
+              "z_leakage": {
+                "mean": 0.004616125324622023,
+                "max": 0.013241665449397647
+              },
+              "native_vs_finite": {
+                "native_norm": 1.3074164868421796,
+                "prediction_norm": 1.2421421317445716,
+                "error_SSE": 0.1558225142088024,
+                "cosine": 0.9533368093500224
+              },
+              "native_vs_linear": {
+                "native_norm": 1.3074164868421796,
+                "prediction_norm": 1.2422377683571655,
+                "error_SSE": 0.15585447584146891,
+                "cosine": 0.9533267212901336
+              },
+              "finite_vs_linear": {
+                "native_norm": 1.2421421317445716,
+                "prediction_norm": 1.2422377683571655,
+                "error_SSE": 5.8714702614374444e-05,
+                "cosine": 0.9999809772548375
+              }
+            },
+            "artifact_path": "ffnds-derived/e0_b_terminal_head_probe_20261028/attempt1/source04_step3_variant15.safetensors",
+            "artifact_sha256": "3fef11055f91f4ebcfb342b5b6d1388cb22954d3943e02d1fc5f96e5dddfcd56"
+          }
+        ],
+        "paired_response": {
+          "visible": {
+            "0.0625": {
+              "odd_l2": 85.61175151989116,
+              "even_l2": 0.5030997583108103
+            },
+            "0.25": {
+              "odd_l2": 332.8812785373994,
+              "even_l2": 5.051001623069301
+            },
+            "odd_l2_high_over_low": 3.888266185747377,
+            "even_l2_high_over_low": 10.039761577362635
+          },
+          "norm": {
+            "0.0625": {
+              "odd_l2": 9.789929291996907,
+              "even_l2": 0.6991213494277355
+            },
+            "0.25": {
+              "odd_l2": 41.32200905584421,
+              "even_l2": 10.109805880816218
+            },
+            "odd_l2_high_over_low": 4.220868999495657,
+            "even_l2_high_over_low": 14.46073115789066
+          },
+          "null": {
+            "0.0625": {
+              "odd_l2": 0.19879588767802886,
+              "even_l2": 0.5016369399295293
+            },
+            "0.25": {
+              "odd_l2": 0.24721660819981806,
+              "even_l2": 4.70345662125552
+            },
+            "odd_l2_high_over_low": 1.2435700309868165,
+            "even_l2_high_over_low": 9.376216635713208
+          }
+        },
+        "neutral_repeat_difference_l2": 0.0
+      }
+    ]
+  },
+  "next": "Produce matched B-H sufficient-statistic student and B-F generic function student on real paired u/head/flow states, matched budgets and source-heldout evaluations; include quantization-floor diagnostic and complete rollout/video and cost for deployment claims."
+}

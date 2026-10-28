@@ -32,7 +32,7 @@
 \]
 原实现使用**HiF4 fake-QDQ+BF16 GEMM**；packed FP4/NVFP4/MXFP4需另立数值/系统证据。旧10 source/12 source×seed/1920 sites、consumer20的20个开发来源与A0的训练/诊断来源，是**不同研究数据范围**；seed、row、block/step和多prompt不当作独立image-cluster。
 
-**论文/图状态**：94项主文献＋10项补充，16个G14算子焦点；主图205个稳定节点/424条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
+**论文/图状态**：94项主文献＋10项补充，16个G14算子焦点；主图209个稳定节点/431条关系。新增12条typed方法先验约束在[独立机器交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)登记，不算作新原生因果结论。G14图来自文献/源码映射，非实际视频部署结果。
 
 ## 科研与运行约束
 
@@ -52,3 +52,5 @@ python tools/check_autoresearcher_binding.py
 ```
 
 原始实验收据、hash、历史错误与候选失配的证据保留在[ARCHIVE](ARCHIVE.md)及[原始报告](reports/)；新研究资料优先更新对应现行方法正文、证据谱系和P0–P4索引，不创建第二份并列“当前状态总览”。
+
+M-B已有[4个真实Dense捕获与同状态head有限结果](research/20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)；当前源配对判别与学生任务按唯一任务台账继续。F线专题见[G13](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)，运行权限定于[ACTIVE](research/ACTIVE_RESEARCH.json)。

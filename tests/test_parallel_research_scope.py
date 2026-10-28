@@ -58,11 +58,18 @@ class ParallelResearchScopeTests(unittest.TestCase):
         self.assertTrue(current_execution_authority_is_consistent(active))
         for key, value in (("user_instruction", "  "),
                            ("max_simultaneously_assigned_idle_GPUs", 5),
+                           ("max_simultaneously_assigned_idle_GPUs", 0),
                            ("protocol_code_asset_budget_freeze_before_launch", False)):
             with self.subTest(key=key):
                 changed = copy.deepcopy(active)
                 changed["user_continuation_authorization_20261027"][key] = value
                 self.assertFalse(current_execution_authority_is_consistent(changed))
+
+    def test_user_can_reduce_the_current_global_limit(self):
+        active = load("research/ACTIVE_RESEARCH.json")
+        for limit in (1, 2, 3, 4):
+            active["user_continuation_authorization_20261027"]["max_simultaneously_assigned_idle_GPUs"] = limit
+            self.assertTrue(current_execution_authority_is_consistent(active))
 
     def test_historical_pause_remains_valid(self):
         active = load("research/ACTIVE_RESEARCH.json")
