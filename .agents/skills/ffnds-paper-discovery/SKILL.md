@@ -5,7 +5,10 @@ description: Apply AutoResearcher science to independent information, function/d
 
 # FFNDS · AutoResearcher 机制方法 Skill
 
-**当前机制研究入口（2026-10-29）：** [资产先行的方法发现和四支路线](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)与[原生资产交叉复算](../../../research/20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)。以真实计算结构/行为/执行异常为研究起点；构造至少两种不同机制及其相反预测，利用保存资产给出最小判别，只有随后才冻结在线动作和完整生成测试。S1跨步共享函数、S4条件rank的行动收益、S2时空函数单位、S3前置量化动作并行且互不互为准入条件。M-A/M-B/M-C、符号交叉、norm/gain、补算为可复用机制及强对照，而不是默认的研究方向。新方法的可用性由全160-site真实视频质量、来源级运动/语义/时间指标和实测系统成本决定。
+**当前机制研究入口（2026-10-29，开放式证据获取）：** [资产先行的方法发现和四支路线](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)与[原生资产交叉复算](../../../research/20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)。以真实计算结构/行为/执行异常为研究起点；构造至少两种不同机制及其相反预测，利用保存资产给出最小判别，只有随后才冻结在线动作和完整生成测试。S1跨步共享函数、S4条件rank的行动收益、S2时空函数单位、S3前置量化动作并行且互不互为准入条件。M-A/M-B/M-C、符号交叉、norm/gain、补算为可复用机制及强对照，而不是默认的研究方向。新方法的可用性由全160-site真实视频质量、来源级运动/语义/时间指标和实测系统成本决定。
+
+
+**开放式证据与新增采集**：[问题驱动新增资产协议](../../../research/agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)和[机器采集队列](../../../research/agent_protocol/ACQUISITION_QUEUE_20261029.json)与现存原生资产有同等科研优先级。现有6/8/20来源、5个Block和随机256行只描述过去观测；新机制可能需要新数据集、独立来源/相机运动分层、40×4全深度时空tubelet、student-prefix状态、Q1/Q2在线code/scale及实际native kernel。只要旧资产无法区分主要竞争机制，Agent就应给出具体可采集量、原生producer、来源与坐标、预算和新注册RUN；在真正新观测产生后继续推理。采集可以先于选定算法，采集批次可逐轮扩张，不预设总体数据上限。
 
 ## 开始研究前的阅读顺序与工作对象
 
