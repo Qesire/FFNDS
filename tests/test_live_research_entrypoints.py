@@ -103,27 +103,40 @@ class LiveEntrypointConsistencyTests(unittest.TestCase):
                   ".agents/skills/ffnds-paper-discovery/SKILL.md"):
             self.assertIn("DYNAMIC_GPU_RESOURCE_POLICY_20261028.md", text(p))
 
-    def test_bf16_primary_nvfp4_is_deferred_without_local_5090(self):
+    def test_bf16_and_pro6000_native_nvfp4_are_independent_parallel_lanes(self):
         ledger = record("research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json")
-        scope = ledger["authority_and_scope"]
-        self.assertEqual(scope["user_local_deployment_hardware"]["hardware"],
-                         "NO_LOCAL_RTX_5090_USER_CONFIRMED")
-        self.assertEqual(scope["user_local_deployment_hardware"]["native_NVFP4_W4A4_status"],
-                         "DEFERRED_BY_USER_NOT_URGENT")
-        sm120_tasks = [task for task in ledger["tasks"] if "SM120" in task["id"]]
-        self.assertEqual(len(sm120_tasks), 5)
-        for task in sm120_tasks:
-            self.assertEqual(task["status"], "DEFERRED")
-            self.assertGreaterEqual(task["priority"], 4)
-            self.assertEqual(task["execution"], "DEFERRED_BY_USER_NO_LOCAL_5090_NO_FP4_PREP")
+        auth = ledger["authority_and_scope"]
+        devices = auth["user_local_deployment_hardware"]
+        self.assertIn("NO_LOCAL_RTX_5090", devices["hardware"])
+        self.assertIn("RTX_PRO_6000", devices["hardware"])
+        self.assertEqual(devices["native_NVFP4_W4A4_status"],
+                         "PARALLEL_R0_READINESS_ACTIVE_NATIVE_EXECUTION_GATED")
+        self.assertEqual(auth["parallel_execution_policy"]["actual_pro6000_entitlement"],
+                         "ACCESS_NOT_VERIFIED_CURRENT_TURN")
+        self.assertIn("A100_BF16_ORIGINAL_SCIENCE", auth["parallel_execution_policy"]["lanes"])
+
+        tasks = {task["id"]: task for task in ledger["tasks"]}
+        expected = {
+            "P0-SM120-R0-ENV": ("READY_STATIC", 0),
+            "P1-SM120-R1-FP4-NATIVE": ("OPEN_NEEDS_REGISTERED_NATIVE", 1),
+            "P1-SM120-R2-WAN-NVFP4-DENSE": ("WAITING_ON_EVIDENCE", 1),
+            "P2-SM120-R3-WAN-NVFP4-CANDIDATE": ("WAITING_ON_EVIDENCE", 2),
+            "P3-SM120-R4-WAN-NVFP4-VIDEO": ("WAITING_ON_EVIDENCE", 3),
+        }
+        for name, (status, priority) in expected.items():
+            with self.subTest(task=name):
+                self.assertEqual(tasks[name]["status"], status)
+                self.assertEqual(tasks[name]["priority"], priority)
+                self.assertIn("RTX PRO 6000", tasks[name]["track"])
+        self.assertNotIn("P1-B2-STUDENT",
+                         tasks["P2-SM120-R3-WAN-NVFP4-CANDIDATE"]["dependencies"])
 
         policy = text("research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md")
-        for label in ("BF16_ORIGINAL", "NVFP4_NATIVE_W4A4",
-                      "HIF4_FAKE_QDQ_DIAGNOSTIC", "DEFERRED",
-                      "RTX PRO 6000 Blackwell"):
-            self.assertIn(label, policy)
+        for word in ("BF16_ORIGINAL", "NVFP4_NATIVE_W4A4",
+                     "HIF4_FAKE_QDQ_DIAGNOSTIC", "RTX PRO 6000 Blackwell",
+                     "READY_STATIC", "ACCESS_NOT_VERIFIED"):
+            self.assertIn(word, policy)
         self.assertNotIn("单张已有", policy)
-
         for path in ("README.md", "AGENTS.md",
                      ".agents/skills/ffnds-paper-discovery/SKILL.md",
                      "research/RESEARCH_NAVIGATION.md",
@@ -132,14 +145,19 @@ class LiveEntrypointConsistencyTests(unittest.TestCase):
                      ".github/copilot-instructions.md"):
             doc = text(path)
             with self.subTest(entry=path):
-                self.assertIn("没有本地", doc)
+                self.assertIn("RTX PRO 6000", doc)
                 self.assertNotIn("用户已有5090", doc)
                 self.assertIn("BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md", doc)
+        for path in ("research/RESEARCH_NAVIGATION.md",
+                     "research/agent_protocol/CURRENT_CONTEXT_PACKET.md"):
+            self.assertNotIn("NVFP4执行暂缓，匹配NVFP4 checkpoint未知", text(path))
 
         readiness = record("research/20261028/BF16_NVFP4_R0_READINESS_20261028.json")
         self.assertIn("RTX PRO 6000", readiness["hardware"]["previous_20261026_primitive"])
         self.assertEqual(readiness["matching_NVFP4_checkpoint"]["status"], "UNKNOWN")
-
+        native_qdq = text("upstream_audit/source_deltas/Wan2.2-I2V-A14B-W4A4/files/quant/nvfp4_rtn_backend.py")
+        self.assertIn('"packed_kernel": False', native_qdq)
+        self.assertIn('"compute_backend": "bf16_or_fp16_F.linear_after_QDQ"', native_qdq)
 
 
 if __name__ == "__main__":
