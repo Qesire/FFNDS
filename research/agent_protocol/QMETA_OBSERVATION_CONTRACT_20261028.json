@@ -32,7 +32,7 @@
       "id": "CURRENT_Q1_SCALES",
       "producer": "hifx_quant_cuda_inner lv0/lv1/lv2",
       "first_visible": "after current input read and magnitude hierarchy",
-      "residency": "local temporary in pinned kernel; no standalone persistent output",
+      "residency": "local temporary in pinned kernel; no standalone persistent output; unsigned magnitude hierarchy, distinct from signed S1P2 codes",
       "read_cost": "sidecar emission/packing or reconstruction plus read/reduction",
       "consumer": "magnitude-conditioned pre-W1 policy",
       "savings_scope": "W1 and later; not completed Q1",
@@ -40,13 +40,13 @@
     },
     {
       "id": "CURRENT_Q1_ORDERED_SIGNED_SKETCH",
-      "producer": "proposed fused Q1 collector",
+      "producer": "proposed fused observer of existing S1P2 element sign and ordered magnitude; no new sign bit in original code",
       "first_visible": "input-load sign sketch OR after actual Q1 reconstruction, depending on declared feature",
-      "residency": "proposed CTA row-segment partials and reduced summary",
+      "residency": "proposed CTA row-segment partials and reduced summary; current native QDQ persists only signed BF16 result",
       "read_cost": "local arithmetic/registers plus cross-CTA merge, optional sidecar",
       "consumer": "K-minus-one action-loss differences",
       "savings_scope": "whole64 W1/GELU/Q2/W2 if complete before dispatch",
-      "status": "OPEN_NOT_IMPLEMENTED"
+      "status": "FORMAT_SIGN_VERIFIED_BY_SRC; FUSED_SIGN_OBSERVER_OPEN_NOT_IMPLEMENTED"
     },
     {
       "id": "CURRENT_Q2_ACTUAL",
@@ -143,8 +143,22 @@
     "no_prepool_signed_cancellation_for_row_SSE",
     "nonmyopic_feature_complementarity_possible",
     "critical_path_cost_not_FLOPs_only",
-    "source_cluster_exposure_preserved"
+    "source_cluster_exposure_preserved",
+    "signed_S1P2_code_is_part_of_HiF4_not_extra_added_bit",
+    "scale_micro_exponents_unsigned_not_signed_elements",
+    "software_signed_int8_codes_not_4bit_packed_storage"
   ],
   "model_runs": 0,
-  "implementation_status": "PROPOSED_CONSUMERS_NOT_IMPLEMENTED"
+  "implementation_status": "PROPOSED_CONSUMERS_NOT_IMPLEMENTED",
+  "hif4_signed_format_contract": {
+    "path": "research/agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json",
+    "signed_native_element_code": true,
+    "element_sign_bit_in_4bit_S1P2": true,
+    "scale_metadata_contains_element_sign": false,
+    "native_qdq_exports_packed_code": false,
+    "native_qdq_output": "signed BF16 reconstructed values, not persistent packed codes or scale pointer",
+    "signed_int8_emulator_equivalent_to_packed_bytes": false,
+    "additional_sign_bit_for_packed_S1P2_required": false,
+    "signed_position_feature_price": "producer fused extraction and cross-CTA aggregation OR post-QDQ BF16 scan, measured before actual action"
+  }
 }
