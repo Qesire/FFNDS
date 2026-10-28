@@ -5014,7 +5014,8 @@
       "new_model_experiment_requires_separate_explicit_user_instruction": true
     },
     "current_user_authorization": "user_continuation_authorization_20261027",
-    "new_scope_policy": "Current explicit user instruction authorizes continuing bounded offline I/F/C studies in this session; register immutable scope/code/assets/budget before each launch. No automatic retry or unregistered execution."
+    "new_scope_policy": "Current explicit user instruction authorizes continuing bounded offline I/F/C studies in this session; register immutable scope/code/assets/budget before each launch. No automatic retry or unregistered execution.",
+    "active_resource_policy": "resource_scheduling_policy_20261028"
   },
   "model_execution_authority": "USER_RESUME_OFFLINE_IFC_20261027; EXACT_REGISTERED_SCOPES_ONLY",
   "research_navigation": "research/RESEARCH_NAVIGATION.md",
@@ -6158,7 +6159,7 @@
     "user_instruction": "拜托你现在更新同步最新main，然后按照指示持续推进，你最多可以同时用4张卡，不复杂的任务需要用到子agent就请用gpt6.1 Terra。",
     "status": "ACTIVE_CURRENT_USER_DIRECTED_SESSION",
     "scope": "Continue offline I/F/C research toward the current project goal, including bounded saved-data/native studies serialized before execution; original model, source, quality and cost evidence remain exact.",
-    "max_simultaneously_assigned_idle_GPUs": 2,
+    "max_simultaneously_assigned_idle_GPUs": null,
     "simple_delegation_model": "gpt-6.1-terra",
     "new_scope_registration_allowed": true,
     "per_scope_reconfirmation_required": false,
@@ -6175,7 +6176,9 @@
     "latest_user_continuation": "同步最新目录，遵循仓库指示持续推进，最多同时4张空卡",
     "synchronized_main_at_latest_continuation": "8d4d555; QCFB/semantic gate read. Existing B0/B1 complete by actual process exits; next baseline completion frozen separately.",
     "historical_initial_GPU_limit": 4,
-    "latest_resource_constraint": "User: 最多用2卡; 2026-10-28; at most2 simultaneously assigned idleGPU across all scopes, remaining parts serialized in two waves."
+    "latest_resource_constraint": "Superseded 2026-10-28: no preset global GPU count; use maximum actually callable/schedulable GPU resources at execution time. Historical earlier 2/4 caps are preserved as provenance.",
+    "historical_previous_GPU_limit_20261028": 2,
+    "resource_scheduling_policy": "resource_scheduling_policy_20261028"
   },
   "latest_ub1_research_followthrough_20261027": {
     "status": "B0_AND_B1_COMPLETE_ACTUAL_EXIT0_A0_COMPLETION_FINAL_REVIEW",
@@ -6299,5 +6302,19 @@
       "next": "Investigate and freeze byte-identical node-local Transformers package before a separately registered B0 startup-fix scope. B1 cannot run until actual B0 success."
     },
     "latest_synced_main": "8d4d555"
+  },
+  "resource_scheduling_policy_20261028": {
+    "date": "2026-10-28",
+    "user_instruction": "使用的卡的数量以实际能调用的最大量为准，不提前设限",
+    "status": "ACTIVE_OVERRIDES_PRIOR_NUMERIC_GLOBAL_CAPS",
+    "mode": "DYNAMIC_MAX_ACTUALLY_CALLABLE",
+    "global_gpu_card_cap": null,
+    "allocation": "At each scheduling/launch, use the maximum GPU cards actually callable under account/QOS/partition quotas, successful scheduler grants, available compatible nodes/memory and runnable independent frozen jobs. Recheck after releases/changes. Do not use 2/4 as default/fallback.",
+    "observable_source": "CURRENT_ACTUAL_SCHEDULER_ALLOCATION_NOT_RECORDED_IN_GIT",
+    "operational_policy": "research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md",
+    "historical_caps_policy": "Old 2/4 limits and frozen protocol values are historical as-of-time records. Keep immutable protocols and RUN/EXIT/hash; new scopes replacing an old frozen GPU concurrency budget must be versioned and registered separately.",
+    "single_job_gpu_requirement": "May remain fixed to true algorithm needs; not a global cap",
+    "new_job_scope_policy": "New model/GPU jobs still require registered exact task/code/assets/cohort/protocol/budget in ACTIVE before scheduling; maximize ready useful parallel jobs, no fabricated work and no automatic retries.",
+    "unobserved_actual_gpu_count": "ACTUAL_CALLABLE_GPUS_NOT_OBSERVED"
   }
 }
