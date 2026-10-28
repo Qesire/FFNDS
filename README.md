@@ -2,7 +2,7 @@
 
 研究目标：理解 Wan 视频生成 FFN **如何组织信息、函数作用和时空行为**，并构造可在完整视频质量与真实系统成本之间取得竞争力的低成本表示和执行方式。科学入口为 **I（信息与表示）/ F（函数与动力学）/ C（计算与执行）**；O-A～O-E 是可组合的方法动作，“稀疏”不是唯一方法范畴。详见[统一科学目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
-**现行执行环境（2026-10-28 用户纠正）**：[原始BF16机制为主，原生NVFP4部署暂缓](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户没有本地RTX5090，NVFP4准备复杂、暂不开展SM120专项环境/模型/算子任务；继续利用A100及已完成的原始BF16实测支持M-B/B-F/A0、范数/时间行为、真实视频和速度研究。旧HiF4 Fake-QDQ用于历史数值机制，低比特性能必须有原生W4A4实际收据；原始BF16权重与量化后解码的BF16权重分开。
+**当前执行路线（2026-10-28）**：[A100原始BF16与RTX PRO 6000 Blackwell原生NVFP4并行Agent合同](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。没有本地RTX5090；NVFP4优先基于RTX PRO 6000 Blackwell（96GB/SM120标称规格），但要核验此时是否实际可访问、匹配Wan NVFP4 checkpoint和后端。BF16科学与视频继续在A100独立推进，PRO6000 R0并行核验，后续原生GPU按ACTIVE新scope执行。现存NVFP4 RTN Fake-QDQ和HiF4 QDQ是数值实验，不等于packed W4A4原生加速。
 
 ## 从这里开始
 
