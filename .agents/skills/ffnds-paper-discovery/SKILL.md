@@ -11,7 +11,9 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 研究北极星：解释视频FFN的信息、函数及真实计算组织规律，产生可证伪的科学机制或维持完整视频能力的低成本表示与执行。[I/F/C并行目标](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)允许从有趣的数学恒等式、原生异常、真实行为、论文或kernel任一端开始。**O-A计算选择、O-B函数替代、O-C历史复用、O-D代数/原生执行、O-E学习/验证**是[可组合操作语法](../../../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，不是五个互斥方法。论文与新方法的typed关系收录在[机器交叉表](../../../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)。
 
-**2026-10-29 · 视频级科学准入（覆盖下文过时的B末层任务顺序）**：[全深度×多来源×视频优先方法合同](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。从已完成UB1的20个source真实质量与Affine54 320site状态数据出发，所有待排序的部署候选先说明40×4全160site的可执行动作，并给出≥20独立image-cluster的Dense配对完整视频、运动/动作/主体/背景/时序/成像/语义来源级向量和FFN/整机成本；正式确认须未暴露来源并按官方独立seed协议冻结。末层head/范数修正、局部SSE、MAC/token是创造和机制定位工具，不再作为新方法优胜的默认首步。源/step/block/token嵌套不能充作来源规模。只开展ALG/SRC时可提出全深度设计，但不要以局部改善宣称部署视频有效。\n\n**双数值原生实验轨（2026-10-28最新指令）**：[A100原始BF16与RTX PRO 6000 Blackwell NVFP4并行](../../../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。没有本地RTX5090，但RTX PRO 6000可作为SM120原生FP4目标；BF16功能/视频与原生NVFP4源码/准备任务同时READY，互不阻塞。PRO6000 R0先核验真实可访问权限/MIG/环境及匹配模型，保留历史E0在Pro6000跑过的证据；后续native作业先绑定ACTIVE。当前上游nvfp4_rtn_backend.py 是 Fake-QDQ后接BF16线性算子，不等于packed W4A4，必须区分。HiF4 Fake-QDQ仅保留为格式/数值机制诊断。
+**2026-10-29 · 视频级科学准入（覆盖下文过时的B末层任务顺序）**：[全深度×多来源×视频优先方法合同](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。从已完成UB1的20个source真实质量与Affine54 320site状态数据出发，所有待排序的部署候选先说明40×4全160site的可执行动作，并给出≥20独立image-cluster的Dense配对完整视频、运动/动作/主体/背景/时序/成像/语义来源级向量和FFN/整机成本；正式确认须未暴露来源并按官方独立seed协议冻结。末层head/范数修正、局部SSE、MAC/token是创造和机制定位工具，不再作为新方法优胜的默认首步。源/step/block/token嵌套不能充作来源规模。只开展ALG/SRC时可提出全深度设计，但不要以局部改善宣称部署视频有效。
+
+**双数值原生实验轨（2026-10-28最新指令）**：[A100原始BF16与RTX PRO 6000 Blackwell NVFP4并行](../../../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。没有本地RTX5090，但RTX PRO 6000可作为SM120原生FP4目标；BF16功能/视频与原生NVFP4源码/准备任务同时READY，互不阻塞。PRO6000 R0先核验真实可访问权限/MIG/环境及匹配模型，保留历史E0在Pro6000跑过的证据；后续native作业先绑定ACTIVE。当前上游nvfp4_rtn_backend.py 是 Fake-QDQ后接BF16线性算子，不等于packed W4A4，必须区分。HiF4 Fake-QDQ仅保留为格式/数值机制诊断。
 
 **量化operand强类型规则**：**W1/W2权重是离线静态量化**，本次FFN的**Q1/A1、Q2/A2激活各自在线动态量化**；Q1在W1前，Q2在W1/GELU后。原生NVFP4/MXFP4的W4A4分别有W和A的packed code及block-scale，A scale动态求取（NVFP4的global激活scale可按recipe预校准），原生scale存在但是否可免费/及时读到取决于kernel布局。W4A16没有A FP4 scale。每个研究方案必须指明operand role、producer、scale来源与决策截止；固定weight信息不能被称为输入动态证据。[真实源和成熟后端审计](../../../research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)。
 
@@ -21,7 +23,11 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 **资源调度（2026-10-28最新指令）**：按[现行动态GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际可申请并运行的最多GPU；没有预设全局张数限制。旧2/4卡可属于历史实验的冻结字段；新scope按实际可调度量和ACTIVE冻结模型/来源/预算；不要凭旧上限拒绝并行的独立已注册工作。
 
-**当前指定继续M-B（方法研究）**：复用B0/CAL24/B-H/A0/B-F现存数值与20-source UB1、320-site Affine54以及A0六视频的真实证据；**首个可排序方法实验**从全160-site可执行函数、≥20独立image clusters同源Dense完整视频、运动/画质/主体/背景/时序/语义和真实FFN/全wall共同决策。末层L39/head/gain保留为推导、解释和诊断；它单独的成功不提升全模型部署方法状态。开发历史曝光与未暴露确认严格分离；R0原生NVFP4并行。最新合同见[视频先行](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。\n\n## 实验采样与校准的可解释证据
+**当前指定继续M-B（方法研究）**：复用B0/CAL24/B-H/A0/B-F现存数值与20-source UB1、320-site Affine54以及A0六视频的真实证据；**首个可排序方法实验**从全160-site可执行函数、≥20独立image clusters同源Dense完整视频、运动/画质/主体/背景/时序/语义和真实FFN/全wall共同决策。末层L39/head/gain保留为推导、解释和诊断；它单独的成功不提升全模型部署方法状态。开发历史曝光与未暴露确认严格分离；R0原生NVFP4并行。最新合同见[视频先行](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
+
+已完成机制证据复用：[B-H Direct65](../../../research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)、[同head A0](../../../research/20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)、[B-F](../../../research/20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)。这些已完成pilot保留原范围，由现行全深度多来源视频合同决定后续方法排序。
+
+## 实验采样与校准的可解释证据
 
 **跨方法同预算和同统计对象**：UB1/固定RR、Affine54、激活2:4与训练后表示均可利用[Calibration V2](../../../research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)的独立image-cluster配额、teacher/student同坐标、真实QDQ、完整自由视频和成本；每条路线自己冻结estimand、source exposure、训练预算、数值插入点，互不继承他人的“已验证质量”。
 

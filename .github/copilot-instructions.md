@@ -25,7 +25,7 @@
 5. **评价恰当主张**：机制论文先验证数学/源码/因果范围；执行加速论文另外计量真实FFN+系统成本与独立完整视频质量，严格区分静态图验证、原生运行与外部论文证据。
 6. **独立协作与真实图谱**：经[Graph-Agent协议](../research/agent_protocol/GRAPH_AGENT_COLLABORATION.md)与[讨论队列](../research/method_discussion/QUEUE.md)回写I/F/C任一路线的源节点、ALG/LIT/NATIVE/OPEN关系和独立评议。
 
-**事实与权限**：当前G14为**98主＋10补充论文、16个算子焦点**，原生研究图224节点/465关系；[机器先验索引](../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)额外登记12条typed方法约束。旧10source/12条轨迹/1920站点属于早期机制研究，不是后续consumer20/P30来源集合。[动态GPU调度规则](../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的通用默认不预设全局卡数；本会话当前用户指定同时最多2张GPU，优先于通用默认。[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项核验实验身份；新模型与视频按真实来源、冻结代码和执行scope登记，实时/流式实验仍未恢复。
+**事实与权限**：当前G14为**98主＋10补充论文、16个算子焦点**，原生研究图225节点/468关系；[机器先验索引](../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)额外登记12条typed方法约束。旧10source/12条轨迹/1920站点属于早期机制研究，不是后续consumer20/P30来源集合。[动态GPU调度规则](../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的通用默认不预设全局卡数；本会话当前用户指定同时最多2张GPU，优先于通用默认。[ACTIVE_RESEARCH](../research/ACTIVE_RESEARCH.json)逐项核验实验身份；新模型与视频按真实来源、冻结代码和执行scope登记，实时/流式实验仍未恢复。
 
 **HiF4源码事实**：[格式审计](../research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)确认元素**signed S1P2 自带符号位**，尺度无符号；当前Wan CUDA fake-QDQ写出带符号BF16，不直接导出packed code/scale。符号信息可研究，提取与在线决策时点的成本要实际计算。
 

@@ -1,12 +1,19 @@
 # FFNDS · 阅读优先级与当前研究导航（2026-10-28）
 
-**2026-10-29 · 新增20来源视频×四步状态联合复算（当前优先阅读证据）：**[完整研究报告](20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)、[原始四JSON对齐的机器结果](20261029/UB1_FULL_DEPTH_VIDEO_LATENT_JOINT_RECOMPUTATION_20261029.json)、[Dense幅值混杂复核](20261029/UB1_VIDEO_LATENT_ASSOCIATION_PERMUTATION_20261029.json)、[可重放脚本](../tools/recompute_ub1_video_latent_joint.py)。20/20来源四步latent与时间差分误差逐步增长、step1–3各来源有符号交叉正；末步增长的47.82%来自同向交叉。与视频运动的原始Spearman −0.424在控制Dense本身运动幅值和场景类别后降至+0.086，故全局latent/temporal SSE不得当运动质量代理。源级真实RAFT均值比0.1672，成像平均−1.0035，6/20来源成像上升但RAFT下降；现行v4候选准入按完整视频行为+系统成本进行。所有数值来自暴露开发集原始报告的再计算，没有新生成、新GPU作业。\n\n**2026-10-29 · 优先级修正：多来源×完整160-site×视频质量与实测成本成为新方法排序的首要证据。**[现行新合同](20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)重算UB1 20来源质量、Aff54 320-site与A0六视频历史证据，推翻旧v3先单末层误差再按需视频的研究排序；下一Agent首先建立source×方法×视频分维×系统成本矩阵，然后构造可完整40×4执行的M-B候选，按真正多source Dense配对生成判定。旧v3评议保留为历史分析，现行M-A/B/C权威正文更新为v4；GPU新scope仍依ACTIVE。\n\n**2026-10-29 · 当前路线修订**：[新结果评议、数学修正和下一判别](20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)。复用已完成B0/B1、BH/匹配A0/BF，不重复启动；当前6016视频明显退化。原始BF16投影的范数修正有效但仅一个暴露转移来源，B-F实际学生则分子错误主导；下一步区分这两种机制并核查跨深度consumer。A100 BF16与RTX PRO6000原生NVFP4并行，QCFB从已有V2/W2资产推进T0；通用group64和“A100 only”指令已纠正。此更新未核验实时GPU分配，以下运行/资源数字保留各原观察时点，以ACTIVE为准。
+**2026-10-29 · 新增20来源视频×四步状态联合复算（当前优先阅读证据）：**[完整研究报告](20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)、[原始四JSON对齐的机器结果](20261029/UB1_FULL_DEPTH_VIDEO_LATENT_JOINT_RECOMPUTATION_20261029.json)、[Dense幅值混杂复核](20261029/UB1_VIDEO_LATENT_ASSOCIATION_PERMUTATION_20261029.json)、[可重放脚本](../tools/recompute_ub1_video_latent_joint.py)。20/20来源四步latent与时间差分误差逐步增长、step1–3各来源有符号交叉正；末步增长的47.82%来自同向交叉。与视频运动的原始Spearman −0.424在控制Dense本身运动幅值和场景类别后降至+0.086，故全局latent/temporal SSE不得当运动质量代理。源级真实RAFT均值比0.1672，成像平均−1.0035，6/20来源成像上升但RAFT下降；现行v4候选准入按完整视频行为+系统成本进行。所有数值来自暴露开发集原始报告的再计算，没有新生成、新GPU作业。
+
+**2026-10-29 · 优先级修正：多来源×完整160-site×视频质量与实测成本成为新方法排序的首要证据。**[现行新合同](20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)重算UB1 20来源质量、Aff54 320-site与A0六视频历史证据，推翻旧v3先单末层误差再按需视频的研究排序；下一Agent首先建立source×方法×视频分维×系统成本矩阵，然后构造可完整40×4执行的M-B候选，按真正多source Dense配对生成判定。旧v3评议保留为历史分析，现行M-A/B/C权威正文更新为v4；GPU新scope仍依ACTIVE。
+
+**2026-10-29 · 当前路线修订**：[新结果评议、数学修正和下一判别](20261029/RESEARCH_ROUTE_REVIEW_AND_REVISION_20261029.md)。复用已完成B0/B1、BH/匹配A0/BF，不重复启动；当前6016视频明显退化。原始BF16投影的范数修正有效但仅一个暴露转移来源，B-F实际学生则分子错误主导；下一步区分这两种机制并核查跨深度consumer。A100 BF16与RTX PRO6000原生NVFP4并行，QCFB从已有V2/W2资产推进T0；通用group64和“A100 only”指令已纠正。此更新未核验实时GPU分配，以下运行/资源数字保留各原观察时点，以ACTIVE为准。
 
 
-**最新原始BF16实测：**[12flow交叉状态判别](20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。[固定范数原生转移](20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.md)已实际exit0，同状态误差降93.7%/82.5%、own-state降69.6%；下一项核查原始BF16跨深度校准覆盖。两来源均为已暴露开发图像；视频验收和SYS分别核实。当前GPU分配0，本会话A100最多2卡。
+**当前执行：**[原始BF16 corpus](20261029/ORIGINAL_BF16_FULL_DEPTH_CORPUS_RESULTS_20261029.md)及[全80 rank960诊断](20261029/RAW_BF16_FULL80_R960_SPECTRUM_RESULTS_20261029.md)均已实际exit0：1280写回byte-neutral、240因子导出。共享/逐步表示均保留全W1/GELU，局部结果用于构造下一全160-site、多来源配对视频候选。[视频×来源×成本矩阵](20261029/VIDEO_FIRST_SOURCE_METHOD_COST_MATRIX_20261029.md)按旧方法/recipe保留真实身份。[NVFP4权重](20261029/NVFP4_CHECKPOINT_BYTES_RESULTS_20261029.md)、[隔离kernel CPU编译](20261029/SM120_ISOLATED_KERNEL_BUILD_RESULTS_20261029.md)及HF包导出已actualexit0；新packed GPU验证待运行。当前无已分配GPU，会话总计最多2卡，实际范围见[ACTIVE](ACTIVE_RESEARCH.json)。
 
 
-**最新实测与当前运行**：[B-F固定基底结果](20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)实际exit0：两expert×两基底，held8 head SSE high 0.000587/0.000590、low 0.000638/0.000633，均低于同域A0 energy 0.000609/0.000661；这是M256局部证据，视频与系统速度未测。[BF16/NVFP4 R0只读就绪](20261028/BF16_NVFP4_R0_READINESS_20261028.md)：两原始BF16 checkpoint header已核；历史SM120是RTX PRO 6000，用户没有本地5090，但最新允许RTX PRO 6000 Blackwell与A100 BF16双轨并行；NVFP4 R0已恢复READY_STATIC，匹配NVFP4 checkpoint仍待核，真实PRO6000访问尚未在本轮验证。原始BF16两视频已实际exit0。六视频quality v4实际exit0，保留v1/v2/v3失败历史；人审仍待完成，当前GPU占用0。当前会话最多2 GPU，通用动态默认无全局预设上限。
+**最新原始BF16实测：**[12flow交叉状态判别](20261028/ORIGINAL_BF16_LOW39_FOUR_CORNER_RESULTS_20261028.md)实际exit0，四个Dense字节neutral通过，同状态head误差由方差径向项主导；[原始两视频八轴](20261028/ORIGINAL_BF16_TWO_VIDEO_QUALITY_RESULTS_20261028.md)实际exit0，连续RAFT4.836/2.886、MUSIQ均值75.909；[保存行跨来源范数判别](20261028/ORIGINAL_BF16_SAVED_NORM_ROWS_RESULTS_20261028.md)CPU exit0，固定step系数使ratio proxy误差降低84–94%。[固定范数原生转移](20261028/ORIGINAL_BF16_FIXED_NORM_TRANSFER_RESULTS_20261028.md)已实际exit0，同状态误差降93.7%/82.5%、own-state降69.6%；下一项核查原始BF16跨深度校准覆盖。两来源均为已暴露开发图像；视频验收和SYS分别核实。本会话最多同时2卡，实际分配见ACTIVE。
+
+
+**最新实测与当前运行**：[B-F固定基底结果](20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)实际exit0：两expert×两基底，held8 head SSE high 0.000587/0.000590、low 0.000638/0.000633，均低于同域A0 energy 0.000609/0.000661；这是M256局部证据，视频与系统速度未测。[BF16/NVFP4 R0只读就绪](20261028/BF16_NVFP4_R0_READINESS_20261028.md)：两原始BF16 checkpoint header已核；历史SM120是RTX PRO 6000，用户没有本地5090，但最新允许RTX PRO 6000 Blackwell与A100 BF16双轨并行；NVFP4 R0已恢复READY_STATIC，匹配NVFP4 checkpoint仍待核，真实PRO6000访问尚未在本轮验证。原始BF16两视频已实际exit0。六视频quality v4实际exit0，保留v1/v2/v3失败历史；人审仍待完成，当前采集占用见上文及ACTIVE。当前会话最多2 GPU，通用动态默认无全局预设上限。
 
 > **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v4](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；[动态资源规则](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)通用默认不预设全局上限；具体实验的冻结资源预算与ACTIVE中的当前授权单独核对，GPU/模型/视频作业范围仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
 
@@ -17,7 +24,7 @@
 | 顺序 | 阅读对象 | 得到的具体信息 | 进入下一步的条件 |
 | --- | --- | --- | --- |
 | **1** | [当前最小上下文包](agent_protocol/CURRENT_CONTEXT_PACKET.md) | Wan原生FFN/QDQ/step、已完成与OPEN边界、当前用户指定的M-B | 确认本轮研究对象及source/模型版本 |
-| **2** | [M-A/M-B/M-C统一方案v3](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | 三种新函数、G14约束、强比较器与已登记研究顺序 | 不把旧初版A/B/C意见作为新任务 |
+| **2** | [M-A/M-B/M-C统一方案v4](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | 三种新函数、G14约束、强比较器与已登记研究顺序 | 不把旧初版A/B/C意见作为新任务 |
 | **3** | [M-B数学快照v2](20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md) | 配对敏感度、末层65个连续充分统计、B-H/B-F学生及线上代价 | 继承ALG/SRC及实际B0/B1结果；区分已测固定字典与一般配对机制 |
 | **4** | [下一Agent B0/B1交接](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 原生producer/资产/neutral→有限响应→学生函数判别与输出合同 | 复用已完成B0及CAL24配对判别；复用已完成B-H/A0/B-F，按最新判别续作 |
 | **5** | [ACTIVE真实研究状态](ACTIVE_RESEARCH.json) | 当轮模型/资源权限、已完成的原始RUN、模型和实验范围 | 不将任务文档视为自动运行授权 |
@@ -44,7 +51,7 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为224节点/465原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 
@@ -73,4 +80,3 @@
 [ARCHIVE总索引](../ARCHIVE.md) · [早期机制重置](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [旧first-task时间点](20261025/E0_FFN_FIRST_TASK_20261025.md) · [旧Affine54失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) · [原A/B/C独立评议](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) · [最初提案Git版本](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。
 
 历史报告的“现在运行”“下一步”“暂停/恢复”只对当时冻结scope成立；目前方法进度依P0及[ACTIVE](ACTIVE_RESEARCH.json)核验。历史RUN、HASH、模型/来源、独立同行评议和失败边界不通过此索引重写。只在实际新的SRC/ALG/NATIVE/VIDEO或论文结论改变研究理解时，升级P0–P2；否则将新材料归入对应专题/历史证据而非新增并列权威方案。
-

@@ -1,0 +1,77 @@
+{
+  "schema": "ffnds.pro6000.r0.readonly.refresh.v1",
+  "date": "2026-10-29",
+  "access_status": "AUTHORIZED_SSH_OBSERVED_REACHABLE",
+  "probe_scope": "nvidia-smi, compiler/version and directory metadata only; no GPU context, allocation, model or download",
+  "device_type": "NVIDIA RTX PRO 6000 Blackwell Max-Q Workstation Edition",
+  "compute_capability": "12.0",
+  "total_memory_mib_per_device": 97887,
+  "gpu_count_per_entry": 4,
+  "mig_current_query": "[N/A]",
+  "observations": [
+    {
+      "label": "A",
+      "driver": "580.82.07",
+      "observed_100_percent_devices": 4,
+      "observed_zero_percent_devices": 0,
+      "nvcc_default_path": "NOT_FOUND",
+      "installed_nvcc": "12.8",
+      "cmake": "3.28.3"
+    },
+    {
+      "label": "B",
+      "driver": "580.126.09",
+      "observed_100_percent_devices": 1,
+      "observed_zero_percent_devices": 3,
+      "free_memory_mib_zero_util_devices": 97233,
+      "nvcc_default_path": "NOT_FOUND",
+      "installed_nvcc": "13.1",
+      "cmake": "3.28.3"
+    }
+  ],
+  "gpu_availability": "OBSERVED_ONLY_DYNAMIC_NOT_RESERVED",
+  "kernel_compilation": "NOT_RUN",
+  "GPU_execution": "NOT_RUN",
+  "framework_or_backend_imports": "NOT_CHECKED",
+  "private_evidence_sha256": [
+    "21e27abe63ab506f1d1557f63bcfa7a498efbaa8d60ca6661492ac70b7e649b5",
+    "68391f8bcab6a9a8d5a7445664232c44439bac91c8f93e3cbf3cafb8aa2b30e9"
+  ],
+  "local_preset": {
+    "path": ".runtime/code/LightX2V/configs/wan22/wan_moe_i2v_distill_nvfp4_sparse_attn.json",
+    "sha256": "4b9926ad7acd60d812dc40c9aad8904476665fa2471c1cc2b706916623639c88",
+    "high_low_paths": "PLACEHOLDERS",
+    "numeric_path": "NVFP4",
+    "scheduler": [
+      1000,
+      750,
+      500,
+      250
+    ],
+    "attention": "dynamic_sparse_attn/sage2",
+    "upstream_commit": "UPSTREAM_COMMIT_NOT_VERIFIED_CURRENT_CHECK",
+    "ffnds_snapshot_parent_commit_at_query": "c9acd43e4b48f70940c8f4523244a0575234f8b8"
+  },
+  "checkpoint": {
+    "status": "LOCAL_CHECKPOINT_BINDING_NOT_VERIFIED",
+    "producer": "lightx2v/LightWan2.2-A14B",
+    "producer_note": "quantization-aware step distillation with sparse attention, distinct from BF16 originals",
+    "high": {
+      "filename": "Wan2.2-I2V-A14B_NVFP4_Sparse_high.safetensors",
+      "sha256": "c77b92616d678fa8373462973a3d2e3ceefd2fbdb3ccf33454e74f4c79fcf07a",
+      "source": "https://huggingface.co/lightx2v/LightWan2.2-A14B/blob/main/Wan2.2-I2V-A14B_NVFP4_Sparse_high.safetensors"
+    },
+    "low": {
+      "filename": "Wan2.2-I2V-A14B_NVFP4_Sparse_low.safetensors",
+      "sha256": "d76b53286dd9b68f5d956941037c0a6fd5a1fe0fd05eb97f8bf8abf9915da562",
+      "source": "https://huggingface.co/lightx2v/LightWan2.2-A14B/blob/main/Wan2.2-I2V-A14B_NVFP4_Sparse_low.safetensors"
+    },
+    "weights_downloaded": false,
+    "local_payload_hashes_computed": false
+  },
+  "historical_primitive": {
+    "status": "PASS_PACKED_PRIMITIVE_NOT_WAN_OR_QUANTIZATION_VALIDATION",
+    "result_sha256": "4741034dc4530ee3a46198cde3c436401877285caceb55ae17896397a29d2b0c"
+  },
+  "prior_r0_sha256": "36b4d9b2be94741ec82427adec61561f0f72a50e4792c9d3d600ee7da9abeb63"
+}
