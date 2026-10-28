@@ -2,7 +2,7 @@
 
 > **优先级和研究进度的权威入口**：[P0–P4阅读导航](../RESEARCH_NAVIGATION.md)。本目录负责协议、程序约束、计算图的机器索引，不维护第二份完整“当前研究状态”。[任务状态与依赖台账](CURRENT_TASK_LEDGER_20261028.json)仅记录READY/WAITING/DEFERRED及当前证据身份，不是新的科研路线或实验授权。[根AGENTS](../../AGENTS.md)和[领域Skill](../../.agents/skills/ffnds-paper-discovery/SKILL.md)决定科研行为；[ACTIVE](../ACTIVE_RESEARCH.json)决定原生模型作业权限。
 
-**当前数值路径及用户设备纠正**：[原始BF16优先，原生NVFP4部署暂缓](BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户**没有本地5090**，不急于搭建NVFP4；SM120 R0–R4已DEFERRED，仅保留源级技术知识和历史RTX PRO 6000 Blackwell基元。继续已实测的原始BF16 M-B/B-F/A0、范数/跨状态以及视频运动研究。HiF4 Fake-QDQ用于数值消融与旧证据复现。原始BF16权重≠HiF4 weight_qdq，W4A16≠原生W4A4。静态协议本身不授权GPU作业。
+**当前双硬件研究协议**：[A100原始BF16与RTX PRO 6000 Blackwell NVFP4并行](BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。用户无本地5090，但指定PRO6000为并行FP4目标，任务台账中R0恢复READY_STATIC、R1等待实际设备/新ACTIVE scope，后续待原生证据。历史E0是RTX PRO 6000 Blackwell真实SM120基元，不证明当前访问或完整Wan；现有nvfp4_rtn_backend.py仍是Fake-QDQ。BF16最新B-F/low39/fixed-norm/视频继续推进；旧HiF4数值、原始BF16、NVFP4 decoded BF16和native W4A4各自独立记账。
 
 ## P0 · 下一位Agent直接使用
 
