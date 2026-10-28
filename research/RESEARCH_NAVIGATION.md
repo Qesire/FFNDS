@@ -1,6 +1,6 @@
 # FFNDS · 阅读优先级与当前研究导航（2026-10-28）
 
-> **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；[动态资源规则](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)通用默认不预设全局上限；本会话用户指定最多同时2张GPU，GPU/模型/视频作业范围仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
+> **本文件只负责“先读什么、找到什么、哪些是历史”。** 科学目标及研究边界见[统一研究目标](RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)；**当前方法的权威正文**是[三路线整合研究方案 v2](20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)，下一Agent的**具体执行交接**在[B0/B1任务](agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)。**当前任务状态与依赖**见[唯一状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json)；[动态资源规则](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)通用默认不预设全局上限；具体实验的冻结资源预算与ACTIVE中的当前授权单独核对，GPU/模型/视频作业范围仍以[ACTIVE](ACTIVE_RESEARCH.json)为准。本导航与台账均不改实验授权或独立评议。
 
 ## P0 · 立即阅读：恢复上下文与当前首项研究
 
@@ -48,7 +48,7 @@
 
 ## P3 · 专题深入（有相应研究问题再阅读）
 
-- **量化元信息决策价值（I+F+C，2026-10-28）**：[Q-Meta / Q-Joint 研究恢复与融合快照](20261028/QMETA_DECISION_VALUE_AND_FUNCTION_FUSION_METHOD_SNAPSHOT_20261028.md) → [新图谱 claim](method_discussion/graph_annotations/E0/E0_GRAPH_QMETA_NETVOI_JOINT_20261028.json) → 旧G6D/G6E/G6F及G11/G12；**ALG/SRC/LIT+OPEN，不是原生速度或视频验证**，与M-A/B/C并行，**不变更P0指定的M-B优先级**。
+- **量化元信息决策价值（I+F+C，2026-10-28）**：[Q-Meta / Q-Joint 研究恢复与融合快照](20261028/QMETA_DECISION_VALUE_AND_FUNCTION_FUSION_METHOD_SNAPSHOT_20261028.md) → [量化时点、获取与消费成本](20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md) → [已核查的Q0签名资产清单](20261028/P1_Q0_SAVED_SIGNED_ASSET_AUDIT_20261028.json) → [新图谱 claim](method_discussion/graph_annotations/E0/E0_GRAPH_QMETA_NETVOI_JOINT_20261028.json) → 旧G6D/G6E/G6F及G11/G12；**ALG/SRC/LIT+OPEN，不是原生速度或视频验证**，与M-A/B/C并行，**不变更P0指定的M-B优先级**。
 - **I信息线**：[G11低位码](literature/20261027/G11_QUANTIZED_SIGN_MAGNITUDE_INFORMATION_AND_FFN_FUNCTION.md) → [G12有符号量化证书](literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md) → [精确投影和跨线综合](20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)。
 - **F函数线**：[G13函数研究](20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md) → [O/D/Q/P定位](20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md) → [whole-flow反事实](20261026/E0_WHOLE_FLOW_COUNTERFACTUAL_RESULTS.md)。
 - **C执行线**：[RT-Lynx与Wan2:4](20261027/RT_LYNX_ACTIVATION_SPARSITY_SUPERPOSITION_AND_WAN_EXECUTION_AUDIT_20261027.md) → [G11五篇原文/代码](literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md) → [物理成本证据](20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.md)。
@@ -61,4 +61,3 @@
 
 历史报告的“现在运行”“下一步”“暂停/恢复”只对当时冻结scope成立；目前方法进度依P0及[ACTIVE](ACTIVE_RESEARCH.json)核验。历史RUN、HASH、模型/来源、独立同行评议和失败边界不通过此索引重写。只在实际新的SRC/ALG/NATIVE/VIDEO或论文结论改变研究理解时，升级P0–P2；否则将新材料归入对应专题/历史证据而非新增并列权威方案。
 
-**量化信息时点与消费**：[Q-Meta生产、读取、决策与截止的论文检验](20261028/QMETA_OBSERVATION_TIMING_AND_EFFICIENT_USE_20261028.md)，[机器合同](agent_protocol/QMETA_OBSERVATION_CONTRACT_20261028.json)。新增L95–L98、深化TeaCache并复核Prox/SharQ；有限合成检查不代表Wan实测。现行M-B任务以任务台账为准。
