@@ -35,4 +35,4 @@
 
 执行任务、GPU资源、视频采样和批准等都由[ACTIVE](../ACTIVE_RESEARCH.json)维护；本队列讨论的科学方向始终遵循[AutoResearcher](../../AGENTS.md)，保持可证伪且允许I/F/C开放扩展。
 
-**2026-10-28 QCFB独立数学审阅**：[/root/qcfb_review原文](../independent_reviews/QCFB_20261028/INDEPENDENT_MATH_REVIEW.md)审阅基准8b62fd2；[协调者严格推导与修订](../20261028/QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md)纳入可测性、联合矩PSD和时序信息修正。审阅针对基础版本，不是最终修订复审或正式proposal SUPPORT票；上述正式支持计数不变。
+**2026-10-28 QCFB三轮交锋**：[统一R1–R3原作者/独立评议索引](../independent_reviews/QCFB_20261028/README.md)。R1数学审阅→命题修订→R2独立审查→R3原作者回应已记录；R3区分动作字典覆盖损失、先决信息不足及学习误差，修正分箱信息下界与跨步注入坐标；**仍无正式SUPPORT票、QCFB native/VIDEO/SYS新结果或运行授权**。此讨论与[当日任务台账](../agent_protocol/CURRENT_TASK_LEDGER_20261028.json)的并行Q0资产核对对应，不挤占P0 M-B B0。
