@@ -21,9 +21,7 @@ description: Apply AutoResearcher science to parallel information, function/dyna
 
 **资源调度（2026-10-28最新指令）**：按[现行动态GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际可申请并运行的最多GPU；没有预设全局张数限制。旧2/4卡可属于历史实验的冻结字段；新scope按实际可调度量和ACTIVE冻结模型/来源/预算；不要凭旧上限拒绝并行的独立已注册工作。
 
-**目前指定先研究M-B（不等于O-B全部）**：[M-B数学快照](../../../research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已有配对敏感度与连续65统计；[B0/CAL24/B1固定池](../../../research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)和[B-H Direct65 H128 pilot](../../../research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)均有真实结果。下一[Agent按更新技术交接](../../../research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)继续**原M同head/A0公平对照、B-F函数及功能级视频验证**，旧B0不重复启动；A0全80函数160局部学生已完成，部署与视频OPEN。这是针对本轮方法接手者的顺序，不限制其它Agent的I/F/C新科学假说。
-
-## 实验采样与校准的可解释证据
+**当前指定继续M-B（方法研究）**：复用B0/CAL24/B-H/A0/B-F现存数值与20-source UB1、320-site Affine54以及A0六视频的真实证据；**首个可排序方法实验**从全160-site可执行函数、≥20独立image clusters同源Dense完整视频、运动/画质/主体/背景/时序/语义和真实FFN/全wall共同决策。末层L39/head/gain保留为推导、解释和诊断；它单独的成功不提升全模型部署方法状态。开发历史曝光与未暴露确认严格分离；R0原生NVFP4并行。最新合同见[视频先行](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。\n\n## 实验采样与校准的可解释证据
 
 **跨方法同预算和同统计对象**：UB1/固定RR、Affine54、激活2:4与训练后表示均可利用[Calibration V2](../../../research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)的独立image-cluster配额、teacher/student同坐标、真实QDQ、完整自由视频和成本；每条路线自己冻结estimand、source exposure、训练预算、数值插入点，互不继承他人的“已验证质量”。
 
