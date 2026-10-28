@@ -55,8 +55,14 @@ def current_execution_authority_is_consistent(active):
             and isinstance(resume.get("user_instruction"), str)
             and bool(resume["user_instruction"].strip())
             and resume.get("status") == "ACTIVE_CURRENT_USER_DIRECTED_SESSION"
-            and type(resume.get("max_simultaneously_assigned_idle_GPUs")) is int
-            and 1 <= resume.get("max_simultaneously_assigned_idle_GPUs") <= 4
+            and resume.get("max_simultaneously_assigned_idle_GPUs") is None
+            and resume.get("resource_scheduling_policy") == "resource_scheduling_policy_20261028"
+            and authority.get("active_resource_policy") == "resource_scheduling_policy_20261028"
+            and active.get("resource_scheduling_policy_20261028", {}).get("status")
+                == "ACTIVE_OVERRIDES_PRIOR_NUMERIC_GLOBAL_CAPS"
+            and active.get("resource_scheduling_policy_20261028", {}).get("mode")
+                == "DYNAMIC_MAX_ACTUALLY_CALLABLE"
+            and active.get("resource_scheduling_policy_20261028", {}).get("global_gpu_card_cap") is None
             and resume.get("protocol_code_asset_budget_freeze_before_launch") is True
             and resume.get("automatic_retry") is False
             and resume.get("historical_pause_receipts_preserved") is True)
