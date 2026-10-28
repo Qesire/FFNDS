@@ -4,7 +4,7 @@
 
 **方法语法**：I（信息与表示）、F（函数与动力学）、C（真实执行）是可并行的研究问题；O-A选择计算、O-B函数表示、O-C历史复用、O-D计算代数、O-E学习与验证是可组合的操作。[五操作框架](research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)及[G14论文/typed先验交叉表](research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)负责论文和真实计算位置。原三候选统一记为M-A、M-B、M-C，避免与O-A/B/C同名。
 
-**当前状态/依赖**按[2026-10-28任务台账](research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json)核对：此台账不授权执行，也不改变本文件方法原则。**当前下一任务（用户指定M-B先行）**：已完成[A0四位置原生局部恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)和[M-B v2 ALG/SRC及末层65个连续充分统计](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)；下一Agent按[B0/B1具体交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)从真实post-write u/head/flow producer与neutral开始，之后才是finite和B-H/B-F学生。M-C仍为独立开放研究。首个实验、质量和系统成果需实际执行，不由文档/独立讨论推定。
+**当前状态/依赖**按[2026-10-28任务台账](research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json)核对：此台账不授权执行，也不改变本文件方法原则。**当前下一任务（用户指定M-B先行）**：已完成[A0四位置原生局部恢复](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)和[M-B v2 ALG/SRC及末层65个连续充分统计](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)；已完成[B0真实post-write u/head/flow捕获与B1首轮有限head验证](research/20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)，下一Agent按[B0/B1具体交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)推进B1同来源标签与paired/marginal判别，之后才是B-H/B-F学生。M-C仍为独立开放研究。首个实验、质量和系统成果需实际执行，不由文档/独立讨论推定。
 
 **最短工作链**：[当前上下文](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → [现行研究方案](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) → [有关SRC/G14论文计算图](docs/98_端到端计算图与证据注解_20261025.md) → [方法专属实验/运行合同](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)。完整文献或历史材料仅在相应科学问题需要时按照阅读导航P1–P4深入；不必逐份阅读历史 handoff。
 
@@ -60,7 +60,7 @@
 
 ## 五、当前研究权限与交接
 
-**运行授权核验（2026-10-27用户恢复的历史授权见ACTIVE）**：I/F/C科研及登记后的有限CPU/GPU/原生实验继续。历史用户指令要求持续推进，同时最多使用**四张空闲GPU**；简单委派使用GPT‑6.1 Terra。协调者在运行前冻结具体问题、对照、代码/资产和预算并登记[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)，按实际结果继续下一项有辨别力的工作。旧暂停、已完成范围和失败记录保持历史身份；本轮恢复不自动重跑旧失败，也不扩展实时/流式实验。
+**运行授权核验与动态GPU调度（2026-10-28现行）**：I/F/C科研及登记后的有限CPU/GPU/原生实验继续。GPU**不提前设置2/4张等任何固定全局上限**，按[动态资源调度规则](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)在每次启动时尽可能使用实际可申请/调度/获批且能投入独立READY任务的全部GPU。原先2/4张属于历史授权和冻结scope，不再是当前全局限额；简单委派按现行Agent可用规则执行。协调者在运行前冻结具体问题、对照、代码/资产和预算并登记[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)，按实际结果继续下一项有辨别力的工作。旧暂停、已完成范围和失败记录保持历史身份；本轮恢复不自动重跑旧失败，也不扩展实时/流式实验。
 
 交接只需**新机制/功能发现、证据出处、真正分歧、对应图节点、最小后续判别和已完成的原生范围**。历史文档当时的“Next/Active/Run”用于溯源，由现行研究导航与ACTIVE区分当前状态。新研究以构造性内容优先、以真实证据调整确定度。
 
