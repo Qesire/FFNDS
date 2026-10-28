@@ -24,6 +24,8 @@
 | **M-C**（完整非线性函数编码求值） | [输入充分性、输出秩和大M查表成本](research/20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)，**ALG＋LIT** | 完成数学/保存资产判别，再进入合法原生执行；尚无Wan实际速度/视频 |
 | **旧固定支持与执行竞争器** | [consumer20真实视频质量](research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)，[A100合成2:4 C5](research/20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md) | 分别支持视频功能失配与受限kernel物理证据，不能替代新学生质量/整端速度 |
 
+**Quant 关键区别**：[W-static × A-dynamic × Native FP4时序审计](research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)：W1/W2是提前量化的固定权重；Q1/A1和Q2/A2是每次调用动态激活量化。原生NVFP4/MXFP4 W4A4仍有静态W尺度、动态A局部尺度参加GEMM；W4A16没有FP4激活scale。HiF4当前runtime则是预量化BF16权重、动态激活fake-QDQ、BF16 GEMM。读取metadata做动态选择的价格独立核算。
+
 **原生数值研究对象**：LightX2V Wan2.2 I2V A14B，high/high/low/low四个去噪step、两套expert、每套40个Transformer blocks；典型FFN
 \[
 \mathrm{norm2/AdaLN}\to Q1\to W_1\to\mathrm{GELU}_{\tanh}
