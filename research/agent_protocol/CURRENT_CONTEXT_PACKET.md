@@ -24,13 +24,13 @@
 
 ## 三、当前工作：B-H真实学生与一般配对机制
 
-[CAL24实测汇总](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)记录96个原生flow及byte audit；固定16维span/rank4/18候选中paired、shuffle、marginal、PCA、head-only同选PCA，CPU M256不代表native floor；B0四case的16次full-M选中行neutral已通过。B-H v1（协议SHA `2832d5be8c5d248c923c3a3b244c5d3c4f84e957efbf95bf36d9605af2a88ce1`）已实际完成GPU训练和worker exit0；[结果](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)：两expert各256次Adam，held8 head SSE高/低0.003958/0.003615；下一步原M/A0同head比较。B-F及一般paired机制保持OPEN。当前会话最多2张GPU覆盖[通用动态策略](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的无预设全局上限默认；新范围仍须ACTIVE登记。
+[CAL24实测汇总](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)记录96个原生flow及byte audit；固定16维span/rank4/18候选中paired、shuffle、marginal、PCA、head-only同选PCA，CPU M256不代表native floor；B0四case的16次full-M选中行neutral已通过。B-H v1（协议SHA `2832d5be8c5d248c923c3a3b244c5d3c4f84e957efbf95bf36d9605af2a88ce1`）已实际完成GPU训练和worker exit0；[结果](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)：两expert各256次Adam，held8 head SSE高/低0.003958/0.003615；下一步原M/A0同head比较。B-F及一般paired机制保持OPEN。GPU按[动态调度原则](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)采用实际可调用最大量、无预设全局卡数；各冻结实验自有预算与ACTIVE中明确的会话记录分别保留，不自动把历史2/4卡转为新的全局约束。新范围仍须ACTIVE登记。
 
 ## 四、权限、独立评议与交付
 
 [ACTIVE](../ACTIVE_RESEARCH.json)记录所有真实CPU/GPU/model/video执行权限及历史范围；新范围应由协调者按实际研究问题、资产、来源、对照、预算冻结。数学/文献/源码/保存数据可优先探索。独立方法提案和真实peer审阅按[method_discussion/QUEUE](../method_discussion/QUEUE.md)；QUEUE不是GPU任务队列，已完成M-B数学快照不自动成为认可的部署方法。
 
-**下一位Agent有价值的交付**：核验B-H真实训练结果与匹配对照，继续B-F真实函数图和线上成本，逐项分开ALG/SRC/NATIVE/VIDEO/SYS/OPEN，变化同步主图和方法快照。已有历史失配/论文记录照原证据身份保留，不再重复撰写“B首轮设计任务”。
+**下一位Agent有价值的交付**：利用已完成的B-H H128与A0全80本地资产进行相同head/数据/算术的公平基线及原M数值验收，继续B-F真实函数图和线上成本，逐项分开ALG/SRC/NATIVE/VIDEO/SYS/OPEN，变化同步主图和方法快照。已有历史失配/论文记录照原证据身份保留，不再重复撰写“B首轮设计任务”。
 
 **跨线同步补充**：QCFB/Q-STAGE的R1–R3讨论已整理在[独立评议目录](../independent_reviews/QCFB_20261028/README.md)，R3提供字典覆盖/信息/学习误差三项分解及跨step合法状态空间注入纠错；这仍是ALG/SRC/LIT+OPEN，优先开展旧数据资产可用性检查，而不是将其视为现行GPU任务。当前`ACTIVE`中的历史暂停、已完成scopes和后来的`user_continuation_authorization_20261027`须按**时间与精确scope**解读；B0、CAL24配对标签及固定字典B1均已完成；后续运行以ACTIVE精确scope为准。
 
