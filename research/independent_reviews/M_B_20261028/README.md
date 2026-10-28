@@ -6,6 +6,8 @@
 
 1. **[INDEPENDENT_REVIEW.md](INDEPENDENT_REVIEW.md)** — M-B v2 的首份独立评议：source/state 配对敏感度、末层 LN/head Jacobian、65 统计量、残差增量学生、A0 竞争基线、真实成本及初始分流。
 2. **[EARLY_LAYER_SUFFIX_AND_MULTISTEP_REVIEW_20261028.md](EARLY_LAYER_SUFFIX_AND_MULTISTEP_REVIEW_20261028.md)** — 前层与四步推广（二阶独立审查，256 行）：逐 token 通道平移等变性的条件证明；任意前层 Flow Jacobian 的秩/核维度上界；Self-/Cross-Attention 传播差异；scheduler 的终端敏感度和跨位置有符号交叉项；CoBRAS、非线性微分 Gramian、2ndMatch、OBS-Diff、SVD-Cache 原论文的可迁移结论；最小实验矩阵与事实/假说边界。
+3. **[RESPONSE_TO_SECOND_AGENT_20261028.md](RESPONSE_TO_SECOND_AGENT_20261028.md)** — 第三轮独立回应（另一 Agent）：B-QUOTIENT 训练目标、两类 JOINT 的拆分、二因子四臂有限响应。
+4. **[FOURTH_ROUND_REVIEW_OF_QUOTIENT_RESPONSE_20261028.md](FOURTH_ROUND_REVIEW_OF_QUOTIENT_RESPONSE_20261028.md)** — 对第三轮回应的再评议：核实 A0 的 source-row mean 与 LN channel-mean 属于不同轴；提出四正交分量诊断、可折叠 bias 校正强对照、共享 expert 两 step 的条件，以及原生/成本研究分流。
 
 ## 合并评议结论
 
@@ -14,6 +16,8 @@
 - **B-GAUGE（ALG）**：在 Pre-LN、Cross-LN、无额外直读分支、固定条件的连续模型中，逐 token 的通道共同平移穿过后续 Block 而被最终 LN 消去；应优先核对 FFNDS 冻结 runtime 分支与 BF16 有限差。
 - **B-OBS（ALG/OPEN）**：用可观测性、adjoint snapshot、JVP/VJP sketch 描述跨全层和四步状态传播；同来源配对度量与成熟边际基线分别比较。
 - **B-JOINT（ALG/OPEN）**：从 E0 的有符号全步有限反事实提出跨 FFN 位置相互作用假说，并以分组混合模型有限干预检验；E0 不是跨位置交互的已通过证明。
+
+**第四轮新增判别**：A0 既有 mean-error fraction 是沿256行平均，不能作为 B-QUOTIENT 的通道 gauge 收益预测。先基于合法配对实际输出分解 row/channel 四正交误差，再比较已有算子可折叠 bias、quotient loss 和 terminal sensitivity；bias correction 已有 ICCV 2019 先例，应作为强基线而非创新归属。
 
 **特别保留**：一个状态下 $\dim\ker J\ge(5120-64)M$（零度至少占 98.75%）是线性代数维数结论，**不能宣称 98.75% FFN 通道可删除**。稳定部署还需来源间可共享表示、学生可预测性与实际算子省算。末层径向近似不变性不自动扩展到前层。
 
