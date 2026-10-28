@@ -6,10 +6,11 @@
 
 | 文件 | 应当读到/执行的合同 |
 | --- | --- |
-| [任务状态台账](CURRENT_TASK_LEDGER_20261028.json) | 当前M-B B0先行、QCFB/UB1并行已存数据分析、M-A0仅局部完成及模型作业的依赖/冻结状态 |
-| [最小上下文包](CURRENT_CONTEXT_PACKET.md) | 原生Wan/QDQ/step、M-A0已完成局部实验、M-B代数已完成而B0 OPEN、M-C开放 |
+| [任务状态台账](CURRENT_TASK_LEDGER_20261028.json) | 当前M-B B0已完成、B1有限head已完成一部分、QCFB/UB1并行数据分析、M-A0部分完成及模型作业依赖 |
+| [最小上下文包](CURRENT_CONTEXT_PACKET.md) | 原生Wan/QDQ/step、M-A0已完成局部实验、M-B B0原生已完成且B1首轮finite已有结果、M-C开放 |
 | [三方法权威方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | G14科学先验转换成M-A/M-B/M-C真正的函数与部署约束 |
 | [B0/B1当前任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | post-write u/head/flow的producer/neutral准备→有限响应、B-H/B-F学生 |
+| [现行动态GPU策略](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md) | 无预设全局卡数限制；每轮按实际可调用量及READY任务最大化并发，旧冻结scope不改SHA |
 | [现行范围/预算](../ACTIVE_RESEARCH.json) | 具体模型、GPU、来源、预算、独立来源与RUN身份；旧scope不自动续期 |
 
 ## P1 · 按研究主张再打开相应协议
