@@ -22,7 +22,14 @@
     "current_session_explicit_GPU_limit": 2,
     "session_resource_precedence": "Latest direct chat max2 overrides general dynamic resource default for this session.",
     "last_verified_assigned_GPU_slots": 0,
-    "quantization_operand_contract": "research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json"
+    "quantization_operand_contract": "research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json",
+    "numeric_execution_policy": "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
+    "user_local_deployment_hardware": {
+      "hardware": "user-owned RTX 5090, CC12.0/SM120, 32GB",
+      "verification_state": "PUBLIC_HW_SPEC_ONLY; user local CUDA/toolchain/available VRAM not observed",
+      "primary_native_format": "NVFP4_W4A4",
+      "new_gpu_work_permission": "REQUIRES_EXACT_ACTIVE_SCOPE"
+    }
   },
   "status_legend": {
     "READY_STATIC": "Can progress by reading source, existing evidence and creating bounded code/protocol without new model runs",
@@ -296,6 +303,90 @@
         "research/ACTIVE_RESEARCH.json"
       ],
       "execution": "NO_NEW_REALTIME_JOB"
+    },
+    {
+      "id": "P0-SM120-R0-ENV",
+      "track": "Numeric backend migration / RTX5090",
+      "priority": 0,
+      "status": "READY_STATIC",
+      "dependencies": [],
+      "basis": [
+        "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
+        "research/20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md",
+        "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
+      ],
+      "output": "Read-only 5090 SM120/CUDA >=12.8 /driver/torch/FlashInfer/CUTLASS/LightX2V version and 32GB VRAM feasibility matrix with concrete native W4A4 vs fallback kernel availability; actual local GPU state remains NOT_OBSERVED until collected.",
+      "next_action": "Ask next execution Agent to run explicit nvidia-smi, Python get_device_capability, nvcc/ninja and backend checks on user's 5090 environment when accessible; pin LightX2V quantized I2V high/low checkpoint, 4step scheduler, attention, source/model identity and actual VRAM strategy. Static repo/source audit may start now.",
+      "execution": "READ_ONLY_STATIC_PREFERRED; user desktop not connected to GitHub agent"
+    },
+    {
+      "id": "P1-SM120-R1-FP4-NATIVE",
+      "track": "Numeric backend migration / RTX5090",
+      "priority": 1,
+      "status": "OPEN_NEEDS_REGISTERED_NATIVE",
+      "dependencies": [
+        "P0-SM120-R0-ENV"
+      ],
+      "basis": [
+        "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
+        "research/20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md",
+        "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
+      ],
+      "output": "Single bounded real SM120 CUTLASS/LightX2V backend packed E2M1 W4A4 native GEMM and two scale operand numerical check, with kernel/CC/evidence; exclude Marlin W4A16/fakeQDQ or zero-call exit0.",
+      "next_action": "Reuse existing completed E0_SM120 primitive and pinned CUTLASS79a source; when new scope is registered and user local environment reachable, perform real native kernel noop+reference and record compile/driver facts; do not reconstruct CUDA GEMM from scratch.",
+      "execution": "NO_NEW_GPU_RUN_AUTHORIZED_BY_LEDGER"
+    },
+    {
+      "id": "P1-SM120-R2-WAN-NVFP4-DENSE",
+      "track": "Numeric backend migration / RTX5090",
+      "priority": 1,
+      "status": "WAITING_ON_EVIDENCE",
+      "dependencies": [
+        "P1-SM120-R1-FP4-NATIVE"
+      ],
+      "basis": [
+        "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
+        "research/20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md",
+        "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
+      ],
+      "output": "M=Wan I2V actual full M original native NVFP4 W4A4 dense baseline from matching high/low checkpoints and dynamic activation scale producer, with wall/VRAM/noop; not merely random shape primitive.",
+      "next_action": "Pin official LightX2V nvfp4_sparse_attn preset (1000/750/500/250, dynamic sparse attention) and compatible weights, track mismatch vs historical HiF4 timesteps 1000/937.5/833.333313/625; offload T5 for 32GB, record any other memory/sampling changes. Run only after exact ACTIVE registration and R1 full native no-op.",
+      "execution": "NO_NEW_GPU_RUN_AUTHORIZED_BY_LEDGER"
+    },
+    {
+      "id": "P2-SM120-R3-WAN-NVFP4-CANDIDATE",
+      "track": "Numeric backend migration / RTX5090",
+      "priority": 2,
+      "status": "WAITING_ON_EVIDENCE",
+      "dependencies": [
+        "P1-SM120-R2-WAN-NVFP4-DENSE",
+        "P1-B2-STUDENT"
+      ],
+      "basis": [
+        "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
+        "research/20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md",
+        "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
+      ],
+      "output": "Same NVFP4 checkpoint/scheduler/attention Dense vs FFN candidate, true physically skipped W1/GELU/W2 MACs/tiles, online activation quantization/scale read/route/dispatch/VRAM and native wall, paired numerical residual risk.",
+      "next_action": "Keep M-B B-H/A0/B-F scientific work separate from hardware backend; once actual NVFP4 dense works, test one matched sparse/compact FFN with fixed action recipe. Re-derive native NVFP4 group16 closure; do not inherit HiF4 group64 numerical identity.",
+      "execution": "NO_NEW_GPU_RUN_AUTHORIZED_BY_LEDGER"
+    },
+    {
+      "id": "P3-SM120-R4-WAN-NVFP4-VIDEO",
+      "track": "Numeric backend migration / RTX5090",
+      "priority": 3,
+      "status": "WAITING_ON_EVIDENCE",
+      "dependencies": [
+        "P2-SM120-R3-WAN-NVFP4-CANDIDATE"
+      ],
+      "basis": [
+        "research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md",
+        "research/20261026/E0_SM120_NVFP4_PHYSICAL_PATH.md",
+        "research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md"
+      ],
+      "output": "Full81frame/fourstep/twoexpert×40blocks video Dense/candidate paired source and independent-heldout diagnostics: subject/background, actual motion, camera, prompt-semantic event, tail failure and end-to-end wall.",
+      "next_action": "Only after native candidate validation, perform same checkpoint same seed same attention/scheduler source-disjoint real free-rollout and independent VIDEO+SYS metrics; record all runs/hash and original media. Existing A0/UB1 data keep historical numerical identity.",
+      "execution": "NO_NEW_GPU_RUN_AUTHORIZED_BY_LEDGER"
     }
   ],
   "historical_not_new_tasks": [
