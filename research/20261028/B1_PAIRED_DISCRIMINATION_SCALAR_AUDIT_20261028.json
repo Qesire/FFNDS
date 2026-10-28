@@ -1,0 +1,103 @@
+{
+  "schema": "ffnds.b1.scalar_independent_audit.v1",
+  "status": "PASS_SCALAR_RECEIPT_AND_ACCOUNTING_AUDIT",
+  "evidence": "OBS_CAL24_M256_TERMINAL_REAL_SURROGATE_FINITE_DICTIONARY",
+  "RUN_sha256": "417fb5066353be8888879698ea38dc4caebc4caa9430cd3d776082522705e66b",
+  "ANALYSIS_sha256": "58789cbe33c3c6da822b0712e0fac90be1e9188321eea869e74c3e3db94f74f8",
+  "EXIT_RECEIPT_sha256": "3e9ae2d406163a849a01f713b636bc744430d0162664a27a756a79d978fc1f2d",
+  "prior_label_manifest_sha256": "0feb7b65639bca140a6a48830cea9b18a0fe3c939d35572d6b58bccf358ab9bb",
+  "prior_four_actual_exit_receipts": [
+    {
+      "part": 0,
+      "RUN_sha256": "51032c6020daf42ad559259488591b2a771ddc700d960bec938ecaaae3913867",
+      "EXIT_RECEIPT_sha256": "be7cc6766b025764140f7ab08d87eba629496a2839c9f211d3d420ecd13886b5",
+      "actual_exit0": true
+    },
+    {
+      "part": 1,
+      "RUN_sha256": "e1453376f91e817bf62e9cc724b45f4e2df2e12d9df2f75f5b5957ce278a8e7d",
+      "EXIT_RECEIPT_sha256": "b8b41f3818a63c3a08198ddf9d9b39189fd190bb45968b8edd8c5473081ed28a",
+      "actual_exit0": true
+    },
+    {
+      "part": 2,
+      "RUN_sha256": "11509a4e5ee0620094d56220ecb833c5f85ee9b9704488db3075a21062774185",
+      "EXIT_RECEIPT_sha256": "91eaeca6363aaa842189c6586584cdf6b30e2fc2cad0a82d8873c0a4de9b678c",
+      "actual_exit0": true
+    },
+    {
+      "part": 3,
+      "RUN_sha256": "71124cd3a833e54231884deaa92713f5eee770255fefa5dac81ba3c60d01bcd7",
+      "EXIT_RECEIPT_sha256": "aeb5759e9b68b834b0c437d8b2206f2d000234b8a6b2d038118eb40b1d161e29",
+      "actual_exit0": true
+    }
+  ],
+  "source_split": {
+    "train": 16,
+    "heldout_exposed": 8,
+    "steps_per_source": 4,
+    "cases": 96
+  },
+  "budget_equal_predebited_invoked_completed": true,
+  "CPU_M256_layer_norm_and_head_calls": 448,
+  "GPU_and_full_M_calls": 0,
+  "selection": {
+    "paired": "PCA_in_shared_span",
+    "source_shuffled": "PCA_in_shared_span",
+    "marginal": "PCA_in_shared_span",
+    "PCA_in_shared_span": "PCA_in_shared_span",
+    "fixed_random": "fixed_random",
+    "shared_head_only": "PCA_in_shared_span"
+  },
+  "selected_heldout_surrogate": {
+    "paired": 0.9788638785795054,
+    "source_shuffled": 0.9788638785795054,
+    "marginal": 0.9788638785795054,
+    "PCA_in_shared_span": 0.9788638785795054,
+    "fixed_random": 0.9854148452676603,
+    "shared_head_only": 0.9788638785795054
+  },
+  "heldout_projected_decomposition": {
+    "PCA_in_shared_span": {
+      "direct_head_SSE": 0.24311685164242022,
+      "radial_SSE": 0.8310384464237376,
+      "twice_signed_cross": -0.09529141948665243
+    },
+    "fixed_random": {
+      "direct_head_SSE": 0.2485418384678806,
+      "radial_SSE": 0.830811559853866,
+      "twice_signed_cross": -0.09393855305408627
+    }
+  },
+  "finite_M256_equal_source_means": {
+    "paired@0.0625": {
+      "actual_head_response_mean_row_SSE": 0.0049833574253349035,
+      "actual_vs_finite_mean_row_SSE_equal_source": 0.0006621945367653934,
+      "actual_vs_linear_mean_row_SSE_equal_source": 0.0006625920119529598
+    },
+    "fixed_random@0.0625": {
+      "actual_head_response_mean_row_SSE": 0.005001716940896163,
+      "actual_vs_finite_mean_row_SSE_equal_source": 0.0006631785058062075,
+      "actual_vs_linear_mean_row_SSE_equal_source": 0.0006635932931908265
+    },
+    "paired@0.25": {
+      "actual_head_response_mean_row_SSE": 0.06052051159219186,
+      "actual_vs_finite_mean_row_SSE_equal_source": 0.000736333164608684,
+      "actual_vs_linear_mean_row_SSE_equal_source": 0.0008032926977244107
+    },
+    "fixed_random@0.25": {
+      "actual_head_response_mean_row_SSE": 0.060943598059127815,
+      "actual_vs_finite_mean_row_SSE_equal_source": 0.0007388072209741959,
+      "actual_vs_linear_mean_row_SSE_equal_source": 0.000804778920234227
+    }
+  },
+  "baseline_vs_captured_full_M": {
+    "case_count": 32,
+    "bitwise_equal_cases": 0,
+    "difference_SSE_min": 0.00020267719770572512,
+    "difference_SSE_max": 0.002202414157693511,
+    "difference_SSE_mean_across_32_cases": 0.0011956726250677285,
+    "same_shape_repeat_all_bitwise_equal": true
+  },
+  "limitations": "CAL24 heldout sources historically exposed; six arms reduce to two distinct selected projections; amplitude fraction of pre-gate projection residual; finite CPU M256 vs historical native full-M baseline differs; no new full-M native neutrality or video/latency evidence."
+}

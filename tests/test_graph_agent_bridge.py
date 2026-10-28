@@ -16,7 +16,7 @@ class GraphAgentBridgeTests(unittest.TestCase):
 
     def test_full_literature_index_is_linked_to_actual_native_focus_nodes(self):
         result=validate_paper_focus(self.registry)
-        self.assertEqual(result["paper_focus_primary"],94)
+        self.assertEqual(result["paper_focus_primary"],98)
         self.assertEqual(result["paper_focus_supplemental"],10)
         self.assertEqual(result["paper_focus_stages"],16)
         self.assertGreaterEqual(result["paper_to_stage_links"],150)
@@ -128,10 +128,10 @@ class GraphAgentBridgeTests(unittest.TestCase):
         result = validate_crosswalk(self.registry)
         self.assertIsNotNone(crosswalk)
         self.assertEqual(result["mechanism_families"], 14)
-        self.assertEqual(result["primary_papers"], 94)
+        self.assertEqual(result["primary_papers"], 98)
         self.assertEqual(result["crossgraph_comparison_edges"], 84)
-        self.assertEqual(len(self.registry["nodes"]), 209)
-        self.assertEqual(len(self.registry["edges"]), 431)
+        self.assertEqual(len(self.registry["nodes"]), 214)
+        self.assertEqual(len(self.registry["edges"]), 442)
         nodes = {n["id"]: n for n in self.registry["nodes"]}
         self.assertEqual(nodes["I17"]["evidence_type"], "ALG")
         self.assertEqual(nodes["I18"]["evidence_type"], "ALG")
@@ -224,7 +224,7 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(result["method_project_routes"], 10)
         self.assertGreaterEqual(result["method_prior_constraint_relations"], 12)
         self.assertEqual(result["method_next_agent"], "M-B")
-        self.assertEqual(result["method_next_stage"], "M-B_B0_NATIVE_COMPLETE__B1_PAIRING_AND_ALIGNED_LABELS_PREP")
+        self.assertEqual(result["method_next_stage"], "M-B_B1_CAL24_FIXED_DICTIONARY_COMPLETE__BH_BF_STUDENT_STAGE")
         output = validate(self.registry)
         self.assertEqual(output["method_next_agent"], "M-B")
         self.assertEqual(output["method_operation_types"], 5)
@@ -245,9 +245,9 @@ class GraphAgentBridgeTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         cross = json.loads((root / "research/agent_protocol/METHOD_OPERATION_CROSSWALK.json").read_text())
         progress = {x["method"]: x for x in cross["methods_progress"]}
-        self.assertIn("NATIVE_LOCAL_PILOT_COMPLETE", progress["M-A"]["status"])
-        self.assertIn("B0_NATIVE_STATE_CAPTURE_COMPLETE", progress["M-B"]["status"])
-        self.assertIn("STUDENTS_OPEN", progress["M-B"]["status"])
+        self.assertIn("ALL80_LOCAL_RECOVERY_COMPLETE", progress["M-A"]["status"])
+        self.assertIn("B0_CAL24_LABELS_B1_FIXED_POOL_COMPLETE", progress["M-B"]["status"])
+        self.assertIn("BF_OPEN", progress["M-B"]["status"])
         self.assertEqual({n["id"]: n for n in self.registry["nodes"]}["U30"]["evidence_type"], "NATIVE-OBS")
         self.assertIn("MATHEMATICAL_INPUT_OUTPUT_LIMITS_ONLY", progress["M-C"]["status"])
         self.assertEqual(cross["one_turn_next_agent"], "M-B")
@@ -268,7 +268,7 @@ class GraphAgentBridgeTests(unittest.TestCase):
             self.assertIn(method, entry)
         self.assertIn("NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md", nav)
         self.assertIn("B0", context)
-        self.assertIn("94", skill)
+        self.assertIn("98个主LID", skill)
         self.assertNotIn("89个主LID", skill)
         self.assertNotIn("89项文献、177图节点、371关系", copilot)
 

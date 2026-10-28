@@ -1,0 +1,198 @@
+{
+  "schema": "ffnds.q0.saved_asset_inventory.v1",
+  "status": "READ_ONLY_METADATA_AND_SELECTED_SMALL_HEADERS",
+  "date": "2026-10-28",
+  "method": "Read small RUN/INPUT/view metadata and selected headers; SHA256 computed only six <1MB finite sample files. Recorded prior producer SHAs are not freshly rehashed here. No Torch, model, GPU, fitting or big-pack SHA.",
+  "exposure": "Historical calibration/development sources; not blind confirmation. Rows, sites and steps are nested, not independent sources.",
+  "assets": [
+    {
+      "id": "cal24_native_signed_decoded_operands",
+      "status": "PRESENT_HEADER_INSPECTED_TWO_SCOPES",
+      "locator": "HF-relative paths in config/e0_compact6016_full80_completion_20261028_v1.json inputs[].path -> INPUT.json scopes[].path",
+      "producer": "tools/collect_ffn_operands.py:OperandCapture",
+      "coverage_metadata": "24 image sources, each 4 steps x 40 blocks, 256 original sampled rows per site",
+      "sample": {
+        "source_index": 0,
+        "seed": 42,
+        "step": 0,
+        "block": 0,
+        "expert": "high_noise_model",
+        "INPUT_hf_relative": "ffnds-derived/calibration24_ffn_operands_20261021/f0087de93ae212d94ff6e9060e1a2d967499c8876cfe73521093516a6cb869d9/input00/attempt1/INPUT.json",
+        "INPUT_sha256_recorded": "8ebc093671b1235ab688599df91d81d719837197df6fe22b57b591ca55ec3fae",
+        "scope_file_sha256_recorded": "101d316bfd898f70a60b8f96c5b670273690d40cb593d832c1f0819cd9195149"
+      },
+      "fields": {
+        "V1": "BF16 [256,5120], signed decoded Q1 output",
+        "V2": "BF16 [256,13824], signed decoded Q2 output = 216 contiguous groups of 64",
+        "Y": "BF16 [256,5120], actual FFN output including W2 bias",
+        "gate": "BF16 [1,5120] row-constant actual e5",
+        "b2": "BF16 [5120]"
+      },
+      "semantics": "Actual HiF4 fake-QDQ return is cast to input dtype before F.linear; smooth division precedes Q2. No extra post-Q2 gain appears in this native adapter branch; if another recipe has one this tensor does not establish it. Individual group-output vectors/Gram not saved."
+    },
+    {
+      "id": "native_observation_q1_pre_q1_post_q2",
+      "status": "PRESENT_ONE_HEADER_INSPECTED",
+      "locator": "per-source RUN.scopes[].path relative to observed/ under ffnds-derived/e0_observations_20261025/sourceNN_attempt1",
+      "producer": "tools/ffnds_observation_capture.py",
+      "coverage_metadata": "six source indices 0,4,8,12,16,20; steps 0..3, blocks 0,10,20,30,39; 32 uniform plus 16 neighbor rows",
+      "fields": "BF16 q1_pre and q1_post [48,5120], q2_pre and q2_post [48,13824], gate [1,5120], ffn_output and residuals [48,5120]; first-consumer nextnorm is absent from these scope packs",
+      "quant_metadata": "dynamic_quant_metadata_exported=false: decoded floats only, no actual signed codes or scales",
+      "lineage": "PASS_PASSIVE_CAPTURE_NOOP same initialized pipeline, freshly seeded requests; original per-scope acceptance field remains PENDING_PLAIN_OBSERVED_NOOP, do not relabel"
+    },
+    {
+      "id": "aligned_first_consumer",
+      "status": "PRESENT_SIX_SMALL_FILES_HASHED",
+      "producer": "tools/run_e0_finite_group_diagnostic.py:FiniteGroupObserver",
+      "field": "nextnorm BF16 [32,5120] is native next block 1 norm1 output for step0/block0 intervention; dense/A/B/AB/dense_repeat arms exist. File also has ffn_output, post; q2 and gate in this producer are only full-state SHA, not saved payload.",
+      "alignment": "Six dense captures match observation source_id, seed and post0 SHA; deterministic row_plan uniform rows match 32 rows within observation 48. This is matching provenance/coordinate metadata, not a newly recomputed tensor byte-equality proof. Full per-group response or Gram is not stored.",
+      "sources": [
+        {
+          "source_index": 0,
+          "seed": 42,
+          "source_id_sha256": "bbcf851ef52d17f8e1eccce9d449109e61a35d5548d1556d3b8f57e9830b23df",
+          "observation_RUN_hf_relative": "ffnds-derived/e0_observations_20261025/source00_attempt1/RUN.json",
+          "observation_scope_hf_relative": "ffnds-derived/e0_observations_20261025/source00_attempt1/observed/step0_block00.safetensors",
+          "observation_scope_sha256_recorded": "bb7a97b8a46252a0c605c52b72772a873070b4719cc78ca2fe1c297226d70723",
+          "observed_row_plan_field": "RUN.scopes[step=0,block=0].row_plan.rows",
+          "uniform_row_field": "RUN.scopes[step=0,block=0].row_plan.uniform_rows",
+          "finite_RUN_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source00_attempt1/RUN.json",
+          "finite_dense_sample_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source00_attempt1/dense_samples.safetensors",
+          "finite_dense_sample_sha256_computed_small_file": "23efe80a39fa67ed928c839b2273d969b121a2141f0c2d045187a976340b4481",
+          "finite_sample_bytes": 983280,
+          "source_seed_and_historical_post0_sha_match": true,
+          "finite_rows_equal_observation_uniform_rows": true,
+          "finite_row_count": 32,
+          "finite_rows_are_subset_of_observation_48": true,
+          "historical_post0_sha256_recorded": "c8234ab10d9ff420b3809d811a33f8beb734802b533888403abfdc0228e4fd28"
+        },
+        {
+          "source_index": 4,
+          "seed": 46,
+          "source_id_sha256": "64bca1e56a73f87957cefa96ffe7801db9e80506be015da23fcaec1655042f65",
+          "observation_RUN_hf_relative": "ffnds-derived/e0_observations_20261025/source04_attempt1/RUN.json",
+          "observation_scope_hf_relative": "ffnds-derived/e0_observations_20261025/source04_attempt1/observed/step0_block00.safetensors",
+          "observation_scope_sha256_recorded": "bb203b0e953285b2c57df9da9f14b93e51c507827445312fc229c137c1b90701",
+          "observed_row_plan_field": "RUN.scopes[step=0,block=0].row_plan.rows",
+          "uniform_row_field": "RUN.scopes[step=0,block=0].row_plan.uniform_rows",
+          "finite_RUN_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source04_attempt1/RUN.json",
+          "finite_dense_sample_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source04_attempt1/dense_samples.safetensors",
+          "finite_dense_sample_sha256_computed_small_file": "d0481818e6115dfcef09ee6d45cf73e3241c585fb44a9b3ccde939577cf7c9ad",
+          "finite_sample_bytes": 983280,
+          "source_seed_and_historical_post0_sha_match": true,
+          "finite_rows_equal_observation_uniform_rows": true,
+          "finite_row_count": 32,
+          "finite_rows_are_subset_of_observation_48": true,
+          "historical_post0_sha256_recorded": "baad0c0873b98e902135207a31fae34114c665d3da425736c7fd8e8a75ec8211"
+        },
+        {
+          "source_index": 8,
+          "seed": 50,
+          "source_id_sha256": "0f15f7bf76dc1612a30f02f7ae7b109c9489aa4c0197c987cdf534f39a59ae7b",
+          "observation_RUN_hf_relative": "ffnds-derived/e0_observations_20261025/source08_attempt1/RUN.json",
+          "observation_scope_hf_relative": "ffnds-derived/e0_observations_20261025/source08_attempt1/observed/step0_block00.safetensors",
+          "observation_scope_sha256_recorded": "008e68dab862c6bd5a769c3c1f38d66c376c418885c2671514122dcda60e2eb4",
+          "observed_row_plan_field": "RUN.scopes[step=0,block=0].row_plan.rows",
+          "uniform_row_field": "RUN.scopes[step=0,block=0].row_plan.uniform_rows",
+          "finite_RUN_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source08_attempt1/RUN.json",
+          "finite_dense_sample_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source08_attempt1/dense_samples.safetensors",
+          "finite_dense_sample_sha256_computed_small_file": "c3d3320d2270e973a5f1b539f3df589203ead19f7905e56170137fe1e4604303",
+          "finite_sample_bytes": 983280,
+          "source_seed_and_historical_post0_sha_match": true,
+          "finite_rows_equal_observation_uniform_rows": true,
+          "finite_row_count": 32,
+          "finite_rows_are_subset_of_observation_48": true,
+          "historical_post0_sha256_recorded": "a78ed42e6b9b74f1cdab25837cdd980ea3ab2a6df4ed42660dc6eafb635ae7df"
+        },
+        {
+          "source_index": 12,
+          "seed": 54,
+          "source_id_sha256": "6c1e3a9d4c9b89fe5ecc2f8df80791e634094f522b7fba5ad8aacb6458abdfde",
+          "observation_RUN_hf_relative": "ffnds-derived/e0_observations_20261025/source12_attempt1/RUN.json",
+          "observation_scope_hf_relative": "ffnds-derived/e0_observations_20261025/source12_attempt1/observed/step0_block00.safetensors",
+          "observation_scope_sha256_recorded": "e1364c1ad2a6e470d3766144a131416d1a017722c4e85b189229ed8435eef915",
+          "observed_row_plan_field": "RUN.scopes[step=0,block=0].row_plan.rows",
+          "uniform_row_field": "RUN.scopes[step=0,block=0].row_plan.uniform_rows",
+          "finite_RUN_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source12_attempt1/RUN.json",
+          "finite_dense_sample_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source12_attempt1/dense_samples.safetensors",
+          "finite_dense_sample_sha256_computed_small_file": "20ff23c767c4564f9310bb9e5455f17442e89ab828628d7f565c5f0765124738",
+          "finite_sample_bytes": 983280,
+          "source_seed_and_historical_post0_sha_match": true,
+          "finite_rows_equal_observation_uniform_rows": true,
+          "finite_row_count": 32,
+          "finite_rows_are_subset_of_observation_48": true,
+          "historical_post0_sha256_recorded": "17612581b101fba1227f827a928cff93fd14090e05b4f019bc96ccca5d6de7ba"
+        },
+        {
+          "source_index": 16,
+          "seed": 58,
+          "source_id_sha256": "1efcfeb84db1336150f319b2e1701f310e941cdd7eab900af25a3e8bd588d6c1",
+          "observation_RUN_hf_relative": "ffnds-derived/e0_observations_20261025/source16_attempt1/RUN.json",
+          "observation_scope_hf_relative": "ffnds-derived/e0_observations_20261025/source16_attempt1/observed/step0_block00.safetensors",
+          "observation_scope_sha256_recorded": "9a7e514895a384183ca517c19fa07ac655d5de1b8bdd795e6624493ed00187c3",
+          "observed_row_plan_field": "RUN.scopes[step=0,block=0].row_plan.rows",
+          "uniform_row_field": "RUN.scopes[step=0,block=0].row_plan.uniform_rows",
+          "finite_RUN_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source16_attempt1/RUN.json",
+          "finite_dense_sample_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source16_attempt1/dense_samples.safetensors",
+          "finite_dense_sample_sha256_computed_small_file": "6b42403288a84238ab15551339fee35efc8d7062d84729569bdde94b8c46b9b6",
+          "finite_sample_bytes": 983280,
+          "source_seed_and_historical_post0_sha_match": true,
+          "finite_rows_equal_observation_uniform_rows": true,
+          "finite_row_count": 32,
+          "finite_rows_are_subset_of_observation_48": true,
+          "historical_post0_sha256_recorded": "8353b87e65a10ca81e79d099a1a2cc62cf69d23f4204634cbf445d21053768c8"
+        },
+        {
+          "source_index": 20,
+          "seed": 62,
+          "source_id_sha256": "451a3c3fb18a12fa9792b9a7cc80d1b4a118d1ece38a91ee604bc8de12b8f0bb",
+          "observation_RUN_hf_relative": "ffnds-derived/e0_observations_20261025/source20_attempt1/RUN.json",
+          "observation_scope_hf_relative": "ffnds-derived/e0_observations_20261025/source20_attempt1/observed/step0_block00.safetensors",
+          "observation_scope_sha256_recorded": "b5e747b6785717364d7b1bb676398545da1f7ae3584106d1aa9db75518efbdf7",
+          "observed_row_plan_field": "RUN.scopes[step=0,block=0].row_plan.rows",
+          "uniform_row_field": "RUN.scopes[step=0,block=0].row_plan.uniform_rows",
+          "finite_RUN_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source20_attempt1/RUN.json",
+          "finite_dense_sample_hf_relative": "ffnds-derived/e0_finite_groups_20261025/source20_attempt1/dense_samples.safetensors",
+          "finite_dense_sample_sha256_computed_small_file": "37dcacd0e91d61ee8c179a4178c37c9524ac99f4d01c16b3980a8c5be0d459e6",
+          "finite_sample_bytes": 983280,
+          "source_seed_and_historical_post0_sha_match": true,
+          "finite_rows_equal_observation_uniform_rows": true,
+          "finite_row_count": 32,
+          "finite_rows_are_subset_of_observation_48": true,
+          "historical_post0_sha256_recorded": "74dec97cbc3118e9da4dadf18d2f6b511ad3ee750371cc79c7d2c3410fc76f91"
+        }
+      ]
+    },
+    {
+      "id": "native_weight_identity",
+      "status": "VIEW_RECORDED_ONLY_NOT_REHASHED",
+      "view_hf_relative": "ffnds-derived/e0_source_views/compact6016_full80_assets_20261028/VIEW_MANIFEST.json",
+      "view_sha256_recorded": "a712dde22f79f79a8e90007b26f04d7b3746ab5ec36346ba2bff6304a866455a",
+      "example_expert": "high_noise_model",
+      "example_block": 0,
+      "W2_tensor_sha256_recorded": "870a1f911f068bfa2503ad8d0ac76f90bd9c1b9354c1dc8ee635650a0c62969d",
+      "W2_dtype_shape": "BF16 [5120,13824]",
+      "shard_sha256_recorded": "5c8e9c4c85e5ecc3646c5cd03db4adbe59d25225a2778d15cb3ca6a8ff733c79",
+      "selected_panel": "Observation RUN.scope.weight_binding points to five W2 group panels (0,53,107,161,215); header inspected BF16 [5120,320]. Full shard locator is in view, private storage path omitted."
+    }
+  ],
+  "missing": [
+    {
+      "field": "Q1 signed code and quantization scales",
+      "finding": "No such fields in inspected CAL24 or passive observer packs; HiF4 runtime API hif4_qdq_tensor returns decoded y only, its code/scale are internal. This is bounded to inspected inventories, not a claim no other file exists.",
+      "minimal_real_producer": "Instrument native HiF4 quantizer to emit actual signed code and each scale used at the same selected Q1 coordinates, preserving exact source/seed/step/expert/block/rows and separate observer cost."
+    },
+    {
+      "field": "signed per-group W2 output vectors or cross-group Gram",
+      "finding": "V2 and gate are actual signed operands, not precomputed group output vectors or Gram; old energy profiles and FP4 code histograms are scalar aggregates.",
+      "minimal_real_producer": "Use bound saved V2, matching decoded W2 and gate to materialize requested exact group64 contribution vectors/Gram with specified cast and accumulation; no new model capture needed for already saved teacher rows."
+    },
+    {
+      "field": "matched first-consumer readout at every CAL24 site",
+      "finding": "Available 32-row finite readout is limited to six exposed sources, high expert step0 block0 -> block1 norm1. CAL24 256-row operands use a different sampling draw.",
+      "minimal_real_producer": "Original next-block norm1 or relevant real consumer tap with the same requested coordinates and dense-prefix identity; retain source/step/block and no-op validation."
+    }
+  ],
+  "not_claimed": "No performance, video, new scientific statistic, universal absence, or completed model operation.",
+  "hif4_sign_semantics": "HiF4 format includes an explicit sign; absence here concerns saved original native CUDA code/scale tensors, not unsigned format."
+}

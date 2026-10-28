@@ -6,10 +6,10 @@
 
 | 文件 | 应当读到/执行的合同 |
 | --- | --- |
-| [任务状态台账](CURRENT_TASK_LEDGER_20261028.json) | 当前M-B B0已完成、B1有限head已完成一部分、QCFB/UB1并行数据分析、M-A0部分完成及模型作业依赖 |
+| [任务状态台账](CURRENT_TASK_LEDGER_20261028.json) | B0/CAL24标签与B1固定候选池完成、B-H首个真实学生训练完成、A0全80局部恢复完成；原M对照、视频及B-F依赖 |
 | [最小上下文包](CURRENT_CONTEXT_PACKET.md) | 原生Wan/QDQ/step、M-A0已完成局部实验、M-B B0原生已完成且B1首轮finite已有结果、M-C开放 |
 | [三方法权威方案v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md) | G14科学先验转换成M-A/M-B/M-C真正的函数与部署约束 |
-| [B0/B1当前任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | post-write u/head/flow的producer/neutral准备→有限响应、B-H/B-F学生 |
+| [B0/B1当前任务](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md) | 复用已完成producer/neutral/固定池，继续学生原M与A0同head对照、B-F和完整视频 |
 | [现行动态GPU策略](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md) | 无预设全局卡数限制；每轮按实际可调用量及READY任务最大化并发，旧冻结scope不改SHA |
 | [现行范围/预算](../ACTIVE_RESEARCH.json) | 具体模型、GPU、来源、预算、独立来源与RUN身份；旧scope不自动续期 |
 
@@ -19,7 +19,7 @@
 
 | 场景 | 主协议与工具 |
 | --- | --- |
-| 原论文映射到Wan计算边 | [94＋10篇G14机器焦点图](PAPER_METHOD_FOCUS_GRAPH.json)、[G0–G14可见源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[原生Graph Bindings](GRAPH_AGENT_BINDINGS.json) |
+| 原论文映射到Wan计算边 | [98＋10篇G14机器焦点图](PAPER_METHOD_FOCUS_GRAPH.json)、[G0–G14可见源图](../../docs/98_端到端计算图与证据注解_20261025.md)、[原生Graph Bindings](GRAPH_AGENT_BINDINGS.json) |
 | 五操作与方法先验查重 | [O-A～E×I/F/C](../20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)、[12条typed prior机器索引](METHOD_OPERATION_CROSSWALK.json)、[G14反向审计](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md) |
 | 新数据、校准、配对视频、来源分割 | [数据采样/校准/评价合同](DATA_SAMPLING_CALIBRATION_EVALUATION.md)、[Calibration V2](../20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)、[实验专用Skill](../../.agents/skills/ffnds-experiment-evidence/SKILL.md)、[可执行实验手册](EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md) |
 | 新功能/因果定位或Graph Agent | [Function–Structure Objects](FUNCTION_STRUCTURE_RESEARCH_OBJECTS.json)、[G13函数/结构方法](../20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)、[Graph Agent协作](GRAPH_AGENT_COLLABORATION.md) |

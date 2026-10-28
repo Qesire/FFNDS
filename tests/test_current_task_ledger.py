@@ -72,6 +72,9 @@ class CurrentTaskLedgerTests(unittest.TestCase):
         self.assertEqual(active["experiment_authority"]["active_resource_policy"],
                          "resource_scheduling_policy_20261028")
         self.assertIsNone(active["resource_scheduling_policy_20261028"]["global_gpu_card_cap"])
+        self.assertEqual(auth["current_session_explicit_GPU_limit"], 2)
+        self.assertEqual(active["current_session_resource_constraint_20261028"]
+                         ["max_simultaneously_assigned_idle_GPUs"], 2)
         self.assertIn("CURRENT_TASK_LEDGER_20261028.json",
                       (ROOT / "research/RESEARCH_NAVIGATION.md").read_text(encoding="utf-8"))
 
@@ -90,11 +93,24 @@ class CurrentTaskLedgerTests(unittest.TestCase):
         self.assertEqual(scope["result_sha256"], report["b0"]["run_sha256"])
         self.assertEqual(scope["actual_process_exit"]["launcher_returncode"], 0)
         self.assertTrue(scope["actual_process_exit"]["process_exited"])
-        self.assertIn("paired_joint_vs_marginal_PCA_random_source_shuffle",
+        self.assertIn("general_conditional_paired_functions_beyond_this_finite_pool",
                       self.tasks["P0-B1-FINITE"]["outstanding_components"])
+        latest = self.tasks["P0-B1-FINITE"]["latest_completed_result"]
+        raw = (ROOT / latest["path"]).read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), latest["sha256"])
+        self.assertEqual(len(raw), latest["bytes"])
+        result = json.loads(raw)
+        self.assertEqual(result["labels"]["totals"]["sources"], 24)
+        self.assertEqual(result["labels"]["totals"]["cases"], 96)
+        selection = result["paired_CPU_M256"]["selection"]
+        self.assertEqual({selection[k] for k in ("paired", "source_shuffled", "marginal",
+                                                "PCA_in_shared_span", "shared_head_only")},
+                         {"PCA_in_shared_span"})
+        self.assertEqual(result["paired_CPU_M256"]["full_M_native_calls"], 0)
+        self.assertFalse(result["B0_full_M_neutral"]["full_state_reproduction"])
         self.assertEqual(self.tasks["P3-Q3-NATIVE-AND-VIDEO"]["status"],
                          "WAITING_ON_EVIDENCE")
-        self.assertIn("NO_NEW_STUDENT_MODEL_JOB", self.tasks["P1-B2-STUDENT"]["execution"])
+        self.assertIn("BH_DIRECT65_H128", self.tasks["P1-B2-STUDENT"]["execution"])
 
 
 if __name__ == "__main__":

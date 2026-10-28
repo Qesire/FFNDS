@@ -19,8 +19,8 @@
 
 | 研究对象 | 已完成范围 | 当前下一步与证据界限 |
 | --- | --- | --- |
-| **M-A0**（普通6016维紧凑FFN） | [4位置真实原生Q2局部恢复pilot](research/20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)，已暴露train16/heldout8；相同更新预算比较Energy94/Random94 | 为M-B/M-C提供强基线；全80FFN和完整自由生成视频**OPEN** |
-| **M-B**（gate/suffix敏感函数） | [配对敏感度和block39 LN/head的连续65统计](research/20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)，**ALG＋SRC** | 当前用户指定优先：先[B0原生u/head/flow采集准备及neutral重放](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)，再B1有限响应；B-H/B-F可执行学生**OPEN** |
+| **M-A0**（普通6016维紧凑FFN） | [全80函数、160学生局部恢复](research/20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)，已暴露train16/heldout8；metadata bank已组装 | 为M-B/M-C提供强基线；部署tensor加载验证和完整自由生成视频**OPEN** |
+| **M-B**（gate/suffix敏感函数） | [CAL24 96flow对齐、B1配对判别及B0 full-M选中行neutral](research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md) | M-B优先；[B-H真实训练](research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)完成，held8 head SSE高/低为0.003958/0.003615；继续原M/A0同head对照；B-F及一般配对机制**OPEN** |
 | **M-C**（完整非线性函数编码求值） | [输入充分性、输出秩和大M查表成本](research/20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md)，**ALG＋LIT** | 完成数学/保存资产判别，再进入合法原生执行；尚无Wan实际速度/视频 |
 | **旧固定支持与执行竞争器** | [consumer20真实视频质量](research/20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)，[A100合成2:4 C5](research/20261027/E0_ACTIVATION24_FUSED_CUTLASS_RESULTS_20261027.md) | 分别支持视频功能失配与受限kernel物理证据，不能替代新学生质量/整端速度 |
 
@@ -38,7 +38,7 @@
 
 - **方法研究**：按[AutoResearcher领域Skill](.agents/skills/ffnds-paper-discovery/SKILL.md)、[机制Skill](.agents/skills/mechanism-research/SKILL.md)由计算流→等价数学/信息条件→最强竞争解释→可区分证据形成方案。当前方法权威正文仅以[整合方案v2](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)为准。
 - **数据与评价**：按[Calibration V2](research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)区分source image-cluster与token/行、teacher与student轨迹、开发与独立确认、VBench自定义函数与官方采样协议；每个真实视频候选记录连续运动、主体/背景、相机行为、原生latency/VRAM。
-- **授权与协作**：[动态GPU调度规则](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)要求按实际可调用GPU最大量调度，无预设全局卡数上限；[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)是执行/资源唯一权威，历史已完成范围不自动成为下轮许可；[QUEUE](research/method_discussion/QUEUE.md)仅登记独立Agent实际提交/评议的方法，不是作业队列。实时/流式GPU实验仍暂停。
+- **授权与协作**：[动态GPU调度规则](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的通用默认不预设全局卡数上限；本会话最新用户上限为同时最多2张GPU，优先于通用默认。[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)是执行/资源唯一权威，历史已完成范围不自动成为下轮许可；[QUEUE](research/method_discussion/QUEUE.md)仅登记独立Agent实际提交/评议的方法，不是作业队列。实时/流式GPU实验仍暂停。
 - **证据语言**：公式或源图ALG/SRC，作者文献LIT，真实原生运行NATIVE，完整视频VIDEO，物理成本SYS，尚未产生数据OPEN；静态CI通过只表明合同/引用一致。
 
 ## 只读复核（不启动GPU或模型）

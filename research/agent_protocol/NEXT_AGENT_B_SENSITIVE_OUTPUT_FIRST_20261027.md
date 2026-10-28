@@ -1,14 +1,14 @@
 # FFNDS · 下一位研究Agent的现行任务：从已完成的M-B方法继续
 
-**2026-10-28 · NEXT_AGENT_TASK v3 / CURRENT / B0_COMPLETE_B1_PARTIAL。** [当日任务状态台账](CURRENT_TASK_LEDGER_20261028.json)记录实际B0完成、B1有限head子范围完成及其后source配对/学生依赖；本文件继续提供**B0/B1技术任务内容**，台账不替换它。 用户明确“从B开始”，所指为**M-B敏感函数坐标候选**，即O-B表示＋O-E训练/验证、可选O-D真实代数，而非五操作分类的全部O-B。对现有I/F/C、M-A0强基线与独立M-C探索没有排他性约束；[ACTIVE](../ACTIVE_RESEARCH.json)管理所有原生运行权限，[方法讨论](../method_discussion/QUEUE.md)只登记真实独立提案和评议。
+**2026-10-28 · CURRENT / CAL24_B1_COMPLETE / B-H_RUNNING。** 用户指定M-B优先；[当日任务台账](CURRENT_TASK_LEDGER_20261028.json)和[ACTIVE](../ACTIVE_RESEARCH.json)分别导航依赖与真实运行权限。[CAL24实际结果](../20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)完成24来源×4步96flow、byte audit、固定字典paired判别和B0四case的16次full-M选中行neutral。固定16维span、rank4、18候选中paired/shuffle/marginal/PCA/head-only同选PCA；CPU M256不是native floor，一般paired机制仍OPEN。
 
-**实际续作差异**：[B0/B1原生报告](../20261028/B_TERMINAL_NATIVE_CAPTURE_AND_FINITE_RESPONSE_RESULTS_20261028.md)已完成4Denseflows/160FFN和72显式head/LN调用；B0无需重做。B1尚需paired/marginal/PCA/random/shuffle同rank判别及弱响应BF16分辨率。先按[CAL24标签producer审计](../method_discussion/discoveries/E0/bh-bf-cal24-aligned-label-source-audit-20261028.md)构建真实r/u/head源配对数据，再进入同信息/预算的B-H/B-F；不能用两个consumer开发来源替代train16/held8。以下B0合同保留以供原生复核，已完成范围以原始RUN和台账为准。当前用户已撤销预设GPU数量上限；按[动态可调用GPU策略](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)在调度时使用实际能调用的最大量，新运行仍按ACTIVE冻结范围、证据和作业合同。
+**当前续作：** B-H v1（协议SHA `2832d5be8c5d248c923c3a3b244c5d3c4f84e957efbf95bf36d9605af2a88ce1`）已实际完成GPU训练并worker exit0；[结果](../20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)给出两expert各256次Adam、held8 head SSE高/低0.003958/0.003615；继续原M/A0同head对照；B-F保持OPEN。[A0全80函数160学生](../20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)已完成局部训练和metadata组装，tensor加载/完整视频待验。本会话最多同时2张GPU，覆盖[动态资源策略](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)的无预设全局上限通用默认。以下保留已完成B0/B1的技术对象供复核，不作为重复运行指令。
 
 ## 0. 已完成的工作：作为下一任务的输入，不重复创造
 
 1. [现行统一研究方案 v2](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)是M-A/M-B/M-C的**唯一现行研究路线图**，其中G14先验已转化为数学/数值/执行约束；原独立审计[在此](../20261028/G14_PRIOR_CONSTRAINT_AUDIT_FOR_NEW_FFN_METHODS.md)保留作为推导来源。
-2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。同状态BF16 head有限响应已有实际子范围；配对基和学生比较仍待测。
-3. [A0四位置native恢复P30](../20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)：同预算energy94/random94、4个站点、已暴露的train16/heldout8、实际Q2和folded可回读权重，已证明局部恢复，尚未有全80函数与完整视频。
+2. [M-B方法快照 v2](../20261027/B_GATE_SUFFIX_SENSITIVE_COORDINATES_METHOD_SNAPSHOT.md)已证明固定G的加权投影闭式解、paired vs marginal的反向排序反例、block39末层LN/head的连续Jacobian和有限充分统计；源代码/头部权重的SRC身份及U28/I19已建立。同状态BF16 head有限响应与固定候选配对比较已实测；一般配对机制及学生结果仍OPEN。
+3. [A0全80函数局部恢复](../20261028/COMPACT6016_FULL80_RECOVERY_RESULTS_20261028.md)：160学生训练、已暴露train16/heldout8和metadata bank已完成；部署tensor加载验证与完整视频仍待验。
 4. 既有[consumer20质量](../20261027/UB1_CONSUMER_DISJOINT20_QUALITY_RESULTS_20261027.md)证实当前UB1固定RR在20个开发来源的连续RAFT大幅下降；不能将其当作M-B函数成功/失败。
 5. [G14计算图](PAPER_METHOD_FOCUS_GRAPH.json)已有94项主论文＋10项校准，配[五操作机器交叉表](METHOD_OPERATION_CROSSWALK.json)。新研究重点是T05/T06真实GELU与Q2、T07 W2、T08 e5门控、T09及T12视频/后缀、T13核、T15因果；不再以“先广泛扫摘要”代替当前已证明的数学结论。
 
@@ -41,7 +41,7 @@
 ## 4. 完整项目交接和实际文件产出
 
 首个可验收交付**不再是重新创建M-B方法快照**（已经存在且有v2数学）；应提交：
-- B0原生producer/资产登记、代码/单元测试或实际冻结方案，以及本次能/不能进行neutral回放的准确原因和下一动作；
+- B-H真实训练结果、实际退出和匹配对照，保留B0与CAL24已有neutral/标签证据；
 - B1科学对象的预先冻结读出/方向/扰动量与相反预测，具体实现计划，若有实际原生RUN必须单独落原始receipt；
 - B-H/B-F两个真正不同的学生计算图、参数/数据/在线成本以及与A0的matched对照；G14论文的真实作用边、先验限制及新自由度一一匹配；
 - 按科学方法输出**M-B snapshot的下一版本变化摘要**，并以Graph Agent的节点/有类型关系记录新SRC/ALG与OPEN条件；不要凭任务计划伪造MODEL/NATIVE/VIDEO/SYS或Agent PEER_SUPPORTED。

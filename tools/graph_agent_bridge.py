@@ -178,7 +178,7 @@ def validate_method_operation_crosswalk(data):
     assert method_map["schema"] == "ffnds.method_operation_crosswalk.v2"
     assert method_map["current_method_plan"] == pointer["method_plan"]
     assert (ROOT / method_map["next_agent_task"]).is_file()
-    assert method_map["next_agent_current_stage"] == "M-B_B0_NATIVE_COMPLETE__B1_PAIRING_AND_ALIGNED_LABELS_PREP"
+    assert method_map["next_agent_current_stage"] == "M-B_B1_CAL24_FIXED_DICTIONARY_COMPLETE__BH_BF_STUDENT_STAGE"
     assert method_map["one_turn_next_agent"] == "M-B"
 
     operations = set(method_map["operation_definitions"])
@@ -204,7 +204,7 @@ def validate_method_operation_crosswalk(data):
     for item in progress:
         assert (ROOT / item["evidence"]).is_file(), f"Missing project evidence: {item['evidence']}"
     b_progress = next(item for item in progress if item["method"] == "M-B")
-    assert b_progress["status"] == "B0_NATIVE_STATE_CAPTURE_COMPLETE__B1_SAVED_HEAD_COMPLETE__STUDENTS_OPEN"
+    assert b_progress["status"].startswith("B0_CAL24_LABELS_B1_FIXED_POOL_COMPLETE__")
     binding = b_progress["native_result"]
     result_path = (ROOT / binding["path"]).resolve()
     assert result_path.is_relative_to(ROOT.resolve()), "Native report must stay in repository"
@@ -217,6 +217,16 @@ def validate_method_operation_crosswalk(data):
     assert report["b0"]["FFN_calls"] == 160 and report["b0"]["independent_sources"] == 2
     assert report["b1"]["observed"]["head_calls"] == 72
     assert report["b1"]["observed"]["video"] == report["b1"]["observed"]["fit"] == 0
+    latest = b_progress["latest_completed_result"]
+    latest_path = (ROOT / latest["path"]).resolve()
+    assert latest_path.is_relative_to(ROOT.resolve()), "Latest report must stay in repository"
+    latest_raw = latest_path.read_bytes()
+    assert len(latest_raw) == latest["bytes"] and hashlib.sha256(latest_raw).hexdigest() == latest["sha256"]
+    completed = json.loads(latest_raw)
+    assert completed["labels"]["totals"]["sources"] == 24 and completed["labels"]["totals"]["cases"] == 96
+    assert completed["paired_CPU_M256"]["head_calls"] == 448
+    assert completed["paired_CPU_M256"]["full_M_native_calls"] == 0
+    assert completed["B0_full_M_neutral"]["calls"] == 16 and not completed["B0_full_M_neutral"]["full_state_reproduction"]
 
     allowed_relations = set(method_map["relation_types"])
     assert allowed_relations == {

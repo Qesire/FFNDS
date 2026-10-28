@@ -1,0 +1,420 @@
+{
+  "schema": "ffnds.bh.direct65.h128.scalar_results.v1",
+  "status": "COMPLETE_BH_DIRECT65_H128_FIXED256_UPDATES_PER_EXPERT_M256",
+  "evidence": "NATIVE_CAPTURED_TARGET_GPU_M256_BF16_PREDICTOR",
+  "RUN_sha256": "5829c4d09cb783600c95c0e5ee2ec925a948f58803b4f94fbe51ee60eedfc267",
+  "EXIT_RECEIPT_sha256": "b8a8cc8e3a085b9fdb23b90bc4c400f2f2c628d1578400cc92d59c160db949e7",
+  "protocol_sha256": "2832d5be8c5d248c923c3a3b244c5d3c4f84e957efbf95bf36d9605af2a88ce1",
+  "actual_exit0": true,
+  "outer_seconds": 355.43178615602665,
+  "body_seconds": 352.52072508702986,
+  "source_identity": "16 train / 8 heldout historically exposed; same source and update budget as A0; 2 expert steps and 256 rows nested per source",
+  "limits_predebited_invoked_completed_identical": true,
+  "limits": {
+    "CPU_head_pack_loads": 2,
+    "CPU_step_conditioning_pack_loads": 4,
+    "CPU_BF16_gain_adds": 4,
+    "geometry_FP64_Gram_GEMM": 4,
+    "geometry_symmetric_eigh": 4,
+    "geometry_FP64_inverse_and_projector_GEMM": 8,
+    "geometry_FP64_shift_GEMM": 4,
+    "geometry_FP64_projector_validation_GEMM": 4,
+    "case_pack_reads": 96,
+    "saved_rows_payload_validations": 96,
+    "prepared_source_state_cases": 96,
+    "offline_FP64_teacher_head_projection_GEMM": 96,
+    "offline_FP64_teacher_quadratic_GEMM": 96,
+    "offline_FP64_teacher_readout": 96,
+    "device_case_transfers": 96,
+    "teacher_label_device_transfers": 96,
+    "CUDA_H2D_tensor_copies": 698,
+    "CUDA_H2D_payload_bytes": 536287248,
+    "train_normalization_mean_moment_cases": 64,
+    "train_normalization_centered_moment_cases": 64,
+    "normalizer_compiles": 2,
+    "student_random_weight_draws": 4,
+    "online_FP32_residual_projection_GEMM": 288,
+    "online_FP32_range_projection_GEMM": 672,
+    "online_FP32_quadratic_GEMM": 672,
+    "online_residual_variance_reductions": 288,
+    "online_anchor_summary": 288,
+    "teacher_statistic_reconstruction_readouts": 192,
+    "student_direct_readout": 384,
+    "student_predict65_calls": 704,
+    "student_input_normalizations": 704,
+    "student_BF16_forward_GEMM": 2112,
+    "student_BF16_tanh_GELU": 704,
+    "training_source_batches": 512,
+    "training_loss_evaluations": 512,
+    "backward_calls": 512,
+    "student_BF16_backward_GEMM": 2048,
+    "finite_gradient_tensor_checks": 2560,
+    "Adam_steps": 512,
+    "Adam_parameter_tensor_updates": 2560,
+    "finite_updated_parameter_tensor_checks": 2560,
+    "diagnostic_source_state_forwards": 192,
+    "initial_zero_output_checks": 96,
+    "prediction_pack_writes": 4,
+    "student_export_writes": 2,
+    "export_reload_byte_checks": 2,
+    "native_Wan_FFN_calls": 0,
+    "native_LN_head_calls": 0,
+    "student_Q2_calls": 0,
+    "full_M_student_forwards": 0,
+    "video_generations": 0
+  },
+  "parameters_per_expert": 672386,
+  "A0_parameters_per_expert": 712704,
+  "relative_parameter_reduction_percent": 5.657046964798851,
+  "logical_cost": {
+    "parameters_per_expert": 672386,
+    "logical_MAC_per_row": 1016064,
+    "logical_MAC_full_M": 32176714752,
+    "logical_matrix_MAC_per_row": {
+      "residual_head_projection": 327680,
+      "student_Wx": 655360,
+      "student_Weta": 8320,
+      "student_Wout": 8320,
+      "two_range_and_two_quadratic_GEMM": 16384
+    },
+    "online_GEMM_calls": 8,
+    "BF16_student_GEMM_calls": 3,
+    "FP32_residual_GEMM_calls": 1,
+    "FP32_small_GEMM_calls": 4,
+    "original_Smooth1_Q1": "retained upstream cost; input here is actual post-Q1 V1",
+    "student_hidden_Q2": "NONE_IN_THIS_BF16_PREDICTABILITY_PILOT",
+    "D_wide_y_or_u_materialization": false,
+    "online_extra_buffers_per_row": {
+      "FP32_residual_cast": 20480,
+      "BF16_hidden": 256,
+      "BF16_normalized_V1": 10240,
+      "FP32_normalized_V1_temporary": 20480
+    },
+    "runtime_speed": "NOT_MEASURED"
+  },
+  "slack_floor": 1.52587890625e-11,
+  "experts": [
+    {
+      "expert": "high_noise_model",
+      "parameters": 672386,
+      "source_metrics": {
+        "train": {
+          "initial": {
+            "head_relative_SSE": 0.11314027267508209,
+            "head_mean_row_SSE": 12.148323372006416,
+            "q_relative_SSE": 0.0028856548997282516,
+            "variance_relative_SSE": 0.19244713941588998
+          },
+          "final": {
+            "head_relative_SSE": 0.004660962502384791,
+            "head_mean_row_SSE": 0.4935071123763919,
+            "q_relative_SSE": 0.0011368654904799769,
+            "variance_relative_SSE": 0.015343313119956292
+          }
+        },
+        "heldout_exposed": {
+          "initial": {
+            "head_relative_SSE": 0.09359608893282712,
+            "head_mean_row_SSE": 10.551923155784607,
+            "q_relative_SSE": 0.0027393957861931995,
+            "variance_relative_SSE": 0.17188963247463107
+          },
+          "final": {
+            "head_relative_SSE": 0.003957802451623138,
+            "head_mean_row_SSE": 0.4420204497873783,
+            "q_relative_SSE": 0.0012079153857484926,
+            "variance_relative_SSE": 0.01240061892895028
+          }
+        }
+      },
+      "heldout_source_head_improvement": {
+        "16": {
+          "initial": 0.08567358925938606,
+          "final": 0.0034082861384376884,
+          "improved": true
+        },
+        "17": {
+          "initial": 0.07292573526501656,
+          "final": 0.003811826929450035,
+          "improved": true
+        },
+        "18": {
+          "initial": 0.07632479071617126,
+          "final": 0.002800782327540219,
+          "improved": true
+        },
+        "19": {
+          "initial": 0.12077359482645988,
+          "final": 0.007172946468926966,
+          "improved": true
+        },
+        "20": {
+          "initial": 0.14802474901080132,
+          "final": 0.007716517895460129,
+          "improved": true
+        },
+        "21": {
+          "initial": 0.05223030038177967,
+          "final": 0.001912797277327627,
+          "improved": true
+        },
+        "22": {
+          "initial": 0.08854270353913307,
+          "final": 0.002787228091619909,
+          "improved": true
+        },
+        "23": {
+          "initial": 0.1042732484638691,
+          "final": 0.0020520344842225313,
+          "improved": true
+        }
+      },
+      "sidecar_json_sha256_computed": {
+        "PROVENANCE.json": "8dd9483792bb2745380c8444735f9f4a03853aec8d8baeb6cbcd500119b06151",
+        "INITIAL_METRICS.json": "033dfff5012fb8427e66c06aec1ce450ccecaacafaf893f4bf05ba39d0b6f4da",
+        "FINAL_METRICS.json": "172915c743714d6c69eec6fb6da33d7e0dd539a914d3de10226895439c28e4b1",
+        "TEACHER_STATISTIC_RECONSTRUCTION.json": "377519d543d5bddb0ec4e1d4311ddb06eb5ce798e5c8e64864947ac6356a7814"
+      },
+      "physical_floor_and_repair_48_cases": {
+        "anchor_qmin_negative_rows": 0,
+        "anchor_slack_negative_rows": 0,
+        "anchor_slack_floor_rows": 0,
+        "teacher_slack_floor_rows": 0,
+        "teacher_negative_slack_repaired_rows": 0,
+        "teacher_max_floor_variance_added": 0
+      },
+      "predicted_qmin_negative_rows": {
+        "initial": 0,
+        "final": 0
+      },
+      "teacher_reconstruction_reference": {
+        "torch.float32": {
+          "train": {
+            "head_relative_SSE": 4.625243562372816e-06,
+            "head_mean_row_SSE": 0.0005022131272198749,
+            "continuous_teacher_head_vs_native_mean_row_SSE": 0.0004576830178848468
+          },
+          "heldout_exposed": {
+            "head_relative_SSE": 4.644821842703095e-06,
+            "head_mean_row_SSE": 0.0005175990863790503,
+            "continuous_teacher_head_vs_native_mean_row_SSE": 0.00047007567263790406
+          },
+          "predicted_qmin_negative_rows": 0
+        },
+        "torch.bfloat16": {
+          "train": {
+            "head_relative_SSE": 5.2269877528487996e-06,
+            "head_mean_row_SSE": 0.0005670414884662023,
+            "continuous_teacher_head_vs_native_mean_row_SSE": 0.0004576830178848468
+          },
+          "heldout_exposed": {
+            "head_relative_SSE": 5.211303658825273e-06,
+            "head_mean_row_SSE": 0.0005808870992041193,
+            "continuous_teacher_head_vs_native_mean_row_SSE": 0.00047007567263790406
+          },
+          "predicted_qmin_negative_rows": 0
+        }
+      },
+      "export": {
+        "path": "ffnds-derived/e0_bh_direct65_h128_20261028/attempt1/worker/results/high_noise_model/student.safetensors",
+        "bytes": 6724532,
+        "sha256_recorded": "a0e21fd693c3c797b4f47ded39fbc4ca0e47e800114064fb2b8c52596090e282",
+        "identity": "producer reports export reload byte check; this scalar audit stat only"
+      },
+      "geometry_by_step": {
+        "0": {
+          "rank": 64,
+          "condition_on_support": 4.438575566097151,
+          "rank_cutoff": 2.1402093221343033e-10,
+          "K_centering_max_abs_sum": 2.0173446246829485e-13,
+          "projector_idempotence_max_abs": 8.881784197001252e-16,
+          "gain_identity": "actual fl_BF16(1+scale) promoted to FP64",
+          "evidence": "continuous real surrogate anchored to original BF16 assets; not native bit equivalence"
+        },
+        "1": {
+          "rank": 64,
+          "condition_on_support": 4.495395134343997,
+          "rank_cutoff": 2.1385749208607186e-10,
+          "K_centering_max_abs_sum": 2.026573353575145e-13,
+          "projector_idempotence_max_abs": 8.881784197001252e-16,
+          "gain_identity": "actual fl_BF16(1+scale) promoted to FP64",
+          "evidence": "continuous real surrogate anchored to original BF16 assets; not native bit equivalence"
+        }
+      }
+    },
+    {
+      "expert": "low_noise_model",
+      "parameters": 672386,
+      "source_metrics": {
+        "train": {
+          "initial": {
+            "head_relative_SSE": 0.06560580380028114,
+            "head_mean_row_SSE": 6.463972710072994,
+            "q_relative_SSE": 0.003626254816481378,
+            "variance_relative_SSE": 0.13847235322464257
+          },
+          "final": {
+            "head_relative_SSE": 0.0036676485142379533,
+            "head_mean_row_SSE": 0.3636470455676317,
+            "q_relative_SSE": 0.0014705790799780516,
+            "variance_relative_SSE": 0.008784841160377255
+          }
+        },
+        "heldout_exposed": {
+          "initial": {
+            "head_relative_SSE": 0.06325617991387844,
+            "head_mean_row_SSE": 6.340221628546715,
+            "q_relative_SSE": 0.003315929861855693,
+            "variance_relative_SSE": 0.13456255616620183
+          },
+          "final": {
+            "head_relative_SSE": 0.0036146842321613804,
+            "head_mean_row_SSE": 0.36061975732445717,
+            "q_relative_SSE": 0.0012653336343646515,
+            "variance_relative_SSE": 0.009927939303452149
+          }
+        }
+      },
+      "heldout_source_head_improvement": {
+        "16": {
+          "initial": 0.05120820179581642,
+          "final": 0.003326477366499603,
+          "improved": true
+        },
+        "17": {
+          "initial": 0.06887659430503845,
+          "final": 0.004180758725851774,
+          "improved": true
+        },
+        "18": {
+          "initial": 0.055379727855324745,
+          "final": 0.003189460840076208,
+          "improved": true
+        },
+        "19": {
+          "initial": 0.08142175152897835,
+          "final": 0.0028235939098522067,
+          "improved": true
+        },
+        "20": {
+          "initial": 0.07378406077623367,
+          "final": 0.0034618511563166976,
+          "improved": true
+        },
+        "21": {
+          "initial": 0.05813270062208176,
+          "final": 0.004463795223273337,
+          "improved": true
+        },
+        "22": {
+          "initial": 0.0551433227956295,
+          "final": 0.0034768107580021024,
+          "improved": true
+        },
+        "23": {
+          "initial": 0.06210307963192463,
+          "final": 0.003994725877419114,
+          "improved": true
+        }
+      },
+      "sidecar_json_sha256_computed": {
+        "PROVENANCE.json": "3103f7ab27cd10411bb7216900a14b9553c8d7cdecb1228a79caaee78250ecb5",
+        "INITIAL_METRICS.json": "bbaf172da6abb939516adc883adfa849affee46adfb0461981865e7dc6f817a7",
+        "FINAL_METRICS.json": "b32523615f9db152cf973bafc15544fff0db479c068f02b6a04f6b39cbc6231c",
+        "TEACHER_STATISTIC_RECONSTRUCTION.json": "f327a46e3875a54c906f874d0565252e150830e38b9eaae58f8ff0a51ab6d1c3"
+      },
+      "physical_floor_and_repair_48_cases": {
+        "anchor_qmin_negative_rows": 0,
+        "anchor_slack_negative_rows": 0,
+        "anchor_slack_floor_rows": 0,
+        "teacher_slack_floor_rows": 0,
+        "teacher_negative_slack_repaired_rows": 0,
+        "teacher_max_floor_variance_added": 0
+      },
+      "predicted_qmin_negative_rows": {
+        "initial": 0,
+        "final": 0
+      },
+      "teacher_reconstruction_reference": {
+        "torch.float32": {
+          "train": {
+            "head_relative_SSE": 3.4911792496927774e-06,
+            "head_mean_row_SSE": 0.0003428040672588395,
+            "continuous_teacher_head_vs_native_mean_row_SSE": 0.00035619647769635776
+          },
+          "heldout_exposed": {
+            "head_relative_SSE": 3.4074033834485817e-06,
+            "head_mean_row_SSE": 0.00033855951005534735,
+            "continuous_teacher_head_vs_native_mean_row_SSE": 0.00035766787732427474
+          },
+          "predicted_qmin_negative_rows": 0
+        },
+        "torch.bfloat16": {
+          "train": {
+            "head_relative_SSE": 4.030001839794295e-06,
+            "head_mean_row_SSE": 0.00039624073087907163,
+            "continuous_teacher_head_vs_native_mean_row_SSE": 0.00035619647769635776
+          },
+          "heldout_exposed": {
+            "head_relative_SSE": 3.989020825656553e-06,
+            "head_mean_row_SSE": 0.0003971815422119107,
+            "continuous_teacher_head_vs_native_mean_row_SSE": 0.00035766787732427474
+          },
+          "predicted_qmin_negative_rows": 0
+        }
+      },
+      "export": {
+        "path": "ffnds-derived/e0_bh_direct65_h128_20261028/attempt1/worker/results/low_noise_model/student.safetensors",
+        "bytes": 6724532,
+        "sha256_recorded": "8fdc33e266bf26882fc9b99ba6c246122c46a9d1dc583dee8343848b535bf820",
+        "identity": "producer reports export reload byte check; this scalar audit stat only"
+      },
+      "geometry_by_step": {
+        "2": {
+          "rank": 64,
+          "condition_on_support": 4.09526262709277,
+          "rank_cutoff": 1.8765035848252617e-10,
+          "K_centering_max_abs_sum": 1.0377636250336053e-13,
+          "projector_idempotence_max_abs": 1.1102230246251565e-15,
+          "gain_identity": "actual fl_BF16(1+scale) promoted to FP64",
+          "evidence": "continuous real surrogate anchored to original BF16 assets; not native bit equivalence"
+        },
+        "3": {
+          "rank": 64,
+          "condition_on_support": 4.100492721996218,
+          "rank_cutoff": 1.8751050399511525e-10,
+          "K_centering_max_abs_sum": 1.2318965292301698e-13,
+          "projector_idempotence_max_abs": 1.4432899320127035e-15,
+          "gain_identity": "actual fl_BF16(1+scale) promoted to FP64",
+          "evidence": "continuous real surrogate anchored to original BF16 assets; not native bit equivalence"
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "M256 saved teacher states; native-captured target vs GPU BF16 predictor",
+    "teacher reconstruction references are not optimal native lower bounds",
+    "A0 same-head matched comparison not performed",
+    "two terminal functions out of 80; full model/video/speed unmeasured",
+    "metric/reconstruction sidecar hashes computed in this read-only audit, not originally bound by RUN; per-source prediction metrics cross-checked against RUN summaries",
+    "no payload or tensor bytes independently rehashed in this audit"
+  ],
+  "bindings": {
+    "protocol": {
+      "path": "config/e0_bh_direct65_pilot_20261028_v1.json",
+      "bytes": 11051,
+      "sha256": "2832d5be8c5d248c923c3a3b244c5d3c4f84e957efbf95bf36d9605af2a88ce1"
+    },
+    "RUN": {
+      "path": "ffnds-derived/e0_bh_direct65_h128_20261028/attempt1/worker/results/RUN.json",
+      "bytes": 64987,
+      "sha256": "5829c4d09cb783600c95c0e5ee2ec925a948f58803b4f94fbe51ee60eedfc267"
+    },
+    "actual_worker_exit": {
+      "path": "ffnds-derived/e0_bh_direct65_h128_20261028/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 536,
+      "sha256": "b8a8cc8e3a085b9fdb23b90bc4c400f2f2c628d1578400cc92d59c160db949e7"
+    },
+    "root": "HF for RUN/actual_worker_exit; repository for protocol"
+  }
+}
