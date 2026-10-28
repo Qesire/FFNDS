@@ -33,6 +33,8 @@ Q1当前真实元信息位于W1之前，但Q1本身已经付费；Q2当前真实
 
 这些先例共同支持**围绕决策价值和生产者融合设计特征**，尚未验证真实Wan中Q1摘要能预测有符号whole64组束。顺序决策、lookahead、稀疏索引和融合都不应分别宣称为新的数学发现。
 
+**HiF4 符号存储澄清（2026-10-28）**：完整 HiF4 的 **4-bit S1P2 元素本来就有 1 bit 符号**，论文单元为 `64×4bit signed code + 32bit unsigned scales`。区分 `scale-only` 不含符号、`packed element` 自带符号、原 Wan **fake-QDQ 当前只写出带符号 BF16 重建值**（不持久导出 packed codes/scale）。新的研究目标是**以真实成本及时取得有序符号位置摘要**，不是额外给 HiF4 加符号位。权威 [源码/格式审计](HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md) · [机器合同](../agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
+
 ## 3. 当前真实实现中的时间与信息合同
 
 [已锁定CUDA源码](../../upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu)的SHA256为07120a5d2519e3ed3c8782acb8897a44e31103f93dd84d353ae7bb86b043e00c，与R12相同。
@@ -52,7 +54,7 @@ hifx_quant_cuda_inner第229行起读取64个值，lv0/lv1/lv2为临时尺度量�
 
 完整hidden64选择与W1输入K-panel选择具有不同语义：前者在保留预激活相同等R12条件下保留组Q2可交换；后者改变所有受影响预激活，必须重新产生相应GELU/Q2，不能复用原dense Q2标签充当动作后信息。
 
-**格式也要分清**：HiF4元素是S1P2及64/8/4层级，不能把NVFP4/MXFP4 E2M1的幅值表直接代入。论文格式、原CUDA舍入与真实postgain/postcast边界需要分别登记。
+**格式也要分清**：HiF4元素是**带 1-bit sign 的 S1P2**及64/8/4层级；8-bit E6M2 base 与 8+16 micro-exponent 是**非负幅值元信息**。S1P2 符号已经在原4bit码字中，不需要新加符号位。不能把NVFP4/MXFP4 E2M1的幅值表直接代入；**当前源实现落地存储仍是 BF16 fake-QDQ，不是4bit packed 持久对象**。论文格式、原CUDA舍入与真实postgain/postcast边界需要分别登记。
 
 **量化器内部也有可消费窗口**：Q2尺度先于最终元素码，因此“Q2信息都只能在整个Q2完成后使用”过于粗糙。令合法尺度元信息限定原recipe下可能的postgain/postcast组值集合H_j，U_j=sup_{h∈H_j}||h||，则固定线性读出下有||d_j||≤||P diag(g) W2,j||₂ U_j。这个幅值界可以支持保守的组省略，也可能过松；多个组按三角界累计会丢失signed cancellation。实际native写回还需数值余项。若决策依赖整row/tile的多个组，跨CTA归约可能要求额外sidecar或重新读输入，抵消省掉的编码开销。原kernel没有实现该提前消费分支，本轮仅定位其条件性机会。类似地，Q1尺度后的提前截止若只删hidden输出组，通常仍需为保留W1完成所有输入码；只有另行改变输入K-panel动作，才可能省部分Q1元素编码，并随之改变后续预激活/Q2。
 
@@ -64,7 +66,7 @@ hifx_quant_cuda_inner第229行起读取64个值，lv0/lv1/lv2为临时尺度量�
 
 $$Z_{\rm mag}(x)=Z_{\rm mag}(-x).$$
 
-若两种状态需要不同动作，任何只用这些尺度的策略都存在动作冲突。一个简洁连续FFN反例是两组输出v_1=GELU_tanh(x)、v_2=GELU_tanh(-x)，x等概率为±1；每次省略一组。两种损失约为0.70760与0.02522，并随符号互换。尺度策略的最优平均损失约0.36641，知道符号则约0.02522。可以把每个标量嵌入一个完整64组的一个坐标；**数值例只检查连续GELU，不冒充原HiF4/Wan实测**。对真实QDQ，可利用其相应对称性构造/核验同类动作表。
+若两种状态需要不同动作，任何只用这些尺度的策略都存在动作冲突。一个简洁连续FFN反例是两组输出v_1=GELU_tanh(x)、v_2=GELU_tanh(-x)，x等概率为±1；每次省略一组。两种损失约为0.70760与0.02522，并随符号互换。尺度策略的最优平均损失约0.36641，知道符号则约0.02522。这里的“知道符号”是**利用HiF4码字已有的1-bit sign或同值BF16重建符号**，不是升级格式加符号位；若只输出了scale侧信道，仍需支付符号获取成本。可以把每个标量嵌入一个完整64组的一个坐标；**数值例只检查连续GELU，不冒充原HiF4/Wan实测**。对真实QDQ，可利用其相应对称性构造/核验同类动作表。
 
 符号总数也可能不够：x=(1,−1)、x'=(−1,1)有相同scale及signed histogram；固定w=(1,−1)的内积却为2和−2。置于同一个4元素子组、其它坐标相同，不改变幅值层级。因而需保留**符号与位置/权重的关联**，而非仅多存几个直方图。已有[G12](../literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)的重排界可作信息边界，不能省略构造证书的价格。
 
