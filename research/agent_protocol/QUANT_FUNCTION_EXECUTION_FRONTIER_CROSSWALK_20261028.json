@@ -5,7 +5,7 @@
   "canonical_frontier": "research/20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md",
   "existing_authority": "research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md",
   "research_north_star": "Video FFN information-to-function-to-physical computation under full four-step quality",
-  "current_execution_priority": "M-B B0/B1 remains current scoped first method task; this file registers no model job",
+  "current_execution_priority": "M-B B0 and CAL24/B1 fixed dictionary and B-H H128 pilot completed; subsequent matched native A0/B-H comparison and B-F remain current. Q-Meta parallel audit does not schedule GPU.",
   "scientific_objects": [
     {
       "id": "Q1_Z",
@@ -58,6 +58,31 @@
       "id": "A2",
       "meaning": "post-Q2 actual W2 K-panel selection",
       "conditions": "only metadata produced after A1; cannot save prior W1"
+    },
+    {
+      "id": "W1_W2_STATIC_Q",
+      "meaning": "offline weight code,scale/layout fixed across input sources",
+      "source_anchors": [
+        "F04",
+        "F09"
+      ],
+      "conditions": "native current HiF4 adapter persists BF16 weight_qdq; packed re-encoding is different artifact"
+    },
+    {
+      "id": "A1_DYNAMIC_Q1",
+      "meaning": "current FFN x dynamically quantized after Smooth1 before W1",
+      "source_anchors": [
+        "F03"
+      ],
+      "conditions": "scale/code availability depends on actual producer and kernel; no free packed data in present BF16 QDQ"
+    },
+    {
+      "id": "A2_DYNAMIC_Q2",
+      "meaning": "current W1+GELU output dynamically quantized after Smooth2 before W2",
+      "source_anchors": [
+        "F08"
+      ],
+      "conditions": "not legally visible before W1; current HiF4 original whole64 closure, native MX/NV closure recomputed"
     }
   ],
   "typed_links": [
@@ -144,6 +169,18 @@
       "to": "QCFB_SIGNED_BUNDLES",
       "type": "FORMAT_CONSTRAINT",
       "reason": "Sign is intrinsic to four-bit S1P2; the scientific question is timely cheap extraction of ordered signed features, not adding a missing sign bit. Current fake-QDQ does not persist 4-bit codes."
+    },
+    {
+      "from": "WEIGHT_STATIC_QUANTIZATION",
+      "to": "A1_DYNAMIC_Q1",
+      "type": "OBSERVATION_CONSTRAINT",
+      "reason": "Weight profile available offline can condition online Q1 scale/signed input sketch, but cannot alone reveal current source/state."
+    },
+    {
+      "from": "NATIVE_FP4_SCALE_OPERANDS",
+      "to": "Q_STAGED_EXECUTION",
+      "type": "FORMAT_CONSTRAINT",
+      "reason": "Blackwell CUTLASS uses separate A and W scale operands; W4A4 has runtime A metadata, its accessibility and time are backend-dependent; W4A16 lacks it."
     }
   ],
   "candidate_tests": [
@@ -305,5 +342,7 @@
     "current_M_B_task_unchanged": true
   },
   "format_contract": "research/agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json",
-  "format_semantics": "HiF4 S1P2 contains native sign bit per element; unsigned scale hierarchy only. Actual Wan fake-QDQ exports signed BF16 values, not persistent 4-bit packed code. Costed signed sketches remain OPEN."
+  "format_semantics": "HiF4 S1P2 contains native sign bit per element; unsigned scale hierarchy only. Actual Wan fake-QDQ exports signed BF16 values, not persistent 4-bit packed code. Costed signed sketches remain OPEN.",
+  "operand_timing_contract": "research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json",
+  "operand_semantics": "W1/W2 weight quantized before inference, Q1/A1 and Q2/A2 dynamically per invocation. Native W4A4 FP4 GEMM consumes separate static W and runtime A scales; runtime activation scale/code may be inside quantizer/GEMM kernel; W4A16 has no A FP4 scales."
 }
