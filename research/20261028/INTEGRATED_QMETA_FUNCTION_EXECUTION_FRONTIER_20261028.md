@@ -1,5 +1,7 @@
 # FFNDS · 量化侧信道 × 有符号联合函数 × 真实可执行省算：综合研究前沿
 
+> **格式基础纠正（2026-10-28）**：原 HiF4 元素码字是 **signed S1P2（4bit 含 1bit 符号）**；仅 E6M2 base / micro-exponent 是 unsigned 幅值信息。现行 Wan 的 HiF4 fake-QDQ 最终保留的是**有符号 BF16 重建值**，并未持久写出 packed S1P2。QCFB 的创新窗口是提取**原有符号与位置的低成本可用信息**、预测真实合法动作及处理成本，不是向 HiF4 补一位符号。[源码/格式审计](HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md) · [机器合同](../agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
+
 2026-10-28 · INTEGRATED_RESEARCH_FRONTIER v2 · ALG/SRC/LIT/OPEN。本文整合现行 M-A/M-B/M-C、Q-Meta/NetVOI、G6D/E/F、G11/G12/G14、A0 与 M-B 四轮评议；是研究机制扩展而非替换现行 M-B B0/B1 优先级。未运行新 Wan/GPU/训练/视频/性能实验；不变更 ACTIVE_RESEARCH.json、独立Agent评议票或旧 RUN。
 
 > **v2严格审计**：[命题推导、反例、源码与先例](QCFB_QSTAGE_PROPOSITION_AUDIT_AND_DERIVATION_20261028.md)。新增策略可测性、条件协方差、联合矩PSD、跨token读出、Q-STAGE内层条件风险；模型实验状态不变。
