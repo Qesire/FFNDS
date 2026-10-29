@@ -12,6 +12,8 @@ description: Apply AutoResearcher science to independent information, function/d
 
 **S2时间证据规范（2026-10-29）**：[全21τ统计结构T1–T6及新增空间/来源采集计划](../../../research/20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。时间是计算图的统计坐标（固定step内latent τ=21），**不是第五条并行研究路线或运动补偿预设目标**。已有新10来源全160 Dense时间轨迹与同Dense h低秩r960 DC/AC复算实际exit0；还需lag自相关/结构函数、FFT频段与相位、时间Gram有效秩、突发和stationarity、连续运动邻域与student状态。新CPU代码只是PREPARED_NOT_EXECUTED，需要新ACTIVE注册与真实收据。按独立image-cluster（不是τ/token/site）等权，适用两卡会话与冻结RUN预算优先于通用GPU动态利用率。
 
+**当前用户要求的S2下一个真正实验与独立子Agent（2026-10-29）**：[两来源pilot→多来源扩充→同状态W2反事实→真实后缀因果定位](../../../research/20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)。主Agent执行时**必须分出一个真实独立上下文的理论子Agent**，独立推导计算图/L-P-I与gate/BF16误差分解、机制竞争、论文与源码差异、ROI/student来源和实验反例；角色合同见[专门分工](../../../research/agent_protocol/S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。数据/实验仍属S2研究轴。执行者先核对最新ACTIVE的真实授权与GPU≤有效两卡并发记录，另冻原生capture协议并执行真正RUN/EXIT；本条只是任务要求，不代表任何子Agent或GPU已经在运行。
+
 ## 开始研究前的阅读顺序与工作对象
 
 **最短阅读链**：[当前导航](../../../research/RESEARCH_NAVIGATION.md) → [资产先行四支方法及证据](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md) → [现行任务和交接](../../../research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → 根据具体科学问题选读[原三方案](../../../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)、[G14真实计算图](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)、[数据实验协议](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。本Skill约束**科学方法与证据表达**，进度数字、后续任务及历史实验以P0–P4入口和[ACTIVE](../../../research/ACTIVE_RESEARCH.json)为准，不在每次更新时重复抄写。
