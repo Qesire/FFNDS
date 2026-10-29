@@ -1,0 +1,7 @@
+# Independent exact recheck: factorial video
+
+Disposition APPROVE for the exact two frozen part protocols and their three independently supervised phases, subject to root ACTIVE registration, actual CPU preflight, available resources, and independent verifier EXIT0. Reviewer `/root/teal_full_llm_calibration_build_terra`; author `/root/asset_readiness_terra`.
+
+Initial REVISE identified absent typed/raw payload verification; the author now verifies each state file in one charged read for file SHA, raw SHA, key, dtype, shape and offsets. The counterexample and response are preserved in the initial review and author self-review. Independently checked both frozen protocol and six job SHA identities, 1,086 source bindings per part, source-level case and prior closure gates, isolated argv, physical operation and cache counts, 26 prefix byte comparisons plus NONE video comparison, and verifier boundaries. Thirteen synthetic CPU tests passed. No scientific job, model or GPU was run.
+
+The strict prefix may fail under actual execution and must not be waived or retried automatically; failures are evidence. This is two exposed sources and one seed, not quality acceptance. GPU timing includes observers, and per-scope launch requires actual profile, worker/UUID, concurrency and resource checks. File artifact reads are budgeted; nested metadata and physical mmap I/O have the stated UNKNOWN boundaries.

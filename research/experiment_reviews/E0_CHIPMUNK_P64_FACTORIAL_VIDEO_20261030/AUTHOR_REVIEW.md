@@ -1,0 +1,11 @@
+# Author review: P64 expert factorial video
+
+Status: preparation and independent review requested. No new generation has run.
+
+Two exposed sources, each with one seed, compare old verified Dense and BOTH with new NONE, HIGH_ONLY and LOW_ONLY. NONE must reproduce all ten saved states and video byte-for-byte. HIGH_ONLY must reproduce the old BOTH initial state and steps 0–2, and LOW_ONLY the old Dense prefix. A failed gate terminates the single attempt. This comparison tests whether high and low expert actions make distinguishable contributions after the corresponding prefixes; a later trajectory difference is not automatically attributable to the final action alone.
+
+Per source, three full 160-site phases give 480 logical FFNs: 400 dense FFNs and 80 sparse FFNs. The latter pay 80 probes, selected W1/W2 actions and cache puts/releases, plus two same-mask pre-gate controls and two expert-boundary cleanups. Original prefetch is retained, cumulative reserved-memory limit is 76 GiB with no peak reset, and the output ceiling is 512 MiB. Each scope has independent CPU preflight, GPU execution and CPU artifact verification. Prior V2 artifacts are bound only after actual EXIT0 and verification. The original V7 failed scope is preserved.
+
+The 26 state byte gates and one video gate are explicitly paid. The verifier independently checks saved state header, shape, dtype, file and raw-tensor hashes in one read per artifact and compares the reference identities. Prefix reproducibility is a falsifiable hard condition, not an assumption about determinism. Sources are developmental and reused; there is no new population or quality claim. GPU timing includes observation and is not a clean systems-speed measurement. The 44.7 GiB logical cache payload does not bound allocator peak or temporary buffers.
+
+Potential counterexamples include different allocator or execution order breaking a byte prefix despite equivalent intended actions; an inaccurate but same-mask implementation; and a budget exceeded before final evidence is written. The frozen baseline, transaction-level controls, prepaid ledger, resource monitor and preserved failures address these as explicit observations rather than silently relaxing the gates. Formal independent review and exact protocol/job recheck remain required before registration.
