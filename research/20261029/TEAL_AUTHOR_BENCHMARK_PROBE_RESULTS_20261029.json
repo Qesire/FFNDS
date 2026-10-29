@@ -1,0 +1,267 @@
+{
+  "id": "E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029",
+  "status": "ACTUAL_EXIT0_VERIFY_CLOSED_PASS",
+  "evidence": "LOCAL_AUTHOR_STYLE_FP16_SINGLE_TOKEN_GEMV_NOT_LLM_OR_WAN",
+  "source_commit": "fb7373c93ac3594817c9ee64d4e08b47430a1822",
+  "protocol": {
+    "path": "config/e0_teal_author_benchmark_probe_20261029_pending_review_v1.json",
+    "bytes": 14401,
+    "sha256": "737f25518d84724d4356e546662235b05655cc968785aa2e1f585ec77bf1e2d8"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/v1.json",
+    "bytes": 10354,
+    "sha256": "e9c5cd0cbe689da687417e4fc099d7acd21e88174fa3d28bf06847e0f8112ffa"
+  },
+  "RUN": {
+    "path": "ffnds-derived/e0_teal_author_benchmark_probe_20261029/attempt1/worker/results/RUN.json",
+    "bytes": 15414,
+    "sha256": "50fe14fad4131497ac15badccf6c973e26306614ea45ea8cd771630c7fceed20"
+  },
+  "exit": {
+    "path": "ffnds-derived/e0_teal_author_benchmark_probe_20261029/attempt1/worker/EXIT_RECEIPT.json",
+    "bytes": 528,
+    "sha256": "7292ef326b56a18b26b12be8b4ca52bbe51cb23562cf129e357ab738daba279d"
+  },
+  "closed_verification": {
+    "sha256": "90cc11ce3b7e3f8c5bb04d6f2040bfb1d764cb1e02a60e8a85751586c1fb2da1",
+    "status": "PASS_CLOSED_AUTHOR_BENCHMARK_PROBE",
+    "run_sha256": "50fe14fad4131497ac15badccf6c973e26306614ea45ea8cd771630c7fceed20",
+    "exit_sha256": "7292ef326b56a18b26b12be8b4ca52bbe51cb23562cf129e357ab738daba279d",
+    "verification_model_calls": 0,
+    "verification_gpu_calls": 0,
+    "note": "The verification counters describe verify-closed, not the measured RUN."
+  },
+  "actual_child_returncode": 0,
+  "design": {
+    "claim": "BOUNDED_AUTHOR_BENCHMARK_ADAPTED_NOT_LLM_REPRO_OR_WAN",
+    "source_commit": "fb7373c93ac3594817c9ee64d4e08b47430a1822",
+    "gpu_compute_capability": [
+      8,
+      0
+    ],
+    "gpu_name_contains": "A100",
+    "dtype": "float16",
+    "input_shape": [
+      1,
+      1,
+      4096
+    ],
+    "weight_shape": [
+      14336,
+      4096
+    ],
+    "seed": 42,
+    "sparsity_levels": [
+      0.0,
+      0.5
+    ],
+    "thresholds": [
+      0.0,
+      0.25
+    ],
+    "sparsity_bins": [
+      0,
+      9
+    ],
+    "cpu_affinity": [
+      0,
+      1
+    ],
+    "physical_gpu_index": 0,
+    "quantiles": [
+      0.5,
+      0.2,
+      0.8
+    ],
+    "warmup_ms": 25,
+    "sparse_rep_ms": 1000,
+    "dense_rep_ms": 100,
+    "flush_bytes": 256000000,
+    "measurement": "TRITON_3_0_DO_BENCH_EQUIVALENT_EVENT_FLUSH_GUARDED_ADAPTATION",
+    "scope": "PAIRED_SAME_INPUT_TWO_LEVELS_NOT_FULL_AUTHOR_SWEEP",
+    "no_compile_no_cuda_graph": true,
+    "relative_l2_max": 0.015,
+    "new_training": false
+  },
+  "hardware": {
+    "gpu_name": "NVIDIA A100 80GB PCIe",
+    "compute_capability": [
+      8,
+      0
+    ],
+    "torch": "2.4.0+cu121",
+    "triton": "3.0.0",
+    "peak_gpu_reserved_bytes": 494927872
+  },
+  "timing": [
+    {
+      "level": 0.0,
+      "threshold": 0.0,
+      "zero_fraction": 0.000244140625,
+      "relative_l2_masked_dense": 0.0012522006658029577,
+      "config": "BLOCK_M: 64, BLOCK_N: 128, num_warps: 2, num_ctas: 1, num_stages: 2, maxnreg: None",
+      "sparse_quantiles_ms_q50_q20_q80": [
+        0.09216000139713287,
+        0.09011200070381165,
+        0.09318400174379349
+      ],
+      "dense_quantiles_ms_q50_q20_q80": [
+        0.10239999741315842,
+        0.10035199671983719,
+        0.10342399775981903
+      ],
+      "q50_dense_over_sparse": 1.1111110661977932
+    },
+    {
+      "level": 0.5,
+      "threshold": 0.25,
+      "zero_fraction": 0.51123046875,
+      "relative_l2_masked_dense": 0.0012553376223520924,
+      "config": "BLOCK_M: 64, BLOCK_N: 128, num_warps: 2, num_ctas: 1, num_stages: 2, maxnreg: None",
+      "sparse_quantiles_ms_q50_q20_q80": [
+        0.055296000093221664,
+        0.055296000093221664,
+        0.05734400078654289
+      ],
+      "dense_quantiles_ms_q50_q20_q80": [
+        0.10239999741315842,
+        0.10035199671983719,
+        0.10342399775981903
+      ],
+      "q50_dense_over_sparse": 1.8518518019481647
+    }
+  ],
+  "arms": [
+    {
+      "provider": "sparse",
+      "level": 0.0,
+      "state": "COMPLETE",
+      "predebited_python_calls": 4506,
+      "completed_python_calls": 4506,
+      "physical_launches": "UNKNOWN",
+      "estimate_ms": 0.22773759365081786,
+      "warmup_calls": 109,
+      "repeat_calls": 4391,
+      "rep_ms": 1000,
+      "partial_batch_actual_calls": "COMPLETE",
+      "quantiles_ms": [
+        0.09216000139713287,
+        0.09011200070381165,
+        0.09318400174379349
+      ]
+    },
+    {
+      "provider": "dense",
+      "level": 0.0,
+      "state": "COMPLETE",
+      "predebited_python_calls": 526,
+      "completed_python_calls": 526,
+      "physical_launches": "UNKNOWN",
+      "estimate_ms": 0.23982079029083253,
+      "warmup_calls": 104,
+      "repeat_calls": 416,
+      "rep_ms": 100,
+      "partial_batch_actual_calls": "COMPLETE",
+      "quantiles_ms": [
+        0.10239999741315842,
+        0.10035199671983719,
+        0.10342399775981903
+      ]
+    },
+    {
+      "provider": "dense",
+      "level": 0.5,
+      "state": "COMPLETE",
+      "predebited_python_calls": 532,
+      "completed_python_calls": 532,
+      "physical_launches": "UNKNOWN",
+      "estimate_ms": 0.2371583938598633,
+      "warmup_calls": 105,
+      "repeat_calls": 421,
+      "rep_ms": 100,
+      "partial_batch_actual_calls": "COMPLETE",
+      "quantiles_ms": [
+        0.10239999741315842,
+        0.10035199671983719,
+        0.10342399775981903
+      ]
+    },
+    {
+      "provider": "sparse",
+      "level": 0.5,
+      "state": "COMPLETE",
+      "predebited_python_calls": 5363,
+      "completed_python_calls": 5363,
+      "physical_launches": "UNKNOWN",
+      "estimate_ms": 0.1912832021713257,
+      "warmup_calls": 130,
+      "repeat_calls": 5227,
+      "rep_ms": 1000,
+      "partial_batch_actual_calls": "COMPLETE",
+      "quantiles_ms": [
+        0.055296000093221664,
+        0.055296000093221664,
+        0.05734400078654289
+      ]
+    }
+  ],
+  "correctness": [
+    {
+      "level": 0.0,
+      "threshold": 0.0,
+      "sparse_call": {
+        "predebited": 1,
+        "completed": 1
+      },
+      "dense_call": {
+        "predebited": 1,
+        "completed": 1
+      },
+      "zero_fraction": 0.000244140625,
+      "relative_l2": 0.0012522006658029577,
+      "config": "BLOCK_M: 64, BLOCK_N: 128, num_warps: 2, num_ctas: 1, num_stages: 2, maxnreg: None"
+    },
+    {
+      "level": 0.5,
+      "threshold": 0.25,
+      "sparse_call": {
+        "predebited": 1,
+        "completed": 1
+      },
+      "dense_call": {
+        "predebited": 1,
+        "completed": 1
+      },
+      "zero_fraction": 0.51123046875,
+      "relative_l2": 0.0012553376223520924,
+      "config": "BLOCK_M: 64, BLOCK_N: 128, num_warps: 2, num_ctas: 1, num_stages: 2, maxnreg: None"
+    }
+  ],
+  "measurement_cost": {
+    "completed_python_benchmark_fn_calls": 10927,
+    "correctness_sparse_calls": 2,
+    "correctness_dense_calls": 2,
+    "physical_kernel_launches": "UNKNOWN",
+    "autotune_internal_GPU_launches": "UNKNOWN",
+    "worker_wall_seconds": 19.72463985159993,
+    "supervisor_wall_seconds": 20.37171609327197,
+    "gpu_monitor_sampled_isolation_pass": true
+  },
+  "eager_v2_comparison": {
+    "RUN": {
+      "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_v2_20261029/attempt1/worker/results/RUN.json",
+      "bytes": 27459,
+      "sha256": "fd83d1ebb9d8d5e82068ea8a3149558a3fcecbac55fca628bdc99ad90873280a"
+    },
+    "level_0_5_sparse_q50_ms": 0.19200000166893005,
+    "level_0_5_dense_q50_ms": 0.14694400131702423,
+    "interpretation": "Different harness, cache flush, observation and synchronization together; no isolated causal attribution."
+  },
+  "interpretation": {
+    "quantiles": "Within-run q20–q80 distribution, not confidence interval; arms measured separately and ratios compare medians.",
+    "limits": "One random input/seed, A100 FP16 single-vector 4096→14336, two levels; no full LLM, Wan, full-system or video conclusion.",
+    "author_style": "Guarded two-level adaptation of author event/flush do_bench, same operands across arms; not full 101-level four-provider author sweep."
+  },
+  "full160_cpu_scope": "RUNNING as independently reported by coordinator; no result claimed."
+}

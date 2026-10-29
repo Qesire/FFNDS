@@ -1,0 +1,212 @@
+{
+  "id": "E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029",
+  "status": "DRAFT_REVIEW_REQUESTED",
+  "design": {
+    "identity": "A100_BF16_NONRASTER_128ROW_CONTROLLED_PORT_NOT_AUTHOR_HOPPER",
+    "source_ordinal": 898,
+    "seed": 42,
+    "expert": "high",
+    "block": 20,
+    "steps": [
+      0,
+      1
+    ],
+    "M": 128,
+    "D": 5120,
+    "H": 13824,
+    "cases": [
+      "empty",
+      "full",
+      "fixed_first_4096"
+    ],
+    "initializer": [
+      "same_M128_dense",
+      "captured_fullM_native"
+    ],
+    "selection": "FIXED_INDEPENDENT_OF_CURRENT_ACTIVATION_NO_AUTHOR_PROXY",
+    "delta_dtype": "BF16",
+    "accumulation": "FP32_TENSOR_CORE",
+    "bias2": "ONLY_INITIAL_DENSE_Y",
+    "gate": "CURRENT_STEP_BF16_PRODUCT",
+    "full_same_m_relative_l2_max": 0.03,
+    "empty_byte_equal_required": true,
+    "max_cpu_seconds": 900,
+    "selected_h_relative_l2_max": 0.015,
+    "independent_delta_relative_l2_max": 0.05,
+    "independent_Y_relative_l2_max": 0.015,
+    "source_scope": "ONE_TEACHER_SOURCE_ONE_FUNCTION_ONE_NONRASTER_GROUP_NO_VIDEO",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "timing_scope": "SINGLE_SHOT_SYNCHRONIZED_WALL_DIAGNOSTIC_NO_ACCELERATION_CLAIM",
+    "author_proxy": "NOT_EXECUTED_COST_UNKNOWN",
+    "scatter": "PARTIAL_INDEX_COPY_UNINITIALIZED_REMAINING_ROWS"
+  },
+  "resources": {
+    "GPU": 1,
+    "CPU_threads": 4,
+    "wall_seconds": 900,
+    "outer_seconds": 1020,
+    "GPU_reserved_bytes": 25769803776,
+    "host_peak_RSS_bytes": 68719476736,
+    "logical_input_bytes": 32212254720,
+    "new_HF_bytes": 536870912,
+    "automatic_retry": false
+  },
+  "limits": {
+    "payload_hash": 2,
+    "parent_packet_load": 2,
+    "checkpoint_hash": 1,
+    "high_checkpoint_load": 1,
+    "dense_m128": 2,
+    "selection_dispatches": 6,
+    "scatter_calls": 6,
+    "independent_references": 6,
+    "kernel_a": 4,
+    "kernel_b": 4,
+    "video_generations": 0,
+    "model_forward": 0,
+    "training": 0
+  },
+  "repo_sources": [
+    {
+      "path": "tools/e0_chipmunk_a100_delta_probe.py",
+      "bytes": 36274,
+      "sha256": "bdc1068d37d23fff0a50aadac222969f996117d467d8deb9a403217b33955759"
+    },
+    {
+      "path": "tools/chipmunk_a100_selected_delta_kernels.py",
+      "bytes": 2721,
+      "sha256": "ec2994a7b446d31b7aa967b85a13a528791678c72eb0e93df35e356e2cbfc0d0"
+    },
+    {
+      "path": "tests/test_e0_chipmunk_a100_delta_probe.py",
+      "bytes": 5284,
+      "sha256": "a3efacb5bdff652ab21d13f3a7ec6e591dc2b77bf09b3d0cd284eb90ede6050f"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "bytes": 3559,
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d"
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "bytes": 2529,
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0"
+    },
+    {
+      "path": "tools/durable_worker_job.py",
+      "bytes": 9319,
+      "sha256": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2"
+    },
+    {
+      "path": "scripts/worker_teal_gpu0_uuid_exec.sh",
+      "bytes": 730,
+      "sha256": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1"
+    },
+    {
+      "path": "config/e0_s2_new12_dense_baseline_part0_20261029_v2.json",
+      "bytes": 221383,
+      "sha256": "fe2beee3adb910e189db3f45da4979ad41ddba81ab1c3898988a86279e84ac39"
+    }
+  ],
+  "parent_bindings": [
+    {
+      "path": "ffnds-derived/e0_s2_spatial_student_full160_portable_v2_20261029/part0/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 561,
+      "sha256": "deaced2faf767e9a07b441fb73b9febc93b2f24c899cfc5e3e9faff79411994e"
+    },
+    {
+      "path": "ffnds-derived/e0_s2_spatial_student_full160_portable_v2_20261029/part0/attempt1/worker/results/RUN.json",
+      "bytes": 412422,
+      "sha256": "2c47447ea11e4c608dbd3e5185815db86b5b1ec8ae3e87104b8ae994840c647a"
+    },
+    {
+      "path": "ffnds-derived/e0_s2_spatial_student_full160_portable_v2_20261029/part0/attempt1/worker/results/spatial52_ord898_seed42_dense/GENERATION_OBSERVATION.json",
+      "bytes": 72974,
+      "sha256": "31b5e0750cb4392716dea5f7a40e72553343d425b3de563a749f0c040df7cdaf"
+    }
+  ],
+  "metadata": [
+    {
+      "path": "ffnds-derived/e0_s2_spatial_student_full160_portable_v2_20261029/part0/attempt1/worker/results/spatial52_ord898_seed42_dense/step0_block20.json",
+      "bytes": 15384,
+      "sha256": "be8f1401edb64b63e958bc52f4cbf03b01a2e8dd86916a604633b107d3ade9f0"
+    },
+    {
+      "path": "ffnds-derived/e0_s2_spatial_student_full160_portable_v2_20261029/part0/attempt1/worker/results/spatial52_ord898_seed42_dense/step1_block20.json",
+      "bytes": 15384,
+      "sha256": "d9d70142cb0c68fbd3da1997fdd8870efd1683b1eb7e66e5d71c85a26fdde99a"
+    }
+  ],
+  "payloads": [
+    {
+      "path": "ffnds-derived/e0_s2_spatial_student_full160_portable_v2_20261029/part0/attempt1/worker/results/spatial52_ord898_seed42_dense/step0_block20.safetensors",
+      "sha256": "a9a5679622c4e8949874e34a83a537598f7e129ce18e97b559a4d91eac79bab6"
+    },
+    {
+      "path": "ffnds-derived/e0_s2_spatial_student_full160_portable_v2_20261029/part0/attempt1/worker/results/spatial52_ord898_seed42_dense/step1_block20.safetensors",
+      "sha256": "f4a408ffc6202040eebbbb60273750a9addd42ee45ea5a15aa11636056babeaf"
+    }
+  ],
+  "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+  "output_HF_relative": "ffnds-derived/e0_chipmunk_a100_128row_selected_delta_probe_20261029/attempt1/worker/results",
+  "worker_config_sha256": null,
+  "prepared_environment": {
+    "venv_path": "/home/xiang/projects/FFNDS/.venv",
+    "python_sha256": "8deffe5dd9ebcf98a062917a4e73bb8fbb7d5846f83dec01fb7506fd5d41c54e",
+    "pyvenv_sha256": "b0630fa94ab7f8cb6cd403bb3919960758263de1dd4878a41866264f2a694d0f",
+    "distributions": {
+      "torch": {
+        "version": "2.10.0+cu128",
+        "record_sha256": "22a9fa2f5c1078f087203bc42c300ca1e23ff954c16c0de120de330a182dc278"
+      },
+      "triton": {
+        "version": "3.6.0",
+        "record_sha256": "a3c815fc0a3df6c8a999aaac679cf2a7cc8cf7cafbfa9960e0d027deaa09be09"
+      },
+      "safetensors": {
+        "version": "0.8.0",
+        "record_sha256": "c5110881c0c39a4f163a23b2ccc88cad19ce1823b6dce1ceef353d33f16c004b"
+      }
+    },
+    "files": {
+      "torch/__init__.py": {
+        "bytes": 106868,
+        "sha256": "51c90fe34a7cf869517d1bab4cd114498790e169ec668f1a154c35ec64117a5e"
+      },
+      "triton/__init__.py": {
+        "bytes": 1661,
+        "sha256": "96e68192cab5dd11fa30d5dc95d56c29ceecda53477fc3af8f37bee026b7a021"
+      },
+      "triton/language/__init__.py": {
+        "bytes": 6986,
+        "sha256": "58ebab210df54a4ea9600d056c49d436b2a43e02313bf39d990d6c4fd4927728"
+      },
+      "safetensors/__init__.py": {
+        "bytes": 210,
+        "sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f"
+      }
+    }
+  },
+  "author_mlp_source": {
+    "path": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_mlp.py",
+    "bytes": 4451,
+    "sha256": "28bb218e7cb474ee5da0d07d9ffa773c94fbc48f86203baf202d53e191759944"
+  },
+  "monitor_binary": {
+    "path": "/usr/bin/nvidia-smi",
+    "bytes": 1068640,
+    "sha256": "542c8fe3aea5d9e74dc8fd6c243e17a58f5557435e36a2e103f7ff55f8a30ea6"
+  },
+  "review": null,
+  "automatic_retry": false
+}

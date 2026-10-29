@@ -72,6 +72,22 @@
       "bytes": 4102,
       "sha256": "3d74b0510d9063b3f8668250660d6059706224d3ab07448dea8694603af13f5e",
       "executed": false
+    },
+    {
+      "url": "https://github.com/FasterDecoding/TEAL/blob/fb7373c93ac3594817c9ee64d4e08b47430a1822/scripts/benchmark_gemv.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/teal_benchmark_gemv_fb7373c.py",
+      "bytes": 9905,
+      "sha256": "27dddfe933e5359cbdcbffe246a41a5be541cddd59e4698043f02bd2e8d111af",
+      "executed": false,
+      "reading_scope": "AUTHOR_SCRIPT_READ_NOT_EXECUTED_VERBATIM"
+    },
+    {
+      "url": "https://github.com/triton-lang/triton/blob/v3.0.0/python/triton/testing.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/triton_3_0_0_testing.py",
+      "bytes": 18347,
+      "sha256": "d464b766632e34d2b63a983df74a8951d947d807c8299bd5fb335945825ae18b",
+      "executed": false,
+      "reading_scope": "INSTALLED_TRITON_3_0_0_SOURCE_BYTE_COPY_DO_BENCH_READ_NOT_CALLED_VERBATIM"
     }
   ],
   "papers": [
@@ -92,17 +108,23 @@
       "id": "C20",
       "paper": "https://arxiv.org/abs/2408.14690v3",
       "commit": "fb7373c93ac3594817c9ee64d4e08b47430a1822",
-      "reading_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AND_AUTHOR_README_SPARSE_GEMV_SOURCE",
+      "reading_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AUTHOR_README_SPARSE_GEMV_AND_BENCHMARK_GEMV_INSTALLED_TRITON_3_0_TESTING",
       "formula": "s_t(x_i)=0 if |x_i|<=t, else x_i; estimated offline empirical threshold t; y=s_t(x)W^T",
       "training_calibration": "No retraining; offline activation histogram calibration; optional block-wise greedy allocation based on block-output error",
       "source_findings": [
         "SparseGEMV dispatches sparse only when sequence length == 1; otherwise raw dense matmul",
         "Single-vector kernel only has BATCHSIZE==1 code path; output buffer float16; README FP16 support",
-        "Weight loads lack rn<N mask: potential tail out-of-bounds for N not multiple of selected BLOCK_N, a static risk not observed execution"
+        "Weight loads lack rn<N mask: potential tail out-of-bounds for N not multiple of selected BLOCK_N, a static risk not observed execution",
+        "Author benchmark uses triton.testing.do_bench for ZEAL rep=1000 ms and dense default rep=100 ms; quantiles 0.5/0.2/0.8; author benchmark script does not call torch.compile or CUDA graph.",
+        "Installed Triton 3.0 do_bench uses an initial call, five estimate calls, adaptive warmup/repeat, 256000000-byte cache clear before measured calls, and CUDA event quantiles. Bounded local adaptation adds guard/predebit outside timed intervals; it does not call the original do_bench verbatim."
       ],
       "author_probe": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/AUTHOR_DESIGN_UNREVIEWED.md",
       "independent_review": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
-      "independent_review_status": "REVISE_NOT_APPROVED"
+      "independent_review_status": "REVISE_NOT_APPROVED",
+      "benchmark_finite_local_result": "research/20261029/TEAL_AUTHOR_BENCHMARK_PROBE_RESULTS_20261029.json",
+      "benchmark_review": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/v1.json",
+      "benchmark_review_status": "INITIAL_REVISE_AUTHOR_REVISION_INDEPENDENT_RECHECK_APPROVE_ACTUAL_EXIT0_CLOSED",
+      "independent_review_status_scope": "Historical V1 review, preserved; separate V2 and benchmark scopes have independently reviewed closed results."
     }
   ]
 }

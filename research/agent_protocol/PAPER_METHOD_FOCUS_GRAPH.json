@@ -2482,7 +2482,7 @@
       "physical_action": "Threshold input and skip corresponding weight channels via split-K sparse GEMV; optional offline block-wise greedy allocation",
       "training": "No retraining; offline histogram threshold calibration; optional block-wise greedy selection using block-output error",
       "wan_specific_discriminator": "Wan pre-W1 and post-GELU W2 are distinct actions; author FP16 single-token GEMV falls back to dense matmul for sequence length >1 and does not establish BF16 large-M sparse acceleration.",
-      "reading_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AND_AUTHOR_README_SPARSE_GEMV_SOURCE_REVIEWED",
+      "reading_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AUTHOR_README_SPARSE_GEMV_BENCHMARK_GEMV_AND_INSTALLED_TRITON_3_0_TESTING",
       "focus_nodes": [
         "T03",
         "T04",
@@ -2494,12 +2494,16 @@
       "group": "supplemental_training_free_activation_sparsity",
       "source_ledger": "research/literature/20261029/P0_CHIPMUNK_TEAL_PRIMARY_SOURCE_LEDGER_20261029.json",
       "author_code_url": "https://github.com/FasterDecoding/TEAL/tree/fb7373c93ac3594817c9ee64d4e08b47430a1822",
-      "author_code_review_scope": "README and kernels/sparse_gemv.py; partial source review; separate finite FP16 single-token kernel probe executed as linked",
+      "author_code_review_scope": "Author README, sparse_gemv.py and benchmark_gemv.py; installed Triton 3.0 testing.py do_bench reviewed. Separate finite local author-style kernel measurements; no full LLM or Wan reproduction.",
       "experiment_review": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
       "experiment_review_status": "REVISE_NOT_APPROVED",
       "finite_external_kernel_result": "research/20261029/TEAL_AUTHOR_FP16_KERNEL_PROBE_RESULTS_20261029.json",
       "finite_external_kernel_evidence": "A100 FP16 single-token author kernel V2 EXIT0 and closed verification; observed eager timing is not author benchmark. Full LLM and Wan BF16 remain unreplicated.",
-      "experiment_review_status_scope": "Historical V1 review only; separate V2 probe was independently rechecked APPROVE and closed as in finite_external_kernel_result."
+      "experiment_review_status_scope": "Historical V1 review only; separate V2 probe was independently rechecked APPROVE and closed as in finite_external_kernel_result.",
+      "finite_author_style_benchmark_result": "research/20261029/TEAL_AUTHOR_BENCHMARK_PROBE_RESULTS_20261029.json",
+      "finite_author_style_benchmark_evidence": "A100 FP16 4096→14336 single vector, one input/seed, two levels; adapted author event/cache-flush measurement EXIT0 and closed; not full author sweep, LLM or Wan.",
+      "Wan_local_CPU_result": "research/20261029/TEAL_WAN_ALL160_CPU_LOCAL_RESULTS_20261029.json",
+      "Wan_local_CPU_evidence": "OBS CPU FP32 removed contributions at original BF16 teacher states: six calibration/two exposed development sources, all160 sites; no native student video or sparse execution."
     }
   ],
   "supplemental_links": [
@@ -2853,7 +2857,7 @@
         "T16"
       ],
       "index": "SUPPLEMENTAL_P0_PRIMARY_SOURCES",
-      "review_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AND_AUTHOR_README_SPARSE_GEMV_SOURCE_REVIEWED",
+      "review_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AUTHOR_README_SPARSE_GEMV_BENCHMARK_GEMV_AND_INSTALLED_TRITON_3_0_TESTING",
       "mechanism": "Offline calibrated magnitude threshold on current matrix input, selectively load activation-associated weight channels in sparse decode GEMV",
       "intervention": "Threshold input and skip corresponding weight channels via split-K sparse GEMV; optional offline block-wise greedy allocation",
       "decision_time": "Offline generic-text activation histogram thresholds; online current pre-matmul activation",

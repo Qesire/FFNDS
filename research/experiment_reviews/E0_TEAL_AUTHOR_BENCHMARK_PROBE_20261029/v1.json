@@ -1,0 +1,186 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029",
+  "purpose": "bounded_author_do_bench_style_adaptation_not_full_LLM_reproduction",
+  "research_question": "Can the unchanged single-token FP16 author kernel agree with same-input masked Dense and show a descriptive warmed-call latency tradeoff on this A100?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Actual sparse dispatch is numerically consistent and faster on this fixed input/shape",
+      "discriminator": "Masked Dense relative L2, real author entry counts and balanced paired event/wall intervals"
+    },
+    {
+      "id": "H2",
+      "prediction": "Atomic/init/launch/backend overhead or numerical error removes the gain",
+      "discriminator": "Failure or nonnegative paired sparse-minus-dense intervals; no causal traffic attribution"
+    }
+  ],
+  "author_agent_id": "/root/sm120_full_quality_build_terra",
+  "coordinator_agent_id": "/root",
+  "reviewer_agent_id": "/root/teal_probe_preexec_reviewer",
+  "author_review_path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/AUTHOR_RESPONSE_V1.md",
+  "independent_review_path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
+  "reviewer_recheck_path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/REVIEWER_RECHECK_V1.md",
+  "author_review": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/AUTHOR_RESPONSE_V1.md",
+    "bytes": 1558,
+    "sha256": "a835de3e18effbd75c397ef60aadb6ebce1fe829b28e626c36dda898757bfa36"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 3008,
+    "sha256": "7ce39de6d4a5a563d1001ff1a207ed4aeb1861a6d8eaa3dd3f72f64a7ca8d7cc"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/REVIEWER_RECHECK_V1.md",
+    "bytes": 1751,
+    "sha256": "85f0d5e18df8e1a4e156c40f8f3a4c2f05b59b293f9ef34a68174524027e286c"
+  },
+  "initial_author_self_audit": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/AUTHOR_SELF_REVIEW_V1.md",
+    "bytes": 3667,
+    "sha256": "6d27c6d6633cb43525d45adbc9086a87994b7cf20f7428528c66d1e0958afd47"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029/COORDINATOR_SELF_AUDIT.md",
+    "bytes": 1663,
+    "sha256": "3014a1fcdad26f9b1829d8f59b2dd88c3314b1985d28e6e4deab6bec5de4c2c7"
+  },
+  "prior_failed_scope": {
+    "cause": "TRITON_IMPORT_MISSING_SETUPTOOLS",
+    "retry": "NEW_SCOPE_SINGLE_ATTEMPT",
+    "files": [
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_20261029/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 530,
+        "sha256": "3f1295a8ceaa90c61b602f7c7d432e651fad6d4891e8af37912748ee3294b366"
+      },
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_20261029/attempt1/worker/results/RUN.json",
+        "bytes": 3086,
+        "sha256": "0e7e6bb9213ceafa2ea07c3bf1ec3f3a395d0ea2bc152bc18644d25884ad5a2f"
+      },
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_20261029/attempt1/worker/child.stderr.log",
+        "bytes": 4358,
+        "sha256": "754420e1579e236ff9ce3057563221deffd68f50925b554e3bc653e0497629dd"
+      }
+    ]
+  },
+  "prior_eager_probe": {
+    "identity": "EAGER_INSTRUMENTED_DO_NOT_INTERPRET_AS_AUTHOR_BENCHMARK",
+    "files": [
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_v2_20261029/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 533,
+        "sha256": "6ecbcfe3c8ea56dc91b2e856d8323575fed08ffa5609661d0dc599f2c7e817d2"
+      },
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_v2_20261029/attempt1/worker/results/RUN.json",
+        "bytes": 27459,
+        "sha256": "fd83d1ebb9d8d5e82068ea8a3149558a3fcecbac55fca628bdc99ad90873280a"
+      }
+    ]
+  },
+  "engineering_import_smoke": {
+    "path": "ffnds-derived/teal_author_env_v2_20261029/IMPORT_SMOKE.json",
+    "bytes": 232,
+    "sha256": "707a556982a9ba0dc58c457a5ba5d2eb2a2dc40fec25fac663dcc92a8c1b3f37"
+  },
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "final_disposition": "APPROVE",
+  "adversarial_counterexample": "Threshold bins may select different autotune configurations; atomics/initialization or dispatch can dominate skipped weight loads. Faster masked call is not equal-function or causal-traffic acceleration. Multi-token dense fallback ignores threshold.",
+  "responses_to_review": [
+    "ACCEPT/REVISE: balance paired call order and exclude resource/hash checks from measured intervals",
+    "ACCEPT/REVISE: bind actual source/helper/runtime distribution identities and fixed GPU0/CPU0,1 launch chain",
+    "ACCEPT/REVISE: preserve correctness/nonfinite/fallback contrast before failure",
+    "ACCEPT: retain direct-entry versus unknown internal autotune launches and hard wall/memory bounds",
+    "ACCEPT/REVISE: predebit each correctness GPU call before invocation and record completion only after synchronization; preserve actual REVISE then recheck APPROVE"
+  ],
+  "code_commit": "4a5ec6a2b593507aefb999905d6a3c9b592b92b0",
+  "critical_source_hashes": {
+    "tools/e0_teal_author_benchmark_probe.py": "15f52666e19e6795084ba21144812c63813ba31409627aec54a23a235c4fd04f",
+    "tests/test_e0_teal_author_benchmark_probe.py": "b8628802746540cfe2a2cfa636056dfd777267f8dde3776d7bc3ac1855aafea5",
+    "tools/e0_teal_author_kernel_probe.py": "f02625cb9bc8e43a19cb61f83329c4836eab1c3d817044cd3f1478e455493435",
+    "tests/test_e0_teal_author_kernel_probe.py": "5144bc13d20896880258cabd9c7f6b8966d27f13456d1d5d19f2daeddfd8a0b8",
+    "config/e0_teal_author_kernel_probe_20261029_pending_review_v1.json": "86922791f1572830e8329472542594d38a1fa2430e03a8a7cb7311de0aa3ca6e",
+    "tools/e0_teal_author_kernel_probe_v2.py": "011efa961c55fc4dc5279003bb25915334c0c5342604f8fb9c481ff89af72a00",
+    "tests/test_e0_teal_author_kernel_probe_v2.py": "20d18ddfa599c0d5e951eecbfab68131c973124ad8da382faf89c2973b4275ab",
+    "config/e0_teal_author_kernel_probe_v2_20261029_pending_review_v1.json": "61eee3cebdd0b07034c970a960aa122d524abbfbdec82382e89668a0f1a93af4",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/durable_worker_job.py": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2",
+    "scripts/worker_wait_uuid_idle_exec.sh": "38f055289300e9d52b0e4ee27cb19174e804ba178fad0815ae52f4ab97774a53",
+    "scripts/worker_teal_gpu0_uuid_exec.sh": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/compile_wrapper.py": "7e1b86358171923d3ac658476b483c5b1dc199601b84976264d5814933239d7c",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/kernel_utils.py": "c47ca739752a4012b027493f9ad987a1b27cf2f4b0739d714b0ae1f881efd44f",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/sparse_gemv.py": "21183499ac9eb06c57365023388920721636b5bc0d2acf5d91c95fd5e48c37a3",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/pyproject.toml": "b04eb6ea56b66b5cf6a342e769795046341f6d73e3edb5a7be53688f738aac81",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/scripts/benchmark_gemv.py": "27dddfe933e5359cbdcbffe246a41a5be541cddd59e4698043f02bd2e8d111af"
+  },
+  "checkpoint_numeric_recipe": "No checkpoint/model. Author FP16 random vector and column-major matrix, seed42, fixed Torch2.4.0/Triton3.0.0/CUDA12.1/A100 SM80.",
+  "input_cohort_manifest_sha256": "a04f669e947455c93ec869a117f25e355812f85a19e0b96df20dcb2325b83265",
+  "input_independence": "One seeded synthetic vector/matrix; timing repetitions are nested, not independent sources",
+  "control_arms": [
+    "sparse_level0",
+    "dense_level0",
+    "dense_level0.5",
+    "sparse_level0.5",
+    "paired_masked_dense_correctness"
+  ],
+  "unit_of_independence": "one synthetic operand pair",
+  "full_depth_or_claim_scope": "Single-token author-kernel probe, no LLM quality/system reproduction or Wan video",
+  "predeclared_metrics": [
+    "relative_L2",
+    "actual_zero_fraction",
+    "author_quantile50_20_80_event_ms",
+    "estimate_ms",
+    "warmup_calls",
+    "repeat_calls",
+    "completed_python_fn_calls",
+    "peak_GPU_reserved_bytes"
+  ],
+  "expected_physical_savings": {
+    "action": "Author kernel conditional weight loads; actual traffic savings UNKNOWN",
+    "Wan_W1_W2": "NOT_RUN",
+    "observer": "Direct Python-entry observer; internal autotune launch count UNKNOWN"
+  },
+  "applicable_session_gpu_cap": 1,
+  "resource_scope": "One fixed GPU for this new finite scope, no global cap change",
+  "budget_and_failure_plan": {
+    "resources": {
+      "GPU": 1,
+      "CPU_threads": 2,
+      "wall_seconds": 900,
+      "outer_seconds": 1020,
+      "GPU_reserved_bytes": 4294967296,
+      "new_HF_bytes": 1073741824,
+      "free_disk_bytes": 10737418240,
+      "automatic_retry": false
+    },
+    "direct_entry_limits": {
+      "benchmark_arms": 4,
+      "max_repeats_per_arm": 30000,
+      "max_warmups_per_arm": 5000,
+      "max_python_fn_calls_per_arm": 35006,
+      "correctness_sparse": 2,
+      "correctness_dense": 2,
+      "video_generations": 0,
+      "model_loads": 0,
+      "training_updates": 0
+    },
+    "automatic_retry": false,
+    "external_supervisor_seconds": 1020
+  },
+  "protocol": {
+    "path": "config/e0_teal_author_benchmark_probe_20261029_pending_review_v1.json",
+    "bytes": 14401,
+    "sha256": "737f25518d84724d4356e546662235b05655cc968785aa2e1f585ec77bf1e2d8"
+  },
+  "launch_spec_sha256": "a9076e4b61f637a20d03ecd982962e80f9ad72efdbea4bce08093d14804394dd",
+  "approval_scope_fingerprint": "6f533bbd6809c68a58a3853fab6fdf144c41c50a0bcd564ffe0246d2146af330",
+  "state": "REVIEWER_RECHECK_APPROVED"
+}
