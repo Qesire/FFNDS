@@ -168,17 +168,22 @@ def compare(reference, candidate, np):
         end = min(fr.shape[0],hi+1) if hi is not None else fr.shape[0]
         if lo >= end:
             output[label] = {"relative_error":None,"signed_gain":None,
-                             "complex_coherence_real":None,"energy_ratio":None}
+                             "complex_coherence_real":None,"complex_coherence_imag":None,
+                             "phase_angle_radians":None,"energy_ratio":None}
             continue
         a,b=fr[lo:end],fc[lo:end]
         w=weights[lo:end,None,None]
         er=float(np.sum(w*abs(a)**2)); ec=float(np.sum(w*abs(b)**2))
-        cross=float(np.sum(w*np.real(np.conj(a)*b)))
+        complex_cross=complex(np.sum(w*np.conj(a)*b))
+        cross=float(complex_cross.real)
         e=float(np.sum(w*abs(a-b)**2))
+        valid=er>EPS and ec>EPS
         output[label]={"relative_error":e/er if er>EPS else None,
                        "signed_gain":cross/er if er>EPS else None,
-                       "complex_coherence_real":cross/math.sqrt(er*ec)
-                           if er>EPS and ec>EPS else None,
+                       "complex_coherence_real":cross/math.sqrt(er*ec) if valid else None,
+                       "complex_coherence_imag":float(complex_cross.imag)/math.sqrt(er*ec) if valid else None,
+                       "phase_angle_radians":math.atan2(float(complex_cross.imag),cross)
+                           if valid and abs(complex_cross)>EPS else None,
                        "energy_ratio":ec/er if er>EPS else None}
     return {"schema":"ffnds.s2.temporal_factor_frequency_comparison.v1",
             "T":t,"bands":output,
