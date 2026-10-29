@@ -5,7 +5,7 @@
 
 
 
-**最新真实证据与下一任务（2026-10-30）**：[TEAL物理可达性](../20261029/TEAL_WAN_MASK_PHYSICAL_REACHABILITY_RESULTS_20261030.md)320包/640次CPU评估实际EXIT0并closed：25/50阈值整M冷列平均上界仅0.019938/0.054480%，采样行直接完整K4方向2:4合格均0。保持mask需另寻真实局部行组/残差，改变mask则重新评价；非raster样本不决定M16成本。[四来源完整视频质量](../20261029/TEAL_WAN_ALL160_FOUR_SOURCE_QUALITY_RESULTS_20261029.md)原结果及Dense W2身份不变。SharQ作者固定commit＋CUTLASS的SM120 CPU-only build/import已成功，新的配对权重/gate资产scope正在真实独立审查，原生双GEMM总成本尚未测量。继续Wan FFN-only；不再启动LLM/FLUX等离题范围。当前会话最多同时4卡，旧scope/失败身份及收据不改写。
+**最新真实证据与下一任务（2026-10-30）**：[TEAL物理可达性](../20261029/TEAL_WAN_MASK_PHYSICAL_REACHABILITY_RESULTS_20261030.md)320包/640次CPU评估实际EXIT0并closed：25/50阈值整M冷列平均上界仅0.019938/0.054480%，采样行直接完整K4方向2:4合格均0。保持mask需另寻真实局部行组/残差，改变mask则重新评价；非raster样本不决定M16成本。[四来源完整视频质量](../20261029/TEAL_WAN_ALL160_FOUR_SOURCE_QUALITY_RESULTS_20261029.md)原结果及Dense W2身份不变。[SharQ原生V2](../20261029/SHARQ_WAN_FFN_NATIVE_V2_RESULTS_20261030.md)240次FFN已实际EXIT0/闭合：两专家block20，M31668重复真32行，sameW Dense32对照下gate后L2改善约23%、FFN时间增加约39%，没有视频/SYS结论。[真实两源8个full-M H采集](../20261030/TEAL_WAN_FULLM_H_CAPTURE_RESULTS_20261030.md)已EXIT0且全部独立输出SHA/20state/2video中性验证，连续行组CPU范围正在精确复审；完整全160 native视频producer继续实现。继续Wan FFN-only；不再启动LLM/FLUX等离题范围。当前会话最多同时4卡，旧scope/失败身份及收据不改写。
 
 
 

@@ -1,0 +1,9 @@
+# TEAL Wan full-M post-GELU capture, 2026-10-30
+
+Two previously exposed development sources, 1040 and 979, completed their seed-42 original BF16 Dense videos, each with 81 frames, four flows and all 160 FFN positions. At fixed positions `(step, block) = (0,0), (0,20), (2,0), (2,20)`, the observer saved eight actual post-GELU, pre-W2 H tensors. Each is BF16 `[31668,13824]`; total H payload is 7,004,454,912 bytes. The actual grid is `[21,29,52]` and the original gate shape is `[1,1,5120]`. The [structured record](TEAL_WAN_FULLM_H_CAPTURE_RESULTS_20261030.json) binds each packet file and its H/gate tensor SHA, the two generation receipts, and the RUN/actual EXIT.
+
+The independently closed verification checked all eight packet file hashes and headers, all 20 saved state identities and both complete video identities against their existing same-source, seed-42 Dense references. Both videos covered the original FFN path and no mask was applied. The recorded ledger completed its full prepaid scope: 2 videos, 8 flows, 320 FFNs, 8 H copies and 8 packet writes; EXIT was zero and the 63-sample assigned-GPU monitor reported no violations.
+
+The recorded capture process took 443.319 seconds, and the external supervisor took 469.350 seconds. Peak sampled physical GPU use was 21,639 MiB; peak tracked HF output including reservations was 7,192,588,044 bytes. The generation times include observers and capture/serialization I/O. These are acquisition resource observations, not sparse-kernel or system speed measurements.
+
+The capture itself does not measure row-group support. The next separately reviewed CPU diagnostic will compare natural M16/M32 raster groups with one fixed, paid shuffle on the same actual H and frozen TEAL thresholds. These two development images and four positions do not establish all-160 or new-source behavior.

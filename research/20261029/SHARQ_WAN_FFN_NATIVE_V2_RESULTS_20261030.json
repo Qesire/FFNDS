@@ -1,0 +1,426 @@
+{
+  "id": "E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_V2_20261030",
+  "status": "ACTUAL_EXIT0_SINGLE_SOURCE_OPERATOR",
+  "run_sha256": "5921024ab75bd6cc3d12d8ec5811aea40c90a96c2a3368fe6a47300603b76adc",
+  "exit_sha256": "3dbbd686a089af676ea0418b14b8a3ab4693d1553f85a566e7ceafe569a8988b",
+  "scope": "source 911 seed42 block20; high step1 and low step2; one source, two states; M32 actual rows, M31668 repeats 32 rows for shape cost only",
+  "arms_note": "Dense32 and SharQ share original BF16 master W and author group32 packed W; Dense16 uses a separate NVFP4 checkpoint.",
+  "counts": {
+    "cases": 16,
+    "FFN_calls": 240,
+    "M32_same_encoding_linear_checks": 12,
+    "timing_samples_per_case_per_group": 5
+  },
+  "cases": [
+    {
+      "expert": "high",
+      "M": 32,
+      "arm": "original_bf16",
+      "overall_cuda_ms_samples": [
+        0.30374398827552795,
+        0.30687999725341797,
+        0.3282879889011383,
+        0.3110400140285492,
+        0.30460798740386963
+      ],
+      "overall_cuda_ms_mean": 0.3109119951725006,
+      "overall_cuda_ms_min": 0.30374398827552795,
+      "overall_cuda_ms_max": 0.3282879889011383,
+      "relative_l2": {
+        "pre_gelu": 0.0,
+        "h": 0.0,
+        "y": 0.0,
+        "gated": 0.0
+      },
+      "bf16_captured_neutral_relative_l2": {
+        "pre_gelu": 0.0,
+        "h": 0.0,
+        "y": 0.003297594375908375,
+        "gated": 0.003098362358286977
+      },
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "high",
+      "M": 32,
+      "arm": "dense_group16",
+      "overall_cuda_ms_samples": [
+        0.30742400884628296,
+        0.31651198863983154,
+        0.32787200808525085,
+        0.31251201033592224,
+        0.31567999720573425
+      ],
+      "overall_cuda_ms_mean": 0.31600000262260436,
+      "overall_cuda_ms_min": 0.30742400884628296,
+      "overall_cuda_ms_max": 0.32787200808525085,
+      "relative_l2": {
+        "pre_gelu": 0.07507852464914322,
+        "h": 0.1257261037826538,
+        "y": 0.15006864070892334,
+        "gated": 0.08384588360786438
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {
+        "W1": 0.0016613845946267247,
+        "W2": 0.001640206086449325
+      }
+    },
+    {
+      "expert": "high",
+      "M": 32,
+      "arm": "dense_shared32",
+      "overall_cuda_ms_samples": [
+        1.0329920053482056,
+        1.04038405418396,
+        1.0284479856491089,
+        1.019327998161316,
+        1.0555839538574219
+      ],
+      "overall_cuda_ms_mean": 1.0353471994400025,
+      "overall_cuda_ms_min": 1.019327998161316,
+      "overall_cuda_ms_max": 1.0555839538574219,
+      "relative_l2": {
+        "pre_gelu": 0.07813576608896255,
+        "h": 0.13105645775794983,
+        "y": 0.15474149584770203,
+        "gated": 0.08482642471790314
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {
+        "W1": 0.0023366804234683514,
+        "W2": 0.0023344657383859158
+      }
+    },
+    {
+      "expert": "high",
+      "M": 32,
+      "arm": "sharq",
+      "overall_cuda_ms_samples": [
+        1.0381439924240112,
+        1.024351954460144,
+        1.0255999565124512,
+        1.0035840272903442,
+        1.034783959388733
+      ],
+      "overall_cuda_ms_mean": 1.0252927780151366,
+      "overall_cuda_ms_min": 1.0035840272903442,
+      "overall_cuda_ms_max": 1.0381439924240112,
+      "relative_l2": {
+        "pre_gelu": 0.061675913631916046,
+        "h": 0.10325673967599869,
+        "y": 0.11869071424007416,
+        "gated": 0.0646640732884407
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {
+        "W1": 1.804626435841783e-06,
+        "W2": 1.6155492630787194e-05
+      }
+    },
+    {
+      "expert": "high",
+      "M": 31668,
+      "arm": "original_bf16",
+      "overall_cuda_ms_samples": [
+        31.379871368408203,
+        31.336576461791992,
+        31.384159088134766,
+        31.3439998626709,
+        31.386911392211914
+      ],
+      "overall_cuda_ms_mean": 31.366303634643554,
+      "overall_cuda_ms_min": 31.336576461791992,
+      "overall_cuda_ms_max": 31.386911392211914,
+      "relative_l2": {
+        "pre_gelu": 0.0,
+        "h": 0.0,
+        "y": 0.0,
+        "gated": 0.0
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "high",
+      "M": 31668,
+      "arm": "dense_group16",
+      "overall_cuda_ms_samples": [
+        11.122943878173828,
+        11.118687629699707,
+        11.125120162963867,
+        11.137439727783203,
+        11.100288391113281
+      ],
+      "overall_cuda_ms_mean": 11.120895957946777,
+      "overall_cuda_ms_min": 11.100288391113281,
+      "overall_cuda_ms_max": 11.137439727783203,
+      "relative_l2": {
+        "pre_gelu": 0.0750778391957283,
+        "h": 0.12572520971298218,
+        "y": 0.1500433087348938,
+        "gated": 0.08381462097167969
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "high",
+      "M": 31668,
+      "arm": "dense_shared32",
+      "overall_cuda_ms_samples": [
+        20.790143966674805,
+        20.822784423828125,
+        20.75836753845215,
+        20.74892807006836,
+        20.770015716552734
+      ],
+      "overall_cuda_ms_mean": 20.778047943115233,
+      "overall_cuda_ms_min": 20.74892807006836,
+      "overall_cuda_ms_max": 20.822784423828125,
+      "relative_l2": {
+        "pre_gelu": 0.07813530415296555,
+        "h": 0.13105589151382446,
+        "y": 0.1547309011220932,
+        "gated": 0.08472143113613129
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "high",
+      "M": 31668,
+      "arm": "sharq",
+      "overall_cuda_ms_samples": [
+        28.9487361907959,
+        28.95952033996582,
+        28.959487915039062,
+        28.96099281311035,
+        28.956832885742188
+      ],
+      "overall_cuda_ms_mean": 28.957114028930665,
+      "overall_cuda_ms_min": 28.9487361907959,
+      "overall_cuda_ms_max": 28.96099281311035,
+      "relative_l2": {
+        "pre_gelu": 0.06167543679475784,
+        "h": 0.10325615853071213,
+        "y": 0.11868246644735336,
+        "gated": 0.06476239860057831
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "low",
+      "M": 32,
+      "arm": "original_bf16",
+      "overall_cuda_ms_samples": [
+        0.32444798946380615,
+        0.3216319978237152,
+        0.31990399956703186,
+        0.3264960050582886,
+        0.3202880024909973
+      ],
+      "overall_cuda_ms_mean": 0.32255359888076784,
+      "overall_cuda_ms_min": 0.31990399956703186,
+      "overall_cuda_ms_max": 0.3264960050582886,
+      "relative_l2": {
+        "pre_gelu": 0.0,
+        "h": 0.0,
+        "y": 0.0,
+        "gated": 0.0
+      },
+      "bf16_captured_neutral_relative_l2": {
+        "pre_gelu": 0.0,
+        "h": 0.0,
+        "y": 0.0032985168509185314,
+        "gated": 0.0028347696643322706
+      },
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "low",
+      "M": 32,
+      "arm": "dense_group16",
+      "overall_cuda_ms_samples": [
+        0.33558401465415955,
+        0.33344000577926636,
+        0.33686399459838867,
+        0.35180801153182983,
+        0.34272000193595886
+      ],
+      "overall_cuda_ms_mean": 0.3400832056999207,
+      "overall_cuda_ms_min": 0.33344000577926636,
+      "overall_cuda_ms_max": 0.35180801153182983,
+      "relative_l2": {
+        "pre_gelu": 0.08147915452718735,
+        "h": 0.11124317348003387,
+        "y": 0.16709989309310913,
+        "gated": 0.08409146964550018
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {
+        "W1": 0.0016627977602183819,
+        "W2": 0.001662334892898798
+      }
+    },
+    {
+      "expert": "low",
+      "M": 32,
+      "arm": "dense_shared32",
+      "overall_cuda_ms_samples": [
+        0.5956479907035828,
+        0.5795199871063232,
+        0.5789120197296143,
+        0.5709120035171509,
+        0.5768319964408875
+      ],
+      "overall_cuda_ms_mean": 0.5803647994995117,
+      "overall_cuda_ms_min": 0.5709120035171509,
+      "overall_cuda_ms_max": 0.5956479907035828,
+      "relative_l2": {
+        "pre_gelu": 0.084805928170681,
+        "h": 0.11609064042568207,
+        "y": 0.17075780034065247,
+        "gated": 0.08540863543748856
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {
+        "W1": 0.002344891894608736,
+        "W2": 0.0023173268418759108
+      }
+    },
+    {
+      "expert": "low",
+      "M": 32,
+      "arm": "sharq",
+      "overall_cuda_ms_samples": [
+        0.6683200001716614,
+        0.6758400201797485,
+        0.6829760074615479,
+        0.6890239715576172,
+        0.6746879816055298
+      ],
+      "overall_cuda_ms_mean": 0.678169596195221,
+      "overall_cuda_ms_min": 0.6683200001716614,
+      "overall_cuda_ms_max": 0.6890239715576172,
+      "relative_l2": {
+        "pre_gelu": 0.06701131165027618,
+        "h": 0.09185368567705154,
+        "y": 0.13388366997241974,
+        "gated": 0.06607604771852493
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {
+        "W1": 1.9057315512327477e-05,
+        "W2": 1.0933043085969985e-05
+      }
+    },
+    {
+      "expert": "low",
+      "M": 31668,
+      "arm": "original_bf16",
+      "overall_cuda_ms_samples": [
+        31.39664077758789,
+        31.405439376831055,
+        31.391359329223633,
+        31.393503189086914,
+        31.40220832824707
+      ],
+      "overall_cuda_ms_mean": 31.397830200195312,
+      "overall_cuda_ms_min": 31.391359329223633,
+      "overall_cuda_ms_max": 31.405439376831055,
+      "relative_l2": {
+        "pre_gelu": 0.0,
+        "h": 0.0,
+        "y": 0.0,
+        "gated": 0.0
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "low",
+      "M": 31668,
+      "arm": "dense_group16",
+      "overall_cuda_ms_samples": [
+        11.123456001281738,
+        11.117088317871094,
+        11.107904434204102,
+        11.102432250976562,
+        11.12275218963623
+      ],
+      "overall_cuda_ms_mean": 11.114726638793945,
+      "overall_cuda_ms_min": 11.102432250976562,
+      "overall_cuda_ms_max": 11.123456001281738,
+      "relative_l2": {
+        "pre_gelu": 0.08147860318422318,
+        "h": 0.11124231666326523,
+        "y": 0.16710394620895386,
+        "gated": 0.08386171609163284
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "low",
+      "M": 31668,
+      "arm": "dense_shared32",
+      "overall_cuda_ms_samples": [
+        20.75449562072754,
+        20.766559600830078,
+        20.789535522460938,
+        20.764863967895508,
+        20.758495330810547
+      ],
+      "overall_cuda_ms_mean": 20.766790008544923,
+      "overall_cuda_ms_min": 20.75449562072754,
+      "overall_cuda_ms_max": 20.789535522460938,
+      "relative_l2": {
+        "pre_gelu": 0.08480530232191086,
+        "h": 0.116089828312397,
+        "y": 0.17075330018997192,
+        "gated": 0.0850583091378212
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {}
+    },
+    {
+      "expert": "low",
+      "M": 31668,
+      "arm": "sharq",
+      "overall_cuda_ms_samples": [
+        28.944480895996094,
+        28.960128784179688,
+        28.95097541809082,
+        28.952543258666992,
+        28.97145652770996
+      ],
+      "overall_cuda_ms_mean": 28.955916976928712,
+      "overall_cuda_ms_min": 28.944480895996094,
+      "overall_cuda_ms_max": 28.97145652770996,
+      "relative_l2": {
+        "pre_gelu": 0.06701068580150604,
+        "h": 0.09185288101434708,
+        "y": 0.13388903439044952,
+        "gated": 0.06583412736654282
+      },
+      "bf16_captured_neutral_relative_l2": {},
+      "same_encoding_reference_relative_l2": {}
+    }
+  ],
+  "large_M_comparisons": {
+    "high": {
+      "gated_error_reduction_fraction": 0.23558422311684746,
+      "latency_ratio_sharq_to_dense32": 1.3936397734863033,
+      "speedup_sharq_vs_bf16": 1.0831985398581467
+    },
+    "low": {
+      "gated_error_reduction_fraction": 0.22601180256392306,
+      "latency_ratio_sharq_to_dense32": 1.3943376402907819,
+      "speedup_sharq_vs_bf16": 1.084332097830376
+    }
+  },
+  "prior_v1": "actual EXIT1: 45 FFNs, dense32 reference failed at scale buffer size; separate scope and not part of success denominator",
+  "limits": "No native-video, quality acceptance or end-to-end system speed; CUDA overall-event timing includes Python dispatch/accounting; range is min/max of five repeats, not confidence interval."
+}
