@@ -8,7 +8,9 @@
 
 **2026-10-28 新OPEN图机制：** [QCFB跨计算边有符号组束与动作依赖Q2](E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)，连接 F03→F04/F06/F08/F09→F12/F13，采用原R12 SRC/reference交换条件、条件Gram与量化交叉项ALG，前置Q1可预测性及真实video/SYS均OPEN。完整[综合方案](../../../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)和[机器typed crosswalk](../../../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)。不擅自把OPEN边加成原生因果边或同行审查结果。
 
-**2026-10-29 OPEN机制**：[MTC/TDIC：运动对齐的时间创新与W2误差运输claim](E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)，从F06→F08/F09→F12/F13→G20组织真实视频动态退化、前W1输入继承的时间相似、同source同step同block连续误差恒等式，并将**时空最近邻/teacher残差锚点成本/学生前缀/真实BF16 rounding**保留为未验证的条件边。详细[方法推导和原论文对照](../../../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)。PROPOSED非其他Agent SUPPORT，也未写入原生因果图为已实测边。
+**2026-10-29 S2时间统计OPEN子注解（非第五条路线）**：[MTC/TDIC：运动对齐的时间创新与W2误差运输claim](E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)，从F06→F08/F09→F12/F13→G20组织真实视频动态退化、前W1输入继承的时间相似、同source同step同block连续误差恒等式，并将**时空最近邻/teacher残差锚点成本/学生前缀/真实BF16 rounding**保留为未验证的条件边。详细[方法推导和原论文对照](../../../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)。PROPOSED非其他Agent SUPPORT，也未写入原生因果图为已实测边。
+
+**新S2统计结构方案**：[T1–T6真实latent时间相关/频谱/Gram/动作分层](../../../20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。现有图claim中的运动误差运输只是一条数学可推演的备选解释，先完成时间统计结构与新增空间邻域，才可能提升为可执行算法关系。
 
 这里记录原始贡献，不是算子实现或实验排队：
 1. 研究者选择**恰好相关的**节点/边，从源代码和上游/下游查证，允许反向从视频现象或一篇新论文定位节点；
