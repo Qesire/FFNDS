@@ -2,6 +2,8 @@
 
 本文件只规定科研行为及权限。**唯一当前阅读入口**：[RESEARCH_NAVIGATION](research/RESEARCH_NAVIGATION.md) → [CURRENT_CONTEXT_PACKET](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → [资产先行方法推导](research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)。科学北极星由[统一I/F/C目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)定义；[ACTIVE](research/ACTIVE_RESEARCH.json)是实际CPU/GPU/model/video运行范围的唯一注册依据。原[M-A/M-B/M-C整合研究方案v4](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)保存其适用数学和旧实验，作为按需专题，不规定当前全局方法顺序。
 
+**2026-10-29 用户明确的下一项S2执行指令**：[原生Dense/Student时空采集与因果判别](research/20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)；[主Agent/理论子Agent强制委派](research/agent_protocol/S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。任何实际接手此P0任务的主Agent，**首先在可用的子Agent接口中分派一名独立理论子Agent**，负责Wan FFN数学推导、竞争机制解释、原论文与源码核对、实验设计与有区别力的反例；主Agent负责native producer/数据源/原生运行/质量与资源记录。子Agent尚未真正spawn时只标ASSIGNMENT_REQUESTED，不得把协调者文字冒充独立推导或审查结果。两源ROI只作原生采集pilot，完成后须扩多来源、全160-site、21τ邻域和student自由状态。此任务属S2内部时空统计/因果实验，不新增第五条研究路线；执行GPU始终核查适用真实session_max_GPUs=2，不以通用动态政策覆盖冻结会话记录。
+
 ## 当前方法研究的默认行动
 
 1. **开放式机制发现与证据获取**：从真实源码、论文、数学结构、已测视频或现有资产任一入口提出科学问题。旧资产优先复用以减少重复；**一旦需要未采集的source、时空匹配token、全深度状态、student轨迹、原生FP4动态量化元信息或其他变量，主动设计并扩展新的真实采集**。所需数据和采集范围由问题决定，不以旧8源/20源、5个Block、256行、固定rank或S1–S4为永久边界。
