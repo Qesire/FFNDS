@@ -1,0 +1,375 @@
+{
+  "id": "E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_V2_20261030",
+  "status": "FROZEN_PENDING_REGISTRATION",
+  "design": {
+    "experts": [
+      "high",
+      "low"
+    ],
+    "M": [
+      32,
+      31668
+    ],
+    "source": 911,
+    "block": 20,
+    "teacher_steps": [
+      1,
+      2
+    ],
+    "fullM": "repeat input rows i mod 32; cost-only, not real full native state",
+    "arms": [
+      "original_bf16",
+      "dense_group16",
+      "dense_shared32",
+      "sharq"
+    ],
+    "warmup": 2,
+    "measured": 5,
+    "correctness": 1,
+    "uninstrumented_warmup": 2,
+    "uninstrumented_measured": 5,
+    "group32": "same raw BF16 W shared by dense32 and SharQ",
+    "dense16": "separate NVFP4 checkpoint packed weight and fixed checkpoint global A scale",
+    "bfloat16": "original BF16 master W1/W2+b1/b2 from matching expert/block",
+    "gate": "real matched gate from same source/step/block",
+    "Q2": "actual arm W1+bias+GELU output",
+    "sparse_residual": "R=X-dequant(Q_sparse(mask*X)); dense residual GEMM spans full K and N",
+    "bundle_full_hash_bytes": 730509120,
+    "bundle_io": "one full byte hash; subsequent mmap/page-cache physical reads UNKNOWN; H2D logical bytes completed after CUDA synchronization",
+    "neutral_rel_l2_max": 0.03,
+    "same_encoding_linear_rel_l2_max": 0.03,
+    "reference_scope": "M32 debug sparse logical payload compared to actual E-path; debug shares author selector and is not independent selector proof",
+    "reference_max_calls": {
+      "native_reprepare": 12,
+      "debug_sparse": 4,
+      "duplicate_sparse_scales": 4,
+      "fp32_reference_gemm": 16,
+      "linear_comparisons": 12
+    },
+    "retry_identity": "new independently reviewed scope after actual V1 EXIT1; all 240 FFN calls are newly charged; V1 partial work remains separate",
+    "author_scale_layout": "author dense SF allocates (rows//128+1)*128*(K//16) bytes; drop only the unused trailing aligned-row tile; LightX uses ceil(rows/128) tile count",
+    "activation_scale_identity": "compare exact bytes only at logical row/group coordinates; allocator padding in dense activation SF is unspecified and excluded",
+    "scope": "FFN operator only; single exposed development source; no video or system acceptance"
+  },
+  "resources": {
+    "GPU": 1,
+    "CPU_threads": 4,
+    "wall_seconds": 3600,
+    "outer_seconds": 3720,
+    "new_HF_bytes": 536870912,
+    "host_RSS_max_bytes": 17179869184,
+    "GPU_reserved_max_bytes": 77309411328,
+    "bundle_hash_bytes_max": 1073741824,
+    "automatic_retry": false
+  },
+  "limits": {
+    "gelu_tanh": 240,
+    "gate_multiply": 240,
+    "bf16_linear": 120,
+    "dense16_prepare": 120,
+    "dense16_gemm": 120,
+    "dense32_prepare": 120,
+    "output_scale": 240,
+    "dense32_gemm": 120,
+    "bias_add": 240,
+    "sharq_prepare": 120,
+    "sparse_gemm": 120,
+    "dense_residual_gemm": 120,
+    "static_group32_weight_quant": 4,
+    "checkpoint_scale_validation": 4,
+    "fullM_row_repeat": 2,
+    "correctness_comparisons": 16,
+    "bundle_hashes": 1,
+    "reference_linear": 12,
+    "reference_prepare": 12,
+    "reference_debug_sparse": 4,
+    "reference_duplicate_scales": 4,
+    "reference_decode": 28,
+    "reference_fp32_gemm": 16
+  },
+  "output": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_v2_20261030/attempt1/worker/results",
+  "review": null,
+  "assets": {
+    "cpu_protocol": "config/e0_sharq_wan_ffn_paired_assets_cpu_20261030_pending_review_v4.json",
+    "cpu_protocol_binding": {
+      "path": "config/e0_sharq_wan_ffn_paired_assets_cpu_20261030_pending_review_v4.json",
+      "bytes": 15096,
+      "sha256": "71c26924f49d774850dcd292eb074518758da9c62f107656e6572ee3d136969e"
+    },
+    "closed_run": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results/RUN.json",
+      "bytes": 13163,
+      "sha256": "459f1b9723adbf65e79199d4bb1c61b37609792ffff04497c24fc1fd639b953a"
+    },
+    "closed_exit": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 533,
+      "sha256": "cc4f121a7f54fc233d8e25bce153b3cc6f253a526859a861d23c30d1405598c1"
+    },
+    "bundle": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results/BUNDLE.safetensors",
+      "bytes": 730509120,
+      "sha256": "79e8829e94c1558fa8a569577ea3897ac2175fc077e7d93e490a400009264d0b"
+    }
+  },
+  "failure": {
+    "RUN": {
+      "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/results/RUN.json",
+      "bytes": 18587,
+      "sha256": "f1392e132e17a100203e373eff2eda8f47e468955615cb992d2ec3ca2d6fe4a5"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 532,
+      "sha256": "5a40e120974d9072db28d8b0b417249a66b52dbddc4d51992009a741b25e4676"
+    },
+    "stderr": {
+      "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/child.stderr.log",
+      "bytes": 3442,
+      "sha256": "1c267f4660e89c1598f493fe6a8dd3b02772183e977a4d60e062ed40aba4c062"
+    }
+  },
+  "software": {
+    "author_modules": [
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/model/quantize.py",
+        "bytes": 8419,
+        "sha256": "01d9755e7fc67848a63f483d772862c60443c7d0ef65829f849b8d252a99c930"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/model/hif4.py",
+        "bytes": 2795,
+        "sha256": "3f86970980a1a287a1df083abeab38555d4a27ad3c6ae18cea68677ca8cd3727"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/sharq_loader.py",
+        "bytes": 3172,
+        "sha256": "cf615f10ac1404c269669b07016ac672497d157b33efd6c99d24c01cc4274b2a"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/bindings.cpp",
+        "bytes": 36133,
+        "sha256": "bf60d38b0bed1b54b52919d83de85b014d0298706ca0c6c17b028be1cd99ac60"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/include/reorder.cuh",
+        "bytes": 7550,
+        "sha256": "bc9f5e80fc8f657d830be05e121e780b4b56ed39ad6bed8b7a0f3729cdf53922"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/reorder.cu",
+        "bytes": 34521,
+        "sha256": "209b11859a10821b9876eb2f2f091b4774752cb5de7141cf87f5352bbb605a3b"
+      }
+    ],
+    "sharq_elf": {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/build_sm120a/sharq_ops.so",
+      "bytes": 2437952,
+      "sha256": "faeb4e5def27396095a877489dfbdbdfe26d2c6b956f8b7bbdbb30a3a9466816"
+    },
+    "lightx_package": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel",
+    "lightx_files": [
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/__init__.py",
+        "bytes": 365,
+        "sha256": "a40883dc1a82d97543a8a8196ac2ace7e1b89ad1e771ae2c2cf7fcfd4ba82d80",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185555,
+          "bytes": 365,
+          "mtime_ns": 1793208429107983077,
+          "ctime_ns": 1793208429107983077
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/common_ops.abi3.so",
+        "bytes": 1312256,
+        "sha256": "474675037c50a97589731cae5225ddf23f9264803205cd538369a75233a3bb88",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185560,
+          "bytes": 1312256,
+          "mtime_ns": 1793208429108983093,
+          "ctime_ns": 1793208429108983093
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/gemm.py",
+        "bytes": 7628,
+        "sha256": "973229cd4bbe4b8716b3c4611c092b762fce164b5753720ac440a0d628f63eff",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185556,
+          "bytes": 7628,
+          "mtime_ns": 1793208429107983077,
+          "ctime_ns": 1793208429107983077
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/kv_cache.py",
+        "bytes": 950,
+        "sha256": "d6012527a47f73567604714815b03603d1db55e78846752ac0f1fb8f636c6d77",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185557,
+          "bytes": 950,
+          "mtime_ns": 1793208429107983077,
+          "ctime_ns": 1793208429107983077
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/utils.py",
+        "bytes": 5496,
+        "sha256": "ef7d887840cd53973b9957e63296c36aa7efc5711c367e904dc8bc2a68d1a907",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185558,
+          "bytes": 5496,
+          "mtime_ns": 1793208429107983077,
+          "ctime_ns": 1793208429107983077
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/version.py",
+        "bytes": 22,
+        "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185559,
+          "bytes": 22,
+          "mtime_ns": 1793208429108983093,
+          "ctime_ns": 1793208429108983093
+        }
+      }
+    ]
+  },
+  "repo_sources": [
+    {
+      "path": "tools/e0_sharq_wan_ffn_probe_v2.py",
+      "bytes": 32129,
+      "sha256": "6f215e511fb38ee468a7f5a200309da267b190f456c69665ee8b3a2cd44944db"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_probe_v2.py",
+      "bytes": 7733,
+      "sha256": "84ed3f0167e970a35d7f6e02114e4f0080047d63cecb96a532cbaa5e9571d783"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_probe.py",
+      "bytes": 28966,
+      "sha256": "b355edc1777f71e975915130b6ee1f88af40437d0f1d2b08686420b02b833d51"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_probe.py",
+      "bytes": 4875,
+      "sha256": "a76a1cd9fcdd37962f89a3b4be916e0c645b7aea9fc23119afdc5f9f384b2bbf"
+    },
+    {
+      "path": "config/e0_sharq_sm120_wan_ffn_pair_probe_20261030_pending_review_v2.json",
+      "bytes": 11884,
+      "sha256": "9674544862412b755789881b8a204c4a466cf3492f72854bd3a968aa4413735b"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_ops.py",
+      "bytes": 2895,
+      "sha256": "fcd28b7824fdca4850ce765032ece68bf0786ec2df6bf20b13465e72f2d6652f"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_ops.py",
+      "bytes": 2006,
+      "sha256": "ee7b90dff52bc4e78dfeaa0110777d4b6622c64c7a441de46dfea209dfedb131"
+    },
+    {
+      "path": "tools/nvfp4_real_ffn_probe.py",
+      "bytes": 5300,
+      "sha256": "d2cb735494adfe3ca21f265454e3c513355eff45b54657075bc1c056b266611c"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_assets.py",
+      "bytes": 18047,
+      "sha256": "d272d24c5f8ee167ed890c63f2d76b7461357628d70c7e4f0456dc31f868169a"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_asset_plan.py",
+      "bytes": 2546,
+      "sha256": "a2df4c5dceb0de391fed4d4a4a0a707e62542662487d7317a0d8839a6d47c9f5"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_asset_extract.py",
+      "bytes": 2936,
+      "sha256": "72883b25ab30514069936a93e1c7c537a506c5f209ee137dd27e7d82a5f6e45c"
+    },
+    {
+      "path": "tools/e0_teal_llama3_tokenizer_byte_bridge.py",
+      "bytes": 25531,
+      "sha256": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c"
+    },
+    {
+      "path": "tools/e0_teal_llama3_author_checkpoint_convert.py",
+      "bytes": 32174,
+      "sha256": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    },
+    {
+      "path": "tools/durable_worker_job.py",
+      "bytes": 9319,
+      "sha256": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2"
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "bytes": 3559,
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d"
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "bytes": 2529,
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0"
+    },
+    {
+      "path": "scripts/worker_teal_gpu0_uuid_exec.sh",
+      "bytes": 730,
+      "sha256": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1"
+    },
+    {
+      "path": "research/20261029/SHARQ_SM120_CPU_ENGINEERING_BUILD_20261030.json",
+      "bytes": 1237,
+      "sha256": "a3295d978d6a51f4b90ef7335f3cd69564ea3cbe4be4c09b62778f752fe89392"
+    },
+    {
+      "path": "research/20261029/SHARQ_CPU_AUTHOR_SOURCE_IMPORT_ENGINEERING_20261030.json",
+      "bytes": 685,
+      "sha256": "3d5889b82ef1c80f115aa5f7d133994fc426f92965a60f8242ee25d030d0e415"
+    },
+    {
+      "path": "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json",
+      "bytes": 24426,
+      "sha256": "4e051cbe10aad2c2e6821947f1f0b87d1690515b16c0509e53b139c3051348cf"
+    }
+  ],
+  "worker_config_sha256": "fa8a9da592292ec1560135e40ae1a6e0222a23c08af023e8e87f310580c7070d",
+  "runtime": {
+    "python_sha256": "8deffe5dd9ebcf98a062917a4e73bb8fbb7d5846f83dec01fb7506fd5d41c54e",
+    "packages": {
+      "torch": {
+        "version": "2.10.0+cu128",
+        "metadata_sha256": "7f56e1b49211bfcfe45a8c7df42d96a054f69a96fbf6bc4f1b6b6fe8d3f097a7",
+        "record_sha256": "22a9fa2f5c1078f087203bc42c300ca1e23ff954c16c0de120de330a182dc278"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "metadata_sha256": "b082c52ccbe3b880bae177c35171b52ed6c947f3ad71e3762f2723f60a411de0",
+        "record_sha256": "63835c185e07dc9a10fa24635182d6e9feb59b8607ffcc64b61806c2cb1a465d"
+      },
+      "safetensors": {
+        "version": "0.8.0",
+        "metadata_sha256": "645be7b8d55e91534f991d144dc9e279581ea8dbea1a8c5b0be14e529d01e345",
+        "record_sha256": "c5110881c0c39a4f163a23b2ccc88cad19ce1823b6dce1ceef353d33f16c004b"
+      }
+    },
+    "scope": "metadata and RECORD; package implementation bytes not fully hashed"
+  }
+}

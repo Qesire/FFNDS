@@ -22311,6 +22311,198 @@
           "sha256": "79e8829e94c1558fa8a569577ea3897ac2175fc077e7d93e490a400009264d0b"
         },
         "public_results": "research/20261029/SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_RESULTS_20261030.json"
+      },
+      {
+        "id": "E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_20261030",
+        "date": "2026-10-30",
+        "authorization_basis": "Current user continuation under Wan FFN-only P0; actual independent REVISE/revision/exact V2 APPROVE, root source/data/runtime/device verification.",
+        "protocol": "config/e0_sharq_sm120_wan_ffn_pair_probe_20261030_pending_review_v2.json",
+        "protocol_sha256": "9674544862412b755789881b8a204c4a466cf3492f72854bd3a968aa4413735b",
+        "approval_scope_fingerprint": "1392e66b16c5c230f73a8c67c750115ae0344965a50b231dc0da88c8c28a6af4",
+        "review": {
+          "path": "research/experiment_reviews/E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_20261030/v1.json",
+          "bytes": 9160,
+          "sha256": "b93fad557a96ec2339c36bd5ab12159b8901d451e8bf250643984e18e7ec58fc"
+        },
+        "review_final_disposition": "APPROVE",
+        "launch_spec_sha256": "3bdcebf1e4cca3b718420ad7841d27686a979a98aa603a2402e372d2a9c65579",
+        "resources": {
+          "GPU": 1,
+          "CPU_threads": 4,
+          "wall_seconds": 3600,
+          "outer_seconds": 3720,
+          "new_HF_bytes": 536870912,
+          "host_RSS_max_bytes": 17179869184,
+          "GPU_reserved_max_bytes": 77309411328,
+          "bundle_hash_bytes_max": 1073741824,
+          "automatic_retry": false
+        },
+        "limits": {
+          "gelu_tanh": 240,
+          "gate_multiply": 240,
+          "bf16_linear": 120,
+          "dense16_prepare": 120,
+          "dense16_gemm": 120,
+          "dense32_prepare": 120,
+          "output_scale": 240,
+          "dense32_gemm": 120,
+          "bias_add": 240,
+          "sharq_prepare": 120,
+          "sparse_gemm": 120,
+          "dense_residual_gemm": 120,
+          "static_group32_weight_quant": 4,
+          "checkpoint_scale_validation": 4,
+          "fullM_row_repeat": 2,
+          "correctness_comparisons": 16,
+          "bundle_hashes": 1,
+          "reference_linear": 12,
+          "reference_prepare": 12,
+          "reference_debug_sparse": 4,
+          "reference_duplicate_scales": 4,
+          "reference_decode": 28,
+          "reference_fp32_gemm": 16
+        },
+        "max_gpu_cards": 1,
+        "session_max_GPUs": 4,
+        "assigned_GPU_slots": 0,
+        "code_commit": "fd7ec9fb4b335ee791232eaa13b40ab89f9e19b4",
+        "execution_status": "FAILED_ACTUAL_EXIT1_DENSE32_REFERENCE_SCALE_LAYOUT_PRESERVED_NO_RETRY",
+        "automatic_retry": false,
+        "worker_profile_sha256": "fa8a9da592292ec1560135e40ae1a6e0222a23c08af023e8e87f310580c7070d",
+        "result_HF_relative": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/results",
+        "design": {
+          "experts": [
+            "high",
+            "low"
+          ],
+          "M": [
+            32,
+            31668
+          ],
+          "source": 911,
+          "block": 20,
+          "teacher_steps": [
+            1,
+            2
+          ],
+          "fullM": "repeat input rows i mod 32; cost-only, not real full native state",
+          "arms": [
+            "original_bf16",
+            "dense_group16",
+            "dense_shared32",
+            "sharq"
+          ],
+          "warmup": 2,
+          "measured": 5,
+          "correctness": 1,
+          "uninstrumented_warmup": 2,
+          "uninstrumented_measured": 5,
+          "group32": "same raw BF16 W shared by dense32 and SharQ",
+          "dense16": "separate NVFP4 checkpoint packed weight and fixed checkpoint global A scale",
+          "bfloat16": "original BF16 master W1/W2+b1/b2 from matching expert/block",
+          "gate": "real matched gate from same source/step/block",
+          "Q2": "actual arm W1+bias+GELU output",
+          "sparse_residual": "R=X-dequant(Q_sparse(mask*X)); dense residual GEMM spans full K and N",
+          "bundle_full_hash_bytes": 730509120,
+          "bundle_io": "one full byte hash; subsequent mmap/page-cache physical reads UNKNOWN; H2D logical bytes completed after CUDA synchronization",
+          "neutral_rel_l2_max": 0.03,
+          "same_encoding_linear_rel_l2_max": 0.03,
+          "reference_scope": "M32 debug sparse logical payload compared to actual E-path; debug shares author selector and is not independent selector proof",
+          "reference_max_calls": {
+            "native_reprepare": 12,
+            "debug_sparse": 4,
+            "duplicate_sparse_scales": 4,
+            "fp32_reference_gemm": 16,
+            "linear_comparisons": 12
+          },
+          "scope": "FFN operator only; single exposed development source; no video or system acceptance"
+        },
+        "parent_cpu_RUN": {
+          "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results/RUN.json",
+          "bytes": 13163,
+          "sha256": "459f1b9723adbf65e79199d4bb1c61b37609792ffff04497c24fc1fd639b953a"
+        },
+        "parent_cpu_exit": {
+          "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/EXIT_RECEIPT.json",
+          "bytes": 533,
+          "sha256": "cc4f121a7f54fc233d8e25bce153b3cc6f253a526859a861d23c30d1405598c1"
+        },
+        "bundle": {
+          "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results/BUNDLE.safetensors",
+          "bytes": 730509120,
+          "sha256": "79e8829e94c1558fa8a569577ea3897ac2175fc077e7d93e490a400009264d0b"
+        },
+        "actual_supervisor_pid": 2300241,
+        "actual_RUN": {
+          "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/results/RUN.json",
+          "bytes": 18587,
+          "sha256": "f1392e132e17a100203e373eff2eda8f47e468955615cb992d2ec3ca2d6fe4a5"
+        },
+        "actual_exit": {
+          "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/EXIT_RECEIPT.json",
+          "bytes": 532,
+          "sha256": "5a40e120974d9072db28d8b0b417249a66b52dbddc4d51992009a741b25e4676"
+        },
+        "actual_child_returncode": 1,
+        "actual_predebited": {
+          "bundle_hashes": 1,
+          "checkpoint_scale_validation": 2,
+          "static_group32_weight_quant": 2,
+          "gelu_tanh": 45,
+          "gate_multiply": 45,
+          "bf16_linear": 30,
+          "correctness_comparisons": 3,
+          "dense16_prepare": 30,
+          "dense16_gemm": 30,
+          "reference_linear": 3,
+          "reference_prepare": 3,
+          "reference_decode": 6,
+          "reference_fp32_gemm": 2,
+          "dense32_prepare": 30,
+          "output_scale": 30,
+          "dense32_gemm": 30,
+          "bias_add": 30
+        },
+        "actual_invoked": {
+          "bundle_hashes": 1,
+          "checkpoint_scale_validation": 2,
+          "static_group32_weight_quant": 2,
+          "bf16_linear": 30,
+          "gelu_tanh": 45,
+          "gate_multiply": 45,
+          "correctness_comparisons": 3,
+          "dense16_prepare": 30,
+          "dense16_gemm": 30,
+          "reference_linear": 3,
+          "reference_prepare": 3,
+          "reference_decode": 6,
+          "reference_fp32_gemm": 2,
+          "dense32_prepare": 30,
+          "output_scale": 30,
+          "dense32_gemm": 30,
+          "bias_add": 30
+        },
+        "actual_returned": {
+          "bundle_hashes": 1,
+          "checkpoint_scale_validation": 2,
+          "static_group32_weight_quant": 2,
+          "bf16_linear": 30,
+          "gelu_tanh": 45,
+          "gate_multiply": 45,
+          "correctness_comparisons": 3,
+          "dense16_prepare": 30,
+          "dense16_gemm": 30,
+          "reference_prepare": 3,
+          "reference_decode": 5,
+          "reference_fp32_gemm": 2,
+          "reference_linear": 2,
+          "dense32_prepare": 30,
+          "output_scale": 30,
+          "dense32_gemm": 30,
+          "bias_add": 30
+        },
+        "failure_stage": "dense_shared32 same-encoding reference decode scale buffer; before SharQ and M31668",
+        "public_results": "research/20261029/SHARQ_WAN_FFN_PROBE_PARTIAL_RESULTS_20261030.json"
       }
     ],
     "prior_control_state_before_user_resume_20261027": {
@@ -22416,7 +22608,7 @@
     }
   },
   "previous_framework_document": "docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md",
-  "current_stage": "P0_WAN_FFN_ONLY__SHARQ_PAIRED_ASSETS_ACTUAL_EXIT0_CLOSED_NATIVE_PROBE_RECHECK_PENDING__TEAL_FULLM_CAPTURE_BUILD",
+  "current_stage": "P0_WAN_FFN_ONLY__SHARQ_REFERENCE_SCALE_LAYOUT_FAILURE_PRESERVED_V2_FIX__TEAL_FULLM_CAPTURE_RECHECK",
   "web_research": {
     "mode": "PROACTIVE_BROAD_DEEP_ITERATIVE_WEB_SEARCH_FOR_SUBSTANTIVE_SCIENTIFIC_WORK",
     "default": true,

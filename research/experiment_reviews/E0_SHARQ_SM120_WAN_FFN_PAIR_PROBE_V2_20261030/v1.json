@@ -1,0 +1,209 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_V2_20261030",
+  "purpose": "wan_transfer_native_operator",
+  "research_question": "Does author sparse NVFP4 plus full dense FP4 residual improve error and total Wan FFN cost versus same-W native dense FP4 and original BF16?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Two-branch quantization improves fidelity with worthwhile total FFN latency.",
+      "discriminator": "Same-encoding numerical tests, original-BF16 error and whole-FFN timings."
+    },
+    {
+      "id": "H2",
+      "prediction": "Residual/preparation cost removes sparse speedup despite a fast sparse branch.",
+      "discriminator": "Same-W dense32 total latency versus SharQ total, including both W1/W2 and both branches."
+    }
+  ],
+  "author_agent_id": "/root/sm120_full_quality_build_terra",
+  "reviewer_agent_id": "/root/teal_full_llm_calibration_build_terra",
+  "coordinator_agent_id": "/root",
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "adversarial_counterexample": "Uniform scales conceal swizzle errors; torch::empty padding can differ while all logical quantized values agree.",
+  "responses_to_review": [
+    "REVISE: exact author extra128-row scale allocation versus LightX ceil padding, decode valid logical tiles only.",
+    "REVISE: compare only consumed activation scale coordinates, excluding undefined allocator padding.",
+    "TEST:11 independent CPU synthetic tests include nonuniform tile coordinates, padding/active-value counterexamples and aligned-tail reproducer.",
+    "PRESERVE: prior actual EXIT1/RUN/stderr, new240-call budget and new output; no relaxed numerical tolerance."
+  ],
+  "critical_source_hashes": {
+    "tools/e0_sharq_wan_ffn_probe_v2.py": "6f215e511fb38ee468a7f5a200309da267b190f456c69665ee8b3a2cd44944db",
+    "tests/test_e0_sharq_wan_ffn_probe_v2.py": "84ed3f0167e970a35d7f6e02114e4f0080047d63cecb96a532cbaa5e9571d783",
+    "tools/e0_sharq_wan_ffn_probe.py": "b355edc1777f71e975915130b6ee1f88af40437d0f1d2b08686420b02b833d51",
+    "tests/test_e0_sharq_wan_ffn_probe.py": "a76a1cd9fcdd37962f89a3b4be916e0c645b7aea9fc23119afdc5f9f384b2bbf",
+    "config/e0_sharq_sm120_wan_ffn_pair_probe_20261030_pending_review_v2.json": "9674544862412b755789881b8a204c4a466cf3492f72854bd3a968aa4413735b",
+    "tools/e0_sharq_wan_ffn_ops.py": "fcd28b7824fdca4850ce765032ece68bf0786ec2df6bf20b13465e72f2d6652f",
+    "tests/test_e0_sharq_wan_ffn_ops.py": "ee7b90dff52bc4e78dfeaa0110777d4b6622c64c7a441de46dfea209dfedb131",
+    "tools/nvfp4_real_ffn_probe.py": "d2cb735494adfe3ca21f265454e3c513355eff45b54657075bc1c056b266611c",
+    "tools/e0_sharq_wan_ffn_assets.py": "d272d24c5f8ee167ed890c63f2d76b7461357628d70c7e4f0456dc31f868169a",
+    "tools/e0_sharq_wan_ffn_asset_plan.py": "a2df4c5dceb0de391fed4d4a4a0a707e62542662487d7317a0d8839a6d47c9f5",
+    "tools/e0_sharq_wan_ffn_asset_extract.py": "72883b25ab30514069936a93e1c7c537a506c5f209ee137dd27e7d82a5f6e45c",
+    "tools/e0_teal_llama3_tokenizer_byte_bridge.py": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c",
+    "tools/e0_teal_llama3_author_checkpoint_convert.py": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/durable_worker_job.py": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "scripts/worker_teal_gpu0_uuid_exec.sh": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1",
+    "research/20261029/SHARQ_SM120_CPU_ENGINEERING_BUILD_20261030.json": "a3295d978d6a51f4b90ef7335f3cd69564ea3cbe4be4c09b62778f752fe89392",
+    "research/20261029/SHARQ_CPU_AUTHOR_SOURCE_IMPORT_ENGINEERING_20261030.json": "3d5889b82ef1c80f115aa5f7d133994fc426f92965a60f8242ee25d030d0e415",
+    "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json": "4e051cbe10aad2c2e6821947f1f0b87d1690515b16c0509e53b139c3051348cf"
+  },
+  "checkpoint_numeric_recipe": {
+    "experts": [
+      "high",
+      "low"
+    ],
+    "M": [
+      32,
+      31668
+    ],
+    "source": 911,
+    "block": 20,
+    "teacher_steps": [
+      1,
+      2
+    ],
+    "fullM": "repeat input rows i mod 32; cost-only, not real full native state",
+    "arms": [
+      "original_bf16",
+      "dense_group16",
+      "dense_shared32",
+      "sharq"
+    ],
+    "warmup": 2,
+    "measured": 5,
+    "correctness": 1,
+    "uninstrumented_warmup": 2,
+    "uninstrumented_measured": 5,
+    "group32": "same raw BF16 W shared by dense32 and SharQ",
+    "dense16": "separate NVFP4 checkpoint packed weight and fixed checkpoint global A scale",
+    "bfloat16": "original BF16 master W1/W2+b1/b2 from matching expert/block",
+    "gate": "real matched gate from same source/step/block",
+    "Q2": "actual arm W1+bias+GELU output",
+    "sparse_residual": "R=X-dequant(Q_sparse(mask*X)); dense residual GEMM spans full K and N",
+    "bundle_full_hash_bytes": 730509120,
+    "bundle_io": "one full byte hash; subsequent mmap/page-cache physical reads UNKNOWN; H2D logical bytes completed after CUDA synchronization",
+    "neutral_rel_l2_max": 0.03,
+    "same_encoding_linear_rel_l2_max": 0.03,
+    "reference_scope": "M32 debug sparse logical payload compared to actual E-path; debug shares author selector and is not independent selector proof",
+    "reference_max_calls": {
+      "native_reprepare": 12,
+      "debug_sparse": 4,
+      "duplicate_sparse_scales": 4,
+      "fp32_reference_gemm": 16,
+      "linear_comparisons": 12
+    },
+    "retry_identity": "new independently reviewed scope after actual V1 EXIT1; all 240 FFN calls are newly charged; V1 partial work remains separate",
+    "author_scale_layout": "author dense SF allocates (rows//128+1)*128*(K//16) bytes; drop only the unused trailing aligned-row tile; LightX uses ceil(rows/128) tile count",
+    "activation_scale_identity": "compare exact bytes only at logical row/group coordinates; allocator padding in dense activation SF is unspecified and excluded",
+    "scope": "FFN operator only; single exposed development source; no video or system acceptance"
+  },
+  "input_cohort_manifest_sha256": "459f1b9723adbf65e79199d4bb1c61b37609792ffff04497c24fc1fd639b953a",
+  "control_arms": [
+    "original_bf16",
+    "dense_group16",
+    "dense_shared32",
+    "sharq"
+  ],
+  "unit_of_independence": "One exposed source cluster 911; two step/expert/block20 states; repeated M31668 input is shape-only",
+  "full_depth_or_claim_scope": "Two FFN positions, M32 real paired rows and M31668 replicated rows; no video/system/160-site claims",
+  "predeclared_metrics": [
+    "Original BF16 neutral relative L2",
+    "Same-encoding relative L2",
+    "Error to original BF16 per boundary",
+    "Total whole-FFN CUDA/wall time",
+    "Per-operation CUDA time",
+    "Weight prep/hash/H2D/RSS/GPU memory"
+  ],
+  "expected_physical_savings": {
+    "W1": "Sparse FP4 GEMM plus full dense FP4 residual, both counted",
+    "W2": "Same two-branch action on each arm own actual GELU output",
+    "observer_and_cache": "Online amax/div/cast/pack/metadata and Python accounting included; setup separately measured"
+  },
+  "applicable_session_gpu_cap": 4,
+  "budget_and_failure_plan": {
+    "resources": {
+      "GPU": 1,
+      "CPU_threads": 4,
+      "wall_seconds": 3600,
+      "outer_seconds": 3720,
+      "new_HF_bytes": 536870912,
+      "host_RSS_max_bytes": 17179869184,
+      "GPU_reserved_max_bytes": 77309411328,
+      "bundle_hash_bytes_max": 1073741824,
+      "automatic_retry": false
+    },
+    "limits": {
+      "gelu_tanh": 240,
+      "gate_multiply": 240,
+      "bf16_linear": 120,
+      "dense16_prepare": 120,
+      "dense16_gemm": 120,
+      "dense32_prepare": 120,
+      "output_scale": 240,
+      "dense32_gemm": 120,
+      "bias_add": 240,
+      "sharq_prepare": 120,
+      "sparse_gemm": 120,
+      "dense_residual_gemm": 120,
+      "static_group32_weight_quant": 4,
+      "checkpoint_scale_validation": 4,
+      "fullM_row_repeat": 2,
+      "correctness_comparisons": 16,
+      "bundle_hashes": 1,
+      "reference_linear": 12,
+      "reference_prepare": 12,
+      "reference_debug_sparse": 4,
+      "reference_duplicate_scales": 4,
+      "reference_decode": 28,
+      "reference_fp32_gemm": 16
+    },
+    "automatic_retry": false
+  },
+  "approval_scope_fingerprint": "b65b5b5500d6b9b5130a3ad6235544120c774ecad9a63c7b24de798a2f88a694",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "author_review": {
+    "path": "research/experiment_reviews/E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_V2_20261030/AUTHOR_SELF_AUDIT_V1.md",
+    "bytes": 2562,
+    "sha256": "a834cb9c62e8f00f8fefff53265d151dfbcbe6a4b69f89c5a4cfaf8800244ff3"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_V2_20261030/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 2652,
+    "sha256": "2d2852b6afed124b8dda039d445c9465ee21eda0e9280aa9ae52fa77c49baa56"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_V2_20261030/REVIEWER_RECHECK_V1.md",
+    "bytes": 2081,
+    "sha256": "fa59e5eb79b7f2d18bffb7a2e828fcc2ba6ede1d6b7f42eff9fbb65f0a741799"
+  },
+  "author_response": {
+    "path": "research/experiment_reviews/E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_V2_20261030/AUTHOR_RESPONSE_V2.md",
+    "bytes": 1651,
+    "sha256": "6f3c865c8bc93b25583f420baddd513a183b52c7aa224fa825293e374a5d1b74"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_SHARQ_SM120_WAN_FFN_PAIR_PROBE_V2_20261030/COORDINATOR_SELF_AUDIT_V1.md",
+    "bytes": 1750,
+    "sha256": "4273ac9579cc750525c02650975e3af487be8c78a2fd206f3a6b643127a4f927"
+  },
+  "prior_failed_scope": {
+    "RUN": {
+      "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/results/RUN.json",
+      "bytes": 18587,
+      "sha256": "f1392e132e17a100203e373eff2eda8f47e468955615cb992d2ec3ca2d6fe4a5"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 532,
+      "sha256": "5a40e120974d9072db28d8b0b417249a66b52dbddc4d51992009a741b25e4676"
+    },
+    "stderr": {
+      "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_20261030/attempt1/worker/child.stderr.log",
+      "bytes": 3442,
+      "sha256": "1c267f4660e89c1598f493fe6a8dd3b02772183e977a4d60e062ed40aba4c062"
+    }
+  }
+}
