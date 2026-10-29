@@ -16,6 +16,8 @@
 
 ## P0 · 当前最短阅读和行动路径
 
+**新12来源四臂同机对照已闭合**：[56条原生生成](20261029/S2_NEW12_SM120_FIXED_DEPTH_NATIVE_RESULTS_20261029.md)（含8条中性）及[48条研究视频八轴/连续RAFT/全81帧接触表](20261029/S2_NEW12_SM120_FIXED_DEPTH_QUALITY_RESULTS_20261029.md)均实际EXIT0并目标端验证；三种低秩行动的来源内运动比值均值为0.258/0.275/0.290，未恢复全局运动。source979后10层Dense为0.929的反例。whole-FFN的[真实预GELU a桥接](20261029/S2_WHOLE_FFN_NATIVE_BOUNDARY_BRIDGE_RESULTS_20261029.md)四视频/16包/40状态byte-neutral已完成，后续诊断未注册，按最新Chipmunk/TEAL共同P0降P1。
+
 | 顺序 | 读取对象 | 立即产生的工作成果 |
 | --- | --- | --- |
 | **1** | [资产先行方法推导](20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md) + [来源级复算](20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json) | 从真实Wan功能、跨step共享、时空分组、可见量化信息提出竞争性机制 |
@@ -46,7 +48,7 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋16补充，共114项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋19补充，共117项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 

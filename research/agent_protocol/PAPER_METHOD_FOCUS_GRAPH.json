@@ -6,7 +6,7 @@
   "original_graph": "research/agent_protocol/GRAPH_AGENT_BINDINGS.json",
   "primary_index": "research/literature/20261026/PRIMARY_LITERATURE_INDEX.json",
   "existing_family_map": "research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json",
-  "supplemental_scope": "C01–C10 calibration; C11–C13 spatiotemporal; C14–C16 propagation calibration and rank allocation, each with actual reading depth.",
+  "supplemental_scope": "C01–C10 calibration; C11–C13 spatiotemporal; C14–C16 propagation calibration and rank allocation; C17–C19 whole-FFN representation, each with actual reading depth.",
   "graph_document": "docs/98_端到端计算图与证据注解_20261025.md",
   "focus_nodes": [
     {
@@ -2379,6 +2379,92 @@
       ],
       "author_code_url": null,
       "author_code_review_scope": "Author code not independently inspected"
+    },
+    {
+      "id": "C17",
+      "title": "Accelerating Large Language Models through Partially Linear Feed-Forward Network",
+      "year": 2025,
+      "venue": "arXiv v1",
+      "url": "https://arxiv.org/abs/2501.10054v1",
+      "model": "Text generation LLMs including Falcon, GPT2-XL, BLOOMZ and OPT",
+      "observed_mechanism": "offline calibrated per-neuron linear replacement and W1-W2 folding; quantized W1 predictor and selective original correction",
+      "decision_time": "offline calibration then current pre-W1 input predictor and selective exact correction",
+      "physical_action": "dense D-by-D fold plus online quantized predictor and selected W1/W2 correction",
+      "training": "offline regression/KDE and GPTQ calibration; original model not finetuned",
+      "wan_specific_discriminator": "parity even-group exact linear split differs from linear hot-range approximation; count predictor and original fallback",
+      "reading_depth": "PRIMARY_METHOD_EQUATIONS_IMPLEMENTATION_EVALUATION_REVIEWED_CODE_NOT_LOCATED",
+      "focus_nodes": [
+        "T04",
+        "T05",
+        "T07",
+        "T13",
+        "T16"
+      ],
+      "group": "supplemental_whole_ffn_representation",
+      "source_ledger": "research/literature/20261029/S2_WHOLE_FFN_REPRESENTATION_SOURCE_LEDGER_20261029.json",
+      "author_code_url": null,
+      "author_code_review_scope": "Author executable implementation not independently located or reviewed.",
+      "retained_prior_discovery": [
+        "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
+        "research/20261026/E0_ALL_BLOCK_RECONSTRUCTION.md",
+        "research/20261021/research_state_R2.json"
+      ]
+    },
+    {
+      "id": "C18",
+      "title": "How Linear Is a Transformer Feed-Forward Block? Per-Block Linear Recoverability Is Learned, Not Architectural",
+      "year": 2026,
+      "venue": "arXiv v1",
+      "url": "https://arxiv.org/abs/2606.19379v1",
+      "model": "GPT-2, Pythia-160m, llama-160m, WikiText-2",
+      "observed_mechanism": "closed-form affine FFN replacement plus fitted rank16 shared bilinear products as residual probe",
+      "decision_time": "offline paired FFN input/output calibration; current x at inference",
+      "physical_action": "dense affine x to y plus two x-to-r projections and r-to-output product mix",
+      "training": "closed-form affine fit and Adam bilinear; optional swapped-only healing",
+      "wan_specific_discriminator": "rank16 factored residual negative result cannot rule out complete k-dimensional symmetric cross basis; paper/code cost discrepancy",
+      "reading_depth": "PRIMARY_METHOD_EQUATIONS_EXPERIMENTS_AND_AUTHOR_CODE_REVIEWED",
+      "focus_nodes": [
+        "T04",
+        "T05",
+        "T07",
+        "T09",
+        "T16"
+      ],
+      "group": "supplemental_whole_ffn_representation",
+      "source_ledger": "research/literature/20261029/S2_WHOLE_FFN_REPRESENTATION_SOURCE_LEDGER_20261029.json",
+      "author_code_url": "https://github.com/Notabot123/polyweave/tree/7c1f241a7477100a09d01d86ecf771d3322952ef",
+      "author_code_review_scope": "Current author repository HEAD PolyLinear, regression and residual-gain driver only; not shown to be original paper snapshot; not executed",
+      "retained_prior_discovery": [
+        "research/20261021/research_state_R2.json"
+      ]
+    },
+    {
+      "id": "C19",
+      "title": "Neuron Merging: Compensating for Pruned Neurons",
+      "year": 2020,
+      "venue": "NeurIPS 2020",
+      "url": "https://arxiv.org/abs/2010.13160v1",
+      "model": "ReLU LeNet/VGG/ResNet classification",
+      "observed_mechanism": "ReLU-positive-homogeneity representative neuron merging with downstream weight compensation",
+      "decision_time": "offline static weights and bias",
+      "physical_action": "select retained W1 channels and merge W2 via nonnegative scaling map",
+      "training": "one-shot data-free, no finetuning in reported examples",
+      "wan_specific_discriminator": "GELU not positively homogeneous and signed mirror requires separate exact odd-linear compensation",
+      "reading_depth": "PRIMARY_THEOREM_ALGORITHM_EXPERIMENTS_AND_AUTHOR_CODE_REVIEWED",
+      "focus_nodes": [
+        "T04",
+        "T05",
+        "T07",
+        "T16"
+      ],
+      "group": "supplemental_whole_ffn_representation",
+      "source_ledger": "research/literature/20261029/S2_WHOLE_FFN_REPRESENTATION_SOURCE_LEDGER_20261029.json",
+      "author_code_url": "https://github.com/friendshipkim/neuron-merging/tree/d25cf3e39ecf376a1ffc8b3cbf326a38b6db19cf",
+      "author_code_review_scope": "Author decompose.py positive scaling, affine bias concatenation and next-layer merge; not executed",
+      "retained_prior_discovery": [
+        "research/20261021/method_search_R10.json",
+        "docs/61_全路线失败归因与组合方案复盘_R10.md"
+      ]
     }
   ],
   "supplemental_links": [
@@ -2661,6 +2747,65 @@
       "graph_anchor_existing": [],
       "source_url": "https://arxiv.org/html/2610.32878v2",
       "source_ledger": "research/literature/20261029/S2_PROPAGATION_CALIBRATION_SOURCE_LEDGER_20261029.json"
+    },
+    {
+      "id": "C17",
+      "focus_nodes": [
+        "T04",
+        "T05",
+        "T07",
+        "T13",
+        "T16"
+      ],
+      "index": "SUPPLEMENTAL_WHOLE_FFN_REPRESENTATION_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_METHOD_EQUATIONS_IMPLEMENTATION_EVALUATION_REVIEWED_CODE_NOT_LOCATED",
+      "mechanism": "offline calibrated per-neuron linear replacement and W1-W2 folding; quantized W1 predictor and selective original correction",
+      "intervention": "dense D-by-D fold plus online quantized predictor and selected W1/W2 correction",
+      "decision_time": "offline calibration then current pre-W1 input predictor and selective exact correction",
+      "wan_transfer_question": "parity even-group exact linear split differs from linear hot-range approximation; count predictor and original fallback",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2501.10054v1",
+      "source_ledger": "research/literature/20261029/S2_WHOLE_FFN_REPRESENTATION_SOURCE_LEDGER_20261029.json"
+    },
+    {
+      "id": "C18",
+      "focus_nodes": [
+        "T04",
+        "T05",
+        "T07",
+        "T09",
+        "T16"
+      ],
+      "index": "SUPPLEMENTAL_WHOLE_FFN_REPRESENTATION_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_METHOD_EQUATIONS_EXPERIMENTS_AND_AUTHOR_CODE_REVIEWED",
+      "mechanism": "closed-form affine FFN replacement plus fitted rank16 shared bilinear products as residual probe",
+      "intervention": "dense affine x to y plus two x-to-r projections and r-to-output product mix",
+      "decision_time": "offline paired FFN input/output calibration; current x at inference",
+      "wan_transfer_question": "rank16 factored residual negative result cannot rule out complete k-dimensional symmetric cross basis; paper/code cost discrepancy",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2606.19379v1",
+      "source_ledger": "research/literature/20261029/S2_WHOLE_FFN_REPRESENTATION_SOURCE_LEDGER_20261029.json"
+    },
+    {
+      "id": "C19",
+      "focus_nodes": [
+        "T04",
+        "T05",
+        "T07",
+        "T16"
+      ],
+      "index": "SUPPLEMENTAL_WHOLE_FFN_REPRESENTATION_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_THEOREM_ALGORITHM_EXPERIMENTS_AND_AUTHOR_CODE_REVIEWED",
+      "mechanism": "ReLU-positive-homogeneity representative neuron merging with downstream weight compensation",
+      "intervention": "select retained W1 channels and merge W2 via nonnegative scaling map",
+      "decision_time": "offline static weights and bias",
+      "wan_transfer_question": "GELU not positively homogeneous and signed mirror requires separate exact odd-linear compensation",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2010.13160v1",
+      "source_ledger": "research/literature/20261029/S2_WHOLE_FFN_REPRESENTATION_SOURCE_LEDGER_20261029.json"
     }
   ],
   "source_ledger_contract": {

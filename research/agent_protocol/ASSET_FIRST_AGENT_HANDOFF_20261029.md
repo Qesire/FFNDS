@@ -10,6 +10,8 @@
 
 ## 0. 协作起手式
 
+**新12来源四臂同机对照已闭合**：[56条原生生成](../20261029/S2_NEW12_SM120_FIXED_DEPTH_NATIVE_RESULTS_20261029.md)（含8条中性）及[48条研究视频八轴/连续RAFT/全81帧接触表](../20261029/S2_NEW12_SM120_FIXED_DEPTH_QUALITY_RESULTS_20261029.md)均实际EXIT0并目标端验证；三种低秩行动的来源内运动比值均值为0.258/0.275/0.290，未恢复全局运动。source979后10层Dense为0.929的反例。whole-FFN的[真实预GELU a桥接](../20261029/S2_WHOLE_FFN_NATIVE_BOUNDARY_BRIDGE_RESULTS_20261029.md)四视频/16包/40状态byte-neutral已完成，后续诊断未注册，按最新Chipmunk/TEAL共同P0降P1。
+
 1. **观察与信息差距**：列出已有 *原始source-cluster、step×layer×token坐标、producer、numeric backend、teacher或student状态、latent视频时间位置*；明确一个使旧策略失效的已见现象。
 2. **机制竞争**：至少提出能够产生相反预测的两个解释，附准确原论文先例与正常原生计算图；不预设补算、TopK、SSE、负交叉项或特定Kernel会有效。
 3. **可构造算法**：写明新方法改变什么计算、早/晚信息何时生产、真实物理动作集合及额外观察/转换/权重/dispatch成本。给出最低费用的数学、保存原始tensor或source-held判别。

@@ -21,6 +21,8 @@
 
 ## 原始计算对象与已用数据
 
+**新12来源四臂同机对照已闭合**：[56条原生生成](../20261029/S2_NEW12_SM120_FIXED_DEPTH_NATIVE_RESULTS_20261029.md)（含8条中性）及[48条研究视频八轴/连续RAFT/全81帧接触表](../20261029/S2_NEW12_SM120_FIXED_DEPTH_QUALITY_RESULTS_20261029.md)均实际EXIT0并目标端验证；三种低秩行动的来源内运动比值均值为0.258/0.275/0.290，未恢复全局运动。source979后10层Dense为0.929的反例。whole-FFN的[真实预GELU a桥接](../20261029/S2_WHOLE_FFN_NATIVE_BOUNDARY_BRIDGE_RESULTS_20261029.md)四视频/16包/40状态byte-neutral已完成，后续诊断未注册，按最新Chipmunk/TEAL共同P0降P1。
+
 - Wan2.2 I2V A14B四步high/high/low/low，两个expert、各40 Block；每个四步视频实际160个FFN位置。原BF16 W1形状5120×13824、W2形状13824×5120，视频latent网格21×29×52（21≠四个去噪step）。
 - [原BF16真实全深度数据](../20261029/ORIGINAL_BF16_FULL_DEPTH_CORPUS_RESULTS_20261029.md)：8个历史暴露image clusters（6校准、2开发）×160位置×256同坐标行=1280包，包含h、W2输出、gate、pre/post residual；同step/block的gate/shift/scale在这些来源中相同。BF16无Q1/A1或Q2/A2 FP4量化。
 - [shared/step-r960全80原BF16函数](../20261029/RAW_BF16_FULL80_R960_SPECTRUM_RESULTS_20261029.md)：已导出，W2 per-token逻辑MAC占原W2约25.69%，**保留W1后整FFN逻辑MAC为62.85%**；[完整学生视频与实际wall已测](../20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.md)，官方质量未通过。保留完整export SHA和源身份。
@@ -32,7 +34,7 @@
 
 ## 实际研究动作、证明与权限
 
-1. 从上面的资产中选一个**真实结构/矛盾**；读[原文98主＋16补充与G14落点](PAPER_METHOD_FOCUS_GRAPH.json)以及[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)对应工作方式。提出至少两种可被最小保存数据判别的机制，再决定算法与物理动作。
+1. 从上面的资产中选一个**真实结构/矛盾**；读[原文98主＋19补充与G14落点](PAPER_METHOD_FOCUS_GRAPH.json)以及[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)对应工作方式。提出至少两种可被最小保存数据判别的机制，再决定算法与物理动作。
 2. 写清source（独立统计单位）、step/expert/block/token、视频latent时间槽、观察时点和数值recipe。先用原始tensor/证明/已存RUN代替重复模型作业；新数据只采集能改变机制结论的缺口。
 3. 若进入部署方法试验，冻结真实4step×40site候选、≥20独立开发image clusters目标、适用的动作/语义/连续运动/背景/时序/感知指标、Dense配对与FFN/整机时间；新盲确认按独立source/seed协议另外冻结。参见[视频合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
 4. 新CPU/GPU/model/video运行先写入[ACTIVE](../ACTIVE_RESEARCH.json)的source/配置/预算，遵循适用会话/冻结RUN的并发上限（实际VIDEO20为2卡），然后在边界内按[动态GPU政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际有效最大并行。新有限范围依当前持续授权登记和冻结实际分配；无实际调度收据不假定有空闲卡。

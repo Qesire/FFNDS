@@ -16,11 +16,14 @@ class GraphAgentBridgeTests(unittest.TestCase):
 
     def test_full_literature_index_is_linked_to_actual_native_focus_nodes(self):
         result=validate_paper_focus(self.registry)
+        root = Path(__file__).resolve().parents[1]
+        overlay = json.loads((root / self.registry["paper_method_focus_v2"]["overlay"]).read_text())
         self.assertEqual(result["paper_focus_primary"],98)
-        self.assertEqual(result["paper_focus_supplemental"],10)
+        self.assertEqual(result["paper_focus_supplemental"],len(overlay["supplemental_papers"]))
+        self.assertEqual(result["paper_focus_supplemental"],len(overlay["supplemental_links"]))
         self.assertEqual(result["paper_focus_stages"],16)
         self.assertGreaterEqual(result["paper_to_stage_links"],150)
-        for paper in ("L01","L09","L14","L34","L74","L84","L89","L90","L91","L92","C01","C05","C10"):
+        for paper in ("L01","L09","L14","L34","L74","L84","L89","L90","L91","L92","C01","C05","C10","C17","C18","C19"):
             looked=inspect_paper(self.registry,paper)
             self.assertTrue(looked["native_stage_analogies"])
             self.assertEqual(looked["method_graph"]["source_url"],looked["paper"]["url"])
@@ -261,13 +264,23 @@ class GraphAgentBridgeTests(unittest.TestCase):
         context = (root / "research/agent_protocol/CURRENT_CONTEXT_PACKET.md").read_text(encoding="utf-8")
         skill = (root / ".agents/skills/ffnds-paper-discovery/SKILL.md").read_text(encoding="utf-8")
         copilot = (root / ".github/copilot-instructions.md").read_text(encoding="utf-8")
+        agents = (root / "AGENTS.md").read_text(encoding="utf-8")
         method = "COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md"
         for tier in ("P0", "P1", "P2", "P3", "P4"):
             self.assertIn("## " + tier + " ·", nav)
         for entry in (nav, readme, context, skill):
             self.assertIn(method, entry)
-        self.assertIn("NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md", nav)
-        self.assertIn("B0", context)
+        navigation = "research/RESEARCH_NAVIGATION.md"
+        packet = "research/agent_protocol/CURRENT_CONTEXT_PACKET.md"
+        asset_first = "research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md"
+        self.assertLess(agents.index(navigation), agents.index(packet))
+        self.assertLess(agents.index(packet), agents.index(asset_first))
+        self.assertIn("agent_protocol/CURRENT_CONTEXT_PACKET.md", nav)
+        self.assertIn("20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md", nav)
+        self.assertIn("../20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md", context)
+        historical = root / "research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md"
+        self.assertTrue(historical.is_file())
+        self.assertIn(historical.name, context)
         self.assertIn("98个主LID", skill)
         self.assertNotIn("89个主LID", skill)
         self.assertNotIn("89项文献、177图节点、371关系", copilot)
