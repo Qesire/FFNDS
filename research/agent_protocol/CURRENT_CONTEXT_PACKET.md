@@ -1,6 +1,6 @@
 # FFNDS · 当前Agent最小上下文（2026-10-29）
 
-**最新实际任务优先级：P0 CHIPMUNK + TEAL（同级）。** [TEAL V3](../20261029/TEAL_WAN_ALL160_VIDEO_V3_NATIVE_RESULTS_20261029.md)已完成四来源20完整视频和全部160位置，8中性/12研究、200状态、1280掩码；阈值后仍完整Dense W2。前两来源[逐81帧独立AI审阅](../20261029/TEAL_WAN_ALL81_PARTS01_INDEPENDENT_AI_REVIEW_20261029.md)发现979 threshold50持续碎片状元素、手部动作改变。两次RAFT CPU预检实际因隔离解释器包元数据失败，零模型/GPU；新V2修评分环境，成功视觉结果和所有失败原样保留。原作者FP16单token有限kernel/计时和Wan局部CPU已完成，不能代替完整LLM/视频质量/SYS。[Llama3原始tokenizer](../20261029/TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_RESULTS_20261029.md)真实转换后与官方大小和SHA完全相同，完整LLM权重与原作验证继续。[Chipmunk付费代理](../20261029/CHIPMUNK_PAID_PROXY_EQUAL_K_RESULTS_20261029.md)单组误差0.27955优于等K随机，未成为完整学生方案。Chipmunk作者Wan默认MLP关闭、含attention/step-cache的2.67×仍不能作FFN-only复现；S2新模型任务保持P1。新scope均实际独立审阅后由root登记ACTIVE；当前用户明确**最多同时4卡**，已完成/失败范围不自动重跑。
+**最新实际任务优先级：P0 CHIPMUNK + TEAL（同级）。** [TEAL全160四来源质量](../20261029/TEAL_WAN_ALL160_FOUR_SOURCE_QUALITY_RESULTS_20261029.md)的连续RAFT、八轴及逐81帧AI接触表均真实EXIT0/闭合：四个历史暴露开发来源各一seed，25/50阈值来源等权配对流比 **1.16952/1.37647**，各轴响应不同；50臂可见动作与彩色元素变化，25臂较接近。原路径仍完整执行Dense W2，未证明物理省算或获得正式质量验收。旧RAFT预检和NFS失败保留；成功V2/V3结果不覆盖旧失败。[Llama3公开资产](../20261029/TEAL_LLAMA3_PUBLIC_ASSET_ACQUISITION_RESULTS_20261029.md)13文件16,069,766,580字节已获取并独立全量复验，四权重分片与官方公开LFS SHA/大小一致，官方访问403事实不变；[tokenizer字节桥](../20261029/TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_RESULTS_20261029.md)已闭合。[原作者checkpoint转换及独立复验](../20261029/TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_RESULTS_20261029.md)已实际EXIT0/闭合，291→227个参数，输出BF16。完整LLM校准、推理、质量与速度仍未复现。[Chipmunk付费代理](../20261029/CHIPMUNK_PAID_PROXY_EQUAL_K_RESULTS_20261029.md)单组误差0.27955优于等K随机，未成为完整学生方案。Chipmunk作者Wan默认MLP关闭、含attention/step-cache的2.67×不作FFN-only复现；S2新模型任务保持P1。新scope均独立审阅后按ACTIVE登记；当前用户明确最多同时4卡。
 
 
 
@@ -38,7 +38,7 @@
 - [HiF4 UB1 20来源视频与四步状态](../20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)：真实free video中运动幅值均值比0.1672、18/20下降，成像分数可以变好而动作退化；20/20四步signed误差累计。其numeric family与BF16不同，**不能用作BF16候选的Dense对照**。
 - [真实PRO6000 NVFP4 FFN有限实验](../20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.md)已经执行；这建立硬件算子可行性证据，而不是NVFP4整个模型的生成质量或加速。静态权重与在线激活码及scale、producer、决策时点按[合同](WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)区分；旧HiF4 S1P2单码**含符号位**，fake-QDQ输出带符号BF16而非原生packed。
 
-**当前GPU执行约束**：最新用户AGENTS对新范围采用动态实际空卡分配，无永久2/4卡全局限额；每次启动先冻结ACTIVE的有限范围及实际可用资源。旧VIDEO20和近期两路采集原2卡scope保持不变，原RUN/EXIT/hash不改写。
+**当前GPU执行约束**：当前用户会话最多同时4卡，新范围在这一上限内采用动态实际空卡分配；每次启动先冻结ACTIVE的有限范围及实际可用资源。旧VIDEO20和近期两路采集原2卡scope保持不变，原RUN/EXIT/hash不改写。
 
 ## 实际研究动作、证明与权限
 

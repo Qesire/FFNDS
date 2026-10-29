@@ -1,0 +1,88 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_20261029",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "final_disposition": "APPROVE",
+  "author_agent_id": "/root/sm120_full_quality_build_terra",
+  "reviewer_agent_id": "/root/teal_probe_preexec_reviewer",
+  "coordinator_agent_id": "/root",
+  "author_review": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_20261029/AUTHOR_SELF_AUDIT_DRAFT.md",
+    "bytes": 5439,
+    "sha256": "b623d6964d946167adec220154549a3dd14ead779da4be5448fdf6c89bdfb169"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_20261029/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 3509,
+    "sha256": "43bdf61dc861f9064cf06690fb37729a43cbc6fb4dd43d5421e08d0511e61f36"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_20261029/REVIEWER_RECHECK_NFS_V2.md",
+    "bytes": 1655,
+    "sha256": "123f04438853297d367560c0b07e229e654b0edbd5479ec6dfe0f50041bb6b8d"
+  },
+  "author_response": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_20261029/AUTHOR_RESPONSE_NFS_SCANNER_V1.md",
+    "bytes": 1127,
+    "sha256": "9e32a5c379c242d2080bff972477b93014048c9c256f7434b95ec92f043a8a8b"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_20261029/COORDINATOR_SELF_AUDIT.md",
+    "bytes": 2069,
+    "sha256": "99599480054ed3b8e4a9c8be71f772bd6e8e6ab33fa05b7ec1fff557e135e1a3"
+  },
+  "responses_to_review": [
+    "Use the unchanged author converter, fixed input descriptors and complete before/after input hashes; preserve BF16 key/shape semantics.",
+    "Bound whole-worker sampled accounting, fixed emergency failure receipt and root-preserving NFS mutable scanner; exact original runtime.",
+    "Separate actual verification ID/ACTIVE/review/budget/spec and predebited full reread after actual parent EXIT0."
+  ],
+  "adversarial_counterexample": "Mutable NFS children may disappear during scans while root/input disappearance must fail; malicious noncooperative input mutation is outside cooperative-lock guarantees.",
+  "research_question": "Does the unmodified original author mapping produce the expected complete BF16 gpt-fast checkpoint from the verified original model bytes?",
+  "critical_source_hashes": {
+    "tools/e0_teal_llama3_author_checkpoint_convert.py": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0",
+    "tests/test_e0_teal_llama3_author_checkpoint_convert.py": "b23082148694250c4b3adfd0241016a9a4e002203de1e7303774ed0c714ff5dc",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/compile_wrapper.py": "7e1b86358171923d3ac658476b483c5b1dc199601b84976264d5814933239d7c",
+    "tools/e0_teal_llama3_tokenizer_byte_bridge.py": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/durable_worker_job.py": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2",
+    "research/literature/20261029/P0_TEAL_FULL_LLM_STATIC_SOURCE_MANIFEST_20261029.json": "1203c2f4b006d9975d33c64ae35a51c186c869ebf03529f4ad8ce4db25efeabb",
+    "research/method_discussion/discoveries/E0/p0-teal-llama3-author-full32-execution-design-20261029.md": "36898a52fb4946852820eea8e4f571d63501329cced9edff4b7fb5055fcf8f0e"
+  },
+  "protocol": {
+    "path": "config/e0_teal_llama3_author_checkpoint_conversion_20261029_pending_review_v1.json",
+    "bytes": 20483,
+    "sha256": "694be2a2b15085a4b6fb7ebc6376c565fe71a67371c58898a953707f146ebe8b"
+  },
+  "approval_scope_fingerprint": "5ef24a9371370a892b25df26d89c2453740fc0697aa89c95ec75d73140fa49dc",
+  "launch_spec_sha256": "b84f90afa1817dc580166aae4c00c01551a6a87e339bdddfb26ba10085970e1d",
+  "code_commit": "fca8b6d2cf1e894944939266d28383c43224481c",
+  "applicable_session_gpu_cap": 4,
+  "scope_GPU_cards": 0,
+  "budget_and_failure_plan": {
+    "resources": {
+      "GPU": 0,
+      "CPU_threads": 2,
+      "wall_seconds": 5400,
+      "outer_seconds": 5520,
+      "address_space_max_bytes": 51539607552,
+      "minimum_free_disk_bytes": 25769803776,
+      "output_file_max_bytes": 21474836480,
+      "new_HF_bytes": 22548578304,
+      "automatic_retry": false
+    },
+    "limits": {
+      "original_converter_calls": 1,
+      "input_shard_loads": 4,
+      "checkpoint_writes": 1,
+      "model_forward_calls": 0,
+      "GPU_calls": 0,
+      "training_updates": 0,
+      "output_full_hash_passes": 1,
+      "input_full_hash_passes_per_file": 2
+    },
+    "automatic_retry": false
+  },
+  "expected_physical_savings": "Author checkpoint preparation only; no LLM forward, quality or performance claim."
+}
