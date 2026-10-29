@@ -23,7 +23,9 @@
 
 **跨路线开放种子（尚非正式提交、没有同行SUPPORT）**：[QCFB量化条件联合函数组束与Q-STAGE两阶段信息](../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)。其机器[先验/判别表](../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)及[PROPOSED图claim](graph_annotations/E0/E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)已经登记，未来由真正提出方法的Agent独立提交正式proposal并由另一Agent审阅。**不是**新GPU任务，也不置换M-B B0/B1。
 
-**2026-10-29新增开放机制种子（不是正式独立方法提案）**：[MTC/TDIC：时间距离、运动对应与FFN W2误差时间创新](../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)；图节点[OPEN claim](graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)。其来源为已实测20图60原BF16视频动态衰减、8图同xy跨τ稀疏时间优势；数学恒等式与同预算AC加权表示、付费残差锚点运输、运动条件可变rank等是待独立审查的研究设计。**正式提案0、独立支持票0、新模型实验0**；等待真正其他Agent进行原论文、物理成本、舍入和student视频的竞争性评议。已有S2方法不因新增科学种子而被自动替换。
+**2026-10-29 S2时间统计子问题（不是正式独立方法提案或第五条路线）**：[MTC/TDIC：时间距离、运动对应与FFN W2误差时间创新](../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)；图节点[OPEN claim](graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)。其来源为已实测20图60原BF16视频动态衰减、8图同xy跨τ稀疏时间优势；数学恒等式与同预算AC加权表示、付费残差锚点运输、运动条件可变rank等是待独立审查的研究设计。**正式提案0、独立支持票0、新模型实验0**；等待真正其他Agent进行原论文、物理成本、舍入和student视频的竞争性评议。已有S2方法不因新增科学种子而被自动替换。
+
+**S2现行证据标准**：[时间统计结构T1–T6与补采清单](../20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。MTC/TDIC仅作为S2的条件代数/论文线索，已完成的十图完整τ和r960同h重放算作S2机制事实；新增时间相关、频率、相位、真实运动邻域为数据采集与统计要求，不按独立方法提案投票，独立Agent可以审查解释及必要源码。
 
 ## 2. 旧结果/独立讨论的追溯入口
 
