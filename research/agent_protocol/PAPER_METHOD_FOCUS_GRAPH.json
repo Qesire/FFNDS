@@ -273,11 +273,11 @@
         "T13"
       ],
       "index": "PRIMARY_LITERATURE_INDEX.json",
-      "review_depth": "OFFICIAL_ABSTRACT",
-      "mechanism": "Activation N:M more robust than weight N:M; norm compensation and light LoRA",
-      "intervention": "native N:M kernel",
-      "decision_time": "current GEMM operand after Q1 (W1) or after GELU/Q2 (W2) with actual N:M online metadata",
-      "wan_transfer_question": "Original full paper/code not reviewed; N:M activated GEMM and error compensation verified by abstract only. Third-party norm/LoRA formula requires primary verification; after-GELU sparsity does not save already-done W1.",
+      "review_depth": "ORIGINAL_PMLR_METHOD_EQ4_5_ALGORITHM1_TABLE2_APPENDIX_F5_READ_AUTHOR_CODE_NOT_VERIFIED",
+      "mechanism": "Online 2:4 activation Top2 plus norm compensation; trained rank64 residual in full method; SA-NC is separate ablation",
+      "intervention": "online sparse activation preparation and native sparse GEMM; full method adds trained dense rank64 residual",
+      "decision_time": "current GEMM input before its sparse preparation; after GELU for Wan W2, before W1 for input sparsification",
+      "wan_transfer_question": "SA-NC without LoRA has separate degraded image-DiT ablation; norm equality does not imply W2 functional equality. Verify code reduction axis, sort/ties and real Wan kernel/video; H20 image results are not Wan I2V evidence.",
       "associated_mechanism_families": [
         "M05"
       ],
@@ -286,7 +286,9 @@
         "K14",
         "K15"
       ],
-      "source_url": "https://proceedings.mlr.press/v306/cong26a.html"
+      "source_url": "https://proceedings.mlr.press/v306/cong26a.html",
+      "primary_method_document": "research/literature/20261029/L08_RT_LYNX_PRIMARY_METHOD_AUDIT_20261030.md",
+      "author_code_search_document": "research/literature/20261030/L08_RT_LYNX_AUTHOR_CODE_SEARCH_20261030.md"
     },
     {
       "id": "L09",

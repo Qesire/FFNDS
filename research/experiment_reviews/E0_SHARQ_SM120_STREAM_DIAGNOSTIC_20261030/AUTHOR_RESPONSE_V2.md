@@ -1,0 +1,11 @@
+# 作者回应 stream 诊断独立初审 V1
+
+桥接保护区覆盖 caller→default事件、所有输入record_stream、整个原作者函数、default完成事件、caller等待和所有输出record_stream；任何环节抛错时，持有args和result强引用依次drain默认流及caller，保留原异常；任一drain失败附note写入失败RUN，异步完成UNKNOWN、scope终止。CPU合成测试分别注入fn、caller wait及输出record失败，验证两个stream drain和原异常。
+
+核准RUN持久化之后、读取bundle之前，source/author源码、ELF和lightx源按绑定文件长度与实际调用次数合并预扣（512MiB上限），`prior.verify_software`和新author流源码实际全hash完成才记完成；异常保留source hash inflight UNKNOWN。两V6真实失败RUN/EXIT各hash一次，单列4次/实际绑定总字节预扣、1MiB上限和失败UNKNOWN；小JSON解析、parent inspector及授权前protocol/ACTIVE/review/spec/profile/runtime元数据另记UNKNOWN，授权前失败由supervisor真实EXIT承载。随后bundle全文730,509,120B另行预扣并实际hash一次。相比旧V2，安全检查前置身份读取仍属小文件范围，不声称准确全部I/O。
+
+收到root附加反例：BF16 `torch.equal` 区分不了±0；现在原W、输入和BF16输出先转连续uint8字节视图再逐位比较，合成反例覆盖负零。M32 W2真实原Dense h只验证独立线性流契约，不当成耦合FFN或视频质量。packed比较仅作者kernel对应Q payload及真实稀疏/稠密scale逻辑坐标和global scale，padding不比较；非均匀跨row/group边界合成测试含padding变更和逻辑字节变更。原V6及其依赖未改，两个独立进程仍保持SAFE先于UNBRIDGED且后者只有SAFE实际EXIT0闭合可登记。
+
+9项CPU合成测试通过；未执行真实tensor/GPU/模型。请对新精确代码、协议和两个spec重新核定，不把代码修订写成实际诊断结果。
+
+精确复核V3发现原BF16 gate时序问题：现每个case在任何Dense32/SharQ之前同步，先逐位核对权重、输入、BF16前后结果及finite，并将通过状态持久化；失败直接阻止后续候选。两作者路径后再次核对权重、输入和BF16输出未改变。额外SAFE device sync共49次、BF16 addmm共24次，新增相应pre/post比较账；UNBRIDGED仍17 sync/8 addmm。合成失败注入确认gate失败不能进入候选。

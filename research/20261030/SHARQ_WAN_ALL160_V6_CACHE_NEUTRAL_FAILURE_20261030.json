@@ -1,0 +1,725 @@
+{
+  "schema": "ffnds.sharq.wan.full160.v6.partial.failure.v1",
+  "status": "TWO_FAILED_SCOPES_PRESERVED_NOT_AUTOMATICALLY_RETRIED",
+  "evidence": "ACTUAL_EXIT1_WITH_TWO_COMPLETED_FIRST_BF16_VIDEOS_AND_TWO_FAILED_SECOND_CACHE_PHASES",
+  "failure_site": "second bf16_cache flow_step0 state copy finite check, per independent static investigation",
+  "source_stream_observation": "producer on native compute stream and author CUDA bare default-stream launches have no explicit preceding dependency; causal link to nonfinite remains OPEN",
+  "other_open_mechanisms": [
+    "out-of-bounds or buffer corruption",
+    "tensor lifetime/offload overlap",
+    "precision or asynchronous effects"
+  ],
+  "no_conclusion": "Dense32 and SharQ generation did not run; no algorithm-quality or video-acceptance conclusion",
+  "static_investigation": [
+    "research/experiment_reviews/E0_SHARQ_WAN_ALL160_VIDEO_20261030/FAILURE_STATIC_INVESTIGATION_20261030.md",
+    "research/method_discussion/discoveries/E0/p0-sharq-all160-cache-neutral-failure-investigation-20261030.md"
+  ],
+  "parts": [
+    {
+      "part": 0,
+      "id": "E0_SHARQ_WAN_ALL160_VIDEO_20261030_PART0",
+      "source_ordinal": 1040,
+      "seed": 42,
+      "protocol": {
+        "path": "config/e0_sharq_wan_all160_owner_part0_20261030_frozen_pending_v6.json",
+        "sha256": "a782dba2588bfa9caa583b7391163a62df93af151eb038724a861f305859ea15"
+      },
+      "RUN": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/RUN.json",
+        "bytes": 56376,
+        "sha256": "b5763f111dcb4ca7f2c2d8842e66bd8bb9cb94695911c46351495b5dfb355b86"
+      },
+      "EXIT": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 529,
+        "sha256": "1991e787a52cd9e5473b58e1d63d2b640a76e5fa10411a4d273b5feb8a6c27bd"
+      },
+      "ACTIONS": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/ACTIONS.jsonl",
+        "bytes": 58939,
+        "sha256": "880decd427641b02ea5ee841c6cd33b705e821845aaaa0186bfbe1b7e32f64dd"
+      },
+      "launcher_returncode": 1,
+      "job_spec_sha256": "60bc601dcffccfe01bca7b335d9d32d32591d46923a7e54ff25ee025d3e63b2b",
+      "status": "FAILED_SHARQ_WAN_ALL160_PRESERVED_NO_RETRY",
+      "error_type": "ValueError",
+      "error": "nonfinite state",
+      "phases_field_empty": true,
+      "first_bf16": {
+        "run_id": "sharq_full160_ord1040_seed42_bf16_old",
+        "phase_complete": true,
+        "phase_evidence_complete": true,
+        "completed_video": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/output.mp4",
+          "bytes": 977471,
+          "sha256": "395e8d029d1b978f4e335e40310673b655a1ef361c92a8f75b24917df50fd53c"
+        },
+        "states_receipt": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/STATES.json",
+          "bytes": 4818,
+          "sha256": "7f888d6009f102143e36c22c24d454cc265c77201df7a05d1395f04bdf172c9c"
+        },
+        "states": {
+          "raw_noise_FP32": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/raw_noise_FP32.safetensors",
+            "bytes": 8107096,
+            "sha256": "207087eb550f1779bda9228af930621902b0d8bb24f2838755f8cfb1285e5966",
+            "raw_tensor_sha256": "70696daf319d842a74499fee026669cf2ba086f1dc84126bed19195966766bb7",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "initial_noise": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/initial_noise.safetensors",
+            "bytes": 4053592,
+            "sha256": "aff0954c7ab0edd970c594c64e007d928cbaa2b5495dd3b8e0a309353ce02a99",
+            "raw_tensor_sha256": "e2753e314da102a3b23e1a6f73e362e27207afb43def7d33d92f2806f7481d8f",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          },
+          "flow_step0": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/flow_step0.safetensors",
+            "bytes": 8107096,
+            "sha256": "72655df66490a10b50bf2a4838a0776163fa32221080a943828c3a5db9e03340",
+            "raw_tensor_sha256": "d74afaf5f7b5415ad6a9dd26e4a40f1a03ef952bd738155a2ccaba697f264dc5",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "latent_step0": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/latent_step0.safetensors",
+            "bytes": 4053592,
+            "sha256": "319dcc0880813c38836b2bf82a425c2d2bdccefc14821e6abd1dae66ee506812",
+            "raw_tensor_sha256": "3971b871d6a7f3a37fbe9c5c9f770d3deb8cb4b7da3343e17f369830c8b90e5b",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          },
+          "flow_step1": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/flow_step1.safetensors",
+            "bytes": 8107096,
+            "sha256": "fa96fa00866c4728e734afde6c5afcf3b6b7db29585ff804b9e73ede0250e9fa",
+            "raw_tensor_sha256": "ecf3f0ef5e8b8a953e6f7826683e9e3d5ed072874073a3b8085fd8215b686244",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "latent_step1": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/latent_step1.safetensors",
+            "bytes": 4053592,
+            "sha256": "530af16dff69f873719249e1344f7d87d24182e3306a4a0bb410b84a390a8e0c",
+            "raw_tensor_sha256": "939573268afd99413459f35ab68f704f37526e7e48c65f32eb69ee0aa36e5599",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          },
+          "flow_step2": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/flow_step2.safetensors",
+            "bytes": 8107096,
+            "sha256": "de263cffb41ddc8003922b5821e6369e69390d0f0630c7a35fb05fabdc3c725e",
+            "raw_tensor_sha256": "5b29d181a32a44d4579831b8e23d1c79af6763dfa988f737069bf6b3544f3363",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "latent_step2": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/latent_step2.safetensors",
+            "bytes": 4053592,
+            "sha256": "7828ca26b3f66b2177a1d078d775d449602104219c646a2ea4870e9d7ec51ebd",
+            "raw_tensor_sha256": "25d11fbe760b3fcb67f576eb39eb268e1c9fae8ee7de1b0c29dae75b6adeeaf6",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          },
+          "flow_step3": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/flow_step3.safetensors",
+            "bytes": 8107096,
+            "sha256": "f36dfdfe3f02235ba0a49582c828c6d7660ca2f517f67b27d2dadb2bd6b11f18",
+            "raw_tensor_sha256": "b22f62e7f798b70801325531c3f322d7688152c353bdf8a370aca95b4ced5002",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "latent_step3": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_old/latent_step3.safetensors",
+            "bytes": 4053592,
+            "sha256": "040cda45fba01c1f737dd421a415098731e23f10e109d0587e6fe0c48a1ccde4",
+            "raw_tensor_sha256": "7bb9f45805094f97421221cfae384c62ed7ab446a9d60882bf80504d4a036012",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          }
+        },
+        "video_geometry_checks_observed": 1
+      },
+      "second_bf16_cache": {
+        "run_id": "sharq_full160_ord1040_seed42_bf16_new",
+        "phase_exception": true,
+        "entered_FFN_linear_sites": 80,
+        "completed_weight_packs": 80,
+        "cache_bytes": 3551068480,
+        "phase_wall_seconds": 9.62336496100761,
+        "inflight_pack_or_GPU_completion": "UNKNOWN; use predebit/return journal",
+        "states_receipt": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_new/STATES.json",
+          "bytes": 974,
+          "sha256": "7a123ba799abe036da0c77a750179f46fb72a4ecae358ee620e0213075796931"
+        },
+        "states": {
+          "raw_noise_FP32": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_new/raw_noise_FP32.safetensors",
+            "bytes": 8107096,
+            "sha256": "207087eb550f1779bda9228af930621902b0d8bb24f2838755f8cfb1285e5966",
+            "raw_tensor_sha256": "70696daf319d842a74499fee026669cf2ba086f1dc84126bed19195966766bb7",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "initial_noise": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/sharq_full160_ord1040_seed42_bf16_new/initial_noise.safetensors",
+            "bytes": 4053592,
+            "sha256": "aff0954c7ab0edd970c594c64e007d928cbaa2b5495dd3b8e0a309353ce02a99",
+            "raw_tensor_sha256": "e2753e314da102a3b23e1a6f73e362e27207afb43def7d33d92f2806f7481d8f",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          }
+        },
+        "same_raw_and_initial_noise_file_and_tensor_SHA_as_first": true
+      },
+      "Dense32": "NOT_ENTERED",
+      "SharQ": "NOT_ENTERED",
+      "ledger": {
+        "predebited": {
+          "original_expert_loads": 2,
+          "raw_Default_MM_loads": 812,
+          "buffer_Default_MM_loads": 40,
+          "T5_buffer_Default_MM_loads": 7,
+          "T5_raw_Default_MM_loads": 168,
+          "authority_checks": 2,
+          "video_generations": 2,
+          "offload_buffer_resets": 4,
+          "stage_CUDA_event_pairs": 10,
+          "input_encoder_requests": 2,
+          "VAE_encodes": 2,
+          "T5_positive_prompt_encodes": 2,
+          "T5_checkpoint_block_buffer_loads": 48,
+          "T5_Default_MM_calls": 336,
+          "scheduler_prepare": 2,
+          "FP32_initial_noise_draws": 2,
+          "raw_FP32_noise_files": 2,
+          "state_tensor_D2H": 13,
+          "state_tensor_D2H_bytes": 81070080,
+          "state_output_writes": 12,
+          "scheduler_step_pre": 5,
+          "initial_BF16_noise_files": 2,
+          "native_full_model_flows": 5,
+          "pre_infer_calls": 5,
+          "patch_Conv3D_calls": 5,
+          "pre_Default_MM_calls": 25,
+          "original_FFN_prefetch_observations": 203,
+          "prefetch_transfer_observations": 203,
+          "original_checkpoint_block_buffer_loads": 203,
+          "native_blocks": 200,
+          "native_non_FFN_linears": 1600,
+          "native_FFN_calls": 200,
+          "FFN_CUDA_event_pairs": 200,
+          "native_FFN_linears": 400,
+          "final_LayerNorm_calls": 5,
+          "head_Default_MM_calls": 5,
+          "post_unpatchify_calls": 5,
+          "native_FP32_flow_files": 5,
+          "scheduler_step_post": 4,
+          "native_BF16_post_files": 4,
+          "VAE_decodes": 1,
+          "video_geometry_checks": 1,
+          "sharq_static_W_materializations": 80,
+          "sharq_static_W_materialization_bytes": 11324620800,
+          "sharq_static_W_quantizations": 80,
+          "sharq_static_W_cache_predebit_bytes": 3551068480
+        },
+        "observed": {
+          "original_expert_loads": 2,
+          "raw_Default_MM_loads": 812,
+          "buffer_Default_MM_loads": 40,
+          "T5_buffer_Default_MM_loads": 7,
+          "T5_raw_Default_MM_loads": 168,
+          "authority_checks": 2,
+          "offload_buffer_resets": 4,
+          "VAE_encodes": 2,
+          "stage_CUDA_event_pairs": 10,
+          "T5_checkpoint_block_buffer_loads": 48,
+          "T5_Default_MM_calls": 336,
+          "T5_positive_prompt_encodes": 2,
+          "input_encoder_requests": 2,
+          "state_tensor_D2H": 12,
+          "state_tensor_D2H_bytes": 72963072,
+          "state_output_writes": 12,
+          "raw_FP32_noise_files": 2,
+          "FP32_initial_noise_draws": 2,
+          "scheduler_prepare": 2,
+          "scheduler_step_pre": 5,
+          "initial_BF16_noise_files": 2,
+          "patch_Conv3D_calls": 5,
+          "pre_Default_MM_calls": 25,
+          "pre_infer_calls": 5,
+          "original_checkpoint_block_buffer_loads": 203,
+          "prefetch_transfer_observations": 203,
+          "original_FFN_prefetch_observations": 203,
+          "native_non_FFN_linears": 1600,
+          "native_FFN_linears": 400,
+          "native_FFN_calls": 200,
+          "FFN_CUDA_event_pairs": 200,
+          "native_blocks": 200,
+          "final_LayerNorm_calls": 5,
+          "head_Default_MM_calls": 5,
+          "post_unpatchify_calls": 5,
+          "native_full_model_flows": 5,
+          "native_FP32_flow_files": 4,
+          "scheduler_step_post": 4,
+          "native_BF16_post_files": 4,
+          "VAE_decodes": 1,
+          "video_generations": 1,
+          "video_geometry_checks": 1,
+          "sharq_static_W_materializations": 80,
+          "sharq_static_W_materialization_bytes": 11324620800,
+          "sharq_static_W_quantizations": 80,
+          "sharq_static_W_cache_predebit_bytes": 3551068480
+        },
+        "forbidden_attempts": []
+      },
+      "resources": {
+        "wall_seconds": 579.0206364570186,
+        "outer_seconds": 591.2745079370216,
+        "raw_model_setup_seconds": 441.1694019942079,
+        "peak_RSS_bytes": 117017870336,
+        "GPU_monitor_sample_count": 107,
+        "GPU_monitor_violations": 0,
+        "GPU_sampled_isolation_pass": true,
+        "peak_physical_used_memory_MiB": 23695,
+        "output_accounting": {
+          "actual_tracked_live_bytes": 75062748,
+          "peak_tracked_bytes_plus_reserved_and_atomic_temp": 196908936,
+          "unconsumed_reserved_bytes": 109818880,
+          "source_snapshot_files": 0,
+          "accounting_errors": []
+        }
+      }
+    },
+    {
+      "part": 1,
+      "id": "E0_SHARQ_WAN_ALL160_VIDEO_20261030_PART1",
+      "source_ordinal": 979,
+      "seed": 42,
+      "protocol": {
+        "path": "config/e0_sharq_wan_all160_owner_part1_20261030_frozen_pending_v6.json",
+        "sha256": "c7c26f5a24bdefe1d1dbd903de11c26a919ebb4424d4865e55aa03346fcad7c2"
+      },
+      "RUN": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/RUN.json",
+        "bytes": 56400,
+        "sha256": "9667b57508e6015b18da8a7aa296c5c12b9c057d1bcedf936b7e06c392831adb"
+      },
+      "EXIT": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 529,
+        "sha256": "c56c88c5f572517731b0b42f3c233dcb9feb212be159468930b706c536875c89"
+      },
+      "ACTIONS": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/ACTIONS.jsonl",
+        "bytes": 58952,
+        "sha256": "72b186c6462f81e634246c16dcee7ab810fbce6688ec65528fddc837350ec5b2"
+      },
+      "launcher_returncode": 1,
+      "job_spec_sha256": "e6fad8ec8953b4e9e35e57eb5693a86a908cdc0788006047dedee69a04d94957",
+      "status": "FAILED_SHARQ_WAN_ALL160_PRESERVED_NO_RETRY",
+      "error_type": "ValueError",
+      "error": "nonfinite state",
+      "phases_field_empty": true,
+      "first_bf16": {
+        "run_id": "sharq_full160_ord979_seed42_bf16_old",
+        "phase_complete": true,
+        "phase_evidence_complete": true,
+        "completed_video": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/output.mp4",
+          "bytes": 314711,
+          "sha256": "032ef0e8e8917d4c62d536396e5ed691b47f6ddf84b6e49f47008f59942a9400"
+        },
+        "states_receipt": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/STATES.json",
+          "bytes": 4808,
+          "sha256": "9b5ea2291893d5b1cebc3008505075f2ceb2013bf585429a437f012f8f6a5f73"
+        },
+        "states": {
+          "raw_noise_FP32": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/raw_noise_FP32.safetensors",
+            "bytes": 8107096,
+            "sha256": "207087eb550f1779bda9228af930621902b0d8bb24f2838755f8cfb1285e5966",
+            "raw_tensor_sha256": "70696daf319d842a74499fee026669cf2ba086f1dc84126bed19195966766bb7",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "initial_noise": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/initial_noise.safetensors",
+            "bytes": 4053592,
+            "sha256": "aff0954c7ab0edd970c594c64e007d928cbaa2b5495dd3b8e0a309353ce02a99",
+            "raw_tensor_sha256": "e2753e314da102a3b23e1a6f73e362e27207afb43def7d33d92f2806f7481d8f",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          },
+          "flow_step0": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/flow_step0.safetensors",
+            "bytes": 8107096,
+            "sha256": "fca81919756592003a46a11b985dedaf5f814547ac4405934502316c9d07de2a",
+            "raw_tensor_sha256": "d24ba771e1a78fca0d052f377ac09fb74a0060dfd9bd609eb122793252ffb375",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "latent_step0": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/latent_step0.safetensors",
+            "bytes": 4053592,
+            "sha256": "7ddced03224827f3ee8138508ff0f3961626d908abf1b2b8000d0ba074a94bb4",
+            "raw_tensor_sha256": "2d0aa41988ccacca81173d93ba5600d60fce8497b74331c2356c1ea12e1865ea",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          },
+          "flow_step1": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/flow_step1.safetensors",
+            "bytes": 8107096,
+            "sha256": "830ac36e479d5597a172c430939e059e196b0ec79f030b3783029e041c517d5e",
+            "raw_tensor_sha256": "43db2197d8c1d7054e94a3f04279aab3424398a182c0df703d30af1a186ebf07",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "latent_step1": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/latent_step1.safetensors",
+            "bytes": 4053592,
+            "sha256": "39ba8da943e4a579ef105c714e6f4fe6befae900980627807fbfe4c678d67622",
+            "raw_tensor_sha256": "40bd98fcb30b191699185039a7fcd525d98edc056334ea125686971a58c1e27e",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          },
+          "flow_step2": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/flow_step2.safetensors",
+            "bytes": 8107096,
+            "sha256": "5430dc550ba143c4aab8db2c224975b80f649466dcccb593c992ffce7db847aa",
+            "raw_tensor_sha256": "19283e6341f457f3631dc4a3861d9c43c044803177e07a07d586fbfdf383e097",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "latent_step2": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/latent_step2.safetensors",
+            "bytes": 4053592,
+            "sha256": "f949a2ef547656600345de6cadd7ec4e2a2856b0055f67e7d39b7f61f0eea823",
+            "raw_tensor_sha256": "466676105c7e348c7826a82d5a1a59fa4c86f2db4e18eb79d1d233226483f108",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          },
+          "flow_step3": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/flow_step3.safetensors",
+            "bytes": 8107096,
+            "sha256": "f0b53778bae8c9dd534641df52a559dfb9fcc06f1d86810f42123dc64937daf1",
+            "raw_tensor_sha256": "d0375c39773ee8a62386a92739836d512336357f047989f9583d6dc14c6067b8",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "latent_step3": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_old/latent_step3.safetensors",
+            "bytes": 4053592,
+            "sha256": "b7a96ea704f3b9fac44ae43db156728195c2d66488b3ec881a2b808b4ef1b6b0",
+            "raw_tensor_sha256": "3236768acb7032922ab0c56b47792815825b470b71dc1be77ccf462f10228530",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          }
+        },
+        "video_geometry_checks_observed": 1
+      },
+      "second_bf16_cache": {
+        "run_id": "sharq_full160_ord979_seed42_bf16_new",
+        "phase_exception": true,
+        "entered_FFN_linear_sites": 80,
+        "completed_weight_packs": 80,
+        "cache_bytes": 3551068480,
+        "phase_wall_seconds": 9.568539467873052,
+        "inflight_pack_or_GPU_completion": "UNKNOWN; use predebit/return journal",
+        "states_receipt": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_new/STATES.json",
+          "bytes": 972,
+          "sha256": "9ff8bebd3490e3681a448b131e93c152f1374ade883e0ad18bc852c4eba64eb7"
+        },
+        "states": {
+          "raw_noise_FP32": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_new/raw_noise_FP32.safetensors",
+            "bytes": 8107096,
+            "sha256": "207087eb550f1779bda9228af930621902b0d8bb24f2838755f8cfb1285e5966",
+            "raw_tensor_sha256": "70696daf319d842a74499fee026669cf2ba086f1dc84126bed19195966766bb7",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "float32"
+          },
+          "initial_noise": {
+            "root": "hf",
+            "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/sharq_full160_ord979_seed42_bf16_new/initial_noise.safetensors",
+            "bytes": 4053592,
+            "sha256": "aff0954c7ab0edd970c594c64e007d928cbaa2b5495dd3b8e0a309353ce02a99",
+            "raw_tensor_sha256": "e2753e314da102a3b23e1a6f73e362e27207afb43def7d33d92f2806f7481d8f",
+            "shape": [
+              16,
+              21,
+              58,
+              104
+            ],
+            "dtype": "bfloat16"
+          }
+        },
+        "same_raw_and_initial_noise_file_and_tensor_SHA_as_first": true
+      },
+      "Dense32": "NOT_ENTERED",
+      "SharQ": "NOT_ENTERED",
+      "ledger": {
+        "predebited": {
+          "original_expert_loads": 2,
+          "raw_Default_MM_loads": 812,
+          "buffer_Default_MM_loads": 40,
+          "T5_buffer_Default_MM_loads": 7,
+          "T5_raw_Default_MM_loads": 168,
+          "authority_checks": 2,
+          "video_generations": 2,
+          "offload_buffer_resets": 4,
+          "stage_CUDA_event_pairs": 10,
+          "input_encoder_requests": 2,
+          "VAE_encodes": 2,
+          "T5_positive_prompt_encodes": 2,
+          "T5_checkpoint_block_buffer_loads": 48,
+          "T5_Default_MM_calls": 336,
+          "scheduler_prepare": 2,
+          "FP32_initial_noise_draws": 2,
+          "raw_FP32_noise_files": 2,
+          "state_tensor_D2H": 13,
+          "state_tensor_D2H_bytes": 81070080,
+          "state_output_writes": 12,
+          "scheduler_step_pre": 5,
+          "initial_BF16_noise_files": 2,
+          "native_full_model_flows": 5,
+          "pre_infer_calls": 5,
+          "patch_Conv3D_calls": 5,
+          "pre_Default_MM_calls": 25,
+          "original_FFN_prefetch_observations": 203,
+          "prefetch_transfer_observations": 203,
+          "original_checkpoint_block_buffer_loads": 203,
+          "native_blocks": 200,
+          "native_non_FFN_linears": 1600,
+          "native_FFN_calls": 200,
+          "FFN_CUDA_event_pairs": 200,
+          "native_FFN_linears": 400,
+          "final_LayerNorm_calls": 5,
+          "head_Default_MM_calls": 5,
+          "post_unpatchify_calls": 5,
+          "native_FP32_flow_files": 5,
+          "scheduler_step_post": 4,
+          "native_BF16_post_files": 4,
+          "VAE_decodes": 1,
+          "video_geometry_checks": 1,
+          "sharq_static_W_materializations": 80,
+          "sharq_static_W_materialization_bytes": 11324620800,
+          "sharq_static_W_quantizations": 80,
+          "sharq_static_W_cache_predebit_bytes": 3551068480
+        },
+        "observed": {
+          "original_expert_loads": 2,
+          "raw_Default_MM_loads": 812,
+          "buffer_Default_MM_loads": 40,
+          "T5_buffer_Default_MM_loads": 7,
+          "T5_raw_Default_MM_loads": 168,
+          "authority_checks": 2,
+          "offload_buffer_resets": 4,
+          "VAE_encodes": 2,
+          "stage_CUDA_event_pairs": 10,
+          "T5_checkpoint_block_buffer_loads": 48,
+          "T5_Default_MM_calls": 336,
+          "T5_positive_prompt_encodes": 2,
+          "input_encoder_requests": 2,
+          "state_tensor_D2H": 12,
+          "state_tensor_D2H_bytes": 72963072,
+          "state_output_writes": 12,
+          "raw_FP32_noise_files": 2,
+          "FP32_initial_noise_draws": 2,
+          "scheduler_prepare": 2,
+          "scheduler_step_pre": 5,
+          "initial_BF16_noise_files": 2,
+          "patch_Conv3D_calls": 5,
+          "pre_Default_MM_calls": 25,
+          "pre_infer_calls": 5,
+          "original_checkpoint_block_buffer_loads": 203,
+          "prefetch_transfer_observations": 203,
+          "original_FFN_prefetch_observations": 203,
+          "native_non_FFN_linears": 1600,
+          "native_FFN_linears": 400,
+          "native_FFN_calls": 200,
+          "FFN_CUDA_event_pairs": 200,
+          "native_blocks": 200,
+          "final_LayerNorm_calls": 5,
+          "head_Default_MM_calls": 5,
+          "post_unpatchify_calls": 5,
+          "native_full_model_flows": 5,
+          "native_FP32_flow_files": 4,
+          "scheduler_step_post": 4,
+          "native_BF16_post_files": 4,
+          "VAE_decodes": 1,
+          "video_generations": 1,
+          "video_geometry_checks": 1,
+          "sharq_static_W_materializations": 80,
+          "sharq_static_W_materialization_bytes": 11324620800,
+          "sharq_static_W_quantizations": 80,
+          "sharq_static_W_cache_predebit_bytes": 3551068480
+        },
+        "forbidden_attempts": []
+      },
+      "resources": {
+        "wall_seconds": 578.9618962518871,
+        "outer_seconds": 595.6989073699806,
+        "raw_model_setup_seconds": 440.8901471130084,
+        "peak_RSS_bytes": 117017804800,
+        "GPU_monitor_sample_count": 107,
+        "GPU_monitor_violations": 0,
+        "GPU_sampled_isolation_pass": true,
+        "peak_physical_used_memory_MiB": 24315,
+        "output_accounting": {
+          "actual_tracked_live_bytes": 74392621,
+          "peak_tracked_bytes_plus_reserved_and_atomic_temp": 196903537,
+          "unconsumed_reserved_bytes": 109818880,
+          "source_snapshot_files": 0,
+          "accounting_errors": []
+        }
+      }
+    }
+  ],
+  "no_large_state_or_weight_payload_read_for_this_report": true,
+  "new_model_or_GPU_calls": 0
+}

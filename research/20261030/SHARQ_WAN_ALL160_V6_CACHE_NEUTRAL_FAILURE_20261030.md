@@ -1,0 +1,18 @@
+# SharQ Wan all-160 V6: cache-neutral failures, 2026-10-30
+
+Both independently launched parts exited **1** in the second `bf16_cache` phase, at the nonfinite check for the first flow state. Each part had already completed one original BF16 81-frame video and recorded its ten states. The empty `RUN.phases` field reflects an owner that assigns the phase list only after all four phases return; it does not mean that the first video failed. The two completed BF16 videos are partial evidence within failed scopes, not closed four-arm results.
+
+| Part | Development source | First BF16 video | Second cache phase | Worker / outer wall |
+|---|---:|---|---|---:|
+| 0 | 1040 | complete, 10 states; 977,471-byte MP4 | step 0: 40 blocks, 80 FFN linear sites and 80 W packs; nonfinite flow check | 579.021 / 591.275 s |
+| 1 | 979 | complete, 10 states; 314,711-byte MP4 | step 0: 40 blocks, 80 FFN linear sites and 80 W packs; nonfinite flow check | 578.962 / 595.699 s |
+
+For each part, the ACTIONS journal records both `phase_complete` and `phase_evidence_complete` for the first BF16 video. The second phase saved only raw FP32 noise and initial BF16 noise; the recorded file and raw-tensor SHA values match the first phase for those two states. The failed flow's D2H was predebited but its finite check did not complete. Its first noise prediction was not saved as a valid flow state, and no scheduler post-step completed for that second phase. The **Dense32 and SharQ candidate phases were not entered**.
+
+Each part's ledger records 2 video generations predebited and 1 completed, 5 full-model flow calls, 4 completed flow-state saves and scheduler post-steps, 200 FFN calls and 400 FFN linears across the completed first video plus the partial second phase. The second phase returned 80 static weight-pack operations and recorded 3,551,068,480 bytes of cache. Its 11,324,620,800 materialization bytes are a logical operation count, not proof of physical copying or bus traffic. In-flight completion at the phase exception remains marked UNKNOWN in ACTIONS. The respective final tracked live HF output sizes were 75,062,748 and 74,392,621 bytes; unconsumed reservations were 109,818,880 bytes each. GPU monitor checks reported no violations, with sampled peaks 23,695 and 24,315 MiB. The [structured record](SHARQ_WAN_ALL160_V6_CACHE_NEUTRAL_FAILURE_20261030.json) contains the exact anonymous HF-relative RUN/EXIT/action/state bindings, source identity, state hashes, MP4 hash, prepaid and observed counts and resource observations.
+
+## What is known about the failure
+
+The [independent static investigation](../experiment_reviews/E0_SHARQ_WAN_ALL160_VIDEO_20261030/FAILURE_STATIC_INVESTIGATION_20261030.md) and [source analysis](../method_discussion/discoveries/E0/p0-sharq-all160-cache-neutral-failure-investigation-20261030.md) identify a concrete stream-dependency gap: the native block runs on a nondefault compute stream, while the author packing extension launches kernels on the default stream without an explicit earlier dependency on the compute-stream inputs and initialization. A later synchronization does not itself supply the missing pre-launch producer dependency. This is a **source-level finding**, not proof that the stream gap caused the observed nonfinite value. Buffer lifetime, overlap, out-of-bounds writes and other asynchronous or precision effects remain competing explanations.
+
+The failed scopes stay failed and were not automatically retried. Since the candidate stages did not execute, these runs establish neither SharQ quality nor an algorithm failure. A separately reviewed, registered stream and buffer-integrity diagnostic is needed to discriminate the cause before a new video scope.

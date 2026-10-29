@@ -1,0 +1,502 @@
+{
+  "id": "E0_SHARQ_SM120_STREAM_SAFE_20261030",
+  "kind": "safe",
+  "status": "FROZEN_PENDING_REGISTRATION",
+  "review": null,
+  "resources": {
+    "GPU": 1,
+    "CPU_threads": 4,
+    "wall_seconds": 1800,
+    "outer_seconds": 1920,
+    "new_HF_bytes": 268435456,
+    "host_RSS_max_bytes": 17179869184,
+    "GPU_reserved_max_bytes": 34359738368,
+    "bundle_hash_bytes_max": 1073741824,
+    "source_hash_bytes_max": 536870912,
+    "failure_receipt_hash_bytes_max": 1048576,
+    "packed_digest_D2H_bytes_max": 1073741824,
+    "automatic_retry": false,
+    "session_max_GPUs": 4
+  },
+  "limits": {
+    "bundle_hash": 1,
+    "weight_quant": 8,
+    "bf16_linear": 24,
+    "post_author_weight_equal": 8,
+    "post_author_input_equal": 8,
+    "post_author_linear_equal": 8,
+    "post_author_finite_checks": 8,
+    "dense32_linear": 8,
+    "sharq_linear": 8,
+    "weight_equal": 8,
+    "input_equal": 8,
+    "pack_equal": 4,
+    "linear_equal": 8,
+    "pack_digest": 8,
+    "logical_scale_extract": 16,
+    "prepare_case": 8,
+    "reference_pack_clone": 4,
+    "reference_output_clone": 4,
+    "BF16_finite_checks": 8,
+    "author_finite_checks": 16,
+    "device_sync": 49,
+    "author_output_comparisons": 8,
+    "dense32_prepare": 8,
+    "dense32_gemm": 8,
+    "sharq_prepare": 8,
+    "sparse_gemm": 8,
+    "dense_residual_gemm": 8,
+    "output_scale": 16,
+    "bias_add": 16
+  },
+  "design": {
+    "experts": [
+      "high",
+      "low"
+    ],
+    "source": 911,
+    "block": 20,
+    "expert_steps": {
+      "high": 1,
+      "low": 2
+    },
+    "rows": 32,
+    "matrices": [
+      0,
+      2
+    ],
+    "safe": [
+      "default_reference",
+      "bridged_nondefault"
+    ],
+    "unsafe": [
+      "unbridged_nondefault_once"
+    ],
+    "unsafe_separate_process": true,
+    "weight_identity": "raw BF16 W [N,K], GPU buffer K,N transpose view; W.T.contiguous() alias checked",
+    "comparison": "W and real activation bitwise unchanged, BF16 linear before/after, packed reference equality; bridged author output relative L2 <= 0.001",
+    "no_full_model_video": true
+  },
+  "output": "ffnds-derived/e0_sharq_sm120_stream_safe_20261030/attempt1/worker/results",
+  "prior_operator": {
+    "protocol": {
+      "path": "config/e0_sharq_sm120_wan_ffn_pair_probe_v2_20261030_pending_review_v2.json",
+      "bytes": 14324,
+      "sha256": "4fab846f01b10f8b530b3da7f607de802f654e459f2100ab6ef423e5c2d4009a"
+    },
+    "RUN": {
+      "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_v2_20261030/attempt1/worker/results/RUN.json",
+      "bytes": 127791,
+      "sha256": "5921024ab75bd6cc3d12d8ec5811aea40c90a96c2a3368fe6a47300603b76adc"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_sharq_sm120_wan_ffn_pair_probe_v2_20261030/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 535,
+      "sha256": "3dbbd686a089af676ea0418b14b8a3ab4693d1553f85a566e7ceafe569a8988b"
+    }
+  },
+  "failure": [
+    {
+      "RUN": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/results/RUN.json",
+        "bytes": 56376,
+        "sha256": "b5763f111dcb4ca7f2c2d8842e66bd8bb9cb94695911c46351495b5dfb355b86"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part0/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 529,
+        "sha256": "1991e787a52cd9e5473b58e1d63d2b640a76e5fa10411a4d273b5feb8a6c27bd"
+      }
+    },
+    {
+      "RUN": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/results/RUN.json",
+        "bytes": 56400,
+        "sha256": "9667b57508e6015b18da8a7aa296c5c12b9c057d1bcedf936b7e06c392831adb"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_sharq_wan_all160_video_20261030/part1/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 529,
+        "sha256": "c56c88c5f572517731b0b42f3c233dcb9feb212be159468930b706c536875c89"
+      }
+    }
+  ],
+  "assets": {
+    "cpu_protocol": "config/e0_sharq_wan_ffn_paired_assets_cpu_20261030_pending_review_v4.json",
+    "cpu_protocol_binding": {
+      "path": "config/e0_sharq_wan_ffn_paired_assets_cpu_20261030_pending_review_v4.json",
+      "bytes": 15096,
+      "sha256": "71c26924f49d774850dcd292eb074518758da9c62f107656e6572ee3d136969e"
+    },
+    "closed_run": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results/RUN.json",
+      "bytes": 13163,
+      "sha256": "459f1b9723adbf65e79199d4bb1c61b37609792ffff04497c24fc1fd639b953a"
+    },
+    "closed_exit": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 533,
+      "sha256": "cc4f121a7f54fc233d8e25bce153b3cc6f253a526859a861d23c30d1405598c1"
+    },
+    "bundle": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results/BUNDLE.safetensors",
+      "bytes": 730509120,
+      "sha256": "79e8829e94c1558fa8a569577ea3897ac2175fc077e7d93e490a400009264d0b"
+    }
+  },
+  "software": {
+    "author_modules": [
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/model/quantize.py",
+        "bytes": 8419,
+        "sha256": "01d9755e7fc67848a63f483d772862c60443c7d0ef65829f849b8d252a99c930"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/model/hif4.py",
+        "bytes": 2795,
+        "sha256": "3f86970980a1a287a1df083abeab38555d4a27ad3c6ae18cea68677ca8cd3727"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/sharq_loader.py",
+        "bytes": 3172,
+        "sha256": "cf615f10ac1404c269669b07016ac672497d157b33efd6c99d24c01cc4274b2a"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/bindings.cpp",
+        "bytes": 36133,
+        "sha256": "bf60d38b0bed1b54b52919d83de85b014d0298706ca0c6c17b028be1cd99ac60"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/include/reorder.cuh",
+        "bytes": 7550,
+        "sha256": "bc9f5e80fc8f657d830be05e121e780b4b56ed39ad6bed8b7a0f3729cdf53922"
+      },
+      {
+        "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/reorder.cu",
+        "bytes": 34521,
+        "sha256": "209b11859a10821b9876eb2f2f091b4774752cb5de7141cf87f5352bbb605a3b"
+      }
+    ],
+    "sharq_elf": {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/build_sm120a/sharq_ops.so",
+      "bytes": 2437952,
+      "sha256": "faeb4e5def27396095a877489dfbdbdfe26d2c6b956f8b7bbdbb30a3a9466816"
+    },
+    "lightx_package": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel",
+    "lightx_files": [
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/__init__.py",
+        "bytes": 365,
+        "sha256": "a40883dc1a82d97543a8a8196ac2ace7e1b89ad1e771ae2c2cf7fcfd4ba82d80",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185555,
+          "bytes": 365,
+          "mtime_ns": 1793208429107983077,
+          "ctime_ns": 1793208429107983077
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/common_ops.abi3.so",
+        "bytes": 1312256,
+        "sha256": "474675037c50a97589731cae5225ddf23f9264803205cd538369a75233a3bb88",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185560,
+          "bytes": 1312256,
+          "mtime_ns": 1793208429108983093,
+          "ctime_ns": 1793208429108983093
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/gemm.py",
+        "bytes": 7628,
+        "sha256": "973229cd4bbe4b8716b3c4611c092b762fce164b5753720ac440a0d628f63eff",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185556,
+          "bytes": 7628,
+          "mtime_ns": 1793208429107983077,
+          "ctime_ns": 1793208429107983077
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/kv_cache.py",
+        "bytes": 950,
+        "sha256": "d6012527a47f73567604714815b03603d1db55e78846752ac0f1fb8f636c6d77",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185557,
+          "bytes": 950,
+          "mtime_ns": 1793208429107983077,
+          "ctime_ns": 1793208429107983077
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/utils.py",
+        "bytes": 5496,
+        "sha256": "ef7d887840cd53973b9957e63296c36aa7efc5711c367e904dc8bc2a68d1a907",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185558,
+          "bytes": 5496,
+          "mtime_ns": 1793208429107983077,
+          "ctime_ns": 1793208429107983077
+        }
+      },
+      {
+        "path": "/var/tmp/ffnds-xiang/huggingface/software/lightx2v_kernel_nvfp4_probe_20261029_v1/lightx2v_kernel/version.py",
+        "bytes": 22,
+        "sha256": "b172e1ee0dca0b84021717191814e91b6b1c47b866981b0c8eae8ba91a6d9118",
+        "stat": {
+          "device": 66308,
+          "inode": 1678185559,
+          "bytes": 22,
+          "mtime_ns": 1793208429108983093,
+          "ctime_ns": 1793208429108983093
+        }
+      }
+    ]
+  },
+  "author_stream_sources": [
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/shared_weight_nvfp4.cu",
+      "bytes": 7301,
+      "sha256": "5cdfb9b8dd9e14157bd82491d396a6b8227365abb613470e91bffb9d9bdf7ac4"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/fused_sparse_prepare.cu",
+      "bytes": 10417,
+      "sha256": "96319daa2e274d52a02dc8c963cc32df1e425e7705ce7908e189a92616eeeecc"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/nvfp4.cu",
+      "bytes": 14055,
+      "sha256": "efcb3ae1142438eb6f18f6c0984f0f3ceaf03d54564559e42138db1b3d28599d"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/sparse_nvfp4.cu",
+      "bytes": 14795,
+      "sha256": "ec050ba24ecfad066b5066bf94779a2a4fadb684d4e2f7ffb89af0a52085d664"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/reorder.cu",
+      "bytes": 34521,
+      "sha256": "209b11859a10821b9876eb2f2f091b4774752cb5de7141cf87f5352bbb605a3b"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/down.cu",
+      "bytes": 18138,
+      "sha256": "0285345672c067a21c48fec55b84e11889ae36eef83dbbf58fb1088e5858a9ea"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/src/bindings.cpp",
+      "bytes": 36133,
+      "sha256": "bf60d38b0bed1b54b52919d83de85b014d0298706ca0c6c17b028be1cd99ac60"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/include/shared_weight_nvfp4.h",
+      "bytes": 361,
+      "sha256": "9a59d80cb543716c793282cebc31084afeaf25ec9bccc5f11d24a0a2f539f847"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/include/fused_sparse_prepare.h",
+      "bytes": 885,
+      "sha256": "ea31f8462151bfd900cd80328d039810574baad94c8fae22aac18dbf6b03f914"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/include/nvfp4.h",
+      "bytes": 2329,
+      "sha256": "b4f094ac582cb2bb1781dcf8cd0df300878c9e672fbe46ffd0d0fa6c9c957d4f"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/include/sparse_nvfp4.h",
+      "bytes": 6155,
+      "sha256": "392274d514fb796b8c3b11329246166468816e88a0a64290a45c44ed600252c5"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/include/reorder.cuh",
+      "bytes": 7550,
+      "sha256": "bc9f5e80fc8f657d830be05e121e780b4b56ed39ad6bed8b7a0f3729cdf53922"
+    },
+    {
+      "path": "ffnds-derived/sharq_sm120_author_build_20261030/source/kernels/include/sharq_blackwell_arch.h",
+      "bytes": 1546,
+      "sha256": "da1fa9b32f2b6c4ed00d6101272626105249a0af665c0babe7b6b93d4e5386a1"
+    }
+  ],
+  "runtime": {
+    "python_sha256": "8deffe5dd9ebcf98a062917a4e73bb8fbb7d5846f83dec01fb7506fd5d41c54e",
+    "packages": {
+      "torch": {
+        "version": "2.10.0+cu128",
+        "metadata_sha256": "7f56e1b49211bfcfe45a8c7df42d96a054f69a96fbf6bc4f1b6b6fe8d3f097a7",
+        "record_sha256": "22a9fa2f5c1078f087203bc42c300ca1e23ff954c16c0de120de330a182dc278"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "metadata_sha256": "b082c52ccbe3b880bae177c35171b52ed6c947f3ad71e3762f2723f60a411de0",
+        "record_sha256": "63835c185e07dc9a10fa24635182d6e9feb59b8607ffcc64b61806c2cb1a465d"
+      },
+      "safetensors": {
+        "version": "0.8.0",
+        "metadata_sha256": "645be7b8d55e91534f991d144dc9e279581ea8dbea1a8c5b0be14e529d01e345",
+        "record_sha256": "c5110881c0c39a4f163a23b2ccc88cad19ce1823b6dce1ceef353d33f16c004b"
+      }
+    },
+    "scope": "metadata and RECORD; package implementation bytes not fully hashed"
+  },
+  "worker_config_sha256": "fa8a9da592292ec1560135e40ae1a6e0222a23c08af023e8e87f310580c7070d",
+  "repo_sources": [
+    {
+      "path": "config/e0_sharq_sm120_wan_ffn_pair_probe_20261030_pending_review_v2.json",
+      "bytes": 11884,
+      "sha256": "9674544862412b755789881b8a204c4a466cf3492f72854bd3a968aa4413735b"
+    },
+    {
+      "path": "config/e0_sharq_sm120_wan_ffn_pair_probe_v2_20261030_pending_review_v2.json",
+      "bytes": 14324,
+      "sha256": "4fab846f01b10f8b530b3da7f607de802f654e459f2100ab6ef423e5c2d4009a"
+    },
+    {
+      "path": "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json",
+      "bytes": 24426,
+      "sha256": "4e051cbe10aad2c2e6821947f1f0b87d1690515b16c0509e53b139c3051348cf"
+    },
+    {
+      "path": "research/20261029/SHARQ_CPU_AUTHOR_SOURCE_IMPORT_ENGINEERING_20261030.json",
+      "bytes": 685,
+      "sha256": "3d5889b82ef1c80f115aa5f7d133994fc426f92965a60f8242ee25d030d0e415"
+    },
+    {
+      "path": "research/20261029/SHARQ_SM120_CPU_ENGINEERING_BUILD_20261030.json",
+      "bytes": 1237,
+      "sha256": "a3295d978d6a51f4b90ef7335f3cd69564ea3cbe4be4c09b62778f752fe89392"
+    },
+    {
+      "path": "scripts/worker_teal_assigned_uuid_exec.sh",
+      "bytes": 798,
+      "sha256": "c5583e3048805ea8a0b08d365cbb12b0e1107e9705f42f821be4d74900acbb7c"
+    },
+    {
+      "path": "scripts/worker_teal_gpu0_uuid_exec.sh",
+      "bytes": 730,
+      "sha256": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_author_stream_bridge.py",
+      "bytes": 2985,
+      "sha256": "28eae7f54e571202222ef48af14fe894ca73625e09234f42c1de831f60704550"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_ops.py",
+      "bytes": 2006,
+      "sha256": "ee7b90dff52bc4e78dfeaa0110777d4b6622c64c7a441de46dfea209dfedb131"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_probe.py",
+      "bytes": 4875,
+      "sha256": "a76a1cd9fcdd37962f89a3b4be916e0c645b7aea9fc23119afdc5f9f384b2bbf"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_probe_v2.py",
+      "bytes": 7733,
+      "sha256": "84ed3f0167e970a35d7f6e02114e4f0080047d63cecb96a532cbaa5e9571d783"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_stream_probe.py",
+      "bytes": 3163,
+      "sha256": "14f86c171cedc409a1870e1fed8901923c1f9d959ac15bf0b9316f9bcdbd0b71"
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "bytes": 2529,
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0"
+    },
+    {
+      "path": "tools/durable_worker_job.py",
+      "bytes": 9319,
+      "sha256": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2"
+    },
+    {
+      "path": "tools/e0_sharq_wan_all160_runtime.py",
+      "bytes": 12747,
+      "sha256": "f3f866354bc92929c0962680892a066b62de3110409ff6a141399c7e4b67e74c"
+    },
+    {
+      "path": "tools/e0_sharq_wan_all160_video_driver.py",
+      "bytes": 5468,
+      "sha256": "458343d8eb49d29e70d58ba1d65e67d9dd938d9a4d4f4dd6f9d69bc10c4cdb00"
+    },
+    {
+      "path": "tools/e0_sharq_wan_all160_video_owner.py",
+      "bytes": 35032,
+      "sha256": "00a279e00154f289f1c3fb3a18d0c1bb83ceac8bc6f41b059922a44763738253"
+    },
+    {
+      "path": "tools/e0_sharq_wan_author_stream_bridge.py",
+      "bytes": 1488,
+      "sha256": "362d70b1ae8a5b40150c030316e6e9bcd03d954e4da62f7eff2441a12e32a455"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_asset_extract.py",
+      "bytes": 2936,
+      "sha256": "72883b25ab30514069936a93e1c7c537a506c5f209ee137dd27e7d82a5f6e45c"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_asset_plan.py",
+      "bytes": 2546,
+      "sha256": "a2df4c5dceb0de391fed4d4a4a0a707e62542662487d7317a0d8839a6d47c9f5"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_assets.py",
+      "bytes": 18047,
+      "sha256": "d272d24c5f8ee167ed890c63f2d76b7461357628d70c7e4f0456dc31f868169a"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_ops.py",
+      "bytes": 2895,
+      "sha256": "fcd28b7824fdca4850ce765032ece68bf0786ec2df6bf20b13465e72f2d6652f"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_probe.py",
+      "bytes": 28966,
+      "sha256": "b355edc1777f71e975915130b6ee1f88af40437d0f1d2b08686420b02b833d51"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_probe_v2.py",
+      "bytes": 32129,
+      "sha256": "6f215e511fb38ee468a7f5a200309da267b190f456c69665ee8b3a2cd44944db"
+    },
+    {
+      "path": "tools/e0_sharq_wan_stream_probe.py",
+      "bytes": 26459,
+      "sha256": "bbe40de60c4400560c0a562725d20b14b9c66049064fe5a59db2c7ecf9c00a47"
+    },
+    {
+      "path": "tools/e0_teal_llama3_author_checkpoint_convert.py",
+      "bytes": 32174,
+      "sha256": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0"
+    },
+    {
+      "path": "tools/e0_teal_llama3_tokenizer_byte_bridge.py",
+      "bytes": 25531,
+      "sha256": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c"
+    },
+    {
+      "path": "tools/nvfp4_real_ffn_probe.py",
+      "bytes": 5300,
+      "sha256": "d2cb735494adfe3ca21f265454e3c513355eff45b54657075bc1c056b266611c"
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "bytes": 3559,
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    }
+  ]
+}
