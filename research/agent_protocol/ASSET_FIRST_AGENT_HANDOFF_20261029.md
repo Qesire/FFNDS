@@ -52,7 +52,7 @@
 
 **发现与定义**：[MTC/TDIC科学方案](../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)以20来源完整BF16 r960视频的运动衰减和8来源same-xy稀疏时空距离为矛盾，提出**同一去噪step内部21个latent视频时间槽的DC/AC保留、真实运动对应、W2近似误差运输**三条区分性检验。与跨去噪step缓存严格不同，TokenFlow/FRESCO/OmniCache的特征匹配与缓存已属近先例，科研贡献必须体现在FFN函数误差和质量/成本的新增结果。
 
-**最小动作与前提**：先核验10新source×全21τ原生采集的真实RUN/EXIT，再同Dense h重放BF16 shared/step因子；按独立source报告gY与u的DC/AC误差、方向、step/layer及运动尾部。完整8xy采集只可做固定xy/有限横邻控制；下一步需要真实spatial-neighborhood producer、遮挡/光流离线oracle及在线match成本。**不用提前假定补算**：先检查相同rank预算的AC加权函数；任何上一τ原W2误差锚点或运动warp都必须有实际计算、可用性、重排与存储价格。若局部AC没有明显失真，转学生prefix分布漂移与Attention下游而非继续假设已证明运动补偿。图claim为[PROPOSED](../method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)，新采集需求[队列](ACQUISITION_QUEUE_20261029.json)为DESIGN_ONLY，不是已执行算法或独立Agent SUPPORT。
+**已执行的先验**：10新source×全21τ原生采集及同Dense h重放BF16 shared/step因子均已exit0；已获得gY/u的DC/AC误差、方向、step/layer及来源分层初步结果。完整8xy采集只可做固定xy/有限横邻控制；下一步需要真实spatial-neighborhood producer、遮挡/光流离线oracle及在线match成本。**不用提前假定补算**：先检查相同rank预算的AC加权函数；任何上一τ原W2误差锚点或运动warp都必须有实际计算、可用性、重排与存储价格。若局部AC没有明显失真，转学生prefix分布漂移与Attention下游而非继续假设已证明运动补偿。图claim为[PROPOSED](../method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)，新增时序统计/空间邻域数据需求并入[队列的AQ-S2-TIME-TUBELET](ACQUISITION_QUEUE_20261029.json)，现有E1/E2是真实完成的观测，后续新T1–T6统计代码为PREPARED_NOT_REGISTERED，不是已执行算法或独立Agent SUPPORT。
 
 ### E · S3-QFAR：量化可见信息与早期合法动作
 
@@ -74,6 +74,6 @@
 
 ## 4. 状态、权限与多Agent
 
-方法研究可以并行、可读paper和保存资产；实际native/model/GPU范围严格沿[ACTIVE](../ACTIVE_RESEARCH.json)注册，核验可用GPU后依据[动态资源政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际最大有效并行资源，不将旧会话2/4卡冻结成新的默认上限。独立方法提案进入[QUEUE](../method_discussion/QUEUE.md)，须实际不同Agent review才有支持状态。不会为了保持队列整洁删除任何历史RUN、失败身份、SHA或原始论文审计。
+方法研究可以并行、可读paper和保存资产；实际native/model/GPU范围严格沿[ACTIVE](../ACTIVE_RESEARCH.json)注册，核验可用GPU后先遵循适用会话/原生RUN冻结的并发约束（VIDEO20等有 `session_max_GPUs=2`），再依据[动态资源政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)在其内部使用有效最大资源；不以通用动态规划绕过真实执行上限。独立方法提案进入[QUEUE](../method_discussion/QUEUE.md)，须实际不同Agent review才有支持状态。不会为了保持队列整洁删除任何历史RUN、失败身份、SHA或原始论文审计。
 
 **读取原文**：[G14 Paper Focus Graph](PAPER_METHOD_FOCUS_GRAPH.json) → [98+10论文源ledger](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)；按mechanism-research / problem-reformulation / research-expansion / web-research-discovery验证每个候选最接近的论文机制及作者源码，再写创新断言。原文已核的特定物理关系优先复用，不把“再找一篇经典论文”当默认行动。
