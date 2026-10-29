@@ -1,0 +1,7 @@
+# Independent exact recheck: paired state geometry
+
+APPROVE the exact bound CPU scope, subject to root ACTIVE registration and actual worker identity checks. Reviewer `/root/teal_full_llm_calibration_build_terra`; author `/root/asset_readiness_terra`.
+
+Initial review identified loss of partial per-step results, uncharged known source/parent reads, and insufficient execution-environment/resource evidence. The author responded in AUTHOR_REVIEW.md: cases and steps are attached before processing; known source, parent and environment reads are precharged; actual interpreter and thread environment are checked; external address-space limit, peak RSS and sampled worker-output checks are explicit. Subsequent correction rejects unlimited RLIMIT_AS. The 503,666,678-byte declared total was independently recomputed from the frozen bindings and stays within 512 MiB. Protocol, private job and all source hashes were verified, and five CPU synthetic tests passed. No real tensors were read and no scientific scope was run.
+
+DC is per-channel mean over time and space, temporal component is spatial mean minus DC, and spatial residual includes all remaining space-time structure. Four denoising steps and 21 latent-time coordinates are different axes. Relative error is descriptive for two exposed sources; later differences do not isolate causal action. OS/runtime and small metadata reads are UNKNOWN; output limits are sampled rather than continuous hard quota. Actual successful RUN and supervisor EXIT are needed for a result.
