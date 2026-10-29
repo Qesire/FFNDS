@@ -5,6 +5,11 @@ description: Apply AutoResearcher science to independent information, function/d
 
 # FFNDS · AutoResearcher 机制方法 Skill
 
+
+**最高优先级用户纠偏（2026-10-29）：只复现Wan2.2-I2V-A14B FFN本体的免大训练稀疏/计算减少。** [FFN-only现行文档](../../../research/20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md)及[ACTIVE最新字段](../../../research/ACTIVE_RESEARCH.json)凌驾下文旧排序。P0 SharQ L74（Wan2.2 T2V原报告的activation sparse FP4，当前需要I2V FFN native port/两GEMM总成本验证，[#59](https://github.com/Qesire/FFNDS/issues/59)），P0 TEAL原 BF16 Wan全160 V3视频与四来源真实质量后实施可物理省算的FFN大M sparse W2（[#58](https://github.com/Qesire/FFNDS/issues/58)）；P1 Chipmunk Wan FFN付费proxy单组（[#57](https://github.com/Qesire/FFNDS/issues/57)）。禁止默认先做LLM/FLUX原作者完整复现，暂不投入FIS/MagCache及帧/Block/Token/Attention/step/整模型缓存；历史成果保留但不决定当前资源顺序。FFN-only标准：完整160位点原生视频 + 主体/事件+运动/语义 + kernel内W1/W2真实成本+系统时延 + 静动态量化位置辨析；每个新scope先实质独立评议具体实验本身。
+
+
+
 **最新 P0（2026-10-29，覆盖本文下方旧优先描述）**：Chipmunk 与 TEAL 双方法免大型训练 FFN 复现同为首要任务，分别见 [#57](https://github.com/Qesire/FFNDS/issues/57)、[#58](https://github.com/Qesire/FFNDS/issues/58)，状态由 [ACTIVE](../../../research/ACTIVE_RESEARCH.json) `current_user_research_priority_20261029` 唯一裁定。先作者环境忠实复现，再全160 Wan2.2 四步 FFN-only / preW1 / postGELU 迁移；每个实验须主Agent自审→真正不同Agent反例审查→修订/recheck→ACTIVE冻结→实际运行前身份复核。作者Wan2.1 Chipmunk示例默认 **MLP OFF、Attention和step caching ON**，2.67x是系统组合不是 FFN-only；TEAL 原LLM FP16可用核不能默认兼容 Wan BF16。S2尚未启动的新因果实验排P1，历史已完成的成果保留。[TEAL作者FP16单token有限kernel](../../../research/20261029/TEAL_AUTHOR_FP16_KERNEL_PROBE_RESULTS_20261029.md)已复审后实际EXIT0并闭环；完整LLM、Chipmunk原系统和Wan迁移尚未复现。逐scope以ACTIVE及实际报告为准。
 
 
