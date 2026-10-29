@@ -1,5 +1,15 @@
 # FFNDS · AutoResearcher 科研Agent默认约定
 
+**当前用户最新最高优先级（2026-10-29）**：**P0 并列复现 Chipmunk 与 TEAL**，在作者原生条件和 Wan2.2 四步 I2V 全160 FFN 适配中分别建立可核实的成功基线。权威状态见 [ACTIVE.current_user_research_priority_20261029](research/ACTIVE_RESEARCH.json)、[Chipmunk Issue #57](https://github.com/Qesire/FFNDS/issues/57)、[TEAL Issue #58](https://github.com/Qesire/FFNDS/issues/58) 和[两条复现详细设计](research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。两者共同 **P0，不因任务排队默认先完成其中一个才准开展另一个**；可并行只读源码/文献、静态检查与独立审阅，真实CPU/GPU运行逐scope通过[实验前复审规则](research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)并按ACTIVE分配。**此前 S2 正常 forward 因果新实验降为 P1**，历史完成的S2实测仍属真实证据，现有 issue #55 是次级待办，不再发起挤占这两条复现的GPU工作。Chipmunk 作者 Wan2.1 示例配置是 `mlp.is_enabled: false`、`attn.is_enabled: true` 和 `step_caching.is_enabled: true`，必须先忠实复现系统配置，再单独建立 MLP-only 开启及 Wan2.2 适配，不能把其 Wan2.1 2.67×组合加速称为 FFN-only 结果。TEAL 作者 LLM FP16 经验不能直接充当 Wan BF16 GELU 的 GPU kernel/速度证据。**两条目前都未实际复现，未获得独立实验审查批准，也没有新视频或GPU任务。**
+
+
+
+**2026-10-29 新最高优先级：每次实验前重新独立评议实验本身。** [独立实验复审与执行状态机](research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)是所有新的 CPU/GPU/模型/校准/数据采集/回放/视频/系统实验的强制前置；不只审方法的科学价值，更审本次可辨识问题、竞争预测、原论文/真实源码、模型和数值路径、所选来源/独立统计单位、相同预算强基线、neutral、全160作用范围、执行合法信息、native kernel成本与GPU会话约束。**主Agent必须先提交自审；真正不同上下文的独立评议Agent重审并提供可能推翻实验的反例；主Agent逐项修订；评议Agent再核定后才可登记新的有限 ACTIVE 范围，调度前再对 code/ckpt/cohort/recipe/SHA 做身份复核。** 未获实际复审的研究计划保持 REVIEW_REQUESTED，不申请/声称已执行实验或独立支持；静态阅读、代数与非实验性单测可继续。旧实验评议不自动授权新的实验范围。
+
+**新增正向基线优先任务（与S1–S4并行）：** [免大训练 FFN 独立评议与复现设计](research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。P0首先审 Chipmunk 作者原 Wan2.1 MLP-only 动态稀疏及四步 Wan2.2 迁移（高/低 expert 复用窗口不同），和 TEAL 的 preW1 输入门限 / postGELU W2 门限（不同可省算对象）。作者原码原配置复现、Wan 适配完整视频、真实FFN-only和全系统性能是不同证据身份；Prox 的 SwiGLU→GELU迁移需另审；FIS-DiT 的 few-step 全block控制不能被称为纯 FFN 稀疏。现有 B1/B2 只有设计，无新原生RUN、新视频或批准票。
+
+
+
 本文件只规定科研行为及权限。**唯一当前阅读入口**：[RESEARCH_NAVIGATION](research/RESEARCH_NAVIGATION.md) → [CURRENT_CONTEXT_PACKET](research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → [资产先行方法推导](research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)。科学北极星由[统一I/F/C目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)定义；[ACTIVE](research/ACTIVE_RESEARCH.json)是实际CPU/GPU/model/video运行范围的唯一注册依据。原[M-A/M-B/M-C整合研究方案v4](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)保存其适用数学和旧实验，作为按需专题，不规定当前全局方法顺序。
 
 **2026-10-29 用户明确的下一项S2执行指令**：[原生Dense/Student时空采集与因果判别](research/20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)；[主Agent/理论子Agent强制委派](research/agent_protocol/S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。任何实际接手此P0任务的主Agent，**首先在可用的子Agent接口中分派一名独立理论子Agent**，负责Wan FFN数学推导、竞争机制解释、原论文与源码核对、实验设计与有区别力的反例；主Agent负责native producer/数据源/原生运行/质量与资源记录。子Agent尚未真正spawn时只标ASSIGNMENT_REQUESTED，不得把协调者文字冒充独立推导或审查结果。两源ROI只作原生采集pilot，完成后须扩多来源、全160-site、21τ邻域和student自由状态。此任务属S2内部时空统计/因果实验，不新增第五条研究路线；执行GPU始终核查适用真实session_max_GPUs=2，不以通用动态政策覆盖冻结会话记录。

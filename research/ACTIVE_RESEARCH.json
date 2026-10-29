@@ -12887,7 +12887,7 @@
           ],
           "rank": 960,
           "factor_files_per_arm": 80,
-          "beta": 1.0,
+          "beta": 1,
           "action": "ORIGINAL_W1_TANH_GELU_THEN_TWO_BF16_GEMMS_ORIGINAL_B2_GATE_RESIDUAL_ALL160",
           "factor_selection": "EXACT_COMPLETE_NEW10_EXPORTS_NO_REFIT_OR_TUNING",
           "prediction_1": "DC_AC_BALANCING_IMPROVES_MOTION_VS_SAME_DATA_VALUE_OBJECTIVE",
@@ -13112,7 +13112,7 @@
           ],
           "rank": 960,
           "factor_files_per_arm": 80,
-          "beta": 1.0,
+          "beta": 1,
           "action": "ORIGINAL_W1_TANH_GELU_THEN_TWO_BF16_GEMMS_ORIGINAL_B2_GATE_RESIDUAL_ALL160",
           "factor_selection": "EXACT_COMPLETE_NEW10_EXPORTS_NO_REFIT_OR_TUNING",
           "prediction_1": "DC_AC_BALANCING_IMPROVES_MOTION_VS_SAME_DATA_VALUE_OBJECTIVE",
@@ -19484,5 +19484,63 @@
     "actual_LPI_result": "research/20261029/S2_SPATIAL52_FULL160_LPI_REPLAY_RESULTS_20261029.json",
     "actual_new12_Dense": "research/20261029/S2_NEW12_DENSE_BASELINE_RESULTS_20261029.json",
     "actual_visual_result": "research/20261029/S2_CONSECUTIVE_SCREENSHOT_VISUAL_RESULTS_20261029.json"
+  },
+  "current_user_research_priority_20261029": {
+    "date": "2026-10-29",
+    "source": "USER_EXPLICIT_DIRECTIVE_REPRODUCE_BOTH_FIRST_PRIORITY",
+    "priority_rank": "P0_COEQUAL_TWO_BASELINES_ABOVE_UNSTARTED_S2_CAUSAL_OR_NEW_METHOD_GPU",
+    "status": "USER_REPRIORITIZATION_REGISTERED_NOT_EXPERIMENT_EXECUTED",
+    "mandatory_preexecution_review": "research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md",
+    "scientific_design": "research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md",
+    "parent_issue": "https://github.com/Qesire/FFNDS/issues/56",
+    "co_equal_P0_baselines": [
+      {
+        "id": "B1_CHIPMUNK",
+        "issue": "https://github.com/Qesire/FFNDS/issues/57",
+        "subscopes": [
+          "AUTHOR_WAN21_REFERENCE",
+          "WAN21_MLP_ONLY_ISOLATION",
+          "WAN22_I2V_FOURSTEP_FFN_ONLY_TRANSFER"
+        ],
+        "upstream_repo": "sandyresearch/chipmunk",
+        "inspected_upstream_head": "177fdefc4803e621fd8a02aad491812e9d1ecc94",
+        "upstream_wan_example_default": "MLP_DISABLED_ATTN_ENABLED_STEP_CACHING_ENABLED",
+        "status": "DESIGN_UNREVIEWED_NO_MODEL_RUN"
+      },
+      {
+        "id": "B2_TEAL",
+        "issue": "https://github.com/Qesire/FFNDS/issues/58",
+        "subscopes": [
+          "AUTHOR_FP16_LLM_REFERENCE",
+          "WAN22_PRE_W1_INPUT",
+          "WAN22_POST_GELU_W2"
+        ],
+        "upstream_repo": "FasterDecoding/TEAL",
+        "inspected_upstream_head": "fb7373c93ac3594817c9ee64d4e08b47430a1822",
+        "upstream_inference_recipe": "FP16_LLM;_WAN_BF16_GELU_REQUIRES_NEW_ADAPTATION",
+        "status": "DESIGN_UNREVIEWED_NO_MODEL_RUN"
+      }
+    ],
+    "required_deliverables": [
+      "AUTHOR_FAITHFUL_REPRO_WITH_VERSION_HASH_AND_AUTHOR_TARGET",
+      "WAN22_ALL160_FREE_VIDEO_MATCHED_DENSE",
+      "IMAGE_CLUSTER_LEVEL_MOVEMENT_SEMANTIC_AND_TEMPORAL_METRICS",
+      "REAL_SPARSE_KERNEL_AND_END_TO_END_WALL_TIME",
+      "FAILED_TRANSFER_EXPLAINS_STRUCTURAL_CAUSE"
+    ],
+    "on_resume_first_actions": [
+      "PIN_UPSTREAM_MODEL_CODE_AND_NATIVE_BACKEND",
+      "INDEPENDENT_REVIEW_EACH_REAL_EXPERIMENT_SCOPE",
+      "COSTED_NEUTRAL_AND_STRONG_CONTROLS",
+      "REVIEWER_RECHECK_THEN_NEW_ACTIVE_SCOPE_THEN_JOB"
+    ],
+    "preexisting_s2_stage": "S2_FULL160_LPI_NEW12_DENSE_AND_SEVEN_SOURCE_VISUAL_EVIDENCE_COMPLETE_PREPARING_NORMAL_FORWARD_CAUSAL_SCOPE",
+    "s2_ongoing_research": "P1_READ_ONLY_AND_PREPARED_DESIGNS_NO_NEW_GPU_EXECUTION_UNTIL_P0_REVIEW_AND_SCHEDULING",
+    "existing_experimental_receipts_preserved": true,
+    "new_scopes_registered_by_this_priority_update": 0,
+    "new_model_or_gpu_jobs_executed_by_this_update": 0,
+    "independent_reviews_performed_by_this_update": 0,
+    "available_cluster_gpu_status": "NOT_OBSERVED_FROM_GITHUB",
+    "resource_binding": "New scopes require frozen actual session/hardware cap; old applicable 2GPU session_max remains binding."
   }
 }

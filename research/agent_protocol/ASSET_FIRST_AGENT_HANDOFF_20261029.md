@@ -1,5 +1,13 @@
 # FFNDS · 开放式证据驱动的统一Agent交接与研究队列
 
+**最新 USER_PRIORITY_OVERRIDE（2026-10-29）**：接手Agent的第一任务是并列推进 [P0 Chipmunk 真正复现 #57](https://github.com/Qesire/FFNDS/issues/57) 与 [P0 TEAL 真正复现 #58](https://github.com/Qesire/FFNDS/issues/58)，总任务 [#56](https://github.com/Qesire/FFNDS/issues/56)；原有 S1/S2/S3/S4 并行机制、M-B与旧P0 S2因果采集统一降为 **P1新科学执行**，其已完成证据不可改写。新排序以 [ACTIVE.current_user_research_priority_20261029](../ACTIVE_RESEARCH.json) 为准，本文后文历史文字中的“本次用户指定S2 P0”和旧队列 P0 只代表当时状态。Chipmunk 的作者 Wan2.1 `examples/wan/chipmunk-config.yml` 当前默认 `mlp.is_enabled=false`，所以应分别复现作者系统组合、隔离 MLP-only、再迁移四步双专家 Wan2.2；TEAL 要分别审作者 LLM FP16、Wan BF16 GELU preW1 与 postGELU，二者不能混作同一可执行 FFN 动作。**每个 CPU/GPU/原生试验仍必须先完成主Agent自审与真实独立Agent反例审核/重新核定，再另冻 ACTIVE scope，实际启动前核代码与input sha；当前仅 USER_PRIORITY_REGISTERED，非 REVIEW_APPROVED / RUNNING。** 静态科学/源码审查和独立Agent工作可在两方向同步推进。
+
+
+
+**2026-10-29 用户追加：每次新实验执行前必须重新独立评议实验本身，并建立免大训练的成功 FFN 稀疏正向基线。** **可执行研究任务：[Issue #56](https://github.com/Qesire/FFNDS/issues/56)。** 见[强制实验复审/重核协议](EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)和[独立路线评议、Chipmunk/TEAL 作者复现与Wan迁移](../20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。首先审提出的本次实验是否真的区分竞争机制、物理算子/数据/成本与原作一致；由真实不同 Agent 反对式复审、主Agent修订、recheck 才能冻结 ACTIVE。**P0 新基线科学队列**：B1 Chipmunk MLP-only 作者源码忠实复现与四步 Wan2.2 transfer 分scope；B2 TEAL GELU FFN 输入稀疏与postGELU W2稀疏分scope；Prox/FIS当前是先例/候选而非已经复现。B1/B2 尚无原生 RUN、无同行批准、无真实新视频；现有 S1–S4 和 S2 因果工作保持并行，不再以一个负例将研究束缚。
+
+
+
 **现行METHOD HANDOFF · 2026-10-29 · 探索与部署分别验收。** 科研协议：[AutoResearcher技能](../../.agents/skills/ffnds-paper-discovery/SKILL.md) → [资产与四支机制推导](../20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md) → [数据交叉复算](../20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json) → [视频终端证据](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。运行状态以[ACTIVE](../ACTIVE_RESEARCH.json)为准；历史[2026-10-28任务台账](CURRENT_TASK_LEDGER_20261028.json)是任务状态登记，不再定义科研优先级。任何Agent无需从旧M-B末层handoff开始。
 
 **本交接的“资产先行”指先了解已有证据、节约重复实验；并不要求在现有资产内完成研究。** [问题驱动开放采集](EVIDENCE_DRIVEN_ACQUISITION_20261029.md)及[新增采集队列](ACQUISITION_QUEUE_20261029.json)是**并行P0科研工作**。若缺独立source、40层×4步的时空匹配token、学生自身状态、真实Q1/Q2动态code/scale、额外领域/视频行为数据，立即建设所需数据producer和新source cohort，完成真正的原生采集后继续推导；采集可以先于具体算法。允许引入新的课题与算子，S1/S4/S2/S3及既有rank960并不是方法空间边界。
