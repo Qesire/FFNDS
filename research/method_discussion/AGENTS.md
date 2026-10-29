@@ -8,6 +8,8 @@
 
 **AutoResearcher 来源**：[ACTIVE_SOURCE_MANIFEST.json](../agent_protocol/ACTIVE_SOURCE_MANIFEST.json)的固定版本，结合[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)和[本项目原文/源码深度检索协议](../agent_protocol/DEEP_WEB_RESEARCH.md)。
 
+**S2下一轮理论子Agent独立交付（2026-10-29）**：主Agent执行 [真实Dense/Student时空采集](../20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md) 时，必须经实际可用接口另外分派一个理论/解释/实验设计子Agent。该Agent按 [独立任务合同](../agent_protocol/S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md) 独立交付原生FFN计算图、L/P/I条件分解、至少三组可反证机制、空间ROI与source范围审计、实验身份/成本/原论文同构比较；新文档以实际agent-id写入discoveries/E0。此为指定的**科学分工**，不是新方法SUPPORT投票，也不是模型运行授权；不能让同一主Agent自称“独立子Agent已完成”。
+
 ## 新发现、数学及独立反证
 
 1. **独立选取切入点**：自然完整视频/latent/flow功能，原生/低位计算代数，已可得信息、共享依赖或硬件kernel瓶颈均可提出OPEN研究种子。
