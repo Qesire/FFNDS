@@ -1,0 +1,11 @@
+"""Static candidate contract for the root-owned coordinator."""
+import json,pathlib
+ROOT=pathlib.Path(__file__).resolve().parents[1]
+REQUIRED_SOURCES={'tools/e0_chipmunk_history_encoding_probe.py','tools/chipmunk_history_encoding_core.py','tools/chipmunk_history_encoding_math.py','tools/e0_chipmunk_history_encoding_verify.py','tools/chipmunk_history_encoding_contract.py','tests/test_chipmunk_history_encoding_math.py','tests/test_e0_chipmunk_history_encoding_verify.py','tools/chipmunk_packed_native_math.py','tools/chipmunk_fullm_proxy_math.py','tools/startup_gpu_reservation.py','tools/assigned_gpu_resources.py','tools/worker_identity.py','tools/durable_worker_job.py','tools/e0_chipmunk_paid_proxy_probe.py','tools/chipmunk_paid_proxy_selection.py','scripts/worker_teal_assigned_uuid_exec.sh'}
+def need(v,msg):
+ if not v:raise ValueError(msg)
+def validate_candidate(p):
+ part=p['source'],p['expert'];need(part in {(898,'high'),(898,'low'),(96,'high'),(96,'low')},'case');need(p['steps']==([0,1] if p['expert']=='high' else [2,3]),'steps');need(p['K']==5120 and len(p['sample_prefix64'])==64 and len(set(p['sample_prefix64']))==64,'selector')
+ r=p['resources'];need(r['gpu_cards']==1 and r['cpu_threads']==2 and r['wall_seconds']==1800 and r['gpu_reserved_bytes']==24<<30 and r['host_peak_rss_bytes']==32<<30 and r['output_bytes_max']==16<<20,'GPU budget');c=p['cpu_preflight_resources'];need(c['gpu_cards']==0 and c['cpu_threads']==2 and c['wall_seconds']==600,'CPU budget');v=p['verification_resources'];need(v['gpu_cards']==0 and v['cpu_threads']==1 and v['wall_seconds']==300 and v['whole_file_sha_bytes_max']==32<<20 and v['output_bytes_max']==16<<20,'verify budget')
+ lim=p['operation_limits'];need(all(lim.get('action_'+a)==5 for a in 'ABCD') and lim.get('dense_FFN')==5 and lim.get('mask_sha')==4 and lim.get('gate_AB')==1 and lim.get('gate_C')==lim.get('gate_D')==1,'call counts');need(p['read_budgets']['cpu_instrumented_bytes_max']==40<<30 and p['read_budgets']['gpu_instrumented_bytes_max']==40<<30,'read limits')
+ paths=[z['path'] for z in p['repo_sources']];need(len(paths)==len(set(paths)) and REQUIRED_SOURCES.issubset(paths),'source closure');need(all(z['bytes']>0 and len(z['sha256'])==64 for z in p['repo_sources']),'source identities');return True

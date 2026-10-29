@@ -1,0 +1,9 @@
+# Independent history-encoding review: initial revision
+
+Reviewer: /root/asset_readiness_terra. Authors: /root and /root/teal_full_llm_calibration_build_terra. This is software and source review, not experimental evidence or authorization.
+
+A/B use identical selected values and BF16 arithmetic, and A's updated clone is discarded; equivalence is restricted to this single transition where no later consumer observes the clone. The actual byte gate and mask identity are necessary. FP8 and int8 preserve the 64 BF16 selector rows while charging history encoding; teacher access occurs after candidate actions. Four cases are two sources crossed with experts, not four independent sources. The old packed mask came from recomputed history whereas this scope reads captured history: a mismatch is a meaningful fail-stop risk, not a guaranteed successful replay.
+
+The execution graph uses PyTorch operations and no Triton kernel: binding and mapped-file checking libtorch CUDA/CPU without libtriton is consistent with this graph. A100 FP8 conversion, FP32 output GEMM, cumulative 24 GiB reserved peak and downstream numerical behavior are untested until an authorized run. Full tensor allocations and retained comparisons are not standalone deployed-cache memory; neither encoded footprint nor timing establishes all-layer or video performance. The specified instrumented logical read budget is distinct from unknown physical mmap I/O.
+
+Initial test gap: verifier unit tests exercised scalar validation without actually entering `verify(args)` to reject missing authorization, erroneous producer exit/spec, or erroneous CPU proof. Requested a real entrypoint fixture. Author supplied five passing CPU fixture controls; source closure and four protocols/jobs must be rematerialized and independently rechecked before approval. Six prior CPU synthetic math/typed tests also passed. No real tensor, model or GPU execution was performed.
