@@ -6,11 +6,11 @@
 
 **实验GPU执行优先级**：实际ACTIVE/原生RUN已记录VIDEO20等两卡会话上限，执行该会话必须遵守 `session_max_GPUs=2`，通用动态GPU资源政策不得覆盖它；未来明确授权的新执行范围另行注册。
 
-**实际数值后端**：原始BF16与HiF4 fake-QDQ是不同模型执行配方；已完成[PRO6000 native NVFP4真实FFN的有限原生对照](20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.md)，可用作后端/执行研究锚点，但没有因此获得NVFP4视频候选质量。权重离线静态、激活在线动态量化的producer/时点分别由[数值合同](agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)核验；HiF4原4bit S1P2含符号。新源簇、新作业和实际GPU资源必须按ACTIVE每个范围冻结；资源遵循[动态政策](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)，不提前设卡数上限。
+**实际数值后端**：原始BF16与HiF4 fake-QDQ是不同模型执行配方；已完成[PRO6000 native NVFP4真实FFN的有限原生对照](20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.md)，可用作后端/执行研究锚点，但没有因此获得NVFP4视频候选质量。权重离线静态、激活在线动态量化的producer/时点分别由[数值合同](agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)核验；HiF4原4bit S1P2含符号。新源簇、新作业和实际GPU资源必须按ACTIVE每个范围冻结；资源遵循[动态政策与实际会话限制优先级](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)，已记录的2卡并发实验按2卡执行，通用规划不覆盖冻结限制。
 
 **P0开放式数据获取**：[问题驱动采集与判别协议](agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)＋[真实采集需求队列](agent_protocol/ACQUISITION_QUEUE_20261029.json)。对每个机制先判断现有观测是否足够；缺失真实source分层、video latent时间配对、完整160-site、student state、动态FP4代码/尺度或真实Kernel成本时，主动设计并执行注册的新采集。现有资产是第一批证据，不是科研边界；允许增加新机制/新数据域/新变量，不预设固定样本上限。
 
-**S2的时间统计证据维度（并非新增并行研究路线）**：[完整数学、论文与判别顺序](20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md) · [OPEN计算图claim](method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json) · [新增采集任务AQ-S2-MOTION-INNOVATION](agent_protocol/ACQUISITION_QUEUE_20261029.json)。在20来源60条原BF16完整视频运动降至Dense约0.49/0.48的真实负结果基础上，优先以同Dense-h的BF16 factor重放区分时间DC/AC丢失和学生前缀漂移；再用真实空间邻域采集判别运动对齐的额外收益。三种OPEN行动：同预算AC加权W2函数表示、计费锚点的误差运输、按廉价运动创新信息决定W2成本。时间相似不等于运动向量；已收集的8xy固定轨迹不构成完整运动对应。该新机制与S2、S1、S4并行，无新模型/测试运行或同行批准。
+**S2的时间统计证据维度（并非新增并行研究路线）**：[完整数学、论文与判别顺序](20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md) · [OPEN计算图claim](method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json) · [已并入AQ-S2-TIME-TUBELET的统计采集要求](agent_protocol/ACQUISITION_QUEUE_20261029.json)。在20来源60条原BF16完整视频运动降至Dense约0.49/0.48的真实负结果基础上，同Dense-h的BF16因子重放已实际完成，观察到AC相对误差较DC显著更大；下一步补齐频谱/滞后/Gram结构，再通过真实空间邻域判别运动对齐的额外收益。三种OPEN行动：同预算AC加权W2函数表示、计费锚点的误差运输、按廉价运动创新信息决定W2成本。时间相似不等于运动向量；已收集的8xy固定轨迹不构成完整运动对应。该条件数学注解从属于S2，**不单独并行**；上述历史新实验已经完成，但本轮T1–T6尚无新RUN或同行批准。
 
 **S2时间统计的当前必读入口：**[完整21τ时间统计结构与新增采集计划](20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。十张新增开发图的完整21τ/全160采集、原BF16同Dense-h-r960重放已实际exit0；AC相对误差显著大于DC。但已有8xy均值/能量与横邻对照仍欠缺**多τ滞后相关、频谱/相位、时间Gram有效秩、非平稳事件与真实运动空间邻域**，因此时间应作为S2与其余FFN研究方法共享的统计维度，而非第五条部署方向。新纯统计模块和限定CPU producer仅提供后续真实采集能力，尚无新增T1–T6数值或实验RUN。
 
