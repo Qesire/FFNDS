@@ -150,8 +150,8 @@ def run(args):
                     x=operands[operand].reshape(21,8,-1)
                     detail[operand]={}
                     for view in VIEWS:
-                        signal=data.core.time_view(x,view)
-                        item=stats.summarize(signal,np)
+                        trajectory=data.core.time_view(x,view)
+                        item=stats.summarize(trajectory,np)
                         detail[operand][view]=item
                         flat.extend(np.nan if v is None else float(v)
                                     for v in extract_scalars(item))
