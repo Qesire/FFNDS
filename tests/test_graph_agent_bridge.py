@@ -23,11 +23,17 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertEqual(result["paper_focus_supplemental"],len(overlay["supplemental_links"]))
         self.assertEqual(result["paper_focus_stages"],16)
         self.assertGreaterEqual(result["paper_to_stage_links"],150)
-        for paper in ("L01","L09","L14","L34","L74","L84","L89","L90","L91","L92","C01","C05","C10","C17","C18","C19"):
+        for paper in ("L01","L09","L14","L34","L74","L84","L89","L90","L91","L92","C01","C05","C10","C17","C18","C19","C20"):
             looked=inspect_paper(self.registry,paper)
             self.assertTrue(looked["native_stage_analogies"])
             self.assertEqual(looked["method_graph"]["source_url"],looked["paper"]["url"])
             self.assertEqual(looked["method_graph"]["review_depth"],looked["paper"]["reading_depth"])
+
+    def test_teal_scope_has_real_pre_post_projection_anchors(self):
+        teal = inspect_paper(self.registry, "C20")
+        self.assertEqual(set(teal["method_graph"]["focus_nodes"]), {"T03", "T04", "T05", "T07", "T13", "T16"})
+        self.assertIn("sequence length >1", teal["paper"]["wan_specific_discriminator"])
+        self.assertEqual(teal["paper"]["experiment_review_status"], "REVISE_NOT_APPROVED")
 
     def test_quantization_stage_groups_distinct_papers_and_is_lit_only(self):
         focus=inspect_focus(self.registry,"T06")

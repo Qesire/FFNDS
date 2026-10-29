@@ -6,7 +6,7 @@
   "original_graph": "research/agent_protocol/GRAPH_AGENT_BINDINGS.json",
   "primary_index": "research/literature/20261026/PRIMARY_LITERATURE_INDEX.json",
   "existing_family_map": "research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json",
-  "supplemental_scope": "C01–C10 calibration; C11–C13 spatiotemporal; C14–C16 propagation calibration and rank allocation; C17–C19 whole-FFN representation, each with actual reading depth.",
+  "supplemental_scope": "C01–C10 calibration; C11–C13 spatiotemporal; C14–C16 propagation calibration and rank allocation; C17–C19 whole-FFN representation, each with actual reading depth. C20 TEAL training-free activation sparsity; actual primary and partial source review.",
   "graph_document": "docs/98_端到端计算图与证据注解_20261025.md",
   "focus_nodes": [
     {
@@ -311,7 +311,11 @@
         "K26",
         "K27"
       ],
-      "source_url": "https://arxiv.org/abs/2506.03275"
+      "source_url": "https://arxiv.org/abs/2506.03275",
+      "source_ledger_20261029": "research/literature/20261029/P0_CHIPMUNK_TEAL_PRIMARY_SOURCE_LEDGER_20261029.json",
+      "author_code_commit": "177fdefc4803e621fd8a02aad491812e9d1ecc94",
+      "additional_reading_depth_20261029": "PRIMARY_METHOD_3_3_2_TABLE1_D1_AND_AUTHOR_WAN_FLUX_MLP_ATTENTION_COUNTER_SETUP_SOURCE_REVIEWED",
+      "author_self_audit": "research/experiment_reviews/B1_CHIPMUNK_FLUX_MLP_ONLY_AUTHOR_MECHANISM_20261029/v1_author.md"
     },
     {
       "id": "L10",
@@ -2465,6 +2469,34 @@
         "research/20261021/method_search_R10.json",
         "docs/61_全路线失败归因与组合方案复盘_R10.md"
       ]
+    },
+    {
+      "id": "C20",
+      "title": "Training-Free Activation Sparsity in Large Language Models (TEAL)",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "url": "https://arxiv.org/abs/2408.14690v3",
+      "model": "Llama-2/3 and Mistral SwiGLU language models",
+      "observed_mechanism": "Offline calibrated magnitude threshold on current matrix input, selectively load activation-associated weight channels in sparse decode GEMV",
+      "decision_time": "Offline generic-text activation histogram thresholds; online current pre-matmul activation",
+      "physical_action": "Threshold input and skip corresponding weight channels via split-K sparse GEMV; optional offline block-wise greedy allocation",
+      "training": "No retraining; offline histogram threshold calibration; optional block-wise greedy selection using block-output error",
+      "wan_specific_discriminator": "Wan pre-W1 and post-GELU W2 are distinct actions; author FP16 single-token GEMV falls back to dense matmul for sequence length >1 and does not establish BF16 large-M sparse acceleration.",
+      "reading_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AND_AUTHOR_README_SPARSE_GEMV_SOURCE_REVIEWED",
+      "focus_nodes": [
+        "T03",
+        "T04",
+        "T05",
+        "T07",
+        "T13",
+        "T16"
+      ],
+      "group": "supplemental_training_free_activation_sparsity",
+      "source_ledger": "research/literature/20261029/P0_CHIPMUNK_TEAL_PRIMARY_SOURCE_LEDGER_20261029.json",
+      "author_code_url": "https://github.com/FasterDecoding/TEAL/tree/fb7373c93ac3594817c9ee64d4e08b47430a1822",
+      "author_code_review_scope": "README and kernels/sparse_gemv.py; partial source inspection, not executed",
+      "experiment_review": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
+      "experiment_review_status": "REVISE_NOT_APPROVED"
     }
   ],
   "supplemental_links": [
@@ -2806,6 +2838,27 @@
       "graph_anchor_existing": [],
       "source_url": "https://arxiv.org/abs/2010.13160v1",
       "source_ledger": "research/literature/20261029/S2_WHOLE_FFN_REPRESENTATION_SOURCE_LEDGER_20261029.json"
+    },
+    {
+      "id": "C20",
+      "focus_nodes": [
+        "T03",
+        "T04",
+        "T05",
+        "T07",
+        "T13",
+        "T16"
+      ],
+      "index": "SUPPLEMENTAL_P0_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AND_AUTHOR_README_SPARSE_GEMV_SOURCE_REVIEWED",
+      "mechanism": "Offline calibrated magnitude threshold on current matrix input, selectively load activation-associated weight channels in sparse decode GEMV",
+      "intervention": "Threshold input and skip corresponding weight channels via split-K sparse GEMV; optional offline block-wise greedy allocation",
+      "decision_time": "Offline generic-text activation histogram thresholds; online current pre-matmul activation",
+      "wan_transfer_question": "Wan pre-W1 and post-GELU W2 are distinct actions; author FP16 single-token GEMV falls back to dense matmul for sequence length >1 and does not establish BF16 large-M sparse acceleration.",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2408.14690v3",
+      "source_ledger": "research/literature/20261029/P0_CHIPMUNK_TEAL_PRIMARY_SOURCE_LEDGER_20261029.json"
     }
   ],
   "source_ledger_contract": {

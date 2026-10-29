@@ -1,0 +1,37 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "B1_CHIPMUNK_FLUX_MLP_ONLY_AUTHOR_MECHANISM_20261029",
+  "purpose": "faithful_reproduction_with_counter_bookkeeping_patch",
+  "state": "INDEPENDENT_REVIEW_REQUESTED",
+  "author_agent_id": "/root/s2_theory_design_independent",
+  "author_review_path": "research/experiment_reviews/B1_CHIPMUNK_FLUX_MLP_ONLY_AUTHOR_MECHANISM_20261029/v1_author.md",
+  "reviewer_agent_id": null,
+  "independent_review_path": null,
+  "reviewer_disposition": null,
+  "recheck_disposition": null,
+  "research_question": "Can actual author column sparse MLP on FLUX reduce physical MLP work while preserving matched full-step reference under 50-step inference?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Low selected physical work and lower full MLP cost with limited reference difference"
+    },
+    {
+      "id": "H2",
+      "prediction": "Selected proxy misses consequential differences or overhead/rounding erases physical savings"
+    }
+  ],
+  "code_commit": "177fdefc4803e621fd8a02aad491812e9d1ecc94",
+  "checkpoint_numeric_recipe": "FLUX.1-dev BF16 author model; not yet bound",
+  "input_cohort_manifest_sha256": null,
+  "control_arms": [
+    "dense",
+    "full_update_cached_neutral",
+    "author_sparse_mlp_with_counter_fix"
+  ],
+  "unit_of_independence": "one development prompt; no population inference",
+  "full_depth_or_claim_scope": "FLUX 19 double and 38 single blocks, 50 steps; no Wan claims",
+  "budget_and_failure_plan": "PROPOSED ONLY: GPU1 Hopper 80GiB, CPU8, host192GiB, wall5400/outer5700 seconds; compile/download separate scope; exact total diagnostic work unbound",
+  "approval_scope_fingerprint": null,
+  "adversarial_counterexample": "disabled attention omits counter increment; layer-counter terminal reset occurs before last submodule; proposed patch unimplemented and neutral/counters unverified",
+  "note": "Source audit does not constitute an executable registered producer or independent review; explicit immutable patch and exact trace workload needed before approval."
+}

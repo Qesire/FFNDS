@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-29",
+  "reviewer": "/root/s2_theory_design_independent",
+  "evidence": "LIT_SRC_NOT_NATIVE",
+  "sources": [
+    {
+      "url": "https://arxiv.org/html/2408.14690v3",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/teal_arxiv2408.14690v3.html",
+      "bytes": 345126,
+      "sha256": "e10f3c8294e14e74c678d89855066320a0c1f77a0f4b8d5144480a5b651a6808",
+      "executed": false
+    },
+    {
+      "url": "https://github.com/FasterDecoding/TEAL/blob/fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/sparse_gemv.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/teal_sparse_gemv.py",
+      "bytes": 10157,
+      "sha256": "21183499ac9eb06c57365023388920721636b5bc0d2acf5d91c95fd5e48c37a3",
+      "executed": false
+    },
+    {
+      "url": "https://github.com/FasterDecoding/TEAL/blob/fb7373c93ac3594817c9ee64d4e08b47430a1822/README.md",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/teal_README.md",
+      "bytes": 5208,
+      "sha256": "b628eb8cce8ac0543cc590a5fcc25360f56dee7db57563e12cde52f86d792a4d",
+      "executed": false
+    },
+    {
+      "url": "https://arxiv.org/html/2506.03275v1",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_arxiv2506.03275v1.html",
+      "bytes": 517405,
+      "sha256": "a9ced6f975963ad704a71453bd1cde6e91c0f00ff463acaa0ad2889d4f3edb24",
+      "executed": false
+    },
+    {
+      "url": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/src/chipmunk/modules/mlp.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_mlp.py",
+      "bytes": 4451,
+      "sha256": "28bb218e7cb474ee5da0d07d9ffa773c94fbc48f86203baf202d53e191759944",
+      "executed": false
+    },
+    {
+      "url": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/src/chipmunk/modules/attn.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_attn.py",
+      "bytes": 9135,
+      "sha256": "a7d0d22be9d5506b63b03ba8d72527cb4948c2daa1bdb612ecd78793b2905abc",
+      "executed": false
+    },
+    {
+      "url": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/src/chipmunk/util/layer_counter.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_layer_counter.py",
+      "bytes": 2968,
+      "sha256": "478ed1ee821944738ab25dc15b9430f521ed75e4824310d9dfe041952767360b",
+      "executed": false
+    },
+    {
+      "url": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/examples/flux/src/flux/modules/layers.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_flux_layers.py",
+      "bytes": 13117,
+      "sha256": "608204c2bc1fe23588c1b4d6fa52695be5314fd9afe925dba43f091eb7ef8b2b",
+      "executed": false
+    },
+    {
+      "url": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/examples/wan/wan/modules/model.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_wan_model.py",
+      "bytes": 24424,
+      "sha256": "47b78cbff99b5773974ded33a92ab184a328ebb011ffbe211aa17d17b4d66710",
+      "executed": false
+    },
+    {
+      "url": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/setup.py",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_setup.py",
+      "bytes": 4102,
+      "sha256": "3d74b0510d9063b3f8668250660d6059706224d3ab07448dea8694603af13f5e",
+      "executed": false
+    }
+  ],
+  "papers": [
+    {
+      "id": "L09",
+      "paper": "https://arxiv.org/abs/2506.03275v1",
+      "commit": "177fdefc4803e621fd8a02aad491812e9d1ecc94",
+      "reading_depth": "PRIMARY_ABSTRACT_SEC_3_3_2_TABLE1_APPENDIX_D1_AND_AUTHOR_MLP_FLUX_WAN_COUNTER_SETUP_SOURCE",
+      "findings": [
+        "Paper D.1 reports attention-only sparsity for Wan2.1 and HunyuanVideo; 2.67x includes STA and step cache",
+        "Author Wan FFN is dense Sequential, no SparseDiffMlp route",
+        "FLUX calls SparseDiffMlp; disabled-attention and terminal reset counter hazards",
+        "setup.py only sm_90a Hopper author build"
+      ],
+      "self_audit": "research/experiment_reviews/B1_CHIPMUNK_FLUX_MLP_ONLY_AUTHOR_MECHANISM_20261029/v1_author.md"
+    },
+    {
+      "id": "C20",
+      "paper": "https://arxiv.org/abs/2408.14690v3",
+      "commit": "fb7373c93ac3594817c9ee64d4e08b47430a1822",
+      "reading_depth": "PRIMARY_SECTIONS_4_2_4_4_5_AND_AUTHOR_README_SPARSE_GEMV_SOURCE",
+      "formula": "s_t(x_i)=0 if |x_i|<=t, else x_i; estimated offline empirical threshold t; y=s_t(x)W^T",
+      "training_calibration": "No retraining; offline activation histogram calibration; optional block-wise greedy allocation based on block-output error",
+      "source_findings": [
+        "SparseGEMV dispatches sparse only when sequence length == 1; otherwise raw dense matmul",
+        "Single-vector kernel only has BATCHSIZE==1 code path; output buffer float16; README FP16 support",
+        "Weight loads lack rn<N mask: potential tail out-of-bounds for N not multiple of selected BLOCK_N, a static risk not observed execution"
+      ],
+      "author_probe": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/AUTHOR_DESIGN_UNREVIEWED.md",
+      "independent_review": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
+      "independent_review_status": "REVISE_NOT_APPROVED"
+    }
+  ]
+}
