@@ -13666,23 +13666,36 @@
   "resource_scheduling_policy_20261028": {
     "date": "2026-10-28",
     "user_instruction": "使用的卡的数量以实际能调用的最大量为准，不提前设限",
-    "status": "ACTIVE_OVERRIDES_PRIOR_NUMERIC_GLOBAL_CAPS",
+    "status": "DYNAMIC_DEFAULT_SUBORDINATE_TO_APPLICABLE_SESSION_AND_FROZEN_EXECUTION_CAPS",
     "mode": "DYNAMIC_MAX_ACTUALLY_CALLABLE",
     "global_gpu_card_cap": null,
-    "allocation": "At each scheduling/launch, use the maximum GPU cards actually callable under account/QOS/partition quotas, successful scheduler grants, available compatible nodes/memory and runnable independent frozen jobs. Recheck after releases/changes. Do not use 2/4 as default/fallback.",
+    "allocation": "Plan up to the actual callable useful GPUs, bounded by the applicable current user/session cap (two GPUs in cited BF16 VIDEO20 session records), each frozen job cap, QOS and real scheduler allocation. Do not schedule a third GPU in a recorded two-GPU session.",
     "observable_source": "CURRENT_ACTUAL_SCHEDULER_ALLOCATION_NOT_RECORDED_IN_GIT",
     "operational_policy": "research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md",
-    "historical_caps_policy": "Old 2/4 limits and frozen protocol values are historical as-of-time records. Keep immutable protocols and RUN/EXIT/hash; new scopes replacing an old frozen GPU concurrency budget must be versioned and registered separately. The 20261027 authorization object's max_simultaneously_assigned_idle_GPUs=2 remains historically pinned to keep existing frozen v2 runner executable, and is explicitly NOT an effective global cap; current resource_scheduling_policy overrides it.",
+    "historical_caps_policy": "Past frozen two/four-GPU values remain binding for their recorded executions; distinguish historical scope from current applicable session constraints. The explicitly recorded VIDEO20 scope session_max_GPUs=2 must be obeyed while executing those scopes. General dynamic planning never overrides a frozen cap or current session user constraint.",
     "single_job_gpu_requirement": "May remain fixed to true algorithm needs; not a global cap",
     "new_job_scope_policy": "New model/GPU jobs still require registered exact task/code/assets/cohort/protocol/budget in ACTIVE before scheduling; maximize ready useful parallel jobs, no fabricated work and no automatic retries.",
-    "unobserved_actual_gpu_count": "ACTUAL_CALLABLE_GPUS_NOT_OBSERVED"
+    "unobserved_actual_gpu_count": "ACTUAL_CALLABLE_GPUS_NOT_OBSERVED",
+    "effective_session_cap_rule_20261029": "Follow actual RUN/ACTIVE resources.session_max_GPUs=2 within corresponding BF16 video execution context, and any applicable user session constraint. No more than two concurrent assigned GPUs for that session; do not infer that global_gpu_card_cap=null overrides recorded protocol. New larger session budgets require separately authorized registered scopes."
   },
   "current_session_resource_constraint_20261028": {
-    "source": "Latest direct user AGENTS.md replacement in this chat 2026-10-29",
-    "max_simultaneously_assigned_idle_GPUs": null,
-    "mode": "DYNAMIC_MAX_ACTUALLY_CALLABLE",
-    "precedence": "Current explicit user replacement supersedes previous session2cap. Per-scope frozen GPU allocations remain immutable. Only exact registered READY scopes may be assigned actual idle authorized compatible hardware.",
-    "observed_simultaneous_peak_this_session": 2
+    "source": "2026-10-29 user correction: if actual execution documentation records 2 GPUs for the session, obey that budget; verified ACTIVE recorded BF16 VIDEO20 and official quality scopes set resources.session_max_GPUs=2.",
+    "max_simultaneously_assigned_idle_GPUs": 2,
+    "mode": "EFFECTIVE_RECORDED_SESSION_CONCURRENCY_LIMIT_WITHIN_DYNAMIC_AVAILABILITY",
+    "precedence": "Applicable session user/recorded execution cap and immutable per-scope GPU budget precede generic dynamic-max planning. For the recorded VIDEO20 execution context maximum simultaneous assigned GPUs is 2; each registered job often requires 1. Any expanded session scope requires new explicit authority/registration and cannot rewrite historical RUN/EXIT/protocol hashes.",
+    "observed_simultaneous_peak_this_session": 2,
+    "prior_uncapped_interpretation_preserved": {
+      "max_simultaneously_assigned_idle_GPUs": null,
+      "mode": "DYNAMIC_MAX_ACTUALLY_CALLABLE",
+      "source": "Latest direct user AGENTS.md replacement in this chat 2026-10-29",
+      "precedence": "Current explicit user replacement supersedes previous session2cap. Per-scope frozen GPU allocations remain immutable. Only exact registered READY scopes may be assigned actual idle authorized compatible hardware."
+    },
+    "session_authority_evidence": [
+      "E0_RAW_BF16_FULL160_VIDEO20_REMAINING18_20261029_PART0_V2",
+      "E0_RAW_BF16_FULL160_VIDEO20_REMAINING18_20261029_PART1_V2",
+      "E0_RAW_BF16_FULL160_VIDEO20_OFFICIAL_QUALITY_20261029"
+    ],
+    "historical_execution_scopes_immutable": true
   },
   "current_method_execution_20261028": {
     "priority": "M-B",
@@ -13715,5 +13728,19 @@
     "observed_simultaneous_peak_this_session": 2,
     "superseded_by": "Latest user-provided AGENTS.md replacement: dynamic actual useful GPUs, no inherited2/4 cap",
     "historical_only": true
+  },
+  "effective_execution_resource_rule_20261029": {
+    "authority": "2026-10-29 user correction grounded in actual execution records",
+    "rule": "EXECUTION_SCOPE_AND_SESSION_CAPS_FIRST_DYNAMIC_UTILIZATION_SECOND",
+    "current_recorded_session_concurrency_limit_GPUs": 2,
+    "applies_to": "Any execution under existing VIDEO20/quality scopes and the documented BF16 session limit. For different new scopes inspect their actual registered session authorization before execution.",
+    "examples": {
+      "frozen_video20_session_max_GPUs": 2,
+      "typical_per_job_gpu": 1,
+      "observed_previous_simultaneous_peak": 2
+    },
+    "immutable_historical_scopes": true,
+    "new_increased_concurrency": "Requires explicit changed user/session authorization, new registered finite scopes and new protocol/RUN hashes; never overwrite old receipts.",
+    "scheduler_truth": "Not available from GitHub snapshot; no newly claimed GPU availability or job."
   }
 }
