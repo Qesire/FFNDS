@@ -1,5 +1,9 @@
 # FFNDS · 当前研究导航（2026-10-29）
 
+**2026-10-29 最新研究制度与正向基线入口**：[实验前真实独立复审](agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)；[新颖性独立判断及 Chipmunk/TEAL 无大训练基线](20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。任何新 CPU/GPU/视频原生实验均先重审实验可辨识性、论文源码忠实度、动态信息时点、相同成本强对照、真正稀疏算子和全160视频/成本，再由不同 Agent 实际审查、修订、复核和 ACTIVE 冻结；不把原方法 review 或新文档当自动运行授权。B1/B2 待实做，未拥有新质量或速度证据。
+
+
+
 **本文件是唯一的研究阅读导航；最新科研路线以[现有与新增证据驱动的方法推导](20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)为准，实际任务与交接以[资产先行Agent交接](agent_protocol/ASSET_FIRST_AGENT_HANDOFF_20261029.md)为准，真实作业权限以[ACTIVE](ACTIVE_RESEARCH.json)为准。** 旧M-A/B/C文档继续保存有效理论与实验，不作为所有新研究的前置检查。
 
 **最重要的已实测观察**：原BF16 8不同历史source×全部160执行位置的原生操作数、shared80与step160 rank960同条件teacher-state来源留出；旧HiF4 2source×5Block显示时空冗余的层异质性与whole64物理闭包；旧UB1 20source×真实free video显示运动显著退化及有符号误差累计。新方法从结构、可得信息、物理动作出发并行研究；局部SSE/负交叉/末层head用于推导与诊断。原数据和[复算JSON](20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)分别保留资产身份。
