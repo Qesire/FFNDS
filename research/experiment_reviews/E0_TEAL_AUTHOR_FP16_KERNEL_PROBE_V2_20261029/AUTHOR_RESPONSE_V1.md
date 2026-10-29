@@ -1,0 +1,7 @@
+# Author response to independent V2 review
+
+The review's initial disposition is APPROVE. I accept its bounded identity and counterexamples: at threshold 0.25, sparse results may be accurate while launch, initialization and atomic overhead make the measured interval slower; a faster interval may reflect a bin-specific autotune choice rather than reduced weight traffic. Paired event and synchronized wall intervals remain descriptive, without attribution to traffic, robust speedup, full LLM reproduction, Wan applicability or video quality. Internal autotune launches remain UNKNOWN.
+
+V1's actual EXIT1 and its RUN with zero direct-call counters, missing setuptools and no monitor remain intact and bound as failed evidence. The V2 import-only engineering smoke establishes neither CUDA compilation nor GPU compatibility. V2 is a fresh, separate scope with exactly one attempt and no automatic retry; any actual failure is preserved. Shared hard-linked environment files must remain immutable, package RECORD metadata is not a complete installed-binary audit, and fresh identity and resource checks are still required at launch.
+
+No producer, test, protocol, environment or supervisor specification has been revised following the review. The exact source and scope hashes are those in the independent review. I request the independent reviewer's actual recheck of these artifacts and this response. This response grants no execution authority; ACTIVE registration remains with the coordinator after independent recheck.

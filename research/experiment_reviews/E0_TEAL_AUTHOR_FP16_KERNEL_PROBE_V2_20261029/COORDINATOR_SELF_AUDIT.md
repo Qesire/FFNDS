@@ -1,0 +1,7 @@
+# Coordinator self-audit — separate V2 scope
+
+Coordinator `/root` inspected the exact V2 diff against the immutable V1 producer: scientific shape, FP16 author kernel, controls, balanced timing, direct-entry limits, GPU0/CPU0,1 and wall/memory budgets are unchanged. V2 separately binds V1 actual EXIT1/RUN/stderr and the new environment with setuptools/wheel. Initial independent review and actual recheck from `/root/teal_probe_preexec_reviewer` both APPROVE this exact new scope.
+
+The prior missing-setuptools import failure reached zero sparse/forward calls; the original environment and failed receipts remain unchanged. V2's CUDA-disabled software import smoke is engineering evidence only, not CUDA compilation or model/kernel evidence. The new scope is one bounded attempt, never an automatic retry. The same strong counterexample remains: atomic/initialization/dispatch cost and bin-specific autotuning can reverse or explain latency differences, and multi-token calls use unmasked Dense. Record only descriptive same-input masked-reference correctness and paired call intervals; do not claim causal bandwidth savings, full LLM reproduction or Wan quality.
+
+The coordinator adopts the actual author's response, finite scope and independent approval, then separately registers review/spec/protocol hashes in ACTIVE after committing the exact source. Prelaunch must validate all bytes, actual environment/driver/worker/availability and the exact supervisor chain. No V2 experiment has run at this self-audit stage.
