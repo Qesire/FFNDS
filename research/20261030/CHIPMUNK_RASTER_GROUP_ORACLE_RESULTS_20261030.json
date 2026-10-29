@@ -1,0 +1,820 @@
+{
+  "schema": "ffnds.chipmunk.raster_group_oracle.results.v1",
+  "status": "FOUR_PARTS_ACTUAL_EXIT0_CLOSED_POSTHOC_DIAGNOSTIC",
+  "identity": {
+    "sources": "2 exposed development image clusters, single seed; 2 paired expert steps nested per source",
+    "selection": "posthoc current captured h; not causal",
+    "action": "BF16 dense W2 diagnostic projections, not physical sparse-performance measurement",
+    "grid": [
+      21,
+      29,
+      52
+    ],
+    "M": 31668,
+    "H": 13824,
+    "D": 5120,
+    "K": 5120,
+    "row_selected_elements_per_arm": 162140160,
+    "raster": "raster-linear consecutive 247 groups of 128 plus one group of 52; may cross row/frame boundaries",
+    "random": "seed101 permutation, same group sizes; one deterministic realization",
+    "gate": "actual current-step gate; same-device W2 replay target",
+    "delta": "FP32 scores; selected and full differences rounded BF16 before dense W2",
+    "comparison": "same-device Y0/Y1 replay with bias; Yhat = BF16(Y0 + dense_W2(BF16 selected delta)), current gate applied in BF16",
+    "evidence": "posthoc one block on two previously exposed sources; no heldout, student free video, GPU sparse speed or independent four-source inference"
+  },
+  "cases": [
+    {
+      "part": 0,
+      "source": 898,
+      "steps": [
+        0,
+        1
+      ],
+      "expert": "high",
+      "protocol_sha256": "35fe529ac008320db62778d12e25d3f0949e7cb5a12cce1bd5b6677426f0f925",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_raster_group_oracle_20261030/part0/attempt1/worker/results/RUN.json",
+        "bytes": 12763,
+        "sha256": "6014dedd7966d983b0576efc63375b67733fee75124ce45e088c988cdd1e1593"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_raster_group_oracle_20261030/part0/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 536,
+        "sha256": "4b814d63f04fe2b83086beec92f0fcebca8643c33aa6dbf0babb6fdd658153c5"
+      },
+      "arms": {
+        "global": {
+          "group_count": 1,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "e74ec52dc913d00cf885dbb0ea2edac6a8c71e72da6b9d1067755cade0b9531d",
+          "indices_sha256": "987256c479089e04243afb52ae320fb9d3088d82fe104fa3d8a7e7244c831fe6",
+          "gated_relative_l2": 0.39527803659439087,
+          "delta_h_energy_capture": 0.5735006904388873
+        },
+        "raster": {
+          "group_count": 248,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "e74ec52dc913d00cf885dbb0ea2edac6a8c71e72da6b9d1067755cade0b9531d",
+          "indices_sha256": "b066194ace20108d7b78cdfe369cb79684c6e8370b2c7fc9cc596ce6e7cc55db",
+          "gated_relative_l2": 0.3530748188495636,
+          "delta_h_energy_capture": 0.6536344571159323
+        },
+        "random": {
+          "group_count": 248,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "53083925dedfb58d82663d9c1175ae3144b47c74cdab3d2573c00ec18fee3beb",
+          "indices_sha256": "445f478961ba0c22a8e74d81e060912d50cc9fcdf7c4de99fd7f40ee2d7625e3",
+          "gated_relative_l2": 0.3840753138065338,
+          "delta_h_energy_capture": 0.6030570287666844
+        }
+      },
+      "same_device_w2_replay_vs_captured": {
+        "old_y_relative_l2_to_captured": 0.0001534901384729892,
+        "new_y_relative_l2_to_captured": 0.00015333066403400153
+      },
+      "full_delta_reconstruction_gated_relative_l2": 0.0032932062167674303,
+      "zero_update_gated_relative_l2": 0.7704076170921326,
+      "timings": {
+        "checkpoint_hash": {
+          "wall_seconds_including_sync": 18.8325378857553
+        },
+        "weights_load": {
+          "wall_seconds_including_sync": 0.027814481407403946
+        },
+        "old_h": {
+          "wall_seconds_including_sync": 0.13295625522732735
+        },
+        "new_h": {
+          "wall_seconds_including_sync": 0.12435957416892052
+        },
+        "old_Y": {
+          "wall_seconds_including_sync": 0.04759786278009415
+        },
+        "new_Y": {
+          "wall_seconds_including_sync": 0.04523671045899391
+        },
+        "gate": {
+          "wall_seconds_including_sync": 0.00029955804347991943
+        },
+        "replay_old_W2": {
+          "wall_seconds_including_sync": 0.12469448521733284
+        },
+        "replay_new_W2": {
+          "wall_seconds_including_sync": 0.015734512358903885
+        },
+        "target_gate": {
+          "wall_seconds_including_sync": 0.0007777735590934753
+        },
+        "replay_metrics": {
+          "wall_seconds_including_sync": 0.045675553381443024
+        },
+        "full_delta": {
+          "wall_seconds_including_sync": 0.009815175086259842
+        },
+        "total_energy": {
+          "wall_seconds_including_sync": 0.03078010305762291
+        },
+        "full_delta_projection": {
+          "wall_seconds_including_sync": 0.019831553101539612
+        },
+        "full_metrics": {
+          "wall_seconds_including_sync": 0.006787605583667755
+        },
+        "selection_global": {
+          "wall_seconds_including_sync": 0.04658608138561249
+        },
+        "projection_global": {
+          "wall_seconds_including_sync": 0.01946987584233284
+        },
+        "metrics_global": {
+          "wall_seconds_including_sync": 0.006744932383298874
+        },
+        "selection_raster": {
+          "wall_seconds_including_sync": 0.09855566546320915
+        },
+        "projection_raster": {
+          "wall_seconds_including_sync": 0.01929636299610138
+        },
+        "metrics_raster": {
+          "wall_seconds_including_sync": 0.006732091307640076
+        },
+        "selection_random": {
+          "wall_seconds_including_sync": 0.09883200377225876
+        },
+        "projection_random": {
+          "wall_seconds_including_sync": 0.019365515559911728
+        },
+        "metrics_random": {
+          "wall_seconds_including_sync": 0.006741862744092941
+        },
+        "zero_metrics": {
+          "wall_seconds_including_sync": 0.007392991334199905
+        }
+      },
+      "counts": {
+        "parent_hash": 4,
+        "header_hash": 2,
+        "operand_file_hash": 8,
+        "checkpoint_hash": 1,
+        "checkpoint_tensor_load": 1,
+        "checkpoint_finite": 1,
+        "operand_tensor_load": 5,
+        "operand_finite": 1,
+        "dense_w2": 6,
+        "gate_reference": 1,
+        "metrics": 6,
+        "full_delta": 1,
+        "energy": 1,
+        "selection": 3,
+        "score_sort_groups": 497,
+        "indices_D2H_logical_bytes": 20357120,
+        "group_rows_H2D_logical_bytes": 760032,
+        "group_rows_host_hash_logical_bytes": 760032
+      },
+      "wall_seconds": 27.192569453269243,
+      "outer_seconds": 28.03934869170189,
+      "gpu_peak_reserved_bytes": 18654167040,
+      "gpu_peak_physical_used_MiB": 440,
+      "host_peak_rss_bytes": 1628000256,
+      "monitor_violations": 0,
+      "precision": {
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu_name": "NVIDIA A100 80GB PCIe",
+        "tf32": false,
+        "bf16_reduced_precision_reduction": true,
+        "float32_matmul_precision": "highest"
+      },
+      "logical_read_budgets": {
+        "checkpoint_hash_bytes": 28577915880,
+        "operand_file_hash_bytes": 3048256160,
+        "header_and_parent_hash_bytes": 71867,
+        "checkpoint_tensor_logical_bytes": 141568000,
+        "operand_tensor_logical_bytes": 2399684608,
+        "backend_hash_bytes": 1492018002,
+        "environment_logical_bytes": 24189351,
+        "source_hash_bytes": 167949,
+        "physical_disk_reads": "UNKNOWN",
+        "startup_worker_source_extra_bytes": 2562
+      },
+      "hash_accounting": {
+        "source_hash_predebit_bytes": 167949,
+        "source_hash_completed_bytes": 167949,
+        "source_hash_inflight": "NONE",
+        "backend_hash_predebit_bytes": 1492018002,
+        "backend_hash_completed_bytes": 1492018002,
+        "backend_hash_inflight": "NONE",
+        "environment_predebit_bytes": 24189351,
+        "environment_completed_bytes": 24189351,
+        "environment_inflight": "NONE",
+        "environment_metadata_discovery_bytes": "UNKNOWN_ADDITIONAL"
+      }
+    },
+    {
+      "part": 1,
+      "source": 898,
+      "steps": [
+        2,
+        3
+      ],
+      "expert": "low",
+      "protocol_sha256": "76b8ae8429ae1ca64621605830ca1f0fc8c21769ebe13e3e876fd4757540cf55",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_raster_group_oracle_20261030/part1/attempt1/worker/results/RUN.json",
+        "bytes": 12765,
+        "sha256": "9c2a3bda5d459da42d4f7c71b74eaea63aed94f1eb2b3d3b747f97f2b93f331d"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_raster_group_oracle_20261030/part1/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 537,
+        "sha256": "fe0e6a68cf3ef42f15f0f338eb6c24eaec46f01fad8f91e3d80e149342bdd38a"
+      },
+      "arms": {
+        "global": {
+          "group_count": 1,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "e74ec52dc913d00cf885dbb0ea2edac6a8c71e72da6b9d1067755cade0b9531d",
+          "indices_sha256": "0d7f92a82332d111e42d8bdf7adbc795170957badfbf9602d5c4dc88cc08c518",
+          "gated_relative_l2": 0.25119027495384216,
+          "delta_h_energy_capture": 0.5702280076436972
+        },
+        "raster": {
+          "group_count": 248,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "e74ec52dc913d00cf885dbb0ea2edac6a8c71e72da6b9d1067755cade0b9531d",
+          "indices_sha256": "707efba87635c206cca21c308b1cbaeecdc8e40b5c1cab5693662efad2715b10",
+          "gated_relative_l2": 0.22884906828403473,
+          "delta_h_energy_capture": 0.6421806427673726
+        },
+        "random": {
+          "group_count": 248,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "53083925dedfb58d82663d9c1175ae3144b47c74cdab3d2573c00ec18fee3beb",
+          "indices_sha256": "e104df3138f3992798b4bcd2421804792f81a51654cade5fee5e6342f6551ed4",
+          "gated_relative_l2": 0.2422972023487091,
+          "delta_h_energy_capture": 0.5991567890792696
+        }
+      },
+      "same_device_w2_replay_vs_captured": {
+        "old_y_relative_l2_to_captured": 0.00015489735233131796,
+        "new_y_relative_l2_to_captured": 0.00015495398838538677
+      },
+      "full_delta_reconstruction_gated_relative_l2": 0.0033409183379262686,
+      "zero_update_gated_relative_l2": 0.39460551738739014,
+      "timings": {
+        "checkpoint_hash": {
+          "wall_seconds_including_sync": 18.513407114893198
+        },
+        "weights_load": {
+          "wall_seconds_including_sync": 0.02487066388130188
+        },
+        "old_h": {
+          "wall_seconds_including_sync": 0.12949692457914352
+        },
+        "new_h": {
+          "wall_seconds_including_sync": 0.1267480105161667
+        },
+        "old_Y": {
+          "wall_seconds_including_sync": 0.048058025538921356
+        },
+        "new_Y": {
+          "wall_seconds_including_sync": 0.048364341259002686
+        },
+        "gate": {
+          "wall_seconds_including_sync": 0.0003550685942173004
+        },
+        "replay_old_W2": {
+          "wall_seconds_including_sync": 0.12295150384306908
+        },
+        "replay_new_W2": {
+          "wall_seconds_including_sync": 0.016494330018758774
+        },
+        "target_gate": {
+          "wall_seconds_including_sync": 0.0008198320865631104
+        },
+        "replay_metrics": {
+          "wall_seconds_including_sync": 0.04569847881793976
+        },
+        "full_delta": {
+          "wall_seconds_including_sync": 0.009753499180078506
+        },
+        "total_energy": {
+          "wall_seconds_including_sync": 0.03050003945827484
+        },
+        "full_delta_projection": {
+          "wall_seconds_including_sync": 0.020461946725845337
+        },
+        "full_metrics": {
+          "wall_seconds_including_sync": 0.006646841764450073
+        },
+        "selection_global": {
+          "wall_seconds_including_sync": 0.047024909406900406
+        },
+        "projection_global": {
+          "wall_seconds_including_sync": 0.019709475338459015
+        },
+        "metrics_global": {
+          "wall_seconds_including_sync": 0.006710365414619446
+        },
+        "selection_raster": {
+          "wall_seconds_including_sync": 0.09821236506104469
+        },
+        "projection_raster": {
+          "wall_seconds_including_sync": 0.019683487713336945
+        },
+        "metrics_raster": {
+          "wall_seconds_including_sync": 0.006707530468702316
+        },
+        "selection_random": {
+          "wall_seconds_including_sync": 0.09813186898827553
+        },
+        "projection_random": {
+          "wall_seconds_including_sync": 0.019832994788885117
+        },
+        "metrics_random": {
+          "wall_seconds_including_sync": 0.006687011569738388
+        },
+        "zero_metrics": {
+          "wall_seconds_including_sync": 0.007290050387382507
+        }
+      },
+      "counts": {
+        "parent_hash": 4,
+        "header_hash": 2,
+        "operand_file_hash": 8,
+        "checkpoint_hash": 1,
+        "checkpoint_tensor_load": 1,
+        "checkpoint_finite": 1,
+        "operand_tensor_load": 5,
+        "operand_finite": 1,
+        "dense_w2": 6,
+        "gate_reference": 1,
+        "metrics": 6,
+        "full_delta": 1,
+        "energy": 1,
+        "selection": 3,
+        "score_sort_groups": 497,
+        "indices_D2H_logical_bytes": 20357120,
+        "group_rows_H2D_logical_bytes": 760032,
+        "group_rows_host_hash_logical_bytes": 760032
+      },
+      "wall_seconds": 26.83722135797143,
+      "outer_seconds": 27.533677492290735,
+      "gpu_peak_reserved_bytes": 18654167040,
+      "gpu_peak_physical_used_MiB": 1829,
+      "host_peak_rss_bytes": 1627840512,
+      "monitor_violations": 0,
+      "precision": {
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu_name": "NVIDIA A100 80GB PCIe",
+        "tf32": false,
+        "bf16_reduced_precision_reduction": true,
+        "float32_matmul_precision": "highest"
+      },
+      "logical_read_budgets": {
+        "checkpoint_hash_bytes": 28577915880,
+        "operand_file_hash_bytes": 3048256160,
+        "header_and_parent_hash_bytes": 71865,
+        "checkpoint_tensor_logical_bytes": 141568000,
+        "operand_tensor_logical_bytes": 2399684608,
+        "backend_hash_bytes": 1492018002,
+        "environment_logical_bytes": 24189351,
+        "source_hash_bytes": 167949,
+        "physical_disk_reads": "UNKNOWN",
+        "startup_worker_source_extra_bytes": 2562
+      },
+      "hash_accounting": {
+        "source_hash_predebit_bytes": 167949,
+        "source_hash_completed_bytes": 167949,
+        "source_hash_inflight": "NONE",
+        "backend_hash_predebit_bytes": 1492018002,
+        "backend_hash_completed_bytes": 1492018002,
+        "backend_hash_inflight": "NONE",
+        "environment_predebit_bytes": 24189351,
+        "environment_completed_bytes": 24189351,
+        "environment_inflight": "NONE",
+        "environment_metadata_discovery_bytes": "UNKNOWN_ADDITIONAL"
+      }
+    },
+    {
+      "part": 2,
+      "source": 96,
+      "steps": [
+        0,
+        1
+      ],
+      "expert": "high",
+      "protocol_sha256": "f52308eedc7ecb3a0856411d9b1f2a2c67f5e4b080c77dc1aa9f332d5f7e401b",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_raster_group_oracle_20261030/part2/attempt1/worker/results/RUN.json",
+        "bytes": 12762,
+        "sha256": "aed59dc1db891823a19ff4ce9c6a6f597ee84240b2465c3bfbed62810b00dd99"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_raster_group_oracle_20261030/part2/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 537,
+        "sha256": "20038cb918996d42b084d59cb001fcf93f9e1ce9654e3aaf2388fe4b9d6290f6"
+      },
+      "arms": {
+        "global": {
+          "group_count": 1,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "e74ec52dc913d00cf885dbb0ea2edac6a8c71e72da6b9d1067755cade0b9531d",
+          "indices_sha256": "bd4dcb960c9b33aad97a3ff4d2cdc1a8af37f5a83e02860883ef3eb75e0e0573",
+          "gated_relative_l2": 0.35199353098869324,
+          "delta_h_energy_capture": 0.5920036493756884
+        },
+        "raster": {
+          "group_count": 248,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "e74ec52dc913d00cf885dbb0ea2edac6a8c71e72da6b9d1067755cade0b9531d",
+          "indices_sha256": "72c8bf54b1ef0d95813573a0e4a799423f9aeae74fc30e8b65afea51970caefd",
+          "gated_relative_l2": 0.3136219382286072,
+          "delta_h_energy_capture": 0.6671935550209944
+        },
+        "random": {
+          "group_count": 248,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "53083925dedfb58d82663d9c1175ae3144b47c74cdab3d2573c00ec18fee3beb",
+          "indices_sha256": "b865a933db8a2c2a87296c5ecb93b40e635ac662bb498644aebd8a91128d6058",
+          "gated_relative_l2": 0.3396766185760498,
+          "delta_h_energy_capture": 0.6215253403073379
+        }
+      },
+      "same_device_w2_replay_vs_captured": {
+        "old_y_relative_l2_to_captured": 0.0001518393837613985,
+        "new_y_relative_l2_to_captured": 0.00015279543003998697
+      },
+      "full_delta_reconstruction_gated_relative_l2": 0.003267088206484914,
+      "zero_update_gated_relative_l2": 0.6545072197914124,
+      "timings": {
+        "checkpoint_hash": {
+          "wall_seconds_including_sync": 18.591650113463402
+        },
+        "weights_load": {
+          "wall_seconds_including_sync": 0.027075771242380142
+        },
+        "old_h": {
+          "wall_seconds_including_sync": 0.13050193712115288
+        },
+        "new_h": {
+          "wall_seconds_including_sync": 0.12480035796761513
+        },
+        "old_Y": {
+          "wall_seconds_including_sync": 0.04803751781582832
+        },
+        "new_Y": {
+          "wall_seconds_including_sync": 0.0460829958319664
+        },
+        "gate": {
+          "wall_seconds_including_sync": 0.00035727769136428833
+        },
+        "replay_old_W2": {
+          "wall_seconds_including_sync": 0.12118151783943176
+        },
+        "replay_new_W2": {
+          "wall_seconds_including_sync": 0.015975743532180786
+        },
+        "target_gate": {
+          "wall_seconds_including_sync": 0.0007927864789962769
+        },
+        "replay_metrics": {
+          "wall_seconds_including_sync": 0.046027470380067825
+        },
+        "full_delta": {
+          "wall_seconds_including_sync": 0.010514862835407257
+        },
+        "total_energy": {
+          "wall_seconds_including_sync": 0.030810829252004623
+        },
+        "full_delta_projection": {
+          "wall_seconds_including_sync": 0.019975610077381134
+        },
+        "full_metrics": {
+          "wall_seconds_including_sync": 0.006816636770963669
+        },
+        "selection_global": {
+          "wall_seconds_including_sync": 0.04730554670095444
+        },
+        "projection_global": {
+          "wall_seconds_including_sync": 0.01936754584312439
+        },
+        "metrics_global": {
+          "wall_seconds_including_sync": 0.006768453866243362
+        },
+        "selection_raster": {
+          "wall_seconds_including_sync": 0.09778235852718353
+        },
+        "projection_raster": {
+          "wall_seconds_including_sync": 0.019494328647851944
+        },
+        "metrics_raster": {
+          "wall_seconds_including_sync": 0.006730344146490097
+        },
+        "selection_random": {
+          "wall_seconds_including_sync": 0.09744132310152054
+        },
+        "projection_random": {
+          "wall_seconds_including_sync": 0.019583243876695633
+        },
+        "metrics_random": {
+          "wall_seconds_including_sync": 0.006735313683748245
+        },
+        "zero_metrics": {
+          "wall_seconds_including_sync": 0.007402535527944565
+        }
+      },
+      "counts": {
+        "parent_hash": 4,
+        "header_hash": 2,
+        "operand_file_hash": 8,
+        "checkpoint_hash": 1,
+        "checkpoint_tensor_load": 1,
+        "checkpoint_finite": 1,
+        "operand_tensor_load": 5,
+        "operand_finite": 1,
+        "dense_w2": 6,
+        "gate_reference": 1,
+        "metrics": 6,
+        "full_delta": 1,
+        "energy": 1,
+        "selection": 3,
+        "score_sort_groups": 497,
+        "indices_D2H_logical_bytes": 20357120,
+        "group_rows_H2D_logical_bytes": 760032,
+        "group_rows_host_hash_logical_bytes": 760032
+      },
+      "wall_seconds": 26.920336049050093,
+      "outer_seconds": 27.636417768895626,
+      "gpu_peak_reserved_bytes": 18654167040,
+      "gpu_peak_physical_used_MiB": 1829,
+      "host_peak_rss_bytes": 1628717056,
+      "monitor_violations": 0,
+      "precision": {
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu_name": "NVIDIA A100 80GB PCIe",
+        "tf32": false,
+        "bf16_reduced_precision_reduction": true,
+        "float32_matmul_precision": "highest"
+      },
+      "logical_read_budgets": {
+        "checkpoint_hash_bytes": 28577915880,
+        "operand_file_hash_bytes": 3048256160,
+        "header_and_parent_hash_bytes": 71825,
+        "checkpoint_tensor_logical_bytes": 141568000,
+        "operand_tensor_logical_bytes": 2399684608,
+        "backend_hash_bytes": 1492018002,
+        "environment_logical_bytes": 24189351,
+        "source_hash_bytes": 167949,
+        "physical_disk_reads": "UNKNOWN",
+        "startup_worker_source_extra_bytes": 2562
+      },
+      "hash_accounting": {
+        "source_hash_predebit_bytes": 167949,
+        "source_hash_completed_bytes": 167949,
+        "source_hash_inflight": "NONE",
+        "backend_hash_predebit_bytes": 1492018002,
+        "backend_hash_completed_bytes": 1492018002,
+        "backend_hash_inflight": "NONE",
+        "environment_predebit_bytes": 24189351,
+        "environment_completed_bytes": 24189351,
+        "environment_inflight": "NONE",
+        "environment_metadata_discovery_bytes": "UNKNOWN_ADDITIONAL"
+      }
+    },
+    {
+      "part": 3,
+      "source": 96,
+      "steps": [
+        2,
+        3
+      ],
+      "expert": "low",
+      "protocol_sha256": "5009707bb6d86dd54ffa5ed7fc18b66986c392ae3e888016f80c491ecdddc11f",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_raster_group_oracle_20261030/part3/attempt1/worker/results/RUN.json",
+        "bytes": 12762,
+        "sha256": "475b93c6ced05b5e3e2a506681877be4be9f3b44c1e98fbd1ac484941317bc1d"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_raster_group_oracle_20261030/part3/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 536,
+        "sha256": "c27cf34e82b5a48aceb1f9bf4788e0468af4c8b71db9135642cc1540cf7a75f7"
+      },
+      "arms": {
+        "global": {
+          "group_count": 1,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "e74ec52dc913d00cf885dbb0ea2edac6a8c71e72da6b9d1067755cade0b9531d",
+          "indices_sha256": "69a9064b75160337790aceb4c853dfdc900cc394f1f6354d5f36851c633956b9",
+          "gated_relative_l2": 0.2463371306657791,
+          "delta_h_energy_capture": 0.5640470143929279
+        },
+        "raster": {
+          "group_count": 248,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "e74ec52dc913d00cf885dbb0ea2edac6a8c71e72da6b9d1067755cade0b9531d",
+          "indices_sha256": "eafeb0f1d349ad350084147ecb194c578dba6c451c2dcfeda5daa8544e095be2",
+          "gated_relative_l2": 0.22598659992218018,
+          "delta_h_energy_capture": 0.6282447202019381
+        },
+        "random": {
+          "group_count": 248,
+          "selected_elements": 162140160,
+          "row_groups_sha256": "53083925dedfb58d82663d9c1175ae3144b47c74cdab3d2573c00ec18fee3beb",
+          "indices_sha256": "5136b89ff68fec01b9c001d341a1fabfce126299d05da5bdabba8a1884b38a1d",
+          "gated_relative_l2": 0.23602105677127838,
+          "delta_h_energy_capture": 0.5950137743959415
+        }
+      },
+      "same_device_w2_replay_vs_captured": {
+        "old_y_relative_l2_to_captured": 0.00015099019219633192,
+        "new_y_relative_l2_to_captured": 0.00015224376693367958
+      },
+      "full_delta_reconstruction_gated_relative_l2": 0.003377837361767888,
+      "zero_update_gated_relative_l2": 0.383165180683136,
+      "timings": {
+        "checkpoint_hash": {
+          "wall_seconds_including_sync": 18.823844201862812
+        },
+        "weights_load": {
+          "wall_seconds_including_sync": 0.02604534849524498
+        },
+        "old_h": {
+          "wall_seconds_including_sync": 0.13232500106096268
+        },
+        "new_h": {
+          "wall_seconds_including_sync": 0.12407709658145905
+        },
+        "old_Y": {
+          "wall_seconds_including_sync": 0.04645060747861862
+        },
+        "new_Y": {
+          "wall_seconds_including_sync": 0.046365611255168915
+        },
+        "gate": {
+          "wall_seconds_including_sync": 0.00036416947841644287
+        },
+        "replay_old_W2": {
+          "wall_seconds_including_sync": 0.12432224676012993
+        },
+        "replay_new_W2": {
+          "wall_seconds_including_sync": 0.016333039849996567
+        },
+        "target_gate": {
+          "wall_seconds_including_sync": 0.0007976442575454712
+        },
+        "replay_metrics": {
+          "wall_seconds_including_sync": 0.04626650735735893
+        },
+        "full_delta": {
+          "wall_seconds_including_sync": 0.009753838181495667
+        },
+        "total_energy": {
+          "wall_seconds_including_sync": 0.030391957610845566
+        },
+        "full_delta_projection": {
+          "wall_seconds_including_sync": 0.02027619257569313
+        },
+        "full_metrics": {
+          "wall_seconds_including_sync": 0.006692461669445038
+        },
+        "selection_global": {
+          "wall_seconds_including_sync": 0.06456183269619942
+        },
+        "projection_global": {
+          "wall_seconds_including_sync": 0.019701294600963593
+        },
+        "metrics_global": {
+          "wall_seconds_including_sync": 0.006626807153224945
+        },
+        "selection_raster": {
+          "wall_seconds_including_sync": 0.09784907102584839
+        },
+        "projection_raster": {
+          "wall_seconds_including_sync": 0.019660376012325287
+        },
+        "metrics_raster": {
+          "wall_seconds_including_sync": 0.00661906972527504
+        },
+        "selection_random": {
+          "wall_seconds_including_sync": 0.09759871289134026
+        },
+        "projection_random": {
+          "wall_seconds_including_sync": 0.01976747065782547
+        },
+        "metrics_random": {
+          "wall_seconds_including_sync": 0.006624672561883926
+        },
+        "zero_metrics": {
+          "wall_seconds_including_sync": 0.007252786308526993
+        }
+      },
+      "counts": {
+        "parent_hash": 4,
+        "header_hash": 2,
+        "operand_file_hash": 8,
+        "checkpoint_hash": 1,
+        "checkpoint_tensor_load": 1,
+        "checkpoint_finite": 1,
+        "operand_tensor_load": 5,
+        "operand_finite": 1,
+        "dense_w2": 6,
+        "gate_reference": 1,
+        "metrics": 6,
+        "full_delta": 1,
+        "energy": 1,
+        "selection": 3,
+        "score_sort_groups": 497,
+        "indices_D2H_logical_bytes": 20357120,
+        "group_rows_H2D_logical_bytes": 760032,
+        "group_rows_host_hash_logical_bytes": 760032
+      },
+      "wall_seconds": 27.166385058313608,
+      "outer_seconds": 27.83476260304451,
+      "gpu_peak_reserved_bytes": 18654167040,
+      "gpu_peak_physical_used_MiB": 439,
+      "host_peak_rss_bytes": 1627947008,
+      "monitor_violations": 0,
+      "precision": {
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu_name": "NVIDIA A100 80GB PCIe",
+        "tf32": false,
+        "bf16_reduced_precision_reduction": true,
+        "float32_matmul_precision": "highest"
+      },
+      "logical_read_budgets": {
+        "checkpoint_hash_bytes": 28577915880,
+        "operand_file_hash_bytes": 3048256160,
+        "header_and_parent_hash_bytes": 71823,
+        "checkpoint_tensor_logical_bytes": 141568000,
+        "operand_tensor_logical_bytes": 2399684608,
+        "backend_hash_bytes": 1492018002,
+        "environment_logical_bytes": 24189351,
+        "source_hash_bytes": 167949,
+        "physical_disk_reads": "UNKNOWN",
+        "startup_worker_source_extra_bytes": 2562
+      },
+      "hash_accounting": {
+        "source_hash_predebit_bytes": 167949,
+        "source_hash_completed_bytes": 167949,
+        "source_hash_inflight": "NONE",
+        "backend_hash_predebit_bytes": 1492018002,
+        "backend_hash_completed_bytes": 1492018002,
+        "backend_hash_inflight": "NONE",
+        "environment_predebit_bytes": 24189351,
+        "environment_completed_bytes": 24189351,
+        "environment_inflight": "NONE",
+        "environment_metadata_discovery_bytes": "UNKNOWN_ADDITIONAL"
+      }
+    }
+  ],
+  "source_expert_means": {
+    "898": {
+      "global": {
+        "gated_relative_l2": 0.3232341557741165,
+        "delta_h_energy_capture": 0.5718643490412922
+      },
+      "raster": {
+        "gated_relative_l2": 0.29096194356679916,
+        "delta_h_energy_capture": 0.6479075499416524
+      },
+      "random": {
+        "gated_relative_l2": 0.31318625807762146,
+        "delta_h_energy_capture": 0.601106908922977
+      }
+    },
+    "96": {
+      "global": {
+        "gated_relative_l2": 0.2991653308272362,
+        "delta_h_energy_capture": 0.5780253318843082
+      },
+      "raster": {
+        "gated_relative_l2": 0.2698042690753937,
+        "delta_h_energy_capture": 0.6477191376114663
+      },
+      "random": {
+        "gated_relative_l2": 0.2878488376736641,
+        "delta_h_energy_capture": 0.6082695573516397
+      }
+    }
+  },
+  "source_equal_mean": {
+    "global": {
+      "gated_relative_l2": 0.31119974330067635,
+      "delta_h_energy_capture": 0.5749448404628001
+    },
+    "raster": {
+      "gated_relative_l2": 0.2803831063210964,
+      "delta_h_energy_capture": 0.6478133437765594
+    },
+    "random": {
+      "gated_relative_l2": 0.3005175478756428,
+      "delta_h_energy_capture": 0.6046882331373084
+    }
+  },
+  "limits": "Full-delta reference measures same-path numerical reconstruction floor. Index copies and group operations are predebited; actual physical bus traffic and mmap reads UNKNOWN. CUDA allocator peak and synchronized host timings are not fair end-to-end system speed."
+}
