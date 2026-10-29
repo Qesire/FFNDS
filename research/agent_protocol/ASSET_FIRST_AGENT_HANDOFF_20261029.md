@@ -1,6 +1,6 @@
 # FFNDS · 开放式证据驱动的统一Agent交接与研究队列
 
-**2026-10-29 用户追加：每次新实验执行前必须重新独立评议实验本身，并建立免大训练的成功 FFN 稀疏正向基线。** 见[强制实验复审/重核协议](EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)和[独立路线评议、Chipmunk/TEAL 作者复现与Wan迁移](../20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。首先审提出的本次实验是否真的区分竞争机制、物理算子/数据/成本与原作一致；由真实不同 Agent 反对式复审、主Agent修订、recheck 才能冻结 ACTIVE。**P0 新基线科学队列**：B1 Chipmunk MLP-only 作者源码忠实复现与四步 Wan2.2 transfer 分scope；B2 TEAL GELU FFN 输入稀疏与postGELU W2稀疏分scope；Prox/FIS当前是先例/候选而非已经复现。B1/B2 尚无原生 RUN、无同行批准、无真实新视频；现有 S1–S4 和 S2 因果工作保持并行，不再以一个负例将研究束缚。
+**2026-10-29 用户追加：每次新实验执行前必须重新独立评议实验本身，并建立免大训练的成功 FFN 稀疏正向基线。** **可执行研究任务：[Issue #56](https://github.com/Qesire/FFNDS/issues/56)。** 见[强制实验复审/重核协议](EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)和[独立路线评议、Chipmunk/TEAL 作者复现与Wan迁移](../20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。首先审提出的本次实验是否真的区分竞争机制、物理算子/数据/成本与原作一致；由真实不同 Agent 反对式复审、主Agent修订、recheck 才能冻结 ACTIVE。**P0 新基线科学队列**：B1 Chipmunk MLP-only 作者源码忠实复现与四步 Wan2.2 transfer 分scope；B2 TEAL GELU FFN 输入稀疏与postGELU W2稀疏分scope；Prox/FIS当前是先例/候选而非已经复现。B1/B2 尚无原生 RUN、无同行批准、无真实新视频；现有 S1–S4 和 S2 因果工作保持并行，不再以一个负例将研究束缚。
 
 
 
