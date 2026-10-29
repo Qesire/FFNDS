@@ -1,0 +1,7 @@
+# Independent quality scope review
+
+Reviewer /root/asset_readiness_terra; author /root/teal_full_llm_calibration_build_terra. The first two actual native parents and independent typed verifiers exited 0; three phase0/3/4 videos per source are bound. Cache-Dense duplicate videos do not add samples. Per source the official scope has eight dimensions and 24 clip results, inline RAFT 120 forwards; separate continuous RAFT has 120 forwards and five windows per clip; visual decodes three 81-frame videos into six pages. Sources 898 and 96 are exposed, one seed per image, with source as independent unit. Neither official five-sample nor human acceptance is implied.
+
+Earlier review found the inherited visual final page-identity gate required two pages instead of six, and quality CLI rejected shards 2 and 3. Both were corrected; actual verifier six-page/hardlink and CLI parser fixtures are included. Real metadata entry fixtures reject missing authorization and bad parent exit/SHA/spec. The instrumentation covers bound whole-file hashes with finite budgets, while nested lineage metadata and model-internal/physical reads remain UNKNOWN; worker output is sampled. Independent quality verifiers have separately authorized bounded jobs. No scoring, frame decoding or GPU was performed in this review.
+
+Counterexamples: a parent may fail or drift in identity before scoring, a model loader may fail within its fixed budget, and frame sheets can miss temporal artifacts or cannot establish human acceptance. None of these is assumed away by the proposed fixed scope.

@@ -1,0 +1,3 @@
+# Exact recheck: first two sources
+
+Reviewer /root/asset_readiness_terra. APPROVE the six materialized scopes and six independent verifiers for registration. Their parent native RUN/EXIT and verifier RUN/EXIT SHA and actual zero exits were checked, along with all six protocol SHA, bound source SHA and sixteen private job SHA. Fifteen tiny CPU tests passed, including the visual page uniqueness and four-part CLI corrections and actual failure-entry fixtures. Parent models and scores were not executed in this review. Exact GPU and current concurrency must be checked at registration; remaining sources need their own closed parents and exact review.

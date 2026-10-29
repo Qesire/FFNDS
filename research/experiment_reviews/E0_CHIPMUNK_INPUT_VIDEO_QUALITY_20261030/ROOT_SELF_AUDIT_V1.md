@@ -1,0 +1,15 @@
+# Root self-audit: four-source input-state quality, first two closed parents
+
+Coordinator /root. This is a self-audit and does not provide independent approval.
+
+The native parents for source ordinals 898 and 96 have actual GPU EXIT0 and separately supervised 57-artifact typed verification EXIT0. Each five-phase run includes fresh same-device A100 NONE, H-cache Dense, X-cache Dense, readonly-H P64 and old-input recomputation P64. Both cache-Dense videos and ten state files per arm equal current NONE byte for byte; readonly-H also reproduces the corresponding prior HIGH candidate. Source images, the camera-pan prompt suffix, seed42 and parent receipt identity remain intact.
+
+The six materialized protocols evaluate phases 0,3,4 only: quality and continuous RAFT each assign one source to one GPU, and CPU visual uses no GPU. The first pair will run on idle devices 0/1 while source1040/979 complete-model producers use devices2/3. Globally at most4 assigned GPUs and at most2 simultaneous complete-model processes on this host. Native task allocation and quality task allocation must be charged together. A later four-source result is four exposed development images at one seed, without heldout or human acceptance.
+
+Per source the original eight metric functions produce24 per-video results. Inline dynamic-degree RAFT consumes120 forwards,20 iterations each; a separately registered continuous RAFT scope also consumes120 forwards and20 iterations, with40 stride2 pairs per video. Separate CPU visual decodes243 frames, writes6 pages and makes no model calls. The three scopes and their independent output verifiers have exact job SHA, finite wall/output/read limits and no retries. Actual producer EXIT0 is required before separately registering its independent verifier. Supervisors, code hashes and model/video sources are frozen before registration; a source or job change requires a new version.
+
+Root reproduced the 15 CPU metadata tests. Review found and fixed a stale two-page total in the three-video visual verifier and a two-source CLI parser restriction. Real entry negative cases cover absent ACTIVE, nonzero actual parent EXIT, wrong parent RUN SHA/spec and six-page hardlink aliases. Synthetic metadata fixtures are software checks, not native evidence.
+
+Known SHA inputs are1446 files (~3.56GB) for each quality preflight,1418 (~243MB) for RAFT and1158 (~219MB) for visual. Exact byte counts and repeated video/image hash calls are in each protocol; the runtime per-file predebit ledger and output verifier remain mandatory. Nested parent metadata verification and model-loader internal physical I/O are separately UNKNOWN; output/hash limits that use sampled enforcement are labeled SOFT. No fixed83-file claim applies. Contact sheets require separate actual image review and do not imply continuous playback.
+
+The new native FFN observations already show H and X slower than NONE under the current paid observers. Quality measurement tests whether reducing logical cache44.70 to24.23GiB retains the actual videos; it cannot establish a speed improvement. Cache-boundary live-memory samples and cumulative peaks must remain separate.
