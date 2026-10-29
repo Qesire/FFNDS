@@ -26,7 +26,7 @@ description: Apply AutoResearcher science to independent information, function/d
 
 原生基础：LightX2V Wan2.2 I2V A14B四步high/high/low/low，两套expert、每套40 blocks；`norm2/AdaLN→Q1→W1→GELU(tanh)→HiF4 Q2(64→8→4)→W2→e5 gated BF16 residual→downstream flow`。当前原生实现为fake-QDQ＋BF16 GEMM，新的packed NVFP4/MXFP4属于需要另验证的算子路径。
 
-**资源调度（2026-10-28最新指令）**：按[现行动态GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际可申请并运行的最多GPU；没有预设全局张数限制。旧2/4卡可属于历史实验的冻结字段；新scope按实际可调度量和ACTIVE冻结模型/来源/预算；不要凭旧上限拒绝并行的独立已注册工作。
+**资源调度（2026-10-29执行记录复核）**：按[现行GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)，优先遵循**当前适用会话与原生RUN的冻结GPU预算**。已记录VIDEO20等scope `session_max_GPUs=2`，这些实验会话最多同时两GPU，单job通常1GPU；在适用上限内使用真实可调度且有用的最大资源。无预设**通用默认**上限不等于可覆盖两卡有效记录。需改并发上限必须先获得更高优先级授权并登记新的有限scope/协议，保留旧收据。
 
 **M-B后缀与末层诊断专题**：复用B0/CAL24/B-H/A0/B-F和Affine54既有证据，研究自然函数承担、下游读出及分子/分母竞争机制。该专题可主动提出新的全深度函数结构；不会成为S1/S2/S3/S4的串行前置。任何自称部署可用的方法都必须提供真实4步×40层学生自由生成、多来源Dense配对视频及完整执行账本；仅数学、源码或teacher-state阶段则先提交与最强解释相反的可测预测。
 
