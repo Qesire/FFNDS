@@ -1,0 +1,25 @@
+"""Byte-only six-scope planning template. Never launch or bind hypothetical video bytes."""
+import hashlib,json,pathlib
+ROOT=pathlib.Path(__file__).resolve().parents[1]
+SOURCES=(898,96);MODES=('original_dense','global_p64')
+KINDS=('quality','raft','visual')
+FILES=('tools/e0_sharq_wan_full_quality.py','tools/e0_sharq_wan_continuous_raft.py','tools/e0_sharq_wan_visual_cpu.py','tools/e0_sharq_wan_metric_adapter.py','tools/e0_sharq_wan_quality_lineage.py','tools/e0_sharq_wan_metric_verify.py','tools/e0_teal_wan_full_quality_v3.py','tools/e0_teal_wan_motion_metrics_v3.py','tools/chipmunk_wan_global_p64_driver.py','tools/chipmunk_wan_global_p64_tap.py','tools/e0_chipmunk_wan_global_p64_owner.py')
+def source_binding(path):
+ p=ROOT/path
+ if not p.is_file():return {'path':path,'status':'NOT_BOUND_SOURCE_PENDING'}
+ b=p.read_bytes();return {'path':path,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'status':'REFERENCE_ONLY_VERIFY_BEFORE_FREEZE'}
+def build():
+ costs={'imaging_quality':{'MUSIQ':162},'aesthetic_quality':{'CLIP_L14':6,'aesthetic_head':6},'motion_smoothness':{'AMT':80},'dynamic_degree':{'RAFT':80,'RAFT_iterations':1600},'subject_consistency':{'DINO':162},'background_consistency':{'CLIP_B32':2},'i2v_subject':{'DINO':164},'i2v_background':{'DreamSim_embed':164}}
+ resource={'quality':{'GPU':1,'CPU_threads':2,'wall_seconds':3600,'outer_seconds':3900,'new_HF_bytes':1073741824,'GPU_reserved_bytes':8589934592,'free_disk_bytes':10737418240},'raft':{'GPU':1,'CPU_threads':1,'wall_seconds':3600,'outer_seconds':3900,'new_HF_bytes':268435456,'GPU_reserved_bytes':8589934592,'free_disk_bytes':10737418240},'visual':{'GPU':0,'CPU_threads':2,'wall_seconds':300,'outer_seconds':600,'new_HF_bytes':33554432,'max_RSS_bytes':4294967296}}
+ limits={'quality':{'official_dimension_calls':8,'video_dimension_results':16,'RAFT_forwards':80,'RAFT_iterations':1600,'decoded_frames':162},'raft':{'dimension_calls':1,'video_results':2,'decoded_frames':162,'RAFT_forwards':80,'RAFT_iterations':1600},'visual':{'videos':2,'successful_decoded_frames':162,'eof_checks':2,'JPEG_pages':4,'model_calls':0,'GPU_calls':0,'RAFT_calls':0,'video_generations':0,'video_encodes':0}}
+ scopes=[]
+ for part,source in enumerate(SOURCES):
+  for kind in KINDS:
+   scopes.append({'id':f'E0_CHIPMUNK_GLOBAL_P64_{kind.upper()}_20261030_PART{part}','part':part,'source_ordinal':source,'seed':42,'kind':kind,'status':'NOT_BOUND_NOT_EXECUTABLE','assets_finalized':False,'parent_protocol':'PENDING_ACTUAL','parent_RUN':'PENDING_ACTUAL_EXIT0','parent_EXIT':'PENDING_ACTUAL_EXIT0','independent_verification_RUN':'PENDING_ACTUAL_EXIT0','independent_verification_EXIT':'PENDING_ACTUAL_EXIT0','clips':[{'mode':m,'video':'PENDING_ACTUAL_VIDEO_SHA_BYTES','run_id':'PENDING_ACTUAL','noise_identity':'PENDING_ACTUAL'} for m in MODES],'resources':resource[kind],'limits':limits[kind],'automatic_retry':False,'source_image_sha256':'PENDING_VERIFIED','recipe_and_model_identity':'PENDING_VERIFIED','exact_worker_and_job':'PENDING','review':'REQUIRED_AFTER_ACTUAL_BINDING','cpu_preflight':({'GPU':0,'CPU_threads':resource[kind]['CPU_threads'],'wall_seconds':900,'outer_seconds':1020} if kind!='visual' else 'NOT_SEPARATE'),'independent_output_verification':'REQUIRED_SEPARATE_REGISTERED_SCOPE','read_budget':{'per_phase_sha_bytes_max':17179869184,'journal_bytes_max':16777216,'worker_extra_bytes_max':67108864,'worker_extra_enforcement':'SOFT_SAMPLED_AT_SHA_EVENTS','actual_video_bytes_and_hash_calls':'PENDING_ACTUAL','metadata_and_internal_loader_reads':'UNKNOWN'} if kind!='visual' else {'actual_video_bytes_and_hash_calls':'PENDING_ACTUAL','verification_read_limit':'PENDING_EXACT'} ,**({'dimension_costs':costs,'dimensions':list(costs)} if kind=='quality' else {}),**({'sampling':{'fps':16,'frame_stride':2,'pairs_per_video':40,'iterations_per_pair':20}} if kind=='raft' else {})})
+ return {'schema':'ffnds.chipmunk.global_p64.quality.planning.v1','status':'DRAFT_NOT_EXECUTABLE','scopes':scopes,'reference_sources':[source_binding(p) for p in FILES],'explicit_constraints':['Fresh actual original_dense and global_p64 videos only; never use old video as a new sample.','hook_dense/cache_dense excluded after independent byte-neutral verification.','Source-level analysis: two exposed development sources, one seed per source; not official five-sample or confirmation.','Official 8 axes plus separately run stride-2 continuous RAFT; static flicker and camera motion not assessed.','No GPU scope before four-phase native generation and independent artifact verification actually EXIT0.','All outputs, policies, model environment, worker and exact jobs must be rebound and independently reviewed before registration.']}
+def main():
+ import argparse
+ p=argparse.ArgumentParser();p.add_argument('--out',type=pathlib.Path,required=True);a=p.parse_args();out=a.out.resolve()
+ if not out.is_relative_to((ROOT/'.runtime/chipmunk_p64_quality_20261030').resolve()) or out.exists():raise ValueError('fresh private draft path required')
+ out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(build(),indent=2)+'\n');print('DRAFT_NOT_EXECUTABLE')
+if __name__=='__main__':main()

@@ -1,0 +1,7 @@
+# Independent exact recheck: P64 quality scopes
+
+Disposition: APPROVE for the six bound scopes and their separate verifier scopes, subject to root registration, actual CPU preflight, resource availability, and separately supervised EXIT0. Reviewer `/root/teal_full_llm_calibration_build_terra`; author `/root/asset_readiness_terra`.
+
+The corrected visual validate checks the frozen source path set and parent protocol metadata without calling draft or hashing the full closure. Actual source/input and Python-environment hashes occur after the HashReads guard; verifier uses the same corrected validate. Nested parent identity and small metadata reads remain explicitly UNKNOWN. The author responded in PREPARATION_DRAFT.md. The independent review checked six protocol and all 16 private job SHA/size bindings, verified 1,125 unique repository source bindings, job protocol/identity and isolation flags, and ran 16 focused CPU synthetic tests successfully. It checked two-arm labels, 81-frame/two-page per video visual checks, 40 stride-two RAFT pairs per video, parent/EXIT gates and separate verifier paths. It did not decode video, score metrics, access GPU, or run a scientific scope.
+
+This approval binds only the exact fingerprints, source hashes and job SHAs in the accompanying machine receipts. GPU availability and ACTIVE authorization are the scheduler's responsibility. Internal model-loader I/O and uninstrumented internal work remain UNKNOWN; sampled output limits are not continuous hard quotas. Quality results remain unevaluated.

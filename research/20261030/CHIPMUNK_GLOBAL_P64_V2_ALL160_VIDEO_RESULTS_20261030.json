@@ -1,0 +1,2731 @@
+{
+  "schema": "ffnds.chipmunk.global_p64_video_v2.results.v1",
+  "status": "TWO_SOURCE_ACTUAL_GPU_AND_VERIFY_EXIT0",
+  "identity": {
+    "sources": "two exposed development images, seed42; not heldout",
+    "videos_per_source": 4,
+    "video_phases": [
+      "original_dense",
+      "hook_dense",
+      "cache_dense",
+      "global_p64"
+    ],
+    "candidate": "student own step0/2 h and preGate Y cache, own step1/3 P64 selection and packed BF16 W1/W2; original current gate",
+    "attention_prefetch_and_other_model_paths": "original",
+    "allocator_policy": "four paid safe expert-boundary empty_cache calls per source; 76 GiB cumulative peak cap unchanged and no reset",
+    "timing": "fixed-order with cache, observer and sync costs; not a fair system-speed estimate",
+    "quality": "not yet measured/accepted; independent scoring required"
+  },
+  "cases": [
+    {
+      "part": 0,
+      "source": 898,
+      "seed": 42,
+      "protocol_sha256": "2f9a00897eed35184700e4ec415f1add68aad220242b887216a9563e84f5027d",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/RUN.json",
+        "bytes": 78153,
+        "sha256": "f02dfded1c4454b0a08df73114bc22348cc804b3df40c4c60469d921797112c0"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 536,
+        "sha256": "2c016aad63fd2cf18aa0b30caa577b1e42fbc0c186c8e64ead9cb4447e39771d"
+      },
+      "verification_RUN": {
+        "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/verification/worker/results/RUN.json",
+        "bytes": 1158,
+        "sha256": "de5d36957ee24fa21693ab22e81579f94d7df0bd4e84decd57c4442989c0cc61"
+      },
+      "verification_exit": {
+        "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/verification/worker/EXIT_RECEIPT.json",
+        "bytes": 543,
+        "sha256": "93a7d5285ca6142d43e071a8eacb75dd6177cb28efa4d8b2ed1eb2a3d7963aaf"
+      },
+      "phases": [
+        {
+          "run_id": "chipmunk_p64_v2_ord898_seed42_original_dense",
+          "mode": "original_dense",
+          "actual_full_FFN_sites": 160,
+          "logical_FFN_linear_dispatches": 320,
+          "wall_seconds_including_observers": 46.64633613452315,
+          "FFN_boundary_CUDA_seconds": 6.28894104385376,
+          "native_transfer_observations": 162,
+          "actual_dense_FFN_GEMMs": 320,
+          "actual_selected_W1_calls": 0,
+          "actual_selected_W2_calls": 0,
+          "actual_proxy_W1_calls": 0,
+          "observer_packed_W1_calls": 0,
+          "observer_packed_W2_calls": 0,
+          "cumulative_peak_GPU_allocated_bytes": 9890617856,
+          "cumulative_peak_GPU_reserved_bytes": 21908946944,
+          "original_prefetch": {
+            "calls": 162,
+            "requested_H2D_tensor_bytes": 113851754496,
+            "requested_D2D_tensor_bytes": 1296,
+            "original_W2_H2D_bytes": 22934016000,
+            "enqueue_wall_seconds": 0.07950984686613083,
+            "metadata_observer_wall_seconds": 0.03696201741695404,
+            "actual_physical_bus_bytes": "UNKNOWN"
+          },
+          "stages": [
+            {
+              "name": "run_input_encoder",
+              "step": null,
+              "wall_seconds": 3.3197896368801594,
+              "CUDA_seconds": 3.319736328125
+            },
+            {
+              "name": "run_vae_encoder",
+              "step": null,
+              "wall_seconds": 2.4221240133047104,
+              "CUDA_seconds": 2.422043701171875
+            },
+            {
+              "name": "infer",
+              "step": 0,
+              "wall_seconds": 8.9911477714777,
+              "CUDA_seconds": 8.9910419921875
+            },
+            {
+              "name": "infer",
+              "step": 1,
+              "wall_seconds": 8.621274791657925,
+              "CUDA_seconds": 8.6211708984375
+            },
+            {
+              "name": "infer",
+              "step": 2,
+              "wall_seconds": 8.674884509295225,
+              "CUDA_seconds": 8.674775390625
+            },
+            {
+              "name": "infer",
+              "step": 3,
+              "wall_seconds": 8.663558889180422,
+              "CUDA_seconds": 8.6634482421875
+            },
+            {
+              "name": "run_vae_decoder",
+              "step": null,
+              "wall_seconds": 3.5537415370345116,
+              "CUDA_seconds": 3.55365673828125
+            }
+          ],
+          "states": {
+            "raw_noise_FP32": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/raw_noise_FP32.safetensors",
+              "bytes": 8107096,
+              "sha256": "924fdc5b816e535f39c761633e0c0a33bb8c6d040d2d4289f2a5998ecb618227",
+              "raw_tensor_sha256": "3242709241cda0361478d30e37f6126baa4b7f15bcff14e971393bfb1fcbaec0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "initial_noise": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/initial_noise.safetensors",
+              "bytes": 4053592,
+              "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65",
+              "raw_tensor_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/flow_step0.safetensors",
+              "bytes": 8107096,
+              "sha256": "b4e9288386d35b5b11e30c29128eafce6ac1471ab0e93c05739f2a42b5fb97fc",
+              "raw_tensor_sha256": "f81dbc3de540290b9d806988cce0e414f64206568a2b22289538d4fbdecf4765",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/latent_step0.safetensors",
+              "bytes": 4053592,
+              "sha256": "72d41f804cb27d46aba6d8abd6dab334eb422f837c32970ef4e6f221709c6245",
+              "raw_tensor_sha256": "18f627cfcdba5492c7fe5c6df1128dfd4b1fce235771d28e09c7d29df508e7a4",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/flow_step1.safetensors",
+              "bytes": 8107096,
+              "sha256": "90945972f53195c446d4821f5a215a912ebe2cf21ff93da84626daaa9ea03a43",
+              "raw_tensor_sha256": "a03cfd2143ad5e96ec1de85a9a67b2d2b5d0c6738c5aad9f67b67e8962aa12f0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/latent_step1.safetensors",
+              "bytes": 4053592,
+              "sha256": "16b5afd43c64049752d4eb5827e9e1ca31aefba38d16143901906ef2aca22d6d",
+              "raw_tensor_sha256": "a5ae4ca706eba1b4a48adfa43b2d02c29ea9b583fcc2afec549283ccd7e38580",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/flow_step2.safetensors",
+              "bytes": 8107096,
+              "sha256": "b631f9f24f46a8bdbe7a0e5ba28e3364f4daf778bf483ac9f4fbc4f9c4a82f8a",
+              "raw_tensor_sha256": "6acf2bd83c3cf66ec2c216d413f8fa5e3bc19a035edd07253bf7d2cf738631d6",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/latent_step2.safetensors",
+              "bytes": 4053592,
+              "sha256": "ff65db5abb33e75465fe8f3afba75bb31712628ed6859086555e70d7af84d853",
+              "raw_tensor_sha256": "c7c13a60f927b4d44fbaf7745bc7e49cb9aa402e1945df6b570e35dc6c7397b7",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/flow_step3.safetensors",
+              "bytes": 8107096,
+              "sha256": "66984414e917ef4616efcf76de48c38abd4bc184c8a8b8b0b252158e8ead8687",
+              "raw_tensor_sha256": "6072f7f8921f62aa7dd57e6d36b458a75c0220f8bccaaaff47345fc6a4ede550",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/latent_step3.safetensors",
+              "bytes": 4053592,
+              "sha256": "9fd1d7bfd0095d911b1a7b5ab99353db1dab824d999dfd29d4e86e714c672bfd",
+              "raw_tensor_sha256": "4f530f9096e784b3eab6d585c330425c646a9af1b7e31430893e2b0abb43ab38",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            }
+          },
+          "video": {
+            "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_original_dense/output.mp4",
+            "bytes": 1530943,
+            "sha256": "eccccbf61eb9fc353e90f0cf713c09b085e1631d13d12558e35248dfceeafdac",
+            "frames": 81,
+            "fps": 16.0,
+            "size": [
+              832,
+              464
+            ]
+          }
+        },
+        {
+          "run_id": "chipmunk_p64_v2_ord898_seed42_hook_dense",
+          "mode": "hook_dense",
+          "actual_full_FFN_sites": 160,
+          "logical_FFN_linear_dispatches": 320,
+          "wall_seconds_including_observers": 45.299400359392166,
+          "FFN_boundary_CUDA_seconds": 6.370381832122803,
+          "native_transfer_observations": 162,
+          "actual_dense_FFN_GEMMs": 320,
+          "actual_selected_W1_calls": 0,
+          "actual_selected_W2_calls": 0,
+          "actual_proxy_W1_calls": 0,
+          "observer_packed_W1_calls": 0,
+          "observer_packed_W2_calls": 0,
+          "cumulative_peak_GPU_allocated_bytes": 10078237184,
+          "cumulative_peak_GPU_reserved_bytes": 21911044096,
+          "cache_peak_logical_bytes": 0,
+          "cache_creations": 0,
+          "cache_releases": 0,
+          "sparse_sites": 0,
+          "original_prefetch": {
+            "calls": 162,
+            "requested_H2D_tensor_bytes": 113851754496,
+            "requested_D2D_tensor_bytes": 1296,
+            "original_W2_H2D_bytes": 22934016000,
+            "enqueue_wall_seconds": 0.08243563771247864,
+            "metadata_observer_wall_seconds": 0.03732513636350632,
+            "actual_physical_bus_bytes": "UNKNOWN"
+          },
+          "stages": [
+            {
+              "name": "run_input_encoder",
+              "step": null,
+              "wall_seconds": 2.842256385833025,
+              "CUDA_seconds": 2.8421904296875
+            },
+            {
+              "name": "run_vae_encoder",
+              "step": null,
+              "wall_seconds": 2.284558307379484,
+              "CUDA_seconds": 2.2844765625
+            },
+            {
+              "name": "infer",
+              "step": 0,
+              "wall_seconds": 8.74503554776311,
+              "CUDA_seconds": 8.744923828125
+            },
+            {
+              "name": "infer",
+              "step": 1,
+              "wall_seconds": 8.772433914244175,
+              "CUDA_seconds": 8.77232421875
+            },
+            {
+              "name": "infer",
+              "step": 2,
+              "wall_seconds": 8.771916408091784,
+              "CUDA_seconds": 8.7718056640625
+            },
+            {
+              "name": "infer",
+              "step": 3,
+              "wall_seconds": 8.750359825789928,
+              "CUDA_seconds": 8.75024609375
+            },
+            {
+              "name": "run_vae_decoder",
+              "step": null,
+              "wall_seconds": 3.5608178935945034,
+              "CUDA_seconds": 3.560735595703125
+            }
+          ],
+          "states": {
+            "raw_noise_FP32": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/raw_noise_FP32.safetensors",
+              "bytes": 8107096,
+              "sha256": "924fdc5b816e535f39c761633e0c0a33bb8c6d040d2d4289f2a5998ecb618227",
+              "raw_tensor_sha256": "3242709241cda0361478d30e37f6126baa4b7f15bcff14e971393bfb1fcbaec0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "initial_noise": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/initial_noise.safetensors",
+              "bytes": 4053592,
+              "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65",
+              "raw_tensor_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/flow_step0.safetensors",
+              "bytes": 8107096,
+              "sha256": "b4e9288386d35b5b11e30c29128eafce6ac1471ab0e93c05739f2a42b5fb97fc",
+              "raw_tensor_sha256": "f81dbc3de540290b9d806988cce0e414f64206568a2b22289538d4fbdecf4765",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/latent_step0.safetensors",
+              "bytes": 4053592,
+              "sha256": "72d41f804cb27d46aba6d8abd6dab334eb422f837c32970ef4e6f221709c6245",
+              "raw_tensor_sha256": "18f627cfcdba5492c7fe5c6df1128dfd4b1fce235771d28e09c7d29df508e7a4",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/flow_step1.safetensors",
+              "bytes": 8107096,
+              "sha256": "90945972f53195c446d4821f5a215a912ebe2cf21ff93da84626daaa9ea03a43",
+              "raw_tensor_sha256": "a03cfd2143ad5e96ec1de85a9a67b2d2b5d0c6738c5aad9f67b67e8962aa12f0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/latent_step1.safetensors",
+              "bytes": 4053592,
+              "sha256": "16b5afd43c64049752d4eb5827e9e1ca31aefba38d16143901906ef2aca22d6d",
+              "raw_tensor_sha256": "a5ae4ca706eba1b4a48adfa43b2d02c29ea9b583fcc2afec549283ccd7e38580",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/flow_step2.safetensors",
+              "bytes": 8107096,
+              "sha256": "b631f9f24f46a8bdbe7a0e5ba28e3364f4daf778bf483ac9f4fbc4f9c4a82f8a",
+              "raw_tensor_sha256": "6acf2bd83c3cf66ec2c216d413f8fa5e3bc19a035edd07253bf7d2cf738631d6",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/latent_step2.safetensors",
+              "bytes": 4053592,
+              "sha256": "ff65db5abb33e75465fe8f3afba75bb31712628ed6859086555e70d7af84d853",
+              "raw_tensor_sha256": "c7c13a60f927b4d44fbaf7745bc7e49cb9aa402e1945df6b570e35dc6c7397b7",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/flow_step3.safetensors",
+              "bytes": 8107096,
+              "sha256": "66984414e917ef4616efcf76de48c38abd4bc184c8a8b8b0b252158e8ead8687",
+              "raw_tensor_sha256": "6072f7f8921f62aa7dd57e6d36b458a75c0220f8bccaaaff47345fc6a4ede550",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/latent_step3.safetensors",
+              "bytes": 4053592,
+              "sha256": "9fd1d7bfd0095d911b1a7b5ab99353db1dab824d999dfd29d4e86e714c672bfd",
+              "raw_tensor_sha256": "4f530f9096e784b3eab6d585c330425c646a9af1b7e31430893e2b0abb43ab38",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            }
+          },
+          "video": {
+            "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_hook_dense/output.mp4",
+            "bytes": 1530943,
+            "sha256": "eccccbf61eb9fc353e90f0cf713c09b085e1631d13d12558e35248dfceeafdac",
+            "frames": 81,
+            "fps": 16.0,
+            "size": [
+              832,
+              464
+            ]
+          }
+        },
+        {
+          "run_id": "chipmunk_p64_v2_ord898_seed42_cache_dense",
+          "mode": "cache_dense",
+          "actual_full_FFN_sites": 160,
+          "logical_FFN_linear_dispatches": 320,
+          "wall_seconds_including_observers": 46.44247315451503,
+          "FFN_boundary_CUDA_seconds": 6.563284999847412,
+          "native_transfer_observations": 162,
+          "actual_dense_FFN_GEMMs": 320,
+          "actual_selected_W1_calls": 0,
+          "actual_selected_W2_calls": 0,
+          "actual_proxy_W1_calls": 0,
+          "observer_packed_W1_calls": 0,
+          "observer_packed_W2_calls": 0,
+          "cumulative_peak_GPU_allocated_bytes": 57870410752,
+          "cumulative_peak_GPU_reserved_bytes": 69327650816,
+          "cache_peak_logical_bytes": 47993487360,
+          "cache_creations": 80,
+          "cache_releases": 80,
+          "sparse_sites": 0,
+          "original_prefetch": {
+            "calls": 162,
+            "requested_H2D_tensor_bytes": 113851754496,
+            "requested_D2D_tensor_bytes": 1296,
+            "original_W2_H2D_bytes": 22934016000,
+            "enqueue_wall_seconds": 0.08287239819765091,
+            "metadata_observer_wall_seconds": 0.03712131828069687,
+            "actual_physical_bus_bytes": "UNKNOWN"
+          },
+          "stages": [
+            {
+              "name": "run_input_encoder",
+              "step": null,
+              "wall_seconds": 2.8174369260668755,
+              "CUDA_seconds": 2.81737060546875
+            },
+            {
+              "name": "run_vae_encoder",
+              "step": null,
+              "wall_seconds": 2.2962299808859825,
+              "CUDA_seconds": 2.296148193359375
+            },
+            {
+              "name": "infer",
+              "step": 0,
+              "wall_seconds": 8.86875345557928,
+              "CUDA_seconds": 8.8686357421875
+            },
+            {
+              "name": "infer",
+              "step": 1,
+              "wall_seconds": 8.834400426596403,
+              "CUDA_seconds": 8.8342900390625
+            },
+            {
+              "name": "infer",
+              "step": 2,
+              "wall_seconds": 8.936658073216677,
+              "CUDA_seconds": 8.9365419921875
+            },
+            {
+              "name": "infer",
+              "step": 3,
+              "wall_seconds": 8.819372210651636,
+              "CUDA_seconds": 8.8192548828125
+            },
+            {
+              "name": "run_vae_decoder",
+              "step": null,
+              "wall_seconds": 3.578868243843317,
+              "CUDA_seconds": 3.578782470703125
+            }
+          ],
+          "states": {
+            "raw_noise_FP32": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/raw_noise_FP32.safetensors",
+              "bytes": 8107096,
+              "sha256": "924fdc5b816e535f39c761633e0c0a33bb8c6d040d2d4289f2a5998ecb618227",
+              "raw_tensor_sha256": "3242709241cda0361478d30e37f6126baa4b7f15bcff14e971393bfb1fcbaec0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "initial_noise": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/initial_noise.safetensors",
+              "bytes": 4053592,
+              "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65",
+              "raw_tensor_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/flow_step0.safetensors",
+              "bytes": 8107096,
+              "sha256": "b4e9288386d35b5b11e30c29128eafce6ac1471ab0e93c05739f2a42b5fb97fc",
+              "raw_tensor_sha256": "f81dbc3de540290b9d806988cce0e414f64206568a2b22289538d4fbdecf4765",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/latent_step0.safetensors",
+              "bytes": 4053592,
+              "sha256": "72d41f804cb27d46aba6d8abd6dab334eb422f837c32970ef4e6f221709c6245",
+              "raw_tensor_sha256": "18f627cfcdba5492c7fe5c6df1128dfd4b1fce235771d28e09c7d29df508e7a4",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/flow_step1.safetensors",
+              "bytes": 8107096,
+              "sha256": "90945972f53195c446d4821f5a215a912ebe2cf21ff93da84626daaa9ea03a43",
+              "raw_tensor_sha256": "a03cfd2143ad5e96ec1de85a9a67b2d2b5d0c6738c5aad9f67b67e8962aa12f0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/latent_step1.safetensors",
+              "bytes": 4053592,
+              "sha256": "16b5afd43c64049752d4eb5827e9e1ca31aefba38d16143901906ef2aca22d6d",
+              "raw_tensor_sha256": "a5ae4ca706eba1b4a48adfa43b2d02c29ea9b583fcc2afec549283ccd7e38580",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/flow_step2.safetensors",
+              "bytes": 8107096,
+              "sha256": "b631f9f24f46a8bdbe7a0e5ba28e3364f4daf778bf483ac9f4fbc4f9c4a82f8a",
+              "raw_tensor_sha256": "6acf2bd83c3cf66ec2c216d413f8fa5e3bc19a035edd07253bf7d2cf738631d6",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/latent_step2.safetensors",
+              "bytes": 4053592,
+              "sha256": "ff65db5abb33e75465fe8f3afba75bb31712628ed6859086555e70d7af84d853",
+              "raw_tensor_sha256": "c7c13a60f927b4d44fbaf7745bc7e49cb9aa402e1945df6b570e35dc6c7397b7",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/flow_step3.safetensors",
+              "bytes": 8107096,
+              "sha256": "66984414e917ef4616efcf76de48c38abd4bc184c8a8b8b0b252158e8ead8687",
+              "raw_tensor_sha256": "6072f7f8921f62aa7dd57e6d36b458a75c0220f8bccaaaff47345fc6a4ede550",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/latent_step3.safetensors",
+              "bytes": 4053592,
+              "sha256": "9fd1d7bfd0095d911b1a7b5ab99353db1dab824d999dfd29d4e86e714c672bfd",
+              "raw_tensor_sha256": "4f530f9096e784b3eab6d585c330425c646a9af1b7e31430893e2b0abb43ab38",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            }
+          },
+          "video": {
+            "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_cache_dense/output.mp4",
+            "bytes": 1530943,
+            "sha256": "eccccbf61eb9fc353e90f0cf713c09b085e1631d13d12558e35248dfceeafdac",
+            "frames": 81,
+            "fps": 16.0,
+            "size": [
+              832,
+              464
+            ]
+          }
+        },
+        {
+          "run_id": "chipmunk_p64_v2_ord898_seed42_global_p64",
+          "mode": "global_p64",
+          "actual_full_FFN_sites": 160,
+          "logical_FFN_linear_dispatches": 320,
+          "wall_seconds_including_observers": 44.85062885284424,
+          "FFN_boundary_CUDA_seconds": 5.679684827804565,
+          "native_transfer_observations": 162,
+          "actual_dense_FFN_GEMMs": 160,
+          "actual_selected_W1_calls": 80,
+          "actual_selected_W2_calls": 80,
+          "actual_proxy_W1_calls": 80,
+          "observer_packed_W1_calls": 2,
+          "observer_packed_W2_calls": 2,
+          "cumulative_peak_GPU_allocated_bytes": 60472343552,
+          "cumulative_peak_GPU_reserved_bytes": 69327650816,
+          "cache_peak_logical_bytes": 47993487360,
+          "cache_creations": 80,
+          "cache_releases": 80,
+          "sparse_sites": 80,
+          "original_prefetch": {
+            "calls": 162,
+            "requested_H2D_tensor_bytes": 113851754496,
+            "requested_D2D_tensor_bytes": 1296,
+            "original_W2_H2D_bytes": 22934016000,
+            "enqueue_wall_seconds": 0.08082051202654839,
+            "metadata_observer_wall_seconds": 0.037012334913015366,
+            "actual_physical_bus_bytes": "UNKNOWN"
+          },
+          "stages": [
+            {
+              "name": "run_input_encoder",
+              "step": null,
+              "wall_seconds": 2.8142272867262363,
+              "CUDA_seconds": 2.81416357421875
+            },
+            {
+              "name": "run_vae_encoder",
+              "step": null,
+              "wall_seconds": 2.298665475100279,
+              "CUDA_seconds": 2.29858447265625
+            },
+            {
+              "name": "infer",
+              "step": 0,
+              "wall_seconds": 8.889907460659742,
+              "CUDA_seconds": 8.8897900390625
+            },
+            {
+              "name": "infer",
+              "step": 1,
+              "wall_seconds": 8.336806647479534,
+              "CUDA_seconds": 8.3366982421875
+            },
+            {
+              "name": "infer",
+              "step": 2,
+              "wall_seconds": 8.944361962378025,
+              "CUDA_seconds": 8.9442666015625
+            },
+            {
+              "name": "infer",
+              "step": 3,
+              "wall_seconds": 8.287652976810932,
+              "CUDA_seconds": 8.287544921875
+            },
+            {
+              "name": "run_vae_decoder",
+              "step": null,
+              "wall_seconds": 3.5830167941749096,
+              "CUDA_seconds": 3.582961669921875
+            }
+          ],
+          "states": {
+            "raw_noise_FP32": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/raw_noise_FP32.safetensors",
+              "bytes": 8107096,
+              "sha256": "924fdc5b816e535f39c761633e0c0a33bb8c6d040d2d4289f2a5998ecb618227",
+              "raw_tensor_sha256": "3242709241cda0361478d30e37f6126baa4b7f15bcff14e971393bfb1fcbaec0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "initial_noise": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/initial_noise.safetensors",
+              "bytes": 4053592,
+              "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65",
+              "raw_tensor_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/flow_step0.safetensors",
+              "bytes": 8107096,
+              "sha256": "b4e9288386d35b5b11e30c29128eafce6ac1471ab0e93c05739f2a42b5fb97fc",
+              "raw_tensor_sha256": "f81dbc3de540290b9d806988cce0e414f64206568a2b22289538d4fbdecf4765",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/latent_step0.safetensors",
+              "bytes": 4053592,
+              "sha256": "72d41f804cb27d46aba6d8abd6dab334eb422f837c32970ef4e6f221709c6245",
+              "raw_tensor_sha256": "18f627cfcdba5492c7fe5c6df1128dfd4b1fce235771d28e09c7d29df508e7a4",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/flow_step1.safetensors",
+              "bytes": 8107096,
+              "sha256": "1e812c2c383140f7ed47509a7b707c0f98dee2f5c6f23c623a814ded99ac6886",
+              "raw_tensor_sha256": "993e77d1baf0ba01644fb80fb76b334e1c49a39e1d7a988e40f1ccd482002726",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/latent_step1.safetensors",
+              "bytes": 4053592,
+              "sha256": "c87badd6c84a014670002a4b5d12ff94907636d46062b432c66770756a01af6d",
+              "raw_tensor_sha256": "962e062a7d350ea6dbaae309d52a9ada384a172a5e7fe9bc3139c03d874507fd",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/flow_step2.safetensors",
+              "bytes": 8107096,
+              "sha256": "529ba43ed95ddfb2f340aa50fb1ea703ae71c68ee49a3835ce069fb84bcc89f3",
+              "raw_tensor_sha256": "a066f0cfef4be656a3120159dd4c49154d11543873581a0de8362a6ff8a56e62",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/latent_step2.safetensors",
+              "bytes": 4053592,
+              "sha256": "6088972f0017f568d11d4e3aa1b0c158aecd8551cff484ffeef8da6f3e480799",
+              "raw_tensor_sha256": "d112a8c3752e22fc387fc1cdc9b71a368dc3bed659262773741c4c3d9e6ea7a8",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/flow_step3.safetensors",
+              "bytes": 8107096,
+              "sha256": "932b1bf9076c381c38a32726dbe583544c5a9196f1a7d0043b50e6c63e88320b",
+              "raw_tensor_sha256": "dd59169b77d1ceea14fce8e7898db4de0e2b0268b093da99f3a0d60447356c21",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/latent_step3.safetensors",
+              "bytes": 4053592,
+              "sha256": "27d881fd914bf20526d9bf9f5ccfb2255d904e5aa1c1f3befe72f64ff0f0ce18",
+              "raw_tensor_sha256": "467b950fadd54c44fbcc1711af7e7b1fe8c25929bb99c969558da570cd21c62a",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            }
+          },
+          "video": {
+            "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/worker/results/chipmunk_p64_v2_ord898_seed42_global_p64/output.mp4",
+            "bytes": 1716644,
+            "sha256": "5f25f32e1716df074f5de0baa0d1ac86829c415a3c2b66fc27b2cce5216e5aad",
+            "frames": 81,
+            "fps": 16.0,
+            "size": [
+              832,
+              464
+            ]
+          }
+        }
+      ],
+      "neutral_state_pairs": 20,
+      "neutral_video_pairs": 2,
+      "candidate_packed_pregate_controls": [
+        {
+          "step": 1,
+          "block": 0,
+          "expert": 0,
+          "mask_indices_sha256": "b6abda5f68f0fa99f5a0bbc4d3674078525339de71191914ea85ea471d4d18d6",
+          "relative_l2": 0.0,
+          "max_absolute": 0.0,
+          "reference_norm": 17170.421875,
+          "relative_l2_limit": 1e-05,
+          "max_absolute_limit": 0.001
+        },
+        {
+          "step": 3,
+          "block": 0,
+          "expert": 1,
+          "mask_indices_sha256": "9b8f88bd0cec52540ad19450f00cc1f82a5bf94c7d06b7477e0b5dcc7f3f4f45",
+          "relative_l2": 0.0,
+          "max_absolute": 0.0,
+          "reference_norm": 13088.7236328125,
+          "relative_l2_limit": 1e-05,
+          "max_absolute_limit": 0.001
+        }
+      ],
+      "operation_counts": {
+        "original_expert_loads": 2,
+        "raw_Default_MM_loads": 812,
+        "buffer_Default_MM_loads": 40,
+        "T5_buffer_Default_MM_loads": 7,
+        "T5_raw_Default_MM_loads": 168,
+        "p64_row_seed_and_H2D": 1,
+        "authority_checks": 4,
+        "offload_buffer_resets": 8,
+        "VAE_encodes": 4,
+        "stage_CUDA_event_pairs": 28,
+        "T5_checkpoint_block_buffer_loads": 96,
+        "T5_Default_MM_calls": 672,
+        "T5_positive_prompt_encodes": 4,
+        "input_encoder_requests": 4,
+        "state_tensor_D2H": 40,
+        "state_tensor_D2H_bytes": 243210240,
+        "state_output_writes": 40,
+        "state_file_hash_calls": 40,
+        "state_file_hash_reserved_bytes": 285153280,
+        "state_raw_sha_calls": 40,
+        "state_raw_sha_bytes": 243210240,
+        "raw_FP32_noise_files": 4,
+        "FP32_initial_noise_draws": 4,
+        "scheduler_prepare": 4,
+        "scheduler_step_pre": 16,
+        "initial_BF16_noise_files": 4,
+        "patch_Conv3D_calls": 16,
+        "pre_Default_MM_calls": 80,
+        "pre_infer_calls": 16,
+        "original_checkpoint_block_buffer_loads": 648,
+        "prefetch_transfer_observations": 648,
+        "native_non_FFN_linears": 5120,
+        "native_FFN_linears": 1280,
+        "native_FFN_calls": 640,
+        "FFN_CUDA_event_pairs": 640,
+        "native_blocks": 640,
+        "final_LayerNorm_calls": 16,
+        "head_Default_MM_calls": 16,
+        "post_unpatchify_calls": 16,
+        "native_full_model_flows": 16,
+        "native_FP32_flow_files": 16,
+        "scheduler_step_post": 16,
+        "native_BF16_post_files": 16,
+        "VAE_decodes": 4,
+        "video_generations": 4,
+        "video_geometry_checks": 4,
+        "neutral_state_checks": 20,
+        "neutral_video_checks": 2,
+        "cache_h_clone": 160,
+        "cache_h_clone_bytes": 140089098240,
+        "cache_y_clone": 160,
+        "cache_y_clone_bytes": 51884851200,
+        "cache_release_sync": 160,
+        "expert_boundary_cleanup": 4,
+        "weight_materializations": 160,
+        "weight_materialization_logical_bytes": 22649241600,
+        "p64_score": 80,
+        "p64_gather_input": 80,
+        "p64_gather_old_h": 80,
+        "p64_W1_gemm": 80,
+        "p64_gelu": 80,
+        "p64_rms": 80,
+        "p64_input_gather_logical_bytes": 52428800,
+        "p64_old_h_gather_logical_bytes": 141557760,
+        "p64_select": 80,
+        "mask_sha_calls": 80,
+        "mask_sha_logical_bytes": 3276800,
+        "packed_action": 80,
+        "packed_gather_w1": 80,
+        "packed_gather_w2": 80,
+        "packed_gather_bias": 80,
+        "packed_clone_h": 80,
+        "packed_clone_y": 80,
+        "packed_gather_h": 80,
+        "packed_W1_gemm": 80,
+        "packed_selected_gelu": 80,
+        "packed_delta_round": 80,
+        "packed_update_h": 80,
+        "packed_W2_gemm_fp32": 80,
+        "packed_accumulate_y": 80,
+        "packed_cache_clone_logical_bytes": 95986974720,
+        "packed_delta_logical_bytes": 25942425600,
+        "packed_weight_gather_logical_bytes": 8389427200,
+        "observer_ones": 2,
+        "observer_ones_logical_bytes": 20480,
+        "observer_packed_action": 2,
+        "observer_packed_gather_w1": 2,
+        "observer_packed_gather_w2": 2,
+        "observer_packed_gather_bias": 2,
+        "observer_packed_clone_h": 2,
+        "observer_packed_clone_y": 2,
+        "observer_packed_gather_h": 2,
+        "observer_packed_W1_gemm": 2,
+        "observer_packed_selected_gelu": 2,
+        "observer_packed_delta_round": 2,
+        "observer_packed_update_h": 2,
+        "observer_packed_W2_gemm_fp32": 2,
+        "observer_packed_accumulate_y": 2,
+        "observer_packed_cache_clone_logical_bytes": 2399674368,
+        "observer_packed_delta_logical_bytes": 648560640,
+        "observer_packed_weight_gather_logical_bytes": 209735680,
+        "observer_gate_product": 2,
+        "observer_gate_logical_bytes": 648560640,
+        "observer_compare": 2,
+        "observer_compare_elements": 324280320
+      },
+      "GPU_wall_seconds": 283.8131111674011,
+      "GPU_outer_seconds": 309.7284055277705,
+      "setup_seconds": 88.16909390315413,
+      "peak_GPU_reserved_bytes": 69327650816,
+      "peak_GPU_allocated_bytes": 60472343552,
+      "peak_physical_GPU_MiB": 66858,
+      "peak_host_RSS_bytes": 117023199232,
+      "GPU_monitor_violations": 0,
+      "precision": {
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu_name": "NVIDIA A100 80GB PCIe",
+        "allow_tf32": false,
+        "allow_bf16_reduced_precision_reduction": true,
+        "float32_matmul_precision": "highest"
+      },
+      "allocator_memory_observations": [
+        {
+          "event": "phase_memory_before",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_original_dense",
+          "mode": "original_dense",
+          "memory": {
+            "allocated_bytes": 3461527552,
+            "reserved_bytes": 3514826752,
+            "peak_allocated_bytes": 3461527552,
+            "peak_reserved_bytes": 3514826752,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_after",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_original_dense",
+          "mode": "original_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 21908946944,
+            "peak_allocated_bytes": 9890617856,
+            "peak_reserved_bytes": 21908946944,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_before",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_hook_dense",
+          "mode": "hook_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 21908946944,
+            "peak_allocated_bytes": 9890617856,
+            "peak_reserved_bytes": 21908946944,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_after",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_hook_dense",
+          "mode": "hook_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 21911044096,
+            "peak_allocated_bytes": 10078237184,
+            "peak_reserved_bytes": 21911044096,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_before",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_cache_dense",
+          "mode": "cache_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 21911044096,
+            "peak_allocated_bytes": 10078237184,
+            "peak_reserved_bytes": 21911044096,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "expert_boundary_pre_cleanup",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_cache_dense",
+          "mode": "cache_dense",
+          "step": 1,
+          "expert": 0,
+          "block": 39,
+          "memory": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 69327650816,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "retained_cache_bytes": 0
+        },
+        {
+          "event": "expert_boundary_cleanup",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_cache_dense",
+          "mode": "cache_dense",
+          "step": 1,
+          "expert": 0,
+          "block": 39,
+          "before": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 69327650816,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "after": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 8235515904,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "wall_seconds_including_synchronization": 0.03941899165511131,
+          "retained_cache_bytes": 0,
+          "only_unused_allocator_segments": true
+        },
+        {
+          "event": "expert_boundary_pre_cleanup",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_cache_dense",
+          "mode": "cache_dense",
+          "step": 3,
+          "expert": 1,
+          "block": 39,
+          "memory": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 60980985856,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "retained_cache_bytes": 0
+        },
+        {
+          "event": "expert_boundary_cleanup",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_cache_dense",
+          "mode": "cache_dense",
+          "step": 3,
+          "expert": 1,
+          "block": 39,
+          "before": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 60980985856,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "after": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 8189378560,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "wall_seconds_including_synchronization": 0.034330014139413834,
+          "retained_cache_bytes": 0,
+          "only_unused_allocator_segments": true
+        },
+        {
+          "event": "phase_memory_after",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_cache_dense",
+          "mode": "cache_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 13293846528,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_before",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_global_p64",
+          "mode": "global_p64",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 13293846528,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "expert_boundary_pre_cleanup",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_global_p64",
+          "mode": "candidate",
+          "step": 1,
+          "expert": 0,
+          "block": 39,
+          "memory": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 67440214016,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "retained_cache_bytes": 0
+        },
+        {
+          "event": "expert_boundary_cleanup",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_global_p64",
+          "mode": "candidate",
+          "step": 1,
+          "expert": 0,
+          "block": 39,
+          "before": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 67440214016,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "after": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 8667529216,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "wall_seconds_including_synchronization": 0.037756454199552536,
+          "retained_cache_bytes": 0,
+          "only_unused_allocator_segments": true
+        },
+        {
+          "event": "expert_boundary_pre_cleanup",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_global_p64",
+          "mode": "candidate",
+          "step": 3,
+          "expert": 1,
+          "block": 39,
+          "memory": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 63136858112,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "retained_cache_bytes": 0
+        },
+        {
+          "event": "expert_boundary_cleanup",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_global_p64",
+          "mode": "candidate",
+          "step": 3,
+          "expert": 1,
+          "block": 39,
+          "before": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 63136858112,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "after": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 8667529216,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "wall_seconds_including_synchronization": 0.03474361076951027,
+          "retained_cache_bytes": 0,
+          "only_unused_allocator_segments": true
+        },
+        {
+          "event": "phase_memory_after",
+          "run_id": "chipmunk_p64_v2_ord898_seed42_global_p64",
+          "mode": "global_p64",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 13243514880,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        }
+      ],
+      "final_memory": {
+        "allocated_bytes": 5824788480,
+        "reserved_bytes": 13243514880,
+        "peak_allocated_bytes": 60472343552,
+        "peak_reserved_bytes": 69327650816,
+        "allocator_backend": "native",
+        "peak_stats_reset": false
+      },
+      "VERIFY_wall_seconds": 4.59250845387578,
+      "VERIFY_outer_seconds": 4.798002526164055,
+      "VERIFY_read_bytes": 252533064,
+      "CPU_preflight": {
+        "RUN": {
+          "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/cpu_preflight/worker/results/RUN.json",
+          "bytes": 714,
+          "sha256": "776aa6fed946a6fcdcb155ba913c3e7933b98a21031fc4f67dc1a5fbf94cfea3"
+        },
+        "exit": {
+          "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part0/attempt1/cpu_preflight/worker/EXIT_RECEIPT.json",
+          "bytes": 537,
+          "sha256": "4fea9feba1d16cf2ee65a11d999fe5e416788e4f742cfcd1e7b8239d743fcf4f"
+        }
+      },
+      "CPU_preflight_wall_seconds": 0.41950708627700806,
+      "CPU_preflight_outer_seconds": 0.5894384123384953,
+      "output_accounting": {
+        "peak_tracked_bytes_plus_reserved_and_atomic_temp": 285481667,
+        "unconsumed_reserved_bytes": 0,
+        "accounting_errors": []
+      }
+    },
+    {
+      "part": 1,
+      "source": 96,
+      "seed": 42,
+      "protocol_sha256": "b2595eb1d1240bfa43ee6f1ad82f7641dbd0c1e24b2545ae3fe89fe61208394c",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/RUN.json",
+        "bytes": 78503,
+        "sha256": "481f3ac2dbc43e7f875f4690ff11b107e07a4245db03b5f9b06279193184a0d2"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 537,
+        "sha256": "cad5fde8191b200a402a23d417038988cdc65068c6508aad8cbb321ada8a4e19"
+      },
+      "verification_RUN": {
+        "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/verification/worker/results/RUN.json",
+        "bytes": 1159,
+        "sha256": "f4fb390c63f5ef152382977d1c1e8f457b3449fee38918b613875a4398a7b2fe"
+      },
+      "verification_exit": {
+        "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/verification/worker/EXIT_RECEIPT.json",
+        "bytes": 544,
+        "sha256": "f98e5f4f354d639ef5df2be1747cc4fb98f344e3e5510165859da5c5520543d5"
+      },
+      "phases": [
+        {
+          "run_id": "chipmunk_p64_v2_ord96_seed42_original_dense",
+          "mode": "original_dense",
+          "actual_full_FFN_sites": 160,
+          "logical_FFN_linear_dispatches": 320,
+          "wall_seconds_including_observers": 47.73396930843592,
+          "FFN_boundary_CUDA_seconds": 6.607193088531494,
+          "native_transfer_observations": 162,
+          "actual_dense_FFN_GEMMs": 320,
+          "actual_selected_W1_calls": 0,
+          "actual_selected_W2_calls": 0,
+          "actual_proxy_W1_calls": 0,
+          "observer_packed_W1_calls": 0,
+          "observer_packed_W2_calls": 0,
+          "cumulative_peak_GPU_allocated_bytes": 9891207680,
+          "cumulative_peak_GPU_reserved_bytes": 21908946944,
+          "original_prefetch": {
+            "calls": 162,
+            "requested_H2D_tensor_bytes": 113851754496,
+            "requested_D2D_tensor_bytes": 1296,
+            "original_W2_H2D_bytes": 22934016000,
+            "enqueue_wall_seconds": 0.0796039067208767,
+            "metadata_observer_wall_seconds": 0.03709326311945915,
+            "actual_physical_bus_bytes": "UNKNOWN"
+          },
+          "stages": [
+            {
+              "name": "run_input_encoder",
+              "step": null,
+              "wall_seconds": 3.3887227289378643,
+              "CUDA_seconds": 3.388675048828125
+            },
+            {
+              "name": "run_vae_encoder",
+              "step": null,
+              "wall_seconds": 2.4742049984633923,
+              "CUDA_seconds": 2.47412939453125
+            },
+            {
+              "name": "infer",
+              "step": 0,
+              "wall_seconds": 9.462186217308044,
+              "CUDA_seconds": 9.462099609375
+            },
+            {
+              "name": "infer",
+              "step": 1,
+              "wall_seconds": 8.94656154513359,
+              "CUDA_seconds": 8.946478515625
+            },
+            {
+              "name": "infer",
+              "step": 2,
+              "wall_seconds": 9.029229249805212,
+              "CUDA_seconds": 9.029142578125
+            },
+            {
+              "name": "infer",
+              "step": 3,
+              "wall_seconds": 9.040007550269365,
+              "CUDA_seconds": 9.03991796875
+            },
+            {
+              "name": "run_vae_decoder",
+              "step": null,
+              "wall_seconds": 3.677014995366335,
+              "CUDA_seconds": 3.67693798828125
+            }
+          ],
+          "states": {
+            "raw_noise_FP32": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/raw_noise_FP32.safetensors",
+              "bytes": 8107096,
+              "sha256": "924fdc5b816e535f39c761633e0c0a33bb8c6d040d2d4289f2a5998ecb618227",
+              "raw_tensor_sha256": "3242709241cda0361478d30e37f6126baa4b7f15bcff14e971393bfb1fcbaec0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "initial_noise": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/initial_noise.safetensors",
+              "bytes": 4053592,
+              "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65",
+              "raw_tensor_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/flow_step0.safetensors",
+              "bytes": 8107096,
+              "sha256": "c6ed53d59ceb6c775cf2bb64cbe39399b59df343dd02e85b57cd8040a17c965e",
+              "raw_tensor_sha256": "6e852b7f1cfb1666a569cc83da47e1ff353b884f0c087c19c6340f61b1289a81",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/latent_step0.safetensors",
+              "bytes": 4053592,
+              "sha256": "ba3951132ac11ab795ce4b06ab35ffc07b9164f9f79a7fba1769ee42b86f6e7e",
+              "raw_tensor_sha256": "e69b2d89f9ab632dc76336b4846b1fe8ac2ea41a0f5d3fe3017fcb3dc37de950",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/flow_step1.safetensors",
+              "bytes": 8107096,
+              "sha256": "0e790d055f73d7cc2349841ce7183e155d1025615fa7e8ee4f28ec9c7fab35e1",
+              "raw_tensor_sha256": "3dbc479bfabeaa27c989607c4b0763c7f6729d96073cecd6a729f92ee1a52c87",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/latent_step1.safetensors",
+              "bytes": 4053592,
+              "sha256": "6e4e956b67673759020b88f4f8871613d045351f4bbcdf5c6f1ca5f72bbf7151",
+              "raw_tensor_sha256": "b9201de6e7ed3561e0ea0820d2e11c29d9a40ba0a14e434e1d0420eff139ca83",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/flow_step2.safetensors",
+              "bytes": 8107096,
+              "sha256": "5519fe657d7ba7a97b1fc00ce62e0c372ca2ba3d6884b213269b6198dbe74e1c",
+              "raw_tensor_sha256": "17576c94573db29ef78303f80e73835658dd0d64b31e28d173d04a60b34b64a8",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/latent_step2.safetensors",
+              "bytes": 4053592,
+              "sha256": "46adf46745a4f81a8665eaceefb7e3e2a83460cb4dac607e1095accb93c6e4c4",
+              "raw_tensor_sha256": "bf99e2f5e62fe527c674b3c485a3f067c3738c7cc3fb7fe2ac926a261585a2fd",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/flow_step3.safetensors",
+              "bytes": 8107096,
+              "sha256": "f26fbfa95665c6e8e5bb76f920db2d4cb815d6b3bb14a76d5c9e59bde4e1a5d4",
+              "raw_tensor_sha256": "df4ced5949fde4d31485420f2798fccbf679997455db4c84df5ff8973c769a1e",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/latent_step3.safetensors",
+              "bytes": 4053592,
+              "sha256": "3137cd1276ea268c2f36f043c91171cff169fc9a47e63e04225b3395c9f51764",
+              "raw_tensor_sha256": "f4cfd5620bbac54d8852ab9fc6939271f4db65e2056f3ef8350bcd1a5906b8b8",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            }
+          },
+          "video": {
+            "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_original_dense/output.mp4",
+            "bytes": 1557018,
+            "sha256": "ddb844cb9edc263a94f777fd9529a310eafd7e9f707f6c2c412318767e5a5569",
+            "frames": 81,
+            "fps": 16.0,
+            "size": [
+              832,
+              464
+            ]
+          }
+        },
+        {
+          "run_id": "chipmunk_p64_v2_ord96_seed42_hook_dense",
+          "mode": "hook_dense",
+          "actual_full_FFN_sites": 160,
+          "logical_FFN_linear_dispatches": 320,
+          "wall_seconds_including_observers": 47.14623503386974,
+          "FFN_boundary_CUDA_seconds": 6.714778610229493,
+          "native_transfer_observations": 162,
+          "actual_dense_FFN_GEMMs": 320,
+          "actual_selected_W1_calls": 0,
+          "actual_selected_W2_calls": 0,
+          "actual_proxy_W1_calls": 0,
+          "observer_packed_W1_calls": 0,
+          "observer_packed_W2_calls": 0,
+          "cumulative_peak_GPU_allocated_bytes": 10078237184,
+          "cumulative_peak_GPU_reserved_bytes": 21911044096,
+          "cache_peak_logical_bytes": 0,
+          "cache_creations": 0,
+          "cache_releases": 0,
+          "sparse_sites": 0,
+          "original_prefetch": {
+            "calls": 162,
+            "requested_H2D_tensor_bytes": 113851754496,
+            "requested_D2D_tensor_bytes": 1296,
+            "original_W2_H2D_bytes": 22934016000,
+            "enqueue_wall_seconds": 0.08260774612426758,
+            "metadata_observer_wall_seconds": 0.037048935890197754,
+            "actual_physical_bus_bytes": "UNKNOWN"
+          },
+          "stages": [
+            {
+              "name": "run_input_encoder",
+              "step": null,
+              "wall_seconds": 2.999382793903351,
+              "CUDA_seconds": 2.999328369140625
+            },
+            {
+              "name": "run_vae_encoder",
+              "step": null,
+              "wall_seconds": 2.363955531269312,
+              "CUDA_seconds": 2.363880615234375
+            },
+            {
+              "name": "infer",
+              "step": 0,
+              "wall_seconds": 9.136756271123886,
+              "CUDA_seconds": 9.136662109375
+            },
+            {
+              "name": "infer",
+              "step": 1,
+              "wall_seconds": 9.13350573554635,
+              "CUDA_seconds": 9.133412109375
+            },
+            {
+              "name": "infer",
+              "step": 2,
+              "wall_seconds": 9.148018818348646,
+              "CUDA_seconds": 9.14792578125
+            },
+            {
+              "name": "infer",
+              "step": 3,
+              "wall_seconds": 9.131959717720747,
+              "CUDA_seconds": 9.131888671875
+            },
+            {
+              "name": "run_vae_decoder",
+              "step": null,
+              "wall_seconds": 3.683245025575161,
+              "CUDA_seconds": 3.6831591796875
+            }
+          ],
+          "states": {
+            "raw_noise_FP32": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/raw_noise_FP32.safetensors",
+              "bytes": 8107096,
+              "sha256": "924fdc5b816e535f39c761633e0c0a33bb8c6d040d2d4289f2a5998ecb618227",
+              "raw_tensor_sha256": "3242709241cda0361478d30e37f6126baa4b7f15bcff14e971393bfb1fcbaec0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "initial_noise": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/initial_noise.safetensors",
+              "bytes": 4053592,
+              "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65",
+              "raw_tensor_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/flow_step0.safetensors",
+              "bytes": 8107096,
+              "sha256": "c6ed53d59ceb6c775cf2bb64cbe39399b59df343dd02e85b57cd8040a17c965e",
+              "raw_tensor_sha256": "6e852b7f1cfb1666a569cc83da47e1ff353b884f0c087c19c6340f61b1289a81",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/latent_step0.safetensors",
+              "bytes": 4053592,
+              "sha256": "ba3951132ac11ab795ce4b06ab35ffc07b9164f9f79a7fba1769ee42b86f6e7e",
+              "raw_tensor_sha256": "e69b2d89f9ab632dc76336b4846b1fe8ac2ea41a0f5d3fe3017fcb3dc37de950",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/flow_step1.safetensors",
+              "bytes": 8107096,
+              "sha256": "0e790d055f73d7cc2349841ce7183e155d1025615fa7e8ee4f28ec9c7fab35e1",
+              "raw_tensor_sha256": "3dbc479bfabeaa27c989607c4b0763c7f6729d96073cecd6a729f92ee1a52c87",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/latent_step1.safetensors",
+              "bytes": 4053592,
+              "sha256": "6e4e956b67673759020b88f4f8871613d045351f4bbcdf5c6f1ca5f72bbf7151",
+              "raw_tensor_sha256": "b9201de6e7ed3561e0ea0820d2e11c29d9a40ba0a14e434e1d0420eff139ca83",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/flow_step2.safetensors",
+              "bytes": 8107096,
+              "sha256": "5519fe657d7ba7a97b1fc00ce62e0c372ca2ba3d6884b213269b6198dbe74e1c",
+              "raw_tensor_sha256": "17576c94573db29ef78303f80e73835658dd0d64b31e28d173d04a60b34b64a8",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/latent_step2.safetensors",
+              "bytes": 4053592,
+              "sha256": "46adf46745a4f81a8665eaceefb7e3e2a83460cb4dac607e1095accb93c6e4c4",
+              "raw_tensor_sha256": "bf99e2f5e62fe527c674b3c485a3f067c3738c7cc3fb7fe2ac926a261585a2fd",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/flow_step3.safetensors",
+              "bytes": 8107096,
+              "sha256": "f26fbfa95665c6e8e5bb76f920db2d4cb815d6b3bb14a76d5c9e59bde4e1a5d4",
+              "raw_tensor_sha256": "df4ced5949fde4d31485420f2798fccbf679997455db4c84df5ff8973c769a1e",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/latent_step3.safetensors",
+              "bytes": 4053592,
+              "sha256": "3137cd1276ea268c2f36f043c91171cff169fc9a47e63e04225b3395c9f51764",
+              "raw_tensor_sha256": "f4cfd5620bbac54d8852ab9fc6939271f4db65e2056f3ef8350bcd1a5906b8b8",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            }
+          },
+          "video": {
+            "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_hook_dense/output.mp4",
+            "bytes": 1557018,
+            "sha256": "ddb844cb9edc263a94f777fd9529a310eafd7e9f707f6c2c412318767e5a5569",
+            "frames": 81,
+            "fps": 16.0,
+            "size": [
+              832,
+              464
+            ]
+          }
+        },
+        {
+          "run_id": "chipmunk_p64_v2_ord96_seed42_cache_dense",
+          "mode": "cache_dense",
+          "actual_full_FFN_sites": 160,
+          "logical_FFN_linear_dispatches": 320,
+          "wall_seconds_including_observers": 47.27032561227679,
+          "FFN_boundary_CUDA_seconds": 6.885254138946533,
+          "native_transfer_observations": 162,
+          "actual_dense_FFN_GEMMs": 320,
+          "actual_selected_W1_calls": 0,
+          "actual_selected_W2_calls": 0,
+          "actual_proxy_W1_calls": 0,
+          "observer_packed_W1_calls": 0,
+          "observer_packed_W2_calls": 0,
+          "cumulative_peak_GPU_allocated_bytes": 57870410752,
+          "cumulative_peak_GPU_reserved_bytes": 69327650816,
+          "cache_peak_logical_bytes": 47993487360,
+          "cache_creations": 80,
+          "cache_releases": 80,
+          "sparse_sites": 0,
+          "original_prefetch": {
+            "calls": 162,
+            "requested_H2D_tensor_bytes": 113851754496,
+            "requested_D2D_tensor_bytes": 1296,
+            "original_W2_H2D_bytes": 22934016000,
+            "enqueue_wall_seconds": 0.08072293922305107,
+            "metadata_observer_wall_seconds": 0.037038277834653854,
+            "actual_physical_bus_bytes": "UNKNOWN"
+          },
+          "stages": [
+            {
+              "name": "run_input_encoder",
+              "step": null,
+              "wall_seconds": 2.9571192525327206,
+              "CUDA_seconds": 2.957064208984375
+            },
+            {
+              "name": "run_vae_encoder",
+              "step": null,
+              "wall_seconds": 2.362327866256237,
+              "CUDA_seconds": 2.362250732421875
+            },
+            {
+              "name": "infer",
+              "step": 0,
+              "wall_seconds": 9.243103180080652,
+              "CUDA_seconds": 9.2430087890625
+            },
+            {
+              "name": "infer",
+              "step": 1,
+              "wall_seconds": 9.204243920743465,
+              "CUDA_seconds": 9.2041552734375
+            },
+            {
+              "name": "infer",
+              "step": 2,
+              "wall_seconds": 9.310137148946524,
+              "CUDA_seconds": 9.310044921875
+            },
+            {
+              "name": "infer",
+              "step": 3,
+              "wall_seconds": 9.188661117106676,
+              "CUDA_seconds": 9.18857421875
+            },
+            {
+              "name": "run_vae_decoder",
+              "step": null,
+              "wall_seconds": 3.6937019377946854,
+              "CUDA_seconds": 3.69362744140625
+            }
+          ],
+          "states": {
+            "raw_noise_FP32": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/raw_noise_FP32.safetensors",
+              "bytes": 8107096,
+              "sha256": "924fdc5b816e535f39c761633e0c0a33bb8c6d040d2d4289f2a5998ecb618227",
+              "raw_tensor_sha256": "3242709241cda0361478d30e37f6126baa4b7f15bcff14e971393bfb1fcbaec0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "initial_noise": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/initial_noise.safetensors",
+              "bytes": 4053592,
+              "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65",
+              "raw_tensor_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/flow_step0.safetensors",
+              "bytes": 8107096,
+              "sha256": "c6ed53d59ceb6c775cf2bb64cbe39399b59df343dd02e85b57cd8040a17c965e",
+              "raw_tensor_sha256": "6e852b7f1cfb1666a569cc83da47e1ff353b884f0c087c19c6340f61b1289a81",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/latent_step0.safetensors",
+              "bytes": 4053592,
+              "sha256": "ba3951132ac11ab795ce4b06ab35ffc07b9164f9f79a7fba1769ee42b86f6e7e",
+              "raw_tensor_sha256": "e69b2d89f9ab632dc76336b4846b1fe8ac2ea41a0f5d3fe3017fcb3dc37de950",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/flow_step1.safetensors",
+              "bytes": 8107096,
+              "sha256": "0e790d055f73d7cc2349841ce7183e155d1025615fa7e8ee4f28ec9c7fab35e1",
+              "raw_tensor_sha256": "3dbc479bfabeaa27c989607c4b0763c7f6729d96073cecd6a729f92ee1a52c87",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/latent_step1.safetensors",
+              "bytes": 4053592,
+              "sha256": "6e4e956b67673759020b88f4f8871613d045351f4bbcdf5c6f1ca5f72bbf7151",
+              "raw_tensor_sha256": "b9201de6e7ed3561e0ea0820d2e11c29d9a40ba0a14e434e1d0420eff139ca83",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/flow_step2.safetensors",
+              "bytes": 8107096,
+              "sha256": "5519fe657d7ba7a97b1fc00ce62e0c372ca2ba3d6884b213269b6198dbe74e1c",
+              "raw_tensor_sha256": "17576c94573db29ef78303f80e73835658dd0d64b31e28d173d04a60b34b64a8",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/latent_step2.safetensors",
+              "bytes": 4053592,
+              "sha256": "46adf46745a4f81a8665eaceefb7e3e2a83460cb4dac607e1095accb93c6e4c4",
+              "raw_tensor_sha256": "bf99e2f5e62fe527c674b3c485a3f067c3738c7cc3fb7fe2ac926a261585a2fd",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/flow_step3.safetensors",
+              "bytes": 8107096,
+              "sha256": "f26fbfa95665c6e8e5bb76f920db2d4cb815d6b3bb14a76d5c9e59bde4e1a5d4",
+              "raw_tensor_sha256": "df4ced5949fde4d31485420f2798fccbf679997455db4c84df5ff8973c769a1e",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/latent_step3.safetensors",
+              "bytes": 4053592,
+              "sha256": "3137cd1276ea268c2f36f043c91171cff169fc9a47e63e04225b3395c9f51764",
+              "raw_tensor_sha256": "f4cfd5620bbac54d8852ab9fc6939271f4db65e2056f3ef8350bcd1a5906b8b8",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            }
+          },
+          "video": {
+            "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_cache_dense/output.mp4",
+            "bytes": 1557018,
+            "sha256": "ddb844cb9edc263a94f777fd9529a310eafd7e9f707f6c2c412318767e5a5569",
+            "frames": 81,
+            "fps": 16.0,
+            "size": [
+              832,
+              464
+            ]
+          }
+        },
+        {
+          "run_id": "chipmunk_p64_v2_ord96_seed42_global_p64",
+          "mode": "global_p64",
+          "actual_full_FFN_sites": 160,
+          "logical_FFN_linear_dispatches": 320,
+          "wall_seconds_including_observers": 46.190725054591894,
+          "FFN_boundary_CUDA_seconds": 5.924365051269532,
+          "native_transfer_observations": 162,
+          "actual_dense_FFN_GEMMs": 160,
+          "actual_selected_W1_calls": 80,
+          "actual_selected_W2_calls": 80,
+          "actual_proxy_W1_calls": 80,
+          "observer_packed_W1_calls": 2,
+          "observer_packed_W2_calls": 2,
+          "cumulative_peak_GPU_allocated_bytes": 60472343552,
+          "cumulative_peak_GPU_reserved_bytes": 69327650816,
+          "cache_peak_logical_bytes": 47993487360,
+          "cache_creations": 80,
+          "cache_releases": 80,
+          "sparse_sites": 80,
+          "original_prefetch": {
+            "calls": 162,
+            "requested_H2D_tensor_bytes": 113851754496,
+            "requested_D2D_tensor_bytes": 1296,
+            "original_W2_H2D_bytes": 22934016000,
+            "enqueue_wall_seconds": 0.07970768213272095,
+            "metadata_observer_wall_seconds": 0.036450400948524475,
+            "actual_physical_bus_bytes": "UNKNOWN"
+          },
+          "stages": [
+            {
+              "name": "run_input_encoder",
+              "step": null,
+              "wall_seconds": 2.946003772318363,
+              "CUDA_seconds": 2.945945556640625
+            },
+            {
+              "name": "run_vae_encoder",
+              "step": null,
+              "wall_seconds": 2.36483334004879,
+              "CUDA_seconds": 2.364754638671875
+            },
+            {
+              "name": "infer",
+              "step": 0,
+              "wall_seconds": 9.254863861948252,
+              "CUDA_seconds": 9.2547685546875
+            },
+            {
+              "name": "infer",
+              "step": 1,
+              "wall_seconds": 8.637232284992933,
+              "CUDA_seconds": 8.6371689453125
+            },
+            {
+              "name": "infer",
+              "step": 2,
+              "wall_seconds": 9.305917639285326,
+              "CUDA_seconds": 9.3058232421875
+            },
+            {
+              "name": "infer",
+              "step": 3,
+              "wall_seconds": 8.58307708054781,
+              "CUDA_seconds": 8.5829814453125
+            },
+            {
+              "name": "run_vae_decoder",
+              "step": null,
+              "wall_seconds": 3.692171558737755,
+              "CUDA_seconds": 3.692093505859375
+            }
+          ],
+          "states": {
+            "raw_noise_FP32": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/raw_noise_FP32.safetensors",
+              "bytes": 8107096,
+              "sha256": "924fdc5b816e535f39c761633e0c0a33bb8c6d040d2d4289f2a5998ecb618227",
+              "raw_tensor_sha256": "3242709241cda0361478d30e37f6126baa4b7f15bcff14e971393bfb1fcbaec0",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "initial_noise": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/initial_noise.safetensors",
+              "bytes": 4053592,
+              "sha256": "90c434be6acf03dc6d1b259d72842c6673cb7b20ff988bf19f2307dfd74f3a65",
+              "raw_tensor_sha256": "c7d5e0585dca82cff5d49427d9a2623516eacb11b9f4c5fc4bd07a17b1e17945",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/flow_step0.safetensors",
+              "bytes": 8107096,
+              "sha256": "c6ed53d59ceb6c775cf2bb64cbe39399b59df343dd02e85b57cd8040a17c965e",
+              "raw_tensor_sha256": "6e852b7f1cfb1666a569cc83da47e1ff353b884f0c087c19c6340f61b1289a81",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step0": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/latent_step0.safetensors",
+              "bytes": 4053592,
+              "sha256": "ba3951132ac11ab795ce4b06ab35ffc07b9164f9f79a7fba1769ee42b86f6e7e",
+              "raw_tensor_sha256": "e69b2d89f9ab632dc76336b4846b1fe8ac2ea41a0f5d3fe3017fcb3dc37de950",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/flow_step1.safetensors",
+              "bytes": 8107096,
+              "sha256": "28e6de6aa023869aef2e515e5f043d3be9342bc68fecbe8eb1b4782db945cc1d",
+              "raw_tensor_sha256": "9215c7eaf88e165734cc12bfda1a24b3cee291dd94b2a59c45d1b84f40e36301",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step1": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/latent_step1.safetensors",
+              "bytes": 4053592,
+              "sha256": "6bacba5ae52f0e2ed97ff2f57f7369ca246112de216e2e229117fb1036f84f91",
+              "raw_tensor_sha256": "e4b12f5766d5d1841f5a5143ad08492a86e1056aae10f146e4a5a51cde10cf64",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/flow_step2.safetensors",
+              "bytes": 8107096,
+              "sha256": "b2f368701746dc5612ea6664ee4e7d58f96a39b4fb4042239f5770930f094e7b",
+              "raw_tensor_sha256": "a4ad6f1ebaca250b38dcb7625949fbf9b1664e1d2d76325125d46e7e063a7bc5",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step2": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/latent_step2.safetensors",
+              "bytes": 4053592,
+              "sha256": "5277d4f6ca6eabae38caa3abacd40df6b8b13da0d01da31306549d0f09d4c592",
+              "raw_tensor_sha256": "ef320aacc30e52f0eadcd2b37a9816d29360ea8a9b9d2484f876f278ca01438e",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            },
+            "flow_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/flow_step3.safetensors",
+              "bytes": 8107096,
+              "sha256": "98931ff280c871dbf1e83f7591937555052fdab6867580ec448ae7b996f17b82",
+              "raw_tensor_sha256": "2f4d0231d24cf53361479f5a98880c73b7982f7523259b928c14746c111c3f4d",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "float32"
+            },
+            "latent_step3": {
+              "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/latent_step3.safetensors",
+              "bytes": 4053592,
+              "sha256": "dbf85a9afe0481e662c49689da108fcac038be6c111956410c1c47e1fcb2085f",
+              "raw_tensor_sha256": "63dcdea427d516b6a6f3c328c37301acad6d308334af770343091902b1fb5ba4",
+              "shape": [
+                16,
+                21,
+                58,
+                104
+              ],
+              "dtype": "bfloat16"
+            }
+          },
+          "video": {
+            "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/worker/results/chipmunk_p64_v2_ord96_seed42_global_p64/output.mp4",
+            "bytes": 1651370,
+            "sha256": "6c41189ec504d3e5fc4a4a50ef038d4e5be51e5d1d0e13f4b480be1681b21033",
+            "frames": 81,
+            "fps": 16.0,
+            "size": [
+              832,
+              464
+            ]
+          }
+        }
+      ],
+      "neutral_state_pairs": 20,
+      "neutral_video_pairs": 2,
+      "candidate_packed_pregate_controls": [
+        {
+          "step": 1,
+          "block": 0,
+          "expert": 0,
+          "mask_indices_sha256": "4faedabe7a885f0c0dcf117a556d6695db86e8816073ed25ffdcf88a4ac143f7",
+          "relative_l2": 0.0,
+          "max_absolute": 0.0,
+          "reference_norm": 17194.576171875,
+          "relative_l2_limit": 1e-05,
+          "max_absolute_limit": 0.001
+        },
+        {
+          "step": 3,
+          "block": 0,
+          "expert": 1,
+          "mask_indices_sha256": "e1e308fc43b3f807c81d67f8725cbb407a46cbf1fd49906ecfb82d967b092341",
+          "relative_l2": 0.0,
+          "max_absolute": 0.0,
+          "reference_norm": 13163.8505859375,
+          "relative_l2_limit": 1e-05,
+          "max_absolute_limit": 0.001
+        }
+      ],
+      "operation_counts": {
+        "original_expert_loads": 2,
+        "raw_Default_MM_loads": 812,
+        "buffer_Default_MM_loads": 40,
+        "T5_buffer_Default_MM_loads": 7,
+        "T5_raw_Default_MM_loads": 168,
+        "p64_row_seed_and_H2D": 1,
+        "authority_checks": 4,
+        "offload_buffer_resets": 8,
+        "VAE_encodes": 4,
+        "stage_CUDA_event_pairs": 28,
+        "T5_checkpoint_block_buffer_loads": 96,
+        "T5_Default_MM_calls": 672,
+        "T5_positive_prompt_encodes": 4,
+        "input_encoder_requests": 4,
+        "state_tensor_D2H": 40,
+        "state_tensor_D2H_bytes": 243210240,
+        "state_output_writes": 40,
+        "state_file_hash_calls": 40,
+        "state_file_hash_reserved_bytes": 285153280,
+        "state_raw_sha_calls": 40,
+        "state_raw_sha_bytes": 243210240,
+        "raw_FP32_noise_files": 4,
+        "FP32_initial_noise_draws": 4,
+        "scheduler_prepare": 4,
+        "scheduler_step_pre": 16,
+        "initial_BF16_noise_files": 4,
+        "patch_Conv3D_calls": 16,
+        "pre_Default_MM_calls": 80,
+        "pre_infer_calls": 16,
+        "original_checkpoint_block_buffer_loads": 648,
+        "prefetch_transfer_observations": 648,
+        "native_non_FFN_linears": 5120,
+        "native_FFN_linears": 1280,
+        "native_FFN_calls": 640,
+        "FFN_CUDA_event_pairs": 640,
+        "native_blocks": 640,
+        "final_LayerNorm_calls": 16,
+        "head_Default_MM_calls": 16,
+        "post_unpatchify_calls": 16,
+        "native_full_model_flows": 16,
+        "native_FP32_flow_files": 16,
+        "scheduler_step_post": 16,
+        "native_BF16_post_files": 16,
+        "VAE_decodes": 4,
+        "video_generations": 4,
+        "video_geometry_checks": 4,
+        "neutral_state_checks": 20,
+        "neutral_video_checks": 2,
+        "cache_h_clone": 160,
+        "cache_h_clone_bytes": 140089098240,
+        "cache_y_clone": 160,
+        "cache_y_clone_bytes": 51884851200,
+        "cache_release_sync": 160,
+        "expert_boundary_cleanup": 4,
+        "weight_materializations": 160,
+        "weight_materialization_logical_bytes": 22649241600,
+        "p64_score": 80,
+        "p64_gather_input": 80,
+        "p64_gather_old_h": 80,
+        "p64_W1_gemm": 80,
+        "p64_gelu": 80,
+        "p64_rms": 80,
+        "p64_input_gather_logical_bytes": 52428800,
+        "p64_old_h_gather_logical_bytes": 141557760,
+        "p64_select": 80,
+        "mask_sha_calls": 80,
+        "mask_sha_logical_bytes": 3276800,
+        "packed_action": 80,
+        "packed_gather_w1": 80,
+        "packed_gather_w2": 80,
+        "packed_gather_bias": 80,
+        "packed_clone_h": 80,
+        "packed_clone_y": 80,
+        "packed_gather_h": 80,
+        "packed_W1_gemm": 80,
+        "packed_selected_gelu": 80,
+        "packed_delta_round": 80,
+        "packed_update_h": 80,
+        "packed_W2_gemm_fp32": 80,
+        "packed_accumulate_y": 80,
+        "packed_cache_clone_logical_bytes": 95986974720,
+        "packed_delta_logical_bytes": 25942425600,
+        "packed_weight_gather_logical_bytes": 8389427200,
+        "observer_ones": 2,
+        "observer_ones_logical_bytes": 20480,
+        "observer_packed_action": 2,
+        "observer_packed_gather_w1": 2,
+        "observer_packed_gather_w2": 2,
+        "observer_packed_gather_bias": 2,
+        "observer_packed_clone_h": 2,
+        "observer_packed_clone_y": 2,
+        "observer_packed_gather_h": 2,
+        "observer_packed_W1_gemm": 2,
+        "observer_packed_selected_gelu": 2,
+        "observer_packed_delta_round": 2,
+        "observer_packed_update_h": 2,
+        "observer_packed_W2_gemm_fp32": 2,
+        "observer_packed_accumulate_y": 2,
+        "observer_packed_cache_clone_logical_bytes": 2399674368,
+        "observer_packed_delta_logical_bytes": 648560640,
+        "observer_packed_weight_gather_logical_bytes": 209735680,
+        "observer_gate_product": 2,
+        "observer_gate_logical_bytes": 648560640,
+        "observer_compare": 2,
+        "observer_compare_elements": 324280320
+      },
+      "GPU_wall_seconds": 287.93082366138697,
+      "GPU_outer_seconds": 321.36119036376476,
+      "setup_seconds": 87.36601851508021,
+      "peak_GPU_reserved_bytes": 69327650816,
+      "peak_GPU_allocated_bytes": 60472343552,
+      "peak_physical_GPU_MiB": 66859,
+      "peak_host_RSS_bytes": 117024739328,
+      "GPU_monitor_violations": 0,
+      "precision": {
+        "torch_version": "2.10.0+cu128",
+        "cuda_version": "12.8",
+        "gpu_name": "NVIDIA A100 80GB PCIe",
+        "allow_tf32": false,
+        "allow_bf16_reduced_precision_reduction": true,
+        "float32_matmul_precision": "highest"
+      },
+      "allocator_memory_observations": [
+        {
+          "event": "phase_memory_before",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_original_dense",
+          "mode": "original_dense",
+          "memory": {
+            "allocated_bytes": 3461527552,
+            "reserved_bytes": 3514826752,
+            "peak_allocated_bytes": 3461527552,
+            "peak_reserved_bytes": 3514826752,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_after",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_original_dense",
+          "mode": "original_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 21908946944,
+            "peak_allocated_bytes": 9891207680,
+            "peak_reserved_bytes": 21908946944,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_before",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_hook_dense",
+          "mode": "hook_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 21908946944,
+            "peak_allocated_bytes": 9891207680,
+            "peak_reserved_bytes": 21908946944,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_after",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_hook_dense",
+          "mode": "hook_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 21911044096,
+            "peak_allocated_bytes": 10078237184,
+            "peak_reserved_bytes": 21911044096,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_before",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_cache_dense",
+          "mode": "cache_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 21911044096,
+            "peak_allocated_bytes": 10078237184,
+            "peak_reserved_bytes": 21911044096,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "expert_boundary_pre_cleanup",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_cache_dense",
+          "mode": "cache_dense",
+          "step": 1,
+          "expert": 0,
+          "block": 39,
+          "memory": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 69327650816,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "retained_cache_bytes": 0
+        },
+        {
+          "event": "expert_boundary_cleanup",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_cache_dense",
+          "mode": "cache_dense",
+          "step": 1,
+          "expert": 0,
+          "block": 39,
+          "before": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 69327650816,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "after": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 8757706752,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "wall_seconds_including_synchronization": 0.03713191673159599,
+          "retained_cache_bytes": 0,
+          "only_unused_allocator_segments": true
+        },
+        {
+          "event": "expert_boundary_pre_cleanup",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_cache_dense",
+          "mode": "cache_dense",
+          "step": 3,
+          "expert": 1,
+          "block": 39,
+          "memory": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 61178118144,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "retained_cache_bytes": 0
+        },
+        {
+          "event": "expert_boundary_cleanup",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_cache_dense",
+          "mode": "cache_dense",
+          "step": 3,
+          "expert": 1,
+          "block": 39,
+          "before": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 61178118144,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "after": {
+            "allocated_bytes": 7605404672,
+            "reserved_bytes": 8757706752,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "wall_seconds_including_synchronization": 0.0314958319067955,
+          "retained_cache_bytes": 0,
+          "only_unused_allocator_segments": true
+        },
+        {
+          "event": "phase_memory_after",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_cache_dense",
+          "mode": "cache_dense",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 13237223424,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "phase_memory_before",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_global_p64",
+          "mode": "global_p64",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 13237223424,
+            "peak_allocated_bytes": 57870410752,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        },
+        {
+          "event": "expert_boundary_pre_cleanup",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_global_p64",
+          "mode": "candidate",
+          "step": 1,
+          "expert": 0,
+          "block": 39,
+          "memory": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 67383590912,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "retained_cache_bytes": 0
+        },
+        {
+          "event": "expert_boundary_cleanup",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_global_p64",
+          "mode": "candidate",
+          "step": 1,
+          "expert": 0,
+          "block": 39,
+          "before": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 67383590912,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "after": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 8858370048,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "wall_seconds_including_synchronization": 0.035645678639411926,
+          "retained_cache_bytes": 0,
+          "only_unused_allocator_segments": true
+        },
+        {
+          "event": "expert_boundary_pre_cleanup",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_global_p64",
+          "mode": "candidate",
+          "step": 3,
+          "expert": 1,
+          "block": 39,
+          "memory": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 63327698944,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "retained_cache_bytes": 0
+        },
+        {
+          "event": "expert_boundary_cleanup",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_global_p64",
+          "mode": "candidate",
+          "step": 3,
+          "expert": 1,
+          "block": 39,
+          "before": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 63327698944,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "after": {
+            "allocated_bytes": 7604626432,
+            "reserved_bytes": 8812232704,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          },
+          "wall_seconds_including_synchronization": 0.03309442475438118,
+          "retained_cache_bytes": 0,
+          "only_unused_allocator_segments": true
+        },
+        {
+          "event": "phase_memory_after",
+          "run_id": "chipmunk_p64_v2_ord96_seed42_global_p64",
+          "mode": "global_p64",
+          "memory": {
+            "allocated_bytes": 5824788480,
+            "reserved_bytes": 12641632256,
+            "peak_allocated_bytes": 60472343552,
+            "peak_reserved_bytes": 69327650816,
+            "allocator_backend": "native",
+            "peak_stats_reset": false
+          }
+        }
+      ],
+      "final_memory": {
+        "allocated_bytes": 5824788480,
+        "reserved_bytes": 12641632256,
+        "peak_allocated_bytes": 60472343552,
+        "peak_reserved_bytes": 69327650816,
+        "allocator_backend": "native",
+        "peak_stats_reset": false
+      },
+      "VERIFY_wall_seconds": 4.635784085839987,
+      "VERIFY_outer_seconds": 4.8490536995232105,
+      "VERIFY_read_bytes": 252523760,
+      "CPU_preflight": {
+        "RUN": {
+          "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/cpu_preflight/worker/results/RUN.json",
+          "bytes": 714,
+          "sha256": "ea0c8db957486804a9e55f869ed908296be93e418d8a33a1ab50cbcfbf949d2e"
+        },
+        "exit": {
+          "path": "ffnds-derived/e0_chipmunk_global_p64_video_v2_20261030/part1/attempt1/cpu_preflight/worker/EXIT_RECEIPT.json",
+          "bytes": 537,
+          "sha256": "178eade6f2376ce2377c5625973fd9aa3d4066431203bf9a73b0e45a64a13e6a"
+        }
+      },
+      "CPU_preflight_wall_seconds": 0.40816571190953255,
+      "CPU_preflight_outer_seconds": 0.5908033885061741,
+      "output_accounting": {
+        "peak_tracked_bytes_plus_reserved_and_atomic_temp": 285537559,
+        "unconsumed_reserved_bytes": 0,
+        "accounting_errors": []
+      }
+    }
+  ],
+  "total_videos": 8,
+  "neutral_state_pairs": 40,
+  "neutral_video_pairs": 4,
+  "quality_acceptance": false
+}

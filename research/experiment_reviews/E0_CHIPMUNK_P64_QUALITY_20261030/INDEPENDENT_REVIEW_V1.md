@@ -1,0 +1,7 @@
+# Independent engineering initial review — REVISE
+
+Reviewer `/root/teal_full_llm_calibration_build_terra`; author `/root/asset_readiness_terra`. This is an unbound quality-adapter draft, not an experiment approval. Eight CPU-only lineage/adapter synthetic tests passed; no video, metrics, model or GPU execution.
+
+Two blocking identity problems: (1) `e0_chipmunk_p64_quality_lineage.py` hardcodes the global-P64 V4 parent protocol. That parent was withdrawn during actual independent review; the real final reviewed producer, GPU EXIT0 and independently supervised VERIFY EXIT0 must be closed and bound before any quality plan is frozen. (2) `metric_adapter.install` emits `COMPLETE_SHARQ_WAN_*` and `PASS_SHARQ_WAN_*` statuses for Chipmunk scope IDs, and visual docstring/manifest schema still names SharQ. This mislabels actual output provenance. Use Chipmunk-specific stable status and schema identities consistently in producer and verifier; add tests for each two-arm path and closed output identity.
+
+The reviewed design selects original Dense and global-P64 only, with two source-specific videos, 162 decoded frames and 80 stride-2 RAFT pairs per part; 81-frame contact sheets are not human playback. Nested child identity SHA and internal model I/O remain separately UNKNOWN. Final source, asset, worker, actual parent proof, exact CPU/GPU/VERIFY jobs and fresh independent recheck are required after author response; no scoring authority follows from this draft review.
