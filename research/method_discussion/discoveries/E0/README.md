@@ -16,7 +16,9 @@
 
 **交锋更新（2026-10-28，修订后独立R2）**：[新方法碰撞/动态尾部/数值margin/跨步transported Gram评议](../../../independent_reviews/QCFB_20261028/SECOND_ROUND_INDEPENDENT_RESPONSE_AND_NEW_FRONTIER_20261028.md)。正面接受另一Agent对PSD、可测性与Q-STAGE的修正，增加5项更可检验的I/F/C接口。仍属ALG/OPEN，不是稀疏模型已实测或审阅投票。
 
-**2026-10-29 MTC/TDIC新方向**：[运动对应与FFN时间创新误差机制](../../../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)，联结[OPEN计算图claim](../../graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)和[开放数据采集需求](../../../agent_protocol/ACQUISITION_QUEUE_20261029.json)。优先区分固定视频latent时间坐标的DC/AC误差、真正运动配对、在线合法锚点以及student因果放大。已有同xy实测时间优势、60条BF16完整视频质量退化是OBS；motion compensation和新方法加速是OPEN。新研究不限旧S2种子，不宣称已通过同行评议。
+**2026-10-29 S2时间统计子问题（不新增独立研究主线）**：[运动对应与FFN时间创新误差机制](../../../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)，联结[OPEN计算图claim](../../graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)和[开放数据采集需求](../../../agent_protocol/ACQUISITION_QUEUE_20261029.json)。优先区分固定视频latent时间坐标的DC/AC误差、真正运动配对、在线合法锚点以及student因果放大。已有同xy实测时间优势、60条BF16完整视频质量退化是OBS；motion compensation和新方法加速是OPEN。新研究不限旧S2种子，不宣称已通过同行评议。
+
+**当前新增统计的具体缺口**：[完整21τ的滞后、频谱、时间协方差有效秩、突发事件与运动对应补采计划](../../../20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。现有10图完整轨迹与同Dense-h对照已实际exit0；新T1–T6源码是准备产物，尚无执行收据。实验资源以[冻结会话两卡限制优先的动态GPU政策](../../../agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)为准。
 
 ## 探索的三种互补科学入口
 
