@@ -1,0 +1,7 @@
+# Independent initial review — REVISE
+
+Reviewer `/root/teal_full_llm_calibration_build_terra`; author `/root/asset_readiness_terra`. Four draft protocols remain unbound and nonexecutable. Five CPU synthetic tests independently passed; no real scientific tensor/model/GPU call.
+
+Each scope uses captured full-M raster rows and an explicitly paid old W1/GELU/W2 cache, then a cold kernel setup and four online mean/P4/P64/random actions before full-current Dense reference and the offline full-RMS oracle. Synchronized events include actual selector, cache clones, selected W1/W2 and gate; persisted ledger updates lie outside measured intervals. Fixed sample prefixes, different shape scores and the oracle's post-reference information must remain explicit. Four pairs belong to two exposed sources, not four independent sources, and timings are one-shot instrumented results, not video or system speed.
+
+Blocking result-identity counterexample: the `dense_vs_captured[*].bitwise_equal` result uses `torch.equal` on BF16 floating-point tensors. Numerically equal positive and negative zero have different bytes, so this check cannot substantiate a bitwise identity. Either compare contiguous byte views and include that GPU observation in the charged metrics work, or rename the output to numeric equality and preserve the exact semantics; add a synthetic signed-zero counterexample. Final worker, launcher/job, fixed protocol and independent response/recheck are still required. Scope remains not authorized.
