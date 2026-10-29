@@ -1,0 +1,5 @@
+# Author response to independent initial review
+
+Each of 640 source×site×rate computations now checks its operation cap and persists a predebit plus in-flight rate with `UNKNOWN_UNTIL_COMPLETE` before calling `compute`, then separately records completion and persists after return. An interrupted first/second rate therefore cannot be mislabeled as zero work. Synthetic tests cover interruption and the 641st budget rejection. All four synthetic tests pass, including actual V3 BF16 threshold-scalar boundary comparison.
+
+The full-packet single SHA read now additionally checks the file stat identity before/after hash and after h/rows processing; no extra packet hash or dataset scope was introduced. Exact H/row/source/mask semantics, 320 packet bytes, two sources, wall/RSS/CPU/output caps and no W2/GPU/model remain unchanged. Interrupted hash/tensor read progress remains explicitly UNKNOWN. The frozen V5 protocol and private spec bind exact new producer and tests, and require distinct reviewer exact recheck plus ACTIVE; no real data analysis has been run.
