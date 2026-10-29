@@ -4,6 +4,8 @@
 
 **本交接的“资产先行”指先了解已有证据、节约重复实验；并不要求在现有资产内完成研究。** [问题驱动开放采集](EVIDENCE_DRIVEN_ACQUISITION_20261029.md)及[新增采集队列](ACQUISITION_QUEUE_20261029.json)是**并行P0科研工作**。若缺独立source、40层×4步的时空匹配token、学生自身状态、真实Q1/Q2动态code/scale、额外领域/视频行为数据，立即建设所需数据producer和新source cohort，完成真正的原生采集后继续推导；采集可以先于具体算法。允许引入新的课题与算子，S1/S4/S2/S3及既有rank960并不是方法空间边界。
 
+**本次用户指定的实际下一步（优先执行）**：[S2真实时空+Dense/Student状态采集与因果定位合同](../20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)；[必须由主Agent分出理论与实验设计子Agent](S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。先读取最新已完成ROI坐标producer（ord898/96、maxflow并非主体）及新40条失败视频的RUN/EXIT，独立子Agent同步推导局部W2失真、student prefix偏移、运动对应、gate/attention消费者的相反预测；主Agent负责校验坐标/真实state/两卡执行范围、实现及运行pilot。pilot为2个source×Dense/value10/dcac10×高flow5×5+中心5×5+低流负对照×21τ×160site；完成后扩跨来源统计和另行冻结的same-input反事实。无原生新RUN前不得报告已完成采集/推导。
+
 ## 0. 协作起手式
 
 1. **观察与信息差距**：列出已有 *原始source-cluster、step×layer×token坐标、producer、numeric backend、teacher或student状态、latent视频时间位置*；明确一个使旧策略失效的已见现象。
