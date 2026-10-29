@@ -48,6 +48,12 @@
 
 **输入**：旧2来源×5 Block连续M128观测；新原BF16全160位置保存行及其token locator。**竞争**：layer/step本身决定公共创新 vs video时间/物体移动的token配对决定真正可复用结构。**第一判别**：核对21 latent时间槽×29×52空间网格、真实配对索引；先检索保存行的空间/时间匹配覆盖，缺失的paired token才另注册被动Dense采集。每层/step/source逐层记录共享均值、token-specific能量与真实运动对齐后的作用。只有发现稳定且前置廉价分组后，才发明tile Kernel。**状态**：[八来源全40×4稀疏配对OBS](../20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)实际CPU exit0；时间同xy优势已存在于V1。真实十张新图原始字节已提取并核对，完整21τ×8xy的原BF16全160采集part0已登记运行、part1等待闭合中性证明；完整轨迹分析和真实学生/运动对应仍按实际后续范围判断。
 
+### D2 · MTC/TDIC：时间距离驱动的FFN运动创新表征（新OPEN机制，与S2并行）
+
+**发现与定义**：[MTC/TDIC科学方案](../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)以20来源完整BF16 r960视频的运动衰减和8来源same-xy稀疏时空距离为矛盾，提出**同一去噪step内部21个latent视频时间槽的DC/AC保留、真实运动对应、W2近似误差运输**三条区分性检验。与跨去噪step缓存严格不同，TokenFlow/FRESCO/OmniCache的特征匹配与缓存已属近先例，科研贡献必须体现在FFN函数误差和质量/成本的新增结果。
+
+**最小动作与前提**：先核验10新source×全21τ原生采集的真实RUN/EXIT，再同Dense h重放BF16 shared/step因子；按独立source报告gY与u的DC/AC误差、方向、step/layer及运动尾部。完整8xy采集只可做固定xy/有限横邻控制；下一步需要真实spatial-neighborhood producer、遮挡/光流离线oracle及在线match成本。**不用提前假定补算**：先检查相同rank预算的AC加权函数；任何上一τ原W2误差锚点或运动warp都必须有实际计算、可用性、重排与存储价格。若局部AC没有明显失真，转学生prefix分布漂移与Attention下游而非继续假设已证明运动补偿。图claim为[PROPOSED](../method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)，新采集需求[队列](ACQUISITION_QUEUE_20261029.json)为DESIGN_ONLY，不是已执行算法或独立Agent SUPPORT。
+
 ### E · S3-QFAR：量化可见信息与早期合法动作
 
 **输入**：旧HiF4全64组真Q2贡献、CAL24及source绑定、Q1/Q2源码；原生NVFP4以自己的W/A尺度与pack做独立lane。**竞争**：真实合法whole64组行动有source-held收益而cheap Q1前置指标能够预测 vs 真实可执行整组组束的oracle收益已经不足。**第一判别**：在真实whole64 action dictionary比较oracle、step-only、cheap preW1 BF16、Q1 scale、带有位置的signed码摘要、static W×dynamic A，以及观测/route/packing成本；输出action regret、合法闭包与用到的真实信息时间。HiF4先作为诊断，原生NVFP4组为独立待证算子。**状态**：旧任意列25%保持时需全部216组闭包和whole64能量基线已测，联合低风险动作OPEN。
