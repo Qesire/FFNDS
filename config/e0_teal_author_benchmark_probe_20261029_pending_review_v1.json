@@ -1,0 +1,401 @@
+{
+  "id": "E0_TEAL_AUTHOR_BENCHMARK_PROBE_20261029",
+  "status": "FROZEN_PENDING_REGISTRATION",
+  "assets_finalized": true,
+  "upstream_repository": "https://github.com/FasterDecoding/TEAL",
+  "design": {
+    "claim": "BOUNDED_AUTHOR_BENCHMARK_ADAPTED_NOT_LLM_REPRO_OR_WAN",
+    "source_commit": "fb7373c93ac3594817c9ee64d4e08b47430a1822",
+    "gpu_compute_capability": [
+      8,
+      0
+    ],
+    "gpu_name_contains": "A100",
+    "dtype": "float16",
+    "input_shape": [
+      1,
+      1,
+      4096
+    ],
+    "weight_shape": [
+      14336,
+      4096
+    ],
+    "seed": 42,
+    "sparsity_levels": [
+      0.0,
+      0.5
+    ],
+    "thresholds": [
+      0.0,
+      0.25
+    ],
+    "sparsity_bins": [
+      0,
+      9
+    ],
+    "cpu_affinity": [
+      0,
+      1
+    ],
+    "physical_gpu_index": 0,
+    "quantiles": [
+      0.5,
+      0.2,
+      0.8
+    ],
+    "warmup_ms": 25,
+    "sparse_rep_ms": 1000,
+    "dense_rep_ms": 100,
+    "flush_bytes": 256000000,
+    "measurement": "TRITON_3_0_DO_BENCH_EQUIVALENT_EVENT_FLUSH_GUARDED_ADAPTATION",
+    "scope": "PAIRED_SAME_INPUT_TWO_LEVELS_NOT_FULL_AUTHOR_SWEEP",
+    "no_compile_no_cuda_graph": true,
+    "relative_l2_max": 0.015,
+    "new_training": false
+  },
+  "resources": {
+    "GPU": 1,
+    "CPU_threads": 2,
+    "wall_seconds": 900,
+    "outer_seconds": 1020,
+    "GPU_reserved_bytes": 4294967296,
+    "new_HF_bytes": 1073741824,
+    "free_disk_bytes": 10737418240,
+    "automatic_retry": false
+  },
+  "limits": {
+    "benchmark_arms": 4,
+    "max_repeats_per_arm": 30000,
+    "max_warmups_per_arm": 5000,
+    "max_python_fn_calls_per_arm": 35006,
+    "correctness_sparse": 2,
+    "correctness_dense": 2,
+    "video_generations": 0,
+    "model_loads": 0,
+    "training_updates": 0
+  },
+  "source_files": [
+    {
+      "path": ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/__init__.py",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/compile_wrapper.py",
+      "bytes": 4640,
+      "sha256": "7e1b86358171923d3ac658476b483c5b1dc199601b84976264d5814933239d7c"
+    },
+    {
+      "path": ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/kernel_utils.py",
+      "bytes": 1665,
+      "sha256": "c47ca739752a4012b027493f9ad987a1b27cf2f4b0739d714b0ae1f881efd44f"
+    },
+    {
+      "path": ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/sparse_gemv.py",
+      "bytes": 10157,
+      "sha256": "21183499ac9eb06c57365023388920721636b5bc0d2acf5d91c95fd5e48c37a3"
+    },
+    {
+      "path": ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/pyproject.toml",
+      "bytes": 864,
+      "sha256": "b04eb6ea56b66b5cf6a342e769795046341f6d73e3edb5a7be53688f738aac81"
+    },
+    {
+      "path": ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/scripts/benchmark_gemv.py",
+      "bytes": 9905,
+      "sha256": "27dddfe933e5359cbdcbffe246a41a5be541cddd59e4698043f02bd2e8d111af"
+    }
+  ],
+  "repo_sources": [
+    {
+      "path": "tools/e0_teal_author_benchmark_probe.py",
+      "bytes": 29558,
+      "sha256": "15f52666e19e6795084ba21144812c63813ba31409627aec54a23a235c4fd04f"
+    },
+    {
+      "path": "tests/test_e0_teal_author_benchmark_probe.py",
+      "bytes": 4063,
+      "sha256": "b8628802746540cfe2a2cfa636056dfd777267f8dde3776d7bc3ac1855aafea5"
+    },
+    {
+      "path": "tools/e0_teal_author_kernel_probe.py",
+      "bytes": 28318,
+      "sha256": "f02625cb9bc8e43a19cb61f83329c4836eab1c3d817044cd3f1478e455493435"
+    },
+    {
+      "path": "tests/test_e0_teal_author_kernel_probe.py",
+      "bytes": 8608,
+      "sha256": "5144bc13d20896880258cabd9c7f6b8966d27f13456d1d5d19f2daeddfd8a0b8"
+    },
+    {
+      "path": "config/e0_teal_author_kernel_probe_20261029_pending_review_v1.json",
+      "bytes": 11220,
+      "sha256": "86922791f1572830e8329472542594d38a1fa2430e03a8a7cb7311de0aa3ca6e"
+    },
+    {
+      "path": "tools/e0_teal_author_kernel_probe_v2.py",
+      "bytes": 30276,
+      "sha256": "011efa961c55fc4dc5279003bb25915334c0c5342604f8fb9c481ff89af72a00"
+    },
+    {
+      "path": "tests/test_e0_teal_author_kernel_probe_v2.py",
+      "bytes": 9421,
+      "sha256": "20d18ddfa599c0d5e951eecbfab68131c973124ad8da382faf89c2973b4275ab"
+    },
+    {
+      "path": "config/e0_teal_author_kernel_probe_v2_20261029_pending_review_v1.json",
+      "bytes": 13615,
+      "sha256": "61eee3cebdd0b07034c970a960aa122d524abbfbdec82382e89668a0f1a93af4"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "bytes": 3559,
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d"
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "bytes": 2529,
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0"
+    },
+    {
+      "path": "tools/durable_worker_job.py",
+      "bytes": 9319,
+      "sha256": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2"
+    },
+    {
+      "path": "scripts/worker_wait_uuid_idle_exec.sh",
+      "bytes": 1919,
+      "sha256": "38f055289300e9d52b0e4ee27cb19174e804ba178fad0815ae52f4ab97774a53"
+    },
+    {
+      "path": "scripts/worker_teal_gpu0_uuid_exec.sh",
+      "bytes": 730,
+      "sha256": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1"
+    }
+  ],
+  "output_HF_relative": "ffnds-derived/e0_teal_author_benchmark_probe_20261029/attempt1/worker/results",
+  "v1_failure": {
+    "cause": "TRITON_IMPORT_MISSING_SETUPTOOLS",
+    "retry": "NEW_SCOPE_SINGLE_ATTEMPT",
+    "files": [
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_20261029/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 530,
+        "sha256": "3f1295a8ceaa90c61b602f7c7d432e651fad6d4891e8af37912748ee3294b366"
+      },
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_20261029/attempt1/worker/results/RUN.json",
+        "bytes": 3086,
+        "sha256": "0e7e6bb9213ceafa2ea07c3bf1ec3f3a395d0ea2bc152bc18644d25884ad5a2f"
+      },
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_20261029/attempt1/worker/child.stderr.log",
+        "bytes": 4358,
+        "sha256": "754420e1579e236ff9ce3057563221deffd68f50925b554e3bc653e0497629dd"
+      }
+    ]
+  },
+  "engineering_import_smoke": {
+    "path": "ffnds-derived/teal_author_env_v2_20261029/IMPORT_SMOKE.json",
+    "bytes": 232,
+    "sha256": "707a556982a9ba0dc58c457a5ba5d2eb2a2dc40fec25fac663dcc92a8c1b3f37"
+  },
+  "v2_closed": {
+    "identity": "EAGER_INSTRUMENTED_DO_NOT_INTERPRET_AS_AUTHOR_BENCHMARK",
+    "files": [
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_v2_20261029/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 533,
+        "sha256": "6ecbcfe3c8ea56dc91b2e856d8323575fed08ffa5609661d0dc599f2c7e817d2"
+      },
+      {
+        "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_v2_20261029/attempt1/worker/results/RUN.json",
+        "bytes": 27459,
+        "sha256": "fd83d1ebb9d8d5e82068ea8a3149558a3fcecbac55fca628bdc99ad90873280a"
+      }
+    ]
+  },
+  "environment": {
+    "python_min": "3.11",
+    "torch_required": "2.4.0",
+    "triton_required": "3.0.0",
+    "distribution_policy": "AUTHOR_PINNED_TORCH_Triton_GPU_TARGET_SM80",
+    "worker_config_sha256": "5a4e5bf320c525deb8f952e22972fd2f8bc8c35fe8f66dcea1db1e64ef8a90d2",
+    "prepared_environment": {
+      "venv_path": "/home/xiang/.cache/huggingface/ffnds-derived/teal_author_env_v2_20261029/venv",
+      "python_executable_sha256": "8deffe5dd9ebcf98a062917a4e73bb8fbb7d5846f83dec01fb7506fd5d41c54e",
+      "pyvenv_cfg_sha256": "b0630fa94ab7f8cb6cd403bb3919960758263de1dd4878a41866264f2a694d0f",
+      "distributions": {
+        "filelock": {
+          "version": "4.2.4",
+          "RECORD_sha256": "9ddb91d987696c841aa3f68697dc8f1aefe4c247d12a638e9e6124c13d6bb176"
+        },
+        "fsspec": {
+          "version": "2026.9.0",
+          "RECORD_sha256": "f7b3713c1750221155b0601147f3b68a24f11e342dca818b5fd551f5ef88a74b"
+        },
+        "jinja2": {
+          "version": "3.1.6",
+          "RECORD_sha256": "4551b3fb657b85a9f01e961c0f8a235da65d758149b619400211964b3ac02bdc"
+        },
+        "markupsafe": {
+          "version": "3.0.4",
+          "RECORD_sha256": "570caeeaa9cfec081badb2dd5911a7ea9383ff73d99411d12e332b6a0fc9c1fe"
+        },
+        "mpmath": {
+          "version": "1.3.0",
+          "RECORD_sha256": "09cbd04e87d0c5ab64aab08291b31883e4ea27e8d2c640710e0beb1995e86b9b"
+        },
+        "msgspec": {
+          "version": "0.18.6",
+          "RECORD_sha256": "552e8ad63fa830bbc8b55b3eb8b1b8429516f221d145c86bf25bc078b1e5586f"
+        },
+        "networkx": {
+          "version": "3.6.1",
+          "RECORD_sha256": "f6833bb525b720a7809dd6280817601af3dbd78efef02d9e55d4b887ec1f52da"
+        },
+        "numpy": {
+          "version": "1.26.4",
+          "RECORD_sha256": "4b5a390ad88e89e5b09e6905e2ccf892d8286ae7053a7bf6632ea7cdeba8c113"
+        },
+        "nvidia-cublas-cu12": {
+          "version": "12.1.3.1",
+          "RECORD_sha256": "16a659d17166c13b5e39e44aa05abc923dcfa34f894c0f0d15a8f7f70de90994"
+        },
+        "nvidia-cuda-cupti-cu12": {
+          "version": "12.1.105",
+          "RECORD_sha256": "1d016d9b438ee6f28716de7333700b84288cc58185890b1dec03b2bb9b8e0267"
+        },
+        "nvidia-cuda-nvrtc-cu12": {
+          "version": "12.1.105",
+          "RECORD_sha256": "d58bfa6381bb25203edfc271289176e20f5235d8f212d54f100edab3edff4bc8"
+        },
+        "nvidia-cuda-runtime-cu12": {
+          "version": "12.1.105",
+          "RECORD_sha256": "26bd5dca4d0f110cd95ad20763a6a8614cca50c96d8290d3849de7e918139eae"
+        },
+        "nvidia-cudnn-cu12": {
+          "version": "9.1.0.70",
+          "RECORD_sha256": "5245de63babbeeb2311f657c2faa8ed27d51c8d9c103eb25c83ad9cfc6e06b3a"
+        },
+        "nvidia-cufft-cu12": {
+          "version": "11.0.2.54",
+          "RECORD_sha256": "71ad3c9f6d544adc8732e3864d282b42e59c73510cad5e52e1f3d48fc8c5e84d"
+        },
+        "nvidia-curand-cu12": {
+          "version": "10.3.2.106",
+          "RECORD_sha256": "2ed4c38fa298c4928adfbb71237049545641160d7ec7e0884c2e385565ef835b"
+        },
+        "nvidia-cusolver-cu12": {
+          "version": "11.4.5.107",
+          "RECORD_sha256": "2127a68c4daa68dfe8bdad8a0c1c918b0bea315c8143e1b0f0b0e34644860b65"
+        },
+        "nvidia-cusparse-cu12": {
+          "version": "12.1.0.106",
+          "RECORD_sha256": "767187e6098d91e54ba49c429afeee454e7d262102c5f1c6561a091bc6d847db"
+        },
+        "nvidia-nccl-cu12": {
+          "version": "2.20.5",
+          "RECORD_sha256": "c29a0efa119ab781a4454a02e477b482e4f271334b9869889e2630f5560bd4a2"
+        },
+        "nvidia-nvjitlink-cu12": {
+          "version": "12.1.105",
+          "RECORD_sha256": "d7f82a88fb21a93ca5fe7672d11263f5d467960739cb8cbecaa32fde078bc8e0"
+        },
+        "nvidia-nvtx-cu12": {
+          "version": "12.1.105",
+          "RECORD_sha256": "fdf75bc44dcd59350fc1bd3f9d9894f279f8395f06f1e30bfe09a5bfa98bad19"
+        },
+        "setuptools": {
+          "version": "75.8.2",
+          "RECORD_sha256": "0e9cce7534d70bcfb7bc05362036291ab91288843f5f7bfc2b9b87ba900d16a0"
+        },
+        "sympy": {
+          "version": "1.14.0",
+          "RECORD_sha256": "9ca4dc951d7072ad78d2067d4474bbd463b26ed09897d927b50b5a0367af54e2"
+        },
+        "torch": {
+          "version": "2.4.0",
+          "RECORD_sha256": "14568213cf983ea0533f11ce134a718fc42449437557f4fa4327ef080d3265ca"
+        },
+        "triton": {
+          "version": "3.0.0",
+          "RECORD_sha256": "06cbeca66974acc7b21b014e4981feaa0b2fe75abb5649a9de1bf84744073f89"
+        },
+        "typing_extensions": {
+          "version": "4.16.0",
+          "RECORD_sha256": "9e07fea845cac76293d927afa7157a14ecba39b318bc8af236b8de530b7656c1"
+        },
+        "wheel": {
+          "version": "0.45.1",
+          "RECORD_sha256": "1aefbf8ccb8ba8240622211a7e8d6e107a302087a878f7e0420e0768118fb1bd"
+        }
+      },
+      "runtime_files": {
+        "torch/__init__.py": {
+          "bytes": 89184,
+          "sha256": "34fd26c3046775a70a6a654df60afb362b2f2e98b2f9b8e713c8763b7a80ff83"
+        },
+        "torch/version.py": {
+          "bytes": 248,
+          "sha256": "75ce3e52cb5240e3105cca5beea5d1fa6b34af2640a46cf18d3b6bc2d006d8ee"
+        },
+        "torch/_C.cpython-311-x86_64-linux-gnu.so": {
+          "bytes": 37857,
+          "sha256": "0e042b419d54586f02ab2140388ae415e3816dd46c2fcb911fb47a2d8375191e"
+        },
+        "triton/__init__.py": {
+          "bytes": 1347,
+          "sha256": "ded80ef47a6837162e4f6b2f74ab59c991d89b620d337d1abff9e56b39925e3b"
+        },
+        "triton/runtime/autotuner.py": {
+          "bytes": 14974,
+          "sha256": "9dd27fc2e39569708156c8e6233157d4844f1d3007e852949bed421e93a1350b"
+        },
+        "triton/runtime/jit.py": {
+          "bytes": 34722,
+          "sha256": "7542bf9254646331ed90ce16fe1bfb2caf87d77d748d84396aab44c8027d508b"
+        },
+        "triton/backends/nvidia/compiler.py": {
+          "bytes": 13246,
+          "sha256": "a979896b9c0acfd41dd953b90bdc4b10968f7c0b45a286eae3f829aaddb2bb55"
+        },
+        "triton/runtime/build.py": {
+          "bytes": 2594,
+          "sha256": "ecfa821a309dc236a4009aba151c6727c090b5499604d798aa0a9875f92cd46d"
+        },
+        "setuptools/__init__.py": {
+          "bytes": 10406,
+          "sha256": "010b0c791156cfd090f5a06d71291b0780e7f2ddb0f3af863eb8a4969a008dec"
+        },
+        "wheel/__init__.py": {
+          "bytes": 59,
+          "sha256": "9abc4c9ef757002babfcb59e81b51f879839cac599addeb75099fcf74c2f18d9"
+        },
+        "msgspec/__init__.py": {
+          "bytes": 1156,
+          "sha256": "e109998d82ae5101e4a6edc7d71e2db364a0e6a71db620dea3d19a8efe02c0fb"
+        },
+        "triton/testing.py": {
+          "bytes": 18347,
+          "sha256": "d464b766632e34d2b63a983df74a8951d947d807c8299bd5fb335945825ae18b"
+        }
+      }
+    },
+    "cuda_required": "12.1",
+    "driver_version": "550.54.14",
+    "monitor_binary": {
+      "path": "/usr/bin/nvidia-smi",
+      "bytes": 1068640,
+      "sha256": "542c8fe3aea5d9e74dc8fd6c243e17a58f5557435e36a2e103f7ff55f8a30ea6"
+    }
+  },
+  "review": null,
+  "automatic_retry": false
+}

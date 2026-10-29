@@ -1,0 +1,147 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029",
+  "purpose": "faithful_author_kernel_probe_not_full_LLM_reproduction",
+  "research_question": "Can the unchanged single-token FP16 author kernel agree with same-input masked Dense and show a descriptive warmed-call latency tradeoff on this A100?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Actual sparse dispatch is numerically consistent and faster on this fixed input/shape",
+      "discriminator": "Masked Dense relative L2, real author entry counts and balanced paired event/wall intervals"
+    },
+    {
+      "id": "H2",
+      "prediction": "Atomic/init/launch/backend overhead or numerical error removes the gain",
+      "discriminator": "Failure or nonnegative paired sparse-minus-dense intervals; no causal traffic attribution"
+    }
+  ],
+  "author_agent_id": "/root/sm120_full_quality_build_terra",
+  "coordinator_agent_id": "/root",
+  "reviewer_agent_id": "/root/teal_probe_preexec_reviewer",
+  "author_review_path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/AUTHOR_RESPONSE_V1.md",
+  "independent_review_path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
+  "reviewer_recheck_path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/REVIEWER_RECHECK_V2.md",
+  "author_review": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/AUTHOR_RESPONSE_V1.md",
+    "bytes": 6613,
+    "sha256": "587086ae375a99af2292f96e484fcdc07b41ff6acdf5bc36ecb2dd93a46e8bc1"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 6803,
+    "sha256": "4763421413a6b96f2802480041bd76f9e5fcaf82e58ebf77f2aa7513b2f305d8"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/REVIEWER_RECHECK_V2.md",
+    "bytes": 2905,
+    "sha256": "9190213408c1e15c5f20bbd609bfab4514fb07f2fd702e6e04b261c791a50986"
+  },
+  "initial_author_self_audit": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/AUTHOR_DESIGN_UNREVIEWED.md",
+    "bytes": 6253,
+    "sha256": "e0db5eda9a5af283f7c1fc1ce6d4d277942c4af7e9fbb64d27f74d638d9777b5"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/COORDINATOR_SELF_AUDIT.md",
+    "bytes": 2170,
+    "sha256": "1f9c24831ba3ecfe4e96b8fe067ff93c19b9125c54a02c701e48a11794289e31"
+  },
+  "intermediate_recheck": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_20261029/REVIEWER_RECHECK_V1.md",
+    "bytes": 3940,
+    "sha256": "e5a6c5bb3094c6c0f024db8b5b165d55def5adaed4ad704abfae4cdfa15cc33b"
+  },
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "final_disposition": "APPROVE",
+  "adversarial_counterexample": "Threshold bins may select different autotune configurations; atomics/initialization or dispatch can dominate skipped weight loads. Faster masked call is not equal-function or causal-traffic acceleration. Multi-token dense fallback ignores threshold.",
+  "responses_to_review": [
+    "ACCEPT/REVISE: balance paired call order and exclude resource/hash checks from measured intervals",
+    "ACCEPT/REVISE: bind actual source/helper/runtime distribution identities and fixed GPU0/CPU0,1 launch chain",
+    "ACCEPT/REVISE: preserve correctness/nonfinite/fallback contrast before failure",
+    "ACCEPT: retain direct-entry versus unknown internal autotune launches and hard wall/memory bounds",
+    "ACCEPT/REVISE: preserve actual initial REVISE and bind exact V2 recheck via ACTIVE without cyclic protocol hashes"
+  ],
+  "code_commit": "fb7a7c73df05818194ccec5c983348df802a88fb",
+  "critical_source_hashes": {
+    "tools/e0_teal_author_kernel_probe.py": "f02625cb9bc8e43a19cb61f83329c4836eab1c3d817044cd3f1478e455493435",
+    "tests/test_e0_teal_author_kernel_probe.py": "5144bc13d20896880258cabd9c7f6b8966d27f13456d1d5d19f2daeddfd8a0b8",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/durable_worker_job.py": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2",
+    "scripts/worker_wait_uuid_idle_exec.sh": "38f055289300e9d52b0e4ee27cb19174e804ba178fad0815ae52f4ab97774a53",
+    "scripts/worker_teal_gpu0_uuid_exec.sh": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/compile_wrapper.py": "7e1b86358171923d3ac658476b483c5b1dc199601b84976264d5814933239d7c",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/kernel_utils.py": "c47ca739752a4012b027493f9ad987a1b27cf2f4b0739d714b0ae1f881efd44f",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/sparse_gemv.py": "21183499ac9eb06c57365023388920721636b5bc0d2acf5d91c95fd5e48c37a3",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/pyproject.toml": "b04eb6ea56b66b5cf6a342e769795046341f6d73e3edb5a7be53688f738aac81",
+    ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/scripts/benchmark_gemv.py": "27dddfe933e5359cbdcbffe246a41a5be541cddd59e4698043f02bd2e8d111af"
+  },
+  "checkpoint_numeric_recipe": "No checkpoint/model. Author FP16 random vector and column-major matrix, seed42, fixed Torch2.4.0/Triton3.0.0/CUDA12.1/A100 SM80.",
+  "input_cohort_manifest_sha256": "dc2d311fa033a247345ced035c8e8a6cd8fda2d837141c057f44fe15366c06ef",
+  "input_independence": "One seeded synthetic vector/matrix; timing repetitions are nested, not independent sources",
+  "control_arms": [
+    "sparse_threshold0_neutral",
+    "masked_dense_correctness",
+    "sparse_threshold0.25",
+    "unmasked_dense_latency",
+    "sequence_length2_unmasked_dense_fallback"
+  ],
+  "unit_of_independence": "one synthetic operand pair",
+  "full_depth_or_claim_scope": "Single-token author-kernel probe, no LLM quality/system reproduction or Wan video",
+  "predeclared_metrics": [
+    "relative_L2",
+    "max_abs",
+    "actual_zero_fraction",
+    "balanced_event_call_ms",
+    "synchronized_call_wall",
+    "compile_autotune_wall",
+    "direct_author_entries",
+    "peak_GPU_reserved_bytes"
+  ],
+  "expected_physical_savings": {
+    "action": "Author kernel conditional weight loads; actual traffic savings UNKNOWN",
+    "Wan_W1_W2": "NOT_RUN",
+    "observer": "Direct Python-entry observer; internal autotune launch count UNKNOWN"
+  },
+  "applicable_session_gpu_cap": 1,
+  "resource_scope": "One fixed GPU for this new finite scope, no global cap change",
+  "budget_and_failure_plan": {
+    "resources": {
+      "GPU": 1,
+      "CPU_threads": 2,
+      "wall_seconds": 900,
+      "outer_seconds": 1020,
+      "GPU_reserved_bytes": 4294967296,
+      "new_HF_bytes": 1073741824,
+      "free_disk_bytes": 10737418240,
+      "automatic_retry": false
+    },
+    "direct_entry_limits": {
+      "sparse_forward": 62,
+      "sparse_gemv_dispatch": 62,
+      "author_triton_launch_entry": 62,
+      "fallback_forward": 1,
+      "fallback_matmul": 1,
+      "dense_reference": 2,
+      "fallback_reference": 1,
+      "fallback_masked_reference": 1,
+      "dense_benchmark": 60,
+      "video_generations": 0,
+      "model_loads": 0,
+      "training_updates": 0
+    },
+    "automatic_retry": false,
+    "external_supervisor_seconds": 1020
+  },
+  "protocol": {
+    "path": "config/e0_teal_author_kernel_probe_20261029_pending_review_v1.json",
+    "bytes": 11220,
+    "sha256": "86922791f1572830e8329472542594d38a1fa2430e03a8a7cb7311de0aa3ca6e"
+  },
+  "launch_spec_sha256": "efc7531a15b99650bb9fc94cba6b4ac68907e1c559db5f97acb80bb2f14ee703",
+  "approval_scope_fingerprint": "68c09065ee992cc785e4cc380edfa132216efecfa244f4cdac358ab316211a4c",
+  "state": "REVIEWER_RECHECK_APPROVED"
+}

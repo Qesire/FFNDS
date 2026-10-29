@@ -42,8 +42,10 @@
 
 成像MUSIQ为0–100原始单位，其余0–1；本表没有跨指标合成总分。subject/background consistency及平滑度可以随运动减少而提高，须与幅值、条件一致性、实际事件分别解释。此为自定义单seed开发集上的八个原版函数，不能称官方五独立采样成绩；未测第九项temporal flickering，非RAFT内部forward次数未观测。
 
-全81帧CPU解码覆盖48条×81=3888帧、96页、48次真实EOF；四份RUN/EXIT及manifest均在目标端闭环。独立Agent已实际检查part0全部24页，其余72页尚未逐页独立审阅。接触表观察与人类完整播放验收分别登记。part0可见source616的Dense前景明暗变化明显减弱，source1039候选仍有灯光变化和晚时段动作反例；source911近静态，不能据图排序细小动作。详见[独立视觉评议](../method_discussion/discoveries/E0/s2-sm120-part0-four-arm-v2-full-visual-review-20261029.md)。
+全81帧CPU解码覆盖48条×81=3888帧、96页、48次真实EOF；四份RUN/EXIT及manifest均在目标端闭环。独立Agent已实际检查四份全部96页，逐页SHA与manifest匹配。接触表观察与人类完整播放验收分别登记。part0可见source616的Dense前景明暗变化明显减弱，source1039候选仍有灯光变化和晚时段动作反例；source911近静态，不能据图排序细小动作。详见[独立视觉评议](../method_discussion/discoveries/E0/s2-sm120-part0-four-arm-v2-full-visual-review-20261029.md)。
 
 失败谱系保留：连续RAFT V1三份因频繁扫描不变快照而人工终止（真实EXIT−15）；八轴V1在CPU亲和启动失败，V2完成三轴后因同类扫描开销中断（真实EXIT1）；接触表V1在第9条超页字节上限失败（EXIT1）。V2/V3另注册，不重写原RUN。新实现对不变快照做起止完整检查，热路径只检查新增文件，并保留实际工作账本。
+
+[其余72页独立审阅](../method_discussion/discoveries/E0/s2-sm120-parts1-3-four-arm-full-visual-review-20261029.md)进一步确认：979的late10有手下降，但轨迹与末态不同于Dense（一手留脸与双手落膝），0.929幅度比不能当同动作恢复；624火焰、1040潜水者也保留候选仍有动态的反例。
 
 后续按最新main把Chipmunk和TEAL忠实复现列为共同P0；这些有界失败及source级反例作为以后迁移解释资产，本轮不追加S2调参或GPU生成。全部输入/输出、页SHA、source向量、模型加载观察和退出收据见[机器结果](S2_NEW12_SM120_FIXED_DEPTH_QUALITY_RESULTS_20261029.json)。

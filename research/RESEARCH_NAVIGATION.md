@@ -1,10 +1,10 @@
 # FFNDS · 当前研究导航（2026-10-29）
 
-**最新 USER PRIORITY / 当前P0（2026-10-29）**：真实复现两个免大型训练的 FFN 稀疏基线——[Chipmunk #57](https://github.com/Qesire/FFNDS/issues/57) 与 [TEAL #58](https://github.com/Qesire/FFNDS/issues/58)，共同归 [#56](https://github.com/Qesire/FFNDS/issues/56)；[研究设计](20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)、[强制每新实验独立复审](agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md) 和 [ACTIVE当前用户优先字段](ACTIVE_RESEARCH.json) 是执行入口。**S2新因果原生实验降为P1**；本文件后文旧“P0 S2”是当时历史研究进度，不决定新资源优先级。作者Wan2.1示例Chipmunk实际默认**MLP关闭**，联合系统加速不能作MLP-only已复现，需三段式原作/MLP-only/Wan2.2；TEAL先原LLM FP16，再分别在Wan BF16评估 pre-W1 与 post-GELU。两者尚未在本仓库真正复现，未通过新scope独立实验复审，未安排运行GPU。
+**最新 USER PRIORITY / 当前P0（2026-10-29）**：真实复现两个免大型训练的 FFN 稀疏基线——[Chipmunk #57](https://github.com/Qesire/FFNDS/issues/57) 与 [TEAL #58](https://github.com/Qesire/FFNDS/issues/58)，共同归 [#56](https://github.com/Qesire/FFNDS/issues/56)；[研究设计](20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)、[强制每新实验独立复审](agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md) 和 [ACTIVE当前用户优先字段](ACTIVE_RESEARCH.json) 是执行入口。**S2新因果原生实验降为P1**；本文件后文旧“P0 S2”是当时历史研究进度，不决定新资源优先级。作者Wan2.1示例Chipmunk实际默认**MLP关闭**，联合系统加速不能作MLP-only已复现，需三段式原作/MLP-only/Wan2.2；TEAL先原LLM FP16，再分别在Wan BF16评估 pre-W1 与 post-GELU。[TEAL作者FP16单token有限kernel验证](20261029/TEAL_AUTHOR_FP16_KERNEL_PROBE_RESULTS_20261029.md)已复审后实际EXIT0并闭环；完整作者LLM、Chipmunk原系统与Wan适配仍未复现。各scope状态与许可由ACTIVE及实际报告确定。
 
 
 
-**2026-10-29 最新研究制度与正向基线入口**：[实验前真实独立复审](agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)；[新颖性独立判断及 Chipmunk/TEAL 无大训练基线](20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。任何新 CPU/GPU/视频原生实验均先重审实验可辨识性、论文源码忠实度、动态信息时点、相同成本强对照、真正稀疏算子和全160视频/成本，再由不同 Agent 实际审查、修订、复核和 ACTIVE 冻结；不把原方法 review 或新文档当自动运行授权。B1/B2 待实做，未拥有新质量或速度证据。
+**2026-10-29 最新研究制度与正向基线入口**：[实验前真实独立复审](agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)；[新颖性独立判断及 Chipmunk/TEAL 无大训练基线](20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。任何新 CPU/GPU/视频原生实验均先重审实验可辨识性、论文源码忠实度、动态信息时点、相同成本强对照、真正稀疏算子和全160视频/成本，再由不同 Agent 实际审查、修订、复核和 ACTIVE 冻结；不把原方法 review 或新文档当自动运行授权。TEAL有限内核的带观测器eager计时未见优势；它不是作者benchmark，不能据此判作者性能失败。完整模型和Wan证据仍待各自实验。
 
 
 
@@ -56,7 +56,7 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋19补充，共117项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋20补充，共118项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 

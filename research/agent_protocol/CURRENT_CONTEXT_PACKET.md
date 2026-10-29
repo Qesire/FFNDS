@@ -1,10 +1,10 @@
 # FFNDS · 当前Agent最小上下文（2026-10-29）
 
-**最新实际任务优先级：P0 CHIPMUNK + TEAL（同级，当前阶段实验前评议）。** 用户已明确要求立即复现这两个免大训练 FFN 稀疏基线；[ACTIVE](../ACTIVE_RESEARCH.json) 中 `current_user_research_priority_20261029` 为最新权限和任务优先级，[Chipmunk #57](https://github.com/Qesire/FFNDS/issues/57) / [TEAL #58](https://github.com/Qesire/FFNDS/issues/58) 各自独立完成原作条件、方法核验和4步 Wan2.2全160 FFN迁移。Chipmunk作者Wan2.1默认配置**MLP关、Attention开、step caching开**，2.67×属组合系统数字，MLP-only还须真实实现验证；TEAL作者公开速度核FP16/LLM，Wan BF16需新适配。两条需真实不同Agent逐实验复审，未审前不得执行新科学CPU/GPU run。**S2正常后缀因果新实验现为P1**，仅允许不占用P0实测资源的设计/证据阅读；S2已有EXIT0保持。当前 P0 尚未获得GPU授权或产物。
+**最新实际任务优先级：P0 CHIPMUNK + TEAL（同级，当前阶段实验前评议）。** 用户已明确要求立即复现这两个免大训练 FFN 稀疏基线；[ACTIVE](../ACTIVE_RESEARCH.json) 中 `current_user_research_priority_20261029` 为最新权限和任务优先级，[Chipmunk #57](https://github.com/Qesire/FFNDS/issues/57) / [TEAL #58](https://github.com/Qesire/FFNDS/issues/58) 各自独立完成原作条件、方法核验和4步 Wan2.2全160 FFN迁移。Chipmunk作者Wan2.1默认配置**MLP关、Attention开、step caching开**，2.67×属组合系统数字，MLP-only还须真实实现验证；TEAL作者公开速度核FP16/LLM，Wan BF16需新适配。两条需真实不同Agent逐实验复审，未审前不得执行新科学CPU/GPU run。**S2正常后缀因果新实验现为P1**，仅允许不占用P0实测资源的设计/证据阅读；S2已有EXIT0保持。[TEAL作者FP16单token有限kernel验证](../20261029/TEAL_AUTHOR_FP16_KERNEL_PROBE_RESULTS_20261029.md)已复审后实际EXIT0并闭环；完整作者LLM、Chipmunk原系统与Wan适配仍未复现。权限及各scope状态以ACTIVE与实际报告为准。
 
 
 
-**新增用户优先指令（2026-10-29）**：所有新的真实 CPU/GPU/模型/视频/采集研究实验，在执行前必须重新独立评议 **本次实验本身**，而不只验证方法大方向。先主Agent自审→真实不同Agent反例审查→修订与recheck→ACTIVE冻结有限scope→launch前核SHA；协议见[EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW](EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)。当前复现任务为 [Issue #56](https://github.com/Qesire/FFNDS/issues/56) 与[Chipmunk/TEAL正向FFN基线评议](../20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)：作者条件忠实复现和当前四步Wan2.2迁移是不同scope，Chipmunk MLP-only和含attention/step-cache不是同一FFN基线，TEAL preW1和postGELU节省不同计算。当前未执行这些新实验，未取得独立review票。
+**新增用户优先指令（2026-10-29）**：所有新的真实 CPU/GPU/模型/视频/采集研究实验，在执行前必须重新独立评议 **本次实验本身**，而不只验证方法大方向。先主Agent自审→真实不同Agent反例审查→修订与recheck→ACTIVE冻结有限scope→launch前核SHA；协议见[EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW](EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)。当前复现任务为 [Issue #56](https://github.com/Qesire/FFNDS/issues/56) 与[Chipmunk/TEAL正向FFN基线评议](../20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)：作者条件忠实复现和当前四步Wan2.2迁移是不同scope，Chipmunk MLP-only和含attention/step-cache不是同一FFN基线，TEAL preW1和postGELU节省不同计算。每个尚未完成的新scope须独立审查；已闭合的TEAL有限kernel scope有其自身审查及执行记录，不自动授权其他scope。
 
 
 
@@ -42,7 +42,7 @@
 
 ## 实际研究动作、证明与权限
 
-1. 从上面的资产中选一个**真实结构/矛盾**；读[原文98主＋19补充与G14落点](PAPER_METHOD_FOCUS_GRAPH.json)以及[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)对应工作方式。提出至少两种可被最小保存数据判别的机制，再决定算法与物理动作。
+1. 从上面的资产中选一个**真实结构/矛盾**；读[原文98主＋20补充与G14落点](PAPER_METHOD_FOCUS_GRAPH.json)以及[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)对应工作方式。提出至少两种可被最小保存数据判别的机制，再决定算法与物理动作。
 2. 写清source（独立统计单位）、step/expert/block/token、视频latent时间槽、观察时点和数值recipe。先用原始tensor/证明/已存RUN代替重复模型作业；新数据只采集能改变机制结论的缺口。
 3. 若进入部署方法试验，冻结真实4step×40site候选、≥20独立开发image clusters目标、适用的动作/语义/连续运动/背景/时序/感知指标、Dense配对与FFN/整机时间；新盲确认按独立source/seed协议另外冻结。参见[视频合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
 4. 新CPU/GPU/model/video运行先写入[ACTIVE](../ACTIVE_RESEARCH.json)的source/配置/预算，遵循适用会话/冻结RUN的并发上限（实际VIDEO20为2卡），然后在边界内按[动态GPU政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际有效最大并行。新有限范围依当前持续授权登记和冻结实际分配；无实际调度收据不假定有空闲卡。

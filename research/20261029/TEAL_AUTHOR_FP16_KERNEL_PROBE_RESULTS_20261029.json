@@ -1,0 +1,592 @@
+{
+  "status": "COMPLETE_ACTUAL_EXIT0_TARGET_CLOSED_AUTHOR_KERNEL_PROBE_ONLY",
+  "evidence": "NATIVE_AUTHOR_FP16_SINGLE_TOKEN_KERNEL_NOT_LLM_REPRO_NOT_WAN",
+  "upstream_repo": "https://github.com/FasterDecoding/TEAL/tree/fb7373c93ac3594817c9ee64d4e08b47430a1822",
+  "protocol": {
+    "path": "config/e0_teal_author_kernel_probe_v2_20261029_pending_review_v1.json",
+    "bytes": 13615,
+    "sha256": "61eee3cebdd0b07034c970a960aa122d524abbfbdec82382e89668a0f1a93af4"
+  },
+  "review": {
+    "path": "research/experiment_reviews/E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_V2_20261029/v1.json",
+    "bytes": 9513,
+    "sha256": "e4b8c5453a0cd97af2d9de451c522e9f35b16ec4c15eb982af5a96fd768faeb2"
+  },
+  "closed_verification": {
+    "id": "E0_TEAL_AUTHOR_FP16_KERNEL_PROBE_V2_20261029",
+    "status": "PASS_CLOSED_AUTHOR_KERNEL_PROBE",
+    "RUN": {
+      "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_v2_20261029/attempt1/worker/results/RUN.json",
+      "bytes": 27459,
+      "sha256": "fd83d1ebb9d8d5e82068ea8a3149558a3fcecbac55fca628bdc99ad90873280a"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_v2_20261029/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 533,
+      "sha256": "6ecbcfe3c8ea56dc91b2e856d8323575fed08ffa5609661d0dc599f2c7e817d2"
+    },
+    "model_calls": 0,
+    "GPU_calls": 0
+  },
+  "code_commit": "6df4c2ef55104a54c62c82a51e24f4c35c0f59a7",
+  "design": {
+    "claim": "AUTHOR_KERNEL_PROBE_NOT_LLM_REPRO_OR_WAN",
+    "source_commit": "fb7373c93ac3594817c9ee64d4e08b47430a1822",
+    "gpu_compute_capability": [
+      8,
+      0
+    ],
+    "gpu_name_contains": "A100",
+    "dtype": "float16",
+    "input_shape": [
+      1,
+      1,
+      4096
+    ],
+    "weight_shape": [
+      14336,
+      4096
+    ],
+    "weight_layout": "TRANSPOSE_CONTIGUOUS_TRANSPOSE",
+    "seed": 42,
+    "input_distribution": "torch.rand_minus_half",
+    "thresholds": [
+      0.0,
+      0.25
+    ],
+    "sparsity_bins": [
+      0,
+      9
+    ],
+    "batch": 1,
+    "fallback_sequence_length": 2,
+    "warmup_iterations": 10,
+    "timed_iterations": 20,
+    "latency": "BALANCED_INTERLEAVED_PER_CALL_CUDA_EVENTS_AND_SYNCHRONIZED_CPU_WALL",
+    "decision": "DESCRIPTIVE_PAIRED_MEDIAN_NO_CAUSAL_TRAFFIC_CLAIM;_NOISE_UNCHARACTERIZED",
+    "autotune": "TWO_FIXED_KEYS_16_AUTHOR_CONFIGS_INTERNAL_LAUNCH_COUNT_UNKNOWN_SEPARATE_SETUP_WALL",
+    "launcher": "DURABLE_WORKER_GPU0_UUID_FLOCK_CPU0_1_ACTUAL_EXIT_OUTER_1020S_SINGLE_ATTEMPT",
+    "cpu_affinity": [
+      0,
+      1
+    ],
+    "physical_gpu_index": 0,
+    "execution": "AUTHOR_EAGER_FORWARD_BOUNDED_ADAPTED_HARNESS_NOT_TORCH_COMPILE",
+    "comparison": "DENSE_ZERO_THRESHOLD_AND_DENSE_EXPLICIT_MAGNITUDE_MASK_SAME_FP16_OPERANDS",
+    "fallback": "SAME_AUTHOR_FORWARD_SEQ_LEN_2_DENSE_MATMUL_NO_THRESHOLD_MASK",
+    "relative_l2_max": 0.015,
+    "new_training": false
+  },
+  "hardware": {
+    "GPU_name": "NVIDIA A100 80GB PCIe",
+    "GPU_compute_capability": [
+      8,
+      0
+    ],
+    "torch_version": "2.4.0+cu121",
+    "triton_version": "3.0.0",
+    "cuda_runtime": "12.1",
+    "driver": "550.54.14"
+  },
+  "results": {
+    "0.0": {
+      "correctness": {
+        "finite": true,
+        "relative_l2": 0.0012565197653264905,
+        "max_abs": 0.0625
+      },
+      "actual_input_zero_fraction": 0.000244140625,
+      "selected_autotune_config": "BLOCK_M: 64, BLOCK_N: 128, num_warps: 2, num_ctas: 1, num_stages: 2, maxnreg: None",
+      "sparse": {
+        "warmup_calls": 10,
+        "measured_calls": 20,
+        "median_cuda_ms": 0.2027520015835762,
+        "all_cuda_ms": [
+          0.28467199206352234,
+          0.25600001215934753,
+          0.2764799892902374,
+          0.14336000382900238,
+          0.15667200088500977,
+          0.1454080045223236,
+          0.15360000729560852,
+          0.1443839967250824,
+          0.17100800573825836,
+          0.1955839991569519,
+          0.21094399690628052,
+          0.1955839991569519,
+          0.2099200040102005,
+          0.1955839991569519,
+          0.21094399690628052,
+          0.22220799326896667,
+          0.2744320034980774,
+          0.2744320034980774,
+          0.2949120104312897,
+          0.16998399794101715
+        ],
+        "all_synchronized_call_wall_seconds": [
+          0.00033739209175109863,
+          0.0002844110131263733,
+          0.00032066553831100464,
+          0.00016002357006072998,
+          0.0001820772886276245,
+          0.0001610107719898224,
+          0.00017577409744262695,
+          0.00016091763973236084,
+          0.00019588321447372437,
+          0.0002169571816921234,
+          0.00024382025003433228,
+          0.00021716952323913574,
+          0.00024139881134033203,
+          0.00021626055240631104,
+          0.0002423711121082306,
+          0.00024712830781936646,
+          0.00031853094696998596,
+          0.00030682608485221863,
+          0.0003389492630958557,
+          0.00019829720258712769
+        ]
+      },
+      "dense": {
+        "warmup_calls": 10,
+        "measured_calls": 20,
+        "median_cuda_ms": 0.13926400244235992,
+        "all_cuda_ms": [
+          0.159743994474411,
+          0.16793599724769592,
+          0.15360000729560852,
+          0.1157120019197464,
+          0.11059200018644333,
+          0.1157120019197464,
+          0.1085439994931221,
+          0.11468800157308578,
+          0.11673600226640701,
+          0.13926400244235992,
+          0.12902399897575378,
+          0.14028799533843994,
+          0.130048006772995,
+          0.13926400244235992,
+          0.130048006772995,
+          0.1525759994983673,
+          0.15360000729560852,
+          0.1658879965543747,
+          0.15564799308776855,
+          0.18227200210094452
+        ],
+        "all_synchronized_call_wall_seconds": [
+          0.0002069622278213501,
+          0.0002122931182384491,
+          0.00018359720706939697,
+          0.00013808533549308777,
+          0.00012629106640815735,
+          0.00013819709420204163,
+          0.0001250915229320526,
+          0.00014009326696395874,
+          0.00013527646660804749,
+          0.00017188861966133118,
+          0.00015070289373397827,
+          0.00017235800623893738,
+          0.00015208497643470764,
+          0.00017120316624641418,
+          0.00015073269605636597,
+          0.00018913671374320984,
+          0.00018317624926567078,
+          0.00020965561270713806,
+          0.00018490850925445557,
+          0.00023423507809638977
+        ]
+      },
+      "paired_event_difference_ms": {
+        "sparse_minus_dense": [
+          0.12492799758911133,
+          0.08806401491165161,
+          0.1228799819946289,
+          0.02764800190925598,
+          0.04608000069856644,
+          0.02969600260257721,
+          0.04505600780248642,
+          0.029695995151996613,
+          0.05427200347185135,
+          0.05631999671459198,
+          0.08191999793052673,
+          0.05529600381851196,
+          0.0798719972372055,
+          0.05631999671459198,
+          0.08089599013328552,
+          0.06963199377059937,
+          0.12083199620246887,
+          0.1085440069437027,
+          0.13926401734352112,
+          -0.012288004159927368
+        ],
+        "median": 0.06297599524259567,
+        "interpretation": "DESCRIPTIVE_EVENT_CALL_INTERVAL_NOT_KERNEL_ONLY_CAUSAL_TRAFFIC_OR_ROBUST_SPEEDUP"
+      },
+      "timed_order": [
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ]
+      ],
+      "decision": "INDETERMINATE_NO_PREDECLARED_NOISE_MODEL"
+    },
+    "0.25": {
+      "correctness": {
+        "finite": true,
+        "relative_l2": 0.0012486456324249913,
+        "max_abs": 0.046875
+      },
+      "actual_input_zero_fraction": 0.51123046875,
+      "selected_autotune_config": "BLOCK_M: 64, BLOCK_N: 128, num_warps: 2, num_ctas: 1, num_stages: 2, maxnreg: None",
+      "sparse": {
+        "warmup_calls": 10,
+        "measured_calls": 20,
+        "median_cuda_ms": 0.19200000166893005,
+        "all_cuda_ms": [
+          0.26316800713539124,
+          0.24166400730609894,
+          0.26316800713539124,
+          0.24166400730609894,
+          0.2611199915409088,
+          0.24268800020217896,
+          0.21913599967956543,
+          0.24268800020217896,
+          0.18943999707698822,
+          0.19251200556755066,
+          0.1525759994983673,
+          0.12492799758911133,
+          0.25702399015426636,
+          0.17510400712490082,
+          0.18943999707698822,
+          0.17510400712490082,
+          0.18943999707698822,
+          0.19148799777030945,
+          0.18943999707698822,
+          0.17612800002098083
+        ],
+        "all_synchronized_call_wall_seconds": [
+          0.00030830875039100647,
+          0.0002726055681705475,
+          0.0003077797591686249,
+          0.0002717524766921997,
+          0.0003077946603298187,
+          0.0002715587615966797,
+          0.0002563782036304474,
+          0.00027344003319740295,
+          0.0002175457775592804,
+          0.00020751357078552246,
+          0.00017476826906204224,
+          0.00014090538024902344,
+          0.0003024376928806305,
+          0.00019777566194534302,
+          0.00022246316075325012,
+          0.0001966729760169983,
+          0.0002219080924987793,
+          0.0002148449420928955,
+          0.00022175535559654236,
+          0.00019765645265579224
+        ]
+      },
+      "dense": {
+        "warmup_calls": 10,
+        "measured_calls": 20,
+        "median_cuda_ms": 0.14694400131702423,
+        "all_cuda_ms": [
+          0.1525759994983673,
+          0.1669120043516159,
+          0.15360000729560852,
+          0.16896000504493713,
+          0.1525759994983673,
+          0.1658879965543747,
+          0.15564799308776855,
+          0.1658879965543747,
+          0.13619199395179749,
+          0.16998399794101715,
+          0.12390399724245071,
+          0.11776000261306763,
+          0.1525759994983673,
+          0.14028799533843994,
+          0.13209599256515503,
+          0.14131200313568115,
+          0.130048006772995,
+          0.13926400244235992,
+          0.130048006772995,
+          0.14028799533843994
+        ],
+        "all_synchronized_call_wall_seconds": [
+          0.00018195435404777527,
+          0.0002107173204421997,
+          0.00018270686268806458,
+          0.00021158531308174133,
+          0.00018199533224105835,
+          0.00021124258637428284,
+          0.00018238648772239685,
+          0.00020888447761535645,
+          0.0001540258526802063,
+          0.0001989416778087616,
+          0.00013918429613113403,
+          0.0001398138701915741,
+          0.00017916783690452576,
+          0.0001720041036605835,
+          0.00015448406338691711,
+          0.0001745261251926422,
+          0.00015244260430335999,
+          0.0001718662679195404,
+          0.00015206262469291687,
+          0.00017251446843147278
+        ]
+      },
+      "paired_event_difference_ms": {
+        "sparse_minus_dense": [
+          0.11059200763702393,
+          0.07475200295448303,
+          0.10956799983978271,
+          0.0727040022611618,
+          0.1085439920425415,
+          0.07680000364780426,
+          0.06348800659179688,
+          0.07680000364780426,
+          0.053248003125190735,
+          0.02252800762653351,
+          0.028672002255916595,
+          0.007167994976043701,
+          0.10444799065589905,
+          0.034816011786460876,
+          0.05734400451183319,
+          0.033792003989219666,
+          0.059391990303993225,
+          0.052223995327949524,
+          0.059391990303993225,
+          0.035840004682540894
+        ],
+        "median": 0.059391990303993225,
+        "interpretation": "DESCRIPTIVE_EVENT_CALL_INTERVAL_NOT_KERNEL_ONLY_CAUSAL_TRAFFIC_OR_ROBUST_SPEEDUP"
+      },
+      "timed_order": [
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ],
+        [
+          "sparse",
+          "dense"
+        ],
+        [
+          "dense",
+          "sparse"
+        ]
+      ],
+      "decision": "INDETERMINATE_NO_PREDECLARED_NOISE_MODEL"
+    }
+  },
+  "fallback": {
+    "sequence_length": 2,
+    "comparison_to_unmasked_dense": {
+      "finite": true,
+      "relative_l2": 0.0,
+      "max_abs": 0.0
+    },
+    "masked_vs_unmasked_reference": {
+      "finite": true,
+      "relative_l2": 0.38014481864583505,
+      "max_abs": 8.33984375
+    },
+    "actual_fallback_matmul_count": 1
+  },
+  "predebited": {
+    "sparse_forward": 62,
+    "sparse_gemv_dispatch": 62,
+    "author_triton_launch_entry": 62,
+    "fallback_forward": 1,
+    "fallback_matmul": 1,
+    "dense_reference": 2,
+    "fallback_reference": 1,
+    "fallback_masked_reference": 1,
+    "dense_benchmark": 60,
+    "video_generations": 0,
+    "model_loads": 0,
+    "training_updates": 0
+  },
+  "observed": {
+    "sparse_forward": 62,
+    "sparse_gemv_dispatch": 62,
+    "author_triton_launch_entry": 62,
+    "fallback_forward": 1,
+    "fallback_matmul": 1,
+    "dense_reference": 2,
+    "fallback_reference": 1,
+    "fallback_masked_reference": 1,
+    "dense_benchmark": 60,
+    "video_generations": 0,
+    "model_loads": 0,
+    "training_updates": 0
+  },
+  "autotune_internal_GPU_launches": "UNKNOWN",
+  "wall_seconds": 32.10954523459077,
+  "compile_autotune_and_correctness_wall_seconds": 24.08160201460123,
+  "peak_GPU_reserved_bytes": 494927872,
+  "assigned_GPU_isolation_pass": true,
+  "prior_failed_scope": {
+    "RUN": {
+      "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_20261029/attempt1/worker/results/RUN.json",
+      "bytes": 3086,
+      "sha256": "0e7e6bb9213ceafa2ea07c3bf1ec3f3a395d0ea2bc152bc18644d25884ad5a2f"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_teal_author_fp16_kernel_probe_20261029/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 530,
+      "sha256": "3f1295a8ceaa90c61b602f7c7d432e651fad6d4891e8af37912748ee3294b366"
+    },
+    "actual_returncode": 1,
+    "cause": "TRITON_IMPORT_MISSING_SETUPTOOLS",
+    "all_direct_calls": 0,
+    "original_environment_unchanged": true
+  },
+  "decision": "Correctness and actual source-level sparse entry verified; this observed eager-call timing shows no advantage. It does not reproduce original author do_bench timing or establish method performance, full LLM results or Wan feasibility.",
+  "speed_accepted": false,
+  "LLM_reproduced": false,
+  "Wan_quality_accepted": false
+}

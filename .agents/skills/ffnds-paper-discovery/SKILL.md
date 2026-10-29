@@ -5,11 +5,11 @@ description: Apply AutoResearcher science to independent information, function/d
 
 # FFNDS · AutoResearcher 机制方法 Skill
 
-**最新 P0（2026-10-29，覆盖本文下方旧优先描述）**：Chipmunk 与 TEAL 双方法免大型训练 FFN 复现同为首要任务，分别见 [#57](https://github.com/Qesire/FFNDS/issues/57)、[#58](https://github.com/Qesire/FFNDS/issues/58)，状态由 [ACTIVE](../../../research/ACTIVE_RESEARCH.json) `current_user_research_priority_20261029` 唯一裁定。先作者环境忠实复现，再全160 Wan2.2 四步 FFN-only / preW1 / postGELU 迁移；每个实验须主Agent自审→真正不同Agent反例审查→修订/recheck→ACTIVE冻结→实际运行前身份复核。作者Wan2.1 Chipmunk示例默认 **MLP OFF、Attention和step caching ON**，2.67x是系统组合不是 FFN-only；TEAL 原LLM FP16可用核不能默认兼容 Wan BF16。S2尚未启动的新因果实验排P1，历史已完成的成果保留。当前两条P0只是 DESIGN_UNREVIEWED，无新的 GPU/视频结果。
+**最新 P0（2026-10-29，覆盖本文下方旧优先描述）**：Chipmunk 与 TEAL 双方法免大型训练 FFN 复现同为首要任务，分别见 [#57](https://github.com/Qesire/FFNDS/issues/57)、[#58](https://github.com/Qesire/FFNDS/issues/58)，状态由 [ACTIVE](../../../research/ACTIVE_RESEARCH.json) `current_user_research_priority_20261029` 唯一裁定。先作者环境忠实复现，再全160 Wan2.2 四步 FFN-only / preW1 / postGELU 迁移；每个实验须主Agent自审→真正不同Agent反例审查→修订/recheck→ACTIVE冻结→实际运行前身份复核。作者Wan2.1 Chipmunk示例默认 **MLP OFF、Attention和step caching ON**，2.67x是系统组合不是 FFN-only；TEAL 原LLM FP16可用核不能默认兼容 Wan BF16。S2尚未启动的新因果实验排P1，历史已完成的成果保留。[TEAL作者FP16单token有限kernel](../../../research/20261029/TEAL_AUTHOR_FP16_KERNEL_PROBE_RESULTS_20261029.md)已复审后实际EXIT0并闭环；完整LLM、Chipmunk原系统和Wan迁移尚未复现。逐scope以ACTIVE及实际报告为准。
 
 
 
-**新用户要求：所有实际实验必须再审“实验设计本身”并接受真实独立 Agent 复审后才能执行。** 实施 [每新scope复审状态机](../../../research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)：主 Agent 自审科学可辨识性/相反预测/原文及实现差异/统计独立单位/可执行物理动作/强baseline与总开销 → 不同上下文真实审稿Agent提出反例 → 修订和recheck → ACTIVE独立冻结有限scope → launch前检查SHA和适用GPU上限。未真实审结时标 REVIEW_REQUESTED，不将历史审核、作者自审或设计文档代替新scope许可。参考[训练自由FFN正向基线研究任务](../../../research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)：Chipmunk MLP-only 作者原Wan2.1/四步Wan2.2分开，TEAL preW1/postGELU分开，Prox/FIS作为近邻论文另核代码与模型；全部是待审待跑，不是已证明的 Wan2.2 成功稀疏。
+**新用户要求：所有实际实验必须再审“实验设计本身”并接受真实独立 Agent 复审后才能执行。** 实施 [每新scope复审状态机](../../../research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)：主 Agent 自审科学可辨识性/相反预测/原文及实现差异/统计独立单位/可执行物理动作/强baseline与总开销 → 不同上下文真实审稿Agent提出反例 → 修订和recheck → ACTIVE独立冻结有限scope → launch前检查SHA和适用GPU上限。未真实审结时标 REVIEW_REQUESTED，不将历史审核、作者自审或设计文档代替新scope许可。参考[训练自由FFN正向基线研究任务](../../../research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)：Chipmunk MLP-only 作者原Wan2.1/四步Wan2.2分开，TEAL preW1/postGELU分开，Prox/FIS作为近邻论文另核代码与模型；其他scope各自审查，不将有限作者kernel结果当作Wan2.2成功稀疏。
 
 
 
@@ -99,4 +99,4 @@ description: Apply AutoResearcher science to independent information, function/d
 
 ## G14 全文献逐计算边聚焦（现行索引）
 
-提出和评议新的 FFN 方法时，先按[机器G14逐论文映射](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)查论文作用节点、需要的前置信息、真实选择/训练/缓存/计算行动、原文核验深度和与冻结Wan的异同。当前已收录98个主LID及10个补充校准研究，分组Mermaid见[全计算图G14](../../../docs/98_端到端计算图与证据注解_20261025.md)。`python tools/graph_agent_bridge.py paper L74`检索作者方法与原生锚点，`focus T06`检索针对相同Q2阶段的替代论文。先从作者明确实际做了什么总结方法贡献，形成同一算子多方法竞争假说；以原Wan输入state/shape、HiF4 QDQ及消费者数据判断可迁移性。G14的LIT类比不会成为真实本地跑通的NATIVE/VIDEO/SYS。索引增删更新原始来源、机器映射与可见图，并执行`graph_agent_bridge.py validate`。
+提出和评议新的 FFN 方法时，先按[机器G14逐论文映射](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)查论文作用节点、需要的前置信息、真实选择/训练/缓存/计算行动、原文核验深度和与冻结Wan的异同。当前已收录98个主LID及20个补充研究，分组Mermaid见[全计算图G14](../../../docs/98_端到端计算图与证据注解_20261025.md)。`python tools/graph_agent_bridge.py paper L74`检索作者方法与原生锚点，`focus T06`检索针对相同Q2阶段的替代论文。先从作者明确实际做了什么总结方法贡献，形成同一算子多方法竞争假说；以原Wan输入state/shape、HiF4 QDQ及消费者数据判断可迁移性。G14的LIT类比不会成为真实本地跑通的NATIVE/VIDEO/SYS。索引增删更新原始来源、机器映射与可见图，并执行`graph_agent_bridge.py validate`。
