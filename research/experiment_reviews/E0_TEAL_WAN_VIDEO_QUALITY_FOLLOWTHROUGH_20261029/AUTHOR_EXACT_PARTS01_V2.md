@@ -1,0 +1,23 @@
+# Author exact-version response: closed V3 parents, parts 0 and 1
+
+State REVIEW_REQUESTED. This supplements AUTHOR_RESPONSE_V1 after the two real V3 parents closed and the parent lineage changed from failed V2 to successful V3; parts 2 and 3 are not included. Each of six protocols binds its own real V3 parent protocol, RUN, actual EXIT0, and verifier-checked five phases, two byte-neutral controls and three distinct study clips with paired noises. No placeholder parent or neutral is selected for study. Parent identities:
+
+- part 0 RUN `5c6243bfb8e056dcdd1370757300a0fea38adfeb642869bce0ee8df376e3dd7d`, EXIT `d412352f0897a1399fd3bbd8c6ce55c16466368d03cad8fd52b62527ae984bf7`.
+- part 1 RUN `2e1cefed6a7c56e69400d6cc9dba5d40b06a4122ff4c58213330653949a32b98`, EXIT `af13c935017b5ce5e98ddbbdb58e20e8987dcf394f62477c2532b38c97fef7c6`.
+
+Since V1 initial review the author response addresses each item; exact change here includes V3 closed parent lineage and the visual worker's missing private execution module import. A new non-model synthetic test calls the actual draft path through `execution.HELPERS`/profile and the actual run entry through `execution.verify_job`; missing module would fail. Visual 5 tests, lineage/execution/full-quality tests 12, motion 7 passed. No frame decoding, model, GPU, ACTIVE registration or new quality output occurred. Each exact job chain was checked statically using simulated affinity and device environment identities; actual identity and occupancy remain dispatch requirements.
+
+Scope commitments remain source-level exposed development, one seed, per-source paired fresh Dense; all-81 visual contact sheets are for separate AI inspection, continuous RAFT is whole-frame flow including camera/background, eight original dimensions are distinct from binary dynamic and continuous motion. Both high flow while subject freezes and imperfect apparent frame consistency remain counterexamples; no result or quality acceptance is asserted. Visual CPU part0 0-1, part1 4-5; RAFT CPU2/6 GPU0/1; eight-axis CPU2-3/6-7 same GPU after RAFT exit. Session GPU maximum 4; root verifies all other current allocations and host headroom before dispatch. Each metric has separately budgeted CPU byte preflight and GPU run; actual CPU proof EXIT0 required before GPU. Visual has one CPU job. Failures stay in their own attempt and are not automatically retried.
+
+Exact protocols: `config/e0_teal_wan_{visual,raft,quality}_part{0,1}_20261029_pending_review_v1.json`. Exact private job files: `.runtime/teal_wan_quality_followthrough_20261029/part{0,1}/{visual,raft,quality}/{CPU_JOB,RUN_JOB}.json` (visual has RUN_JOB only). Last column means visual CPU launch or metric GPU launch SHA. GPU UUIDs remain private.
+
+| part | scope | protocol SHA256 | fingerprint | CPU preflight spec SHA256 | launch spec SHA256 |
+| --- | --- | --- | --- | --- | --- |
+| 0 | visual | 7dca0771d7156081dae57cc63d3194462961d8e4557f631a4106a5b30a1c5fad | 0640f420b04611ff09572ea7f24d926b3d6caa9391d950c516312de52e707f8d | - | 2a409f362245cb4739b9e0ef57bb13f76985b01178fb16bb02f1e955fa74871f |
+| 0 | raft | b93cd18d2d4ffb03914e96ff5a8deecf93f9dd00c67f1216f5d778cb96f06292 | f47ad2e3d317fd6c439f4fd48462e96b0557e01f2665cbb500641f5011ca7ef1 | ff8cf6e6df9936af452349ffcb70502e31e10d5b28eda8e35f93c606ad0a60cb | 920686fa79f384f75e129d2cf60c4809a958598704f7d3748459ee84f70ac7fb |
+| 0 | quality | d8b03b99e9a2cd1eb6a497878e7a2a7b348678d4008918b0666bfcf667e33d98 | 48a4367e9f715a4ac0ef6e3690b4ed9fc13a2cc15792b3cda9f175617888d1b7 | 7f3d8f955f7a5a941575c0ed2defcd9d355a9320cc91260ed11604ec0665c1a9 | da33c0141c1b3215bb489ba6fd48918f0c480476e4568ba479b8577a9221c0da |
+| 1 | visual | bfb4a1d31a062bb791e8f7be4bccc9a4d8e594160aebb23d0194bc2d707c3e33 | 31b7b6a0ea9791f1b39ea4c5cd547f80b910ec9de738bc60b5ad0e5870458174 | - | 57fe6858a1ed4da1c61099fef9e56400830abf4d63831b47f096ca95b9ad3eb4 |
+| 1 | raft | b808f63ea770655968485c7e83303cfb9357557d694fa80182866654f2230171 | 604e5d160adacf038496cd6c4f1c803141641585bb2772db72bc5a4dc62cca96 | 06f92555d499a2018f83ab3da4ac9dcd8078ef99c70339ccfeee6c6e8829f657 | fd55bcafae2128193c993518ccae2e03379a1d071cbec79261a8108576f5c5e6 |
+| 1 | quality | 9ca5513bd1134e59bcb8b407e82ddd264d69a01d2cab1144bcd2696014fb8609 | d49ce62ae7d9941019dd31b1afab9c3b939094d8bd64bf7258ca676cf1a273ca | a70e919d3047b2d18d1eb082091b3d2bd71e9ae9e7114bc0152b9d119cb7f32e | 5c3ade810960b2e216b86ea15f99de007d1df7c95989727da4d91332324e1402 |
+
+Independent reviewer must recheck each scope's exact source closure, actual parents, above specs and resource/identity boundaries before root registers ACTIVE. V1 initial REVISE and this author response are not approval. Parts 2/3 require their own actual parent completion and exact review.
