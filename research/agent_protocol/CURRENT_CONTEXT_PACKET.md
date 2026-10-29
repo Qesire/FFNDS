@@ -15,7 +15,7 @@
 
 四支路线并行，任意Agent可以根据真实源与论文提出更优竞争机制。第一项**成本最小且可执行的完整视频基线**是已导出的原BF16 shared80-r960、step160-r960和相同原BF16 Dense的真实160位置同source生成；这项基线已完成[20来源60视频及单次成本](../20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.md)和[八轴官方函数/连续RAFT](../20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.md)，当前质量未通过：shared/step来源等权RAFT幅值为Dense的0.490/0.477。公平预热重复SYS仍待测；不用重复已完成视频。
 
-**S2时间统计子问题 MTC/TDIC（非并行研究方向）**：[时间距离与FFN运动创新补偿](../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)及[OPEN图claim](../method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)。从已有20来源视频r960候选运动幅值约0.49/0.48倍Dense、8来源26389稀疏same-xy跨τ配对出发，优先做**同Dense h/同原BF16 W2 bias和gate的DC/AC重放判别**，再扩展真实邻域/光流oracle与学生前缀。核心恒等式 eτp−eτ−1,q = gτp⊙Δh(W−UV)+(gτp−gprev,q)⊙hprev,q(W−UV) 为连续代数，不是BF16逐bit。teacher残差锚点/前τ输出在线并不免费；旧固定8xy不支持任意运动搜索。新增需求[机器采集队列](ACQUISITION_QUEUE_20261029.json) AQ-S2-MOTION-INNOVATION 仍为DESIGN_ONLY，无新增GPU或视频许可。该方向不改变S1/S4/S2/S3的并行资格，不视作同行批准。
+**S2时间统计子问题 MTC/TDIC（非并行研究方向）**：[时间距离与FFN运动创新补偿](../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)及[OPEN图claim](../method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)。从已有20来源视频r960候选运动幅值约0.49/0.48倍Dense、8来源26389稀疏same-xy跨τ配对出发，优先做**同Dense h/同原BF16 W2 bias和gate的DC/AC重放判别**，再扩展真实邻域/光流oracle与学生前缀。核心恒等式 eτp−eτ−1,q = gτp⊙Δh(W−UV)+(gτp−gprev,q)⊙hprev,q(W−UV) 为连续代数，不是BF16逐bit。teacher残差锚点/前τ输出在线并不免费；旧固定8xy不支持任意运动搜索。相关缺口已合并到[机器采集队列](ACQUISITION_QUEUE_20261029.json)的 `AQ-S2-TIME-TUBELET` 子任务；新增滞后/频谱/Gram统计为CODE_PREPARED_NOT_EXECUTED，无新增GPU或视频许可。该方向不改变S1/S4/S2/S3的并行资格，不视作同行批准。
 
 **当前S2研究已扩展为时间统计结构工作：** [T1–T6时序统计、原生来源扩张与S2执行顺序](../20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。原十图21τ×8xy×160位置与同Dense h低秩因子E1/E2均已实际完成，不能再称它们“运行中”；下一缺口为相关函数/谱/时间Gram/相位/突发运动及真实连续空间邻域和学生状态。MTC只保留可选的代数/条件表示注释，不独占并行方法队列或单独GPU作业身份。任何新统计运行和扩源需新ACTIVE范围；已记录两卡会话限制在对应执行时有效。
 
@@ -35,7 +35,7 @@
 1. 从上面的资产中选一个**真实结构/矛盾**；读[原文98主＋10补充与G14落点](PAPER_METHOD_FOCUS_GRAPH.json)以及[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)对应工作方式。提出至少两种可被最小保存数据判别的机制，再决定算法与物理动作。
 2. 写清source（独立统计单位）、step/expert/block/token、视频latent时间槽、观察时点和数值recipe。先用原始tensor/证明/已存RUN代替重复模型作业；新数据只采集能改变机制结论的缺口。
 3. 若进入部署方法试验，冻结真实4step×40site候选、≥20独立开发image clusters目标、适用的动作/语义/连续运动/背景/时序/感知指标、Dense配对与FFN/整机时间；新盲确认按独立source/seed协议另外冻结。参见[视频合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
-4. 新CPU/GPU/model/video运行须先写入[ACTIVE](../ACTIVE_RESEARCH.json)的不可变source/配置/成本范围，并遵守[动态GPU政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)按实际可调度最大有效数量执行。历史台账中的2/4卡字段是对应时点事实，而不是新作业上限。当前研究指令本身不证明某个GPU正在空闲。
+4. 新CPU/GPU/model/video运行先写入[ACTIVE](../ACTIVE_RESEARCH.json)的source/配置/预算，遵循适用会话/冻结RUN的并发上限（实际VIDEO20为2卡），然后在边界内按[动态GPU政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际有效最大并行。其他新的执行范围若需不同并发须独立授权和冻结；无实际调度收据不假定有空闲卡。
 5. 使用[独立方法讨论队列](../method_discussion/QUEUE.md)登记**真实**不同Agent提出及评议的方法；历史B-H/B-F/A0与Affine54记录不改原身份。新论文/计算边按[图谱协作](GRAPH_AGENT_COLLABORATION.md)同步。
 
 **下一Agent交付**：按[资产先行统一队列](ASSET_FIRST_AGENT_HANDOFF_20261029.md)完成其中一个已注册的真实机制判别；输出正常计算图、至少两种竞争解释、source-held结果或确切缺失资产、在线合法动作与代价、能覆盖160位置的视频及系统桥梁。新结论以原生证据更新现行文件，不另造重复的“权威进度”。
