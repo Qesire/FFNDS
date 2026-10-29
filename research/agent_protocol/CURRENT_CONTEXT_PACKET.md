@@ -1,5 +1,9 @@
 # FFNDS · 当前Agent最小上下文（2026-10-29）
 
+**新增用户优先指令（2026-10-29）**：所有新的真实 CPU/GPU/模型/视频/采集研究实验，在执行前必须重新独立评议 **本次实验本身**，而不只验证方法大方向。先主Agent自审→真实不同Agent反例审查→修订与recheck→ACTIVE冻结有限scope→launch前核SHA；协议见[EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW](EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)。当前复现任务为 [Issue #56](https://github.com/Qesire/FFNDS/issues/56) 与[Chipmunk/TEAL正向FFN基线评议](../20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)：作者条件忠实复现和当前四步Wan2.2迁移是不同scope，Chipmunk MLP-only和含attention/step-cache不是同一FFN基线，TEAL preW1和postGELU节省不同计算。当前未执行这些新实验，未取得独立review票。
+
+
+
 **唯一当前路线**：[研究导航](../RESEARCH_NAVIGATION.md) → [资产先行四路线推导](../20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md) → [现行执行队列](ASSET_FIRST_AGENT_HANDOFF_20261029.md)。此文件只是接手所需的事实与状态入口，完整数学在对应方法文档、真实作业状态在[ACTIVE](../ACTIVE_RESEARCH.json)。[M-A/M-B/M-C旧整合方案v4](../20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)和[B专题旧交接](NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)为有用的专题与历史来源，不再规定默认“先末层”顺序。
 
 **新增最高优先级规则：发现缺口就补采**。参见[开放式科学采集协议](EVIDENCE_DRIVEN_ACQUISITION_20261029.md)、[机器采集队列](ACQUISITION_QUEUE_20261029.json)：新source/新的scene stratum、4×40全深度time×space tubelet、native Q1/Q2 activation metadata、student前缀状态、视频动作与真实SYS等可主动补采，旧8来源、5 Block及现有算法仅为已知证据。先采用现有数据满足已有科学问题；一旦现有观测不足，转为新producer/数据集/新采集，而不是将问题降格为旧数组可以算的proxy。按每次ACTIVE冻结有限scope并可持续扩展下一批。
