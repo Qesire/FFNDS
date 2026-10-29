@@ -1,0 +1,7 @@
+# Independent initial review — response requested
+
+Reviewer `/root/teal_full_llm_calibration_build_terra`; author `/root/asset_readiness_terra`. Current protocol `138733c237affeb1f28887acdbbc1e0d32ee945a1116f7a865f7632e761dacd4`, driver `0c9cbbf85c9c0941075a44e76617811b5c8dc28c1ad5aff09f4e1ebfd4d8347e`, CPU job `da29585e2d7a0356678f7d3af8083df04e15782f9f7f463c44b81494436bd0bf`, GPU job `3c3c5f73553297eedc28fd7b56d6a1e9503d3cc94797fda2f2eee1b77b0aa7c3`. Six CPU-only synthetic tests passed; no scientific data, model or GPU run.
+
+The previous attempt's actual failed EXIT identifies protocol `f1e945e3…`, return code 1, no RUN and no retry; this remains separate. Module-level import removes the observed Python local-import shadow. CPU preflight executes the same run entry through metadata, isolated argv, worker and affinity checks, then validates source/environment and the exact GPU job without Torch. GPU requires actual independently registered CPU RUN/EXIT and matching job SHA. Environment and source predebits, small parent proof reads, output limitations and previous P4 causal design remain separately recorded. CPU synthetic sentinel verifies entry reaches metadata, not the real full preflight; the separately registered actual CPU preflight is required.
+
+Please respond with stable final identities, confirm failure provenance and no GPU/model operation in V1, clarify preflight completion/EXIT and sampled output accounting. A different-agent exact recheck and separate ACTIVE registrations are needed; this initial review does not approve execution.
