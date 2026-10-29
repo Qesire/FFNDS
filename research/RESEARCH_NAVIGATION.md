@@ -16,6 +16,8 @@
 
 **当前实际推进**：[普通/时间平衡同r960全80函数拟合已exit0](20261029/RAW_BF16_NEW10_TEMPORAL_REPRESENTATION_FIT_RESULTS_20261029.md)。[新S2 T1–T4 CPU范围已实际exit0](20261029/S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)；[20开发图value10/DCAC10共40新视频及八轴已实际exit0](20261029/RAW_BF16_TEMPORAL_VALUE_DCAC_VIDEO20_QUALITY_RESULTS_20261029.md)，复用既有Dense，RAFT比例0.451/0.439，质量未通过；下一采集为真实空间邻域及student状态。
 
+**2026-10-29用户指定立即推进的P0实验**：[S2 Dense/Student真实时空采集、同输入W2反事实与前缀/下游因果定位](20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)。[主Agent必须分派独立理论子Agent](agent_protocol/S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)，专门复核计算图、竞争机制与实验设计，主Agent独立实现原生producer并按ACTIVE+两卡会话限制真正执行。首批用ROI已exit0的ord898/96作全21τ×160site Dense/value10/dcac10真实采集链路pilot，再扩来源类别；不把pilot等同多源结论，现状为REQUESTED_NOT_REGISTERED/NO_NEW_RUN。
+
 ## P0 · 当前最短阅读和行动路径
 
 | 顺序 | 读取对象 | 立即产生的工作成果 |
