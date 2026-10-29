@@ -1,0 +1,99 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_TEAL_FULLM_ROW_GROUP_SUPPORT_20261030",
+  "purpose": "mechanism_observation",
+  "author_agent_id": "/root/asset_readiness_terra",
+  "reviewer_agent_id": "/root/teal_full_llm_calibration_build_terra",
+  "coordinator_agent_id": "/root",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "research_question": "Do actual contiguous M16/M32 token groups share narrower exact TEAL support than fixed paid shuffle?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Natural local groups retain appreciably fewer union columns than shuffle."
+    },
+    {
+      "id": "H2",
+      "prediction": "Both groupings require nearly all columns; exact mask gives little physical opportunity."
+    }
+  ],
+  "adversarial_counterexample": "A changed mmap file after hash can break identity; nonraster sampled rows or zero padding can falsely imply natural tile savings.",
+  "responses_to_review": [
+    "REVISE:same fd/path stat identity before and after every actual read stage.",
+    "REVISE:charge source hash and snapshot reads separately; preserve partial work.",
+    "TEST:independent9 nonTorch tests PASS; prior BF16/Torch scalar boundary PASS; current full-suite NFS import not claimed passed."
+  ],
+  "critical_source_hashes": {
+    "config/e0_teal_wan_all160_calibration_thresholds_20261029_v1.json": "e6a9cefad04d4482f9b13ae90feefa8d24eee13323900c8a3061626f98782e13",
+    "config/e0_teal_wan_fullm_capture_20261030_v1.json": "98334307dde2ec76c3ad8e57e67fb8d598811920b406b71d730b2bc909e9eb39",
+    "tests/test_e0_teal_fullm_row_group_support.py": "26233612976a7bd110115cd3133561e5f7e46099cd892fdb441075b1e3ce2e87",
+    "tools/e0_teal_fullm_row_group_support.py": "08b53e2bdd5948bf55552fcb3ee6b780218839f595b3fc9fd29de88a5a4983e1",
+    "tools/e0_teal_wan_all160_video_v3.py": "c8d375bfc99805e588b0ca5b3b80009e2c61298d4866e012169352fb540c72b4"
+  },
+  "job_spec_sha256": "1f3a11cd94e6b724f5bc0404ad80cf4b5e71a18227c1e34e943c5fa6d9a7832f",
+  "approval_scope_fingerprint": "66c526598d1590c851867e5cf503219964ff6c29e0e2763db80767d3839d4ce5",
+  "input_cohort_manifest_sha256": "95f88c7a4c283668a4acac6b1f14af9dc3975d3812d44e03c6e9758205b8ca8d",
+  "checkpoint_numeric_recipe": "Actual original BF16 teacher postGELU; exact frozen thresholds, no W2/model/GPU",
+  "unit_of_independence": "Two exposed source images; four sites and groups nested",
+  "full_depth_or_claim_scope": "8 real full-M states at four sites; no whole160 generalization or sparse speed",
+  "control_arms": [
+    "natural M16/M32",
+    "same-mask fixed seed42 paid row shuffle"
+  ],
+  "predeclared_metrics": [
+    "group union size",
+    "row-weighted logical MAC fraction",
+    "empty K16/K64 tiles",
+    "source/site separate distributions",
+    "CPU cost"
+  ],
+  "expected_physical_savings": {
+    "W1": "not measured",
+    "W2": "support upper bound only",
+    "observer_and_cache": "all CPU scan/shuffle cost reported"
+  },
+  "applicable_session_gpu_cap": 4,
+  "budget_and_failure_plan": {
+    "resources": {
+      "GPU": 0,
+      "CPU_threads": 4,
+      "wall_seconds": 3600,
+      "outer_seconds": 3900,
+      "HF_new_bytes": 33554432,
+      "attempts": 1,
+      "automatic_retry": false
+    },
+    "limits": {
+      "file_sha_bytes": 7004538112,
+      "H_tensor_sha_bytes": 7004454912,
+      "H_analysis_input_bytes": 7004454912,
+      "gate_tensor_sha_bytes": 81920,
+      "source_snapshot_bytes": 661942,
+      "shuffle_permutations": 1,
+      "threshold_keep_matrices": 16,
+      "row_groups": 95040
+    }
+  },
+  "author_review": {
+    "path": "research/method_discussion/discoveries/E0/p0-teal-fullm-row-group-support-author-self-review-20261030.md",
+    "bytes": 4182,
+    "sha256": "a29933e212673e805a1ef321ec7f37216db71cd886c82dd38dd1de302185d0b3"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_TEAL_FULLM_ROW_GROUP_SUPPORT_20261030/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 2478,
+    "sha256": "b3a11480e839e2af51c775555d88a09faa88f4708d3954896d765c3f8849c63f"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_TEAL_FULLM_ROW_GROUP_SUPPORT_20261030/REVIEWER_RECHECK_V1.md",
+    "bytes": 2324,
+    "sha256": "c7c85d2d8064769cd293adf43479a1823f6c5b7da2a28af1fc621c95293705c3"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_TEAL_FULLM_ROW_GROUP_SUPPORT_20261030/COORDINATOR_SELF_AUDIT_V1.md",
+    "bytes": 1914,
+    "sha256": "aa41d7a2de1cb058f7a11ab389d5b1aaf56841824caed02eb9a2e6b37164ef84"
+  }
+}
