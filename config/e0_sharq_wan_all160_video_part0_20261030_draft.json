@@ -1,0 +1,147 @@
+{
+  "id": "E0_SHARQ_WAN_ALL160_VIDEO_20261030_PART0",
+  "status": "DRAFT_ONLY_NOT_AUTHORIZED",
+  "part": 0,
+  "source_role": "EXPOSED_DEVELOPMENT_SINGLE_SEED",
+  "case": {
+    "source_id": "lxl-158/vbench-i2v@577ba45c1653ede26e29996737f42841f2ec9eea:row1040",
+    "native_source_ordinal": 1040,
+    "image": {
+      "path": "ffnds-derived/e0_s2_source18_provisional_archive_cpu_v2_20261029/attempt1/worker/results/source_07.image",
+      "bytes": 1843359,
+      "sha256": "5a6a812554028adca38ec69fc5adc4cf95d2507afe76e6f223c45c746ddf2627"
+    },
+    "prompt_sha256": "da3fcee521bb172ddc567f83345b28440c7201ad84accdfbba5de5d437cd5d14",
+    "prompt": "two people scuba diving in the ocean",
+    "prior_history": "DEVELOPMENT_VISUALLY_REVIEWED_NOT_BLIND",
+    "seed": 42
+  },
+  "models": [
+    {
+      "kind": "high",
+      "filename": "wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+      "repo": "lightx2v/Wan2.2-Distill-Models",
+      "revision": "52699089e1dac804cbedd2400d0d2aea969577de",
+      "bytes": 28577915880,
+      "sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+      "header_sha256": "f40c5e3943554fa03cf2b873620e0d3293fcbfa89825d7c52b291ef6533cc67c"
+    },
+    {
+      "kind": "low",
+      "filename": "wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+      "repo": "lightx2v/Wan2.2-Distill-Models",
+      "revision": "52699089e1dac804cbedd2400d0d2aea969577de",
+      "bytes": 28577915880,
+      "sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2",
+      "header_sha256": "f40c5e3943554fa03cf2b873620e0d3293fcbfa89825d7c52b291ef6533cc67c"
+    }
+  ],
+  "scope": {
+    "modes": [
+      "bf16_neutral_old",
+      "bf16_neutral_new",
+      "dense32",
+      "sharq"
+    ],
+    "complete_videos": 4,
+    "steps": 4,
+    "blocks_per_step": 40,
+    "ffn_sites_per_video": 160,
+    "linear_calls_per_video": 320,
+    "paired_seed": 42,
+    "static_shared_W_pack_calls": 160,
+    "dense32_gemms": 320,
+    "sparse_gemms": 320,
+    "dense_residual_fullK_gemms": 320,
+    "original_block_prefetch_observations": 648,
+    "original_prefetch_skips": 0
+  },
+  "weights": "same original BF16 master in both FP4 arms; lazy GPU pack first dense32 and reuse for SharQ; no prefetch skip",
+  "neutral": "two same-device BF16 videos: ten state identities and video SHA; both FP4 arms pair raw and initial noise",
+  "resources": "NOT_BOUND; exact per-worker GPU/CPU/memory/disk/wall and output limits require independent review",
+  "authoritative_requirements": [
+    "actual source/asset proofs",
+    "independent initial review, author response and exact recheck",
+    "separate CPU byte preflight actual EXIT0",
+    "ACTIVE registration and exact worker/job/source closure",
+    "fresh attempt, GPU isolation, output ledger and actual exit/closed verification"
+  ],
+  "model_run_authorized": false,
+  "repo_sources": [
+    {
+      "path": "tools/e0_sharq_wan_all160_runtime.py",
+      "bytes": 11744,
+      "sha256": "e6dbb591beffed2b84f6523e8cf0af060e83be4e29bc243f43a3bc2e433f8eba"
+    },
+    {
+      "path": "tools/e0_sharq_wan_all160_video_driver.py",
+      "bytes": 5060,
+      "sha256": "9bb6ae870adec31ae279d10a159664ca11ee337025f995ae126ef4456a0a4901"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_all160_runtime.py",
+      "bytes": 8414,
+      "sha256": "729753992f877a2b8681b30e79f24d0bbb6fca0c392bbba809bc5f7e6cde7c41"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_all160_video_driver.py",
+      "bytes": 4933,
+      "sha256": "39854cf75a53c59f9aed01f5e4e274410b15c2f62bf134dae2858f54cdd43ae8"
+    },
+    {
+      "path": "tools/e0_sharq_wan_all160_video_plan.py",
+      "bytes": 3558,
+      "sha256": "2dac2e8072cdc731b90241ca07712fac4809a6ea804f4a597b31cab987cd8595"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_all160_video_plan.py",
+      "bytes": 768,
+      "sha256": "10cc9fbca911d1f5955396532c0a9bbba74aa0959bdd82a1c78608fd6474b8ee"
+    },
+    {
+      "path": "tools/e0_sharq_wan_all160_video_evidence.py",
+      "bytes": 2978,
+      "sha256": "9ecf2860a2fc8caf1fa95fe0b4714ff36026f8625164dfb6f61f1291900cd264"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_all160_video_evidence.py",
+      "bytes": 2417,
+      "sha256": "a299fe14929afb3ed2283be8726ac495c875cb4034d1fe7624cb9ff859dc75bb"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_ops.py",
+      "bytes": 2895,
+      "sha256": "fcd28b7824fdca4850ce765032ece68bf0786ec2df6bf20b13465e72f2d6652f"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_probe_v2.py",
+      "bytes": 32129,
+      "sha256": "6f215e511fb38ee468a7f5a200309da267b190f456c69665ee8b3a2cd44944db"
+    },
+    {
+      "path": "tools/e0_original_bf16_videos.py",
+      "bytes": 58635,
+      "sha256": "5e14e3bc1d0ed84ea51cff31cb77551c55455ff4b5226a5d2d1ec1d5227a24d0"
+    },
+    {
+      "path": "tools/e0_raw_bf16_full160_video20_v2.py",
+      "bytes": 66358,
+      "sha256": "462b26e2bf74bd31b91f65aa597ce20ca4fd7e2d4f41c0d69f28dc6b34147465"
+    },
+    {
+      "path": "config/e0_s2_new12_dense_baseline_part0_20261029_v2.json",
+      "bytes": 221383,
+      "sha256": "fe2beee3adb910e189db3f45da4979ad41ddba81ab1c3898988a86279e84ac39"
+    },
+    {
+      "path": "config/e0_s2_new12_dense_baseline_part1_20261029_v2.json",
+      "bytes": 221479,
+      "sha256": "7abf85f1c52632c32f74018269c46f36d4096bf994f201cba172861b0cede1bf"
+    },
+    {
+      "path": "config/e0_s2_new12_sm120_fixed_depth_part0_20261029_v1.json",
+      "bytes": 223441,
+      "sha256": "c4aacaec09133e1c0780b3ddd29e12bbb55421f57c56efcccda74376ca6f7278"
+    }
+  ]
+}
