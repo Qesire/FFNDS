@@ -1,8 +1,10 @@
-# MTC / TDIC · 视频时间距离、运动对应与FFN低秩时间创新补偿
+# S2机制附注 · 时间距离、运动对应与FFN低秩时间创新的条件分析
 
-2026-10-29 · **SCIENCE SEED / ALG + SRC + LIT + existing OBS + OPEN**。这是独立可竞争的机制研究方向，与S2-FTFD协作，且允许演化为新的S5方案；不是经过另一个Agent支持的正式方法提案，不是已部署motion compensation。本文件基于已审的BF16计算图、真实视频负结果和原论文建立判别式。**本次仅建档与推导：0新增tensor/GPU/模型/视频/质量运行，0新ACTIVE模型授权。**
+2026-10-29 · **SCIENCE SEED / ALG + SRC + LIT + existing OBS + OPEN**。这是S2-FTFD内部的条件代数与可选表示假说，**不另立并行研究方向/S5**；不是经过另一个Agent支持的正式方法提案，不是已部署motion compensation。本文件基于已审的BF16计算图、真实视频负结果和原论文建立判别式。**本次仅建档与推导：0新增tensor/GPU/模型/视频/质量运行，0新ACTIVE模型授权。**
 
 **后继实测更新（独立于本文创建时的0运行声明）**：E1[十新图完整21τ×8xy×全160原生及CPU观察](RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.md)、E2[同Dense-h BF16因子及原W2 M168舍入对照](RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.md)均已按ACTIVE注册并实际exit0。shared门后DC/AC相对误差为0.02932/0.18415，原W2小M的AC误差约0.000052；这支持M1同数据/同秩表示对照作为下一项实现。E3运动邻域、Student prefix与M2运输均仍OPEN；未新增同行支持票。原创建时的E1/E2状态保留其时间身份，现行状态以ACTIVE与上述RUN为准。
+
+**现行研究位置（用户2026-10-29修正）**：时间是FFN研究的统计维度，首要任务是补足真实21τ轨迹的**滞后相关函数、时序频谱/相位、时间Gram有效秩、突发事件/层异质与真实运动邻域**，不是直接开辟运动补偿方法主线。现有S2研究合同：[T1–T6时序统计与数据扩张](S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。新10 source完整τ与同Dense h固定r960因素已实际完成；该事实不改变原提案创建时未运行的历史状态。后续实现思路M1/M2/M3仅在统计证据决定时被筛选，不自动指定GPU优先级或方法讨论票。GPU执行按本会话/实验冻结的2卡约束实施。
 
 ## 0. 科学问题与值得立刻解决的矛盾
 
@@ -81,9 +83,9 @@ e_{τ,p}=g ⊙ [h_{τ,p} E].
 
 **E0（已完成、不重复采集）**：20源60视频官方质量/RAFT，8源26389稀疏same-xy配对；已存在的S1同秩低秩因子与原始BF16 code/forward校验。
 
-**E1（已有ACTIVE采集在途）**：先核实原BF16 10新来源21τ×8xy×全部160位置part0实际RUN/EXIT及中性回放；后继part1只有完整证明后由ACTIVE注册/启动。现有设计是**静态xy时间轨迹**，不是运动对齐轨迹。取得完整真实 h/Y/gate/r/u 及真实row identity后做固定xy DC/AC，按source计数。
+**E1（已实际完成，见后继更新）**：先核实原BF16 10新来源21τ×8xy×全部160位置part0实际RUN/EXIT及中性回放；后继part1只有完整证明后由ACTIVE注册/启动。现有设计是**静态xy时间轨迹**，不是运动对齐轨迹。取得完整真实 h/Y/gate/r/u 及真实row identity后做固定xy DC/AC，按source计数。
 
-**E2（推荐的第一个新判别，CPU/BF16数值重放，尚未授权执行）**：冻住真实来源、因子、gate、168行/packet的读写SHA，原生BF16两GEMM在完全相同Dense h上重放shared80与step160。对固定xy DC/AC和全层最严重source tails做逐source、step、block报告。加独立固定Dense full-M W2 control以校验M168 vs 原M31668的shape/bias/reduction差异时，另行计实际1600次原W2 GEMM，不冒充免费。与[原有DC/AC设计](../method_discussion/discoveries/E0/raw-bf16-r960-temporal-dc-ac-discrimination-20261029.md)复用同一scope，避免重复拟合/重复观测。
+**E2（已实际完成的BF16数值重放，见后继更新）**：冻住真实来源、因子、gate、168行/packet的读写SHA，原生BF16两GEMM在完全相同Dense h上重放shared80与step160。对固定xy DC/AC和全层最严重source tails做逐source、step、block报告。加独立固定Dense full-M W2 control以校验M168 vs 原M31668的shape/bias/reduction差异时，另行计实际1600次原W2 GEMM，不冒充免费。与[原有DC/AC设计](../method_discussion/discoveries/E0/raw-bf16-r960-temporal-dc-ac-discrimination-20261029.md)复用同一scope，避免重复拟合/重复观测。
 
 **E3（运动对应数据缺口，需新producer、现状OPEN）**：按E2显示的高风险layer/step/新source运动分层，采真实**同源同t同l的局部空间搜索邻域**、前后latent-τ坐标，以及可定义的flow/camera/遮挡oracle；同时冻结随机、同xy、邻域最近邻、光流oracle、cycle/occlusion控制，记录成本。当前固定8xy不是完整搜索空间。采集可以扩大到全160位和更多图像簇，来源不是总量上限。
 
@@ -107,6 +109,6 @@ e_{τ,p}=g ⊙ [h_{τ,p} E].
 
 ## 8. 记录状态与协作
 
-- ID：**MTC-TDIC-20261029**；科学标签ALG/SRC/LIT/OBS(existing)/OPEN。S2的可组合时空探索，不替换S1/S4/S3，不把“补算”设置为目标。
+- ID：**MTC-TDIC-20261029**；科学标签ALG/SRC/LIT/OBS(existing)/OPEN。S2已有时空探索中的一个条件数学附注，不替换S1/S4/S3，也不独立争取研究优先级或以“补算”作为目标。
 - 图锚点：V1输入(F06)→GELU后h(F08/F09)→W2(F09)→门控及写回(F12/F13)→视频消费者(G20)；以图谱登记OPEN假说，不增加已实测因果边。
 - 讨论队列：**探索种子**，不是独立Agent正式proposal或SUPPORT票。实际多Agent另行提交不同方案/独立review；实验必须按ACTIVE注册并有真实RUN/EXIT，不能将此文当作启动命令。
