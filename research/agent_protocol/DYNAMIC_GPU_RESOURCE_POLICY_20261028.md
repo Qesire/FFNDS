@@ -27,7 +27,7 @@
 
 ## 3. 与旧范围及真实实验控制的关系
 
-`research/ACTIVE_RESEARCH.json` 的 `resource_scheduling_policy_20261028` 是**通用资源规划**指针；实际会话并发以适用的执行约束与冻结的RUN/ACTIVE scope为准。此前记录的 2/4 或每个 frozen scope 的 `session_max_GPUs`、`global_max_GPU` 继续作为**有效于对应运行的协议/资源收据**保存，说明当时怎么执行。原 `user_continuation_authorization_20261027.max_simultaneously_assigned_idle_GPUs=2` **保留原值以使已冻结 V2 启动器能够验证其历史范围**，最新全局资源策略以本文件及 ACTIVE 的 `resource_scheduling_policy_20261028` 为准，后者 `global_gpu_card_cap=null`。若未来某些未执行分片必须突破其冻结的 scope 并发预算，须产生新注册协议/范围及完整 SHA 绑定；不能直接把冻结 JSON 中的 2/4 改掉后仍声称原协议身份不变。旧 V2 每个已登记作业可以遵循其精确成本执行，其他独立的新注册作业可以在账户实际允许的资源内与之同时调度。
+`research/ACTIVE_RESEARCH.json` 的 `resource_scheduling_policy_20261028` 是**通用资源规划**指针；实际会话并发以适用的执行约束与冻结的RUN/ACTIVE scope为准。此前记录的 2/4 或每个 frozen scope 的 `session_max_GPUs`、`global_max_GPU` 继续作为**有效于对应运行的协议/资源收据**保存，说明当时怎么执行。原 `user_continuation_authorization_20261027.max_simultaneously_assigned_idle_GPUs=2` **保留原值以使已冻结 V2 启动器能够验证其历史范围**，最新全局资源策略以本文件及 ACTIVE 的 `resource_scheduling_policy_20261028` 为准，后者 `global_gpu_card_cap=null`。若未来某些未执行分片必须突破其冻结的 scope 并发预算，须产生新注册协议/范围及完整 SHA 绑定；不能直接把冻结 JSON 中的 2/4 改掉后仍声称原协议身份不变。旧V2和VIDEO20等每个已登记作业遵循精确成本与**所属会话并发上限**；其他独立的新注册作业仅在明确不违反当前有效的两卡会话约束、账号配额和其自身登记范围时才可并行调度。
 
 模型/视频执行仍需要真实 ACTIVE scope、源/种子/对照与资产冻结、完整质量指标和可追踪 RUN；「动态最大可调度」只是**资源利用策略**，不是「任意启动未登记实验」。前一批任务成功不构成新的模型执行记录或已分配 GPU 证据。
 
