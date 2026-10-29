@@ -1,0 +1,85 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_20261029",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "final_disposition": "APPROVE",
+  "author_agent_id": "/root/sm120_full_quality_build_terra",
+  "reviewer_agent_id": "/root/teal_probe_preexec_reviewer",
+  "coordinator_agent_id": "/root",
+  "author_review": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_20261029/AUTHOR_SELF_AUDIT_V1.md",
+    "bytes": 5269,
+    "sha256": "ac0248f0cb01912dd42dd6a126800b61495275a640314059dfeedfe0a33efdec"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_20261029/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 3018,
+    "sha256": "0cc5c33107862951297353346e8794132b60a8f9bfdad2abbfee8aabe547b3c9"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_20261029/REVIEWER_RECHECK_V1.md",
+    "bytes": 1919,
+    "sha256": "45498d7e8282ef0fc4013c8f144ad9fa46afd726bfda71695dfda030f3069e31"
+  },
+  "author_response": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_20261029/AUTHOR_RESPONSE_V1.md",
+    "bytes": 2605,
+    "sha256": "5f1569dc5cf7b0e042cb0c8504cdac65cbe3bf967737a6f50b8d082ac92b9bff"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_20261029/COORDINATOR_SELF_AUDIT.md",
+    "bytes": 1358,
+    "sha256": "b73d89b411c8b065785bf79b23c49f69aa537c064328e1cc4e2bec8475ee7a03"
+  },
+  "responses_to_review": [
+    "Bind exact isolated interpreter/stdlib, worker, source, private CPU job and actual receipt identities.",
+    "Distinguish application progress, process interruption and physical/power-loss durability; preserve bounded partial writes and no overwrite.",
+    "Add interrupted download/serialization synthetic checks and require official size plus SHA before publishing."
+  ],
+  "adversarial_counterexample": "Identical token/rank maps serialized in another order or with different whitespace fail the original file SHA; matching bytes alone do not establish full tokenizer behavior.",
+  "research_question": "Can the byte-identical public HF tokenizer vocabulary reconstruct the original official Llama3 tiktoken file exactly?",
+  "critical_source_hashes": {
+    "tools/e0_teal_llama3_tokenizer_byte_bridge.py": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c",
+    "tests/test_e0_teal_llama3_tokenizer_byte_bridge.py": "54f105010d4fb37798baa9c1ef095c6389ebc19e3939cc64a76fb159ee010a60",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/durable_worker_job.py": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2",
+    "research/literature/20261029/P0_TEAL_TOKENIZER_BRIDGE_SOURCE_LEDGER_20261029.json": "303f34e3e073404ee973187f5ef0c085fdfbb3cf9288ebcc43d3d689271b0bd2",
+    "research/literature/20261029/P0_TEAL_PUBLIC_REDISTRIBUTION_METADATA_20261029.json": "fe473e2446bb29658ed39ceb55993fa835a9e7ab734db99c22580d958506d6ef",
+    "research/method_discussion/discoveries/E0/p0-teal-llama3-tokenizer-byte-bridge-design-20261029.md": "55fd94ac6a18198e7a08e64fd69c1beeb66f3feab210691e893c29b56b53e895"
+  },
+  "approval_scope_fingerprint": "8758bc3a15f77e3ec5fcefca7d373defca58728b4d17f3f4f82cc45e3b4fdbc5",
+  "launch_spec_sha256": "0ac4b39c9898a4b6ea49fcd0f14fc8873fda518ad6bb16bec8aa118e8adefc84",
+  "protocol": {
+    "path": "config/e0_teal_llama3_tokenizer_byte_bridge_20261029_pending_review_v1.json",
+    "bytes": 6538,
+    "sha256": "19ab814bfcc08630f7a8ae5c5a21ee3e55b5fadc8397e5e005a79c523a05ed31"
+  },
+  "code_commit": "199319fb0c2134743562e8e7e2a84d2b74a1c587",
+  "applicable_session_gpu_cap": 4,
+  "scope_GPU_cards": 0,
+  "budget_and_failure_plan": {
+    "resources": {
+      "GPU": 0,
+      "CPU_threads": 1,
+      "wall_seconds": 120,
+      "outer_seconds": 180,
+      "peak_address_space_bytes": 536870912,
+      "peak_RSS_bytes": 536870912,
+      "download_bytes": 10485760,
+      "new_HF_bytes": 16777216,
+      "automatic_retry": false
+    },
+    "limits": {
+      "http_requests": 3,
+      "input_download": 1,
+      "tokenizer_conversion": 1,
+      "model_calls": 0,
+      "GPU_calls": 0,
+      "torch_imports": 0
+    },
+    "automatic_retry": false
+  },
+  "expected_physical_savings": "Asset-format equivalence only; no model performance claim."
+}
