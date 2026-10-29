@@ -1,0 +1,96 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_V2_20261030",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "final_disposition": "APPROVE",
+  "author_agent_id": "/root/teal_full_llm_calibration_build_terra",
+  "reviewer_agent_id": "/root/sm120_full_quality_build_terra",
+  "coordinator_agent_id": "/root",
+  "author_review": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_V2_20261030/AUTHOR_SELF_AUDIT_V1.md",
+    "bytes": 3062,
+    "sha256": "96e9ebe3571b4e07b51183c7032d70baa94dccca38f4eb57d3968b86a3a0c20a"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_V2_20261030/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 2381,
+    "sha256": "0fcdc23bbc60b5d9b06fb3fcde0a7268454d5c95948a2b8603ce9de422f3950c"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_V2_20261030/REVIEWER_RECHECK_V1.md",
+    "bytes": 1998,
+    "sha256": "14d6da363257bb5229084538b1a0ae9b13cb90efdb1df3ec6ef0be3ba47e6526"
+  },
+  "author_response": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_V2_20261030/AUTHOR_RESPONSE_V3.md",
+    "bytes": 1031,
+    "sha256": "25235e54c8fa04df6b1106f167d69b7db72d57cf1502c84efd8e6be572234591"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_V2_20261030/COORDINATOR_SELF_AUDIT.md",
+    "bytes": 1298,
+    "sha256": "f272bc06ae2e6540aab48b97be9c2134f594a4b11b536e27ce9df67efab4d0fb"
+  },
+  "responses_to_review": [
+    "V1 actual EXIT1 was caused by a missing CUDA-conditional einops import; V2 preserves the failure and uses a separate environment with direct conditional-import checks.",
+    "Verify actual author tokens, layer forward order and completion; freeze the original 300-row prefix, ten segments, 128 sorts and 64 histogram files.",
+    "Account for all asset hashes, histogram validation and 64 finite observers, pin source and runtime, monitor whole worker and foreign GPU processes."
+  ],
+  "adversarial_counterexample": "Saving 32 pre-layer inputs cannot prove 32 forwards completed, and a passing synthetic import mock did not reveal a real utils package shadowing failure.",
+  "research_question": "Can the unchanged original author calibration produce all 32-layer histograms from exact model and original-style input under a fully bound finite execution?",
+  "critical_source_hashes": {
+    "tools/e0_teal_llama3_grab_acts_v2_launcher.py": "1dd31c32a2b7c215927739e015bc295abe78efbb0a9fa72ca427c2c0ab1cbf78",
+    "tests/test_e0_teal_llama3_grab_acts_v2_launcher.py": "6b13b76295f298eeb3db71c8eb9e6ee0e5d596026c455e26e8ffc6c334c340b3",
+    "tools/e0_teal_alpaca_acquisition.py": "ee86a8e9f0ed0aa48da701e3ac0bc4664bb7ba4b184caf97868f129636f53c23",
+    "tools/e0_teal_llama3_author_checkpoint_convert.py": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0",
+    "tools/e0_teal_llama3_tokenizer_byte_bridge.py": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/durable_worker_job.py": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2",
+    "scripts/worker_teal_gpu0_uuid_exec.sh": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1"
+  },
+  "approval_scope_fingerprint": "2037109d9b82cdc9190c6d40c2bccc064f7b468ec8ba5a11bc5a683db3f53ffb",
+  "protocol": {
+    "path": "config/e0_teal_llama3_author_grab_acts_v2_20261030_pending_review_v3.json",
+    "bytes": 12038,
+    "sha256": "e7652d7d5cefe199425066232deba5bba9a028d821e5a6e11df6276e05f07fdf"
+  },
+  "launch_spec_sha256": "f3bad024d3315a1a8e3c8d465325433742117b8ad5f541e87fa69e3a59b617ef",
+  "code_commit": "85f0b29a8ccf6d2db71f15940a9bed895a7fcc97",
+  "applicable_session_gpu_cap": 4,
+  "scope_GPU_cards": 1,
+  "budget_and_failure_plan": {
+    "resources": {
+      "GPU": 1,
+      "CPU_threads": 2,
+      "wall_seconds": 14400,
+      "outer_seconds": 14520,
+      "host_RSS_max_bytes": 34359738368,
+      "GPU_memory_max_bytes": 85899345920,
+      "new_HF_bytes": 17179869184,
+      "minimum_free_disk_bytes": 21474836480,
+      "max_asset_hash_bytes": 16094013218,
+      "automatic_retry": false
+    },
+    "limits": {
+      "source_rows_per_pass": 300,
+      "dataset_passes": 2,
+      "segments": 10,
+      "sequence": 2048,
+      "layers": 32,
+      "histograms": 64,
+      "sorts": 128,
+      "layer_inputs": 32,
+      "model_loads": 1,
+      "layer_forwards": 32,
+      "activation_finite_reductions": 64,
+      "activation_finite_elements": 5368709120,
+      "training_updates": 0,
+      "histogram_validation_files": 64,
+      "histogram_validation_max_logical_read_bytes": 268435456
+    },
+    "automatic_retry": false
+  },
+  "expected_physical_savings": "Author calibration asset production only; no text-quality, perplexity, generation speed or Wan compression claim."
+}

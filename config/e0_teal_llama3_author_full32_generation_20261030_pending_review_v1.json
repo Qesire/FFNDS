@@ -1,0 +1,958 @@
+{
+  "id": "E0_TEAL_LLAMA3_AUTHOR_FULL32_GENERATION_20261030",
+  "status": "FROZEN_PENDING_REGISTRATION",
+  "design": {
+    "arms": [
+      "dense",
+      "truezero",
+      "uniform50"
+    ],
+    "sequence": [
+      "dense",
+      "truezero",
+      "uniform50",
+      "dense",
+      "truezero",
+      "uniform50",
+      "uniform50",
+      "truezero",
+      "dense"
+    ],
+    "warmup_per_arm": 1,
+    "measured_per_arm": 2,
+    "max_new_tokens": 64,
+    "seed": 1234,
+    "top_k": 200,
+    "temperature": 0.8,
+    "prompt": "The history of science is full of examples in which careful observation changed how people understood the world.",
+    "compile": "AUTHOR_TORCH_COMPILE_DECODE_ONLY_FULLGRAPH_REDUCE_OVERHEAD",
+    "neutral_forced_decode": 4,
+    "neutral_rel_l2_max": 0.03,
+    "neutral_require_top1_match": true,
+    "neutral_finite_required": true,
+    "neutral_scope": "EAGER_LOGITS_PREFILL_DEFAULT_SDPA_DECODE_MATH_ONLY_NOT_COMPILED",
+    "cache_scope": "ALL_ARMS_IDENTICAL_PREALLOCATED_T_PLUS_68_ROUNDED_8",
+    "eos": "NO_EARLY_STOP_64_FIXED_RECORD_POSITIONS",
+    "observer": "SEPARATE_AFTER_TIMED_RUNS_ONE_FORCED_DECODE_PER_PATCHED_ARM",
+    "source_scope": "AUTHOR_ALL_ATTENTION_AND_FFN_NOT_FFN_ONLY",
+    "physical_launches": "UNKNOWN_COMPILE_AUTOTUNE_GRAPH_REPLAY",
+    "intervention": "truezero forces all seven thresholds to exact 0 after author patch"
+  },
+  "resources": {
+    "GPU": 1,
+    "CPU_threads": 2,
+    "wall_seconds": 7200,
+    "outer_seconds": 7320,
+    "address_space_max_bytes": 103079215104,
+    "GPU_reserved_max_bytes": 81604378624,
+    "minimum_free_disk_bytes": 10737418240,
+    "new_HF_bytes": 4294967296,
+    "output_file_max_bytes": 2147483648,
+    "automatic_retry": false
+  },
+  "cpu_resources": {
+    "GPU": 0,
+    "CPU_threads": 1,
+    "wall_seconds": 900,
+    "outer_seconds": 1020,
+    "new_HF_bytes": 16777216,
+    "max_hist_hash_bytes": 268435456,
+    "tokenizer_hash_bytes": 2183982,
+    "other_input_reads": "source/receipt/package metadata; bytes UNKNOWN; hist bound is not total I/O",
+    "automatic_retry": false
+  },
+  "limits": {
+    "model_loads": 3,
+    "cache_preparations": 3,
+    "checkpoint_hash_passes": 2,
+    "histogram_hash_passes": 1,
+    "histogram_file_loads": 256,
+    "compile_calls": 3,
+    "generations": 9,
+    "generation_prefills": 9,
+    "generation_decode_calls": 567,
+    "teacher_forced_model_calls": 10,
+    "observer_model_calls": 4,
+    "observer_mask_counts": 448,
+    "observer_zero_counts": 448,
+    "GPU": 1,
+    "training_updates": 0,
+    "automatic_retry": false
+  },
+  "output": "ffnds-derived/e0_teal_llama3_author_full32_generation_20261030/attempt1/worker/results",
+  "cpu_output": "ffnds-derived/e0_teal_llama3_author_full32_generation_20261030/attempt1/cpu_preflight/worker/results",
+  "source_bindings": [
+    {
+      "path": "tools/e0_teal_llama3_author_full32_generation.py",
+      "bytes": 38955,
+      "sha256": "457c274da229bfbf54c357ca41e5bf75e974e438f64c2091282e62e0be67b2b7"
+    },
+    {
+      "path": "tests/test_e0_teal_llama3_author_full32_generation.py",
+      "bytes": 5651,
+      "sha256": "6624ac9fd2286c0c9a187c50b3de2dad7d59d3aef84d125094c69542559a31f4"
+    },
+    {
+      "path": "tools/e0_teal_llama3_tokenizer_byte_bridge.py",
+      "bytes": 25531,
+      "sha256": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c"
+    },
+    {
+      "path": "tools/e0_teal_llama3_author_checkpoint_convert.py",
+      "bytes": 32174,
+      "sha256": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "bytes": 3559,
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d"
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "bytes": 2529,
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0"
+    },
+    {
+      "path": "tools/durable_worker_job.py",
+      "bytes": 9319,
+      "sha256": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2"
+    },
+    {
+      "path": "scripts/worker_teal_gpu0_uuid_exec.sh",
+      "bytes": 730,
+      "sha256": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1"
+    },
+    {
+      "path": ".runtime/teal_fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/compile_wrapper.py",
+      "bytes": 4640,
+      "sha256": "7e1b86358171923d3ac658476b483c5b1dc199601b84976264d5814933239d7c"
+    },
+    {
+      "path": "research/20261029/TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_RESULTS_20261029.json",
+      "bytes": 8983,
+      "sha256": "e4dac886d69232de6cd191a993059379a03f059957e0c595801a7d3b13c01538"
+    },
+    {
+      "path": "research/method_discussion/discoveries/E0/p0-teal-llama3-author-full32-execution-design-20261029.md",
+      "bytes": 11439,
+      "sha256": "36898a52fb4946852820eea8e4f571d63501329cced9edff4b7fb5055fcf8f0e"
+    },
+    {
+      "path": "research/literature/20261029/P0_TEAL_FULL_LLM_STATIC_SOURCE_MANIFEST_20261029.json",
+      "bytes": 5149,
+      "sha256": "1203c2f4b006d9975d33c64ae35a51c186c869ebf03529f4ad8ce4db25efeabb"
+    }
+  ],
+  "author_sources": [
+    {
+      "path": "ffnds-research-sources/p0_teal_full_llm_20261029/gpt-fast/generate.py",
+      "bytes": 23246,
+      "sha256": "a088ccd1d0c2cf1ff75f799c63c3d28b6988ac71c47fa2af92fde58376a75a35"
+    },
+    {
+      "path": "ffnds-research-sources/p0_teal_full_llm_20261029/gpt-fast/model.py",
+      "bytes": 13054,
+      "sha256": "a1ce36c8d432a7978684f0610bdecafc6b1f9e3fff7cc4527baef362251fe176"
+    },
+    {
+      "path": "ffnds-research-sources/p0_teal_full_llm_20261029/gpt-fast/quantize.py",
+      "bytes": 25606,
+      "sha256": "d7cd5f5644d0da2eabf4da565bf478367ec4886cb8ce3362051b5052687dd9f7"
+    },
+    {
+      "path": "ffnds-research-sources/p0_teal_full_llm_20261029/gpt-fast/tokenizer.py",
+      "bytes": 3622,
+      "sha256": "6079520307a3d34eac773de85d6a41a2eeb7793398fd5d390ba34d3f272ac010"
+    },
+    {
+      "path": "ffnds-research-sources/p0_teal_full_llm_20261029/utils/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ffnds-research-sources/p0_teal_full_llm_20261029/utils/utils.py",
+      "bytes": 9514,
+      "sha256": "79871108adf9b17c2c39c4774e05efd20c3c95606832c04915bf3decb49efbc2"
+    },
+    {
+      "path": "ffnds-research-sources/p0_teal_full_llm_20261029/kernels/sparse_gemv.py",
+      "bytes": 10157,
+      "sha256": "21183499ac9eb06c57365023388920721636b5bc0d2acf5d91c95fd5e48c37a3"
+    },
+    {
+      "path": "ffnds-research-sources/p0_teal_gptfast_support_20261030/distribution.py",
+      "bytes": 3991,
+      "sha256": "94100f32155358451b1b121b0340f94b5d19c271dd8e8e41e038d3bcc7c89a16"
+    },
+    {
+      "path": "ffnds-research-sources/p0_teal_gptfast_support_20261030/tp.py",
+      "bytes": 5512,
+      "sha256": "d1d88eb60d2b985341ea64bf92c55a4d689b379decbf4baaedc6d787ddfc3be4"
+    }
+  ],
+  "parent_model": {
+    "path": "ffnds-derived/e0_teal_llama3_author_checkpoint_conversion_20261029/attempt1/worker/results/llama-3-8b/model.pth",
+    "bytes": 16060590926,
+    "sha256": "d420e39d07864fd3b1ee8006e2b064b38370825bb369191e0c363affa1196887"
+  },
+  "parent_receipts": [
+    {
+      "path": "ffnds-derived/e0_teal_llama3_author_checkpoint_conversion_20261029/attempt1/worker/results/RUN.json",
+      "bytes": 7211,
+      "sha256": "2c84797b4f783a16777f459ccf85855eda5236c44c1a4fc5b1be4daa54d90e9e"
+    },
+    {
+      "path": "ffnds-derived/e0_teal_llama3_author_checkpoint_conversion_20261029/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 542,
+      "sha256": "b19f7d6b4ceeca86625dc012ab9e85e74b7667ac4f0667e36dd3096e277ba23f"
+    },
+    {
+      "path": "ffnds-derived/e0_teal_llama3_author_checkpoint_conversion_20261029/attempt1/verification/results/RUN.json",
+      "bytes": 1891,
+      "sha256": "e6f8f065651b38e351f8750c3509585648788ce8bf5807e6ea1c2af856b615e1"
+    },
+    {
+      "path": "ffnds-derived/e0_teal_llama3_author_checkpoint_conversion_20261029/attempt1/verification/EXIT_RECEIPT.json",
+      "bytes": 550,
+      "sha256": "e5532c59de782d0de31fcea63ad98860e1a1f6a096c28bc10fcc4952ff86c61a"
+    }
+  ],
+  "histograms": {
+    "RUN": {
+      "path": "ffnds-derived/e0_teal_llama3_author_grab_acts_v2_20261030/attempt1/worker/results/RUN.json",
+      "bytes": 28901,
+      "sha256": "941cfb7d94b27f63f9c958f37b94bd06fa395eb0f9037e5b2636151eafbafc25"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_teal_llama3_author_grab_acts_v2_20261030/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 533,
+      "sha256": "f074c3ed73b960ffb9e2935d67638fa2aaeeb0773574ea568505b5109e213c28"
+    },
+    "files": [
+      {
+        "path": "author/histograms/layer-0/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "3ec745159351361cdd0d271e096ddef1aaee93236254e3d5a0a84def9d72afcc"
+      },
+      {
+        "path": "author/histograms/layer-0/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "f9eebbe3ff45542fc21ed4e3db545e7bd77a9fe495e12e9fb215b8b2668590ff"
+      },
+      {
+        "path": "author/histograms/layer-1/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "59291fcf4a0528d7d47a22958367c53bd912cca39cdcbb1e1a6e49ae8160dcd7"
+      },
+      {
+        "path": "author/histograms/layer-1/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "35ef1f0f6d15a8f7348107a2eb474a100cffa921cfd1ed73265b2d1f4d366a6a"
+      },
+      {
+        "path": "author/histograms/layer-2/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "142d253f3b6b65feb367f86f2b22a501776dc0cfcee4b24c272035ed8fa24153"
+      },
+      {
+        "path": "author/histograms/layer-2/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "0ea81a3ad629607b3a11475830e9977fb3719f22e5d562704330240ad74852ab"
+      },
+      {
+        "path": "author/histograms/layer-3/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "4b473f849da8a186a4338239c6a54cb701511bbbbb62049a99d8afa13d698866"
+      },
+      {
+        "path": "author/histograms/layer-3/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "3482fcf8d991e35d35b2f3c031f7717060f480dab2548a5497f56f828587430d"
+      },
+      {
+        "path": "author/histograms/layer-4/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "1719dc153ecc1457fb862efae8c5de5fd8252a61ca5886799c8fe800b8d9bf18"
+      },
+      {
+        "path": "author/histograms/layer-4/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "d2af8a47f47d7d18cc38813c6baaa504f8148622de552ecafc2f0d13a8a17577"
+      },
+      {
+        "path": "author/histograms/layer-5/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "d41fb602c090edcb15c76a2cfe6fee6cc97f43c17768791c946f75e252c6eaf2"
+      },
+      {
+        "path": "author/histograms/layer-5/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "03cdc8e75a78c231618b8fd8c25121a52dd9232be25ee6282caad37e1154c799"
+      },
+      {
+        "path": "author/histograms/layer-6/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "eddcd2dbee836278ac13df1263120c1653f406e696f914476201e5d5ad908218"
+      },
+      {
+        "path": "author/histograms/layer-6/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "1438236980e201bca07b4c039b2a37517e7bee0f9294d800bda9db0e46d48dca"
+      },
+      {
+        "path": "author/histograms/layer-7/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "c5fee50b62b230c01cc613e661c15f533b73daa33d15b8bfe3bcca267bc2416a"
+      },
+      {
+        "path": "author/histograms/layer-7/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "ea94c740bb1e77094c04e61d355e0e7dc2a84e9084cdc24ad47372492b831185"
+      },
+      {
+        "path": "author/histograms/layer-8/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "de3c84bf205171d6f5d98edf964fb5ff9febd39c2297d1a004f0ebb025b32955"
+      },
+      {
+        "path": "author/histograms/layer-8/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "82bd7b7616d2e78f2546b592eed7dedc521e8df3568bfe083d01b37bf3851066"
+      },
+      {
+        "path": "author/histograms/layer-9/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "1409aea167216cf47bdf550bea4af559deb31171cd2627cfee63d1ea712b3815"
+      },
+      {
+        "path": "author/histograms/layer-9/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "f10497126ddadd38952dfea4f5c7fed43d3bcb016a48290f50ebd46e05adffca"
+      },
+      {
+        "path": "author/histograms/layer-10/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "2b509477834279fc79b523da80551b17f8f154c9cf36a5eedc3d8e20c777fe1b"
+      },
+      {
+        "path": "author/histograms/layer-10/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "38b8bebb1d41d073aed877c9e854f31a8bd957f87adecedbec6bb9b878276e78"
+      },
+      {
+        "path": "author/histograms/layer-11/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "18505374000aaa561d2469af545415e79467e6d3c990916296422c536d1eb727"
+      },
+      {
+        "path": "author/histograms/layer-11/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "f436f2f815f498cd9adcd99687e8f4e14f66c486d609f62d77a50fa37f430fae"
+      },
+      {
+        "path": "author/histograms/layer-12/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "96618b2556da1815b4e3018b9a36e3e49a9ac70c72c8dbc73a7916e35a9def25"
+      },
+      {
+        "path": "author/histograms/layer-12/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "681f6e19a4ed76e0ee874ba6e8c8208cc1e086e90cd77aa488a2050fd9c49e6f"
+      },
+      {
+        "path": "author/histograms/layer-13/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "f332db556f92ea66f4c7a9ebf78781cc51ad75bcfc163d33ae2a2b3c899d86ec"
+      },
+      {
+        "path": "author/histograms/layer-13/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "8696c439f7d530bc197cb6c13435d558929409fc5f16462ce0ca4aecefe7f9f4"
+      },
+      {
+        "path": "author/histograms/layer-14/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "51a88e5e2fc5a7131198916154490aa5672392e17d14de6941de6160a2e87366"
+      },
+      {
+        "path": "author/histograms/layer-14/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "e9ecc43a824ac89842050a8ae3c5fbf3e15247966bf64943a57a7ec1bbe49eb1"
+      },
+      {
+        "path": "author/histograms/layer-15/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "abb33d46cd4ef894a7f95bb18c952711dfadc07217225e30b443203afce548dd"
+      },
+      {
+        "path": "author/histograms/layer-15/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "f2ccdc03acdfababd6fac44f46bb64190e683b49d146ade68651112986b2a37b"
+      },
+      {
+        "path": "author/histograms/layer-16/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "63efae42cd7b87bd61def6e2ea36b6bb79019ff3de1ab7109bc67c26f2b20c1d"
+      },
+      {
+        "path": "author/histograms/layer-16/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "1279da6fdfaa610f8c3ee54ce901c63fc22ea50af763fe8392246e12eda4788a"
+      },
+      {
+        "path": "author/histograms/layer-17/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "1520e23075208b6120b86f35ab0ff1336171970a3ea36ad0f079871534ea111b"
+      },
+      {
+        "path": "author/histograms/layer-17/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "bcb7b5fe508e4b441c991a6b42d86ef1e94e90ea3985463cc55e8c08709be9f8"
+      },
+      {
+        "path": "author/histograms/layer-18/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "22186a6f5d9f0d8cbde90aeaf37b35a68a3d48055a5cfd47e09b784550745882"
+      },
+      {
+        "path": "author/histograms/layer-18/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "b14caf76ca38c5774aa028870b80131c8f8778e621d5febfa8dea2d001dbc189"
+      },
+      {
+        "path": "author/histograms/layer-19/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "ca3133a0dafd66fb7dd139e95f1ed432c96a1fbadc4f5fcb105c6ae2d39be943"
+      },
+      {
+        "path": "author/histograms/layer-19/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "3517ac0aa45e57264ae02e60cb3d1798e0fda9fcd1d47fbc9f83e74015008350"
+      },
+      {
+        "path": "author/histograms/layer-20/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "86b79450c9e0f13d771e1d674c4fb147e0aa82a7ad17fa450dea799e0731087f"
+      },
+      {
+        "path": "author/histograms/layer-20/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "ec91dedb6b9e280e4595fe5e2f14b6eacbdf25ebc6cca4c8832fe216e341998b"
+      },
+      {
+        "path": "author/histograms/layer-21/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "4b7b1d884556d1ff230f496c5127234f4c5e979033da553ea496b58469a7b969"
+      },
+      {
+        "path": "author/histograms/layer-21/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "9412ded3f3e31c39f40f74dc7e0ebd7b55e7e4d1a15266680c9616bae66c6e1b"
+      },
+      {
+        "path": "author/histograms/layer-22/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "54a54eba8b4f2f811cd0f7440f1e4edcbc4be6fa3bfc067eda09fc1a26645483"
+      },
+      {
+        "path": "author/histograms/layer-22/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "04d7935e151ad2377079bca9304eb001b557ee8acf1ce5da4b0c62923732c589"
+      },
+      {
+        "path": "author/histograms/layer-23/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "740d0bf5692eb6d32dc3cd811c8cc7841fe91f36332a27c190b4f7a1f6271c5f"
+      },
+      {
+        "path": "author/histograms/layer-23/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "20036fb6c81e71bd9fb79bb47ede838f255cdb747b35fa9d9d02039c593fa181"
+      },
+      {
+        "path": "author/histograms/layer-24/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "c0b59993b2733462f607d03ac1b3fd5b66b83ac703b5d129b57320404f536f17"
+      },
+      {
+        "path": "author/histograms/layer-24/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "da7146af671c96180f48ba2577569a576761e3c1283c88b3f2de3ffb6c9317c5"
+      },
+      {
+        "path": "author/histograms/layer-25/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "98c7a1f1e8d37481bc5400415fd21ce19774e5cc30842e6dcb9474e5921496a3"
+      },
+      {
+        "path": "author/histograms/layer-25/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "23ad8fb8ac1312527bc1cb65fbef11c892c5901cb9fda010da096584896081fb"
+      },
+      {
+        "path": "author/histograms/layer-26/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "95b4109d0667579212e4097a225c49b0c74207ea1b20dba969d779c3f7187b4e"
+      },
+      {
+        "path": "author/histograms/layer-26/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "03f12e4b0a1146b72c75a104a85a4d6e18a8a67560c441aea5f4479602e58d30"
+      },
+      {
+        "path": "author/histograms/layer-27/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "1c1e12720cfce0c0bd6d509200d0a7ef2a5a233c99e4bb7cf38c721746d78d70"
+      },
+      {
+        "path": "author/histograms/layer-27/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "d5e04472fb54dad8a4a541720467abc7a93cd0526da544956d226ca068785750"
+      },
+      {
+        "path": "author/histograms/layer-28/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "0d822cde30558a29f420c7c4cc57928c12e327992ce7b9192319bae8ae786b63"
+      },
+      {
+        "path": "author/histograms/layer-28/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "85084de881e57d9ea788ee5fd1ab33c7eca50cda1856cb5ede2dfc9978f9169c"
+      },
+      {
+        "path": "author/histograms/layer-29/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "3f16ff73ee77448e411a5e7ae614f2960eeae63bff4eefc2cec32c5bafad1ccb"
+      },
+      {
+        "path": "author/histograms/layer-29/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "c1d82dc8f461be24c072d554cba6d5e1fbf8d8a66b0a7b5812fc34f2da22275e"
+      },
+      {
+        "path": "author/histograms/layer-30/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "f2c0dad9e51b3a538d65994e16c77080d3f546bc6f5756dd5f582f889770ba80"
+      },
+      {
+        "path": "author/histograms/layer-30/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "50611b9185daa30e460ae82e0bd1df3bc7d0521089c5b77c83e813e83889dce3"
+      },
+      {
+        "path": "author/histograms/layer-31/mlp/histograms.pt",
+        "bytes": 161960,
+        "sha256": "51a8b24b7377e8edd063adc6703ce7dafd37c2c9c91b116d33636e0a89c3f7ec"
+      },
+      {
+        "path": "author/histograms/layer-31/self_attn/histograms.pt",
+        "bytes": 161960,
+        "sha256": "34152e03d6d0ab5272747ecfbd498e387e8e3d52edc8ec3f15dce28892ff41d1"
+      }
+    ]
+  },
+  "runtime": {
+    "python": "/home/xiang/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/bin/python3.11",
+    "prefix": "/home/xiang/.cache/huggingface/ffnds-derived/teal_author_llm_env_20261029/venv",
+    "python_sha256": "8deffe5dd9ebcf98a062917a4e73bb8fbb7d5846f83dec01fb7506fd5d41c54e",
+    "version": "3.11.15",
+    "site_bridge_sha256": "30d3ceb1950a0b1cede7867c296df7604e337a0995da55f19bddacd8668a6f03",
+    "packages": [
+      {
+        "name": "torch",
+        "version": "2.4.0",
+        "files": [
+          [
+            "torch-2.4.0.dist-info/METADATA",
+            26735,
+            "abb7b0b69a9718dc07793374264f5bacb29b1862d6903f0e7897370bec15d368"
+          ],
+          [
+            "torch-2.4.0.dist-info/RECORD",
+            1123909,
+            "14568213cf983ea0533f11ce134a718fc42449437557f4fa4327ef080d3265ca"
+          ],
+          [
+            "torch/_C.cpython-311-x86_64-linux-gnu.so",
+            37857,
+            "0e042b419d54586f02ab2140388ae415e3816dd46c2fcb911fb47a2d8375191e"
+          ],
+          [
+            "torch/__init__.py",
+            89184,
+            "34fd26c3046775a70a6a654df60afb362b2f2e98b2f9b8e713c8763b7a80ff83"
+          ],
+          [
+            "torch/version.py",
+            248,
+            "75ce3e52cb5240e3105cca5beea5d1fa6b34af2640a46cf18d3b6bc2d006d8ee"
+          ]
+        ]
+      },
+      {
+        "name": "triton",
+        "version": "3.0.0",
+        "files": [
+          [
+            "triton-3.0.0.dist-info/METADATA",
+            1325,
+            "e2dc9cf2c01b2e03cf75134dcc6179d43e508dc3be73c2f1b467561c328c9ef1"
+          ],
+          [
+            "triton-3.0.0.dist-info/RECORD",
+            33188,
+            "06cbeca66974acc7b21b014e4981feaa0b2fe75abb5649a9de1bf84744073f89"
+          ],
+          [
+            "triton/__init__.py",
+            1347,
+            "ded80ef47a6837162e4f6b2f74ab59c991d89b620d337d1abff9e56b39925e3b"
+          ]
+        ]
+      },
+      {
+        "name": "safetensors",
+        "version": "0.8.0",
+        "files": [
+          [
+            "safetensors-0.8.0.dist-info/METADATA",
+            4189,
+            "645be7b8d55e91534f991d144dc9e279581ea8dbea1a8c5b0be14e529d01e345"
+          ],
+          [
+            "safetensors-0.8.0.dist-info/RECORD",
+            1425,
+            "c5110881c0c39a4f163a23b2ccc88cad19ce1823b6dce1ceef353d33f16c004b"
+          ],
+          [
+            "safetensors/__init__.py",
+            210,
+            "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f"
+          ],
+          [
+            "safetensors/torch.py",
+            20312,
+            "f3f476d1f8c04fe65fa3797426556a0b7afa43f8c4db9db6b799c7cf84748f3d"
+          ]
+        ]
+      },
+      {
+        "name": "transformers",
+        "version": "4.44.1",
+        "files": [
+          [
+            "transformers-4.44.1.dist-info/METADATA",
+            43655,
+            "43e5efe7342cb967a5bdce249df277b50309a97c9043fd931462ed83ff47f229"
+          ],
+          [
+            "transformers-4.44.1.dist-info/RECORD",
+            191506,
+            "d9a92f120146404d6989a1d599247aebba658ff87403f5c22bb2ba4589883de9"
+          ]
+        ]
+      },
+      {
+        "name": "tokenizers",
+        "version": "0.19.1",
+        "files": [
+          [
+            "tokenizers-0.19.1.dist-info/METADATA",
+            6719,
+            "ac202083d0c0fd9b044f11f387f773d213de44a4efa23f66f6450d65ed78bf17"
+          ],
+          [
+            "tokenizers-0.19.1.dist-info/RECORD",
+            2730,
+            "caee859ee3b731d4c94031758da5b0126e0f648863de62f662febacac02434fb"
+          ]
+        ]
+      },
+      {
+        "name": "tiktoken",
+        "version": "0.14.0",
+        "files": [
+          [
+            "tiktoken-0.14.0.dist-info/METADATA",
+            6669,
+            "30086725221223f7a19463e71c0e9f79fe7aba9125b36632c00bf50a23fa968a"
+          ],
+          [
+            "tiktoken-0.14.0.dist-info/RECORD",
+            1306,
+            "959c0ae6d99d456cd673de7eaab8bf6010de00f7e33e15a098dc56be0c8c5a89"
+          ]
+        ]
+      },
+      {
+        "name": "sentencepiece",
+        "version": "0.2.2",
+        "files": [
+          [
+            "sentencepiece-0.2.2.dist-info/METADATA",
+            33748,
+            "bb49c79797fff1b8f3048efd4849d86dce4adbe26f7f3f0a5b37239a59d88ee8"
+          ],
+          [
+            "sentencepiece-0.2.2.dist-info/RECORD",
+            1629,
+            "6ac74e4b48609b7f2136b4f9b5d2ace6a1478fbe53b74208d359d5932f35cbca"
+          ]
+        ]
+      },
+      {
+        "name": "blobfile",
+        "version": "3.3.0",
+        "files": [
+          [
+            "blobfile-3.3.0.dist-info/METADATA",
+            15977,
+            "c7366295a505ec23271f860dce1e5a478c6f9bc84be2520529ad3a9cf0795e4f"
+          ],
+          [
+            "blobfile-3.3.0.dist-info/RECORD",
+            1333,
+            "9f185032133a765be1704027e768a33e4799bec576bd33795baee3b1c8bfdea9"
+          ]
+        ]
+      },
+      {
+        "name": "numpy",
+        "version": "1.26.4",
+        "files": [
+          [
+            "numpy-1.26.4.dist-info/METADATA",
+            61041,
+            "b09734a7fed44e84b4c8161934ce532dff1e779ec6822d415644d117f6381070"
+          ],
+          [
+            "numpy-1.26.4.dist-info/RECORD",
+            84693,
+            "6d17fb51fc85a91e9102d14c0e6919c232ea895f4db60a2e9642265344bda823"
+          ]
+        ]
+      },
+      {
+        "name": "msgspec",
+        "version": "0.22.0",
+        "files": [
+          [
+            "msgspec-0.22.0.dist-info/METADATA",
+            5985,
+            "c7e9d347d94b29c7018e92bc6b7a6d4db020d12cfadfc94015d47f0f15055d58"
+          ],
+          [
+            "msgspec-0.22.0.dist-info/RECORD",
+            1960,
+            "7efd6daf926e0afd05b52157ee8958a5f5729ff9eaaed48dd0350de8be19a803"
+          ],
+          [
+            "msgspec/__init__.py",
+            529,
+            "d5330f3406745b0ffde3a1ed17bc20dc5ec47bc5362939520138d710d2202f26"
+          ]
+        ]
+      },
+      {
+        "name": "setuptools",
+        "version": "75.8.2",
+        "files": [
+          [
+            "setuptools-75.8.2.dist-info/METADATA",
+            6670,
+            "428dad4cd3fd19bf348a93f43bffdc7bf60bc2442761bfcbdac636fd074840ab"
+          ],
+          [
+            "setuptools-75.8.2.dist-info/RECORD",
+            50021,
+            "0e9cce7534d70bcfb7bc05362036291ab91288843f5f7bfc2b9b87ba900d16a0"
+          ],
+          [
+            "setuptools/_vendor/autocommand-2.2.2.dist-info/METADATA",
+            15006,
+            "3800d9b91dceea2065a6ed6279383362e97ac38b8e56b9343f404ee531860099"
+          ],
+          [
+            "setuptools/_vendor/autocommand-2.2.2.dist-info/RECORD",
+            1308,
+            "822bba66b41526fa547186b80221f85da50d652bee5493dbfe5d14085112f0c3"
+          ],
+          [
+            "setuptools/_vendor/backports.tarfile-1.2.0.dist-info/METADATA",
+            2020,
+            "8215c54ead77d9dc5a108a25c6bdc72b5999aa6f62c9499a440359412afa5a51"
+          ],
+          [
+            "setuptools/_vendor/backports.tarfile-1.2.0.dist-info/RECORD",
+            1360,
+            "258a1f1c849e1175069a55a5d6ce357afdd04e34cd5de27093e4acec7a9d2ce1"
+          ],
+          [
+            "setuptools/_vendor/importlib_metadata-8.0.0.dist-info/METADATA",
+            4648,
+            "6a7b90effee1e09d5b484cdf7232016a43e2d9cc9543bcbb8e494b1ec05e1f59"
+          ],
+          [
+            "setuptools/_vendor/importlib_metadata-8.0.0.dist-info/RECORD",
+            2518,
+            "0d8d3c6eeb9ebbe86cac7d60861552433c329da9ea51248b61d02be2e5e64030"
+          ],
+          [
+            "setuptools/_vendor/inflect-7.3.1.dist-info/METADATA",
+            21079,
+            "66030d634580651b3e53cc19895d9231f8d22aa06b327817c8332cfc20303308"
+          ],
+          [
+            "setuptools/_vendor/inflect-7.3.1.dist-info/RECORD",
+            943,
+            "5d7834ac1ba2612c6801050fde57a7b98b0f36acf88c3c2d4f376fd8911b3091"
+          ],
+          [
+            "setuptools/_vendor/jaraco.collections-5.1.0.dist-info/METADATA",
+            3933,
+            "20c51a96236c0395f53b1f4c5d458e6a0721e51e16c1bff733b7aba76f5d06d8"
+          ],
+          [
+            "setuptools/_vendor/jaraco.collections-5.1.0.dist-info/RECORD",
+            873,
+            "1e9b62bd70e4a5fa26e9594cbb80860ffeca3debfee8773daefa774cd259ca06"
+          ],
+          [
+            "setuptools/_vendor/jaraco.context-5.3.0.dist-info/METADATA",
+            4020,
+            "c43b60b897a3d2d37d8845c252fc44261d9aef171e21154111a9012d2afffed6"
+          ],
+          [
+            "setuptools/_vendor/jaraco.context-5.3.0.dist-info/RECORD",
+            641,
+            "55197b88a78443297bb2d827a75baae740b33896251d872835d4b4c75ec2f57e"
+          ],
+          [
+            "setuptools/_vendor/jaraco.functools-4.0.1.dist-info/METADATA",
+            2891,
+            "8b86946900d7fa38dd1102b9c1ebe17a0cb1f09c8b7e29f61f2bda4a4dc51eca"
+          ],
+          [
+            "setuptools/_vendor/jaraco.functools-4.0.1.dist-info/RECORD",
+            843,
+            "632aa7c04f7c4bcc01c027af5b9bc76fe8958f4a181035b957a3bd3014ba248b"
+          ],
+          [
+            "setuptools/_vendor/jaraco.text-3.12.1.dist-info/METADATA",
+            3658,
+            "03359d9ba56231f0ce3e840c7cb5a7db380141218949ccaa78ddbd4dcb965d52"
+          ],
+          [
+            "setuptools/_vendor/jaraco.text-3.12.1.dist-info/RECORD",
+            1500,
+            "816d945741dca246099388ca3eed74fc0667acbaa36f70b559b2494c3979b1f6"
+          ],
+          [
+            "setuptools/_vendor/more_itertools-10.3.0.dist-info/METADATA",
+            36293,
+            "0453bdd0ef9f2cd89540ca63ee8212e73b73809514419dd3037d8fe471f737e0"
+          ],
+          [
+            "setuptools/_vendor/more_itertools-10.3.0.dist-info/RECORD",
+            1259,
+            "77c8e73e018dc0fd7e9ed6c80b05a4404545f641fb085220ce42b368b59aa3d3"
+          ],
+          [
+            "setuptools/_vendor/packaging-24.2.dist-info/METADATA",
+            3204,
+            "a211fceacea4e6621f4316364d2d0b7127c00de3856b8062082f9bc5957ea4db"
+          ],
+          [
+            "setuptools/_vendor/packaging-24.2.dist-info/RECORD",
+            2009,
+            "6380eb5ccd0a63402b7f385b0046b52d814fc16dd612011e2f8882a977be03e3"
+          ],
+          [
+            "setuptools/_vendor/platformdirs-4.2.2.dist-info/METADATA",
+            11429,
+            "ce6b227b4d46d4cb57474c2022fe57a557933bb89daf4596bdf9b12ac296b869"
+          ],
+          [
+            "setuptools/_vendor/platformdirs-4.2.2.dist-info/RECORD",
+            1642,
+            "4c211d76d42ed40efc3acfcc866d8912a718afbca2b7e51849442366d6e99fe8"
+          ],
+          [
+            "setuptools/_vendor/tomli-2.0.1.dist-info/METADATA",
+            8875,
+            "ccf0dc78a98fc0918b5ad67292b1e2c4bed65575a6246cd9d63c914f9942a0f2"
+          ],
+          [
+            "setuptools/_vendor/tomli-2.0.1.dist-info/RECORD",
+            999,
+            "0cb9f9a451a1e365ac54b4c88662e1da0cb54a72d16a5258fb0abff9d3e1c022"
+          ],
+          [
+            "setuptools/_vendor/typeguard-4.3.0.dist-info/METADATA",
+            3717,
+            "cf675c1c0a744f08580855390de87cc77d676b312582e8d4cfdb5bb8fd298d21"
+          ],
+          [
+            "setuptools/_vendor/typeguard-4.3.0.dist-info/RECORD",
+            2402,
+            "48a51959582478352275428ceecd78ef77d79ac9dae796e39a2eaf2540282552"
+          ],
+          [
+            "setuptools/_vendor/typing_extensions-4.12.2.dist-info/METADATA",
+            3018,
+            "05e51021af1c9d86eb8d6c7e37c4cece733d5065b91a6d8389c5690ed440f16d"
+          ],
+          [
+            "setuptools/_vendor/typing_extensions-4.12.2.dist-info/RECORD",
+            571,
+            "7710002d81971e632aa6a2fc33dc5d74aaf5d7caae22040a65d3e31503b05ee9"
+          ],
+          [
+            "setuptools/_vendor/wheel-0.43.0.dist-info/METADATA",
+            2153,
+            "59bac22b00a59d3e5608a56b8cf8efc43831a36b72792ee4389c9cd4669c7841"
+          ],
+          [
+            "setuptools/_vendor/wheel-0.43.0.dist-info/RECORD",
+            4557,
+            "783e654742611af88cd9f00bf01a431a219db536556e63ff981c7bd673070ac9"
+          ],
+          [
+            "setuptools/_vendor/zipp-3.19.2.dist-info/METADATA",
+            3575,
+            "508ae4fe43081c64b0b0a2828588b3a8cc3430c6693d1676662569400b0dfdb1"
+          ],
+          [
+            "setuptools/_vendor/zipp-3.19.2.dist-info/RECORD",
+            1039,
+            "f316f2e03fd9ade7ebbc0b154706848e2bb8fd568b90935109f0d8e3ce2b9bfe"
+          ]
+        ]
+      },
+      {
+        "name": "wheel",
+        "version": "0.45.1",
+        "files": [
+          [
+            "wheel-0.45.1.dist-info/METADATA",
+            2313,
+            "98acfce07ee6ee3b31272cde21c4d53918936f434f315dfd2af3886211a09a30"
+          ],
+          [
+            "wheel-0.45.1.dist-info/RECORD",
+            3352,
+            "1aefbf8ccb8ba8240622211a7e8d6e107a302087a878f7e0420e0768118fb1bd"
+          ]
+        ]
+      }
+    ],
+    "native_shared_libraries": "distribution RECORD identity; individual ELF bytes NOT_HASHED"
+  },
+  "worker_config_sha256": "5a4e5bf320c525deb8f952e22972fd2f8bc8c35fe8f66dcea1db1e64ef8a90d2",
+  "review": null
+}

@@ -1,0 +1,115 @@
+{
+  "id": "E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_V2_20261030",
+  "status": "PASS_ACTUAL_EXIT_AUTHOR_CALIBRATION",
+  "evidence": "NATIVE author grab_acts finite single development calibration; not generation/PPL/performance",
+  "run": {
+    "path": "ffnds-derived/e0_teal_llama3_author_grab_acts_v2_20261030/attempt1/worker/results/RUN.json",
+    "sha256": "941cfb7d94b27f63f9c958f37b94bd06fa395eb0f9037e5b2636151eafbafc25"
+  },
+  "exit": {
+    "path": "ffnds-derived/e0_teal_llama3_author_grab_acts_v2_20261030/attempt1/worker/EXIT_RECEIPT.json",
+    "sha256": "f074c3ed73b960ffb9e2935d67638fa2aaeeb0773574ea568505b5109e213c28",
+    "child_returncode": 0,
+    "outer_seconds": 359.0991483666003
+  },
+  "protocol_sha256": "e7652d7d5cefe199425066232deba5bba9a028d821e5a6e11df6276e05f07fdf",
+  "spec_sha256": "f3bad024d3315a1a8e3c8d465325433742117b8ad5f541e87fa69e3a59b617ef",
+  "model_snapshot": "NousResearch/Meta-Llama-3-8B@315b20096dc791d381d514deb5f8bd9c8d6d3061",
+  "sample": {
+    "dataset": "tatsu-lab/alpaca pinned parquet",
+    "rows_per_pass": 300,
+    "passes": 2,
+    "segments": {
+      "shape": [
+        10,
+        2048
+      ],
+      "input_ids_sha256": "960d6491ad09cbe7eed3c5038e9bf2df74350926ebb708e0d8711c9ba8d1cbe4",
+      "attention_mask_sha256": "575af9d4502d6d4cc2425b038aa6e6bd6f07438b0564d4d9eb7422c618fa4f63",
+      "padded_positions": 0
+    },
+    "author_token_segments": {
+      "shape": [
+        10,
+        2048
+      ],
+      "input_ids_sha256": "960d6491ad09cbe7eed3c5038e9bf2df74350926ebb708e0d8711c9ba8d1cbe4",
+      "attention_mask_sha256": "575af9d4502d6d4cc2425b038aa6e6bd6f07438b0564d4d9eb7422c618fa4f63",
+      "padded_positions": 0
+    },
+    "source_text_sha256": "7945b86b8de15f2029f993ac1849c114395ef4307a230da3d4dce0e9a40a8e99",
+    "tokenization_matches": true
+  },
+  "model": {
+    "layers": 32,
+    "hidden_size": 4096,
+    "intermediate_size": 14336,
+    "dtype": "float16",
+    "device": "cuda"
+  },
+  "counts": {
+    "sort": 128,
+    "histogram": 128,
+    "layer_inputs": 32,
+    "histogram_files": 64,
+    "layer_forward_pre": 32,
+    "layer_forward_post": 32,
+    "activation_finite_reductions": 64
+  },
+  "finite_observer": {
+    "predebit_reductions": 64,
+    "predebit_elements": 5368709120,
+    "completed_reductions": 64,
+    "completed_elements": 5368709120,
+    "synchronized_wall_seconds": 1.1839994452893734
+  },
+  "resources": {
+    "wall_seconds": 358.0025603286922,
+    "cpu_seconds": 407.009789325,
+    "peak_RSS_bytes": 6221262848,
+    "gpu_peak_bytes_sampled": 20000538624,
+    "worker_peak_bytes_sampled": 5379127298,
+    "sample_count": 67,
+    "sampling_seconds": 5,
+    "unsampled_peak": "UNKNOWN",
+    "final_worker_apparent_bytes": 5379127299
+  },
+  "input_cost": {
+    "model_source_sha_bytes": 16069766580,
+    "parquet_sha_bytes": 24246638,
+    "model_internal_reads": "UNKNOWN"
+  },
+  "artifacts": {
+    "histogram_files": 64,
+    "histogram_bytes": 10365440,
+    "histogram_validation_logical_read_bytes": 20730880,
+    "histogram_validation_wall_seconds": 0.44571657106280327,
+    "layer_input_files": 32,
+    "layer_input_bytes": 5368744622,
+    "layer_input_rehash": "NOT PERFORMED; sizes from RUN and closed stat"
+  },
+  "previous_failure": {
+    "id": "E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_20261030",
+    "run_sha256": "94f41d543f7782d1b502ad3c935b653bc6d5b49603995d745d89b963fea43c02",
+    "exit_sha256": "cf162e74586b0a60fd2f3f6f907e0c05291fa578387fd8b80c024f463e0da0ae",
+    "child_returncode": 1,
+    "error_type": "ModuleNotFoundError",
+    "error": "No module named 'einops'",
+    "model_load_calls": 0,
+    "counts": {
+      "sort": 0,
+      "histogram": 0,
+      "layer_inputs": 0,
+      "histogram_files": 0,
+      "layer_forward_pre": 0,
+      "layer_forward_post": 0,
+      "activation_finite_reductions": 0
+    }
+  },
+  "limitations": [
+    "Fixed 300-row development subset; no claim about held-out quality, PPL, generated text or system speed.",
+    "Physical kernel launches and actual model internal read bytes unknown; sampled resource peaks may miss transients.",
+    "Histograms hashed by producer; closed inspection validates current stat without a new 64-file hash.",
+    "32 layer inputs are not reread or hashed in this report."
+  ]
+}
