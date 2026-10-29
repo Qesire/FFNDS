@@ -46,7 +46,7 @@
 
 ### D · S2-FTFD：全深度时空函数单元
 
-**输入**：旧2来源×5 Block连续M128观测；新原BF16全160位置保存行及其token locator。**竞争**：layer/step本身决定公共创新 vs video时间/物体移动的token配对决定真正可复用结构。**第一判别**：核对21 latent时间槽×29×52空间网格、真实配对索引；先检索保存行的空间/时间匹配覆盖，缺失的paired token才另注册被动Dense采集。每层/step/source逐层记录共享均值、token-specific能量与真实运动对齐后的作用。只有发现稳定且前置廉价分组后，才发明tile Kernel。**状态**：[八来源全40×4稀疏配对OBS](../20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)实际CPU exit0；时间同xy优势已存在于V1。真实十张新图原始字节已提取并核对，完整21τ×8xy的原BF16全160采集part0已登记运行、part1等待闭合中性证明；完整轨迹分析和真实学生/运动对应仍按实际后续范围判断。
+**输入**：旧2来源×5 Block连续M128观测；新原BF16全160位置保存行及其token locator。**竞争**：layer/step本身决定公共创新 vs video时间/物体移动的token配对决定真正可复用结构。**第一判别**：核对21 latent时间槽×29×52空间网格、真实配对索引；先检索保存行的空间/时间匹配覆盖，缺失的paired token才另注册被动Dense采集。每层/step/source逐层记录共享均值、token-specific能量与真实运动对齐后的作用。只有发现稳定且前置廉价分组后，才发明tile Kernel。**状态**：[八来源全40×4稀疏配对OBS](../20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)实际CPU exit0；时间同xy优势已存在于V1。[十张新图完整21τ×8xy、原BF16全160采集与CPU几何](../20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.md)已实际exit0，1600包全部原u byte-neutral通过。近邻复制门后AC能量约0.987而AC误差约0.855；[同输入固定因子](../20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.md)对照也已exit0，shared DC/AC误差0.0293/0.1842。下一构造是同数据、同r960、同两GEMM的普通/时间平衡表示；学生状态、运动对应与新方法视频仍待实际执行。
 
 ### E · S3-QFAR：量化可见信息与早期合法动作
 

@@ -10,7 +10,7 @@
 
 - **S1-CSFB**：共享跨step的函数基＋适量step收缩特化。来自真实BF16 r960：shared在6来源留一的8函数锚点6/6更优、2旧开发来源2/2更优；但训练集上step特化更准。**新收缩拟合与全视频效果待测**。
 - **S4-FRANK**：利用原BF16真实h和W2构造能在W2前评估额外低秩块收益的低价草图；该方法在原W1/GELU后决策，最多减少W2计算。**数学投影性质已推导，真实source-held regret与部署成本未测**。
-- **S2-FTFD**：从旧HiF4连续tile在5层首中尾的创新差异出发，发现真实视频latent时间×空间的共享函数计算单元。**已有[八来源全160处26389个稀疏时间对观察](../20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)；相同xy优势已出现在V1。十张新开发图完整21τ、8xy、40层×4步Dense采集已登记，part0运行，part1等待实际闭合neutral**。
+- **S2-FTFD**：从旧HiF4连续tile在5层首中尾的创新差异出发，发现真实视频latent时间×空间的共享函数计算单元。**已有[八来源全160处26389个稀疏时间对观察](../20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)；相同xy优势已出现在V1。[十张新开发图完整21τ、8xy、40层×4步采集及CPU观察](../20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.md)已实际完成：1600包/全部u字节neutral；[同Dense h固定因子复算](../20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.md)显示shared门后输出DC误差0.0293、AC误差0.1842，小M舍入不足解释。下一具体构造是同数据/秩普通目标与DC/AC平衡目标，不重复旧视频或直接拷邻居**。
 - **S3-QFAR**：以HiF4 whole64组闭包和W1前可用的信息为真实合法行动集合。旧任意列25%保留触及216/216组，whole64对角25%保留在所测创新上表现差；**新的条件有符号联合组行动及原生NVFP4独立闭包待判别**。
 
 四支路线并行，任意Agent可以根据真实源与论文提出更优竞争机制。第一项**成本最小且可执行的完整视频基线**是已导出的原BF16 shared80-r960、step160-r960和相同原BF16 Dense的真实160位置同source生成；这项基线已完成[20来源60视频及单次成本](../20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.md)和[八轴官方函数/连续RAFT](../20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.md)，当前质量未通过：shared/step来源等权RAFT幅值为Dense的0.490/0.477。公平预热重复SYS仍待测；不用重复已完成视频。
@@ -24,7 +24,7 @@
 - [HiF4 UB1 20来源视频与四步状态](../20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)：真实free video中运动幅值均值比0.1672、18/20下降，成像分数可以变好而动作退化；20/20四步signed误差累计。其numeric family与BF16不同，**不能用作BF16候选的Dense对照**。
 - [真实PRO6000 NVFP4 FFN有限实验](../20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.md)已经执行；这建立硬件算子可行性证据，而不是NVFP4整个模型的生成质量或加速。静态权重与在线激活码及scale、producer、决策时点按[合同](WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)区分；旧HiF4 S1P2单码**含符号位**，fake-QDQ输出带符号BF16而非原生packed。
 
-**当前会话硬件约束**：用户明确缩窄为最多同时两张空闲GPU；本会话以该约束优先于仓库通用动态政策。
+**当前会话硬件约定**：用户最新完整替换的AGENTS.md已撤销旧2/4卡上限；按实际授权、兼容且空闲的资源向已经冻结登记的READY任务分配GPU，不为占卡制造重复实验。
 
 ## 实际研究动作、证明与权限
 

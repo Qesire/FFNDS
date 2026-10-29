@@ -67,7 +67,9 @@
         "research/20261025/E0_FOLLOWTHROUGH.md",
         "research/20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.json",
         "research/20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.json",
-        "research/20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.json"
+        "research/20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.json",
+        "research/20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.json",
+        "research/20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.json"
       ],
       "open_question": "How does numerical writeback change signed function effects?"
     },
@@ -95,7 +97,8 @@
         "research/20261025/E0_DENSE_WEIGHT_RESIDENCY.md",
         "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
         "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json",
-        "research/method_discussion/discoveries/E0/native-nvfp4-full-model-execution-src-audit-20261029.md"
+        "research/method_discussion/discoveries/E0/native-nvfp4-full-model-execution-src-audit-20261029.md",
+        "research/20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.json"
       ],
       "open_question": "Can a new representation reduce true W1 work rather than posthoc W2 work?"
     },
@@ -111,7 +114,8 @@
         "research/20261025/E0_AFFINE_FFN_DISCOVERY.md",
         "research/20261026/E0_FUNCTION_RECONSTRUCTION.md",
         "research/20261029/RAW_BF16_TEMPORAL_ROW_REPLAY_20261029.json",
-        "research/20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.json"
+        "research/20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.json",
+        "research/20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.json"
       ],
       "open_question": "Half slope failed the320-case control; Gaussian/empirical statistical gains approach OLS but correlated nonlinear residual remains. Explain transfer and the strong signed odd/even cancellation without claiming joint Gaussianity."
     },
@@ -156,7 +160,9 @@
         "research/method_discussion/discoveries/E0/s1-common-left-step-readout-normal-equations-20261029.md",
         "research/method_discussion/discoveries/E0/s4-frank-sketch-variance-and-execution-audit-20261029.md",
         "research/20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.json",
-        "research/20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.json"
+        "research/20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.json",
+        "research/20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.json",
+        "research/20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.json"
       ],
       "open_question": "What signed net output patterns can be computed more cheaply?"
     },
@@ -5975,6 +5981,34 @@
       "evidence": "ALG_SRC_OPEN_NO_NEW_TENSOR_COMPARISON",
       "document": "research/method_discussion/discoveries/E0/raw-bf16-r960-temporal-dc-ac-discrimination-20261029.md",
       "claim": "Complete21tau mean/innovation errors separate static and temporal teacher-state loss, distinct from student-prefix drift or motion metric bias."
+    },
+    "S2_complete_new10": {
+      "nodes": [
+        "F04",
+        "F06",
+        "F09",
+        "G20"
+      ],
+      "report": "research/20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.json",
+      "evidence": "NATIVE_COMPLETE21TAU_FULL160_DENSE_OBS_ACTUAL_EXIT0",
+      "image_clusters": 10,
+      "packets": 1600,
+      "all_original_u_byte_neutrals": 1600,
+      "motion_alignment": false,
+      "quality_or_speed_accepted": false
+    },
+    "r960_temporal_components": {
+      "nodes": [
+        "F09",
+        "G20"
+      ],
+      "report": "research/20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.json",
+      "evidence": "SAME_DENSE_H_NATIVE_BF16_FACTOR_GEMMS_ACTUAL_EXIT0",
+      "shared_gY_DC_error": 0.02932077733482555,
+      "shared_gY_AC_error": 0.18415372931992113,
+      "raw_M168_gY_AC_error": 5.2446464626349526e-05,
+      "candidate": "DC_AC_BALANCED_SAME_RANK_REPRESENTATION_NOT_YET_FITTED",
+      "student_state_alternative": "OPEN_NOT_CAPTURED"
     }
   }
 }

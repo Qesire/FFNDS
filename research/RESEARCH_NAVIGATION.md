@@ -18,7 +18,7 @@
 | **4** | [视频质量/真实成本终端协议](20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md) + [source×method成本证据](20261029/VIDEO_FIRST_SOURCE_METHOD_COST_MATRIX_20261029.md) | 定义全4step×40layer、同后端多source video与物理FFN/System延迟比较 |
 | **5** | [ACTIVE研究范围](ACTIVE_RESEARCH.json) + [历史任务状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json) | 检查当前已有真实运行，实际GPU权限、资产身份、来源与登记范围；完成的RUN不重跑 |
 
-**当前最省成本的完整模型验证对象**：仓库已有BF16 shared80-r960和step160-r960因子，计划和同checkpoint BF16 Dense做全160位多来源自由视频对照；已完成[20来源60条全160位置视频与实际成本](20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.md)及[官方八轴/连续RAFT](20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.md)：shared/step运动幅度来源均值比约0.490/0.477，当前质量未通过，单次成本不作公平预热SYS结论。已补齐[S2全160稀疏时间配对OBS](20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)，十张新开发图完整21τ采集part0正在运行，part1待实际闭合中性证明。S1（共享/step特化）、S4（行动收益动态秩）、S2（时空函数单元）、S3（前置量化/整组）可并行做已有资产判别，并由实际证据调整优先级。相应论文与旧M-B/G14专题按P1–P3按需深读。
+**当前最省成本的完整模型验证对象**：仓库已有BF16 shared80-r960和step160-r960因子，计划和同checkpoint BF16 Dense做全160位多来源自由视频对照；已完成[20来源60条全160位置视频与实际成本](20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.md)及[官方八轴/连续RAFT](20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.md)：shared/step运动幅度来源均值比约0.490/0.477，当前质量未通过，单次成本不作公平预热SYS结论。已补齐[S2全160稀疏时间配对OBS](20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)，[十张新开发图完整21τ×8xy采集及CPU几何](20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.md)和[固定因子同输入时间分量复算](20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.md)已实际完成：shared门后DC/AC误差0.0293/0.1842。当前新构造为同数据/同秩普通目标与时间平衡目标，尚未拟合。S1（共享/step特化）、S4（行动收益动态秩）、S2（时空函数单元）、S3（前置量化/整组）可并行做已有资产判别，并由实际证据调整优先级。相应论文与旧M-B/G14专题按P1–P3按需深读。
 
 ## P1 · 研究方法必备：按问题选择阅读，不必全读
 
