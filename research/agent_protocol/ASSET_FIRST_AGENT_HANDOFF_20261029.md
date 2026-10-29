@@ -1,5 +1,10 @@
 # FFNDS · 开放式证据驱动的统一Agent交接与研究队列
 
+
+**最新用户命令覆盖此前所有旧P0排序：只开展「Wan自身FFN稀疏/省算」正向复现，不研究非FFN帧/Block/Token/Attention/整模型缓存，也不复现无直接必要的LLM/FLUX。** 新顺序见 [Wan FFN-only精确路线](../20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md)、[ACTIVE最新字段](../ACTIVE_RESEARCH.json) 与 [#56](https://github.com/Qesire/FFNDS/issues/56)：**P0 SharQ Wan2.2 原生FP4激活稀疏[#59](https://github.com/Qesire/FFNDS/issues/59)、P0 TEAL Wan全160后稀疏W2[#58](https://github.com/Qesire/FFNDS/issues/58)；P1 Chipmunk Wan FFN付费代理[#57](https://github.com/Qesire/FFNDS/issues/57)。** 不把SharQ原Wan T2V报告混成我方I2V实测，不把SageAttention组合加速归到FFN，不把TEAL postGELU全Dense W2误报成省算。旧用户P0 S2和旧「Chipmunk/TEAL并列P0/作者LLM基线」均为历史，已退出当前执行顺序。新CPU/GPU/视频具体scope必须独立异Agent实审、修订recheck、ACTIVE冻结、真实RUN/EXIT。
+
+
+
 **最新 USER_PRIORITY_OVERRIDE（2026-10-29）**：接手Agent的第一任务是并列推进 [P0 Chipmunk 真正复现 #57](https://github.com/Qesire/FFNDS/issues/57) 与 [P0 TEAL 真正复现 #58](https://github.com/Qesire/FFNDS/issues/58)，总任务 [#56](https://github.com/Qesire/FFNDS/issues/56)；原有 S1/S2/S3/S4 并行机制、M-B与旧P0 S2因果采集统一降为 **P1新科学执行**，其已完成证据不可改写。新排序以 [ACTIVE.current_user_research_priority_20261029](../ACTIVE_RESEARCH.json) 为准，本文后文历史文字中的“本次用户指定S2 P0”和旧队列 P0 只代表当时状态。Chipmunk 的作者 Wan2.1 `examples/wan/chipmunk-config.yml` 当前默认 `mlp.is_enabled=false`，所以应分别复现作者系统组合、隔离 MLP-only、再迁移四步双专家 Wan2.2；TEAL 要分别审作者 LLM FP16、Wan BF16 GELU preW1 与 postGELU，二者不能混作同一可执行 FFN 动作。**每个 CPU/GPU/原生试验仍必须先完成主Agent自审与真实独立Agent反例审核/重新核定，再另冻 ACTIVE scope，实际启动前核代码与input sha；当前仅 USER_PRIORITY_REGISTERED，非 REVIEW_APPROVED / RUNNING。** 静态科学/源码审查和独立Agent工作可在两方向同步推进。
 
 
