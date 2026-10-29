@@ -1,0 +1,420 @@
+{
+  "id": "E0_SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_20261030",
+  "status": "FROZEN_PENDING_REGISTRATION",
+  "review": null,
+  "resources": {
+    "GPU": 0,
+    "CPU_threads": 4,
+    "wall_seconds": 3600,
+    "outer_seconds": 3720,
+    "host_RSS_max_bytes": 8589934592,
+    "new_HF_bytes": 2147483648,
+    "max_payload_hash_bytes": 8388608,
+    "max_tensor_bytes": 805306368,
+    "max_tensor_ranges": 64,
+    "max_bundle_hash_bytes": 1073741824,
+    "automatic_retry": false
+  },
+  "design": {
+    "source": 911,
+    "block": 20,
+    "cases": {
+      "high": 1,
+      "low": 2
+    },
+    "rows": 32,
+    "inputs": "actual matched V1, a, h, Y, gate, rows; original BF16 master W1/W2 and NVFP4 checkpoint W1/W2 from same expert/block",
+    "no_model_GPU": "CPU tensor staging only, no model forward or GPU",
+    "master_identity": "prior full-SHA parent receipts; header+fd/path stat; noncooperative writers not excluded"
+  },
+  "output": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results",
+  "selected": {
+    "high": {
+      "source": 911,
+      "step": 1,
+      "block": 20,
+      "rows": 32,
+      "packet": {
+        "payload": {
+          "path": "ffnds-derived/e0_s2_whole_ffn_boundary_bridge_20261029/attempt1/worker/results/whole_ffn_bridge_ord911_seed42_dense/step1_block20.safetensors",
+          "bytes": 3091256,
+          "sha256": "2707716e7845d498a5fecba12e38887ac0ba726d5ae26c53f6c013052ec82726"
+        },
+        "metadata": {
+          "path": "ffnds-derived/e0_s2_whole_ffn_boundary_bridge_20261029/attempt1/worker/results/whole_ffn_bridge_ord911_seed42_dense/step1_block20.json",
+          "bytes": 4334,
+          "sha256": "ff4e3eb1f652d0970c4b65b7a5006b76bacc63564f7c1734d22d30e7d324ba1b"
+        },
+        "tensor_metadata": {
+          "V1": {
+            "shape": [
+              32,
+              5120
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "62fd431248e422e711064e43a91d0a9f5ed5d2570a39c3ed2795868c4775c50f"
+          },
+          "a": {
+            "shape": [
+              32,
+              13824
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "3edfd66e02b7fb82b47b8efe8f6d05a6f41e979f87d7975e7715b8909e75d796"
+          },
+          "h": {
+            "shape": [
+              32,
+              13824
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "f8e90b64a2865139b18f93f4a5c26d7359132a8e9b6a52b7f9cf850aacfa4faf"
+          },
+          "Y": {
+            "shape": [
+              32,
+              5120
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "17d02f3ab6eb45f2b21d48f8f636f08b2cbeb7325160ef34cd1f1f542fcdc8d5"
+          },
+          "gate": {
+            "shape": [
+              5120
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "1c0f0d6e26d14a7a0220a420dc64b16390649951fdee9d06d370fb2e3c7b4a70"
+          },
+          "rows": {
+            "shape": [
+              32
+            ],
+            "dtype": "int64",
+            "raw_tensor_sha256": "230c14cfe918ee27b173e34d87b513c20a2835d5da935a1d910d3cb522b34d15"
+          }
+        }
+      },
+      "original_bf16": {
+        "kind": "high",
+        "path": "/var/tmp/ffnds-xiang/huggingface/hub/.ffnds-model-views/distill4-52699089e1da-base-206a9ee1b7bf/high_noise_model/wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+        "filename": "wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+        "repo": "lightx2v/Wan2.2-Distill-Models",
+        "revision": "52699089e1dac804cbedd2400d0d2aea969577de",
+        "bytes": 28577915880,
+        "sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+        "header_sha256": "f40c5e3943554fa03cf2b873620e0d3293fcbfa89825d7c52b291ef6533cc67c"
+      },
+      "nvfp4_checkpoint": {
+        "filename": "Wan2.2-I2V-A14B_NVFP4_Sparse_high.safetensors",
+        "cache_path": "hub/models--lightx2v--LightWan2.2-A14B/blobs/c77b92616d678fa8373462973a3d2e3ceefd2fbdb3ccf33454e74f4c79fcf07a",
+        "bytes": 8379833592,
+        "sha256": "c77b92616d678fa8373462973a3d2e3ceefd2fbdb3ccf33454e74f4c79fcf07a",
+        "all_tensor_count": 2295,
+        "ffn_tensor_count": 400,
+        "all40_W1_W2_headers_match": true,
+        "W1": {
+          "packed_U8": [
+            13824,
+            2560
+          ],
+          "weight_scale_F8_E4M3": [
+            13824,
+            320
+          ],
+          "bias_BF16": [
+            13824
+          ]
+        },
+        "W2": {
+          "packed_U8": [
+            5120,
+            6912
+          ],
+          "weight_scale_F8_E4M3": [
+            5120,
+            864
+          ],
+          "bias_BF16": [
+            5120
+          ]
+        },
+        "alpha_and_input_global_scale": "F32 scalar each linear"
+      }
+    },
+    "low": {
+      "source": 911,
+      "step": 2,
+      "block": 20,
+      "rows": 32,
+      "packet": {
+        "payload": {
+          "path": "ffnds-derived/e0_s2_whole_ffn_boundary_bridge_20261029/attempt1/worker/results/whole_ffn_bridge_ord911_seed42_dense/step2_block20.safetensors",
+          "bytes": 3091256,
+          "sha256": "4e682dec08c69a5710c4667fdbefe2f7cde1c8b18d5d73cc789a859caf4bfa93"
+        },
+        "metadata": {
+          "path": "ffnds-derived/e0_s2_whole_ffn_boundary_bridge_20261029/attempt1/worker/results/whole_ffn_bridge_ord911_seed42_dense/step2_block20.json",
+          "bytes": 4333,
+          "sha256": "a39368b0742051705d4127b2c77122c3045d33287f0ddf5db55bfa431bdfad9b"
+        },
+        "tensor_metadata": {
+          "V1": {
+            "shape": [
+              32,
+              5120
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "157d618abf8e4e7911105ed6ced1213977b8f5786e52ede19e258bf982e64eed"
+          },
+          "a": {
+            "shape": [
+              32,
+              13824
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "c2c7b145619ddfe7f51039f9a7459132d2b0cc29466db7103f33babb6b658d8e"
+          },
+          "h": {
+            "shape": [
+              32,
+              13824
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "49c67ba07f04bd55248d7e8f8e30e0a674c8f7d13d5cf6b2a0678bf88184abe6"
+          },
+          "Y": {
+            "shape": [
+              32,
+              5120
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "c3f42e86b01ef063e973e091cb8efa756d22172857340e4ba6487e4af2d27ece"
+          },
+          "gate": {
+            "shape": [
+              5120
+            ],
+            "dtype": "bfloat16",
+            "raw_tensor_sha256": "45ad1286ec1df625bf631d92ee712a347562f0ed626007d1eb3e3c1bf687789c"
+          },
+          "rows": {
+            "shape": [
+              32
+            ],
+            "dtype": "int64",
+            "raw_tensor_sha256": "230c14cfe918ee27b173e34d87b513c20a2835d5da935a1d910d3cb522b34d15"
+          }
+        }
+      },
+      "original_bf16": {
+        "kind": "low",
+        "path": "/var/tmp/ffnds-xiang/huggingface/hub/.ffnds-model-views/distill4-52699089e1da-base-206a9ee1b7bf/low_noise_model/wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+        "filename": "wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+        "repo": "lightx2v/Wan2.2-Distill-Models",
+        "revision": "52699089e1dac804cbedd2400d0d2aea969577de",
+        "bytes": 28577915880,
+        "sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2",
+        "header_sha256": "f40c5e3943554fa03cf2b873620e0d3293fcbfa89825d7c52b291ef6533cc67c"
+      },
+      "nvfp4_checkpoint": {
+        "filename": "Wan2.2-I2V-A14B_NVFP4_Sparse_low.safetensors",
+        "cache_path": "hub/models--lightx2v--LightWan2.2-A14B/blobs/d76b53286dd9b68f5d956941037c0a6fd5a1fe0fd05eb97f8bf8abf9915da562",
+        "bytes": 8379833592,
+        "sha256": "d76b53286dd9b68f5d956941037c0a6fd5a1fe0fd05eb97f8bf8abf9915da562",
+        "all_tensor_count": 2295,
+        "ffn_tensor_count": 400,
+        "all40_W1_W2_headers_match": true,
+        "W1": {
+          "packed_U8": [
+            13824,
+            2560
+          ],
+          "weight_scale_F8_E4M3": [
+            13824,
+            320
+          ],
+          "bias_BF16": [
+            13824
+          ]
+        },
+        "W2": {
+          "packed_U8": [
+            5120,
+            6912
+          ],
+          "weight_scale_F8_E4M3": [
+            5120,
+            864
+          ],
+          "bias_BF16": [
+            5120
+          ]
+        },
+        "alpha_and_input_global_scale": "F32 scalar each linear"
+      }
+    }
+  },
+  "parent_receipts": {
+    "bridge": {
+      "id": "E0_S2_WHOLE_FFN_NATIVE_BOUNDARY_BRIDGE_20261029",
+      "status": "PASS_CLOSED_NATIVE_BOUNDARY_BRIDGE",
+      "RUN": {
+        "path": "ffnds-derived/e0_s2_whole_ffn_boundary_bridge_20261029/attempt1/worker/results/RUN.json",
+        "bytes": 125979,
+        "sha256": "72bcfea98ec5a63ea4e0f89427e18e9e7983efec8d3ddf0ac98ed31f9be77279"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_s2_whole_ffn_boundary_bridge_20261029/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 536,
+        "sha256": "137439ab6958e2cd44397099273dd96bc40c42bc7a44ca4f18102fa3c713c5c6"
+      },
+      "model_calls": 0,
+      "GPU_calls": 0
+    },
+    "nvfp4": {
+      "protocol": {
+        "path": "config/e0_nvfp4_checkpoint_bytes_20261029_v1.json",
+        "bytes": 2352,
+        "sha256": "df7fc8d71087a88262c0c196e20f171a3f1c718700f3c29ecd3b1843b44b3f0f"
+      },
+      "RUN": {
+        "path": "ffnds-derived/e0_nvfp4_checkpoint_bytes_20261029/attempt1/worker/results/RUN.json",
+        "bytes": 180842,
+        "sha256": "1873d67c52686de439863081259f25dbe1db3f3d3fd9a246ad435cbb1d93d61d"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_nvfp4_checkpoint_bytes_20261029/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 523,
+        "sha256": "f7acae1060b8e5545a17bc79058256d2f6a3fd166336c1fdf870080e7783a1ba"
+      }
+    },
+    "raw": {
+      "protocol": {
+        "path": "config/e0_s2_sm120_bf16_worker_master_cpu_20261029_v1.json",
+        "bytes": 11212,
+        "sha256": "79f188575de92c6cb23a04cf4fd028f6da85d086ea27393e1a8d0b3a6bf5a3a5"
+      },
+      "RUN": {
+        "path": "ffnds-derived/e0_s2_sm120_bf16_worker_master_cpu_20261029/attempt1/worker/results/RUN.json",
+        "bytes": 4372,
+        "sha256": "c910880bdf7305bf4d9ca72421df7977b8a51e405d0101a591a5dc0a0e8637d8"
+      },
+      "launch_exit": {
+        "path": "ffnds-derived/e0_s2_sm120_bf16_worker_master_cpu_20261029/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 536,
+        "sha256": "08cc1454ce4e047223bd3365d0682c461913716af6f945a80f3ebd25ef6ed383"
+      }
+    },
+    "nvfp4_stat_proof": {
+      "protocol": {
+        "path": "config/e0_nvfp4_real_ffn_inputs_cpu_20261029_v1.json",
+        "bytes": 6972,
+        "sha256": "1ca54313c53348df87f66aab751aae7363bd3acb01f7794c8273e3efd2ecf3f4"
+      },
+      "RUN": {
+        "path": "ffnds-derived/e0_nvfp4_real_ffn_inputs_cpu_20261029/attempt1/worker/results/RUN.json",
+        "bytes": 189983,
+        "sha256": "c5a272f345064134645197dfa0657ab9e6d6e780b04632191ff5c13c3e3eac64"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_nvfp4_real_ffn_inputs_cpu_20261029/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 527,
+        "sha256": "76e4191a75932d0aef5e2859453fd365ec6bbb739bb3c97cf86159df719c70d4"
+      }
+    }
+  },
+  "repo_sources": [
+    {
+      "path": "tools/e0_sharq_wan_ffn_assets.py",
+      "bytes": 18047,
+      "sha256": "d272d24c5f8ee167ed890c63f2d76b7461357628d70c7e4f0456dc31f868169a"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_asset_plan.py",
+      "bytes": 2546,
+      "sha256": "a2df4c5dceb0de391fed4d4a4a0a707e62542662487d7317a0d8839a6d47c9f5"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_asset_extract.py",
+      "bytes": 2936,
+      "sha256": "72883b25ab30514069936a93e1c7c537a506c5f209ee137dd27e7d82a5f6e45c"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_assets.py",
+      "bytes": 5531,
+      "sha256": "a6487a3aa760ed4aac889f150d33668d8eafa2d1213b9893d3fe9e5b37f57e38"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_asset_plan.py",
+      "bytes": 1433,
+      "sha256": "29653f8773f65a6abf43d16640a597594496ae73d46779e9d5ef7cec5cc3a0cc"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_asset_extract.py",
+      "bytes": 1643,
+      "sha256": "114fd43af12fb3c0969e53433cc2c418d9f7b0dcf5fe6d63c54cd1679cef57dc"
+    },
+    {
+      "path": "tools/e0_teal_llama3_tokenizer_byte_bridge.py",
+      "bytes": 25531,
+      "sha256": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c"
+    },
+    {
+      "path": "tools/e0_teal_llama3_author_checkpoint_convert.py",
+      "bytes": 32174,
+      "sha256": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    },
+    {
+      "path": "tools/durable_worker_job.py",
+      "bytes": 9319,
+      "sha256": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2"
+    },
+    {
+      "path": "research/20261029/S2_WHOLE_FFN_NATIVE_BOUNDARY_BRIDGE_RESULTS_20261029.json",
+      "bytes": 43677,
+      "sha256": "c651b1b8004ac54ffadc26ccd23ae1a3efbfe8b706c23e338a19a89e1465dedb"
+    },
+    {
+      "path": "config/e0_s2_new12_sm120_fixed_depth_part0_20261029_v1.json",
+      "bytes": 223441,
+      "sha256": "c4aacaec09133e1c0780b3ddd29e12bbb55421f57c56efcccda74376ca6f7278"
+    },
+    {
+      "path": "research/20261029/NVFP4_CHECKPOINT_BYTES_RESULTS_20261029.json",
+      "bytes": 3016,
+      "sha256": "ca5b491ae572589edb91f40f98ad497e31c5c2f0b3f545904ffc5a41d9679d3d"
+    },
+    {
+      "path": "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json",
+      "bytes": 24426,
+      "sha256": "4e051cbe10aad2c2e6821947f1f0b87d1690515b16c0509e53b139c3051348cf"
+    }
+  ],
+  "worker_config_sha256": "edb8a343a6b4857b12f4a504e88580d99b2ce6bf36ed47e6c8a7b676e393f3cd",
+  "runtime": {
+    "python_sha256": "8deffe5dd9ebcf98a062917a4e73bb8fbb7d5846f83dec01fb7506fd5d41c54e",
+    "packages": {
+      "torch": {
+        "version": "2.10.0+cu128",
+        "metadata_sha256": "7f56e1b49211bfcfe45a8c7df42d96a054f69a96fbf6bc4f1b6b6fe8d3f097a7",
+        "record_sha256": "22a9fa2f5c1078f087203bc42c300ca1e23ff954c16c0de120de330a182dc278"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "metadata_sha256": "b082c52ccbe3b880bae177c35171b52ed6c947f3ad71e3762f2723f60a411de0",
+        "record_sha256": "63835c185e07dc9a10fa24635182d6e9feb59b8607ffcc64b61806c2cb1a465d"
+      },
+      "safetensors": {
+        "version": "0.8.0",
+        "metadata_sha256": "645be7b8d55e91534f991d144dc9e279581ea8dbea1a8c5b0be14e529d01e345",
+        "record_sha256": "c5110881c0c39a4f163a23b2ccc88cad19ce1823b6dce1ceef353d33f16c004b"
+      }
+    },
+    "scope": "metadata and RECORD; package implementation bytes not fully hashed"
+  }
+}

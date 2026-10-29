@@ -1,0 +1,106 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_20261030",
+  "purpose": "wan_transfer_asset_staging",
+  "research_question": "Can the actual paired source911 FFN boundary and separately identified BF16/NVFP4 expert weights be staged without identity or typed-byte mismatch?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Every source/row/expert/key/dtype and prior proof stat matches, yielding a verifiable bundle.",
+      "discriminator": "Exact source metadata, raw tensor SHA, fd/path stat/header and bundle producer SHA."
+    },
+    {
+      "id": "H2",
+      "prediction": "A stale or wrong-expert/state/typed range fails closed before a usable bundle.",
+      "discriminator": "Same checks and retained partial debit/actual EXIT."
+    }
+  ],
+  "author_agent_id": "/root/sm120_full_quality_build_terra",
+  "coordinator_agent_id": "/root",
+  "reviewer_agent_id": "/root/teal_full_llm_calibration_build_terra",
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "adversarial_counterexample": "Identical shapes and row coordinates can hide a different expert/step gate or weight, and a second debit can overwrite an unfinished first debit.",
+  "responses_to_review": [
+    "ACCEPT: persistent inflight state per debit key with injected interruption tests.",
+    "ACCEPT: actual tensor_rows -> BF16/U8/F8/F32 including scalar -> safetensors save/load byte verification in dual-expert synthetic fixture.",
+    "REVISE: add same-packet a/h/Y for later original-BF16 neutral; V4 budgets 40 ranges/730505760 bytes."
+  ],
+  "critical_source_hashes": {
+    "tools/e0_sharq_wan_ffn_assets.py": "d272d24c5f8ee167ed890c63f2d76b7461357628d70c7e4f0456dc31f868169a",
+    "tools/e0_sharq_wan_ffn_asset_plan.py": "a2df4c5dceb0de391fed4d4a4a0a707e62542662487d7317a0d8839a6d47c9f5",
+    "tools/e0_sharq_wan_ffn_asset_extract.py": "72883b25ab30514069936a93e1c7c537a506c5f209ee137dd27e7d82a5f6e45c",
+    "tests/test_e0_sharq_wan_ffn_assets.py": "a6487a3aa760ed4aac889f150d33668d8eafa2d1213b9893d3fe9e5b37f57e38",
+    "tests/test_e0_sharq_wan_ffn_asset_plan.py": "29653f8773f65a6abf43d16640a597594496ae73d46779e9d5ef7cec5cc3a0cc",
+    "tests/test_e0_sharq_wan_ffn_asset_extract.py": "114fd43af12fb3c0969e53433cc2c418d9f7b0dcf5fe6d63c54cd1679cef57dc",
+    "tools/e0_teal_llama3_tokenizer_byte_bridge.py": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c",
+    "tools/e0_teal_llama3_author_checkpoint_convert.py": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/durable_worker_job.py": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2",
+    "research/20261029/S2_WHOLE_FFN_NATIVE_BOUNDARY_BRIDGE_RESULTS_20261029.json": "c651b1b8004ac54ffadc26ccd23ae1a3efbfe8b706c23e338a19a89e1465dedb",
+    "config/e0_s2_new12_sm120_fixed_depth_part0_20261029_v1.json": "c4aacaec09133e1c0780b3ddd29e12bbb55421f57c56efcccda74376ca6f7278",
+    "research/20261029/NVFP4_CHECKPOINT_BYTES_RESULTS_20261029.json": "ca5b491ae572589edb91f40f98ad497e31c5c2f0b3f545904ffc5a41d9679d3d",
+    "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json": "4e051cbe10aad2c2e6821947f1f0b87d1690515b16c0509e53b139c3051348cf"
+  },
+  "checkpoint_numeric_recipe": "Original BF16 master and separately identified native NVFP4 checkpoint, both experts block20; no computed FFN output.",
+  "input_cohort_manifest_sha256": "c651b1b8004ac54ffadc26ccd23ae1a3efbfe8b706c23e338a19a89e1465dedb",
+  "control_arms": [
+    "Original metadata/raw tensor SHA",
+    "Historical complete checkpoint SHA and current original-worker stat/header",
+    "Separate high/low identities"
+  ],
+  "unit_of_independence": "Single exposed source image cluster 911; two bounded expert/step observations",
+  "full_depth_or_claim_scope": "CPU staging at two actual positions only, not model/video/speed evidence",
+  "predeclared_metrics": [
+    "Typed range bytes/count",
+    "Identity checks",
+    "Bundle SHA",
+    "Runtime/RSS/HF output bound"
+  ],
+  "expected_physical_savings": {
+    "W1": "not measured",
+    "W2": "not measured",
+    "observer_and_cache": "CPU staging only"
+  },
+  "applicable_session_gpu_cap": 4,
+  "budget_and_failure_plan": {
+    "GPU": 0,
+    "CPU_threads": 4,
+    "wall_seconds": 3600,
+    "outer_seconds": 3720,
+    "host_RSS_max_bytes": 8589934592,
+    "new_HF_bytes": 2147483648,
+    "max_payload_hash_bytes": 8388608,
+    "max_tensor_bytes": 805306368,
+    "max_tensor_ranges": 64,
+    "max_bundle_hash_bytes": 1073741824,
+    "automatic_retry": false
+  },
+  "approval_scope_fingerprint": "bcf4e5ecd5947ae1301435583c8e981b71fdb03a40b145f40b13ec95766eff15",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "author_review": {
+    "path": "research/experiment_reviews/E0_SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_20261030/AUTHOR_SELF_AUDIT_V1.md",
+    "bytes": 3066,
+    "sha256": "32d7ad55b7c6ba16097d3f52b4b070221a071b76c0aa2dc1688098088b436c7e"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_20261030/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 2948,
+    "sha256": "9f4cc54ee55477ce0a8112fa6225ee3b3ad8336e216b8e43f381be5010198610"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_20261030/REVIEWER_RECHECK_V1.md",
+    "bytes": 2430,
+    "sha256": "aed79aa514cfb76a562c6982063b3b84b994debe89d0014deb26b95e3b5d7bc0"
+  },
+  "author_response": {
+    "path": "research/experiment_reviews/E0_SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_20261030/AUTHOR_RESPONSE_V4.md",
+    "bytes": 937,
+    "sha256": "a5c5da6a540713c8b62f15124841345060fa25dad7f26545c83cd34909f85745"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_20261030/COORDINATOR_SELF_AUDIT_V1.md",
+    "bytes": 1672,
+    "sha256": "e2a9984f2bac0fe2950d60819dac950d749c3a6d8c58adfd06d59f2cb51a9bcc"
+  }
+}

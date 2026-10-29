@@ -1,11 +1,11 @@
 # FFNDS · 当前Agent最小上下文（2026-10-29）
 
 
-**最高效力用户最新指令（2026-10-29）：只研究FFN稀疏/省算的Wan2.2-I2V四步基线。** [唯一现行筛选](../20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md) / [ACTIVE.current_user_ffn_only_priority_20261029](../ACTIVE_RESEARCH.json)。**P0 #59 SharQ原生Wan激活N:M FP4+Dense残差双GEMM，P0 #58 TEAL已完成Wan全160四来源质量后探索真正大M稀疏W2；P1 #57 Chipmunk Wan FFN仅单组paid proxy成功。** 已有TEAL 20视频/四来源RAFT八轴EXIT0，25%/50%运动比1.170/1.376（50%额外物体/来源比0.423–2.231），但完整Dense W2，零物理FFN省算；Chipmunk K5120单组误差0.279554优于等K随机，但未全160视频。**立即停止/不启动原作者LLM Llama、FLUX原系统、MagCache/FIS帧跳、Attention、Token/Block/step缓存等非FFN执行。** 这些历史资产留存。后文此前Chipmunk与TEAL并列P0及LLM优先表述是过去阶段，已被本段覆盖；新实验仍需针对本次实验独立review/recheck和ACTIVE冻结，当前仅完成任务更新，没有新科学RUN。
+**最高效力用户最新指令（2026-10-29）：只研究FFN稀疏/省算的Wan2.2-I2V四步基线。** [唯一现行筛选](../20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md) / [ACTIVE.current_user_ffn_only_priority_20261029](../ACTIVE_RESEARCH.json)。**P0 #59 SharQ原生Wan激活N:M FP4+Dense残差双GEMM，P0 #58 TEAL已完成Wan全160四来源质量后探索真正大M稀疏W2；P1 #57 Chipmunk Wan FFN仅单组paid proxy成功。** 已有TEAL 20视频/四来源RAFT八轴EXIT0，25%/50%运动比1.170/1.376（50%额外物体/来源比0.423–2.231），但完整Dense W2，零物理FFN省算；Chipmunk K5120单组误差0.279554优于等K随机，但未全160视频。**立即停止/不启动原作者LLM Llama、FLUX原系统、MagCache/FIS帧跳、Attention、Token/Block/step缓存等非FFN执行。** 这些历史资产留存。后文此前Chipmunk与TEAL并列P0及LLM优先表述是过去阶段，已被本段覆盖；新实验仍需针对本次实验独立review/recheck和ACTIVE冻结，最新真实RUN见下段。
 
 
 
-**最新实际任务优先级：P0 CHIPMUNK + TEAL（同级）。** [TEAL全160四来源质量](../20261029/TEAL_WAN_ALL160_FOUR_SOURCE_QUALITY_RESULTS_20261029.md)的连续RAFT、八轴及逐81帧AI接触表均真实EXIT0/闭合：四个历史暴露开发来源各一seed，25/50阈值来源等权配对流比 **1.16952/1.37647**，各轴响应不同；50臂可见动作与彩色元素变化，25臂较接近。原路径仍完整执行Dense W2，未证明物理省算或获得正式质量验收。旧RAFT预检和NFS失败保留；成功V2/V3结果不覆盖旧失败。[Llama3公开资产](../20261029/TEAL_LLAMA3_PUBLIC_ASSET_ACQUISITION_RESULTS_20261029.md)13文件16,069,766,580字节已获取并独立全量复验，四权重分片与官方公开LFS SHA/大小一致，官方访问403事实不变；[tokenizer字节桥](../20261029/TEAL_LLAMA3_TOKENIZER_BYTE_BRIDGE_RESULTS_20261029.md)已闭合。[原作者checkpoint转换及独立复验](../20261029/TEAL_LLAMA3_AUTHOR_CHECKPOINT_CONVERSION_RESULTS_20261029.md)已实际EXIT0/闭合，291→227个参数，输出BF16。完整LLM校准、推理、质量与速度仍未复现。[Chipmunk付费代理](../20261029/CHIPMUNK_PAID_PROXY_EQUAL_K_RESULTS_20261029.md)单组误差0.27955优于等K随机，未成为完整学生方案。Chipmunk作者Wan默认MLP关闭、含attention/step-cache的2.67×不作FFN-only复现；S2新模型任务保持P1。新scope均独立审阅后按ACTIVE登记；当前用户明确最多同时4卡。
+**最新真实证据与下一任务（2026-10-30）**：[TEAL物理可达性](../20261029/TEAL_WAN_MASK_PHYSICAL_REACHABILITY_RESULTS_20261030.md)320包/640次CPU评估实际EXIT0并closed：25/50阈值整M冷列平均上界仅0.019938/0.054480%，采样行直接完整K4方向2:4合格均0。保持mask需另寻真实局部行组/残差，改变mask则重新评价；非raster样本不决定M16成本。[四来源完整视频质量](../20261029/TEAL_WAN_ALL160_FOUR_SOURCE_QUALITY_RESULTS_20261029.md)原结果及Dense W2身份不变。SharQ作者固定commit＋CUTLASS的SM120 CPU-only build/import已成功，新的配对权重/gate资产scope正在真实独立审查，原生双GEMM总成本尚未测量。继续Wan FFN-only；不再启动LLM/FLUX等离题范围。当前会话最多同时4卡，旧scope/失败身份及收据不改写。
 
 
 
