@@ -1,0 +1,13 @@
+# 同预算value10/DCAC10二十来源完整视频：协调者审阅
+
+协调者ROOT完整阅读新runner、冻结数值producer/四buffer dispatch、旧Dense来源组合血缘及新80函数编译bank。Agent服务额度耗尽，没有独立Agent同行SUPPORT；本记录明确为协调者审阅。
+
+7项软件控制实际exit0（本runner6＋原runtime1）：全4步×40层费用；二方案顺序每part5/5平衡；FP32原始噪声即使初始BF16相同也须核实；shared80物理因子同对象用于两步；CORE引用原Dense而非伪新GEN；通用collect实际验证旧Dense文件/新candidate噪声；四buffer prefetch marker/dispatch恢复。两份draft metadata-only实核160导出、十个原Dense引用/part和30项三臂staging。
+
+实际已完成新10图value/DCAC同rank960、相同168行目标变换拟合，160份BF16导出/每物理函数两份；本20图image SHA与拟合十图严格不交叠。两者保留原W1/GELU/b2/gate，物理执行均为两BF16 GEMM，无在线观测/训练/重新拟合。旧完整teacher和video producer已对原Dense十状态逐bit中性；本次构建pipeline和数值路径逐字节复用冻结实现，新改动为两库加载、来源、登记及复用Dense对照，无额外Dense重生成。
+
+真正比较是新40候选完整81帧自由视频，对既有20原BF16 Dense完整视频/十状态/CORE作配对。原6条prefix中的Dense保留failed-V1原生事实，只有原CPU CORE补全；原4个native退出+CPUrepair血缘逐项核实。新scope的collect包含10个真实旧Dense登记项及20新candidate项，复用项明确generation_origin；实际model额度仍只有20/part。原始FP32/BF16噪声每新片检查两次。
+
+每part单张A100/CPU4，20新视频、80flow/3200FFN/6400factorGEMM，160文件全SHA及每tensor rawSHA的独立CPU gate；单job wall2400s/outer2700s、GPU40GiB、HF新增4GiB、每MP4 128MiB硬上限。两张实际空闲且模型/env已验证的卡可并行；其它节点缺资产，未将空卡冒充READY。源快照/不可变协议在GPU资产加载前保存、UUID空闲锁/物理monitor/增量I/O继续采用已验证实现。
+
+竞争结果：局部AC改善是否迁移到视频motion，还是DC/τ0损失或student漂移主导。先报每源完整CORE和真实wall，随后新范围官方八轴/连续RAFT，完整人工审阅单列。旧Dense异时单遍wall不能充作公平预热SYS。无新质量通过阈值或正式五采样主张，失败扣账保留、不自动重试。

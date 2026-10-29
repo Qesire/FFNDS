@@ -112,3 +112,5 @@ e_{τ,p}=g ⊙ [h_{τ,p} E].
 - ID：**MTC-TDIC-20261029**；科学标签ALG/SRC/LIT/OBS(existing)/OPEN。S2已有时空探索中的一个条件数学附注，不替换S1/S4/S3，也不独立争取研究优先级或以“补算”作为目标。
 - 图锚点：V1输入(F06)→GELU后h(F08/F09)→W2(F09)→门控及写回(F12/F13)→视频消费者(G20)；以图谱登记OPEN假说，不增加已实测因果边。
 - 讨论队列：**探索种子**，不是独立Agent正式proposal或SUPPORT票。实际多Agent另行提交不同方案/独立review；实验必须按ACTIVE注册并有真实RUN/EXIT，不能将此文当作启动命令。
+
+**S2后续实际结果**：[同数据/同rank value10与DCAC10拟合](RAW_BF16_NEW10_TEMPORAL_REPRESENTATION_FIT_RESULTS_20261029.md)、[20图40新完整视频/八轴](RAW_BF16_TEMPORAL_VALUE_DCAC_VIDEO20_QUALITY_RESULTS_20261029.md)已实际exit0。训练AC误差改善7.73%没有迁移到当前完整视频：RAFT为Dense的0.451/0.439，DCAC对value八轴均值都略降。M1该固定版本的结果按负证据保留，下一S2空间/学生状态采集区分局部泛化与prefix放大；不因此把MTC提升为独立路线或持续调权重。

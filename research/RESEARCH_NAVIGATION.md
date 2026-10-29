@@ -14,6 +14,8 @@
 
 **S2时间统计的当前必读入口：**[完整21τ时间统计结构与新增采集计划](20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。十张新增开发图的完整21τ/全160采集、原BF16同Dense-h-r960重放已实际exit0；AC相对误差显著大于DC。但已有8xy均值/能量与横邻对照仍欠缺**多τ滞后相关、频谱/相位、时间Gram有效秩、非平稳事件与真实运动空间邻域**，因此时间应作为S2与其余FFN研究方法共享的统计维度，而非第五条部署方向。新纯统计模块和限定CPU producer仅提供后续真实采集能力，尚无新增T1–T6数值或实验RUN。
 
+**当前实际推进**：[普通/时间平衡同r960全80函数拟合已exit0](20261029/RAW_BF16_NEW10_TEMPORAL_REPRESENTATION_FIT_RESULTS_20261029.md)。[新S2 T1–T4 CPU范围已实际exit0](20261029/S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)；[20开发图value10/DCAC10共40新视频及八轴已实际exit0](20261029/RAW_BF16_TEMPORAL_VALUE_DCAC_VIDEO20_QUALITY_RESULTS_20261029.md)，复用既有Dense，RAFT比例0.451/0.439，质量未通过；下一采集为真实空间邻域及student状态。
+
 ## P0 · 当前最短阅读和行动路径
 
 | 顺序 | 读取对象 | 立即产生的工作成果 |

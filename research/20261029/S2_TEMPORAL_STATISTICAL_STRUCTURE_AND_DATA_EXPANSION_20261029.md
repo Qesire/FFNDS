@@ -2,6 +2,8 @@
 
 2026-10-29 · **S2 / STATISTICAL EVIDENCE & ACQUISITION PLAN**，不是第五条并行研究路线或单独的“运动补偿”部署目标。当前问题仍是**完整FFN保留主体动作、相机、语义、背景和画质时，能否降低真实计算**。时间（视频latent τ）与空间、去噪步、expert、Block、源簇是研究对象的坐标与统计结构；可用于解释任何S1/S2/S3/S4候选，但不要求所有路线先研究时间。历史MTC/TDIC的条件代数保留为S2中的一个**可选**表示候选，不提供独立优先级。必须先学习分布结构，再决定是否需要运动对齐、复用或补偿。
 
+**执行后更新**：[T1–T4真实CPU结果](S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)现已实际exit0（1600包/全部u neutral）。gY去τ0 lag1≈0.048，平均r95≈16.96，DC共享不代表时间创新可少数方向表示；该结果带ALG正交/差分控制及half-window原字段额外P因子审计。以下“CODE_PREPARED/未执行”是原计划创建时状态，T5真实邻域/T6候选频段与学生观测仍未补齐。同预算[value/DCAC全80拟合](RAW_BF16_NEW10_TEMPORAL_REPRESENTATION_FIT_RESULTS_20261029.md)亦已exit0，[20图40候选视频及八轴已actual exit0](RAW_BF16_TEMPORAL_VALUE_DCAC_VIDEO20_QUALITY_RESULTS_20261029.md)，RAFT只有Dense0.451/0.439，下一空间/student观测优先。
+
 ## 已有真实证据与它不能决定的变量
 
 1. **20来源、60原始BF16视频**：共享/逐步r960相对Dense的连续RAFT幅值为0.48983/0.47665；实际完整视频质量未通过，相关轨迹并未证明由时间频率损失单独造成。[官方视频质量](RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.md)。

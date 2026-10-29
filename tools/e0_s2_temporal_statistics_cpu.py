@@ -215,11 +215,11 @@ def run(args):
                         "motion_alignment":"NOT_MEASURED","student_free_rollout":"NOT_MEASURED"}
         output.json("SUMMARY.json",report_summary)
         report.update(status="COMPLETE_S2_TEMPORAL_STATISTICS_CPU_SOURCE_EQUAL",
-                      "result_files":{"positions":str(out/"POSITIONS.jsonl"),
-                                      "summary":str(out/"SUMMARY.json")})
+                      result_files={"positions":str(out/"POSITIONS.jsonl"),
+                                    "summary":str(out/"SUMMARY.json")})
     except BaseException as error:
         report.update(status="FAILED_S2_TEMPORAL_STATISTICS_CPU_PRESERVED_NO_RETRY",
-                      "error_type":type(error).__name__,"error":str(error))
+                      error_type=type(error).__name__,error=str(error))
         raise
     finally:
         signal.alarm(0);signal.signal(signal.SIGALRM,previous)

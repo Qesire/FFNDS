@@ -1,0 +1,20 @@
+# new10普通/DC-AC平衡r960：协调者审阅
+
+ROOT协调者读完新拟合器、时间行变换、冻结sample-Gram谱/编译/两GEMM/readback，以及新10与旧8来源实际闭合血缘；不是独立Agent的SUPPORT票。Agent服务额度耗尽，独立同行审阅未进行。
+
+11项合成软件对照实际exit0，0真实模型/tensor/GPU：普通变换与原冻结anchored_rows一致；相同168行实现目标协方差恒等式；τ0行权重不变；参考Y包含bias、投影target减去原bias；DC/AC可用项分质量/零分母；相反相位AC；held8污染不会进入train10的矩阵/归一化；两个expert预算各40函数/80eigh/80exports/5760factorGEMM；export Meter同时具备call和work；journal按真实行递增；纯导入无Torch/NumPy。
+
+两份draft的metadata-only实际检查通过：prior same-h replay真实exit0及完整账本、new10全部1600完整21τ×8xy包、原8源全160随机256包、image SHA集合不相交、原BF16 checkpoint一致。new10在此新方法明确转作校准，旧原生development身份不改；old8是已暴露但与本次fit分离的诊断，不充作盲确认。覆盖工具仅做10图及5subject/2background/3camera配额检查；旧group-support diagnose不是本次时间表示的统计量。
+
+两个方案相同source/row/rank960/shared RMS gate surrogate、原b2、β1及两BF16 GEMM；差别仅为校准目标。参考原Y×实际gate用于分母，投影Y−b2；τ1..20通过正交行变换将DC/AC相对风险等质量，τ0保留普通权重。无rank/λ sweep、gain/bias fitting、SGD或视频。本目标是连续surrogate，不授予原生BF16最优性；compile和实际SF readback后的数值分别记录。
+
+每个physical函数拟合前，new10+old8共36包必须逐字节恢复原u；输入与参考gate逐source校验相同。80次BF16文件导出/readback、实际D2H/H2D、源级train/诊断误差和训练DC/AC均逐项扣账。每个expert1空闲A100/CPU4，GPU≤24GiB、host可用≥32GiB、wall1800/outer2100、HF新增≤4GiB，单次尝试失败不自动重试。两expert共同完成才有全80银行，质量/全系统与多来源视频仍未验收。
+
+精确绑定：
+
+- config/e0_raw_bf16_new10_temporal_balanced_fit_part0_20261029_draft.json SHA256 `a04817add08489ce1c2a991117f6487850344997412e2dbecddf3d8fc2b9109d`
+- config/e0_raw_bf16_new10_temporal_balanced_fit_part1_20261029_draft.json SHA256 `5001e7b71cd140c01d8a877bdd4b88c5096a82bb20c2f88a9aed93f6ec113e54`
+- tools/e0_raw_bf16_temporal_balanced_fit.py SHA256 `3f956f8dc0f0381fcbfd6e8096d02d3099c1d59850336a1c6975e24ee0acc2b8`
+- tools/raw_bf16_temporal_balanced_fit.py SHA256 `ca54253a468b80cac31658e5ef2a455f6a4d6e43ffbfdf41590fda015f86055b`
+- tests/test_e0_raw_bf16_temporal_balanced_fit.py SHA256 `2e69860c6049a08db420dce5d8b5c405c65db4ab89ac674cdda48d8f32708f4e`
+- tests/test_raw_bf16_temporal_balanced_fit.py SHA256 `6318d81dc5fac26f268a6af5218778474675528e7f585023c586020811e8bbb4`

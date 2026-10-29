@@ -1,0 +1,201 @@
+{
+  "schema": "ffnds.calibration.design.v2",
+  "id": "RAW_BF16_TEMPORAL_REPRESENTATION_NEW10_R168_20261029",
+  "status": "TARGET_SPECIFIC_COVERAGE_DESIGN_NOT_FITTED",
+  "model": {
+    "name": "Wan2.2 I2V A14B ORIGINAL BF16;64group only geometry compatibility for static coverage, no activationFP4",
+    "steps": 4,
+    "blocks": 40,
+    "experts": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "input_width": 5120,
+    "hidden_width": 13824,
+    "channel_group": 64,
+    "groups": 216,
+    "numeric_path": "BF16_ORIGINAL",
+    "channel_group_role": "STATIC_TOOL_GEOMETRY_ONLY_NOT_A_NATIVE_QUANT_ACTION"
+  },
+  "experimental_question": "Same originalBF16 data/rank and full160 geometry, ordinary versus DC/AC-balanced representation; distinct new10 fitting versus old8 exposed image-disjoint diagnostics.",
+  "axes": {
+    "support": {
+      "object": "source-level gated signed group contributions",
+      "diagnostics": [
+        "leave_one_source_out_support_overlap",
+        "top_k_boundary_margin",
+        "between_source_dispersion",
+        "signed_gram_cross_terms_when_available",
+        "exact_removed_signed_output_energy_if_216x216_native_gram_present"
+      ],
+      "deployment_claim_requires": [
+        "real_native_output",
+        "paired_video"
+      ]
+    },
+    "gain_bias": {
+      "object": "native BF16/QDQ gated signed output",
+      "diagnostics": [
+        "source_holdout_signed_residual",
+        "bias_per_output",
+        "per_step_error"
+      ],
+      "deployment_claim_requires": [
+        "real_native_output",
+        "paired_video"
+      ]
+    },
+    "low_rank": {
+      "object": "rank-256 residual at native input boundary",
+      "diagnostics": [
+        "regularized_effective_dimension",
+        "source_holdout_risk",
+        "subspace_stability"
+      ],
+      "deployment_claim_requires": [
+        "real_native_output",
+        "paired_video"
+      ]
+    },
+    "state": {
+      "object": "teacher_input versus student_input matched coordinates",
+      "diagnostics": [
+        "within_source_paired_state_error",
+        "free_rollout_40x4",
+        "motion_amplitude_and_camera_action"
+      ],
+      "deployment_claim_requires": [
+        "real_native_output",
+        "paired_video"
+      ]
+    }
+  },
+  "strata": [
+    "i2v_subject",
+    "i2v_background",
+    "camera_motion"
+  ],
+  "calibration_arms": [
+    {
+      "id": "NEW10_R168_COMPLETE21TAU8XY",
+      "source_count": 10,
+      "rows_per_source": 168,
+      "status": "PLANNED_NOT_COLLECTED",
+      "allocation": {
+        "i2v_subject": 5,
+        "i2v_background": 2,
+        "camera_motion": 3
+      },
+      "calibration_scope": "NEW_TARGET_MATCHED_DATA_RANK_FIXED_FUNCTION_REPRESENTATION",
+      "status_semantics": "Static coverage schema accepts planned target; actual native source payloads and exits separately bound in new fit scope. No new data collection asserted here."
+    }
+  ],
+  "optional_expansion": [
+    {
+      "source_count": 96,
+      "rows_per_source": 64,
+      "condition": "Only after demonstrated source-diversity benefit and actual new independent sources"
+    }
+  ],
+  "split_policy": {
+    "unit": "image_cluster",
+    "calibration": "CALIBRATION",
+    "development": "DEVELOPMENT",
+    "confirmation": "FROZEN_CONFIRMATION",
+    "historical_exposure": "Never reclassify exposed formal20/disjoint20 as fresh confirmation"
+  },
+  "randomization": {
+    "cohort": "nested_per_stratum_frozen_permutation",
+    "row": "NEW_V2_PY_RANDOM_NESTED; historical CAL24 uses NumPy, treated as separate coordinate design",
+    "seed": 42,
+    "source_state_pairing": "same source/step/block/token coordinates for teacher and student state when matched"
+  },
+  "status_rules": {
+    "planned": "No operand tensors or fitted parameters implied",
+    "captured": "Native operand paths and actual selected-row identities verified",
+    "diagnosed": "Source-level diagnostics computed, without video quality implication",
+    "fitted": "New cohort-aware parameters independently validated under native QDQ",
+    "video_confirmed": "Independent source- and seed-paired complete generation with actual quality and motion"
+  },
+  "stopping_policy": {
+    "interpretation": "Pre-register thresholds on development and freeze before independent confirmation. No universal numeric count.",
+    "primary": [
+      "source_holdout_native_signed_error",
+      "source_support_stability",
+      "student_input_shift",
+      "motion_retention_on_real_video"
+    ],
+    "nulls": "NOT_MEASURED instead of zero"
+  },
+  "reusable_assets": [
+    "source_bank",
+    "native_geometry",
+    "sampling_manifest",
+    "native_operands",
+    "source_level_group_statistics",
+    "native_fit_receipt",
+    "paired_seed_video",
+    "per_video_metrics",
+    "source_cluster_effects"
+  ],
+  "references": [
+    "https://openaccess.thecvf.com/content/ICCV2023/html/Li_Q-Diffusion_Quantizing_Diffusion_Models_ICCV_2023_paper.html",
+    "https://openaccess.thecvf.com/content/CVPR2024/html/Wang_Towards_Accurate_Post-training_Quantization_for_Diffusion_Models_CVPR_2024_paper.html",
+    "https://proceedings.neurips.cc/paper_files/paper/2025/hash/31ed129feae64a7e44a15b148c15558d-Abstract-Conference.html",
+    "https://proceedings.iclr.cc/paper_files/paper/2025/hash/2ede933e10afa991a10b6f36b6522129-Abstract-Conference.html",
+    "https://aclanthology.org/2025.naacl-long.509/"
+  ],
+  "experimental_contrasts": [
+    {
+      "axis": "source_diversity",
+      "arms": [
+        "C12_R512",
+        "C24_R256",
+        "C48_R128"
+      ],
+      "control": "constant 6144 source×row budget per native position; identical strata proportions; matched QDQ, support and fitting objective"
+    },
+    {
+      "axis": "within_source_density",
+      "arms": [
+        "C24_R128",
+        "C24_R256",
+        "C24_R512"
+      ],
+      "control": "same 24 sources and per-source random draw prefix"
+    },
+    {
+      "axis": "motion_domain",
+      "arms": [
+        "C48_R128",
+        "C48_R128_MOTION"
+      ],
+      "control": "same total rows and fitting objective; explicitly different strata mixture"
+    },
+    {
+      "axis": "model_input_state",
+      "arms": [
+        "teacher_input",
+        "student_input"
+      ],
+      "control": "same source, step, block, actual token coordinates, objective and data budget"
+    },
+    {
+      "axis": "objective",
+      "arms": [
+        "diagonal_energy",
+        "joint_signed_group",
+        "native_gate_output"
+      ],
+      "control": "same source rows and compute budget; independent heldout output/motion"
+    }
+  ],
+  "existing_ub1_support_groups_by_step": [
+    54,
+    108,
+    108,
+    162
+  ]
+}
