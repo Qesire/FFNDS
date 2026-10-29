@@ -1,0 +1,143 @@
+{
+  "id": "E0_TEAL_LLAMA3_AUTHOR_GRAB_ACTS_20261030",
+  "status": "ACTUAL_EXIT1_BEFORE_MODEL_LOAD",
+  "evidence": "Actual failed GPU-calibration admission path; not a calibration or model result",
+  "RUN": {
+    "path": "ffnds-derived/e0_teal_llama3_author_grab_acts_20261030/attempt1/worker/results/RUN.json",
+    "bytes": 5168,
+    "sha256": "94f41d543f7782d1b502ad3c935b653bc6d5b49603995d745d89b963fea43c02"
+  },
+  "exit": {
+    "path": "ffnds-derived/e0_teal_llama3_author_grab_acts_20261030/attempt1/worker/EXIT_RECEIPT.json",
+    "bytes": 531,
+    "sha256": "cf162e74586b0a60fd2f3f6f907e0c05291fa578387fd8b80c024f463e0da0ae"
+  },
+  "protocol": {
+    "path": "config/e0_teal_llama3_author_grab_acts_20261030_pending_review_v5.json",
+    "bytes": 11137,
+    "sha256": "2662652d8cc03637746bc2777cc77c2e4335c2be42ad2d253608c31ff28fa939"
+  },
+  "scope_spec_sha256": "04ea596cd1f8293eb7f2d4728caee5b452210627eedcb8b8c1a5d0b797df3d1c",
+  "error": {
+    "type": "ModuleNotFoundError",
+    "message": "No module named 'einops'",
+    "stage": "import teal.model -> transformers.modeling_flash_attention_utils -> flash_attn.bert_padding -> einops"
+  },
+  "actual": {
+    "wall_seconds": 26.563064515590668,
+    "cpu_seconds": 22.992336966,
+    "peak_RSS_bytes": 737955840,
+    "counts": {
+      "sort": 0,
+      "histogram": 0,
+      "layer_inputs": 0,
+      "histogram_files": 0,
+      "layer_forward_pre": 0,
+      "layer_forward_post": 0,
+      "activation_finite_reductions": 0
+    },
+    "preflight_dataset_rows": 300,
+    "total_segments": 14,
+    "gpu_context_initialized": true,
+    "monitor": {
+      "samples": 6,
+      "peak_rss": 684937216,
+      "peak_disk": 5249,
+      "minimum_free": 35811375448064,
+      "peak_gpu": 461373440,
+      "fault": null,
+      "stopped": true,
+      "sampling_seconds": 5,
+      "unsampled_peak": "UNKNOWN"
+    },
+    "model_hash_reads": [
+      {
+        "filename": "LICENSE",
+        "predebited_bytes": 7801,
+        "completed_bytes": 7801,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "README.md",
+        "predebited_bytes": 36589,
+        "completed_bytes": 36589,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "USE_POLICY.md",
+        "predebited_bytes": 4696,
+        "completed_bytes": 4696,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "config.json",
+        "predebited_bytes": 654,
+        "completed_bytes": 654,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "generation_config.json",
+        "predebited_bytes": 177,
+        "completed_bytes": 177,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "model.safetensors.index.json",
+        "predebited_bytes": 23950,
+        "completed_bytes": 23950,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "model-00001-of-00004.safetensors",
+        "predebited_bytes": 4976698672,
+        "completed_bytes": 4976698672,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "model-00002-of-00004.safetensors",
+        "predebited_bytes": 4999802720,
+        "completed_bytes": 4999802720,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "model-00003-of-00004.safetensors",
+        "predebited_bytes": 4915916176,
+        "completed_bytes": 4915916176,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "model-00004-of-00004.safetensors",
+        "predebited_bytes": 1168138808,
+        "completed_bytes": 1168138808,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "tokenizer.json",
+        "predebited_bytes": 9085698,
+        "completed_bytes": 9085698,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "tokenizer_config.json",
+        "predebited_bytes": 50566,
+        "completed_bytes": 50566,
+        "progress": "COMPLETE"
+      },
+      {
+        "filename": "special_tokens_map.json",
+        "predebited_bytes": 73,
+        "completed_bytes": 73,
+        "progress": "COMPLETE"
+      }
+    ],
+    "parquet_hash_completed_bytes": 24246638
+  },
+  "model_load_calls_reached": 0,
+  "model_layer_forwards_completed": 0,
+  "cost_limitations": [
+    "CUDA context was initialized; no model loaded and no layer, sort or histogram executed.",
+    "CPU-only import checks skipped Transformers CUDA-conditional FlashAttention imports and did not detect the missing einops dependency.",
+    "The frozen V5 code, environment, failed output and original review/withdrawal lineage are preserved; no automatic retry.",
+    "A separately versioned producer/environment and independent review are required for any new finite attempt."
+  ]
+}

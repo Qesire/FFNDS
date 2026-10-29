@@ -1,0 +1,5 @@
+# Author response to V2 scope independent REVISE
+
+The private supervisor argv and launcher exact match now use `-I -B`; launcher explicitly rejects `sys.flags.isolated != 1`. Synthetic tests check the exact isolated argv and reject a non-isolated flag. The actual target venv CPU no-GPU six-author-module and forced Transformers FA2 conditional import test already runs under `-I -B`, matching the execution interpreter isolation. Eight software tests pass.
+
+Protocol now binds V5's real RUN and EXIT paths, sizes and SHA; draft, validation and launch verify its ID, actual EXIT1/non-timeout/no retry, exact RUN/protocol/spec linkage, preserved failed status and zero model loads/forwards/sorts/hist. Old V5 source, protocol, environment and evidence are not changed. No GPU, model or dataset record processing has been run in V2. This fixes source/environment identity and preserves failure provenance; FA2 actual A100 compatibility remains untested. V3 exact protocol/spec and source require independent recheck, not yet ACTIVE.
