@@ -1,0 +1,139 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029",
+  "purpose": "controlled_wan_operator_port_not_author_reproduction",
+  "research_question": "Can selected W1/GELU BF16 deltas and W2 cache updates match independent same-index references on a real paired teacher input?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Empty and unselected caches remain bitwise unchanged and selected h/delta/Y/current-gated Y agree with independently gathered references",
+      "discriminator": "Two initializers x empty/full/static subset with predeclared numerical bounds"
+    },
+    {
+      "id": "H2",
+      "prediction": "Index, nonlinear rounding, b2 double counting or cache mismatch breaks at least one invariant",
+      "discriminator": "Independent partial reference, full update control and distinct native-fullM versus M128 anchors"
+    }
+  ],
+  "author_agent_id": "/root/sm120_full_quality_build_terra",
+  "coordinator_agent_id": "/root",
+  "reviewer_agent_id": "/root/s2_theory_design_independent",
+  "author_review_path": "research/experiment_reviews/E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029/AUTHOR_RESPONSE_V1.md",
+  "independent_review_path": "research/experiment_reviews/E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
+  "author_review": {
+    "path": "research/experiment_reviews/E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029/AUTHOR_RESPONSE_V1.md",
+    "bytes": 4057,
+    "sha256": "00c906823f37fd51be56682a85cdfb995f3ec73020b1a29e403c7d2d27ec3e66"
+  },
+  "independent_review": {
+    "path": "research/experiment_reviews/E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029/INDEPENDENT_REVIEW_V1.md",
+    "bytes": 6736,
+    "sha256": "03e885f5339baf94eb522d20b5223dd1ce645075b6345d45f7f43c4549e9d1aa"
+  },
+  "reviewer_recheck": {
+    "path": "research/experiment_reviews/E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029/INDEPENDENT_RECHECK_V2.md",
+    "bytes": 2857,
+    "sha256": "fa052d360b365e8c345d86417e9f44e171eb94de5a23ad41238c0fb0fb01c01b"
+  },
+  "prior_recheck": {
+    "path": "research/experiment_reviews/E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029/INDEPENDENT_RECHECK_V1.md",
+    "bytes": 5941,
+    "sha256": "3b7f1ad0b6e5cdf5876dfafee6aabb7163810cb21ae6428b12c3fa436195e7eb"
+  },
+  "author_self_audit": {
+    "path": "research/experiment_reviews/E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029/AUTHOR_SELF_AUDIT_V1.md",
+    "bytes": 6045,
+    "sha256": "44fe8ea926667ed873be6abea132137d3254c74868b30a473cf04f30bb19e45c"
+  },
+  "coordinator_self_audit": {
+    "path": "research/experiment_reviews/E0_CHIPMUNK_A100_128ROW_SELECTED_DELTA_PROBE_20261029/COORDINATOR_SELF_AUDIT.md",
+    "bytes": 2671,
+    "sha256": "78b6a96e5cf482d6643667d1e42aa325d4e8142ca879cbb044870fe75ff5e751"
+  },
+  "reviewer_disposition": "REVISE",
+  "recheck_disposition": "APPROVE",
+  "final_disposition": "APPROVE",
+  "adversarial_counterexample": "Opposing token changes can have zero block mean while nonlinear changes remain nonzero; selected-index errors can pass a full-mask test, requiring a separate partial mixed-cache reference.",
+  "responses_to_review": [
+    "ACCEPT independent same-index BF16 h/delta and FP32 W2/gated reference plus unselected bitwise cache control",
+    "ACCEPT charged full checkpoint/payload hash and stable-stat reads; logical bytes differ from physical disk work",
+    "ACCEPT preserved failures/soft boundary resource limits, no retry and single-shot compile-confounded timing",
+    "ACCEPT no author proxy, raster group, full-M system or video claim; exact final worker/env/spec independently rechecked"
+  ],
+  "code_commit": "312f2d1a9d47f8ed904697f5bc9bc8d854053d8c",
+  "critical_source_hashes": {
+    "tools/e0_chipmunk_a100_delta_probe.py": "bdc1068d37d23fff0a50aadac222969f996117d467d8deb9a403217b33955759",
+    "tools/chipmunk_a100_selected_delta_kernels.py": "ec2994a7b446d31b7aa967b85a13a528791678c72eb0e93df35e356e2cbfc0d0",
+    "tests/test_e0_chipmunk_a100_delta_probe.py": "a3efacb5bdff652ab21d13f3a7ec6e591dc2b77bf09b3d0cd284eb90ede6050f",
+    "tools/worker_identity.py": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+    "tools/startup_gpu_reservation.py": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+    "tools/assigned_gpu_resources.py": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+    "tools/durable_worker_job.py": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2",
+    "scripts/worker_teal_gpu0_uuid_exec.sh": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1",
+    "config/e0_s2_new12_dense_baseline_part0_20261029_v2.json": "fe2beee3adb910e189db3f45da4979ad41ddba81ab1c3898988a86279e84ac39"
+  },
+  "checkpoint_numeric_recipe": "Original Wan2.2 A14B BF16 high block20 real weights and teacher V1/h/Y/gate; BF16 delta and FP32 tensor-core accumulation, no FP4",
+  "input_cohort_manifest_sha256": "fe2beee3adb910e189db3f45da4979ad41ddba81ab1c3898988a86279e84ac39",
+  "control_arms": [
+    "empty",
+    "full",
+    "fixed_first_4096"
+  ],
+  "unit_of_independence": "One historically exposed teacher source, one function, one nonraster128-row group; no population inference",
+  "full_depth_or_claim_scope": "Bounded two-step single-function operator, not all160 student video",
+  "predeclared_metrics": [
+    "unselected_cache_bitwise",
+    "selected_h_relative_l2",
+    "BF16_delta_reference",
+    "Y_and_current_gate_relative_l2",
+    "fullM_vs_M128",
+    "all_paid_single_shot_wall",
+    "read_bytes",
+    "RSS",
+    "GPU_reserved"
+  ],
+  "expected_physical_savings": {
+    "W1": "Fixed4096 selected rows of original13824 W1, full and empty controls",
+    "W2": "Selected4096 W2 columns times BF16 delta plus existingY",
+    "observer_and_cache": "Selection/cache/gather/scatter/compile/synchronization costs included in diagnostic walls; no speed claim"
+  },
+  "applicable_session_gpu_cap": 4,
+  "scope_GPU_cards": 1,
+  "budget_and_failure_plan": {
+    "resources": {
+      "GPU": 1,
+      "CPU_threads": 4,
+      "wall_seconds": 900,
+      "outer_seconds": 1020,
+      "GPU_reserved_bytes": 25769803776,
+      "host_peak_RSS_bytes": 68719476736,
+      "logical_input_bytes": 32212254720,
+      "new_HF_bytes": 536870912,
+      "automatic_retry": false
+    },
+    "limits": {
+      "payload_hash": 2,
+      "parent_packet_load": 2,
+      "checkpoint_hash": 1,
+      "high_checkpoint_load": 1,
+      "dense_m128": 2,
+      "selection_dispatches": 6,
+      "scatter_calls": 6,
+      "independent_references": 6,
+      "kernel_a": 4,
+      "kernel_b": 4,
+      "video_generations": 0,
+      "model_forward": 0,
+      "training": 0
+    },
+    "automatic_retry": false
+  },
+  "protocol": {
+    "path": "config/e0_chipmunk_a100_delta_probe_20261029_pending_review_v1.json",
+    "bytes": 7561,
+    "sha256": "27ccc2a74aa5efd0610f2c8113002d7dc9a8f6d4ba7a75be4482c92fba33da16"
+  },
+  "launch_spec_sha256": "40135b602ccbec044628d1c0ab2851e07990c839ec36ed952808728b82477b4a",
+  "approval_scope_fingerprint": "75bcb4302c617f4f4167a1f0374d218679225967d719a74f33dadad92e786ea2",
+  "state": "REVIEWER_RECHECK_APPROVED"
+}
