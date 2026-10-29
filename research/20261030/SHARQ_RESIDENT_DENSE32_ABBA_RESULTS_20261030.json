@@ -1,0 +1,933 @@
+{
+  "schema": "ffnds.sharq.resident.abba.metadata.v1",
+  "status": "TWO_SOURCE_GPU_AND_VERIFY_ACTUAL_EXIT0",
+  "sources": "two exposed development sources, one seed each",
+  "no_quality_acceptance": true,
+  "same_bytes": "warmup BF16 and four Dense32 phases verified against independently closed old parents; 55 full byte gates/source",
+  "cases": [
+    {
+      "part": 0,
+      "source": 1040,
+      "protocol": {
+        "path": "config/e0_sharq_resident_dense32_abba_20261030_part0_pending_review_v3.json",
+        "bytes": 243773,
+        "sha256": "12e213606345c610e0817c6b99acd3d2929cab71400ddea7d7f7092dd4f29f64"
+      },
+      "RUN": {
+        "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part0/attempt1/worker/results/RUN.json",
+        "bytes": 86415,
+        "sha256": "84b3ff986746d92918befc651a7bf59b52df3071ee755f431bf023aef7548cd0"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part0/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 534,
+        "sha256": "0cdcf7ad201a639ce31511a1f071d798ddacc69eb7fb65d48c472d0ac06d40a4"
+      },
+      "verification_RUN": {
+        "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part0/attempt1/verification/worker/results/RUN.json",
+        "bytes": 1149,
+        "sha256": "9cab3c2215e0df200a76889684e9febb28b3a24d55a128c1d0234cfd71a2b192"
+      },
+      "verification_exit": {
+        "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part0/attempt1/verification/worker/EXIT_RECEIPT.json",
+        "bytes": 542,
+        "sha256": "13c21a1b521d0b78fb04432591811c497756b0a775761bd8b7906bc050bdf05e"
+      },
+      "private_root_closed_proof_sha256": "36b5772f945495bc1629da003e80f89f0c26dc7682eeb27e4ef4cf262de42573",
+      "CPU_preflight": {
+        "RUN": {
+          "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part0/attempt1/cpu_preflight/worker/results/RUN.json",
+          "bytes": 706,
+          "sha256": "63f09555d610c1b2aabede424fd31f3d8e09fd39953f3d81a680342bdbefbd05"
+        },
+        "exit": {
+          "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part0/attempt1/cpu_preflight/worker/EXIT_RECEIPT.json",
+          "bytes": 534,
+          "sha256": "7baeb892ab57017bfb787f734b4b6df9ae1792aeeb461cca18090a93fc702f9d"
+        }
+      },
+      "prior_reference_parent": {
+        "protocol": {
+          "path": "config/e0_sharq_wan_all160_video_v2_part0_20261030_frozen_pending_v3.json",
+          "bytes": 237276,
+          "sha256": "b73097a049e0ee89bab25f8258d59178af3b4f633d353627a70ba9d258757769"
+        },
+        "RUN": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_v2_20261030/part0/attempt1/worker/results/RUN.json",
+          "bytes": 62245,
+          "sha256": "d760e0586e41c47d28e93806a4db57c6edc09545ce0e72ac6aea5a2c6f09884c"
+        },
+        "exit": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_v2_20261030/part0/attempt1/worker/EXIT_RECEIPT.json",
+          "bytes": 533,
+          "sha256": "a80a5850f04314f14068b083cd6397bdd9fc89003e56be15a0e2cdfe987cc449"
+        },
+        "verification_RUN": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_v2_20261030/part0/attempt1/verification/worker/results/RUN.json",
+          "bytes": 1281,
+          "sha256": "1390430fe893dd7ce127a69e8d067a34d5a4d03ae6ee1007b80da42a284592c2"
+        },
+        "verification_exit": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_v2_20261030/part0/attempt1/verification/worker/EXIT_RECEIPT.json",
+          "bytes": 538,
+          "sha256": "d7529a37a44bfde801815ade2e52f2a68497d2cfcd66307b9e0e23b11b9a646a"
+        }
+      },
+      "phases": [
+        {
+          "arm": "warmup",
+          "mode": "bf16_cache",
+          "FFN_boundary_CUDA_seconds": 6.841668449401856,
+          "wall_seconds_including_observers": 45.03237215289846,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        },
+        {
+          "arm": "legacy_A1",
+          "mode": "dense32",
+          "FFN_boundary_CUDA_seconds": 4.043996917724609,
+          "wall_seconds_including_observers": 42.044405116001144,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        },
+        {
+          "arm": "resident_B1",
+          "mode": "dense32",
+          "FFN_boundary_CUDA_seconds": 3.8697464714050294,
+          "wall_seconds_including_observers": 43.1850885481108,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        },
+        {
+          "arm": "resident_B2",
+          "mode": "dense32",
+          "FFN_boundary_CUDA_seconds": 3.9720232048034667,
+          "wall_seconds_including_observers": 43.77586896484718,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        },
+        {
+          "arm": "legacy_A2",
+          "mode": "dense32",
+          "FFN_boundary_CUDA_seconds": 3.850531614303589,
+          "wall_seconds_including_observers": 43.713127620052546,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        }
+      ],
+      "paired": [
+        {
+          "pair": "B1_minus_A1",
+          "FFN_boundary_seconds_difference": -0.17425044631957975,
+          "phase_wall_seconds_difference": 1.140683432109654
+        },
+        {
+          "pair": "B2_minus_A2",
+          "FFN_boundary_seconds_difference": 0.12149159049987768,
+          "phase_wall_seconds_difference": 0.062741344794631
+        }
+      ],
+      "reference_gate": {
+        "checks": 55,
+        "predebited_bytes": 618103158,
+        "completed_bytes": 618103158
+      },
+      "prefetch_coverage": [
+        {
+          "arm": "warmup",
+          "block_loads": 162,
+          "weight_issued": 324,
+          "weight_skipped": 0,
+          "bias_issued": 324,
+          "weight_bytes": 45864714240,
+          "skipped_weight_bytes": 0,
+          "bias_bytes": 6137856
+        },
+        {
+          "arm": "legacy_A1",
+          "block_loads": 162,
+          "weight_issued": 324,
+          "weight_skipped": 0,
+          "bias_issued": 324,
+          "weight_bytes": 45864714240,
+          "skipped_weight_bytes": 0,
+          "bias_bytes": 6137856
+        },
+        {
+          "arm": "resident_B1",
+          "block_loads": 162,
+          "weight_issued": 0,
+          "weight_skipped": 324,
+          "bias_issued": 324,
+          "weight_bytes": 0,
+          "skipped_weight_bytes": 45864714240,
+          "bias_bytes": 6137856
+        },
+        {
+          "arm": "resident_B2",
+          "block_loads": 162,
+          "weight_issued": 0,
+          "weight_skipped": 324,
+          "bias_issued": 324,
+          "weight_bytes": 0,
+          "skipped_weight_bytes": 45864714240,
+          "bias_bytes": 6137856
+        },
+        {
+          "arm": "legacy_A2",
+          "block_loads": 162,
+          "weight_issued": 324,
+          "weight_skipped": 0,
+          "bias_issued": 324,
+          "weight_bytes": 45864714240,
+          "skipped_weight_bytes": 0,
+          "bias_bytes": 6137856
+        }
+      ],
+      "operation_ledger": {
+        "predebited": {
+          "original_expert_loads": 2,
+          "raw_Default_MM_loads": 812,
+          "buffer_Default_MM_loads": 40,
+          "T5_buffer_Default_MM_loads": 7,
+          "T5_raw_Default_MM_loads": 168,
+          "authority_checks": 5,
+          "video_generations": 5,
+          "offload_buffer_resets": 10,
+          "stage_CUDA_event_pairs": 35,
+          "input_encoder_requests": 5,
+          "VAE_encodes": 5,
+          "T5_positive_prompt_encodes": 5,
+          "T5_checkpoint_block_buffer_loads": 120,
+          "T5_Default_MM_calls": 840,
+          "scheduler_prepare": 5,
+          "FP32_initial_noise_draws": 5,
+          "raw_FP32_noise_files": 5,
+          "state_tensor_D2H": 50,
+          "state_tensor_D2H_bytes": 304012800,
+          "state_output_writes": 50,
+          "state_raw_sha_calls": 50,
+          "state_raw_sha_bytes": 304012800,
+          "scheduler_step_pre": 20,
+          "initial_BF16_noise_files": 5,
+          "native_full_model_flows": 20,
+          "pre_infer_calls": 20,
+          "patch_Conv3D_calls": 20,
+          "pre_Default_MM_calls": 100,
+          "prefetch_transfer_observations": 810,
+          "original_checkpoint_block_buffer_loads": 810,
+          "native_blocks": 800,
+          "native_non_FFN_linears": 6400,
+          "native_FFN_calls": 800,
+          "FFN_CUDA_event_pairs": 800,
+          "sharq_static_W_materializations": 160,
+          "sharq_static_W_materialization_bytes": 22649241600,
+          "sharq_static_W_quantizations": 160,
+          "sharq_static_W_cache_predebit_bytes": 7102136960,
+          "sharq_stream_bridge_calls": 1440,
+          "sharq_bridge_event_records": 2880,
+          "sharq_bridge_event_waits": 2880,
+          "native_FFN_linears": 1600,
+          "final_LayerNorm_calls": 20,
+          "head_Default_MM_calls": 20,
+          "post_unpatchify_calls": 20,
+          "native_FP32_flow_files": 20,
+          "scheduler_step_post": 20,
+          "native_BF16_post_files": 20,
+          "VAE_decodes": 5,
+          "video_geometry_checks": 5,
+          "dense32_prepare": 1280,
+          "output_scale": 1280,
+          "dense32_gemm": 1280,
+          "bias_add": 1280
+        },
+        "observed": {
+          "original_expert_loads": 2,
+          "raw_Default_MM_loads": 812,
+          "buffer_Default_MM_loads": 40,
+          "T5_buffer_Default_MM_loads": 7,
+          "T5_raw_Default_MM_loads": 168,
+          "authority_checks": 5,
+          "offload_buffer_resets": 10,
+          "VAE_encodes": 5,
+          "stage_CUDA_event_pairs": 35,
+          "T5_checkpoint_block_buffer_loads": 120,
+          "T5_Default_MM_calls": 840,
+          "T5_positive_prompt_encodes": 5,
+          "input_encoder_requests": 5,
+          "state_tensor_D2H": 50,
+          "state_tensor_D2H_bytes": 304012800,
+          "state_output_writes": 50,
+          "state_raw_sha_calls": 50,
+          "state_raw_sha_bytes": 304012800,
+          "raw_FP32_noise_files": 5,
+          "FP32_initial_noise_draws": 5,
+          "scheduler_prepare": 5,
+          "scheduler_step_pre": 20,
+          "initial_BF16_noise_files": 5,
+          "patch_Conv3D_calls": 20,
+          "pre_Default_MM_calls": 100,
+          "pre_infer_calls": 20,
+          "original_checkpoint_block_buffer_loads": 810,
+          "prefetch_transfer_observations": 810,
+          "native_non_FFN_linears": 6400,
+          "sharq_static_W_materializations": 160,
+          "sharq_static_W_materialization_bytes": 22649241600,
+          "sharq_stream_bridge_calls": 1440,
+          "sharq_bridge_event_records": 2880,
+          "sharq_bridge_event_waits": 2880,
+          "sharq_static_W_quantizations": 160,
+          "sharq_static_W_cache_predebit_bytes": 7102136960,
+          "native_FFN_linears": 1600,
+          "native_FFN_calls": 800,
+          "FFN_CUDA_event_pairs": 800,
+          "native_blocks": 800,
+          "final_LayerNorm_calls": 20,
+          "head_Default_MM_calls": 20,
+          "post_unpatchify_calls": 20,
+          "native_full_model_flows": 20,
+          "native_FP32_flow_files": 20,
+          "scheduler_step_post": 20,
+          "native_BF16_post_files": 20,
+          "VAE_decodes": 5,
+          "video_generations": 5,
+          "video_geometry_checks": 5,
+          "dense32_prepare": 1280,
+          "output_scale": 1280,
+          "dense32_gemm": 1280,
+          "bias_add": 1280
+        },
+        "forbidden_attempts": []
+      },
+      "resident_accounting": {
+        "state_file_sha": {
+          "label": "state_file_sha_bytes",
+          "limit": 356442000,
+          "predebited": 304017200,
+          "completed": 304017200,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "state_hash_calls": 50,
+        "video_file_sha": {
+          "label": "video_file_sha_bytes",
+          "limit": 167772160,
+          "predebited": 5034379,
+          "completed": 5034379,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "video_hash_calls": 5,
+        "reference_compare": {
+          "label": "reference_compare_bytes",
+          "limit": 1073741824,
+          "predebited": 618103158,
+          "completed": 618103158,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "block_loads": {
+          "label": "block_load_calls",
+          "limit": 810,
+          "predebited": 810,
+          "completed": 810,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 810
+        },
+        "phase_synchronizations": {
+          "label": "phase_device_synchronizations",
+          "limit": 5,
+          "predebited": 5,
+          "completed": 5,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "cache_checkpoints": {
+          "label": "cache_checkpoint_synchronizations",
+          "limit": 9,
+          "predebited": 9,
+          "completed": 9,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "boundary_controls": {
+          "label": "same_input_controls",
+          "limit": 8,
+          "predebited": 8,
+          "completed": 8,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "selector_copies": {
+          "reserved": 1620,
+          "returned": 1620,
+          "inflight": null,
+          "last_returned": {
+            "key": [
+              1,
+              0,
+              "ffn.2"
+            ],
+            "skip": false,
+            "weight_bytes": 141557760,
+            "bias_bytes": 10240,
+            "GPU_copy_completion": "UNKNOWN_UNTIL_LOAD_STREAM_JOIN"
+          },
+          "returned_records": 1620,
+          "detail_policy": "per-call events must be appended by the owner separately"
+        },
+        "control_components_per_call": {
+          "dense32_prepare": 1,
+          "dense32_gemm": 1,
+          "output_scale": 1,
+          "bias_add": 1,
+          "author_bridge": 1,
+          "event_records": 2,
+          "event_waits": 2,
+          "finite_reductions_max": 2,
+          "bitwise_comparisons": 1,
+          "sync": 1,
+          "logical_elements_per_output": 437778432,
+          "scalar_host_reads_max": 3
+        },
+        "control_component_completion": "UNKNOWN_UNTIL_CONTROL_SYNCHRONIZED_AND_RETURNED"
+      },
+      "runtime_sync": {
+        "label": "runtime_device_synchronizations",
+        "limit": 172,
+        "predebited": 172,
+        "completed": 172,
+        "inflight": null,
+        "returned_GPU_completion_unknown": 0
+      },
+      "cold_pack": {
+        "static_W_pack_calls": 160,
+        "sum_materialize_and_quant_sync_wall_seconds": 12.266899814363569,
+        "interpretation": "sum of per-weight host intervals inside warmup, includes serialization and synchronization; not separable fair-SYS delta"
+      },
+      "eight_boundary_controls_pass": true,
+      "CPU_preflight_wall_seconds": 1.6536050960421562,
+      "CPU_preflight_asset_hash_reads": {
+        "reserved_bytes": 536870912,
+        "completed_bytes": 92000496,
+        "inflight": "NONE",
+        "metadata_read_bytes": "UNKNOWN_SMALL_METADATA_EXCLUDING_HASHED_FILES"
+      },
+      "GPU_asset_hash_reads": {
+        "reserved_bytes": 536870912,
+        "completed_bytes": 92000496,
+        "inflight": "NONE",
+        "metadata_read_bytes": "UNKNOWN_SMALL_METADATA_EXCLUDING_HASHED_FILES"
+      },
+      "verification_wall_seconds": 1.1505181179381907,
+      "verification_payload_hash_bytes": 314215844,
+      "verification_artifacts": 57,
+      "physical_GPU_sampled_peak_MiB": 30299,
+      "B_over_A_phase_wall_ratio": 1.0140328754630594,
+      "B_over_A_FFN_event_ratio": 0.9933170352598437,
+      "raw_model_setup_seconds": 91.57094197208062,
+      "whole_worker_wall_seconds": 357.492254196899,
+      "peak_RSS_bytes": 117024948224,
+      "physical_bus_bytes": "UNKNOWN",
+      "cold_pack_evidence": "action journal actual 160 pack intervals; consumed as metadata, not tensor data",
+      "phase_timing": "FFN stream events and fixed-order wall include controls/observers; not unbiased system benchmark"
+    },
+    {
+      "part": 1,
+      "source": 979,
+      "protocol": {
+        "path": "config/e0_sharq_resident_dense32_abba_20261030_part1_pending_review_v3.json",
+        "bytes": 243779,
+        "sha256": "4ec2a403a1868463856ad8b497fc5c84f41145907c074a481f94d16f9ed80af1"
+      },
+      "RUN": {
+        "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part1/attempt1/worker/results/RUN.json",
+        "bytes": 86343,
+        "sha256": "e241e0f451024ab04752e8f75659fc8ca533e964854803ded34428d59fae6a1d"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part1/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 535,
+        "sha256": "5e05636b2806b5121a777e2699f3918eb97b64f08bf3e78b82106ad9194821d4"
+      },
+      "verification_RUN": {
+        "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part1/attempt1/verification/worker/results/RUN.json",
+        "bytes": 1149,
+        "sha256": "740972e5a646d3a82c4fe3af06261930c1e16d8da51f6fb54a3497b14085d026"
+      },
+      "verification_exit": {
+        "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part1/attempt1/verification/worker/EXIT_RECEIPT.json",
+        "bytes": 541,
+        "sha256": "62c2b046fe3a57ae07a5bad22e6608c6021b5c64c56db40d8be8586135826d02"
+      },
+      "private_root_closed_proof_sha256": "d953c796c145366de39c5730a659de444340fa3501491a7705447a896d8e2cd7",
+      "CPU_preflight": {
+        "RUN": {
+          "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part1/attempt1/cpu_preflight/worker/results/RUN.json",
+          "bytes": 706,
+          "sha256": "b7309ebb166b76abe8ec0ee2455913a9df7f58aa09e1917c52a96e996108de97"
+        },
+        "exit": {
+          "path": "ffnds-derived/e0_sharq_resident_dense32_abba_20261030/part1/attempt1/cpu_preflight/worker/EXIT_RECEIPT.json",
+          "bytes": 535,
+          "sha256": "7e570f2b36199a231f4aa0ece6c41bc60360bfd35ec122c16f7e758f34a9e6ff"
+        }
+      },
+      "prior_reference_parent": {
+        "protocol": {
+          "path": "config/e0_sharq_wan_all160_video_v2_part1_20261030_frozen_pending_v3.json",
+          "bytes": 237283,
+          "sha256": "586bf855c49d16f0c2436a13cad6fb9cfbff3ca924da823cab0cb9540708b75e"
+        },
+        "RUN": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_v2_20261030/part1/attempt1/worker/results/RUN.json",
+          "bytes": 62184,
+          "sha256": "c02c6dc1a5b73333f1bfe303c5441aad00dbaddee1e127325510c99646caff62"
+        },
+        "exit": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_v2_20261030/part1/attempt1/worker/EXIT_RECEIPT.json",
+          "bytes": 533,
+          "sha256": "2cc4f97167594c4fd0c961154757b1a1d8bd0a628d59f419b504f801ec90d5c9"
+        },
+        "verification_RUN": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_v2_20261030/part1/attempt1/verification/worker/results/RUN.json",
+          "bytes": 1281,
+          "sha256": "fa63f0f1388a84c188a6417650a96f7756b663e21d91c50428b516c5bb2408aa"
+        },
+        "verification_exit": {
+          "path": "ffnds-derived/e0_sharq_wan_all160_video_v2_20261030/part1/attempt1/verification/worker/EXIT_RECEIPT.json",
+          "bytes": 538,
+          "sha256": "6c0e955492c7a6a54ff1b67790cae1fefffe9472b83c623adbe476254f89586a"
+        }
+      },
+      "phases": [
+        {
+          "arm": "warmup",
+          "mode": "bf16_cache",
+          "FFN_boundary_CUDA_seconds": 6.650726337432861,
+          "wall_seconds_including_observers": 45.091477452078834,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        },
+        {
+          "arm": "legacy_A1",
+          "mode": "dense32",
+          "FFN_boundary_CUDA_seconds": 4.104575834274292,
+          "wall_seconds_including_observers": 42.607900232076645,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        },
+        {
+          "arm": "resident_B1",
+          "mode": "dense32",
+          "FFN_boundary_CUDA_seconds": 3.8938371181488036,
+          "wall_seconds_including_observers": 43.10750355897471,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        },
+        {
+          "arm": "resident_B2",
+          "mode": "dense32",
+          "FFN_boundary_CUDA_seconds": 3.8777121257781983,
+          "wall_seconds_including_observers": 43.45965109905228,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        },
+        {
+          "arm": "legacy_A2",
+          "mode": "dense32",
+          "FFN_boundary_CUDA_seconds": 3.8888534812927245,
+          "wall_seconds_including_observers": 43.87199273216538,
+          "actual_ffn_sites": 160,
+          "actual_linear_sites": 320,
+          "weight_cache_entries": 160,
+          "weight_cache_bytes": 7102136960,
+          "block_prefetch": {
+            "actual_block_load_calls_returned": 162,
+            "physical_bus_bytes": "UNKNOWN"
+          }
+        }
+      ],
+      "paired": [
+        {
+          "pair": "B1_minus_A1",
+          "FFN_boundary_seconds_difference": -0.21073871612548833,
+          "phase_wall_seconds_difference": 0.4996033268980682
+        },
+        {
+          "pair": "B2_minus_A2",
+          "FFN_boundary_seconds_difference": -0.011141355514526108,
+          "phase_wall_seconds_difference": -0.4123416331131011
+        }
+      ],
+      "reference_gate": {
+        "checks": 55,
+        "predebited_bytes": 611288358,
+        "completed_bytes": 611288358
+      },
+      "prefetch_coverage": [
+        {
+          "arm": "warmup",
+          "block_loads": 162,
+          "weight_issued": 324,
+          "weight_skipped": 0,
+          "bias_issued": 324,
+          "weight_bytes": 45864714240,
+          "skipped_weight_bytes": 0,
+          "bias_bytes": 6137856
+        },
+        {
+          "arm": "legacy_A1",
+          "block_loads": 162,
+          "weight_issued": 324,
+          "weight_skipped": 0,
+          "bias_issued": 324,
+          "weight_bytes": 45864714240,
+          "skipped_weight_bytes": 0,
+          "bias_bytes": 6137856
+        },
+        {
+          "arm": "resident_B1",
+          "block_loads": 162,
+          "weight_issued": 0,
+          "weight_skipped": 324,
+          "bias_issued": 324,
+          "weight_bytes": 0,
+          "skipped_weight_bytes": 45864714240,
+          "bias_bytes": 6137856
+        },
+        {
+          "arm": "resident_B2",
+          "block_loads": 162,
+          "weight_issued": 0,
+          "weight_skipped": 324,
+          "bias_issued": 324,
+          "weight_bytes": 0,
+          "skipped_weight_bytes": 45864714240,
+          "bias_bytes": 6137856
+        },
+        {
+          "arm": "legacy_A2",
+          "block_loads": 162,
+          "weight_issued": 324,
+          "weight_skipped": 0,
+          "bias_issued": 324,
+          "weight_bytes": 45864714240,
+          "skipped_weight_bytes": 0,
+          "bias_bytes": 6137856
+        }
+      ],
+      "operation_ledger": {
+        "predebited": {
+          "original_expert_loads": 2,
+          "raw_Default_MM_loads": 812,
+          "buffer_Default_MM_loads": 40,
+          "T5_buffer_Default_MM_loads": 7,
+          "T5_raw_Default_MM_loads": 168,
+          "authority_checks": 5,
+          "video_generations": 5,
+          "offload_buffer_resets": 10,
+          "stage_CUDA_event_pairs": 35,
+          "input_encoder_requests": 5,
+          "VAE_encodes": 5,
+          "T5_positive_prompt_encodes": 5,
+          "T5_checkpoint_block_buffer_loads": 120,
+          "T5_Default_MM_calls": 840,
+          "scheduler_prepare": 5,
+          "FP32_initial_noise_draws": 5,
+          "raw_FP32_noise_files": 5,
+          "state_tensor_D2H": 50,
+          "state_tensor_D2H_bytes": 304012800,
+          "state_output_writes": 50,
+          "state_raw_sha_calls": 50,
+          "state_raw_sha_bytes": 304012800,
+          "scheduler_step_pre": 20,
+          "initial_BF16_noise_files": 5,
+          "native_full_model_flows": 20,
+          "pre_infer_calls": 20,
+          "patch_Conv3D_calls": 20,
+          "pre_Default_MM_calls": 100,
+          "prefetch_transfer_observations": 810,
+          "original_checkpoint_block_buffer_loads": 810,
+          "native_blocks": 800,
+          "native_non_FFN_linears": 6400,
+          "native_FFN_calls": 800,
+          "FFN_CUDA_event_pairs": 800,
+          "sharq_static_W_materializations": 160,
+          "sharq_static_W_materialization_bytes": 22649241600,
+          "sharq_static_W_quantizations": 160,
+          "sharq_static_W_cache_predebit_bytes": 7102136960,
+          "sharq_stream_bridge_calls": 1440,
+          "sharq_bridge_event_records": 2880,
+          "sharq_bridge_event_waits": 2880,
+          "native_FFN_linears": 1600,
+          "final_LayerNorm_calls": 20,
+          "head_Default_MM_calls": 20,
+          "post_unpatchify_calls": 20,
+          "native_FP32_flow_files": 20,
+          "scheduler_step_post": 20,
+          "native_BF16_post_files": 20,
+          "VAE_decodes": 5,
+          "video_geometry_checks": 5,
+          "dense32_prepare": 1280,
+          "output_scale": 1280,
+          "dense32_gemm": 1280,
+          "bias_add": 1280
+        },
+        "observed": {
+          "original_expert_loads": 2,
+          "raw_Default_MM_loads": 812,
+          "buffer_Default_MM_loads": 40,
+          "T5_buffer_Default_MM_loads": 7,
+          "T5_raw_Default_MM_loads": 168,
+          "authority_checks": 5,
+          "offload_buffer_resets": 10,
+          "VAE_encodes": 5,
+          "stage_CUDA_event_pairs": 35,
+          "T5_checkpoint_block_buffer_loads": 120,
+          "T5_Default_MM_calls": 840,
+          "T5_positive_prompt_encodes": 5,
+          "input_encoder_requests": 5,
+          "state_tensor_D2H": 50,
+          "state_tensor_D2H_bytes": 304012800,
+          "state_output_writes": 50,
+          "state_raw_sha_calls": 50,
+          "state_raw_sha_bytes": 304012800,
+          "raw_FP32_noise_files": 5,
+          "FP32_initial_noise_draws": 5,
+          "scheduler_prepare": 5,
+          "scheduler_step_pre": 20,
+          "initial_BF16_noise_files": 5,
+          "patch_Conv3D_calls": 20,
+          "pre_Default_MM_calls": 100,
+          "pre_infer_calls": 20,
+          "original_checkpoint_block_buffer_loads": 810,
+          "prefetch_transfer_observations": 810,
+          "native_non_FFN_linears": 6400,
+          "sharq_static_W_materializations": 160,
+          "sharq_static_W_materialization_bytes": 22649241600,
+          "sharq_stream_bridge_calls": 1440,
+          "sharq_bridge_event_records": 2880,
+          "sharq_bridge_event_waits": 2880,
+          "sharq_static_W_quantizations": 160,
+          "sharq_static_W_cache_predebit_bytes": 7102136960,
+          "native_FFN_linears": 1600,
+          "native_FFN_calls": 800,
+          "FFN_CUDA_event_pairs": 800,
+          "native_blocks": 800,
+          "final_LayerNorm_calls": 20,
+          "head_Default_MM_calls": 20,
+          "post_unpatchify_calls": 20,
+          "native_full_model_flows": 20,
+          "native_FP32_flow_files": 20,
+          "scheduler_step_post": 20,
+          "native_BF16_post_files": 20,
+          "VAE_decodes": 5,
+          "video_generations": 5,
+          "video_geometry_checks": 5,
+          "dense32_prepare": 1280,
+          "output_scale": 1280,
+          "dense32_gemm": 1280,
+          "bias_add": 1280
+        },
+        "forbidden_attempts": []
+      },
+      "resident_accounting": {
+        "state_file_sha": {
+          "label": "state_file_sha_bytes",
+          "limit": 356442000,
+          "predebited": 304017200,
+          "completed": 304017200,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "state_hash_calls": 50,
+        "video_file_sha": {
+          "label": "video_file_sha_bytes",
+          "limit": 167772160,
+          "predebited": 1626979,
+          "completed": 1626979,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "video_hash_calls": 5,
+        "reference_compare": {
+          "label": "reference_compare_bytes",
+          "limit": 1073741824,
+          "predebited": 611288358,
+          "completed": 611288358,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "block_loads": {
+          "label": "block_load_calls",
+          "limit": 810,
+          "predebited": 810,
+          "completed": 810,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 810
+        },
+        "phase_synchronizations": {
+          "label": "phase_device_synchronizations",
+          "limit": 5,
+          "predebited": 5,
+          "completed": 5,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "cache_checkpoints": {
+          "label": "cache_checkpoint_synchronizations",
+          "limit": 9,
+          "predebited": 9,
+          "completed": 9,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "boundary_controls": {
+          "label": "same_input_controls",
+          "limit": 8,
+          "predebited": 8,
+          "completed": 8,
+          "inflight": null,
+          "returned_GPU_completion_unknown": 0
+        },
+        "selector_copies": {
+          "reserved": 1620,
+          "returned": 1620,
+          "inflight": null,
+          "last_returned": {
+            "key": [
+              1,
+              0,
+              "ffn.2"
+            ],
+            "skip": false,
+            "weight_bytes": 141557760,
+            "bias_bytes": 10240,
+            "GPU_copy_completion": "UNKNOWN_UNTIL_LOAD_STREAM_JOIN"
+          },
+          "returned_records": 1620,
+          "detail_policy": "per-call events must be appended by the owner separately"
+        },
+        "control_components_per_call": {
+          "dense32_prepare": 1,
+          "dense32_gemm": 1,
+          "output_scale": 1,
+          "bias_add": 1,
+          "author_bridge": 1,
+          "event_records": 2,
+          "event_waits": 2,
+          "finite_reductions_max": 2,
+          "bitwise_comparisons": 1,
+          "sync": 1,
+          "logical_elements_per_output": 437778432,
+          "scalar_host_reads_max": 3
+        },
+        "control_component_completion": "UNKNOWN_UNTIL_CONTROL_SYNCHRONIZED_AND_RETURNED"
+      },
+      "runtime_sync": {
+        "label": "runtime_device_synchronizations",
+        "limit": 172,
+        "predebited": 172,
+        "completed": 172,
+        "inflight": null,
+        "returned_GPU_completion_unknown": 0
+      },
+      "cold_pack": {
+        "static_W_pack_calls": 160,
+        "sum_materialize_and_quant_sync_wall_seconds": 12.183649680111557,
+        "interpretation": "sum of per-weight host intervals inside warmup, includes serialization and synchronization; not separable fair-SYS delta"
+      },
+      "eight_boundary_controls_pass": true,
+      "CPU_preflight_wall_seconds": 1.6525904410518706,
+      "CPU_preflight_asset_hash_reads": {
+        "reserved_bytes": 536870912,
+        "completed_bytes": 90699473,
+        "inflight": "NONE",
+        "metadata_read_bytes": "UNKNOWN_SMALL_METADATA_EXCLUDING_HASHED_FILES"
+      },
+      "GPU_asset_hash_reads": {
+        "reserved_bytes": 536870912,
+        "completed_bytes": 90699473,
+        "inflight": "NONE",
+        "metadata_read_bytes": "UNKNOWN_SMALL_METADATA_EXCLUDING_HASHED_FILES"
+      },
+      "verification_wall_seconds": 1.0241604479961097,
+      "verification_payload_hash_bytes": 310779481,
+      "verification_artifacts": 57,
+      "physical_GPU_sampled_peak_MiB": 30299,
+      "B_over_A_phase_wall_ratio": 1.0010090402611975,
+      "B_over_A_FFN_event_ratio": 0.972242192570852,
+      "raw_model_setup_seconds": 90.2255746240262,
+      "whole_worker_wall_seconds": 357.45311388210393,
+      "peak_RSS_bytes": 117025935360,
+      "physical_bus_bytes": "UNKNOWN",
+      "cold_pack_evidence": "action journal actual 160 pack intervals; consumed as metadata, not tensor data",
+      "phase_timing": "FFN stream events and fixed-order wall include controls/observers; not unbiased system benchmark"
+    }
+  ],
+  "source_equal_paired_means": {
+    "FFN_boundary_seconds_difference": -0.06865973186492913,
+    "phase_wall_seconds_difference": 0.322671617672313
+  },
+  "limitations": [
+    "physical bus traffic UNKNOWN; copy counts are logical enqueues",
+    "fixed-order ABBA with observers and controls; two sources/one seed not generalizable",
+    "no new quality acceptance; no GPU/model run performed by report builder"
+  ],
+  "B_over_A_ratio_definition": "mean(B1,B2) / mean(A1,A2), separately for phase wall and FFN event; not mean of pairwise ratios"
+}
