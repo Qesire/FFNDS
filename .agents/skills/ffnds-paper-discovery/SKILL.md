@@ -5,6 +5,10 @@ description: Apply AutoResearcher science to independent information, function/d
 
 # FFNDS · AutoResearcher 机制方法 Skill
 
+**新用户要求：所有实际实验必须再审“实验设计本身”并接受真实独立 Agent 复审后才能执行。** 实施 [每新scope复审状态机](../../../research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)：主 Agent 自审科学可辨识性/相反预测/原文及实现差异/统计独立单位/可执行物理动作/强baseline与总开销 → 不同上下文真实审稿Agent提出反例 → 修订和recheck → ACTIVE独立冻结有限scope → launch前检查SHA和适用GPU上限。未真实审结时标 REVIEW_REQUESTED，不将历史审核、作者自审或设计文档代替新scope许可。参考[训练自由FFN正向基线研究任务](../../../research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)：Chipmunk MLP-only 作者原Wan2.1/四步Wan2.2分开，TEAL preW1/postGELU分开，Prox/FIS作为近邻论文另核代码与模型；全部是待审待跑，不是已证明的 Wan2.2 成功稀疏。
+
+
+
 **当前机制研究入口（2026-10-29，开放式证据获取）：** [资产先行的方法发现和四支路线](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)与[原生资产交叉复算](../../../research/20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)。以真实计算结构/行为/执行异常为研究起点；构造至少两种不同机制及其相反预测，利用保存资产给出最小判别，只有随后才冻结在线动作和完整生成测试。S1跨步共享函数、S4条件rank的行动收益、S2时空函数单位、S3前置量化动作并行且互不互为准入条件。M-A/M-B/M-C、符号交叉、norm/gain、补算为可复用机制及强对照，而不是默认的研究方向。新方法的可用性由全160-site真实视频质量、来源级运动/语义/时间指标和实测系统成本决定。
 
 
