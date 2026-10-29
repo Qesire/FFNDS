@@ -1,0 +1,523 @@
+{
+  "schema": "ffnds.sharq.stream_diagnostic.results.v1",
+  "evidence": "OBS / NATIVE bounded matrix diagnostic",
+  "scope": "Four real expert matrices, SAFE default and event-bridged versus independent UNSAFE unbridged; no video or system performance claim.",
+  "sources": [
+    {
+      "path": "tools/e0_sharq_wan_stream_probe.py",
+      "sha256": "bbe40de60c4400560c0a562725d20b14b9c66049064fe5a59db2c7ecf9c00a47"
+    },
+    {
+      "path": "tools/e0_sharq_wan_author_stream_bridge.py",
+      "sha256": "362d70b1ae8a5b40150c030316e6e9bcd03d954e4da62f7eff2441a12e32a455"
+    }
+  ],
+  "runs": {
+    "safe": {
+      "id": "E0_SHARQ_SM120_STREAM_SAFE_20261030",
+      "protocol_sha256": "f155c04dbde4ba91b9e840d018a0267be651f726e6e2b28d1a16c566aae8b92e",
+      "launch_spec_sha256": "3bbb552ee3d363992d6dfee58efe5575772d99ec8f488512628c8481044128e1",
+      "run": {
+        "path": "ffnds-derived/e0_sharq_sm120_stream_safe_20261030/attempt1/worker/results/RUN.json",
+        "bytes": 22142,
+        "sha256": "c61c18cbea24c0bc43516da264a1cb76ffb5b6b945f2289bafae02cadf84c8b3"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_sharq_sm120_stream_safe_20261030/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 524,
+        "sha256": "ab07fb775a7be2bb2a1f5a3f9dc09d3f4b7c6b077c440a691d695a7a007f46d6"
+      },
+      "run_status": "COMPLETE_STREAM_PROBE_EXIT_PENDING",
+      "process_exit_code": 0,
+      "wall_seconds": 63.09654653305188,
+      "outer_seconds": 66.04489691392519,
+      "gpu_peak_reserved_bytes": 1379926016,
+      "gpu_peak_physical_mib": 2061,
+      "host_peak_rss_bytes": 1924583424,
+      "monitor_violations": 0,
+      "predebited_invoked_returned": {
+        "bundle_hash": 1,
+        "device_sync": 49,
+        "prepare_case": 8,
+        "bf16_linear": 24,
+        "weight_quant": 8,
+        "weight_equal": 8,
+        "input_equal": 8,
+        "linear_equal": 8,
+        "BF16_finite_checks": 8,
+        "logical_scale_extract": 16,
+        "pack_digest": 8,
+        "reference_pack_clone": 4,
+        "dense32_linear": 8,
+        "dense32_prepare": 8,
+        "output_scale": 16,
+        "dense32_gemm": 8,
+        "bias_add": 16,
+        "sharq_linear": 8,
+        "sharq_prepare": 8,
+        "sparse_gemm": 8,
+        "dense_residual_gemm": 8,
+        "author_finite_checks": 16,
+        "reference_output_clone": 4,
+        "post_author_weight_equal": 8,
+        "post_author_input_equal": 8,
+        "post_author_linear_equal": 8,
+        "post_author_finite_checks": 8,
+        "pack_equal": 4,
+        "author_output_comparisons": 8
+      },
+      "inflight": {},
+      "counter_semantics": "Python entry and return; case CUDA completion after explicit device synchronize; intermediate async completion unknown",
+      "model_calls": 0,
+      "generation_calls": 0,
+      "automatic_retry": false,
+      "cases": [
+        {
+          "expert": "high",
+          "linear": 0,
+          "mode": "default_reference",
+          "weight_view_shape": [
+            5120,
+            13824
+          ],
+          "weight_view_stride": [
+            1,
+            5120
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "AUTHOR_DEFAULT_SINGLE_STREAM",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "c8b24274fa730402494e3b97c6e53c39f23cb804dbd5146d8f823792881e6dcc",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "dense_finite": true,
+          "sharq_finite": true,
+          "post_author_weight_bitwise_unchanged": true,
+          "post_author_input_bitwise_unchanged": true,
+          "post_author_BF16_bitwise_equal": true,
+          "post_author_BF16_finite": true
+        },
+        {
+          "expert": "high",
+          "linear": 0,
+          "mode": "bridged_nondefault",
+          "weight_view_shape": [
+            5120,
+            13824
+          ],
+          "weight_view_stride": [
+            1,
+            5120
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "EVENT_BRIDGED_DEFAULT_WITH_INPUT_OUTPUT_RECORD_STREAM",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "c8b24274fa730402494e3b97c6e53c39f23cb804dbd5146d8f823792881e6dcc",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "packed_equal_default": true,
+          "dense_finite": true,
+          "sharq_finite": true,
+          "dense_vs_default": {
+            "relative_l2": 0.0,
+            "finite": true
+          },
+          "sharq_vs_default": {
+            "relative_l2": 0.0,
+            "finite": true
+          },
+          "post_author_weight_bitwise_unchanged": true,
+          "post_author_input_bitwise_unchanged": true,
+          "post_author_BF16_bitwise_equal": true,
+          "post_author_BF16_finite": true
+        },
+        {
+          "expert": "high",
+          "linear": 2,
+          "mode": "default_reference",
+          "weight_view_shape": [
+            13824,
+            5120
+          ],
+          "weight_view_stride": [
+            1,
+            13824
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "AUTHOR_DEFAULT_SINGLE_STREAM",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "d8f2376e7df95f11d052b98256b7fa655d3596d7733af3634664ccce776a90c8",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "dense_finite": true,
+          "sharq_finite": true,
+          "post_author_weight_bitwise_unchanged": true,
+          "post_author_input_bitwise_unchanged": true,
+          "post_author_BF16_bitwise_equal": true,
+          "post_author_BF16_finite": true
+        },
+        {
+          "expert": "high",
+          "linear": 2,
+          "mode": "bridged_nondefault",
+          "weight_view_shape": [
+            13824,
+            5120
+          ],
+          "weight_view_stride": [
+            1,
+            13824
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "EVENT_BRIDGED_DEFAULT_WITH_INPUT_OUTPUT_RECORD_STREAM",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "d8f2376e7df95f11d052b98256b7fa655d3596d7733af3634664ccce776a90c8",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "packed_equal_default": true,
+          "dense_finite": true,
+          "sharq_finite": true,
+          "dense_vs_default": {
+            "relative_l2": 0.0,
+            "finite": true
+          },
+          "sharq_vs_default": {
+            "relative_l2": 0.0,
+            "finite": true
+          },
+          "post_author_weight_bitwise_unchanged": true,
+          "post_author_input_bitwise_unchanged": true,
+          "post_author_BF16_bitwise_equal": true,
+          "post_author_BF16_finite": true
+        },
+        {
+          "expert": "low",
+          "linear": 0,
+          "mode": "default_reference",
+          "weight_view_shape": [
+            5120,
+            13824
+          ],
+          "weight_view_stride": [
+            1,
+            5120
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "AUTHOR_DEFAULT_SINGLE_STREAM",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "387780094636163c2bee669c928304ed0d3636cb9811cfce6d26a248cf5ecb59",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "dense_finite": true,
+          "sharq_finite": true,
+          "post_author_weight_bitwise_unchanged": true,
+          "post_author_input_bitwise_unchanged": true,
+          "post_author_BF16_bitwise_equal": true,
+          "post_author_BF16_finite": true
+        },
+        {
+          "expert": "low",
+          "linear": 0,
+          "mode": "bridged_nondefault",
+          "weight_view_shape": [
+            5120,
+            13824
+          ],
+          "weight_view_stride": [
+            1,
+            5120
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "EVENT_BRIDGED_DEFAULT_WITH_INPUT_OUTPUT_RECORD_STREAM",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "387780094636163c2bee669c928304ed0d3636cb9811cfce6d26a248cf5ecb59",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "packed_equal_default": true,
+          "dense_finite": true,
+          "sharq_finite": true,
+          "dense_vs_default": {
+            "relative_l2": 0.0,
+            "finite": true
+          },
+          "sharq_vs_default": {
+            "relative_l2": 0.0,
+            "finite": true
+          },
+          "post_author_weight_bitwise_unchanged": true,
+          "post_author_input_bitwise_unchanged": true,
+          "post_author_BF16_bitwise_equal": true,
+          "post_author_BF16_finite": true
+        },
+        {
+          "expert": "low",
+          "linear": 2,
+          "mode": "default_reference",
+          "weight_view_shape": [
+            13824,
+            5120
+          ],
+          "weight_view_stride": [
+            1,
+            13824
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "AUTHOR_DEFAULT_SINGLE_STREAM",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "9a3665f9288fa94b2a989020a471ae07fe181faf4a62f66956c91aa58c8e7f29",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "dense_finite": true,
+          "sharq_finite": true,
+          "post_author_weight_bitwise_unchanged": true,
+          "post_author_input_bitwise_unchanged": true,
+          "post_author_BF16_bitwise_equal": true,
+          "post_author_BF16_finite": true
+        },
+        {
+          "expert": "low",
+          "linear": 2,
+          "mode": "bridged_nondefault",
+          "weight_view_shape": [
+            13824,
+            5120
+          ],
+          "weight_view_stride": [
+            1,
+            13824
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "EVENT_BRIDGED_DEFAULT_WITH_INPUT_OUTPUT_RECORD_STREAM",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "9a3665f9288fa94b2a989020a471ae07fe181faf4a62f66956c91aa58c8e7f29",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "packed_equal_default": true,
+          "dense_finite": true,
+          "sharq_finite": true,
+          "dense_vs_default": {
+            "relative_l2": 0.0,
+            "finite": true
+          },
+          "sharq_vs_default": {
+            "relative_l2": 0.0,
+            "finite": true
+          },
+          "post_author_weight_bitwise_unchanged": true,
+          "post_author_input_bitwise_unchanged": true,
+          "post_author_BF16_bitwise_equal": true,
+          "post_author_BF16_finite": true
+        }
+      ]
+    },
+    "unsafe": {
+      "id": "E0_SHARQ_SM120_STREAM_UNSAFE_20261030",
+      "protocol_sha256": "5d46ed00ac0d37efeec253c5e09d39478aeb3c2f4198447cdd56f79c2679ce8f",
+      "launch_spec_sha256": "38712d3da7def2a2bf189cc2f5e5543f905c8f422cb348223c11d113d946952e",
+      "run": {
+        "path": "ffnds-derived/e0_sharq_sm120_stream_unsafe_20261030/attempt1/worker/results/RUN.json",
+        "bytes": 17533,
+        "sha256": "39d720739e253317bcf7d0c2e92773580b864ee10e2794d7ff00509fa600953c"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_sharq_sm120_stream_unsafe_20261030/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 527,
+        "sha256": "d5131c9b5a9563c6e21e6d5aa80d71e2717fa1327b5f2543ca033f9adc975973"
+      },
+      "run_status": "COMPLETE_STREAM_PROBE_EXIT_PENDING",
+      "process_exit_code": 0,
+      "wall_seconds": 19.365909913089126,
+      "outer_seconds": 22.081765613052994,
+      "gpu_peak_reserved_bytes": 1549795328,
+      "gpu_peak_physical_mib": 2221,
+      "host_peak_rss_bytes": 1866604544,
+      "monitor_violations": 0,
+      "predebited_invoked_returned": {
+        "bundle_hash": 1,
+        "device_sync": 17,
+        "prepare_case": 4,
+        "bf16_linear": 8,
+        "weight_quant": 4,
+        "weight_equal": 4,
+        "input_equal": 4,
+        "linear_equal": 4,
+        "BF16_finite_checks": 4,
+        "logical_scale_extract": 8,
+        "pack_digest": 4
+      },
+      "inflight": {},
+      "counter_semantics": "Python entry and return; case CUDA completion after explicit device synchronize; intermediate async completion unknown",
+      "model_calls": 0,
+      "generation_calls": 0,
+      "automatic_retry": false,
+      "cases": [
+        {
+          "expert": "high",
+          "linear": 0,
+          "mode": "unbridged_nondefault_once",
+          "weight_view_shape": [
+            5120,
+            13824
+          ],
+          "weight_view_stride": [
+            1,
+            5120
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "UNBRIDGED_INDEPENDENT_PROCESS",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "c8b24274fa730402494e3b97c6e53c39f23cb804dbd5146d8f823792881e6dcc",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "packed_digest_equal_safe_reference": true
+        },
+        {
+          "expert": "high",
+          "linear": 2,
+          "mode": "unbridged_nondefault_once",
+          "weight_view_shape": [
+            13824,
+            5120
+          ],
+          "weight_view_stride": [
+            1,
+            13824
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "UNBRIDGED_INDEPENDENT_PROCESS",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "d8f2376e7df95f11d052b98256b7fa655d3596d7733af3634664ccce776a90c8",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "packed_digest_equal_safe_reference": true
+        },
+        {
+          "expert": "low",
+          "linear": 0,
+          "mode": "unbridged_nondefault_once",
+          "weight_view_shape": [
+            5120,
+            13824
+          ],
+          "weight_view_stride": [
+            1,
+            5120
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "UNBRIDGED_INDEPENDENT_PROCESS",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "df59783c82d478a3f56147194a24c7e1a6e6c5634cca6d79326c00a363c09ce9",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "packed_digest_equal_safe_reference": false
+        },
+        {
+          "expert": "low",
+          "linear": 2,
+          "mode": "unbridged_nondefault_once",
+          "weight_view_shape": [
+            13824,
+            5120
+          ],
+          "weight_view_stride": [
+            1,
+            13824
+          ],
+          "materialized_is_original_buffer_alias": true,
+          "stream_contract": "UNBRIDGED_INDEPENDENT_PROCESS",
+          "status": "COMPLETE",
+          "weight_bitwise_unchanged": true,
+          "activation_bitwise_unchanged": true,
+          "BF16_pre_post_bitwise_equal": true,
+          "BF16_finite": true,
+          "BF16_gate": "PASS_BEFORE_ANY_CANDIDATE",
+          "packed_digest": {
+            "bytes": 42024964,
+            "sha256": "ede472f7ce2313980b358dbf3bf57c7756e53f1164eb89f90dc5577ad3ba637b",
+            "scope": "Q payload and logical consumed sparse/dense scale coordinates and global scale; padding excluded"
+          },
+          "packed_digest_equal_safe_reference": false
+        }
+      ]
+    }
+  },
+  "interpretation": "A non-default-stream integration condition produced different packed bytes in two observed low-expert matrices. One observation is not a failure probability and does not establish the cause of the V6 full-model nonfinite flow.",
+  "method": "Author default-stream implementation unchanged; 4:8 structured sparse path plus full-K dense residual."
+}

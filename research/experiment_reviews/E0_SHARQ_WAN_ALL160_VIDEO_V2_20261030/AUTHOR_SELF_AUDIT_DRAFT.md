@@ -1,0 +1,11 @@
+# SharQ Wan 全160视频 V2 作者自审：SAFE 实际闭合，等待独立复核
+
+V1 两个已完成的失败scope显示首条BF16视频和10状态实际完成，第二条建立缓存的BF16 neutral在flow_step0检测非finite，候选未启动；原作者裸默认流与LightX当前compute流之间生产依赖缺口是已确认的软件契约问题，而nonfinite的确切原因仍待真实诊断。SAFE V4 已真实 EXIT0 并通过 closed：RUN SHA256 c61c18cbea24c0bc43516da264a1cb76ffb5b6b945f2289bafae02cadf84c8b3，EXIT SHA256 ab07fb775a7be2bb2a1f5a3f9dc09d3f4b7c6b077c440a691d695a7a007f46d6。四个真实权重矩阵各执行默认流和桥接共8 case，BF16字节及有限性检查通过、有效packed相同、Dense32和SharQ相对L2均为0。该M32诊断验证桥接路径，不能单独确定此前nonfinite原因或保证完整模型通过。
+
+新文件 `e0_sharq_wan_all160_runtime_v2.py`、`e0_sharq_wan_all160_video_driver_v2.py`、`e0_sharq_wan_all160_video_owner_v2.py` 及对应合成测试，与此前实际V1源和RUN/EXIT独立版本。首BF16不安装FFN替换，第二条在原compute流仍执行原BF16 MM，仅将160次真实权重量化整体送至 `e0_sharq_wan_author_stream_bridge.author_call`；该桥将PyTorch准备和作者kernel整体放默认流，双向event和各输入/输出record_stream。两种候选各320线性都同样把整个动态准备、dense/稀疏GEMM、residual、scale与bias送至作者默认流。原prefetch/H2D完整保留。缓存从原BF16 W生成，两候选同一cache；缓存建立后完整10状态及真实视频SHA逐字节neutral必须通过。仍有固定候选顺序、不同热状态和observer，原wall不能当公平SYS。
+
+每part精确预扣并成功完成800次桥（160 W打包+640候选线性）、1600次event record和1600次event wait；异常在途UNKNOWN，不计完成。event与等待价格包括在本体FFN事件和完整生成wall内，没有单独标定性能；record_stream实际次数未知。每次W materialize记录GPU实际data_ptr是否alias、shape与stride，账本物理复制量不预先声称：materialization字节为逻辑输入字节。原始prefetch观测648次、0跳过；实际NN线程、显示、host/disk监控及状态/视频字节验收继承已审V1接口。
+
+每个phase开始时持久 `current_phase=STARTED`，每个capture先持久 `current_state=STARTED`，文件成功后持久COMPLETE；视频与十状态完成即追加RUN.phases并持久，不再等四phase全返回。失败保留此前phase和当前标签；这些部分数据仍不等同全部closed。验收必须所有四phase/2neutral/候选噪声匹配、真实GPU EXIT0、独立有限VERIFY actual EXIT0；正式八轴/RAFT与人审另行scope。两来源一seed是暴露开发，并非heldout。
+
+当前24项CPU合成测试通过：800 bridge及1600事件记录/等待账、首BF16不安装hook、两候选复用neutral cache、提前phase持久以及模拟第二phase失败保留首phase/current state。SAFE已验证上述有限GPU stream条件；V2完整模型数值、性能和视频尚未运行。请独立评议代码、bridge异常drain、静态cache/stream生命周期、账目/neutral、failure证据、实际输入source与预算；两个独立V2协议绑定SAFE真实RUN/EXIT、两V1失败及实际worker/parent资产，私有job供exact review。无ACTIVE、无模型运行。
