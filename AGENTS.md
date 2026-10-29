@@ -9,7 +9,7 @@
 3. **扩展动作而非锁定算子**：[S1跨步共享函数＋S4行动价值变秩＋S2时空函数单元＋S3量化前置合法组动作](research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)是**并行研究分支**，可增删新机制，互不强制依赖；历史M-B末层、QCFB组间符号抵消、补算、gain均为专题工具或强对照。执行前写清可用信息截止、合法的物理行动、真正改变的W1/W2/量化支路和成本。
 4. **结构发现与部署验收分层**：ALG/SRC/已存OBS可以产生独立科研发现；若声称可用的低计算方案，必须在真实4步×40层160位置学生自由生成上，用多来源、同checkpoint/数值recipe的Dense配对完整视频、动作/运动/语义/时间/画质及实测FFN/全系统成本证明；历史暴露来源用于开发，冻结的新来源及独立seed用于确认。参见[视频证据合同](research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
 5. **有需求就持续扩展采集**：按[问题驱动新增资产协议](research/agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)与[采集需求队列](research/agent_protocol/ACQUISITION_QUEUE_20261029.json)，把缺失观测、来源分层、全40层×4步与动作/语义影响转为具体producer和下一批新source；一次有限范围结束后允许基于新的科学问题继续注册采集，避免把历史配额当科研天花板。
-6. **真实研究资源**：CPU/GPU、来源、原始/量化checkpoint、seed、模型状态和最大预算按[ACTIVE](research/ACTIVE_RESEARCH.json)冻结每个新的有限范围，任务文档不自动授权，也不自动重跑失败或已完成范围。GPU使用实际可调用的最大有效数量，按[动态资源政策](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)分配，不继承旧实验2/4卡历史上限。
+6. **真实研究资源**：CPU/GPU、来源、原始/量化checkpoint、seed、模型状态和最大预算按[ACTIVE](research/ACTIVE_RESEARCH.json)冻结每个新的有限范围，任务文档不自动授权，也不自动重跑失败或已完成范围。GPU在适用的用户会话/冻结实验并发限制内使用实际可调用的最大有效数量；已核实VIDEO20等实验记录 `session_max_GPUs=2`，执行这些范围必须遵守两卡并发上限。通用[动态资源政策](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)不覆盖具体会话或RUN预算。
 7. **写回与协作**：科学主张按ALG/SRC/LIT/NATIVE/VIDEO/SYS分开；来源身份与negative evidence精确保留，复算另行版本化。[独立Agent方法讨论队列](research/method_discussion/QUEUE.md)只登记真实提出者和独立评议，不预填同意票。新研究结果同步计算图与当前任务，避免复制一套新的“权威进度文档”。
 
 **数值机制事实**：原BF16路径没有激活FP4 Q1/Q2；旧HiF4 fake-QDQ有带符号S1P2码字、BF16重建与W1前Q1/W1后Q2；原生NVFP4/MXFP4的静态W scale、动态A scale、packed layout和实际生产时点独立验证。已有[权重/激活时序审计](research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)与[HiF4有符号码字审计](research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)。A100 BF16与RTX PRO 6000原生NVFP4可并行研究；可用硬件与可执行范围以实际核查为准。
@@ -66,7 +66,7 @@
 
 ## 五、当前研究权限与交接
 
-**运行授权核验与动态GPU调度（2026-10-28现行）**：I/F/C科研及登记后的有限CPU/GPU/原生实验继续。GPU**不提前设置2/4张等任何固定全局上限**，按[动态资源调度规则](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)在每次启动时尽可能使用实际可申请/调度/获批且能投入独立READY任务的全部GPU。原先2/4张属于历史授权和冻结scope，不再是当前全局限额；简单委派按现行Agent可用规则执行。协调者在运行前冻结具体问题、对照、代码/资产和预算并登记[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)，按实际结果继续下一项有辨别力的工作。旧暂停、已完成范围和失败记录保持历史身份；本轮恢复不自动重跑旧失败，也不扩展实时/流式实验。
+**运行授权核验与动态GPU调度（2026-10-28现行）**：I/F/C科研及登记后的有限CPU/GPU/原生实验继续。GPU调度以**当次有效会话限制/冻结实验预算优先**：实际记录为两卡并发时最多同时两卡（单项通常1卡），在这个边界内按[动态资源调度规则](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用真实可申请且有用的GPU。通用全局数可不预设，但不允许以此忽略既有RUN的2/4卡执行范围；简单委派按现行Agent可用规则执行。协调者在运行前冻结具体问题、对照、代码/资产和预算并登记[ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)，按实际结果继续下一项有辨别力的工作。旧暂停、已完成范围和失败记录保持历史身份；本轮恢复不自动重跑旧失败，也不扩展实时/流式实验。
 
 交接只需**新机制/功能发现、证据出处、真正分歧、对应图节点、最小后续判别和已完成的原生范围**。历史文档当时的“Next/Active/Run”用于溯源，由现行研究导航与ACTIVE区分当前状态。新研究以构造性内容优先、以真实证据调整确定度。
 
