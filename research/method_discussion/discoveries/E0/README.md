@@ -6,7 +6,7 @@
 
 **研究方法**：[领域Skill](../../../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[WARD](../../../agent_protocol/DEEP_WEB_RESEARCH.md)促进从反直觉数据、新数学、实际源码/原论文及执行表现中产生竞争假说。记录精确依赖、证据身份、不同预测和最小判别。历史方法、审阅和原生视频结论保留原始版本。
 
-**当前执行状态**：用户已恢复离线I/F/C持续推进，最多同时四张空卡；[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)登记每个冻结范围及实际状态。原暂停和已完成模型范围作为历史记录保留；实时/流式模型实验仍暂停。
+**当前执行状态**：I/F/C科学机制与独立评议并行，实际CPU/GPU/模型范围按[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)逐次冻结；按[动态GPU资源政策](../../../agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)核实每项实际可调用设备并使用有效最大并行资源，不预设统一两卡/四卡上限。原暂停、失败和已完成范围保留其历史身份；实时/流式模型实验仍独立暂缓。
 
 **本轮发现**：[共享排列联合支持与精确投影强对照](../../../20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)完成604有限排列及[独立推导](independent-shared-permutation-functional-bound-review-20261027.md)；[原M Q2直接/补集分解](../../../20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)及[W2形状控制](../../../20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)完成保存操作数研究和[独立复核](independent-q2-direct-collateral-results-audit-20261027.md)。这些分别提供ALG与局部NATIVE-OBS，视频功能和部署优势保留OPEN。
 
