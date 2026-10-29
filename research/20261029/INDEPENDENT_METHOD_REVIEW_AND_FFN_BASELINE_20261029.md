@@ -1,5 +1,18 @@
 # FFNDS · 独立路线评议、实验前复审与免大训练 FFN 正向基线（2026-10-29）
 
+## 最新P0与作者实际源码预审（2026-10-29，非原生复现）
+
+**用户要求：Chipmunk 与 TEAL 同为最高P0。** 分别执行 [Chipmunk #57](https://github.com/Qesire/FFNDS/issues/57) 和 [TEAL #58](https://github.com/Qesire/FFNDS/issues/58)。S2尚未启动的新原生因果实验降P1；历史实验真实收据保留。每次新研究实验均须真实不同Agent重新审本次实验、主Agent修订、reviewer recheck，再冻结ACTIVE和物理运行。当前没有新GPU/模型结果，没有独立review批准。
+
+**本次直接核对的 upstream 源码发现了两个必须先纠正的实验陷阱。**
+
+1. Chipmunk：阅读源码身份为 sandyresearch/chipmunk@177fdefc4803e621fd8a02aad491812e9d1ecc94。其 Wan2.1 示例 chipmunk-config.yml 默认 MLP稀疏关闭、Attention稀疏与step caching开启。并且 examples/wan/wan/modules/model.py 的 WanAttentionBlock.ffn 实际为 nn.Sequential(Linear,GELU(tanh),Linear)，正常forward直接执行 self.ffn，未接入 src/chipmunk/modules/mlp.py 的 SparseDiffMlp。**仅切换 MLP config 布尔值并不能忠实复现 Wan MLP-only**。必须把作者系统原样复现与额外的 MLP wrapper/核接入版本分开实验和署名。见 [原版Wan模型源码](https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/examples/wan/wan/modules/model.py)、[作者MLP sparse实现](https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/src/chipmunk/modules/mlp.py)、[真实配置](https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/examples/wan/chipmunk-config.yml)。
+2. TEAL：阅读源码身份为 FasterDecoding/TEAL@fb7373c93ac3594817c9ee64d4e08b47430a1822。其 [SparseGEMV.forward](https://github.com/FasterDecoding/TEAL/blob/fb7373c93ac3594817c9ee64d4e08b47430a1822/kernels/sparse_gemv.py) 仅在 hidden_states.shape[1] == 1 时使用 splitk_sparse_gemv，其余序列长度走 torch.matmul 的 dense fallback。Wan视频很多token、大M，不会自动获得真实 sparse-GEMM 收益；作者README也确认FP16推理核支持限制。原代码的成功复现必须与Wan BF16/GELU/big-M的稀疏物理核开发分开；即使高mask稀疏、视频好看，仍需 kernel call counters / 真实 operator+system wall 证明省算。
+
+以上是**协调者本人静态原码审查**（SOURCE_REVIEW），不是独立Agent评议票、模型/视频运行结果或方法已经成功的声明。独立 reviewer 应把「Chipmunk Wan MLP未挂钩」和「TEAL大M回退dense」作为实验设计否决型反例检查；再启动真实新scope。
+
+
+
 **身份：独立研究评议 + 新实验设计请求；不是已实施的基线、Agent 同意票、GPU 授权或实验结果。** 审计时 main HEAD = \`0fc3671ce47c4c425f456d754161dbb0c1a2b8d3\`。依据 AutoResearcher 的 CR / DF / PRD / MEAR / WARD、FFNDS 的 experiment-evidence skill、真实原始 BF16 160-site 全深度状态与视频质量收据；并于本日检索原论文及公开作者仓库。禁止把上述设计直接当作已复现的方法。
 
 ## 一、研究现状及独立审查判断
