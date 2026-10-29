@@ -45,6 +45,8 @@ class TemporalStatisticsTests(unittest.TestCase):
         self.assertAlmostEqual(result["relative_error"],4,places=12)
         self.assertAlmostEqual(result["signed_gain"],-1,places=12)
         self.assertAlmostEqual(result["complex_coherence_real"],-1,places=12)
+        self.assertAlmostEqual(abs(result["phase_angle_radians"]),np.pi,places=12)
+        self.assertAlmostEqual(result["complex_coherence_imag"],0,places=12)
         identical=s.compare(x,x,np)["bands"]["mid_3_6"]
         self.assertAlmostEqual(identical["relative_error"],0)
         self.assertAlmostEqual(identical["signed_gain"],1)
