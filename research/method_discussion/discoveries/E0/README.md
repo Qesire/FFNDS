@@ -6,7 +6,7 @@
 
 **研究方法**：[领域Skill](../../../../.agents/skills/ffnds-paper-discovery/SKILL.md)与[WARD](../../../agent_protocol/DEEP_WEB_RESEARCH.md)促进从反直觉数据、新数学、实际源码/原论文及执行表现中产生竞争假说。记录精确依赖、证据身份、不同预测和最小判别。历史方法、审阅和原生视频结论保留原始版本。
 
-**当前执行状态**：用户已恢复离线I/F/C持续推进，最多同时四张空卡；[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)登记每个冻结范围及实际状态。原暂停和已完成模型范围作为历史记录保留；实时/流式模型实验仍暂停。
+**当前执行状态**：I/F/C科学机制与独立评议并行，实际CPU/GPU/模型范围按[ACTIVE_RESEARCH.json](../../../ACTIVE_RESEARCH.json)逐次冻结；按[动态GPU资源政策](../../../agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)核实每项实际可调用设备并使用有效最大并行资源，不预设统一两卡/四卡上限。原暂停、失败和已完成范围保留其历史身份；实时/流式模型实验仍独立暂缓。
 
 **本轮发现**：[共享排列联合支持与精确投影强对照](../../../20261027/E0_SHARED_PERMUTATION_FUNCTIONAL_RESULTS.md)完成604有限排列及[独立推导](independent-shared-permutation-functional-bound-review-20261027.md)；[原M Q2直接/补集分解](../../../20261027/E0_Q2_DIRECT_COLLATERAL_FULL_SHAPE_RESULTS.md)及[W2形状控制](../../../20261027/E0_W2_SHAPE_CONTROL_RESULTS.md)完成保存操作数研究和[独立复核](independent-q2-direct-collateral-results-audit-20261027.md)。这些分别提供ALG与局部NATIVE-OBS，视频功能和部署优势保留OPEN。
 
@@ -15,6 +15,8 @@
 **2026-10-28 QCFB 跨路线研究前沿（ALG/SRC/LIT+OPEN）**：[量化侧信道×有符号整64函数束×真实执行](../../../20261028/INTEGRATED_QMETA_FUNCTION_EXECUTION_FRONTIER_20261028.md)，对应[typed先验—机制—判别表](../../../agent_protocol/QUANT_FUNCTION_EXECUTION_FRONTIER_CROSSWALK_20261028.json)与[图谱claim](../../graph_annotations/E0/E0_GRAPH_QCFB_SIGNED_BUNDLE_AND_STAGED_Q2_20261028.json)。核心判别：原R12完整HiF4 64组交换律允许早期合法省算；真实负Gram联合交互是否跨来源/物理rowtile存在；能否由付费Q1元信息提前预测而不是从teacher后验读取。仍为研究发现，不视为其它Agent已支持的正式方案；原M-B B0/B1执行优先级不变。
 
 **交锋更新（2026-10-28，修订后独立R2）**：[新方法碰撞/动态尾部/数值margin/跨步transported Gram评议](../../../independent_reviews/QCFB_20261028/SECOND_ROUND_INDEPENDENT_RESPONSE_AND_NEW_FRONTIER_20261028.md)。正面接受另一Agent对PSD、可测性与Q-STAGE的修正，增加5项更可检验的I/F/C接口。仍属ALG/OPEN，不是稀疏模型已实测或审阅投票。
+
+**2026-10-29 MTC/TDIC新方向**：[运动对应与FFN时间创新误差机制](../../../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)，联结[OPEN计算图claim](../../graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)和[开放数据采集需求](../../../agent_protocol/ACQUISITION_QUEUE_20261029.json)。优先区分固定视频latent时间坐标的DC/AC误差、真正运动配对、在线合法锚点以及student因果放大。已有同xy实测时间优势、60条BF16完整视频质量退化是OBS；motion compensation和新方法加速是OPEN。新研究不限旧S2种子，不宣称已通过同行评议。
 
 ## 探索的三种互补科学入口
 
