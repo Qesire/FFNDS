@@ -1,0 +1,7 @@
+# Exact resident Dense32 ABBA recheck
+
+APPROVE for registration only: the two V2 protocols and six private job identities in the accompanying four machine receipts. Independent reviewer `/root/asset_readiness_terra` is distinct from owner author `/root/sm120_full_quality_build_terra` and core/runtime author `/root/teal_full_llm_calibration_build_terra`.
+
+The two initial counterexamples are closed in the exact source: independent VERIFY checks all 55 unique arm/kind rows against the corresponding old-reference and new-phase bytes/SHA, and the state hash accountant permits an FP32-sized individual state while retaining its total bound. File hash and byte-comparison work are prepaid and failures retain unknown in-flight work. I verified both frozen protocol fingerprints and all 1,071 source SHA bindings per part, and the six job protocol bindings. All 38 relevant CPU synthetic tests passed, including the former skipped tests. The fixed warmup and ABBA sequence, stream bridge/current bias, same-cache controls, exact source lineage and single-pass 57-artifact verifier were rechecked. Metadata cache checkpoints do not by themselves certify tensor contents.
+
+This approval is not an execution authorization or a performance, quality, or memory result. Each actual CPU preflight, one-GPU producer and separately registered verifier must exit and close under the resource limits. Timings include fixed phase order and observers; logical copy bytes do not measure physical traffic. No model, GPU or actual tensor was used in this review.

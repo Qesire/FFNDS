@@ -53,3 +53,5 @@
 **2026-10-30 C线 OPEN**：[P64 的局部省算与 offload 关键路径](discoveries/E0/p64-critical-path-cache-cost-20261030.md)由 `/root/sm120_full_quality_build_terra` 基于已闭合两来源结果和真实源码独立推导；分辨行动开销与 load/compute join 的条件化竞争机制。作者版本 SHA `69f049412ae5308e3200b6c0d78f0db57e32c8a975d8d82ecbdcdd7c32138013` 的[独立评议](discoveries/E0/p64-critical-path-cache-cost-independent-review-20261030.md)支持有限 SRC/ALG，两个机制主导地位仍为 OPEN；不构成新实验授权。
 
 **2026-10-30 C线 OPEN**：[SharQ native-FP4 常驻与 BF16 FFN 预取消除](discoveries/E0/sharq-resident-fp4-prefetch-elision-20261030.md)由 `/root/teal_full_llm_calibration_build_terra` 基于闭合全160元数据与真实运行源码提出；`/root/asset_readiness_terra` 的[独立评议](discoveries/E0/sharq-resident-fp4-prefetch-elision-independent-review-20261030.md)支持有限 SRC/ALG，并给出重叠、buffer身份与bias反例；速度、显存和视频结果保持 OPEN，不授权新实验。
+
+**2026-10-30 F/C 线 OPEN**：[高阶段 P64 更新必要性与 Y-only 强对照](discoveries/E0/chipmunk-high-stage-action-necessity-20261030.md)，作者 `/root`，版本 SHA `575519bea713277aa27eaf7c8117b86b3059ca304173fad1a95bcc3a39b2bdd2`；[独立评议](discoveries/E0/chipmunk-high-stage-action-necessity-independent-review-20261030.md)支持有界 ALG 与判别问题，提出轨迹补偿、分数接近但局部行为不同的反例；不授权新实验。
