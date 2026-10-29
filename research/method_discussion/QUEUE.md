@@ -51,3 +51,5 @@
 **Whole-FFN开放候选与新的实际视觉审阅**：[符号偶函数组/共享二次坐标](discoveries/E0/s2-whole-ffn-even-group-and-quadratic-units-20261029.md)由独立理论Agent实际提出，root另提出保留完整K的成本细化、理论Agent独立核算；这是ALG/SRC/OPEN及原文竞争审阅，不是正式方法SUPPORT或原生通过。[新12 Dense全部24页视觉审阅](discoveries/E0/s2-new12-dense-all81-independent-visual-review-20261029.md)有逐页SHA和实际查看记录，区分后段人物入场、动物动作、相机与水面/云等背景变化，不代替完整视频播放人审。
 
 **2026-10-30 C线 OPEN**：[P64 的局部省算与 offload 关键路径](discoveries/E0/p64-critical-path-cache-cost-20261030.md)由 `/root/sm120_full_quality_build_terra` 基于已闭合两来源结果和真实源码独立推导；分辨行动开销与 load/compute join 的条件化竞争机制。作者版本 SHA `69f049412ae5308e3200b6c0d78f0db57e32c8a975d8d82ecbdcdd7c32138013` 的[独立评议](discoveries/E0/p64-critical-path-cache-cost-independent-review-20261030.md)支持有限 SRC/ALG，两个机制主导地位仍为 OPEN；不构成新实验授权。
+
+**2026-10-30 C线 OPEN**：[SharQ native-FP4 常驻与 BF16 FFN 预取消除](discoveries/E0/sharq-resident-fp4-prefetch-elision-20261030.md)由 `/root/teal_full_llm_calibration_build_terra` 基于闭合全160元数据与真实运行源码提出；`/root/asset_readiness_terra` 的[独立评议](discoveries/E0/sharq-resident-fp4-prefetch-elision-independent-review-20261030.md)支持有限 SRC/ALG，并给出重叠、buffer身份与bias反例；速度、显存和视频结果保持 OPEN，不授权新实验。
