@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0",
+  "id": "E0-HIF4-HIERARCHY-01A16D3D-20261024",
+  "author": {
+    "agent_id": "codex-ffnds-method-01a16d3d",
+    "session_ref": "Codex 01a16d3d-579f-74d2-ae9d-e5ece9fb627a; user 重新根据仓库的原则整理，并重新开始探索。"
+  },
+  "source_revision": "ff6942763d8ce3e1823a4814905ad5ee61da7c31",
+  "autoresearcher_revision": "5bd7ec537ae63f2b6a6dd579f0e886aff58a177c",
+  "phase": "OPEN_DISCOVERY_SOURCE_MECHANISM_NOT_OPERATOR_DESIGN",
+  "document": "research/method_discussion/analyses/20261024_E0_HIF4_HIERARCHY_01A16D3D.md",
+  "question": "Does native HiF4 hierarchical rounding create layout-dependent changes that survive actual W2/gated output geometry, or are they mostly local numerical effects?",
+  "prior_work_reclassification": {
+    "preserve_immutable_proposals_and_reviews": true,
+    "withdraw_prior_work_priority": "The earlier preference for advancing FP4 code orbit before cell certificates is not the current exploration order.",
+    "retain_scoped_claims": "Fixed-state orbit/cell identities and parity coordinate/error-scope corrections remain bounded mathematical opinions.",
+    "current_entrypoint": "E0 information-computation map and competing mechanism explanations",
+    "prior_prs": [
+      "https://github.com/Qesire/FFNDS/pull/9",
+      "https://github.com/Qesire/FFNDS/pull/12"
+    ]
+  },
+  "source_findings": [
+    {
+      "id": "STATE_LIFETIME",
+      "level": "SOURCE_VERIFIED",
+      "claim": "Dynamic lv0/lv1/lv2 state remains internal to the frozen HiF4 QDQ kernel; the adapter returns a numeric tensor to BF16 GEMM. Static Smooth scales are different persistent fields."
+    },
+    {
+      "id": "NATIVE_PARAMETER",
+      "level": "SOURCE_VERIFIED",
+      "claim": "QType hifx4 has man_bits=3; QTensor passes N=man_bits-1=2 to hifx_quant CUDA."
+    },
+    {
+      "id": "LAYOUT_SYMMETRY",
+      "level": "SOURCE_DERIVED",
+      "claim": "Within-4 permutations preserve decoded quantization; moving an element across sibling 4 groups may change neighboring values despite unchanged 64-group value multiset, RMS, amax and top scale."
+    },
+    {
+      "id": "DIRECTIONAL_BRIDGE",
+      "level": "CONDITIONAL_REAL_ARITHMETIC",
+      "claim": "For the explicit witness, delta=(basis_2-basis_6)/4. With fixed decoded W2 B and alpha=1, output difference is (B_col2-B_col6)/4, then multiplied by gate. This is not a native GEMM bitwise or video claim."
+    }
+  ],
+  "hand_derived_witness": {
+    "indexing": "one_based",
+    "input_first_nine": [
+      "3",
+      "5/8",
+      "0",
+      "0",
+      "1",
+      "5/8",
+      "0",
+      "0",
+      "7"
+    ],
+    "remaining_coordinates": "10 through 64 are zero",
+    "permutation": "swap coordinates 1 and 5; inverse-map decoded output",
+    "derived_top_scale": "1",
+    "derived_reciprocal": "1",
+    "first_eight_shared_branch": "1",
+    "original_first_two_four_group_e": [
+      "2",
+      "1"
+    ],
+    "permuted_first_two_four_group_e": [
+      "1",
+      "2"
+    ],
+    "decoded_changes": {
+      "2": "+1/4",
+      "6": "-1/4"
+    },
+    "delta_squared_norm": "1/8",
+    "proof_method": "Manual binary-rational reasoning over the frozen scalar CUDA source; no numerical script, enumeration, model or kernel execution.",
+    "real_wan_reachability": "UNMEASURED"
+  },
+  "competing_explanations": [
+    {
+      "id": "A",
+      "claim": "The mechanism exists mathematically, but actual inputs seldom cross relevant subblock thresholds or are explained by fine local maxima.",
+      "observable": "Nonzero cross-4 delta prevalence at fixed full-group value multiset; not inferred from global RMS."
+    },
+    {
+      "id": "B",
+      "claim": "Nonzero quantization differences occur but effective W2/gate geometry cancels them.",
+      "observable": "Nonzero delta with weak fixed B delta and gated B delta."
+    },
+    {
+      "id": "C",
+      "claim": "Hierarchical differences systematically align with effective W2 directions.",
+      "observable": "Different directional responses at comparable delta norm and magnitude, linked to actual column geometry; downstream significance remains separate."
+    }
+  ],
+  "asset_gap": {
+    "historical_op2_payload_count": 3840,
+    "historical_schema": [
+      "V1",
+      "BaseY",
+      "TeacherY",
+      "StudentY",
+      "b2",
+      "gate"
+    ],
+    "raw_tensor_bytes_read_this_round": 0,
+    "missing_for_question": [
+      "paired post-Smooth2 pre-Q2 u and actual post-Q2 a",
+      "matching decoded W2 columns from verified weights",
+      "original row/step/expert/block/grid and Smooth/gain/source bindings"
+    ],
+    "warning": "The presence of values during a capture function does not imply they were serialized. V1 is post-Q1 and is not a Q2 metadata record."
+  },
+  "single_next_observation": {
+    "name": "Locate a real paired Q2 complete-64-group slice and its fixed W2/gate direction response.",
+    "minimum_scope": "One source, one native step/expert/block, one row, one complete ordered 64 group: mechanism instance only.",
+    "missing_data_request_only": true,
+    "new_collection_or_execution": false,
+    "no_operator_selected": true
+  },
+  "evidence": [
+    {
+      "path": "research/20261024/OPEN_DISCOVERY_DIRECTION_RESET_20261024.md",
+      "blob": "2b58868c816ef442969389d9ffeb843b16317773"
+    },
+    {
+      "path": "research/20261024/FIRST_TASK_E0_QUANTIZATION_FFN_DISCOVERY_20261024.md",
+      "blob": "cf7e68936b407df86b3122673dd5e838adc41bd4"
+    },
+    {
+      "path": "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+      "blob": "031b7fb0065517ca9c8532f4d73f250735a8eb5d"
+    },
+    {
+      "path": "research/20261022/R12_HiF4_group_separability.json",
+      "blob": "2d6c74b6754c72e3c4724c73134f02468c7a2e31"
+    },
+    {
+      "path": "research/20261023/C0_coupling_offline_results.json",
+      "blob": "d24d695c56fbdc58050c152073637d3b3e63fa5a"
+    },
+    {
+      "path": "tools/native_teacher_capture.py",
+      "blob": "129b7d0eca997aa01df83eae776f6319d92bb5c4"
+    }
+  ],
+  "new_method_proposal": false,
+  "peer_review_vote": false,
+  "experimental_actions": {
+    "cpu_demo": false,
+    "algorithm_implementation": false,
+    "gpu_calls": 0,
+    "model_calls": 0,
+    "scheduled_jobs": 0
+  },
+  "shared_registry_changes": [],
+  "claim_scope": "SOURCE_AND_MANUAL_MATHEMATICS_WITH_ARCHIVED_EVIDENCE_ONLY; NO_NATIVE_PREVALENCE_PERFORMANCE_QUALITY_OR_NOVELTY_CLAIM"
+}
