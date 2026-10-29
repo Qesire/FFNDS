@@ -1,0 +1,7 @@
+# Independent review of actual factorial quality report
+
+Reviewer: `/root/asset_readiness_terra`, distinct from report author `/root/sm120_full_quality_build_terra`. The reviewed [machine-readable report](../../20261030/CHIPMUNK_P64_FACTORIAL_QUALITY_RESULTS_20261030.json) has SHA-256 `066abf50440f7049918588542084650152b1a733502ab043c922428692643ce7`; the accompanying Markdown has SHA-256 `84c7fb774148dd3a00de8d0f9005df86cf281ce625dd8874407005ae5666e640`.
+
+**PASS, read-only metadata audit.** Checked all six scope RUN/EXIT and their independent VERIFY RUN/EXIT bindings and actual zero returns, plus the four applicable CPU preflight RUN/EXIT bindings. Compared each source's four-arm eight-axis values to the actual quality RUN, recomputed source-equal contrasts and B−H−L+N interaction, and checked prior same-video repeated scores. Compared all eight continuous RAFT observations to their RUNs, recomputed 40-pair means and the five 8-pair windows per video, and checked repeated RAFT comparisons. Operation counts and completed SHA-read ledgers match the reports. The native-result and 16-page AI visual-review report bindings were verified.
+
+This review read only small JSON receipts and report metadata; it did not read video or tensor data, run models, decode, or score. It verifies reported provenance and arithmetic, not population generalization, continuous playback, human review, or quality acceptance. The two development image sources and single seed remain the independent-unit boundary.
