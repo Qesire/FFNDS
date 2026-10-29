@@ -88,6 +88,22 @@
       "sha256": "d464b766632e34d2b63a983df74a8951d947d807c8299bd5fb335945825ae18b",
       "executed": false,
       "reading_scope": "INSTALLED_TRITON_3_0_0_SOURCE_BYTE_COPY_DO_BENCH_READ_NOT_CALLED_VERBATIM"
+    },
+    {
+      "url": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/csrc/indexed_io/topk_indices.cu",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_topk_indices_177fdef.cu",
+      "bytes": 7646,
+      "sha256": "05407a642dcb5f201b605547d53b91effb15bb9b38fce3344207c8f4204ae251",
+      "executed": false,
+      "reading_scope": "Full topk_indices CUDA source static review: 1024-sample quantile, random acceptance, input-bit-dependent seed, count and padding; no execution."
+    },
+    {
+      "url": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/csrc/indexed_io/copy_indices.cu",
+      "HF_relative": "ffnds-research-sources/p0_chipmunk_teal_20261029/chipmunk_copy_indices_177fdef.cu",
+      "bytes": 5791,
+      "sha256": "7b3725a28082dfff98f18ad70e29537ad68bf6f93265f518328798386542128f",
+      "executed": false,
+      "reading_scope": "Kernel and host interface static review; selected previous mean cache update; no execution."
     }
   ],
   "papers": [
@@ -95,14 +111,25 @@
       "id": "L09",
       "paper": "https://arxiv.org/abs/2506.03275v1",
       "commit": "177fdefc4803e621fd8a02aad491812e9d1ecc94",
-      "reading_depth": "PRIMARY_ABSTRACT_SEC_3_3_2_TABLE1_APPENDIX_D1_AND_AUTHOR_MLP_FLUX_WAN_COUNTER_SETUP_SOURCE",
+      "reading_depth": "PRIMARY_ABSTRACT_SEC_3_3_2_TABLE1_APPENDIX_D1_AND_AUTHOR_MLP_FLUX_WAN_COUNTER_SETUP_SOURCE_AND_TOPK_COPY_CUDA_SOURCE",
       "findings": [
         "Paper D.1 reports attention-only sparsity for Wan2.1 and HunyuanVideo; 2.67x includes STA and step cache",
         "Author Wan FFN is dense Sequential, no SparseDiffMlp route",
         "FLUX calls SparseDiffMlp; disabled-attention and terminal reset counter hazards",
         "setup.py only sm_90a Hopper author build"
       ],
-      "self_audit": "research/experiment_reviews/B1_CHIPMUNK_FLUX_MLP_ONLY_AUTHOR_MECHANISM_20261029/v1_author.md"
+      "self_audit": "research/experiment_reviews/B1_CHIPMUNK_FLUX_MLP_ONLY_AUTHOR_MECHANISM_20261029/v1_author.md",
+      "local_controlled_port_result": "research/20261029/CHIPMUNK_A100_SELECTED_DELTA_PROBE_RESULTS_20261029.json",
+      "local_controlled_port_identity": "A100 BF16 128 selected non-raster rows, fixed selection, paired teacher states; no author proxy or Hopper, full-M, end-to-end or video claim; EXIT0 and closed.",
+      "selector_source_review_20261029": {
+        "topk_permalink": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/csrc/indexed_io/topk_indices.cu#L94-L139",
+        "copy_permalink": "https://github.com/sandyresearch/chipmunk/blob/177fdefc4803e621fd8a02aad491812e9d1ecc94/csrc/indexed_io/copy_indices.cu#L42-L80",
+        "sampled_threshold": "First 1024 scores determine quantile cutoff; >= cutoff or random 0.05, not exact full-H top 30%; ties and alignment affect actual K.",
+        "rng_and_order": "Seed incorporates group/thread and first score bits; atomic write ordering; not a standard explicit seed.",
+        "padding_static_risk": "Each eligible thread can write beyond required padding without a remainder bound, potentially beyond array capacity; SRC hypothesis, not observed OOB.",
+        "wan_transfer": "Safe A100 port must distinguish repairs/alternate RNG and pay selection, no author Hopper equivalence.",
+        "design": "research/method_discussion/discoveries/E0/p0-chipmunk-paid-proxy-equal-count-diagnostic-20261029.md"
+      }
     },
     {
       "id": "C20",
