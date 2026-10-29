@@ -5,6 +5,9 @@ description: Construct and audit FFNDS source sampling, calibration, held-out da
 
 # FFNDS · Sampling, calibration, evaluation and data evidence
 
+**2026-10-29 每个真实实验执行前重审本次实验的强制约束**：先加载 [EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW](../../../research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)。主Agent提交完整实验自审与两个相反预测；不同真实上下文的独立 reviewer 检查原论文/作者源码一致性、真实 Wan 计算图/两个 expert、source-cluster、Dense/neutral/强baseline、真实W1/W2物理省算、读入/路由/缓存/原生系统成本、输入SHA与GPU范围；给出反例和处理意见；主Agent修订，reviewer recheck，随后才能向 ACTIVE 登记新有限scope，launch前重查版本指纹。既有论文方法通过评议不等于当前实验通过；未审结保持 REVIEW_REQUESTED，阅读/代数/静态单测继续，无新 CPU/GPU 研究实验。尤其按[Chipmunk/TEAL训练自由FFN新基线](../../../research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)分离论文作者条件与Wan迁移、FFN-only与联合attention/step-cache、preW1与postGELU；所有状态先标 DESIGN，不能报告新视频/速度。
+
+
 Activate for any FFNDS question involving calibration, sample rows, source cohorts, model states, video generation/evaluation, generalization, official scores, or the reliability of an observed effect. The live [I/F/C route portfolio](../../../research/20261027/PARALLEL_MECHANISM_EVIDENCE_PORTFOLIO.md) distinguishes local restoration, motion, operator speed and deployment claims; choose estimands separately for each. Start with [data protocol](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md) and the applicable original source/config.
 
 **开放采集的默认动作（2026-10-29）**：[问题驱动采集协议](../../../research/agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)与[采集机器队列](../../../research/agent_protocol/ACQUISITION_QUEUE_20261029.json)。先问科学问题需要哪些真正独立source、视频时间/空间配对、teacher/student状态和native前后数值边界。历史source不够或producer没有该变量时，主动建立新cohort并实现native capture，依独立来源分类、质量/条件分层和source-held反例逐批扩张。6/12/24/48/20等是历史或可比较的实验设计点，而非研究采集上限；新增来源与RUN必须区分新发现、已暴露开发、冻结确认和官方基准。
