@@ -1,0 +1,26 @@
+# 作者回应独立初审
+
+接受独立初审针对确切范围的要求；父亲 scope 的实际 GPU 及独立 VERIFY 均 EXIT0。分别登记视频八轴、stride-2 RAFT、81帧视觉及各自独立验证，保留八轴 dynamic-degree 与独立 RAFT 两次实际计算和全来源等权的暴露开发单seed边界。小回执及父身份 child 内部嵌套 SHA 的调用和字节为 UNKNOWN；worker 顶层额外输出限额采用软采样，并非硬实时配额。先前两个非finite的失败父范围和 SAFE 证据继续保留。
+
+目标机 profile 按字节绑定；视觉 Python 强制 -I -B，已执行隔离子进程导入和非隔离拒绝合成测试；质量/RAFT 固定 -I -S -B。每个 GPU 分配对应私有 UUID、flock 和实际 worker；启动前逐卡复核空闲，全节点合计最多4 GPU，CPU/GPU/VERIFY 分阶段实际 EXIT0 后继续，不自动重试。
+
+## 协议与私有任务 SHA256
+
+- quality part0: protocol `04f79f81cc810607df538f32ec356076ac1daf268e8d9c8fe92ccb15b0d2417b`, fingerprint `d829f431f2c22eaadfc138357c695711ad702cd37bcd8206da053270ea15be11`; CPU_JOB `8aa5ce2db9743276868fe04a32585d438303529b226dfb7f5dceed46916fe32f`, GPU_JOB `ab5eb3ec30cd5a47b77bc07704110b82465c370497dcd3a398df8cdef073d3f3`, VERIFY_JOB `c33832d3d16ffcdd65be5390fa5dc4a8fcddaf672a4cf15d679ef03169c10ff8`
+- quality part1: protocol `a3e899b1f94468838513a7524f88a6c3a28c67a7ffcf1899ee9ea72e20d4db89`, fingerprint `85cb4da7cfb20d65236207aae58d75b554ae48cba193e428122d3a158d015e60`; CPU_JOB `7cb92b00f79dd13663de39352775c1dcfea8deaee0ce2c359416056efbf7e498`, GPU_JOB `ffcec7d5b4bdd5b4e4c7427fd8dfd0c136e2562b0d5a54e39407c1918f676564`, VERIFY_JOB `330a2e797de72c28599048f4175395b5148a633b863036cc5e7f68b8121e812b`
+- raft part0: protocol `aefc96cca3e1f06a0aaf11dd8e4c87dcb018efc5ee67ea6a5e3d9ea68ca3d01e`, fingerprint `65842f89c86d5e3d705fe3432e5c517fb4b8271af2846a56b24ad13fc99f7618`; CPU_JOB `2f112d925157458168ce45b9725066c3ceee770d750ff4a361c14880d8b8c062`, GPU_JOB `2c7cbe72cc816f9774e637693e87f8c286454558520e3e3b6b3b4490f8660da0`, VERIFY_JOB `a4e344e5e7c6467002956878aceb1a2f60c8afb90e2db6cda6d8d994e5293d4c`
+- raft part1: protocol `a6e3918f96e1575aea24db832e2a4b84aecb31eb29616a20be9a43e03fc602ce`, fingerprint `154c5e5d3d7a032fdc20be51ef8e523e2b145de0c162d56febd4c98d9517b692`; CPU_JOB `d37547611aba295ea464a2a9339e916b8a7638749baaa9759119880e4898bc89`, GPU_JOB `3fa0f31c23d31eec776690e1aa5feb31cd2851b83cc5fff8e573c3a9f8ecafd8`, VERIFY_JOB `925b545364239b115007de18e4edea8f398aa00f847ba445ecd610799f91f78f`
+- visual part0: protocol `84e6863d84d79dbe88e6476b1cecd5fa44fc2c1c1ac88f51dede2200ae159f85`, fingerprint `2f800ccb9237d1db1abf480c8eeb39cabafb18104ebe657a4f463e558eb96351`; RUN_JOB `65c80d18bf08ab6b7f002ab399cc63d2b7b9c360e490e6183bfcc94723e83577`, VERIFY_JOB `b666102f07310f6ddf26a34a04f2b84596e3e1e5ab58772dbc9cdb1953333115`
+- visual part1: protocol `47bfc5da6b0f3e96194c2d66e5a46b0346494695fba45970726976761d6dcfcb`, fingerprint `5367f18a27ae75a15fb8a180f2c95511572f01cf7fb5efade1726697ccb67641`; RUN_JOB `f660461df8e90cfec105c7ceed5ee74843475d2254888982e149a7bf764bf8b3`, VERIFY_JOB `2c0fd13a129fa8889b5cd711dca2b8bd6722fc557c707b0df6d544744318abe0`
+
+## 关键新增源码及测试 SHA256
+
+- `tools/e0_sharq_wan_quality_execution_v2.py`: `268d5d68624bc6abeff19ae014118fde9b9aa45c7bedbb65468d49fb32643c8d`
+- `tools/e0_sharq_wan_quality_jobs_v2.py`: `c56097bd6cef6e06bc250ee9a2751aded98b5f55586954acd12575fa62460e0e`
+- `tools/e0_sharq_wan_quality_lineage.py`: `4cc8a0a4699ad32c76a80c32249e5e71fdf3b50c0c95b0cf4acdfb49b134299b`
+- `tools/e0_sharq_wan_metric_adapter.py`: `9985c54b9b33b5529ce0f9a4b21134f660fe15840f4b64e7ffde6abb8ad3c09b`
+- `tools/e0_sharq_wan_visual_cpu.py`: `9d40ac95f77096ca945a70b797891dbeb3eb5e684c4d9f53be209ac79745eca7`
+- `tests/test_e0_sharq_wan_quality_execution_v2.py`: `83a75fb665170e1361ffb40c249b8fbae4765752f9a4095fa92fc156299c5c9c`
+- `tests/test_e0_sharq_wan_quality_jobs_v2.py`: `5d3dba1f96e4de21110098f43c884235607793d871aca07e730aa90da3903d70`
+- `tests/test_e0_sharq_wan_quality_lineage.py`: `e9eadc1e40cb9f4d27682acd722ffef6585eba4aef5906dadcab63528a77e528`
+- `tests/test_e0_sharq_wan_metric_adapter.py`: `b1007c65c2e3851d09c5c90afab0aa25d22299e0f1b20ef9197a11bd92accaf4`
