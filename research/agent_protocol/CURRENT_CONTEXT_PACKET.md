@@ -26,7 +26,7 @@
 - [HiF4 UB1 20来源视频与四步状态](../20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)：真实free video中运动幅值均值比0.1672、18/20下降，成像分数可以变好而动作退化；20/20四步signed误差累计。其numeric family与BF16不同，**不能用作BF16候选的Dense对照**。
 - [真实PRO6000 NVFP4 FFN有限实验](../20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.md)已经执行；这建立硬件算子可行性证据，而不是NVFP4整个模型的生成质量或加速。静态权重与在线激活码及scale、producer、决策时点按[合同](WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)区分；旧HiF4 S1P2单码**含符号位**，fake-QDQ输出带符号BF16而非原生packed。
 
-**当前会话硬件约束**：用户明确缩窄为最多同时两张空闲GPU；本会话以该约束优先于仓库通用动态政策。
+**当前资源原则**：依照实际可申请、可调用且对当前作业有效的最大GPU资源调度，不预设全局两卡或四卡限制；历史scope中的session_max_GPUs是其冻结执行事实，不是本轮研究的约束。新scope依照ACTIVE登记实际设备、作业预算与真实可用卡数，不能凭保存文档假定某张卡当前空闲。
 
 ## 实际研究动作、证明与权限
 
