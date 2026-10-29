@@ -27,6 +27,8 @@
 
 **S2现行证据标准**：[时间统计结构T1–T6与补采清单](../20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。MTC/TDIC仅作为S2的条件代数/论文线索，已完成的十图完整τ和r960同h重放算作S2机制事实；新增时间相关、频率、相位、真实运动邻域为数据采集与统计要求，不按独立方法提案投票，独立Agent可以审查解释及必要源码。
 
+**2026-10-30 跨步耦合与行动单位的实际讨论（ALG/SRC/OPEN）**：[匹配 token 耦合反例](discoveries/E0/chipmunk-cross-step-coupling-alg-20261030.md)的交换构造由 root 提供，`/root/sm120_full_quality_build_terra` 独立核查并补充共同 mask 反例，`/root/teal_full_llm_calibration_build_terra` 提交[独立数学评议](discoveries/E0/chipmunk-cross-step-coupling-alg-20261030-independent-review.md)。一般 M 的 RMS 归一化与 W2 列方向已修订；状态保持 OPEN。边际分布相同仍可隐藏逐 token 跨步变化；full-RMS 按 Δh 能量排序，也可能被 gate×W2 方向反例击败。[四个真实 full-M 诊断](../20261030/CHIPMUNK_FULLM_CAUSAL_PROXY_RESULTS_20261030.md)是两来源嵌套配对，P64 改善不独自证明共同 mask 是剩余误差主因；[局部/随机组同预算判别设计](discoveries/E0/chipmunk-raster-local-oracle-discrimination-20261030.md)与[全160缓存可行性](discoveries/E0/chipmunk-all160-native-cache-feasibility-20261030.md)均为待执行设计，不能代替独立实验登记、速度或视频证据。本条记录实际提出者与评议，不登记正式方法 SUPPORT。
+
 ## 2. 旧结果/独立讨论的追溯入口
 
 历史评议材料保留原版本和实际作者，不将旧“下一步”提升为现行任务：
