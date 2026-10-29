@@ -43,3 +43,5 @@
 执行任务、GPU资源、视频采样和批准等都由[ACTIVE](../ACTIVE_RESEARCH.json)维护；本队列讨论的科学方向始终遵循[AutoResearcher](../../AGENTS.md)，保持可证伪且允许I/F/C开放扩展。
 
 **2026-10-28 QCFB三轮交锋**：[统一R1–R3原作者/独立评议索引](../independent_reviews/QCFB_20261028/README.md)。R1数学审阅→命题修订→R2独立审查→R3原作者回应已记录；R3区分动作字典覆盖损失、先决信息不足及学习误差，修正分箱信息下界与跨步注入坐标；**仍无正式SUPPORT票、QCFB native/VIDEO/SYS新结果或运行授权**。此讨论与[当日任务台账](../agent_protocol/CURRENT_TASK_LEDGER_20261028.json)的并行Q0资产核对对应，不挤占P0 M-B B0。
+
+**2026-10-29 S2实际独立评议追加**：真实子Agent交付[全160 L/P/I科学评议](discoveries/E0/s2-full160-lpi-independent-scientific-review-20261029.md)、[投影解释与消费者/逐site反例](discoveries/E0/s2-projected-prefix-interaction-independent-20261029.md)、[七源实际28页截图评议](discoveries/E0/s2-consecutive-seven-source-independent-screenshot-review-20261029.md)、[固定早/晚正常forward设计](discoveries/E0/s2-early-late-equal-w2-normal-forward-review-20261029.md)。作者、实现自审和独立科学讨论在各文件中区分；这些材料不构成正式方法SUPPORT或质量通过。全160重放、新12 Dense、截图的真实执行结果见当前导航。

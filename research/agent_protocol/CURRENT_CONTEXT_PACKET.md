@@ -17,7 +17,7 @@
 
 **S2时间统计及空间/学生新数据**：时间T1–T4 CPU已exit0，见[实际统计报告](../20261029/S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)。新的[52xy完整21τ×160位置三臂采集](../20261029/S2_SPATIAL52_DENSE_STUDENT_CAPTURE_RESULTS_20261029.md)也已双路exit0：2曝光诊断图、960包、60原生成状态逐字节中性；没有新视频decode。现在具备真实学生h/V1/Y/g/r/u，与旧Dense h重放分开。时间仍从属于S2统计维度，非第五方法。
 
-**最新用户P0执行任务（2026-10-29）**：[S2真实Dense/Student空间邻域及后缀误差定位](../20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)，以及[独立理论子Agent委派](S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。2026-10-29累计40条新视频的value10/dcac10虽局部AC fit改善，但全视频RAFT只到Dense0.451/0.439；时间T1–T4真实CPU统计/两来源ROI选点已EXIT0。下一阶段是**真实normal-forward全160site、full21τ中心/高流/低流ROI的Dense与自由student状态**，而非再拟合同目标。真实独立子Agent `/root/s2_theory_design_independent` 已在本地后续接手时dispatch并完成[独立推导及实现修正复核](../method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md)，不是事前pilot审签或方法SUPPORT。所有新GPU原生执行需要新ACTIVE protocol、真实RUN/EXIT、适用两卡会话约束。
+**当前P0已取得的实际结果**：[spatial52采集](../20261029/S2_SPATIAL52_DENSE_STUDENT_CAPTURE_RESULTS_20261029.md)之后，[同h四角全160 L/P/I重放](../20261029/S2_SPATIAL52_FULL160_LPI_REPLAY_RESULTS_20261029.md)已双路实际exit0，640条唯一记录、额外12条控制均闭合。gY中央AC的P²约为L²的4.7倍，但signed cross显示强抵消；[独立投影评议](../method_discussion/discoveries/E0/s2-projected-prefix-interaction-independent-20261029.md)指出I可反映滤除的状态差，真实u/rowLN及逐site有反例，不作因果占比。[12张新开发图Dense＋2条中性对照](../20261029/S2_NEW12_DENSE_BASELINE_RESULTS_20261029.md)实际exit0、20项历史状态byte-neutral；[七源28页真实连续截图](../20261029/S2_CONSECUTIVE_SCREENSHOT_VISUAL_RESULTS_20261029.md)已实际CPU exit0并有独立AI评议，明确区分拍翼/鳍肢动作、相机平移、背景变化和仍保留运动的反例。下一项为固定物理行动的正常学生forward与真实消费者/完整视频判别，先冻结代码、匹配对照与成本，不继续调整上轮AC目标权重。
 
 ## 原始计算对象与已用数据
 
@@ -28,14 +28,14 @@
 - [HiF4 UB1 20来源视频与四步状态](../20261029/UB1_20SOURCE_FULL_DEPTH_VIDEO_STATE_EVIDENCE_RECOMPUTATION_20261029.md)：真实free video中运动幅值均值比0.1672、18/20下降，成像分数可以变好而动作退化；20/20四步signed误差累计。其numeric family与BF16不同，**不能用作BF16候选的Dense对照**。
 - [真实PRO6000 NVFP4 FFN有限实验](../20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.md)已经执行；这建立硬件算子可行性证据，而不是NVFP4整个模型的生成质量或加速。静态权重与在线激活码及scale、producer、决策时点按[合同](WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)区分；旧HiF4 S1P2单码**含符号位**，fake-QDQ输出带符号BF16而非原生packed。
 
-**当前GPU执行约束**：遵循本会话及实际ACTIVE/RUN中两卡并发上限（已完成VIDEO20等范围写明 `session_max_GPUs=2`）；在有效两卡约束内按调度器实际可用资源优化，单个分片通常1卡。通用动态GPU原则只是规划默认值，不能覆盖冻结执行记录。变更约束须先明确新授权/新协议范围，原RUN/EXIT/hash保持不变。
+**当前GPU执行约束**：最新用户AGENTS对新范围采用动态实际空卡分配，无永久2/4卡全局限额；每次启动先冻结ACTIVE的有限范围及实际可用资源。旧VIDEO20和近期两路采集原2卡scope保持不变，原RUN/EXIT/hash不改写。
 
 ## 实际研究动作、证明与权限
 
-1. 从上面的资产中选一个**真实结构/矛盾**；读[原文98主＋10补充与G14落点](PAPER_METHOD_FOCUS_GRAPH.json)以及[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)对应工作方式。提出至少两种可被最小保存数据判别的机制，再决定算法与物理动作。
+1. 从上面的资产中选一个**真实结构/矛盾**；读[原文98主＋16补充与G14落点](PAPER_METHOD_FOCUS_GRAPH.json)以及[mechanism-research](../../.agents/skills/mechanism-research/SKILL.md)、[problem-reformulation](../../.agents/skills/problem-reformulation/SKILL.md)、[research-expansion](../../.agents/skills/research-expansion/SKILL.md)、[web-research-discovery](../../.agents/skills/web-research-discovery/SKILL.md)对应工作方式。提出至少两种可被最小保存数据判别的机制，再决定算法与物理动作。
 2. 写清source（独立统计单位）、step/expert/block/token、视频latent时间槽、观察时点和数值recipe。先用原始tensor/证明/已存RUN代替重复模型作业；新数据只采集能改变机制结论的缺口。
 3. 若进入部署方法试验，冻结真实4step×40site候选、≥20独立开发image clusters目标、适用的动作/语义/连续运动/背景/时序/感知指标、Dense配对与FFN/整机时间；新盲确认按独立source/seed协议另外冻结。参见[视频合同](../20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。
-4. 新CPU/GPU/model/video运行先写入[ACTIVE](../ACTIVE_RESEARCH.json)的source/配置/预算，遵循适用会话/冻结RUN的并发上限（实际VIDEO20为2卡），然后在边界内按[动态GPU政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际有效最大并行。其他新的执行范围若需不同并发须独立授权和冻结；无实际调度收据不假定有空闲卡。
+4. 新CPU/GPU/model/video运行先写入[ACTIVE](../ACTIVE_RESEARCH.json)的source/配置/预算，遵循适用会话/冻结RUN的并发上限（实际VIDEO20为2卡），然后在边界内按[动态GPU政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)使用实际有效最大并行。新有限范围依当前持续授权登记和冻结实际分配；无实际调度收据不假定有空闲卡。
 5. 使用[独立方法讨论队列](../method_discussion/QUEUE.md)登记**真实**不同Agent提出及评议的方法；历史B-H/B-F/A0与Affine54记录不改原身份。新论文/计算边按[图谱协作](GRAPH_AGENT_COLLABORATION.md)同步。
 
 **下一Agent交付**：按[资产先行统一队列](ASSET_FIRST_AGENT_HANDOFF_20261029.md)完成其中一个已注册的真实机制判别；输出正常计算图、至少两种竞争解释、source-held结果或确切缺失资产、在线合法动作与代价、能覆盖160位置的视频及系统桥梁。新结论以原生证据更新现行文件，不另造重复的“权威进度”。

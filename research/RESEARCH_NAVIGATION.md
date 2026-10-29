@@ -4,7 +4,7 @@
 
 **最重要的已实测观察**：原BF16 8不同历史source×全部160执行位置的原生操作数、shared80与step160 rank960同条件teacher-state来源留出；旧HiF4 2source×5Block显示时空冗余的层异质性与whole64物理闭包；旧UB1 20source×真实free video显示运动显著退化及有符号误差累计。新方法从结构、可得信息、物理动作出发并行研究；局部SSE/负交叉/末层head用于推导与诊断。原数据和[复算JSON](20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)分别保留资产身份。
 
-**实验GPU执行优先级**：实际ACTIVE/原生RUN已记录VIDEO20等两卡会话上限，执行该会话必须遵守 `session_max_GPUs=2`，通用动态GPU资源政策不得覆盖它；未来明确授权的新执行范围另行注册。
+**实验GPU执行优先级**：最新用户AGENTS要求新范围按动态资源政策使用实际可投入READY任务的空卡，不设永久2/4卡全局上限。每个新有限范围先按ACTIVE冻结分配；VIDEO20及近期两路采集的原 `session_max_GPUs=2` 保持各自历史/范围身份，不改旧协议。
 
 **实际数值后端**：原始BF16与HiF4 fake-QDQ是不同模型执行配方；已完成[PRO6000 native NVFP4真实FFN的有限原生对照](20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.md)，可用作后端/执行研究锚点，但没有因此获得NVFP4视频候选质量。权重离线静态、激活在线动态量化的producer/时点分别由[数值合同](agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json)核验；HiF4原4bit S1P2含符号。新源簇、新作业和实际GPU资源必须按ACTIVE每个范围冻结；资源遵循[动态政策与实际会话限制优先级](agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)，已记录的2卡并发实验按2卡执行，通用规划不覆盖冻结限制。
 
@@ -12,7 +12,7 @@
 
 **S2时间维度已取得真实统计与失败视频证据**：[T1–T4已实际exit0](20261029/S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)，去τ0后gY lag1≈0.048、r95≈16.96/19，固定xy创新宽谱。相邻差分cos约−1/2也可由正交序列产生，不能推断视频运动反向。[新10图两种同r960拟合](20261029/RAW_BF16_NEW10_TEMPORAL_REPRESENTATION_FIT_RESULTS_20261029.md)训练AC改善7.73%，但[20开发图40条新视频及八轴](20261029/RAW_BF16_TEMPORAL_VALUE_DCAC_VIDEO20_QUALITY_RESULTS_20261029.md)RAFT仅Dense的0.451/0.439，质量未通过；停止本目标权重微调，转实际空间与学生变量判别。时间是S2的统计维度，不是第五条并行方法。
 
-**当前实际推进**：[两来源spatial52×全21τ×全160位置×Dense/value10/dcac10真实采集已双路exit0](20261029/S2_SPATIAL52_DENSE_STUDENT_CAPTURE_RESULTS_20261029.md)：960包、约67.02GiB、60历史完整生成状态byte-neutral通过，无新decode。[真实独立理论子Agent已完成](method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md)，给出四组竞争预测、typed L/P/I及逐频相消修正。另登记原W2/两固定候选的同h_D/h_S四角读出：V1 CPU缺parent退出保留，V2启动修复双CPU已exit0；原生/结果阶段以ACTIVE及新RUN/EXIT为准。两个曝光极端图仅是诊断pilot，实际attention消费者、物体/遮挡运动对应、新独立图簇及正常后缀因果作用继续按需采集。
+**当前实际推进**：[spatial52采集](20261029/S2_SPATIAL52_DENSE_STUDENT_CAPTURE_RESULTS_20261029.md)之后，[同h四角全160 L/P/I重放](20261029/S2_SPATIAL52_FULL160_LPI_REPLAY_RESULTS_20261029.md)已双路实际exit0，640条唯一记录、额外12条控制均闭合。gY中央AC的P²约为L²的4.7倍，但signed cross显示强抵消；[独立投影评议](method_discussion/discoveries/E0/s2-projected-prefix-interaction-independent-20261029.md)指出I可反映滤除的状态差，真实u/rowLN及逐site有反例，不作因果占比。[12张新开发图Dense＋2条中性对照](20261029/S2_NEW12_DENSE_BASELINE_RESULTS_20261029.md)实际exit0、20项历史状态byte-neutral；[七源28页真实连续截图](20261029/S2_CONSECUTIVE_SCREENSHOT_VISUAL_RESULTS_20261029.md)已实际CPU exit0并有独立AI评议，明确区分拍翼/鳍肢动作、相机平移、背景变化和仍保留运动的反例。下一项为固定物理行动的正常学生forward与真实消费者/完整视频判别，先冻结代码、匹配对照与成本，不继续调整上轮AC目标权重。
 
 ## P0 · 当前最短阅读和行动路径
 
@@ -24,7 +24,7 @@
 | **4** | [视频质量/真实成本终端协议](20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md) + [source×method成本证据](20261029/VIDEO_FIRST_SOURCE_METHOD_COST_MATRIX_20261029.md) | 定义全4step×40layer、同后端多source video与物理FFN/System延迟比较 |
 | **5** | [ACTIVE研究范围](ACTIVE_RESEARCH.json) + [历史任务状态台账](agent_protocol/CURRENT_TASK_LEDGER_20261028.json) | 检查当前已有真实运行，实际GPU权限、资产身份、来源与登记范围；完成的RUN不重跑 |
 
-**当前最省成本的完整模型验证对象**：仓库已有BF16 shared80-r960和step160-r960因子，计划和同checkpoint BF16 Dense做全160位多来源自由视频对照；已完成[20来源60条全160位置视频与实际成本](20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.md)及[官方八轴/连续RAFT](20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.md)：shared/step运动幅度来源均值比约0.490/0.477，当前质量未通过，单次成本不作公平预热SYS结论。已补齐[S2全160稀疏时间配对OBS](20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)，[十张新开发图完整21τ×8xy采集及CPU几何](20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.md)和[固定因子同输入时间分量复算](20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.md)已实际完成：shared门后DC/AC误差0.0293/0.1842。当前新构造为同数据/同秩普通目标与时间平衡目标，尚未拟合。S1（共享/step特化）、S4（行动收益动态秩）、S2（时空函数单元）、S3（前置量化/整组）可并行做已有资产判别，并由实际证据调整优先级。相应论文与旧M-B/G14专题按P1–P3按需深读。
+**当前最省成本的完整模型验证对象**：仓库已有BF16 shared80-r960和step160-r960因子，计划和同checkpoint BF16 Dense做全160位多来源自由视频对照；已完成[20来源60条全160位置视频与实际成本](20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.md)及[官方八轴/连续RAFT](20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.md)：shared/step运动幅度来源均值比约0.490/0.477，当前质量未通过，单次成本不作公平预热SYS结论。已补齐[S2全160稀疏时间配对OBS](20261029/RAW_BF16_S2_TEMPORAL_PAIR_OBS_RESULTS_20261029.md)，[十张新开发图完整21τ×8xy采集及CPU几何](20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.md)和[固定因子同输入时间分量复算](20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.md)已实际完成：shared门后DC/AC误差0.0293/0.1842。同数据/同秩普通目标与时间平衡目标现已拟合并完成40条候选视频；AC局部改善未恢复运动，当前转空间、学生状态与正常后缀。S1（共享/step特化）、S4（行动收益动态秩）、S2（时空函数单元）、S3（前置量化/整组）可并行做已有资产判别，并由实际证据调整优先级。相应论文与旧M-B/G14专题按P1–P3按需深读。
 
 ## P1 · 研究方法必备：按问题选择阅读，不必全读
 
@@ -46,7 +46,7 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋13补充，共111项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋16补充，共114项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 

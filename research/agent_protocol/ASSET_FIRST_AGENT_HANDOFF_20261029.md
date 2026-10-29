@@ -6,7 +6,7 @@
 
 **本次用户指定的实际下一步（优先执行）**：[S2真实时空+Dense/Student状态采集与因果定位合同](../20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)；[必须由主Agent分出理论与实验设计子Agent](S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。先读取最新已完成ROI坐标producer（ord898/96、maxflow并非主体）及新40条失败视频的RUN/EXIT，独立子Agent同步推导局部W2失真、student prefix偏移、运动对应、gate/attention消费者的相反预测；主Agent负责校验坐标/真实state/两卡执行范围、实现及运行pilot。pilot为2个source×Dense/value10/dcac10×高flow5×5+中心5×5+低流负对照×21τ×160site；完成后扩跨来源统计和另行冻结的same-input反事实。无原生新RUN前不得报告已完成采集/推导。
 
-**实际接手后的推进**：[spatial52完整teacher/student采集已双路exit0](../20261029/S2_SPATIAL52_DENSE_STUDENT_CAPTURE_RESULTS_20261029.md)，960包/60旧状态byte-neutral；[真实独立理论及实现修正复核已交付](../method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md)。原pilot先于新委派指令到达而冻结，保留时间身份。当前另注册同h_D/h_S的原W2/两候选四角reader，V1 CPU输出parent失败0GPU/模型，V2双CPU实际exit0；新原生结果依ACTIVE。下一判别为L/P/I、signed cross、fullM数值bridge和ROI/τ0/逐频差异，随后依真实结果扩大独立source、物体/遮挡及attention/正常后缀变量，不重复本轮权重微调。
+**实际接手后的推进**：[spatial52采集](../20261029/S2_SPATIAL52_DENSE_STUDENT_CAPTURE_RESULTS_20261029.md)之后，[同h四角全160 L/P/I重放](../20261029/S2_SPATIAL52_FULL160_LPI_REPLAY_RESULTS_20261029.md)已双路实际exit0，640条唯一记录、额外12条控制均闭合。gY中央AC的P²约为L²的4.7倍，但signed cross显示强抵消；[独立投影评议](../method_discussion/discoveries/E0/s2-projected-prefix-interaction-independent-20261029.md)指出I可反映滤除的状态差，真实u/rowLN及逐site有反例，不作因果占比。[12张新开发图Dense＋2条中性对照](../20261029/S2_NEW12_DENSE_BASELINE_RESULTS_20261029.md)实际exit0、20项历史状态byte-neutral；[七源28页真实连续截图](../20261029/S2_CONSECUTIVE_SCREENSHOT_VISUAL_RESULTS_20261029.md)已实际CPU exit0并有独立AI评议，明确区分拍翼/鳍肢动作、相机平移、背景变化和仍保留运动的反例。下一项为固定物理行动的正常学生forward与真实消费者/完整视频判别，先冻结代码、匹配对照与成本，不继续调整上轮AC目标权重。
 
 ## 0. 协作起手式
 
@@ -56,7 +56,7 @@
 
 **发现与定义**：[MTC/TDIC科学方案](../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)以20来源完整BF16 r960视频的运动衰减和8来源same-xy稀疏时空距离为矛盾，提出**同一去噪step内部21个latent视频时间槽的DC/AC保留、真实运动对应、W2近似误差运输**三条区分性检验。与跨去噪step缓存严格不同，TokenFlow/FRESCO/OmniCache的特征匹配与缓存已属近先例，科研贡献必须体现在FFN函数误差和质量/成本的新增结果。
 
-**已执行的先验**：10新source×全21τ原生采集及同Dense h重放BF16 shared/step因子均已exit0；已获得gY/u的DC/AC误差、方向、step/layer及来源分层初步结果。完整8xy采集只可做固定xy/有限横邻控制；下一步需要真实spatial-neighborhood producer、遮挡/光流离线oracle及在线match成本。**不用提前假定补算**：先检查相同rank预算的AC加权函数；任何上一τ原W2误差锚点或运动warp都必须有实际计算、可用性、重排与存储价格。若局部AC没有明显失真，转学生prefix分布漂移与Attention下游而非继续假设已证明运动补偿。图claim为[PROPOSED](../method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)，新增时序统计/空间邻域数据需求并入[队列的AQ-S2-TIME-TUBELET](ACQUISITION_QUEUE_20261029.json)，现有E1/E2是真实完成的观测，[T1–T4统计已CPU exit0](../20261029/S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)，gY去τ0平均r95约16.96；T5/T6新增空间/学生变量仍待采集，不是已执行算法或独立Agent SUPPORT。
+**已执行的先验**：10新source×全21τ原生采集及同Dense h重放BF16 shared/step因子均已exit0；已获得gY/u的DC/AC误差、方向、step/layer及来源分层初步结果。完整8xy采集只可做固定xy/有限横邻控制；下一步需要真实spatial-neighborhood producer、遮挡/光流离线oracle及在线match成本。**不用提前假定补算**：先检查相同rank预算的AC加权函数；任何上一τ原W2误差锚点或运动warp都必须有实际计算、可用性、重排与存储价格。若局部AC没有明显失真，转学生prefix分布漂移与Attention下游而非继续假设已证明运动补偿。图claim为[PROPOSED](../method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)，新增时序统计/空间邻域数据需求并入[队列的AQ-S2-TIME-TUBELET](ACQUISITION_QUEUE_20261029.json)，现有E1/E2是真实完成的观测，[T1–T4统计已CPU exit0](../20261029/S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)，gY去τ0平均r95约16.96；T5空间/学生pilot已取得960包真实采集和全160四角重放，T6正常消费者/因果变量继续按需采集，不是已执行算法或独立Agent SUPPORT。
 
 ### E · S3-QFAR：量化可见信息与早期合法动作
 

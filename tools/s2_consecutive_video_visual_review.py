@@ -201,8 +201,8 @@ def run(args):
             report["sources"].append(details)
             save()
         report.update(status="COMPLETE_REAL_VIDEO_CONTACT_SHEETS_NOT_HUMAN_ACCEPTANCE",
-                      "wall_seconds":time.monotonic()-started,
-                      "next":"Human must inspect original RGB and ABS_DIFF sheets across all arms; score subject motion, background, camera translation, object geometry, flicker and temporal persistence; do not equate RGB deltas with motion.")
+                      wall_seconds=time.monotonic()-started,
+                      next="Human must inspect original RGB and ABS_DIFF sheets across all arms; score subject motion, background, camera translation, object geometry, flicker and temporal persistence; do not equate RGB deltas with motion.")
     except Exception as e:
         report.update(status="FAILED_NO_RETRY",error_type=type(e).__name__,error=str(e))
         raise

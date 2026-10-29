@@ -6,7 +6,7 @@
   "original_graph": "research/agent_protocol/GRAPH_AGENT_BINDINGS.json",
   "primary_index": "research/literature/20261026/PRIMARY_LITERATURE_INDEX.json",
   "existing_family_map": "research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json",
-  "supplemental_scope": "C01–C10 calibration sources; C11–C13 spatiotemporal paper/method sources, with actual per-source reading depth and author-code limits.",
+  "supplemental_scope": "C01–C10 calibration; C11–C13 spatiotemporal; C14–C16 propagation calibration and rank allocation, each with actual reading depth.",
   "graph_document": "docs/98_端到端计算图与证据注解_20261025.md",
   "focus_nodes": [
     {
@@ -2308,6 +2308,77 @@
       "source_ledger": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md",
       "author_code_url": null,
       "author_code_review_scope": "Author executable implementation not independently located or reviewed."
+    },
+    {
+      "group": "supplemental_propagation_calibration",
+      "source_ledger": "research/literature/20261029/S2_PROPAGATION_CALIBRATION_SOURCE_LEDGER_20261029.json",
+      "id": "C14",
+      "title": "PulseQuant: Propagation-Guided Subspace Correction for 4-Bit Video Diffusion Transformers",
+      "year": 2026,
+      "venue": "arXiv v1",
+      "url": "https://arxiv.org/html/2609.33384v1",
+      "model": "Wan bidirectional and AR video PTQ; author Wan2.2 release uses 40-step T2V CFG",
+      "observed_mechanism": "Offline isolated quantization pulses with dense continuation weight row-radius calibration and activation-adapted neighboring-code response correction",
+      "decision_time": "Paid offline full-model pulses, dense trajectory states and activation statistics before quantized export",
+      "physical_action": "Calibrate row radii and edit adjacent fixed-codebook indices; no online response branch",
+      "training": "post-training calibration, no base-model retraining",
+      "wan_specific_discriminator": "Measure same-direction Dense versus Student suffix propagation in actual four-step I2V; author 40-step CFG profiles and FP4 code actions do not establish local BF16 low-rank behavior",
+      "reading_depth": "PRIMARY_V1_METHOD_EQ4_TO8_PROTOCOL_AND_FIVE_AUTHOR_CODE_FILES_PARTIAL_REVIEW",
+      "focus_nodes": [
+        "T02",
+        "T06",
+        "T09",
+        "T16"
+      ],
+      "author_code_url": "https://github.com/hhhh1138/PulseQuant/tree/35f43afb248a23d373926456caa5aa8685b43986",
+      "author_code_review_scope": "Wan2.2 launch/profile/trace, local risk/radius/code-correction functions and loader inspected; no full kernel or executable reproduction"
+    },
+    {
+      "group": "supplemental_propagation_calibration",
+      "source_ledger": "research/literature/20261029/S2_PROPAGATION_CALIBRATION_SOURCE_LEDGER_20261029.json",
+      "id": "C15",
+      "title": "AccuQuant: Simulating Multiple Denoising Steps for Quantizing Diffusion Models",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "url": "https://arxiv.org/html/2510.20348v1",
+      "model": "image diffusion PTQ, DDIM and latent diffusion",
+      "observed_mechanism": "Multi-update terminal-state reconstruction calibrates quantization parameters with scheduler-scalar approximate gradients",
+      "decision_time": "Offline paired full/quantized consecutive denoising simulation and terminal target",
+      "physical_action": "Optimize quantization scales on grouped denoising updates using stop-gradient approximation",
+      "training": "post-training scale calibration",
+      "wan_specific_discriminator": "Its different-input denoiser delta contains state response; validate actual four-step Wan Jacobian and suffix effects before replacing local L/P/I or assuming scalar transport",
+      "reading_depth": "PRIMARY_V1_SEC3_2_3_3_EQ5_TO18_GROUP_AND_GRADIENT_ABLATIONS_CODE_UNCHECKED",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T16"
+      ],
+      "author_code_url": null,
+      "author_code_review_scope": "Execution code not independently inspected"
+    },
+    {
+      "group": "supplemental_propagation_calibration",
+      "source_ledger": "research/literature/20261029/S2_PROPAGATION_CALIBRATION_SOURCE_LEDGER_20261029.json",
+      "id": "C16",
+      "title": "Advancing SVD-based LLM Compression via Layer-Wise Error Model Search",
+      "year": 2026,
+      "venue": "arXiv v2; author lists ICML 2026",
+      "url": "https://arxiv.org/html/2610.32878v2",
+      "model": "LLM low-rank compression, Mistral/Llama/Qwen",
+      "observed_mechanism": "Token-wise Kronecker curvature plus spectrum-shape, task-scale and depth-bias calibrated rank surrogate",
+      "decision_time": "Offline calibration gradients, isolated task-loss probes and rank candidates before compression",
+      "physical_action": "Curvature-weighted decomposition and parameter-budget ILP selection of per-layer ranks",
+      "training": "calibration gradients and compression search",
+      "wan_specific_discriminator": "Compare per-site propagation measurements against depth-biased rank proxy with same data and measured FFN cost; LLM KL and token counts do not establish video motion or independent image N",
+      "reading_depth": "PRIMARY_V2_SEC4_1_4_2_EQ8_TO15_CODE_UNCHECKED",
+      "focus_nodes": [
+        "T07",
+        "T09",
+        "T14",
+        "T16"
+      ],
+      "author_code_url": null,
+      "author_code_review_scope": "Author code not independently inspected"
     }
   ],
   "supplemental_links": [
@@ -2534,6 +2605,62 @@
       "graph_anchor_existing": [],
       "source_url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Chu_OmniCache_A_Trajectory-Oriented_Global_Perspective_on_Training-Free_Cache_Reuse_for_ICCV_2025_paper.pdf",
       "source_ledger": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md"
+    },
+    {
+      "id": "C14",
+      "focus_nodes": [
+        "T02",
+        "T06",
+        "T09",
+        "T16"
+      ],
+      "index": "SUPPLEMENTAL_PROPAGATION_CALIBRATION_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_V1_METHOD_EQ4_TO8_PROTOCOL_AND_FIVE_AUTHOR_CODE_FILES_PARTIAL_REVIEW",
+      "mechanism": "Offline isolated quantization pulses with dense continuation weight row-radius calibration and activation-adapted neighboring-code response correction",
+      "intervention": "Calibrate row radii and edit adjacent fixed-codebook indices; no online response branch",
+      "decision_time": "Paid offline full-model pulses, dense trajectory states and activation statistics before quantized export",
+      "wan_transfer_question": "Measure same-direction Dense versus Student suffix propagation in actual four-step I2V; author 40-step CFG profiles and FP4 code actions do not establish local BF16 low-rank behavior",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/html/2609.33384v1",
+      "source_ledger": "research/literature/20261029/S2_PROPAGATION_CALIBRATION_SOURCE_LEDGER_20261029.json"
+    },
+    {
+      "id": "C15",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T16"
+      ],
+      "index": "SUPPLEMENTAL_PROPAGATION_CALIBRATION_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_V1_SEC3_2_3_3_EQ5_TO18_GROUP_AND_GRADIENT_ABLATIONS_CODE_UNCHECKED",
+      "mechanism": "Multi-update terminal-state reconstruction calibrates quantization parameters with scheduler-scalar approximate gradients",
+      "intervention": "Optimize quantization scales on grouped denoising updates using stop-gradient approximation",
+      "decision_time": "Offline paired full/quantized consecutive denoising simulation and terminal target",
+      "wan_transfer_question": "Its different-input denoiser delta contains state response; validate actual four-step Wan Jacobian and suffix effects before replacing local L/P/I or assuming scalar transport",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/html/2510.20348v1",
+      "source_ledger": "research/literature/20261029/S2_PROPAGATION_CALIBRATION_SOURCE_LEDGER_20261029.json"
+    },
+    {
+      "id": "C16",
+      "focus_nodes": [
+        "T07",
+        "T09",
+        "T14",
+        "T16"
+      ],
+      "index": "SUPPLEMENTAL_PROPAGATION_CALIBRATION_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_V2_SEC4_1_4_2_EQ8_TO15_CODE_UNCHECKED",
+      "mechanism": "Token-wise Kronecker curvature plus spectrum-shape, task-scale and depth-bias calibrated rank surrogate",
+      "intervention": "Curvature-weighted decomposition and parameter-budget ILP selection of per-layer ranks",
+      "decision_time": "Offline calibration gradients, isolated task-loss probes and rank candidates before compression",
+      "wan_transfer_question": "Compare per-site propagation measurements against depth-biased rank proxy with same data and measured FFN cost; LLM KL and token counts do not establish video motion or independent image N",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/html/2610.32878v2",
+      "source_ledger": "research/literature/20261029/S2_PROPAGATION_CALIBRATION_SOURCE_LEDGER_20261029.json"
     }
   ],
   "source_ledger_contract": {
