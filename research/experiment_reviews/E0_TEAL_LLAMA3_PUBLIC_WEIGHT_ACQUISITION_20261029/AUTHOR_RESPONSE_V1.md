@@ -1,0 +1,9 @@
+# 作者对独立初审 V1 的逐项回应
+
+初审 disposition **REVISE** 保留。作者接受三项问题，以下是修订事实，最终效果由原独立 reviewer 复核。
+
+1. **ACCEPT / 隔离**：一次 attempt 在其专用 HF 路径以 `mkdir` 独占创建全新 `scoped_hf_cache`；它是标准 huggingface_hub cache 目录结构，可通过 `cache_dir` 直接使用，不在共享标准 cache 写入或 promotion。共享 cache 的既有 blob 可先完整 SHA 验证，随后只尝试独立 reflink（非 hardlink）到新私有 blob；reflink 不支持则删自身新建空文件、下载，源文件永不覆盖；独立克隆的真实字节再经完整验证，避免共享源随后更改污染本 scope。完成后不自动推入共享 cache，消费者须显式使用这条标准布局 cache 路径。fresh attempt 不接受任何此前结果或 partial；失败后不恢复。监控 cache 实际 apparent bytes，成功每文件及异常退出均落账。依据锁定的 hub 1.20.1 源码，它单文件调用创建一个随机名 `.incomplete`，在单次调用中追加/retry，成功同目录 rename，finally 清理异常 partial；SIGKILL 可以留下 partial，supervisor 收据与 cache 自身可检查，写入中无退出钩子可保证最终计数。应用每次前给整个文件最大值预扣，按顺序执行；每个文件的进程级大小上限、整个 13 文件上限和 64 MiB 额外余量相加不超过 16 GiB；hub 源码路径的每次同时活动文件为一个 partial，metadata、locks、snapshot 和 RUN/日志属于 64 MiB 余量。每文件后进行缓存检查，若异常结构或不受控外部同用户写入仍可击穿假设，禁止与其他 cache writer 并行使用本独占路径；实际剩余磁盘至少 24 GiB、scope wall 7200s。这个上界依赖锁定 backend 的实现，不将其描述为文件系统配额。
+2. **ACCEPT / 资源与失败测试**：RLIMIT_FSIZE 为 max(目标大小,16 MiB)，并在 backend 返回/异常时 finally 恢复，避免 73 字节对象破坏 RUN/日志；额外小对象最大值已纳入总预算。合成 fake backend 测试在生成 partial 后抛错，检查资源恢复和 partial 账；另测 scope usage、重名不覆盖和现有源不修改、错误 SHA/大小与 symlink 拒绝。scope 级 SIGKILL 仍依赖真实 supervisor EXIT 与事后盘面，不能伪称记录了最后时刻字节。
+3. **ACCEPT / 独立验证**：13 文件顺序及官方匹配 LFS SHA/size、唯一匿名固定版本、backend package 字节 hash、worker profile 和私有 download/verification 两个 spec 均固定。每次 backend 调用及每次完整 hash 在运行前持久化预扣，读取账 64 MiB 更新加至多 1 MiB 读块不确定；网络线缆字节未知。下载过程最大 hash 应用读预算 48,211,483,722 字节，涵盖 tokenizer 及所有文件来自共享缓存时的三次完整 hash。独立 `verify-closed` 由第二个 durable CPU job 运行，资源 CPU1/GPU0/3600s、outer3720s，读取量上限 16,069,766,580 字节；先验证下载实际 EXIT0，再逐文件预扣/持久化及复算，失败留下验证 RUN 与 supervisor EXIT，`inspect-closed` 必须验证该第二份真实 EXIT0 才能出 PASS。该验证不是隐式重复下载或重跑模型。
+
+补充：源码实际只为人工自审和新范围执行静态准备，任何 ACTIVE 登记和 asset fetch 都尚未发生。独立 recheck 要核实实际 source/spec/协议指纹，检查上面约束及失败语义，不应将本回应作为批准。
