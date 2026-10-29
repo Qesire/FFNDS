@@ -2,6 +2,34 @@
 
 > 本手册对应 `tools/ffnds_experiment_plans.py`、`ffnds_native_geometry.py`、`ffnds_run_registered_video.py`、`ffnds_stage_registered_i2v.py`、`ffnds_cluster_metric_report.py`。所有输出使用新目录；旧 CAL12/CAL24/UB1/R17/E0 原始RUN和视频维持原样。新脚本已接入原生 LightX2V 的验证资产、HiF4 D-Q 与 UB1 运行时；**GPU结果须按真实执行收据确认**。 GPU并行资源按[2026-10-28动态调度规则](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)采用当前真实可调用最大量，不设置预先2/4张的全局上限；单个worker的GPU需求与历史冻结scope仍分别记录。
 
+## 2026-10-29 · S2 时间统计结构与新数据采集的可执行接口（非第五研究路线）
+
+已经完成的真实资产：[十新图全21τ](../20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.md)、[相同Dense h的W2因子重放](../20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.md)，均有真实RUN/EXIT；下一步不是重复它们，而是补齐[六族时序统计与新增真实空间邻域](../20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。
+
+新代码：`tools/raw_bf16_temporal_statistics.py` 是不可访问GPU/模型的纯数学模块，`tests/test_raw_bf16_temporal_statistics.py` 是合成对照；`tools/e0_s2_temporal_statistics_cpu.py` 在运行前核验原父protocol、源码hash、1600原生包的已完成两part和全部源身份，并**要求ACTIVE中冻结的单独CPU运行scope**；目前只是准备的代码，未运行新T1–T4统计。建议协调者在实际worker环境按顺序执行：
+
+```bash
+# 1. 静态语法与合成测试（不会读取既有大张量）
+python -m py_compile tools/raw_bf16_temporal_statistics.py tools/e0_s2_temporal_statistics_cpu.py
+python -m unittest discover -s tests -p test_raw_bf16_temporal_statistics.py
+
+# 2. 实际保存来源/数据身份的meta-only draft（需在有原始HF assets的环境）
+python tools/e0_s2_temporal_statistics_cpu.py draft \
+  --hf-root /home/xiang/.cache/huggingface \
+  --out /tmp/e0_s2_temporal_stats_draft.json
+
+# 3. 独立审查代码/source/预算后，按ACTIVE登记新的有限CPU scope；
+#    把协议status定为FROZEN_REGISTERED并计算完整SHA，绝不改旧scope。
+# 4. 只有注册且哈希一致后，受控worker执行，真实产生RUN/EXIT（不得本地假造）
+CUDA_VISIBLE_DEVICES='' python tools/e0_s2_temporal_statistics_cpu.py run \
+  --hf-root /home/xiang/.cache/huggingface \
+  --protocol config/<REGISTERED_S2_TEMPORAL_STATS_PROTOCOL>.json
+```
+
+读数：`POSITIONS.jsonl` 保存十来源每个step×block七类tensor在全21及去τ0后的lag、频谱、时间Gram和事件；`SUMMARY.json` 按image-cluster等权再按step/position汇总。必须在实际EXIT和独立核查后才写实验结论。单次输入按真实原始包18.49GB计量，CPU-only；建议worker和外部留足预算、内存和输出空间，优先检查实际包版本、raw SHA、原BF16写回逐字节中性。运行脚本中的T1–T4**仅覆盖固定8xy轨迹**，不能凭它验证空间运动对应。T5/T6完整实现还需新空间邻域、学生前缀与分层source原生producer，须另冻scope。
+
+**GPU**：当前实际BF16 VIDEO20等scope规定 `session_max_GPUs=2`，任何同会话GPU相关后续执行严格≤2并发；此T1–T4 CPU统计不申请GPU。通用动态调度不得覆盖真实记录。
+
 ## 2026-10-29 · 开放式新采集的可执行入口（当前优先于旧固定来源例子）
 
 本手册以前的 CAL24、旧source-bank和UB1 runner命令是**历史兼容示例**。现行新采集按[科学问题与producer协议](EVIDENCE_DRIVEN_ACQUISITION_20261029.md)、[新增需求队列](ACQUISITION_QUEUE_20261029.json)执行，不限制在旧 CAL24 / consumer20 或五个Block。特别是S2的真实视频latent时间—空间配对、S3原生动态Q1/Q2、S4学生prefix新增tensor必须真正扩展observer，不能把旧随机行/已输出的fake-QDQ重命名为新观测。
