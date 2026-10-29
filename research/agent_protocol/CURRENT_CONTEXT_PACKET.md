@@ -15,6 +15,8 @@
 
 四支路线并行，任意Agent可以根据真实源与论文提出更优竞争机制。第一项**成本最小且可执行的完整视频基线**是已导出的原BF16 shared80-r960、step160-r960和相同原BF16 Dense的真实160位置同source生成；这项基线已完成[20来源60视频及单次成本](../20261029/RAW_BF16_FULL160_VIDEO20_NATIVE_RESULTS_20261029.md)和[八轴官方函数/连续RAFT](../20261029/RAW_BF16_FULL160_VIDEO20_QUALITY_RESULTS_20261029.md)，当前质量未通过：shared/step来源等权RAFT幅值为Dense的0.490/0.477。公平预热重复SYS仍待测；不用重复已完成视频。
 
+**新并行机制种子 MTC/TDIC（2026-10-29）**：[时间距离与FFN运动创新补偿](../20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md)及[OPEN图claim](../method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json)。从已有20来源视频r960候选运动幅值约0.49/0.48倍Dense、8来源26389稀疏same-xy跨τ配对出发，优先做**同Dense h/同原BF16 W2 bias和gate的DC/AC重放判别**，再扩展真实邻域/光流oracle与学生前缀。核心恒等式 eτp−eτ−1,q = gτp⊙Δh(W−UV)+(gτp−gprev,q)⊙hprev,q(W−UV) 为连续代数，不是BF16逐bit。teacher残差锚点/前τ输出在线并不免费；旧固定8xy不支持任意运动搜索。新增需求[机器采集队列](ACQUISITION_QUEUE_20261029.json) AQ-S2-MOTION-INNOVATION 仍为DESIGN_ONLY，无新增GPU或视频许可。该方向不改变S1/S4/S2/S3的并行资格，不视作同行批准。
+
 ## 原始计算对象与已用数据
 
 - Wan2.2 I2V A14B四步high/high/low/low，两个expert、各40 Block；每个四步视频实际160个FFN位置。原BF16 W1形状5120×13824、W2形状13824×5120，视频latent网格21×29×52（21≠四个去噪step）。
