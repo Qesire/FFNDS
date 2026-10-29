@@ -1,0 +1,73 @@
+{
+  "id": "E0_CHIPMUNK_SAVED_H_DISCRIMINATION_20261030",
+  "status": "PASS_ACTUAL_EXIT0_FIXED_DIAGNOSTIC_CLOSED",
+  "evidence": "NATIVE saved operands / FP64 CPU diagnostic",
+  "protocol": {
+    "path": "config/e0_chipmunk_saved_h_discrimination_20261030_v1.json",
+    "sha256": "af840c6aba6faafb97e103fbccde47ee41ee846fa18c5217835b348a813099b8"
+  },
+  "RUN": {
+    "path": "ffnds-derived/e0_chipmunk_saved_h_discrimination_20261030/attempt1/worker/results/RUN.json",
+    "bytes": 1214731,
+    "sha256": "418b0d03b0aa2cb439053d6727f3c8ffa65e350ccad5a7562984c46934af1009"
+  },
+  "exit": {
+    "path": "ffnds-derived/e0_chipmunk_saved_h_discrimination_20261030/attempt1/worker/EXIT_RECEIPT.json",
+    "bytes": 532,
+    "sha256": "ca1f1b0d9ae4364e06dcb4d2ad674b98e13296190d2c847cb1e5c2fb630ddbf5"
+  },
+  "exit_code": 0,
+  "wall_seconds": 22.264550041407347,
+  "counts": {
+    "source_hash": 6,
+    "hf_hash": 5,
+    "checkpoint_hash": 1,
+    "payload_tensor_read": 2,
+    "weight_tensor_read": 1,
+    "diagnostic": 1
+  },
+  "source_hash_bytes": 25561,
+  "scope": {
+    "source_ordinal": 898,
+    "seed": 42,
+    "block": 20,
+    "steps": [
+      0,
+      1
+    ],
+    "expert": "high",
+    "teacher_rows": 128,
+    "row_geometry": "nonraster",
+    "width": 13824,
+    "selected": 5120,
+    "source_population": "exposed development source; one group"
+  },
+  "formula": "delta_h = FP64(saved_h_step1) - FP64(saved_h_step0); gate and W2 are step1 gate and original high expert W2. For omitted set O, projected energy = ||(delta_h[:,O] @ W2[:,O].T) * gate||_F^2. Diagonal = sum_j ||delta_h[:,j]||_2^2 * ||gate * W2[:,j]||_2^2; signed cross = projected minus diagonal. Denominator uses all columns.",
+  "full_projected_energy": 39519.206077161754,
+  "arms": {
+    "proxy": {
+      "omitted_diagonal_energy": 9683.11766640545,
+      "omitted_projected_energy": 15343.125550345327,
+      "signed_cross_energy": 5660.0078839398775,
+      "relative_to_full_delta_energy": 0.38824478205325474,
+      "signed_cross_fraction_of_omitted_projected_energy": 0.3688953639444401
+    },
+    "activation_oracle": {
+      "omitted_diagonal_energy": 5353.92549879043,
+      "omitted_projected_energy": 8532.201239356262,
+      "signed_cross_energy": 3178.275740565832,
+      "relative_to_full_delta_energy": 0.21590011759591096,
+      "signed_cross_fraction_of_omitted_projected_energy": 0.37250360738158433
+    },
+    "consumer_oracle": {
+      "omitted_diagonal_energy": 5273.420578460288,
+      "omitted_projected_energy": 8297.62185864347,
+      "signed_cross_energy": 3024.2012801831816,
+      "relative_to_full_delta_energy": 0.20996428527542424,
+      "signed_cross_fraction_of_omitted_projected_energy": 0.364466027941841
+    }
+  },
+  "consumer_oracle_improvement_vs_activation_oracle_fraction": 0.027493418653881885,
+  "identity_limits": "old GPU proxy selection from BF16 subtraction then float; old GPU baseline recomputed M128 h, this diagnostic uses saved teacher h and FP64 projection; not the same metric as old 0.279554 gate-relative L2",
+  "interpretation": "Both hindsight selections reduce this projection relative to the frozen proxy, consistent with information missing from that proxy; their differences do not isolate why, because selected sets differ. Signed cross is positive for all three omitted sets. Oracle selections use unavailable future h and do not establish an online selector or runtime gain."
+}

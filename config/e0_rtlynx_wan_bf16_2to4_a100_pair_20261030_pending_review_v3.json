@@ -1,0 +1,425 @@
+{
+  "id": "E0_RTLYNX_WAN_BF16_2TO4_A100_PAIR_20261030",
+  "status": "FROZEN_PENDING_REGISTRATION",
+  "review": null,
+  "design": {
+    "source_ordinal": 911,
+    "expert_step": {
+      "high": 1,
+      "low": 2
+    },
+    "block": 20,
+    "actual_rows": 32,
+    "M": [
+      32,
+      31668
+    ],
+    "M31668": "actual V1 rows repeated modulo32; cost-only, no full-native-quality claim",
+    "arms": [
+      "dense",
+      "top2",
+      "top2_row_norm"
+    ],
+    "warmups": 1,
+    "measured": 3,
+    "correctness": 1,
+    "tie": "finite BF16 magnitude descending; lower index first",
+    "norm": "rowwise FP32 sqrt(sum(h^2)/(sum(top2(h)^2)+1e-8)); scale selected values then BF16 round before CUTLASS pack; author reduction axis unknown",
+    "physical_path": "W1+b1/GELU(tanh)/top2+pack/real CUTLASS sparse W2/b2/gate",
+    "neutral_max_relative_l2": 0.03,
+    "same_mask_max_relative_l2": 0.02,
+    "single_source_exposed": true,
+    "video_acceptance": false
+  },
+  "resources": {
+    "GPU": 1,
+    "CPU_threads": 4,
+    "wall_seconds": 1800,
+    "outer_seconds": 1920,
+    "new_HF_bytes": 268435456,
+    "host_RSS_max_bytes": 17179869184,
+    "GPU_reserved_max_bytes": 68719476736,
+    "bundle_hash_bytes_max": 1073741824,
+    "software_hash_bytes_max": 2147483648,
+    "automatic_retry": false
+  },
+  "limits": {
+    "W1_bf16_addmm": 60,
+    "gelu_tanh": 60,
+    "gate_multiply": 60,
+    "W2_bf16_addmm": 20,
+    "fused_top2_pack": 40,
+    "cutlass_wrapper": 40,
+    "cutlass_sparse_W2": 40,
+    "bias_add": 40,
+    "materialize_top2": 20,
+    "row_norm_and_BF16_scale": 20,
+    "ffn_event_pair": 60,
+    "finite_input_check": 2,
+    "independent_select_M32": 4,
+    "reference_mask": 8,
+    "reference_converter": 8,
+    "reference_dense_W2": 8,
+    "reference_comparisons": 12,
+    "bundle_hash": 1,
+    "fullM_repeat": 2
+  },
+  "output": "ffnds-derived/e0_rtlynx_wan_bf16_2to4_a100_pair_20261030/attempt1/worker/results",
+  "bundle_parent": {
+    "id": "E0_SHARQ_WAN_FFN_PAIRED_ASSETS_CPU_20261030",
+    "status": "PASS_ACTUAL_EXIT_PAIRED_ASSETS",
+    "RUN": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results/RUN.json",
+      "bytes": 13163,
+      "sha256": "459f1b9723adbf65e79199d4bb1c61b37609792ffff04497c24fc1fd639b953a"
+    },
+    "exit": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/EXIT_RECEIPT.json",
+      "bytes": 533,
+      "sha256": "cc4f121a7f54fc233d8e25bce153b3cc6f253a526859a861d23c30d1405598c1"
+    },
+    "bundle": {
+      "path": "ffnds-derived/e0_sharq_wan_ffn_paired_assets_20261030/attempt1/worker/results/BUNDLE.safetensors",
+      "bytes": 730509120,
+      "sha256": "79e8829e94c1558fa8a569577ea3897ac2175fc077e7d93e490a400009264d0b"
+    },
+    "bundle_identity": "producer SHA; inspect stat only; GPU must rehash within own budget"
+  },
+  "worker_config_sha256": "286d232b47138d3c44d7b45e0dedb5fa0e7fd6e372225ec57590da246de18ff0",
+  "source_bindings": [
+    {
+      "path": "config/e0_activation24_fused_cutlass_probe_20261027_v1.json",
+      "bytes": 11218,
+      "sha256": "3237d21b5fd5778edb99cfff9991849cc06d1a4245a7cd79b8e0b6d24629b7ac"
+    },
+    {
+      "path": "config/e0_sharq_sm120_wan_ffn_pair_probe_20261030_pending_review_v2.json",
+      "bytes": 11884,
+      "sha256": "9674544862412b755789881b8a204c4a466cf3492f72854bd3a968aa4413735b"
+    },
+    {
+      "path": "config/e0_sharq_wan_ffn_paired_assets_cpu_20261030_pending_review_v4.json",
+      "bytes": 15096,
+      "sha256": "71c26924f49d774850dcd292eb074518758da9c62f107656e6572ee3d136969e"
+    },
+    {
+      "path": "research/20261029/NATIVE_NVFP4_REAL_FFN_PROBE_RESULTS_20261029.json",
+      "bytes": 24426,
+      "sha256": "4e051cbe10aad2c2e6821947f1f0b87d1690515b16c0509e53b139c3051348cf"
+    },
+    {
+      "path": "research/20261029/SHARQ_CPU_AUTHOR_SOURCE_IMPORT_ENGINEERING_20261030.json",
+      "bytes": 685,
+      "sha256": "3d5889b82ef1c80f115aa5f7d133994fc426f92965a60f8242ee25d030d0e415"
+    },
+    {
+      "path": "research/20261029/SHARQ_SM120_CPU_ENGINEERING_BUILD_20261030.json",
+      "bytes": 1237,
+      "sha256": "a3295d978d6a51f4b90ef7335f3cd69564ea3cbe4be4c09b62778f752fe89392"
+    },
+    {
+      "path": "scripts/worker_teal_assigned_uuid_exec.sh",
+      "bytes": 798,
+      "sha256": "c5583e3048805ea8a0b08d365cbb12b0e1107e9705f42f821be4d74900acbb7c"
+    },
+    {
+      "path": "scripts/worker_teal_gpu0_uuid_exec.sh",
+      "bytes": 730,
+      "sha256": "0d111f976062c2d8257df6e439eec774fb0d610fa0713c88dbae39c1e2b306e1"
+    },
+    {
+      "path": "tests/test_e0_rtlynx_wan_ffn_ops.py",
+      "bytes": 1109,
+      "sha256": "a3e749322432c52a8124370eb8e3f41172a832b337c0539a8db44a59a4eedf0a"
+    },
+    {
+      "path": "tests/test_e0_rtlynx_wan_ffn_probe.py",
+      "bytes": 2375,
+      "sha256": "45e3f12706eaf3e05abc604eb1710f0b016cbdb703d589c359efc2858404bfa7"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_asset_extract.py",
+      "bytes": 1643,
+      "sha256": "114fd43af12fb3c0969e53433cc2c418d9f7b0dcf5fe6d63c54cd1679cef57dc"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_asset_plan.py",
+      "bytes": 1433,
+      "sha256": "29653f8773f65a6abf43d16640a597594496ae73d46779e9d5ef7cec5cc3a0cc"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_assets.py",
+      "bytes": 5531,
+      "sha256": "a6487a3aa760ed4aac889f150d33668d8eafa2d1213b9893d3fe9e5b37f57e38"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_ops.py",
+      "bytes": 2006,
+      "sha256": "ee7b90dff52bc4e78dfeaa0110777d4b6622c64c7a441de46dfea209dfedb131"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_probe.py",
+      "bytes": 4875,
+      "sha256": "a76a1cd9fcdd37962f89a3b4be916e0c645b7aea9fc23119afdc5f9f384b2bbf"
+    },
+    {
+      "path": "tests/test_e0_sharq_wan_ffn_probe_v2.py",
+      "bytes": 7733,
+      "sha256": "84ed3f0167e970a35d7f6e02114e4f0080047d63cecb96a532cbaa5e9571d783"
+    },
+    {
+      "path": "tools/activation24_fused_cutlass_pack.py",
+      "bytes": 9912,
+      "sha256": "f8eaac49f1a7737bad8ec27b46a2d66d7a69533af7fba657af508776dc265b11"
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "bytes": 2529,
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0"
+    },
+    {
+      "path": "tools/durable_worker_job.py",
+      "bytes": 9319,
+      "sha256": "3295f250a9ae66a381e4e10bc686ad41e54e9f7f0ea614d59818e685be7a4ac2"
+    },
+    {
+      "path": "tools/e0_activation24_cutlass_backend_probe.py",
+      "bytes": 14773,
+      "sha256": "7972ff6dbaf09cf5e8bb09a3a803a7ae33ed11dd5816d62fdcfde589ffca9f7a"
+    },
+    {
+      "path": "tools/e0_activation24_fused_cutlass_probe.py",
+      "bytes": 22942,
+      "sha256": "15ea7103abbf1563721cf98b8df2e139220a1bd159b412718af3ae2f09b3588e"
+    },
+    {
+      "path": "tools/e0_activation24_spmm_probe.py",
+      "bytes": 11872,
+      "sha256": "17e819121b51fcfd915e1c2ace480f7049d9932a6140f18471ec7bedcaae2535"
+    },
+    {
+      "path": "tools/e0_rtlynx_wan_ffn_ops.py",
+      "bytes": 2079,
+      "sha256": "d92d5e60d266fa1ddcd4457469d32610e609fa0c85a37d365979506a718f390a"
+    },
+    {
+      "path": "tools/e0_rtlynx_wan_ffn_probe.py",
+      "bytes": 19592,
+      "sha256": "57115513daef35a6bacbc1fa3f2c094334a4e94e90b2c0f4efa565149be49ea5"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_asset_extract.py",
+      "bytes": 2936,
+      "sha256": "72883b25ab30514069936a93e1c7c537a506c5f209ee137dd27e7d82a5f6e45c"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_asset_plan.py",
+      "bytes": 2546,
+      "sha256": "a2df4c5dceb0de391fed4d4a4a0a707e62542662487d7317a0d8839a6d47c9f5"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_assets.py",
+      "bytes": 18047,
+      "sha256": "d272d24c5f8ee167ed890c63f2d76b7461357628d70c7e4f0456dc31f868169a"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_ops.py",
+      "bytes": 2895,
+      "sha256": "fcd28b7824fdca4850ce765032ece68bf0786ec2df6bf20b13465e72f2d6652f"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_probe.py",
+      "bytes": 28966,
+      "sha256": "b355edc1777f71e975915130b6ee1f88af40437d0f1d2b08686420b02b833d51"
+    },
+    {
+      "path": "tools/e0_sharq_wan_ffn_probe_v2.py",
+      "bytes": 32129,
+      "sha256": "6f215e511fb38ee468a7f5a200309da267b190f456c69665ee8b3a2cd44944db"
+    },
+    {
+      "path": "tools/e0_teal_llama3_author_checkpoint_convert.py",
+      "bytes": 32174,
+      "sha256": "b8b8e5044051cfd72dccf60ade6784cd73bf013d9ade06130d31834a9aad32b0"
+    },
+    {
+      "path": "tools/e0_teal_llama3_tokenizer_byte_bridge.py",
+      "bytes": 25531,
+      "sha256": "1ee9d99b88da78beb55689af7fec0c750704f9d1238dbec4e5c957d8eddf418c"
+    },
+    {
+      "path": "tools/nvfp4_real_ffn_probe.py",
+      "bytes": 5300,
+      "sha256": "d2cb735494adfe3ca21f265454e3c513355eff45b54657075bc1c056b266611c"
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "bytes": 3559,
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d"
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "bytes": 2562,
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793"
+    }
+  ],
+  "backend_bindings": [
+    {
+      "path": "tools/e0_activation24_spmm_probe.py",
+      "sha256": "17e819121b51fcfd915e1c2ace480f7049d9932a6140f18471ec7bedcaae2535",
+      "bytes": 11872
+    },
+    {
+      "path": "tests/test_e0_activation24_spmm_probe.py",
+      "sha256": "17671b7308e860b72d74698097b1ee2b08080cfa345ffe699fdd42cfd6729d40",
+      "bytes": 3164
+    },
+    {
+      "path": "tools/worker_identity.py",
+      "sha256": "ef8cbdf1cded64a3f03c817fae1842898cd5173bdd7ffc8e749726421cdd4793",
+      "bytes": 2562
+    },
+    {
+      "path": "tools/startup_gpu_reservation.py",
+      "sha256": "058e12ac1afd2396cde92ba947567f1b12e2049fedcf6a86334bd1fee8301a7d",
+      "bytes": 3559
+    },
+    {
+      "path": "tools/assigned_gpu_resources.py",
+      "sha256": "4ee7053911b02a0079f183df4fb3fac0725915f02ebd22882e62f51f7cf89dd0",
+      "bytes": 2529
+    },
+    {
+      "path": "config/worker.env",
+      "sha256": "0dd88ae89887232dc5c50c1bcbed1a0bbcffb7de0ceeea891ce827452f52de66",
+      "bytes": 1027
+    },
+    {
+      "path": "scripts/worker_wait_uuid_idle_exec.sh",
+      "sha256": "38f055289300e9d52b0e4ee27cb19174e804ba178fad0815ae52f4ab97774a53",
+      "bytes": 1919
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/semi_structured.py",
+      "sha256": "adbd51da067c149fa7833383a72910a014bbb0f5e1f816ab0f76b09264a1c3dd",
+      "bytes": 28722
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/_semi_structured_ops.py",
+      "sha256": "6a614407b422b630cffff76ba6a686979104d62bb1bc2ec0cc060f1b354fddb3",
+      "bytes": 6433
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/sparse/_semi_structured_conversions.py",
+      "sha256": "1759d16ca5dbdcf0a5cef676eafbd4f1477af5e961b18a8fc8dd83a1c1c6728e",
+      "bytes": 14094
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/backends/cusparselt/__init__.py",
+      "sha256": "0278b6be1de552ceced370a4fc2ca5cfef3d90c84811d55dffee8d90ba0b75c0",
+      "bytes": 1285
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so",
+      "sha256": "82ae4f56e5f4e766a862bfe8f5d38e5d678eef33f301cb9fab4c6abfd251070f",
+      "bytes": 1043840721
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/nvidia/cusparselt/lib/libcusparseLt.so.0",
+      "sha256": "b3d85a0311eadfd3cec86b0291c9a4b5769cba2f248a9e7e8167fbf3ffa99863",
+      "bytes": 451980513
+    },
+    {
+      "path": "tools/e0_activation24_online_components_probe.py",
+      "sha256": "76aae1a11ce28d667ad3e47b649be0c68d989128b015e09f27337ba602458a24",
+      "bytes": 11548
+    },
+    {
+      "path": "tests/test_e0_activation24_online_components_probe.py",
+      "sha256": "1018191fa913ff7789c49e994c6772f5bb6223c9c7653fb7b0aa3537f5bbc2a7",
+      "bytes": 1753
+    },
+    {
+      "path": "tools/e0_activation24_backend_layout_probe.py",
+      "sha256": "72113234a9859dafdba5460b4788ae04bf0e439a35aae1c6aef17419a9d43794",
+      "bytes": 10742
+    },
+    {
+      "path": "research/20261027/E0_ACTIVATION24_SPMM_PROBE_RESULTS_20261027.json",
+      "sha256": "b044f5334d6d1b8cf91f71ad5f2aa43a095a694b77eb70effd8a444242c2fe24",
+      "bytes": 11210
+    },
+    {
+      "path": "research/20261027/E0_ACTIVATION24_BACKEND_LAYOUT_RESULTS_20261027.json",
+      "sha256": "a3d5e487d572d30fcabe8a103b413f6370ae6b4068462d629fcfdecbb0524eb0",
+      "bytes": 52607
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/__init__.py",
+      "sha256": "96e68192cab5dd11fa30d5dc95d56c29ceecda53477fc3af8f37bee026b7a021",
+      "bytes": 1661
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/runtime/jit.py",
+      "sha256": "0b70358d901afd70937a344a7811e4a2bcd10edca8a7c241e47842dc9ac660c8",
+      "bytes": 41084
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/language/core.py",
+      "sha256": "9394c60071ea0bbca6c290c44a5a371b8b4a02683d529debc3be04401d93e198",
+      "bytes": 123101
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/compiler/compiler.py",
+      "sha256": "2a063bb7909777d3659945244277e900d9f7cfc35de9a758578469ee4b90fce9",
+      "bytes": 20548
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/_C/libtriton.so",
+      "sha256": "77cde538443515d7ba30851754334fc52860096b8725063858a0afe0fcd04ca0",
+      "bytes": 415583664
+    },
+    {
+      "path": "tools/e0_activation24_cutlass_backend_probe.py",
+      "sha256": "7972ff6dbaf09cf5e8bb09a3a803a7ae33ed11dd5816d62fdcfde589ffca9f7a",
+      "bytes": 14773
+    },
+    {
+      "path": "tests/test_e0_activation24_cutlass_backend_probe.py",
+      "sha256": "f47e1ac8a9e5feb3afc9ef9935ef4493251d169621fcb0ffe04453ea4a2cb3b7",
+      "bytes": 2943
+    },
+    {
+      "path": "config/e0_activation24_online_components_probe_20261027_v1.json",
+      "sha256": "08335a84e8f22f3991e0bbce2d8a69f1e0bbe67e17084e385eccf02b3e03e0a2",
+      "bytes": 6260
+    },
+    {
+      "path": "research/20261027/E0_ACTIVATION24_ONLINE_COMPONENTS_RESULTS_20261027.json",
+      "sha256": "f074230b8fe5f51fbe15ab823619547e18a488067a9654a1610c8be8f12695d9",
+      "bytes": 17242
+    },
+    {
+      "path": "tools/activation24_fused_cutlass_pack.py",
+      "sha256": "f8eaac49f1a7737bad8ec27b46a2d66d7a69533af7fba657af508776dc265b11",
+      "bytes": 9912
+    },
+    {
+      "path": "tools/e0_activation24_fused_cutlass_probe.py",
+      "sha256": "15ea7103abbf1563721cf98b8df2e139220a1bd159b412718af3ae2f09b3588e",
+      "bytes": 22942
+    },
+    {
+      "path": "tests/test_e0_activation24_fused_cutlass_probe.py",
+      "sha256": "e9c3eeb86b47566ed9596c5a7a07de2e1bca4967e6cc1bcabb522fa239c89267",
+      "bytes": 9209
+    },
+    {
+      "path": ".venv/lib/python3.11/site-packages/triton/runtime/interpreter.py",
+      "sha256": "3cb6ed2fda070e4b211f2ff65fddef842287bf321a61e8874ebc93f6c570c953",
+      "bytes": 65073
+    }
+  ],
+  "backend_identity": "C5 bound PyTorch CUTLASS and Triton; rehash before first tensor",
+  "automatic_retry": false
+}
