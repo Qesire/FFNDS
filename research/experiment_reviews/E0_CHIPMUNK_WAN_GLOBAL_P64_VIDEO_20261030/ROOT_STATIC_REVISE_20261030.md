@@ -1,0 +1,5 @@
+# Root static review — REVISE (pre-execution)
+
+Root independently identified that the current global-P64 tap calls `chipmunk_p4_sparse_action.selected_action`, the earlier selected-delta Triton implementation. The actually measured whole-M selected Triton path and the separately validated packed native BF16 path are different physical implementations: the prior local results show approximately 177–255 ms versus 23–24 ms respectively, under their recorded scopes and timing conditions. This mismatch blocks claiming the planned packed native fast route. No all160 scope was registered or run.
+
+The author must add and bind an actual packed pre-gate helper, preserve cache clone and h writeback costs, avoid applying the gate twice, account every physical operation and observer, and add CPU same-mask and appropriate actual numerical boundary controls. The revised exact protocol, source and job require author self-review and an independent recheck before ACTIVE. Previous completed evidence and executed sources remain unchanged. This records root's finding, not a fabricated independent reviewer vote.

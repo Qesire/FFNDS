@@ -1,0 +1,711 @@
+{
+  "schema": "ffnds.chipmunk.signed.complement.results.v1",
+  "status": "ACTUAL_EXIT0_FOUR_PAIRS_CLOSED",
+  "cases": [
+    {
+      "part": 0,
+      "source": 898,
+      "expert": "high",
+      "steps": [
+        0,
+        1
+      ],
+      "protocol_sha256": "330636bd54825a51d4f7ec2d7723e7388d0183c7f8f75924b11a06a639831f22",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_signed_complement_20261030/part0/attempt1/worker/results/RUN.json",
+        "bytes": 14718,
+        "sha256": "8edbed95a26e80b28515efba4f6370524423aba647983775e5d337634237658d"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_signed_complement_20261030/part0/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 534,
+        "sha256": "1b2d0bc1824a9f1a72d50c4aded0659b76bf1b02a501d8d03764da966eed2256"
+      },
+      "metrics": {
+        "gated_relative_l2": {
+          "baseline": [
+            0.4264866678858971,
+            0.4264866678858971,
+            0.4264866678858971
+          ],
+          "signed": [
+            0.38871141925731784,
+            0.38871141925731784,
+            0.38871141925731784
+          ],
+          "hindsight": [
+            0.38671506385157933
+          ]
+        },
+        "baseline_error_dc_ac_fp64": {
+          "dc_energy": 855984.7690904312,
+          "ac_energy": 3958616.2450412335,
+          "total_energy": 4814601.014131664,
+          "closure_difference": 0.0
+        },
+        "same_mask_baseline_reference": {
+          "relative_l2": 0.0,
+          "absolute_max": 0.0,
+          "numeric_equal": true
+        },
+        "mask_sha256": "8d7f0169484db0b8e83e8c7aec6fa12e64a9da5741683688cd8c25e73b9e2af2",
+        "prior_p64_gated_relative_l2": [
+          0.4264866678858971,
+          0.4264866678858971,
+          0.4264866678858971
+        ],
+        "mask_guard_host_seconds": [
+          0.00014557316899299622,
+          0.00010235980153083801,
+          0.00011035427451133728,
+          0.00011981278657913208,
+          0.00011218339204788208,
+          0.0001203976571559906,
+          0.00012072175741195679,
+          0.00011912360787391663
+        ],
+        "recipe": "sample BF16 GELU minus cached BF16 h in FP32; 64-row FP32 mean; selected columns zero; cast complement BF16; BF16 GEMV FP32 output; add old Y and selected delta in FP32; one BF16 output cast then current BF16 gate"
+      },
+      "timings": {
+        "old_cache": {
+          "cuda_event_ms": 140.4496612548828,
+          "synchronized_host_wall_seconds": 0.14049914106726646
+        },
+        "cold_baseline": {
+          "cuda_event_ms": 114.83238220214844,
+          "synchronized_host_wall_seconds": 0.11486610770225525
+        },
+        "cold_signed": {
+          "cuda_event_ms": 24.591360092163086,
+          "synchronized_host_wall_seconds": 0.0246177539229393
+        },
+        "baseline_same_mask_reference": {
+          "cuda_event_ms": 23.137279510498047,
+          "synchronized_host_wall_seconds": 0.023163899779319763
+        },
+        "dense_cold": {
+          "cuda_event_ms": 33.83603286743164,
+          "synchronized_host_wall_seconds": 0.03386153653264046
+        },
+        "hindsight_paid": {
+          "cuda_event_ms": 33.981441497802734,
+          "synchronized_host_wall_seconds": 0.0340069942176342
+        },
+        "online_baseline_0": {
+          "cuda_event_ms": 23.782400131225586,
+          "synchronized_host_wall_seconds": 0.02381250634789467
+        },
+        "online_baseline_1": {
+          "cuda_event_ms": 23.585792541503906,
+          "synchronized_host_wall_seconds": 0.023612860590219498
+        },
+        "online_baseline_2": {
+          "cuda_event_ms": 23.615488052368164,
+          "synchronized_host_wall_seconds": 0.023641463369131088
+        },
+        "online_signed_0": {
+          "cuda_event_ms": 24.71321678161621,
+          "synchronized_host_wall_seconds": 0.024737883359193802
+        },
+        "online_signed_1": {
+          "cuda_event_ms": 24.93951988220215,
+          "synchronized_host_wall_seconds": 0.024966251105070114
+        },
+        "online_signed_2": {
+          "cuda_event_ms": 24.663040161132812,
+          "synchronized_host_wall_seconds": 0.024689164012670517
+        },
+        "dense_0": {
+          "cuda_event_ms": 36.72166442871094,
+          "synchronized_host_wall_seconds": 0.03674600273370743
+        },
+        "dense_1": {
+          "cuda_event_ms": 36.32640075683594,
+          "synchronized_host_wall_seconds": 0.03635288029909134
+        },
+        "dense_2": {
+          "cuda_event_ms": 35.922943115234375,
+          "synchronized_host_wall_seconds": 0.03596564754843712
+        }
+      },
+      "counts": {
+        "clone_h": 10,
+        "clone_y": 10,
+        "gather_w1": 10,
+        "gather_bias": 10,
+        "gather_w2": 10,
+        "gather_h": 10,
+        "selected_w1": 10,
+        "selected_gelu": 10,
+        "delta_round": 10,
+        "update_h": 10,
+        "selected_w2_fp32": 10,
+        "accumulate_y": 10,
+        "gate_product": 15,
+        "dense_w1": 5,
+        "dense_w2": 5,
+        "gelu": 5,
+        "observer_w1": 8,
+        "observer_gelu": 8,
+        "observer_rms_mean": 8,
+        "selector": 8,
+        "mask_guard": 8,
+        "complement_zero": 5,
+        "gemv_fp32": 5,
+        "broadcast_add": 5,
+        "full_mean": 1,
+        "prior_hash": 2,
+        "parent_hash": 4,
+        "header_hash": 2,
+        "operand_file_hash": 8,
+        "checkpoint_hash": 1,
+        "checkpoint_tensor_load": 1,
+        "checkpoint_finite": 1,
+        "operand_tensor_load": 3,
+        "operand_finite": 1,
+        "fixed_selection_init": 1,
+        "metrics": 1,
+        "baseline_reference_action": 1
+      },
+      "compute_wall_seconds": 25.7037682980299,
+      "outer_seconds": 26.43284934014082,
+      "gpu_peak_reserved_bytes": 21170749440,
+      "host_peak_rss_bytes": 1268563968,
+      "gpu_monitor_violations": 0
+    },
+    {
+      "part": 1,
+      "source": 898,
+      "expert": "low",
+      "steps": [
+        2,
+        3
+      ],
+      "protocol_sha256": "6a5eb69a6b35faccaab7ac3c2d362bf727ce90afbcc9038043810ff4b48ce8eb",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_signed_complement_20261030/part1/attempt1/worker/results/RUN.json",
+        "bytes": 14733,
+        "sha256": "8d6ffbae14fb02354e7c637adb029773165d031f367de0b08e239712e166fd66"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_signed_complement_20261030/part1/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 534,
+        "sha256": "b1d9bbf2019bf34f2280bf5c66a5964607ac48c745601f2d3df32d4509fb13b0"
+      },
+      "metrics": {
+        "gated_relative_l2": {
+          "baseline": [
+            0.26119930702845023,
+            0.26119930702845023,
+            0.26119930702845023
+          ],
+          "signed": [
+            0.26028574954811884,
+            0.26028574954811884,
+            0.26028574954811884
+          ],
+          "hindsight": [
+            0.2590495084159605
+          ]
+        },
+        "baseline_error_dc_ac_fp64": {
+          "dc_energy": 15672.249059675281,
+          "ac_energy": 937975.1937688814,
+          "total_energy": 953647.4428285566,
+          "closure_difference": 0.0
+        },
+        "same_mask_baseline_reference": {
+          "relative_l2": 0.0,
+          "absolute_max": 0.0,
+          "numeric_equal": true
+        },
+        "mask_sha256": "0a1ac951f488ab75cc4be5b544882a1b662098ff3213a2b3ac398a2104f4e5a8",
+        "prior_p64_gated_relative_l2": [
+          0.26119930702845023,
+          0.26119930702845023,
+          0.26119930702845023
+        ],
+        "mask_guard_host_seconds": [
+          0.00015404075384140015,
+          0.00011607259511947632,
+          0.00012046471238136292,
+          0.00010580196976661682,
+          0.00012137740850448608,
+          0.00013638287782669067,
+          0.00014472752809524536,
+          0.00012258440256118774
+        ],
+        "recipe": "sample BF16 GELU minus cached BF16 h in FP32; 64-row FP32 mean; selected columns zero; cast complement BF16; BF16 GEMV FP32 output; add old Y and selected delta in FP32; one BF16 output cast then current BF16 gate"
+      },
+      "timings": {
+        "old_cache": {
+          "cuda_event_ms": 139.8593292236328,
+          "synchronized_host_wall_seconds": 0.1399119347333908
+        },
+        "cold_baseline": {
+          "cuda_event_ms": 116.347900390625,
+          "synchronized_host_wall_seconds": 0.11638173833489418
+        },
+        "cold_signed": {
+          "cuda_event_ms": 24.862720489501953,
+          "synchronized_host_wall_seconds": 0.02488984912633896
+        },
+        "baseline_same_mask_reference": {
+          "cuda_event_ms": 23.373823165893555,
+          "synchronized_host_wall_seconds": 0.023407883942127228
+        },
+        "dense_cold": {
+          "cuda_event_ms": 35.111934661865234,
+          "synchronized_host_wall_seconds": 0.03513888642191887
+        },
+        "hindsight_paid": {
+          "cuda_event_ms": 34.318336486816406,
+          "synchronized_host_wall_seconds": 0.034354325383901596
+        },
+        "online_baseline_0": {
+          "cuda_event_ms": 23.90835189819336,
+          "synchronized_host_wall_seconds": 0.023937705904245377
+        },
+        "online_baseline_1": {
+          "cuda_event_ms": 23.759872436523438,
+          "synchronized_host_wall_seconds": 0.02378721535205841
+        },
+        "online_baseline_2": {
+          "cuda_event_ms": 23.751680374145508,
+          "synchronized_host_wall_seconds": 0.023925092071294785
+        },
+        "online_signed_0": {
+          "cuda_event_ms": 25.175039291381836,
+          "synchronized_host_wall_seconds": 0.025200847536325455
+        },
+        "online_signed_1": {
+          "cuda_event_ms": 25.210880279541016,
+          "synchronized_host_wall_seconds": 0.025237157940864563
+        },
+        "online_signed_2": {
+          "cuda_event_ms": 24.938495635986328,
+          "synchronized_host_wall_seconds": 0.024965770542621613
+        },
+        "dense_0": {
+          "cuda_event_ms": 35.152896881103516,
+          "synchronized_host_wall_seconds": 0.03517737612128258
+        },
+        "dense_1": {
+          "cuda_event_ms": 36.717567443847656,
+          "synchronized_host_wall_seconds": 0.03674415126442909
+        },
+        "dense_2": {
+          "cuda_event_ms": 36.67251205444336,
+          "synchronized_host_wall_seconds": 0.036698710173368454
+        }
+      },
+      "counts": {
+        "clone_h": 10,
+        "clone_y": 10,
+        "gather_w1": 10,
+        "gather_bias": 10,
+        "gather_w2": 10,
+        "gather_h": 10,
+        "selected_w1": 10,
+        "selected_gelu": 10,
+        "delta_round": 10,
+        "update_h": 10,
+        "selected_w2_fp32": 10,
+        "accumulate_y": 10,
+        "gate_product": 15,
+        "dense_w1": 5,
+        "dense_w2": 5,
+        "gelu": 5,
+        "observer_w1": 8,
+        "observer_gelu": 8,
+        "observer_rms_mean": 8,
+        "selector": 8,
+        "mask_guard": 8,
+        "complement_zero": 5,
+        "gemv_fp32": 5,
+        "broadcast_add": 5,
+        "full_mean": 1,
+        "prior_hash": 2,
+        "parent_hash": 4,
+        "header_hash": 2,
+        "operand_file_hash": 8,
+        "checkpoint_hash": 1,
+        "checkpoint_tensor_load": 1,
+        "checkpoint_finite": 1,
+        "operand_tensor_load": 3,
+        "operand_finite": 1,
+        "fixed_selection_init": 1,
+        "metrics": 1,
+        "baseline_reference_action": 1
+      },
+      "compute_wall_seconds": 25.572609938681126,
+      "outer_seconds": 26.23036003857851,
+      "gpu_peak_reserved_bytes": 21170749440,
+      "host_peak_rss_bytes": 1268281344,
+      "gpu_monitor_violations": 0
+    },
+    {
+      "part": 2,
+      "source": 96,
+      "expert": "high",
+      "steps": [
+        0,
+        1
+      ],
+      "protocol_sha256": "a6e299a2e249bde91558939e849c84a256c0f2aefcca505877107fa8f0b670f3",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_signed_complement_20261030/part2/attempt1/worker/results/RUN.json",
+        "bytes": 14706,
+        "sha256": "1112fc8cc348196724d02da6cbfa7f0dc4fc17f26bf81b5a9975179d6fdd0dfb"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_signed_complement_20261030/part2/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 535,
+        "sha256": "b2b0a4bc4664176df7ea48abb3be3946a1199f5f843e4f44eaf9d0704da8f0be"
+      },
+      "metrics": {
+        "gated_relative_l2": {
+          "baseline": [
+            0.3742510857999273,
+            0.3742510857999273,
+            0.3742510857999273
+          ],
+          "signed": [
+            0.35404588260490966,
+            0.35404588260490966,
+            0.35404588260490966
+          ],
+          "hindsight": [
+            0.35242870484453986
+          ]
+        },
+        "baseline_error_dc_ac_fp64": {
+          "dc_energy": 400796.0021486495,
+          "ac_energy": 3138795.3009086763,
+          "total_energy": 3539591.303057326,
+          "closure_difference": 0.0
+        },
+        "same_mask_baseline_reference": {
+          "relative_l2": 0.0,
+          "absolute_max": 0.0,
+          "numeric_equal": true
+        },
+        "mask_sha256": "3b9f74a3dc935590c3a778d2ea5256300cdc9d91b319d88cfa0be7152c050792",
+        "prior_p64_gated_relative_l2": [
+          0.3742510857999273,
+          0.3742510857999273,
+          0.3742510857999273
+        ],
+        "mask_guard_host_seconds": [
+          0.00014901533722877502,
+          9.332597255706787e-05,
+          0.00011280179023742676,
+          0.0001126416027545929,
+          0.00011146441102027893,
+          0.00011568143963813782,
+          0.00011153146624565125,
+          0.00011281296610832214
+        ],
+        "recipe": "sample BF16 GELU minus cached BF16 h in FP32; 64-row FP32 mean; selected columns zero; cast complement BF16; BF16 GEMV FP32 output; add old Y and selected delta in FP32; one BF16 output cast then current BF16 gate"
+      },
+      "timings": {
+        "old_cache": {
+          "cuda_event_ms": 141.9048309326172,
+          "synchronized_host_wall_seconds": 0.14195417240262032
+        },
+        "cold_baseline": {
+          "cuda_event_ms": 114.86105346679688,
+          "synchronized_host_wall_seconds": 0.11489539220929146
+        },
+        "cold_signed": {
+          "cuda_event_ms": 24.70707130432129,
+          "synchronized_host_wall_seconds": 0.024732116609811783
+        },
+        "baseline_same_mask_reference": {
+          "cuda_event_ms": 23.46291160583496,
+          "synchronized_host_wall_seconds": 0.02348889783024788
+        },
+        "dense_cold": {
+          "cuda_event_ms": 35.390464782714844,
+          "synchronized_host_wall_seconds": 0.0354161374270916
+        },
+        "hindsight_paid": {
+          "cuda_event_ms": 34.19340896606445,
+          "synchronized_host_wall_seconds": 0.03422975912690163
+        },
+        "online_baseline_0": {
+          "cuda_event_ms": 23.90732765197754,
+          "synchronized_host_wall_seconds": 0.023937951773405075
+        },
+        "online_baseline_1": {
+          "cuda_event_ms": 23.71072006225586,
+          "synchronized_host_wall_seconds": 0.023737043142318726
+        },
+        "online_baseline_2": {
+          "cuda_event_ms": 23.72198486328125,
+          "synchronized_host_wall_seconds": 0.023747995495796204
+        },
+        "online_signed_0": {
+          "cuda_event_ms": 24.72447967529297,
+          "synchronized_host_wall_seconds": 0.024749692529439926
+        },
+        "online_signed_1": {
+          "cuda_event_ms": 24.70195198059082,
+          "synchronized_host_wall_seconds": 0.02472694218158722
+        },
+        "online_signed_2": {
+          "cuda_event_ms": 24.70911979675293,
+          "synchronized_host_wall_seconds": 0.024734865874052048
+        },
+        "dense_0": {
+          "cuda_event_ms": 36.74931335449219,
+          "synchronized_host_wall_seconds": 0.03678153455257416
+        },
+        "dense_1": {
+          "cuda_event_ms": 35.48262405395508,
+          "synchronized_host_wall_seconds": 0.03551027551293373
+        },
+        "dense_2": {
+          "cuda_event_ms": 36.14003372192383,
+          "synchronized_host_wall_seconds": 0.036175686866045
+        }
+      },
+      "counts": {
+        "clone_h": 10,
+        "clone_y": 10,
+        "gather_w1": 10,
+        "gather_bias": 10,
+        "gather_w2": 10,
+        "gather_h": 10,
+        "selected_w1": 10,
+        "selected_gelu": 10,
+        "delta_round": 10,
+        "update_h": 10,
+        "selected_w2_fp32": 10,
+        "accumulate_y": 10,
+        "gate_product": 15,
+        "dense_w1": 5,
+        "dense_w2": 5,
+        "gelu": 5,
+        "observer_w1": 8,
+        "observer_gelu": 8,
+        "observer_rms_mean": 8,
+        "selector": 8,
+        "mask_guard": 8,
+        "complement_zero": 5,
+        "gemv_fp32": 5,
+        "broadcast_add": 5,
+        "full_mean": 1,
+        "prior_hash": 2,
+        "parent_hash": 4,
+        "header_hash": 2,
+        "operand_file_hash": 8,
+        "checkpoint_hash": 1,
+        "checkpoint_tensor_load": 1,
+        "checkpoint_finite": 1,
+        "operand_tensor_load": 3,
+        "operand_finite": 1,
+        "fixed_selection_init": 1,
+        "metrics": 1,
+        "baseline_reference_action": 1
+      },
+      "compute_wall_seconds": 26.02539986371994,
+      "outer_seconds": 26.683537624776363,
+      "gpu_peak_reserved_bytes": 21170749440,
+      "host_peak_rss_bytes": 1268330496,
+      "gpu_monitor_violations": 0
+    },
+    {
+      "part": 3,
+      "source": 96,
+      "expert": "low",
+      "steps": [
+        2,
+        3
+      ],
+      "protocol_sha256": "16a5972cdb8b833d1d42fa126184f66f5a9ebcac940b22bb6e240b4d35867c31",
+      "RUN": {
+        "path": "ffnds-derived/e0_chipmunk_signed_complement_20261030/part3/attempt1/worker/results/RUN.json",
+        "bytes": 14720,
+        "sha256": "91d4eb1b1b34cca610bdab7da6cc6f4af3adb0747bad8544c7fe3224fbe98d03"
+      },
+      "exit": {
+        "path": "ffnds-derived/e0_chipmunk_signed_complement_20261030/part3/attempt1/worker/EXIT_RECEIPT.json",
+        "bytes": 535,
+        "sha256": "b2d290c5848b442c795b8531b11fa44ba59a637d8cfdf00bd7bbe8ed88e1020c"
+      },
+      "metrics": {
+        "gated_relative_l2": {
+          "baseline": [
+            0.25612115163625615,
+            0.25612115163625615,
+            0.25612115163625615
+          ],
+          "signed": [
+            0.25662456621216256,
+            0.25662456621216256,
+            0.25662456621216256
+          ],
+          "hindsight": [
+            0.25511654520554294
+          ]
+        },
+        "baseline_error_dc_ac_fp64": {
+          "dc_energy": 7568.241884129664,
+          "ac_energy": 961907.8579068184,
+          "total_energy": 969476.0997909481,
+          "closure_difference": 0.0
+        },
+        "same_mask_baseline_reference": {
+          "relative_l2": 0.0,
+          "absolute_max": 0.0,
+          "numeric_equal": true
+        },
+        "mask_sha256": "ad83b6eec63f26177cd79976c61ba7d09d1e8c7d0e7ddfa04c92391107eab291",
+        "prior_p64_gated_relative_l2": [
+          0.25612115163625615,
+          0.25612115163625615,
+          0.25612115163625615
+        ],
+        "mask_guard_host_seconds": [
+          0.0001309514045715332,
+          0.00011108443140983582,
+          0.00011278316378593445,
+          0.0001121722161769867,
+          0.00012044236063957214,
+          0.00012903660535812378,
+          0.00012838467955589294,
+          0.00012166425585746765
+        ],
+        "recipe": "sample BF16 GELU minus cached BF16 h in FP32; 64-row FP32 mean; selected columns zero; cast complement BF16; BF16 GEMV FP32 output; add old Y and selected delta in FP32; one BF16 output cast then current BF16 gate"
+      },
+      "timings": {
+        "old_cache": {
+          "cuda_event_ms": 143.12313842773438,
+          "synchronized_host_wall_seconds": 0.14317413792014122
+        },
+        "cold_baseline": {
+          "cuda_event_ms": 116.136962890625,
+          "synchronized_host_wall_seconds": 0.11617089062929153
+        },
+        "cold_signed": {
+          "cuda_event_ms": 24.68659210205078,
+          "synchronized_host_wall_seconds": 0.02471238374710083
+        },
+        "baseline_same_mask_reference": {
+          "cuda_event_ms": 23.236608505249023,
+          "synchronized_host_wall_seconds": 0.023263871669769287
+        },
+        "dense_cold": {
+          "cuda_event_ms": 34.53849411010742,
+          "synchronized_host_wall_seconds": 0.03456515818834305
+        },
+        "hindsight_paid": {
+          "cuda_event_ms": 33.64352035522461,
+          "synchronized_host_wall_seconds": 0.03383192792534828
+        },
+        "online_baseline_0": {
+          "cuda_event_ms": 23.89504051208496,
+          "synchronized_host_wall_seconds": 0.023927833884954453
+        },
+        "online_baseline_1": {
+          "cuda_event_ms": 23.6759033203125,
+          "synchronized_host_wall_seconds": 0.023701876401901245
+        },
+        "online_baseline_2": {
+          "cuda_event_ms": 23.67897605895996,
+          "synchronized_host_wall_seconds": 0.02370583638548851
+        },
+        "online_signed_0": {
+          "cuda_event_ms": 24.93337631225586,
+          "synchronized_host_wall_seconds": 0.024958539754152298
+        },
+        "online_signed_1": {
+          "cuda_event_ms": 24.992767333984375,
+          "synchronized_host_wall_seconds": 0.025020260363817215
+        },
+        "online_signed_2": {
+          "cuda_event_ms": 24.804351806640625,
+          "synchronized_host_wall_seconds": 0.024836920201778412
+        },
+        "dense_0": {
+          "cuda_event_ms": 37.20191955566406,
+          "synchronized_host_wall_seconds": 0.037227071821689606
+        },
+        "dense_1": {
+          "cuda_event_ms": 38.06003189086914,
+          "synchronized_host_wall_seconds": 0.03808644786477089
+        },
+        "dense_2": {
+          "cuda_event_ms": 36.25062561035156,
+          "synchronized_host_wall_seconds": 0.03629446029663086
+        }
+      },
+      "counts": {
+        "clone_h": 10,
+        "clone_y": 10,
+        "gather_w1": 10,
+        "gather_bias": 10,
+        "gather_w2": 10,
+        "gather_h": 10,
+        "selected_w1": 10,
+        "selected_gelu": 10,
+        "delta_round": 10,
+        "update_h": 10,
+        "selected_w2_fp32": 10,
+        "accumulate_y": 10,
+        "gate_product": 15,
+        "dense_w1": 5,
+        "dense_w2": 5,
+        "gelu": 5,
+        "observer_w1": 8,
+        "observer_gelu": 8,
+        "observer_rms_mean": 8,
+        "selector": 8,
+        "mask_guard": 8,
+        "complement_zero": 5,
+        "gemv_fp32": 5,
+        "broadcast_add": 5,
+        "full_mean": 1,
+        "prior_hash": 2,
+        "parent_hash": 4,
+        "header_hash": 2,
+        "operand_file_hash": 8,
+        "checkpoint_hash": 1,
+        "checkpoint_tensor_load": 1,
+        "checkpoint_finite": 1,
+        "operand_tensor_load": 3,
+        "operand_finite": 1,
+        "fixed_selection_init": 1,
+        "metrics": 1,
+        "baseline_reference_action": 1
+      },
+      "compute_wall_seconds": 25.776830840855837,
+      "outer_seconds": 26.434641990810633,
+      "gpu_peak_reserved_bytes": 21170749440,
+      "host_peak_rss_bytes": 1268162560,
+      "gpu_monitor_violations": 0
+    }
+  ],
+  "source_equal_expert_means": {
+    "898": {
+      "baseline": 0.3438429874571737,
+      "signed": 0.32449858440271834,
+      "hindsight": 0.3228822861337699
+    },
+    "96": {
+      "baseline": 0.3151861187180917,
+      "signed": 0.3053352244085361,
+      "hindsight": 0.30377262502504143
+    }
+  },
+  "source_balanced_mean": {
+    "baseline": 0.32951455308763267,
+    "signed": 0.31491690440562725,
+    "hindsight": 0.31332745557940567
+  },
+  "scope": "Two exposed development sources, each with two nested expert pairs; true full-M and one whole-M P64 mask; no video or population conclusion.",
+  "information_boundary": "P64 RMS and signed mean share one paid 64-row current W1/GELU; S selected entries zeroed, remainder cast BF16, full W2 GEMV FP32 output; no current full h before online arms. Full omitted-mean hindsight is separately paid only after current Dense.",
+  "theoretical_boundary": "Under real arithmetic and fixed S the full omitted mean maps to a constant omitted-output mean; the P64-selected S is sample-dependent, so its sampled signed mean is not claimed unbiased. BF16 rounding makes full-mean hindsight different from a globally optimal gated output constant.",
+  "timing_contract": "Each baseline/signed/Dense arm has its own cold and three measured calls. Online CUDA and host timing includes selection, sample probe, identity SHA D2H/sync, gather, cache, GEMMs, and gate; persistence is excluded. Old-cache, same-mask frozen-packed direct check, and full-mean hindsight are separate. Guard host intervals are also listed. Local events are not system speed."
+}
