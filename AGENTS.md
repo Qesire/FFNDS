@@ -1,5 +1,9 @@
 # FFNDS · AutoResearcher 科研Agent默认约定
 
+**用户最新范围约束（2026-10-29，优先于下文旧Chipmunk/TEAL共同P0以及旧作者环境复现要求）：只做FFN本体稀疏/省算的Wan2.2-I2V-A14B四步正向基线。** 现行状态见 [ACTIVE.current_user_ffn_only_priority_20261029](research/ACTIVE_RESEARCH.json)、[FFN-only筛选](research/20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md)。P0为**SharQ(L74)在Wan上原生N:M稀疏FP4+全Dense残差的真实FFN物理迁移**以及**已有TEAL Wan全160视频质量基线向真实大M W2稀疏执行的延伸**；Chipmunk(L09)为P1单组已实测机制（新范围须跨source证明）；RT-Lynx(L08)为需查证免训练原生分支的FFN备选。**立即停止将LLM tokenizer/checkpoint/PPL/生成、原FLUX作者环境、MagCache、FIS-DiT、TeaCache、Attention/Token/Frame/Whole-Block跳算与step缓存当作本轮实验前置。** 已完成结果不删除；用户目标是FFN机制、Wan真实视频质量与W1/W2真实节省，不是复现其他模型或非FFN系统倍速。**每个具体CPU/GPU实验必须再由真实不同Agent独立审查、修订recheck、冻ACTIVE有限scope、RUN/EXIT有证据**，不能以此范围声明已运行。
+
+
+
 **当前用户最新最高优先级（2026-10-29）**：**P0 并列复现 Chipmunk 与 TEAL**，在作者原生条件和 Wan2.2 四步 I2V 全160 FFN 适配中分别建立可核实的成功基线。权威状态见 [ACTIVE.current_user_research_priority_20261029](research/ACTIVE_RESEARCH.json)、[Chipmunk Issue #57](https://github.com/Qesire/FFNDS/issues/57)、[TEAL Issue #58](https://github.com/Qesire/FFNDS/issues/58) 和[两条复现详细设计](research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)。两者共同 **P0，不因任务排队默认先完成其中一个才准开展另一个**；可并行只读源码/文献、静态检查与独立审阅，真实CPU/GPU运行逐scope通过[实验前复审规则](research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)并按ACTIVE分配。**此前 S2 正常 forward 因果新实验降为 P1**，历史完成的S2实测仍属真实证据，现有 issue #55 是次级待办，不再发起挤占这两条复现的GPU工作。Chipmunk 作者 Wan2.1 示例配置是 `mlp.is_enabled: false`、`attn.is_enabled: true` 和 `step_caching.is_enabled: true`，必须先忠实复现系统配置，再单独建立 MLP-only 开启及 Wan2.2 适配，不能把其 Wan2.1 2.67×组合加速称为 FFN-only 结果。TEAL 作者 LLM FP16 经验不能直接充当 Wan BF16 GELU 的 GPU kernel/速度证据。[TEAL作者FP16单token内核有限验证](research/20261029/TEAL_AUTHOR_FP16_KERNEL_PROBE_RESULTS_20261029.md)已独立复审后实际EXIT0并闭环；完整作者LLM与Wan适配尚未复现。当前逐scope权限与状态以ACTIVE及实际报告为准。
 
 

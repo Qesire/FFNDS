@@ -5,6 +5,11 @@ description: Construct and audit FFNDS source sampling, calibration, held-out da
 
 # FFNDS · Sampling, calibration, evaluation and data evidence
 
+
+**最新用户优先级（2026-10-29）：只测FFN自身稀疏，不做原作者LLM/FLUX或非FFN系统加速作为前置。** [FFN-only基线方案](../../../research/20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md)：P0 SharQ L74的Wan native sparse FP4+Dense residual总成本[#59](https://github.com/Qesire/FFNDS/issues/59)，P0 TEAL后GELU置零全160视频质量与真正大M sparse W2[#58](https://github.com/Qesire/FFNDS/issues/58)，P1 Chipmunk paid proxy的Wan FFN跨来源验证[#57](https://github.com/Qesire/FFNDS/issues/57)。已有TEAL四来源视频评价EXIT0，但masked Dense W2不是物理加速；SharQ论文Wan2.2 T2V+SageAttention总加速不能直接报本仓I2V FFN-only成绩。候选必须在原Wan四步双expert全160处实际作用，覆盖动作/语义与FLOPs/内核/端到端真实开销；每个新CPU/GPU实验另行独立反例审查、recheck、ACTIVE冻结、真实RUN/EXIT。本文旧Chipmunk+TEAL共同P0及LLM原版复现已被本段替代。
+
+
+
 **最新 P0 免大训练基线（2026-10-29）**：Chipmunk 与 TEAL 同为最高优先级，见 [#57](https://github.com/Qesire/FFNDS/issues/57)、[#58](https://github.com/Qesire/FFNDS/issues/58) 及 [ACTIVE](../../../research/ACTIVE_RESEARCH.json)。作者原条件与Wan2.2四步分scope；Chipmunk作者Wan2.1实例默认MLP关闭，必须独立打开MLP-only并重新验算；TEAL pre-W1 与 post-GELU 分开核实真正W1/W2算量、FP16/BF16与完整视频。新CPU/GPU研究实验每个scope在执行前重新独立评议，reviewer recheck后才能注册ACTIVE并运行；S2尚未执行的新因果GPU实验降P1，旧结果保留。[TEAL作者FP16单token有限kernel](../../../research/20261029/TEAL_AUTHOR_FP16_KERNEL_PROBE_RESULTS_20261029.md)已复审后实际EXIT0并闭环；完整LLM、Chipmunk原系统及Wan迁移仍未复现，scope状态以ACTIVE和实际报告为准。
 
 
