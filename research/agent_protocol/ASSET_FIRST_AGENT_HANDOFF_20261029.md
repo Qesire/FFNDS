@@ -6,6 +6,8 @@
 
 **本次用户指定的实际下一步（优先执行）**：[S2真实时空+Dense/Student状态采集与因果定位合同](../20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)；[必须由主Agent分出理论与实验设计子Agent](S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。先读取最新已完成ROI坐标producer（ord898/96、maxflow并非主体）及新40条失败视频的RUN/EXIT，独立子Agent同步推导局部W2失真、student prefix偏移、运动对应、gate/attention消费者的相反预测；主Agent负责校验坐标/真实state/两卡执行范围、实现及运行pilot。pilot为2个source×Dense/value10/dcac10×高flow5×5+中心5×5+低流负对照×21τ×160site；完成后扩跨来源统计和另行冻结的same-input反事实。无原生新RUN前不得报告已完成采集/推导。
 
+**实际接手后的推进**：[spatial52完整teacher/student采集已双路exit0](../20261029/S2_SPATIAL52_DENSE_STUDENT_CAPTURE_RESULTS_20261029.md)，960包/60旧状态byte-neutral；[真实独立理论及实现修正复核已交付](../method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md)。原pilot先于新委派指令到达而冻结，保留时间身份。当前另注册同h_D/h_S的原W2/两候选四角reader，V1 CPU输出parent失败0GPU/模型，V2双CPU实际exit0；新原生结果依ACTIVE。下一判别为L/P/I、signed cross、fullM数值bridge和ROI/τ0/逐频差异，随后依真实结果扩大独立source、物体/遮挡及attention/正常后缀变量，不重复本轮权重微调。
+
 ## 0. 协作起手式
 
 1. **观察与信息差距**：列出已有 *原始source-cluster、step×layer×token坐标、producer、numeric backend、teacher或student状态、latent视频时间位置*；明确一个使旧策略失效的已见现象。

@@ -10,13 +10,9 @@
 
 **P0开放式数据获取**：[问题驱动采集与判别协议](agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)＋[真实采集需求队列](agent_protocol/ACQUISITION_QUEUE_20261029.json)。对每个机制先判断现有观测是否足够；缺失真实source分层、video latent时间配对、完整160-site、student state、动态FP4代码/尺度或真实Kernel成本时，主动设计并执行注册的新采集。现有资产是第一批证据，不是科研边界；允许增加新机制/新数据域/新变量，不预设固定样本上限。
 
-**S2的时间统计证据维度（并非新增并行研究路线）**：[完整数学、论文与判别顺序](20261029/TEMPORAL_DISTANCE_MOTION_COMPENSATION_FFN_HYPOTHESES_20261029.md) · [OPEN计算图claim](method_discussion/graph_annotations/E0/E0_GRAPH_MTC_TDIC_TEMPORAL_INNOVATION_20261029.json) · [已并入AQ-S2-TIME-TUBELET的统计采集要求](agent_protocol/ACQUISITION_QUEUE_20261029.json)。在20来源60条原BF16完整视频运动降至Dense约0.49/0.48的真实负结果基础上，同Dense-h的BF16因子重放已实际完成，观察到AC相对误差较DC显著更大；下一步补齐频谱/滞后/Gram结构，再通过真实空间邻域判别运动对齐的额外收益。三种OPEN行动：同预算AC加权W2函数表示、计费锚点的误差运输、按廉价运动创新信息决定W2成本。时间相似不等于运动向量；已收集的8xy固定轨迹不构成完整运动对应。该条件数学注解从属于S2，**不单独并行**；上述历史新实验已经完成，但本轮T1–T6尚无新RUN或同行批准。
+**S2时间维度已取得真实统计与失败视频证据**：[T1–T4已实际exit0](20261029/S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)，去τ0后gY lag1≈0.048、r95≈16.96/19，固定xy创新宽谱。相邻差分cos约−1/2也可由正交序列产生，不能推断视频运动反向。[新10图两种同r960拟合](20261029/RAW_BF16_NEW10_TEMPORAL_REPRESENTATION_FIT_RESULTS_20261029.md)训练AC改善7.73%，但[20开发图40条新视频及八轴](20261029/RAW_BF16_TEMPORAL_VALUE_DCAC_VIDEO20_QUALITY_RESULTS_20261029.md)RAFT仅Dense的0.451/0.439，质量未通过；停止本目标权重微调，转实际空间与学生变量判别。时间是S2的统计维度，不是第五条并行方法。
 
-**S2时间统计的当前必读入口：**[完整21τ时间统计结构与新增采集计划](20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。十张新增开发图的完整21τ/全160采集、原BF16同Dense-h-r960重放已实际exit0；AC相对误差显著大于DC。但已有8xy均值/能量与横邻对照仍欠缺**多τ滞后相关、频谱/相位、时间Gram有效秩、非平稳事件与真实运动空间邻域**，因此时间应作为S2与其余FFN研究方法共享的统计维度，而非第五条部署方向。新纯统计模块和限定CPU producer仅提供后续真实采集能力，尚无新增T1–T6数值或实验RUN。
-
-**当前实际推进**：[普通/时间平衡同r960全80函数拟合已exit0](20261029/RAW_BF16_NEW10_TEMPORAL_REPRESENTATION_FIT_RESULTS_20261029.md)。[新S2 T1–T4 CPU范围已实际exit0](20261029/S2_FULL21TAU_TEMPORAL_STATISTICS_RESULTS_20261029.md)；[20开发图value10/DCAC10共40新视频及八轴已实际exit0](20261029/RAW_BF16_TEMPORAL_VALUE_DCAC_VIDEO20_QUALITY_RESULTS_20261029.md)，复用既有Dense，RAFT比例0.451/0.439，质量未通过；下一采集为真实空间邻域及student状态。
-
-**2026-10-29用户指定立即推进的P0实验**：[S2 Dense/Student真实时空采集、同输入W2反事实与前缀/下游因果定位](20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)。[主Agent必须分派独立理论子Agent](agent_protocol/S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)，专门复核计算图、竞争机制与实验设计，主Agent独立实现原生producer并按ACTIVE+两卡会话限制真正执行。首批用ROI已exit0的ord898/96作全21τ×160site Dense/value10/dcac10真实采集链路pilot，再扩来源类别；不把pilot等同多源结论，现状为REQUESTED_NOT_REGISTERED/NO_NEW_RUN。
+**当前实际推进**：[两来源spatial52×全21τ×全160位置×Dense/value10/dcac10真实采集已双路exit0](20261029/S2_SPATIAL52_DENSE_STUDENT_CAPTURE_RESULTS_20261029.md)：960包、约67.02GiB、60历史完整生成状态byte-neutral通过，无新decode。[真实独立理论子Agent已完成](method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md)，给出四组竞争预测、typed L/P/I及逐频相消修正。另登记原W2/两固定候选的同h_D/h_S四角读出：V1 CPU缺parent退出保留，V2启动修复双CPU已exit0；原生/结果阶段以ACTIVE及新RUN/EXIT为准。两个曝光极端图仅是诊断pilot，实际attention消费者、物体/遮挡运动对应、新独立图簇及正常后缀因果作用继续按需采集。
 
 ## P0 · 当前最短阅读和行动路径
 
@@ -50,7 +46,7 @@
 
 **2026-10-28 M-B 四轮独立评议综合（非方法权威、非 ACTIVE 任务更改）**：[研究结论、第四轮行/通道误差纠错与 W0–W3 判别](independent_reviews/M_B_20261028/SYNTHESIS_AFTER_FOUR_ROUNDS_20261028.md)；[原始四轮评议目录](independent_reviews/M_B_20261028/README.md)。需要争议的版本演进时再进入该目录；**当前模型方法任务仍按 P0 的M-B交接执行**。
 
-**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋10补充，共108项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
+**使用论文图的最短工具路径**（只读/静态）：\`python tools/graph_agent_bridge.py paper L34\` 查论文，\`focus T06\` 查真实Wan算子焦点，\`validate\` 查关系完整性。99/102项旧口径是时间点差异：当前索引为**98主＋13补充，共111项**；主计算图为225节点/468原始关系，新的方法约束是单独的12条typed先验关系，不混作新增原生因果边。
 
 ## P2 · 与当前方法直接有关的真实证据
 

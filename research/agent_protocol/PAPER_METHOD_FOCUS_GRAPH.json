@@ -6,7 +6,7 @@
   "original_graph": "research/agent_protocol/GRAPH_AGENT_BINDINGS.json",
   "primary_index": "research/literature/20261026/PRIMARY_LITERATURE_INDEX.json",
   "existing_family_map": "research/agent_protocol/MECHANISM_GRAPH_CROSSWALK.json",
-  "supplemental_scope": "10 independently verified calibration sources in separate C01-C10 namespace; original 89-item primary index extended to92 by actual B sensitivity primary-method reading on2026-10-28.",
+  "supplemental_scope": "C01–C10 calibration sources; C11–C13 spatiotemporal paper/method sources, with actual per-source reading depth and author-code limits.",
   "graph_document": "docs/98_端到端计算图与证据注解_20261025.md",
   "focus_nodes": [
     {
@@ -412,14 +412,15 @@
         "T11"
       ],
       "index": "PRIMARY_LITERATURE_INDEX.json",
-      "review_depth": "OFFICIAL_ABSTRACT",
+      "review_depth": "PRIMARY_ICCV_METHOD_AND_AUTHOR_STDIT3_COMPUTE_NEXT_STEP_PARTIAL_CODE_REVIEWED",
       "mechanism": "Content and motion heterogeneity guide cache budgets",
       "intervention": "adaptive caching",
       "decision_time": "movement and previous state",
       "wan_transfer_question": "Static appearing background does not establish FFN dispensability or no flicker",
       "associated_mechanism_families": [],
       "graph_anchor_existing": [],
-      "source_url": "https://openaccess.thecvf.com/content/ICCV2025/html/Kahatapitiya_Adaptive_Caching_for_Faster_Video_Generation_with_Diffusion_Transformers_ICCV_2025_paper.html"
+      "source_url": "https://openaccess.thecvf.com/content/ICCV2025/html/Kahatapitiya_Adaptive_Caching_for_Faster_Video_Generation_with_Diffusion_Transformers_ICCV_2025_paper.html",
+      "s2_source_ledger_20261029": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md"
     },
     {
       "id": "L16",
@@ -843,7 +844,8 @@
         "K22",
         "K23"
       ],
-      "source_url": "https://openaccess.thecvf.com/content/CVPR2026/html/Chen_Forecast_the_Principal_Stabilize_the_Residual_Subspace-Aware_Feature_Caching_for_CVPR_2026_paper.html"
+      "source_url": "https://openaccess.thecvf.com/content/CVPR2026/html/Chen_Forecast_the_Principal_Stabilize_the_Residual_Subspace-Aware_Feature_Caching_for_CVPR_2026_paper.html",
+      "s2_source_ledger_20261029": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md"
     },
     {
       "id": "L40",
@@ -2239,6 +2241,73 @@
         "T10"
       ],
       "group": "supplemental_calibration"
+    },
+    {
+      "id": "C11",
+      "title": "TokenFlow: Consistent Diffusion Features for Consistent Video Editing",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "url": "https://arxiv.org/abs/2307.10373",
+      "model": "text-to-image diffusion video editing",
+      "observed_mechanism": "Video-frame diffusion-feature correspondences propagate edited features from pivotal frames",
+      "decision_time": "Source video and inverted features available before edit propagation",
+      "physical_action": "Frame-correspondence feature propagation and attention injection",
+      "training": "training free",
+      "wan_specific_discriminator": "Input-video feature propagation is not free online Wan FFN W2 residual transport; test latent matching and paid information timing.",
+      "reading_depth": "PRIMARY_ARXIV_ABSTRACT_AND_AUTHOR_TOKENFLOW_UTILS_PARTIAL_CODE_REVIEWED",
+      "focus_nodes": [
+        "T10",
+        "T12"
+      ],
+      "group": "supplemental_spatiotemporal",
+      "source_ledger": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md",
+      "author_code_url": "https://github.com/omerbt/TokenFlow/blob/master/tokenflow_utils.py",
+      "author_code_review_scope": "Author pivotal-pass registration and attention implementation inspected; not full implementation audit."
+    },
+    {
+      "id": "C12",
+      "title": "FlowVid: Taming Imperfect Optical Flows for Consistent Video-to-Video Synthesis",
+      "year": 2024,
+      "venue": "CVPR 2024",
+      "url": "https://openaccess.thecvf.com/content/CVPR2024/papers/Liang_FlowVid_Taming_Imperfect_Optical_Flows_for_Consistent_Video-to-Video_Synthesis_CVPR_2024_paper.pdf",
+      "model": "trained video-to-video diffusion model",
+      "observed_mechanism": "Source-frame flow warps and occlusion inform a trained video editing model",
+      "decision_time": "Input video and flow/occlusion estimates available before conditional synthesis",
+      "physical_action": "Flow-warped reference plus spatial conditioning in trained video diffusion",
+      "training": "joint training",
+      "wan_specific_discriminator": "Decoded flow and occlusion do not establish actual Wan latent correspondence or online availability.",
+      "reading_depth": "PRIMARY_CVPR_METHOD_AND_TRAINING_SECTIONS_READ_AUTHOR_CODE_UNAVAILABLE",
+      "focus_nodes": [
+        "T10",
+        "T12"
+      ],
+      "group": "supplemental_spatiotemporal",
+      "source_ledger": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md",
+      "author_code_url": "https://github.com/Jeff-LiangF/FlowVid",
+      "author_code_review_scope": "Author repository checked; README only at review, executable implementation not verified."
+    },
+    {
+      "id": "C13",
+      "title": "OmniCache: A Trajectory-Oriented Global Perspective on Training-Free Cache Reuse for Diffusion Transformer Models",
+      "year": 2025,
+      "venue": "ICCV 2025",
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Chu_OmniCache_A_Trajectory-Oriented_Global_Perspective_on_Training-Free_Cache_Reuse_for_ICCV_2025_paper.pdf",
+      "model": "diffusion transformers and video diffusion",
+      "observed_mechanism": "Sampling trajectory curvature schedules denoising-step caching and estimates cache-induced noise for correction",
+      "decision_time": "Offline trajectory analysis plus prior refresh and cached model information",
+      "physical_action": "Reuse model features across denoising steps and correct estimated cache-induced noise",
+      "training": "training free",
+      "wan_specific_discriminator": "Four-step two-expert Wan and within-step latent time require their own execution, cache identity and paid correction test.",
+      "reading_depth": "PRIMARY_ICCV_METHOD_SECTIONS_3_2_3_AND_3_3_EQ6_TO_8_READ_AUTHOR_CODE_UNVERIFIED",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T11"
+      ],
+      "group": "supplemental_spatiotemporal",
+      "source_ledger": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md",
+      "author_code_url": null,
+      "author_code_review_scope": "Author executable implementation not independently located or reviewed."
     }
   ],
   "supplemental_links": [
@@ -2413,11 +2482,63 @@
       "associated_mechanism_families": [],
       "graph_anchor_existing": [],
       "source_url": "https://pubmed.ncbi.nlm.nih.gov/42579580/"
+    },
+    {
+      "id": "C11",
+      "focus_nodes": [
+        "T10",
+        "T12"
+      ],
+      "index": "SUPPLEMENTAL_SPATIOTEMPORAL_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_ARXIV_ABSTRACT_AND_AUTHOR_TOKENFLOW_UTILS_PARTIAL_CODE_REVIEWED",
+      "mechanism": "Video-frame diffusion-feature correspondences propagate edited features from pivotal frames",
+      "intervention": "Frame-correspondence feature propagation and attention injection",
+      "decision_time": "Source video and inverted features available before edit propagation",
+      "wan_transfer_question": "Input-video feature propagation is not free online Wan FFN W2 residual transport; test latent matching and paid information timing.",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2307.10373",
+      "source_ledger": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md"
+    },
+    {
+      "id": "C12",
+      "focus_nodes": [
+        "T10",
+        "T12"
+      ],
+      "index": "SUPPLEMENTAL_SPATIOTEMPORAL_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_CVPR_METHOD_AND_TRAINING_SECTIONS_READ_AUTHOR_CODE_UNAVAILABLE",
+      "mechanism": "Source-frame flow warps and occlusion inform a trained video editing model",
+      "intervention": "Flow-warped reference plus spatial conditioning in trained video diffusion",
+      "decision_time": "Input video and flow/occlusion estimates available before conditional synthesis",
+      "wan_transfer_question": "Decoded flow and occlusion do not establish actual Wan latent correspondence or online availability.",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://openaccess.thecvf.com/content/CVPR2024/papers/Liang_FlowVid_Taming_Imperfect_Optical_Flows_for_Consistent_Video-to-Video_Synthesis_CVPR_2024_paper.pdf",
+      "source_ledger": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md"
+    },
+    {
+      "id": "C13",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T11"
+      ],
+      "index": "SUPPLEMENTAL_SPATIOTEMPORAL_PRIMARY_SOURCES",
+      "review_depth": "PRIMARY_ICCV_METHOD_SECTIONS_3_2_3_AND_3_3_EQ6_TO_8_READ_AUTHOR_CODE_UNVERIFIED",
+      "mechanism": "Sampling trajectory curvature schedules denoising-step caching and estimates cache-induced noise for correction",
+      "intervention": "Reuse model features across denoising steps and correct estimated cache-induced noise",
+      "decision_time": "Offline trajectory analysis plus prior refresh and cached model information",
+      "wan_transfer_question": "Four-step two-expert Wan and within-step latent time require their own execution, cache identity and paid correction test.",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Chu_OmniCache_A_Trajectory-Oriented_Global_Perspective_on_Training-Free_Cache_Reuse_for_ICCV_2025_paper.pdf",
+      "source_ledger": "research/method_discussion/discoveries/E0/s2-theory-subagent-s2_theory_design_independent-20261029.md"
     }
   ],
   "source_ledger_contract": {
     "primary": "preserve original reading_depth and original url; per-paper mapping is an interpretation, not author code execution",
-    "supplemental": "official abstracts or code explicitly recorded; not promoted to full-paper derivation",
+    "supplemental": "Per-paper explicit primary-paper and author-code reading depth; ledger records partial source review and inaccessible code without promotion.",
     "local": "G0-G13 SRC/ALG/NATIVE graph remains distinct from G14 paper-method LIT overlay"
   },
   "output_format": {
