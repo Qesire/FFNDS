@@ -19,6 +19,8 @@
 
 **当前S2研究已扩展为时间统计结构工作：** [T1–T6时序统计、原生来源扩张与S2执行顺序](../20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。原十图21τ×8xy×160位置与同Dense h低秩因子E1/E2均已实际完成，不能再称它们“运行中”；下一缺口为相关函数/谱/时间Gram/相位/突发运动及真实连续空间邻域和学生状态。MTC只保留可选的代数/条件表示注释，不独占并行方法队列或单独GPU作业身份。任何新统计运行和扩源需新ACTIVE范围；已记录两卡会话限制在对应执行时有效。
 
+**最新用户P0执行任务（2026-10-29）**：[S2真实Dense/Student空间邻域及后缀误差定位](../20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)，以及[独立理论子Agent委派](S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。2026-10-29累计40条新视频的value10/dcac10虽局部AC fit改善，但全视频RAFT只到Dense0.451/0.439；时间T1–T4真实CPU统计/两来源ROI选点已EXIT0。下一阶段是**真实normal-forward全160site、full21τ中心/高流/低流ROI的Dense与自由student状态**，而非再拟合同目标。主Agent实际接手时首先spawn独立子Agent负责数学解释与实验设计，不能把此请求标成子Agent完成。所有新GPU原生执行需要新ACTIVE protocol、真实RUN/EXIT、适用两卡会话约束。
+
 ## 原始计算对象与已用数据
 
 - Wan2.2 I2V A14B四步high/high/low/low，两个expert、各40 Block；每个四步视频实际160个FFN位置。原BF16 W1形状5120×13824、W2形状13824×5120，视频latent网格21×29×52（21≠四个去噪step）。
