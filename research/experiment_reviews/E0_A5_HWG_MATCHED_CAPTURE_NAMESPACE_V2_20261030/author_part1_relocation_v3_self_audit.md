@@ -1,0 +1,11 @@
+# 来源96迁移与提前检查已有GPU监控：有限范围自审
+
+作者 `/root`。原PART1_V2完整显式资产SHA读取已通过，但慢设备仍在加载CPU模型，没有generation phase。其它三个原scope均已实际确认同一个合法namespace误拒绝；root为避免继续走向已知启动故障，对自己的精确PID/startticks先发SIGINT。原RUN在收尾时还记录了真实foreign-compute monitor冲突，原bootstrap亦为该RuntimeError，不能只写成namespace故障。诊断RUN/启动账已落盘后，自己的旧进程仍未退出，root再发SIGTERM；实际supervisor process_exited=true、child_returncode=-15、timeout=false、0phase。原SIGINT请求、SIGTERM升级、RUN/EXIT、监控与已发生读取均保留，未处理任何第三方进程。
+
+新PART1_NS_V3只补来源96、seed42的同一plain/observed两视频和160处原HiF4匹配采集。新worker、GPU和CPU4–7以及同SHA cache镜像通过private locator/profile和精确job绑定；来源、camera prompt、输入图像、checkpoint、原始数值recipe、1344行规则、160 fullM、十状态/视频byte-neutral及原128GiB/4小时资源预算不变。新实际探测为空闲A100，host available约345GiB；同机已有一个约160GiB forecast的采集，入场仍由原joint-host reservation动态核验。当前session实际GPU总数在旧进程真实退出后由4降为3，新任务最多补回第4张。
+
+新入口复用已冻结namespace修正和原数值采集，仅为原 `reserve_before_assets` 返回的同一个监控器增加读取期间的check：每次已收费读的before/after先检查原wall门，再检查monitor已有violations，不增加NVML sampling、FFN、norm、选择或其它模型操作。出现外来计算时停止并保留已读实际字节/UNKNOWN，而不是等整套CPU模型加载完；普通namespace和逐文件源码SHA检查照旧。两项无模型/无CUDA fixture实际PASS，分别覆盖before/chunk调用原monitor，以及冲突后保存7/10已读字节并停止。原namespace8项与原采集12项证明的对象不被重命名为新模型运行通过。
+
+两种相反预测：合法namespace和无资源冲突时应按原数值配对完成；路径污染/外来compute/真实资源或数值问题应提前或按原门失败。迁移不证明视频中性和方法加速。本次single attempt、失败不自动重试；条件CPU verifier仍只在自身producer实际EXIT0后执行，0新候选/拟合/训练/官方评分。
+
+精确协议 `config/e0_a5_hwg_matched_capture_relocated_20261030_part1_frozen_v3.json`，private两job表 `/home/xiang/.config/ffnds/a5_hwg_capture_relocated_20261030_part1_v3/BOUND_JOBS.json`，原始停止/资源冲突真实父记录SHA均进入协议；1023项源码及140namespace路径冻结。当前REVIEW_REQUESTED，未注册/启动本V3。请独立复核新增入口/两fixture、原复用源码、实际父链、私有迁移差异、原GPU≤4/host双model条件、exact argv/输出及预算后分别审核RUN和条件VERIFY。
