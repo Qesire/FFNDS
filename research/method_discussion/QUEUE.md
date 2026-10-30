@@ -68,3 +68,5 @@
 
 
 **2026-10-30 C线同步实际判别**：上述同流设计现已[14视频/双79产物验证实际闭环](../20261030/CHIPMUNK_SYNC_ABBA_RESULTS_20261030.md)，`/root/sync_abba_actual_review_terra` [另行核实际证据](../experiment_reviews/E0_CHIPMUNK_SYNC_ABBA_20261030/ACTUAL_RESULT_REVIEW.md)。两曝光来源FFN事件约降7.16%，完整phase wall约降0.68%，保持历史候选全部输出byte相同；不作总体显著性或Dense部署加速、质量恢复。正式方法SUPPORT仍无。
+
+**2026-10-30 全40学生观测与局部/前缀分解（OBS/ALG/OPEN）**：root提出采集与三路输出分解，`/root/chipmunk_student_discrimination_terra`实现并提交[真实独立数学讨论](discoveries/E0/chipmunk-p64-matched-local-prefix-independent-review-20261030.md)，`/root/teal_full_llm_calibration_build_terra`提供观测部件及元数据汇总。[两源四视频及双310项VERIFY](../20261030/CHIPMUNK_STUDENT_OBSERVATION_RESULTS_20261030.md)均actual EXIT0，由`/root/sync_abba_actual_review_terra`[独立复核实际结果](../experiment_reviews/E0_CHIPMUNK_STUDENT_OBSERVATION_20261030/ACTUAL_RESULT_REVIEW.md)。979同状态误差更小而既有视频退化更大；分解局部L、前缀P与signed cross为下一有限CPU观察，尚无H3因果或部署通过。记录实际作者和版本，不登记正式方法SUPPORT。

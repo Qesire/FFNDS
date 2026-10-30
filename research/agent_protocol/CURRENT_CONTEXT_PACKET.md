@@ -1,5 +1,7 @@
 # FFNDS · 当前Agent最小上下文（2026-10-29）
 
+**2026-10-30 全40层学生观测实际闭环**：[两来源四视频完整证据](../20261030/CHIPMUNK_STUDENT_OBSERVATION_RESULTS_20261030.md)及两个310项产物独立VERIFY均actual EXIT0，[实际独立复核](../experiment_reviews/E0_CHIPMUNK_STUDENT_OBSERVATION_20261030/ACTUAL_RESULT_REVIEW.md)通过。两曝光来源898/979、seed42、四条完整视频、40状态及4视频历史byte门均通过；原生producer比较历史payload，独立VERIFY重读本批产物并核历史metadata。全部40处high-step1保留真实mask、独立256评估行与64选择行、84时空组和同状态Dense shadow；并在四层保存full-M；全部原始张量共47.35GiB。来源898/979门后同状态局部相对L2分别0.360532/0.342973，而979既有视频运动退化更大；局部总误差不足以给这两源质量排序。signed投影交叉项与区域异质性为实际观测，后缀因果仍OPEN。GPU已释放，当前上限4卡；完成已精确复核的CPU局部/前缀输出分解后提交并结束本轮，不再扩展实验。
+
 **2026-10-30 同算法同步对照已闭环**：[两曝光源14完整视频](../20261030/CHIPMUNK_SYNC_ABBA_RESULTS_20261030.md)及两项79产物独立VERIFY均actual EXIT0，[真实独立结果审查](../experiment_reviews/E0_CHIPMUNK_SYNC_ABBA_20261030/ACTUAL_RESULT_REVIEW.md)核实全部账本/资源。140状态＋14视频历史byte门通过（历史payload逐字节比较由GPU producer完成，VERIFY重读本批产物并核历史metadata）。排除warmup的A/B各两次，898/979 FFN事件B/A=0.928497/0.928260，完整phase wall=0.992008/0.994478；来源等权FFN事件7.453→6.919秒、phase wall48.060→47.736秒。两来源、单seed、嵌套重复和带观察计时；不作相对Dense系统加速或总体显著性结论。输出保持原候选，979质量退化仍在；两卡额度已归还。接续实现全40 high-step1学生同状态观测，冻结独立评估行/真实mask、付费Dense shadow与时空分区及signed投影统计；尚未完成新scope独立复审和登记。会话全节点同时最多4卡。
 
 
