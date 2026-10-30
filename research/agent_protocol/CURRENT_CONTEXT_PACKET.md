@@ -1,5 +1,8 @@
 # FFNDS · 当前Agent最小上下文（2026-10-29）
 
+**2026-10-30 用户新增实际研究任务：立即接手[A5+HWG增量支持规则性 Issue #60](https://github.com/Qesire/FFNDS/issues/60) 与[方法/对照/资产/执行合同](../20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_AGENT_TASK_20261030.md)。** 此任务仅针对Wan FFN；研究历史完整Y+增量A5/HWG是否比当前贡献更集中、能否原HiF4 64通道组+M16/32/64真实跳块，比较等K Chipmunk、static、random、posterior oracle和完整signed W2/gate误差。已有A5约44.3%逻辑零值并未W1省算，TC1支持迁移未通过，TEAL自然M16 q50仍保留97.289% MAC；故不得把元素规则性/单block局部L2冒充全层GPU加速。已有[review v0登记](../experiment_reviews/E0_A5_HWG_DELTA_REGULARITY_20261030/v0_REVIEW_REQUESTED.json)明确真实独立Agent尚未评议、ACTIVE尚未授权、CPU/GPU未RUN。主Agent实际接手后先M0全40层资产覆盖、原A5历史mask/源码身份与中性数值，再独立审后真正运行；需要新数据则补采，不重跑/删除旧负结果。旧实验的资源/并发遵循实际历史scope与现行ACTIVE。
+
+
 
 **2026-10-30 质量和函数机制最新指令：** 所有Wan FFN基线应呈现八轴原指标+连续分源RAFT+动作事件/相机/局部轨迹+完整视频视觉边界+独立显存/算子/系统成本，而不是单一运动幅值。Chipmunk P64运动相对UB1保留更多的机制是**可能**因每个专家的首步完整FFN Y与h历史、第二步仅当前选中delta更新、较高68.52%主线性名义计算密度与当前gate；不能直接当因果结论。旧UB1为每步固定64组裁剪+R256、S2为全160低秩W2，保留的函数与计算预算不相同。读[2026-10-30全质量/机制解释](../20261030/WAN_FFN_FULL_QUALITY_AND_MOTION_MECHANISM_COMPARATIVE_AUDIT_20261030.md)；后续必须保护[876文件SHA资产清单](../20261030/WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json)并在持有HF实体的节点校验/复制，仓库目前没有物理备份完成证明。非FFN方法与无关LLM作者复现依旧不进队列。
 
