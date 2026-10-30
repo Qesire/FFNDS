@@ -12,6 +12,6 @@ M1九个小张量代数fixture通过：线性差分/bias、GELU依赖历史preac
 
 E0的[独立预审及逐项修订](../experiment_reviews/E0_A5_HWG_DELTA_REGULARITY_20261030/AUTHOR_RESPONSE_AND_FULLM_DESIGN_20261030.md)已完成软件实现，64项fixture通过，覆盖逻辑稀疏与tile饱和、shuffle原坐标、尾部padding、signed交叉/舍入、原manifest链、原生import身份、greedy与真实选中W2闭合及source等权汇总。当前收尾范围为1040校准、898/979两个历史暴露开发来源，共3来源×双expert×40层的fullM、58臂等K比较；96失败另列，不作为缺失值补进平均。此前未运行CAL2草案保持历史身份，不登记为已做。
 
-先用已验证1040的1344匹配行冻结整64组静态对照，开发来源不参与拟合。[CAL1_V3独立批准](../experiment_reviews/E0_A5_HWG_DELTA_REGULARITY_20261030/reviewer_cal1_v3_recheck.md)后实际完成80/80层对、actual EXIT0，耗时552.387秒，开发tensor读取数0；STATIC_K64_SUPPORT作为后续比较的冻结输入。1040首个E0范围在10/80对后因foreign compute actual EXIT1，部分结果不混入正式平均；[独立批准的资源迁移V2](../experiment_reviews/E0_A5_HWG_DELTA_REGULARITY_20261030/reviewer_source1040_v2_relocated_recheck.md)不改数值代码，已在新设备启动，范围为重新完成80对。898/979各自精确协议已准备，仍须独立复核再登记；最终CPU独立mask校验另审。当前尚无完整E0数值结论。ALG成本：每expert首次Dense、K5120的四步主MAC比例0.685185；若额外四次全M Dense W1代理，则比例1.185185（尚未含其它成本）。这不是实测速度，也不表示原A5专用sign/scale算子已经实现。
+1040的CAL1_V3已80/80 actual EXIT0，开发tensor读取0；三源E0亦各80/80 actual EXIT0，CPU汇总独立核240mask文件并actual EXIT0。[最终比较、成本分支和完整失败记录](A5_HWG_DELTA_SUPPORT_REGULARITY_RESULTS_20261030.md)现为该有限范围的结果入口。来源96失败未补进平均，1040首E0失败的10对未混入后续完整V2。全部本轮scope已退出，原始数据和失败留HF。E1/E2按当前用户收尾要求未执行。
 
 本页说明M0/M1与采集、校准的证据身份。当前用户要求完成核心比较、上传main后结束，本轮不扩展E1原生skip或E2候选完整视频。采集成功、软件测试及付费teacher重放分别登记，不构成稀疏方法视频质量或系统速度通过。

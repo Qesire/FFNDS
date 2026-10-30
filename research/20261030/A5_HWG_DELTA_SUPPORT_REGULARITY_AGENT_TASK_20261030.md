@@ -1,5 +1,7 @@
 # A5+HWG → 历史增量通道：规则性、门控函数保真与物理可执行性（Agent 执行任务）
 
+> **当前实际状态（2026-10-30）**：用户后续将本轮限定为核心比较后发布并结束。M0/M1、三源匹配采集、CAL1、3×80×58 E0及CPU独立SHA汇总均已闭合，见[最终报告](A5_HWG_DELTA_SUPPORT_REGULARITY_RESULTS_20261030.md)。E1/E2未执行；下文保留最初完整任务设计，不自动授权新运行。
+
 **请求时间**：2026-10-30。**用户明确要求 Agent 实际执行研究**。对象仅为 Wan2.2 I2V A14B 四步全40 Block FFN 的训练自由历史增量动态稀疏。任务首状态 **ASSIGNMENT_REQUESTED / DESIGN_DRAFT / INDEPENDENT_REVIEW_REQUESTED**。本文是一项可交付的研究与实现任务，**不是主 Agent 已接手、不同 Agent 已审查、CPU/GPU 已执行、实验批准或质量证明**。执行时复核当前 HEAD、ACTIVE 和资源。
 
 ## 0. 第一动作：Agent 接手并分工

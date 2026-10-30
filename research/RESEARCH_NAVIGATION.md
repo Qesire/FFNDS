@@ -1,6 +1,6 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
-**2026-10-30 当前用户要求比较后收尾**：完成A5/HWG核心同预算比较，汇总实际结果、上传GitHub main后结束；本轮不扩展E1原生skip或E2候选视频。固定为1040单源静态校准、898/979两个历史暴露开发来源，共3来源×双expert×40层fullM的58臂比较。三源采集与独立VERIFY均actual EXIT0，CAL1亦80/80 actual EXIT0且开发tensor读取0。三源E0已分别独立复审、登记并运行，共3张A100；1040首个E0因foreign compute在10/80后actual EXIT1，部分结果保留不混入平均，资源迁移V2在新设备完整重新执行；96的NS_V3监控失败单列。最终CPU汇总仍需其自身精确复审/登记。[M0/M1与证据身份](20261030/A5_HWG_M0_M1_READINESS_20261030.md)；即时状态以[ACTIVE](ACTIVE_RESEARCH.json)和实际RUN/EXIT为准。会话同时最多4GPU，历史失败/完成范围不自动重跑。
+**2026-10-30 当前核心比较已完成，按用户要求发布后结束**：[三来源全40层×双expert、58臂完整结果](20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_RESULTS_20261030.md)。1040仅CAL1校准、898/979历史曝光开发、seed42；三E0均80/80 actual EXIT0，最终CPU汇总亦actual EXIT0并独立核240个mask/proxy文件及typed raw SHA。全部本轮scope已退出，GPU占用0。96采集失败、1040首E0外来进程中断以及两项CPU资源辅助的进度读取失败分别保留，不混入正式三源平均。当前证据为同HiF4数值族teacher诊断；E1原生skip、E2候选完整视频和部署验收未做。本轮不扩展、不自动重试；历史任务的Next/Run保留当时身份，实际状态以ACTIVE和RUN/EXIT为准。
 
 **2026-10-30 全质量对照/机制更新：** 核对FFN方法时先读 [完整八轴、RAFT、行为质量、历史Y+Delta与旧UB1/S2实际函数对照](20261030/WAN_FFN_FULL_QUALITY_AND_MOTION_MECHANISM_COMPARATIVE_AUDIT_20261030.md)。保留[876条源SHA登记](20261030/WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json)及[只读核验/不覆盖归档工具](../tools/verify_preserve_wan_ffn_comparison_assets.py)；本轮已完成全部登记源SHA核验与同机独立副本保全，见[实际保全](20261030/WAN_FFN_COMPARISON_ASSET_PRESERVATION_ACTUAL_20261030.md)；异地备份未执行。完整8轴/来源级/动作事件/相机及未测维度、FFN真实执行成本同等必要；禁止只拿RAFT幅值排序。
 
