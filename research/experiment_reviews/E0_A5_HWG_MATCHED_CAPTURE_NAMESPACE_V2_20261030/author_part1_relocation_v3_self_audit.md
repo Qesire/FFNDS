@@ -9,3 +9,7 @@
 两种相反预测：合法namespace和无资源冲突时应按原数值配对完成；路径污染/外来compute/真实资源或数值问题应提前或按原门失败。迁移不证明视频中性和方法加速。本次single attempt、失败不自动重试；条件CPU verifier仍只在自身producer实际EXIT0后执行，0新候选/拟合/训练/官方评分。
 
 精确协议 `config/e0_a5_hwg_matched_capture_relocated_20261030_part1_frozen_v3.json`，private两job表 `/home/xiang/.config/ffnds/a5_hwg_capture_relocated_20261030_part1_v3/BOUND_JOBS.json`，原始停止/资源冲突真实父记录SHA均进入协议；1023项源码及140namespace路径冻结。当前REVIEW_REQUESTED，未注册/启动本V3。请独立复核新增入口/两fixture、原复用源码、实际父链、私有迁移差异、原GPU≤4/host双model条件、exact argv/输出及预算后分别审核RUN和条件VERIFY。
+
+## 独立审查修订
+
+评议者实际发现第一版协议仅列1020项源码，遗漏namespace修正的入口、prepare及测试三项；该版本尚未获准、未登记、未启动。作者已补入与已审PART2_NS_V2相同的全部1021项，再加入本次入口和两fixture所在文件，总计1023项；140项namespace映射不变。修正协议SHA为 `724575a21ab69973ffb688f5e587c417e8070785b111c3ff0981eef0ec9a09de`，RUN job SHA为 `464807dc4333b131c1e2ebe33f750ff43b43598349ee9fdfaecf6105b76308d1`，条件VERIFY job SHA为 `c9dd614664ee2b89c251600c7b95aef5d2932b3267f417fcdd95e91a720b1b20`。请评议者以真实提交的修正blob重新核验后签发，初稿不作为启动依据。
