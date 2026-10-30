@@ -1,0 +1,15 @@
+# Root independent review: source979 functional action units
+
+Reviewer /root; author /root/quality_mechanism_reformulation_terra. This reviews the named independent discovery, not a formal SUPPORT vote or experiment approval.
+
+The construction separates three real freedoms: a token group may select a different column set; joint signed projection may matter beyond marginal hidden energy; and downstream dynamics may respond differently to the same local error norm. The four-source complete videos give an actual counterexample to treating high-step1 as uniformly safe. Equal H/X output bytes isolate this counterexample from the choice of history representation in these trajectories. They do not identify its cause or generalize it to other seeds.
+
+The proposed signed-mean branch is already closely related to the measured P64 signed-complement tool; it is a strong comparator rather than an established new mechanism. It cannot repair a zero-mean localized error. Reusing64 matched student rows preserves the decision cutoff, but selector dependence and missed regions prevent an unbiasedness claim. The complete-gate multiplication and fullM output broadcast must remain in the cost. Prior block20 cases from two sources cannot predict source979 at40 student sites.
+
+Fixed coordinate partitions create genuinely different legal token×column actions. They also reduce observations per group and duplicate weight gathers. Even unchanged per-rowK and logical MACs may cost more because every group may pack a different K×D weight matrix and use smaller-M GEMMs. Random partitions and a shared-mask partition control distinguish spatial structure from the mere extra choice of masks; wall time, repeated weight bytes and cache must be paid. Static partitions are not tracked semantic objects.
+
+A counterexample to an exclusive A-versus-B diagnosis is that signed offsets may differ by group, so both methods improve even when only a joint local mechanism matters. Conversely both can fail simply because64 samples missed the relevant changes, despite true signed or spatial structure. Their outcome is not an automatic choice between H1 and H2. The source proposal correctly keeps downstream propagation as a competing explanation: student and Dense inputs differ, so fixed-input comparisons and free-rollout comparisons estimate different objects.
+
+The next evidence should retain actual40 high-step1 student sites, true coordinates and masks, and a finite independently reviewed fullM stratified acquisition where the existing corpus is missing source979/student states. A fixed-state numerical discriminator is useful before paying for candidate free videos, but every deployable claim still requires full160-site, matched Dense videos across additional sources and seeds. Metadata source979 scores alone do not supply the required internal observations. The immediate sync-ABBA task is an independent C-line execution question; it cannot resolve the functional explanation or rescue the measured quality loss.
+
+Status remains ALG/SRC/OBS-supported questions and OPEN mechanisms. No new model run or deployment acceptance is inferred.

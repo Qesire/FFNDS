@@ -1,0 +1,3 @@
+# Exact independent ABBA recheck
+
+Reviewer /root/asset_readiness_terra. APPROVE the two protocols and independent verifiers for registration. Verified two protocol fingerprints and SHA, six private job SHA, 1108/1092 bound source SHA, actual closed parent RUN/EXIT and VERIFY identities, and 15 CPU synthetic tests. The corrected barrier operation is budgeted and journaled before execution; 79 artifacts are independently checked on successful exit. No real model, tensor or GPU execution occurred here. Historical equality gates, native allocator and resource checks can fail and no retry is authorized.

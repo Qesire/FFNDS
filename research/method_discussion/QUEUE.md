@@ -63,3 +63,5 @@
 **2026-10-30 I/C 输入表示视频实测**：上条old-x候选已扩至[四曝光来源20完整视频](../20261030/CHIPMUNK_INPUT_VIDEO_NATIVE_RESULTS_20261030.md)，独立输出验证真实EXIT0，降低缓存和边界已分配显存有实际证据；本轮事件时间H/X均高于NONE。首两源评分监控故障在metric调用前退出，失败身份单独保留，待新版本质量证据；不填写正式SUPPORT或部署通过。
 
 **2026-10-30 I/C 四源质量闭环及独立C讨论**：[质量/连续运动](../20261030/CHIPMUNK_INPUT_VIDEO_QUALITY_RESULTS_20261030.md)及12独立VERIFY actual EXIT0，4源候选H/X完整输出byte相同，但979运动幅值约降21%、MUSIQ−6.382，非部署通过。`/root/teal_full_llm_calibration_build_terra` 的[同步/观测关键路径](discoveries/E0/input-video-observer-critical-path-20261030.md)由`/root/asset_readiness_terra` [独立核源码并给竞争反例](discoveries/E0/input-video-observer-critical-path-independent-review-20261030.md)：SRC/ALG支持可能机制，未测其占比或公平SYS；后续固定算法ABBA仍须新scope，不填正式SUPPORT。
+
+**2026-10-30 979竞争功能单位（OPEN）**：`/root/quality_mechanism_reformulation_terra` 的[独立发现](discoveries/E0/chipmunk-979-competitive-function-units-20261030.md)由`/root` [另行评议](discoveries/E0/chipmunk-979-competitive-function-units-root-review-20261030.md)，区分时空异质性、signed W2组合与后缀传播；signed补偿和多组mask有不同预算/反例，不能由两候选成败排他归因。所需979全40学生位点/分层fullM采集仍未注册。[同流完成C设计](discoveries/E0/p64-same-stream-deferred-completion-design-20261030.md)与asset独立源码反例属于另一有限执行问题，不声称修复质量。
