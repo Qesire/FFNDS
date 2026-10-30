@@ -1,5 +1,8 @@
 # FFNDS · AutoResearcher 科研Agent默认约定
 
+**2026-10-30 新用户明确执行任务（FFN-only）：[A5+HWG → 历史增量支持规则性 Issue #60](https://github.com/Qesire/FFNDS/issues/60)。** 实际接手Agent应立即读取[可执行研究合同](research/20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_AGENT_TASK_20261030.md)：先确认原A5/HWG源码身份与全部40层×双expert缓存/量化数据，开展M0数据覆盖和严格代数/数值预检；提出A5-current vs A5-delta vs Chipmunk等K、64合法组/空间tile共享的可反驳预测，执行前强制**真实不同Agent独立评议本次实验**并在ACTIVE新登记scope。通过后必须实际完成E0离线数值/统计及E1原生真实skip，条件充分才E2全160视频；每次保留全部原始video/中间张量/八轴质量与真实运行收据。**当前状态ASSIGNMENT_REQUESTED/REVIEW_REQUESTED，没有agent接手或运行证据，issue不是GPU启动。** 不把新任务伪装成已通过review，不以block20代表全层，不因已有Bit/SHA文件把实体HF备份当已完成。现行P0 SharQ/TEAL等冻结资源不可被未授权抢占。
+
+
 **用户最新范围约束（2026-10-29，优先于下文旧Chipmunk/TEAL共同P0以及旧作者环境复现要求）：只做FFN本体稀疏/省算的Wan2.2-I2V-A14B四步正向基线。** 现行状态见 [ACTIVE.current_user_ffn_only_priority_20261029](research/ACTIVE_RESEARCH.json)、[FFN-only筛选](research/20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md)。P0为**SharQ(L74)在Wan上原生N:M稀疏FP4+全Dense残差的真实FFN物理迁移**以及**已有TEAL Wan全160视频质量基线向真实大M W2稀疏执行的延伸**；Chipmunk(L09)为P1单组已实测机制（新范围须跨source证明）；RT-Lynx(L08)为需查证免训练原生分支的FFN备选。**立即停止将LLM tokenizer/checkpoint/PPL/生成、原FLUX作者环境、MagCache、FIS-DiT、TeaCache、Attention/Token/Frame/Whole-Block跳算与step缓存当作本轮实验前置。** 已完成结果不删除；用户目标是FFN机制、Wan真实视频质量与W1/W2真实节省，不是复现其他模型或非FFN系统倍速。**每个具体CPU/GPU实验必须再由真实不同Agent独立审查、修订recheck、冻ACTIVE有限scope、RUN/EXIT有证据**，不能以此范围声明已运行。
 
 

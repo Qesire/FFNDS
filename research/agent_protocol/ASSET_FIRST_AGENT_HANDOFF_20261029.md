@@ -1,5 +1,8 @@
 # FFNDS · 开放式证据驱动的统一Agent交接与研究队列
 
+**2026-10-30 最新Agent工作请求：[Issue #60](https://github.com/Qesire/FFNDS/issues/60)「A5+HWG改为增量后是否形成更规则可执行FFN通道组」**。真正接手的主Agent现在执行[任务合同M0资产覆盖与原A5身份核验](../20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_AGENT_TASK_20261030.md)，再与真实独立Reviewer审科学对照和物理预算，审查批准/ACTIVE范围冻结后执行E0同K全层双expert多源离线、E1合法HiF4 K64/Tensor Core native kernel、必要时E2全160完整视频及八轴。与Chipmunk #57相关但不是Chipmunk RMS超参；与P0已有资源协调，不取消现行SharQ/TEAL任务。**执行状态：仅提交任务且review requested，未真实spawn或计算；不能借这段文字宣称Agent已接受任务。**
+
+
 
 **最新用户命令覆盖此前所有旧P0排序：只开展「Wan自身FFN稀疏/省算」正向复现，不研究非FFN帧/Block/Token/Attention/整模型缓存，也不复现无直接必要的LLM/FLUX。** 新顺序见 [Wan FFN-only精确路线](../20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md)、[ACTIVE最新字段](../ACTIVE_RESEARCH.json) 与 [#56](https://github.com/Qesire/FFNDS/issues/56)：**P0 SharQ Wan2.2 原生FP4激活稀疏[#59](https://github.com/Qesire/FFNDS/issues/59)、P0 TEAL Wan全160后稀疏W2[#58](https://github.com/Qesire/FFNDS/issues/58)；P1 Chipmunk Wan FFN付费代理[#57](https://github.com/Qesire/FFNDS/issues/57)。** 不把SharQ原Wan T2V报告混成我方I2V实测，不把SageAttention组合加速归到FFN，不把TEAL postGELU全Dense W2误报成省算。旧用户P0 S2和旧「Chipmunk/TEAL并列P0/作者LLM基线」均为历史，已退出当前执行顺序。新CPU/GPU/视频具体scope必须独立异Agent实审、修订recheck、ACTIVE冻结、真实RUN/EXIT。
 
