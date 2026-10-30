@@ -1,0 +1,3 @@
+# Independent visual V2 review
+
+Reviewer /root/asset_readiness_terra. The old part2/3 visual jobs failed at taskset before any RUN or frame decode; they remain failed. New V2 fixes CPU assignments to 12–13 and 14–15, within the current worker affinity. It retains three actual closed-parent videos per source, 81 frames each and six distinct pages, and a separately authorized verifier. An unavailable or changed affinity can still fail before decoding; a future root scheduler must check actual resources. Contact sheets are not continuous playback or human acceptance. Bounded SHA accounting and sampled worker output do not measure all physical I/O. Six CPU synthetic entry/affinity tests passed; no scientific video or model was executed.

@@ -1,0 +1,5 @@
+# Root self-audit: visual CPU affinity repair
+
+Root missed checking the actual0–15 CPU set before launching the old visual parts2/3 on16–19. Both supervisors actually returned1 at taskset, no RUN was created and no frame was decoded. Old EXIT/spec/protocol identities are preserved in ACTIVE and the affinity-failure report; original source and outputs remain unchanged.
+
+New part2 uses12–13 and part3 uses14–15, both contained in actual root os.sched_getaffinity(0). The old visual parts0/1 have already completed, so these two CPU sets are available. New private coordinator rejects any job affinity outside the actual current CPU set before starting a durable supervisor. V2 has new source, protocol, job, ID and HF output. It reuses the same actual closed native parent videos and decodes3×81 frames into6 pages with no GPU/model calls. Independent verifier loads the new visual engine, requires actual EXIT0 and verifies page uniqueness and frozen identities. Six software tests passed; real decoding and independent EXIT closure remain required. This self-audit is not independent approval.

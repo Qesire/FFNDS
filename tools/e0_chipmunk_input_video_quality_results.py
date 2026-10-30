@@ -31,13 +31,13 @@ def verify_exit(exit, runref, protocol_sha, scope):
         raise ValueError('actual EXIT identity or status differs')
 
 def scope(kind, part):
-    version = '_v2' if kind != 'visual' else ''
+    version = '_v2' if kind != 'visual' or part >= 2 else ''
     path = ROOT / f'config/e0_chipmunk_input_video_{kind}{version}_20261030_part{part}_pending_review_v1.json'
     p, pid = read(path)
-    private = 'chipmunk_input_video_quality_v2_20261030' if kind != 'visual' else 'chipmunk_input_video_quality_20261030'
+    private = 'chipmunk_input_video_quality_v2_20261030' if kind != 'visual' or part >= 2 else 'chipmunk_input_video_quality_20261030'
     proofpath = ROOT / f'.runtime/{private}/{kind}/part{part}/CLOSED_VERIFICATION_V1.json'
     proof, proofid = read(proofpath)
-    expected_status = 'PASS_ACTUAL_EXIT_CHIPMUNK_INPUT_VIDEO_V2_QUALITY_CLOSED' if kind != 'visual' else 'PASS_ACTUAL_EXIT_CHIPMUNK_INPUT_VIDEO_QUALITY_CLOSED'
+    expected_status = 'PASS_ACTUAL_EXIT_CHIPMUNK_INPUT_VIDEO_QUALITY_CLOSED'
     if proof.get('status') != expected_status or proof.get('parent_id') != p['id']:
         raise ValueError('actual independent closure required')
     output = HF / p['output_HF_relative']
@@ -65,6 +65,16 @@ def historical_failures():
         if run.get('status') != 'FAILED_GPU_MONITOR_PRESERVED_NO_RETRY' or run.get('error') != 'Assigned GPU monitor failed: TimeoutExpired' or ex.get('child_returncode') == 0 or ex.get('run_sha256') != rr['sha256']:
             raise ValueError('V1 failure identity differs')
         failures.append({'scope_id':p['id'],'RUN':rr,'EXIT':er,'status':run['status'],'error':run['error'],'invoked':run['invoked']})
+    return failures
+
+def historical_visual_failures():
+    failures=[]
+    for i in (2,3):
+        p,pid=read(ROOT/f'config/e0_chipmunk_input_video_visual_20261030_part{i}_pending_review_v1.json')
+        out=HF/p['output_HF_relative']; ex,er=reference(out.parent/'EXIT_RECEIPT.json')
+        if not (ex.get('id')==p['id'] and ex.get('protocol_sha256')==pid['sha256'] and ex.get('process_exited') is True and ex.get('child_returncode')==1 and ex.get('run_sha256') is None and ex.get('automatic_retry') is False and not (out/'RUN.json').exists()):
+            raise ValueError('old visual taskset failure identity differs')
+        failures.append({'scope_id':p['id'],'EXIT':er,'RUN':'ABSENT','context':'taskset failed before worker startup; zero decoded frames'})
     return failures
 
 def main():
@@ -97,7 +107,7 @@ def main():
         dense=x['continuous_raft']['none'][key]
         x['raft_candidate_minus_dense']={m:x['continuous_raft'][m][key]-dense for m in modes if m!='none'}
         x['raft_candidate_over_dense']={m:x['continuous_raft'][m][key]/dense if dense>0 else None for m in modes if m!='none'}
-    data={'scope':'Four exposed sources, one seed each; three paired videos per source, no extra independent N from reused video or neutral controls.','sources':rows,'source_equal_eight_axes':means,'source_equal_paired_differences':diffs,'source_equal_raft_means':{m:statistics.fmean(x['continuous_raft'][m][key] for x in rows) for m in modes},'source_equal_raft_paired_differences':{m:statistics.fmean(x['raft_candidate_minus_dense'][m] for x in rows) for m in modes if m!='none'},'source_equal_mean_of_source_ratios':{m:(statistics.fmean(x['raft_candidate_over_dense'][m] for x in rows) if all(x['raft_candidate_over_dense'][m] is not None for x in rows) else None) for m in modes if m!='none'},'scopes':[all_scopes[k,i][2] for k in KINDS for i in range(4)],'raft_semantics':'40 stride-2 pairs per video, 20 iterations each; five eight-pair windows. Continuous top-5% flow is distinct from official binary dynamic degree.','visual_review':'Independent AI visual review to be linked only when actually completed.','v1_monitor_failures':historical_failures(),'quality_acceptance':False}
+    data={'scope':'Four exposed sources, one seed each; three paired videos per source, no extra independent N from reused video or neutral controls.','sources':rows,'source_equal_eight_axes':means,'source_equal_paired_differences':diffs,'source_equal_raft_means':{m:statistics.fmean(x['continuous_raft'][m][key] for x in rows) for m in modes},'source_equal_raft_paired_differences':{m:statistics.fmean(x['raft_candidate_minus_dense'][m] for x in rows) for m in modes if m!='none'},'source_equal_mean_of_source_ratios':{m:(statistics.fmean(x['raft_candidate_over_dense'][m] for x in rows) if all(x['raft_candidate_over_dense'][m] is not None for x in rows) else None) for m in modes if m!='none'},'scopes':[all_scopes[k,i][2] for k in KINDS for i in range(4)],'raft_semantics':'40 stride-2 pairs per video, 20 iterations each; five eight-pair windows. Continuous top-5% flow is distinct from official binary dynamic degree.','visual_review':'Independent AI visual review to be linked only when actually completed.','v1_monitor_failures':historical_failures(),'v1_visual_taskset_failures':historical_visual_failures(),'quality_acceptance':False}
     target=ROOT/'research/20261030/CHIPMUNK_INPUT_VIDEO_QUALITY_RESULTS_20261030.json'
     target.write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n')
     lines=['# Input video: actual quality results','',data['scope'],'','| Source | Arm | Continuous RAFT mean |','|---|---|---:|']
