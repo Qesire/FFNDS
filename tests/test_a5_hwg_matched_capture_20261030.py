@@ -3,6 +3,8 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import time
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -79,6 +81,23 @@ class CaptureFixtures(unittest.TestCase):
         b.after(7);b.finish()
         with self.assertRaises(RuntimeError):b.before(9,'over limit')
         self.assertEqual(b.actual,12);self.assertEqual(b.predebited,12)
+
+    def test_bootstrap_failure_has_durable_partial_read(self):
+        with tempfile.TemporaryDirectory()as d:
+            root=Path(d);hf=root/'hf';out=hf/'worker';out.mkdir(parents=True)
+            protocol=root/'protocol.json';protocol.write_text('{}')
+            job=root/'job.json';job.write_text(json.dumps({'id':'FIXTURE_VERIFY','hf_root':str(hf),'output_dir':str(out),'run_json':str(out/'results/RUN.json'),'protocol_path':str(protocol)}))
+            @m.execution_bootstrap('verify')
+            def fault(args):
+                m.CURRENT_BOOTSTRAP.budget.before(10,'INJECTED_PARTIAL_READ')
+                m.CURRENT_BOOTSTRAP.budget.after(3)
+                raise OSError('fixture bootstrap read failure')
+            with self.assertRaises(OSError):fault(SimpleNamespace(job_spec=job,protocol=protocol))
+            record=json.loads((out/'STARTUP_READ_LEDGER.json').read_text())
+            self.assertEqual(record['status'],'FAILED_PRESERVED_NO_RETRY')
+            self.assertEqual(record['read_ledger']['inflight_unknown']['actual_read_bytes'],3)
+            self.assertEqual(record['read_ledger']['inflight_unknown']['reserved_bytes'],10)
+            self.assertIsNone(m.CONTROL_READ);self.assertIsNone(m.CURRENT_BOOTSTRAP)
 
     def test_partial_tensor_write_is_accounted(self):
         import torch

@@ -39,6 +39,7 @@ VERIFY_RES={'GPU':0,'CPU_threads':1,'wall_seconds':7200,'outer_seconds':7320,
             'peak_RSS_max_bytes':512<<20,'automatic_retry':False}
 STATE_NAMES={'raw_noise_FP32','initial_noise',*(f'flow_step{i}'for i in range(4)),*(f'latent_step{i}'for i in range(4))}
 CONTROL_READ=None
+CURRENT_BOOTSTRAP=None
 
 
 def need(value,message):
@@ -133,7 +134,8 @@ def payload_budget():
             'metadata_states_video_and_failure_reserve':2<<30,
             'file_write_bytes_upper':sum(per.values())+(2<<30),
             'full_file_SHA_read_upper':sum(per.values())+(2<<30),
-            'raw_tensor_SHA_memory_read_upper':sum(per.values()),
+            'raw_tensor_SHA_memory_read_upper':sum(per.values())+(2<<30)+320*5120*13824*2,
+            'observer_W2_SHA_memory_read_upper':320*5120*13824*2,
             'independent_verification_file_read_upper':sum(per.values())+(2<<30)}
 
 
@@ -151,6 +153,48 @@ class ReadBudget:
         need(self.inflight is not None and self.inflight['actual_read_bytes']==self.inflight['reserved_bytes'],'short completed read')
         self.inflight=None;self.persist()
     def summary(self):return {'predebited_bytes':self.predebited,'actual_returned_read_bytes':self.actual,'inflight_unknown':self.inflight,'limit_bytes':self.maximum}
+
+
+class StartupLedger:
+    def __init__(self,a,kind,started):
+        self.started=started;self.status='BOOTSTRAP_METADATA_ONLY';self.error=None
+        # One bounded job peek locates the supervisor-owned fresh directory.
+        # No protocol/source/model payload is read until durable predebit works.
+        size=a.job_spec.stat().st_size;need(0<size<=65536,'restricted job peek bound')
+        data=a.job_spec.read_bytes();need(len(data)==size,'restricted job peek changed');job=json.loads(data)
+        hf=Path(job['hf_root']).resolve();out=Path(job['output_dir']).resolve()
+        need(out.is_relative_to(hf)and out!=hf and out.is_dir()and Path(job['run_json']).resolve()==out/'results/RUN.json','bootstrap result confinement')
+        need(Path(job['protocol_path']).resolve()==a.protocol.resolve(),'bootstrap protocol path')
+        self.path=out/'STARTUP_READ_LEDGER.json';need(not self.path.exists(),'bootstrap already attempted')
+        self.id=job['id'];self.spec_sha=hashlib.sha256(data).hexdigest();self.peek_bytes=size
+        maximum=RES['asset_validation_read_max_bytes']if kind=='run'else VERIFY_RES['metadata_read_bytes_max']
+        self.seconds=RES['wall_seconds']if kind=='run'else VERIFY_RES['wall_seconds']
+        self.budget=ReadBudget(maximum,self.check,self.persist)
+        self.budget.predebited=size;self.budget.actual=size;self.persist()
+    def check(self):need(time.monotonic()-self.started<=self.seconds,'startup/actual total wall budget')
+    def persist(self):
+        d={'id':self.id,'spec_sha256':self.spec_sha,'status':self.status,'bounded_initial_job_peek_bytes':self.peek_bytes,'read_ledger':self.budget.summary(),'error':self.error,'wall_seconds':time.monotonic()-self.started,'automatic_retry':False}
+        b=(json.dumps(d,indent=2,allow_nan=False)+'\n').encode();need(len(b)<=1<<20,'bootstrap output bound')
+        tmp=self.path.with_suffix('.tmp')
+        with tmp.open('xb')as f:need(f.write(b)==len(b),'short bootstrap write')
+        tmp.replace(self.path)
+
+
+def execution_bootstrap(kind):
+    def decorate(fn):
+        def wrapped(a):
+            global CONTROL_READ,CURRENT_BOOTSTRAP
+            started=time.monotonic();seconds=RES['wall_seconds']if kind=='run'else VERIFY_RES['wall_seconds']
+            signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('whole execution deadline')));signal.alarm(seconds)
+            boot=StartupLedger(a,kind,started);CURRENT_BOOTSTRAP=boot;CONTROL_READ=boot.budget
+            try:
+                value=fn(a);boot.status='COMPLETE_CHILD_RETURN_PENDING_SUPERVISOR_EXIT';return value
+            except BaseException as e:
+                boot.status='FAILED_PRESERVED_NO_RETRY';boot.error={'type':type(e).__name__,'message':str(e)[:1000]};raise
+            finally:
+                signal.alarm(0);CONTROL_READ=None;boot.persist();CURRENT_BOOTSTRAP=None
+        return wrapped
+    return decorate
 
 
 class BoundTransformersFinder:
@@ -295,7 +339,10 @@ def observer_class():
         def __init__(self,*args,writer,ordinal,check,**kwargs):
             super().__init__(*args,rows=512,blocks=tuple(range(40)),**kwargs)
             self.writer,self.ordinal,self.check=writer,ordinal,check
-            self.full_writes=0;self.d2h_bytes=0
+            self.full_writes=0;self.d2h_bytes=0;self.observer_ops={'sample_index_select':0,'sample_GELU_tanh':0}
+        def _sample(self,scope,tensor):
+            self.observer_ops['sample_index_select']+=1;need(self.observer_ops['sample_index_select']<=24*160,'sample index budget')
+            return super()._sample(scope,tensor)
         def _new_scope(self,tag,x):
             scope=super()._new_scope(tag,x)
             need(tag['expert']==('high_noise_model'if tag['step']<2 else'low_noise_model'),'expert mismatch')
@@ -314,6 +361,13 @@ def observer_class():
         def __enter__(self):
             super().__enter__()
             from HiFloat4.ptq.adapters import lightx2v_wan_distill as adapter
+            import torch.nn.functional as F
+            old_gelu=F.gelu;observer=self
+            def counted_gelu(x,*args,**kwargs):
+                if observer.pending is not None and list(x.shape)==[1344,13824]:
+                    observer.observer_ops['sample_GELU_tanh']+=1;need(observer.observer_ops['sample_GELU_tanh']<=160,'sample GELU budget')
+                return old_gelu(x,*args,**kwargs)
+            self.methods.append((F,'gelu',old_gelu));F.gelu=counted_gelu
             old=adapter.native_hif4_activation_qdq;observer=self
             def observed(activation,*,force_fp32=True):
                 result=old(activation,force_fp32=force_fp32)
@@ -350,7 +404,7 @@ def observer_class():
             self.completed.append({'step':scope['step'],'block':scope['block'],'metadata':bind(meta,self.writer.hf)})
             self.seen.add((scope['step'],scope['block']));self.d2h_bytes+=sum(t.numel()*t.element_size()for t in samples.values());self._manifest();self.writer.note('SITE_OBSERVATION_COMPLETE',step=scope['step'],block=scope['block']);self.check()
         def _manifest(self,error=None):
-            self.writer.json(self.root/'CAPTURE_MANIFEST.json',{'status':self.status,'series':self.series,'source_id':self.source_id,'seed':self.seed,'blocks':list(range(40)),'steps':[0,1,2,3],'expected_scopes':160,'completed_scopes':len(self.completed),'scopes':self.completed,'full_V1_files':self.full_writes,'logical_observation_D2H_bytes':self.d2h_bytes,'error':None if error is None else type(error).__name__,'postQ1_replay_not_fullQ1_reconstruction':True})
+            self.writer.json(self.root/'CAPTURE_MANIFEST.json',{'status':self.status,'series':self.series,'source_id':self.source_id,'seed':self.seed,'blocks':list(range(40)),'steps':[0,1,2,3],'expected_scopes':160,'completed_scopes':len(self.completed),'scopes':self.completed,'full_V1_files':self.full_writes,'logical_observation_D2H_bytes':self.d2h_bytes,'observer_actual_ops':self.observer_ops,'error':None if error is None else type(error).__name__,'postQ1_replay_not_fullQ1_reconstruction':True})
     return MatchedObserver
 
 
@@ -422,11 +476,10 @@ def runtime_assets(p,private):
     return view,cache
 
 
+@execution_bootstrap('run')
 def run(a):
     global CONTROL_READ
-    started=time.monotonic()
-    signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('capture deadline')));signal.alarm(RES['wall_seconds'])
-    asset_reads=ReadBudget(RES['asset_validation_read_max_bytes'],lambda:need(time.monotonic()-started<=RES['wall_seconds'],'asset validation wall budget'))
+    started=CURRENT_BOOTSTRAP.started;asset_reads=CURRENT_BOOTSTRAP.budget
     CONTROL_READ=asset_reads
     p=read(a.protocol);authorize(p,a.protocol,a.job_spec,'run');private=private_assets(p,a.private_assets)
     need(sorted(os.sched_getaffinity(0))==p['cpu_affinity'],'four CPU affinity differs')
@@ -490,6 +543,7 @@ def run(a):
                 phase={'arm':arm,'states':tap.states,'video':writer.external(folder/'output.mp4'),'native_counter_delta':delta,'wall_seconds_including_capture':time.monotonic()-at,'video_geometry':[frames,832,464,16]}
                 if observer is not None:
                     need(observer.status=='PASS_CAPTURE_STRUCTURE_ONLY'and observer.full_writes==160 and observer.seen=={(s,b)for s in range(4)for b in range(40)},'full160 observation missing')
+                    need(observer.observer_ops['sample_GELU_tanh']==160,'all160 additional observer GELU controls required')
                     phase['capture_manifest']=bind(folder/'ffn/CAPTURE_MANIFEST.json',hf)
                 report['phases'].append(phase);persist()
                 if arm=='observed':
@@ -544,14 +598,14 @@ def verify_tensor(path,expected_schema,meter):
     return file_hash.hexdigest(),result
 
 
+@execution_bootstrap('verify')
 def verify(a):
     global CONTROL_READ
-    started=time.monotonic()
-    signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('verification deadline')));signal.alarm(VERIFY_RES['wall_seconds'])
+    started=CURRENT_BOOTSTRAP.started
     def check():
         need(time.monotonic()-started<=VERIFY_RES['wall_seconds'],'verifier clock budget')
         need(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024<=VERIFY_RES['peak_RSS_max_bytes'],'verifier RSS budget')
-    metadata=ReadBudget(VERIFY_RES['metadata_read_bytes_max'],check);CONTROL_READ=metadata
+    metadata=CURRENT_BOOTSTRAP.budget;metadata.check=check;CONTROL_READ=metadata
     p=read(a.protocol);authorize(p,a.protocol,a.job_spec,'verify');private=private_assets(p,a.private_assets)
     need(os.environ.get('CUDA_VISIBLE_DEVICES')==''and len(os.sched_getaffinity(0))==1,'CPU verification isolation')
     hf=Path(private['hf_root']).resolve();source=hf/p['output_HF_relative'];dest=source.parent.parent/'verification/worker/results';dest.mkdir()
@@ -612,7 +666,8 @@ def verify(a):
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('command',choices=['run','verify']);ap.add_argument('--protocol',type=Path,required=True);ap.add_argument('--job-spec',type=Path,required=True);ap.add_argument('--private-assets',type=Path,required=True);a=ap.parse_args()
-    if a.command=='run':run(a)
+    if a.command=='run':
+        with bounded_files():run(a)
     else:
         with bounded_files(4<<20):verify(a)
 

@@ -64,6 +64,8 @@ def main():
             'fullM_saved_boundary':'ACTUAL_POSTQ1_NATIVE_V1_BEFORE_W1',
             'fullM_preQ1':'NOT_CAPTURED_NO_FULL_Q1_RECONSTRUCTION',
             'observed_rows':1344,'native_linear_calls_per_phase':1600,'native_QDQ_calls_per_phase':1600,
+            'observer_control_ops_per_site_upper':{'additional_sample_GELU':1,'sample_index_select':24,'R_clone':2,'R_add':3,'Y_times_gate':1,'GPU_equal':6,'CPU_CUDA_rng_state_reads':6,'CPU_finite_tensor_checks':15,'fullV1_D2H':1,'sample_field_D2H':15,'W2_runtime_D2H_and_SHA':1,'W2_expected_CPU_SHA_max':1},
+            'observer_ops_evidence':'SRC_BOUND_PLUS_ACTUAL_SAMPLE_GELU_AND_INDEX_COUNTS_NOT_PERFORMANCE',
             'neutral':'ALL_TEN_STATE_FILES_AND_COMPLETE_VIDEO_BYTE_EQUAL',
             'proxy_or_fitting_or_candidate_or_official_scoring':False,
             'replay_and_E0_E1_E2':'SEPARATELY_REVIEWED_FUTURE_SCOPES',
