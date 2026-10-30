@@ -1,5 +1,8 @@
 # FFNDS · 当前Agent最小上下文（2026-10-29）
 
+
+**2026-10-30 质量和函数机制最新指令：** 所有Wan FFN基线应呈现八轴原指标+连续分源RAFT+动作事件/相机/局部轨迹+完整视频视觉边界+独立显存/算子/系统成本，而不是单一运动幅值。Chipmunk P64运动相对UB1保留更多的机制是**可能**因每个专家的首步完整FFN Y与h历史、第二步仅当前选中delta更新、较高68.52%主线性名义计算密度与当前gate；不能直接当因果结论。旧UB1为每步固定64组裁剪+R256、S2为全160低秩W2，保留的函数与计算预算不相同。读[2026-10-30全质量/机制解释](../20261030/WAN_FFN_FULL_QUALITY_AND_MOTION_MECHANISM_COMPARATIVE_AUDIT_20261030.md)；后续必须保护[876文件SHA资产清单](../20261030/WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json)并在持有HF实体的节点校验/复制，仓库目前没有物理备份完成证明。非FFN方法与无关LLM作者复现依旧不进队列。
+
 **2026-10-30 同算法同步对照已闭环**：[两曝光源14完整视频](../20261030/CHIPMUNK_SYNC_ABBA_RESULTS_20261030.md)及两项79产物独立VERIFY均actual EXIT0，[真实独立结果审查](../experiment_reviews/E0_CHIPMUNK_SYNC_ABBA_20261030/ACTUAL_RESULT_REVIEW.md)核实全部账本/资源。140状态＋14视频历史byte门通过（历史payload逐字节比较由GPU producer完成，VERIFY重读本批产物并核历史metadata）。排除warmup的A/B各两次，898/979 FFN事件B/A=0.928497/0.928260，完整phase wall=0.992008/0.994478；来源等权FFN事件7.453→6.919秒、phase wall48.060→47.736秒。两来源、单seed、嵌套重复和带观察计时；不作相对Dense系统加速或总体显著性结论。输出保持原候选，979质量退化仍在；两卡额度已归还。接续实现全40 high-step1学生同状态观测，冻结独立评估行/真实mask、付费Dense shadow与时空分区及signed投影统计；尚未完成新scope独立复审和登记。会话全节点同时最多4卡。
 
 
