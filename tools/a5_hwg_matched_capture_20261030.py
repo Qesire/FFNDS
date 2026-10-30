@@ -40,6 +40,10 @@ VERIFY_RES={'GPU':0,'CPU_threads':1,'wall_seconds':7200,'outer_seconds':7320,
 STATE_NAMES={'raw_noise_FP32','initial_noise',*(f'flow_step{i}'for i in range(4)),*(f'latent_step{i}'for i in range(4))}
 CONTROL_READ=None
 CURRENT_BOOTSTRAP=None
+VIDEO_INSPECTION={'reader_contexts_per_video':1,'get_meta_data_calls_per_video':1,
+                  'count_frames_calls_per_video':1,'deadline_seconds_per_video':60,
+                  'internal_file_read_bytes':'UNKNOWN_OPAQUE_IMAGEIO_FFMPEG_IO',
+                  'not_in_output_SHA_byte_count':True,'quality_or_speed_claim':False}
 
 
 def need(value,message):
@@ -341,6 +345,15 @@ def bounded_files(maximum=None):
     finally:resource.setrlimit(resource.RLIMIT_FSIZE,old);signal.signal(signal.SIGXFSZ,handler)
 
 
+@contextmanager
+def shorter_deadline(seconds):
+    prior=signal.getitimer(signal.ITIMER_REAL);started=time.monotonic()
+    need(prior[0]>0,'whole-job deadline must already be active')
+    signal.setitimer(signal.ITIMER_REAL,min(float(seconds),prior[0]))
+    try:yield
+    finally:signal.setitimer(signal.ITIMER_REAL,max(.001,prior[0]-(time.monotonic()-started)),prior[1])
+
+
 def observer_class():
     import torch
     from hif4_observer import HiF4Observer
@@ -448,6 +461,7 @@ class StateTap:
 
 def authorize(p,protocol,job,kind):
     need(p['resources']==RES and p['payload_budget']==payload_budget(),'fixed resource/payload scope differs')
+    need(p['design']['video_geometry_inspection']==VIDEO_INSPECTION,'opaque decoder scope differs')
     active=read(ROOT/'research/ACTIVE_RESEARCH.json')
     scope_id=p['id']+('_VERIFY'if kind=='verify'else'')
     scopes=[s for s in active['experiment_authority']['current_user_authorized_scopes']if s.get('id')==scope_id]
@@ -548,7 +562,16 @@ def run(a):
                 delta={k:after[k]-before[k]for k in ['linear_forward_calls','activation_qdq_calls','cache_misses']}
                 need(delta=={'linear_forward_calls':1600,'activation_qdq_calls':1600,'cache_misses':0},'native QDQ/linear coverage')
                 import imageio.v2 as imageio
-                with imageio.get_reader(folder/'output.mp4')as reader:info=reader.get_meta_data();frames=reader.count_frames()
+                decoding={'arm':arm,**VIDEO_INSPECTION,'status':'INFLIGHT_UNKNOWN','known_input_video_bytes':(folder/'output.mp4').stat().st_size}
+                report.setdefault('video_geometry_inspection',[]).append(decoding)
+                writer.note('VIDEO_GEOMETRY_INSPECTION_BEGIN_OPAQUE_IO_UNKNOWN',**decoding);persist();decode_started=time.monotonic()
+                try:
+                    with shorter_deadline(VIDEO_INSPECTION['deadline_seconds_per_video']):
+                        with imageio.get_reader(folder/'output.mp4')as reader:info=reader.get_meta_data();frames=reader.count_frames()
+                    decoding['status']='COMPLETE_CALLS_INTERNAL_IO_BYTES_UNKNOWN'
+                finally:
+                    decoding['wall_seconds']=time.monotonic()-decode_started
+                    writer.note('VIDEO_GEOMETRY_INSPECTION_RETURNED',**decoding);persist()
                 need(frames==81 and abs(float(info['fps'])-16)<.001 and list(info['size'])==[832,464],'full video geometry')
                 phase={'arm':arm,'states':tap.states,'video':writer.external(folder/'output.mp4'),'native_counter_delta':delta,'wall_seconds_including_capture':time.monotonic()-at,'video_geometry':[frames,832,464,16]}
                 if observer is not None:

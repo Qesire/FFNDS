@@ -11,3 +11,5 @@
 三个worker的独立M0包核验现均真实通过：每个2302文件、42,053,803字节，与相同旧inventory逐文件SHA一致。56GB现存cache与新HF镜像也均真实全SHA通过。仍需最终精确代码/protocol/jobs复核后才登记启动；没有任何native新范围自动重跑。
 
 根据最终复核补充：输入/身份ReadBudget保持到整个模型执行结束，覆盖finder与原生origin检查及lazy-import再次执行的实际 `check_binding` 读取。输出tensor/video的SHA读取按Writer自己的逐file durable预扣和返回字节账执行，不混进128GiB的输入/身份额度；约125.27GB原模型/cache加42MB包和少量重复源码/元数据检查仍低于137.44GB上限。每次失败保留各自inflight UNKNOWN，最终分别报告输入验证/输出hash/内存raw hash。
+
+视频帧数/几何检查的opaque imageio/FFmpeg内部读取字节现在明确为UNKNOWN，单独冻结每视频reader context、get_meta_data、count_frames各一次、每视频60秒期限；进入前写durable INFLIGHT_UNKNOWN与已知文件大小，返回记录调用完成状态/wall，异常仍保留UNKNOWN。输出SHA读取只报告其自身账，不冒充decoder/原生loader的全部I/O。pipeline build1与量化cache load1的内部反序列化I/O同样与显式SHA校验读取分开，实际内部读取量UNKNOWN；整job wall/RSS/CPU/GPU/file上限始终适用。增加deadline恢复fixture，M1+工程合计21项通过。

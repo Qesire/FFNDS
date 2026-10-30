@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import time
+import signal
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -56,6 +57,16 @@ class CaptureFixtures(unittest.TestCase):
     def test_state_name_contract(self):
         self.assertEqual(len(m.STATE_NAMES),10)
         self.assertTrue({'raw_noise_FP32','initial_noise','flow_step3','latent_step3'}<=m.STATE_NAMES)
+
+    def test_opaque_decoder_contract_and_deadline_restoration(self):
+        self.assertEqual(m.VIDEO_INSPECTION['reader_contexts_per_video'],1)
+        self.assertIn('UNKNOWN',m.VIDEO_INSPECTION['internal_file_read_bytes'])
+        previous=signal.getitimer(signal.ITIMER_REAL)
+        try:
+            signal.setitimer(signal.ITIMER_REAL,120)
+            with m.shorter_deadline(60):self.assertLessEqual(signal.getitimer(signal.ITIMER_REAL)[0],60)
+            self.assertGreater(signal.getitimer(signal.ITIMER_REAL)[0],100)
+        finally:signal.setitimer(signal.ITIMER_REAL,*previous)
 
     def test_verifier_file_raw_sha_dtype_and_corruption(self):
         import torch
