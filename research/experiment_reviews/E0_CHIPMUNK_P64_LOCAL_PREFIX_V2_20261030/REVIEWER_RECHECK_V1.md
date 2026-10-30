@@ -1,0 +1,7 @@
+# Exact independent recheck: corrected matched local/prefix CPU analysis
+
+Reviewer `/root/sync_abba_actual_review_terra`. **APPROVE registration of these two exact finite V2 CPU scopes** under their normal actual supervisor and ACTIVE gates. This is not registration or a claim that analysis has run.
+
+Revalidated both frozen protocols, all six source bindings for each, the actual closed native and independent-verifier parent chains and their exact producer RUN/EXIT identities. The two private job objects were independently reconstructed from the frozen profile and protocol and match exactly. Each source retains the same 40 samples and four full-M triplets, 4,284,579,840 Y bytes plus 92 headers under the 6 GiB scientific-read cap, and separate 256 MiB metadata cap. The read-only validation used 80,941,838 / 79,073,372 metadata bytes; this is a feasibility observation rather than a guarantee of complete runtime usage. Each source is limited to two CPU threads, no GPU, 4 GiB RSS/address space, 32 MiB new output, 3600 seconds within a 3720-second supervisor timeout, and one attempt without automatic retry.
+
+Durable read and compute predebits, parent hashes, the 30-second bounded start-receipt wait, sample target raw SHA and full-M singleton whole-file/raw SHA, 576 computation completions and actual EXIT0 remain runtime requirements. Failure or resource gates may still stop either scope. The independent 16 software fixtures passed; they are not actual tensor, GPU, model or video evidence. No real tensor was read in this review.
