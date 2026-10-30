@@ -1,6 +1,6 @@
-# FFNDS · 当前研究导航（2026-10-29）
+# FFNDS · 当前研究导航（2026-10-30）
 
-**2026-10-30 当前用户恢复执行**：用户要求核对并运行当前准备充分的研究任务，上一轮提交后结束的会话指令已被本次继续指令覆盖。root实际接手A5+HWG的M0源码/文件资产核对与M1小张量代数；随后每个新科学实验仍需真实不同评议者复审、ACTIVE精确冻结和实际RUN/EXIT。会话同时最多4GPU；历史已完成或失败范围不自动重跑。
+**2026-10-30 当前用户要求比较后收尾**：完成A5/HWG现有核心同预算比较，汇总实际结果、上传GitHub main后结束；本轮不扩展E1原生skip或E2候选视频。当前固定为来源1040单源静态校准、898/979两个历史暴露开发来源，共3来源×双expert×40层fullM的58臂比较；96的NS_V3监控失败单列、不重跑。来源1040采集与独立VERIFY均actual EXIT0，另两路采集和已独立批准的CAL1正在运行，后续每个新科学scope仍须真实不同评议者精确复审及ACTIVE登记。[M0/M1与当前证据身份](20261030/A5_HWG_M0_M1_READINESS_20261030.md)；运行状态以[ACTIVE](ACTIVE_RESEARCH.json)和实际RUN/EXIT为准。会话同时最多4GPU，历史已完成或失败范围不自动重跑。
 
 **2026-10-30 全质量对照/机制更新：** 核对FFN方法时先读 [完整八轴、RAFT、行为质量、历史Y+Delta与旧UB1/S2实际函数对照](20261030/WAN_FFN_FULL_QUALITY_AND_MOTION_MECHANISM_COMPARATIVE_AUDIT_20261030.md)。保留[876条源SHA登记](20261030/WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json)及[只读核验/不覆盖归档工具](../tools/verify_preserve_wan_ffn_comparison_assets.py)；本轮已完成全部登记源SHA核验与同机独立副本保全，见[实际保全](20261030/WAN_FFN_COMPARISON_ASSET_PRESERVATION_ACTUAL_20261030.md)；异地备份未执行。完整8轴/来源级/动作事件/相机及未测维度、FFN真实执行成本同等必要；禁止只拿RAFT幅值排序。
 

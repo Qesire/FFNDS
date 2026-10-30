@@ -1,8 +1,8 @@
-# FFNDS · 当前Agent最小上下文（2026-10-29）
+# FFNDS · 当前Agent最小上下文（2026-10-30）
 
-**2026-10-30 当前用户恢复执行**：用户要求核对并运行当前准备充分的研究任务，上一轮提交后结束的会话指令已被本次继续指令覆盖。root实际接手A5+HWG的M0源码/文件资产核对与M1小张量代数；随后每个新科学实验仍需真实不同评议者复审、ACTIVE精确冻结和实际RUN/EXIT。会话同时最多4GPU；历史已完成或失败范围不自动重跑。
+**2026-10-30 当前用户要求比较后收尾**：完成A5/HWG核心同预算比较，汇总实际结果、上传GitHub main后结束；本轮不扩展E1原生skip或E2候选视频。当前固定1040单源静态校准、898/979两个历史暴露开发来源，共3来源×双expert×40层fullM的58臂比较。96的NS_V3实际EXIT1为GPU监控超时、视频phase数0，失败单列不重跑。1040采集及独立VERIFY均actual EXIT0，另两路采集和独立批准的CAL1在运行；后续各E0及最终CPU汇总仍须精确复审、ACTIVE冻结和实际RUN/EXIT。[M0/M1与证据身份](../20261030/A5_HWG_M0_M1_READINESS_20261030.md)；即时状态以[ACTIVE](../ACTIVE_RESEARCH.json)为准。会话同时最多4GPU；历史已完成/失败范围不自动重跑。
 
-**上一轮已收尾（当前继续指令已覆盖）**：主Agent已完成手头全40观测、匹配分解及876引用的实体核验/保全；当时用户要求收尾提交后结束；本次已明确恢复继续。A5+HWG现由root实际接手；M0文件地图与M1小张量软件检查完成，新增原生匹配采集正在修订复审，E0/E1/E2尚未运行。
+**上一轮已收尾（历史状态）**：主Agent已完成全40层学生观测、匹配分解及876引用的实体核验/保全。此后恢复的A5/HWG任务按首段限定范围收尾；历史任务文档、v0审查请求和旧运行状态不代替当前ACTIVE与新版本实际收据。
 
 **2026-10-30 用户新增实际研究任务：立即接手[A5+HWG增量支持规则性 Issue #60](https://github.com/Qesire/FFNDS/issues/60) 与[方法/对照/资产/执行合同](../20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_AGENT_TASK_20261030.md)。** 此任务仅针对Wan FFN；研究历史完整Y+增量A5/HWG是否比当前贡献更集中、能否原HiF4 64通道组+M16/32/64真实跳块，比较等K Chipmunk、static、random、posterior oracle和完整signed W2/gate误差。已有A5约44.3%逻辑零值并未W1省算，TC1支持迁移未通过，TEAL自然M16 q50仍保留97.289% MAC；故不得把元素规则性/单block局部L2冒充全层GPU加速。已有[review v0登记](../experiment_reviews/E0_A5_HWG_DELTA_REGULARITY_20261030/v0_REVIEW_REQUESTED.json)明确真实独立Agent尚未评议、ACTIVE尚未授权、CPU/GPU未RUN。主Agent实际接手后先M0全40层资产覆盖、原A5历史mask/源码身份与中性数值，再独立审后真正运行；需要新数据则补采，不重跑/删除旧负结果。旧实验的资源/并发遵循实际历史scope与现行ACTIVE。
 
