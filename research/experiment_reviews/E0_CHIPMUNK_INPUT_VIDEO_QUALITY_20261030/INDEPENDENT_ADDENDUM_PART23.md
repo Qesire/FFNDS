@@ -1,0 +1,3 @@
+# Independent visual scope review: sources 1040 and 979
+
+Reviewer /root/asset_readiness_terra. The two native parent GPU and independent typed verifier receipts have actual exit 0 and are bound to each new three-arm visual protocol. Each source's six JPEG pages cover 81 frames per video; neither human review nor quality acceptance is implied. Earlier six-page uniqueness and actual verifier negative controls are retained in the source closure. Bound whole-file SHA accounting is separate from UNKNOWN nested metadata and physical I/O. A parent failure, wrong source identity or page alias must not produce a passing result. No video or model was decoded in this review.
