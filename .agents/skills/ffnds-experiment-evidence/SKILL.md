@@ -3,6 +3,9 @@ name: ffnds-experiment-evidence
 description: Construct and audit FFNDS source sampling, calibration, held-out data, paired video generation and metric evidence using real implementations and constructive scientific prompts.
 ---
 
+**2026-10-30 最新用户质量/资产约束（覆盖所有旧仅看RAFT或三轴报告）：** 用户明确要求每个Wan FFN候选**不能只看运动幅值**。实际视频结果必须展示原版完整8轴（imaging/MUSIQ、aesthetic、motion smoothness、dynamic degree、subject/background consistency、I2V subject/background）、每来源对应Dense及配对变化、连续RAFT分源和时间窗、能见到的具体物体/动作/镜头/新生物体/拖影、camera_motion与temporal flickering的已测值或明确NOT_MEASURED、逐源完整81帧视觉检查/独立录像审阅边界、真实W1/W2算子与端到端成本，且禁止跨数值族/来源数不同的实验直接当公平排行榜。每个质量结论都要从函数结构解释为何可能保留动态，并与UB1 static 64组+R256、S2低秩W2、Chipmunk old-fullY+selected-delta、SharQ FP4 sparse+dense residual和TEAL postGELU mask比较真正保留的函数信息。**可执行对照研究入口**：[全8轴/机制比较](../../../research/20261030/WAN_FFN_FULL_QUALITY_AND_MOTION_MECHANISM_COMPARATIVE_AUDIT_20261030.md)。**资产保全**：[876条SHA索引](../../../research/20261030/WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json)与[只读验证及不覆盖备份工具](../../../tools/verify_preserve_wan_ffn_comparison_assets.py)：原MP4、状态、逐源指标、RAW/EXIT、失败和截图不覆盖/删除；登记编制时仅有元数据；本轮[实际保全](../../../research/20261030/WAN_FFN_COMPARISON_ASSET_PRESERVATION_ACTUAL_20261030.md)已完成876记录/874源路径核SHA及同机独立副本复验，**异地备份未执行**。任何新scope须原有独立评审/recheck→ACTIVE冻结→真实RUN/EXIT。
+
+
 # FFNDS · Sampling, calibration, evaluation and data evidence
 
 
