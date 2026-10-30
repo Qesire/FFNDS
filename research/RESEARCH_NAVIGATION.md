@@ -1,5 +1,8 @@
 # FFNDS · 当前研究导航（2026-10-29）
 
+**2026-10-30 同算法同步对照已闭环**：[两曝光源14完整视频](20261030/CHIPMUNK_SYNC_ABBA_RESULTS_20261030.md)及两项79产物独立VERIFY均actual EXIT0，[真实独立结果审查](experiment_reviews/E0_CHIPMUNK_SYNC_ABBA_20261030/ACTUAL_RESULT_REVIEW.md)核实全部账本/资源。140状态＋14视频历史byte门通过（历史payload逐字节比较由GPU producer完成，VERIFY重读本批产物并核历史metadata）。排除warmup的A/B各两次，898/979 FFN事件B/A=0.928497/0.928260，完整phase wall=0.992008/0.994478；来源等权FFN事件7.453→6.919秒、phase wall48.060→47.736秒。两来源、单seed、嵌套重复和带观察计时；不作相对Dense系统加速或总体显著性结论。输出保持原候选，979质量退化仍在；两卡额度已归还。接续实现全40 high-step1学生同状态观测，冻结独立评估行/真实mask、付费Dense shadow与时空分区及signed投影统计；尚未完成新scope独立复审和登记。会话全节点同时最多4卡。
+
+
 **2026-10-30 输入状态完整闭环**：[四来源20视频](20261030/CHIPMUNK_INPUT_VIDEO_NATIVE_RESULTS_20261030.md)及4个独立57产物VERIFY均actual EXIT0，3200 FFN位置、132状态/10视频byte门通过。H/X逻辑缓存44.70/24.23GiB，candidate cache边界live allocated最大样本52.897/32.426GiB（非连续单臂峰）；带观测FFN来源等权NONE/H/X为6.410/7.292/7.575秒，尚无速度优势。[H/X40状态和4视频文件byte见证](20261030/CHIPMUNK_INPUT_VIDEO_H_X_BYTE_EQUIVALENCE_20261030.md)在四source/seed42同A100轨迹均相等，非与Dense等价或通用舍入定理。[八轴/连续RAFT/全81帧](20261030/CHIPMUNK_INPUT_VIDEO_QUALITY_RESULTS_20261030.md)12scope及12独立VERIFY现均actual EXIT0；候选/Dense运动比898/96/1040/979为1.015495/0.975062/1.131757/0.787582，979 MUSIQ下降6.382点，来源等权−1.399点。[独立AI24页/972缩略帧](20261030/CHIPMUNK_INPUT_VIDEO_AI_VISUAL_REVIEW_20261030.md)见潜水和吉他后段姿态变化；非连续播放/人工验收。缓存表示获得本批输出保真，现有high-only P64仍有质量退化，未达到部署目标。V1两监控及两taskset启动失败均保留，独立新版本完成剩余范围；当前GPU额度已归还。下一C线只准备不改算法的同步粒度/完整视频ABBA对照，须独立复审和新ACTIVE，不自动重跑旧范围。
 
 

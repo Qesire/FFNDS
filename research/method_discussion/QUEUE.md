@@ -65,3 +65,6 @@
 **2026-10-30 I/C 四源质量闭环及独立C讨论**：[质量/连续运动](../20261030/CHIPMUNK_INPUT_VIDEO_QUALITY_RESULTS_20261030.md)及12独立VERIFY actual EXIT0，4源候选H/X完整输出byte相同，但979运动幅值约降21%、MUSIQ−6.382，非部署通过。`/root/teal_full_llm_calibration_build_terra` 的[同步/观测关键路径](discoveries/E0/input-video-observer-critical-path-20261030.md)由`/root/asset_readiness_terra` [独立核源码并给竞争反例](discoveries/E0/input-video-observer-critical-path-independent-review-20261030.md)：SRC/ALG支持可能机制，未测其占比或公平SYS；后续固定算法ABBA仍须新scope，不填正式SUPPORT。
 
 **2026-10-30 979竞争功能单位（OPEN）**：`/root/quality_mechanism_reformulation_terra` 的[独立发现](discoveries/E0/chipmunk-979-competitive-function-units-20261030.md)由`/root` [另行评议](discoveries/E0/chipmunk-979-competitive-function-units-root-review-20261030.md)，区分时空异质性、signed W2组合与后缀传播；signed补偿和多组mask有不同预算/反例，不能由两候选成败排他归因。所需979全40学生位点/分层fullM采集仍未注册。[同流完成C设计](discoveries/E0/p64-same-stream-deferred-completion-design-20261030.md)与asset独立源码反例属于另一有限执行问题，不声称修复质量。
+
+
+**2026-10-30 C线同步实际判别**：上述同流设计现已[14视频/双79产物验证实际闭环](../20261030/CHIPMUNK_SYNC_ABBA_RESULTS_20261030.md)，`/root/sync_abba_actual_review_terra` [另行核实际证据](../experiment_reviews/E0_CHIPMUNK_SYNC_ABBA_20261030/ACTUAL_RESULT_REVIEW.md)。两曝光来源FFN事件约降7.16%，完整phase wall约降0.68%，保持历史候选全部输出byte相同；不作总体显著性或Dense部署加速、质量恢复。正式方法SUPPORT仍无。
