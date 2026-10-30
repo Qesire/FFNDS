@@ -1,6 +1,6 @@
 # Wan FFN 基线：完整质量、运动为何部分保留，以及与 UB1/S2 的真实计算差异
 
-**状态**：2026-10-30 科学分析/既有已验证实验的只读综合，不是新GPU/模型/人为视频验收。输入基准 pinned at Git commit `ba67e76d251ec45d60353218de1762fe50ba22ac`；资产见同目录 [868条原生源SHA保留登记](WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json)。最新用户范围：只看 FFN W1/GELU/W2 的真实省算；不能用运动幅值代替完整质量。该登记**只保存既有HF文件路径+SHA及RUN身份，不是把MP4/权重备份进Git**，现有HF文件是否仍存在尚未独立查验，必须在可访问原集群时复制/校验。
+**状态**：2026-10-30 科学分析/既有已验证实验的只读综合，不是新GPU/模型/人为视频验收。输入基准 pinned at Git commit `ba67e76d251ec45d60353218de1762fe50ba22ac`；资产见同目录 [876条原生源SHA保留登记](WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json)。最新用户范围：只看 FFN W1/GELU/W2 的真实省算；不能用运动幅值代替完整质量。该登记**只保存既有HF文件路径+SHA及RUN身份，不是把MP4/权重备份进Git**，现有HF文件是否仍存在尚未独立查验，必须在可访问原集群时复制/校验。已添加[只读SHA校验与不覆盖备份工具](../../tools/verify_preserve_wan_ffn_comparison_assets.py)，尚未在原HF节点上运行。
 
 ## 1. 方法不能混淆的共同对象
 
@@ -181,8 +181,8 @@ P64首次采用**当前student输入**上的少量行测 \(\Delta h\) RMS，mask
 
 **必须保留**同source的原始输入图/提示词、原权重指纹、model/recipe、BF16 Dense及neutral、各种候选完整MP4、初始noise、四步flow/latent状态、FFA及W1/GELU/W2/有符号gate观测、完整逐帧40组RAFT、八维逐视频原值、contact sheets及视觉评论、kernel时间/系统总成本、独立review、RUN/EXIT/旧失败身份。零平均图像和视频截图不能替代原MP4。
 
-- [868项SHA绑定manifest](WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json) 从**现成六份原始生产者/质量文件**抽取 HF-relative path/sha/bytes，包含Chipmunk主线及因果四臂、SharQ、TEAL、旧UB1 20来源、H/X状态与RUN/EXIT；**GitHub不存HF二进制**。只保留哈希索引尚无法证明物理备份，须由可接触原HF的Agent先核全部文件实际存在并复制至不会被工作目录清理的位置；用相同SHA逐字节复验。
-- 旧失败也作为资产：SharQ V6 stream/cache非有限值及修复诊断 [V6 FAIL](SHARQ_WAN_ALL160_V6_CACHE_NEUTRAL_FAILURE_20261030.md)、[SM120安全流诊断](SHARQ_SM120_STREAM_DIAGNOSTIC_RESULTS_20261030.md)；Chipmunk V7 allocator门限 [V7 FAIL](CHIPMUNK_GLOBAL_P64_V7_FAILURE_20261030.md)；TEAL V2失败 [V2 FAIL](../20261029/TEAL_WAN_ALL160_VIDEO_V2_RESOURCE_FAILURES_20261029.md)。**原运行资产原地不删除、不覆盖、不重命名，不把reviewed失败改称成功。**
+- [876项SHA绑定manifest](WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json) 从**现成六份原始生产者/质量文件**抽取 HF-relative path/sha/bytes，包含Chipmunk主线及因果四臂、SharQ、TEAL、旧UB1 20来源、H/X状态与RUN/EXIT；**GitHub不存HF二进制**。只保留哈希索引尚无法证明物理备份，须由可接触原HF的Agent先核全部文件实际存在并复制至不会被工作目录清理的位置；用相同SHA逐字节复验。
+- 旧失败也作为资产：SharQ V6 stream/cache非有限值及修复诊断 [V6 FAIL](SHARQ_WAN_ALL160_V6_CACHE_NEUTRAL_FAILURE_20261030.md)、[SM120安全流诊断](SHARQ_SM120_STREAM_DIAGNOSTIC_RESULTS_20261030.md)；Chipmunk V7 allocator门限 [V7 FAIL](CHIPMUNK_GLOBAL_P64_V7_FAILURE_20261030.md)；TEAL V2失败 [V2 FAIL](../20261029/TEAL_WAN_ALL160_VIDEO_V2_RESOURCE_FAILURES_20261029.md)。**原运行资产原地不删除、不覆盖、不重命名，不把reviewed失败改称成功。14份S2/UB1/当前关键质量及失败报告另有Git blob SHA冻结，保留旧格式以供之后再解析。\n- 在确有HF源文件与独立归档盘的节点，先运行 `python tools/verify_preserve_wan_ffn_comparison_assets.py --mode inventory --role video` 检查登记范围，再 `python tools/verify_preserve_wan_ffn_comparison_assets.py --mode verify --hf-root /home/xiang/.cache/huggingface --role video` 只读验SHA；真实复制时明确指定单个 `--family`、已经存在的 `--archive-root` 和 `--mode copy`，程序不覆盖已存在不同内容的目标。**这只是可执行接口，尚未实际执行或验证物理备份。****
 - 同一来源的不同方法若训练/精度/模型/M/step/seed不一致，只能作为机制解释背景，不自动构成控制变量一致的正式横向指标排名；标记数值族+GPU+model identity。
 - 最新发现是**有条件的运动与内容保持机制**，不是“证明动态稀疏普遍保留运动”。后续每个实验在视觉和八轴外，增加\(camera\_motion\)（可运行时）、temporal flicker、主体动作事件、相机分解和局部写回；获得前这几列应明确为`NOT_MEASURED`。
 
