@@ -50,5 +50,16 @@ class NativeRecipeFixtures(unittest.TestCase):
         self.assertGreater(float(score[-1, 0]), 1.)
         self.assertTrue((new[:64, 0].abs() > 0).all())
 
+    def test_bitpack_preserves_compact_units_little_endian(self):
+        result = m.pack_selected(torch.tensor([[0, 7, 8], [1, 3, 15]]), 16)
+        self.assertTrue(torch.equal(result, torch.tensor([[129, 1], [10, 128]], dtype=torch.uint8)))
+
+    def test_temporal_and_spatial_ac_are_distinct_feature_quantities(self):
+        target = torch.tensor([[0.], [1.], [2.], [3.]])
+        result = m.latent_ac_metrics(target, target, [2, 1, 2])
+        self.assertEqual(result['latent_tau_AC_relative_L2'], 0.)
+        self.assertEqual(result['within_tau_spatial_AC_relative_L2'], 0.)
+        self.assertGreater(result['latent_tau_AC_target_energy'], result['within_tau_spatial_AC_target_energy'])
+
 
 if __name__ == '__main__': unittest.main()

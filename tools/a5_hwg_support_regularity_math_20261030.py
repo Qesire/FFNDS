@@ -107,7 +107,7 @@ def support_summary(mask, *, grid=None):
 
 
 def signed_output_metrics(old_y, current_y, delta_v2, weight2, gate, mask,
-                          *, full_delta_output=None):
+                          *, full_delta_output=None, retained_delta_output=None):
     """Paid FP32 projection diagnostic, explicitly distinct from native action.
 
 Actual original BF16 old/current Y are the references. Bias already occurs
@@ -127,7 +127,10 @@ The full-delta rounding difference is measured, not called a lower bound.
     full = F.linear(d, w) if full_delta_output is None else full_delta_output
     require(full.shape == old_y.shape and full.dtype == torch.float32
             and bool(torch.isfinite(full).all()), 'finite FP32 full-delta reference')
-    retained = F.linear(d * mask, w)
+    retained = (F.linear(d * mask, w) if retained_delta_output is None
+                else retained_delta_output)
+    require(retained.shape == old_y.shape and retained.dtype == torch.float32
+            and bool(torch.isfinite(retained).all()), 'finite FP32 retained-delta output')
     omitted = full - retained
     actual_change = g * (current_y.float() - old_y.float())
     predicted_change = g * retained

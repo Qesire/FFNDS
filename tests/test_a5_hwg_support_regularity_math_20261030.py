@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 import torch
 
 spec = importlib.util.spec_from_file_location('a5_regularity', Path(__file__).resolve().parents[1] / 'tools/a5_hwg_support_regularity_math_20261030.py')
@@ -89,6 +90,17 @@ class RegularityFixtures(unittest.TestCase):
         self.assertEqual(result['horizontal_real_neighbor_pairs'], 8)
         self.assertEqual(result['vertical_real_neighbor_pairs'], 6)
         self.assertEqual(result['latent_tau_real_neighbor_pairs'], 6)
+
+    def test_prepaid_outputs_do_not_trigger_hidden_projection(self):
+        old = torch.zeros(1, 1)
+        current = torch.ones(1, 1)
+        delta = torch.tensor([[1., 2.]])
+        w = torch.ones(1, 2)
+        mask = torch.tensor([[True, False]])
+        with patch.object(m.F, 'linear', side_effect=AssertionError('unpaid hidden GEMM')):
+            result = m.signed_output_metrics(old, current, delta, w, torch.ones(1), mask,
+                     full_delta_output=torch.tensor([[3.]]), retained_delta_output=torch.tensor([[1.]]))
+        self.assertEqual(result['gated_current_relative_L2'], 0.)
 
 
 if __name__ == '__main__': unittest.main()

@@ -56,14 +56,15 @@ Full-M Dense proxy GEMMs are paid; no low-cost sign kernel is implied.
     old_h = measured('proxy_old_GELU', lambda: F.gelu(old_pre, approximate='tanh'))
     new_h = measured('proxy_new_GELU', lambda: F.gelu(new_pre, approximate='tanh'))
     sensitivity = measured('current_gate_W2_sensitivity', lambda: hwg(weight2, gate))
-    scale = smooth2.float().reshape(1, -1)
-    delta = (new_h.float() - old_h.float()) / scale
-    current = new_h.float() / scale
-    return {
-        'a5_current_hwg': current.abs() * sensitivity,
-        'a5_delta_hwg': delta.abs() * sensitivity,
-        'a5_delta_nohwg': delta.abs(),
-    }, {'weight': wp, 'gamma': gamma, 'beta': beta,
+    def fields():
+        scale = smooth2.float().reshape(1, -1)
+        delta = (new_h.float() - old_h.float()) / scale
+        current = new_h.float() / scale
+        return {'a5_current_hwg': current.abs() * sensitivity,
+                'a5_delta_hwg': delta.abs() * sensitivity,
+                'a5_delta_nohwg': delta.abs()}
+    scores = measured('proxy_score_field_algebra', fields)
+    return scores, {'weight': wp, 'gamma': gamma, 'beta': beta,
         'sensitivity': sensitivity, 'old_pre': old_pre, 'new_pre': new_pre}
 
 
@@ -91,8 +92,9 @@ def mean_m64_score(v0, v1, proxy_w, b1, smooth2, sensitivity, measured):
     p1 = measured('mean_m64_new_W1', lambda: F.linear(b, proxy_w, b1))
     h0 = measured('mean_m64_old_GELU', lambda: F.gelu(p0, approximate='tanh'))
     h1 = measured('mean_m64_new_GELU', lambda: F.gelu(p1, approximate='tanh'))
-    score = (h1.float() - h0.float()).abs() / smooth2.float().reshape(1, -1) * sensitivity
-    return score.repeat_interleave(64, 0)[:v0.shape[0]]
+    return measured('mean_score_field_and_expand', lambda:
+        ((h1.float() - h0.float()).abs() / smooth2.float().reshape(1, -1) * sensitivity)
+        .repeat_interleave(64, 0)[:v0.shape[0]])
 
 
 def arm_specs():
@@ -130,3 +132,31 @@ def arm_mask(spec, scores, k, shuffle):
         return torch.zeros_like(score, dtype=torch.bool), None
     return shared_support(score, k, hidden_group=spec['hidden_group'], row_group=spec['row_group'],
                           permutation=shuffle if spec['shuffled'] else None)
+
+
+def pack_selected(indices, total_units):
+    """Little-endian bits of compact row-group supports, without dense D2H."""
+    require(indices.ndim == 2 and total_units % 8 == 0, 'whole byte mask units')
+    mask = torch.zeros((indices.shape[0], total_units), dtype=torch.bool, device=indices.device)
+    mask.scatter_(1, indices, True)
+    shifts = torch.arange(8, dtype=torch.uint8, device=indices.device)
+    return torch.bitwise_left_shift(mask.reshape(indices.shape[0], -1, 8).to(torch.uint8), shifts).sum(-1, dtype=torch.uint8)
+
+
+def latent_ac_metrics(target_change, predicted_change, grid):
+    """Feature-level AC contrasts, not decoded video motion or event scores."""
+    require(target_change.shape == predicted_change.shape and target_change.ndim == 2,
+            'matched teacher-state feature changes')
+    require(target_change.shape[0] == grid[0] * grid[1] * grid[2], 'actual latent grid')
+    a = target_change.float().reshape(grid[0], grid[1] * grid[2], -1)
+    b = predicted_change.float().reshape_as(a)
+    result = {}
+    for name, dimension in [('latent_tau_AC', 0), ('within_tau_spatial_AC', 1)]:
+        target = a - a.mean(dimension, keepdim=True)
+        error = (b - b.mean(dimension, keepdim=True)) - target
+        denominator = target.double().square().sum()
+        result[name + '_target_energy'] = float(denominator)
+        result[name + '_relative_L2'] = (float((error.double().square().sum() / denominator).sqrt())
+                                          if float(denominator) > 0 else None)
+    result['evidence'] = 'TEACHER_FFN_FEATURE_CHANGE_NOT_VIDEO_QUALITY'
+    return result
