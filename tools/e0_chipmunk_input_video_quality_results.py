@@ -109,11 +109,32 @@ def main():
         x['raft_candidate_over_dense']={m:x['continuous_raft'][m][key]/dense if dense>0 else None for m in modes if m!='none'}
     data={'scope':'Four exposed sources, one seed each; three paired videos per source, no extra independent N from reused video or neutral controls.','sources':rows,'source_equal_eight_axes':means,'source_equal_paired_differences':diffs,'source_equal_raft_means':{m:statistics.fmean(x['continuous_raft'][m][key] for x in rows) for m in modes},'source_equal_raft_paired_differences':{m:statistics.fmean(x['raft_candidate_minus_dense'][m] for x in rows) for m in modes if m!='none'},'source_equal_mean_of_source_ratios':{m:(statistics.fmean(x['raft_candidate_over_dense'][m] for x in rows) if all(x['raft_candidate_over_dense'][m] is not None for x in rows) else None) for m in modes if m!='none'},'scopes':[all_scopes[k,i][2] for k in KINDS for i in range(4)],'raft_semantics':'40 stride-2 pairs per video, 20 iterations each; five eight-pair windows. Continuous top-5% flow is distinct from official binary dynamic degree.','visual_review':'Independent AI visual review to be linked only when actually completed.','v1_monitor_failures':historical_failures(),'v1_visual_taskset_failures':historical_visual_failures(),'quality_acceptance':False}
     target=ROOT/'research/20261030/CHIPMUNK_INPUT_VIDEO_QUALITY_RESULTS_20261030.json'
+    for name,filename in (
+        ('actual_AI_contact_sheet_review','CHIPMUNK_INPUT_VIDEO_AI_VISUAL_REVIEW_20261030.json'),
+        ('posthoc_H_X_output_byte_equivalence','CHIPMUNK_INPUT_VIDEO_H_X_BYTE_EQUIVALENCE_20261030.json')):
+        path=ROOT/'research/20261030'/filename
+        _,identity=read(path)
+        data[name]={'path':str(path.relative_to(ROOT)),**identity}
+    data['visual_review']='Independent AI viewed24 pages/972 thumbnails; no continuous playback or human acceptance. See bound review.'
+    data['interpretation']=[
+        'H and X complete output bytes agree for the four measured trajectories; their separately repeated scores are not independent samples.',
+        'Source979 loses about21% continuous top5%-flow and6.382 MUSIQ points against Dense; the source-equal ratio alone hides this counterexample.',
+        'Cache reduction is established separately from quality preservation against Dense and from system speed. No deployment acceptance.']
     target.write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n')
     lines=['# Input video: actual quality results','',data['scope'],'','| Source | Arm | Continuous RAFT mean |','|---|---|---:|']
     for x in rows:
         for m in modes: lines.append(f"| {x['ordinal']} | {m} | {x['continuous_raft'][m][key]:.6f} |")
     lines += ['',data['raft_semantics'],'','Eight per-source axes, paired differences, five-window observations, source-equal summaries and all twelve actual closure bindings are in the JSON. Independent AI visual review remains separate.','']
+    candidate='high_x_recompute_p64'
+    lines += ['| Source | Candidate/Dense flow | MUSIQ change | Aesthetic change | Subject consistency change |',
+              '|---|---:|---:|---:|---:|']
+    for x in rows:
+        d=x['candidate_minus_dense'][candidate]
+        lines.append(f"| {x['ordinal']} | {x['raft_candidate_over_dense'][candidate]:.6f} | {d['imaging_quality']:+.6f} | {d['aesthetic_quality']:+.6f} | {d['subject_consistency']:+.6f} |")
+    lines += ['',f"The source-equal mean of within-source flow ratios is {data['source_equal_mean_of_source_ratios'][candidate]:.6f}; source979 remains a counterexample. Mean MUSIQ change is {diffs['imaging_quality'][candidate]:+.6f} points.",
+              '', 'The two candidates have identical complete output bytes in these four runs; H values equal X except for tiny separately repeated metric variation. This is candidate equivalence, not Dense equivalence or four additional samples.',
+              '', '[Independent AI contact-sheet review](CHIPMUNK_INPUT_VIDEO_AI_VISUAL_REVIEW_20261030.md) covers24 pages and972 thumbnails; continuous human playback and heldout confirmation remain unmeasured.',
+              '', 'All eight scoring/RAFT scopes and four visual scopes, plus their12 separate verifiers, actually exited0. Earlier two monitor failures and two taskset failures are retained in the JSON. Quality acceptance is false.', '']
     target.with_suffix('.md').write_text('\n'.join(lines))
     print(target)
 
