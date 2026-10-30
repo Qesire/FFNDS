@@ -46,7 +46,7 @@ CALL_LIMITS = {
 guard.RES = RES
 
 
-def authorize_common(protocol, protocol_path, job_path, resources, limits, kind):
+def authorize_common(protocol, protocol_path, job_path, resources, limits, kind, *, gpu_cards=1):
     need = guard.need
     need(protocol['resources'] == resources and protocol['call_limits'] == limits
          and protocol['kind'] == kind, 'finite scientific resources/calls/kind differ')
@@ -58,7 +58,7 @@ def authorize_common(protocol, protocol_path, job_path, resources, limits, kind)
     need(scope['execution_status'] in ('AUTHORIZED_NOT_STARTED', 'RUNNING_FIXED_SCOPE')
          and scope['protocol_sha256'] == guard.sha(protocol_path)
          and scope['job_spec_sha256'] == guard.sha(job_path), 'ACTIVE identity differs')
-    need(scope['session_max_GPUs'] == 4 and scope['max_gpu_cards'] == 1,
+    need(scope['session_max_GPUs'] == 4 and scope['max_gpu_cards'] == gpu_cards,
          'applicable four-GPU session cap')
     need(sum(s.get('assigned_GPU_slots', 0) for s in scopes
              if s.get('execution_status') == 'RUNNING_FIXED_SCOPE') <= 4,

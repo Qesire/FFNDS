@@ -228,7 +228,7 @@ def run(args):
                 (rows_cpu.cuda(), p64_cpu.cuda(), shuffle_cpu.cuda()),
                 matched_rows=1344, P64_rows=64, shuffle_rows=31668, dtype='int64')
             report['row_coordinates'] = writer.tensor(out / 'COORDINATES.safetensors',
-                                                      {'matched': rows_cpu, 'P64': p64_rows.cpu(), 'shuffle': shuffle_cpu})
+                                                      {'matched': rows_cpu, 'P64': p64_cpu, 'shuffle': shuffle_cpu})
             seen = {'paths': set(), 'inodes': set()}
             for ei, expert in enumerate(['high_noise_model', 'low_noise_model']):
                 steps = [0, 1] if ei == 0 else [2, 3]
@@ -267,12 +267,14 @@ def run(args):
                         lambda: tuple(v.cuda() for v in (w1c, b1c, w2c, b2c, smooth)),
                         W1=[13824, 5120], W2=[5120, 13824], dtype='bfloat16_weights_FP32_smooth2')
                     replayed, native_checks = [], []
-                    for sampled, v1 in packets:
+                    for reference_index, (sampled, v1) in enumerate(packets):
+                        ledger.context = {**site, 'reference_step': steps[reference_index]}
                         native_v1 = ledger('native_input_H2D', lambda: v1.cuda(), bytes=31668 * 5120 * 2)
                         native = native_replay(native_v1, w1, b1, w2, b2, smooth2, native_hif4_activation_qdq, ledger)
                         native_checks.append(ledger('native_sample_verify', lambda: verify_actual_samples(native, sampled, rows)))
                         replayed.append(native)
                     old, current = replayed
+                    ledger.context = site
                     gate = ledger('current_gate_H2D', lambda: packets[1][0]['gate_broadcast'].cuda().reshape(-1), bytes=5120 * 2)
                     scores, proxy = proxy_scores(old['V1'], current['V1'], w1, b1, smooth2, w2, gate, ledger)
                     p64 = p64_score(current['V1'], old['H'], w1, b1, p64_rows, ledger)
@@ -313,6 +315,7 @@ def run(args):
                         metrics.append({'spec': spec, 'support': statistics, 'signed_output': quality,
                                         'feature_AC': ac, 'sample_postwrite': post})
                         del mask, indices, retained
+                    ledger.context = site
                     packed.update(ledger('proxy_parameters_D2H', lambda:
                         {'proxy_gamma': proxy['gamma'].cpu(), 'proxy_beta': proxy['beta'].cpu(),
                          'current_gate_W2_sensitivity': proxy['sensitivity'].cpu()}))
@@ -321,6 +324,8 @@ def run(args):
                               'actual_effective_W2_raw_SHA': weight_hash,
                               'effective_W1_raw_SHA': writer.raw_sha(w1c.contiguous()),
                               'original_bias_raw_SHA': [writer.raw_sha(b1c), writer.raw_sha(b2c)],
+                              'old_gate_raw_SHA': writer.raw_sha(packets[0][0]['gate_broadcast'].contiguous()),
+                              'current_gate_raw_SHA': writer.raw_sha(packets[1][0]['gate_broadcast'].contiguous()),
                               'smooth2_raw_SHA': writer.raw_sha(smooth.contiguous()),
                               'mask_and_proxy': artifact, 'mask_unit_layout': 'LITTLE_ENDIAN_UINT8_ROWGROUP_UNITS',
                               'mask_schema': {name: {'shape': list(value.shape), 'dtype': str(value.dtype).removeprefix('torch.'),
