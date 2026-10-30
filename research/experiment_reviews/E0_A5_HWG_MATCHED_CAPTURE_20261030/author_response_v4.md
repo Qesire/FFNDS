@@ -9,3 +9,5 @@
 存储张量raw SHA的内存读取、最多320份W2 raw SHA内存读取以及状态/metadata余量分别列上界；actual Writer计数只覆盖其自身负责的raw读取，继承W2校验按SRC边界另列，不能把该计数称为总GPU工作或总物理I/O。原runtime linear/QDQ计数仍只是模型800模块×两次expert调用的原数值路径覆盖。
 
 三个worker的独立M0包核验现均真实通过：每个2302文件、42,053,803字节，与相同旧inventory逐文件SHA一致。56GB现存cache与新HF镜像也均真实全SHA通过。仍需最终精确代码/protocol/jobs复核后才登记启动；没有任何native新范围自动重跑。
+
+根据最终复核补充：输入/身份ReadBudget保持到整个模型执行结束，覆盖finder与原生origin检查及lazy-import再次执行的实际 `check_binding` 读取。输出tensor/video的SHA读取按Writer自己的逐file durable预扣和返回字节账执行，不混进128GiB的输入/身份额度；约125.27GB原模型/cache加42MB包和少量重复源码/元数据检查仍低于137.44GB上限。每次失败保留各自inflight UNKNOWN，最终分别报告输入验证/输出hash/内存raw hash。

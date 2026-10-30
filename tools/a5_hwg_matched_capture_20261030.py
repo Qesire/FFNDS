@@ -46,14 +46,15 @@ def need(value,message):
     if not value:raise RuntimeError(message)
 
 
-def sha(path):
-    if CONTROL_READ:CONTROL_READ.before(Path(path).stat().st_size,str(path))
+def sha(path,*,counted=True):
+    meter=CONTROL_READ if counted else None
+    if meter:meter.before(Path(path).stat().st_size,str(path))
     h=hashlib.sha256()
     with Path(path).open('rb')as f:
         for b in iter(lambda:f.read(8<<20),b''):
             h.update(b)
-            if CONTROL_READ:CONTROL_READ.after(len(b))
-    if CONTROL_READ:CONTROL_READ.finish()
+            if meter:meter.after(len(b))
+    if meter:meter.finish()
     return h.hexdigest()
 
 
@@ -286,7 +287,16 @@ class Writer:
         need(size<=allowance,'file exceeded reservation; partial accounted')
         self.reserve(0)
         if not path.exists():return None
-        if known_sha is None:known_sha=sha(path);self.file_sha_bytes+=size
+        if known_sha is None:
+            # Output hash reads have their own durable full-file predebit;
+            # they do not consume the distinct input/identity read allowance.
+            self.note('OUTPUT_FILE_HASH_READ_PREDEBIT_INFLIGHT_UNKNOWN',path=str(path.relative_to(self.hf)),reserved_read_bytes=size)
+            h=hashlib.sha256();returned=0
+            try:
+                with path.open('rb')as f:
+                    for b in iter(lambda:f.read(8<<20),b''):h.update(b);returned+=len(b);self.file_sha_bytes+=len(b)
+                need(returned==size,'output file changed during hash');known_sha=h.hexdigest()
+            finally:self.note('OUTPUT_FILE_HASH_READ_RETURNED',path=str(path.relative_to(self.hf)),actual_read_bytes=returned,complete=returned==size)
         self.files[key]['sha256']=known_sha
         return {'path':str(path.relative_to(self.hf)),'bytes':size,'sha256':known_sha}
     def tensor(self,path,tensors):
@@ -513,7 +523,7 @@ def run(a):
             reservation,monitor,report['CUDA_reservation']=reserve_before_assets(torch)
             need(torch.cuda.device_count()==1 and'A100'in torch.cuda.get_device_name(),'one assigned A100 required')
             need({n:importlib.metadata.version(n)for n in p['runtime_versions']}==p['runtime_versions'],'software versions differ')
-            view,cache=runtime_assets(p,private);check();report['asset_identity_validation_reads']=asset_reads.summary();CONTROL_READ=None;persist()
+            view,cache=runtime_assets(p,private);check();report['asset_identity_validation_reads']=asset_reads.summary();persist()
             from HiFloat4.ptq.adapters import lightx2v_wan_distill as adapter
             from quant import hif4_backend
             hif4_backend.get_hif4_api()
@@ -551,6 +561,7 @@ def run(a):
                     need(all(phase['states'][n]['sha256']==old['states'][n]['sha256']for n in STATE_NAMES),'10-state neutral mismatch')
                     need(phase['video']['sha256']==old['video']['sha256'],'video neutral mismatch')
                     report['ten_states_and_video_neutral']=True
+            report['actual_native_import_origins']=validate_import_origins(p)
             adapter.deactivate_lightx2v_hooks();report['status']='COMPLETE_MATCHED_FULL160_CAPTURE_EXIT_PENDING'
     except BaseException as e:
         report.update(status='FAILED_MATCHED_CAPTURE_PRESERVED_NO_RETRY',error_type=type(e).__name__,error=str(e)[:1000]);raise
@@ -562,6 +573,7 @@ def run(a):
             monitor.close();report['assigned_GPU_monitor']=monitor.report()
             if report['assigned_GPU_monitor']['violations']:report['status']='FAILED_ASSIGNED_GPU_MONITOR_PRESERVED_NO_RETRY'
         report.update(wall_seconds=time.monotonic()-started,peak_RSS_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,output_accounting_before_final_RUN=writer.summary(),output_written_bytes=writer.written,raw_tensor_SHA_memory_read_bytes=writer.raw_sha_bytes,file_SHA_read_bytes=writer.file_sha_bytes)
+        report['asset_identity_validation_reads']=asset_reads.summary()
         if finder:
             report['actual_transformers_import_origins']=finder.origins
             if finder in sys.meta_path:sys.meta_path.remove(finder)
