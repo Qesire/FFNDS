@@ -1,0 +1,94 @@
+{
+  "schema": "FFNDS_A5_HWG_M0_FILE_INVENTORY_V1",
+  "author_agent_id": "/root",
+  "status": "COMPLETE_FILE_METADATA_INVENTORY_NOT_SCIENTIFIC_E0",
+  "payload_values_read": false,
+  "scientific_GPU_calls": 0,
+  "checked_bytes": 48436358,
+  "checks": {
+    "metadata_full_sha_pass": 2264,
+    "payload_size_and_header_pass_not_full_sha": 6080
+  },
+  "datasets": [
+    {
+      "id": "cal24",
+      "sources": 24,
+      "sites_per_source": 160,
+      "boundaries": "postQ1 V1, postQ2 V2, Y, gate, b2",
+      "raw_x": "MISSING",
+      "preQ2_h": "MISSING",
+      "preGELU_a": "MISSING",
+      "identity": "INPUT JSON SHA checked; operand sizes/headers checked; payload SHA inherited"
+    },
+    {
+      "id": "raw_bf16_full160",
+      "sources": 8,
+      "sites_per_source": 160,
+      "boundaries": "V1, h, Y, gate, r, u, rows; shift/scale",
+      "HiF4_identity": "INCOMPATIBLE_NUMERIC_FAMILY",
+      "cross_step_pairing": "Read actual selected_rows, not state_pair prose"
+    },
+    {
+      "id": "spatial52_full160",
+      "sources": 2,
+      "arms": 3,
+      "sites_per_source_arm": 160,
+      "HiF4_identity": "INCOMPATIBLE_NUMERIC_FAMILY",
+      "geometry": "21 latent times x 52 spatial anchors; not full raster M"
+    }
+  ],
+  "paired_coordinate_summary": {
+    "cal24": {
+      "pairs": 1920,
+      "min_matched": 0,
+      "max_matched": 8,
+      "mean_matched": 2.035416666666667,
+      "identical_coordinate_pairs": 0,
+      "complete_original_tiles": {
+        "16": 0,
+        "32": 0,
+        "64": 0
+      }
+    },
+    "raw_bf16_full160": {
+      "pairs": 640,
+      "min_matched": 0,
+      "max_matched": 8,
+      "mean_matched": 2.0328125,
+      "identical_coordinate_pairs": 0,
+      "complete_original_tiles": {
+        "16": 0,
+        "32": 0,
+        "64": 0
+      }
+    },
+    "spatial52_full160": {
+      "pairs": 480,
+      "min_matched": 1092,
+      "max_matched": 1092,
+      "mean_matched": 1092.0,
+      "identical_coordinate_pairs": 480,
+      "complete_original_tiles": {
+        "16": 0,
+        "32": 0,
+        "64": 0
+      }
+    }
+  },
+  "detailed_pairs": {
+    "path": "research/20261030/A5_HWG_M0_ASSET_COVERAGE_20261030.csv",
+    "bytes": 1440242,
+    "sha256": "d1e6a362df45b6495edc077ebddea9b3b40de589f9099b7879f03236e9cd24e8"
+  },
+  "required_new_producer": [
+    "HiF4 same-expert old/current matched coordinates at all40 blocks both experts",
+    "preQ1 raw x and postQ1 V1; preGELU a, preQ2 h, postQ2 V2, old/current Y and current gate",
+    "full-raster or genuinely contiguous original M16/32/64 with fullM union statistics",
+    "native no-action neutrality and original Q1/Q2 scale/smooth identity"
+  ],
+  "limitations": [
+    "Inherited operand SHA not rehashed in M0; numerical values not loaded",
+    "Existing BF16 evidence remains BF16; it cannot validate HiF4 A5 numerical fidelity",
+    "Current file/coordinate statistics do not establish mask quality, video quality or physical speed"
+  ]
+}
