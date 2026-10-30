@@ -23,25 +23,25 @@ import a5_hwg_matched_capture_20261030 as guard
 from a5_hwg_evidence_io_20261030 import bound_json, bound_tensors, CallLedger
 
 SELF = 'tools/a5_hwg_registered_static_fit_20261030.py'
-CALIBRATION_SOURCES = [898, 1040]
-CALIBRATION_KIND = 'CAL2_898_1040_SIGNED_FORWARD_GREEDY_K64_V2'
+CALIBRATION_SOURCES = [1040]
+CALIBRATION_KIND = 'CAL1_1040_SIGNED_FORWARD_GREEDY_K64_V3'
 RES = {
     'GPU': 1, 'CPU_threads': 4, 'session_max_GPUs': 4,
     'GPU_reserved_max_bytes': 32 << 30, 'host_available_min_bytes': 128 << 30,
     'peak_RSS_max_bytes': 96 << 30, 'model_forecast_bytes': 64 << 30,
     'host_max_models': 2, 'new_HF_bytes': 2 << 30,
     'free_disk_min_bytes': 6 << 30, 'maximum_single_file_bytes': 512 << 20,
-    'asset_validation_read_max_bytes': 192 << 30,
+    'asset_validation_read_max_bytes': 128 << 30,
     'wall_seconds': 7200, 'outer_seconds': 7320, 'automatic_retry': False,
 }
 CALL_LIMITS = {
     'effective_W2_transfer': 80,
-    'calibration_group_W2_batched': 160,
-    'calibration_signed_Gram': 160,
-    'calibration_signed_target_dot': 160,
+    'calibration_group_W2_batched': 80,
+    'calibration_signed_Gram': 80,
+    'calibration_signed_target_dot': 80,
     'signed_forward_greedy': 80,
-    'calibration_selected_direct_W2': 160,
-    'calibration_operands_H2D': 160,
+    'calibration_selected_direct_W2': 80,
+    'calibration_operands_H2D': 80,
 }
 guard.RES = RES
 
@@ -156,10 +156,10 @@ def run(args):
     authorize(p, args.protocol, args.job_spec)
     private = guard.private_assets(p, args.private_assets)
     need(sorted(os.sched_getaffinity(0)) == p['cpu_affinity'], 'registered CPU affinity')
-    need(len(p['sources']) == 2 and [s['case']['native_source_ordinal'] for s in p['sources']] == CALIBRATION_SOURCES,
-         'only two frozen calibration sources')
-    need(len({s['case']['image']['sha256'] for s in p['sources']}) == 2,
-         'two distinct original image clusters')
+    need(len(p['sources']) == 1 and [s['case']['native_source_ordinal'] for s in p['sources']] == CALIBRATION_SOURCES,
+         'one frozen calibration source')
+    need(len({s['case']['image']['sha256'] for s in p['sources']}) == 1,
+         'one original calibration image cluster')
     hf = Path(private['hf_root']).resolve()
     out = hf / p['output_HF_relative']
     need(not out.exists(), 'single attempt output already exists')
@@ -245,9 +245,9 @@ def run(args):
                         source_correlations.append(corr.cpu())
                         source_metrics.append(info)
                         del packets, old, current, delta, target, gram, corr, gate, reference
-                    gram = (source_grams[0] + source_grams[1]) / 2
-                    corr = (source_correlations[0] + source_correlations[1]) / 2
-                    ledger.context = {'expert': expert, 'block': block, 'independent_calibration_sources': 2}
+                    gram = torch.stack(source_grams).mean(0)
+                    corr = torch.stack(source_correlations).mean(0)
+                    ledger.context = {'expert': expert, 'block': block, 'independent_calibration_sources': 1}
                     support, order, gains = ledger('signed_forward_greedy', lambda: greedy_support(gram, corr, 80))
                     for si, (delta_cpu, target_cpu, gate_cpu) in enumerate(direct_operands):
                         def direct_check():
@@ -294,7 +294,7 @@ def run(args):
             report['call_counts'] = ledger.counts
             report['call_records'] = ledger.records
             report['W2_explicit_raw_SHA_memory_bytes'] = w2_raw_hash_bytes
-            report['status'] = 'COMPLETE_CAL2_SIGNED_GREEDY_FULL80_EXIT_PENDING'
+            report['status'] = 'COMPLETE_CAL1_SIGNED_GREEDY_FULL80_EXIT_PENDING'
     except BaseException as error:
         report.update(status='FAILED_STATIC_CALIBRATION_PRESERVED_NO_RETRY', error_type=type(error).__name__, error=str(error)[:1000])
         raise

@@ -89,16 +89,16 @@ def main():
     write_new(locator, private, True)
     if a.kind == 'static':
         import a5_hwg_registered_static_fit_20261030 as entry
-        guard.need([s['case']['native_source_ordinal'] for s in sources] == entry.CALIBRATION_SOURCES, 'exact CAL2 only')
-        sid = 'E0_A5_HWG_SIGNED_STATIC_CAL2_898_1040_20261030_V2'
-        output = 'ffnds-derived/e0_a5_hwg_signed_static_cal2_898_1040_v2_20261030/attempt1/worker/results'
+        guard.need([s['case']['native_source_ordinal'] for s in sources] == entry.CALIBRATION_SOURCES, 'exact CAL1 only')
+        sid = 'E0_A5_HWG_SIGNED_STATIC_CAL1_1040_20261030_V3'
+        output = 'ffnds-derived/e0_a5_hwg_signed_static_cal1_1040_v3_20261030/attempt1/worker/results'
         extra = {'calibration_source_ordinals': entry.CALIBRATION_SOURCES, 'sources': sources,
                  'keep_groups': 80, 'hidden_group': 64, 'source_role': 'EXPOSED_CALIBRATION_NO_DEV_READ',
                  'kind': entry.CALIBRATION_KIND}
     else:
         import a5_hwg_registered_delta_discovery_20261030 as entry
         from a5_hwg_e0_native_replay_20261030 import arm_specs
-        guard.need(len(sources) == 1 and a.static_table is not None, 'one exact discovery source and frozen CAL2')
+        guard.need(len(sources) == 1 and a.static_table is not None, 'one exact discovery source and frozen CAL1')
         st = guard.read(a.static_table)
         sj = guard.read(Path(st[0]['job_path']))
         sr = guard.read(Path(sj['run_json']))
@@ -116,11 +116,11 @@ def main():
             row = next(v for v in view['files'] if ('/' + expert + '/') in v['view_path'] and v['view_path'].endswith('.safetensors'))
             bias[expert] = {k: row[k] for k in ['bytes', 'sha256', 'repo', 'revision', 'filename']}
         extra = {'kind': 'FULLM_ALL80_58ARM_HIF4_TEACHER_DISCOVERY_V1',
-                 'source': sources[0], 'source_role': 'EXPOSED_CALIBRATION' if ordinal in [898, 1040] else 'EXPOSED_DEVELOPMENT_NOT_BLIND',
+                 'source': sources[0], 'source_role': 'EXPOSED_CALIBRATION' if ordinal == 1040 else 'EXPOSED_DEVELOPMENT_NOT_BLIND',
                  'static_calibration': static, 'keep_channels': 5120, 'grid': [21, 29, 52],
                  'P64_seed': 42, 'shuffle_seed': 101, 'random_group_seed_base': 42000,
                  'arms': arm_specs(), 'bias_checkpoints': bias, 'model_view': template['model_view']}
-        # Check closed CAL2 identity here without reading its tensor payload.
+        # Check closed CAL1 identity here without reading its tensor payload.
         receipt = guard.read(Path(sj['output_dir']) / 'EXIT_RECEIPT.json')
         guard.need(receipt['process_exited'] is True and receipt['child_returncode'] == 0
                    and receipt['timeout'] is False and receipt['automatic_retry'] is False
@@ -128,11 +128,13 @@ def main():
                    and receipt['spec_sha256'] == static['job_spec_sha256']
                    and receipt['protocol_sha256'] == static['protocol']['sha256']
                    and sr['completed_sites'] == 80 and sr['dev_tensor_files_read'] == 0
-                   and sr['status'] == 'COMPLETE_CAL2_SIGNED_GREEDY_FULL80_EXIT_PENDING', 'actual closed CAL2')
+                   and sr['status'] == 'COMPLETE_CAL1_SIGNED_GREEDY_FULL80_EXIT_PENDING', 'actual closed CAL1')
     rows = source_closure(template)
     p = {'id': sid, 'author_agent_id': '/root', 'status': 'FROZEN_PENDING_EXACT_INDEPENDENT_RECHECK_NOT_AUTHORIZED',
          'resources': entry.RES, 'call_limits': entry.CALL_LIMITS,
-         'cpu_affinity': worker['cpu_affinity'], 'runtime_versions': template['runtime_versions'],
+         'cpu_affinity': worker['cpu_affinity'],
+         'runtime_versions': {k: template['runtime_versions'][k] for k in ['torch', 'numpy', 'safetensors', 'triton']},
+         'software_scope': 'NUMERICAL_REPLAY_AND_RAW_TENSOR_IO_ONLY; ORIGINAL_PIPELINE_VERSIONS_REMAIN_BOUND_IN_PARENT_PROTOCOL; NO_TEXT_ENCODER_VAE_OR_TRANSFORMERS_CALLS',
          'private_assets_sha256': guard.sha(locator), 'private_worker_profile_sha256': private['worker_profile_sha256'],
          'cache': template['cache'], 'repo_sources': rows, 'namespace_bindings': namespace_bindings(rows),
          'output_HF_relative': output, 'automatic_retry': False, **extra}

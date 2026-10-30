@@ -83,9 +83,9 @@ def load_static(protocol, hf, budget):
                and receipt['process_exited'] is True and receipt['child_returncode'] == 0
                and receipt['timeout'] is False and receipt['automatic_retry'] is False
                and receipt['run_sha256'] == p['RUN']['sha256']
-               and run['status'] == 'COMPLETE_CAL2_SIGNED_GREEDY_FULL80_EXIT_PENDING'
+               and run['status'] == 'COMPLETE_CAL1_SIGNED_GREEDY_FULL80_EXIT_PENDING'
                and run['completed_sites'] == 80 and run['dev_tensor_files_read'] == 0,
-               'actual frozen CAL2 artifact closure')
+               'actual frozen CAL1 artifact closure')
     guard.need(run['static_support'] == p['artifact']
                and run['static_support_schema'] == p['schema'], 'frozen static artifact differs')
     values = bound_tensors(hf, p['artifact'], budget, p['schema'])

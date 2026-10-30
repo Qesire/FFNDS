@@ -187,7 +187,7 @@ def run(args):
                         summaries[name][metric] = {'status': 'UNDEFINED_IN_AT_LEAST_ONE_SOURCE',
                             'defined_site_counts': [sum(v is not None for v in a) for a in vectors]}
             writer.json(out / 'SOURCE_EQUAL_COMPARISON.json', {'sources': p['sources'], 'arms': summaries,
-                'independent_development_image_count': 1, 'calibration_image_count': 2,
+                'independent_development_image_count': 2, 'calibration_image_count': 1,
                 'heldout_blind_confirmation': False, 'failed_source96_not_in_numeric_mean': True,
                 'candidate_free_video_and_eight_axis_quality': 'NOT_MEASURED_THIS_TEACHER_REPLAY_SCOPE',
                 'camera_motion_flicker_events': 'NOT_MEASURED_THIS_TEACHER_REPLAY_SCOPE',

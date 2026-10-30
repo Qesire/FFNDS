@@ -57,3 +57,10 @@ ACCEPT：全M入口显式增加输入/当前gate H2D、proxy分数的fullM abs/s
 本批拟比较成功采集及独立VERIFY闭合的898/1040/979，全部双expert×40层fullM。静态校准改为898/1040，明确新版 `CAL2_898_1040_SIGNED_FORWARD_GREEDY_K64_V2`；两者在任何E0数值结果产生前指定，979保留为历史暴露开发来源而非盲测。四来源初始设计、原898/96校准草案和来源96失败原样可追溯；最终表须给出三来源实际结果及第四来源失败/未测，不能继续写四源均值。动态/随机/P64/paid/mean等58arm和每source80对预算不变，合计拟240对、13680次candidate FP32 W2加240次full-delta参考投影；61项M1/软件fixture实际通过，E0仍未登记未执行，等待精确输入闭合及独立复审。
 
 收尾CPU汇总另有 `a5_hwg_registered_core_summary_20261030.py`：只在三份E0实际EXIT0后逐一核其RUN/EXIT/原协议、80site×58arm及完整operation序号，以单遍文件SHA和typed raw SHA独立验证240个compact mask/proxy文件。先按每源80对等权，再按三个image cluster等权；固定1024次source bootstrap仅描述这三个曝光图，其中两个为校准、一个为开发，不当成盲确认。保存逐source/site/arm的支持、真实物理布局、signed cross、误差及paid CUDA event区间/host wall CSV。拟CPU1、GPU0、RSS512MiB、显式读96GiB、HF新增256MiB、2小时+120秒、单次不重试；其prepare也只绑定实际闭合输入，不授权启动。三项纯软件fixture已独立于原61项通过，涵盖source不随嵌套样本数加权、bootstrap可重现/缺失来源拒绝，以及即使更新整文件SHA仍拒绝错误raw mask。CPU汇总同样待精确协议/不同评议者/ACTIVE新范围。前两expert checkpoint各113,512字节header的M0检查确认全部80个bias key存在，FFN.0/2分别为BF16[13824]/[5120]；未读取bias或weight数值。
+
+
+## 为按用户要求尽快比较收尾：CAL1 V3作为本次实际待审范围
+
+用户再次要求尽快完成比较并结束。实际1040的producer和独立VERIFY均已EXIT0，160处全部342文件及97,813,721,804字节复读闭合；898/979尚在采集。原CAL2草案没有登记或运行，不作为本次启动对象。改用唯一校准图1040、保留898和979两个历史曝光开发图，明确 `CAL1_1040_SIGNED_FORWARD_GREEDY_K64_V3`，在任何E0数值结果前冻结这个划分，避免根据比较成绩选校准来源。相同的signed Gram前向greedy80组仍是有限校准基线，单source不代表跨来源校准最优；泛化仅在这两个开发图作有界判断，盲确认仍未测。
+
+CAL1覆盖双expert×40块，每个函数使用同一来源21τ×M64的1344个真实匹配行，按其实际current gated Y能量归一化；每函数80组signed forward greedy、不作全局最优声明，直接selected W2与已舍入Gram闭合另付。固定80次effective W2 transfer、80次group-batched W2（各216个group矩阵）、80次Gram、80次target-dot、80次greedy、80次direct selected W2、80次operand H2D；0新视频/训练/权重分解。cache全SHA+本源样本payload约100GB，显式读上限128GiB，其它原资源门不变。实际输入只来自已独立验收的1040 producer/VERIFY完整传递链，不等待或读取898/979数值；可与两路原采集并行，总GPU仍≤4、单host最多2model。下一步提供此唯一有限CAL1协议和私有job给真实不同评议者做最终recheck，不以先前实现预审冒充运行批准。

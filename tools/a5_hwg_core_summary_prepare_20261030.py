@@ -31,7 +31,7 @@ def parent(table_path, *, successful):
         guard.need(ordinal == 96 and r['phases'] == [], 'actual failed source96')
     return {'id': q['id'], 'protocol': q['protocol'], 'job_spec_sha256': q['job_spec_sha256'],
             'RUN': ref, 'EXIT': guard.bind(ep, hf), 'source_ordinal': ordinal,
-            'role': 'EXPOSED_CALIBRATION' if ordinal in [898, 1040] else 'EXPOSED_DEVELOPMENT_NOT_BLIND'}, protocol, hf
+            'role': 'EXPOSED_CALIBRATION' if ordinal == 1040 else 'EXPOSED_DEVELOPMENT_NOT_BLIND'}, protocol, hf
 
 
 def main():
