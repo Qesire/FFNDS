@@ -1,6 +1,6 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
-**2026-10-31 G17 v3 · 当前机制研究优先（VIDEO_FIRST / DESIGN_ONLY）**：[完整视频行为→作用机制竞争假设→全程自由生成因果恢复→原生计算边界→独立视频/成本验收](20261031/G17_V3_VIDEO_FIRST_FFN_MECHANISM_FULL_ROLLOUT_DESIGN_20261031.md)。直接复用已有Chipmunk P64 898/96 Dense/High-only/Low-only/Both真实四臂视频、High旧Y复用及UB1/value/DCAC等失败视频；主机制假说是FFN状态依赖更新影响主体动作/事件进展，强对照为容量退化、学生后缀放大、历史缓存错配。**没有新视频/GPU运行或独立评审批准；先审现成完整视频事件，再申请有限新增free-rollout。** 旧[G17 v2局部张量/梯度诊断](20261031/G17_MOTION_SEMANTICS_TENSOR_CHANNEL_CAUSAL_DIAGNOSIS_20261031.md)保留为受限工具，不能作为质量代理和独立机制结论。
+**2026-10-31 G17 v3 · 当前机制研究优先（VIDEO_FIRST / DESIGN_ONLY）**：[完整视频行为→作用机制竞争假设→全程自由生成因果恢复→原生计算边界→独立视频/成本验收](20261031/G17_V3_VIDEO_FIRST_FFN_MECHANISM_FULL_ROLLOUT_DESIGN_20261031.md)。直接复用已有Chipmunk P64 898/96 Dense/High-only/Low-only/Both真实四臂视频、High旧Y复用及UB1/value/DCAC等失败视频；主机制假说是FFN状态依赖更新影响主体动作/事件进展，强对照为容量退化、学生后缀放大、历史缓存错配。**新增并行主线**：[Dense/Student全深度张量、A5/HWG三源×80×58同状态原生比较、生成代码保存性审计](20261031/G17_V3_TENSOR_HWG_CODE_ARCHIVE_AUDIT_20261031.md)。已核实代表性冻结协议中的内部源码路径存在，但原A5完整producer缺失、外部运行时代码需单RUN恢复核验。**没有新视频/GPU运行或独立评审批准；旧视频事件、张量机制与HWG同时分析，再申请有限完整free-rollout。** 旧[G17 v2局部张量/梯度诊断](20261031/G17_MOTION_SEMANTICS_TENSOR_CHANNEL_CAUSAL_DIAGNOSIS_20261031.md)保留为受限工具，不能作为质量代理和独立机制结论。
 
 **2026-10-31 当前前向修订：G16 / 第二轮自查（DESIGN_ONLY）**：[静态FFN组的来源外视频功能边际估计与真实缓存构建竞争方案](20261031/G16_SICR_V3_FUNCTIONAL_MARGINAL_STATIC_FFN_REVIEW_20261031.md)｜[数学正确性、真实成本与新颖性第二轮自查](20261031/G16_SICR_V3_SECOND_SELF_AUDIT_20261031.md)。G15保留历史机制推导；G16修正最小缓存、前置构建MAC和无算法问题，提出Q-MARG实算组边际代理及可证伪V1/V2/V3。未运行CPU/GPU/视频，未改ACTIVE，不构成独立Agent审批。
 
