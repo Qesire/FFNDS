@@ -82,5 +82,9 @@ def check():
     print(f"Taylor max error 0.04: {err_large:.6g}; 0.02: {err_small:.6g}")
 
 
+def test_g18_algebra():
+    check()
+
+
 if __name__ == "__main__":
     check()
