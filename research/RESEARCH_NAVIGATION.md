@@ -1,5 +1,8 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
+**2026-10-31 独立科学评议（G15，NEEDS_REVISION / 无执行批准）**：[SICR静态支持—量化元信息—最小缓存—全层跨步有符号传播统一推导](20261031/G15_SICR_CROSS_LAYER_STEP_CAUSAL_STATIC_QUANT_CACHE_REVIEW_20261031.md)。提出完整学生状态+缓存增广系统、跨层/step耦合核、动态gain必要历史投影及High/Low全层预算；现阶段ALG/SRC/LIT，新增GPU/视频需独立preexecution-review与ACTIVE。
+
+
 **2026-10-31 最新研究设计（尚未运行）**：[Signed-HWG有符号联合支持＋组增益完整视频v2](20261031/HWG_SIGNED_GAIN_VIDEO_DESIGN_V2_20261031.md)｜[作者二次复审与独立评议待办](experiment_reviews/HWG_SIGNED_GAIN_VIDEO_20261031/AUTHOR_SELF_AUDIT.md)｜[机器方案](../config/hwg_signed_gain_video_v2_20261031.json)。修正BF16/HiF4数值合同、pre-gate Y缓存、单/双专家MAC、受限QP与图像簇泄漏；P0视频尚未执行、ACTIVE未修改。下文2026-10-30结论保留历史身份。
 
 **2026-10-30 当前核心比较已完成，按用户要求发布后结束**：[三来源全40层×双expert、58臂完整结果](20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_RESULTS_20261030.md)。1040仅CAL1校准、898/979历史曝光开发、seed42；三E0均80/80 actual EXIT0，最终CPU汇总亦actual EXIT0并独立核240个mask/proxy文件及typed raw SHA。全部本轮scope已退出，GPU占用0。96采集失败、1040首E0外来进程中断以及两项CPU资源辅助的进度读取失败分别保留，不混入正式三源平均。当前证据为同HiF4数值族teacher诊断；E1原生skip、E2候选完整视频和部署验收未做。本轮不扩展、不自动重试；历史任务的Next/Run保留当时身份，实际状态以ACTIVE和RUN/EXIT为准。
