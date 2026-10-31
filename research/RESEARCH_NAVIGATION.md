@@ -1,6 +1,6 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
-**2026-10-31 G17 当前优先机制诊断（DESIGN_ONLY）**：[通过Dense/Sparse直接张量与K64通道对比定位运动—语义损失](20261031/G17_MOTION_SEMANTICS_TENSOR_CHANNEL_CAUSAL_DIAGNOSIS_20261031.md)。利用历史UB1 20视频、S2 10图×160 Dense 21τ、HiF4 3图×80 matched局部与P64视觉结果提出同输入 vs 学生轨迹、步间 vs latent帧时间、对象 vs 相机/背景的分离诊断；给出pre-gate W2^T共享反向投影组归因与O/D/Q/P因果合同。现阶段**没有新raw tensor分析/GPU/video**；需逐资产核对后另经独立预审执行。
+**2026-10-31 G17 v3 · 当前机制研究优先（VIDEO_FIRST / DESIGN_ONLY）**：[完整视频行为→作用机制竞争假设→全程自由生成因果恢复→原生计算边界→独立视频/成本验收](20261031/G17_V3_VIDEO_FIRST_FFN_MECHANISM_FULL_ROLLOUT_DESIGN_20261031.md)。直接复用已有Chipmunk P64 898/96 Dense/High-only/Low-only/Both真实四臂视频、High旧Y复用及UB1/value/DCAC等失败视频；主机制假说是FFN状态依赖更新影响主体动作/事件进展，强对照为容量退化、学生后缀放大、历史缓存错配。**没有新视频/GPU运行或独立评审批准；先审现成完整视频事件，再申请有限新增free-rollout。** 旧[G17 v2局部张量/梯度诊断](20261031/G17_MOTION_SEMANTICS_TENSOR_CHANNEL_CAUSAL_DIAGNOSIS_20261031.md)保留为受限工具，不能作为质量代理和独立机制结论。
 
 **2026-10-31 当前前向修订：G16 / 第二轮自查（DESIGN_ONLY）**：[静态FFN组的来源外视频功能边际估计与真实缓存构建竞争方案](20261031/G16_SICR_V3_FUNCTIONAL_MARGINAL_STATIC_FFN_REVIEW_20261031.md)｜[数学正确性、真实成本与新颖性第二轮自查](20261031/G16_SICR_V3_SECOND_SELF_AUDIT_20261031.md)。G15保留历史机制推导；G16修正最小缓存、前置构建MAC和无算法问题，提出Q-MARG实算组边际代理及可证伪V1/V2/V3。未运行CPU/GPU/视频，未改ACTIVE，不构成独立Agent审批。
 
