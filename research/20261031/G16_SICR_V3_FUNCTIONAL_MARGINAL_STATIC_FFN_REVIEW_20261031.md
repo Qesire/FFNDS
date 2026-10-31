@@ -1,8 +1,8 @@
 # G16 · SICR v3：从研究框架到可检验的静态 FFN 组预算算法
 
-2026-10-31 · AUTHOR_REVISION / SECOND_SELF_AUDIT_REQUESTED / ALG+SRC+LIT / DESIGN_ONLY / NOT_EXECUTED / NO_GPU_APPROVAL
+2026-10-31 · AUTHOR_REVISED / SELF_AUDITED_STATIC_ONLY / ALG+SRC+LIT / DESIGN_ONLY / NOT_EXECUTED / NO_GPU_APPROVAL
 
-修订对象：[G15](G15_SICR_CROSS_LAYER_STEP_CAUSAL_STATIC_QUANT_CACHE_REVIEW_20261031.md)，审查锚点为 FFNDS 465c6dbc34cef58170ed0198028a4b91ffc607db。外部输入为用户提供的《SICR 独立评议：数学正确性、工程可行性与论文新颖性》。本文件是作者采纳评议的实质修改，**不冒充正式独立Agent recheck、授权实验、模型运行或已发表新算法**。原Signed-HWG v2和历史RUN均保持原身份。
+修订对象：[G15](G15_SICR_CROSS_LAYER_STEP_CAUSAL_STATIC_QUANT_CACHE_REVIEW_20261031.md)，审查锚点为 FFNDS 465c6dbc34cef58170ed0198028a4b91ffc607db。外部输入为用户提供的《SICR 独立评议：数学正确性、工程可行性与论文新颖性》。本文件是作者采纳评议的实质修改，**不冒充正式独立Agent recheck、授权实验、模型运行或已发表新算法**。原Signed-HWG v2和历史RUN均保持原身份。第二轮作者自查已记录在[G16 自查与反例台账](G16_SICR_V3_SECOND_SELF_AUDIT_20261031.md)，代数通过不代表原生/视频/独立recheck通过。
 
 ## 1. 明确采纳的批评与修正
 
