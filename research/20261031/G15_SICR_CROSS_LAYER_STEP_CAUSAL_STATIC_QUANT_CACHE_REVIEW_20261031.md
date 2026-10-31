@@ -1,5 +1,7 @@
 # G15 · SICR：静态信息约束残差 FFN 的全层—跨步耦合数学与独立评议
 
+**前向修订（2026-10-31）**：本G15为原始研究备忘录，用户后续独立评议指出其缓存最小性与算法化不足。请优先采用[G16 · SICR v3可计算边际选组与物理构建方案](G16_SICR_V3_FUNCTIONAL_MARGINAL_STATIC_FFN_REVIEW_20261031.md)及[第二轮自查](G16_SICR_V3_SECOND_SELF_AUDIT_20261031.md)。G16将single-residual限定为充分缓存，并修复α≠1时的rank映射。G15原始证据保留为历史，不代表后续方案获批。
+
 2026-10-31 · **INDEPENDENT_SCIENTIFIC_REVIEW / ALG+SRC+LIT / NEEDS_REVISION / NOT_EXECUTED / NOT_GPU_APPROVED**  
 审查锚点：FFNDS [576af1c05c16a2052e436cf3016117f5224c342b](https://github.com/Qesire/FFNDS/commit/576af1c05c16a2052e436cf3016117f5224c342b)；被评方案：[Signed Group + Gain v2](../20261031/HWG_SIGNED_GAIN_VIDEO_DESIGN_V2_20261031.md)。这是独立于原方案作者自审的研究推导，并非仓库协议要求的“真实不同 Agent 的审阅/修订/recheck”已完成；不修改 ACTIVE，不创建实验批准、RUN/EXIT 或 GPU 额度。建议决定：**REVISE**。
 
