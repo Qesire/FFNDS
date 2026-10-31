@@ -1,5 +1,7 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
+**2026-10-31 最新研究设计（尚未运行）**：[Signed-HWG有符号联合支持＋组增益完整视频v2](20261031/HWG_SIGNED_GAIN_VIDEO_DESIGN_V2_20261031.md)｜[作者二次复审与独立评议待办](experiment_reviews/HWG_SIGNED_GAIN_VIDEO_20261031/AUTHOR_SELF_AUDIT.md)｜[机器方案](../config/hwg_signed_gain_video_v2_20261031.json)。修正BF16/HiF4数值合同、pre-gate Y缓存、单/双专家MAC、受限QP与图像簇泄漏；P0视频尚未执行、ACTIVE未修改。下文2026-10-30结论保留历史身份。
+
 **2026-10-30 当前核心比较已完成，按用户要求发布后结束**：[三来源全40层×双expert、58臂完整结果](20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_RESULTS_20261030.md)。1040仅CAL1校准、898/979历史曝光开发、seed42；三E0均80/80 actual EXIT0，最终CPU汇总亦actual EXIT0并独立核240个mask/proxy文件及typed raw SHA。全部本轮scope已退出，GPU占用0。96采集失败、1040首E0外来进程中断以及两项CPU资源辅助的进度读取失败分别保留，不混入正式三源平均。当前证据为同HiF4数值族teacher诊断；E1原生skip、E2候选完整视频和部署验收未做。本轮不扩展、不自动重试；历史任务的Next/Run保留当时身份，实际状态以ACTIVE和RUN/EXIT为准。
 
 **2026-10-30 全质量对照/机制更新：** 核对FFN方法时先读 [完整八轴、RAFT、行为质量、历史Y+Delta与旧UB1/S2实际函数对照](20261030/WAN_FFN_FULL_QUALITY_AND_MOTION_MECHANISM_COMPARATIVE_AUDIT_20261030.md)。保留[876条源SHA登记](20261030/WAN_FFN_CROSS_METHOD_ASSET_PRESERVATION_MANIFEST_20261030.json)及[只读核验/不覆盖归档工具](../tools/verify_preserve_wan_ffn_comparison_assets.py)；本轮已完成全部登记源SHA核验与同机独立副本保全，见[实际保全](20261030/WAN_FFN_COMPARISON_ASSET_PRESERVATION_ACTUAL_20261030.md)；异地备份未执行。完整8轴/来源级/动作事件/相机及未测维度、FFN真实执行成本同等必要；禁止只拿RAFT幅值排序。

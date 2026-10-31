@@ -1,0 +1,138 @@
+{
+  "id": "HWG_SIGNED_GAIN_VIDEO_V2_20261031",
+  "state": "INDEPENDENT_REVIEW_REQUESTED",
+  "evidence_head": "3d7a1a0b5673305d2a86502fba8a1e245fcf9078",
+  "design_only": true,
+  "has_gpu_authorization": false,
+  "model": {
+    "numeric": "RAW_BF16_NO_ACTIVATION_Q1_Q2",
+    "later_hif4": "separate recalibration",
+    "D": 5120,
+    "H": 13824,
+    "groups64": 216,
+    "ffn_calls": 160,
+    "incremental_sites": 80,
+    "steps": [
+      1000,
+      750,
+      500,
+      250
+    ],
+    "experts": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "M": 31668,
+    "frames": 81,
+    "fps": 16,
+    "height": 480,
+    "width": 832
+  },
+  "definitions": {
+    "D": "static K64 diagonal calibrated using BF16, original W2",
+    "G": "static K64 signed Gram source-balanced greedy+1swap original W2",
+    "R": "same mask as G, group gains alpha in [0,2] from constrained convex QP, lambda cal-validation only",
+    "cache": "old pre-gate Y plus old H or old X; current gate; bias once"
+  },
+  "cost": {
+    "double_hy": 0.6851851851851852,
+    "double_xy": 0.7777777777777778,
+    "one_sparse_other_dense_hy": 0.8425925925925926,
+    "one_sparse_other_dense_xy": 0.8888888888888888,
+    "units": "four-step W1+W2 projection ratio at K=80*64; exclude cache/packing"
+  },
+  "calibration": {
+    "initial_training_cluster_target": 12,
+    "initial_validation_cluster_target": 4,
+    "source_exposure_audit_required": true,
+    "bf16_matched_80site_assets_required": true,
+    "heldout_cluster_overlap_allowed": false
+  },
+  "stages": [
+    {
+      "name": "P0",
+      "source_ids": [
+        898,
+        96
+      ],
+      "seed": [
+        42
+      ],
+      "arms": [
+        "DENSE",
+        "P64",
+        "DIAG80",
+        "SIGNED80",
+        "GAIN80"
+      ],
+      "optional_controls": [
+        "CACHE_DENSE_NEUTRAL",
+        "FULL_DELTA216"
+      ],
+      "minimum_videos": 10,
+      "conditional_upper": 14
+    },
+    {
+      "name": "P1",
+      "new_development_clusters": 8,
+      "seed": [
+        42
+      ],
+      "arms": [
+        "DENSE",
+        "P64",
+        "DIAG80",
+        "SIGNED80",
+        "GAIN80",
+        "GAIN_64_96",
+        "GAIN_96_64",
+        "GAIN_HIGH_ONLY",
+        "GAIN_LOW_ONLY"
+      ],
+      "factorial": [
+        "DENSE",
+        "GAIN_HIGH_ONLY",
+        "GAIN_LOW_ONLY",
+        "GAIN80"
+      ],
+      "conditional_upper": 72
+    },
+    {
+      "name": "P2",
+      "new_unexposed_clusters_target": 24,
+      "seeds_per_cluster": 2,
+      "arms": [
+        "DENSE",
+        "P64",
+        "DIAG80",
+        "SIGNED80",
+        "GAIN80"
+      ],
+      "optional_sixth": "one uneven expert budget frozen after P1",
+      "base_upper": 240,
+      "conditional_upper": 288,
+      "power_and_source_audit_before_run": true
+    }
+  ],
+  "conditional_video_upper_all": 374,
+  "quality": [
+    "original eight VBench functions, valid category subsets",
+    "camera_motion if measured",
+    "RAFT40 pairs and five windows",
+    "source object vs camera vs background motion",
+    "prompt event trajectory and small object detail",
+    "temporal flickering and full-video visual review",
+    "real native GEMM FFN and whole-system latency/peak memory"
+  ],
+  "stats": "image cluster independent, nested seeds, paired source bootstrap and worst-source tails",
+  "authorization": [
+    "real independent reviewer",
+    "author revise",
+    "reviewer recheck",
+    "ACTIVE frozen scope",
+    "prelaunch SHA recheck",
+    "real RUN EXIT"
+  ]
+}
