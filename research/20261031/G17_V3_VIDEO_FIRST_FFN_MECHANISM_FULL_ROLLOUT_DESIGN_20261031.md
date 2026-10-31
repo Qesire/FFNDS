@@ -2,6 +2,8 @@
 
 2026-10-31 · **METHOD_SNAPSHOT / VIDEO_FIRST / DESIGN_ONLY / STATIC_REVIEW / INDEPENDENT_REVIEW_REQUIRED / NOT_EXECUTED**
 
+> **2026-10-31 证据链同步扩展**：[全深度Dense/Student张量＋A5/HWG系列同状态张量＋生成代码保存性核对](G17_V3_TENSOR_HWG_CODE_ARCHIVE_AUDIT_20261031.md)。VIDEO、TENSOR、HWG三条主证据并行，互相构成可证伪预测；G17 v2局部代数只是工具。此次核对确认现有主要生成入口在Git，但原版A5完整参数producer缺失，LightX2V/HiF4原运行树需通过上游恢复包及每RUN身份证明，**不得称全部生成代码已完备归档**。
+
 **方法学改向**：以**真实 81 帧视频在动作、文本条件、主体、背景、相机、时间、成像与实际成本上的结果**为被解释现象；先提出能够在视频上区分的竞争机制，再使用FFN局部张量、Q闭包、O/D/P及梯度诊断解释。禁止把低L2/高Gram/低缓存开销视为方法质量通过。本文修订[G17 v2](G17_MOTION_SEMANTICS_TENSOR_CHANNEL_CAUSAL_DIAGNOSIS_20261031.md)的**研究顺序与主科学问题**；G17 v2含条件性代数及历史数据，供按需调用，但不能用其中cache-delta误差公式统摄无缓存或函数重表示方案。
 
 ## 0. 确认目标与观测层级
