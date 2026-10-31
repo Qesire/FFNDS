@@ -4,7 +4,7 @@
 
 ## 0. 审计身份、结论和原则
 
-本次静态审计核查FFNDS main文件树与四份真实冻结配置中的\`repo_sources\`文件路径：当前Git tree完整列出4,857 blob、1,463 Python脚本（非GitHub搜索结果的抽样）。四份配置分别是P64 factorial part0、P64 global v2 part0、A5/HWG HiF4 matched capture part0、A5/HWG E0 source898和原BF16 video20 part0；其中后四种选择合计取了四份不同的代表性配置（实际检查：P64 factorial、A5 capture、A5 E0、BF16 video20）。逐配置记录的FFNDS内部路径项及当前树存在性为197/197、14/14、28/28、48/48。**这些检查是当前Git路径存在性，非冻结运行源码逐字节等价、更不是全仓库每个RUN覆盖证明**。
+本次静态审计核查FFNDS main文件树与四份真实冻结配置中的\`repo_sources\`文件路径：当前Git tree完整列出4,857 blob、1,463 Python脚本（非GitHub搜索结果的抽样）。抽取的四份冻结配置分别为P64 factorial part0、A5/HWG HiF4 matched capture part0、A5/HWG E0 source898和原BF16 video20 part0。逐配置记录的FFNDS内部路径项及当前树存在性为197/197、14/14、28/28、48/48。**这些检查是当前Git路径存在性，非冻结运行源码逐字节等价、更不是全仓库每个RUN覆盖证明**。
 
 已找到核心生成、拦截、张量采集和质量运行入口；尚不能宣布所有生成代码完整归档。已明确缺口：原始A5完整参数producer与compact参数尚未找到；外部LightX2V/HiF4/W4A4的repo_sources使用运行环境的\`.runtime/code/...\`文件约束，Git中保存的是上游固定版本＋部分delta恢复机制，不是每次RUN的整个运行时代码原树；真实HF视频、原生fullM张量与模型/编译产物本轮不可读。**保存了源码文件路径≠实测使用的是同样源码≠整个生成环境能重新构建。**
 
