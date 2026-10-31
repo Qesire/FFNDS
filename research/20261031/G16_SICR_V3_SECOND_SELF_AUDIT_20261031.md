@@ -1,5 +1,7 @@
 # G16 · SICR v3 第二轮自查：数学、计算边界、因果、系统与新颖性
 
+**G17 后续自查补充（2026-10-31）**：G16 §2.2原式曾在组贡献v中乘当前e5，又称后缀P包含gate，存在重复门控风险。已在G16 commit `ef2bc70a4908439333cdb0795cca6cbf9de10e2c` 将组增量定位为pre-gate W2输出，并令P从该边界包含一次gate；[G17](G17_MOTION_SEMANTICS_TENSOR_CHANNEL_CAUSAL_DIAGNOSIS_20261031.md)新增W2转置的共用梯度聚合推导及只读张量/因果ROI方案。100套合成M5×D4×H8示例中，直接逐组投影与转置梯度分组聚合最大绝对差约1.33e-15，双计gate的示意错误可达约5.05。该自查不表示真实Wan原生数值或视频语义已验证。
+
 2026-10-31 · AUTHOR_SECOND_SELF_AUDIT / STATIC_ALGEBRA_CHECKED / NO_NATIVE_RUN / NO_VIDEO_RUN / NO_INDEPENDENT_RECHECK
 
 对应[G16具体修订](G16_SICR_V3_FUNCTIONAL_MARGINAL_STATIC_FFN_REVIEW_20261031.md)，原始[G15](G15_SICR_CROSS_LAYER_STEP_CAUSAL_STATIC_QUANT_CACHE_REVIEW_20261031.md)。本审查是同一助手对用户提供的外部评议逐项采纳后的**第二轮自查**，**不是仓库协议要求的真实不同Agent independent recheck**。
