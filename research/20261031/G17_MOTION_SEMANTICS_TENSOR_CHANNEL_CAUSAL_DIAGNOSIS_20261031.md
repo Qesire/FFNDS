@@ -1,6 +1,8 @@
 # G17 · 从直接张量/通道对比定位运动—语义损失：证据审计、四边界因果诊断与低成本组梯度
 
-2026-10-31 · G17 v2 MATHEMATICAL_REVISION / SCIENTIFIC_DESIGN / SOURCE_AUDIT / ALG_DERIVED / STATIC_ONLY / NEEDS_INDEPENDENT_EXPERIMENT_REVIEW / NOT_EXECUTED
+2026-10-31 · **HISTORICAL_G17_V2 / NEEDS_REVISION / LOCAL_DIAGNOSTICS_ONLY / NOT_EXECUTED**
+
+> **2026-10-31 研究顺序修订**：现行优先文档为[G17 v3 视频行为优先机制假说与全程自由生成实验](G17_V3_VIDEO_FIRST_FFN_MECHANISM_FULL_ROLLOUT_DESIGN_20261031.md)。本G17 v2保留已有条件代数和历史证据，但其增量式组误差公式仅适用于相应cache-delta动作；局部Gram、功能K及梯度不能独立决定完整视频质量，Dense-centered遗漏与Student-centered修复也不能混用。旧v2方法不得作为新GPU实验的冻结依据，须以v3实验合同另行真实独立预审。
 
 **v2修订说明**：修正冻结配准时的跨时间差分交换结论；将缓存、当前算子和学生状态漂移分成三项有符号差分；把局部signed Gram、后缀一阶功能Gram和真实有限干预交互分开；补充一阶梯度漏检、曲率适用域、材料成本与全视频机制验收。修订只涉及数学和实验合同，未生成原生张量、未运行GPU/CPU科学实验及新视频。
 
