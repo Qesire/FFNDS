@@ -1,5 +1,7 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
+**2026-10-31 当前前向修订：G16 / 第二轮自查（DESIGN_ONLY）**：[静态FFN组的来源外视频功能边际估计与真实缓存构建竞争方案](20261031/G16_SICR_V3_FUNCTIONAL_MARGINAL_STATIC_FFN_REVIEW_20261031.md)｜[数学正确性、真实成本与新颖性第二轮自查](20261031/G16_SICR_V3_SECOND_SELF_AUDIT_20261031.md)。G15保留历史机制推导；G16修正最小缓存、前置构建MAC和无算法问题，提出Q-MARG实算组边际代理及可证伪V1/V2/V3。未运行CPU/GPU/视频，未改ACTIVE，不构成独立Agent审批。
+
 **2026-10-31 独立科学评议（G15，NEEDS_REVISION / 无执行批准）**：[SICR静态支持—量化元信息—最小缓存—全层跨步有符号传播统一推导](20261031/G15_SICR_CROSS_LAYER_STEP_CAUSAL_STATIC_QUANT_CACHE_REVIEW_20261031.md)。提出完整学生状态+缓存增广系统、跨层/step耦合核、动态gain必要历史投影及High/Low全层预算；现阶段ALG/SRC/LIT，新增GPU/视频需独立preexecution-review与ACTIVE。
 
 
