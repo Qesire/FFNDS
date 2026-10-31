@@ -111,7 +111,7 @@ F_S(\tilde x,\tilde C)-F_D(x)
  \frac{\sum_{\tau,r}q_{\tau,r}\|V_b(\tau+1,\pi(r))-V_b(\tau,r)\|^2}
  {\sum_{\tau,r}q_{\tau,r}+\epsilon},
 \]
-其中 q 为两种比较共享的预冻结有效mask/置信度（超界、遮挡、光流无效者剔除），避免ROI面积造成的伪差异；分层同时保留未归一化总量与有效token数。
+其中 \(q\) 为两种比较共享的预冻结有效mask/置信度（超界、遮挡、光流无效者剔除），避免ROI面积造成的伪差异；分层同时保留未归一化总量与有效token数。
 附带valid mask、flow方向、参考Dense运动方向及timestamp map。这里V_b可为postwrite \(gP_b\) 的latent格局，**是内部响应结构，不是帧级光流**。若响应是纯平移场 \(V(\tau,x)=\varphi(x-v\tau)\)，固定xy导数为 \(\partial_\tau V=-v\cdot\nabla V\)，但沿物体轨迹的物质导数 \(D_\tau V=\partial_\tau V+v\cdot\nabla V=0\)。因此**低 warped 差能量可能表示良好运动跟随，不能表示缺少运动信息**。同时记录固定xy/配准残差、主体速度向量、相机背景flow和事件时点，不能用任一单项作为保留组分数。必须比较移动主体、静态背景、因相机移动而有背景flow、光照变化控制；若没有对应，就只写**固定位置时序响应**。
 
 对于具体语言动作（例如鸟挥翼、鱼游动、相机推进），先冻结prompt动词、动作对象mask、起止时间、方向和可观察行为。定义对象/事件在video中的真实跟踪或视频语言读出；然后看组响应是否具有**自然变化、跨源迁移、有限干预中的选择性**。只见到高相关不能命名motion semantic channel。
@@ -235,6 +235,7 @@ J^\Phi_{a,c}=\Phi_{11}-\Phi_{10}-\Phi_{01}+\Phi_{00}
 4. 原先局部组统计强候选与弱候选在同样物理K64预算下进行少量有限组干预；设计含 early/mid/late × High/Low 的代表性位点，单组、成对组、小联合组与匹配随机对照，记录线性代理 ρ、局部/receiver/功能有限交互。任何新的CPU科学计算、GPU、视频需按仓库预审协议执行；纸面代数推导不冒充模型验证。
 5. 方法侧 REUSABLE_ASSET_PLAN：新增条件有限干预若获许可，应预登记 asset_id、producer/run、method revision、source/seed/step/expert/layer/ROI/latent坐标、dtype/数值族、读出与损失定义、sham/方向/dose、有效mask与插值、格式、存储locator、复用条件、失效规则、实际产生状态；原始paired视频、tensor小切片、group signed贡献、候选K/J/ρ与RUN收据均按语义登记。不可用摘要代替原始有符号观测。
 6. 所有source split按image cluster，τ/row/frame/seed作为嵌套；898/979/96/1040及现有10/20来源均按历史曝光用途登记，不用于新盲确认。
+
 **单个最小判别**：source898 bird(真实主体运动)与source96 camera(相机运动背景)，两source先用已有视频固定主体与背景ROI；有限干预先在Hi/Low各选早、中、晚代表层形成开发候选矩阵，预算不足时预注册有判别力的子集，不得从单一末层推断全层；再在那些层上对历史原生有matched h的真实来源做O边界限定干预。若缺对应同RUN tensor则**先只读回已有asset并登记MISSING**，随后新审采集。对照每层两个组（local signed高/低、相等输出范数随机）、O/D/Q/P和sham，以同初始noise/模型/数值族配对记录stage boundary与最终video。此最小设计用于机制**开发**，绝不是来源外功效确认。正式先筛明确、合法的参考状态和缓存身份；没有对应same-RUN张量的位点必须登记MISSING，不以相邻RUN/不同数值族作为精确matched替代。
 
 ## 7. 前沿文献及与本研究的关系（仅作为机制先例）
@@ -252,7 +253,7 @@ J^\Phi_{a,c}=\Phi_{11}-\Phi_{10}-\Phi_{01}+\Phi_{00}
 
 **现在的科学顺序**：
 - D0历史资产直接张量/通道**read-only**比较，明确来源、数值路径、坐标、时间差定义；高ROI错配立即修正，记录真实缺口；
-- D1先用局部signed G与历史负结果提出候选，再在少量合法pre-gate位点计算 (W_2^\top) 和功能K，测有限干预 ρ 与交互；高VJP成本或排序失效则停止扩大，不遍历80×216；
+- D1先用局部signed G与历史负结果提出候选，再在少量合法pre-gate位点计算 \(W_2^\top\) 和功能 \(K\)，测有限干预 \(\rho\) 与交互；高VJP成本或排序失效则停止扩大，不遍历80×216；
 - D2申请真实少量O/D/Q/P因果组干预，按合法参照区分缓存、算子、漂移与signed交叉，另辨本地删除、Q2闭包、门控及后缀传播；
 - D3在真实视频主体动作、语义与非目标多轴质量上验证选择性及跨来源重现；若机制成立，再修改Signed-HWG/Qmeta的静态组选组规则及High/Low预算，接V1 E2缓存原生系统门；系统实现可独立推进，不把D0当V1工程门的数学前提。
 - D4独立来源完整视频确认、可执行pre-Q2原生skip与系统wall/显存Pareto验收。只有质量与省算均有真实证据才讨论motion-semantic static FFN论文贡献；否则定位为机制负证据、局部表征研究或缓存系统优化。
