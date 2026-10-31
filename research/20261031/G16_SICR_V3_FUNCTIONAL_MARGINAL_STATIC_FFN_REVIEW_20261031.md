@@ -96,7 +96,7 @@ M=31668,D=5120,40 block的BF16逻辑C缓存约12.08GiB；H+Y约44.70GiB，select
 
 **物理首步构建三路**：
 - **E1 REDO-SELECTED**：首次Dense W1+W2产生Y0，再额外一次selected W2投影构造C0；第二次选组W1+W2。两专家第二步均选K且K_H=K_L=5120时，四步主投影比=(4H+3(K_H+K_L))/(8H)=77.7778%，不含额外缓存/launch。
-- **E2 SPLIT-DISJOINT-W2**：第一次完整W1后把原W2按保留/遗漏列块输入切成互斥组，两次不重叠W2 GEMM，得到P_kept、P_omitted，同时Y0=P_kept+P_omitted+b2，C0=P_omitted+(1-α)P_kept+b2；理论不重复W2 MAC，但会增加kernel launch、layout/packing、输出融合、同步和可能weight副本。第二次仅保留组正常计算。**未实现**。
+- **E2 SPLIT-DISJOINT-W2（主基线先取α_b=1）**：第一次完整W1后把W2的hidden输入通道按保留/遗漏整组切成互不重叠的两次W2 GEMM，分别计算聚合的P_kept=Σ_{b∈S}P_b和P_omitted=Σ_{b∉S}P_b；当全部α_b=1，Y0=P_kept+P_omitted+b2，C0=P_omitted+b2。若全部保留组共享同一**标量**α，则C0=P_omitted+(1−α)P_kept+b2也可由这两份聚合得到。**不同组的α_b不等时，已聚合的P_kept不再足以恢复Σ_b(1−α_b)P_b**：必须在保留组GEMM内部新增按组加权的第二累加结果、逐组中间输出，或另付相关投影成本；不能声称普通两路split自动零额外乘加实现任意gain。该路线会增加kernel launch、layout/packing、输出融合、同步和可能weight副本，第二次仅保留组正常计算。**未实现**。
 - **E3 DUAL-ACCUM-W2**：首次W2每个实际乘积按β选择性加入两个累加器，同时生成Y0、C0，理论可复用乘积且不额外做selected GEMM，但寄存器压力、原生数据排布、归约顺序、kernel面积/吞吐均待验证。**未实现**。
 
 E2/E3若原生实现无重复组投影，四步主投影理论比=(4H+2(K_H+K_L))/(8H)=68.5185%。若E2/E3实际上比H+Y及Dense慢，只能报告缓存表示收益，不能宣称加速。特别要同后端同支持比较Chipmunk H+Y/X+Y/S0 E1 E2 E3，真实CPU offload/cache build/IO/packed权重与峰值，禁止把logical GiB当物理峰值。E1额外selected-W2与X+Y额外old-W1算术比可能数值相同，**并不是同一执行路径**。
