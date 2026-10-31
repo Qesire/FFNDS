@@ -15,6 +15,8 @@
 7. **接受**：真实质量是多轴约束而非未定义加权总分；只用冻结功能读出标量作为离线提案代理。
 8. **接受**：先开展V1缓存算子、V2边际排序、V3跨层预算三个区分明确的有限视频范围，不启动原P0–P2最大视频网格。
 
+**2026-10-31 更正**：本版已将组贡献统一定义在pre-gate W2输出边界，避免原式先乘g又在P中重复计gate；并提供W2转置梯度分组聚合实现。具体论证见[G17运动语义张量审计](G17_MOTION_SEMANTICS_TENSOR_CHANNEL_CAUSAL_DIAGNOSIS_20261031.md)。
+
 ## 2. 新的具体候选 Q-MARG（working name，创新未确立）
 
 **对象**：Wan2.2 I2V A14B真实4步High/High/Low/Low、每expert 40层，160次FFN调用，80个合法同expert第二次增量位点 i=(e,l)。每组整64 hidden通道，H=13824=216组。为每个位点离线冻结支持S_i；第一次同expert Dense构建缓存，第二次真正对选定组进行W1/GELU/Q2/W2计算。全视频、source×seed配对，不改变Attention或去噪步数。
@@ -33,15 +35,15 @@
 
 先固定一个数值族Q（RAW BF16、HiF4 fake-QDQ或真正原生packed分别立项）。从匹配来源和自然完整真实状态获取：
 \[
- v_{sib}=g_{si}\odot[(h^Q_{1,sib}-h^Q_{0,sib})W_{2,i,b}],
+ v^{pre}_{sib}=(h^Q_{1,sib}-h^Q_{0,sib})W_{2,i,b},
 \]
-h^Q各自已通过合法Q2，本式中g是第二次调用当前的pre-gate写回系数。第一次/第二次状态须同一专家、同一层，来自实际合法student或标记为teacher代理。固定α=1时，省略组同状态误差为\(-\sum_{b\notin S_i}v_{sib}\)。α≠1时必须把未保留组加上保留组权重偏差，不能套用同一边际式。
+h^Q各自已通过合法Q2，**v_pre是W2输出、当前e5作用之前的贡献**；第一次/第二次状态须同一专家、同一层，来自实际合法student或标记为teacher代理。固定α=1时，pre-gate省略误差为\(-\sum_{b\notin S_i}v^{pre}_{sib}\)；gate由后缀P_i统一传播一次。α≠1时必须把未保留组加上保留组权重偏差，不能套用同一边际式。**若改用post-gate贡献v_post=g⊙v_pre，则对应P_i必须从post-gate边界开始，不允许重复乘gate。**
 
 取少量**预先冻结**的最终功能可微读出R_{sq}，q=1,…,p，覆盖最终latent的时空投影、时序差、可微纹理/动作代理以及可能的语言事件近似。用真实模型/调度器及历史缓存**增广状态**，在一条合法参考轨迹上定义同状态后缀线性映射P_{si}（包括gate之后的下游Attention、后续层、High→Low去噪及scheduler反馈）。计算
 \[
- z_{sib,q}=\langle R_{sq},P_{si}v_{sib}\rangle,\qquad z_{sib}\in\mathbb R^p.
+ z_{sib,q}=\langle R_{sq},P^{preY}_{si}v^{pre}_{sib}\rangle,\qquad z_{sib}\in\mathbb R^p.
 \]
-获得z的方式：p个经真实网络回传的VJP/后缀有限差分，配合按group streaming的adjoint×真实ΔhW2求内积。**没有假定z便宜**：模型全M≈31668，80位点×216组，VJP/回放成本可能非常高，需逐source记录真实反向/前向次数、GPU秒、峰值及读取字节。先以已有signed Gram缩小候选，再对少量代表性早/中/晚层、High/Low及争议组支付后缀观察；绝不以部分site结果冒充完整全层算法收益。
+获得z的优先方式：p个在**pre-gate Y**边界的VJP取得A_i,q=∂f_q/∂Y_i（此梯度已包含后续e5 gate的作用），一次W2的转置投影G_i,q=A_i,q W2_i^T，然后按hidden整K64组计算z_i,b,q=Σ_{m,c∈G_b}(h1−h0)_{m,c}G_i,q[m,c]；避免为全部216组分别形成M×D的组输出。仅对入选组另做真实后缀有限差分。VJP仍须完整后缀反向与必要的学生/缓存状态重放，**不免费**。**没有假定z便宜**：模型全M≈31668，80位点×216组，VJP/回放成本可能非常高，需逐source记录真实反向/前向次数、GPU秒、峰值及读取字节。先以已有signed Gram缩小候选，再对少量代表性早/中/晚层、High/Low及争议组支付后缀观察；绝不以部分site结果冒充完整全层算法收益。
 
 对整个静态支持S，定义**代理遗漏总向量**
 \[
