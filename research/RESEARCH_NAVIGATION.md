@@ -1,5 +1,7 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
+**2026-10-31 G17 当前优先机制诊断（DESIGN_ONLY）**：[通过Dense/Sparse直接张量与K64通道对比定位运动—语义损失](20261031/G17_MOTION_SEMANTICS_TENSOR_CHANNEL_CAUSAL_DIAGNOSIS_20261031.md)。利用历史UB1 20视频、S2 10图×160 Dense 21τ、HiF4 3图×80 matched局部与P64视觉结果提出同输入 vs 学生轨迹、步间 vs latent帧时间、对象 vs 相机/背景的分离诊断；给出pre-gate W2^T共享反向投影组归因与O/D/Q/P因果合同。现阶段**没有新raw tensor分析/GPU/video**；需逐资产核对后另经独立预审执行。
+
 **2026-10-31 当前前向修订：G16 / 第二轮自查（DESIGN_ONLY）**：[静态FFN组的来源外视频功能边际估计与真实缓存构建竞争方案](20261031/G16_SICR_V3_FUNCTIONAL_MARGINAL_STATIC_FFN_REVIEW_20261031.md)｜[数学正确性、真实成本与新颖性第二轮自查](20261031/G16_SICR_V3_SECOND_SELF_AUDIT_20261031.md)。G15保留历史机制推导；G16修正最小缓存、前置构建MAC和无算法问题，提出Q-MARG实算组边际代理及可证伪V1/V2/V3。未运行CPU/GPU/视频，未改ACTIVE，不构成独立Agent审批。
 
 **2026-10-31 独立科学评议（G15，NEEDS_REVISION / 无执行批准）**：[SICR静态支持—量化元信息—最小缓存—全层跨步有符号传播统一推导](20261031/G15_SICR_CROSS_LAYER_STEP_CAUSAL_STATIC_QUANT_CACHE_REVIEW_20261031.md)。提出完整学生状态+缓存增广系统、跨层/step耦合核、动态gain必要历史投影及High/Low全层预算；现阶段ALG/SRC/LIT，新增GPU/视频需独立preexecution-review与ACTIVE。
