@@ -1,5 +1,7 @@
 # FFNDS · 视频生成 FFN 的信息、函数与实际计算研究
 
+**2026-11-05 G19 最新归档：** [详细方法、实现及各阶段结果摘要](research/20261105/G19_METHOD_AND_RESULTS_20261105.md)。从规定高斯/原始—蒸馏权重比较到真实输入、四步历史消融、原模型40步及GPU固定缓存的证据已汇集。anchor5单开发源实测生成臂时间减少约9.3%–9.4%，但两候选均7/8连续质量代理低于Dense，质量保持未成立。压缩与进一步执行优化仍是待验证设计；本次仅发布既有材料，不启动新作业。以下旧日期段落保留历史身份。
+
 研究目标：理解 Wan 视频生成 FFN **如何组织信息、函数作用和时空行为**，并构造可在完整视频质量与真实系统成本之间取得竞争力的低成本表示和执行方式。科学入口为 **I（信息与表示）/ F（函数与动力学）/ C（计算与执行）**；O-A～O-E 是可组合的方法动作，“稀疏”不是唯一方法范畴。详见[统一科学目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
 
 **当前执行路线（2026-10-28）**：[A100原始BF16与RTX PRO 6000 Blackwell原生NVFP4并行Agent合同](research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。没有本地RTX5090；NVFP4优先基于RTX PRO 6000 Blackwell（96GB/SM120标称规格），但要核验此时是否实际可访问、匹配Wan NVFP4 checkpoint和后端。BF16科学与视频继续在A100独立推进，PRO6000 R0并行核验，后续原生GPU按ACTIVE新scope执行。现存NVFP4 RTN Fake-QDQ和HiF4 QDQ是数值实验，不等于packed W4A4原生加速。

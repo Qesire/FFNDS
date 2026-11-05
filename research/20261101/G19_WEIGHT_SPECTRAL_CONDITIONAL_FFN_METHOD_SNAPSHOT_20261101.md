@@ -1,5 +1,7 @@
 # G19 · 权重诱导的 Hermite 谱、条件期望与可执行 FFN 重表示
 
+**历史快照说明（2026-11-05添加）：** 本文保留2026-11-01当时的理论与未验证状态；后续真实权重、真实输入、视频和执行证据见[现有完整方法与成果](../20261105/G19_METHOD_AND_RESULTS_20261105.md)，不能用本文旧的未运行描述覆盖后续收据。
+
 2026-11-01 · **METHOD_SNAPSHOT_CANDIDATE / INDEPENDENT_MATH_REVIEW / THEORY_AND_SYNTHETIC_ONLY / REAL_WEIGHT_NOT_READ / NO_NATIVE_VIDEO_OR_SPEED_EVIDENCE / NOT_ACTIVE**
 
 ## 0. 与 G18/G17 的关系

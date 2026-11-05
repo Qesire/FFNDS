@@ -1,0 +1,403 @@
+{
+  "schema": "G19_INDEPENDENT_PRODUCER_RESULT_REVIEW_V1",
+  "status": "ACCEPTED",
+  "reviewer": "/root/original40_independent_review",
+  "review_utc": "2026-11-05T09:16:41.211810+00:00",
+  "scope_sha256": "e815e21df4f7cb4db2ed5d82e387fccb74bcd33be31d4b768de72a9b831af6f7",
+  "start_sha256": "9683668f1d473b9c83e0eaf06c6b624e080fe9f9071a90c50cf4776e5ac78cff",
+  "exit_sha256": "c3d8c317e8fac02a5a259ab48c17c30540f3dd36f4d6e1a50e6dcb68838aba1c",
+  "progress_sha256": "04675c42c729a58282cbf0748263b5e05cf91161bb119f9ea7a28227b4e28eb5",
+  "root_self_audit_sha256": "db7f8c31919498eef0ddcf58f69a39eed350d3b69234a5a698370b86e5e375db",
+  "preexecution_review_sha256": "cea94b0759f797645533c7c081f1a5272875d4aad2c45323746aa9a8b4ca8cb6",
+  "collection_sha256": "e35bbc6ed7eef4e47a43e14257408062bba36301f0faaf047e11ecbc9c9e9380",
+  "metadata_audit_sha256": "fcaf88dbaf22a4732d7460695c9d43abb8447b711289a3fd0e9a9d5bbc3eb60b",
+  "metadata_audit_script_sha256": "74e584d4264812f5a7b4fd55169ea97a7ccd97d6a32198139566ec3a6c0274a0",
+  "job_id": "138678",
+  "scheduler_terminal": {
+    "file": "C:\\Users\\H\\Documents\\Codex\\2026-11-01\\zuo-w\\work\\g19_anchor5_gpu_20261105\\anchor5_gpu_chip10_00_r8\\results\\COLLECTION.json",
+    "sha256": "e35bbc6ed7eef4e47a43e14257408062bba36301f0faaf047e11ecbc9c9e9380",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "runtime_seconds": 2127
+  },
+  "acceptance_scope": "Complete execution, provenance, pairing, cache lifecycle, actual resource and timing evidence for the frozen single-source three-arm pilot; not preservation of perceptual quality or general speedup.",
+  "actual_evidence": {
+    "artifact_count": 10,
+    "artifact_bytes": 12640501,
+    "all_remote_before_local_after_hashes_rechecked": true,
+    "progress_events": 9609,
+    "total_ffn_sites": 9600,
+    "source_id": "chip10_00",
+    "seed": 43,
+    "execution_order": [
+      "dense",
+      "gpu_bf16_anchor5",
+      "gpu_fp32_anchor5"
+    ],
+    "scientific_display_order": [
+      "dense",
+      "gpu_fp32_anchor5",
+      "gpu_bf16_anchor5"
+    ],
+    "sites_per_arm": 3200,
+    "steps_per_arm": 40,
+    "cfg_branches": 2,
+    "layers_per_expert": 40,
+    "expert_switch_step": 15,
+    "anchors_per_candidate": 640,
+    "hits_per_candidate": 2560,
+    "anchor_steps": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35
+    ],
+    "same_initial_noise_and_model_latent": true,
+    "dense_historical_81_rgb_sha_match": true,
+    "complete_mp4_bytes_verified": true,
+    "producer_decoded_frames_per_arm": 81,
+    "video_dimensions": [
+      832,
+      464
+    ],
+    "fps": 16,
+    "independent_video_decode": false,
+    "human_full_motion_review": "NOT_PERFORMED",
+    "per_arm_preflight": {
+      "gpu_bf16_anchor5": {
+        "status": "PASS",
+        "field_sha256": "dac8bc56402d22a2b172d69e1fce7a67183797cb08a58f4ac021bdcdc7e976f6",
+        "comparison": "elementwise exact; signed zero not distinguished",
+        "r16_vs_r0_sse": 429.4849385600043,
+        "r16_vs_r0_max_abs": 0.0625,
+        "slab_checks": [
+          {
+            "dtype": "torch.bfloat16",
+            "slab_bytes": 25942425600,
+            "nonalias": true,
+            "refresh": true,
+            "expert_invalidation": true
+          }
+        ],
+        "seconds": 2.1892725519137457
+      },
+      "gpu_fp32_anchor5": {
+        "status": "PASS",
+        "field_sha256": "dac8bc56402d22a2b172d69e1fce7a67183797cb08a58f4ac021bdcdc7e976f6",
+        "comparison": "elementwise exact; signed zero not distinguished",
+        "r16_vs_r0_sse": 429.4849385600043,
+        "r16_vs_r0_max_abs": 0.0625,
+        "slab_checks": [
+          {
+            "dtype": "torch.float32",
+            "slab_bytes": 51884851200,
+            "nonalias": true,
+            "refresh": true,
+            "expert_invalidation": true
+          }
+        ],
+        "seconds": 2.1925583670381457
+      }
+    },
+    "per_arm_preflight_sha256": {
+      "gpu_bf16_anchor5": "ad16305f117c4ff67d49e5f5997c503ae02f0d37433740ff4fbddd7ee37a0b8d",
+      "gpu_fp32_anchor5": "222a1903c5cadb840fb99b80ad378052329ca635efb29d0cb5fd456c7f67fec8"
+    },
+    "preflight_limits": "Full physical 80-slot allocation per dtype with real saved field and two selected branch slots for numerical nonalias/overwrite/invalidation; all 80 symbolic slot indices were covered before execution. It is not an 80-slot numerical oracle or an independent full native FFN recomputation.",
+    "shared_setup_seconds": 159.30208059307188,
+    "producer_elapsed_seconds": 2110.2125000810483,
+    "process_peak_rss_bytes": 105507565568,
+    "host_limit_semantics": "192GiB scheduler request, 176GiB software check; actual ancestor memory.max=max, not a kernel hard cap.",
+    "per_arm": [
+      {
+        "arm": "dense",
+        "site_count": 3200,
+        "cache_ledger": {
+          "action_counts": {
+            "anchor": 0,
+            "hit": 0
+          },
+          "persistent_cache_peak_bytes": 0,
+          "read_bytes": 0,
+          "written_bytes": 0,
+          "live_before_release_bytes": 0,
+          "live_after_release_bytes": 0
+        },
+        "physical_slab_bytes": 0,
+        "raw_generate_seconds": 640.3236528610578,
+        "denoise_seconds": 628.7673577769892,
+        "arm_setup_seconds_including_cleanup_and_slab": 0.003045693039894104,
+        "arm_total_seconds": 640.3266985540977,
+        "final_latent_digest_seconds_in_raw": 0.014886558055877686,
+        "a_load_host_seconds_in_denoise": 0.0,
+        "gpu_peak_allocated_bytes": 9940069888,
+        "gpu_peak_reserved_bytes": 20271071232,
+        "gpu_before_release": {
+          "allocated": 5695366656,
+          "reserved": 20271071232,
+          "a_entries": 0
+        },
+        "gpu_after_release": {
+          "allocated": 5695366656,
+          "reserved": 20271071232,
+          "a_entries": 0
+        },
+        "resource_after": {
+          "rss_peak_bytes": 105507565568,
+          "cgroup_current_bytes": 102475522048,
+          "job_cgroup_current_bytes": 102477746176,
+          "job_cgroup_peak_bytes": 105628045312,
+          "cgroup_identity": {
+            "version": "v2",
+            "group_path": "/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+            "mount_root": "/",
+            "mount_point": "/sys/fs/cgroup",
+            "target": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+            "job_cgroup": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678",
+            "ancestor_limits": [
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup",
+                "limit": "ROOT_NO_LIMIT_FILE_NORMAL"
+              }
+            ],
+            "effective_host_soft_bytes": 188978561024
+          },
+          "v1_memory_stat": {},
+          "usage_semantics": "v2 memory.current",
+          "output_bytes": 2271547,
+          "elapsed_seconds": 943.552873188979
+        },
+        "mp4_sha256": "dab4670e7ac953570839447e9ceb3d6d2ba91cd83fe497bd186872158eef0e7d",
+        "decoded_rgb24_sha256": "200b935a8c4c76234db9fe6ebee5c8339e01729bd8622eddef1e50f4e9261b5f",
+        "arm_total_ratio_to_dense": 1.0,
+        "raw_wall_ratio_to_dense": 1.0,
+        "denoise_ratio_to_dense": 1.0
+      },
+      {
+        "arm": "gpu_bf16_anchor5",
+        "site_count": 3200,
+        "cache_ledger": {
+          "action_counts": {
+            "anchor": 640,
+            "hit": 2560
+          },
+          "persistent_cache_peak_bytes": 25942425600,
+          "read_bytes": 830157619200,
+          "written_bytes": 207539404800,
+          "live_before_release_bytes": 25942425600,
+          "live_after_release_bytes": 0
+        },
+        "physical_slab_bytes": 25942425600,
+        "raw_generate_seconds": 580.104676301009,
+        "denoise_seconds": 571.1850671040593,
+        "arm_setup_seconds_including_cleanup_and_slab": 0.006655815988779068,
+        "arm_total_seconds": 580.1113321169978,
+        "final_latent_digest_seconds_in_raw": 0.011713649961166084,
+        "a_load_host_seconds_in_denoise": 14.343003826448694,
+        "gpu_peak_allocated_bytes": 39167275008,
+        "gpu_peak_reserved_bytes": 51019513856,
+        "gpu_before_release": {
+          "allocated": 33922563584,
+          "reserved": 51019513856,
+          "a_entries": 40
+        },
+        "gpu_after_release": {
+          "allocated": 5882985984,
+          "reserved": 51019513856,
+          "a_entries": 0
+        },
+        "resource_after": {
+          "rss_peak_bytes": 105507565568,
+          "cgroup_current_bytes": 102500257792,
+          "job_cgroup_current_bytes": 102502486016,
+          "job_cgroup_peak_bytes": 105628045312,
+          "cgroup_identity": {
+            "version": "v2",
+            "group_path": "/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+            "mount_root": "/",
+            "mount_point": "/sys/fs/cgroup",
+            "target": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+            "job_cgroup": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678",
+            "ancestor_limits": [
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup",
+                "limit": "ROOT_NO_LIMIT_FILE_NORMAL"
+              }
+            ],
+            "effective_host_soft_bytes": 188978561024
+          },
+          "v1_memory_stat": {},
+          "usage_semantics": "v2 memory.current",
+          "output_bytes": 6805224,
+          "elapsed_seconds": 1526.2279403239954
+        },
+        "mp4_sha256": "0ae566499aa1de1094a37f93312c191111dbc8494ff2dbd2a8204f2f41b29df7",
+        "decoded_rgb24_sha256": "0611266d985589e65f9143e2fd353fa62abe6cf32df3aa50d7c94666019e2a3b",
+        "arm_total_ratio_to_dense": 0.9059614934484688,
+        "raw_wall_ratio_to_dense": 0.9059554081893091,
+        "denoise_ratio_to_dense": 0.9084203561767066
+      },
+      {
+        "arm": "gpu_fp32_anchor5",
+        "site_count": 3200,
+        "cache_ledger": {
+          "action_counts": {
+            "anchor": 640,
+            "hit": 2560
+          },
+          "persistent_cache_peak_bytes": 51884851200,
+          "read_bytes": 1660315238400,
+          "written_bytes": 415078809600,
+          "live_before_release_bytes": 51884851200,
+          "live_after_release_bytes": 0
+        },
+        "physical_slab_bytes": 51884851200,
+        "raw_generate_seconds": 579.2897712959675,
+        "denoise_seconds": 570.467882922967,
+        "arm_setup_seconds_including_cleanup_and_slab": 1.5647267050808296,
+        "arm_total_seconds": 580.8544980010483,
+        "final_latent_digest_seconds_in_raw": 0.01193419296760112,
+        "a_load_host_seconds_in_denoise": 14.425300057861023,
+        "gpu_peak_allocated_bytes": 65110487040,
+        "gpu_peak_reserved_bytes": 76176949248,
+        "gpu_before_release": {
+          "allocated": 59865775616,
+          "reserved": 76176949248,
+          "a_entries": 40
+        },
+        "gpu_after_release": {
+          "allocated": 5882985984,
+          "reserved": 76176949248,
+          "a_entries": 0
+        },
+        "resource_after": {
+          "rss_peak_bytes": 105507565568,
+          "cgroup_current_bytes": 102501130240,
+          "job_cgroup_current_bytes": 102503354368,
+          "job_cgroup_peak_bytes": 105628045312,
+          "cgroup_identity": {
+            "version": "v2",
+            "group_path": "/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+            "mount_root": "/",
+            "mount_point": "/sys/fs/cgroup",
+            "target": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+            "job_cgroup": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678",
+            "ancestor_limits": [
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user/task_0",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch/user",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678/step_batch",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_138678",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup/system.slice",
+                "limit": "max"
+              },
+              {
+                "path": "/sys/fs/cgroup",
+                "limit": "ROOT_NO_LIMIT_FILE_NORMAL"
+              }
+            ],
+            "effective_host_soft_bytes": 188978561024
+          },
+          "v1_memory_stat": {},
+          "usage_semantics": "v2 memory.current",
+          "output_bytes": 11803140,
+          "elapsed_seconds": 2109.7700614599744
+        },
+        "mp4_sha256": "3c823d9286a7a1a689bffd21a5e3c4befa7928a8ae15e9580c7ad6399ed78cf7",
+        "decoded_rgb24_sha256": "8b8b7ebf4602b195029d9f11c405bbb8e0e488b230ad1dd84b8ea8443fcf7913",
+        "arm_total_ratio_to_dense": 0.907122097692722,
+        "raw_wall_ratio_to_dense": 0.9046827627054191,
+        "denoise_ratio_to_dense": 0.9072797368805207
+      }
+    ]
+  },
+  "manual_findings": [
+    "Recomputed every site identity, anchor/hit decision and cache byte count; no missing, duplicate, stale, cross-expert or cross-CFG cache events. Each candidate has one physical 80-slot current-expert slab, reused on refresh and expert transition.",
+    "Actual allocated-byte drop at final release exactly equals each slab plus the 40 resident A matrices: BF16 28039577600B; FP32 53982003200B. Physical/logical cache and A entries are zero before VAE. Reserved bytes remain cached until the later empty_cache call and are not misreported as live tensors.",
+    "Both full-shape dtype preflights succeeded. R16 versus R0 SSE 429.4849385600043 and max_abs 0.0625 are observed codec differences, not a quality bound. Elementwise exact checks do not distinguish signed zero.",
+    "Dense initial, final and all-frame RGB identities match the historical Dense metadata; all three arms share initial states. Candidate final latents and RGB digests differ as expected; no intermediate 40-latent proof or neutral arm is claimed.",
+    "All recorded host, CUDA allocated/reserved, wall and output bounds pass. FP32 slab now completes the actual refreshes that previously failed in r6; this is one observed success and does not establish allocator safety for other shapes or hosts.",
+    "arm_total includes formal slab allocation and per-arm cleanup plus raw_generate. Per-format preflight and shared model preparation are separate. GPU peak resets occur before formal slab setup. Raw generation alone excludes that setup; per-site CPU launch intervals are not GPU timings.",
+    "Observed arm_total is Dense 640.3266985540977s, BF16 580.1113321169978s, FP32 580.8544980010483s. The corresponding reductions are 9.40385065515312% and 9.2877902307278% in this sequential pilot, without uncertainty estimates or causal isolation from order/cache/system variation."
+  ],
+  "quality_preservation_accepted": false,
+  "statistical_generalization_accepted": false,
+  "new_execution_authorized_by_this_review": false,
+  "limitations": [
+    "One exposed DEV source; one run per arm, no speed uncertainty interval.",
+    "arm_total includes cleanup and formal slab allocation plus raw generate; separate per-format preflight is experiment overhead. Raw generate alone excludes slab setup.",
+    "Per-site seconds are asynchronous CPU launch intervals, never summed as CUDA time.",
+    "No neutral/40latent proof. Complete quality scoring and full-motion review still required.",
+    "Current wrapper retains full native prefetch, input clone and unused GELU; direct-prefix/selective-transfer optimizations were not introduced or tested.",
+    "Only the actual preflights and producer are compute-node tensor evidence. This independent review runs local standard-library metadata, SHA and scalar checks only.",
+    "Full quality metrics and whole-video viewing remain outstanding. ACCEPTED allows downstream provenance-bound evaluation to consume these completed artifacts; it is not metric-scope execution approval."
+  ]
+}
