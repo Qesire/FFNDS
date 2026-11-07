@@ -1,5 +1,8 @@
 # FFNDS · 视频生成 FFN 的信息、函数与实际计算研究
 
+**2026-11-07 G19 接续入口：** [完整方法、推导、Q0/Q1/Q2、精修及全部实测结果](research/20261107/G19_METHOD_DERIVATION_AND_RESULTS_20261107.md) · [新对话交接](research/20261107/G19_NEXT_CHAT_20261107.md)。当前蒸馏四步原全融合基线历史配对约1.0484×（耗时少4.62%）；Q1精修存在质量取舍；宽GEMM与省W1预取均无稳定提速。28段质量视频、20段执行对照及8维/光流/轨迹评估已完成。原40步anchor5的约9.4%节时及质量失败保留其历史配置，不与当前结果混用。以下旧日期内容按历史身份阅读。
+
+
 **2026-11-05 G19 最新归档：** [详细方法、实现及各阶段结果摘要](research/20261105/G19_METHOD_AND_RESULTS_20261105.md)。从规定高斯/原始—蒸馏权重比较到真实输入、四步历史消融、原模型40步及GPU固定缓存的证据已汇集。anchor5单开发源实测生成臂时间减少约9.3%–9.4%，但两候选均7/8连续质量代理低于Dense，质量保持未成立。压缩与进一步执行优化仍是待验证设计；本次仅发布既有材料，不启动新作业。以下旧日期段落保留历史身份。
 
 研究目标：理解 Wan 视频生成 FFN **如何组织信息、函数作用和时空行为**，并构造可在完整视频质量与真实系统成本之间取得竞争力的低成本表示和执行方式。科学入口为 **I（信息与表示）/ F（函数与动力学）/ C（计算与执行）**；O-A～O-E 是可组合的方法动作，“稀疏”不是唯一方法范畴。详见[统一科学目标](research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)。
@@ -62,3 +65,4 @@ python tools/check_autoresearcher_binding.py
 原始实验收据、hash、历史错误与候选失配的证据保留在[ARCHIVE](ARCHIVE.md)及[原始报告](reports/)；新研究资料优先更新对应现行方法正文、证据谱系和P0–P4索引，不创建第二份并列“当前状态总览”。
 
 M-B已有[CAL24来源配对和固定候选池结果](research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)及[Direct65 H128真实学生pilot](research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)；同head A0公平对照已完成，当前继续B-F、部署与完整视频验证，按唯一任务台账继续。F线专题见[G13](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)，运行权限定于[ACTIVE](research/ACTIVE_RESEARCH.json)。
+

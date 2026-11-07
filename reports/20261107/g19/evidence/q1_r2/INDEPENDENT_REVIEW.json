@@ -1,0 +1,154 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "G19_STRENGTHEN_Q1_VIDEO_R2",
+  "purpose": "mechanism",
+  "created_utc": "2026-11-07T00:01:55.977166+00:00",
+  "disposition": "APPROVE",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "scope_sha256": "9edd13636e45f6c1352362eda137efdb8885b2fdeb45243a2ef6839c325787b1",
+  "approval_scope_fingerprint": "9edd13636e45f6c1352362eda137efdb8885b2fdeb45243a2ef6839c325787b1",
+  "reviewer_agent_id": "/root/g19_strengthen_review_resume",
+  "author_agent_id": "/root",
+  "author_review_path": "E:\\Codex-G19-Recovery\\workspace_2026-11-05_wo-m\\work\\g19_strengthen_20261107\\q1_r2\\ROOT_SELF_AUDIT.md",
+  "independent_review_path": "E:\\Codex-G19-Recovery\\workspace_2026-11-05_wo-m\\work\\g19_strengthen_20261107\\q1_r2\\INDEPENDENT_REVIEW.json",
+  "root_self_audit_sha256": "5bd2f096e3f1bb56a62132f2c5392b081a17badfdde1eafdcdcb449b24a4b8b1",
+  "research_question": "Does solver refinement of the fixed G19 Q matrices improve, preserve or worsen complete development-video behavior across the same seven sources and two seeds, with the original fused_post execution held fixed?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Refined deployment matrices improve useful quality dimensions without changing the anchored execution cost structure."
+    },
+    {
+      "id": "H2",
+      "prediction": "The former numerical solution was adequate for video function, or changed matrices shift quality among sources/dimensions without an overall useful gain."
+    }
+  ],
+  "adversarial_counterexample": "The same-CAL BF16 safeguard selects on Q1, so it does not enforce Q2 per-layer noninferiority: high/2 Q2 objective changes from 0.17773336172103882 to 0.17791461944580078. Even nonincreasing Q1 calibration objective can alter recurrent student trajectories and hurt a source-level quality dimension. Fixed-prior LOSO evaluates newly solved fixed-prior fits, not the entire old/new selection rule.",
+  "responses_to_review": [
+    {
+      "author": "/root",
+      "disposition": "ACCEPT",
+      "response": "Q2 has no per-layer noninferiority guarantee; evaluate the complete frozen exported arm on all sources. Fixed-prior LOSO is not validation of the complete selection rule."
+    },
+    {
+      "author": "/root",
+      "disposition": "ACCEPT",
+      "response": "Selected deployment convergence is 72 CONVERGED and 8 FINITE_ITERATE_NOT_OPTIMUM; new candidate convergence is separately 76/4."
+    },
+    {
+      "author": "/root",
+      "disposition": "ACCEPT",
+      "response": "Future metrics bind r1 metric scope/EXIT/PASS/per-video scores explicitly. Current Dense/G0 references do not stand in for r1 evidence. Full source-level quality and motion evidence determines any promotion."
+    }
+  ],
+  "recheck_basis": [
+    "All staged code and frozen input SHA bindings verified against exact scope; Python AST parse passes using Python -B and E TEMP/TMP. Executable code is byte-identical to the corresponding r1 except the runner phase identity string. No packed executor is used.",
+    "Independently checked both actual fit EXIT SUCCESS and fit summary hashes, scope/review binding, 40 COMPLETE+METRICS receipts per expert and all160 Q1/Q2 manifest entries against those receipts. Entry expert/layer/arm/path/fit scope/hash, COMPLETE hash, METRICS hash and alpha archive hash all agree.",
+    "Both arms have 43 changed and37 unchanged payload hashes relative to r1. No full-arm identity reuse is possible; each scope requests all14 producer runs. Every selected Q1 recorded BF16 objective is <= its old-solution objective. Deployment status recomputation yields72 converged/8 finite, versus76/4 for new candidates.",
+    "Cohort, config and old references are byte-identical to r1. Fourteen source-seed pairs, seven unique image SHA and prompt SHA agree with local historical proof records; every listed local proof SHA matches. Runtime checks original initial-noise SHA before any forward.",
+    "Actual path retains80 native anchor FFNs and80 hits with160 A GEMMs, current gate, fresh per-request BF16 C, HHLL expert schedule and160-site coverage. Selective prefetch and fused gate rounding are unchanged from the previously executed path.",
+    "Review/ACTIVE/source/base-model/checkpoint/runtime/matrix SHA checks and actual compute-allocation checks precede model use. Output is exclusive, per-video receipts are flushed, complete81-frame832x46416fps geometry is required, and EXIT preserves partial/failure status. No real model/tensor or GPU was used by reviewer."
+  ],
+  "critical_source_hashes": {
+    "runner_panel.py": "1ecfdbe8ea3ffb7ca1663f3527bf5a872991e374e6bcecb209d0c8e015417cc1",
+    "runtime_guard.py": "adae0e9b898690b72e08e54269cdd6666e31ac19f5a147ca39e6b640317c0677",
+    "legacy_helpers.py": "22598f3841e4726a9799dab6931cd3303edc6f51c81e8727ec0ebc954c200c64",
+    "direct.py": "dbd9679ce5986c5f70a8d27ff53fa8d1a7cf860be5435e19c413d75ac835be15",
+    "binding.py": "cdacbe9b2e23782bd2b6c4af31673fd34fe9fa513ce57a85d4bb12aa6a326bd3",
+    "resident.py": "e1cb1012d47d020c6762b5b70b8081e6e6491930d89cb50a34276b636937f6f6",
+    "selective.py": "0c1d3d46b5489f04c1b7baac483ae48229e306dd1e6f29343a30a1e23b0c9a44",
+    "fused_residual.py": "14f00635050da49c280a0f5f0ac464c6922c87cb8ff9c00d476f954a411a2e88",
+    "fused_post.py": "ababf1c3510faaf528bb74201c258ce27b136de28f86b98b4673f778119ec99f",
+    "job_panel.sh": "664324bad40a24e35a096ddc53073e662b96010024c8faa7127d95160c2d8b18"
+  },
+  "frozen_inputs_sha256": {
+    "matrix_manifest.json": "d127f0941fa018cfded78aa7476d96abcee141fcc13a3260af91c7060f57410f",
+    "cohort_14.json": "4681dd63c6e9f9a8f5fb214fff8ade45c0695efedf4b04d61632160a0ea6bd71",
+    "old_references.json": "36b52db613412e86b72dbe2c77b575db25cddb14a31911a76b50712b609fcacb",
+    "config.json": "2908fd676b87192bb7b953d185437b3a2e8f6a8587bb1903aeb40aa3631e37ab",
+    "ROOT_SELF_AUDIT.md": "5bd2f096e3f1bb56a62132f2c5392b081a17badfdde1eafdcdcb449b24a4b8b1"
+  },
+  "coordination_hashes": {
+    "dispatch_once.py": "0e547707454dd9dd9afe5a5fe5618ffb571241eb736e99f7850789c3924d888a",
+    "activate_stages.py": "22bb0f89b508f2e1b242ab8faf02ded626b0a8aafce54bb9c5d6f6dce68fe3e6"
+  },
+  "checkpoint_numeric_recipe": {
+    "checkpoints": {
+      "high": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/weights/Wan2.2-I2V-A14B-LightX2V-Distill-4step/high_noise_model/wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+        "sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "low": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/weights/Wan2.2-I2V-A14B-LightX2V-Distill-4step/low_noise_model/wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+        "sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      }
+    },
+    "runtime_versions": {
+      "torch": "2.10.0+cu128",
+      "numpy": "2.4.6",
+      "imageio_ffmpeg": "0.6.0"
+    },
+    "triton": "3.6.0",
+    "dtype": "BF16",
+    "cache": "GPU BF16",
+    "execution": "fused_post, TF32 disabled, BF16 reduced precision reduction enabled"
+  },
+  "input_cohort_manifest_sha256": "4681dd63c6e9f9a8f5fb214fff8ade45c0695efedf4b04d61632160a0ea6bd71",
+  "matrix_manifest_sha256": "d127f0941fa018cfded78aa7476d96abcee141fcc13a3260af91c7060f57410f",
+  "fit_receipt_chain": {
+    "high": {
+      "scope_sha256": "c99c75f7e5a5baea6b4ed23ae094b2a129d5c11fdd3f549143a338329c4500cd",
+      "exit_sha256": "97fae8c8ccf5467c3c66d9d49546859f54e6088e37f1888d5965bfdd3ff26a6d",
+      "summary_sha256": "cd303075355351d60806776766a5d9d5267f7f39cee6f5add733b12e95d247bc"
+    },
+    "low": {
+      "scope_sha256": "7e78ac371ec114c7dd17012cc3c240153c5eaebb726d7ba336cb9a2fbabc034a",
+      "exit_sha256": "cc7ac069491b5c189b87f469afcf275c07d9fbb256f53311360ca0eda073c9f4",
+      "summary_sha256": "64771d7bd0ff8e88cfdb2e312c0c0d0f3945bb34972f691b1dc7e7da118e1275"
+    }
+  },
+  "control_arms": [
+    "Q1 r2 fresh14 generations",
+    "Dense/G0 same-source same-seed historical originals",
+    "Q1/Q2 r1 references to be bound in later metric scope"
+  ],
+  "unit_of_independence": "seven exposed image-prompt sources, two nested seeds per source; development evidence",
+  "full_depth_or_claim_scope": "4 steps x40 layers, both experts; 14 complete clips in this scope",
+  "predeclared_metrics": [
+    "full video geometry, latent and RGB24/MP4 SHA",
+    "initial-noise identity",
+    "160-site/native anchor/hit/prediction counts",
+    "per-request wall, setup and GPU memory descriptive only",
+    "subsequent reviewed metric scope: full eight established quality axes, continuous RAFT/time windows and vector decomposition, CoTracker common-visibility trajectories, source-level and equal-source summaries"
+  ],
+  "expected_physical_savings": {
+    "W1_W2": "same80 native anchor FFNs and80 skipped hit FFNs as prior G19",
+    "A": "same160 dense BF16 A GEMMs; Q2 rank correction is already merged offline",
+    "cache": "same40-slot BF16 GPU residual slab; no new online fit/rank computation"
+  },
+  "applicable_session_gpu_cap": 2,
+  "budget_and_failure_plan": {
+    "gpus_per_job": 1,
+    "max_jobs": 1,
+    "cpus": 4,
+    "host_memory_gib": 192,
+    "gpu_memory_gib": 78,
+    "cache_host_bytes": 34359738368,
+    "wall_seconds": 7200,
+    "soft_seconds": 7080,
+    "min_free_disk_gib": 20,
+    "total_output_bytes": 2147483648
+  },
+  "constraints": [
+    "Approval covers one job for this exact frozen scope only; root must register ACTIVE and recheck actual remote payloads and queue before serialized dispatch. Runtime ResidentMatrices hashes the real payloads before inference; local reviewer validated receipt identity without reading model/matrix tensors.",
+    "Session maximum two one-GPU jobs. Dispatcher job count is valid only with serialized submissions and every session job one GPU, as confirmed by root. No automatic retry or overwrite.",
+    "Generation is an evidence-producing development test, not a declaration of quality gain. The selected exported mix, including8 finite iterates, is the tested method; do not describe it as80 converged solutions.",
+    "Do not claim Q2 objective monotonicity, fresh held-out confirmation, or that fixed-prior LOSO validates the selection rule. Evaluate all seven sources; keep adverse raft/eagle or other dimensions visible.",
+    "This scope produces complete videos and execution evidence, not eight-axis scores. New metrics and r1 comparisons require their separately frozen review with actual output hashes; historical Dense/G0 remain original controlled references.",
+    "Single-arm wall includes initial-noise clone/SHA, cold first clip and encoding. It is not a new paired speed benchmark; no implementation speedup is inferred from Q refitting.",
+    "Download original requested MP4s and small metrics only to E; metrics primary and at most one comparison video group. Physical camera motion, temporal flickering and reliable semantic foreground/background remain NOT_MEASURED until independently measured."
+  ],
+  "run_status": "NOT_RUN_BY_REVIEWER"
+}

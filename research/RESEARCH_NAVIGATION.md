@@ -1,5 +1,8 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
+**2026-11-07 G19 接续入口：** [完整方法、推导、Q0/Q1/Q2、精修及全部实测结果](20261107/G19_METHOD_DERIVATION_AND_RESULTS_20261107.md) · [新对话交接](20261107/G19_NEXT_CHAT_20261107.md)。当前蒸馏四步原全融合基线历史配对约1.0484×（耗时少4.62%）；Q1精修存在质量取舍；宽GEMM与省W1预取均无稳定提速。28段质量视频、20段执行对照及8维/光流/轨迹评估已完成。原40步anchor5的约9.4%节时及质量失败保留其历史配置，不与当前结果混用。以下旧日期内容按历史身份阅读。
+
+
 **2026-11-05 G19 最新归档：** [详细方法、实现及各阶段结果摘要](20261105/G19_METHOD_AND_RESULTS_20261105.md)。从规定高斯/原始—蒸馏权重比较到真实输入、四步历史消融、原模型40步及GPU固定缓存的证据已汇集。anchor5单开发源实测生成臂时间减少约9.3%–9.4%，但两候选均7/8连续质量代理低于Dense，质量保持未成立。压缩与进一步执行优化仍是待验证设计；本次仅发布既有材料，不启动新作业。以下旧日期段落保留历史身份。
 
 **2026-11-01 G18 · FFN 函数表示与数学复审（AUTHOR_SELF_AUDIT / DESIGN_ONLY）**：[GELU 奇偶精确分解、函数群的一阶 Taylor 聚合、聚合矩秩及真实执行成本、轨迹 Jacobian 边界与完整视频可证伪方案](20261101/G18_FFN_FUNCTIONAL_REPRESENTATION_MATH_AUDIT_20261101.md)｜[轻量合成矩阵代数 fixture](../tests/test_ffn_functional_identities_20261101.py)。本轮修正“非线性残差小”“一阶聚合天然省算”“轨迹低维等于低成本”等推断；与 G17 VIDEO/TENSOR/HWG 同步，不改变已有方法优先级。**未运行新 Wan/视频/GPU，不是独立 Agent 审查或实验执行许可。**
@@ -120,3 +123,4 @@
 [ARCHIVE总索引](../ARCHIVE.md) · [早期机制重置](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [旧first-task时间点](20261025/E0_FFN_FIRST_TASK_20261025.md) · [旧Affine54失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) · [原A/B/C独立评议](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) · [最初提案Git版本](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。
 
 历史报告的“现在运行”“下一步”“暂停/恢复”只对当时冻结scope成立；目前方法进度依P0及[ACTIVE](ACTIVE_RESEARCH.json)核验。历史RUN、HASH、模型/来源、独立同行评议和失败边界不通过此索引重写。只在实际新的SRC/ALG/NATIVE/VIDEO或论文结论改变研究理解时，升级P0–P2；否则将新材料归入对应专题/历史证据而非新增并列权威方案。
+

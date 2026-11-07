@@ -1,0 +1,108 @@
+{
+  "reviewer_agent_id": "/root/g19_metric_final_review",
+  "created_utc": "2026-11-07T01:01:04.343864+00:00",
+  "disposition": "ARITHMETIC_PASS_WITH_QUALIFIED_CANDIDATE_SELECTION",
+  "summary_sha256": "cdbd08a56fb3679ad8b2b48ff125a9d298d157d6b412539bec546ddc3c761e28",
+  "summarizer_sha256": "179c50a82b6a10d294d15ccd34ecbb877e687c964f552dc95aa68b3cce77b4d7",
+  "independent_checks": {
+    "raw_score_records": 672,
+    "source_means": 336,
+    "global_means": 48,
+    "maximum_absolute_mean_error": 1.4210854715202004e-14,
+    "aggregation": "Within each source average seed 43 and seed 44, then seven sources equally. Not equal weighting of A/B batches.",
+    "direct_inputs": "SHA-verified original D0/G0 score files, SHA-bound r1 score files, EXIT-bound r2 score files; not recomputation through the root summarizer.",
+    "new_small_receipts_SHA_verified": 12,
+    "source_difference_arithmetic_and_win_counts": "PASS",
+    "all_eight_dimensions_and_six_arms": "COMPLETE"
+  },
+  "mean_deltas": {
+    "Q1r2_minus_Q1r1": {
+      "subject_consistency": 0.0002450227737427202,
+      "background_consistency": 0.0010256086077008453,
+      "motion_smoothness": 4.90750972347298e-05,
+      "dynamic_degree": 0.0,
+      "aesthetic_quality": 8.727822984888611e-06,
+      "imaging_quality": 0.037309932540537716,
+      "i2v_subject": 0.0002665530890226808,
+      "i2v_background": -0.00011255269604071305
+    },
+    "Q1r2_minus_G0": {
+      "subject_consistency": -0.00039960797876115173,
+      "background_consistency": -0.00036708286830366976,
+      "motion_smoothness": -0.0006425907054977698,
+      "dynamic_degree": 0.14285714285714285,
+      "aesthetic_quality": -0.002611185823168105,
+      "imaging_quality": 0.006617833697603714,
+      "i2v_subject": 0.0026726764387318136,
+      "i2v_background": 0.0011612706099237702
+    },
+    "Q1r2_minus_Q2r2": {
+      "subject_consistency": 7.267086101436782e-05,
+      "background_consistency": -0.00032610212053574283,
+      "motion_smoothness": 7.82086603712262e-06,
+      "dynamic_degree": 0.0,
+      "aesthetic_quality": -0.0011081099510192871,
+      "imaging_quality": -0.01758980120301601,
+      "i2v_subject": 0.00022856417511196714,
+      "i2v_background": 0.00029716503939458683
+    }
+  },
+  "selection_assessment": {
+    "Q1r2": "Reasonable main candidate if image-to-video subject/background preservation is the declared priority; not an overall quality winner.",
+    "Q2r2": "Retain as quality tradeoff control: higher average background consistency, aesthetics and imaging quality than Q1r2.",
+    "G0": "Retain as indispensable baseline; Q1r2 does not dominate it.",
+    "default_execution": "Keeping fused_post is supported by the pilot timings; neither packed nor skip has a demonstrated stable benefit.",
+    "Q1r1": "Retain as stable historical reference; Q1r2 remains an I2V-fidelity-prioritized candidate, not a replacement established superior across quality and motion."
+  },
+  "material_counterexamples": [
+    "Q1r2 versus G0: aesthetics is lower by 0.0026111858231680734, with six of seven source means lower; this is not explained only by raft/eagle subject-consistency regressions.",
+    "Q1r2 versus G0: motion smoothness is lower by 0.0006425907054977777; guitar contributes a source decline about 0.004777.",
+    "Q1r2 versus Q1r1: six mean scores rise, but aesthetics rises only 0.000008727822984967912; I2V subject improves in only three of seven source means, and its aggregate sign reverses if eagle is omitted.",
+    "Q1r2 versus Q2r2: I2V subject/background have positive mean differences that stay positive under omission of any one source; aesthetic/imaging mean differences stay negative under the same sensitivity check. No statistical generalization is implied.",
+    "Q1r2 versus Dense: source means for I2V subject, motion smoothness and aesthetics are all lower in all seven sources."
+  ],
+  "positive_evidence": [
+    "Q1r2 versus G0: I2V subject improves in seven of seven source means and thirteen of fourteen videos; I2V background improves in six of seven source means and twelve of fourteen videos.",
+    "Q1r2 versus Q1r1: subject consistency improves in five of seven source means; motion smoothness improves in all seven source means, with small absolute differences."
+  ],
+  "engineering_receipt_ratios": {
+    "fused_over_packed": 1.0004643250089809,
+    "packed_over_skip": 0.9996182697027667
+  },
+  "limits": [
+    "Descriptive evidence from seven exposed sources and two seeds; no independent confirmation or statistical superiority claim.",
+    "Higher dynamic-degree threshold count alone does not establish better semantic motion. Continuous RAFT and CoTracker small receipts were SHA-checked; full server-side flow payloads were not downloaded or recomputed by this reviewer.",
+    "Semantic foreground/background and physical camera compensation remain NOT_MEASURED.",
+    "No visual review, GPU execution, new experiment, or implementation edit by this reviewer.",
+    "Root correctly notes that CoTracker reference amplitudes can change across candidate comparisons even with equal valid-frame counts because the jointly visible point sets change. Do not directly compare cross-version amplitude summaries without fixing the support. This reviewer does not infer better action from those amplitudes."
+  ],
+  "amended_utc": "2026-11-07T01:01:46.363700+00:00",
+  "motion_and_tracks_sha256": "346f8e020e6b27cc2abf872cea16f3e68310bb41f5a2812d71c43dfcb4624aeb",
+  "independent_motion_checks": {
+    "input_SHA_checks": 12,
+    "max_source_equal_mean_error": 1.1102230246251565e-16,
+    "Q1_Dense_reference_r1": {
+      "beta": 0.7424905147809155,
+      "norm_ratio": 0.8950683619497785,
+      "cosine": 0.8166405103352985,
+      "residual_over_dense": 0.4446402672489264
+    },
+    "Q1_Dense_reference_r2": {
+      "beta": 0.7405895601610659,
+      "norm_ratio": 0.9017320463335939,
+      "cosine": 0.808266947657689,
+      "residual_over_dense": 0.45852613601525016
+    },
+    "Q1_cosine_source_deltas": {
+      "bicycle": 5.63355670415433e-05,
+      "canoe_static_00": -0.03925152076652361,
+      "eagle": -0.0012380456886318392,
+      "guitar": -0.0033309055026031764,
+      "raft": -0.004588084265886971,
+      "spoon": -0.009326994320450033,
+      "tennis": -0.0009357237662118711
+    },
+    "cosine_declined_source_count": 6,
+    "conclusion": "Greater flow norm is accompanied by worse directional agreement and larger orthogonal residual; this does not support an unconditional motion-quality improvement."
+  }
+}

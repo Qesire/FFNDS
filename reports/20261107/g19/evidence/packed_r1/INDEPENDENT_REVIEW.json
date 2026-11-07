@@ -1,0 +1,148 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "G19_PACKED_ANCHOR_PILOT_R1",
+  "purpose": "system",
+  "created_utc": "2026-11-06T23:58:50.617079+00:00",
+  "disposition": "APPROVE",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "scope_sha256": "85fdac57b63edaefaf6b871c0d947a97dd974a2fece2504a1e0d64689cbb8ea8",
+  "approval_scope_fingerprint": "85fdac57b63edaefaf6b871c0d947a97dd974a2fece2504a1e0d64689cbb8ea8",
+  "reviewer_agent_id": "/root/g19_strengthen_review_resume",
+  "author_agent_id": "/root",
+  "implementation_agent_id": "/root/g19_packed_impl_20261107",
+  "author_review_path": "E:\\Codex-G19-Recovery\\workspace_2026-11-05_wo-m\\work\\g19_strengthen_20261107\\packed_r1\\ROOT_SELF_AUDIT.md",
+  "independent_review_path": "E:\\Codex-G19-Recovery\\workspace_2026-11-05_wo-m\\work\\g19_strengthen_20261107\\packed_r1\\INDEPENDENT_REVIEW.json",
+  "root_self_audit_sha256": "ef91d25b7119f4df7d26efd531837be858bca492dde197aa9212d20e623acda4",
+  "research_question": "Whether replacing the separate anchor W1 addmm and u@A by one [W1,A] addmm changes measured whole-generation latency or BF16 trajectory for this exact exposed source, while retaining G19 nonlinear anchor and BF16 C.",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "H1",
+      "prediction": "Shared input and fewer GEMM dispatches improve repeated whole-generation latency with unchanged observed full-video identity."
+    },
+    {
+      "id": "H2",
+      "prediction": "Wide layout, GEMM algorithm choice, temporary allocation and native offload overlap remove the speed benefit or alter BF16 outputs."
+    }
+  ],
+  "adversarial_counterexample": "A wide GEMM can select a different reduction algorithm: a one-ULP change in W1 preactivation or q changes GELU, C and subsequent hit trajectory. High/low layer-0 probes can agree while another layer differs; this defeats a claim of universal bitwise equivalence. Equally, fewer logical GEMMs can be slower because of unfavorable wide shape and row stride.",
+  "responses_to_review": [
+    {
+      "author": "/root",
+      "disposition": "ACCEPT",
+      "response": "Only synchronized whole generate is a clean timing endpoint. Warm per-layer events are diagnostic; packed warm layer-0 events include recomputation and synchronization."
+    },
+    {
+      "author": "/root",
+      "disposition": "ACCEPT",
+      "response": "Probe agreement does not extend to other layers or sources. First inspect whole latent/RGB identities and within-arm repeats; changed outputs require quality verification."
+    },
+    {
+      "author": "/root",
+      "disposition": "ACCEPT",
+      "response": "Dispatch calls are serialized, all jobs use one GPU, and session cap remains two. Inherited sample_count=7 is a non-executable metadata field; cohort and run_plan enforce one source."
+    }
+  ],
+  "recheck_basis": [
+    "Inspected actual 11 staged execution files, frozen scope, self-audit, root dispatcher and activation script. All 16 code/input SHA bindings match. Python files and dispatcher/activation AST parse using real Python -B, with TEMP/TMP on E.",
+    "Original G0 all80 matrix payload SHA match both e0e_canoe_r1 matrix manifest and quality assets.json; four old local proof SHA match. Old Dense/G19 receipts share the frozen initial noise and complete 81-frame 832x464 16fps videos.",
+    "Native source snapshots for MMWeight, state_dict/load_state_dict, offload manager, transformer inference and weight modules hash-match the exact external source identities. MMWeight uses addmm with b1; pinned CPU state is already transposed to [5120,13824]. Native post_process(None) returns already gated x.",
+    "Packed uses [W1,A], [b1,0], original GELU tanh and W2; q row stride is passed to Triton. Fused cache/gate/skip boundaries retain BF16 rounding with FP fusion disabled. Both arms keep packed weights and identical anchor W1 prefetch; no mac reduction is claimed.",
+    "Fresh binding/cache per request, fixed HHLL dispatch and all160 sites, original initial-noise SHA checked before forward, 2 warm plus 8 measured AB BA AB BA enforced. Probe and per-layer events are disabled for measured requests.",
+    "Exact independent review/self-audit/scope/ACTIVE hashes precede weight access. Runtime checks actual Slurm job/user/node/single GPU, model/assets/source/package hashes, soft/hard budget, exclusive output and EXIT evidence. Reviewer performed no model/GPU experiment."
+  ],
+  "critical_source_hashes": {
+    "runner_panel.py": "c11f6a11b521614b4c5142ef3635e192645095e486c9947c0e7cec941b4fe0b8",
+    "runtime_guard.py": "adae0e9b898690b72e08e54269cdd6666e31ac19f5a147ca39e6b640317c0677",
+    "legacy_helpers.py": "f717d6f0858854dd9e1a4821c775bfd5f54692f37447dddf4dcfc814127480dd",
+    "direct.py": "e49cd42292d370138567cebc545d5d2cdeb80a4795b167fc26c42f59e9da7bc3",
+    "binding.py": "cdacbe9b2e23782bd2b6c4af31673fd34fe9fa513ce57a85d4bb12aa6a326bd3",
+    "resident.py": "e1cb1012d47d020c6762b5b70b8081e6e6491930d89cb50a34276b636937f6f6",
+    "selective.py": "0c1d3d46b5489f04c1b7baac483ae48229e306dd1e6f29343a30a1e23b0c9a44",
+    "fused_residual.py": "14f00635050da49c280a0f5f0ac464c6922c87cb8ff9c00d476f954a411a2e88",
+    "fused_post.py": "5e6559fcf3eb7f7b3dda24f64d6e148e8797c9755b379a99460f71c0b47e5d9e",
+    "job_panel.sh": "664324bad40a24e35a096ddc53073e662b96010024c8faa7127d95160c2d8b18",
+    "packed.py": "05ebb8a43265c4dd6ab2dfb9b212332b79a58e1835587cc311fce853fa61ff1b"
+  },
+  "frozen_inputs_sha256": {
+    "matrix_manifest.json": "11a19c94a73dfe57db87928d6843fe1f9c687e919712b7311c1c6650ea2e08b2",
+    "cohort_1.json": "9e6f65e055d92c5bdd1086d4d11cc380980edd366db8bfac196741c7f683448c",
+    "old_references.json": "a6701fc75d9b43e9597303b99dea202e38b940183b2ae2494a25f8f1e8c04435",
+    "config.json": "2908fd676b87192bb7b953d185437b3a2e8f6a8587bb1903aeb40aa3631e37ab",
+    "ROOT_SELF_AUDIT.md": "ef91d25b7119f4df7d26efd531837be858bca492dde197aa9212d20e623acda4"
+  },
+  "coordination_hashes": {
+    "dispatch_once.py": "0e547707454dd9dd9afe5a5fe5618ffb571241eb736e99f7850789c3924d888a",
+    "activate_stages.py": "22bb0f89b508f2e1b242ab8faf02ded626b0a8aafce54bb9c5d6f6dce68fe3e6"
+  },
+  "checkpoint_numeric_recipe": {
+    "checkpoints": {
+      "high": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/weights/Wan2.2-I2V-A14B-LightX2V-Distill-4step/high_noise_model/wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+        "sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "low": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/weights/Wan2.2-I2V-A14B-LightX2V-Distill-4step/low_noise_model/wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+        "sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      }
+    },
+    "dtype": "BF16",
+    "TF32": false,
+    "bf16_reduced_precision_reduction": true,
+    "cache": "GPU BF16",
+    "runtime_versions": {
+      "torch": "2.10.0+cu128",
+      "numpy": "2.4.6",
+      "imageio_ffmpeg": "0.6.0"
+    },
+    "triton": "3.6.0"
+  },
+  "input_cohort_manifest_sha256": "9e6f65e055d92c5bdd1086d4d11cc380980edd366db8bfac196741c7f683448c",
+  "control_arms": [
+    "same-residency fused_post G0",
+    "packed_anchor G0"
+  ],
+  "unit_of_independence": "one exposed source/image cluster; four timing repetitions are not independent quality samples",
+  "full_depth_or_claim_scope": "Four HHLL steps x 40 layers; engineering pilot only",
+  "predeclared_metrics": [
+    "synchronized whole-generation wall per run",
+    "four ordered pair timing differences derived from saved runs",
+    "preact/y/q/C warm layer-0 numerical differences",
+    "all160 execution coverage",
+    "final latent/RGB24/MP4 identities and within-arm repeats",
+    "setup seconds and payload",
+    "GPU allocated/reserved peaks",
+    "logical GEMM counts"
+  ],
+  "expected_physical_savings": {
+    "W1": "80 W1 addmm and 80 anchor A GEMMs become 80 wide addmm; total MAC unchanged",
+    "W2": "same 80 anchor W2 calls",
+    "hit": "same 80 hit A calls",
+    "observer_and_cache": "same current gate, BF16 C; unchanged native W1 transfers for this pilot",
+    "logical_gemms": "320 to 240 excluding warm diagnostic extra6"
+  },
+  "applicable_session_gpu_cap": 2,
+  "budget_and_failure_plan": {
+    "gpus_per_job": 1,
+    "max_jobs": 1,
+    "cpus": 4,
+    "host_memory_gib": 192,
+    "gpu_memory_gib": 78,
+    "cache_host_bytes": 34359738368,
+    "wall_seconds": 7200,
+    "soft_seconds": 7080,
+    "min_free_disk_gib": 40,
+    "total_output_bytes": 2147483648
+  },
+  "constraints": [
+    "Single exact scope and one attempt. Approval is not ACTIVE registration or evidence of actual execution; root must prelaunch-check remote identities and queue before serialized submit.",
+    "Dispatcher counts jobs rather than allocated GPU TRES and has no cross-process lock; approval relies on root confirmed serialized submission and all session jobs one GPU. No concurrent independent dispatch allowed.",
+    "Mean ratio alone is insufficient evidence of improvement; use all four ordered pair timings and direction stability. Whole-generate includes noise hash and encoding overhead equally; no clean FFN-only latency estimate is produced.",
+    "Old G0 timing is descriptive only. Same packed-residency baseline isolates fusion and is not the memory-minimal original implementation. Report extra packing/setup and 14.45GiB packed payload separately.",
+    "Old latent SHA exists in historical fused_post_1_PASS.json but is not copied into old_references; current runner reports it unavailable in that reference. Postrun can compare the verified old receipt explicitly without relabeling runner output.",
+    "sample_count=7 and exposure_status=UNVERIFIED are inherited metadata. Executable frozen cohort is one historically reused source, not blind confirmation.",
+    "No inference of broad quality or deployment acceptance. If outputs differ, retain the full clips and assess complete quality in a separately reviewed metric scope; at most one visual comparison group."
+  ],
+  "run_status": "NOT_RUN_BY_REVIEWER"
+}

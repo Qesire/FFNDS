@@ -1,0 +1,72 @@
+{
+  "schema": "G19_METRIC_INDEPENDENT_REVIEW_V1",
+  "scope_id": "G19_STRENGTHEN_Q_METRICS_B_R2",
+  "scope_sha256": "d2d06cc1d4c779b12d7321315cf5fc45cd69decfcdaf15926fd8c0fbf37ae405",
+  "disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "reviewer_agent_id": "/root/g19_metric_final_review",
+  "root_self_audit_sha256": "a0a59a051ebf0ed3d91615d57e275881fa8314451f87db39394415d19b35f96b",
+  "created_utc": "2026-11-07T00:46:37.336307+00:00",
+  "review_kind": "Independent final finite-scope review and exact-file recheck after root response",
+  "author_independence": true,
+  "blocking_findings": [],
+  "root_response": "Root confirms two one-GPU 7200s scopes only, concurrency <= 2; r1 joins only SHA-bound old scores; mean two seeds per source then seven sources equally; development evidence only; semantic foreground/background and physical camera remain NOT_MEASURED.",
+  "verified": {
+    "code_files": 13,
+    "frozen_input_files": 9,
+    "producer_proof_files": 34,
+    "r1_reference_files": 54,
+    "batch_source_count": 3,
+    "batch_video_actual_sha256_checks": 12,
+    "combined_source_count": 7,
+    "combined_new_video_count": 28,
+    "producer_pass_exit_scope_matrix_image_prompt_noise_identity": "PASS; actual local MP4 hashes checked for all 28 Q1/Q2 r2 outputs",
+    "metric_closure_and_queries": "Byte-identical to original D0/G0 successful quality scopes",
+    "unchanged_from_successful_r1": [
+      "runner_panel_metrics.py",
+      "runner_panel_tracks.py",
+      "relative_tracks.py",
+      "preflight_panel.py",
+      "analysis_motion.py",
+      "reduce_quality_flows.py",
+      "metric_contract.py",
+      "metric_loaders.py",
+      "job_panel_metrics.sh"
+    ],
+    "reviewed_execution_adaptations": [
+      "check_q_preflight.py verifies exact r2 producers and hash-bound r1 receipts",
+      "wrapper_panel.py recognizes A_R2/B_R2 and executes all eight dimensions, full RAFT and CoTracker",
+      "runtime_guard.py verifies real independent review, root audit, exact files and ACTIVE budget",
+      "activate_stages.py and dispatch_once.py resolve metric audit and finite metric launch contract"
+    ],
+    "budget": {
+      "gpus_per_job": 1,
+      "max_jobs": 1,
+      "cpus": 4,
+      "host_memory_gib": 192,
+      "wall_seconds": 7200,
+      "soft_seconds": 7080,
+      "node": "anode22"
+    }
+  },
+  "checks_reexecuted_after_root_response": [
+    "scope_sha256",
+    "all code/input SHA256",
+    "34 Q producer proof file SHA256",
+    "54 r1 reference file SHA256",
+    "all batch MP4 SHA256"
+  ],
+  "critical_source_sha256": {
+    "activate_stages.py": "22bb0f89b508f2e1b242ab8faf02ded626b0a8aafce54bb9c5d6f6dce68fe3e6",
+    "dispatch_once.py": "a586f87617ec353e6ea73ea98064b5212cd351ba74d7964049024f51ecd753e6"
+  },
+  "prior_static_recheck_sha256": "1a1c3f65ac5fdbf48f4a54ca2ab17cedc62467f444b015a01892e092c309ec9a",
+  "limitations": [
+    "Local independent review; remote file identity, scheduler allocation and installed metric closure remain mandatory compute-side preflight checks.",
+    "Approval is for these two exact one-job scopes only; no automatic retries or edited attempted scopes.",
+    "r1 score comparison is root postprocessing from r1_comparison_reference.json; generator summary compares D0/G0 and current Q1/Q2.",
+    "Seven sources have equal final weight after within-source two-seed averaging; batches are not equally weighted.",
+    "No semantic foreground/background masks or physical camera compensation are measured; at most one optional visual comparison group."
+  ],
+  "run_status": "NO_MODEL_OR_GPU_RUN_BY_REVIEWER"
+}
