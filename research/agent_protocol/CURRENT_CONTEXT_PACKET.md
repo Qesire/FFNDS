@@ -1,5 +1,8 @@
 # FFNDS · 当前Agent最小上下文（2026-11-05）
 
+**2026-11-07 FFN-only baseline 当前指令：** [新复现资料入口](../20261107/ffn_baseline_reproduction/README.md)。已核20261030 Chipmunk 全160/packed/视频/RAFT/ABBA真实证据，不重复已闭合scope；第一项新增复现是 ICC-FFN，TARDIS严格区分静态fold与完整在线predictor，TEAL/RT-Lynx/SharQ旧证据先复用。S0静态梳理可做，新CPU/GPU/视频前须不同Agent独立复评、真实ACTIVE scope及prelaunch SHA身份审查。本次提交DESIGN_ONLY，不启动作业。
+
+
 **2026-11-07 G19 接续入口：** [完整方法、推导、Q0/Q1/Q2、精修及全部实测结果](../20261107/G19_METHOD_DERIVATION_AND_RESULTS_20261107.md) · [新对话交接](../20261107/G19_NEXT_CHAT_20261107.md)。当前蒸馏四步原全融合基线历史配对约1.0484×（耗时少4.62%）；Q1精修存在质量取舍；宽GEMM与省W1预取均无稳定提速。28段质量视频、20段执行对照及8维/光流/轨迹评估已完成。原40步anchor5的约9.4%节时及质量失败保留其历史配置，不与当前结果混用。以下旧日期内容按历史身份阅读。
 
 

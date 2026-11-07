@@ -1,5 +1,8 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
+**2026-11-07 当前新任务——FFN-only 同模型前沿复现资料：** [统一入口](20261107/ffn_baseline_reproduction/README.md) · [G19与既有Chipmunk等资产](20261107/ffn_baseline_reproduction/G19_BASELINE_AND_ASSETS.md) · [ICC新复现实施规格](20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md) · [Chipmunk已有全160对照](20261107/ffn_baseline_reproduction/CHIPMUNK_REUSE_AND_COMPARISON.md) · [TARDIS及次级基线](20261107/ffn_baseline_reproduction/TARDIS_AND_ALTERNATIVES.md) · [实验/独立审查合同](20261107/ffn_baseline_reproduction/EXPERIMENT_CONTRACT.md) · [机器清单](20261107/ffn_baseline_reproduction/PLAN.json)。仅资料提交，无新增实验和RUN/EXIT；旧20261030 Chipmunk实验真实存在，下一步优先缺失的ICC并根据与最新版G19差异决定Chipmunk新同源scope。
+
+
 **2026-11-07 G19 接续入口：** [完整方法、推导、Q0/Q1/Q2、精修及全部实测结果](20261107/G19_METHOD_DERIVATION_AND_RESULTS_20261107.md) · [新对话交接](20261107/G19_NEXT_CHAT_20261107.md)。当前蒸馏四步原全融合基线历史配对约1.0484×（耗时少4.62%）；Q1精修存在质量取舍；宽GEMM与省W1预取均无稳定提速。28段质量视频、20段执行对照及8维/光流/轨迹评估已完成。原40步anchor5的约9.4%节时及质量失败保留其历史配置，不与当前结果混用。以下旧日期内容按历史身份阅读。
 
 

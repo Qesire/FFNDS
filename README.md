@@ -1,5 +1,8 @@
 # FFNDS · 视频生成 FFN 的信息、函数与实际计算研究
 
+**FFNDS G19 · 2026-11-07 新增 FFN-only 前沿复现资料：** [复现与既有资产导航](research/20261107/ffn_baseline_reproduction/README.md) · [ICC 移植规范](research/20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md) · [Chipmunk 旧结果与新版比较](research/20261107/ffn_baseline_reproduction/CHIPMUNK_REUSE_AND_COMPARISON.md)。文档设计已添加，但未自动启动新实验；以项目独立预审、ACTIVE 和真实RUN/EXIT为准。
+
+
 **2026-11-07 G19 接续入口：** [完整方法、推导、Q0/Q1/Q2、精修及全部实测结果](research/20261107/G19_METHOD_DERIVATION_AND_RESULTS_20261107.md) · [新对话交接](research/20261107/G19_NEXT_CHAT_20261107.md)。当前蒸馏四步原全融合基线历史配对约1.0484×（耗时少4.62%）；Q1精修存在质量取舍；宽GEMM与省W1预取均无稳定提速。28段质量视频、20段执行对照及8维/光流/轨迹评估已完成。原40步anchor5的约9.4%节时及质量失败保留其历史配置，不与当前结果混用。以下旧日期内容按历史身份阅读。
 
 

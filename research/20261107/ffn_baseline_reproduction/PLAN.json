@@ -1,0 +1,349 @@
+{
+  "title": "FFNDS G19 FFN-only baseline reproduction manifest",
+  "date": "2026-11-07",
+  "status": "DESIGN_ONLY_REVIEW_REQUIRED_NO_NEW_RUN",
+  "model": {
+    "model_id": "Wan2.2-I2V-A14B-LightX2V-Distill-4step",
+    "scheduler_steps": 4,
+    "expert_sequence": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "cfg": false,
+    "dtype": "bfloat16",
+    "attention": "torch_sdpa",
+    "resolution_hw": [
+      464,
+      832
+    ],
+    "frames": 81,
+    "fps": 16,
+    "num_layers_per_expert": 40,
+    "tokens_per_video": 31668,
+    "ffn_widths": {
+      "input": 5120,
+      "hidden": 13824,
+      "output": 5120
+    },
+    "gpu": "A100 80GB (matching original FFNDS test platform)"
+  },
+  "source_revisions": {
+    "g19": {
+      "repo": "https://github.com/Qesire/FFNDS",
+      "commit": "6d7a52b7110f053b4b469c76cb0e8283620eda64"
+    },
+    "icc": {
+      "repo": "https://github.com/ccccczzy/icc",
+      "commit": "dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4",
+      "paper": "https://arxiv.org/abs/2505.05829",
+      "entrypoints": [
+        "DiT/models/models_sp_step_decomp.py",
+        "DiT/gen_decomp.py",
+        "DiT/func/func_decomp.py"
+      ]
+    },
+    "chipmunk": {
+      "repo": "https://github.com/sandyresearch/chipmunk",
+      "commit": "b5e8d1c3da6bddc7ca9007c48e91b82087c11490",
+      "paper": "https://arxiv.org/abs/2506.03275",
+      "entrypoints": [
+        "src/chipmunk/modules/mlp.py",
+        "src/chipmunk/ops/mlp.py",
+        "src/chipmunk/triton/mlp_csp_mm1_bf16.py",
+        "src/chipmunk/triton/mlp_csp_mm2_bf16.py",
+        "src/chipmunk/util/layer_counter.py"
+      ]
+    },
+    "tardis": {
+      "paper": "https://arxiv.org/abs/2501.10054",
+      "verified_official_code": false,
+      "status": "PAPER_REIMPLEMENTATION_PENDING"
+    }
+  },
+  "input_sets": {
+    "cal_sources": [
+      "chip10_02",
+      "chip10_04",
+      "chip10_07",
+      "chip10_09"
+    ],
+    "cal_seed": 42,
+    "dev_sources": [
+      "raft",
+      "bicycle",
+      "guitar",
+      "tennis",
+      "spoon",
+      "eagle",
+      "canoe_static_00"
+    ],
+    "dev_seeds": [
+      43,
+      44
+    ],
+    "confirm_set": "UNDEFINED_FROZEN_AFTER_SELECTION"
+  },
+  "arms": [
+    {
+      "id": "D0",
+      "operator": "native dense FFN",
+      "role": "baseline",
+      "status": "HISTORICAL_G19_ALREADY_MEASURED"
+    },
+    {
+      "id": "G0",
+      "operator": "G19-Q0 anchored A and BF16 C",
+      "role": "existing baseline",
+      "status": "HISTORICAL_G19_ALREADY_MEASURED"
+    },
+    {
+      "id": "G19-Q1r2",
+      "operator": "fused_post Q1-r2",
+      "role": "existing quality candidate",
+      "status": "HISTORICAL_G19_ALREADY_MEASURED"
+    },
+    {
+      "id": "REUSE",
+      "operator": "reuse previous FFN output at steps1,3",
+      "role": "simple control",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ICC-SVD",
+      "operator": "ICC two-layer low-rank incremental",
+      "ranks": [
+        64,
+        128,
+        256,
+        512
+      ],
+      "role": "P0 replication",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ICC-CDSVD",
+      "operator": "ICC delta-calibrated channel-aware SVD",
+      "ranks": [
+        64,
+        128,
+        256,
+        512
+      ],
+      "role": "P0 replication",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CHIPMUNK-MLP",
+      "operator": "Chipmunk sparse MLP only",
+      "top_keys": [
+        0.15,
+        0.3,
+        0.5
+      ],
+      "role": "P0 prior assets re-audit and optional new matching scope",
+      "status": "HISTORICAL_WAN_P64_VIDEO_AND_PACKED_DONE__CURRENT_MATCHING_NOT_RUN"
+    },
+    {
+      "id": "TARDIS-STATIC",
+      "operator": "static interval linear fold without dynamic fallback",
+      "role": "nonpaper simplified control",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TARDIS-FULL",
+      "operator": "fold and dynamic interval fallback incl predictor",
+      "role": "P1 paper reimplementation",
+      "status": "NOT_RUN"
+    }
+  ],
+  "chipmunk_config_proposal": {
+    "steps": 4,
+    "num_model_invocations_per_inference_step": 1,
+    "attn": {
+      "is_enabled": false
+    },
+    "step_caching": {
+      "is_enabled": false
+    },
+    "mlp": {
+      "is_enabled": true,
+      "provider": "triton",
+      "full_step_every": 2,
+      "first_n_dense_layers": [
+        "sweep",
+        0,
+        2
+      ],
+      "top_keys": [
+        0.15,
+        0.3,
+        0.5
+      ]
+    },
+    "padding": {
+      "N_native": 31668,
+      "N_padded": 31744,
+      "invalid_tokens": 76,
+      "require_masked_padded_tokens": true
+    },
+    "status": "DESIGN_NOT_EXISTING_RUN",
+    "note": "Official Wan2.1 example disables MLP and enables attention+step cache; must install SparseDiffMlp and count 160 sites, handle tail valid rows."
+  },
+  "gates": [
+    "source_and_scope_identity",
+    "disabled_path_dense_equivalence",
+    "160_site_coverage_and_expert_isolation",
+    "native_FFN_paired_replay",
+    "GPU_kernel_and_cache_latency",
+    "pilot_video_all_metrics",
+    "full_seven_source_panel",
+    "new_frozen_confirm_sources"
+  ],
+  "required_metrics": [
+    "subject_consistency",
+    "background_consistency",
+    "motion_smoothness",
+    "dynamic_degree",
+    "aesthetic_quality",
+    "MUSIQ",
+    "i2v_subject",
+    "i2v_background",
+    "RAFT_beta",
+    "RAFT_cosine",
+    "RAFT_orthogonal_residual",
+    "RAFT_norm_ratio",
+    "CoTracker_with_fixed_common_support",
+    "FFN_anchor_time",
+    "FFN_hit_time",
+    "full_generate_time",
+    "peak_allocated",
+    "peak_reserved",
+    "cache_logical_bytes",
+    "kernel_and_transfer_time"
+  ],
+  "rules": [
+    "do_not_modify_attention_or_sampler",
+    "never_cross_cache_across_experts",
+    "do_not_count_mask_prep_as_free",
+    "do_not_confuse_original_paper_results_with_Wan_port",
+    "do_not_infer_video_quality_from_local_SSE",
+    "never_overwrite_existing_successful_scope",
+    "no_unapproved_GPU_experiments"
+  ],
+  "files": {
+    "guide": "research/20261107/ffn_baseline_reproduction/REPRODUCTION_GUIDE.md",
+    "other_docs": {
+      "entry": "research/20261107/ffn_baseline_reproduction/README.md",
+      "guide": "research/20261107/ffn_baseline_reproduction/REPRODUCTION_GUIDE.md",
+      "assets": "research/20261107/ffn_baseline_reproduction/G19_BASELINE_AND_ASSETS.md",
+      "icc": "research/20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md",
+      "chipmunk": "research/20261107/ffn_baseline_reproduction/CHIPMUNK_REUSE_AND_COMPARISON.md",
+      "tardis": "research/20261107/ffn_baseline_reproduction/TARDIS_AND_ALTERNATIVES.md",
+      "protocol": "research/20261107/ffn_baseline_reproduction/EXPERIMENT_CONTRACT.md"
+    }
+  },
+  "revision": "2026-11-07-ffn-baselines-reuse-aware-v2",
+  "parent_guide": "conversation prior guide; current version in repository",
+  "auth": {
+    "new_experiment_approved": false,
+    "registered_active_scope": false,
+    "actual_gpu_jobs_launched": false,
+    "preexecution_review": "REQUIRED_FOR_EACH_NEW_SCOPE",
+    "device_limits": "read current ACTIVE/session authorization before execution"
+  },
+  "existing_evidence": {
+    "chipmunk_full160": "research/20261030/CHIPMUNK_GLOBAL_P64_V2_ALL160_VIDEO_RESULTS_20261030.md",
+    "chipmunk_quality": "research/20261030/CHIPMUNK_P64_V2_QUALITY_RESULTS_20261030.md",
+    "chipmunk_packed": "research/20261030/CHIPMUNK_FULLM_PACKED_NATIVE_RESULTS_20261030.md",
+    "chipmunk_abba": "research/20261030/CHIPMUNK_SYNC_ABBA_RESULTS_20261030.md",
+    "rtlynx_partial": "research/20261030/RTLYNX_WAN_BF16_2TO4_PAIR_RESULTS_20261030.md",
+    "teal_capture": "research/20261030/TEAL_WAN_FULLM_H_CAPTURE_RESULTS_20261030.md",
+    "sharq_video": "research/20261030/SHARQ_WAN_ALL160_VIDEO_V2_QUALITY_RESULTS_20261030.md",
+    "g19_results": "research/20261107/G19_METHOD_DERIVATION_AND_RESULTS_20261107.md",
+    "g19_quality": "reports/20261107/g19/quality_summary.json",
+    "g19_motion": "reports/20261107/g19/motion_summary.json",
+    "g19_engineering": "reports/20261107/g19/engineering_summary.json"
+  },
+  "stages": [
+    {
+      "stage": "S0_ASSET_REUSE",
+      "execution_status": "NOT_RUN",
+      "review_required": "PER_GOVERNANCE_FOR_SCIENTIFIC_COMPUTE",
+      "approval": "NOT_GRANTED",
+      "evidence": "NONE_NEW"
+    },
+    {
+      "stage": "S1_NUMERIC_NEUTRAL",
+      "execution_status": "NOT_RUN",
+      "review_required": "PER_GOVERNANCE_FOR_SCIENTIFIC_COMPUTE",
+      "approval": "NOT_GRANTED",
+      "evidence": "NONE_NEW"
+    },
+    {
+      "stage": "S2_NATIVE_REPLAY",
+      "execution_status": "NOT_RUN",
+      "review_required": "PER_GOVERNANCE_FOR_SCIENTIFIC_COMPUTE",
+      "approval": "NOT_GRANTED",
+      "evidence": "NONE_NEW"
+    },
+    {
+      "stage": "S3_KERNEL_AND_CACHE_COST",
+      "execution_status": "NOT_RUN",
+      "review_required": "PER_GOVERNANCE_FOR_SCIENTIFIC_COMPUTE",
+      "approval": "NOT_GRANTED",
+      "evidence": "NONE_NEW"
+    },
+    {
+      "stage": "S4_PAIRED_VIDEO_PILOT",
+      "execution_status": "NOT_RUN",
+      "review_required": "PER_GOVERNANCE_FOR_SCIENTIFIC_COMPUTE",
+      "approval": "NOT_GRANTED",
+      "evidence": "NONE_NEW"
+    },
+    {
+      "stage": "S5_FULL_DEV_AND_NEW_CONFIRM",
+      "execution_status": "NOT_RUN",
+      "review_required": "PER_GOVERNANCE_FOR_SCIENTIFIC_COMPUTE",
+      "approval": "NOT_GRANTED",
+      "evidence": "NONE_NEW"
+    }
+  ],
+  "new_scopes": [
+    {
+      "id": "ICC_WAN22_FFN_ONLY_PORT",
+      "status": "DESIGN_ONLY",
+      "priority": "P0_NEW",
+      "status_reason": "No matched ICC on current four-step Wan"
+    },
+    {
+      "id": "CHIPMUNK_WAN22_MATCHED_7DEV",
+      "status": "DESIGN_ONLY",
+      "priority": "P0_GAP_ONLY",
+      "status_reason": "Existing P64 source898/96 and later ABBA are historical; check identity before rerun"
+    },
+    {
+      "id": "TARDIS_WAN22_PAPER_REIMPLEMENT",
+      "status": "DESIGN_ONLY",
+      "priority": "P1",
+      "status_reason": "Author full implementation not verified"
+    }
+  ],
+  "method_document_paths": {
+    "entry": "research/20261107/ffn_baseline_reproduction/README.md",
+    "guide": "research/20261107/ffn_baseline_reproduction/REPRODUCTION_GUIDE.md",
+    "assets": "research/20261107/ffn_baseline_reproduction/G19_BASELINE_AND_ASSETS.md",
+    "icc": "research/20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md",
+    "chipmunk": "research/20261107/ffn_baseline_reproduction/CHIPMUNK_REUSE_AND_COMPARISON.md",
+    "tardis": "research/20261107/ffn_baseline_reproduction/TARDIS_AND_ALTERNATIVES.md",
+    "protocol": "research/20261107/ffn_baseline_reproduction/EXPERIMENT_CONTRACT.md"
+  },
+  "confirmation_missing_metrics": [
+    "independent_temporal_flicker",
+    "camera_physical_motion",
+    "semantic_foreground_background_flow",
+    "text_action_or_state_change",
+    "human_full_video_review"
+  ]
+}

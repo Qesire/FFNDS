@@ -1,5 +1,8 @@
 # FFNDS · AutoResearcher 科研Agent默认约定
 
+**2026-11-07 新用户任务：G19 最新四步 FFN-only 前沿基线资料与后续复现优先级。** [专门复现目录](research/20261107/ffn_baseline_reproduction/README.md) · [ICC 移植](research/20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md) · [Chipmunk 旧资产复用](research/20261107/ffn_baseline_reproduction/CHIPMUNK_REUSE_AND_COMPARISON.md) · [强制实验合同](research/20261107/ffn_baseline_reproduction/EXPERIMENT_CONTRACT.md)。Chipmunk 已在2026-10-30完成两暴露来源的全160 P64/packed/视频/质量实测，**不得将其重排为“首次复现”或自动重跑旧scope**。首项缺失的新匹配基线是 ICC-FFN；Chipmunk 仅在新版G19同源对照不足且经过独立复审后补匹配实验；TARDIS 原作者代码身份未确定，只先做源码/算法审查。本次仅发布资料，没有 GPU、ACTIVE 注册、独立评议通过或新效果结果。此更晚用户指令优先于下文2026-10-29按当时状态书写的P0/TEAL/Chipmunk优先级；旧成果与数学协议仍有效。
+
+
 **2026-11-05 接续范围：** 用户要求将当前 G19 详细方法与成果发布到本仓库，现行证据入口为[完整方法与成果](research/20261105/G19_METHOD_AND_RESULTS_20261105.md)。下文旧日期的停止要求、四步限定及任务优先级保留历史身份，不覆盖后续用户已授权的原模型40步研究。本次归档本身不启动新实验。各历史 scope、独立审查与实际结果保存在归档中；继续实验仍按用户当前范围与科学协议登记，不从旧 Next/Run 自动启动。
 
 **2026-10-30 A5/HWG本轮已按用户范围完成核心比较**：[最终结果](research/20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_RESULTS_20261030.md)和[当前导航](research/RESEARCH_NAVIGATION.md)。M0/M1、三源全160匹配采集/独立VERIFY、CAL1、三源全M双expert×40层58臂E0及240mask独立CPU汇总已实际闭合。当前用户要求发布main后结束；本轮没有E1原生skip或E2候选视频，不从旧任务文档自动启动新范围。全部实际收据与失败保留，部署验收未通过。下文科学协议继续适用于未来另行接手的研究。
