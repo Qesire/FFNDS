@@ -1,5 +1,8 @@
 # FFNDS · 当前研究导航（2026-10-30）
 
+**2026-11-10 G20 · FFN 终端可观测增量算子的重新推导（DESIGN_ONLY / REVIEW_REQUIRED）：** [机制与数学主文档](20261110/G20_FFN_FUNCTIONAL_OPERATOR_REDERIVATION_20261110.md) · [E0–E4 可辨识实验设计](20261110/G20_FUNCTIONAL_OPERATOR_EXPERIMENT_DESIGN_20261110.md)。重审 Q1-r2 的读取—写入结构、真实轨迹函数误差、终端可观测零空间、跨层与去噪步耦合、时间差分和稳定有效秩；将“终端拟合→后层优先→统一低秩”调整为先机制判别、再功能目标与各层执行模式。基于既有 G19 开发结果，尚未启动新模型/视频实验、独立评议或修改 ACTIVE；旧结果和既有 FFN-only 复现优先级保持原有身份。
+
+
 **2026-11-07 当前新任务——FFN-only 同模型前沿复现资料：** [统一入口](20261107/ffn_baseline_reproduction/README.md) · [G19与既有Chipmunk等资产](20261107/ffn_baseline_reproduction/G19_BASELINE_AND_ASSETS.md) · [ICC新复现实施规格](20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md) · [Chipmunk已有全160对照](20261107/ffn_baseline_reproduction/CHIPMUNK_REUSE_AND_COMPARISON.md) · [TARDIS及次级基线](20261107/ffn_baseline_reproduction/TARDIS_AND_ALTERNATIVES.md) · [实验/独立审查合同](20261107/ffn_baseline_reproduction/EXPERIMENT_CONTRACT.md) · [机器清单](20261107/ffn_baseline_reproduction/PLAN.json)。仅资料提交，无新增实验和RUN/EXIT；旧20261030 Chipmunk实验真实存在，下一步优先缺失的ICC并根据与最新版G19差异决定Chipmunk新同源scope。
 
 
