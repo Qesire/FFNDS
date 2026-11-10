@@ -37,7 +37,7 @@
 3. **四步蒸馏、同一次生成内缓存**：FFNDS G19；两个专家各两次，强制 step0/2 建立锚点。
 4. **四步模型、跨请求复用**：Chorus；吞吐/请求分布/语义匹配假设不同于单视频延迟。
 
-论文中的 \`N=5\`、\`4.10×\`、\`50 steps\` 是各自算法参数、速度与原始采样步数，必须记录单位。作者最高速度、FFN 核单层速度和同模型 end-to-end wall time 分开。
+论文中的 `N=5`、`4.10×`、`50 steps` 是各自算法参数、速度与原始采样步数，必须记录单位。作者最高速度、FFN 核单层速度和同模型 end-to-end wall time 分开。
 
 ## 2. 反向论文审查：如何从相似算法形成不同贡献
 
@@ -52,8 +52,8 @@
 
 - DisCa：逐表核对四步 checkpoint、Restricted MeanFlow+predictor 的训练/评测身份；找出同 checkpoint 的 predictor-only 对照。
 - AutoTarget：阅读 solver 不变性条件、哪一类缓存张量可保持 Euler 轨迹；排除把单纯张量选择包装为全新方法。
-- RECAP：读取 \`operator.py\` / \`controller.py\` 的付费 coarse/mask/log-mass 路径及缓存有效性；复核其与单请求四步的兼容。
-- LearniBridge：核对 \`wan/run.py\` 及 \`wan/README.md\` 中 50-step / CFG 的默认命令和训练行为；核对所报告 VBench 的设置。
+- RECAP：读取 `operator.py` / `controller.py` 的付费 coarse/mask/log-mass 路径及缓存有效性；复核其与单请求四步的兼容。
+- LearniBridge：核对 `wan/run.py` 及 `wan/README.md` 中 50-step / CFG 的默认命令和训练行为；核对所报告 VBench 的设置。
 - ICC-FFN：按旧 [移植合同](../../20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md) 完成同四步数值/显存验证（尚未据本簿执行）。
 
 **身份**：此文献簿不产生新的实验数据/确认性性能，也不将用户报告的最新 ICC/Chipmunk 结果当作已由仓库收据独立核验。
