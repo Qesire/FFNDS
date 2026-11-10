@@ -1,3 +1,5 @@
+> **2026-11-11 · G20 / ICML 新入口：** [正向机制、少步蒸馏反向查重、出局/推进及验证设计](20261111/G20_ICML_FORWARD_REVERSE_SYNTHESIS_AND_EXPERIMENT_DECISIONS_20261111.md) · [新论文 L99–L109 核读簿](literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md) · [目录](20261111/README.md)。此为 LIT/ALG/DESIGN_ONLY，未修改 ACTIVE、无新GPU运行；下文旧时点进度保持历史身份。
+
 # FFNDS · 当前研究导航（2026-10-30）
 
 **2026-11-10 G20 · FFN 终端可观测增量算子的重新推导（DESIGN_ONLY / REVIEW_REQUIRED）：** [机制与数学主文档](20261110/G20_FFN_FUNCTIONAL_OPERATOR_REDERIVATION_20261110.md) · [E0–E4 可辨识实验设计](20261110/G20_FUNCTIONAL_OPERATOR_EXPERIMENT_DESIGN_20261110.md)。重审 Q1-r2 的读取—写入结构、真实轨迹函数误差、终端可观测零空间、跨层与去噪步耦合、时间差分和稳定有效秩；将“终端拟合→后层优先→统一低秩”调整为先机制判别、再功能目标与各层执行模式。基于既有 G19 开发结果，尚未启动新模型/视频实验、独立评议或修改 ACTIVE；旧结果和既有 FFN-only 复现优先级保持原有身份。

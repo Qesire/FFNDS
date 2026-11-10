@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.paper_method_focus_graph.v2",
   "status": "STATIC_LITERATURE_AND_METHOD_MAPPING_NOT_NATIVE_EXECUTION",
-  "date": "2026-10-28",
+  "date": "2026-11-11",
   "purpose": "Every indexed paper gets a machine-checkable graph lens: focal native boundary, observed mechanism, decision-time information, physical/training action, transfer discriminator, and reading depth. Does not claim Wan method deployment.",
   "original_graph": "research/agent_protocol/GRAPH_AGENT_BINDINGS.json",
   "primary_index": "research/literature/20261026/PRIMARY_LITERATURE_INDEX.json",
@@ -2056,6 +2056,221 @@
       "intervention": "Acquire selected feature values or stop and classify",
       "decision_time": "Sequentially acquired features only; acquisition outcome unknown when chosen",
       "wan_transfer_question": "Transferable decision formulation; Wan observations can execute target operators, change action feasibility and exhaust savings"
+    },
+    {
+      "id": "L99",
+      "focus_nodes": [
+        "T04",
+        "T05",
+        "T07",
+        "T11",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "OFFICIAL_CVPR_ABSTRACT_AND_EXISTING_AUTHOR_SOURCE_PORT_AUDIT_20261111",
+      "mechanism": "History output plus low-rank linear increment calibration, with channel-aware SVD",
+      "intervention": "Low-rank two-stage FFN correction and caching",
+      "decision_time": "Previous and current module input, previous cached output",
+      "wan_transfer_question": "ICC FFN retains intermediate GELU/two-stage rank; contrast fixed full-FFN secant A on matched 4-step HHLL, count four/two cache states and native GEMMs",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://openaccess.thecvf.com/content/CVPR2025/html/Chen_Accelerating_Diffusion_Transformer_via_Increment-Calibrated_Caching_with_Channel-Aware_Singular_Value_CVPR_2025_paper.html",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L100",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T11",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "OFFICIAL_ICCV_ABSTRACT_20261111",
+      "mechanism": "Cached feature gradients propagate across steps; inflection point scheduling",
+      "intervention": "Cache correction and selected recomputation",
+      "decision_time": "Historical feature and gradient queue, timestep statistics",
+      "wan_transfer_question": "Downstream trajectory correction already prior; require actual four-step state propagation and JVP finite injection distinct from gradient extrapolation",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://openaccess.thecvf.com/content/ICCV2025/html/Qiu_Accelerating_Diffusion_Transformer_via_Gradient-Optimized_Cache_ICCV_2025_paper.html",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L101",
+      "focus_nodes": [
+        "T03",
+        "T09",
+        "T11",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "OFFICIAL_ICLR_ABSTRACT_20261111",
+      "mechanism": "Estimate output change magnitude from module input-output relationship and schedule cache refresh",
+      "intervention": "Feature magnitude forecast and relational cache schedule",
+      "decision_time": "Current module input and historical output/cache",
+      "wan_transfer_question": "Input-informed output change prediction is prior; distinguish vector-valued full FFN delta and paid observer",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/4019681ef05e8e347c3067d7f973a364-Abstract-Conference.html",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L102",
+      "focus_nodes": [
+        "T01",
+        "T02",
+        "T09",
+        "T11",
+        "T14",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "OFFICIAL_PMLR_ABSTRACT_AND_AUTHOR_WAN_README_RUN_COMMAND_20261111",
+      "mechanism": "Shared prompt-independent low-rank correction space with lightweight LoRA adapters",
+      "intervention": "LoRA feature calibration under cache reuse",
+      "decision_time": "Offline feature trajectories / online existing cache",
+      "wan_transfer_question": "Wan 4.10x is 50-step non-step-distilled Wan, unlike 4step Wan2.2; do not claim same-denominator speed; rank-sharing alone not novel",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://proceedings.mlr.press/v306/huang26f.html",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L103",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T11",
+        "T12",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "OFFICIAL_PMLR_ABSTRACT_20261111",
+      "mechanism": "Fix compute budget and search cache policy minimizing final output deviation, including cache-aware time schedule",
+      "intervention": "Whole-step cache policy and solver schedule",
+      "decision_time": "Offline teacher/reference outputs and step schedule",
+      "wan_transfer_question": "Budget objective itself prior; new claim must be source/online info/FFN-Attention coupled execution and same wall budget vs independent composition",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://proceedings.mlr.press/v306/lei26j.html",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L104",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T11",
+        "T12",
+        "T14"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "ARXIV_ABSTRACT_AND_CVPR_AUTHOR_README_PLUS_PUBLIC_SUPPLEMENT_SUMMARY_20261111",
+      "mechanism": "Lightweight learned predictor with distillation-compatible Restricted MeanFlow",
+      "intervention": "Predict costly feature evolution across large diffusion-step gaps",
+      "decision_time": "Teacher trajectory/cache and short-step student inputs",
+      "wan_transfer_question": "Distillation-cache compatibility already published; compare checkpoint/dynamics with same student under matched caching arm, avoid attributing jointly trained model difference to cache alone",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2602.05449",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L105",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T11",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "ARXIV_ABSTRACT_20261111",
+      "mechanism": "Offline evaluate cache-target impact for given model, solver and reuse schedule; Euler target equivalence",
+      "intervention": "Select target tensor to cache across few-step inference",
+      "decision_time": "Offline non-cached calibration runs and solver metadata",
+      "wan_transfer_question": "Few-step choice of which tensor to cache is prior; G20 must explain function-increment mechanism beyond target-selection",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2610.03577",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L106",
+      "focus_nodes": [
+        "T01",
+        "T02",
+        "T10",
+        "T11",
+        "T13"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "ARXIV_ABSTRACT_AND_AUTHOR_PROJECT_PAGE_20261111",
+      "mechanism": "Cross-request feature reuse with stage-wise exact/regional reuse and attention alignment",
+      "intervention": "Inter-request serving cache and token-guided attention amplification",
+      "decision_time": "Other-request cache, current prompt/image matching information",
+      "wan_transfer_question": "Cross-request 4step speedup prior but distinct batch/traffic conditions; G19 is single-request 4step intra-expert operator, do not compare without demand and hit-rate denominator",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2604.04451",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L107",
+      "focus_nodes": [
+        "T09",
+        "T10",
+        "T11",
+        "T13"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "ARXIV_ABSTRACT_AND_AUTHOR_README_OPERATOR_PY_PARTIAL_20261111",
+      "mechanism": "Sparse attention coarse estimate + refreshed dense detail residual, corrected prediction bank with online error feedback",
+      "intervention": "Attention sparse kernel plus hierarchical cache/refresh",
+      "decision_time": "Current sparse attention stats, cached detail and prediction history",
+      "wan_transfer_question": "Naively combining sparse attention and historical residual correction is already prior; examine legal cheap signal and same cost vs G19+RECAP-like independent composition",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://arxiv.org/abs/2610.26244",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L108",
+      "focus_nodes": [
+        "T02",
+        "T09",
+        "T11",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "OFFICIAL_CVPR_ABSTRACT_20261111",
+      "mechanism": "Sensitivity of denoising output to noisy latent and time guides dynamic cache steps",
+      "intervention": "Per-sample refresh/cache decision",
+      "decision_time": "Current denoising state/timestep and calibration sensitivity",
+      "wan_transfer_question": "Jacobian sensitivity based caching is prior; new theory requires augmented anchor-state downstream effect and paid implementation",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://openaccess.thecvf.com/content/CVPR2026/html/Haghighi_SenCache_Accelerating_Diffusion_Model_Inference_via_Sensitivity-Aware_Caching_CVPR_2026_paper.html",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L109",
+      "focus_nodes": [
+        "T02",
+        "T10",
+        "T11",
+        "T16"
+      ],
+      "index": "PRIMARY_LITERATURE_INDEX.json",
+      "review_depth": "OFFICIAL_CVPR_ABSTRACT_20261111",
+      "mechanism": "Spectral evolution filter separates content/noise for cache-reuse signal",
+      "intervention": "Dynamic cache scheduling",
+      "decision_time": "Filtered current feature changes before skip decision",
+      "wan_transfer_question": "Spectral stats and cache rules are prior; true motion/semantic preservation requires separate causal and video evidence",
+      "associated_mechanism_families": [],
+      "graph_anchor_existing": [],
+      "source_url": "https://openaccess.thecvf.com/content/CVPR2026/html/Chung_SeaCache_Spectral-Evolution-Aware_Cache_for_Accelerating_Diffusion_Models_CVPR_2026_paper.html",
+      "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
     }
   ],
   "supplemental_papers": [
@@ -2927,5 +3142,25 @@
     "relation": "LIT_COMPETITOR_NOT_NATIVE_CAUSAL_SUPPORT",
     "native_followthrough": "research/20261029/RAW_BF16_FULL21TAU_NEW10_FACTOR_REPLAY_20261029.md",
     "contrast": "DC/AC-weighted calibration is not adjoint covariance balancing and no Gaussian Wan guarantee is borrowed."
+  },
+  "g20_20261111_primary_extension": {
+    "ids": [
+      "L99",
+      "L100",
+      "L101",
+      "L102",
+      "L103",
+      "L104",
+      "L105",
+      "L106",
+      "L107",
+      "L108",
+      "L109"
+    ],
+    "review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md",
+    "synthesis": "research/20261111/G20_ICML_FORWARD_REVERSE_SYNTHESIS_AND_EXPERIMENT_DECISIONS_20261111.md",
+    "focus_count": 16,
+    "paper_links_after": 109,
+    "status": "LIT_MAPPING_ONLY_NO_NATIVE_RUN"
   }
 }

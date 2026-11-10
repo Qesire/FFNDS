@@ -1,3 +1,5 @@
+> **2026-11-11 · G20 / ICML 文献扩展：** [新增 L99–L109 论文核读簿](../20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md) 已登记主索引，共109个 primary records；L39 SVD-Cache、L52 L²P、C16 LEMS、C17 TARDIS 复用旧 ID。[正向/反向研究综合](../../20261111/G20_ICML_FORWARD_REVERSE_SYNTHESIS_AND_EXPERIMENT_DECISIONS_20261111.md)。下文历史92/98与当时审查状态为保留的阶段记录。
+
 # FFNDS · 文献Agent的一手核读、证据等级与计算图回写契约
 
 > 现行版本：2026-10-28。全部研究记录索引：[92篇唯一论文](PRIMARY_LITERATURE_INDEX.json)；综合机制解释：[现行研究报告](../../20261027/FFN_MECHANISM_LITERATURE_AND_GRAPH_SYNTHESIS.md)；机器关系：[Crosswalk](../../agent_protocol/MECHANISM_GRAPH_CROSSWALK.json)。原2026-10-26首批33/51篇是历史检索阶段，而非当前总数。文献研究持续，有限原生执行由ACTIVE当前登记控制；旧暂停范围保留历史身份。
