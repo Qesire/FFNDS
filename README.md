@@ -1,5 +1,8 @@
 # FFNDS · 视频生成 FFN 的信息、函数与实际计算研究
 
+**2026-11-10 G20 研究重推导：** [FFN 终端可观测增量算子与 Q1-r2 数学复审](research/20261110/G20_FFN_FUNCTIONAL_OPERATOR_REDERIVATION_20261110.md) · [E0–E4 机制与方法实验设计](research/20261110/G20_FUNCTIONAL_OPERATOR_EXPERIMENT_DESIGN_20261110.md)。从真实输入增量、下游功能观测、跨层与跨去噪步传播出发，重新评议终端损失、时序度量、层序及功能低秩，提出 Rank0／rank-r／完整 A／原生 FFN 的分层执行选择。本轮仅归档设计，不改变历史结果；新实验仍需独立复审及 ACTIVE 冻结。
+
+
 **FFNDS G19 · 2026-11-07 新增 FFN-only 前沿复现资料：** [复现与既有资产导航](research/20261107/ffn_baseline_reproduction/README.md) · [ICC 移植规范](research/20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md) · [Chipmunk 旧结果与新版比较](research/20261107/ffn_baseline_reproduction/CHIPMUNK_REUSE_AND_COMPARISON.md)。文档设计已添加，但未自动启动新实验；以项目独立预审、ACTIVE 和真实RUN/EXIT为准。
 
 
