@@ -1,5 +1,7 @@
 # G20 / ICML · 正向数学与反向文献综合（2026-11-11）
 
+- [下一轮实验路线与判据：最少重复采集、线性/非线性判别、终端干预和系统确认](G20_NEXT_EXPERIMENT_ROUTE_AND_DECISION_TESTS_20261111.md)：R0–R3 分阶段实验、已有资产复用与条件触发分支；DESIGN_ONLY，尚未授权新 RUN。
+
 - [双主线优先研究合同：新算子 + Wan/蒸馏/采样归因](G20_TWO_TRACK_OPERATOR_AND_DISTILLATION_ATTRIBUTION_20261111.md)：含方法归因 2×2 对照、强基线身份、可区别预测、有限幅注入与状态相关算子；仅 DESIGN_ONLY。
 
 - [统一研究决策与实验判别](G20_ICML_FORWARD_REVERSE_SYNTHESIS_AND_EXPERIMENT_DECISIONS_20261111.md)：已测事实、有限割线/状态曲率、信息成本、蒸馏下的结构差异、跨 Attention 扩展、出局条件、论文主张。
