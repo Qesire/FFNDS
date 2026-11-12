@@ -1,3 +1,5 @@
+> **2026-11-12 当前实验入口：** [G20实验路线v3](research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md) · [240对多语义图文规划与采样](research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md) · [资产树](research/20261112/G20_ASSET_REGISTRY_20261112.json) · [执行顺序](research/20261112/G20_EXECUTION_QUEUE_20261112.json)。按CAL96/DEV48/CONFIRM96组织12语义层，来源广度/行密度、线性/非线性、ICC/Chipmunk、真实轨迹及权重归因共用资产；最终七臂系统确认。240项目前为UNBOUND规划，运行按具体scope另行注册。
+
 # FFNDS · 视频生成 FFN 的信息、函数与实际计算研究
 
 **2026-11-10 G20 研究重推导：** [FFN 终端可观测增量算子与 Q1-r2 数学复审](research/20261110/G20_FFN_FUNCTIONAL_OPERATOR_REDERIVATION_20261110.md) · [E0–E4 机制与方法实验设计](research/20261110/G20_FUNCTIONAL_OPERATOR_EXPERIMENT_DESIGN_20261110.md)。从真实输入增量、下游功能观测、跨层与跨去噪步传播出发，重新评议终端损失、时序度量、层序及功能低秩，提出 Rank0／rank-r／完整 A／原生 FFN 的分层执行选择。本轮仅归档设计，不改变历史结果；新实验仍需独立复审及 ACTIVE 冻结。
@@ -71,4 +73,5 @@ python tools/check_autoresearcher_binding.py
 原始实验收据、hash、历史错误与候选失配的证据保留在[ARCHIVE](ARCHIVE.md)及[原始报告](reports/)；新研究资料优先更新对应现行方法正文、证据谱系和P0–P4索引，不创建第二份并列“当前状态总览”。
 
 M-B已有[CAL24来源配对和固定候选池结果](research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)及[Direct65 H128真实学生pilot](research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)；同head A0公平对照已完成，当前继续B-F、部署与完整视频验证，按唯一任务台账继续。F线专题见[G13](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)，运行权限定于[ACTIVE](research/ACTIVE_RESEARCH.json)。
+
 

@@ -1,3 +1,5 @@
+> **2026-11-12 当前G20接手入口：** [路线v3](../20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md) → [来源与采样](../20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md) → [机器队列](../20261112/G20_EXECUTION_QUEUE_20261112.json) → [资产树](../20261112/G20_ASSET_REGISTRY_20261112.json)。R1/R1b分别job156476/157314已EXIT0；稳定求解仍保留六站点DEV主要退化，先区分修正方向/幅度、来源/行密度与表示；不重跑旧scope。基础CAL96/DEV48/CONFIRM96共240槽位尚未绑定；首波36个Dense capture条件含两源pilot，另2次plain neutral，38次执行。第二/三波60/96条件，累计192条件/194执行。原权重×状态归因与Attention兼容并行；最终七臂。当前是设计维护，没有新增ACTIVE可运行scope，旧日期ICC未运行等状态应按后续R1/R1b更新读取。
+
 # FFNDS · 当前Agent最小上下文（2026-11-05）
 
 **2026-11-07 FFN-only baseline 当前指令：** [新复现资料入口](../20261107/ffn_baseline_reproduction/README.md)。已核20261030 Chipmunk 全160/packed/视频/RAFT/ABBA真实证据，不重复已闭合scope；第一项新增复现是 ICC-FFN，TARDIS严格区分静态fold与完整在线predictor，TEAL/RT-Lynx/SharQ旧证据先复用。S0静态梳理可做，新CPU/GPU/视频前须不同Agent独立复评、真实ACTIVE scope及prelaunch SHA身份审查。本次提交DESIGN_ONLY，不启动作业。
@@ -82,4 +84,5 @@
 5. 使用[独立方法讨论队列](../method_discussion/QUEUE.md)登记**真实**不同Agent提出及评议的方法；历史B-H/B-F/A0与Affine54记录不改原身份。新论文/计算边按[图谱协作](GRAPH_AGENT_COLLABORATION.md)同步。
 
 **下一Agent交付**：按[资产先行统一队列](ASSET_FIRST_AGENT_HANDOFF_20261029.md)完成其中一个已注册的真实机制判别；输出正常计算图、至少两种竞争解释、source-held结果或确切缺失资产、在线合法动作与代价、能覆盖160位置的视频及系统桥梁。新结论以原生证据更新现行文件，不另造重复的“权威进度”。
+
 

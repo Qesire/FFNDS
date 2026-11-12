@@ -1,6 +1,8 @@
-> **2026-11-12 · G20 R1b 数值复核已实际执行（NATIVE/OBS，EXIT 0）：** [结果与裁决](20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md) · [证据/收据/冻结源码](../reports/20261112/g20_r1b_recheck/README.md) · [独立审查](experiment_reviews/G20_R1B_NUMERICAL_RECHECK_20261112/v1.json)。job 157314 单 A100：稳定 F64 精确解仍使 DEV5 退化 +15%–28%（6/6 站点），H_overfit 成立、H_artifact 否定；R1 发表秩违反确认为 FP32 伪影（能量 <1%、解释 ≤0.83 pp），R1 过拟合定性结论存活；ICC 误差主要来自 stage-2 原生 h 残差。R1 结果文档已版本化更正（seed 42 等），冻结快照不改。判别动作不变：扩大 CAL 覆盖后重拟合；本次发布不启动新作业。
+> **2026-11-12 当前方案、资产与实验顺序：** [G20路线v3](20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md) · [图文/采样规格](20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md) · [240槽位机器清单](../config/g20_semantic_cohort_v1_20261112.json) · [资产树](20261112/G20_ASSET_REGISTRY_20261112.json) · [执行队列](20261112/G20_EXECUTION_QUEUE_20261112.json)。基础CAL96/DEV48/CONFIRM96，12语义层/96子题，240槽位当前均UNBOUND；共享Dense采集192条件/194次执行，来源/行密度/非线性/ICC/Chipmunk并行辨识，O/D归因并行，最终七臂确认。当前仅更新设计与索引，未新增可运行scope；历史R1/R1b不重跑。
 
-> **2026-11-12 · G20 R1 同输入筛查已实际执行（NATIVE/OBS，EXIT 0）：** [结果与决策](20261112/G20_R1_SAME_INPUT_SCREEN_RESULTS_20261112.md) · [证据/收据/冻结源码](../reports/20261112/g20_r1_screen/README.md) · [独立审查](experiment_reviews/G20_R1_SAME_INPUT_SCREEN_20261111/v1.json)。job 156476 单 A100：自由 ridge 修正 CAL4 近精确但 DEV5 恶化 +15%–29%（omega_dev 0.36–0.69，覆盖不足/过拟合），冻结 ICC r512 两残差均劣于 Q1；Q1 保持参照，无候选推进 R3，Chipmunk 待 R2 full-M 捕获。下一步为校准覆盖判别与 R2 共享 pilot；本次发布不启动新作业。
+> **2026-11-12 · G20 R1b 数值复核已实际执行（NATIVE/OBS，EXIT 0）：** [结果与裁决](20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md) · [证据/收据/冻结源码](../reports/20261112/g20_r1b_recheck/README.md) · [独立审查](experiment_reviews/G20_R1B_NUMERICAL_RECHECK_20261112/v1.json)。job 157314 单 A100：稳定 F64 精确解仍使 DEV5 退化 +15%–28%（6/6 站点），CAL拟合/DEV恶化现象保留；R1秩违反确认为FP32伪影，稳定重解最多改变约0.83pp，数值修复未消除主要DEV退化；ICC 误差主要来自 stage-2 原生 h 残差。R1 结果文档已版本化更正（seed 42 等），冻结快照不改。后续区分修正方向/幅度、来源广度/行密度与表示，按路线v3推进；本次发布不启动新作业。
+
+> **2026-11-12 · G20 R1 同输入筛查已实际执行（NATIVE/OBS，EXIT 0）：** [结果与决策](20261112/G20_R1_SAME_INPUT_SCREEN_RESULTS_20261112.md) · [证据/收据/冻结源码](../reports/20261112/g20_r1_screen/README.md) · [独立审查](experiment_reviews/G20_R1_SAME_INPUT_SCREEN_20261111/v1.json)。job 156476 单 A100：自由 ridge 修正 CAL4 近精确但 DEV5 恶化 +15%–29%（omega_dev 0.36–0.69；覆盖的因果作用待对照），ICC r512总体未胜出，high/4绝对MSE与平均相对差需分报；Q1 保持参照，无候选推进 R3，Chipmunk 待 R2 full-M 捕获。新顺序已转入路线v3的多语义共享bank和机制判别；本次发布不启动新作业。
 
 > **2026-11-11 · G20 / ICML 新入口：** [正向机制、少步蒸馏反向查重、出局/推进及验证设计](20261111/G20_ICML_FORWARD_REVERSE_SYNTHESIS_AND_EXPERIMENT_DECISIONS_20261111.md) · [新论文 L99–L109 核读簿](literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md) · [目录](20261111/README.md)。此为 LIT/ALG/DESIGN_ONLY，未修改 ACTIVE、无新GPU运行；下文旧时点进度保持历史身份。
 
@@ -135,4 +137,5 @@
 [ARCHIVE总索引](../ARCHIVE.md) · [早期机制重置](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [旧first-task时间点](20261025/E0_FFN_FIRST_TASK_20261025.md) · [旧Affine54失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) · [原A/B/C独立评议](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) · [最初提案Git版本](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。
 
 历史报告的“现在运行”“下一步”“暂停/恢复”只对当时冻结scope成立；目前方法进度依P0及[ACTIVE](ACTIVE_RESEARCH.json)核验。历史RUN、HASH、模型/来源、独立同行评议和失败边界不通过此索引重写。只在实际新的SRC/ALG/NATIVE/VIDEO或论文结论改变研究理解时，升级P0–P2；否则将新材料归入对应专题/历史证据而非新增并列权威方案。
+
 

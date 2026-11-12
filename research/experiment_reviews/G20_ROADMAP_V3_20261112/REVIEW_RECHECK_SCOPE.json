@@ -1,0 +1,256 @@
+{
+  "schema": "ffnds.independent_design_review.v1",
+  "review_id": "G20_ROADMAP_V3_SCOPE_RECHECK_20261112",
+  "reviewer_agent_id": "/root/scope_review",
+  "author_agents": [
+    "/root",
+    "/root/stats_audit"
+  ],
+  "review_utc": "2026-11-12T08:48:30.515050+00:00",
+  "based_on_repository_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+  "reviewed_files": [
+    {
+      "path": "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md",
+      "sha256": "5e3b5c1e65ccc7e3ab0b5d3cf799c8bf24280c0722763ae4d539380c6b4fd8c7",
+      "bytes": 37470
+    },
+    {
+      "path": "research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md",
+      "sha256": "273841c7373d4d7d138b8cbb20abb1cc9fc4cf5e473fe44e9adda92437ef7fbd",
+      "bytes": 24569
+    },
+    {
+      "path": "config/g20_semantic_cohort_v1_20261112.json",
+      "sha256": "042f09acda72f2c743dd429ef3ff0d2a3b892000dd201327694ccbd73fb96727",
+      "bytes": 514779
+    }
+  ],
+  "prior_review": "research/experiment_reviews/G20_ROADMAP_V3_20261112/SCOPE_REVIEW_INITIAL.json",
+  "prior_review_sha256": "be13b65dce4c1d1e9495c944b0ef3ac18c8c88c1a7c9d0e942d25aa16f9c55e3",
+  "disposition": "APPROVE_DESIGN_ONLY",
+  "approval_scope": "The three hash-bound roadmap/cohort/spec inputs are internally coherent for the declared research design, source readiness states and statistical/budget contracts. This is not an execution approval, acquired-source certificate or empirical success claim.",
+  "independence_boundary": "Reviewer authored G20_ASSET_REGISTRY_20261112.json and does not independently approve that file. The asset registry and execution queue are outside this approval and require a different reviewer; /root/stats_audit performed that separate review.",
+  "resolved_findings": [
+    {
+      "id": "SCOPE-R1",
+      "status": "RESOLVED_ACTUAL_TEXT",
+      "resolution": "Source coverage predicts lower development risk, not higher risk."
+    },
+    {
+      "id": "SCOPE-R2",
+      "status": "RESOLVED_ACTUAL_TEXT_AND_JSON",
+      "resolution": "Capture budget distinguishes192 unique captured conditions,2 extra plain neutral controls,194 complete executions; C1=36conditions/38executions."
+    }
+  ],
+  "checks": [
+    {
+      "check": "three actual input byte hashes match frozen author handoff",
+      "passed": true,
+      "evidence": [
+        "5e3b5c1e65ccc7e3ab0b5d3cf799c8bf24280c0722763ae4d539380c6b4fd8c7",
+        "273841c7373d4d7d138b8cbb20abb1cc9fc4cf5e473fe44e9adda92437ef7fbd",
+        "042f09acda72f2c743dd429ef3ff0d2a3b892000dd201327694ccbd73fb96727"
+      ]
+    },
+    {
+      "check": "scope R1 risk-direction correction",
+      "passed": true,
+      "evidence": "Cohort §1 now says decrease development risk; coverage is a tested hypothesis, not an established cause."
+    },
+    {
+      "check": "scope R2 neutral controls counted",
+      "passed": true,
+      "evidence": "192 captured source/seed conditions +2 plain controls =194 complete Dense executions; independent source count unchanged."
+    },
+    {
+      "check": "240 unique unbound slots",
+      "passed": true,
+      "evidence": "No placeholder is promoted to an acquired image/prompt or executed result."
+    },
+    {
+      "check": "role and stratum allocations",
+      "passed": true,
+      "evidence": "12 primary strata, per-stratum CAL/DEV/CONFIRM8/4/8; seeds remain nested."
+    },
+    {
+      "check": "static source counts and actual prompt changes",
+      "passed": true,
+      "evidence": {
+        "CALIBRATION": 12,
+        "DEVELOPMENT": 6,
+        "FROZEN_CONFIRMATION": 12
+      }
+    },
+    {
+      "check": "three explicit nested CAL orders",
+      "passed": true,
+      "evidence": [
+        {
+          "order": "P1",
+          "prefixes": [
+            {
+              "N": 12,
+              "static": 2,
+              "passed": true
+            },
+            {
+              "N": 24,
+              "static": 3,
+              "passed": true
+            },
+            {
+              "N": 48,
+              "static": 6,
+              "passed": true
+            },
+            {
+              "N": 96,
+              "static": 12,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "order": "P2",
+          "prefixes": [
+            {
+              "N": 12,
+              "static": 2,
+              "passed": true
+            },
+            {
+              "N": 24,
+              "static": 3,
+              "passed": true
+            },
+            {
+              "N": 48,
+              "static": 6,
+              "passed": true
+            },
+            {
+              "N": 96,
+              "static": 12,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "order": "P3",
+          "prefixes": [
+            {
+              "N": 12,
+              "static": 2,
+              "passed": true
+            },
+            {
+              "N": 24,
+              "static": 3,
+              "passed": true
+            },
+            {
+              "N": 48,
+              "static": 6,
+              "passed": true
+            },
+            {
+              "N": 96,
+              "static": 12,
+              "passed": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "check": "DEV12 prefix static balance",
+      "passed": true,
+      "evidence": "DEV12 has one source per primary stratum and2 static controls; DEV48 has6."
+    },
+    {
+      "check": "uniform panel random ordering before prefix",
+      "passed": true,
+      "evidence": "All paired arms share exact source/seed token IDs across foursteps and fortyblocks; tubelet weights remain separate."
+    },
+    {
+      "check": "source-versus-row control arithmetic",
+      "passed": true,
+      "evidence": "Fixed-total comparisons12x2048,24x1024,48x512,96x256; density contrast96x1024 uses same sources."
+    },
+    {
+      "check": "full-bank storage arithmetic",
+      "passed": true,
+      "evidence": "1.3641357421875TiB is logical U/Y+336 payload only; recovery/proxy/ZH/temporary/redundancy costs remain explicit."
+    },
+    {
+      "check": "candidate and confirmation execution arithmetic",
+      "passed": true,
+      "evidence": "Seven matched arms, two generation seeds, three timing repeats:4032/6048/8064 complete executions for confirmationN96/144/192. First repeat provides quality video."
+    },
+    {
+      "check": "no independent source inflation",
+      "passed": true,
+      "evidence": "Prompt/crop/seed/frame/token/timing repetition are nested; source family dedup and exposure audit precede eligibility."
+    },
+    {
+      "check": "CV leakage boundaries explicit",
+      "passed": true,
+      "evidence": "Current-CAL prior/projections/normalization rebuilt inside each source-disjoint trainingfold; historical prior is explicitly external."
+    },
+    {
+      "check": "L0 uses retained deployment assets",
+      "passed": true,
+      "evidence": "R1b saved BF16A supports actual-arm output interpolation; it does not recover unrounded stableD or typed eta equivalence."
+    },
+    {
+      "check": "nonlinear displacement arm is actually nonlinear",
+      "passed": true,
+      "evidence": "tanh features avoid GELU-odd=v/2 degeneracy; trainfold scales and matched feature counts are explicit."
+    },
+    {
+      "check": "ICC native-h inference bounded",
+      "passed": true,
+      "evidence": "Native-h is a defined intervention, not a lowerbound for every first-stage repair; residual cross terms retained."
+    },
+    {
+      "check": "suffix uses common parent state",
+      "passed": true,
+      "evidence": "Candidate/Q1 local typed writebacks are computed on one parentstate; unrelated free-prefix differences are not called local effects."
+    },
+    {
+      "check": "failed candidate state not substituted by Q1",
+      "passed": true,
+      "evidence": "Conditional CAL24 state collection is for failedN, with paid native targets, noDEV fitting and one-cycle limit."
+    },
+    {
+      "check": "DEV subtopic variance limitation retained",
+      "passed": true,
+      "evidence": "DEV4/8 subtopics cannot empirically certify CONFIRM8/8 variability. InflatedSD and sensitivity are planning conventions; finalN freezes before results."
+    },
+    {
+      "check": "joint power is not individual power",
+      "passed": true,
+      "evidence": "Paired endpoint-vector planning or beta allocation accounts for conjunction of guards; binary/rare events use paired discordances."
+    },
+    {
+      "check": "static and motion effective n boundaries",
+      "passed": true,
+      "evidence": "Static12 zerofailures still has one-sided95% failure upper bound0.220922; dynamic n<=84 before other exclusions."
+    },
+    {
+      "check": "design-only approval boundary",
+      "passed": true,
+      "evidence": "This review cannot authorize CPU/GPU collection, fitting, generation or timing; actual implementation/code/input/scope review and ACTIVE binding remain necessary."
+    }
+  ],
+  "blocking_findings": [],
+  "remaining_execution_conditions": [
+    "All240 slots are stillUNBOUND. Real image/conditioning identity, role separation, source-family dedup and current exposure checks must pass before any scope uses them.",
+    "C12 has2/12 static sources while C24/C48/C96 have12.5%. Along with changing fine subtopics, this is not a pure source-count effect at all secondary margins. Report composition and static/dynamic readouts; do not infer that source count alone caused a gain.",
+    "Confirmation144/192 must freeze added subtopics, repeats, static18/24 quotas and analysis weights before outcomes; SD inflation does not guarantee coverage of unobserved fine subtopics.",
+    "The physical producer must preserve token/THW mapping, unbiased prefix sampling, exact native target identity, full80 coverage and declared fullM summaries. Metadata and this design do not prove its implementation.",
+    "Per-scope resource contracts must cover fullM proxy/resume/shadow target work, no-observer timing/warmup, failed attempts and storage redundancy separately from logical payload counts.",
+    "Selection intervals onDEV are development gates, not post-selection confirmation guarantees. Confirmatory claims require the frozen analysis and untouched source outputs."
+  ],
+  "recheck_method": "Actually reread final changed sections; verified the exact supplied input byte hashes; recomputed slot counts, all3 nested schedules, static counts and prompt labels, row/storage/condition/execution arithmetic and rare-event upper bound. No model or GPU execution."
+}

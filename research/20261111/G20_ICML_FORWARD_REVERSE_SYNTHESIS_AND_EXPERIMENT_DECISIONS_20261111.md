@@ -1,3 +1,5 @@
+> **2026-11-12 当前执行设计：** [G20路线v3](../20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md)已吸收R1/R1b证据并指定图文规模、辨识实验、资产与顺序。本文保留11/11文献/机制综合身份；其中ICC未运行和旧Next不覆盖后续已发表结果及新路线。
+
 # G20 / ICML：正向函数机制与反向文献思考的统一研究决策
 
 **日期 2026-11-11｜状态：DESIGN_ONLY / ALG+LIT+ARCHIVED_OBS / REVIEW_REQUIRED / NO_NEW_RUN**
@@ -171,3 +173,4 @@ $$
 需要正面比较已录用/新预印本：L104 DisCa（distilled+learned predictor）、L105 AutoTarget（cache target）、L106 Chorus（inter-request serving）、L102 LearniBridge（50-step Wan low-rank calibration）、L103 BudCache（budget）、L107 RECAP（Attention+cache coupling），以及 L39/L52/ C16/C17 和本仓 ICC/Chipmunk。**“比较原始Dense并取得×倍加速”不足以说明新增机制；与强先例同预算、同约束以及直接组合对照才是最关键证据**。
 
 **可发表贡献现在是研究假说，不是既定结论**：① 蒸馏对三种不同计算冗余的影响具有可重复的结构判据；② 状态依赖有限增量的有意义部分存在可负担的共享表示；③ 该表示跨 FFN/Attention 产生实测模型级收益。若 ②/③ 不成立，继续以 G19 的真实强基线和机制分析形成有限主张，不为了完整故事捏造通用加速。
+

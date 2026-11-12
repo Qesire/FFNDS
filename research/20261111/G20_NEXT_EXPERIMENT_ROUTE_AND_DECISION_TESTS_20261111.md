@@ -1,3 +1,5 @@
+> **2026-11-12 已由[路线v3](../20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md)接替未来执行顺序。** R1与R1b已完成；v3明确CAL96/DEV48/CONFIRM96、12语义层、共享采集、核心判别、资产树及七臂确认。下文v2是当时设计，不再作为新的数据量、待办或自动运行依据。
+
 # FFNDS 下一轮实验路线与判据
 
 > 原始整理稿：[ChatGPT Space · FFNDS 下一轮实验路线与判据](https://chatgpt.com/space/page_9834f13b53e08191a175c189abe25c34)。本次迁移核对了研究状态表述；已有 G19 实测、G20 推导和原实验合同保持原始身份。
@@ -192,3 +194,4 @@ Attention前移到R0兼容性和R2小规模直接组合基线；不用等待FFN�
 设计修订吸收的主要意见包括：将非线性表示收益与新增状态信息区分、优先检验候选实际干预方向、将 Attention 组合背景前移、逐项核对历史资产身份、按需恢复缓存，以及缩小重复拟合范围。原 Space 草案曾记录三路设计复核意见；本仓库中本次新实验的正式独立 reviewer、recheck 与 ACTIVE 许可均须按真实可核验凭证另行完成，本文件不充当批准记录。
 
 执行绑定依据：[统一实验合同](https://github.com/Qesire/FFNDS/blob/ab41d7389f949150c74131e03c8c2b2106e720ac/research/20261107/ffn_baseline_reproduction/EXPERIMENT_CONTRACT.md)、[实验前独立复审规则](https://github.com/Qesire/FFNDS/blob/ab41d7389f949150c74131e03c8c2b2106e720ac/research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)。
+

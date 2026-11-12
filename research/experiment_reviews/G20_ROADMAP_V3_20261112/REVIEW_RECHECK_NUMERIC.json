@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "review_id": "G20_ROADMAP_V3_20261112_NUMERIC_RECHECK",
+  "reviewer_agent": "/root/numeric_audit",
+  "review_date": "2026-11-12",
+  "review_type": "INDEPENDENT_STATIC_DESIGN_RECHECK",
+  "input": {
+    "path": "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md",
+    "sha256": "5e3b5c1e65ccc7e3ab0b5d3cf799c8bf24280c0722763ae4d539380c6b4fd8c7",
+    "sha_verified_from_local_file": true,
+    "prior_review_snapshot_sha256": "1509da52025fbaade960651e729b3901e7d513bb9a3d00db98926a8abc51e646"
+  },
+  "disposition": "APPROVE_DESIGN_ONLY",
+  "execution_approval": false,
+  "new_cpu_gpu_model_run_authorized": false,
+  "scope": "Read the complete revised roadmap; independently rechecked the six requested corrections, O/D identification controls, comparison-arm completeness, estimands, and explicit execution-count boundaries. No model run or remote mutation was performed by this reviewer.",
+  "findings": [
+    {
+      "id": "NUM-DESIGN-01",
+      "prior_issue": "L0 depended on the unarchived stable mathematical D while promising no refit.",
+      "status": "RESOLVED",
+      "evidence": "Section 4.1 now uses actually tested BF16 matrices and their matched pre-gate prediction difference; it explicitly identifies the F64 output-interpolation estimand and requires a separate actual BF16 writeback check for deployable shrink.",
+      "assessment": "The a/b overshoot versus direction diagnostic is mathematically valid for the declared interpolation and no longer assumes a missing artifact."
+    },
+    {
+      "id": "NUM-DESIGN-02",
+      "prior_issue": "Oddifying unspecified h could reduce GELU to a linear delta-only control.",
+      "status": "RESOLVED",
+      "evidence": "Section 5 fixes tanh, gives the delta-only arm both linear and nonlinear features/readouts, shares train-fold projections and scale, and explicitly notes the GELU odd-part degeneracy.",
+      "assessment": "The declared comparison now distinguishes endpoint and displacement-only feature families without claiming identical functional capacity."
+    },
+    {
+      "id": "NUM-DESIGN-03",
+      "prior_issue": "The 2% screening point threshold and CI rule were inconsistent.",
+      "status": "RESOLVED",
+      "evidence": "Section 5 requires the source-bootstrap 95% upper bound below -2%; crossing -2% is INCONCLUSIVE. The strongest linear baseline is selected in CAL CV and the development interval is not promoted to post-selection confirmation coverage.",
+      "assessment": "The resource-screening rule is unambiguous and tied to the explicit source/expert aggregation in Section 3."
+    },
+    {
+      "id": "NUM-DESIGN-04",
+      "prior_issue": "ICC stage-2 error share alone did not identify the effect of repairing or enlarging W2.",
+      "status": "RESOLVED",
+      "evidence": "Section 6.1 adds native/surrogate first-by-second four-cell counterfactuals, including approximate-hidden/native-W2; retains signed cross terms and BF16 boundaries; and conditions readout-specific CD-SVD attribution on a mixed-factor configuration.",
+      "assessment": "The design now separates descriptive error shares, actual fixed-input repairs, and equal-total-rank deployment candidates. The native-h result is not claimed as a universal lower bound for all stage-1 changes."
+    },
+    {
+      "id": "NUM-DESIGN-05",
+      "prior_issue": "Q1 student states could substitute incorrectly for the failing new candidate's states.",
+      "status": "RESOLVED",
+      "evidence": "Section 7 gives the failing candidate N its own same-CAL24 student collection with paid native targets, paired with Dense calibration, and bounds the process to one recalibration cycle.",
+      "assessment": "The relevant student-distribution hypothesis is tested without fitting on DEV or silently introducing an unbounded iterative loop."
+    },
+    {
+      "id": "NUM-DESIGN-06",
+      "prior_issue": "A lower motion-amplitude bound could pass excess or wrong-direction motion.",
+      "status": "RESOLVED",
+      "evidence": "Section 9.2 adds two-sided amplitude protection, RAFT direction, CoTracker normalized trajectory error and valid coverage, frozen visibility/denominator rules, and independent action completion.",
+      "assessment": "Motion preservation is no longer decided by amplitude alone; missing critical measurements make protection INCONCLUSIVE."
+    }
+  ],
+  "additional_rechecks": [
+    {
+      "area": "O/D attribution",
+      "result": "PASS_DESIGN",
+      "evidence": "CAL24/DEV24 same-source subset, reused D4 trajectories, at most 48 new O40 trajectories in two scopes, fixed mixed-CAL operator-transfer table separate from equal-budget per-state adaptation, fixed G_ref, correct conditional-branch/CFG caveat, native pre-W1 interface, rebuilt per-weight anchors/caches, O-short/half/long, time/expert support-gap status, and source-paired method-difference interaction contrasts are all stated."
+    },
+    {
+      "area": "Final comparison arms",
+      "result": "PASS_DESIGN",
+      "evidence": "Seven core arms place ICC and author-faithful Chipmunk under the same Attention background. An eighth N-only arm is required for standalone/synergy claims; native-Attention ICC/Chip arms are required for separate FFN-only superiority claims."
+    },
+    {
+      "area": "Statistics and technical repeats",
+      "result": "PASS_DESIGN",
+      "evidence": "Local relative risk is defined after within-source expert/layer/seed aggregation; low denominators are handled without silent deletion. Timing uses three no-observer repeats, median within source/seed/arm, then paired log ratios and source/stratum aggregation. Repeats do not increase independent n."
+    },
+    {
+      "area": "Budget denominators",
+      "result": "PASS_DESIGN",
+      "evidence": "Dense bank distinguishes 192 captured conditions from 194 executions including two plain neutral controls. T1/T2 distinguishes 48 Q/N runs from an optional 24 same-Attention Dense references. Confirmation distinguishes 1344 conditions from 4032 timed executions at seven arms, 96 sources, two seeds and three repeats."
+    },
+    {
+      "area": "Boundaries and asset reuse",
+      "result": "PASS_DESIGN",
+      "evidence": "The draft keeps R1b solver rechecks closed, does not treat omega/full column rank as sufficient coverage, reuses identical C96 subsets, preserves actual deployed matrices, and separates full-M writes from sampled-row observations."
+    }
+  ],
+  "remaining_blocking_design_issues": [],
+  "execution_binding_requirements": [
+    "Bind real source identities, model/producer/recipe hashes, data locators and finite compute/storage budgets in each RUN_SPEC; planned slots are not runnable assets.",
+    "Specify the exact O/D timestep-pair indices, amplitude common-support bins and inclusion rules before reading the corresponding DEV method outcomes.",
+    "Bind typed BF16 anchor/cache/gate/writeback semantics and the convention for sequential joint interventions in the concrete implementation.",
+    "Validate metric normalization, motion visibility/coverage definitions and reviewer implementation on DEV, then freeze the chosen SPEED or QUALITY contract and the final confirmation sample size before opening confirmation results.",
+    "Maintain required independent execution review, recheck, ACTIVE registration and actual RUN/EXIT evidence; this design approval does not grant model execution permission."
+  ],
+  "conclusion": "All six prior substantive design issues are resolved in the reviewed hash. The revised roadmap is coherent enough to proceed to concrete asset binding and per-scope execution review. This disposition concerns design only and makes no claim about method effectiveness, completed sampling, or GPU execution approval."
+}

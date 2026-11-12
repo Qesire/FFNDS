@@ -1,3 +1,5 @@
+> **2026-11-12 当前G20设计与接续入口：** 用户要求更新实验方案、足量多语义图文对、资产树与执行顺序，现行设计为[G20路线v3](research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md)、[来源/采样规格](research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md)、[资产树](research/20261112/G20_ASSET_REGISTRY_20261112.json)与[执行队列](research/20261112/G20_EXECUTION_QUEUE_20261112.json)。基础CAL96/DEV48/CONFIRM96共240个待绑定名额，12语义层；R1/R1b已闭环，当前六站点求解疑点已排除为主要退化来源。新算子与Wan内权重/轨迹归因并行，Attention兼容和强组合按11/11双主线合同接续。下文旧日期的优先级仅保留历史身份；新CPU/GPU scope仍逐项独立评议、recheck、ACTIVE冻结与RUN/EXIT。本次只维护设计与索引，没有新增可运行scope。
+
 # FFNDS · AutoResearcher 科研Agent默认约定
 
 **2026-11-07 新用户任务：G19 最新四步 FFN-only 前沿基线资料与后续复现优先级。** [专门复现目录](research/20261107/ffn_baseline_reproduction/README.md) · [ICC 移植](research/20261107/ffn_baseline_reproduction/ICC_FFN_PORT_SPEC.md) · [Chipmunk 旧资产复用](research/20261107/ffn_baseline_reproduction/CHIPMUNK_REUSE_AND_COMPARISON.md) · [强制实验合同](research/20261107/ffn_baseline_reproduction/EXPERIMENT_CONTRACT.md)。Chipmunk 已在2026-10-30完成两暴露来源的全160 P64/packed/视频/质量实测，**不得将其重排为“首次复现”或自动重跑旧scope**。首项缺失的新匹配基线是 ICC-FFN；Chipmunk 仅在新版G19同源对照不足且经过独立复审后补匹配实验；TARDIS 原作者代码身份未确定，只先做源码/算法审查。本次仅发布资料，没有 GPU、ACTIVE 注册、独立评议通过或新效果结果。此更晚用户指令优先于下文2026-10-29按当时状态书写的P0/TEAL/Chipmunk优先级；旧成果与数学协议仍有效。
@@ -95,3 +97,4 @@
 交接只需**新机制/功能发现、证据出处、真正分歧、对应图节点、最小后续判别和已完成的原生范围**。历史文档当时的“Next/Active/Run”用于溯源，由现行研究导航与ACTIVE区分当前状态。新研究以构造性内容优先、以真实证据调整确定度。
 
 **G14 文献落图强制同步**：新增论文或深化读过的方法，先保留原文、公式及代码深度，再为对应论文登记稳定G14焦点及原生anchor，附真实方法动作和信息时点，通过 `python tools/graph_agent_bridge.py validate` 验证索引、Mermaid和边。对应G0–G13边仅为 LIT 作用映射。
+

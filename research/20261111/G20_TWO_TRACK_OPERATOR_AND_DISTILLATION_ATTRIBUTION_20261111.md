@@ -1,3 +1,5 @@
+> **2026-11-12 接续：** 双主线科学目标继续有效，实际顺序、数据量、资产和判据统一见[路线v3](../20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md)。ICC已在R1/R1b完成冻结配置的同输入六站点评估与两级分解；下文B0的NOT_RUN/user-reported为11/11时点描述。v3以多语义同源权重×状态及间隔对照落实B线，以嵌套表示、学生轨迹和七臂系统比较落实A线；新scope仍需独立复审。
+
 # G20 双主线：新算子与 Wan／蒸馏归因的并行研究合同
 
 **2026-11-11 · DESIGN_ONLY / LIT+ALG+ARCHIVED_OBS · REVIEW_REQUIRED · NO_NEW_RUN**

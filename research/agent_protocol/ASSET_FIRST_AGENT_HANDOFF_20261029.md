@@ -1,3 +1,5 @@
+> **2026-11-12 G20接续覆盖本页旧任务排序：** 以[当前路线v3](../20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md)、[资产树](../20261112/G20_ASSET_REGISTRY_20261112.json)和[执行队列](../20261112/G20_EXECUTION_QUEUE_20261112.json)接手。R1/R1b已完成；新增目标是240个多语义图文规划名额、来源/行密度与表示机制、真实轨迹、Wan内权重/状态归因及强Attention系统组合。本页2026-10-29优先级和“尚未运行”保留历史身份，不自动决定新scope；具体新实验仍逐项真实独立审查与ACTIVE登记。
+
 # FFNDS · 开放式证据驱动的统一Agent交接与研究队列
 
 **2026-10-30 最新Agent工作请求：[Issue #60](https://github.com/Qesire/FFNDS/issues/60)「A5+HWG改为增量后是否形成更规则可执行FFN通道组」**。真正接手的主Agent现在执行[任务合同M0资产覆盖与原A5身份核验](../20261030/A5_HWG_DELTA_SUPPORT_REGULARITY_AGENT_TASK_20261030.md)，再与真实独立Reviewer审科学对照和物理预算，审查批准/ACTIVE范围冻结后执行E0同K全层双expert多源离线、E1合法HiF4 K64/Tensor Core native kernel、必要时E2全160完整视频及八轴。与Chipmunk #57相关但不是Chipmunk RMS超参；与P0已有资源协调，不取消现行SharQ/TEAL任务。**执行状态：仅提交任务且review requested，未真实spawn或计算；不能借这段文字宣称Agent已接受任务。**
@@ -99,3 +101,4 @@
 方法研究可以并行、可读paper和保存资产；实际native/model/GPU范围严格沿[ACTIVE](../ACTIVE_RESEARCH.json)注册，核验可用GPU后先遵循适用会话/原生RUN冻结的并发约束（VIDEO20等有 `session_max_GPUs=2`），再依据[动态资源政策](DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)在其内部使用有效最大资源；不以通用动态规划绕过真实执行上限。独立方法提案进入[QUEUE](../method_discussion/QUEUE.md)，须实际不同Agent review才有支持状态。不会为了保持队列整洁删除任何历史RUN、失败身份、SHA或原始论文审计。
 
 **读取原文**：[G14 Paper Focus Graph](PAPER_METHOD_FOCUS_GRAPH.json) → [98+10论文源ledger](../literature/20261026/PRIMARY_LITERATURE_INDEX.json)；按mechanism-research / problem-reformulation / research-expansion / web-research-discovery验证每个候选最接近的论文机制及作者源码，再写创新断言。原文已核的特定物理关系优先复用，不把“再找一篇经典论文”当默认行动。
+

@@ -1,0 +1,644 @@
+{
+  "schema": "ffnds.g20.execution_queue.v3",
+  "date": "2026-11-12",
+  "based_on_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+  "status": "DESIGN_REVISED_NOT_REGISTERED",
+  "roadmap": "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md",
+  "cohort_manifest": "config/g20_semantic_cohort_v1_20261112.json",
+  "asset_registry": "research/20261112/G20_ASSET_REGISTRY_20261112.json",
+  "execution_authority": "research/ACTIVE_RESEARCH.json",
+  "new_registered_scopes": 0,
+  "new_model_executions": 0,
+  "completed_not_to_repeat": [
+    {
+      "stage": "R1",
+      "scope_id": "G20_R1_SAME_INPUT_SCREEN_20261111",
+      "job_id": 156476,
+      "status": "ACTUAL_EXIT0",
+      "reuse_asset": "R1"
+    },
+    {
+      "stage": "R1B",
+      "scope_id": "G20_R1B_NUMERICAL_RECHECK_20261112",
+      "job_id": 157314,
+      "status": "ACTUAL_EXIT0",
+      "reuse_asset": "R1B",
+      "decision": "Close the six-site solver concern; no automatic refit or replay."
+    }
+  ],
+  "gate_policy": {
+    "plan_review": "Actual independent static design review is recorded separately; not execution approval.",
+    "launch": "Every physical experiment needs a concrete enumerated run manifest, bound code/model/input hashes, independent review/recheck, finite ACTIVE scope and prelaunch identity verification.",
+    "source_count": "Count original independent image clusters; seeds, frames, rows and timing repeats are nested.",
+    "reuse": "Reuse only equal conditioning/noise/model/numeric/attention/capture identities; preserve original receipts.",
+    "parallel": "L1,N1,B1,B2 may share a bank and run independently; D1 is a separate explanation line; A0 proceeds in parallel. Shared resource caps still apply.",
+    "resource": "No live GPU entitlement is implied; recheck applicable session and per-scope limits.",
+    "failures": "Record FAILED/INCONCLUSIVE/BLOCKED and exact missing assets; no implicit retries or transfer of old budgets."
+  },
+  "entries": [
+    {
+      "id": "G0",
+      "question": "Bind real image-prompt sources and identities",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [],
+      "input_asset_ids": [
+        "R1",
+        "R1B",
+        "CHECKPOINTS",
+        "FRESH10",
+        "NEW12",
+        "VBENCH_SOURCE_ARCHIVE"
+      ],
+      "output_asset_ids": [
+        "COHORT240",
+        "PANEL2048"
+      ],
+      "budget": {
+        "new_model_trajectories": 0
+      },
+      "trigger": "First action",
+      "procedure": "Bind CAL96/DEV48/CONFIRM96 slots to real disjoint image clusters; archive input/exposure checks. Read fixed-panel producer source and source-level random-order contract. Scope-specific CPU acquisition remains separately reviewed.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "A0",
+      "question": "Establish one compatible strong Attention background",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "G0"
+      ],
+      "input_asset_ids": [
+        "CHECKPOINTS",
+        "ATTENTION_BACKGROUND",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "ATTENTION_BACKGROUND"
+      ],
+      "budget": {
+        "full_4step_trajectories_max": 4,
+        "independent_CAL_sources": 2,
+        "reference_reuse_allowed": true
+      },
+      "trigger": "Parallel with capture and offline studies",
+      "procedure": "First static code/recipe audit, then separately reviewed two-source native/Attention compatibility pilot; actual algorithm/commit/backend/parameters and cache semantics must be bound. Unknown remains blocked; do not choose a name without implementation evidence.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "C1",
+      "question": "Start semantically balanced shared capture",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "G0"
+      ],
+      "input_asset_ids": [
+        "COHORT240",
+        "PANEL2048",
+        "CHECKPOINTS",
+        "CHIPMUNK_AUTHOR_CODE"
+      ],
+      "output_asset_ids": [
+        "DENSE192",
+        "PROXY_FULLM"
+      ],
+      "budget": {
+        "new_Dense_4step_trajectories_max": 36,
+        "CAL_sources": 24,
+        "DEV_sources": 12,
+        "seeds": [
+          42
+        ],
+        "pilot_counted_inside": 2,
+        "additional_plain_neutral_executions": 2,
+        "total_4step_executions_max": 38
+      },
+      "trigger": "Real first-wave inputs and producer contract bound",
+      "procedure": "Capture all160 calls with 2048 matched random-order U/Y rows plus separate336 tubelet. First2 are pilot. Full-M proxy summaries/masks at6 sites; CAL12+DEV12 retain full-M U audit examples. Record partial completion before expanding.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "C2",
+      "question": "Expand to CAL48 and DEV48",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "C1"
+      ],
+      "input_asset_ids": [
+        "COHORT240",
+        "PANEL2048",
+        "DENSE192"
+      ],
+      "output_asset_ids": [
+        "DENSE192",
+        "PROXY_FULLM"
+      ],
+      "budget": {
+        "new_Dense_4step_trajectories_max": 60,
+        "new_CAL_sources": 24,
+        "new_DEV_sources": 36,
+        "seeds": [
+          42
+        ]
+      },
+      "trigger": "C1 coverage/identity/neutral and payload acceptance",
+      "procedure": "Continue identical producer; never recapture successful same-identity trajectories just to rebuild another method bank.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "C3",
+      "question": "Complete CAL96 and two-seed DEV48",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "C2"
+      ],
+      "input_asset_ids": [
+        "COHORT240",
+        "PANEL2048",
+        "DENSE192"
+      ],
+      "output_asset_ids": [
+        "DENSE192",
+        "PROXY_FULLM"
+      ],
+      "budget": {
+        "new_Dense_4step_trajectories_max": 96,
+        "new_CAL_sources_seed42": 48,
+        "DEV_sources_add_seed43": 48,
+        "cumulative_Dense_trajectories": 192,
+        "cumulative_4step_executions_with_neutral": 194
+      },
+      "trigger": "C2 accepted; storage/source gate holds",
+      "procedure": "Complete planned sample coverage; default plan is CAL96/DEV48, not stop at12 after an interesting result.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "L0",
+      "question": "Separate harmful direction from overshoot",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [],
+      "input_asset_ids": [
+        "R1B",
+        "CAL4_CAPTURE",
+        "DEV5_CAPTURE",
+        "Q1_ALL80"
+      ],
+      "output_asset_ids": [
+        "LEGACY_DIRECTION_DIAG"
+      ],
+      "budget": {
+        "new_model_trajectories": 0,
+        "legacy_sites": 6
+      },
+      "trigger": "Saved tested matrices and old inputs readable",
+      "procedure": "Use actual tested BF16 matrix predictions; compute gated e,c,a,b and exact F64 output-interpolation risk. No assumption that stable mathematical D was saved. No re-solving R1b; per-source optimal eta is diagnostic only.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "L1",
+      "question": "Separate source breadth, row density and regularization",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "C1"
+      ],
+      "input_asset_ids": [
+        "DENSE192",
+        "Q1_ALL80",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "FITCAL",
+        "LOCALDEV_SCREEN"
+      ],
+      "budget": {
+        "initial_sites": 6,
+        "all_site_expansion": 80,
+        "primary_data_configurations": 8,
+        "lambda_grid": [
+          0.001,
+          0.01,
+          0.1,
+          1.0
+        ],
+        "main_lambda": 0.01,
+        "subset_orders": 3,
+        "alternate_orders": "Only C12/C48 fixed-total-row main-lambda contrasts initially; full C96 reused",
+        "folds": {
+          "C12": 0,
+          "C24": 2,
+          "C48": 4,
+          "C96": 4
+        },
+        "new_model_trajectories": 0
+      },
+      "trigger": "May analyze completed waves; full decision waits for C3",
+      "procedure": "Eight unique source/rows settings per roadmap, historical fixed prior and same-CAL Q1 tables separate. Current-CAL priors rebuilt in each fold. Expand exact finite fit list before scope approval. Stream/reuse F64 sufficient statistics without changing objective.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "N1",
+      "question": "Test nonlinear representation and added endpoint information",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "C1"
+      ],
+      "input_asset_ids": [
+        "DENSE192",
+        "FITCAL",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "FITCAL",
+        "LOCALDEV_SCREEN"
+      ],
+      "budget": {
+        "sites": 6,
+        "rank_main": 32,
+        "conditional_rank": 64,
+        "rank_expansions_max": 1,
+        "new_model_trajectories": 0
+      },
+      "trigger": "In parallel with L1 on the same bank; not blocked on a positive linear finding",
+      "procedure": "Compare nested linear vs endpoint-tanh vs delta-linear+delta-tanh, shared fold-specific P/Q and feature scales, CAL-only regularization. Gate uses source CI upper<-2%; final result on DEV48x2 and both experts. A particular failure is not a universal linearity theorem.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "B1",
+      "question": "Locate ICC two-stage limitations",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "C1"
+      ],
+      "input_asset_ids": [
+        "DENSE192",
+        "ICC_SVD512",
+        "ICC_CDSVD512",
+        "Q1_ALL80",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "FITCAL",
+        "LOCALDEV_SCREEN"
+      ],
+      "budget": {
+        "sites": 6,
+        "rank_main": [
+          512,
+          512
+        ],
+        "conditional_same_sum_rank": [
+          256,
+          768
+        ],
+        "conditional_extra_budget_rank": [
+          512,
+          1024
+        ],
+        "new_model_trajectories": 0
+      },
+      "trigger": "Same weights/CAL/input identity verified",
+      "procedure": "Complete native/surrogate first x native/surrogate second factorial, retain cross terms and BF16 rounding. SVD/CD-SVD equal-rank comparison; conditional SVD-first/CD-second hybrid; rank redistribution only if actual repair predicts value.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "B2",
+      "question": "Separate Chipmunk proxy quality and sparse-update capacity",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "C1"
+      ],
+      "input_asset_ids": [
+        "DENSE192",
+        "PROXY_FULLM",
+        "CHIPMUNK_AUTHOR_CODE",
+        "CHIPMUNK_GLOBAL_P64",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "FITCAL",
+        "LOCALDEV_SCREEN"
+      ],
+      "budget": {
+        "sites": 6,
+        "full_M_audit_sources": 24,
+        "mask_repair_passes_max": 1,
+        "new_model_trajectories": 0
+      },
+      "trigger": "True voxel/block means, valid-tail and author mask are verified",
+      "procedure": "Author faithful arm, equal-K frozen random/static, separately labelled global-P64 and bounded posthoc repair retaining original mask. No scattered-row means, no global-optimum label for repair.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "D1",
+      "question": "Disentangle Wan weights, state and interval",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "C1"
+      ],
+      "input_asset_ids": [
+        "ORIGINAL40",
+        "DENSE192",
+        "COHORT240",
+        "CHECKPOINTS"
+      ],
+      "output_asset_ids": [
+        "OD_CROSS"
+      ],
+      "budget": {
+        "O40_trajectories_max": 48,
+        "CAL_sources": 24,
+        "DEV_sources": 24,
+        "seed": 42,
+        "waves_O40": [
+          24,
+          24
+        ],
+        "O40_steps_max": 1920,
+        "D4_trajectories_reused": 48,
+        "sites": 6
+      },
+      "trigger": "Independent explanation branch; D4 matches and O checkpoint/scheduler available",
+      "procedure": "Reuse D4 trajectories; capture O40 conditional pre-W1 states. Same24 CAL mixed O-long/D budget per W and separate equal-budget adapted table. Shared D hit Gref, Oshort/half/long, common time/expert support and method-minus-Q1 contrasts.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "T0",
+      "question": "Build and verify one all80 candidate",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "C3"
+      ],
+      "input_asset_ids": [
+        "FITCAL",
+        "LOCALDEV_SCREEN",
+        "DENSE192",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "CANDIDATE80"
+      ],
+      "budget": {
+        "candidate_recipes_advanced_max": 1,
+        "sites_required": 80,
+        "new_model_trajectories": 0
+      },
+      "trigger": "At least one legal family satisfies its source-level screen and matched linear/strong-baseline requirement; other mechanism branches remain parallel, not mandatory positive results.",
+      "procedure": "Freeze recipe before all80 building. Audit actual BF16 arrays and total online cost. Six-site success alone cannot authorize full-depth quality claims.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null,
+      "candidate_from_any_of": [
+        "L1",
+        "N1",
+        "B1",
+        "B2"
+      ]
+    },
+    {
+      "id": "T2",
+      "question": "Measure the candidate on its own free trajectories",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "T0"
+      ],
+      "input_asset_ids": [
+        "CANDIDATE80",
+        "DENSE192",
+        "COHORT240",
+        "Q1_ALL80"
+      ],
+      "output_asset_ids": [
+        "GDEV",
+        "NDEV"
+      ],
+      "budget": {
+        "initial_DEV_sources": 12,
+        "seeds": [
+          42,
+          43
+        ],
+        "initial_new_Q_and_N_4step_trajectories_max": 48,
+        "complete_DEV_sources_if_advanced": 48,
+        "conditional_missing_attention_Dense_reference_max": 24,
+        "initial_new_trajectories_if_reference_missing_max": 72
+      },
+      "trigger": "First12 semantically balanced DEV sources; complete source list frozen",
+      "procedure": "Dense native background is reusable; background changes require matched new targets. Q1 and N actual full160 free runs, typed neutrality, sourcewise full metrics. Later all48x2 Q1/N extend existing same-identity set; N-native is separate from system N+A.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "T1",
+      "question": "Test actual candidate direction and propagation",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "T2"
+      ],
+      "input_asset_ids": [
+        "GDEV",
+        "CANDIDATE80",
+        "DENSE192",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "SUFFIX"
+      ],
+      "budget": {
+        "DEV_sources": 2,
+        "seed": 42,
+        "sites_per_source": 2,
+        "eta1_suffixes": 4,
+        "neutral_suffixes_max": 2,
+        "conditional_half_and_joint_suffixes_max": 4,
+        "total_suffixes_max": 10
+      },
+      "trigger": "Before posthoc terminal selection; freeze two cases/sites",
+      "procedure": "Common Q1 parent history/U/residual and correctly built candidate shadow cache. Rebuild later anchors after intervention. Record remaining-block work, terminal 2<r,q>+||q||^2 and joint nonadditivity; observed displacement alone is not improvement.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "T_STATE",
+      "question": "Test candidate-state calibration once",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "T2"
+      ],
+      "input_asset_ids": [
+        "CANDIDATE80",
+        "DENSE192",
+        "COHORT240",
+        "NDEV"
+      ],
+      "output_asset_ids": [
+        "N_STUDENT_CAL24",
+        "FITCAL",
+        "LOCALDEV_SCREEN"
+      ],
+      "budget": {
+        "CAL_sources": 24,
+        "seed": 42,
+        "new_N_4step_trajectories_max": 24,
+        "student_recalibration_cycles_max": 1,
+        "native_hit_target_compute": "Additional paid shadow/replay, frozen separately"
+      },
+      "trigger": "Local gain lost on N free trajectory",
+      "procedure": "Capture N own CAL state, not only Q1 state, match Dense CAL24 rows/target/training budget. Never fit on DEV. A changed candidate returns to T0/T2 with a new identity; no unlimited iteration.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "T_EXPERT",
+      "question": "Resolve cumulative/expert interaction",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "T2"
+      ],
+      "input_asset_ids": [
+        "CANDIDATE80",
+        "DENSE192",
+        "GDEV",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "LOCALDEV_SCREEN"
+      ],
+      "budget": {
+        "DEV_sources": 12,
+        "seed": 42,
+        "additional_high_only_low_only_4step_trajectories_max": 24
+      },
+      "trigger": "Single-site effect small but full-candidate difference remains decision-changing",
+      "procedure": "Reuse matched Dense and both; add high-only/low-only. No automatic40-layer intervention sweep.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "S1",
+      "question": "Freeze strong system baselines and one candidate",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "A0",
+        "T2"
+      ],
+      "input_asset_ids": [
+        "CANDIDATE80",
+        "GDEV",
+        "DENSE192",
+        "ATTENTION_BACKGROUND",
+        "FITCAL",
+        "COHORT240"
+      ],
+      "output_asset_ids": [
+        "DEV_SYSTEM_VIDEOS",
+        "DEV_SYSTEM_METRICS",
+        "DEV_SYSTEM_COST"
+      ],
+      "budget": {
+        "DEV_sources": 48,
+        "seeds": [
+          42,
+          43
+        ],
+        "system_arms": 7,
+        "unique_quality_conditions_max": 672,
+        "timing_repeats_per_condition": 3,
+        "total_probe_free_4step_timing_executions_max": 2016,
+        "optional_native_N_quality_conditions_max": 96,
+        "conditional_attention_CAL_trajectories_initial_max": 24
+      },
+      "trigger": "FirstDEV12 then48; seven implementations and fields available",
+      "procedure": "D,Q,A,QA,NA,ICCA,ChipA. Reuse equal-identity first-repeat videos; captured Dense with observers cannot replace probe-free timing. Choose SPEED or QUALITY contract and freeze all metrics, margins and N before confirmation.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null
+    },
+    {
+      "id": "S2",
+      "question": "One-shot source-disjoint final confirmation",
+      "status": "PLANNED_NOT_REGISTERED",
+      "depends_on": [
+        "S1"
+      ],
+      "input_asset_ids": [
+        "COHORT240",
+        "CANDIDATE80",
+        "ATTENTION_BACKGROUND",
+        "FITCAL"
+      ],
+      "output_asset_ids": [
+        "FINALVIDEOS",
+        "METRICS",
+        "COST"
+      ],
+      "budget": {
+        "N_choices": [
+          96,
+          144,
+          192
+        ],
+        "seeds": [
+          42,
+          43
+        ],
+        "arms": 7,
+        "unique_conditions_by_N": {
+          "96": 1344,
+          "144": 2016,
+          "192": 2688
+        },
+        "timing_repeats": 3,
+        "full_4step_executions_by_N": {
+          "96": 4032,
+          "144": 6048,
+          "192": 8064
+        },
+        "extra_8th_arm_per_source": {
+          "unique_conditions": 2,
+          "executions": 6
+        }
+      },
+      "trigger": "All sources truly unseen for model outputs/selection; N chosen once using DEV",
+      "procedure": "Full seven-arm source-paired comparison, all required quality guards, multiplicity-aware nearest-neighbor claims. Any boundary-crossing interval/required missing metric is INCONCLUSIVE. No effect-driven sample top-up or recipe change on this confirmation set.",
+      "actual_run_ids": [],
+      "actual_exit": null,
+      "review_record": null,
+      "preexec_review_gate": "A concrete approved pre-execution review bound in ACTIVE; REVIEW_CHAIN is a post-result audit index, not an input prerequisite."
+    }
+  ],
+  "budget_accounting": {
+    "shared_capture_unique_trajectories": 192,
+    "O40_additional_max": 48,
+    "DEV_system_unique_conditions_max": 672,
+    "DEV_Dense_quality_reuse_max": 96,
+    "confirmation_default_unique_conditions": 1344,
+    "confirmation_default_4step_executions": 4032,
+    "never_sum_blindly": "Some quality conditions are first timed repetitions or reused from earlier stages; code must deduplicate on full identity. Auxiliary native-N, state calibration, high/low, compatibility and suffix scopes have separate explicit ceilings. No experiment is launched by this plan.",
+    "shared_capture_4step_executions_with_neutral": 194
+  }
+}

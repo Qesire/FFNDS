@@ -1,0 +1,152 @@
+{
+  "schema": "ffnds.static_design_independent_review.v1",
+  "review_id": "G20_ROADMAP_V3_STATS_RECHECK_20261112",
+  "reviewed_at_utc": "2026-11-12T08:48:16.875450+00:00",
+  "repository": "Qesire/FFNDS",
+  "baseline_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+  "reviewer": {
+    "agent": "/root/stats_audit",
+    "role": "Independent statistical and asset-consistency reviewer for the three listed files",
+    "authored_reviewed_files": false,
+    "independence_exclusions": [
+      "research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md",
+      "config/g20_semantic_cohort_v1_20261112.json"
+    ],
+    "exclusion_reason": "Reviewer authored these two cohort drafts; they require a different independent reviewer. This record does not approve them."
+  },
+  "decision": "DESIGN_RECHECK_APPROVED",
+  "approval_scope": "Static design consistency of the three exact file hashes below only. Not execution approval, not empirical method validation, not source-acquisition completion, and not approval of self-authored cohort files.",
+  "execution_authorized": false,
+  "new_model_executions": 0,
+  "new_fits": 0,
+  "remote_writes_by_reviewer": 0,
+  "files_reviewed": [
+    {
+      "path": "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md",
+      "sha256": "5e3b5c1e65ccc7e3ab0b5d3cf799c8bf24280c0722763ae4d539380c6b4fd8c7",
+      "bytes": 37470,
+      "decision": "DESIGN_RECHECK_APPROVED"
+    },
+    {
+      "path": "research/20261112/G20_ASSET_REGISTRY_20261112.json",
+      "sha256": "37b3d60732e3c2f58c5d1b3b2168c4a4db0aa9e24a4c6636f59019645ce61942",
+      "bytes": 99647,
+      "decision": "DESIGN_RECHECK_APPROVED"
+    },
+    {
+      "path": "research/20261112/G20_EXECUTION_QUEUE_20261112.json",
+      "sha256": "6ad64661ac6781e6e0c61336358549ad245cf6a55ac22db45428a95f39f0c7e5",
+      "bytes": 21529,
+      "decision": "DESIGN_RECHECK_APPROVED"
+    }
+  ],
+  "initial_review": {
+    "path": "research/experiment_reviews/G20_ROADMAP_V3_20261112/STATS_REVIEW_INITIAL.md",
+    "sha256": "ff7d0e2ca1bfc9d98c9cf093fea01e979ca6455e00722904c4e87556e161087a",
+    "decision_at_that_version": "CHANGES_REQUESTED",
+    "archived_without_edit": true
+  },
+  "resolved_findings": [
+    {
+      "id": "ST01",
+      "issue": "DEV/CONFIRM/legacy output identities were conflated",
+      "resolution": "S1 now outputs DEV_SYSTEM_VIDEOS/METRICS/COST; S2 outputs FINALVIDEOS/METRICS/COST; L0 outputs LEGACY_DIRECTION_DIAG. Roles and planned source counts are distinct in the registry.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "ST02",
+      "issue": "S2 depended on a result-dependent review-chain aggregate",
+      "resolution": "REVIEW_CHAIN removed from S2 input_asset_ids and explicitly classified as post-run. S2 requires a concrete ACTIVE-bound per-scope preexecution gate instead.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "ST03",
+      "issue": "At-least-three repetitions conflicted with finite counts",
+      "resolution": "Main roadmap now specifies exactly three by default; additional repeats require a separate scope. Registry and queue distinguish unique conditions from full executions: DEV 672/2016; CONFIRM N96 1344/4032, N144 2016/6048, N192 2688/8064.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "ST04",
+      "issue": "Initial T2 budget omitted a missing same-Attention Dense reference",
+      "resolution": "Main roadmap and queue explicitly permit 48 Q/N trajectories plus at most24 matching Dense references, total72 when the reference is missing. Reuse requires equal background identity.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "ST05",
+      "issue": "Candidate N free-state and training-state assets were not separately traceable",
+      "resolution": "NDEV and N_STUDENT_CAL24 are separate from Q1 GDEV. T2 outputs both GDEV and NDEV; T_STATE consumes NDEV and outputs the CAL-only student bank. SUFFIX correctly retains a common Q1 parent with a candidate-owned shadow cache.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "ST06",
+      "issue": "Relative-MSE and timing aggregation order was ambiguous",
+      "resolution": "Roadmap section3 defines source/expert MSE averaged over prescribed layers and seeds before ratio; expert effects and sources/strata are equally weighted. Tiny denominators are recorded and can make the main relative criterion INCONCLUSIVE. Timing uses median of three within condition, then seed-paired log ratio, source averaging and stratified aggregation. Linear comparator is chosen by CAL-CV; DEV intervals are explicitly screening evidence.",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "ST07",
+      "issue": "Static controls could confound nested source-count curves and inflate motion n",
+      "resolution": "Main roadmap fixes static counts C12/C24/C48/C96=2/3/6/12 and DEV12/DEV48=2/6; states that CONFIRM96 dynamic effective n is at most84 before other exclusions. Static12 are diagnostic and not proof that rare false motion has been excluded. Exact slot validation belongs to the other cohort reviewer.",
+      "status": "RESOLVED_WITH_STATED_INFERENCE_LIMITS"
+    },
+    {
+      "id": "ST08",
+      "issue": "Historical CAL/DEV sampling metadata copied CAL totals into DEV and mixed ranges",
+      "resolution": "Final registry separately records CAL high/4=517, low/4=523 and DEV high/4=641, low/4=637, including exact per-source counts and ranges. Verified directly against the stored original R1 cheap_high_04.json and cheap_low_04.json. Endpoint mask differences are stated without claiming layer independence.",
+      "status": "RESOLVED"
+    }
+  ],
+  "static_validation": {
+    "asset_count": 38,
+    "existing_asset_groups": 18,
+    "planned_asset_groups": 20,
+    "unique_asset_ids": 38,
+    "direct_asset_input_unknown_ids": 0,
+    "direct_asset_input_graph": "ACYCLIC",
+    "queue_stage_count": 18,
+    "queue_dependency_graph": "ACYCLIC",
+    "queue_unknown_stage_dependencies": 0,
+    "queue_unknown_input_or_output_asset_ids": 0,
+    "capture_accounting": {
+      "unique_capture_conditions": 192,
+      "capture_executions": 192,
+      "additional_plain_neutral_executions": 2,
+      "total_default_executions": 194,
+      "C1_conditions": 36,
+      "C1_executions": 38,
+      "C2_executions": 60,
+      "C3_executions": 96
+    },
+    "fixed_total_rows": 24576,
+    "primary_unique_source_rows_configs": 8,
+    "panel_and_tubelet_storage_bytes": 1499883110400,
+    "panel_and_tubelet_storage_TiB": 1.3641357421875,
+    "confirmation_conditions_by_N": {
+      "96": 1344,
+      "144": 2016,
+      "192": 2688
+    },
+    "confirmation_executions_by_N": {
+      "96": 4032,
+      "144": 6048,
+      "192": 8064
+    },
+    "additional_eighth_arm_N96": {
+      "conditions": 192,
+      "executions": 576
+    },
+    "source_unit": "Original image cluster; seeds, rows, sites and timing repeats do not multiply independent n",
+    "sample_size_claim": "N96 approximately0.286 source SD is a conditional single-endpoint planning calculation. Main roadmap separately addresses motion eligibility, joint-guard power, DEV variance uncertainty and pre-outcome choice of N96/144/192.",
+    "cohort_slot_binding_status": "UNBOUND planned slots; no acquired240 assertion",
+    "conditional_input_note": "Descriptive conditional_input strings are human-reviewed annotations; the acyclicity check applies to canonical direct input IDs. Concrete runtime manifests still require explicit bound dependencies."
+  },
+  "remaining_blocking_design_findings": [],
+  "execution_conditions_not_satisfied_by_this_review": [
+    "Real image/prompt identities, licensing/availability, near-duplicate clusters and exposure audit must be bound before a runner consumes any slot.",
+    "Concrete finite RUN_SPEC, producer/model/code/input/metric hashes, capacities and resource limits require the repository prescribed preexecution review and ACTIVE binding.",
+    "Numerical producer parity, fixed-panel coordinates, solver certificates and all80 deployment must be verified in their actual scopes.",
+    "All seven final implementations and fair backgrounds must exist; missing nearest-neighbor arms leave their claims unanswered.",
+    "No power guarantee is made for every semantic subgroup, rare failure mode or all joint guards; actual effective n and precision may yield INCONCLUSIVE.",
+    "Any subsequent change to the reviewed file bytes requires a new targeted review or an explicit record of its limited scope."
+  ]
+}

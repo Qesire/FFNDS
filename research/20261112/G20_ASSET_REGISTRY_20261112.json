@@ -1,0 +1,2722 @@
+{
+  "schema": "ffnds.g20.asset-registry.v1",
+  "registry_id": "G20_ASSET_REGISTRY_20261112",
+  "status": "DESIGN_ONLY_NO_NEW_EXECUTION_AUTHORITY",
+  "repository": "Qesire/FFNDS",
+  "inspected_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+  "date": "2026-11-12",
+  "authority": {
+    "scope": "G20 current asset identity, availability, dependency and reuse boundaries; immutable reports remain authoritative for execution facts",
+    "roadmap": "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md",
+    "cohort_spec": "research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md",
+    "execution_order": "research/20261112/G20_EXECUTION_QUEUE_20261112.json",
+    "source_binding": "config/g20_semantic_cohort_v1_20261112.json",
+    "historical_indexes": [
+      "research/20261107/ffn_baseline_reproduction/G19_BASELINE_AND_ASSETS.md",
+      "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+      "research/agent_protocol/ACQUISITION_QUEUE_20261029.json"
+    ],
+    "exclusions": [
+      "Not a duplicate of all historical artifact manifests",
+      "research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json binds protocol skill upstream, not experiment data",
+      "Published RUN/EXIT and frozen manifests are not rewritten by this registry"
+    ]
+  },
+  "conventions": {
+    "historical_locator": "An exact historical path is evidence of a recorded location, not proof of current existence.",
+    "uri_status": "READ_AT_PINNED_COMMIT refers to repository text; NOT_CURRENTLY_RECHECKED refers to external payloads.",
+    "null": "Unknown/unassigned; never a fabricated URI or zero-byte asset.",
+    "identity": "Use original manifest hashes. Connector text normalization must not replace byte hashes bound by RUN/EXIT.",
+    "source_unit": "Original source cluster is the inferential unit; prompt/crop/seed/token rows are nested.",
+    "availability_check": "Before reuse check existence, file SHA, producer/consumer schema, source role, numeric/model/background identity and coordinate validity.",
+    "no_deleted_history": "Keep frozen evidence and historical status; current exposure/readiness lives in this registry and new manifests."
+  },
+  "common_model_contract": {
+    "model": "Wan2.2-I2V-A14B-LightX2V-Distill-4step",
+    "schedule": "HHLL; anchors 0/2, hits 1/3; no CFG",
+    "grid": [
+      21,
+      29,
+      52
+    ],
+    "M": 31668,
+    "d": 5120,
+    "m": 13824,
+    "video": [
+      832,
+      464,
+      81
+    ],
+    "fps": 16,
+    "numeric": "BF16 native; GELU approximate=tanh; W1/W2 bias and current gate",
+    "background": "torch_sdpa + LightX2V block offload unless a new background is explicitly frozen"
+  },
+  "existing_assets": [
+    {
+      "asset_id": "R1",
+      "status": "PUBLISHED_ACTUAL_EXIT0",
+      "producer": {
+        "scope_id": "G20_R1_SAME_INPUT_SCREEN_20261111",
+        "scope_sha256": "4bbf8496484f80506bf59565e2b9c1556e19a908de0c8736643126724cf41625",
+        "job_id": "156476",
+        "source_manifest": "reports/20261112/g20_r1_screen/SOURCE_MANIFEST.json"
+      },
+      "input": [
+        "CHECKPOINTS",
+        "CAL4_CAPTURE",
+        "DEV5_CAPTURE",
+        "Q1_ALL80",
+        "ICC_SVD512"
+      ],
+      "shape": {
+        "cheap_sites": 80,
+        "expensive_sites": 6,
+        "source_clusters": 9,
+        "new_videos": 0
+      },
+      "units": "source x site x arm; source is the inferential unit",
+      "clustered_source": "4 CAL + 5 exposed DEV source IDs; no new independent clusters",
+      "dtype": "JSON readouts; BF16 exported arrays; see frozen source for mathematical precision",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "CAL4 / exposed DEV5, seed42",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "reports/20261112/g20_r1_screen",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_r1_screen_20261111",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/PUBLICATION_MANIFEST.json",
+        "reports/20261112/g20_r1_screen/evidence/scope.json",
+        "reports/20261112/g20_r1_screen/evidence/INDEPENDENT_REVIEW.json",
+        "reports/20261112/g20_r1_screen/evidence/RUN.json",
+        "reports/20261112/g20_r1_screen/evidence/EXIT.json",
+        "reports/20261112/g20_r1_screen/evidence/NPY_SHA256.txt"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "runtime_exit_utc": "2026-11-11T16:50:35.297830+00:00",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "80-site descriptive landscape",
+        "Frozen source and audit trail",
+        "R1b supersedes free-ridge numerical certificates"
+      ],
+      "invalidation": [
+        "No claim of current cluster availability without hash/existence recheck",
+        "No blind confirmation, full-M residual-writeback, rollout, video, or system-speed inference",
+        "R1b does not identify insufficient coverage as the causal explanation"
+      ],
+      "identity": {
+        "scope_sha256": "4bbf8496484f80506bf59565e2b9c1556e19a908de0c8736643126724cf41625",
+        "scope_sha_source": "RUN/EXIT and PUBLICATION_MANIFEST; not a hash of connector-reserialized text",
+        "summary_sha256": "46ba72860d19fa453bdda5d2eaedad0ad90ddbbb6a598484694d52f69962dd5d"
+      },
+      "large_payload": {
+        "count": 6,
+        "bytes_each": 52428928,
+        "availability": "HISTORICALLY_RETAINED_CLUSTER_ONLY",
+        "hash_index": "reports/20261112/g20_r1_screen/evidence/NPY_SHA256.txt"
+      }
+    },
+    {
+      "asset_id": "R1B",
+      "status": "PUBLISHED_ACTUAL_EXIT0",
+      "producer": {
+        "scope_id": "G20_R1B_NUMERICAL_RECHECK_20261112",
+        "scope_sha256": "e03d1748ef988181666a5350b40053d0eb73f0605fadf22a70c00aba8a783561",
+        "job_id": "157314",
+        "source_manifest": "reports/20261112/g20_r1b_recheck/SOURCE_MANIFEST.json"
+      },
+      "input": [
+        "CHECKPOINTS",
+        "CAL4_CAPTURE",
+        "DEV5_CAPTURE",
+        "Q1_ALL80",
+        "ICC_SVD512",
+        "R1"
+      ],
+      "shape": {
+        "expensive_sites": 6,
+        "source_clusters": 9,
+        "new_videos": 0
+      },
+      "units": "source x site x arm; source is the inferential unit",
+      "clustered_source": "4 CAL + 5 exposed DEV source IDs; no new independent clusters",
+      "dtype": "JSON readouts; BF16 exported arrays; see frozen source for mathematical precision",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "CAL4 / exposed DEV5, seed42",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "reports/20261112/g20_r1b_recheck",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_r1b_recheck_20261112",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1b_recheck/PUBLICATION_MANIFEST.json",
+        "reports/20261112/g20_r1b_recheck/evidence/scope.json",
+        "reports/20261112/g20_r1b_recheck/evidence/INDEPENDENT_REVIEW.json",
+        "reports/20261112/g20_r1b_recheck/evidence/RUN.json",
+        "reports/20261112/g20_r1b_recheck/evidence/EXIT.json",
+        "reports/20261112/g20_r1b_recheck/evidence/NPY_SHA256.txt"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "runtime_exit_utc": "2026-11-12T06:34:15.001675+00:00",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Stable solver implementation and certificates",
+        "Same-objective numerical-artifact question is closed at six frozen sites",
+        "ICC two-residual decomposition and both lambda readouts",
+        "L0 may interpolate actual saved-arm predictions; this does not reconstruct the unrounded stable F64 D or guarantee typed BF16 eta interpolation."
+      ],
+      "invalidation": [
+        "No claim of current cluster availability without hash/existence recheck",
+        "No blind confirmation, full-M residual-writeback, rollout, video, or system-speed inference",
+        "R1b does not identify insufficient coverage as the causal explanation"
+      ],
+      "identity": {
+        "scope_sha256": "e03d1748ef988181666a5350b40053d0eb73f0605fadf22a70c00aba8a783561",
+        "scope_sha_source": "RUN/EXIT and PUBLICATION_MANIFEST; not a hash of connector-reserialized text",
+        "summary_sha256": "ef35bcd695578cee0343165daacb02b03e026969d6d80856395f55eef40dea9a"
+      },
+      "large_payload": {
+        "count": 24,
+        "bytes_each": 52428928,
+        "availability": "HISTORICALLY_RETAINED_CLUSTER_ONLY",
+        "hash_index": "reports/20261112/g20_r1b_recheck/evidence/NPY_SHA256.txt",
+        "exports_per_site": [
+          "A_free_orig_main_BF16",
+          "A_free_stable_main_BF16",
+          "A_free_stable_rob_BF16",
+          "ridgeD_orig_recomputed_BF16"
+        ],
+        "unrounded_stable_D_or_A": "NOT_IN_PUBLISHED_RETENTION_MANIFEST; do not assume recoverable F64 D"
+      }
+    },
+    {
+      "asset_id": "CHECKPOINTS",
+      "status": "HASH_BOUND_TO_R1_R1B",
+      "producer": "External pretrained LightX2V distilled checkpoints; R0 inventory and runtime hash guards",
+      "input": [],
+      "shape": {
+        "experts": 2,
+        "layers_per_expert": 40
+      },
+      "units": "not_applicable",
+      "clustered_source": "not_applicable",
+      "dtype": "BF16 checkpoint; bias, GELU and gate identities matter",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "Shared model dependency",
+      "locators": [
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/weights/Wan2.2-I2V-A14B-LightX2V-Distill-4step/high_noise_model/wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        },
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/weights/Wan2.2-I2V-A14B-LightX2V-Distill-4step/low_noise_model/wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+        "reports/20261112/g20_r1b_recheck/evidence/scope.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "runtime_scope": "G20_R1B_NUMERICAL_RECHECK_20261112",
+        "runtime_exit_utc": "2026-11-12T06:34:15.001675+00:00",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Same pinned model for CAL/DEV and matched baselines"
+      ],
+      "invalidation": [
+        "Checkpoint, timestep, numeric recipe or inference backend changes require new identity and matching references"
+      ],
+      "identity": {
+        "high_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+        "low_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      }
+    },
+    {
+      "asset_id": "CAL4_CAPTURE",
+      "status": "R1_R1B_INPUT_VERIFIED_THEN_RETAINED_REMOTE",
+      "producer": {
+        "code": "native_tap.py",
+        "code_sha256": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+        "generation_group": "g19_native_capture10_20261103"
+      },
+      "input": [
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "sources": 4,
+        "packets": 640,
+        "calls_per_source": 160,
+        "U": [
+          2048,
+          5120
+        ],
+        "Y_pre_gate": [
+          2048,
+          5120
+        ],
+        "tubelet_rows_separate": 336,
+        "gate": [
+          1,
+          1,
+          5120
+        ]
+      },
+      "units": "token rows nested within source and invocation; source-level statistical unit",
+      "clustered_source": {
+        "source_ids": [
+          "chip10_02",
+          "chip10_04",
+          "chip10_07",
+          "chip10_09"
+        ],
+        "independent_count_in_R1": 4,
+        "seeds": [
+          42
+        ],
+        "identity_manifest": "reports/20261112/g20_r1_screen/evidence/frozen_inputs/assets_g20.json",
+        "fresh_cluster_disjointness": "NOT_REESTABLISHED_FOR_NEW_COHORT"
+      },
+      "dtype": "BF16 native U and pre-gate W2 Y; IDs/sidecars carry exact producer schema",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "EXPOSED_CALIBRATION",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "reports/20261112/g20_r1_screen/evidence/frozen_inputs/assets_g20.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/<source>/output_<source>/capture/",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+        "reports/20261112/g20_r1_screen/evidence/scope.json",
+        "reports/20261112/g20_r1b_recheck/evidence/scope.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "runtime_scope": "G20_R1B_NUMERICAL_RECHECK_20261112",
+        "runtime_exit_utc": "2026-11-12T06:34:15.001675+00:00",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Same-input development comparisons with exact ID pairing",
+        "Q1/ICC/stable-ridge diagnostics",
+        "All 80 sites available for cheap landscape"
+      ],
+      "invalidation": [
+        "Not PANEL2048 fixed-mask data",
+        "Not Chipmunk full-M group means",
+        "Not new CONFIRM sources",
+        "Without payload and identity recheck historical success is not live readiness"
+      ],
+      "identity": {
+        "manifest_sha256": "fa495436ca79d3ab361b8f8c392511ce6849d61521e685d41212ed780b2e3442",
+        "per_source_hashes": "Use frozen manifest; no duplicated payload index here"
+      },
+      "sampling": {
+        "mask": "2048-row uniform panels have different anchor/hit endpoint masks; not one fixed panel across allfoursteps. Do not infer layer-to-layer independence.",
+        "actual_pairs": "Join exact token IDs. The example-site counts below contain only this asset node's source IDs; all-site counts remain in the frozen R1 output.",
+        "tubelet_policy": "Separate; must not pool into uniform estimator",
+        "matched_pair_rows_at_example_sites": {
+          "high/4": {
+            "per_source": {
+              "chip10_02": 126,
+              "chip10_04": 137,
+              "chip10_07": 129,
+              "chip10_09": 125
+            },
+            "total_rows": 517,
+            "source_range": [
+              125,
+              137
+            ]
+          },
+          "low/4": {
+            "per_source": {
+              "chip10_02": 146,
+              "chip10_04": 129,
+              "chip10_07": 132,
+              "chip10_09": 116
+            },
+            "total_rows": 523,
+            "source_range": [
+              116,
+              146
+            ]
+          }
+        }
+      },
+      "coordinate_status": {
+        "frozen_sidecar_value": "THW_FROM_CURRENT_PREINFER_SOURCE_RECHECK_REQUIRED",
+        "row_id_pairing": "Consumed by R1/R1b",
+        "semantic_THW_reuse": "Producer mapping must be rechecked"
+      },
+      "exposure_status": {
+        "frozen_sidecar_value": "UNVERIFIED",
+        "current": "EXPOSED_CALIBRATION",
+        "rule": "Historical HELDOUT tags do not restore blindness after observed DEV results"
+      },
+      "historical_capture_bytes": 31313900800
+    },
+    {
+      "asset_id": "DEV5_CAPTURE",
+      "status": "R1_R1B_INPUT_VERIFIED_THEN_RETAINED_REMOTE",
+      "producer": {
+        "code": "native_tap.py",
+        "code_sha256": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+        "generation_group": "g19_native_capture10_20261103"
+      },
+      "input": [
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "sources": 5,
+        "packets": 800,
+        "calls_per_source": 160,
+        "U": [
+          2048,
+          5120
+        ],
+        "Y_pre_gate": [
+          2048,
+          5120
+        ],
+        "tubelet_rows_separate": 336,
+        "gate": [
+          1,
+          1,
+          5120
+        ]
+      },
+      "units": "token rows nested within source and invocation; source-level statistical unit",
+      "clustered_source": {
+        "source_ids": [
+          "chip10_01",
+          "chip10_03",
+          "chip10_05",
+          "chip10_06",
+          "chip10_08"
+        ],
+        "independent_count_in_R1": 5,
+        "seeds": [
+          42
+        ],
+        "identity_manifest": "reports/20261112/g20_r1_screen/evidence/frozen_inputs/assets_g20.json",
+        "fresh_cluster_disjointness": "NOT_REESTABLISHED_FOR_NEW_COHORT"
+      },
+      "dtype": "BF16 native U and pre-gate W2 Y; IDs/sidecars carry exact producer schema",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "EXPOSED_DEVELOPMENT_SOURCE_OUT_NOT_BLIND",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "reports/20261112/g20_r1_screen/evidence/frozen_inputs/assets_g20.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/<source>/output_<source>/capture/",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+        "reports/20261112/g20_r1_screen/evidence/scope.json",
+        "reports/20261112/g20_r1b_recheck/evidence/scope.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "runtime_scope": "G20_R1B_NUMERICAL_RECHECK_20261112",
+        "runtime_exit_utc": "2026-11-12T06:34:15.001675+00:00",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Same-input development comparisons with exact ID pairing",
+        "Q1/ICC/stable-ridge diagnostics",
+        "All 80 sites available for cheap landscape"
+      ],
+      "invalidation": [
+        "Not PANEL2048 fixed-mask data",
+        "Not Chipmunk full-M group means",
+        "Not new CONFIRM sources",
+        "Without payload and identity recheck historical success is not live readiness"
+      ],
+      "identity": {
+        "manifest_sha256": "fa495436ca79d3ab361b8f8c392511ce6849d61521e685d41212ed780b2e3442",
+        "per_source_hashes": "Use frozen manifest; no duplicated payload index here"
+      },
+      "sampling": {
+        "mask": "2048-row uniform panels have different anchor/hit endpoint masks; not one fixed panel across allfoursteps. Do not infer layer-to-layer independence.",
+        "actual_pairs": "Join exact token IDs. The example-site counts below contain only this asset node's source IDs; all-site counts remain in the frozen R1 output.",
+        "tubelet_policy": "Separate; must not pool into uniform estimator",
+        "matched_pair_rows_at_example_sites": {
+          "high/4": {
+            "per_source": {
+              "chip10_01": 136,
+              "chip10_03": 122,
+              "chip10_05": 114,
+              "chip10_06": 135,
+              "chip10_08": 134
+            },
+            "total_rows": 641,
+            "source_range": [
+              114,
+              136
+            ]
+          },
+          "low/4": {
+            "per_source": {
+              "chip10_01": 131,
+              "chip10_03": 140,
+              "chip10_05": 108,
+              "chip10_06": 125,
+              "chip10_08": 133
+            },
+            "total_rows": 637,
+            "source_range": [
+              108,
+              140
+            ]
+          }
+        }
+      },
+      "coordinate_status": {
+        "frozen_sidecar_value": "THW_FROM_CURRENT_PREINFER_SOURCE_RECHECK_REQUIRED",
+        "row_id_pairing": "Consumed by R1/R1b",
+        "semantic_THW_reuse": "Producer mapping must be rechecked"
+      },
+      "exposure_status": {
+        "frozen_sidecar_value": "UNVERIFIED",
+        "current": "EXPOSED_DEVELOPMENT_SOURCE_OUT_NOT_BLIND",
+        "rule": "Historical HELDOUT tags do not restore blindness after observed DEV results"
+      },
+      "historical_capture_bytes": 39142355520
+    },
+    {
+      "asset_id": "Q1_ALL80",
+      "status": "DEPLOYED_BF16_BASELINE_HASH_BOUND",
+      "producer": "G19 Q1-r2 fits; per-site fitting scope and receipt provenance in matrix manifest",
+      "input": [
+        "CHECKPOINTS",
+        "CAL4_CAPTURE"
+      ],
+      "shape": {
+        "sites": 80,
+        "matrix": [
+          5120,
+          5120
+        ]
+      },
+      "units": "expert x layer deployment matrix",
+      "clustered_source": "not_applicable",
+      "dtype": "BF16_RAW_UINT16; F64 W1^T diag(alpha) W2^T -> F32 -> BF16 RNE",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "Fitted on old CAL4, comparator only on new DEV",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "reports/20261112/g20_r1_screen/evidence/frozen_inputs/q1_matrix_manifest.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/work/g19_strengthen_20261107/fit_{high,low}_r2/output/fit/layer_NN/Q1.npy",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+        "reports/20261112/g20_r1b_recheck/evidence/scope.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "runtime_scope": "R1 all80 cheap / R1b six expensive",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Frozen incumbent baseline; no automatic refit",
+        "Native deployment replay with explicit BF16 cache/add/gate boundaries"
+      ],
+      "invalidation": [
+        "Different model/gate/rounding invalidates matched comparator",
+        "Small-M replay is not bitwise full-M writeback"
+      ],
+      "identity": {
+        "manifest_sha256": "d127f0941fa018cfded78aa7476d96abcee141fcc13a3260af91c7060f57410f",
+        "per_matrix_hashes": "Frozen manifest"
+      }
+    },
+    {
+      "asset_id": "ICC_SVD512",
+      "status": "ALL80_FACTORS_EXIST_FROZEN_SIX_SITE_EVALUATION",
+      "producer": "icc_all80_{high,low}_r1; two-residual FFN adaptation, svd_r512",
+      "input": [
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "sites": 80,
+        "fc1_U": [
+          13824,
+          512
+        ],
+        "fc1_V": [
+          512,
+          5120
+        ],
+        "fc2_U": [
+          5120,
+          512
+        ],
+        "fc2_V": [
+          512,
+          13824
+        ]
+      },
+      "units": "expert x layer; r1=r2=512",
+      "clustered_source": "not_applicable",
+      "dtype": "BF16 factors",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "Frozen comparator on old CAL4/DEV5",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "reports/20261112/g20_r1_screen/evidence/frozen_inputs/icc_svd_manifest.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/work/ffn_baselines_20261107/icc_all80_{high,low}_r1/output/",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
+        "reports/20261112/g20_r1b_recheck/source/fit_core_v2.py"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "runtime_scope": "R1/R1b six frozen sites",
+        "runtime_exit_utc": "2026-11-12T06:34:15.001675+00:00",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Equal-rank saved-operand comparator",
+        "R1b stage-2 residual share motivates testing, not guaranteed gain",
+        "Use source-level paired reads and explicit aggregation"
+      ],
+      "invalidation": [
+        "Six-site result is not all80 rollout result",
+        "No blanket ICC failure: high/4 source-mean relative and ratio-of-means differ",
+        "Rank reallocation changes both residual components and their cross term"
+      ],
+      "identity": {
+        "manifest_sha256": "6d0a576481f8d36c367171bd47f2b81029d5470bff06a3584740f550047c876e",
+        "implementation_receipts": "R0 ref_remote/icc_ffn.py, icc_runner_all80.py, icc_RUN.json, icc_EXIT.json"
+      }
+    },
+    {
+      "asset_id": "ICC_CDSVD512",
+      "status": "R0_RECORDED_REMOTE_UNSCORED",
+      "producer": "icc_all80_{high,low}_r1; cdsvd_r512 factors recorded by R0",
+      "input": [
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "sites_recorded": 80,
+        "r1": 512,
+        "r2": 512,
+        "per_factor_schema": "VERIFY_AGAINST_MANIFEST"
+      },
+      "units": "expert x layer",
+      "clustered_source": "not_applicable",
+      "dtype": "BF16 per R0 record; reverify",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "No R1/R1b scoring evidence",
+      "locators": [
+        {
+          "kind": "historical_relative_locator",
+          "uri": "ref_remote/icc_cdsvd_r512_manifest.json",
+          "uri_status": "PARENT_ROOT_AND_HASH_NOT_PUBLISHED_IN_R0"
+        },
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/work/ffn_baselines_20261107/icc_all80_{high,low}_r1/output/",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "historical_inventory_date": "2026-11-12",
+        "precise_payload_check_time": null,
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Locate/hash factor manifest first",
+        "Priority equal-rank comparison before creating new rank sweeps"
+      ],
+      "invalidation": [
+        "Do not claim evaluated, winning, or live-ready",
+        "Resolve factor derivation, data dependence and two-residual numerical semantics before fair comparison"
+      ]
+    },
+    {
+      "asset_id": "CHIPMUNK_AUTHOR_CODE",
+      "status": "CODE_RECORDED_DATA_INCOMPLETE",
+      "producer": "Author voxel/block-mean core and compiled selector recorded in R0",
+      "input": [],
+      "shape": {
+        "voxel": [
+          4,
+          6,
+          8
+        ],
+        "block_rows": 128,
+        "valid_tail_rows": 52,
+        "selector_parameters": [
+          0.7,
+          256,
+          0.05
+        ]
+      },
+      "units": "full-M voxel order then block means",
+      "clustered_source": "not_applicable",
+      "dtype": "Native code-defined BF16/accumulation; inspect exact source before reuse",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "No current CAL/DEV scored arm",
+      "locators": [
+        {
+          "kind": "historical_relative_locator",
+          "uri": "ref_remote/chip_faithful_core.py",
+          "uri_status": "RECORD_EXISTS_ROOT_AND_CODE_HASH_REQUIRE_REBIND"
+        },
+        {
+          "kind": "compiled_selector",
+          "uri": null,
+          "uri_status": "R0_RECORD_ONLY_SO_PATH_REQUIRES_REBIND"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Recover author semantics and selector implementation",
+        "Share newly collected native U/full-M moments with planned proxy arm"
+      ],
+      "invalidation": [
+        "Author code presence is not a completed Wan result",
+        "Need exact source/compiled artifact ABI/hash provenance",
+        "Global-P64 is a distinct variant"
+      ]
+    },
+    {
+      "asset_id": "CHIPMUNK_FULLM_MISSING",
+      "status": "MISSING_ASSET",
+      "producer": "No matched producer output exists in R0/R1/R1b",
+      "input": [
+        "CHECKPOINTS",
+        "CHIPMUNK_AUTHOR_CODE"
+      ],
+      "shape": {
+        "M": 31668,
+        "required_fields": [
+          "full_M_U_anchor",
+          "full_M_U_hit",
+          "voxel_block_means",
+          "author_topk_mask",
+          "valid_tail_rows"
+        ]
+      },
+      "units": "matched source x anchor/hit x expert-layer x valid voxel block",
+      "clustered_source": "not_applicable",
+      "dtype": "To be frozen with producer",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "Required for matched CAL/DEV author arm",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "2048 scattered row panels do not supply full-M block means"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+        "reports/20261112/g20_r1b_recheck/evidence/scope.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Missing-field specification for shared collection"
+      ],
+      "invalidation": [
+        "No scattered-mean substitution",
+        "Old full-M captures from other exposed sources require identity matching and do not fill this missing group automatically"
+      ]
+    },
+    {
+      "asset_id": "CHIPMUNK_GLOBAL_P64",
+      "status": "HISTORICAL_VERIFIED_NOT_MATCHED",
+      "producer": "Historical CHIPMUNK_FFNDS_GLOBAL_P64_VIDEO and packed/sync scopes",
+      "input": [],
+      "shape": {
+        "student_calls": 160,
+        "cache_build_calls": 80,
+        "cache_hit_calls": 80,
+        "source_cohorts": "898/96 video cohort; 898/979 sync cohort; do not merge IDs"
+      },
+      "units": "old matched video/source pairs and separate operator benchmarks",
+      "clustered_source": "Historical exposed sources; not new G20 confirmation",
+      "dtype": "BF16 native variant",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "HISTORICAL_EXPOSED",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "research/20261030/CHIPMUNK_GLOBAL_P64_V2_ALL160_VIDEO_RESULTS_20261030.md",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "repo",
+          "uri": "research/20261030/CHIPMUNK_P64_V2_QUALITY_RESULTS_20261030.md",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "repo",
+          "uri": "research/20261030/CHIPMUNK_SYNC_ABBA_RESULTS_20261030.md",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261107/ffn_baseline_reproduction/G19_BASELINE_AND_ASSETS.md",
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Failure/success mechanisms, cache and cost implementation",
+        "Historical reference with source/model identity"
+      ],
+      "invalidation": [
+        "Not the author voxel/block-mean arm",
+        "No current-cohort direct quality/speed ranking",
+        "Do not infer subject identity from reused source ordinals"
+      ]
+    },
+    {
+      "asset_id": "ORIGINAL40",
+      "status": "HISTORICAL_CAPTURE_RECORDED_OD_MATCH_UNVERIFIED",
+      "producer": "g19_original40_anchor10_20261104 build_template; separate original-weight branch",
+      "input": [],
+      "shape": {
+        "steps": 40,
+        "panel_rows": 64,
+        "sources_recorded": [
+          "chip10_02",
+          "chip10_04"
+        ],
+        "cfg_branches": 2,
+        "fields": [
+          "U",
+          "Z",
+          "H",
+          "Y",
+          "gate"
+        ]
+      },
+      "units": "matched token across 40 steps; two source clusters in this cited CAL asset",
+      "clustered_source": "O-CAL 02/04; 02/09 E1a is another group and must not be conflated",
+      "dtype": "Historical BF16 recipe; checkpoint hashes and CFG readout require binding",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "EXPOSED_ORIGINAL40_CAL",
+      "locators": [
+        {
+          "kind": "historical_cluster_path",
+          "uri": "/public/home/scc/pb23061276/projects/wan-quant/work/g19_original40_anchor10_20261104",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        },
+        {
+          "kind": "repo",
+          "uri": "reports/20261105/g19_evidence/browse/work/g19_original40_anchor10_20261104/build_template/cal_contract.py",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "repo",
+          "uri": "reports/20261105/g19_evidence/browse/work/g19_original40_anchor10_20261104/build_template/runner_build.py",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+        "research/20261111/G20_NEXT_EXPERIMENT_ROUTE_AND_DECISION_TESTS_20261111.md"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Saved-operand O/D attribution after identity crosswalk",
+        "Avoid repeating 40-step generation if exact needed operands already exist"
+      ],
+      "invalidation": [
+        "O/D source image, prompt, preprocess, initial noise, weights and scheduler matching not yet established",
+        "Same source name does not prove same condition",
+        "Two old CAL sources cannot supply new confirmation"
+      ]
+    },
+    {
+      "asset_id": "FIXED_PANEL_PILOT",
+      "status": "HISTORICAL_SUCCESS_IMPLEMENTATION_LOCATOR_NOT_REBOUND",
+      "producer": {
+        "scope": "E1 engineering sampling pilot",
+        "job_id": "130546",
+        "node": "anode17",
+        "producer_seconds": 448.792,
+        "source": "chip10_00",
+        "seed": 43
+      },
+      "input": [
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "calls": 160,
+        "U_panel_rows": 2048,
+        "temporal_strata": 21,
+        "spatial_rows_per_frame": "97/98",
+        "U_groups_per_call": 48,
+        "tubelet_panel": "Separate",
+        "historical_payload_bytes": 7830546084
+      },
+      "units": "one source trajectory plus plain/tap neutrality control",
+      "clustered_source": "1 exposed source, not two independent sources",
+      "dtype": "Native BF16 U/Y",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "ENGINEERING_PILOT_EXPOSED",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "reports/20261105/g19_evidence/browse/outputs/G19_v7_全层结果与推进_20261104/G19_v7_全层结果与下一阶段.md",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_local_record",
+          "uri": "outputs/G19_v7_全层结果与推进_20261104/E1_PILOT_STATUS.json",
+          "uri_status": "REFERENCED_IN_REPORT_NOT_PRESENT_IN_THIS_REPO_DIRECTORY"
+        },
+        {
+          "kind": "producer_source",
+          "uri": null,
+          "uri_status": "NEEDS_EXACT_SOURCE_AND_SHA_RECOVERY"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261105/g19_evidence/browse/outputs/G19_v7_全层结果与推进_20261104/G19_v7_全层结果与下一阶段.md"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "historical_result_date": "2026-11-04",
+        "precise_exit_utc": null,
+        "payload_review": "Historical local audit read 160 sidecars/videos/receipts, not raw PT",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Existing design and neutrality evidence; recover actual implementation before extending",
+        "First new bounded capture batch can serve as parity revalidation and retained science data"
+      ],
+      "invalidation": [
+        "Not the old endpoint-mismatched native_tap sampler",
+        "Old seed42 consumers cannot silently read seed43 pilot",
+        "Planned 24-source E1 extension was not completed by this record"
+      ],
+      "sampling": {
+        "fixed_across_layers_and_steps": true,
+        "inclusion_probability": "2048/31668",
+        "mask_sha": "Referenced by pilot report; recover machine record before adoption",
+        "coordinate_status": "Historical THW-stratified pilot; rebind producer mapping"
+      }
+    },
+    {
+      "asset_id": "ATTENTION_BACKGROUND",
+      "status": "UNVERIFIED_NO_MATCHED_IMPLEMENTATION_BOUND",
+      "producer": "R0 explicitly did not verify a strong Attention method",
+      "input": [
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "candidate_backgrounds": [
+          "Dense Attention D_A",
+          "Strong Attention G_A, method TBD"
+        ]
+      },
+      "units": "frozen runtime background",
+      "clustered_source": "not_applicable",
+      "dtype": "To be bound",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "Read-only compatibility now; matched DEV pilot later",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No current Wan-compatible strong Attention implementation has been bound"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261112/g20_r1_screen/R0_ASSET_INVENTORY.md",
+        "research/20261111/G20_NEXT_EXPERIMENT_ROUTE_AND_DECISION_TESTS_20261111.md"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Compatibility/source audit may run in parallel",
+        "After readiness, freeze the same background for candidate/baseline suffix and cost"
+      ],
+      "invalidation": [
+        "No assumed compatibility from a paper/name",
+        "If G_A unavailable retain explicit D_A-only claims",
+        "Background changes invalidate prior system timing and may require matched rollout re-evaluation"
+      ]
+    },
+    {
+      "asset_id": "FRESH10",
+      "status": "EXPOSED_DEVELOPMENT_SOURCE_MANIFEST",
+      "producer": "E0_RAW_BF16_FRESH10_SOURCE_ARCHIVE_CPU_V2_20261029; later captures and model/video evaluations recorded in AQ",
+      "input": [
+        "VBENCH_SOURCE_ARCHIVE"
+      ],
+      "shape": {
+        "image_prompt_pairs": 10,
+        "metadata_types": {
+          "subject": 5,
+          "background": 2,
+          "camera_prompt": 3
+        }
+      },
+      "units": "original image/source cluster; prompts and seeds are nested replicates",
+      "clustered_source": {
+        "count": 10,
+        "metadata_ordinals": [
+          909,
+          976,
+          921,
+          960,
+          964,
+          592,
+          440,
+          600,
+          608,
+          448
+        ],
+        "cross_crop_history_check": "Bounded historical audit, not exhaustive"
+      },
+      "dtype": "Original image files + UTF-8 prompts",
+      "grid": null,
+      "source_role": "EXPOSED_DISCOVERY_DEVELOPMENT; NOT_CONFIRM",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "config/e0_raw_bf16_fresh10_discovery_source_bank_20261029_v1.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_input_pattern",
+          "uri": "/home/xiang/.cache/huggingface/ffnds-derived/e0_raw_bf16_fresh10_source_archive_cpu_v2_20261029/attempt1/worker/results/source_XX.jpg",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "research/agent_protocol/ACQUISITION_QUEUE_20261029.json",
+        "research/20261029/RAW_BF16_FULL21TAU_NEW10_OBSERVATIONS_20261029.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Legacy auxiliary development cases after current identity/dedup checks; not part of the new240 prospective slots",
+        "Metadata semantics and exposure-ledger seed for new cohort audit"
+      ],
+      "invalidation": [
+        "Original exposure_history=false is historical",
+        "Prompt camera intent is not observed motion",
+        "No independent confirmation allocation; not automatically matched current cluster input paths"
+      ]
+    },
+    {
+      "asset_id": "NEW12",
+      "status": "EXPOSED_DEVELOPMENT_SOURCE_MANIFEST",
+      "producer": "E0_S2_SOURCE18_PROVISIONAL_ARCHIVE_CPU_V2_20261029; later new12 Dense and four-arm evaluations",
+      "input": [
+        "VBENCH_SOURCE_ARCHIVE"
+      ],
+      "shape": {
+        "image_prompt_pairs": 12,
+        "metadata_types": 6,
+        "per_type": 2
+      },
+      "units": "original image/source cluster; seeds/prompts do not increase n",
+      "clustered_source": {
+        "count": 12,
+        "metadata_ordinals": [
+          911,
+          912,
+          978,
+          979,
+          1039,
+          1040,
+          922,
+          923,
+          616,
+          624,
+          456,
+          472
+        ],
+        "cross_crop_history_check": "74 exposed dHash and 135 SHA/name historical scan only"
+      },
+      "dtype": "Original image files + UTF-8 prompts",
+      "grid": null,
+      "source_role": "EXPOSED_DEVELOPMENT; NOT_CONFIRM",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "config/e0_s2_new12_development_source_bank_20261029_v1.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_input_pattern",
+          "uri": "/home/xiang/.cache/huggingface/ffnds-derived/e0_s2_source18_provisional_archive_cpu_v2_20261029/attempt1/worker/results/source_XX.image",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        }
+      ],
+      "evidence_refs": [
+        "research/agent_protocol/ACQUISITION_QUEUE_20261029.json",
+        "research/20261029/S2_NEW12_DENSE_BASELINE_RESULTS_20261029.json",
+        "research/20261029/S2_NEW12_SM120_FIXED_DEPTH_QUALITY_RESULTS_20261029.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Legacy auxiliary development cases after current identity/dedup checks; not part of the new240 prospective slots"
+      ],
+      "invalidation": [
+        "Config status NO_MODEL_SCOPE and exposure=false predate actual model/video results",
+        "Cannot relabel as unexposed confirmation",
+        "Latest actual motion/occlusion labels must come from their cited Dense observations, not static metadata inference"
+      ]
+    },
+    {
+      "asset_id": "G19_VIDEO_METRICS",
+      "status": "HISTORICAL_PUBLISHED_MATCH_WITH_IDENTITY_FIRST",
+      "producer": "G19 Q1-r2 video/quality/motion/engineering scopes",
+      "input": [
+        "CHECKPOINTS",
+        "Q1_ALL80"
+      ],
+      "shape": {
+        "Q1_r2_sources": 7,
+        "seeds": [
+          43,
+          44
+        ],
+        "Q1_r2_videos": 14,
+        "frames": 81,
+        "width": 832,
+        "height": 464
+      },
+      "units": "source-paired metric; seed nested within source",
+      "clustered_source": [
+        "raft",
+        "bicycle",
+        "guitar",
+        "tennis",
+        "spoon",
+        "eagle",
+        "canoe_static_00"
+      ],
+      "dtype": "MP4/video metrics/receipts; latent hashes are not recoverable latent payload",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "EXPOSED_DEVELOPMENT",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "reports/20261107/g19/PUBLICATION_MANIFEST.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "repo",
+          "uri": "reports/20261107/g19/local_video_index.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "repo",
+          "uri": "reports/20261107/g19/receipt_index.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        }
+      ],
+      "evidence_refs": [
+        "reports/20261107/g19/evidence/q1_r2/scope.json",
+        "reports/20261107/g19/quality_summary.json",
+        "reports/20261107/g19/motion_summary.json",
+        "reports/20261107/g19/engineering_summary.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Read existing quality, motion and engineering evidence",
+        "Reference video can be reused only if source/condition/checkpoint/scheduler/numeric/background identities match"
+      ],
+      "invalidation": [
+        "No suffix restart from final_latent hashes or videos",
+        "G0 historical timing is not Q1-r2 new system speed",
+        "Old seven-source IDs differ from R1 DEV5 IDs and require explicit crosswalk"
+      ],
+      "identity": {
+        "cohort_14_json_scope_sha256": "4681dd63c6e9f9a8f5fb214fff8ade45c0695efedf4b04d61632160a0ea6bd71",
+        "cohort_payload_status": "Referenced in scope; do not assume its image/prompt payload is published"
+      }
+    },
+    {
+      "asset_id": "VBENCH_SOURCE_ARCHIVE",
+      "status": "PINNED_HISTORICAL_ARCHIVE_PROVENANCE_NOT_NEW_COHORT",
+      "producer": "lxl-158/vbench-i2v pinned snapshot and CPU extraction scopes",
+      "input": [],
+      "shape": {
+        "archive_bytes": 2607670436,
+        "metadata_bytes": 364832,
+        "source18_candidates": 18
+      },
+      "units": "original archive image and semantic source cluster",
+      "clustered_source": "Distinct row/image SHA is only a first-stage screen; no verified capacity of 240 unused clusters",
+      "dtype": "tar.gz original images + metadata JSON",
+      "grid": null,
+      "source_role": "Mixed historical roles; must audit exposure for every new binding",
+      "locators": [
+        {
+          "kind": "repo",
+          "uri": "config/e0_s2_source18_archive_cpu_20261029_v2.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        },
+        {
+          "kind": "historical_HF_relative_path",
+          "uri": "hub/models--lxl-158--vbench-i2v/snapshots/577ba45c1653ede26e29996737f42841f2ec9eea/vbench2_beta_i2v/data.tar.gz",
+          "uri_status": "NOT_CURRENTLY_RECHECKED"
+        },
+        {
+          "kind": "repo",
+          "uri": "config/ub2_diverse_confirmation20.json",
+          "uri_status": "READ_AT_PINNED_COMMIT",
+          "commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c"
+        }
+      ],
+      "evidence_refs": [
+        "config/e0_s2_source18_archive_cpu_20261029_v2.json",
+        "config/e0_s2_new12_development_source_bank_20261029_v1.json",
+        "config/ub2_diverse_confirmation20.json"
+      ],
+      "last_verified": {
+        "record_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "remote_payload": "NOT_CURRENTLY_RECHECKED"
+      },
+      "allowed_reuse": [
+        "Metadata-first feasibility and exact/perceptual/source-family dedup",
+        "Audit historical calibration12/24, disjoint20, diverse_confirmation20, formal20 and fresh banks before split binding"
+      ],
+      "invalidation": [
+        "Historical bank counts overlap; do not add counts to manufacture n",
+        "Prospective reserved20 is not proven currently unopened",
+        "Only 8 unused architecture sources remained in the old confirmation20 V1 audit; new quotas need feasibility evidence",
+        "Broaden corpus or revise/freeze design if disjoint semantic quotas cannot be filled"
+      ],
+      "identity": {
+        "dataset_revision": "577ba45c1653ede26e29996737f42841f2ec9eea",
+        "archive_sha256": "aa6af89775242f35dbcd1f4c53421a6547d0700b1a99206e98b87a28ea393865",
+        "metadata_sha256": "8cf4d34dc11779a336c216a1a71d482927cfa24a1bf736ab5c92425609f129f8"
+      }
+    }
+  ],
+  "planned_assets": [
+    {
+      "asset_id": "COHORT240",
+      "status": "UNBOUND_PLANNED_SLOTS",
+      "producer": "Metadata/input acquisition + independent split/exposure audit; no model needed",
+      "input": [
+        "VBENCH_SOURCE_ARCHIVE",
+        "FRESH10",
+        "NEW12",
+        "CAL4_CAPTURE",
+        "DEV5_CAPTURE",
+        "G19_VIDEO_METRICS"
+      ],
+      "shape": {
+        "planned_source_clusters": 240,
+        "CAL": 96,
+        "DEV": 48,
+        "CONFIRM": 96,
+        "bound_source_clusters": 0
+      },
+      "units": "deduplicated original source cluster",
+      "clustered_source": "Same image/crop/near-duplicate/semantic parent across prompts and seeds stays in one split",
+      "dtype": "Image/prompt/conditioning locators and hashes + typed metadata",
+      "grid": null,
+      "source_role": "96 CAL / 48 DEV / 96 sealed CONFIRM planned, not acquired",
+      "locators": [
+        {
+          "kind": "planned_config",
+          "uri": "config/g20_semantic_cohort_v1_20261112.json",
+          "uri_status": "PLANNED_MANIFEST_UNBOUND"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md"
+      ],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Shared source authority for all later branches after actual binding and freeze"
+      ],
+      "invalidation": [
+        "Any identity, split, cluster or exposure change requires new manifest version",
+        "Images/prompts/seeds cannot inflate source count",
+        "CONFIRM outcomes cannot feed selection; uncovered quotas block corresponding claims"
+      ],
+      "input_role_note": "Historical source assets are exposure/dedup audit inputs, not automatic members of the new240 prospective slots."
+    },
+    {
+      "asset_id": "PANEL2048",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Recovered fixed-panel sampler + new neutral pilot; code/mask/preprocess hashes frozen before capture",
+      "input": [
+        "COHORT240",
+        "FIXED_PANEL_PILOT",
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "panel_rows": 2048,
+        "rows_nested": true,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "all_calls": 160,
+        "tubelet_rows_separate": 336
+      },
+      "units": "token IDs nested in source trajectory; source remains the independent unit",
+      "clustered_source": "Inherited from COHORT240",
+      "dtype": "Int token IDs, THW coordinates, float inclusion probabilities; U/Y BF16",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "Same fixed mask per trajectory across layer/step; source masks versioned",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Exact anchor/hit pairing without independent-panel intersection loss",
+        "Nested row-count controls distinct from source-count controls"
+      ],
+      "invalidation": [
+        "Mask/coordinate mapping or sampled population change invalidates pairing and weighting",
+        "Separate optional tubelet or diagnostic masks from primary uniform/stratified estimator",
+        "Do not call 2048 token rows 2048 independent sources"
+      ],
+      "required_fields": [
+        "token_id",
+        "latent_t",
+        "latent_h",
+        "latent_w",
+        "panel_mask_sha256",
+        "inclusion_probability",
+        "panel_role",
+        "source_cluster_id",
+        "seed",
+        "step",
+        "expert",
+        "layer",
+        "image_sha256",
+        "prompt_sha256",
+        "checkpoint_sha256",
+        "preprocess_sha256",
+        "tubelet definition and probability/role kept separate from U panel"
+      ],
+      "coordinate_status": "MUST_BE_VALIDATED_AGAINST_ACTUAL_PRODUCER_FLATTENING"
+    },
+    {
+      "asset_id": "DENSE192",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "One shared passive Dense capture pipeline; first bounded batch includes neutrality and recovery checks",
+      "input": [
+        "COHORT240",
+        "PANEL2048",
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "planned_trajectories": 192,
+        "arithmetic": "96 CAL x 1 seed + 48 DEV x 2 seeds",
+        "calls_per_trajectory": 160,
+        "parameter_sites": 80,
+        "U": [
+          2048,
+          5120
+        ],
+        "Y": [
+          2048,
+          5120
+        ],
+        "confirmation_trajectories": 0,
+        "tubelet_rows_separate": 336,
+        "unique_source_seed_conditions": 192,
+        "execution_count_note": "First2 captured conditions also serve as neutral pilots; their2 plain full-pass controls add executions, not new source clusters or unique captured conditions.",
+        "capture_executions": 192,
+        "additional_plain_neutral_executions_max": 2,
+        "complete_four_step_executions_max_excluding_failures_and_retries": 194
+      },
+      "units": "trajectory for generation count; source cluster for uncertainty",
+      "clustered_source": "96 CAL and 48 DEV, not 192 independent clusters",
+      "dtype": "BF16 native U/Y, explicit gate/scale/shift and ID sidecars",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "CAL/DEV only; CONFIRM not opened by capture",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "One bank serves linear regularization, matched state controls, ICC and all80 transfer checks",
+        "CAL prefixes and row subsets use immutable nested IDs",
+        "Archive only fields whose reuse questions are declared",
+        "Full CAL and DEV bank retained for currently planned multiple mechanism comparisons; DEV operands are not deleted after scoring"
+      ],
+      "invalidation": [
+        "Passive observer must pass native output/latent neutrality checks",
+        "New background or model requires matched data",
+        "No automatic all-192 execution from this plan; finite batches must honor budget and source binding"
+      ],
+      "required_fields": [
+        "same token IDs at anchor and hit",
+        "U before W1",
+        "Y after W2 including bias before current gate",
+        "exact effective timesteps",
+        "scheduler and numeric identity",
+        "source/seed/backend identity",
+        "neutrality receipts",
+        "payload hashes",
+        "336 separate tubelet rows and their coordinate/weight contract"
+      ]
+    },
+    {
+      "asset_id": "FITCAL",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Stable R1b-derived fitting core with certified numerical method for the larger design",
+      "input": [
+        "DENSE192",
+        "Q1_ALL80",
+        "R1B"
+      ],
+      "shape": {
+        "CAL_sources_max": 96,
+        "parameter_sites": 80,
+        "local_design_sites": [
+          "high/4",
+          "high/19",
+          "high/34",
+          "low/4",
+          "low/19",
+          "low/34"
+        ]
+      },
+      "units": "source-equal loss with source-prefix and row-prefix factors kept separate",
+      "clustered_source": "CAL only; source-held inner splits must be explicit",
+      "dtype": "F64 solve/certificates, FP32 math lift, BF16 deployment export",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "TRAIN_CAL",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Re-evaluate fixed lambda/representation candidates from saved CAL",
+        "Compare source expansion against row expansion",
+        "Reuse numerical correction without rerunning the already-closed R1b question"
+      ],
+      "invalidation": [
+        "Changing objective/normalization is a new scientific comparison",
+        "Large-data solver must not silently revert to FP32 normal equations",
+        "Six design sites do not stand in for final all80 fit and readouts"
+      ],
+      "required_fields": [
+        "objective and gate normalization",
+        "source-equal weights",
+        "lambda grid/freeze rule",
+        "effective degrees of freedom",
+        "condition and rank diagnostics",
+        "CAL residuals",
+        "numeric cross-check",
+        "source/row prefix masks"
+      ]
+    },
+    {
+      "asset_id": "LOCALDEV_SCREEN",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Frozen-arm source-paired same-Dense-input evaluation of fitted operators on fixed new DEV",
+      "input": [
+        "DENSE192",
+        "FITCAL",
+        "Q1_ALL80",
+        "ICC_SVD512"
+      ],
+      "shape": {
+        "source_clusters": 48,
+        "seeds_per_source": 2,
+        "final_parameter_sites": 80
+      },
+      "units": "source-level paired change; seeds and token panels nested within source",
+      "clustered_source": "48 independent clusters only after source audit",
+      "dtype": "F64 SSE/denominators and paired differences; math-lift and BF16 replay separate",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "DEVELOPMENT_FOR_SELECTION",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Select one frozen deployable recipe",
+        "Only prespecified subgroup contrasts; retains all unfavorable arms"
+      ],
+      "invalidation": [
+        "DEV is exposed once used; never renamed CONFIRM",
+        "Do not treat six-site gains as all80 acceptance",
+        "Different masks, gates, loss denominators or arm-dependent missingness invalidate paired comparison"
+      ],
+      "conditional_input": [
+        "ICC_CDSVD512 after provenance binding",
+        "PROXY_FULLM when author arm is scored"
+      ],
+      "required_fields": [
+        "per-source per-site per-arm metrics",
+        "source-equal aggregate",
+        "paired source-cluster intervals",
+        "aggregate definition",
+        "candidate library and selection log",
+        "all80 adverse-site counts",
+        "math/BF16 agreement diagnostics",
+        "Gate all80 candidate export using actual all80 readouts, not six sentinel extrapolation"
+      ]
+    },
+    {
+      "asset_id": "GDEV",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Frozen legal Q1 implementation on DEV48 x 2 seeds, under the frozen Attention background",
+      "input": [
+        "DENSE192",
+        "COHORT240",
+        "CHECKPOINTS",
+        "Q1_ALL80"
+      ],
+      "conditional_input": [
+        "FITCAL if a refitted Q1 becomes the frozen legal comparator",
+        "ATTENTION_BACKGROUND if G_A is selected"
+      ],
+      "shape": {
+        "source_clusters": 48,
+        "seeds": [
+          42,
+          43
+        ],
+        "four_step_trajectories": 96,
+        "calls_per_trajectory": 160,
+        "cache_build_calls": 80,
+        "cache_hit_calls": 80,
+        "initial_source_clusters": 12,
+        "initial_four_step_trajectories": 24,
+        "maximum_source_clusters": 48,
+        "maximum_four_step_trajectories": 96
+      },
+      "units": "Q1 student/free trajectory, distinct from the shared Dense teacher trajectory",
+      "clustered_source": "48 DEV source clusters; seeds nested",
+      "dtype": "Native BF16 Q1 state and method output; native target shadow is separately paid",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "EXPOSED_DEVELOPMENT_FREE_TRAJECTORY",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No new Q1 DEV48 trajectory bank yet"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md"
+      ],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "required_fields": [
+        "same image/prompt/noise as paired Dense",
+        "Q1 matrix/cache identity",
+        "student U, Y_used explicitly labelled",
+        "full native target only when shadow FFN actually evaluated",
+        "recoverable endpoint package where suffix is planned",
+        "video and scope hashes"
+      ],
+      "allowed_reuse": [
+        "Q1 free-video comparator in T1/T2 and system table",
+        "Student-state distribution diagnostic and restart bundle after data contract validation",
+        "Only exact same-background Q1 videos reused across stages"
+      ],
+      "invalidation": [
+        "Y_used at a Q1 hit is not a Dense/native target",
+        "DEV cannot become student-state training CAL",
+        "The conditional N_STUDENT_CAL24 bank is separate; not contained in these 96 DEV trajectories",
+        "A changed Q1 or Attention background requires new paired identity"
+      ]
+    },
+    {
+      "asset_id": "CANDIDATE80",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Full 40 high + 40 low parameter export and deployed kernel/cache implementation",
+      "input": [
+        "FITCAL",
+        "LOCALDEV_SCREEN",
+        "Q1_ALL80",
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "parameter_sites": 80,
+        "anchors": 80,
+        "hits": 80,
+        "total_calls": 160,
+        "all_sites_required": true
+      },
+      "units": "one frozen full-model recipe plus per-site files",
+      "clustered_source": "Trained on CAL; chosen using DEV; no CONFIRM feedback",
+      "dtype": "Frozen BF16 native deployment; explicit cache and gate boundaries",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "FROZEN_BEFORE_CONFIRMATION",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Actual candidate-direction suffix and full rollout",
+        "Shared final quality/cost build"
+      ],
+      "invalidation": [
+        "Any after-selection per-site fallback or tuning creates a new candidate version",
+        "No dummy or six-site-only matrix collection promoted as all80",
+        "Optimization changing numeric outputs requires renewed parity and matched reference"
+      ],
+      "required_fields": [
+        "80 site parameter hashes",
+        "per-site provenance",
+        "rank/representation map",
+        "fallback policy",
+        "native parity probes",
+        "runtime/offload/memory contract"
+      ]
+    },
+    {
+      "asset_id": "PROXY_FULLM",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Author-faithful voxel/block summaries captured during the same required Dense runs where possible",
+      "input": [
+        "DENSE192",
+        "CHIPMUNK_AUTHOR_CODE"
+      ],
+      "shape": {
+        "M": 31668,
+        "voxel": [
+          4,
+          6,
+          8
+        ],
+        "block_rows": 128,
+        "valid_tail_rows": 52,
+        "site_selection": "Frozen before acquisition; full80 if full80 author claim is intended"
+      },
+      "units": "full population valid voxel blocks, not scattered panel",
+      "clustered_source": "Same bound CAL/DEV sources as comparator",
+      "dtype": "Producer-defined accumulations and BF16 inputs/masks",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "MATCHED_CAL_DEV_PROXY",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Matched faithful Chipmunk arm",
+        "Share side collection rather than a separate duplicate video bank"
+      ],
+      "invalidation": [
+        "If full-M inputs are not retained, summaries must support the exact frozen selector and readout",
+        "One selector's means/mask do not enable arbitrary later proxy changes",
+        "No substitution by global-P64 or sampled means"
+      ],
+      "required_fields": [
+        "native full-M anchor/hit U or certified exact streamed block means",
+        "permutation/valid-length mapping",
+        "author top-k mask",
+        "full-M evaluation output or score",
+        "tail handling",
+        "selector code/ABI hashes"
+      ]
+    },
+    {
+      "asset_id": "SUFFIX",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Restart-capable consumer bound to one frozen candidate and one verified Attention background",
+      "input": [
+        "CANDIDATE80",
+        "DENSE192",
+        "GDEV"
+      ],
+      "shape": {
+        "design": "Finite predeclared source/site/direction/background cells",
+        "restart_sites": "Freeze exact endpoints; no invented payload availability"
+      },
+      "units": "paired source-level endpoint/terminal effect",
+      "clustered_source": "DEV only for adaptive mechanism selection",
+      "dtype": "Native latent/cache state plus metric reductions",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "DEVELOPMENT_MECHANISM",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Actual candidate-direction suffix; native/generic directions only separate mechanism controls"
+      ],
+      "invalidation": [
+        "Final latent hashes or MP4 files cannot restart suffix",
+        "Freezing future caches when deployment updates them changes the experiment",
+        "D_A/G_A comparison is valid only after background identity and cost are frozen"
+      ],
+      "conditional_input": [
+        "ATTENTION_BACKGROUND after implementation/compatibility decision"
+      ],
+      "required_fields": [
+        "recoverable endpoint latent payload",
+        "scheduler state and effective timesteps",
+        "RNG state or exact replay contract",
+        "image/text conditioning payload",
+        "FFN and Attention cache state",
+        "future cache update policy",
+        "candidate residual direction",
+        "Dense paired restart",
+        "Common Q1 parent state; candidate-owned shadow cache built at that same parent anchor; never subtract unrelated free-prefix states"
+      ]
+    },
+    {
+      "asset_id": "N_STUDENT_CAL24",
+      "status": "CONDITIONAL_PLANNED_NO_PAYLOAD",
+      "producer": "One conditional native candidate-N state collection and target-shadow pass after same-input gain fails in free rollout",
+      "input": [
+        "CANDIDATE80",
+        "DENSE192",
+        "COHORT240",
+        "NDEV"
+      ],
+      "shape": {
+        "source_clusters": 24,
+        "sources_per_primary_stratum": 2,
+        "four_step_trajectories_max": 24,
+        "recalibration_cycles_max": 1,
+        "native_target_shadow": "Paid extra FFN work; exact sites/rows frozen in scope"
+      },
+      "units": "source-level candidate-N student state, paired to same CAL Dense source and mask",
+      "clustered_source": "Same24 training CAL clusters; no DEV fitting",
+      "dtype": "Native BF16 candidate-state operands; exact target is labelled only after paid native shadow evaluation",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "CONDITIONAL_TRAIN_CAL",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No candidate or its CAL student-state bank exists yet"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md"
+      ],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "required_fields": [
+        "same CAL source/seed/mask across Dense and candidate",
+        "candidate code/matrix/cache hashes",
+        "student U",
+        "Y_used separately labelled",
+        "paid native FFN target and counter",
+        "source-held evaluation",
+        "single-cycle budget"
+      ],
+      "allowed_reuse": [
+        "Direct teacher-versus-failed-candidate-state recalibration contrast",
+        "One frozen recalibration cycle; reuse collected common-condition Dense bank"
+      ],
+      "invalidation": [
+        "Q1 DEV state cannot substitute for the failed candidateN training state",
+        "Never fit on DEV or CONFIRM",
+        "Y_used is not a native target",
+        "Changed candidate requires a new state identity; no unbounded self-training loop"
+      ]
+    },
+    {
+      "asset_id": "OD_CROSS",
+      "status": "CONDITIONAL_PLANNED_NO_PAYLOAD",
+      "producer": "Saved-operand Original/Distilled crossed-weight/measure analysis; new O40 generation only if precise operands are absent",
+      "input": [
+        "ORIGINAL40",
+        "DENSE192",
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "design": "O/D weights x O/D input measure, matched function/gate; sites and sources frozen separately"
+      },
+      "units": "matched input operand and source-level risk; not an automatic model-distribution theorem",
+      "clustered_source": "Explicit O/D source identity crosswalk required",
+      "dtype": "F64 diagnostic reductions over matched native operands",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "EXPOSED_ATTRIBUTION_BRANCH",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Attribution branch can run in parallel after its own data readiness",
+        "Use old operands before any 40-step reacquisition"
+      ],
+      "invalidation": [
+        "Name equality is not source matching",
+        "Changing input measure and output function together prevents attribution",
+        "Not a prerequisite for a narrowly scoped deployed-candidate claim unless that claim asserts distillation causality"
+      ],
+      "required_fields": [
+        "O and D checkpoint hashes",
+        "matched source/prompt/preprocess/noise identities",
+        "actual timestep/CFG contract",
+        "same output target and gate for each causal contrast",
+        "input-measure support diagnostics"
+      ]
+    },
+    {
+      "asset_id": "FINALVIDEOS",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Frozen all80 candidate and fair baselines on matched final reference inputs",
+      "input": [
+        "CANDIDATE80",
+        "COHORT240",
+        "SUFFIX",
+        "DEV_SYSTEM_METRICS",
+        "DEV_SYSTEM_COST"
+      ],
+      "shape": {
+        "confirm_sources_planned": 96,
+        "seeds": [
+          42,
+          43
+        ],
+        "default_arms": [
+          "D",
+          "Q",
+          "A",
+          "Q+A",
+          "N+A",
+          "ICC+A",
+          "Chip+A"
+        ],
+        "default_unique_videos": 1344,
+        "conditional_arm": "N under original Attention if the synergy claim is tested",
+        "conditional_arm_additional_videos": 192,
+        "confirm_source_expansion_options": [
+          144,
+          192
+        ],
+        "unique_videos_at_7_arms_for_expansions": [
+          2016,
+          2688
+        ],
+        "timing_repetitions_per_condition": 3,
+        "complete_four_step_executions_at_7_arms_by_N": {
+          "96": 4032,
+          "144": 6048,
+          "192": 8064
+        },
+        "conditional_eighth_arm_extra_complete_executions_by_N": {
+          "96": 576,
+          "144": 864,
+          "192": 1152
+        }
+      },
+      "units": "source cluster with paired seeds/arms",
+      "clustered_source": "96 planned confirmation clusters, still UNBOUND until COHORT240 passes",
+      "dtype": "Native output video plus recoverable provenance",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "SEALED_CONFIRMATION_AFTER_CANDIDATE_FREEZE",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Quality/visual/motion readouts and prospective confirmation",
+        "Matched Dense reference reused only under exact identity"
+      ],
+      "invalidation": [
+        "Any adaptation to confirmation requires a fresh untouched confirmation cohort",
+        "Do not fill failed/missing sources based on outcome",
+        "Video generation counts are not independent-source n",
+        "Unimplemented ICC/Chip/Attention arms cannot be silently counted as run; either satisfy readiness or narrow claims and freeze a revised arm set before confirmation"
+      ],
+      "conditional_input": [
+        "ATTENTION_BACKGROUND decision and frozen numeric/runtime identity",
+        "Exact same-background GDEV/video identities may be reused for development, not as new confirmation"
+      ],
+      "required_fields": [
+        "input and initial-noise identity",
+        "all160 call execution/cache trace",
+        "video SHA",
+        "generation RUN/EXIT",
+        "predeclared failure/missingness handling",
+        "Separate unique condition/video count from complete timing execution count; one probe-free repeat may supply the frozen quality video if identity holds"
+      ]
+    },
+    {
+      "asset_id": "METRICS",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Frozen quality/motion metric implementations and paired source-cluster analysis",
+      "input": [
+        "FINALVIDEOS"
+      ],
+      "shape": {
+        "axes": "Predeclared quality + motion + failure diagnostics",
+        "unit": "source-level paired difference"
+      },
+      "units": "Metric-specific raw units; preserve sign and denominator definitions",
+      "clustered_source": "Resample source clusters, keep paired seeds/arms together",
+      "dtype": "JSON/CSV scalar metrics with exact implementation/model hashes",
+      "grid": null,
+      "source_role": "CONFIRMATORY_READOUT_AFTER_FREEZE",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Independent result review and claims bounded to tested cohort/model/background"
+      ],
+      "invalidation": [
+        "High motion magnitude alone is not correct motion",
+        "Do not call planned n=96 power sufficient without precision/power rationale",
+        "Post-hoc metric choice is exploratory"
+      ],
+      "required_fields": [
+        "metric version/model hashes",
+        "per-video raw scores",
+        "per-source aggregation",
+        "paired uncertainty",
+        "effect thresholds",
+        "multiplicity/selection policy",
+        "missingness",
+        "visual review provenance"
+      ]
+    },
+    {
+      "asset_id": "COST",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Same hardware/runtime matched system and operator measurements after final implementation freeze",
+      "input": [
+        "CANDIDATE80",
+        "FINALVIDEOS"
+      ],
+      "shape": {
+        "timing": "Finite matched ordering/warmup/repetitions; exact budget fixed in scope",
+        "timing_repetitions_per_condition": 3,
+        "unique_conditions_by_N": {
+          "96": 1344,
+          "144": 2016,
+          "192": 2688
+        },
+        "complete_four_step_timing_executions_by_N": {
+          "96": 4032,
+          "144": 6048,
+          "192": 8064
+        }
+      },
+      "units": "seconds, peak bytes, cache bytes and failure counts; separate operator and system units",
+      "clustered_source": "Source-paired system repetitions; no independent n from repeated wall timings",
+      "dtype": "Raw timing and memory receipts",
+      "grid": null,
+      "source_role": "CONFIRMATION_MATCHED_COST_AFTER_FREEZE",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Same frozen candidate quality/cost tradeoff",
+        "No duplicate microbenchmarks unless a concrete implementation risk remains"
+      ],
+      "invalidation": [
+        "Old P64/G0 timings cannot substitute for final current runtime",
+        "Instrumentation and background changes require matched timing recheck",
+        "MAC reduction is not system speed"
+      ],
+      "conditional_input": [
+        "ATTENTION_BACKGROUND frozen"
+      ],
+      "required_fields": [
+        "hardware and clocks/context",
+        "software/backend/kernel hashes",
+        "offload/cache accounting",
+        "warm/cold definitions",
+        "full wall vs FFN event boundaries",
+        "paired order",
+        "raw timing rows",
+        "peak memory"
+      ]
+    },
+    {
+      "asset_id": "REVIEW_CHAIN",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "Post-run audit index collecting actual per-scope preexecution reviews, RUN/EXIT, publication manifests and independent result reviews",
+      "input": [
+        "DENSE192",
+        "FITCAL",
+        "LOCALDEV_SCREEN",
+        "GDEV",
+        "NDEV",
+        "CANDIDATE80",
+        "DEV_SYSTEM_VIDEOS",
+        "DEV_SYSTEM_METRICS",
+        "DEV_SYSTEM_COST",
+        "FINALVIDEOS",
+        "METRICS",
+        "COST"
+      ],
+      "shape": {
+        "chain": [
+          "scope/code/input hashes",
+          "author self-audit",
+          "independent review",
+          "author responses",
+          "re-review if changed",
+          "RUN",
+          "EXIT",
+          "output manifest",
+          "independent result review"
+        ]
+      },
+      "units": "hash-bound scope and evidence chain",
+      "clustered_source": "Reviewer checks source identity, split exposure and cluster-level analysis",
+      "dtype": "Versioned JSON/Markdown records",
+      "grid": null,
+      "source_role": "POSTRUN_AUDIT_SUMMARY_NOT_PREEXEC_GATE",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No output or runtime URI has been assigned"
+        }
+      ],
+      "evidence_refs": [],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Reuse already validated implementation and immutable evidence without reopening closed questions",
+        "Final record links raw outputs and claim boundaries"
+      ],
+      "invalidation": [
+        "This plan and registry grant no job execution authorization",
+        "Reviewing a draft is not a successful execution",
+        "Changed frozen code/inputs/scope require new hash-bound review",
+        "A gate's review is required before that gate; this terminal chain index is not a single review delayed until the end",
+        "Do not make S2 depend on this result-dependent aggregate; preexec review is a per-scope gate, not this terminal asset."
+      ],
+      "required_fields": [
+        "actual distinct reviewer identity",
+        "counterexample or blocking risk check",
+        "concrete acceptance conditions",
+        "bounded resource/stop conditions",
+        "observed RUN/EXIT"
+      ],
+      "usage": "This aggregate cannot be an execution prerequisite for outputs it summarizes. Every finite scope independently requires its own actual REVIEWER_RECHECK_APPROVED path and frozen code/input/scope hashes as bound by ACTIVE before that scope runs."
+    },
+    {
+      "asset_id": "LEGACY_DIRECTION_DIAG",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "L0 finite saved-operand arithmetic on actual saved R1b BF16 arm matrices and original typed replay; no new fitting or generation",
+      "input": [
+        "R1B",
+        "CAL4_CAPTURE",
+        "DEV5_CAPTURE",
+        "Q1_ALL80",
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "legacy_CAL_sources": 4,
+        "legacy_DEV_sources": 5,
+        "seed": 42,
+        "sites": [
+          "high/4",
+          "high/19",
+          "high/34",
+          "low/4",
+          "low/19",
+          "low/34"
+        ],
+        "new_generations": 0,
+        "new_fits": 0
+      },
+      "units": "per-source e,c,a=<e,c>,b=||c||^2 and output-interpolation risk reconstruction",
+      "clustered_source": "Same legacy CAL4/DEV5; does not create new clusters or restore blindness",
+      "dtype": "Actual BF16 matrices/typed arm predictions lifted to F64 for algebra",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "LEGACY_EXPOSED_DIAGNOSTIC",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No new runtime output exists"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md"
+      ],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Separate wrong direction from positive direction overshoot without repeating R1b solves",
+        "Use original old bank once after current identity checks"
+      ],
+      "invalidation": [
+        "No stable unrounded F64 D is assumed available",
+        "Interpolation is not a claim of bitwise typed BF16 eta behavior",
+        "Per-DEV-source optimal eta is an oracle diagnostic, not a deployed chooser"
+      ],
+      "required_fields": [
+        "saved-A and input hashes",
+        "exact Q1/stable prediction recipe",
+        "a,b and b=0 case",
+        "R(eta)-R(0)=eta^2 b-2 eta a residual",
+        "post-hoc eta labelled diagnostic",
+        "CAL-only deployable shrink policy if pursued"
+      ]
+    },
+    {
+      "asset_id": "NDEV",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "One frozen all80 candidateN on DEV12 then DEV48, two seeds, with matched background/condition identity",
+      "input": [
+        "CANDIDATE80",
+        "COHORT240",
+        "DENSE192",
+        "CHECKPOINTS"
+      ],
+      "shape": {
+        "initial_source_clusters": 12,
+        "initial_four_step_trajectories": 24,
+        "maximum_source_clusters": 48,
+        "seeds": [
+          42,
+          43
+        ],
+        "maximum_four_step_trajectories": 96,
+        "all_calls_per_trajectory": 160
+      },
+      "units": "candidateN free trajectory; source cluster independent and seeds nested",
+      "clustered_source": "12 then48 fixed DEV source clusters",
+      "dtype": "Native BF16 candidate outputs and frozen state probes; native target shadow is separate paid work",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "EXPOSED_DEVELOPMENT_FREE_TRAJECTORY",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No new runtime output exists"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md"
+      ],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Actual local-to-free-trajectory transfer test",
+        "Same-identity N+A videos feed development system table",
+        "Failure may trigger exactly one N_STUDENT_CAL24 collection"
+      ],
+      "invalidation": [
+        "Not Q1 GDEV states",
+        "No fitting on DEV",
+        "Different candidate or Attention background invalidates reuse",
+        "Video or final-latent hash alone is not a suffix restart payload"
+      ],
+      "comparison_assets": [
+        "GDEV"
+      ],
+      "conditional_input": [
+        "ATTENTION_BACKGROUND if strong Attention is frozen"
+      ],
+      "required_fields": [
+        "candidate all80 parameter/code/cache hash",
+        "source/seed/noise/background match",
+        "Y_used method output label",
+        "video and runtime receipts",
+        "required finite state snapshots",
+        "failure record"
+      ]
+    },
+    {
+      "asset_id": "DEV_SYSTEM_VIDEOS",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "S1 seven frozen matched arms on DEV12 then DEV48 x2 seeds; reuse every exact-identity existing video",
+      "input": [
+        "DENSE192",
+        "GDEV",
+        "NDEV",
+        "CANDIDATE80",
+        "COHORT240"
+      ],
+      "shape": {
+        "source_clusters": 48,
+        "seeds": [
+          42,
+          43
+        ],
+        "arms": [
+          "D",
+          "Q",
+          "A",
+          "Q+A",
+          "N+A",
+          "ICC+A",
+          "Chip+A"
+        ],
+        "unique_conditions_max": 672,
+        "existing_Dense_DEV_conditions_in_total": 96,
+        "conditional_eighth_arm": "N without Attention for a frozen standalone/synergy claim",
+        "conditional_extra_unique_conditions": 96
+      },
+      "units": "source x seed x arm unique video; paired source inferential unit",
+      "clustered_source": "48 exposed DEV clusters, not672 independent samples",
+      "dtype": "Native video plus provenance and execution receipts",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "DEVELOPMENT_SYSTEM_SELECTION",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No new runtime output exists"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md"
+      ],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Development quality/cost and final recipe/metric/margin/N selection",
+        "Reuse native D/Q/N only where backgrounds and exact numeric identities match"
+      ],
+      "invalidation": [
+        "An Attention change prevents reuse of native-background targets as matched G_A reference",
+        "Missing ICC/Chip arm is MISSING_ASSET, not completed competition",
+        "Data selection on these results keeps every used source exposed",
+        "Observer-heavy Dense capture time is not a production timing replicate"
+      ],
+      "conditional_input": [
+        "ATTENTION_BACKGROUND implementation and calibration readiness",
+        "Frozen fair ICC factors, including refitted factors if that is the selected comparator",
+        "CHIPMUNK_AUTHOR_CODE and PROXY_FULLM for faithful Chip arm"
+      ],
+      "required_fields": [
+        "all seven actual implementations",
+        "same input/noise/runtime identity",
+        "per-arm video hashes",
+        "actual unique-condition and execution ledgers",
+        "failure/missingness records",
+        "full160 trace or checked aggregate counters"
+      ]
+    },
+    {
+      "asset_id": "DEV_SYSTEM_METRICS",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "S1 development quality/motion/semantic metrics and source-paired analysis",
+      "input": [
+        "DEV_SYSTEM_VIDEOS"
+      ],
+      "shape": {
+        "source_clusters": 48,
+        "required_axes": "Full frozen quality axes plus motion direction/trajectory/action/failure readouts; missing implementations explicit"
+      },
+      "units": "metric-native units, source paired effect and source-level variance",
+      "clustered_source": "Average two seeds within source; stratified source-cluster aggregation",
+      "dtype": "Per-video and per-source scalar tables with metric code/model hashes",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "DEVELOPMENT_FOR_SELECTION_AND_POWER_PLANNING",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No new runtime output exists"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md"
+      ],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Freeze metrics, margins, primary comparison and confirmationN before opening outcomes",
+        "Diagnose local-to-video mismatch"
+      ],
+      "invalidation": [
+        "Not confirmation evidence",
+        "DEV four/eight subtopics per stratum may miss full confirmation fine-semantic variability",
+        "Magnitude alone does not establish correct motion",
+        "Do not treat repeated seed/frame metrics as independent n"
+      ],
+      "required_fields": [
+        "raw metric scores",
+        "directions/scales",
+        "per-source aggregate",
+        "full denominator/missingness",
+        "Dense-only motion eligibility",
+        "subtopic coverage",
+        "variance estimates",
+        "selection log"
+      ]
+    },
+    {
+      "asset_id": "DEV_SYSTEM_COST",
+      "status": "PLANNED_NO_PAYLOAD",
+      "producer": "S1 probe-free matched system/operator/memory measurement after each actual implementation freeze",
+      "input": [
+        "DEV_SYSTEM_VIDEOS",
+        "CANDIDATE80"
+      ],
+      "shape": {
+        "source_clusters": 48,
+        "seeds": [
+          42,
+          43
+        ],
+        "arms": 7,
+        "unique_conditions": 672,
+        "timing_repetitions_per_condition": 3,
+        "four_step_timing_executions": 2016,
+        "warmup_and_retries": "Separate bounded ledger"
+      },
+      "units": "seconds and bytes; repeats measure runtime variation, not independent source count",
+      "clustered_source": "Paired source cluster with repeated timings nested",
+      "dtype": "Raw timing/memory rows and device/runtime/code receipts",
+      "grid": [
+        21,
+        29,
+        52
+      ],
+      "source_role": "DEVELOPMENT_SYSTEM_COST",
+      "locators": [
+        {
+          "kind": "payload",
+          "uri": null,
+          "uri_status": "MISSING_OR_UNBOUND",
+          "reason": "No new runtime output exists"
+        }
+      ],
+      "evidence_refs": [
+        "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md"
+      ],
+      "last_verified": {
+        "plan_checked_at_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+        "payload": "NOT_PRODUCED"
+      },
+      "allowed_reuse": [
+        "Select final feasible quality/cost recipe",
+        "Plan confirmation paired cost variance"
+      ],
+      "invalidation": [
+        "Do not count observer-heavy capture as a timed production replicate",
+        "Three repeats do not triple source n",
+        "Implementation or background change requires a matched new timing identity",
+        "Unique videos and full model executions must be counted separately"
+      ],
+      "conditional_input": [
+        "ATTENTION_BACKGROUND frozen identity"
+      ],
+      "required_fields": [
+        "probe-free controls",
+        "hardware/software/offload/backend",
+        "randomized or balanced source-group order",
+        "warm/cold definitions",
+        "all wall and component timings",
+        "peak/cache memory",
+        "complete execution counts"
+      ]
+    }
+  ],
+  "retention_budget": {
+    "status": "DESIGN_ESTIMATE_NOT_MEASURED_NEW_RUN",
+    "full_primary_UY": {
+      "formula": "192 * 160 * 2048 * 5120 * 2 fields * 2 BF16 bytes",
+      "bytes_per_trajectory": 6710886400,
+      "GiB_per_trajectory": 6.25,
+      "total_bytes": 1288490188800,
+      "TiB_total": 1.171875,
+      "excludes": [
+        "sidecars",
+        "optional tubelet336",
+        "latent/scheduler recovery payload",
+        "video",
+        "full-M proxy extras",
+        "preactivation/hidden state"
+      ]
+    },
+    "old_schema_scaled": {
+      "formula": "192 * 7,828,475,200 historical bytes/trajectory",
+      "approx_TiB": 1.3670316897332668,
+      "warning": "Historical schema included separate tubelet panel; not a measured new-run budget"
+    },
+    "economy_options": [
+      {
+        "id": "PRIMARY_ONLY",
+        "status": "NOT_SELECTED_FULL_TUBELET_RETAINED",
+        "action": "Retain native U/Y and exact shared IDs at all80; store gate/scale/shift once per valid identity; add tubelet/H/a only for a specific registered contrast.",
+        "tradeoff": "State branches need their declared additional fields before collection."
+      },
+      {
+        "id": "STREAM_DEV_AFTER_LIBRARY_FREEZE",
+        "status": "NOT_SELECTED_FULL_DEV_BANK_RETAINED",
+        "action": "After CAL fit and finite candidate-library freeze, score all80 on DEV during shared Dense generation; retain source/site/arm summaries plus full six-site panels and a prespecified all80 raw audit subset.",
+        "tradeoff": "Unstored DEV operands cannot support arbitrary later offline candidate evaluation; any additional generation must be separately justified. All80 source-out readouts remain mandatory."
+      },
+      {
+        "id": "BATCH_AND_REUSE",
+        "status": "RECOMMENDED",
+        "action": "Capture nested CAL batches and fixed DEV batches under finite scopes; pilot records enter their declared split once neutral; no automatic generation of all240 sources.",
+        "tradeoff": "Each prefix preserves source roles and sealed confirmation; retain full acquired CAL/DEV bank for multiple mechanism comparisons."
+      }
+    ],
+    "all80_nonnegotiable": "Final parameter files and DEV evaluation cover all40 layers in both experts. Six sentinel sites only develop/diagnose the recipe.",
+    "selected_policy": "FULL_PRIMARY_PANEL_PLUS_SEPARATE_TUBELET_CAL_AND_DEV_BANK",
+    "full_primary_plus_tubelet": {
+      "formula": "192 * 160 * (2048+336) * 5120 * 2 fields * 2 BF16 bytes",
+      "bytes_per_trajectory": 7811891200,
+      "GiB_per_trajectory": 7.275390625,
+      "total_bytes": 1499883110400,
+      "TiB_total": 1.3641357421875,
+      "excludes": [
+        "headers and sidecars",
+        "recoverable latent/scheduler/conditioning package",
+        "full-M proxy extras",
+        "Z/H",
+        "videos",
+        "copies and temporary files"
+      ]
+    },
+    "capture_condition_vs_execution": {
+      "unique_capture_conditions": 192,
+      "plain_neutral_controls_max": 2,
+      "complete_four_step_executions_max_excluding_failures_and_retries": 194,
+      "neutral_controls_add_independent_sources": 0
+    }
+  }
+}

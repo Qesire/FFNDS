@@ -1,0 +1,116 @@
+{
+  "schema": "ffnds.independent_design_review.v1",
+  "review_id": "G20_ROADMAP_V3_SCOPE_REVIEW_INITIAL_20261112",
+  "reviewer_agent_id": "/root/scope_review",
+  "author_agents": [
+    "/root",
+    "cohort author delegated by /root"
+  ],
+  "review_utc": "2026-11-12T08:39:29.770491+00:00",
+  "based_on_repository_commit": "1636c83a78fabd4dfd2f08611a6828c7386a366c",
+  "reviewed_files": [
+    {
+      "path": "research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md",
+      "sha256": "962942ddc019fafb287f0f014ed11a696d7229654b1f439b478226dc71a56bdd",
+      "bytes": 34954
+    },
+    {
+      "path": "research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md",
+      "sha256": "7702b4bb3c4ebf22edf6d09754181807aa0947ebbad891c339fc591160991823",
+      "bytes": 21993
+    },
+    {
+      "path": "config/g20_semantic_cohort_v1_20261112.json",
+      "sha256": "22873d8abe1a0fd622973126e0e66a90838ad82a4b734885c42e5c7be6f495b1",
+      "bytes": 458799
+    }
+  ],
+  "independence_boundary": "Reviewer authored G20_ASSET_REGISTRY_20261112.json. That registry is excluded from this independent approval; a different reviewer must inspect it. Review here is independent only for root roadmap and separate-author cohort/spec files.",
+  "review_scope": "Static scientific claim boundaries, real-source readiness, cohort arithmetic, paired sampling, dependencies and concrete budget; no model/GPU run and no remote mutation.",
+  "checks": {
+    "planned_unique_slots": true,
+    "role_counts_match_96_48_96": true,
+    "each_stratum_8_4_8": true,
+    "all_identity_fields_unbound": true,
+    "capture_unique_conditions_192": true,
+    "payload_arithmetic": true,
+    "seven_arm_budget": true,
+    "random_prefix_order_explicit": true,
+    "L0_saved_BF16_identity_bound": true,
+    "L0_not_quantized_eta_identity": true,
+    "nonlinear_delta_control_not_GELU_odd": true,
+    "T1_common_parent_state_explicit": true,
+    "ICC_universal_stage1_bound_removed": true,
+    "legacy_not_new_confirmation": true,
+    "no_execution_authority": true
+  },
+  "disposition": "REQUEST_CHANGES",
+  "open_findings": [
+    {
+      "id": "SCOPE-R1",
+      "severity": "MINOR_CORRECTION",
+      "location": "G20_COHORT_AND_SAMPLING_SPEC §1 item 1",
+      "finding": "来源覆盖假说写成提高开发风险，方向相反。",
+      "required_change": "改为降低开发风险/改善覆盖，并保留来源覆盖尚非已证因果的限定。"
+    },
+    {
+      "id": "SCOPE-R2",
+      "severity": "EXECUTION_BUDGET_CLARIFICATION",
+      "location": "Roadmap §3.2 / Cohort §5 first two neutral pilots",
+      "finding": "首2条可计入192个唯一Dense条件，但若每条需要plain/tap完整中性对照，还需2次额外完整执行。现有192预算只计条件，没有明示中性控制执行数。",
+      "required_change": "分别记录192个唯一条件、192个capture执行及最多2个plain neutral执行（共194次），或冻结替代中性验收和其真实extra-forward计数；失败/重试另记。",
+      "counterexample": "两个新UNBOUND源没有现成plain参考。每源只生成一条tap轨迹，无法得到同源同seed的独立plain终端对照；生成plain后实际执行数变成194。"
+    }
+  ],
+  "pre_artifact_findings_already_communicated_and_resolved_or_checked": [
+    {
+      "id": "EARLY-L0",
+      "counterexample": "The NPY manifest stores BF16 A but not stable F64 D. Reconstructing unrounded D from BF16 A is impossible.",
+      "resolution": "Current main explicitly uses actual saved BF16 arm prediction interpolation and separates typed eta replay."
+    },
+    {
+      "id": "EARLY-N1",
+      "counterexample": "GELU(v)-GELU(-v)=v, so its odd displacement component is linear.",
+      "resolution": "Current main fixes tanh and shares linear/nonlinear feature counts and train-fold scales."
+    },
+    {
+      "id": "EARLY-PANEL",
+      "counterexample": "Sorting all2048 by token before taking first256 concentrates the smaller panel in early THW positions.",
+      "resolution": "Current cohort requires random ordered sample; sort only after prefix selection."
+    },
+    {
+      "id": "EARLY-ICC",
+      "counterexample": "e2=b and nonzero e1=-b give zero total error; native-h risk does not bound every first-stage modification.",
+      "resolution": "Check current main limits inference to the native-h intervention; boolean recorded above."
+    },
+    {
+      "id": "EARLY-SUFFIX",
+      "counterexample": "Subtracting separate candidate/Q1 free trajectories includes prior-state differences and is not a local same-state replacement.",
+      "resolution": "Current main fixes one Q1 parent state and candidate-owned shadow anchor cache."
+    }
+  ],
+  "nonblocking_execution_conditions": [
+    {
+      "id": "C1",
+      "condition": "DEV covers four of eight subtopics per primary stratum; confirmation covers all eight. DEV variance is a working approximation for the wider fine-semantic mixture, not an empirical certificate. Final-N freeze should include conservative sensitivity or added development evidence for missing subtopics."
+    },
+    {
+      "id": "C2",
+      "condition": "N144 creates12 sources per stratum, so specify which subtopics repeat and whether source or subtopic weights define the target mixture; freeze in the expanded actual manifest before outcomes."
+    },
+    {
+      "id": "C3",
+      "condition": "All240 source slots are UNBOUND. Inspect real images, current exposure and source-family duplicates before eligibility; metadata-only plan does not establish acquisition feasibility."
+    },
+    {
+      "id": "C4",
+      "condition": "Full80 native target provenance and stored full-M proxy statistics must be in the producer contract before C1; saved2048 rows cannot later reconstruct author block means."
+    },
+    {
+      "id": "C5",
+      "condition": "All output-count planning is conditional, not new ACTIVE authorization. Keep source count, unique condition count, complete model execution count and timing repetition count separate."
+    }
+  ],
+  "statistical_boundary": "One image/source cluster is independent; seeds, prompts, frames, rows and timing repetitions are nested. Claimed population is the frozen12-primary-stratum mixture. Per-stratum n8 does not guarantee powered stratum claims.",
+  "next_review": "After author responses, reread changed files and record new actual SHA; do not treat proposed fixes as approval."
+}
