@@ -1,0 +1,184 @@
+{
+  "scope_id": "G20_R1B_NUMERICAL_RECHECK_20261112",
+  "phase": "G20_R1B_NUMERICAL_RECHECK",
+  "status": "REVIEW_CANDIDATE",
+  "plan_basis": {
+    "repository": "Qesire/FFNDS",
+    "commit": "0b37a7acfb0feaad63404a216827cf72533252b3",
+    "route": "research/20261111/G20_NEXT_EXPERIMENT_ROUTE.md",
+    "route_revision": "v2 DESIGN_ONLY 2026-11-11",
+    "batch": "R1b numerical recheck of the six frozen R1 expensive sites (post-publication independent review follow-up)",
+    "reference_implementation": "C:/Users/H/Documents/Codex/2026-11-07/g19-handoff-20261107/work/native_refine_20261108",
+    "frozen_r1_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_r1_screen_20261111"
+  },
+  "authors": [
+    "qoder_root_g20_20261111"
+  ],
+  "remote_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_r1b_recheck_20261112",
+  "node": "anode16",
+  "python_executable": "/public/home/scc/pb23061276/miniconda3/envs/hif4/bin/python3.11",
+  "torch_version": "2.10.0+cu128",
+  "new_videos": 0,
+  "reference_generation": 0,
+  "reference_benchmarks": 0,
+  "arms": [
+    "Q1_R2_DEPLOYED_BF16",
+    "FREE_RIDGE_ORIGINAL_FP32_RECOMPUTED",
+    "FREE_RIDGE_STABLE_F64_MAIN",
+    "FREE_RIDGE_STABLE_F64_ROBUST",
+    "ICC_SVD_R512_TWO_RESIDUAL_DECOMPOSED"
+  ],
+  "chipmunk_arm": "MISSING_ASSET carried from R1: author block-mean proxy requires full-M (31668-row) group statistics, masks and valid 52-row tail; only 2048-row uniform panels exist for CAL sources. Not scored; deferred to R2 shared capture.",
+  "nonlinear_state_arms": "B_L/B_N (plan identities 3/4) NOT run this batch; unchanged from R1.",
+  "cal_sources": [
+    "chip10_02",
+    "chip10_04",
+    "chip10_07",
+    "chip10_09"
+  ],
+  "dev_sources": [
+    "chip10_01",
+    "chip10_03",
+    "chip10_05",
+    "chip10_06",
+    "chip10_08"
+  ],
+  "dev_status": "EXPOSED_DEVELOPMENT_SOURCE_OUT_NOT_BLIND_CONFIRMATION",
+  "seed": 42,
+  "steps": {
+    "high": [
+      0,
+      1
+    ],
+    "low": [
+      2,
+      3
+    ]
+  },
+  "geometry": {
+    "grid": [
+      21,
+      29,
+      52
+    ],
+    "flattened_tokens": 31668,
+    "panel_rows": 2048,
+    "d": 5120,
+    "m": 13824
+  },
+  "expensive_sites": [
+    "high/4",
+    "high/19",
+    "high/34",
+    "low/4",
+    "low/19",
+    "low/34"
+  ],
+  "supplementary_site": "NONE",
+  "supplementary_trigger": "NONE: R1b has no supplementary site and no trigger; the R1 pre-registered high/0 trigger belongs to the frozen R1 scope only and is not re-evaluated here.",
+  "epsilon_num": 0.000001,
+  "ridge": {
+    "lambda_main": 0.001,
+    "lambda_robust": 0.01,
+    "lambda_policy": "BOTH lambdas solved by BOTH solvers and scored on CAL4 and DEV5; no lambda selection by pilot; robust is no longer diagnostic-only",
+    "normalization": "source-equal-weight gated loss; Z = mean_c ||g*Y_c||^2/n_c + 1e-12; ridge = lambda/(||A_Q1||_F^2 + 1e-12); identical to R1",
+    "solver_original": "verbatim R1 FP32 Gram/RHS + FP32 eigh + clamp_min(0) + column filter g_j^2/(g_j^2*mu + ridge); recomputed at both lambdas for the identity gate and out-of-row-space measurement",
+    "solver_stable": "F64 accumulation of Gram/RHS from raw X/R; weighted thin-SVD sample-space solve c_ji = g_j^2 s_i (U^T Rw)_ji/(g_j^2 s_i^2 + ridge), D = Vh^T C, ALL min(N,d) modes used (no truncation); independent F64 eigh cross-check on the F64-formed normal system; F64 normal relative residual; D in CAL row space by construction",
+    "certificates": "stable cross-check rel_l2 <= 1e-7 AND stable full-sample-space out-of-space rel_fro <= 1e-10 enforced by raise at every site and lambda; F64 tolerances are condition-number-aware (kappa ~ g^2*smax^2/rho up to ~1e7, eps64*kappa ~ 1e-9..1e-8); energy outside the R1-Gram-criterion CAL subspace (mu=sv^2 > 1e-6*max(mu), equivalently sv > 1e-3*smax; D_out_of_calgram_rel_fro) is a diagnostic for both solvers and the basis for the original-D artifact measurement and omega — the identical basis definition used by R1 omega_source/gram_numerical_rank, so omega is comparable by construction (with rho ~ 1e-7 even F64 noise-floor modes contribute ~1e-9 relative, so the CAL-subspace quantity is not tightly certified); selfcheck_v2 ill-conditioned test (rho in (1e-8,1e-6), rank-deficient wide X constructed in F64 so numerical rank == mathematical rank 6; the original FP32 path receives FP32-rounded copies mirroring R1's data path) requires stable-vs-raw-F64 probe rel <= 1e-7, cross-check <= 1e-7, full-space oos <= 1e-12, D_numerical_rank <= 6, and original-FP32 CAL-subspace leak > 1e-4",
+    "rank_tol": 0.000001,
+    "export": "actually-tested BF16 matrices saved and SHA-recorded: A_free_orig_main = BF16(A_Q1 + D_orig_main_FP32), A_free_stable_main = BF16(A_Q1 + D_stable_main_F64->FP32), A_free_stable_rob likewise, plus recomputed BF16-raw-uint16 D_orig_main; math lift uses the unrounded FP32/F64 sum exactly as R1"
+  },
+  "precision": "TF32 off; native BF16 addmm/tanh-GELU boundaries; FP32 math lift; BF16 cache/gate replay (cache=BF16(y0-u0@a), base=BF16(u1@a+cache), gated=BF16(base*g), target=BF16(y1*g)); FP64 error reductions; stable ridge accumulates in F64 from raw X/R; ICC attribution in F64 from the same BF16 operands; small-M replay excludes full-M residual writeback (proxy boundary, not full-path equivalence)",
+  "readouts": "per-site: original-vs-R1 BF16(D) SHA identity and per-source SSE max relative difference; original D out-of-R1-criterion-CAL-subspace energy (both lambdas); stable certificates (cross-check, normal residual, rank, omega basis); source-equal-weight current-gate absolute SSE/MSE and paired change vs Q1 for 10 arms, CAL4/DEV5 separate; increment-target and full-Y normalization auxiliary; math lift and BF16 replay separate; ICC F64 decomposition (stage-1 propagated / stage-2 native-h / cross) with identity residual and BF16 pred-rounding diagnostic; ICC zero-increment control; omega_stable per DEV source vs R1 reference omega (identical R1 Gram basis criterion); checkpoint-file SHA re-verified per expert at runtime",
+  "r1_reference": {
+    "scope_id": "G20_R1_SAME_INPUT_SCREEN_20261111",
+    "scope_sha256": "4bbf8496484f80506bf59565e2b9c1556e19a908de0c8736643126724cf41625",
+    "summary_sha256": "46ba72860d19fa453bdda5d2eaedad0ad90ddbbb6a598484694d52f69962dd5d",
+    "publication_commit": "0b37a7acfb0feaad63404a216827cf72533252b3",
+    "job_id": "156476",
+    "ridgeD_bf16_sha256": {
+      "high/4": "616314ab92b290f656eb1e90ab930213b9ddc655dfcbaf2e23f328eaf2307709",
+      "high/19": "ad18860cc7cb39287def2e10c86d366008240fb333a442cc537b92ede3d77d23",
+      "high/34": "69ef7618a341595b53d275b7952e4066d3aa6a24721cdb994a302ec7d61e6856",
+      "low/4": "4c136a2369434b07144de15e035ba0357288465f339cc218d4e65b1a0b3f022f",
+      "low/19": "29d5a62e79a647b4147d392b47e2a1713c59046f4b0b169f528984a6b8dab614",
+      "low/34": "1e6f1c6b6c630c404014a9ebeb0db2d94c7ba41317b54869958e66d2f7c43d5b"
+    }
+  },
+  "budget": {
+    "max_jobs": 1,
+    "gpus": 1,
+    "session_max_gpus": 2,
+    "cpus": 4,
+    "host_memory_gib": 64,
+    "gpu_memory_gib": 24,
+    "wall_seconds": 7200,
+    "soft_seconds": 6900,
+    "output_bytes": 2147483648,
+    "min_free_disk_gib": 12
+  },
+  "code_sha256": {
+    "guarded_runner.py": "26c2d3ffdab0dc25f63ceb45ac1e1098c3f86aa9393e62e3834857e012277db4",
+    "runner_recheck.py": "72ca33619e48f90ce6a89f644853e3e6b4c69411b2d8ed21c7d1fff15159d51a",
+    "fit_core_v2.py": "b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe",
+    "selector.py": "49d291dac55e1bbb1e54c69aeccb02269041738076fba5db60915e300544d888",
+    "selfcheck_v2.py": "0aa51cad43674288c8e796d718b1048750ad47f3b6b83066aeb14522d7e12224",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "job.sh": "543dece9e2d6435d1fda4c4f993ab75e848720b2baf3022c97193740a6846aff",
+    "dispatch_once.py": "5e9542dbc4deb9179a23399fba17c9406350d4883ba5336efa41f697721ae513"
+  },
+  "frozen_inputs_sha256": {
+    "assets_g20.json": "fa495436ca79d3ab361b8f8c392511ce6849d61521e685d41212ed780b2e3442",
+    "q1_matrix_manifest.json": "d127f0941fa018cfded78aa7476d96abcee141fcc13a3260af91c7060f57410f",
+    "icc_svd_manifest.json": "6d0a576481f8d36c367171bd47f2b81029d5470bff06a3584740f550047c876e",
+    "reference_r1/expensive_high_04.json": "5ace2074c824de7f4791d07d67e5a3038b6867feed7a4b05ddda056e6fab0760",
+    "reference_r1/expensive_high_19.json": "4368b0dd89f578e0a496dbda81a0e95ec6ee527880d4cb165feeca85b8ab01b5",
+    "reference_r1/expensive_high_34.json": "767beda401b18231bded9a8161a3e4ed6adb5a7de8a362768aaed122fd268179",
+    "reference_r1/expensive_low_04.json": "b7074c13c8e6fc06e6a5b56dc8514e85de927babaaf9440249d133aa6fe5f23e",
+    "reference_r1/expensive_low_19.json": "e93e3a0b25afe7d7dbfc6aa4c14ee1e8de4687f0dda631cd90fa3a0f468de73b",
+    "reference_r1/expensive_low_34.json": "915f5bd2ebfb779a25d17be42536646a40b75f7299644a33bb7cdb0fb6641ad2"
+  },
+  "external_source_sha256": {
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_01/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_02/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_03/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_04/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_05/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_06/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_07/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_08/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_09/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034"
+  },
+  "r0_verification_inherited": {
+    "note": "Gate-sharing and capture identity were R0-verified for the frozen R1 scope and are re-asserted at runtime per expensive site by runner_recheck (torch.equal across CAL sources); job fails loudly if violated.",
+    "gate_identity": "bitwise equal across all 9 sources at high/0,4,19,34 step1 and low/4,19,34 step3 (R0, job-bound evidence in the R1 publication)",
+    "checkpoint_sha256": {
+      "high": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+      "low": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+    }
+  },
+  "pre_registered_rules": {
+    "identity_gate": "recomputed BF16(D_orig_main) SHA must equal both reference_r1 JSON and r1_reference.ridgeD_bf16_sha256; on mismatch record identity_warning and continue with the recomputed original (no abort); identity comparisons then treated as suspect in the report",
+    "certificates": "stable cross-check rel > 1e-7 or stable full-sample-space out-of-space rel > 1e-10 at any site/lambda -> raise; job fails; no partial summary promoted",
+    "substantial_change": "|source-equal-weight paired mean_rel_change| > 0.01 on DEV5 math-lift MSE; reporting threshold only, selects nothing",
+    "H_artifact": "supported iff stable-main DEV5 change within 1% of Q1 (or better) at >= 4 of 6 sites AND original D out-of-R1-criterion-CAL-subspace rel >= 0.10 at those sites",
+    "H_overfit": "supported iff stable-main DEV5 still degrades > 1% at >= 4 of 6 sites",
+    "mixed": "otherwise report per-site numbers and shares without a binary verdict",
+    "lambda_policy": "both lambdas reported for both solvers regardless of outcome; no post-hoc preference",
+    "icc_policy": "stage shares descriptive only; no new ICC claim beyond the decomposition and the frozen-config comparison",
+    "retention": "all results including unfavorable configurations retained in output/; no post-hoc site/lambda/threshold selection"
+  },
+  "limitations": [
+    "CAL4 already used for the original Q1 fit; DEV5 are exposed development sources. Source-out readouts are development screening, NOT blind confirmation.",
+    "About 500 matched CAL rows for a 5120x5120 D: severely underdetermined even with the exact solve; rank <= 517/523 is a bound, not identification. omega bounds the explainable DEV fraction; a within-1% DEV result favors the artifact explanation but does not prove generalization.",
+    "R1b changes numerics only, not the registered objective; if H_overfit holds, R1's qualitative conclusion survives with corrected certificates.",
+    "Small-M paired-row math lift and BF16 cache/gate replay only; no full-M residual writeback, no free-trajectory or video evidence.",
+    "No 80-site landscape rerun; the published R1 landscape stands (its gate_fro2 field was diagnostic-only and consumed by no score).",
+    "Chipmunk author arm not scored (full-M proxy groups missing); recorded MISSING_ASSET, deferred to R2.",
+    "ICC evaluated only at the frozen svd_r512 two-residual config on six sites; decomposition is attribution, not a new configuration search.",
+    "Gate sharing re-asserted at runtime per expensive site; job fails loudly if violated, no silent fallback.",
+    "F64 SVD/eigh deterministic on the pinned node/library but not bitwise-guaranteed across library versions; the SHA identity gate covers the original path and certificates cover the stable path.",
+    "With rho ~ 1e-7, F64 noise-floor singular values (~1e-16*smax) contribute ~s/rho ~ 1e-9 relative to D; the tight out-of-space certificate is therefore against the FULL sample space (implementation check), while energy outside the R1-criterion CAL subspace is reported as a diagnostic for both solvers.",
+    "R1 documentation errors (seed 43->42, overstated Q1-replay wording, ICC high/4 aggregation wording) are corrected as a separate versioned doc update after this job; the frozen R1 publication snapshot is not modified."
+  ]
+}

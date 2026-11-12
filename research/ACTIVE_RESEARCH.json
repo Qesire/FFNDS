@@ -41453,4 +41453,29 @@
     "new_scope_after_publication": false,
     "automatic_retry": false
   }
+,
+  "g20_r1b_numerical_recheck_20261112": {
+    "source": "User 2026-11-12: independent review of the R1 publication (8 findings, all statically confirmed), then twice: fix the source code first, then execute the missing/erroneous experiments",
+    "status": "R1B_COMPLETED_EXIT_0__PUBLISHED_NO_NEW_AUTHORIZATION",
+    "scope_id": "G20_R1B_NUMERICAL_RECHECK_20261112",
+    "scope_sha256": "e03d1748ef988181666a5350b40053d0eb73f0605fadf22a70c00aba8a783561",
+    "job_id": 157314,
+    "node": "anode16",
+    "gpu": "A100 x1 (session cap 2)",
+    "exit_code": 0,
+    "elapsed_seconds": 2097.93,
+    "task": "Pure numerical recheck of the six published R1 expensive fits: certified stable F64 sample-space exact solve of the same registered objective at both lambdas, verbatim FP32 recomputation with SHA identity gate, ICC two-residual F64 decomposition; zero new generation/video/benchmark",
+    "sites": "same 6 expensive sites (high/low x layers 4/19/34), CAL4 fit + DEV5 exposed development source-out (not blind), seed 42",
+    "summary_sha256": "ef35bcd695578cee0343165daacb02b03e026969d6d80856395f55eef40dea9a",
+    "independent_review": "research/experiment_reviews/G20_R1B_NUMERICAL_RECHECK_20261112/v1.json (first round REQUEST_CHANGES with 1 blocking selfcheck defect -> author revisions -> reviewer independent Node F64 replication -> recheck APPROVE/APPROVE, reviewer qoder_independent_reviewer_g20_r1b_20261112; old fingerprint c7ffb052 not reused)",
+    "result": "research/20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md",
+    "report": "reports/20261112/g20_r1b_recheck/README.md",
+    "verdict": "H_overfit supported 6/6 sites, H_artifact rejected. Certified stable exact solve still degrades DEV5 +15..28% (per-source paired mean); original D out-of-CAL-subspace energy only 0.42-0.86% (<<10% threshold); FP32 artifact explains <=0.83pp (<=3% of effect). R1 published ranks 4239-4732 confirmed as FP32 null-space-noise artifact violating rank(D)<=517/523; stable ranks exactly 517/523 with machine-precision certificates. R1 qualitative overfitting/coverage conclusion survives with corrected certificates.",
+    "icc_decomposition": "Frozen svd_r512 gated error dominated by stage-2 native-h residual (64-82% DEV mean share); stage1 propagated 12-39%; cross -3..+7.5%; identity residual <=1.9e-16",
+    "r1_doc_corrections": "Versioned corrections applied to the R1 results doc after this job (seed 43->42 in two places; Q1 replay ~1e-4 overstatement -> measured per-source median 0.0250% / max 1.1103%, site-group max 0.6655%; ICC high/4 aggregation + epsilon_num misuse fixed). Frozen R1 publication snapshot unchanged. The earlier g20_r1_same_input_screen_20261112 registry entry retains its original seed-43 wording as a historical record; the actual execution seed is 42.",
+    "remote_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_r1b_recheck_20261112",
+    "large_artifacts_not_uploaded": "24 BF16 npy (52428928 bytes each, ~1.2 GiB) retained on cluster; SHAs in reports/20261112/g20_r1b_recheck/evidence/NPY_SHA256.txt",
+    "new_scope_after_publication": false,
+    "automatic_retry": false
+  }
 }

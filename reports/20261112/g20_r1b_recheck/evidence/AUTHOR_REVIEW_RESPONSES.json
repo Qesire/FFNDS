@@ -1,0 +1,83 @@
+{
+  "response_schema": "FFNDS_AUTHOR_REVIEW_RESPONSES_V1",
+  "scope_id": "G20_R1B_NUMERICAL_RECHECK_20261112",
+  "reviewed_scope_sha256": "c7ffb0524151f7ee97848fef4047105ae61652859686021fd7dc98a8feed0619",
+  "revised_scope_sha256": "e03d1748ef988181666a5350b40053d0eb73f0605fadf22a70c00aba8a783561",
+  "revised_root_self_audit_sha256": "b3f14d26c42802d469e22cdf381d45d2fc3e9b5f8d352cb74afbec49ac9daa24",
+  "author_agent_id": "qoder_root_g20_20261111",
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_r1b_20261112",
+  "review_disposition_received": "REQUEST_CHANGES",
+  "date": "2026-11-12",
+  "responses_to_findings": [
+    {
+      "finding": "BLOCKING: selfcheck_v2.py D_numerical_rank<=rank(=6) assertion spuriously fails because the FP32-generated ill-conditioned xh has numerical rank 12 (6 rounding modes at ~3-4e-8 relative amplified by s/rho into D singular values ~0.026-0.12 >> 1e-6*smax); runner aborts at selfcheck before any site, wasting the single authorized job.",
+      "author_action": "ACCEPT_REVISE",
+      "fix_option_chosen": "(a) reviewer-preferred: construct the ill-conditioned X in F64 so numerical rank == mathematical rank 6",
+      "detail": "selfcheck_v2.py L79-86: xh = torch.randn(nh,rank,device=dev,dtype=torch.float64) @ torch.randn(rank,dh,device=dev,dtype=torch.float64); xsh=[xh,xh.clone()]; residuals formed in F64 from this X: rsh=[y.double() - xh @ a_h.double() for y in ysh]. The stable solve receives the F64 xsh/rsh; its F64 null modes (~1e-14 absolute, ~1e-16 relative) contribute ~s/rho ~ 1e-9 absolute to D singular values, ~5 orders below the 1e-6*smax threshold (~1e-5), so D_numerical_rank=6 and the RETAINED assertion (L118-119) is now a valid certificate rather than a spurious abort. The ORIGINAL FP32 path is fed FP32-ROUNDED COPIES: free_ridge_fit_fp32_original([x.float() for x in xsh], ysh, [r.float() for r in rsh], gh, nsh, a_h, lam_h) (L122-123), mirroring R1's FP32 data path exactly, so its FP32 Gram/RHS formation still injects ~1e-7 relative null-space noise amplified by g^2/rho ~ 1e6-1e7; the leak discrimination is preserved. The oos_old threshold was simultaneously aligned from 1e-6 to the pre-registered 1e-4 (L131-132, scope.json ridge.certificates), and oos_old is measured against bases_h['calgram'] (R1's exact Gram criterion). WHY option (a): it keeps the exact mathematical rank bound as a real executed certificate (stronger than deleting the assertion or loosening the bound to the numerical row rank), keeps the test in the true rank-deficient regime the real sites face, and preserves the FP32-leak discrimination by construction instead of relying on the rounding artifact of the test generator itself.",
+      "files_changed": ["selfcheck_v2.py"],
+      "new_sha256": "0aa51cad43674288c8e796d718b1048750ad47f3b6b83066aeb14522d7e12224"
+    },
+    {
+      "finding": "MINOR: R1b dropped R1's runtime checkpoint-FILE SHA verification (R1 runner_screen.py:142-144); defense-in-depth parity gap.",
+      "author_action": "ACCEPT_REVISE",
+      "detail": "Restored in runner_recheck.py run() L160-163: immediately after selfcheck_run() and before the site loop, for expert in ('high','low'): ck=assets['checkpoints'][expert]; if sha(ck['path'])!=ck['sha256']: raise RuntimeError('checkpoint SHA '+expert). Placement differs from R1 (per-expert inside pass 1) only because R1b has no landscape pass; coverage is equivalent (both experts verified before any weight is consumed) and the check now also precedes the stable solves. The bound SHA values are the R0-verified ones in scope.r0_verification_inherited.checkpoint_sha256 via assets_g20.json.",
+      "files_changed": ["runner_recheck.py"],
+      "new_sha256": "72ca33619e48f90ce6a89f644853e3e6b4c69411b2d8ed21c7d1fff15159d51a"
+    },
+    {
+      "finding": "OBSERVATION: 'same 1e-6 criterion as R1' wording is imprecise: R1 omega selects mu>1e-6*mu_max (Gram eigenvalues) while R1b selected sv>1e-6*sv_max (mu>1e-12*mu_max); bases coincide at all six sites only because gram_numerical_rank==N_CAL.",
+      "author_action": "ACCEPT_REVISE_BEYOND_WORDING",
+      "detail": "Rather than only correcting the wording, the criterion itself was aligned to R1's EXACT Gram criterion: fit_core_v2.py L210-211 now computes mu_sv=sv.square(); active = mu_sv > RANK_TOL*max(mu_sv) (equivalently sv > 1e-3*smax), basis key 'calgram', field renamed D_out_of_calgram_rel_fro. This is the identical basis definition used by R1 omega_source/gram_numerical_rank (frozen fit_core.py L141), so omega_stable vs omega_r1_reference is comparable BY CONSTRUCTION, independent of the gram_numerical_rank==N_CAL coincidence (which still holds at all six sites for both lambdas in every reference JSON). runner_recheck.py (oos_orig_main/rob, omega_source, summary key stable_main_D_out_of_calgram_rel), selfcheck_v2.py (oos_old basis, return key stable_out_of_calgram_rel), scope.json (certificates/readouts/H_artifact wording) and ROOT_SELF_AUDIT.txt (3(a), 3(b), 4, 6) updated consistently. The full-sample-space certificate (D_out_of_rowspace_rel_fro, all N modes) is unchanged.",
+      "files_changed": ["fit_core_v2.py", "runner_recheck.py", "selfcheck_v2.py", "scope.json", "ROOT_SELF_AUDIT.txt"],
+      "new_sha256_fit_core_v2": "b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe"
+    },
+    {
+      "finding": "OBSERVATION: runtime_guard.py carries unused borrowed verify_frozen_scope/RunReceipt targeting a different scope (FIXED_FOLD_METRICS).",
+      "author_action": "REJECT_WITH_REASON",
+      "detail": "Same disposition as the R1 review (accepted there as MINOR 1): runtime_guard.py is byte-identical to the reviewed R1/G19 safety module (SHA ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1, unchanged in this revision). guarded_runner.py imports only require_compute_allocation/sha256_file/process_peak_rss_bytes; stage-wide grep confirms no call path to the unused functions. Verbatim provenance of a reviewed safety module is a deliberate choice; the dead code cannot affect this job. No change."
+    },
+    {
+      "finding": "OBSERVATION: the SVD-vs-eigh cross-check shares normalization (z, weights w) and raw X/R between paths, so a systematic z/w error would escape it.",
+      "author_action": "ACCEPT_WITH_NOTE",
+      "detail": "Acknowledged as a true limitation of the cross-check's independence (linear algebra independent, normalization shared). Already covered by two other mechanisms, as the reviewer notes: (1) the selfcheck probe builds its own z_h/m64/b64 independently from raw tensors (selfcheck_v2.py L89-101) and compares per-column dense F64 solves, catching normalization errors; (2) the original-path triple-SHA identity gate binds z/normalization to the frozen R1 artifact (runner_recheck.py identity comparison). No code change; the limitation is recorded here and in the review."
+    },
+    {
+      "finding": "OBSERVATION: icc_two_residual_decomposed decomposition_rel_residual<=1e-10 could theoretically trip from F64 rounding under near-perfect A~-B cancellation.",
+      "author_action": "ACCEPT_WITH_NOTE",
+      "detail": "Acknowledged. The identity is algebraically exact in F64 and the residual is normalized by max(total_f64,1e-30); at the frozen svd_r512 two-residual config the propagated stage-1 and stage-2 terms are not expected to cancel to that degree, and the zero-factor control is exact by construction. If a real source ever trips it the job fails loudly (no silent corruption), and per the failure plan the job is diagnosed and re-reviewed as a new scope, never silently resubmitted. No pre-execution change."
+    }
+  ],
+  "responses_to_required": [
+    {
+      "required": "ACCEPT/REVISE the BLOCKING finding and provide the emitted selfcheck dict as evidence that the full battery passes after the change.",
+      "response": "ACCEPTED and REVISED via option (a) (see responses_to_findings[0]). On the emitted dict: governance for this stage forbids ALL tensor computation outside the reviewed job on a compute node (ROOT_SELF_AUDIT.txt section 10), so the author cannot execute the GPU selfcheck to emit the dict before recheck approval — doing so would itself be an unreviewed experiment. The revised battery is instead submitted for the reviewer's independent static replication (pure-JS F64, as in the initial review): F64-constructed rank-6 X has null singular values ~1e-14 absolute, whose resolvent amplification ~s/rho ~ 1e-9 absolute stays ~4-5 orders below the 1e-6*smax rank threshold, so D_numerical_rank=6; probe/cross tolerances 1e-7 remain condition-number-aware (eps64*kappa ~ 1e-9..1e-8); oosFull ~ 1e-15 by construction; the FP32-rounded-copy original path retains the O(0.1-1) Gram-formation leak (>> 1e-4). At job runtime the emitted dict is recorded verbatim in output/SUMMARY.json['selfcheck'] (runner_recheck.py L170) and will be collected as evidence; any assertion failure aborts before any site runs."
+    },
+    {
+      "required": "Re-freeze the scope: updated code_sha256 for every touched file, updated ROOT_SELF_AUDIT.txt, re-hash all bound files, resubmit for independent recheck; do NOT reuse the c7ffb052... fingerprint.",
+      "response": "DONE. scope.code_sha256 updated for exactly the three changed code files: runner_recheck.py 72ca33619e48f90ce6a89f644853e3e6b4c69411b2d8ed21c7d1fff15159d51a, fit_core_v2.py b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe, selfcheck_v2.py 0aa51cad43674288c8e796d718b1048750ad47f3b6b83066aeb14522d7e12224. The other five code hashes were recomputed and verified UNCHANGED; all nine frozen-input hashes were recomputed and verified UNCHANGED. ROOT_SELF_AUDIT.txt updated (sections 3(a), 3(b), 4 item 3 and 8, 6, plus new section 11 revision history) and re-hashed: b3f14d26c42802d469e22cdf381d45d2fc3e9b5f8d352cb74afbec49ac9daa24. New scope SHA256: e03d1748ef988181666a5350b40053d0eb73f0605fadf22a70c00aba8a783561. The old fingerprint c7ffb052... is NOT reused; the revised bundle (3 code files + scope.json + ROOT_SELF_AUDIT.txt + this responses file) is re-uploaded, re-preflighted on a compute node with the new scope SHA, and resubmitted for independent reviewer recheck. No dispatch until disposition==APPROVE AND recheck_disposition==APPROVE on the NEW fingerprint."
+    },
+    {
+      "required": "Confirm the rank-bound fix does not weaken discrimination: original FP32 path still leaks >1e-4 outside the CAL subspace; stable probe<=1e-7, cross<=1e-7, oosFull<=1e-12. State which option and why.",
+      "response": "Option (a) chosen (F64-constructed test X; FP32-rounded copies for the original path). Discrimination is preserved BY CONSTRUCTION: the original solver still forms its Gram/RHS in FP32 from FP32 data (the .float() copies), which is exactly R1's failure mechanism — FP32 formation noise ~1e-7 relative amplified by g_j^2/rho ~ 1e6-1e7 into out-of-subspace D energy O(0.1-1); the assertion oos_old > 1e-4 (aligned to the pre-registered threshold, measured against the R1-criterion 'calgram' basis) still separates this from the stable solve by >= 3 orders. The stable assertions are unchanged or strengthened: probe<=1e-7 and cross<=1e-7 (condition-number-aware F64 tolerances), oosFull<=1e-12, and D_numerical_rank<=6 now a VALID executed certificate (F64 null modes ~1e-16 relative contribute ~1e-9 relative to D, far below the 1e-6 threshold). Why (a) over (b)/removal: it keeps the exact mathematical rank bound as a real check in the true rank-deficient regime, and makes the test's rank structure a property of the registered problem rather than of the generator's rounding artifact."
+    },
+    {
+      "required": "Address the MINOR checkpoint-file SHA parity gap (ACCEPT/REVISE/REJECT_WITH_REASON); if revised, re-freeze runner_recheck.py hash.",
+      "response": "ACCEPT_REVISE. Per-expert checkpoint-file SHA raise restored in runner_recheck.run() L160-163 (after selfcheck, before any site), matching the R1 guard's coverage; runner_recheck.py re-hashed to 72ca33619e48f90ce6a89f644853e3e6b4c69411b2d8ed21c7d1fff15159d51a and bound in the revised scope."
+    },
+    {
+      "required": "Correct the imprecise 'same 1e-6 criterion as R1' wording.",
+      "response": "ACCEPT_REVISE, resolved beyond wording: the basis criterion itself now IS R1's exact Gram criterion mu=sv^2 > 1e-6*max(mu) ('calgram'), so the claim 'identical basis definition to R1 omega_source/gram_numerical_rank, comparable by construction' is literally true in code, not just a coincidence at the six sites. All five affected files (fit_core_v2.py, runner_recheck.py, selfcheck_v2.py, scope.json, ROOT_SELF_AUDIT.txt) use consistent naming; the reviewer's suggested coincidence note (gram_numerical_rank==N_CAL at all six sites) remains valid and is recorded in the audit."
+    },
+    {
+      "required": "Re-affirm the bounded claim scope and the full per-site readout set enabling H_artifact vs H_overfit vs mixed without post-hoc selection.",
+      "response": "RE-AFFIRMED, unchanged by this revision: DEV5 are EXPOSED development source-out, NOT blind confirmation; CAL4 was already used for the original Q1 fit; ~500 matched CAL rows for a 5120x5120 D is severely underdetermined even under the exact solve — rank<=517/523 is a bound, not identification; small-M paired-row proxy only, no full-M residual writeback; no landscape rerun, no trigger, no new generation/video/benchmark/reference evaluation; no chipmunk arm (MISSING_ASSET, R2); no lambda/site/threshold selection. Every site reports: omega_stable per DEV source vs the R1 reference omega (identical basis criterion), BOTH lambdas for BOTH solvers, stable certificates (cross-check, normal residual, D/gram numerical rank, full-space and calgram out-of-space), original-D out-of-R1-criterion-CAL-subspace energy at both lambdas, math-lift vs BF16-replay separated tables for all 10 arms, ICC F64 stage-1/stage-2/cross shares with identity residual and BF16 pred-rounding diagnostic plus zero-increment control, and the triple-SHA identity gate with per-source SSE max relative difference. The pre-registered rules (within-1% / >1% at >=4/6 sites, original leak >=0.10, mixed fallback) are fixed in scope.json and ROOT_SELF_AUDIT.txt section 6; all results including unfavorable ones are retained. A within-1% stable-main DEV result favors the FP32-artifact explanation but does NOT prove the objective generalizes; the reviewer's homogeneous-cohort shared-subspace counterexample remains on record and bounds every conclusion to development-screening attribution. Full discrimination requires the deferred R2 blind/shared capture and R3 full-M writeback."
+    }
+  ],
+  "revised_code_sha256": {
+    "runner_recheck.py": "72ca33619e48f90ce6a89f644853e3e6b4c69411b2d8ed21c7d1fff15159d51a",
+    "fit_core_v2.py": "b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe",
+    "selfcheck_v2.py": "0aa51cad43674288c8e796d718b1048750ad47f3b6b83066aeb14522d7e12224"
+  },
+  "unchanged_bound_files_verified": "guarded_runner.py, selector.py, runtime_guard.py, job.sh, dispatch_once.py (code); assets_g20.json, q1_matrix_manifest.json, icc_svd_manifest.json, reference_r1/*.json (frozen inputs) — all recomputed at re-freeze and verified byte-identical to the initially reviewed hashes.",
+  "governance_note": "This file is an AUTHOR document. It grants no approval. The recheck disposition remains PENDING until the independent reviewer verifies the revised bundle and updates INDEPENDENT_REVIEW.json; guarded_runner/dispatch_once enforce disposition==APPROVE AND recheck_disposition==APPROVE bound to the NEW scope SHA e03d1748ef988181666a5350b40053d0eb73f0605fadf22a70c00aba8a783561."
+}

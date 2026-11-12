@@ -1,0 +1,223 @@
+G20 R1b NUMERICAL RECHECK — ROOT SELF-AUDIT (author: qoder_root_g20_20261111)
+Date: 2026-11-12. Stage: g20_work/g20_r1b_recheck_20261112 (local),
+remote: /public/home/scc/pb23061276/projects/wan-quant/work/g20_r1b_recheck_20261112.
+Basis: published R1 (commit 0b37a7acfb0feaad63404a216827cf72533252b3, scope SHA
+4bbf8496484f80506bf59565e2b9c1556e19a908de0c8736643126724cf41625, job 156476 EXIT 0)
+and the user-delivered independent review of that publication (8 findings, all
+statically confirmed by the author before writing this stage).
+
+1. PROBLEM
+R1 reported that the free-ridge arm A = A_Q1 + D degrades DEV5 math-lift MSE at
+all six expensive sites, while its own certificates showed D numerical ranks
+4239-4732. The registered objective is a source-equal-weight gated ridge with
+per-column filter g_j^2/(g_j^2*mu + rho). Its EXACT minimizer satisfies
+rank(D) <= rank(X_CAL) <= 517 (high) / 523 (low), because b_j = X^T W R lies in
+range(M) = range(X^T X) and (g_j^2 M + rho I)^{-1} preserves range(M). The
+published ranks violate this bound by ~8-9x. R1 formed the Gram M and RHS B in
+FP32 (fit_core.py L103-117) and only lifted to F64 at the filter/eigh stage.
+FP32 formation injects null-space components into B of relative size ~1e-7,
+which the filter amplifies by g_j^2/rho ~ 1e6-1e7 (rho = 1.4e-7..2.9e-7 at the
+six sites). The resulting D is therefore NOT the exact minimizer of the
+registered objective; it is a noise-amplified artifact whose DEV behavior
+cannot be attributed to the objective itself.
+
+2. COMPETING PREDICTIONS (the experiment must discriminate)
+H_artifact: the DEV degradation is mostly the FP32 null-space noise. Prediction:
+a certified exact solve (D in the CAL row space, rank <= 517/523) recovers DEV5
+MSE near Q1 or better, while the recomputed original D shows large
+out-of-row-space energy and reproduces the published degradation.
+H_overfit: the registered objective genuinely overfits ~500 CAL rows for a
+5120x5120 D even when solved exactly. Prediction: the certified exact solve
+still degrades DEV5 substantially vs Q1, with small out-of-row-space energy of
+the original D relative to its total (i.e. the in-space part alone overfits).
+Mixed outcomes are possible and will be reported quantitatively, not forced
+into either narrative. omega (DEV out-of-CAL-row-space energy fraction) bounds
+how much of any DEV change the fit can even explain.
+
+3. CONFIRMED R1 SOURCE ISSUES AND THE FIXES IN THIS STAGE
+(a) FP32 Gram/RHS formation (fit_core.py L103-117): fixed by
+    fit_core_v2.stable_ridge_fit — F64 accumulation from raw X/R, weighted thin
+    SVD sample-space solve using ALL min(N,d) modes (no truncation: the filter
+    is bounded and small-s contributions vanish linearly; truncating could drop
+    legitimately amplified small-s modes), plus an independent F64 eigh
+    cross-check on the F64-formed normal system. Certificates (condition-number-
+    aware: kappa ~ g^2*smax^2/rho up to ~1e7, eps64*kappa ~ 1e-9..1e-8):
+    cross-check rel <= 1e-7 and FULL-sample-space out-of-space rel <= 1e-10,
+    enforced by raise at runtime. Two row-space readouts are reported: the full
+    sample space (all N right-singular vectors; implementation certificate,
+    ~1e-15) and the CAL subspace at R1's EXACT Gram criterion mu = sv^2 >
+    1e-6*max(mu) (equivalently sv > 1e-3*smax; basis key 'calgram', field
+    D_out_of_calgram_rel_fro). With rho ~ 1e-7 even F64 noise-floor modes
+    (s ~ 1e-16*smax) contribute ~s/rho ~ 1e-9 relative to D, so the CAL-subspace
+    quantity is NOT tightly certified; it is the basis for the ORIGINAL-D
+    artifact measurement and for omega. This is the IDENTICAL basis definition
+    used by R1 omega_source/gram_numerical_rank (frozen fit_core.py L141:
+    active = mu > RANK_TOL*mu.max on Gram eigenvalues), so omega is comparable
+    by construction, not merely "at the same tolerance".
+(b) Selfcheck blind spot (selfcheck.py L12-13 built its reference from the same
+    FP32-formed system): fixed by selfcheck_v2 — new ill-conditioned test
+    (d=96, n=12, rank 6, rho ~ 1e-7 asserted in (1e-8,1e-6)). The test X is
+    CONSTRUCTED IN F64 (randn(12,6,f64) @ randn(6,96,f64)) so its numerical
+    rank equals the mathematical rank 6: an FP32 rank-6 product has numerical
+    rank 12 (rounding injects 6 modes at ~3e-8 relative, which the all-modes
+    resolvent legitimately amplifies by s/rho into D singular values ~0.03-0.12
+    and would spuriously trip any rank<=6 assertion). Residuals R are formed
+    in F64 from this X. The reference is per-column torch.linalg.solve on the
+    F64-from-RAW system; stable solver must match probes <= 1e-7 and
+    cross-check <= 1e-7, stay in the full sample space <= 1e-12, and satisfy
+    D_numerical_rank <= 6 (valid because the F64 null modes ~1e-16 contribute
+    ~s/rho ~ 1e-9, far below the 1e-6 threshold). The ORIGINAL FP32 path
+    receives FP32-ROUNDED COPIES of X/R ([x.float() ...], [r.float() ...]),
+    mirroring R1's FP32 data path, so its Gram-formation leak discrimination
+    is preserved: it must leak > 1e-4 of its energy outside the R1-criterion
+    CAL subspace ('calgram'), proving the test discriminates the failure mode
+    (FP32 leak scale is O(0.1-1), >= 3 orders above the threshold). R1
+    continuity checks retained via the verbatim original solver.
+(c) lambda_robust D discarded (runner_screen.py L249): fixed — BOTH lambdas
+    (1e-3 main, 1e-2 robust) are solved by BOTH solvers and scored on CAL4 and
+    DEV5. No lambda selection by pilot; both reported.
+(d) Tested BF16(A_Q1+D_FP32) but only BF16(D) saved (runner_screen.py
+    L250/269/288): fixed — the actually-tested BF16 A_free matrices are exported
+    and SHA-recorded for orig-main, stable-main, stable-robust, plus the
+    recomputed BF16(D_orig_main) for the identity gate. Math lift still uses
+    the unrounded FP32/F64 sum exactly as R1 did (definition unchanged).
+(e) ICC total not decomposed: fixed by fit_core_v2.icc_two_residual_decomposed
+    — A = second(h_pred) - second(h1n) (propagated stage-1), B = second(h1n) +
+    q2 - y1n (stage-2 at native hidden), total_f64 = sA + sB + cross, all F64
+    from the SAME BF16 operands; identity residual asserted <= 1e-10. R1's
+    BF16-pred math_gated_sse retained alongside; bf16_pred_rounding_rel
+    quantifies pred rounding. Zero-factor control: stage-1 term exactly 0 and
+    total == reuse-Y energy.
+(f) gate_fro2 double-counted n (fit_core.py L74): fixed in
+    fit_core_v2.cheap_site_stats (g already (n,D)). Diagnostic-only field; no
+    R1 score consumed it, so no published number changes.
+(g) Results-doc seed error (43 vs actual 42) and (h) overstated Q1-replay /
+    ICC-high/4 wording: documentation corrections, scheduled AFTER this job
+    (task: versioned correction to the R1 results doc). The frozen R1
+    publication snapshot is NOT modified by this stage.
+
+4. WHAT THIS JOB RUNS (exactly)
+Six pre-registered R1 expensive sites high/4,19,34 low/4,19,34; same CAL4
+(chip10_02/04/07/09) and DEV5 (chip10_01/03/05/06/08), seed 42, steps HHLL,
+same objective/normalization/gate-sharing assertion as R1. Per site:
+ 1. verbatim original FP32 solve at both lambdas; BF16(D_main) export SHA
+    checked against BOTH the bound reference_r1 JSON and scope.r1_reference;
+ 2. stable F64 solves at both lambdas with runtime certificate enforcement;
+ 3. out-of-R1-criterion-CAL-subspace energy of the ORIGINAL D (F64 measurement,
+    both lambdas; IDENTICAL Gram basis criterion as R1 omega);
+ 4. per-source scoring of 10 arms (Q1 math/replay, orig-main math/replay,
+    stable-main math/replay, stable-rob math/replay, ICC gated, reuse-Y) with
+    source-equal-weight MSE and paired change vs Q1, CAL4/DEV5 separate;
+ 5. ICC F64 decomposition + zero-delta control at every source;
+ 6. omega_stable per DEV source, compared to the R1 reference omega;
+ 7. per-source SSE identity comparison of recomputed Q1/orig/ICC/reuse-Y vs
+    the frozen R1 reference JSONs (max relative difference reported);
+ 8. selfcheck_v2 full battery before any site runs, then per-expert
+    checkpoint-FILE SHA verification against the bound assets manifest
+    (runner_recheck.py L160-163; restores the R1 runner_screen.py L142-144
+    guard parity, raise on mismatch).
+Outputs: output/expensive_recheck_<stem>.json (6), output/SUMMARY.json,
+4 BF16 npy per site (24 files, ~1.26 GiB total).
+
+5. WHAT THIS JOB DOES NOT RUN
+No 80-site landscape rerun (R1 landscape is published and its gate_fro2 field
+was never consumed by any score); no supplementary high/0 trigger (R1b has no
+trigger); no new generation, no video, no benchmark, no reference evaluation;
+no chipmunk arm (still MISSING_ASSET, deferred to R2); no B_L/B_N state arms;
+no full-M residual writeback (small-M proxy boundary unchanged); no lambda or
+site selection of any kind; no CAL expansion (R2 decision deferred until this
+attribution is resolved).
+
+6. PRE-REGISTERED INTERPRETATION RULES (fixed before execution)
+- Identity gate: recomputed BF16(D_orig_main) SHA must equal the frozen R1 SHA.
+  On mismatch: record identity_warning, continue with the recomputed original
+  (no abort), and treat all identity comparisons as suspect in the report.
+- Certificates: stable cross-check rel > 1e-7 or stable FULL-sample-space
+  out-of-space rel > 1e-10 at any site/lambda -> raise, job fails, no partial
+  summary promoted. The R1-criterion CAL-subspace energy ('calgram') is
+  diagnostic for both solvers (noise-floor argument above), not a tight
+  certificate.
+- "Substantial" DEV5 change := |source-equal-weight paired mean_rel_change|
+  > 1% on math-lift MSE; otherwise "within 1%". Reporting threshold only; it
+  selects nothing.
+- H_artifact supported iff stable-main DEV5 change is within 1% of Q1 (or
+  better) at >= 4 of 6 sites AND original D out-of-R1-criterion-CAL-subspace
+  energy is substantial (>= 10% rel Fro) at those sites. H_overfit supported
+  iff stable-main still degrades > 1% at >= 4 of 6 sites. Otherwise: mixed,
+  report per-site numbers and shares without a binary verdict.
+- lambda_robust results are reported for both solvers regardless of outcome;
+  no post-hoc preference. ICC stage shares are descriptive; no new ICC claim
+  beyond the decomposition and the existing frozen-config comparison.
+- All results including unfavorable ones are retained in output/.
+
+7. RISKS AND LIMITATIONS (honest)
+- CAL4 was used for the original Q1 fit; DEV5 are EXPOSED development sources.
+  Source-out readouts remain development screening, NOT blind confirmation.
+- ~500 matched CAL rows for a 5120x5120 D: severely underdetermined even with
+  the exact solve; rank <= 517/523 is a bound, not identification. omega bounds
+  the explainable DEV fraction; a within-1% DEV result does NOT prove the
+  objective generalizes, only that the FP32 artifact explanation is favored.
+- The stable solve changes ONLY numerics, not the objective: if H_overfit
+  holds, R1's qualitative conclusion survives with corrected certificates.
+- Determinism: node pinned anode16, same python/torch as R1, TF32 off; BF16
+  replay boundaries unchanged. F64 SVD/eigh are deterministic on fixed
+  hardware/library but not bitwise-guaranteed across library versions; the
+  identity gate covers the original path, certificates cover the stable path.
+- Small-M proxy boundary: no full-M residual writeback, no free-trajectory or
+  video evidence; nothing here upgrades R1's claim scope.
+- GPU/host budget: F64 5120x5120 systems add ~1-2 GiB device peak vs R1;
+  24 GiB fraction and 64 GiB host cap enforced as in R1.
+
+8. BUDGET
+1 job, 1 A100 80GB (24 GiB fraction), 4 CPUs, 64 GiB host, wall 7200 s
+(soft 6900 s), output cap 2 GiB, min free disk 12 GiB, session cap 2 jobs /
+2 GPUs. No retry on failure; a failed job is diagnosed and re-reviewed as a
+new scope, never silently resubmitted.
+
+9. CODE INVENTORY (hashes bound in scope.json; all compute-node-only)
+New: fit_core_v2.py, selfcheck_v2.py, runner_recheck.py.
+Adapted from reviewed R1 (phase string + import/lock name only):
+guarded_runner.py, dispatch_once.py.
+Byte-identical to reviewed R1: selector.py, runtime_guard.py, job.sh.
+Frozen inputs: the three R1 manifests (byte-identical) + six R1 expensive-site
+reference JSONs copied from the collected job-156476 output. External capture
+sources: the same nine native_tap.py files, hashes re-asserted at runtime.
+
+10. GOVERNANCE
+This stage follows FFNDS_PREEXEC_REVIEW_V1: author self-audit (this file) ->
+genuinely independent reviewer agent (not the author, written review with
+counterexamples) -> author revisions -> reviewer recheck APPROVE -> freeze
+ACTIVE_RESEARCH.json (AUTHORIZED_FOR_ONE_JOB) -> dispatch_once prelaunch
+identity recheck -> guarded compute-node execution -> RUN/EXIT evidence.
+No reviewer approval is pre-filled or synthesized. Static algebra and the
+non-experimental selfcheck design above were done without GPU compute; all
+tensor computation happens only inside the reviewed job on a compute node.
+
+11. REVISION HISTORY (post independent review REQUEST_CHANGES, 2026-11-12)
+Reviewer qoder_independent_reviewer_g20_r1b_20261112 returned REQUEST_CHANGES
+on scope SHA c7ffb0524151f7ee97848fef4047105ae61652859686021fd7dc98a8feed0619
+(1 blocking + 1 minor + 4 observations). Author responses are recorded in
+AUTHOR_REVIEW_RESPONSES.json. Changes in this revision:
+- BLOCKING (selfcheck D_numerical_rank<=6 spuriously fails on FP32-generated
+  X of numerical rank 12): adopted the reviewer's preferred option (a). The
+  ill-conditioned test X is now constructed in F64 (numerical rank ==
+  mathematical rank 6); residuals are formed in F64 from that X; the ORIGINAL
+  FP32 path receives FP32-rounded copies mirroring R1's data path, so its
+  Gram-formation leak discrimination (oos > 1e-4 vs 'calgram') is preserved.
+  The rank assertion is retained and now valid. selfcheck_v2.py changed.
+- MINOR (dropped R1 checkpoint-file SHA guard): restored the per-expert
+  checkpoint SHA raise in runner_recheck.run() immediately after selfcheck
+  (L160-163), matching R1 runner_screen.py L142-144. runner_recheck.py changed.
+- OBSERVATION (omega basis criterion differed by squaring): went beyond the
+  suggested wording fix and aligned fit_core_v2.stable_ridge_fit to R1's
+  EXACT Gram criterion mu = sv^2 > 1e-6*max(mu) (basis key 'calgram'); field
+  renamed D_out_of_calgram_rel_fro; runner/selfcheck/scope/audit wording
+  updated accordingly. omega is now comparable by construction.
+  fit_core_v2.py changed.
+- Other observations (inert runtime_guard borrowed code, shared normalization
+  between the SVD and eigh paths, ICC decomposition threshold):
+  REJECT_WITH_REASON / ACCEPT_WITH_NOTE as recorded in
+  AUTHOR_REVIEW_RESPONSES.json; no code change.
+All bound files re-hashed; scope SHA recomputed; the old approval fingerprint
+c7ffb052... is NOT reused for the modified code. The revised bundle is
+resubmitted for independent reviewer recheck before any dispatch.
