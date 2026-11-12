@@ -1,3 +1,5 @@
+**2026-11-12 G20 R1 同输入筛查实际闭环（NATIVE/OBS）：** [结果与决策](20261112/G20_R1_SAME_INPUT_SCREEN_RESULTS_20261112.md)。job 156476（anode16，A100×1）EXIT 0：80 站点 Q1/reuse-Y 景观 + 6 站点自由 ridge 与冻结 ICC r512 两残差。自由 A_Q1+D 样本内近精确（CAL4 配对 −99.99%）但 DEV5 一致恶化 +15%–29%，omega_dev 0.36–0.69、Gram 数值秩= CAL 行数 517/523：当前 CAL4 覆盖不足以识别 5120×5120 自由修正，失败方向为过拟合；ICC 该冻结配置 CAL/DEV 均劣于 Q1。Q1 math≈BF16 replay，仍为参照；无胜出候选，R3 未触发；Chipmunk 作者臂 MISSING_ASSET（需 full-M proxy，待 R2 共享捕获）。small-M 门后代理、DEV 为已暴露开发源、无视频/质量/速度主张。[证据与冻结源码](../reports/20261112/g20_r1_screen/README.md)、[独立审查记录](experiment_reviews/G20_R1_SAME_INPUT_SCREEN_20261111/v1.json)。
+
 **2026-10-28新表示 P30 / ALG I19：** [6016恢复先导](20261028/COMPACT6016_RECOVERY_PILOT_RESULTS_20261028.md)完成四位置×两初始化的1024次更新；8个旧诊断来源的局部误差和行间变化均有恢复，尚非视频/系统结论。[条件敏感度配对](method_discussion/discoveries/E0/conditional-sensitivity-pairing-and-balanced-projection-20261028.md)为严格矩阵构造，原生敏感度资产仍OPEN。
 
 **2026-11-05 G19 最新归档：** [详细方法、实现及各阶段结果摘要](20261105/G19_METHOD_AND_RESULTS_20261105.md)。从规定高斯/原始—蒸馏权重比较到真实输入、四步历史消融、原模型40步及GPU固定缓存的证据已汇集。anchor5单开发源实测生成臂时间减少约9.3%–9.4%，但两候选均7/8连续质量代理低于Dense，质量保持未成立。压缩与进一步执行优化仍是待验证设计；本次仅发布既有材料，不启动新作业。以下旧日期段落保留历史身份。

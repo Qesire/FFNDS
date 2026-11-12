@@ -1,0 +1,156 @@
+{
+  "scope_id": "G20_R1_SAME_INPUT_SCREEN_20261111",
+  "phase": "G20_R1_SAME_INPUT_SCREEN",
+  "status": "REVIEW_CANDIDATE",
+  "plan_basis": {
+    "repository": "Qesire/FFNDS",
+    "commit": "ab41d7389f949150c74131e03c8c2b2106e720ac",
+    "route": "research/20261111/G20_NEXT_EXPERIMENT_ROUTE.md",
+    "route_revision": "v2 DESIGN_ONLY 2026-11-11",
+    "batch": "R0 read-only inventory + R1 same-input screening",
+    "reference_implementation": "C:/Users/H/Documents/Codex/2026-11-07/g19-handoff-20261107/work/native_refine_20261108"
+  },
+  "authors": [
+    "qoder_root_g20_20261111"
+  ],
+  "remote_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_r1_screen_20261111",
+  "node": "anode16",
+  "python_executable": "/public/home/scc/pb23061276/miniconda3/envs/hif4/bin/python3.11",
+  "torch_version": "2.10.0+cu128",
+  "new_videos": 0,
+  "reference_generation": 0,
+  "reference_benchmarks": 0,
+  "arms": [
+    "Q1_R2_DEPLOYED_BF16",
+    "FREE_RIDGE_A_Q1_PLUS_D",
+    "ICC_SVD_R512_TWO_RESIDUAL"
+  ],
+  "chipmunk_arm": "MISSING_ASSET: author block-mean proxy requires full-M (31668-row) group statistics, masks and valid 52-row tail; only 2048-row uniform panels exist for CAL sources. Not scored, no scattered-mean substitute; deferred to R2 shared capture.",
+  "nonlinear_state_arms": "B_L/B_N (plan identities 3/4) NOT run this batch; only if state-information verification is needed.",
+  "cal_sources": [
+    "chip10_02",
+    "chip10_04",
+    "chip10_07",
+    "chip10_09"
+  ],
+  "dev_sources": [
+    "chip10_01",
+    "chip10_03",
+    "chip10_05",
+    "chip10_06",
+    "chip10_08"
+  ],
+  "dev_status": "EXPOSED_DEVELOPMENT_SOURCE_OUT_NOT_BLIND_CONFIRMATION",
+  "seed": 42,
+  "steps": {
+    "high": [
+      0,
+      1
+    ],
+    "low": [
+      2,
+      3
+    ]
+  },
+  "geometry": {
+    "grid": [
+      21,
+      29,
+      52
+    ],
+    "flattened_tokens": 31668,
+    "panel_rows": 2048,
+    "d": 5120,
+    "m": 13824
+  },
+  "expensive_sites": [
+    "high/4",
+    "high/19",
+    "high/34",
+    "low/4",
+    "low/19",
+    "low/34"
+  ],
+  "supplementary_site": "high/0",
+  "supplementary_trigger": "fires iff median over high 40 layers of (reuseY - Q1) CAL4 math-lift MSE <= 0 AND at least one high expensive site has FREE_RIDGE main DEV5 math-lift MSE below Q1 by more than epsilon_num; pre-registered, evaluated once, no post-hoc changes",
+  "epsilon_num": 0.000001,
+  "ridge": {
+    "lambda_main": 0.001,
+    "lambda_robust": 0.01,
+    "normalization": "source-equal-weight gated loss; Z = mean_c ||g*Y_c||^2/n_c + 1e-12; ridge = lambda/(||A_Q1||_F^2 + 1e-12); Gram M = sum_c X_c^T X_c/(S n_c Z)",
+    "solver": "gate per-channel shared across CAL sources (R0-verified bitwise at 7 sites; re-asserted at runtime per expensive site); one shared-Gram eigh; column filter g_j^2/(g_j^2*mu + ridge); exact unique solution; F64 filter and normal-residual check",
+    "rank_tol": 0.000001,
+    "robust_role": "diagnostic only; no lambda selection by pilot",
+    "export": "A_free = BF16(A_Q1 + D_main); D_main saved BF16-raw-uint16; math lift uses unrounded FP32 sum"
+  },
+  "precision": "TF32 off; native BF16 addmm/tanh-GELU boundaries; FP32 math lift; BF16 cache/gate replay (cache=BF16(y0-u0@a), base=BF16(u1@a+cache), gated=BF16(base*g), target=BF16(y1*g)); FP64 error reductions; small-M replay excludes full-M residual writeback (proxy boundary, not full-path equivalence)",
+  "readouts": "source-equal-weight current-gate absolute SSE/MSE and paired change vs Q1, high/low separate; increment-target and full-Y normalization auxiliary; math lift and BF16 replay separate tables; ridge training numerical rank, normal relative residual, omega per DEV source; ICC zero-increment control; archive-vs-recomputed native rel_l2 and bit mismatch",
+  "budget": {
+    "max_jobs": 1,
+    "gpus": 1,
+    "session_max_gpus": 2,
+    "cpus": 4,
+    "host_memory_gib": 64,
+    "gpu_memory_gib": 24,
+    "wall_seconds": 7200,
+    "soft_seconds": 6900,
+    "output_bytes": 6442450944,
+    "min_free_disk_gib": 12
+  },
+  "code_sha256": {
+    "guarded_runner.py": "9e9b6dd34858a3dd996968689b1952a8ee0fddb391cb8bca7e72a74d3e943221",
+    "runner_screen.py": "26b520ed6006487d06361ecda408f4b55353b35ea10c3637f63266f406a65646",
+    "fit_core.py": "34db25d270a9f99ef14a4fa291a3e3f7cbee2ce02725c1abd184fa1a3e671d44",
+    "selector.py": "49d291dac55e1bbb1e54c69aeccb02269041738076fba5db60915e300544d888",
+    "selfcheck.py": "e35b850000eafb218347c36cde95b8eb64c75c27c316e3daee9f6111d8c24bca",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "job.sh": "543dece9e2d6435d1fda4c4f993ab75e848720b2baf3022c97193740a6846aff",
+    "dispatch_once.py": "4af1571bab533c3d5e25d363c366d5c158ca5c5ca5f5a2451fe35fd84b42e74e",
+    "build_assets.py": "f3b7c25b0f942976fd1b89319e215c9245ad4526d028e619d824e7620546a0a1"
+  },
+  "frozen_inputs_sha256": {
+    "assets_g20.json": "fa495436ca79d3ab361b8f8c392511ce6849d61521e685d41212ed780b2e3442",
+    "q1_matrix_manifest.json": "d127f0941fa018cfded78aa7476d96abcee141fcc13a3260af91c7060f57410f",
+    "icc_svd_manifest.json": "6d0a576481f8d36c367171bd47f2b81029d5470bff06a3584740f550047c876e"
+  },
+  "external_source_sha256": {
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_01/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_02/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_03/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_04/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_05/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_06/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_07/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_08/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034",
+    "/public/home/scc/pb23061276/projects/wan-quant/work/g19_native_capture10_20261103/chip10_09/native_tap.py": "67a269a0487df5714932fa8b86a07c7b1ad3fa60f4073133f57253564d15f034"
+  },
+  "r0_verification": {
+    "script": "work/g20_r0_verify_20261111/verify_r0.py (compute-node srun, CPU allocation)",
+    "sidecar_schema": "file_sha256 present; sampled payload SHA matches sidecar",
+    "gate_identity": "bitwise equal across all 9 sources at high/0,4,19,34 step1 and low/4,19,34 step3",
+    "intersection_high4": {
+      "chip10_02": 126,
+      "chip10_04": 137,
+      "chip10_07": 129,
+      "chip10_09": 125,
+      "chip10_01": 136,
+      "chip10_03": 122,
+      "chip10_05": 114,
+      "chip10_06": 135,
+      "chip10_08": 134
+    },
+    "checkpoint_sha256": {
+      "high": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+      "low": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+    }
+  },
+  "limitations": [
+    "CAL4 already used for the original Q1 fit; DEV5 are exposed development sources. Source-out readouts are development screening, NOT blind confirmation.",
+    "About 114-137 matched rows per source at high/4 (~500 CAL rows total) for a 5120x5120 D: severely underdetermined; ridge uniqueness is not identification. Training rank, normal residual and omega bound the claim.",
+    "Small-M paired-row math lift and BF16 cache/gate replay only; no full-M residual writeback, no free-trajectory or video evidence.",
+    "Chipmunk author arm not scored (full-M proxy groups missing); recorded MISSING_ASSET with required fields, deferred to R2.",
+    "ICC evaluated only at the frozen svd_r512 two-residual config on six sites; no rank reallocation, no full-40 resident-cache or video memory test.",
+    "Gate sharing across sources R0-verified at 7 sites and re-asserted at runtime per expensive site; job fails loudly if violated, no silent fallback.",
+    "All results including unfavorable configurations retained; no post-hoc site/lambda/threshold selection; supplementary site governed by the pre-registered trigger only."
+  ]
+}

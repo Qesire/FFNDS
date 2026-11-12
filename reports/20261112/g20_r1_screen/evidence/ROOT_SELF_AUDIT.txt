@@ -1,0 +1,33 @@
+2026-11-11 G20 首批 R0+R1 同输入筛查：主任务自审与用户范围
+
+用户要求：借用 native_refine_20261108 既有参考实现，按 FFNDS 仓库最新下一轮实验方案（main@ab41d7389f949150c74131e03c8c2b2106e720ac，research/20261111/G20_NEXT_EXPERIMENT_ROUTE.md，修订设计 v2，DESIGN_ONLY）开始实现并执行；任务必须在计算节点进行。本 stage 为方案首批 R0（只读资产盘点）+ R1（同输入筛查）：0 次新完整生成、0 次参考生成、0 次 benchmark。本文件本身不启动任何工作；实际执行由冻结 scope、真实独立审查 APPROVE+recheck、ACTIVE 授权与计算节点 guard 共同限定。
+
+实现侧为 Qoder 主 agent（author qoder_root_g20_20261111）；独立审查由未参与实现、不同 agent_id/context 的 reviewer agent 从零执行，其文本不是预设支持票。root 负责候选选择、自审、注册、提交与结果汇总。
+
+科学问题（方案 P1/P4）：同输入、同 anchor、同当前 gate 下，把线性基底从 Q1 的 W1^T diag(alpha) W2^T 放开为全自由 A_Q1+D，能否改善来源外误差？竞争解释：Q1 基底限制 vs 校准覆盖不足 vs 真正有限增量状态依赖。判别读出：FREE_RIDGE 主配置 DEV5 相对 Q1 的配对变化、训练数值秩、正规方程残差、omega=||X_test(I-Pi_train)||²/||X_test||²；ICC 冻结 svd_r512 两残差作为保留中间 GELU 的非线性低秩强对照。若来源外收益在更强正则下消失或 omega 高，则不能声称线性空间不足；ridge 唯一解不等于 A 被数据识别。
+
+臂（方案六种功能身份，首批运行 1/2/5，6 记缺数据，3/4 本轮不运行）：
+1 Q1_R2：复用实际部署 BF16 矩阵（80 站点 manifest+SHA+provenance），不重拟合、不重建 FP32/F64 A(alpha)。
+2 FREE_RIDGE：A=A_Q1+D，来源等权当前门后损失。gate 为逐通道 (1,1,5120)；R0 已在计算节点实测 high/0,4,19,34 step1 与 low/4,19,34 step3 共 7 站点 9 来源逐 bit 相同，运行时每个昂贵站点再断言 CAL 共享，失败即报错、无静默回退。共享 Gram 一次特征分解得全列精确唯一解。主 lambda=1e-3，稳健 lambda=1e-2（相对 ||A_Q1||_F²、按门后 Y 能量 Z 归一），第二档仅稳健性诊断，不按 pilot 挑最佳。离线诊断，不部署、不新增在线算子。
+5 ICC_SVD_R512_TWO_RESIDUAL：冻结已真实执行的 svd_r512 因子（manifest+SHA），保留两级低秩与中间 GELU；q1=z_s-first(u_s)、q2=y_s-second(h_s)，hit=second(gelu(first(u_t)+q1))+q2；零增量控制对照 native anchor。
+6 Chipmunk：作者块均值 proxy 需 full-M（31668 行）分组统计、mask 与有效 52 尾行；CAL 来源仅有 2048 行均匀面板 → MISSING_ASSET，缺数据不打分、不以散点均值替代，记录缺失字段，延后 R2 共享采集。
+3/4（B_L/B_N 非线性状态臂）：方案规定仅在需要检验状态信息时运行，本轮不运行。
+
+数据与身份：CAL4=chip10_02/04/07/09（已用于原 Q1 拟合，不是未见源）；DEV5=chip10_01/03/05/06/08（已暴露开发来源，明确标记为开发性来源外评估，不是盲测确认）。seed42；high=steps0/1，low=steps2/3；grid[21,29,52]；均匀 2048 行面板；精确 flattened-ID+THW 交集配对（R0 实测 high/4 交集 114–137 行/源，接近条件期望 2048²/31668=132.45）。1440 个 capture 的 sidecar SHA 与 payload SHA 在加载时双重验证（sidecar file_sha256 已抽样与真实 payload 哈希核对一致）；checkpoint SHA 验证；Q1/ICC 资产加载时 SHA 验证并核对 expert/layer/method/rank 身份。原生 BF16 U(z) 与 pre-gate W2 输出用同 checkpoint 重算，与归档对比报告 rel_l2 与 bit mismatch。
+
+数值合同：TF32 off；原生 BF16 addmm/tanh-GELU 边界；FP32 math lift；BF16 replay 复现部署缓存/gate 舍入（q0=u0@a、q1=u1@a、cache=BF16(y0-q0)、base=BF16(q1+cache)、gated=BF16(base*g)、target=BF16(y1*g)）；全部误差归约 FP64。小 M replay 不含 full-M 残差写回，明确为代理边界，不冒充完整路径等价。selfcheck：ridge 特征解对逐列 F64 稠密解 rel<2e-4；ICC 零因子零增量必须逐 bit 0；reuse-Y SSE 等于门后增量能量；零矩阵 replay 必须精确返回 anchor 输出。
+
+读出与预登记：来源等权当前门后绝对 SSE/MSE 及相对 Q1 配对变化，high/low 分报；增量目标归一化与完整 Y 归一化辅报（避免小增量分母）；math lift 与 BF16 replay 分表。80 站点廉价 landscape（CAL4+DEV5）+ 6 昂贵站点（high/low 第 5/20/35 层，1 起始，即 0 起始 4/19/34）+ 预登记补充站点 high/0。补充触发规则（结果前冻结）：high 专家 40 层 median(reuseY-Q1) CAL4 math MSE<=0 且至少一个 high 昂贵站点 FREE_RIDGE 主配置 DEV5 math MSE 低于 Q1 超过 epsilon_num=1e-6。不事后选站点、不事后选 lambda、不事后改阈值；全部结果含不利配置保留。
+
+预算与失败：1 GPU（A100 80GB，显存份额 24GiB），session<=2 GPU/2 job，4 CPUs，64GiB host，wall 7200s/soft 6900s，输出<=6GiB，最小空闲磁盘 12GiB，单 job、无自动 retry。失败/超时/取消保留 RUN/EXIT/SHELL_EXIT 真实记录；修订必须新 scope 并重新独立复审。全部计算（含 R0 验证与资产构建）在 Slurm 计算节点执行；登录节点仅只读查询与文件传输。guard 核验真实 SLURM_JOB_ID RUNNING、scontrol 记录、节点、python 可执行、TimeLimit、磁盘与全部冻结哈希。
+
+决策价值：R1 只产生筛查证据与至多一条主候选方向（方案第 6 节），不产生视频非劣主张。若结果依赖正则选择且该选择改变去留，才按方案做 CAL4 source-LOSO（所有先验 fold 内重建），本轮不预先执行。同输入收益不保证自由轨迹收益，R2/R3 另验。
+
+最强反例（自审）：
+1 少 CAL、约 500 交集行拟合 5120×5120 D 严重欠定：ridge 唯一解可能是正则化伪影；用训练秩/正规残差/omega 与稳健 lambda 限制结论。
+2 DEV5 已暴露且 CAL4 曾用于原 Q1：来源外收益可能来自分布接近而非基底放开；不声称盲测。
+3 小 M math/replay 收益可能不传递到 full-M 残差写回与自由轨迹：本轮仅同输入筛查。
+4 Chipmunk 缺 full-M 分组可致假失败/假成功：不打分，只记缺失字段。
+5 单层误差不代表 80 处累积：landscape 全层报告，专家分组分支留待方案触发，不据此自动停止。
+
+R0 盘点（只读，计算节点已验证）：CAL4+DEV5 共 1440 capture 存在且 sidecar 完整；checkpoint high/low SHA 已知；Q1 80 矩阵与 ICC svd/cdsvd 80 因子 manifest 可用；Chipmunk full-M 分组统计缺失；原 40 步 CAL 与 O 资产存在但本轮不使用。Attention 兼容性本轮不实现，按方案留待 R2 系统背景决策。

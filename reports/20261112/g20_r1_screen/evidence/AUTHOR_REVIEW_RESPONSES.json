@@ -1,0 +1,41 @@
+{
+  "schema": "FFNDS_AUTHOR_REVIEW_RESPONSES_V1",
+  "scope_id": "G20_R1_SAME_INPUT_SCREEN_20261111",
+  "author_agent_id": "qoder_root_g20_20261111",
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_r1_20261111",
+  "initial_disposition": "REVISE",
+  "responses": [
+    {
+      "finding": "BLOCKING: fit_core.free_ridge_fit normal-residual diagnostic computed (M * g^2) @ D instead of (M @ D) * g^2; would trip selfcheck and abort the job; solve itself correct.",
+      "action": "REVISE",
+      "detail": "Fixed to lhs = (m.double() @ d64) * g2[None, :] + ridge * d64, matching column-j normal equation g_j^2 M d_j + ridge d_j = g_j^2 b_j. Reviewer's independent JS reproduction (correct residual 1.18e-16 vs wrong-formula 3.43e-1) accepted as verification of the diagnosis."
+    },
+    {
+      "finding": "MINOR: inert borrowed verify_frozen_scope/RunReceipt in runtime_guard.py target a different scope.",
+      "action": "REJECT_WITH_REASON",
+      "detail": "runtime_guard.py is a verbatim copy of the reviewed G19 reference module, kept unmodified for provenance fidelity. The unused functions have no execution path in this stage; the stage uses only require_compute_allocation/sha256_file/process_peak_rss_bytes. Modifying a reviewed safety module to delete dead code would weaken the verbatim-provenance claim without changing behavior."
+    },
+    {
+      "finding": "MINOR: guard does not assert review state/fingerprint fields.",
+      "action": "REJECT_WITH_REASON",
+      "detail": "Parity with the reviewed ICC guard, which checks disposition, recheck_disposition, reviewer_agent_id not in authors, scope_sha256 binding and root_self_audit_sha256. The scope_sha256 binding IS the approval fingerprint check (approval_scope_fingerprint equals the scope SHA). Substantive gate intact; adding redundant field checks is not required for this scope."
+    },
+    {
+      "finding": "MINOR: gate assertion checked only row[0] across CAL sources.",
+      "action": "REVISE",
+      "detail": "Strengthened: every CAL source's full gate tensor must equal the shared per-channel vector expanded to its row count (shape check + torch.equal over the whole tensor). This verifies both cross-source sharing and within-source per-channel structure, the exact precondition of the shared-Gram solve. Fails loudly, no silent fallback."
+    },
+    {
+      "finding": "MINOR: selfcheck ridge test only well-conditioned.",
+      "action": "REVISE",
+      "detail": "Added a rank-deficient case (rank-2 Gram in d=5, duplicated sources) verified against the same per-column F64 dense solve (rel<2e-4), plus normal-residual bound and gram_numerical_rank<=2 assertion. This exercises the mu~0 filter path that the actual ~500-row underdetermined fit will hit."
+    },
+    {
+      "finding": "MINOR: auxiliary normalization silently drops zero-energy sources.",
+      "action": "REVISE",
+      "detail": "_group now reports dropped_zero_increment_energy_sources alongside the auxiliary normalized readouts; primary source-equal-weight MSE never drops sources."
+    }
+  ],
+  "adversarial_counterexample_acknowledged": "Homogeneous chip10 cohort may share a low-dim DeltaU subspace; with ~500 CAL rows, ridge determines D only inside the CAL row space. If DEV5 lies mostly inside it (omega_dev LOW), a CAL-overfit correction can lower small-M paired MSE while the true full-M operator is no better than Q1. The design already exposes this via omega_dev, robust-lambda collapse, training rank, math-lift vs BF16-replay divergence, increment/full-Y normalization and the ICC control; conclusions will be bounded accordingly and no blind-confirmation or full-path claim is made.",
+  "revision_utc": "2026-11-11T16:16:42.989Z"
+}

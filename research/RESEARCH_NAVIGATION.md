@@ -1,3 +1,5 @@
+> **2026-11-12 · G20 R1 同输入筛查已实际执行（NATIVE/OBS，EXIT 0）：** [结果与决策](20261112/G20_R1_SAME_INPUT_SCREEN_RESULTS_20261112.md) · [证据/收据/冻结源码](../reports/20261112/g20_r1_screen/README.md) · [独立审查](experiment_reviews/G20_R1_SAME_INPUT_SCREEN_20261111/v1.json)。job 156476 单 A100：自由 ridge 修正 CAL4 近精确但 DEV5 恶化 +15%–29%（omega_dev 0.36–0.69，覆盖不足/过拟合），冻结 ICC r512 两残差均劣于 Q1；Q1 保持参照，无候选推进 R3，Chipmunk 待 R2 full-M 捕获。下一步为校准覆盖判别与 R2 共享 pilot；本次发布不启动新作业。
+
 > **2026-11-11 · G20 / ICML 新入口：** [正向机制、少步蒸馏反向查重、出局/推进及验证设计](20261111/G20_ICML_FORWARD_REVERSE_SYNTHESIS_AND_EXPERIMENT_DECISIONS_20261111.md) · [新论文 L99–L109 核读簿](literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md) · [目录](20261111/README.md)。此为 LIT/ALG/DESIGN_ONLY，未修改 ACTIVE、无新GPU运行；下文旧时点进度保持历史身份。
 
 # FFNDS · 当前研究导航（2026-10-30）
