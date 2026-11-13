@@ -1,4 +1,4 @@
-> **2026-11-12 当前实验入口：** [G20实验路线v3](research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md) · [240对多语义图文规划与采样](research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md) · [资产树](research/20261112/G20_ASSET_REGISTRY_20261112.json) · [执行顺序](research/20261112/G20_EXECUTION_QUEUE_20261112.json)。按CAL96/DEV48/CONFIRM96组织12语义层，来源广度/行密度、线性/非线性、ICC/Chipmunk、真实轨迹及权重归因共用资产；最终七臂系统确认。240项目前为UNBOUND规划，运行按具体scope另行注册。
+> **2026-11-13 当前实验入口：** [VBench 重启路线 v4](research/20261113/G20_VBENCH_RESTART_V4_20261113.md) · [33 条官方图文条件](config/g20_vbench_restart_cohort_v1_20261113.json) · [资产与执行顺序](research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)。官方 11 类先 CAL11＋DEV11，需要时扩 CAL22；统一官方输入和 Wan recipe，先完成同数据线性/非线性判别与一个候选的真实视频比较。历史 VBench 来源可用，旧 240 对未曝光配额退出本轮启动条件；本次未启动计算。
 
 # FFNDS · 视频生成 FFN 的信息、函数与实际计算研究
 

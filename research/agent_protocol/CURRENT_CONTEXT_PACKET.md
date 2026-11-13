@@ -1,4 +1,4 @@
-> **2026-11-12 当前G20接手入口：** [路线v3](../20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md) → [来源与采样](../20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md) → [机器队列](../20261112/G20_EXECUTION_QUEUE_20261112.json) → [资产树](../20261112/G20_ASSET_REGISTRY_20261112.json)。R1/R1b分别job156476/157314已EXIT0；稳定求解仍保留六站点DEV主要退化，先区分修正方向/幅度、来源/行密度与表示；不重跑旧scope。基础CAL96/DEV48/CONFIRM96共240槽位尚未绑定；首波36个Dense capture条件含两源pilot，另2次plain neutral，38次执行。第二/三波60/96条件，累计192条件/194执行。原权重×状态归因与Attention兼容并行；最终七臂。当前是设计维护，没有新增ACTIVE可运行scope，旧日期ICC未运行等状态应按后续R1/R1b更新读取。
+> **2026-11-13 G20 接手入口：** [VBench 重启 v4](../20261113/G20_VBENCH_RESTART_V4_20261113.md) → [cohort](../../config/g20_vbench_restart_cohort_v1_20261113.json) → [资产/队列](../20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)。先绑定 33 条已选真实官方元数据到 archive/图像簇；使用 CAL11＋DEV11，必要时扩 CAL22。历史 VBench 可用，本轮新 Q1/PQ/CD-SVD 等从相同 CAL 拟合；旧 v3 的 240 对、新鲜来源及大型全矩阵不继承。512 共享配对行，旧跨 step 独立 2048 行不足以直接提供512配对行。只缺什么补什么；V1旧 bank 诊断可并行，V2参考→V4机制→V5唯一候选视频；V3增源及后续评估按问题触发。G0 旧容量判定留档，本次无新计算或 ACTIVE runnable scope。
 
 # FFNDS · 当前Agent最小上下文（2026-11-05）
 

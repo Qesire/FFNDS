@@ -1,0 +1,3312 @@
+{
+  "schema": "G20_VBENCH_RESTART_DESIGN_COHORT_V1",
+  "id": "G20_VBENCH_RESTART_V4_20261113",
+  "date": "2026-11-13",
+  "status": "DESIGN_ONLY_METADATA_SELECTION_NOT_RUNNABLE",
+  "runnable": false,
+  "authorization": "User directed a VBench-first restart of the experiment plan; this file registers no CPU/GPU job.",
+  "supersedes_future_requirements": {
+    "cohort": "config/g20_semantic_cohort_v1_20261112.json",
+    "scope": "v3 prospective quotas and global unused-source eligibility only; frozen bundles remain unchanged"
+  },
+  "source": {
+    "repository": "Vchitect/VBench",
+    "commit": "fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490",
+    "path": "vbench2_beta_i2v/vbench2_i2v_full_info.json",
+    "git_blob_sha1": "33c3e3f66b5a88534d2665001934ca5f5cfa76ca",
+    "sha256": "8cf4d34dc11779a336c216a1a71d482927cfa24a1bf736ab5c92425609f129f8",
+    "bytes": 364832,
+    "image_name_count": 355,
+    "image_prompt_condition_count": 1118,
+    "category_image_counts": {
+      "single-human": 64,
+      "multiple-human": 34,
+      "animal": 46,
+      "transportation": 31,
+      "food": 38,
+      "plant": 23,
+      "other": 10,
+      "architecture": 40,
+      "scenery": 40,
+      "indoor": 21,
+      "abstract": 8
+    },
+    "archive": {
+      "repository": "lxl-158/vbench-i2v",
+      "revision": "577ba45c1653ede26e29996737f42841f2ec9eea",
+      "path": "vbench2_beta_i2v/data.tar.gz",
+      "bytes": 2607670436,
+      "sha256": "aa6af89775242f35dbcd1f4c53421a6547d0700b1a99206e98b87a28ea393865",
+      "remote_payload_reverified_this_turn": false,
+      "evidence": "config/e0_s2_source18_archive_cpu_20261029_v2.json"
+    }
+  },
+  "role_policy": {
+    "historical_exposure_is_exclusion_for_current_cycle": false,
+    "historical_exposure_records_are_preserved": true,
+    "group_unit": "original image or verified larger near-duplicate/source cluster; all prompts/crops/seeds share one role",
+    "cal_reserved_from_start": 22,
+    "cal_initial": 11,
+    "cal_extension_if_needed": 11,
+    "dev": 11,
+    "all_data_dependent_main_comparison_parameters_refit_on_current_cal": true,
+    "cal11_must_not_use_cal22_statistics": true,
+    "dev_must_exclude_all_current_method_fit_ancestors": true,
+    "reserved_eval_excludes_cal22_and_dev11_and_all_their_conditions": true,
+    "reserved_eval_is_historically_unexposed": false,
+    "legacy_arms": "report separately; if old fit ancestors overlap current DEV/eval, do not call that arm source-heldout",
+    "cohort_role_does_not_define_historical_exposure": true
+  },
+  "selection": {
+    "policy": "Within each official category, ascending lowercase hexadecimal SHA256 of literal seed + | + exact image_name; first=CAL_A, second=CAL_B, third=DEV",
+    "seed_literal": "G20_VBENCH_RESTART_V4_20261113",
+    "primary_condition": "exact official non-camera-motion base prompt",
+    "no_model_outputs_or_historical_scores_used": true,
+    "input_only_replacement": "Before new output inspection, unreadable/mismatched/duplicate inputs advance to next hash-ranked image in the same category; version and record the reason",
+    "category_labels": "Keep official labels, including taxonomic oddities; optional content tags do not rewrite official membership"
+  },
+  "counts": {
+    "selected_image_names": 33,
+    "initial_image_prompt_conditions": 22,
+    "extended_image_prompt_conditions": 33,
+    "all_conditions_attached_to_selected_images": 117,
+    "reserved_image_names": 322,
+    "reserved_all_conditions": 1001,
+    "counts_pending_verified_cluster_crosswalk": true,
+    "initial_dense_executions_if_no_reuse_and_two_plain_controls": 24,
+    "extended_dense_executions_if_no_reuse_and_two_plain_controls": 35,
+    "dev_q1_plus_one_candidate_executions": 22,
+    "capture_and_dev_quality_base_executions": 57
+  },
+  "recipe": {
+    "model": "Wan2.2-I2V-A14B-LightX2V-Distill-4step",
+    "expert_schedule": "HHLL",
+    "anchor_steps": [
+      0,
+      2
+    ],
+    "hit_steps": [
+      1,
+      3
+    ],
+    "cfg": false,
+    "width": 832,
+    "height": 464,
+    "frames": 81,
+    "fps": 16,
+    "dtype": "BF16",
+    "gelu": "tanh approximation",
+    "attention": "torch_sdpa",
+    "offload": "same LightX2V block-offload setting in all arms",
+    "high_checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+    "low_checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2",
+    "prelaunch_bindings_required": [
+      "code_sha256",
+      "weight_payload_verification",
+      "negative_prompt",
+      "crop_resize_recipe",
+      "scheduler_parameters",
+      "initial_noise_identity",
+      "hardware_and_timing_boundary"
+    ],
+    "recipe_is_not_a_frozen_execution_scope": true
+  },
+  "sampling": {
+    "paired_panel_rows": 512,
+    "nested_prefixes": [
+      256,
+      512
+    ],
+    "shared_across": "all four steps, all forty layers, and compared arms within source x generation seed",
+    "random_order_before_prefix": true,
+    "preserve_sort_inverse": true,
+    "independent_sampling_seed_namespace": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+    "fit_configurations": [
+      {
+        "sources": 11,
+        "rows_per_source": 256,
+        "rows_per_site": 2816
+      },
+      {
+        "sources": 11,
+        "rows_per_source": 512,
+        "rows_per_site": 5632
+      },
+      {
+        "sources": 22,
+        "rows_per_source": 256,
+        "rows_per_site": 5632
+      },
+      {
+        "sources": 22,
+        "rows_per_source": 512,
+        "rows_per_site": 11264
+      }
+    ],
+    "extra_tubelets_or_full_m_hidden_required_by_default": false,
+    "old_independent_endpoint_panels_do_not_supply_512_paired_rows": true,
+    "data_dependent_fit_inputs": "Every fit configuration may read only its own source subset x row prefix, including Q1 alpha, P/Q, normalization, initialization and regularization scales; no wider-row or larger-source learned statistics.",
+    "loss_normalization": "Mean over sources and mean over each source rows; hold model family and regularization policy fixed for the data-allocation table.",
+    "dev_evaluation_rows_per_source": 512
+  },
+  "inference": {
+    "unit": "verified source cluster",
+    "dev11_readout": [
+      "per-source paired differences",
+      "absolute risks",
+      "overall point estimate",
+      "range",
+      "leave-one-source-out sensitivity",
+      "separate high/low expert readout"
+    ],
+    "stratified_bootstrap_gate_for_dev11": false,
+    "reason": "One DEV source per category provides no within-category resampling variance.",
+    "full_official_protocol_claim": false,
+    "local_primary_aggregation": "M(c,e,m): equal mean over prespecified layers of gated SSE/(actual uniform rows*5120). r=(M_m-M_currentQ1)/M_currentQ1. Equal mean of high/low r within source, then equal mean over the 11 DEV sources. Separate six-site and all80 tables.",
+    "secondary_aggregation": "Preserve absolute risks and ratio of mean risks as secondary tables; do not switch the primary after seeing outcomes.",
+    "small_denominator": "Use a measurable floor fixed from CAL neutral numerical error; preserve absolute risk, flag relative effect unmeasurable, retain the source and mark affected primary conclusion inconclusive.",
+    "timing_aggregation": "Per-source log(candidate/currentQ1 production time), then equal source mean; first pass is exploratory, technical replication and interval policy separately frozen.",
+    "dev_official_base_condition_applicability": {
+      "subject_and_motion": 7,
+      "background": 4,
+      "imaging_and_aesthetic": 11,
+      "camera_motion": 0,
+      "additional_diagnostics": "RAFT and visual checks report their own observed coverage"
+    }
+  },
+  "selected_records": [
+    {
+      "record_id": "vbi_1005",
+      "official_record_index_zero_based": 1005,
+      "image_name": "a man is running on a dirt road.jpg",
+      "official_image_type": "single-human",
+      "prompt_en": "a man is running on a dirt road",
+      "prompt_utf8_sha256": "49759fd011c259c246b8a06ce5287aee071ffb42cfb5369d0185e10630a1bb24",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1005
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "0144095f1a0f769663953857941ff9ea2e23673852e4a635f30775fa69086706",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a man is running on a dirt road.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1024",
+      "official_record_index_zero_based": 1024,
+      "image_name": "a woman smiles while holding a yellow flower.jpg",
+      "official_image_type": "single-human",
+      "prompt_en": "a woman smiles while holding a yellow flower",
+      "prompt_utf8_sha256": "2492071034b59d8ad033c9ea37af1d5f0844eb45d32134fc9a556dc9b5bd3f47",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1024
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "032bbd13e819070a75a42ec2a271915b1181780cb2f37afa8cb11efe7662287e",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a woman smiles while holding a yellow flower.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1013",
+      "official_record_index_zero_based": 1013,
+      "image_name": "a man sitting on the ground playing a musical instrument.jpg",
+      "official_image_type": "single-human",
+      "prompt_en": "a man sitting on the ground playing a musical instrument",
+      "prompt_utf8_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1013
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "0411fd54d3d475f1f372b5dd90e1d2eeddd52667d1af4c310df2d54d6b6b1be4",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a man sitting on the ground playing a musical instrument.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1039",
+      "official_record_index_zero_based": 1039,
+      "image_name": "an indian police officer talking to an old woman.jpg",
+      "official_image_type": "multiple-human",
+      "prompt_en": "an indian police officer talking to an old woman",
+      "prompt_utf8_sha256": "9e86b44547b610cb51942218ce2bd766da9485b6d5bc26401323a5eafe8cca35",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1039
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "02f7da283fea45f7b5645e262be0ab86f05b49bd5df61397c6241579d368ef6e",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/an indian police officer talking to an old woman.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1064",
+      "official_record_index_zero_based": 1064,
+      "image_name": "an older woman and a young girl are knitting together.jpg",
+      "official_image_type": "multiple-human",
+      "prompt_en": "an older woman and a young girl are knitting together",
+      "prompt_utf8_sha256": "81fd729e2eed3850c455be9dfd5dcd07bb771a6b258283cf3e1b719ebe4b74f7",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1064
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "0cb5b3c1ea35df11a04903f1c0f3047af9767cbbb7b518f903cdac2d7c43ec5f",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/an older woman and a young girl are knitting together.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1040",
+      "official_record_index_zero_based": 1040,
+      "image_name": "two people scuba diving in the ocean.jpg",
+      "official_image_type": "multiple-human",
+      "prompt_en": "two people scuba diving in the ocean",
+      "prompt_utf8_sha256": "da3fcee521bb172ddc567f83345b28440c7201ad84accdfbba5de5d437cd5d14",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1040
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "15860461a4ecae1cb9789f67f993307ddbf08349e228dc37e641157bc52186f0",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/two people scuba diving in the ocean.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0895",
+      "official_record_index_zero_based": 895,
+      "image_name": "a seal swimming in the water.jpg",
+      "official_image_type": "animal",
+      "prompt_en": "a seal swimming in the water",
+      "prompt_utf8_sha256": "a05378930bbeb1f7573d2e183aaf25df2f0c0069a273f0ef74076d254ff3e76f",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        895
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "0320ef103fee9268178ee2a4e5896ca3acba461189a4a3aa69903a504bd519ea",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a seal swimming in the water.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0901",
+      "official_record_index_zero_based": 901,
+      "image_name": "a giraffe walking in a field.jpg",
+      "official_image_type": "animal",
+      "prompt_en": "a giraffe walking in a field",
+      "prompt_utf8_sha256": "f49332d11c9e28328712642d82ac576680c4e37d8e38395120e3ed227290a1c3",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        901
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "099091670f7cf144134d3082e45ca5f7cea0f1fdda5bf8aaf035c2118f50db47",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a giraffe walking in a field.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0886",
+      "official_record_index_zero_based": 886,
+      "image_name": "a monochromatic video capturing a cat's gaze into the camera.jpg",
+      "official_image_type": "animal",
+      "prompt_en": "a monochromatic video capturing a cat's gaze into the camera",
+      "prompt_utf8_sha256": "95d417b021d83b93936263f119b5a6914adfd4bf49e46534251b0b3fc4582f3e",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        886
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "0c5a993aae972043536ec499b73dd3e9cfa4b225f113d86d65de4e72f8db8253",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a monochromatic video capturing a cat's gaze into the camera.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0937",
+      "official_record_index_zero_based": 937,
+      "image_name": "the red Alfa sports car is speeding down the road.jpg",
+      "official_image_type": "transportation",
+      "prompt_en": "the red Alfa sports car is speeding down the road",
+      "prompt_utf8_sha256": "5d32bb7b52b7c20322a43e6c2d9b27f71d1bdb5b2738ea38382eaa843de7e0b5",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        937
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "0151ad75eef812959aa866b8544d794734dc9442ed7d824baccd944582be5a92",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/the red Alfa sports car is speeding down the road.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0922",
+      "official_record_index_zero_based": 922,
+      "image_name": "a blue car driving down a dirt road near train tracks.jpg",
+      "official_image_type": "transportation",
+      "prompt_en": "a blue car driving down a dirt road near train tracks",
+      "prompt_utf8_sha256": "dd1a7841d006b1d63c23b22541163e015225bea8e5e979ddd8b0dd603a865f7c",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        922
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "0893bb9d51c5c6f160c8ee6e73446dc40f8fddd3746e17f69e810b12d608a8f4",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a blue car driving down a dirt road near train tracks.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0947",
+      "official_record_index_zero_based": 947,
+      "image_name": "A space station orbited above the Earth.jpg",
+      "official_image_type": "transportation",
+      "prompt_en": "A space station orbited above the Earth",
+      "prompt_utf8_sha256": "e3b5c67213d0c1ced8dd809caa67f6390685cab8a5b2cede0846cdf4802c1802",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        947
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "0a6366192ac363b4e2ea9874f3c299934133243fcf221d5edcfd510116877656",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/A space station orbited above the Earth.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1094",
+      "official_record_index_zero_based": 1094,
+      "image_name": "The meat is picked up from the grill with tongs.jpg",
+      "official_image_type": "food",
+      "prompt_en": "The meat is picked up from the grill with tongs",
+      "prompt_utf8_sha256": "2039d9a1bd673582f030782deee2e7c1aefab557e5bb5e24297c29608c2abd4a",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1094
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "0808a18348b6d05bca5a7205b5cf7bddbc3bd51b8d30fce8dee49c9911c72ee9",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/The meat is picked up from the grill with tongs.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1107",
+      "official_record_index_zero_based": 1107,
+      "image_name": "a person is holding up a burger with his hands.jpg",
+      "official_image_type": "food",
+      "prompt_en": "a person is holding up a burger with his hands",
+      "prompt_utf8_sha256": "11f9a7e261e5c64533815b9eefcf3cf481929e14ef70935207610d168627c489",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1107
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "16f45a3daa8a1f5335ee8d22d2a97cdcc7822bbaa4d490e42ff17e5abc06d649",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a person is holding up a burger with his hands.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1109",
+      "official_record_index_zero_based": 1109,
+      "image_name": "a person pouring seasoning into a pot of food.jpg",
+      "official_image_type": "food",
+      "prompt_en": "a person pouring seasoning into a pot of food",
+      "prompt_utf8_sha256": "e1c52340d93dc4706650bd5d54e2884b28537832a997de910d6e44896c7857e1",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1109
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "176644170fbb25ae4d96fc6f57c0bddfa2f9890b74b23c22d5649d6629884aa8",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a person pouring seasoning into a pot of food.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1082",
+      "official_record_index_zero_based": 1082,
+      "image_name": "reeds blowing in the wind against a cloudy sky.jpg",
+      "official_image_type": "plant",
+      "prompt_en": "reeds blowing in the wind against a cloudy sky",
+      "prompt_utf8_sha256": "fa0faef281a0f9a19066627b2a7ff0b070832778a45877d79eb21400ce9bce8b",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1082
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "088237a230ccbd2e1645b309afce0ad2f3fb004bd612903caa0457d9026960f7",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/reeds blowing in the wind against a cloudy sky.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0967",
+      "official_record_index_zero_based": 967,
+      "image_name": "a pink rose is blooming in a garden.jpg",
+      "official_image_type": "plant",
+      "prompt_en": "a pink rose is blooming in a garden",
+      "prompt_utf8_sha256": "9bc2d22c1c3631d26f105d585ea71bd618731ea035fbeb666b2e2372737722b8",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        967
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "242542050c7dbba85943f23f1d55208d6365ebcf3a237c15f8b9e5cd4bf93e2e",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a pink rose is blooming in a garden.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_1084",
+      "official_record_index_zero_based": 1084,
+      "image_name": "a sea anemone on a coral reef.jpg",
+      "official_image_type": "plant",
+      "prompt_en": "a sea anemone on a coral reef",
+      "prompt_utf8_sha256": "19bf2f754bb42713a4d378f92d65590f01a9e4b34ee2740c1b872eae5f97c755",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        1084
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "2f1a39a3284991669f043d80c3b3e2b5ad59089d2e5f30db355992b6cbd29a3d",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a sea anemone on a coral reef.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0966",
+      "official_record_index_zero_based": 966,
+      "image_name": "a person holding a sparkler in front of a sunset.jpg",
+      "official_image_type": "other",
+      "prompt_en": "a person holding a sparkler in front of a sunset",
+      "prompt_utf8_sha256": "3f650f784ab400279055c5380f9c6754e74cae6f20d8145e9033e791b8d81db3",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        966
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "24492be393469be15aa80c2c76ecc2f9dfe3176ecf4549bbb93727ad2486952d",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a person holding a sparkler in front of a sunset.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0958",
+      "official_record_index_zero_based": 958,
+      "image_name": "a statue of a lion is sitting on a pedestal.jpg",
+      "official_image_type": "other",
+      "prompt_en": "a statue of a lion is sitting on a pedestal",
+      "prompt_utf8_sha256": "c7b3111d1922b1d7072a18fff9b7b399e6d9bdc94c9216b294e9e6474f315d59",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        958
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "2a98b68e9af460c6ad6cef134a70525c2661f48222af11cd5c0764b2e3f5fb00",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a statue of a lion is sitting on a pedestal.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0950",
+      "official_record_index_zero_based": 950,
+      "image_name": "a shadow of a hand reaching for a leaf.jpg",
+      "official_image_type": "other",
+      "prompt_en": "a shadow of a hand reaching for a leaf",
+      "prompt_utf8_sha256": "1ec6c6b5cf7ce498f0f05f33c9160ec4deaee32373e60347009b89acdcf21608",
+      "official_dimensions": [
+        "i2v_subject",
+        "subject_consistency",
+        "motion_smoothness",
+        "dynamic_degree",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        950
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "4a8943f470a6db5f6c2b30ba1d95e3f171e31b81891a3764acef37149bf806a9",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a shadow of a hand reaching for a leaf.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0304",
+      "official_record_index_zero_based": 304,
+      "image_name": "cars parked on the side of the road during a snowstorm.jpg",
+      "official_image_type": "architecture",
+      "prompt_en": "cars parked on the side of the road during a snowstorm",
+      "prompt_utf8_sha256": "2fb2ec1211fc734562df4540b7ec47a625566da7d74633486cf781f7648657eb",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        304,
+        305,
+        306,
+        307,
+        308,
+        309,
+        310,
+        311
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "03b4f18d7c94fd516416dfb57a0688e289d7b8b975d698e2f3dbd8a7b773a6a4",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/cars parked on the side of the road during a snowstorm.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0152",
+      "official_record_index_zero_based": 152,
+      "image_name": "a beach with a lot of buildings on the side of a cliff.jpg",
+      "official_image_type": "architecture",
+      "prompt_en": "a beach with a lot of buildings on the side of a cliff",
+      "prompt_utf8_sha256": "0327a66ee1f770f83482b4422885151aae2d9e648c148e8c0fa97d28c3635e32",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "0516fa776b70d0806d627f1d5c398b48a19fb52d9e1d6992f1c28ddfbbfa3832",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a beach with a lot of buildings on the side of a cliff.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0176",
+      "official_record_index_zero_based": 176,
+      "image_name": "the great wall of china in autumn.jpg",
+      "official_image_type": "architecture",
+      "prompt_en": "the great wall of china in autumn",
+      "prompt_utf8_sha256": "48defe2135d36c85d8d1e73c3bfb2eab991967d8346b1a394ecd776d9e2a58f1",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "230fda956e85819da0cbd441f72ccf4c18d61f859228b8514a772063a0c7e4fb",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/the great wall of china in autumn.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0648",
+      "official_record_index_zero_based": 648,
+      "image_name": "a flock of birds flying over a tree at sunset.jpg",
+      "official_image_type": "scenery",
+      "prompt_en": "a flock of birds flying over a tree at sunset",
+      "prompt_utf8_sha256": "9e84a3fb5a9974da5e2e9735d9c1a37037db701a7023685a0aeac9fcae0338c6",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        648,
+        649,
+        650,
+        651,
+        652,
+        653,
+        654,
+        655
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "01c3551a18dc41aae3ba5c8c28db8f9e7fc33f2048616a31d8f93dfa18df6462",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a flock of birds flying over a tree at sunset.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0760",
+      "official_record_index_zero_based": 760,
+      "image_name": "a boat sits on the shore of a lake with mt fuji in the background.jpg",
+      "official_image_type": "scenery",
+      "prompt_en": "a boat sits on the shore of a lake with mt fuji in the background",
+      "prompt_utf8_sha256": "875de11e403cd5f612ce0f6dd6c55a769eb368986a3acd54d4222f0b842d0d65",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        760,
+        761,
+        762,
+        763,
+        764,
+        765,
+        766,
+        767
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "069cb173ae007ccbd00b1c8a7ee20aa8a9865349ae01fe5dfb57afed7e38184b",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a boat sits on the shore of a lake with mt fuji in the background.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0800",
+      "official_record_index_zero_based": 800,
+      "image_name": "an aerial view of a body of water and a beach.jpg",
+      "official_image_type": "scenery",
+      "prompt_en": "an aerial view of a body of water and a beach",
+      "prompt_utf8_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        800,
+        801,
+        802,
+        803,
+        804,
+        805,
+        806,
+        807
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "0aa1eb0678ba740126f62056d39c9f2d3cbfd13291975e1656de826658425ce9",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/an aerial view of a body of water and a beach.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0456",
+      "official_record_index_zero_based": 456,
+      "image_name": "a kitchen with a sink and a lot of glasses on the counter.jpg",
+      "official_image_type": "indoor",
+      "prompt_en": "a kitchen with a sink and a lot of glasses on the counter",
+      "prompt_utf8_sha256": "cb8f41a576c07235f302b958d75c02e7bc61b1abc6068aaca338015fb6171b3b",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        456,
+        457,
+        458,
+        459,
+        460,
+        461,
+        462,
+        463
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "0c2d9b97b2964fb8fd49e956f6e73b3b7f438f09db570699a7619c99c2a38ae6",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a kitchen with a sink and a lot of glasses on the counter.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0448",
+      "official_record_index_zero_based": 448,
+      "image_name": "a living room with a christmas tree and a rocking chair.jpg",
+      "official_image_type": "indoor",
+      "prompt_en": "a living room with a christmas tree and a rocking chair",
+      "prompt_utf8_sha256": "773513193b4bae001303e39c54c845e2f55478529942275efb1509cb3b9527b2",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        448,
+        449,
+        450,
+        451,
+        452,
+        453,
+        454,
+        455
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "0c804b0f00ca9050062106aa83a0458879e17af7f44d214ffd675ee0e8dd5c2e",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a living room with a christmas tree and a rocking chair.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0392",
+      "official_record_index_zero_based": 392,
+      "image_name": "a living room filled with lots of books on a wall.jpg",
+      "official_image_type": "indoor",
+      "prompt_en": "a living room filled with lots of books on a wall",
+      "prompt_utf8_sha256": "7a965e30c110a3beeb85dba7e1e2d18e7349aaf5e7f5075d3358b18fb014e73e",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398,
+        399
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "2abb2f5d75d2c2e4fe171b5efd0f5110dfee8c14025a6b45b672b7b80be60e37",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a living room filled with lots of books on a wall.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0032",
+      "official_record_index_zero_based": 32,
+      "image_name": "a visually captivating abstract video, rich in color, set against a dramatic black background.jpg",
+      "official_image_type": "abstract",
+      "prompt_en": "a visually captivating abstract video, rich in color, set against a dramatic black background",
+      "prompt_utf8_sha256": "68da0a1a8db682d433d356e9a214cd657d93156b30d9683fc87a8034f4868bed",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_A_INITIAL",
+      "selection_rank_within_category": 1,
+      "selection_key_sha256": "17ac98bc9d79382626d098c93a66929f69c068a91b8393cda48859ffb38bbb8f",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a visually captivating abstract video, rich in color, set against a dramatic black background.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0040",
+      "official_record_index_zero_based": 40,
+      "image_name": "a purple and yellow abstract painting with a black background.jpg",
+      "official_image_type": "abstract",
+      "prompt_en": "a purple and yellow abstract painting with a black background",
+      "prompt_utf8_sha256": "85bebde427e1b2683797131200ed55e4c5016c02036ae07722924e57cedcbe51",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ],
+      "cycle_role": "CAL",
+      "wave": "CAL_B_RESERVED_EXTENSION",
+      "selection_rank_within_category": 2,
+      "selection_key_sha256": "254ce4beca831c0d940ebb5f4939df29c2538a94ded003a16dfbae8025cb0ea0",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a purple and yellow abstract painting with a black background.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    },
+    {
+      "record_id": "vbi_0056",
+      "official_record_index_zero_based": 56,
+      "image_name": "a view of a star trail in the night sky.jpg",
+      "official_image_type": "abstract",
+      "prompt_en": "a view of a star trail in the night sky",
+      "prompt_utf8_sha256": "f003054102b9be2665843ccdfc5f44267fb1b7c40a44b5ec40bd5e6efcb9d0b8",
+      "official_dimensions": [
+        "i2v_background",
+        "background_consistency",
+        "aesthetic_quality",
+        "imaging_quality",
+        "temporal_flickering"
+      ],
+      "all_official_condition_indices_for_image": [
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ],
+      "cycle_role": "DEV",
+      "wave": "DEV_INITIAL",
+      "selection_rank_within_category": 3,
+      "selection_key_sha256": "9165205a42ff66faa39f4831785a1446f0fcea31738ae526c1ef2894117bd42f",
+      "generation_seeds": [
+        42
+      ],
+      "archive_member": "data/crop/16-9/a view of a star trail in the night sky.jpg",
+      "historical_exposure": {
+        "status": "PRESERVE_HISTORY_JOIN_G0_EVENTS",
+        "user_report": "All VBench clusters were exposed under the old G0 rules; no fresh eligibility is claimed.",
+        "event_inventory_locator": null
+      },
+      "payload_binding": {
+        "status": "METADATA_SELECTED_IMAGE_BYTES_AND_CLUSTER_PENDING",
+        "local_or_cluster_uri": null,
+        "image_sha256": null,
+        "source_cluster_id": null,
+        "native_source_ordinal": null,
+        "preprocess_recipe_sha256": null,
+        "visual_input_review": null,
+        "compatible_dense_bank_locator": null
+      }
+    }
+  ],
+  "reserved_pool": {
+    "status": "DESIGN_RESERVE_NOT_A_MANDATORY_RUN_QUOTA",
+    "primary_records": [
+      {
+        "official_base_record_index": 0,
+        "image_name": "a close up of a blue and orange liquid.jpg",
+        "official_image_type": "abstract"
+      },
+      {
+        "official_base_record_index": 8,
+        "image_name": "A black and white abstract video featuring mesmerizing bubbles.jpg",
+        "official_image_type": "abstract"
+      },
+      {
+        "official_base_record_index": 16,
+        "image_name": "a blue and white smoke is swirly in the dark.jpg",
+        "official_image_type": "abstract"
+      },
+      {
+        "official_base_record_index": 24,
+        "image_name": "a close-up view of a sea fan in the water.jpg",
+        "official_image_type": "abstract"
+      },
+      {
+        "official_base_record_index": 48,
+        "image_name": "a dynamic video of a blurry neon light in the dark, radiating captivating colors.jpg",
+        "official_image_type": "abstract"
+      },
+      {
+        "official_base_record_index": 64,
+        "image_name": "an aerial view of a small town on the edge of the ocean.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 72,
+        "image_name": "Colorful buildings on the seaside cliffs.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 80,
+        "image_name": "a bunch of houses that are on a hillside.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 88,
+        "image_name": "a building that is sitting on the side of a pond.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 96,
+        "image_name": "an aerial view of a busy city with a bridge in the background.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 104,
+        "image_name": "a bridge that is over a body of water.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 112,
+        "image_name": "a pile of wood sitting next to a log house.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 120,
+        "image_name": "a view of a snowy mountain side with many buildings.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 128,
+        "image_name": "san francisco skyline at sunset.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 136,
+        "image_name": "a castle on top of a hill covered in snow.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 144,
+        "image_name": "an aerial view of big ben and the houses of parliament in london.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 160,
+        "image_name": "an alley way in an old european city.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 168,
+        "image_name": "the golden gate bridge in san franscisco is lit up by the setting sun.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 184,
+        "image_name": "the town of hallstatt is surrounded by mountains and water.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 192,
+        "image_name": "tokyo skyline at night.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 200,
+        "image_name": "a large wave crashes into a lighthouse.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 208,
+        "image_name": "a church sits on top of a hill under a cloudy sky.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 216,
+        "image_name": "the parthenon in acropolis, greece.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 224,
+        "image_name": "a large crowd of people walking in a shopping mall.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 232,
+        "image_name": "the pyramids of giza, egypt.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 240,
+        "image_name": "a stage door painted with a star on the side of a brick wall.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 248,
+        "image_name": "a light house on the edge of the water.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 256,
+        "image_name": "an asian city street at night with people and bicycles.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 264,
+        "image_name": "a couple of wooden benches in the middle of a street.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 272,
+        "image_name": "a pagoda sits on top of a mountain in japan.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 280,
+        "image_name": "a red bus driving down a snowy street at night.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 288,
+        "image_name": "a snow covered street.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 296,
+        "image_name": "a house with snow on the ground.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 312,
+        "image_name": "a group of statues on the side of a building.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 320,
+        "image_name": "a city street at night during a snow storm.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 328,
+        "image_name": "tower bridge in london.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 336,
+        "image_name": "chinese pagoda in the middle of a snowy day.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 344,
+        "image_name": "a dark alleyway with a bus driving down it.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 352,
+        "image_name": "a monastery sits on top of a cliff in bhutan.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 360,
+        "image_name": "the dome of the rock in jerusalem.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 368,
+        "image_name": "an aerial view of a futuristic building on a cliff overlooking a body of water.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 376,
+        "image_name": "a reflection of a city with buildings in the water.jpg",
+        "official_image_type": "architecture"
+      },
+      {
+        "official_base_record_index": 384,
+        "image_name": "a bar with chairs and a television on the wall.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 400,
+        "image_name": "a living room filled with furniture next to a stone wall.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 408,
+        "image_name": "a table and chairs in a room with sunlight coming through the window.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 416,
+        "image_name": "a room filled with lots of shelves filled with books.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 424,
+        "image_name": "an art gallery with paintings on the walls.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 432,
+        "image_name": "a room with a lot of pictures on the walls.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 440,
+        "image_name": "a painting of a cloudy sky next to an easel.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 464,
+        "image_name": "a wooden table in front of a brick wall with bottles on the wall.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 472,
+        "image_name": "a room filled with paintings and statues.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 480,
+        "image_name": "an outdoor dining area surrounded by plants and a brick walkway.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 488,
+        "image_name": "a room filled with books and teddy bears.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 496,
+        "image_name": "a table and chairs in a room with a plant in the corner.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 504,
+        "image_name": "a living room with a couch, table, and a window.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 512,
+        "image_name": "a modern living room with wood floors and a tv.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 520,
+        "image_name": "a room with a desk and a chair in it.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 528,
+        "image_name": "a large waterfall in the middle of a building.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 536,
+        "image_name": "a chair in a room next to some drawings.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 544,
+        "image_name": "a living room with hardwood floors and a white couch.jpg",
+        "official_image_type": "indoor"
+      },
+      {
+        "official_base_record_index": 552,
+        "image_name": "two people in a canoe on a lake with mountains in the background.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 560,
+        "image_name": "an aerial view of a snowy road in a forest.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 568,
+        "image_name": "a view of a waterfall from a distance.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 576,
+        "image_name": "a group of hot air balloons flying over a valley.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 584,
+        "image_name": "an aerial view of a group of islands in the middle of a lake.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 592,
+        "image_name": "an aerial view of a rocky beach in indonesia.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 600,
+        "image_name": "fireworks in the night sky over a city.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 608,
+        "image_name": "a large wave crashes into a lighthouse on a stormy day.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 616,
+        "image_name": "a mountain range with a sky background.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 624,
+        "image_name": "a large bonfire is burning in the night sky.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 632,
+        "image_name": "a close-up view of the flames of a fireplace.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 640,
+        "image_name": "a farm in the middle of the day.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 656,
+        "image_name": "a captivating scene featuring a spiral galaxy shining brilliantly in the night sky.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 664,
+        "image_name": "a mountain with snow on it.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 672,
+        "image_name": "a bridge that is in the middle of a river.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 680,
+        "image_name": "a group of people standing on top of a green hill.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 688,
+        "image_name": "a sandy beach with a wooden pier in the water.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 696,
+        "image_name": "a lake surrounded by mountains and flowers.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 704,
+        "image_name": "a hot-air balloon flying over a desert landscape.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 712,
+        "image_name": "several hot air balloons flying over a city.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 720,
+        "image_name": "a group of hot air balloons flying over a field.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 728,
+        "image_name": "a large wave crashes over a rocky cliff.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 736,
+        "image_name": "the sun is setting over a lake in the mountains.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 744,
+        "image_name": "a mountain range with snow on the ground.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 752,
+        "image_name": "sun rays shining through clouds over a lake.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 768,
+        "image_name": "a foggy road with trees in the distance.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 776,
+        "image_name": "two swans swimming on a lake in the fog.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 784,
+        "image_name": "the sun is shining through the trees near a waterfall.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 792,
+        "image_name": "a sandy beach with palm trees on the shore.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 808,
+        "image_name": "a foggy field that has trees in the grass.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 816,
+        "image_name": "a foggy landscape with trees and hills in the distance.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 824,
+        "image_name": "a large wave in the ocean with a lot of spray coming from it.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 832,
+        "image_name": "a waterfall is shown in the middle of a lush green hillside.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 840,
+        "image_name": "an aerial view of a curvy road in the middle of a forest.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 848,
+        "image_name": "a mountain covered in snow with evergreen trees.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 856,
+        "image_name": "a very large waterfall in the middle of the day.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 864,
+        "image_name": "a large waterfall in the middle of a lush green hillside.jpg",
+        "official_image_type": "scenery"
+      },
+      {
+        "official_base_record_index": 872,
+        "image_name": "a brown bear in the water with a fish in its mouth.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 873,
+        "image_name": "a close-up of a hippopotamus eating grass in a field.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 874,
+        "image_name": "a sea turtle swimming in the ocean under the water.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 875,
+        "image_name": "two bees are flying over a lavender plant.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 876,
+        "image_name": "the otter is standing in the water.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 877,
+        "image_name": "a dog carrying a soccer ball in its mouth.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 878,
+        "image_name": "an eagle is flying over a mountain with trees in the background.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 879,
+        "image_name": "a couple of horses are running in the dirt.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 880,
+        "image_name": "a highland cow with long horns standing in a field.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 881,
+        "image_name": "a monkey is holding a banana in its mouth.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 882,
+        "image_name": "a large rhino grazing in the grass near a bush.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 883,
+        "image_name": "a butterfly sits on top of a purple flower.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 884,
+        "image_name": "an alligator is covered in green plants in the water.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 885,
+        "image_name": "a red panda eating bamboo in a zoo.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 887,
+        "image_name": "a frog sitting on top of water lily leaves.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 888,
+        "image_name": "a lion is roaring in the wild.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 889,
+        "image_name": "a seagull is flying towards a person's hand.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 890,
+        "image_name": "a yellow and white jellyfish is floating in the ocean.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 891,
+        "image_name": "a group of jellyfish swimming in an aquarium.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 892,
+        "image_name": "a clown fish hiding in a purple anemone.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 893,
+        "image_name": "a snake sitting on the ground next to a bowl.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 894,
+        "image_name": "a brown and white cow eating hay.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 896,
+        "image_name": "a panda bear is eating a piece of bamboo.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 897,
+        "image_name": "a small bird sits on a moss covered branch.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 898,
+        "image_name": "a bird with a fish in its beak flying over a field.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 899,
+        "image_name": "a large flock of birds flying in the sky.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 900,
+        "image_name": "a bald eagle flying over a tree filled forest.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 902,
+        "image_name": "a lioness yawning in a field.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 903,
+        "image_name": "a little crab scurried on the sandy beach.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 904,
+        "image_name": "a warthog is walking in the grass.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 905,
+        "image_name": "a penguin walking on a beach near the water.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 906,
+        "image_name": "a tiger walking through a wooded area.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 907,
+        "image_name": "a tiger walking on a dirt path in the woods.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 908,
+        "image_name": "a small monkey holding a piece of food in it's mouth.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 909,
+        "image_name": "a squirrel sitting on the ground eating a piece of bread.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 910,
+        "image_name": "a group of fish swimming over a coral reef.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 911,
+        "image_name": "a toad is sitting on top of some moss.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 912,
+        "image_name": "a great white shark swimming in the ocean.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 913,
+        "image_name": "a group of camels resting in the desert.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 914,
+        "image_name": "two sheep grazing in the grass next to a wooden bridge.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 915,
+        "image_name": "an elephant walking through a forest.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 916,
+        "image_name": "a white rooster standing in a grassy field.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 917,
+        "image_name": "a zebra walking across a dirt road near a field.jpg",
+        "official_image_type": "animal"
+      },
+      {
+        "official_base_record_index": 918,
+        "image_name": "cars are driving down a street lined with tall trees.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 919,
+        "image_name": "the cars on the street are waiting for the traffic lights.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 920,
+        "image_name": "a bicycle leaning against a fence in the snow.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 921,
+        "image_name": "a blue fishing boat is navigating in the ocean next to a cruise ship.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 923,
+        "image_name": "a sailboat is drifting on the ocean.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 924,
+        "image_name": "a couple of boats floating on a body of water.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 925,
+        "image_name": "a city street with cars driving in the rain.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 926,
+        "image_name": "a red and white tram traveling down a snowy street.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 927,
+        "image_name": "a city bus driving down a snowy street at night.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 928,
+        "image_name": "a green toy car is sitting on the ground.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 929,
+        "image_name": "a train traveling down tracks through the woods with leaves on the ground.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 930,
+        "image_name": "a man in a small boat fishing in the ocean.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 931,
+        "image_name": "an airplane is flying through the sky at sunset.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 932,
+        "image_name": "an old rusty car sits in the middle of a field.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 933,
+        "image_name": "a motorcycle driving down a road.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 934,
+        "image_name": "a blue train traveling through a lush green area.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 935,
+        "image_name": "a white car is swiftly driving on a dirt road near a bush, kicking up dust.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 936,
+        "image_name": "a large cargo ship sailing in the water.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 938,
+        "image_name": "two cars that have been involved in a violent collision.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 939,
+        "image_name": "a red double decker bus driving down a street.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 940,
+        "image_name": "A red sports car driving through sand, kicking up a large amount of dust.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 941,
+        "image_name": "a yellow toy car parked on a rock near the water.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 942,
+        "image_name": "a space shuttle taking off into the sky.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 943,
+        "image_name": "a steam train traveling through the woods.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 944,
+        "image_name": "a group of buses parked at a bus station.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 945,
+        "image_name": "A bunch of cars are driving on a highway.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 946,
+        "image_name": "a white and blue airplane flying in the sky.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 948,
+        "image_name": "A yellow boat is cruising in front of a bridge.jpg",
+        "official_image_type": "transportation"
+      },
+      {
+        "official_base_record_index": 949,
+        "image_name": "tangerines in a metal bowl on a table.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 951,
+        "image_name": "A teddy bear is climbing over a wooden fence.jpg",
+        "official_image_type": "other"
+      },
+      {
+        "official_base_record_index": 952,
+        "image_name": "a book on fire with flames coming out of it.jpg",
+        "official_image_type": "other"
+      },
+      {
+        "official_base_record_index": 953,
+        "image_name": "a close-up of a pink rose with water droplets on it.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 954,
+        "image_name": "a person is cooking meat on a grill with flames.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 955,
+        "image_name": "a snowman wearing a santa hat and scarf.jpg",
+        "official_image_type": "other"
+      },
+      {
+        "official_base_record_index": 956,
+        "image_name": "a person holding a sparkler in their hand.jpg",
+        "official_image_type": "other"
+      },
+      {
+        "official_base_record_index": 957,
+        "image_name": "a teddy bear sitting on a moss covered ground.jpg",
+        "official_image_type": "other"
+      },
+      {
+        "official_base_record_index": 959,
+        "image_name": "metal balls are suspended in the air.jpg",
+        "official_image_type": "other"
+      },
+      {
+        "official_base_record_index": 960,
+        "image_name": "a close up of a bunch of green grapes.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 961,
+        "image_name": "a close-up view of a green plant with unfurled fronds.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 962,
+        "image_name": "an orange mushroom sitting on top of a tree stump in the woods.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 963,
+        "image_name": "a stack of pancakes covered in syrup and fruit.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 964,
+        "image_name": "a plate of spaghetti with spinach and tomatoes.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 965,
+        "image_name": "a pink lotus flower in the middle of a pond.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 968,
+        "image_name": "a snow man holding a lantern in the snow.jpg",
+        "official_image_type": "other"
+      },
+      {
+        "official_base_record_index": 969,
+        "image_name": "a stack of chocolate cookies with a bite taken out of it.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 970,
+        "image_name": "a white plate topped with eggs, toast, tomatoes, and a sausage.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 971,
+        "image_name": "a yellow water lily is floating in a pond.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 972,
+        "image_name": "an astronaut floating in space with the earth in the background.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 973,
+        "image_name": "A little girl, lost in thought, is quietly sitting on the bus.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 974,
+        "image_name": "a man holding a tray in front of a brick wall.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 975,
+        "image_name": "an older man playing a saxophone on the street.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 976,
+        "image_name": "an older man jogging by the water.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 977,
+        "image_name": "a person riding a skateboard on a concrete floor.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 978,
+        "image_name": "a woman with long black hair is posing for a picture.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 979,
+        "image_name": "a woman sitting on the ground in front of a guitar.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 980,
+        "image_name": "a little girl wearing a purple helmet riding a blue bike.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 981,
+        "image_name": "a young boy is jumping in the mud.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 982,
+        "image_name": "a man sitting in the driver's seat of a car wearing sunglasses.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 983,
+        "image_name": "a little boy jumping in the air over a puddle of water.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 984,
+        "image_name": "a woman with afro hair is smiling while wearing earphones.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 985,
+        "image_name": "a smiling woman with her hands clasped.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 986,
+        "image_name": "a young boy standing in a field with horses in the background.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 987,
+        "image_name": "a young man is covered in colored powder.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 988,
+        "image_name": "a woman with curly hair is drinking a beer.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 989,
+        "image_name": "an old man standing in the middle of a field holding a bunch of plants.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 990,
+        "image_name": "a man standing on a boat with a net.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 991,
+        "image_name": "a woman in a hat is putting salt into a basket.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 992,
+        "image_name": "a young girl smelling a pink flower.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 993,
+        "image_name": "a young boy leaning on a wooden pole.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 994,
+        "image_name": "a man in a hat sitting in front of a brick oven.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 995,
+        "image_name": "a man in a mexican outfit holding an acoustic guitar.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 996,
+        "image_name": "a snowboarder is in the air doing a trick.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 997,
+        "image_name": "a man riding a horse with a spear in his hand.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 998,
+        "image_name": "a woman carrying a bundle of plants over their head.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 999,
+        "image_name": "a person jumping in the air over a fence.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1000,
+        "image_name": "a man on a surfboard riding a wave in the ocean.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1001,
+        "image_name": "a man sitting on steps playing an acoustic guitar.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1002,
+        "image_name": "a man swinging a tennis racquet at a tennis ball.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1003,
+        "image_name": "a man riding a mountain bike on top of a rocky hill.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1004,
+        "image_name": "a man riding a bike down a street.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1006,
+        "image_name": "A man in a black suit and a sombrero, shouting loudly.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1007,
+        "image_name": "a man standing on top of a sand dune in the desert.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1008,
+        "image_name": "a person riding a motorcycle down a road.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1009,
+        "image_name": "a man standing on top of a mountain with a backpack.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1010,
+        "image_name": "a man with a skull face paint smoking a cigar and holding a guitar.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1011,
+        "image_name": "a man in sunglasses laying on a wooden bench.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1012,
+        "image_name": "an older woman sitting in a room with a cigarette in her hand.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1014,
+        "image_name": "a person riding a horse in a polo match.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1015,
+        "image_name": "a woman in a kimono holding an umbrella.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1016,
+        "image_name": "a person riding a dirt bike.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1017,
+        "image_name": "a person riding an atv on a dirt track.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1018,
+        "image_name": "a person riding a wave on a surfboard.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1019,
+        "image_name": "a woman in a wetsuit is swimming in the ocean.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1020,
+        "image_name": "a man snorkling in the ocean.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1021,
+        "image_name": "a beautiful woman in a blue sari posing in front of a wall.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1022,
+        "image_name": "a woman wearing a shawl in front of a mountain.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1023,
+        "image_name": "a woman is making bread in an oven.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1025,
+        "image_name": "A young boy is lifting a bundle of dry grass wrapped in waterproof fabric over his head.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1026,
+        "image_name": "two people performing a sword fight in front of a forest.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1027,
+        "image_name": "a woman in a colorful shirt is cooking food.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1028,
+        "image_name": "an older woman is drinking a bottle of water.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1029,
+        "image_name": "a smiling woman sitting at a table with food and drinks.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1030,
+        "image_name": "a woman wearing a hijab reading a book on the beach.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1031,
+        "image_name": "a woman wearing a headscarf is reaching for an olive tree.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1032,
+        "image_name": "a woman in a white dress jumping in the air in a field of pink flowers.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1033,
+        "image_name": "a woman wearing a conical hat sits on a boat.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1034,
+        "image_name": "an older woman sitting in front of an old building.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1035,
+        "image_name": "a woman is praying in front of a buddhist temple.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1036,
+        "image_name": "a woman with green hair smiling for the camera.jpg",
+        "official_image_type": "single-human"
+      },
+      {
+        "official_base_record_index": 1037,
+        "image_name": "A group of people in a yellow raft is rowing through turbulent waters.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1038,
+        "image_name": "a man carrying a woman on his back in a field.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1041,
+        "image_name": "A man and woman dressed as sugar skulls in a field of flowers, sharing a loving gaze with each other.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1042,
+        "image_name": "a group of people watching a cow race.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1043,
+        "image_name": "a man and a child riding bumper cars in an amusement park.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1044,
+        "image_name": "a group of motorcyclists racing on a dirt track.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1045,
+        "image_name": "a man and a woman are boxing in a boxing ring.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1046,
+        "image_name": "a man holding a baby in his arms.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1047,
+        "image_name": "a man and a woman sitting on a bench playing instruments.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1048,
+        "image_name": "two men are standing next to each other with a bicycle.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1049,
+        "image_name": "a man and a boy sitting on a beach near the ocean.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1050,
+        "image_name": "two men in white clothing standing next to each other.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1051,
+        "image_name": "a group of men riding horses in a dusty arena.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1052,
+        "image_name": "a soccer player in a yellow and black shirt is chasing a soccer ball.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1053,
+        "image_name": "a group of women sitting on the steps of a building.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1054,
+        "image_name": "a group of people gathered around a red checkered blanket.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1055,
+        "image_name": "a group of people in orange jumpsuits running along a river.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1056,
+        "image_name": "a woman walking down a sidewalk with a bag.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1057,
+        "image_name": "a busy street with cars and people on motorcycles.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1058,
+        "image_name": "a man in a mask is walking through a crowd of people.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1059,
+        "image_name": "a man and a woman walking under an umbrella next to a brick wall.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1060,
+        "image_name": "a group of people riding bikes down a street.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1061,
+        "image_name": "An old person is holding a cup on the street, and people around are curiously looking at him.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1062,
+        "image_name": "two young girls playing with leaves in the woods.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1063,
+        "image_name": "One person is riding on the back of a horse led by another person.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1065,
+        "image_name": "three geishas walking down the street in traditional clothing.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1066,
+        "image_name": "two men riding bikes down a road near a forest.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1067,
+        "image_name": "two women carrying bowls on their heads.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1068,
+        "image_name": "two women eating pizza at a restaurant.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1069,
+        "image_name": "two young women studying in a library.jpg",
+        "official_image_type": "multiple-human"
+      },
+      {
+        "official_base_record_index": 1070,
+        "image_name": "pink water lilies in a pond with leaves.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1071,
+        "image_name": "a group of succulents in a rock garden.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1072,
+        "image_name": "a close up view of a bunch of snowdrop flowers.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1073,
+        "image_name": "a close up of leaves with water droplets on them.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1074,
+        "image_name": "a close-up of a sea anemone in the water.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1075,
+        "image_name": "a plant with water droplets on it.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1076,
+        "image_name": "a group of cactus plants in the desert.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1077,
+        "image_name": "a close-up view of a plant with spiky leaves.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1078,
+        "image_name": "A budding and blossoming flower bud seedling.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1079,
+        "image_name": "a field of orange flowers near the ocean'.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1080,
+        "image_name": "a close-up view of a bunch of pink flowers.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1081,
+        "image_name": "pink water lilies in a pond.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1083,
+        "image_name": "two tall cacti in the middle of the desert.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1085,
+        "image_name": "a dandelion blowing in the wind.jpg",
+        "official_image_type": "plant"
+      },
+      {
+        "official_base_record_index": 1086,
+        "image_name": "A boiling pot cooking vegetables.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1087,
+        "image_name": "a woman stirring food in a pan on the stove.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1088,
+        "image_name": "two eggs are fried in a frying pan on the stove.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1089,
+        "image_name": "fried onion rings in a basket.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1090,
+        "image_name": "a pot is sitting on top of a campfire.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1091,
+        "image_name": "a chef is preparing a dish with mushrooms on a wooden board.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1092,
+        "image_name": "a hand holding a slice of pizza.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1093,
+        "image_name": "A person is using tongs to pick up meat from a plate.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1095,
+        "image_name": "A person is whisking eggs, and the egg whites and yolks are gently streaming out.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1096,
+        "image_name": "a person is putting sauce on a burger.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1097,
+        "image_name": "A person is making dumplings.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1098,
+        "image_name": "a pan filled with fried food.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1099,
+        "image_name": "Chopsticks are slowly picking up the buns from the plastic container.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1100,
+        "image_name": "a basket of french fries in a fryer.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1101,
+        "image_name": "a table with lobsters and drinks on it.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1102,
+        "image_name": "a person pouring coffee into a pot on a stove.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1103,
+        "image_name": "a kettle is sitting on top of a campfire.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1104,
+        "image_name": "Chopsticks are picking up noodles from the bowl.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1105,
+        "image_name": "a person is cooking eggs on an outdoor grill.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1106,
+        "image_name": "a person is cooking food in a wok on a stove.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1108,
+        "image_name": "A person is pouring water into a teacup.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1110,
+        "image_name": "a person holding a taco in their hand.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1111,
+        "image_name": "a person slicing salmon on a cutting board.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1112,
+        "image_name": "a bunch of food is cooking on a grill over an open fire.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1113,
+        "image_name": "a close up of a piece of sushi on chopsticks.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1114,
+        "image_name": "a group of pots on a stove with flames in the background.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1115,
+        "image_name": "a person cooking vegetables in a pan on a stove.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1116,
+        "image_name": "a large pot of soup filled with vegetables and meat.jpg",
+        "official_image_type": "food"
+      },
+      {
+        "official_base_record_index": 1117,
+        "image_name": "a person holding chopsticks over a bowl of food.jpg",
+        "official_image_type": "food"
+      }
+    ],
+    "initial_evaluation_size": null,
+    "all_prompts_follow_the_image_role": true
+  },
+  "execution_adapter": {
+    "status": "VERSIONED_BINDING_ADAPTER_REQUIRED_BEFORE_RUN",
+    "legacy_incompatibilities": [
+      "ffnds_cohort_preflight.py conflates OFFICIAL_BENCHMARK with fresh confirmation",
+      "ffnds_experiment_plans.py sources_from_legacy derives historical exposure from role",
+      "legacy row draws may vary by step or block"
+    ],
+    "must_not_fake_unexposed_flags": true
+  },
+  "plain_controls": {
+    "record_ids": [
+      "vbi_1013",
+      "vbi_0800"
+    ],
+    "subset": "DEV_INITIAL",
+    "extra_executions_max": 2,
+    "reuse_as_production_timing_only_if_exact_uninstrumented_identity_matches": true
+  },
+  "timing_budget": {
+    "first_pass_main_contrast": "candidate versus current-CAL Q1 on DEV11; recorded in the 22 uninstrumented V5 runs",
+    "dense_quality_reference": "matching capture videos after neutral validation",
+    "dense_initial_timing_source_count_max": 2,
+    "additional_plain_dense_for_all_dev_if_two_controls_timing_eligible": 9,
+    "additional_plain_dense_if_neither_control_timing_eligible": 11,
+    "base_executions_with_all_dev_three_arm_timing_if_controls_eligible": 66,
+    "base_executions_with_all_dev_three_arm_timing_if_controls_ineligible": 68,
+    "additional_timing_repeats": "Not automatically scheduled; each complete inference counts even without a new encoded video; separately frozen finite scope"
+  },
+  "representation_controls": {
+    "endpoint_nonlinear": "P32/Q32; linear32 + tanh32 readout features; matched delta nonlinear control",
+    "conditional_capacity_control": "L64/Q32 same readout parameter count if N only beats L32; same bank, no new generation",
+    "same_parameter_count_is_same_online_cost": false,
+    "endpoint_formula": "B(u)=uA0+(uP)CLQ^T+tanh(uP)CNQ^T; predict B(u_t)-B(u_s)",
+    "delta_formula": "X=u_t-u_s; XA0+(XP)CLQ^T+tanh(XP)CNQ^T",
+    "bias": 0,
+    "symmetry": "Zero displacement produces zero correction; reversing endpoints changes sign. Scale-only CAL feature normalization, no offset in delta features; validate actual BF16 path."
+  }
+}

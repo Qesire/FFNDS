@@ -1,0 +1,139 @@
+{
+  "schema": "ffnds.independent_design_recheck.v1",
+  "review_id": "G20_VBENCH_RESTART_V4_20261113_SCOPE_RECHECK",
+  "reviewer_agent": "/root/scope_review",
+  "author_agent": "/root",
+  "reviewed_at_utc": "2026-11-13T04:11:02.523574+00:00",
+  "base_repository": "Qesire/FFNDS",
+  "base_commit": "5d6f19c39d039ee3e5bd184c458e3690f3618f2e",
+  "prior_review": {
+    "path": "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/REVIEW_SCOPE_INITIAL.json",
+    "sha256": "03073b5a2e46cd9f0cc0c7fd5ee4bfd804f2a34b964c5ff63b429589d52da015"
+  },
+  "verdict": "DESIGN_RECHECK_APPROVED",
+  "approval_scope": "STATIC_DESIGN_ONLY_AT_FINAL_RECORDED_INPUT_HASHES",
+  "execution_authorization": false,
+  "reviewer_authored_any_primary_input": false,
+  "scope": "Targeted actual re-read of author responses, revised design/budget/fit/readout fields and AGENTS entry; final three primary SHA checks; preservation of ACTIVE/acquisition queue bytes. Not a new model or payload audit.",
+  "input_files": [
+    {
+      "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+      "sha256": "17c632a53d8621db701c835415bb7a03e6db9f8a83acff029b466ab9662451b0",
+      "bytes": 18164,
+      "actually_read": true
+    },
+    {
+      "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+      "sha256": "eec38fff484c9a34a176000c5affce5b9dc404f0f3ceddaa98a6bf7852a9533d",
+      "bytes": 14986,
+      "actually_read": true
+    },
+    {
+      "path": "config/g20_vbench_restart_cohort_v1_20261113.json",
+      "sha256": "8512ec30c9cbb8e1f735bca1046e750edd6942edbc1a11030724ee31812abd30",
+      "bytes": 122779,
+      "actually_read": true
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "84461ecfcd330be29b63afc8e62f5fb6e1d98c90893544a1bf6055ddadf7c62a",
+      "bytes": 23991,
+      "recheck_use": "actual revised text or prior-hash preservation check"
+    },
+    {
+      "path": "research/ACTIVE_RESEARCH.json",
+      "sha256": "bf3eb3a89ac4fd58697652ff4ad5395d2ed13dd427f82e4854b5169d7170c319",
+      "bytes": 1988593,
+      "recheck_use": "actual revised text or prior-hash preservation check"
+    },
+    {
+      "path": "research/agent_protocol/ACQUISITION_QUEUE_20261029.json",
+      "sha256": "72767ae127f2be44297165ce8f1661f276145e3884fef734f192d81c79a17b12",
+      "bytes": 27592,
+      "recheck_use": "actual revised text or prior-hash preservation check"
+    },
+    {
+      "path": "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/AUTHOR_RESPONSES.md",
+      "sha256": "29524d6b07a7976ad007be6aa31aa3fff94516fcaa6c351607361593f9e3c40d",
+      "bytes": 3521,
+      "recheck_use": "actual revised text or prior-hash preservation check"
+    },
+    {
+      "path": "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/README.md",
+      "sha256": "3ec6bb04d5fe6538c0d8598e729cded4d705bfd0130e377080c88c13b726adfe",
+      "bytes": 920,
+      "recheck_use": "actual revised text or prior-hash preservation check"
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "S-N1",
+      "status": "RESOLVED",
+      "evidence": "57 is explicitly capture and initial quality-generation base, not a universal execution maximum. Primary speed contrast uses22 probe-free current-Q1/candidate V5 runs. Dense capture time is excluded from production claims; only predeclared matching DEV1013/800 plain controls can contribute Dense timing. Conditional additional9 or11 Dense runs give66 or68. Every additional full-inference timing/profiling run is counted even without a new MP4. None is scheduled as a default expansion.",
+      "locations": [
+        "roadmap sections4-5",
+        "cohort counts/plain_controls/timing_budget",
+        "assets execution_queue.V5/budget/conditional_branches.PRODUCTION_TIMING"
+      ]
+    },
+    {
+      "id": "S-N2",
+      "status": "RESOLVED",
+      "evidence": "AGENTS current top paragraph now explicitly requires a versioned adapter preserving historical events; forbids applying unchanged official/fresh preflight and deriving historical exposure from current roles. Old frozen validators remain unchanged.",
+      "locations": [
+        "AGENTS.md current preface",
+        "roadmap section6",
+        "cohort execution_adapter"
+      ]
+    }
+  ],
+  "cross_review_revision_consistency": [
+    {
+      "id": "NUM-B1_ST-V4-B01",
+      "status": "CONSISTENT_IN_REVISED_DESIGN",
+      "evidence": "Production-timing baseline and optional Dense run arithmetic/identity repaired as above; this scope review does not substitute for numeric or stats reviewer final approval."
+    },
+    {
+      "id": "NUM-B2",
+      "status": "CONSISTENT_IN_REVISED_DESIGN",
+      "evidence": "All data-dependent quantities including Q1alpha,P/Q,normalization,initialization and regularization scales restricted to each configuration source x row prefix; no256-row borrowing from512-row fits. CAL-CV train-fold rebuilding retained, DEV evaluation uses fixed512. Loss normalization explicitly source/row mean.",
+      "locations": [
+        "roadmap section2",
+        "cohort sampling",
+        "asset VB_CURRENT_CAL_FITS.fit_input_budget",
+        "queue V4.fit_budget"
+      ]
+    },
+    {
+      "id": "CAPACITY_AND_READOUT",
+      "status": "CONSISTENT_IN_REVISED_DESIGN",
+      "evidence": "P32/Q32 endpoint/delta controls and conditional same-bank L64/Q32 are stated with no new generation; actual online cost separate. Primary source/expert/within-expert aggregation fixed and machine readout contract exactly matches cohort.inference. Applicability denominators7subject/motion,4background,11imaging/aesthetic,0camera reflect declared original conditions. These are explicit design contracts pending actual implementation."
+    }
+  ],
+  "preservation_checks": [
+    {
+      "file": "research/ACTIVE_RESEARCH.json",
+      "sha256": "bf3eb3a89ac4fd58697652ff4ad5395d2ed13dd427f82e4854b5169d7170c319",
+      "byte_identical_to_initial_review": true,
+      "result": "No additional or changed executable authorization since initial review."
+    },
+    {
+      "file": "research/agent_protocol/ACQUISITION_QUEUE_20261029.json",
+      "sha256": "72767ae127f2be44297165ce8f1661f276145e3884fef734f192d81c79a17b12",
+      "byte_identical_to_initial_review": true,
+      "result": "No additional dispatch, default quota or old queue mutation since initial review."
+    },
+    {
+      "object": "metadata/payload/old_G0_boundary",
+      "result": "Still DESIGN_ONLY/runnable=false;33 selected official conditions with actual image/cluster/recipe binding pending. G0 remains user-reported under preserved old rules. No new exposure veto or full-suite requirement."
+    }
+  ],
+  "remaining_required_changes": [],
+  "recheck_limitations": [
+    "No model, GPU, capture, fitting, video or metric execution.",
+    "No current remote image payload, near-duplicate clusters or historical tensor-bank availability was verified.",
+    "Final review README status may be updated by author after all actual rechecks return; that narrative index does not alter this approval scope.",
+    "Execution of each concrete future scope remains governed by its own existing independent preexecution process and frozen input/code/recipe identities."
+  ],
+  "only_artifact_written": "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/RECHECK_SCOPE.json"
+}

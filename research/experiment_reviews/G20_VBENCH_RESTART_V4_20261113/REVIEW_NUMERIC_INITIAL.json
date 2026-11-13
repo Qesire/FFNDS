@@ -1,0 +1,194 @@
+{
+  "schema": "G20_VBENCH_RESTART_V4_INDEPENDENT_NUMERIC_DESIGN_REVIEW_V1",
+  "review_id": "REVIEW_NUMERIC_INITIAL",
+  "reviewer": {
+    "agent_id": "/root/numeric_audit",
+    "actual_role": "independent numerical and experimental-design reviewer",
+    "author_agent_id": "/root",
+    "independent_from_author": true
+  },
+  "reviewed_at_utc": "2026-11-13 04:07:32 UTC",
+  "scope": "Static design review, exact local file hashing, JSON inspection and non-experimental arithmetic only. No model, calibration, capture, replay, video, metric or GPU job was run.",
+  "input_files": [
+    {
+      "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+      "sha256": "c111b89751dbde491ab3f376dcfebff48d5b25e167628927b3dc1964587bbb99"
+    },
+    {
+      "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+      "sha256": "98971abbc8264d9ac5eecca3c9b8b944dc6c709dabf677add18e75ccb8e07396"
+    },
+    {
+      "path": "config/g20_vbench_restart_cohort_v1_20261113.json",
+      "sha256": "e1b31c3f524b41ae264b37c57dd8bb909f60b478a4a3699d03bc80959fa80caa"
+    }
+  ],
+  "author_self_review": {
+    "path": "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/AUTHOR_SELF_REVIEW.md",
+    "sha256": "33a4c063241ada6b7f807acdfd0920512776ab44d95f9ff03940431ecfa37f40",
+    "read": true
+  },
+  "disposition": "REQUEST_CHANGES_DESIGN_ONLY",
+  "execution_approval": false,
+  "blocking_findings": [
+    {
+      "id": "NUM-B1",
+      "severity": "BLOCKING_DESIGN_BUDGET",
+      "title": "57 executions omit the uninstrumented Dense timing baseline for full DEV11 speed comparisons",
+      "locations": [
+        {
+          "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+          "lines": [
+            55,
+            68,
+            70,
+            80
+          ]
+        },
+        {
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointers": [
+            "/assets/8",
+            "/execution_queue/5",
+            "/budget"
+          ],
+          "lines": [
+            149,
+            253,
+            254,
+            305,
+            312
+          ]
+        },
+        {
+          "path": "config/g20_vbench_restart_cohort_v1_20261113.json",
+          "json_pointers": [
+            "/counts"
+          ],
+          "lines": [
+            76,
+            79
+          ]
+        }
+      ],
+      "observation": "The 57 total is 33 instrumented capture conditions + at most 2 plain-neutral executions + 22 refitted-Q1/candidate executions. The queue correctly forbids using capture timing as uninstrumented production speed, yet no producer or count supplies plain Dense timing for all 11 DEV sources.",
+      "consequence": "The present 'maximum' cannot cover a full-source Dense/Q1/candidate production-speed comparison. Captured Dense videos may supply quality references but not the missing production timing.",
+      "minimal_revision": "Keep 57 explicitly as the capture/quality development base. Predeclare the 2 neutral sources as DEV if their valid uninstrumented timing will be reused, and label speed on those 2 as preliminary. A full DEV11 first pass then adds 9 plain Dense executions, giving 66 total; if the neutral runs do not provide eligible DEV timing, account for the actual larger deficit. Any timing repeats or profiling executions require a separately bounded scope and additive budget. Update the roadmap, queue and cohort together.",
+      "author_response_observed_before_revision": "Author agreed in a message to nominate DEV vbi_1013 and vbi_0800 for the 2 neutral runs, distinguish 57 base executions from 66 for the full first timing pass, and separately budget technical repeats. These changes were not yet present in the reviewed bytes."
+    },
+    {
+      "id": "NUM-B2",
+      "severity": "BLOCKING_IDENTIFICATION_CONTRACT",
+      "title": "All learned quantities must obey each source-by-row budget, not only the CAL11/CAL22 boundary",
+      "locations": [
+        {
+          "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+          "lines": [
+            42,
+            44,
+            53,
+            64
+          ]
+        },
+        {
+          "path": "config/g20_vbench_restart_cohort_v1_20261113.json",
+          "json_pointers": [
+            "/role_policy/all_data_dependent_main_comparison_parameters_refit_on_current_cal",
+            "/role_policy/cal11_must_not_use_cal22_statistics",
+            "/sampling/fit_configurations"
+          ],
+          "lines": [
+            52,
+            54,
+            115,
+            150
+          ]
+        }
+      ],
+      "observation": "The current draft explicitly prohibits CAL11 from using CAL22 statistics but does not explicitly prohibit an 11x256 or 22x256 configuration from using alpha, P/Q, normalization, residual/output statistics or regularization scales fitted on that source set's full 512-row bank.",
+      "counterexample": "Fit Q1/P/Q on 22x512 rows and train only the final readout on 22x256. Comparing that arm to 11x512 is labelled equal 5632 rows even though one arm's learned representation has consumed 11264 paired rows. A same-source 256-versus-512 contrast can likewise cease to test the whole estimator's density effect.",
+      "consequence": "The four configurations no longer isolate the declared calibration-budget effects. A sum-loss implementation with unchanged lambda can additionally change effective regularization solely because the row count changes.",
+      "minimal_revision": "Require every data-dependent quantity to read only the configuration's exact source set and 256/512 prefix, with fold-specific reconstruction during CAL CV. Evaluate every configuration on the same fixed DEV512 panel. Specify source/row-averaged loss and the same model-family/regularization policy; 'fixed model' must not mean borrowing a larger configuration's fitted prior. Any truly independent shared prior needs a separately declared budget and estimand.",
+      "author_response_observed_before_revision": "Author agreed in a message to add exact source-by-prefix ancestry, fixed DEV512, source/row averaging and the model-family/policy clarification. These changes were not yet present in the reviewed bytes."
+    }
+  ],
+  "nonblocking_findings": [
+    {
+      "id": "NUM-N1",
+      "priority": "DESIGN_CLARIFICATION_AND_PREEXECUTION_REQUIREMENT",
+      "title": "State the nonlinear feature/parameter contract explicitly and distinguish extra endpoint information from extra capacity",
+      "locations": [
+        {
+          "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+          "lines": [
+            54,
+            60
+          ]
+        }
+      ],
+      "observation": "The draft names endpoint tanh and delta tanh and limits the attribution to compared model families, which is appropriate. It does not itself bind the shared linear branch, ranks, feature count, normalization or zero-increment/antisymmetry conditions. A vague reference to reusable v3 mathematics leaves these implementation choices open.",
+      "recommendation": "Bind the V4 family to the previously reviewed r=k=32 construction: shared CAL-only P/Q and scaling, linear32 plus endpoint-tanh32 versus linear32 plus delta-tanh32, with the same readout budget and legal zero-increment behavior. If N beats L32 and online nonlinearity is to be promoted, add the same-bank L64/Q32 comparator with 64x32 readout coefficients. It costs no new trajectories. N versus L32 alone does not identify nonlinear necessity, and N versus delta-N supports endpoint value only within the declared finite families.",
+      "author_response_observed_before_revision": "Author agreed to add conditional L64/Q32 and preserve the delta-N control."
+    },
+    {
+      "id": "NUM-N2",
+      "priority": "PREEXECUTION_SPECIFICATION",
+      "title": "Freeze the exact per-source local estimator before selecting the winner",
+      "locations": [
+        {
+          "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+          "lines": [
+            54,
+            72
+          ]
+        }
+      ],
+      "observation": "Source-first aggregation and high/low reporting are present. The precise order of layer averaging, expert averaging, absolute risks and relative-risk ratios is not specified in the compact v4 document.",
+      "recommendation": "Carry forward one explicit primary formula or a pinned definition from v3. Report absolute source risks alongside the chosen relative contrast; do not switch between a mean of ratios and a ratio of means after observing outcomes. DEV11 remains exploratory, with no within-category bootstrap."
+    },
+    {
+      "id": "NUM-N3",
+      "priority": "IMPLEMENTATION_BOUNDARY",
+      "title": "Uninstrumented total time and instrumented FFN cost attribution require separate identities",
+      "locations": [
+        {
+          "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+          "lines": [
+            70,
+            80
+          ]
+        }
+      ],
+      "observation": "The roadmap requests FFN and end-to-end time, memory, and projection/cache/gather accounting. Some detailed attribution can require events, traces or profiling that perturb the measured production path.",
+      "recommendation": "Preserve probe-free wall time as the speed estimand; label diagnostic instrumentation separately and count any additional full execution. The planned 2-source timing is a preliminary cost check, not an 11-source estimate."
+    }
+  ],
+  "verified_and_accepted": [
+    "The main data plan is 11 CAL_A, 11 optional CAL_B, and 11 DEV records across all 11 official categories; all CAL_B records are reserved before evaluation.",
+    "The JSON has 33 distinct selected image names, 322 distinct reserve names, no selected/reserve name overlap, and 117 distinct official condition indices attached to the selected images.",
+    "All 33 selected prompt UTF-8 SHA256 values and selection-key SHA256 values match their actual strings; this is internal static consistency, not a new verification of remote image payloads.",
+    "The four source-by-row arithmetic totals are 2816, 5632, 5632 and 11264. The matched 5632-row contrast is valid once all learned quantities obey those budgets.",
+    "The new uniform 512-row sequence is shared across steps/layers/arms, the 256 prefix preserves draw order, and old independently sampled endpoint panels are explicitly not substituted.",
+    "Pure U/Y payload arithmetic is correct: 160*512*5120*2 arrays*2 bytes = 1.5625 GiB per trajectory; 22 and 33 conditions need 34.375 and 51.5625 GiB before extras.",
+    "The draft correctly says 5632 greater than input dimension 5120 does not establish a healthy spectrum or source generalization.",
+    "CAL-specific and CAL-fold-specific reconstruction is required at the source level, historical Q1 is separated, and actual image/near-duplicate/recipe binding remains pending and non-runnable.",
+    "One-source-per-category DEV11 is not assigned a degenerate within-stratum bootstrap confidence gate.",
+    "ICC four-cell diagnostics retain the stage-repair and cross-term distinction; stage-2 energy share is not treated as recoverable error.",
+    "O40, Attention, faithful Chipmunk statistics, own-student-state collection and full official evaluation are conditional branches rather than mandatory launch dependencies.",
+    "Historically exposed VBench sources can support the stated within-benchmark mechanism experiment; the draft does not relabel them as unseen confirmation."
+  ],
+  "review_limits": [
+    "I did not fetch the full upstream official metadata again or verify remote archive/image payload bytes in this review. The checks above concern the actual local design files and their internal identities.",
+    "No input images were visually inspected; current category coverage is a metadata property, not proof of balanced motion difficulty.",
+    "A concrete runner, exact fit hyperparameters, numerical export path, input payload bindings and timing protocol still require their own finite execution review. This report is not authorization for them."
+  ],
+  "recheck_requirements": [
+    "Read and hash the revised three main files.",
+    "Verify NUM-B1 and NUM-B2 are implemented consistently in both prose and machine fields.",
+    "Verify the adopted nonlinear/capacity clarification and the exact scope of any 2-source timing claim.",
+    "Retain the current successful reduction in scope; the repairs do not require a larger dataset or automatic branch expansion."
+  ],
+  "files_modified_by_this_review": [
+    "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/REVIEW_NUMERIC_INITIAL.json"
+  ]
+}

@@ -1,0 +1,374 @@
+{
+  "schema": "G20_VBENCH_ASSETS_AND_QUEUE_V4",
+  "id": "G20_VBENCH_RESTART_V4_20261113",
+  "date": "2026-11-13",
+  "status": "DESIGN_ONLY_NOT_EXECUTION_AUTHORIZATION",
+  "base_commit": "5d6f19c39d039ee3e5bd184c458e3690f3618f2e",
+  "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+  "cohort": "config/g20_vbench_restart_cohort_v1_20261113.json",
+  "legacy_registry_preserved": "research/20261112/G20_ASSET_REGISTRY_20261112.json",
+  "old_g0": {
+    "status": "USER_REPORTED_C1_NOT_BINDABLE_UNDER_FROZEN_RULES",
+    "public_bundle_verified_here": false,
+    "inventory_clusters_reported": 833,
+    "exposed_reported": 827,
+    "free_reported": 6,
+    "changes_to_frozen_rules": false,
+    "blocks_current_vbench_restart": false
+  },
+  "assets": [
+    {
+      "id": "VB_METADATA",
+      "status": "VERIFIED_METADATA_BYTES",
+      "inputs": [],
+      "locator": {
+        "repository": "Vchitect/VBench",
+        "commit": "fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490",
+        "path": "vbench2_beta_i2v/vbench2_i2v_full_info.json",
+        "git_blob_sha1": "33c3e3f66b5a88534d2665001934ca5f5cfa76ca",
+        "sha256": "8cf4d34dc11779a336c216a1a71d482927cfa24a1bf736ab5c92425609f129f8",
+        "bytes": 364832,
+        "image_name_count": 355,
+        "image_prompt_condition_count": 1118,
+        "category_image_counts": {
+          "single-human": 64,
+          "multiple-human": 34,
+          "animal": 46,
+          "transportation": 31,
+          "food": 38,
+          "plant": 23,
+          "other": 10,
+          "architecture": 40,
+          "scenery": 40,
+          "indoor": 21,
+          "abstract": 8
+        },
+        "archive": {
+          "repository": "lxl-158/vbench-i2v",
+          "revision": "577ba45c1653ede26e29996737f42841f2ec9eea",
+          "path": "vbench2_beta_i2v/data.tar.gz",
+          "bytes": 2607670436,
+          "sha256": "aa6af89775242f35dbcd1f4c53421a6547d0700b1a99206e98b87a28ea393865",
+          "remote_payload_reverified_this_turn": false,
+          "evidence": "config/e0_s2_source18_archive_cpu_20261029_v2.json"
+        }
+      },
+      "units": "official image names and image-prompt conditions"
+    },
+    {
+      "id": "VB_ARCHIVE",
+      "status": "HISTORICAL_HASH_PINNED_REMOTE_NOT_RECHECKED",
+      "inputs": [],
+      "locator": {
+        "repository": "lxl-158/vbench-i2v",
+        "revision": "577ba45c1653ede26e29996737f42841f2ec9eea",
+        "path": "vbench2_beta_i2v/data.tar.gz",
+        "bytes": 2607670436,
+        "sha256": "aa6af89775242f35dbcd1f4c53421a6547d0700b1a99206e98b87a28ea393865",
+        "remote_payload_reverified_this_turn": false,
+        "evidence": "config/e0_s2_source18_archive_cpu_20261029_v2.json"
+      },
+      "units": "archive bytes; each selected image must be verified"
+    },
+    {
+      "id": "VB_SPLIT33",
+      "status": "METADATA_SELECTED_PAYLOAD_PENDING",
+      "inputs": [
+        "VB_METADATA",
+        "VB_ARCHIVE"
+      ],
+      "locator": "config/g20_vbench_restart_cohort_v1_20261113.json",
+      "units": "22 CAL-reserved image names and 11 DEV image names; real cluster crosswalk pending"
+    },
+    {
+      "id": "LEGACY_BANKS",
+      "status": "EXISTING_HISTORICAL_DIAGNOSTIC_ASSETS",
+      "inputs": [],
+      "locator": {
+        "registry": "research/20261112/G20_ASSET_REGISTRY_20261112.json",
+        "ref": "5d6f19c39d039ee3e5bd184c458e3690f3618f2e",
+        "asset_ids": [
+          "R1",
+          "R1B",
+          "CAL4_CAPTURE",
+          "DEV5_CAPTURE",
+          "Q1_ALL80",
+          "ICC_SVD512",
+          "ICC_CDSVD512"
+        ]
+      },
+      "reuse": "Use only under original identities; independent endpoint rows do not satisfy the new paired panel."
+    },
+    {
+      "id": "VB_DENSE22",
+      "status": "PLANNED_MISSING_IDENTITY_MATCHED_CONDITIONS_ONLY",
+      "inputs": [
+        "VB_SPLIT33"
+      ],
+      "producer": "V2 reviewed native capture",
+      "shape": "22 conditions x 160 calls x 512 rows x U/Y[5120]",
+      "dtype": "BF16",
+      "units": "1.5625 GiB/condition pure U/Y; 34.375 GiB total before extras"
+    },
+    {
+      "id": "VB_DENSE_CAL_EXTENSION11",
+      "status": "CONDITIONAL_PLANNED",
+      "inputs": [
+        "VB_SPLIT33"
+      ],
+      "producer": "V3 reviewed capture only if source breadth affects a decision",
+      "shape": "11 additional CAL conditions; same bank contract",
+      "units": "17.1875 GiB pure U/Y; extended total 51.5625 GiB"
+    },
+    {
+      "id": "VB_CURRENT_CAL_FITS",
+      "status": "PLANNED",
+      "inputs": [
+        "VB_DENSE22"
+      ],
+      "producer": "V4 same-CAL Q1/linear/nonlinear fit; optional V3 CAL22; record exact subset ancestry",
+      "units": "six-site diagnostics then one selected all80 model",
+      "optional_input": "VB_DENSE_CAL_EXTENSION11",
+      "fit_input_budget": "Every data-dependent quantity uses exactly the current configuration source x row prefix; DEV scoring is fixed to 512 rows."
+    },
+    {
+      "id": "VB_DEV_TRAJECTORIES",
+      "status": "PLANNED",
+      "inputs": [
+        "VB_DENSE22",
+        "VB_CURRENT_CAL_FITS"
+      ],
+      "producer": "V5",
+      "units": "11 sources x seed42 x new Q1/one candidate = 22 additional runs; Dense reused if identical"
+    },
+    {
+      "id": "VB_DEV_QUALITY_COST",
+      "status": "PLANNED",
+      "inputs": [
+        "VB_DEV_TRAJECTORIES"
+      ],
+      "producer": "V5 paired metric/visual and uninstrumented timing",
+      "units": "Per-source quality and candidate versus refitted-Q1 production timing; Dense timing only on matched uninstrumented sources. Full DEV Dense timing and technical repeats are additional scopes."
+    },
+    {
+      "id": "VB_RESERVED_EVAL",
+      "status": "RESERVED_NAMES_NOT_RUN_QUOTA",
+      "inputs": [
+        "VB_SPLIT33"
+      ],
+      "locator": "config/g20_vbench_restart_cohort_v1_20261113.json",
+      "units": "322 names/1001 conditions before verified-cluster adjustments; selected evaluation N undecided"
+    },
+    {
+      "id": "VB_FIXED_EVAL_OUTPUTS",
+      "status": "CONDITIONAL_PLANNED",
+      "inputs": [
+        "VB_RESERVED_EVAL",
+        "VB_CURRENT_CAL_FITS"
+      ],
+      "producer": "V6 separately frozen finite evaluation",
+      "units": "paired videos, raw metrics, inference and costs; historically exposed benchmark split"
+    }
+  ],
+  "execution_queue": [
+    {
+      "id": "V0",
+      "purpose": "Bind official inputs and current roles; reuse old inventory; audit exact bank compatibility",
+      "requires": [],
+      "produces": [
+        "VB_SPLIT33"
+      ],
+      "state": "NEXT_DESIGN_TO_IMPLEMENT",
+      "max_new_full_generations": 0,
+      "blocking_conditions": [
+        "actual input bytes/cluster/crop/prompt identity missing",
+        "new cycle role adapter not implemented"
+      ],
+      "nonblocking": [
+        "historical exposure",
+        "old C1_NOT_BINDABLE"
+      ]
+    },
+    {
+      "id": "V1",
+      "purpose": "Legacy actual-prediction direction/amplitude and optional ICC four-cell diagnosis",
+      "requires": [],
+      "consumes": [
+        "LEGACY_BANKS"
+      ],
+      "state": "OPTIONAL_PARALLEL_DIAGNOSTIC",
+      "max_new_full_generations": 0
+    },
+    {
+      "id": "V2",
+      "purpose": "Shared CAL11/DEV11 native baseline",
+      "requires": [
+        "V0"
+      ],
+      "produces": [
+        "VB_DENSE22"
+      ],
+      "state": "PLANNED_NOT_AUTHORIZED",
+      "unique_conditions": 22,
+      "extra_plain_neutral_executions_max": 2,
+      "max_new_full_generations": 24,
+      "plain_neutral_record_ids": [
+        "vbi_1013",
+        "vbi_0800"
+      ]
+    },
+    {
+      "id": "V3",
+      "purpose": "Source breadth x paired row density factorial only if needed",
+      "requires": [
+        "V2"
+      ],
+      "produces": [
+        "VB_DENSE_CAL_EXTENSION11"
+      ],
+      "state": "CONDITIONAL_NOT_AUTOMATIC",
+      "unique_conditions": 11,
+      "max_new_full_generations": 11
+    },
+    {
+      "id": "V4",
+      "purpose": "Same-CAL linear/endpoint/delta comparisons, then one all80 candidate",
+      "requires": [
+        "V2"
+      ],
+      "optional_dependency": "V3",
+      "produces": [
+        "VB_CURRENT_CAL_FITS"
+      ],
+      "state": "PLANNED_NOT_AUTHORIZED",
+      "max_new_full_generations": 0,
+      "selection": "DEV11 point estimates, source-level failure patterns, expert consistency and numerical verification; no degenerate stratified-CI gate",
+      "fit_budget": "Source and row-prefix isolation applies to all learned priors, not only the final readout.",
+      "conditional_control": "L64/Q32 if endpoint N only beats L32; same bank and readout parameter count."
+    },
+    {
+      "id": "V5",
+      "purpose": "One candidate in free trajectories with paired quality and real costs",
+      "requires": [
+        "V4"
+      ],
+      "produces": [
+        "VB_DEV_TRAJECTORIES",
+        "VB_DEV_QUALITY_COST"
+      ],
+      "state": "CONDITIONAL_ON_CONCRETE_CANDIDATE",
+      "max_new_full_generations": 22,
+      "controls": "Dense reuse requires identical recipe; old Q1 video cannot represent refitted Q1; capture timing cannot represent uninstrumented production speed",
+      "timing_primary_contrast": "candidate versus refitted Q1; uninstrumented first-pass times on DEV11",
+      "dense_timing": "At most two predeclared DEV plain-neutral cases if fully matched; no full-DEV Dense speed claim from capture timing."
+    },
+    {
+      "id": "V6",
+      "purpose": "Freeze and run the later within-VBench evaluation appropriate to the claim",
+      "requires": [
+        "V5"
+      ],
+      "produces": [
+        "VB_FIXED_EVAL_OUTPUTS"
+      ],
+      "state": "RANGE_TO_BE_FIXED_AFTER_DEVELOPMENT",
+      "max_new_full_generations": null,
+      "not_inherited_from_v3": [
+        "96 confirmation sources",
+        "two seeds for every exploratory condition",
+        "seven universal arms",
+        "three video generations for every timing measurement"
+      ]
+    }
+  ],
+  "conditional_branches": [
+    {
+      "id": "ICC",
+      "question": "Which stage and interaction explains current error?",
+      "inputs": [
+        "LEGACY_BANKS"
+      ],
+      "gate": "Four-cell fields exist or a justified minimal supplement; no demand that this branch succeeds before V4"
+    },
+    {
+      "id": "CHIPMUNK",
+      "question": "Does faithful block proxy fail or is the support budget insufficient?",
+      "gate": "Only supplement true full-M group stats/masks when this comparison matters; do not substitute scattered means"
+    },
+    {
+      "id": "WAN_OD",
+      "question": "Does the method contrast depend on original/distilled weight and native state?",
+      "gate": "Freeze a small common-support 2x2 study on current CAL/DEV when this question affects the mechanism; no mandatory O40 expansion"
+    },
+    {
+      "id": "ATTENTION_SYSTEM",
+      "question": "Does the chosen FFN method retain value in a strong matched Attention background?",
+      "gate": "Freeze exact background and matched Dense/Q1/candidate references; add attribution arms only for the claimed components"
+    },
+    {
+      "id": "STUDENT_STATE",
+      "question": "Did a candidate lose local gains due to its own state distribution?",
+      "gate": "Use candidate own CAL states and paid native targets if needed; never fit on DEV"
+    },
+    {
+      "id": "PRODUCTION_TIMING",
+      "question": "Does a stable production speed improvement hold relative to all claimed baselines?",
+      "gate": "First compare candidate to current Q1 using existing uninstrumented V5 runs. Add only needed matched plain Dense cases and technical repetitions in an explicit finite scope; every inference counts.",
+      "additional_dense_first_pass_if_two_neutral_cases_reusable": 9,
+      "additional_dense_first_pass_if_no_neutral_timing_reusable": 11
+    }
+  ],
+  "budget": {
+    "initial_capture_conditions": 22,
+    "extended_capture_conditions": 33,
+    "dense_plain_controls_max": 2,
+    "dense_max_executions_after_extension": 35,
+    "q1_and_one_candidate_dev_runs_max": 22,
+    "scope_of_count": "Base four-step full-generation executions in V2+V3+V5 if no valid reuse; includes candidate/Q1 first-pass production timings, excludes added Dense timing runs/repeats, fits, metrics, downstream evaluation, O40, suffix and shadow costs.",
+    "capture_and_quality_base_executions": 57,
+    "conditional_dense_timing": {
+      "dense_initial_timing_source_count_max": 2,
+      "additional_plain_dense_for_all_dev_if_two_controls_timing_eligible": 9,
+      "additional_plain_dense_if_neither_control_timing_eligible": 11,
+      "base_executions_with_all_dev_three_arm_timing_if_controls_eligible": 66,
+      "base_executions_with_all_dev_three_arm_timing_if_controls_ineligible": 68,
+      "additional_timing_repeats": "Not automatically scheduled; each complete inference counts even without a new encoded video; separately frozen finite scope"
+    },
+    "profiling": "Probe-free production wall time and instrumented component attribution are separate identities; additional profiling inference counts as additional execution."
+  },
+  "governance": {
+    "new_active_runnable_scopes_added": 0,
+    "independent_design_review_is_execution_approval": false,
+    "concrete_compute_scopes_require_existing_repo_preexecution_workflow": true
+  },
+  "preservation": {
+    "frozen_reports_modified": false,
+    "v3_roadmap_cohort_registry_queue_modified": false,
+    "exposure_events_reset": false
+  },
+  "readout_contract": {
+    "unit": "verified source cluster",
+    "dev11_readout": [
+      "per-source paired differences",
+      "absolute risks",
+      "overall point estimate",
+      "range",
+      "leave-one-source-out sensitivity",
+      "separate high/low expert readout"
+    ],
+    "stratified_bootstrap_gate_for_dev11": false,
+    "reason": "One DEV source per category provides no within-category resampling variance.",
+    "full_official_protocol_claim": false,
+    "local_primary_aggregation": "M(c,e,m): equal mean over prespecified layers of gated SSE/(actual uniform rows*5120). r=(M_m-M_currentQ1)/M_currentQ1. Equal mean of high/low r within source, then equal mean over the 11 DEV sources. Separate six-site and all80 tables.",
+    "secondary_aggregation": "Preserve absolute risks and ratio of mean risks as secondary tables; do not switch the primary after seeing outcomes.",
+    "small_denominator": "Use a measurable floor fixed from CAL neutral numerical error; preserve absolute risk, flag relative effect unmeasurable, retain the source and mark affected primary conclusion inconclusive.",
+    "timing_aggregation": "Per-source log(candidate/currentQ1 production time), then equal source mean; first pass is exploratory, technical replication and interval policy separately frozen.",
+    "dev_official_base_condition_applicability": {
+      "subject_and_motion": 7,
+      "background": 4,
+      "imaging_and_aesthetic": 11,
+      "camera_motion": 0,
+      "additional_diagnostics": "RAFT and visual checks report their own observed coverage"
+    }
+  }
+}

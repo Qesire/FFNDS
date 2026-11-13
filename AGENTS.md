@@ -1,4 +1,4 @@
-> **2026-11-12 当前G20设计与接续入口：** 用户要求更新实验方案、足量多语义图文对、资产树与执行顺序，现行设计为[G20路线v3](research/20261112/G20_EXPERIMENT_ROADMAP_V3_20261112.md)、[来源/采样规格](research/20261112/G20_COHORT_AND_SAMPLING_SPEC_20261112.md)、[资产树](research/20261112/G20_ASSET_REGISTRY_20261112.json)与[执行队列](research/20261112/G20_EXECUTION_QUEUE_20261112.json)。基础CAL96/DEV48/CONFIRM96共240个待绑定名额，12语义层；R1/R1b已闭环，当前六站点求解疑点已排除为主要退化来源。新算子与Wan内权重/轨迹归因并行，Attention兼容和强组合按11/11双主线合同接续。下文旧日期的优先级仅保留历史身份；新CPU/GPU scope仍逐项独立评议、recheck、ACTIVE冻结与RUN/EXIT。本次只维护设计与索引，没有新增可运行scope。
+> **2026-11-13 当前用户决定：先统一在 VBench-I2V 重新开展本轮实验。** 当前入口为[路线 v4](research/20261113/G20_VBENCH_RESTART_V4_20261113.md)、[33 条官方图文条件与本轮用途](config/g20_vbench_restart_cohort_v1_20261113.json)、[资产和执行队列](research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)。按官方 11 类先 CAL11/DEV11，需要时扩 CAL22；历史曝光不阻止本轮使用，当前拟合、开发与固定评估按来源簇隔离，主比较参数使用本轮 CAL 重拟合。旧 v3 的 240 对/全新来源要求不再约束未来启动；G0 原规则与容量结果保留。历史数据不改称未曝光盲测。新绑定使用保留历史事件的版本化 adapter，不直接套用旧 official/fresh preflight 或以当前角色重写曝光。当前仅设计维护，没有新增可运行 scope；真实计算仍按具体独立预审、ACTIVE 与 RUN/EXIT。下文旧日期顺序保留历史身份。
 
 # FFNDS · AutoResearcher 科研Agent默认约定
 

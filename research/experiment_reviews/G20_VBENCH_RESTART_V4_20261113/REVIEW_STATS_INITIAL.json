@@ -1,0 +1,167 @@
+{
+  "schema": "ffnds.independent_static_design_review.v1",
+  "review_id": "G20_VBENCH_RESTART_V4_STATS_INITIAL_20261113",
+  "reviewer": "/root/stats_audit",
+  "author": "/root",
+  "independent_of_file_author": true,
+  "reviewed_at_utc": "2026-11-13T04:06:35.045282+00:00",
+  "review_type": "INITIAL_STATIC_DESIGN_REVIEW",
+  "decision": "CHANGES_REQUESTED",
+  "scope": "Static statistical, cohort-selection, data-role, benchmark-denominator and budget consistency of the three exact files listed; no execution approval.",
+  "execution_authorized": false,
+  "new_model_executions": 0,
+  "new_fits": 0,
+  "remote_writes": 0,
+  "author_self_review_read_first": {
+    "path": "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/AUTHOR_SELF_REVIEW.md",
+    "sha256": "33a4c063241ada6b7f807acdfd0920512776ab44d95f9ff03940431ecfa37f40"
+  },
+  "files_reviewed": [
+    {
+      "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+      "sha256": "c111b89751dbde491ab3f376dcfebff48d5b25e167628927b3dc1964587bbb99",
+      "bytes": 14950
+    },
+    {
+      "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+      "sha256": "98971abbc8264d9ac5eecca3c9b8b944dc6c709dabf677add18e75ccb8e07396",
+      "bytes": 11262
+    },
+    {
+      "path": "config/g20_vbench_restart_cohort_v1_20261113.json",
+      "sha256": "e1b31c3f524b41ae264b37c57dd8bb909f60b478a4a3699d03bc80959fa80caa",
+      "bytes": 119599
+    }
+  ],
+  "blocking_findings": [
+    {
+      "id": "ST-V4-B01",
+      "severity": "DESIGN_BUDGET_AND_ESTIMAND_CLARIFICATION",
+      "status": "OPEN_AUTHOR_ACCEPTED_CORRECTION_NOT_YET_IN_REVIEWED_BYTES",
+      "location": [
+        "roadmap sections3 V5 and4-5",
+        "assets VB_DEV_QUALITY_COST and execution_queue V5",
+        "budget combined_executions_max57"
+      ],
+      "finding": "The22 new Q1/N runs can supply uninstrumented Q1-versus-N timings, but the reused Dense reference comes from tensor capture. A statement implying11-source paired production speed for all Dense/Q1/N arms is not covered by57 full executions. The two optional plain-neutral runs are not yet explicitly bound to DEV sources or guaranteed to qualify as production timing.",
+      "required_minimal_change": "Keep the default small: explicitly make first-round production speed primarily N versus refitted Q1, with Dense reused for quality. Call57 the reference/quality-chain base maximum, not a full-three-arm Dense-speed maximum. If full DEV11 Dense production timing is later claimed, separately budget missing plain runs and any technical repeats. Do not silently count capture timings as production.",
+      "author_response_received": "Author plans to bind the2 plain-neutral cases to DEV official records1013 and800, allow them as preliminary Dense timings only if production conditions qualify, and report a separate additional9 runs (66 total) or up to11 runs (68 total) for full DEV11 Dense speed. Technical repeats remain separately bounded. Re-read the actual edited bytes before approval."
+    }
+  ],
+  "nonblocking_findings": [
+    {
+      "id": "ST-V4-N01",
+      "severity": "NONBLOCKING_RUN_SPEC_REQUIREMENT",
+      "finding": "The v4 plan correctly requires per-source aggregation but does not yet pin one exact overall relative-MSE formula. Mean source-relative change and ratio of mean absolute errors can differ, as the old R1 results showed.",
+      "recommendation": "Before V4 fitting/readout, state the source/expert/site aggregation and denominators in the finite analysis spec, preserve absolute MSE and both relative summaries, and do not choose whichever average favors the candidate. No extra samples or review bureaucracy are required to do this."
+    },
+    {
+      "id": "ST-V4-N02",
+      "severity": "NONBLOCKING_DECLARED_IMPLEMENTATION_BOUNDARY",
+      "finding": "33 verified metadata selections are not33 verified independent source clusters. Actual image bytes, cross-image near-duplicate mapping and original-source identity remain null as explicitly declared.",
+      "recommendation": "At V0, enforce one role for every image cluster and all its prompts. Apply deterministic input-only replacement and recompute reserve counts if cluster merges change the actual membership. This is a runtime binding condition, not a reason to reinstate historical-freshness rejection."
+    },
+    {
+      "id": "ST-V4-N03",
+      "severity": "NONBLOCKING_DENOMINATOR_NOTE",
+      "finding": "The selected DEV11 contains7 subject-type and4 background-type base conditions. Official motion/subject metrics apply to7, background metrics to4, imaging/aesthetic to11; camera_motion applies to none of the selected base conditions.",
+      "recommendation": "Retain the roadmap existing applicable-source-count rule in metric outputs. Do not label every metric n=11, and keep added RAFT/visual diagnostics distinct from official applicability."
+    }
+  ],
+  "verified_checks": {
+    "official_metadata": {
+      "local_reference": "/workspace/scratch/8b70caf1bf23/vbench_restart_reference/official_full_info.json",
+      "repository": "Vchitect/VBench",
+      "commit": "fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490",
+      "path": "vbench2_beta_i2v/vbench2_i2v_full_info.json",
+      "sha256": "8cf4d34dc11779a336c216a1a71d482927cfa24a1bf736ab5c92425609f129f8",
+      "bytes": 364832,
+      "records": 1118,
+      "distinct_image_names": 355,
+      "official_categories": 11
+    },
+    "selection_rule": "Independently reproduced SHA256(seed_literal+|+exact image_name), category ordering and first3 CAL_A/CAL_B/DEV selections for all11 categories.",
+    "all_selected_fields_checked": [
+      "official_record_index_zero_based",
+      "exact image_name",
+      "official_image_type",
+      "exact prompt_en",
+      "prompt UTF8 SHA256",
+      "official_dimensions",
+      "selection rank",
+      "selection key SHA256",
+      "all condition indices belonging to that image",
+      "non-camera base condition",
+      "payload null/status boundary"
+    ],
+    "selected_image_names": 33,
+    "CAL_A_INITIAL": 11,
+    "CAL_B_RESERVED_EXTENSION": 11,
+    "DEV_INITIAL": 11,
+    "CAL_total": 22,
+    "all_conditions_attached_to_selected_images": 117,
+    "reserved_image_names": 322,
+    "reserved_all_conditions": 1001,
+    "partition_check": "All1118 official condition indices partition exactly into117 selected-image conditions and1001 reserve conditions; no overlap or omission. All33 selected and322 reserved image names likewise partition all355 names.",
+    "reserve_primary_records": "Every reserved base-record index maps to the stated official image/category and a non-camera condition.",
+    "CAL_reservation": "All22 CAL images reserved from the beginning; CAL_B is excluded from evaluation before it is acquired.",
+    "history_vs_current_role": "History is preserved and not a rejection criterion for current CAL/DEV/eval. No fake exposure=false flags; legacy G0 remains separately user-reported, with no fabricated RUN/EXIT.",
+    "current_learning_isolation": "Main Q1 and all data-dependent parameters refit on current CAL. CAL11 cannot use CAL22 statistics; DEV excludes current fit ancestry. Weight-only SVD and same-identity inference caches may be reused.",
+    "DEV_inference": "No within-category bootstrap interval gate with one DEV source per category. Per-source points, absolute risks, range, expert breakdown and leave-one-source sensitivity are descriptive development readouts.",
+    "official_DEV_metric_applicability": {
+      "i2v_subject": 7,
+      "subject_consistency": 7,
+      "motion_smoothness": 7,
+      "dynamic_degree": 7,
+      "i2v_background": 4,
+      "background_consistency": 4,
+      "aesthetic_quality": 11,
+      "imaging_quality": 11,
+      "temporal_flickering": 11,
+      "camera_motion": 0
+    },
+    "paired_row_counts": [
+      2816,
+      5632,
+      5632,
+      11264
+    ],
+    "fixed_total_comparison": "11x512 =22x256 =5632; rank reaching5120 is explicitly not a coverage guarantee.",
+    "paired_panel": "512 rows shared across steps/layers/arms within source x generation seed;256 is random-sequence prefix. Legacy independent endpoint panels cannot count as512 true paired rows.",
+    "storage_GiB_pure_UY": {
+      "per_trajectory": 1.5625,
+      "initial22": 34.375,
+      "extended33": 51.5625
+    },
+    "base_generation_arithmetic": {
+      "initial_capture_conditions": 22,
+      "maximum_plain_neutral_controls": 2,
+      "initial_execution_max": 24,
+      "extra_CAL_if_needed": 11,
+      "extended_execution_max": 35,
+      "Q1_and_one_candidate_DEV_runs": 22,
+      "base_chain_execution_max": 57
+    },
+    "assets": {
+      "unique_ids": 11,
+      "unknown_direct_input_ids": 0,
+      "direct_input_graph": "ACYCLIC"
+    },
+    "queue": {
+      "stages": 7,
+      "unknown_stage_dependencies": 0,
+      "unknown_asset_references": 0,
+      "dependency_graph": "ACYCLIC"
+    },
+    "benchmark_scope": "Fixed later evaluation excludes all conditions belonging to CAL22/DEV11.322/1001 is a reserve, not a mandatory run quota. Any full355 replay must separate fit/development overlap from current holdout; no historic-blindness claim.",
+    "official_full_protocol": "Independently fetched VBench README at the pinned commit; it requires5 samples per image-prompt pair.1118x5=5590 videos per arm, correctly not inherited as this development stage budget.",
+    "plan_weight": "CAL11->22/DEV11, conditional expansion and claim-triggered additional baselines are proportionate to this initial mechanism study; no fresh confirmation quota or universal seven-arm/three-repeat requirement remains."
+  },
+  "limitations": [
+    "Only read-only file/metadata validation and arithmetic were performed; no inference, tensor capture, fit or benchmark metric was run.",
+    "Image payload bytes, image content, archive availability and true cluster independence were not reverified and are not asserted.",
+    "Historical G0 counts are user-reported; the full G0 bundle was not independently read in this review.",
+    "This review does not establish population-wide generalization, per-category statistical power, or empirical candidate superiority.",
+    "Approval requires a targeted re-read after the single blocking budget/measurement-scope clarification; do not enlarge the default experiment to satisfy the review."
+  ]
+}

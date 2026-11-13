@@ -1,0 +1,105 @@
+{
+  "schema": "G20_VBENCH_RESTART_V4_INDEPENDENT_NUMERIC_DESIGN_RECHECK_V1",
+  "review_id": "RECHECK_NUMERIC",
+  "reviewer": {
+    "agent_id": "/root/numeric_audit",
+    "actual_role": "independent numerical and experimental-design reviewer",
+    "author_agent_id": "/root",
+    "independent_from_author": true
+  },
+  "reviewed_at_utc": "2026-11-13 04:11:28 UTC",
+  "disposition": "APPROVE_DESIGN_ONLY",
+  "execution_approval": false,
+  "input_files": [
+    {
+      "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+      "sha256": "17c632a53d8621db701c835415bb7a03e6db9f8a83acff029b466ab9662451b0"
+    },
+    {
+      "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+      "sha256": "eec38fff484c9a34a176000c5affce5b9dc404f0f3ceddaa98a6bf7852a9533d"
+    },
+    {
+      "path": "config/g20_vbench_restart_cohort_v1_20261113.json",
+      "sha256": "8512ec30c9cbb8e1f735bca1046e750edd6942edbc1a11030724ee31812abd30"
+    }
+  ],
+  "initial_review": {
+    "path": "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/REVIEW_NUMERIC_INITIAL.json",
+    "sha256": "a66f0c8c277cd4ab2b8a2101ba2781af473835f0916f8a84f1ebf7e7675df0ee"
+  },
+  "author_response_read": "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/AUTHOR_RESPONSES.md",
+  "scope": "Targeted static recheck of the prior two blocking findings and three clarifications against the actual final bytes. No wider testing, new experiment, fitting, model execution, capture, video generation, metric computation or GPU job.",
+  "closed_findings": [
+    {
+      "id": "NUM-B1",
+      "status": "RESOLVED",
+      "evidence": [
+        "Roadmap lines 74-76 distinguish the 57-execution capture/quality base from added Dense timing and repeats.",
+        "The initial production-speed contrast is candidate versus current-CAL Q1, measured within the 22 uninstrumented V5 runs.",
+        "Plain controls explicitly bind DEV vbi_1013 and vbi_0800. Their records are DEV_INITIAL with seed42.",
+        "Roadmap lines 74, 88-90, cohort plain_controls/timing_budget, state execution_queue V2/V5 and conditional PRODUCTION_TIMING consistently limit Dense timing reuse to eligible plain runs.",
+        "A full DEV11 Dense/Q1/candidate first pass is 57+9=66 when both controls provide eligible production times, or 57+11=68 when neither does. The intermediate one-eligible case requires the corresponding actual deficit; every repeat or profiling inference is additional."
+      ],
+      "conclusion": "The prior understated complete-speed budget is corrected. 57 is no longer presented as a full-DEV Dense speed or technical-replication upper bound."
+    },
+    {
+      "id": "NUM-B2",
+      "status": "RESOLVED",
+      "evidence": [
+        "Roadmap line 44 explicitly binds every learned quantity to its own source x row prefix, including Q1 alpha, P/Q, normalization and initialization.",
+        "The same paragraph fixes DEV to the common 512-row panel, source/row-averaged loss, current-configuration Q1 reference and fold-specific reconstruction.",
+        "Cohort sampling.data_dependent_fit_inputs/loss_normalization/dev_evaluation_rows_per_source and state VB_CURRENT_CAL_FITS.fit_input_budget/V4.fit_budget encode the same restrictions."
+      ],
+      "conclusion": "The 11x256, 11x512, 22x256 and 22x512 comparisons now describe a coherent whole-estimator calibration-budget intervention rather than only a truncated final readout."
+    },
+    {
+      "id": "NUM-N1",
+      "status": "RESOLVED_FOR_THE_BOUNDED_DESIGN_CLAIM",
+      "evidence": [
+        "Roadmap lines 58-60 and cohort representation_controls bind P32/Q32, linear32+tanh32, and equal readout counts for endpoint and delta models.",
+        "The actual endpoint and displacement equations are written, with b=0 and scale-only CAL preprocessing; zero-displacement and endpoint-reversal properties are stated.",
+        "L64/Q32 is a conditional same-bank, same-readout-parameter-count control; its larger input projection is CAL-derived and Q32 is shared.",
+        "The claimed endpoint value remains limited to the compared finite model families, and equal parameter count is not equated with equal online cost."
+      ],
+      "execution_scope_note": "When promoting an online nonlinear candidate on the basis of an advantage over L32, include the inexpensive same-bank L64 capacity check or explicitly leave the nonlinear-necessity claim unmade. The phrase 'only beats L32' should not be used to waive that check merely because N also beats delta-N. This clarification adds no trajectories and is not a design blocker."
+    },
+    {
+      "id": "NUM-N2",
+      "status": "RESOLVED",
+      "evidence": [
+        "Roadmap line 80 fixes per-source/expert layer-mean gated MSE, then a ratio to that configuration's Q1, then equal expert and source weighting.",
+        "Absolute risks and ratio-of-mean risks remain secondary; six-site and all80 tables are separate.",
+        "CAL-only measurable-floor handling retains small-denominator sources and marks affected relative conclusions inconclusive.",
+        "Cohort inference and state readout_contract encode the same definition."
+      ]
+    },
+    {
+      "id": "NUM-N3",
+      "status": "RESOLVED",
+      "evidence": [
+        "Roadmap lines 88-90 distinguish probe-free end-to-end wall time from profiler/event component attribution.",
+        "State budget.profiling and timing budgets count every added full inference, even without an additional encoded video.",
+        "The first-pass candidate/current-Q1 log-time comparison is explicitly exploratory; additional technical replication belongs to a separately bounded scope."
+      ]
+    }
+  ],
+  "remaining_blocking_findings": [],
+  "preserved_design_bounds": [
+    "CAL11 plus DEV11 initially; only a decision-relevant source-breadth question triggers the reserved CAL11 extension.",
+    "One shared paired512 bank with 256 prefixes; old independent endpoint samples do not silently fill the new contract.",
+    "Only one selected candidate advances to the all80/video stage.",
+    "ICC, Chipmunk, O40, Attention, own-student-state collection and later fixed evaluation remain conditional.",
+    "Historical exposure does not block this within-VBench development experiment, and no historical-unseen confirmation claim is created.",
+    "Actual image bytes, source-cluster crosswalk, binding adapter and runnable scope remain pending."
+  ],
+  "residual_execution_requirements": [
+    "Freeze the actual input payload identities, code, numerical path, fit hyperparameters and scope-specific controls before any execution.",
+    "Preserve the exact per-configuration/fold ancestry and fixed evaluation panel when implementing the runner.",
+    "Bind actual plain-control timing eligibility and count any timing deficit, profiling pass or technical repetition in its finite scope.",
+    "This design approval is not CPU/GPU authorization, an ACTIVE registration, or a claim that any new experiment has run."
+  ],
+  "modifications_by_reviewer": [
+    "research/experiment_reviews/G20_VBENCH_RESTART_V4_20261113/RECHECK_NUMERIC.json"
+  ]
+}
