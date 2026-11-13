@@ -1,0 +1,125 @@
+{
+  "schema": "G20_ROUTE_REVISION_STATIC_VALIDATION_V1",
+  "base_commit": "84630899eb041ddd6d84a759a76b04710e974ed7",
+  "author": "/root",
+  "status": "PASS_STATIC_DESIGN_ONLY",
+  "new_experiments": 0,
+  "checks": [
+    {
+      "check": "JSON_PARSE",
+      "status": "PASS",
+      "detail": {
+        "file_count": 14
+      }
+    },
+    {
+      "check": "COHORT_PRESERVED",
+      "status": "PASS",
+      "detail": {
+        "selected_records": 33,
+        "reserved_names": 322,
+        "changed_fields": [
+          "representation_controls",
+          "route_revision",
+          "stage_contract"
+        ]
+      }
+    },
+    {
+      "check": "INPUT_ROLES",
+      "status": "PASS",
+      "detail": "CAL22 reserved/DEV11 unchanged; actual cluster binding remains pending"
+    },
+    {
+      "check": "EXISTING_REGISTRATIONS_PRESERVED",
+      "status": "PASS",
+      "detail": "research/ACTIVE_RESEARCH.json"
+    },
+    {
+      "check": "EXISTING_REGISTRATIONS_PRESERVED",
+      "status": "PASS",
+      "detail": "research/agent_protocol/ACQUISITION_QUEUE_20261029.json"
+    },
+    {
+      "check": "UNIQUE_IDS",
+      "status": "PASS",
+      "detail": {
+        "assets": 33,
+        "queue": 12
+      }
+    },
+    {
+      "check": "ASSET_DAG",
+      "status": "PASS",
+      "detail": "Includes all optional input edges"
+    },
+    {
+      "check": "QUEUE_DAG",
+      "status": "PASS",
+      "detail": "Includes optional V3 dependency"
+    },
+    {
+      "check": "PRODUCER_CONSUMER_CLOSURE",
+      "status": "PASS",
+      "detail": {
+        "planned_assets": 28,
+        "explicit_phases": 8,
+        "BW_and_BWS_prepare_declared": true
+      }
+    },
+    {
+      "check": "NO_EXECUTION_AUTHORIZATION",
+      "status": "PASS",
+      "detail": "All new plan scopes and phases remain not runnable; no jobs"
+    },
+    {
+      "check": "BUDGET_ARITHMETIC",
+      "status": "PASS",
+      "detail": "D4 phases and timing eligibility counted separately"
+    },
+    {
+      "check": "PAYLOAD_ARITHMETIC",
+      "status": "PASS",
+      "detail": "Pure U/Y only, extras excluded; O40 full-trajectory cost not added to D4"
+    },
+    {
+      "check": "BWS_REUSES_CORRECT_ROLES",
+      "status": "PASS",
+      "detail": "Existing CAL3/DEV3; not new source selection; mixed3x512 per matched task"
+    },
+    {
+      "check": "EXISTING_TABLE_ARITHMETIC",
+      "status": "PASS",
+      "detail": "6site values match exact frozen SUMMARY; no new model calculation"
+    },
+    {
+      "check": "PINNED_EVIDENCE_BYTES",
+      "status": "PASS",
+      "detail": "8 originally fetched evidence/living-source files match remote Git blobs; frozen reports not in edit set"
+    },
+    {
+      "check": "FROZEN_REPORTS_UNMODIFIED",
+      "status": "PASS",
+      "detail": "Only living docs/current planning and new review artifacts are staged"
+    },
+    {
+      "check": "LEGACY_IMPORT",
+      "status": "PASS",
+      "detail": "Exact pinned registry blob; no old planned_assets import"
+    },
+    {
+      "check": "NEW_LINK_TARGETS",
+      "status": "PASS",
+      "detail": {
+        "introduced_distinct_targets_counted_per_file": 46,
+        "unresolved": []
+      }
+    },
+    {
+      "check": "AUTHOR_RESPONSE_HASHES",
+      "status": "PASS",
+      "detail": "All seven revised file identities match actual bytes"
+    }
+  ],
+  "limitations": "No actual image payload, model experiment, tensor presence, original checkpoint mapping or future execution approval was inferred."
+}

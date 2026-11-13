@@ -1,0 +1,159 @@
+{
+  "schema": "g20_independent_design_recheck/v1",
+  "reviewer": "/root/scope_review",
+  "author_reviewed": "/root",
+  "reviewed_at_utc": "2026-11-13T05:26:43.439834+00:00",
+  "repository": "Qesire/FFNDS",
+  "base_commit": "84630899eb041ddd6d84a759a76b04710e974ed7",
+  "workspace_root": "/workspace/scratch/8b70caf1bf23/vbench_route_revision",
+  "disposition": "DESIGN_RECHECK_APPROVED",
+  "approval_scope": "STATIC_DESIGN_ONLY_AT_FINAL_RECORDED_INPUT_HASHES",
+  "execution_authorization": false,
+  "independence": {
+    "reviewer_authored_revised_primary_files": false,
+    "reviewer_authored_legacy_detailed_registry": true,
+    "legacy_registry_boundary": "The earlier registry is checked only as a pinned existing_assets import and ID source; this record does not independently reapprove that reviewer-authored registry."
+  },
+  "prior_review": {
+    "path": "research/experiment_reviews/G20_VBENCH_ROUTE_DECISIONS_20261113/REVIEW_SCOPE.json",
+    "sha256": "7248760704b8cc208b8b450dab4634c9fd581ac8f891b91b78adfb9a92977611",
+    "disposition": "CHANGES_REQUESTED_DESIGN_ONLY"
+  },
+  "author_responses": {
+    "path": "research/experiment_reviews/G20_VBENCH_ROUTE_DECISIONS_20261113/AUTHOR_RESPONSES.json",
+    "sha256": "14ca5a63f59d5c47981460ef30e04e122df77b4d172f8e98b2e5a834362c99e6"
+  },
+  "actual_read_inputs": [
+    {
+      "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+      "bytes": 27743,
+      "sha256": "7f979c8c0767e42fba922582eb7591f19b49576693678a98dc5e15c6501396bb"
+    },
+    {
+      "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+      "bytes": 56248,
+      "sha256": "89732491a01a8366c7bca9e42a22c62878267e24986aed48e7f0aa1375054108"
+    },
+    {
+      "path": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
+      "bytes": 15324,
+      "sha256": "04fb375124d983374157613175d2ace32f9734758b0277106c607a82802e6e60"
+    },
+    {
+      "path": "config/g20_vbench_restart_cohort_v1_20261113.json",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/config/g20_vbench_restart_cohort_v1_20261113.json",
+      "bytes": 123570,
+      "sha256": "562fc2513bf7217b5bc6c59ee0286b28d7f45c830371f88f07c6e791ed69afc3"
+    },
+    {
+      "path": "research/20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md",
+      "bytes": 15290,
+      "sha256": "7977ae6a4e4b5ae2fb92442995f068b7d5164d28084bda4e4c62d177412698cd"
+    },
+    {
+      "path": "research/20261112/G20_R1_SAME_INPUT_SCREEN_RESULTS_20261112.md",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261112/G20_R1_SAME_INPUT_SCREEN_RESULTS_20261112.md",
+      "bytes": 13597,
+      "sha256": "5beeed3301e97535e11661af6b620a11af0819a455d95d784ebcc6f8e3044a92"
+    },
+    {
+      "path": "AGENTS.md",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/AGENTS.md",
+      "bytes": 24494,
+      "sha256": "d69eca12edf6a0e89bc82f52462a42a1ad610d55733a95102884bc209b00421d"
+    }
+  ],
+  "recheck_scope": "Targeted closure of S-B01/S-B02/S-N01, producer and phase ownership, dependency graph, per-record observation eligibility, final input identities, and preservation of prior scopes. Other reviewers retain responsibility for their numerical and statistical findings.",
+  "findings": [
+    {
+      "id": "S-B01",
+      "status": "RESOLVED",
+      "evidence": [
+        "BW_PREPARE is an explicit zero-generation preparation queue producer of OD_WEIGHTS; BW requires V2 and BW_PREPARE.",
+        "BWS_PREPARE requires BW and produces BWS_SUPPORT; BWS requires BWS_PREPARE. No common legal support yields UNIDENTIFIED and no O40 execution.",
+        "V2_FIRST_TWO/V2_FILL_MISSING, V5_RUNS/V5_METRICS/V5_VISUAL/V5_DECIDE, and V6_PREPARE/V6_EXECUTE are explicit phases with resolved parent-stage ownership and outputs.",
+        "All 28 planned/non-root assets now have queue producers after excluding the five metadata/history roots; no unowned planned asset remains."
+      ],
+      "new_preparation_generation_caps": {
+        "BW_PREPARE": {
+          "D4": 0,
+          "O40": 0
+        },
+        "BWS_PREPARE": {
+          "D4": 0,
+          "O40": 0
+        }
+      }
+    },
+    {
+      "id": "S-B02",
+      "status": "RESOLVED",
+      "evidence": [
+        "VB_RUN_VIDEO_MANIFEST scopes no-observer free trajectories to currentQ1/candidate records.",
+        "Dense capture video is quality-eligible only on exact input identity and a matching passed neutral receipt.",
+        "per_record_observation_contract declares arm, observation_mode, neutral_receipt_uri, video_sha256, production_timing_eligible, and timing_receipt_uri.",
+        "Dense_capture_quality has production_timing_eligible=false; plain Dense timing requires actual matching production conditions and cannot be inferred from its arm name."
+      ]
+    },
+    {
+      "id": "S-N01",
+      "status": "RESOLVED",
+      "evidence": [
+        "AGENTS current preface restores the versioned adapter, preservation of historical exposure events, prohibition on fake exposure=false and role-based history rewriting, and continued original validation for old scopes.",
+        "The restored warning explicitly prevents directly applying unchanged old official/fresh preflight rules to the new binding policy."
+      ]
+    }
+  ],
+  "actual_structural_checks": {
+    "asset_count": 33,
+    "execution_queue_count": 12,
+    "phase_count": 8,
+    "conditional_branch_count": 6,
+    "asset_graph_including_optional_edges_acyclic": true,
+    "queue_dependency_graph_acyclic": true,
+    "phase_dependency_graph_acyclic": true,
+    "all_asset_input_and_optional_ids_resolve": true,
+    "reverse_consumer_index_matches_actual_asset_queue_and_branch_uses": true,
+    "all_queue_dependency_and_asset_io_ids_resolve": true,
+    "phase_parent_ownership_and_outputs_resolve": true,
+    "phase_outputs_belong_to_parent_queue_outputs": true,
+    "unowned_planned_assets": [],
+    "all_declared_assets_queues_branches_and_phases_runnable_false": true,
+    "all_present_execution_scope_ids_null": true,
+    "new_prepare_stages_zero_full_generations": true,
+    "default_experiment_quotas_not_increased_by_scope_fixes": true,
+    "structural_errors": []
+  },
+  "preservation_checks": [
+    {
+      "path": "research/ACTIVE_RESEARCH.json",
+      "sha256": "f39b5187e4f605a4a8947b4ee87a00f42108b259d040ca76eb3bc488bd35ccea",
+      "unchanged_since_initial_review": true,
+      "equal_to_frozen_base_outside_planning_object": "g20_vbench_restart_v4_20261113"
+    },
+    {
+      "path": "research/agent_protocol/ACQUISITION_QUEUE_20261029.json",
+      "sha256": "53dc229054499267e5ea4f557c4ed7cb9e1b91933a18d0f30a7468a37dc87f95",
+      "unchanged_since_initial_review": true,
+      "equal_to_frozen_base_outside_planning_object": "g20_vbench_restart_v4_20261113"
+    }
+  ],
+  "cross_review_text_inspected": {
+    "living_R1": "Verified the scoped base diff adds a versioned interpretation preface and corrects the two epsilon statements to the frozen absolute MSE difference threshold; this recheck does not claim that every historical narrative paragraph has been rewritten.",
+    "living_R1b": "Read the revised omega tolerance/bitwise distinction, ICC identity residual scope, bf16 prediction SSE-ratio definition, and original robust-lambda diagnostic-only boundary. Numerical recomputation remains the other reviewers' scope.",
+    "roadmap": "Read the post-gate/cast FFN contribution definition and the same-W native target/anchor replay requirement; old W_D captured Y cannot stand in for a W_O target.",
+    "independent_numeric_reapproval": false
+  },
+  "remaining_required_changes": [],
+  "scope_limits": [
+    "This approval is for the listed static design bytes only; it is not a GPU, model, capture, calibration, deployment, or evaluation authorization.",
+    "All primary file SHA256 and byte counts were actually recomputed and matched AUTHOR_RESPONSES.json.",
+    "No experiment, payload binding, current payload availability, snapshot reload execution, generated result, or runtime implementation was newly verified in this recheck.",
+    "The old G0 conclusion, old frozen experiment evidence, and actual ACTIVE/acquisition scope objects retain their prior identities and authority.",
+    "The prior approval of commit 84630899 does not authorize the revised design or a new execution scope."
+  ]
+}

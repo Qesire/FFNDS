@@ -1,0 +1,338 @@
+{
+  "schema": "G20_VBENCH_DECISION_LEDGER_V1",
+  "date": "2026-11-13",
+  "based_on_commit": "84630899eb041ddd6d84a759a76b04710e974ed7",
+  "design_only": true,
+  "new_experiments_run": 0,
+  "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+  "assets_and_queue": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+  "evidence_identity": {
+    "r1b_summary": {
+      "path": "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
+      "commit": "84630899eb041ddd6d84a759a76b04710e974ed7",
+      "sha256": "ef35bcd695578cee0343165daacb02b03e026969d6d80856395f55eef40dea9a"
+    },
+    "r1b_job": 157314,
+    "r1_job": 156476,
+    "scope": "Old CAL4/DEV5 seed42 high/low layers4,19,34; not new VBench empirical results",
+    "recomputed_from_existing_table": [
+      {
+        "site": "high/4",
+        "stable_main_relative_risk_pct": 27.221611193418134,
+        "stable_rob_relative_risk_pct": 23.86695784731685,
+        "orig_minus_stable_main_percentage_points": 0.8272704828573008,
+        "original_D_out_of_rowspace_norm_pct": 0.8626868218597807,
+        "original_D_out_of_rowspace_energy_pct": 0.007442285526105291
+      },
+      {
+        "site": "high/19",
+        "stable_main_relative_risk_pct": 15.562995143254971,
+        "stable_rob_relative_risk_pct": 14.914584435022501,
+        "orig_minus_stable_main_percentage_points": 0.03641371320991793,
+        "original_D_out_of_rowspace_norm_pct": 0.4235854931942274,
+        "original_D_out_of_rowspace_energy_pct": 0.0017942467004459686
+      },
+      {
+        "site": "high/34",
+        "stable_main_relative_risk_pct": 15.080931850159738,
+        "stable_rob_relative_risk_pct": 14.674050309829816,
+        "orig_minus_stable_main_percentage_points": -0.004447020810038893,
+        "original_D_out_of_rowspace_norm_pct": 0.5336509707312661,
+        "original_D_out_of_rowspace_energy_pct": 0.0028478335856242263
+      },
+      {
+        "site": "low/4",
+        "stable_main_relative_risk_pct": 28.449449065683265,
+        "stable_rob_relative_risk_pct": 26.972667873782008,
+        "orig_minus_stable_main_percentage_points": 0.3050438849107051,
+        "original_D_out_of_rowspace_norm_pct": 0.6974519835459272,
+        "original_D_out_of_rowspace_energy_pct": 0.004864392693521483
+      },
+      {
+        "site": "low/19",
+        "stable_main_relative_risk_pct": 19.296851116002983,
+        "stable_rob_relative_risk_pct": 18.89003976300864,
+        "orig_minus_stable_main_percentage_points": -0.019650276576843595,
+        "original_D_out_of_rowspace_norm_pct": 0.7497197164541385,
+        "original_D_out_of_rowspace_energy_pct": 0.005620796532400738
+      },
+      {
+        "site": "low/34",
+        "stable_main_relative_risk_pct": 17.032943815078745,
+        "stable_rob_relative_risk_pct": 16.802328422518226,
+        "orig_minus_stable_main_percentage_points": 0.012666110437162259,
+        "original_D_out_of_rowspace_norm_pct": 0.7826065595340298,
+        "original_D_out_of_rowspace_energy_pct": 0.006124730270256909
+      }
+    ],
+    "r1b_detail_readback": {
+      "scope": "six sites x explicit oldDEV5 chip10_01/03/05/06/08 =30; CAL4=02/04/07/09",
+      "omega_comparison": {
+        "max_absolute_difference": 3.4488828404288796e-08,
+        "exact_equal_count": 0,
+        "count": 30,
+        "max_at": [
+          "high/4",
+          "chip10_01"
+        ]
+      },
+      "icc_identity_relative_residual_max": {
+        "n": 30,
+        "min": 0.0,
+        "max": 3.082303275473884e-16,
+        "min_at": [
+          "high/4",
+          "chip10_03"
+        ],
+        "max_at": [
+          "low/19",
+          "chip10_05"
+        ]
+      },
+      "icc_bf16_sse_change_ratio": {
+        "definition": "abs(icc_gated_sse-total_f64_gated_sse)/total_f64_gated_sse",
+        "DEV30": {
+          "n": 30,
+          "min": 1.7090858331851085e-06,
+          "max": 0.0006259122802036202,
+          "min_at": [
+            "high/34",
+            "chip10_05"
+          ],
+          "max_at": [
+            "high/4",
+            "chip10_05"
+          ]
+        },
+        "ALL54_same_extrema": true
+      },
+      "frozen_json_changed": false
+    },
+    "frozen_R1_trigger": {
+      "path": "reports/20261112/g20_r1_screen/source/runner_screen.py",
+      "commit": "84630899eb041ddd6d84a759a76b04710e974ed7",
+      "git_blob_sha1": "7cdcb03608aded3fc4b4524b6bb0f3784baa91cc",
+      "definition": "ridge_mse < q1_mse - epsilon_num",
+      "units": "absolute gatedMSE difference; not an ICC significance threshold"
+    },
+    "original_FP32_robust_coverage": "R1b source runner_recheck.py scores orig_main,stable_main,stable_rob; originalrobust has solve/rank/subspace diagnostics only, noCAL/DEV risk table."
+  },
+  "judgments": [
+    {
+      "id": "J_G0",
+      "status": "OLD_RULE_RESULT_NOT_CURRENT_BLOCKER",
+      "evidence": [
+        "User-reported G0-A; full bundle not present in checked main"
+      ],
+      "current_judgment": "C1_NOT_BINDABLE is preserved under its old frozen unused-source rule; current VBench use admits historically exposed sources.",
+      "unresolved": [
+        "Actual selected input bytes and original/near-duplicate cluster crosswalk remain to bind."
+      ],
+      "next_experiment": [
+        "V0"
+      ],
+      "outcome_branches": {
+        "pass": "Bind sources from existing archive and preserve historical exposure separately from cycle_role.",
+        "missing_inventory": "Bind the selected33 directly; do not rerun all833 solely to change roles.",
+        "source_conflict": "Input-only within-category deterministic replacement with versioned reason before outputs."
+      }
+    },
+    {
+      "id": "J_SOLVER",
+      "status": "BOUNDED_NUMERICAL_ISSUE_CLOSED",
+      "evidence": [
+        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json"
+      ],
+      "current_judgment": "Stable F64 recomputation leaves the tested free-ridge DEV failure; FP32 rank artifact and BF16 rounding do not explain away the major negative result in this scope.",
+      "unresolved": [
+        "Direction versus amplitude, source breadth, row density, estimator structure and state information remain distinct explanations."
+      ],
+      "next_experiment": [
+        "V1",
+        "V4",
+        "V3"
+      ],
+      "outcome_branches": {
+        "stop": "Do not repeat R1b solely to reconfirm the same solved numerical question.",
+        "scope": "Do not interpret remaining net degradation as a causal percentage assigned to overfitting/coverage."
+      }
+    },
+    {
+      "id": "J_DIRECTION",
+      "status": "UNIDENTIFIED",
+      "evidence": [
+        "R1b saved BF16 A predictions; stable mathematical F64 D not archived",
+        "ALG: exact ridge D lies in CAL rowspace"
+      ],
+      "current_judgment": "High omega measures directions not altered by the exact CAL-rowspace correction; it does not identify why the changed prediction worsens DEV.",
+      "unresolved": [
+        "a=<e,c> and b=||c||² on actual archived predictions are not yet reported."
+      ],
+      "next_experiment": [
+        "V1"
+      ],
+      "outcome_branches": {
+        "a_nonpositive": "Stop positive shrinkage along that particular observed direction; retain other linear families.",
+        "positive_overshoot": "Consider a finite CAL-selected shrinkage/regularization variant and actual BF16 deployment check.",
+        "heterogeneous": "Prefer structure/source/state discrimination; do not use per-DEV a/b as deployment policy."
+      },
+      "measurement_contract": "Primary e=zDense-zQ1,c=zStable-zQ1 at actual consumer post-gateFFN contribution including gate/cast rounding; G times pre-gate difference is a distinct mathematical diagnostic. Affine output-mix identity does not imply re-quantized parameter behavior. Accumulate inner products and squared norms in F64 and report reconstruction residual."
+    },
+    {
+      "id": "J_REPRESENTATION",
+      "status": "OPEN_NO_NEW_VBENCH_RESULT",
+      "evidence": [
+        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
+        "Design only: common-base linear/endpoint/delta comparisons"
+      ],
+      "current_judgment": "Failure of tested free ridge and ICC does not prove linear impossibility or endpoint nonlinearity value.",
+      "unresolved": [
+        "Does constrained linear structure suffice? Does endpoint state improve over delta-only at matched capacity?"
+      ],
+      "next_experiment": [
+        "V4",
+        "V4D"
+      ],
+      "outcome_branches": {
+        "restricted_linear_wins": "Prefer foldable linear structure for a concrete deployment test.",
+        "N_beats_L32_only": "Require same-bank L64/Q32 before capacity/endpoint claims.",
+        "N_beats_delta_and_linear_control": "Support endpoint information in the compared family; choose QUALITY_REPAIR/SPEED_TRADEOFF/MECHANISM_PROBE before V4D.",
+        "no_candidate": "Stop the tested variant or trigger only a named unresolved explanation; B line remains independent."
+      }
+    },
+    {
+      "id": "J_SOURCE_DENSITY",
+      "status": "UNIDENTIFIED",
+      "evidence": [
+        "Old CAL only4 sources; no controlled new learning curve"
+      ],
+      "current_judgment": "CAL11/DEV11 across11 official categories is a bounded starting design; source adequacy is not established by row count or rank.",
+      "unresolved": [
+        "Does increasing source breadth at fixed5632 rows improve the same method? Does within-source density matter?"
+      ],
+      "next_experiment": [
+        "V4",
+        "V3"
+      ],
+      "outcome_branches": {
+        "density_first": "Compare11x256 and11x512 before adding sources.",
+        "breadth_decision_relevant": "Add reserved CAL_B11 and compare22x256 versus11x512, plus22x512, in paired absolute MSE.",
+        "single_dev_source_dominates": "Treat as evaluation uncertainty/heterogeneity; more CAL is not an automatic remedy.",
+        "cal22_no_help": "Bound the negative result to this nested cohort and learning policy; no automatic CAL48/96."
+      }
+    },
+    {
+      "id": "J_ICC",
+      "status": "DIAGNOSTIC_PRIORITY_NOT_RECOVERABLE_SHARE",
+      "evidence": [
+        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json"
+      ],
+      "current_judgment": "Stage2 native-h component64.27%-82.47% suggests a diagnostic target. Native-h repair still fails versus Q1 at low19/34; this is not a universal lower bound on stage1 modification.",
+      "unresolved": [
+        "Missing surrogate-h/native-W2 cell and actual repair interaction; aggregation-specific high4 behavior."
+      ],
+      "next_experiment": [
+        "V1",
+        "BW",
+        "ICC"
+      ],
+      "outcome_branches": {
+        "four_cell_repair_helps": "Test one justified matched-budget structure change.",
+        "repair_no_value": "Stop capacity expansion of that configuration.",
+        "report": "Keep raw risks, stage decomposition cross, four-cell risk interaction and source aggregation distinct."
+      },
+      "native_h_repair_ratio_aggregation": "ratio of source-equal mean MSE, low19≈1.2775866 andlow34≈1.2691369; not mean of per-source ratios"
+    },
+    {
+      "id": "J_CHIPMUNK",
+      "status": "FAITHFUL_PROXY_COMPARISON_INCOMPLETE",
+      "evidence": [
+        "Legacy existing_assets CHIPMUNK_FULLM_MISSING and CHIPMUNK_GLOBAL_P64"
+      ],
+      "current_judgment": "Old global-P64 evidence is real but distinct; missing faithful full-M proxy does not establish family failure.",
+      "unresolved": [
+        "Author code/selector identity, true full-M statistics and fair matched cost."
+      ],
+      "next_experiment": [
+        "CHIP"
+      ],
+      "outcome_branches": {
+        "claim_requires": "Bind author implementation and minimally capture required full-M stats for the compared sites.",
+        "not_claimed": "Defer without blocking A or Q1/ICC attribution; make no universal win claim."
+      }
+    },
+    {
+      "id": "J_WEIGHT_STATE",
+      "status": "UNIDENTIFIED_INDEPENDENT_RESEARCH_LINE",
+      "evidence": [
+        "No matched new W×state experiment"
+      ],
+      "current_judgment": "Wan FFN weight, state, interval, CFG and implementation differences are not identified by R1b. Attribution proceeds independently of a winning new candidate.",
+      "unresolved": [
+        "Conditional FFN-weight dependence on μ_D; remaining state and interval interaction."
+      ],
+      "next_experiment": [
+        "BW",
+        "BWS"
+      ],
+      "outcome_branches": {
+        "BW": "SameU/G_ref and sameCAL11 budget under W_O/W_D; common-unit Q1-subtracted method difference; zero new full trajectories but paid replay/fit.",
+        "BWS_trigger": "Remaining state ambiguity changes explanation and pre-frozen common support exists: CAL3/DEV3, mixed256+256 fit perW, max6 O40.",
+        "no_common_support": "UNIDENTIFIED; no retrospective nearest matching.",
+        "pilot_scope": "Three DEV cases and nativeCFG state distribution; no architecture or pure-step causal claim."
+      }
+    },
+    {
+      "id": "J_VIDEO",
+      "status": "UNMEASURED_FOR_CURRENT_COHORT",
+      "evidence": [
+        "Historical G19 local versus trajectory mismatch; no new VBench result"
+      ],
+      "current_judgment": "Local ΔFFN fit, complete site writeback and free-trajectory quality are distinct; full80 artifacts and one bounded video test connect them.",
+      "unresolved": [
+        "Does local improvement survive own-state and terminal propagation?"
+      ],
+      "next_experiment": [
+        "V4D",
+        "V5",
+        "STATE",
+        "PROPAGATION"
+      ],
+      "outcome_branches": {
+        "own_state_fails": "Collect only needed candidate CAL state/native targets under a separate paid scope.",
+        "own_state_good_video_bad": "Use finite same-parent full-site intervention/suffix to test propagation/metric mismatch.",
+        "quality_good_time_bad": "Report quality-cost tradeoff; no acceleration success.",
+        "no_value": "Stop current variant; preserve failures."
+      }
+    },
+    {
+      "id": "J_SYSTEM",
+      "status": "CLAIM_DEPENDENT_NOT_AUTOMATIC_GRID",
+      "evidence": [
+        "Current torch_sdpa recipe; strong Attention implementation not yet bound"
+      ],
+      "current_judgment": "V5 first-pass production times inform development. Fixed evaluation and strong-background claims need concrete matched identity and prespecified criteria.",
+      "unresolved": [
+        "Which quality margin and speed benefit matter? Which strong Attention background is actually implemented?"
+      ],
+      "next_experiment": [
+        "TIMING",
+        "ATTENTION",
+        "V6"
+      ],
+      "outcome_branches": {
+        "timing_gap": "Reuse videos/quality; add only missing matched production times and justified technical repeats.",
+        "attention": "Separate fixed-FFN transfer from same-background CAL refit.",
+        "V6": "Freeze exactδ in original units, rationale, uncertainty/multiplicity and outcomes before reserve outputs. Missing margins allow descriptive results only."
+      }
+    }
+  ],
+  "global_decision_policy": {
+    "dev11_is_confirmatory": false,
+    "historically_unexposed_claim": false,
+    "minimum_effect_thresholds_fabricated_here": false,
+    "branches_require_all_positive": false,
+    "conditional_scopes_automatically_authorized": false,
+    "source_expansion_is_default": false
+  }
+}

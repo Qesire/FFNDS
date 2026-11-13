@@ -1,4 +1,4 @@
-> **2026-11-13 当前实验入口：** [VBench 重启路线 v4](research/20261113/G20_VBENCH_RESTART_V4_20261113.md) · [33 条官方图文条件](config/g20_vbench_restart_cohort_v1_20261113.json) · [资产与执行顺序](research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)。官方 11 类先 CAL11＋DEV11，需要时扩 CAL22；统一官方输入和 Wan recipe，先完成同数据线性/非线性判别与一个候选的真实视频比较。历史 VBench 来源可用，旧 240 对未曝光配额退出本轮启动条件；本次未启动计算。
+> **2026-11-13 · 当前实验入口（VBench 路线 v4，第2次修订）：** [路线](research/20261113/G20_VBENCH_RESTART_V4_20261113.md) · [判断台账](research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json) · [33条官方图文与角色](config/g20_vbench_restart_cohort_v1_20261113.json) · [资产与队列](research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)。统一 VBench，保留 CAL11→22、DEV11；历史曝光允许本轮重新分工，拟合祖先/开发/固定评估按原图簇隔离。先 V0 绑定输入与新 uniform PANEL512、V2 首批 bank、V4 表示和密度；来源广度仍会改变判断才进 V3。V4D 分别导出并重新加载新 Q1 与唯一候选全80参数，再做 V5 视频；视频、指标、视觉与生产时间分开复用。B-W 固定状态权重对照独立推进，不等待候选阳性；B-WS 最多6条 O40 仅在共同支持和状态歧义成立时触发，成本单列。R1b 关闭已测数值疑点，尚未识别来源/方向/容量/状态的因果份额；V3 用同方法绝对风险，V4 用同配置相对Q1，归因用共同单位方法差。下一步为准备 V0，可并行 V1；本次新 runnable scope、dispatch 和实验结果均为0。旧配额与旧任务顺序不自动调度。
 
 # FFNDS · 视频生成 FFN 的信息、函数与实际计算研究
 

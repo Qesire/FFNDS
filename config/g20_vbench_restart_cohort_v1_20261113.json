@@ -3302,11 +3302,20 @@
   },
   "representation_controls": {
     "endpoint_nonlinear": "P32/Q32; linear32 + tanh32 readout features; matched delta nonlinear control",
-    "conditional_capacity_control": "L64/Q32 same readout parameter count if N only beats L32; same bank, no new generation",
+    "conditional_capacity_control": "Required before promoting endpoint N on the basis of N>L32, even if N also beats delta-N; same-bank L64/Q32, matched readout parameter count.",
     "same_parameter_count_is_same_online_cost": false,
     "endpoint_formula": "B(u)=uA0+(uP)CLQ^T+tanh(uP)CNQ^T; predict B(u_t)-B(u_s)",
     "delta_formula": "X=u_t-u_s; XA0+(XP)CLQ^T+tanh(XP)CNQ^T",
     "bias": 0,
-    "symmetry": "Zero displacement produces zero correction; reversing endpoints changes sign. Scale-only CAL feature normalization, no offset in delta features; validate actual BF16 path."
+    "symmetry": "Zero displacement produces zero correction; reversing endpoints changes sign. Scale-only CAL feature normalization, no offset in delta features; validate actual BF16 path.",
+    "required_capacity_control_before_promoting_endpoint_N": "If N>L32 is a reason to promote N, require L64/Q32 on the same bank even if N also beats delta-N; no new generation."
+  },
+  "route_revision": 2,
+  "stage_contract": {
+    "authority": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json#/stage_estimands",
+    "decision_ledger": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
+    "existing_local_primary_aggregation_applies_to": "V4 same-configuration method contrast only",
+    "source_density_primary": "paired absolute gated MSE, same method family, same DEV512 panel",
+    "weight_state_primary": "raw risk and same-W Q1-subtracted risk in common MSE units; paired contrasts and interaction"
   }
 }

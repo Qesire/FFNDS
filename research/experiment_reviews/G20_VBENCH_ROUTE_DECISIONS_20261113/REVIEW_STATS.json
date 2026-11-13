@@ -1,0 +1,193 @@
+{
+  "schema": "ffnds.independent_static_design_review.v1",
+  "review_id": "G20_VBENCH_ROUTE_DECISIONS_STATS_20261113",
+  "reviewer": "/root/stats_audit",
+  "author": "/root",
+  "independent_of_file_author": true,
+  "reviewed_at_utc": "2026-11-13T05:18:13.509458+00:00",
+  "base_commit": "84630899eb041ddd6d84a759a76b04710e974ed7",
+  "design_only": true,
+  "disposition": "REQUEST_CHANGES",
+  "route_design_assessment": "NO_BLOCKING_STATISTICAL_DESIGN_FINDING_IN_THE_NEW_ROUTE",
+  "reason": "The stage estimands, conditional expansion, exact fit budgets, independent research lanes and V6 freeze are coherent. Three still-inaccurate descriptive claims in the living R1b report must be corrected before publication; no new model run or quota is needed.",
+  "execution_authorized": false,
+  "new_model_experiments": 0,
+  "new_fits": 0,
+  "remote_writes": 0,
+  "author_self_review_read_first": {
+    "path": "research/experiment_reviews/G20_VBENCH_ROUTE_DECISIONS_20261113/AUTHOR_SELF_REVIEW.json",
+    "sha256": "89af0c0f18f36eb7c34c652f4ef446221553206588e0de06a9f05b8474b6b7ca"
+  },
+  "files_reviewed": [
+    {
+      "path": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+      "bytes": 26963,
+      "sha256": "edd111296660114e0c7193b2e3fe249dd9719ca5fb48b913428ea516c481cbac"
+    },
+    {
+      "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+      "bytes": 49956,
+      "sha256": "bf33b36b9a0e34f9ecd031f88a6f1203d1ea61dac7b621db378db38f27e0f012"
+    },
+    {
+      "path": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
+      "bytes": 13130,
+      "sha256": "363a8878f74a595190087dee9db9004db64cff052155fd91baf6bad316f0967d"
+    },
+    {
+      "path": "config/g20_vbench_restart_cohort_v1_20261113.json",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/config/g20_vbench_restart_cohort_v1_20261113.json",
+      "bytes": 123570,
+      "sha256": "562fc2513bf7217b5bc6c59ee0286b28d7f45c830371f88f07c6e791ed69afc3"
+    },
+    {
+      "path": "research/20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md",
+      "absolute_path": "/workspace/scratch/8b70caf1bf23/vbench_route_revision/research/20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md",
+      "bytes": 14153,
+      "sha256": "99110616ae43355bed573cf99b702df5ba8cd88a85678591295aeb7f97aebd29"
+    }
+  ],
+  "findings": [
+    {
+      "id": "ST-RD-B01",
+      "severity": "PUBLICATION_ACCURACY",
+      "status": "OPEN",
+      "file": "research/20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md",
+      "location": "Section3 omega comparability bullet",
+      "claim": "omega_stable and R1 reference are per-source bitwise identical.",
+      "observed": "All30 DEV source-site pairs are nonidentical; maximum absolute difference is3.4488828404288796e-8. This supports numerical closeness, not bitwise identity.",
+      "scope": "six sites x DEV5 =30 pairs; omega values are not populated for the24 CAL entries.",
+      "exact_evidence": [
+        {
+          "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_high_04.json",
+          "json_pointer": "/per_source/chip10_01/omega_stable",
+          "value": 0.3631738998428839
+        },
+        {
+          "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_high_04.json",
+          "json_pointer": "/per_source/chip10_01/omega_r1_reference",
+          "value": 0.3631739343317123
+        }
+      ],
+      "arithmetic": "max(abs(omega_stable-omega_r1_reference)) over30 DEV source-site records; exact-equality count0/30.",
+      "required_change": "Replace the bitwise claim with the measured maximum difference and qualified numerical agreement. Keep frozen original JSON unchanged; no rerun."
+    },
+    {
+      "id": "ST-RD-B02",
+      "severity": "PUBLICATION_ACCURACY",
+      "status": "OPEN",
+      "file": "research/20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md",
+      "location": "Section5 introduction to ICC decomposition table",
+      "claim": "Decomposition relative identity residual is at most1.9e-16.",
+      "observed": "Maximum DEV per-source residual is3.082303275473884e-16; the same maximum holds over all54 CAL+DEV source-site records.",
+      "scope": "DEV5 x six sites =30 component identities; separately checked all9 sources x six sites =54.",
+      "exact_evidence": [
+        {
+          "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_low_19.json",
+          "json_pointer": "/per_source/chip10_05/icc_decomposition/decomposition_rel_residual",
+          "value": 3.082303275473884e-16
+        }
+      ],
+      "required_change": "State the true per-source maximum, with its30-entry DEV scope (or all54 scope), instead of an understated bound. Numerical identity remains at floating-point precision; no scientific reversal or rerun."
+    },
+    {
+      "id": "ST-RD-B03",
+      "severity": "PUBLICATION_ACCURACY",
+      "status": "OPEN",
+      "file": "research/20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md",
+      "location": "Section5 paragraph following ICC table",
+      "claim": "BF16 prediction-rounding relative quantity ranges9e-6 to9e-5.",
+      "observed": "Across30 DEV source-site records the range is1.7090858331851085e-6 to6.259122802036202e-4; the same extrema occur among all54 CAL+DEV records. Even the six DEV per-site arithmetic means range2.849125762919975e-5 to3.4977318078858907e-4, so the current range is not rescued by interpreting it as station means.",
+      "scope": "Six sites x DEV5 =30; each site mean uses five DEV source values equally.",
+      "quantity_definition": "bf16_pred_rounding_rel = abs(icc_gated_sse-total_f64_gated_sse)/total_f64_gated_sse; this formula matches exactly in all54 entries. It is not a parameter-norm or prediction-L2 ratio.",
+      "exact_evidence": [
+        {
+          "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_high_34.json",
+          "json_pointer": "/per_source/chip10_05/icc_decomposition/bf16_pred_rounding_rel",
+          "value": 1.7090858331851085e-06
+        },
+        {
+          "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_high_04.json",
+          "json_pointer": "/per_source/chip10_05/icc_decomposition/bf16_pred_rounding_rel",
+          "value": 0.0006259122802036202
+        }
+      ],
+      "required_change": "Replace the understated range with the actual per-source range and label the quantity/aggregation. Retain original raw fields and the bounded conclusion that these small rounding effects do not erase the observed ridge negative result."
+    }
+  ],
+  "nonblocking_findings": [],
+  "verified_design_checks": {
+    "source_selection": "selected_records33 and reserved_pool322 are object-identical to the previously reviewed base cohort; no new choices, prompts or source quota introduced.",
+    "base_cohort_local_reference": "/workspace/scratch/8b70caf1bf23/vbench_restart/config/g20_vbench_restart_cohort_v1_20261113.json",
+    "base_cohort_sha256": "8512ec30c9cbb8e1f735bca1046e750edd6942edbc1a11030724ee31812abd30",
+    "source_roles": "CAL_A11, reservedCAL_B11 and DEV11 remain separate. Same-image prompts/crops/seeds follow the verified source-cluster role; payload mapping is still a preparation task.",
+    "V3_estimand": "Same-method paired absolute gated MSE on commonDEV512; fixed-row source comparison22x256 versus11x512. Relative change against a differently refitted Q1 is explicitly not the main source-density curve.",
+    "V4_estimand": "Within a fixedsource xprefix configuration, prespecified layer MSE then relative-to-current-Q1 effect, equal experts then equal sources. Raw risks and ratio-of-means retained; six-site and all80 tables separate.",
+    "fit_ancestry": "All Q1alpha/PQ/initialization/normalization/regularization scales/CD-SVD/data-selected thresholds/readouts limited to exactCALsource xrandomrowprefix; CALCV rebuilds every learned quantity inside its training fold.",
+    "CAL22_trigger": "Requires a decision-relevant breadth question, a breadth-versus-capacity explanation, or a learning-curve decision. Solver/target/cache failures, one DEV source dominating or quota fulfillment do not automatically trigger it. No CAL48/96 escalation added.",
+    "candidate_purpose": "QUALITY_REPAIR, SPEED_TRADEOFF and MECHANISM_PROBE are distinct. LocalMSE and runtime need not both improve for every exploratory purpose; currentDEV11 is not confirmation.",
+    "DEV11_inference": "No degenerate within-category bootstrap gate; per-source descriptive effects, expert differences and leave-one-source sensitivity remain the development evidence.",
+    "BW": "FixedD4U/commonG, eachW sameCAL11x512; new complete trajectories0 but native replay/fit compute is charged. Does not depend on V4/V5 success.",
+    "BWS": "The six selected IDs retain correctCAL3/DEV3 roles. EachW uses one per-task fit on CAL3 x(D256+O256)=1536 paired observations, equal sources and half-state weights, exact commonTHWprefix, same parameters over both evaluated state distributions, DEV512/common support, no borrowingCAL11 fit.",
+    "BWS_estimand": "Common-MSE sameW-Q1-subtracted method effect and its pairedW xstate interaction; all raw four-cell risks retained. Three-source pilot, nativeCFG included inmuO, unsupported endpoints remainUNIDENTIFIED; no architecture/pure-step claim.",
+    "independent_lanes": "A can advance without allB branches being positive; B can yield mechanisms, bounded negatives or nonidentification without a winning new operator. Missing Chipmunk inputs block only its relevant claim.",
+    "V6_freeze": "Before any reserve output, freeze candidate/baselines/sources/prompts/seeds, estimands/applicability/missingness, justified original-unit margins when claimed, and uncertainty/multiplicity/outcome rules. Null margins permit description only. No fabricated effect sizes or fresh-confirmation quota.",
+    "budgets": "BaseD4 withoutCALextension46; with extension57; fullDEV Dense timing conditional66/67/68. BW replay cost separate. BWS max6O40 /240schedulersteps /conditional480branch-equivalentsteps is separate, not57+6D4.",
+    "stage_contract": "Cohort points to the authoritative stage_estimands object and limits its inherited local relative aggregation to V4 only.",
+    "runtime_status": "Top-level and queue runnable flags arefalse; next_action_to_prepare is not execution authorization."
+  },
+  "evidence_for_findings": {
+    "exact_remote_byte_reference_directory": "/workspace/scratch/8b70caf1bf23/vbench_route_revision_reference/evidence/reports/20261112/g20_r1b_recheck/output",
+    "summary_sha256": "ef35bcd695578cee0343165daacb02b03e026969d6d80856395f55eef40dea9a",
+    "DEV_source_ids": [
+      "chip10_01",
+      "chip10_03",
+      "chip10_05",
+      "chip10_06",
+      "chip10_08"
+    ],
+    "CAL_source_ids": [
+      "chip10_02",
+      "chip10_04",
+      "chip10_07",
+      "chip10_09"
+    ],
+    "source_files": [
+      {
+        "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_high_04.json",
+        "bytes": 21724,
+        "sha256": "e9632de1c05ff0496dd4a83afd2136327542c85229af54327d0b393c52c42a06"
+      },
+      {
+        "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_high_19.json",
+        "bytes": 21709,
+        "sha256": "7a0cd0cf707e01b95887c1caed5fdbc8fbca727eb7ee684837f9a7f33ff1ef76"
+      },
+      {
+        "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_high_34.json",
+        "bytes": 21728,
+        "sha256": "51622dd3def8e37a26e58bbd8528e6561baf7c9db7dd8d00c7e2305958ae3e65"
+      },
+      {
+        "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_low_04.json",
+        "bytes": 21857,
+        "sha256": "6036d9d23766965adbb4f1bc0c278a2068d825a54e77c029810811051e1831ca"
+      },
+      {
+        "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_low_19.json",
+        "bytes": 21767,
+        "sha256": "3fde8e2ae72b495589282ca85e2df9e69ee4171adbad89cc849a2b27d3d4d66e"
+      },
+      {
+        "path": "reports/20261112/g20_r1b_recheck/output/expensive_recheck_low_34.json",
+        "bytes": 21794,
+        "sha256": "736a180bc69cd1bb03775f4088193e536832c9385fe4bb02dd973afe374f9bb3"
+      }
+    ],
+    "operations": "Read original JSON values and perform scalar reductions only; no model experiment."
+  },
+  "approval_boundary": "Correct the three living-report accuracy statements and any derived ledger summaries, preserving frozen evidence. Then perform one targeted byte-hash recheck. Do not enlarge the source count, experiment matrix or governance requirements to resolve this review."
+}

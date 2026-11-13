@@ -1,3 +1,5 @@
+> **审阅身份固定：** 本目录的批准只覆盖[main@84630899原始设计字节](https://github.com/Qesire/FFNDS/tree/84630899eb041ddd6d84a759a76b04710e974ed7/research/20261113)及下列SHA，不批准后续同路径修改。当前第2次修订另见[新审阅记录](../G20_VBENCH_ROUTE_DECISIONS_20261113/README.md)。
+
 # G20 VBench 重启 v4 · 实际独立设计审阅
 
 **状态：三名独立审阅者均已对修订后的实际文件完成 recheck，通过设计复核；不授权执行。**
