@@ -4,9 +4,9 @@
   "id": "G20_VBENCH_RESTART_V4_20261113",
   "date": "2026-11-14",
   "base_commit": "6dc075ac4e962803636d522c5620f7b556b93423",
-  "status": "TWO_TRACKS_A_BW_EXECUTED_BWS_BCHIP_PREEXEC_REQUIRED",
+  "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_COMPLETE_BCHIP_BWS_PREEXEC_REQUIRED",
   "design_status": "FIXED_RECIPES_READY_FOR_IMPLEMENTATION",
-  "payload_status": "V4_AVAILABLE_TWO_CORE_QUESTIONS_REMAIN",
+  "payload_status": "A_RESULTS_AND_BW_Q1ICC_AVAILABLE_CHIP_INPUTS_AND_BWS_PENDING",
   "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
   "decision_ledger": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
   "cohort": "config/g20_vbench_restart_cohort_v1_20261113.json",
@@ -1018,11 +1018,18 @@
         "actual original scheduler/CFG for later state comparison",
         "not cross-architecture"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
-      "locator": null,
-      "missing": [
-        "Verify existing known original shard/tensor identities at current execution path; handoff supplies mapping."
-      ],
+      "payload_status": "BOUND_AND_USED_IN_FORMAL_BW",
+      "locator": {
+        "scope": "reports/20261114/g20_two_track_core/BW/v3/evidence/scope.json",
+        "own_weight_target_identity": "reports/20261114/g20_two_track_core/BW/v3/output/BW_CELL.csv",
+        "cluster_binding_manifest": {
+          "path": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW/v3/stage/B_BINDINGS.json",
+          "sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48",
+          "repository_copy_available": false,
+          "evidence": "reports/20261114/g20_two_track_core/BW/v3/evidence/scope.json"
+        }
+      },
+      "missing": [],
       "runnable": false,
       "consumers": [
         "BW",
@@ -1035,11 +1042,9 @@
         "B_CHIP_P64_INPUTS",
         "B_CHIP_STATS"
       ],
-      "next_action_to_prepare": [
-        "BW_PREPARE"
-      ],
-      "production_requested": true,
-      "gaps_are_current_tasks": true,
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false,
       "production_request_is_execution_authorization": false
     },
     {
@@ -1058,10 +1063,13 @@
         "0 new full trajectories !=0 compute",
         "Each W has its own native targets/anchors Y_s^W=F_W(U_s),Y_t^W=F_W(U_t); never use W_D bankY as W_O target"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
-      "locator": null,
+      "payload_status": "Q1_ICC_COMPLETE_CHIP_PENDING",
+      "locator": {
+        "params": "reports/20261114/g20_two_track_core/BW/v3/output/PARAMS_MANIFEST.json",
+        "checks": "reports/20261114/g20_two_track_core/BW/v3/output/CHECKS.json"
+      },
       "missing": [
-        "paid replay/fit artifacts and actual operations"
+        "Only 132 Chip DEV cells after actual P64 inputs are available; reuse completed Q1/ICC results and fits"
       ],
       "runnable": false,
       "optional_inputs": [
@@ -1072,12 +1080,19 @@
         "BW_READOUT"
       ],
       "next_action_to_prepare": [
-        "BW"
+        "B_CHIP_STATS"
       ],
       "production_requested": true,
       "gaps_are_current_tasks": true,
       "production_request_is_execution_authorization": false,
-      "completion_note": "Q1/ICC partial completion does not complete the Chipmunk cell."
+      "completion_note": "Q1/ICC partial completion does not complete the Chipmunk cell.",
+      "completed_methods": [
+        "Q1",
+        "ICC"
+      ],
+      "pending_methods": [
+        "CHIPMUNK_GLOBAL_P64"
+      ]
     },
     {
       "id": "BW_READOUT",
@@ -1092,15 +1107,20 @@
         "source-paired/expert-specific",
         "no total-distillation or architecture claim"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
-      "locator": null,
+      "payload_status": "Q1_ICC_COMPLETE_CHIP_PENDING",
+      "locator": {
+        "cells": "reports/20261114/g20_two_track_core/BW/v3/output/BW_CELL.csv",
+        "source": "reports/20261114/g20_two_track_core/BW/v3/output/BW_SOURCE.csv",
+        "aggregate": "reports/20261114/g20_two_track_core/BW/v3/output/BW_AGGREGATE.json",
+        "current_interpretation": "reports/20261114/g20_two_track_core/README.md"
+      },
       "missing": [
-        "conditional weight evidence"
+        "Only 132 Chip DEV cells after actual P64 inputs are available; reuse completed Q1/ICC results and fits"
       ],
       "runnable": false,
       "consumers": [],
       "next_action_to_prepare": [
-        "BW"
+        "B_CHIP_STATS"
       ],
       "production_requested": true,
       "gaps_are_current_tasks": true,
@@ -1108,7 +1128,14 @@
       "optional_inputs": [
         "B_CHIP_P64_INPUTS"
       ],
-      "completion_note": "Q1/ICC partial completion does not complete the Chipmunk cell."
+      "completion_note": "Q1/ICC partial completion does not complete the Chipmunk cell.",
+      "completed_methods": [
+        "Q1",
+        "ICC"
+      ],
+      "pending_methods": [
+        "CHIPMUNK_GLOBAL_P64"
+      ]
     },
     {
       "id": "BWS_SUPPORT",
@@ -1126,10 +1153,18 @@
         "fixedD4 reference gate",
         "no retrospective nearest matching"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
-      "locator": null,
+      "payload_status": "PRECAPTURE_CONTRACT_BOUND_O40_ENDPOINTS_PENDING_WITH_BWS",
+      "locator": {
+        "cluster_binding_manifest": {
+          "path": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW/v3/stage/B_BINDINGS.json",
+          "sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48",
+          "repository_copy_available": false,
+          "evidence": "reports/20261114/g20_two_track_core/BW/v3/evidence/scope.json"
+        },
+        "fixed_contract": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/tasks/BWS"
+      },
       "missing": [
-        "Compatible FFN interface/expert map, legal within-expert native endpoint pairs, frozen source/parameter/gate/aggregation identity; component overlap recorded separately"
+        "Native O40 endpoint identities and same-geometry state checks are confirmed within the already specified BWS capture/consumer, not another BW_PREPARE or pilot"
       ],
       "runnable": false,
       "consumers": [
@@ -1139,7 +1174,7 @@
         "BWS_READOUT"
       ],
       "next_action_to_prepare": [
-        "BW_PREPARE"
+        "BWS"
       ],
       "production_requested": true,
       "gaps_are_current_tasks": true,
@@ -1271,22 +1306,32 @@
         "CAL-only transforms",
         "Full parameters, not norms/hash-only"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
-      "locator": null,
-      "missing": [
-        "Concrete reviewed producer scope and output payload"
-      ],
+      "payload_status": "PRODUCED_CLUSTER_TENSORS_PUBLIC_MANIFEST",
+      "locator": {
+        "manifest": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_PARAMS.json",
+        "checks": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/CHECKS.json",
+        "formal_exit": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/evidence/EXIT.json"
+      },
+      "missing": [],
       "runnable": false,
       "consumers": [
         "A_Q1_RESIDUAL_READOUT",
         "V4D"
       ],
-      "next_action_to_prepare": [
-        "A_Q1_RESIDUAL"
-      ],
-      "production_requested": true,
+      "next_action_to_prepare": [],
+      "production_requested": false,
       "production_request_is_execution_authorization": false,
-      "gaps_are_current_tasks": true
+      "gaps_are_current_tasks": false,
+      "packaging_deviation": {
+        "actual_parameter_bytes": 3173954223,
+        "original_total_output_cap_bytes": 2147483648,
+        "status": "NONBLOCKING_RECORDED_BUDGET_DEVIATION_NOT_A_NUMERIC_FAILURE",
+        "duplicate_F64_A_bytes": 1258291200,
+        "future_compact_export_estimate_bytes": 1915663023,
+        "resolution": "Preserve frozen tensors and hashes. If a downstream compact export is needed, reconstruct F64 A exactly from A_q1_f32.double() instead of storing six redundant copies; publish any new package under its own identity. No re-fit/replay/capture or new approval layer is needed for this finding.",
+        "prior_response_erratum": "The handoff and SPEC impose a total 2 GiB cap, not a per-file cap or mere estimate. The preexecution response acknowledged ~3 GiB but did not revise that specification.",
+        "BF16_export_boundary": "Scoring reconstructs BF16 operators from reloaded mathematical parameters; direct exported-operator equality checks cover A_Q1/A_L, not every exported D/E tensor. Valid BF16 risk results do not assert pointwise BF16/F64 output equivalence."
+      }
     },
     {
       "id": "A_Q1_RESIDUAL_READOUT",
@@ -1303,21 +1348,21 @@
         "Math and BF16 results separate",
         "No per-token sample inflation"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
-      "locator": null,
-      "missing": [
-        "Concrete reviewed producer scope and output payload"
-      ],
+      "payload_status": "COMPLETE_PUBLIC_EVIDENCE",
+      "locator": {
+        "readout": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_READOUT.json",
+        "summary": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/SUMMARY.json",
+        "current_interpretation": "reports/20261114/g20_two_track_core/README.md"
+      },
+      "missing": [],
       "runnable": false,
       "consumers": [
         "V4D"
       ],
-      "next_action_to_prepare": [
-        "A_Q1_RESIDUAL"
-      ],
-      "production_requested": true,
+      "next_action_to_prepare": [],
+      "production_requested": false,
       "production_request_is_execution_authorization": false,
-      "gaps_are_current_tasks": true
+      "gaps_are_current_tasks": false
     },
     {
       "id": "BW_METHOD_IDENTITY",
@@ -1335,11 +1380,20 @@
         "Fixed64 IDs, K5120, stable RMS selection and packed_pregate",
         "Within-method same W policy; no DEV tuning"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
-      "locator": null,
-      "missing": [
-        "Concrete reviewed producer scope and output payload"
-      ],
+      "payload_status": "BOUND_Q1_ICC_GLOBAL_P64_IMPLEMENTATIONS",
+      "locator": {
+        "source_manifest": "reports/20261114/g20_two_track_core/BW/v3/source/SOURCE_MANIFEST.json",
+        "scope": "reports/20261114/g20_two_track_core/BW/v3/evidence/scope.json",
+        "costs": "reports/20261114/g20_two_track_core/BW/v3/output/BW_COST.csv",
+        "cluster_binding_manifest": {
+          "path": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW/v3/stage/B_BINDINGS.json",
+          "sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48",
+          "repository_copy_available": false,
+          "evidence": "reports/20261114/g20_two_track_core/BW/v3/evidence/scope.json"
+        },
+        "publication_byte_identity": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/execution_updates_20261114/two_core_20261114/postpublication_check/source_publication_identity"
+      },
+      "missing": [],
       "runnable": false,
       "consumers": [
         "BW_REPLAY_FITS",
@@ -1349,12 +1403,10 @@
         "B_CHIP_STATS",
         "BWS"
       ],
-      "next_action_to_prepare": [
-        "BW_PREPARE"
-      ],
-      "production_requested": true,
+      "next_action_to_prepare": [],
+      "production_requested": false,
       "production_request_is_execution_authorization": false,
-      "gaps_are_current_tasks": true
+      "gaps_are_current_tasks": false
     },
     {
       "id": "B_CHIP_P64_INPUTS",
@@ -1372,10 +1424,19 @@
         "Correct source/site/endpoint, same-state input identity",
         "BF16 U0_64/U1_64; no full-M block means required"
       ],
-      "payload_status": "CONDITIONAL_NOT_PRODUCED_NOT_AUTHORIZED",
-      "locator": null,
+      "payload_status": "CONFIRMED_INPUT_GAP_PREEXEC_REQUIRED",
+      "locator": {
+        "gap_evidence": "reports/20261114/g20_two_track_core/BW/v3/output/CHECKS.json",
+        "panel_identity": "reports/20261114/g20_two_track_core/BW/v3/output/BW_CELL.csv",
+        "cluster_binding_manifest": {
+          "path": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW/v3/stage/B_BINDINGS.json",
+          "sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48",
+          "repository_copy_available": false,
+          "evidence": "reports/20261114/g20_two_track_core/BW/v3/evidence/scope.json"
+        }
+      },
       "missing": [
-        "One ID-based overlap/reuse lookup, then only actual missing row inputs in a concrete producer scope"
+        "696 source-token identities out of 704; 8 overlaps reusable. Each needed ID requires actual U at six sites and two endpoints. No new CAL or source conditions."
       ],
       "runnable": false,
       "consumers": [
@@ -1385,11 +1446,15 @@
         "BW_READOUT",
         "BW_REPLAY_FITS"
       ],
-      "next_action_to_prepare": [],
-      "production_requested": false,
+      "next_action_to_prepare": [
+        "B_CHIP_STATS"
+      ],
+      "production_requested": true,
       "production_request_is_execution_authorization": false,
-      "gaps_are_current_tasks": false,
-      "conditional_producer": "B_CHIP_STATS"
+      "gaps_are_current_tasks": true,
+      "conditional_producer": "B_CHIP_STATS",
+      "missing_source_token_ids": 696,
+      "existing_panel_source_token_overlaps": 8
     }
   ],
   "execution_queue": [
@@ -1612,11 +1677,11 @@
       "produces": [
         "B_CHIP_P64_INPUTS"
       ],
-      "design_status": "PLANNED_PREEXEC_REQUIRED",
+      "design_status": "INPUT_GAP_CONFIRMED_PREEXEC_REQUIRED",
       "execution_scope_id": null,
       "runnable": false,
       "track": "B",
-      "trigger": "Exact fixed64 row inputs absent after one ID-based lookup in panel, stored U and restorable same-identity states.",
+      "trigger": "Triggered by quantified missing fixed64 inputs in all DEV11 (62-64 per source); reuse the 8 panel overlaps and any exact same-state stored U, then capture only still-missing source conditions.",
       "source_roles": "Existing DEV11 only; fixed P64 with no CAL tuning.",
       "max_new_D4_full_executions": 11,
       "max_new_source_pairs": 0,
@@ -1632,7 +1697,9 @@
       "gate": "Capture missing DEV source conditions only in a reviewed scope; no CAL capture, author extension or full-M F1 for bitwise historical masks.",
       "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/tasks/B_CHIP_STATS",
       "max_rows_per_endpoint_site": 64,
-      "full_M_block_statistics_required": false
+      "full_M_block_statistics_required": false,
+      "gap_source_token_count": 696,
+      "existing_panel_overlap_count": 8
     },
     {
       "id": "V4D",
@@ -1837,7 +1904,8 @@
     "v3_roadmap_cohort_registry_queue_modified": false,
     "exposure_events_reset": false,
     "selected33_records_and_roles_changed": false,
-    "existing_actual_ACTIVE_scopes_changed": false
+    "existing_actual_ACTIVE_scopes_changed": false,
+    "postpublication_check": "Current indexes reconciled from ba03576; frozen A/BW source/evidence/output/manifests untouched."
   },
   "historical_plan": {
     "commit": "6d9dd0561535c4f2ad68386b2dff324e9542dee4",
@@ -1950,7 +2018,7 @@
       "independent_review": "APPROVE/APPROVE (reviewer qoder_independent_reviewer_g20_a_q1_residual_20261114)",
       "new_D4_full_executions": 0,
       "new_O40_full_executions": 0,
-      "main_result": "All three residual arms beat CURRENT_Q1 (DEV source-equal math): L +6.07e-4 (best ~4.1%), E +5.47e-4, D +5.21e-4; BF16 agrees in sign/magnitude. ancestry 132/132 match; C=0 exact; readout residual ~1.8e-15.",
+      "main_result": "A is complete: on DEV11, L/D/E improve the published Q1 mean gated MSE by 4.0731%/3.4995%/3.6704% (math), and 4.0701%/3.4973%/3.6617% (BF16). All three improve 11/11 sources; L beats E on 10/11 and D on 11/11. E beats D on 9/11 with mean D-E=2.5464098e-5, about 99.5% from the high expert. The currently best L correction has matrix rank at most 32 and folds into the same Q1 linear operator. The tested nonlinear features do not improve on that linear control; video quality and actual latency remain unmeasured.",
       "note": "Four fixed arms; Q1 rebuilt from published V4 alpha (no PCG refit); Q32 pre-gate residual basis. Math F64 vs BF16 separate tables. Sampled local replay; quality NOT_MEASURED, performance NOT_BENCHMARKED; no deployment claim.",
       "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
       "evidence_basis": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/README.md"
@@ -1971,7 +2039,7 @@
       "new_O40_full_executions": 0,
       "bindings_sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48",
       "main_result": "A=READY, BW_Q1=READY, BW_ICC=READY, BW_Chip=PARTIAL_INPUT_GAP; B_CHIP_STATS=REQUIRED. P64 fixed64 missing 696 rows across 11 DEV (62-64 each). W_O storage dtype F32 confirmed.",
-      "note": "Binding only; no model run. B_BINDINGS.json is a frozen input to A and BW.",
+      "note": "Binding completed; B_BINDINGS is cluster-resident and hash-bound by published scopes. BWS native O40 states/endpoints are still to be observed in BWS; do not rerun preparation.",
       "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
       "evidence_basis": "g20_bind/B_BINDINGS.json (cluster BW_PREPARE/v1)"
     },
@@ -1997,8 +2065,8 @@
       "new_O40_full_executions": 0,
       "dev_cells_valid": 264,
       "chip_cells_blocked": 132,
-      "main_result": "ICC worse than Q1 for both weights (d_ICC W_O +6.525e-3, W_D +6.539e-3; ~44% higher risk). theta_ICC +1.329e-5 (~0); all 11 per-source and 11 LOO theta positive (no sign flip). Weight effect on the ICC-vs-Q1 method gap negligible. Chip 132 DEV cells BLOCKED_INPUT_GAP.",
-      "note": "v1 (params persistence) and v2 (BF16 sha_tensor + aggregate_bw method-key) failed and were fixed under fresh reviewed scopes; v3 EXIT 0. Reloadable Q1/ICC params 1.72GB; 12/12 Q1 fits CONVERGED. B remains PARTIAL until Chip filled; theta sign does not gate BWS.",
+      "main_result": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. Chip 132 cells remain blocked; BWS has not run.",
+      "note": "Formal v1 failed on BF16 hashing; formal v2 failed on aggregate method-key mapping; v3 EXIT 0. The initial parameter-persistence issue was fixed before formal v1. Preserve Q1/ICC results and fill only missing Chip cells; continue fixed BWS.",
       "disposition": "COMPLETED_Q1ICC_PRESERVE_CHIP_PENDING",
       "evidence_basis": "reports/20261114/g20_two_track_core/BW/v3/README.md"
     }
@@ -2120,7 +2188,7 @@
         "independent_review": "APPROVE/APPROVE (reviewer qoder_independent_reviewer_g20_a_q1_residual_20261114)",
         "new_D4_full_executions": 0,
         "new_O40_full_executions": 0,
-        "main_result": "All three residual arms beat CURRENT_Q1 (DEV source-equal math): L +6.07e-4 (best ~4.1%), E +5.47e-4, D +5.21e-4; BF16 agrees in sign/magnitude. ancestry 132/132 match; C=0 exact; readout residual ~1.8e-15.",
+        "main_result": "A is complete: on DEV11, L/D/E improve the published Q1 mean gated MSE by 4.0731%/3.4995%/3.6704% (math), and 4.0701%/3.4973%/3.6617% (BF16). All three improve 11/11 sources; L beats E on 10/11 and D on 11/11. E beats D on 9/11 with mean D-E=2.5464098e-5, about 99.5% from the high expert. The currently best L correction has matrix rank at most 32 and folds into the same Q1 linear operator. The tested nonlinear features do not improve on that linear control; video quality and actual latency remain unmeasured.",
         "note": "Four fixed arms; Q1 rebuilt from published V4 alpha (no PCG refit); Q32 pre-gate residual basis. Math F64 vs BF16 separate tables. Sampled local replay; quality NOT_MEASURED, performance NOT_BENCHMARKED; no deployment claim.",
         "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
         "evidence_basis": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/README.md"
@@ -2141,7 +2209,7 @@
         "new_O40_full_executions": 0,
         "bindings_sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48",
         "main_result": "A=READY, BW_Q1=READY, BW_ICC=READY, BW_Chip=PARTIAL_INPUT_GAP; B_CHIP_STATS=REQUIRED. P64 fixed64 missing 696 rows across 11 DEV (62-64 each). W_O storage dtype F32 confirmed.",
-        "note": "Binding only; no model run. B_BINDINGS.json is a frozen input to A and BW.",
+        "note": "Binding completed; B_BINDINGS is cluster-resident and hash-bound by published scopes. BWS native O40 states/endpoints are still to be observed in BWS; do not rerun preparation.",
         "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
         "evidence_basis": "g20_bind/B_BINDINGS.json (cluster BW_PREPARE/v1)"
       },
@@ -2167,8 +2235,8 @@
         "new_O40_full_executions": 0,
         "dev_cells_valid": 264,
         "chip_cells_blocked": 132,
-        "main_result": "ICC worse than Q1 for both weights (d_ICC W_O +6.525e-3, W_D +6.539e-3; ~44% higher risk). theta_ICC +1.329e-5 (~0); all 11 per-source and 11 LOO theta positive (no sign flip). Weight effect on the ICC-vs-Q1 method gap negligible. Chip 132 DEV cells BLOCKED_INPUT_GAP.",
-        "note": "v1 (params persistence) and v2 (BF16 sha_tensor + aggregate_bw method-key) failed and were fixed under fresh reviewed scopes; v3 EXIT 0. Reloadable Q1/ICC params 1.72GB; 12/12 Q1 fits CONVERGED. B remains PARTIAL until Chip filled; theta sign does not gate BWS.",
+        "main_result": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. Chip 132 cells remain blocked; BWS has not run.",
+        "note": "Formal v1 failed on BF16 hashing; formal v2 failed on aggregate method-key mapping; v3 EXIT 0. The initial parameter-persistence issue was fixed before formal v1. Preserve Q1/ICC results and fill only missing Chip cells; continue fixed BWS.",
         "disposition": "COMPLETED_Q1ICC_PRESERVE_CHIP_PENDING",
         "evidence_basis": "reports/20261114/g20_two_track_core/BW/v3/README.md"
       }
@@ -2220,18 +2288,19 @@
     "followup_schedule": "See current execution_queue. This section records completed V4 evidence, not current research priorities.",
     "two_core_completion": {
       "date": "2026-11-14",
-      "A": "COMPLETE_PUBLIC_EVIDENCE job 164072 (L/E/D beat Q1, L best ~4.1%)",
-      "BW": "BW_Q1ICC_COMPLETE job 164312 (264 cells; ICC>Q1 risk both W; theta_ICC~0; Chip 132 blocked)",
+      "A": "COMPLETE; L is best local fixed candidate, no automatic deployment",
+      "BW": "Q1/ICC COMPLETE (264 cells); conditional weight effect small, Chip 132 pending",
       "BW_PREPARE": "COMPLETE_BINDING",
       "remaining": [
         "B_CHIP_STATS (fill Chip P64 inputs, max 11 D4, separate scope)",
         "BWS (composite native-state four-cell, max 6 O40, separate scope)"
       ],
-      "archive_root": "reports/20261114/g20_two_track_core/"
+      "archive_root": "reports/20261114/g20_two_track_core/",
+      "results_index": "reports/20261114/g20_two_track_core/README.md"
     }
   },
   "research_status": "TWO_TRACKS_ACTIVE",
-  "execution_status": "A_BW_COMPLETE_BWS_BCHIP_PREEXEC_REQUIRED",
+  "execution_status": "A_COMPLETE_BW_Q1ICC_COMPLETE_BCHIP_BWS_PREEXEC_REQUIRED",
   "research_goals": {
     "source": "research/20261111/G20_TWO_TRACK_OPERATOR_AND_DISTILLATION_ATTRIBUTION_20261111.md",
     "A": "A useful low-cost FFN increment operator; test whether state information improves the residual of the strong Q1 baseline.",
@@ -2314,5 +2383,7 @@
   "research_direction_count": 2,
   "scientific_comparison_count": 3,
   "handoff_review": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/design_review",
-  "design_review_scope": "Existing review records revision4 goal restoration; revision5 execution detail review is in the spec."
+  "design_review_scope": "Existing review records revision4 goal restoration; revision5 execution detail review is in the spec.",
+  "progress_checked_at_commit": "ba03576c99de95ebb3533945560e575de12f8fa2",
+  "results_index": "reports/20261114/g20_two_track_core/README.md"
 }

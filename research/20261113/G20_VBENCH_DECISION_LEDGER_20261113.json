@@ -68,7 +68,7 @@
     "r1b_detail_readback": {
       "scope": "six sites x explicit oldDEV5 chip10_01/03/05/06/08 =30; CAL4=02/04/07/09",
       "omega_comparison": {
-        "max_absolute_difference": 3.4488828404288796e-8,
+        "max_absolute_difference": 3.4488828404288796e-08,
         "exact_equal_count": 0,
         "count": 30,
         "max_at": [
@@ -93,7 +93,7 @@
         "definition": "abs(icc_gated_sse-total_f64_gated_sse)/total_f64_gated_sse",
         "DEV30": {
           "n": 30,
-          "min": 0.0000017090858331851085,
+          "min": 1.7090858331851085e-06,
           "max": 0.0006259122802036202,
           "min_at": [
             "high/34",
@@ -185,9 +185,11 @@
       "evidence": [
         "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/README.md",
         "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/SUMMARY.json",
-        "reports/20261114/g20_v4_repr_density/README.md"
+        "reports/20261114/g20_v4_repr_density/README.md",
+        "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_READOUT.json",
+        "reports/20261114/g20_two_track_core/README.md"
       ],
-      "current_judgment": "A_Q1_RESIDUAL (job 164072 EXIT 0) answers the residual-readout question: all three fixed arms around the published Q1 improve DEV source-equal gated MSE — LINEAR64_Q32 (L) best (+6.07e-4, ~4.1%), ENDPOINT_N32 (E) +5.47e-4, DELTA_N32 (D) +5.21e-4; BF16 replay agrees in sign/magnitude. Endpoint access adds value over delta-only (R_D-R_E=+2.5e-5); L beats E (R_L-R_E=-6.0e-5). Q1 rebuilt from published V4 alpha (ancestry 132/132), Q32 pre-gate residual basis. No unconstrained search resumed.",
+      "current_judgment": "A is complete: on DEV11, L/D/E improve the published Q1 mean gated MSE by 4.0731%/3.4995%/3.6704% (math), and 4.0701%/3.4973%/3.6617% (BF16). All three improve 11/11 sources; L beats E on 10/11 and D on 11/11. E beats D on 9/11 with mean D-E=2.5464098e-5, about 99.5% from the high expert. The currently best L correction has matrix rank at most 32 and folds into the same Q1 linear operator. The tested nonlinear features do not improve on that linear control; video quality and actual latency remain unmeasured. Compared with old V4, the base, Q basis and feature scaling/centering changed together; no single-change causal attribution.",
       "unresolved": [
         "Whether the ~4% sampled-replay lift transfers to full-M native video / free-trajectory / system speed (not measured; deployment value is a separate research-lead judgment)."
       ],
@@ -216,24 +218,27 @@
     },
     {
       "id": "J_ICC",
-      "status": "BW_MEASURED_ICC_WORSE_THAN_Q1_WEIGHT_INDEPENDENT",
+      "status": "BW_MEASURED_CONDITIONAL_WEIGHT_EFFECT_SMALL",
       "evidence": [
         "reports/20261114/g20_two_track_core/BW/v3/README.md",
-        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json"
+        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
+        "reports/20261114/g20_two_track_core/BW/v3/output/BW_CELL.csv",
+        "reports/20261114/g20_two_track_core/BW/v3/output/BW_COST.csv",
+        "reports/20261114/g20_two_track_core/README.md"
       ],
-      "current_judgment": "BW measured the fixed ICC_SVD_R512_TWO_RESIDUAL gap to Q1 at common own-W 512-row inputs: ICC worse than Q1 by ~+0.0065 for both W_O and W_D; the gap is essentially weight-independent (theta_ICC~1.3e-5). Ordinary SVD r512 identity confirmed across weights (no CD scales).",
+      "current_judgment": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. Chip 132 cells remain blocked; BWS has not run.",
       "unresolved": [
         "Chip comparator still blocked (B_CHIP_STATS)."
       ],
       "next_experiment": [
-        "B_CHIP_STATS"
+        "BWS"
       ],
       "native_h_repair_ratio_aggregation": "ratio of source-equal mean MSE, low19≈1.2775866 andlow34≈1.2691369; not mean of per-source ratios",
       "scheduled": false,
       "unresolved_implies_new_experiment": false,
       "planned_in_current_route": true,
       "execution_authorized": false,
-      "execution_decision": "Recompute both W native BF16 targets at sampled512 shape; use fixed ICC ordinary SVD r512, each-W anchor and two residuals. Do not mix stored full-M D targets with sampled O targets."
+      "execution_decision": "Completed BW Q1/ICC values are reused; the remaining ICC question is native-state dependence in the fixed BWS comparison."
     },
     {
       "id": "J_CHIPMUNK",
@@ -242,7 +247,7 @@
         "reports/20261114/g20_two_track_core/BW/v3/README.md",
         "g20_bind/B_BINDINGS.json"
       ],
-      "current_judgment": "BW_PREPARE quantified the fixed64 input gap: all 11 DEV sources miss 62-64 of the CPU seed42 randperm(31668)[:64] rows in PANEL512 (696 total). Chip 132 DEV cells BLOCKED_INPUT_GAP in BW; Q1/ICC unaffected. B_CHIP_STATS (max 11 D4, fill-only, separate scope) is the only unblock.",
+      "current_judgment": "The 11 DEV sources miss 62-64 of their required fixed64 source-token identities: 696 missing, 8 overlaps out of 704. Each missing ID needs the six-site anchor/hit U values. Fill only these real inputs using the already specified B_CHIP_STATS, then add only the 132 pending BW Chip cells. Existing Q1/ICC results remain complete; optional Chip inputs do not block BWS Q1/ICC.",
       "unresolved": [
         "Own-W local function risk changes under weights and states for Chip (pending B_CHIP_STATS)."
       ],
@@ -262,7 +267,7 @@
         "reports/20261114/g20_two_track_core/BW/v3/README.md",
         "reports/20261114/g20_two_track_core/BW/v3/output/SUMMARY.json"
       ],
-      "current_judgment": "BW (job 164312 EXIT 0, scope V3) completes 264 Q1/ICC DEV cells on shared mu_D states with own-W recomputed BF16 targets. ICC is worse than Q1 for BOTH weights (d_ICC W_O +6.525e-3, W_D +6.539e-3; ~44% higher risk). theta_ICC=+1.329e-5 (~0): the distilled-vs-original weight change has negligible effect on the ICC-vs-Q1 method gap; all 11 per-source and 11 LOO theta positive (no sign flip). Chip GLOBAL_P64 132 DEV cells BLOCKED_INPUT_GAP (696 missing fixed64 rows). B remains PARTIAL; BWS composite-state interaction still unresolved.",
+      "current_judgment": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. Chip 132 cells remain blocked; BWS has not run.",
       "unresolved": [
         "Chip GLOBAL_P64 own-W risk under weights/states (blocked pending B_CHIP_STATS).",
         "Weight-by-native-state-distribution interaction (BWS, fixed follow-up).",
@@ -304,7 +309,9 @@
       "status": "COST_RECORDED_CORE_CLAIMS_BOUNDED",
       "evidence": [
         "Current torch_sdpa recipe; strong Attention implementation not yet bound",
-        "reports/20261114/g20_v4_repr_density/README.md"
+        "reports/20261114/g20_v4_repr_density/README.md",
+        "reports/20261114/g20_two_track_core/BW/v3/output/BW_COST.csv",
+        "reports/20261114/g20_two_track_core/README.md"
       ],
       "current_judgment": "A must have a defensible quality-cost purpose before deployment. B freezes each implementation across weights and reports costs; it does not pretend ICC512/Chipmunk are equal-latency Q1 baselines. No standalone speed/Attention grid is scheduled.",
       "unresolved": [
@@ -344,9 +351,9 @@
     "nonblocking_findings_spawn_jobs": false
   },
   "revision": 5,
-  "status": "TWO_TRACKS_FIXED_EXECUTION_HANDOFF_PREEXEC_REQUIRED",
+  "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_COMPLETE_BCHIP_BWS_PREEXEC_REQUIRED",
   "design_review": "research/experiment_reviews/G20_TWO_TRACK_RESTORATION_20261114/REVIEW.json",
-  "counts_are_for_this_plan_change": true,
+  "counts_are_for_this_plan_change": false,
   "historical_plan": {
     "commit": "6d9dd0561535c4f2ad68386b2dff324e9542dee4",
     "path": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
@@ -376,17 +383,29 @@
         "status": "A_Q1_RESIDUAL_COMPLETE",
         "scope_sha256": "ec7558a110831daaece640b8c45ed24a22ead513906e598bb2120e954cd364dd",
         "archive": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/README.md",
-        "result": "L/E/D beat Q1; L best ~4.1%"
+        "result": "A is complete: on DEV11, L/D/E improve the published Q1 mean gated MSE by 4.0731%/3.4995%/3.6704% (math), and 4.0701%/3.4973%/3.6617% (BF16). All three improve 11/11 sources; L beats E on 10/11 and D on 11/11. E beats D on 9/11 with mean D-E=2.5464098e-5, about 99.5% from the high expert. The currently best L correction has matrix rank at most 32 and folds into the same Q1 linear operator. The tested nonlinear features do not improve on that linear control; video quality and actual latency remain unmeasured."
       },
       "BW": {
         "job": 164312,
         "status": "BW_Q1ICC_COMPLETE",
         "scope_sha256": "7cd433166db2cae5eaa26eef3af012df09ee4296537003cb82f02f15f9da779b",
         "archive": "reports/20261114/g20_two_track_core/BW/v3/README.md",
-        "result": "ICC>Q1 risk both W; theta_ICC~0; Chip 132 blocked",
+        "result": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. Chip 132 cells remain blocked; BWS has not run.",
         "failed_attempts": [
           164189,
           164225
+        ],
+        "failed_attempt_details": [
+          {
+            "job": 164189,
+            "scope": "V1",
+            "cause": "BF16 tensor .numpy() in sha_tensor raised TypeError; parameter persistence was already fixed before this formal job"
+          },
+          {
+            "job": 164225,
+            "scope": "V2",
+            "cause": "aggregate_bw queried short method keys after 264 cells were scored using full method IDs; KeyError"
+          }
         ]
       },
       "BW_PREPARE": {
@@ -397,11 +416,289 @@
         "B_CHIP_STATS",
         "BWS"
       ],
-      "archive_root": "reports/20261114/g20_two_track_core/"
+      "archive_root": "reports/20261114/g20_two_track_core/",
+      "postpublication_check": {
+        "checked_commit": "ba03576c99de95ebb3533945560e575de12f8fa2",
+        "kind": "Existing evidence, source inspection and table arithmetic only; no new scientific experiment or dispatch",
+        "results_index": "reports/20261114/g20_two_track_core/README.md",
+        "statistical_unit": "11 already-observed DEV sources; tokens/sites are repeated measurements, not independent new sources",
+        "A_recomputed": {
+          "math": {
+            "source_equal_mean_risk": {
+              "CURRENT_Q1": 0.014899471534241922,
+              "Q1_PLUS_LINEAR64_Q32": 0.014292594481780177,
+              "Q1_PLUS_DELTA_N32": 0.014378064351281274,
+              "Q1_PLUS_ENDPOINT_N32": 0.014352600253268897
+            },
+            "relative_MSE_improvement_vs_Q1": {
+              "Q1_PLUS_LINEAR64_Q32": 0.04073144816358234,
+              "Q1_PLUS_DELTA_N32": 0.03499501185410178,
+              "Q1_PLUS_ENDPOINT_N32": 0.03670407233680787
+            },
+            "paired_comparisons": {
+              "Q1_minus_L": {
+                "mean": 0.0006068770524617465,
+                "positive_sources": 11,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  0.0005875663390939279,
+                  0.0006297776733275532
+                ]
+              },
+              "Q1_minus_D": {
+                "mean": 0.0005214071829606491,
+                "positive_sources": 11,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  0.000502182264779689,
+                  0.0005443591990628459
+                ]
+              },
+              "Q1_minus_E": {
+                "mean": 0.0005468712809730255,
+                "positive_sources": 11,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  0.0005234724997341428,
+                  0.0005672440968788177
+                ]
+              },
+              "D_minus_E": {
+                "mean": 2.5464098012376446e-05,
+                "positive_sources": 9,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  2.1290234954453833e-05,
+                  2.8232642578352415e-05
+                ]
+              },
+              "E_minus_L": {
+                "mean": 6.000577148872089e-05,
+                "positive_sources": 10,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  5.355475927075488e-05,
+                  6.674525499830928e-05
+                ]
+              }
+            }
+          },
+          "bf16": {
+            "source_equal_mean_risk": {
+              "CURRENT_Q1": 0.014898749937504124,
+              "Q1_PLUS_LINEAR64_Q32": 0.014292358009259433,
+              "Q1_PLUS_DELTA_N32": 0.014377692844654044,
+              "Q1_PLUS_ENDPOINT_N32": 0.014353198518550396
+            },
+            "relative_MSE_improvement_vs_Q1": {
+              "Q1_PLUS_LINEAR64_Q32": 0.040700859520988446,
+              "Q1_PLUS_DELTA_N32": 0.03497320882864412,
+              "Q1_PLUS_ENDPOINT_N32": 0.0366172612630023
+            },
+            "paired_comparisons": {
+              "Q1_minus_L": {
+                "mean": 0.0006063919282446896,
+                "positive_sources": 11,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  0.0005872667358211047,
+                  0.0006293748214771857
+                ]
+              },
+              "Q1_minus_D": {
+                "mean": 0.0005210570928500785,
+                "positive_sources": 11,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  0.000502328421883139,
+                  0.0005439863487225752
+                ]
+              },
+              "Q1_minus_E": {
+                "mean": 0.0005455514189537267,
+                "positive_sources": 11,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  0.0005222110223712864,
+                  0.0005659987096703848
+                ]
+              },
+              "D_minus_E": {
+                "mean": 2.4494326103648093e-05,
+                "positive_sources": 9,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  1.988260048814746e-05,
+                  2.7234474559024134e-05
+                ]
+              },
+              "E_minus_L": {
+                "mean": 6.084050929096292e-05,
+                "positive_sources": 10,
+                "sources": 11,
+                "leave_one_source_out_mean_range": [
+                  5.443316639147169e-05,
+                  6.755648731472732e-05
+                ]
+              }
+            }
+          }
+        },
+        "BW_recomputed": {
+          "valid_cells": 264,
+          "source_equal_mean_risk": {
+            "W_O|Q1": 0.014902516232345148,
+            "W_O|ICC": 0.021427942884396887,
+            "W_D|Q1": 0.014899847213404059,
+            "W_D|ICC": 0.021438562809987186
+          },
+          "mean_d_ICC": {
+            "W_O": 0.00652542665205174,
+            "W_D": 0.006538715596583127
+          },
+          "mean_theta_ICC": 1.328894453138732e-05,
+          "theta_fraction_of_original_method_gap": 0.002036486691212594,
+          "expert_mean_theta_ICC": {
+            "high": 2.7958613055541898e-05,
+            "low": -1.3807239927676913e-06
+          },
+          "ICC_worse_source_site_weight_pairs": 124,
+          "total_source_site_weight_pairs": 132,
+          "cross_method_costs_matched": false,
+          "analytic_MAC_per_token": {
+            "Q1": 26214400,
+            "ICC": 19398656
+          },
+          "unidentified": [
+            "mu_O method gaps and weight-by-state interaction (BWS pending)",
+            "Video quality and measured system latency",
+            "Weight/target difference norm; similar risks do not establish similar parameters"
+          ]
+        },
+        "formal_job_accounting": {
+          "formal_dispatch_attempts": 4,
+          "successful_formal_jobs": 2,
+          "failed_formal_jobs": 2,
+          "scope": "A formal job 164072 plus BW formal jobs 164189/164225/164312; excludes smoke/verification jobs",
+          "known_BW_GPU_smoke_job_ids": [
+            163922,
+            164074,
+            164207
+          ],
+          "smoke_note": "ROOT_SELF_AUDIT also reports v3 GPU smoke without a job id and A CPU smoke. Total compute/job consumption is not fully quantified by the four formal attempts. No extra job is requested to repair accounting."
+        },
+        "A_packaging_deviation": {
+          "actual_parameter_bytes": 3173954223,
+          "original_total_output_cap_bytes": 2147483648,
+          "status": "NONBLOCKING_RECORDED_BUDGET_DEVIATION_NOT_A_NUMERIC_FAILURE",
+          "duplicate_F64_A_bytes": 1258291200,
+          "future_compact_export_estimate_bytes": 1915663023,
+          "resolution": "Preserve frozen tensors and hashes. If a downstream compact export is needed, reconstruct F64 A exactly from A_q1_f32.double() instead of storing six redundant copies; publish any new package under its own identity. No re-fit/replay/capture or new approval layer is needed for this finding.",
+          "prior_response_erratum": "The handoff and SPEC impose a total 2 GiB cap, not a per-file cap or mere estimate. The preexecution response acknowledged ~3 GiB but did not revise that specification.",
+          "BF16_export_boundary": "Scoring reconstructs BF16 operators from reloaded mathematical parameters; direct exported-operator equality checks cover A_Q1/A_L, not every exported D/E tensor. Valid BF16 risk results do not assert pointwise BF16/F64 output equivalence."
+        },
+        "source_publication_identity": {
+          "repository_commit": "ba03576c99de95ebb3533945560e575de12f8fa2",
+          "manifest_entries_checked": 58,
+          "exact_repository_bytes_match": 50,
+          "CRLF_to_LF_only": 8,
+          "records": [
+            {
+              "path": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/source/q1_fit_core.py",
+              "execution_bytes": 5369,
+              "execution_sha256": "b76a0efafae4b1b9b08a6c5cef6ade11108abed574136e082468c58c3f3a6028",
+              "repository_bytes": 5283,
+              "repository_sha256": "3289610a411518ea4dfdb528f2caa3196c66324276f5c9a6fa5c22fdc2706e95",
+              "repository_git_blob_sha1": "ed1272355781f6d0aabd176d372f74c7b792800b",
+              "transformation": "execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256"
+            },
+            {
+              "path": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/source/runtime_guard.py",
+              "execution_bytes": 11902,
+              "execution_sha256": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+              "repository_bytes": 11687,
+              "repository_sha256": "673e808ed570074f4c106c48795c951463ffa9e607a91082447ea3b7ca19cf01",
+              "repository_git_blob_sha1": "33ead8691e90edb4a4f7c69dbf21f6445a458f84",
+              "transformation": "execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256"
+            },
+            {
+              "path": "reports/20261114/g20_two_track_core/BW/v3/source/chipmunk_fullm_proxy_math.py",
+              "execution_bytes": 4777,
+              "execution_sha256": "f46ba6feee6905b3e875a3d4e3118ae97259a978ce6ba55413ed6d2a0a5544be",
+              "repository_bytes": 4709,
+              "repository_sha256": "8d7e7a53b5c81f7d3947cd6cc8cfa45bb003aab2495041de177e94786bbf3ddc",
+              "repository_git_blob_sha1": "5c3577088924d3c62d65e05525988fea16258b8b",
+              "transformation": "execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256"
+            },
+            {
+              "path": "reports/20261114/g20_two_track_core/BW/v3/source/chipmunk_wan_packed_pregate.py",
+              "execution_bytes": 798,
+              "execution_sha256": "9a3e789e15564a0b2979418f9b69e26737abc057a0afcb8132f934dadde2160b",
+              "repository_bytes": 783,
+              "repository_sha256": "9511532275a90b785e98c0340a4668017cd13401d5a001ec8a1e4eb540f0c72d",
+              "repository_git_blob_sha1": "8805f1b833ee38fb764ebaeebd0e3b1dec345e3a",
+              "transformation": "execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256"
+            },
+            {
+              "path": "reports/20261114/g20_two_track_core/BW/v3/source/icc_decompose.py",
+              "execution_bytes": 2590,
+              "execution_sha256": "6f2d2d93c26735a8cffdb6fe400d71abee6e8c380d6b24fb2d460a66eec1e8a3",
+              "repository_bytes": 2543,
+              "repository_sha256": "25a608813c61b4ccbfe6a13ca24e7cc099b90c9575fcdcf4baa757b14763b3b5",
+              "repository_git_blob_sha1": "16e551140274005ae2194a45b08ebfd108bf9cb4",
+              "transformation": "execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256"
+            },
+            {
+              "path": "reports/20261114/g20_two_track_core/BW/v3/source/icc_ffn.py",
+              "execution_bytes": 2578,
+              "execution_sha256": "127328fd17931cac9e5841868ea2bad43950442f888fb37117dc6f60f112c219",
+              "repository_bytes": 2521,
+              "repository_sha256": "39c6b01657d825045d82c7ad461408893f9469bebbc6b76edaeb1de7d36cd40d",
+              "repository_git_blob_sha1": "b2de767721957b86dc21d534bf3464402aac0287",
+              "transformation": "execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256"
+            },
+            {
+              "path": "reports/20261114/g20_two_track_core/BW/v3/source/q1_fit_core.py",
+              "execution_bytes": 5369,
+              "execution_sha256": "b76a0efafae4b1b9b08a6c5cef6ade11108abed574136e082468c58c3f3a6028",
+              "repository_bytes": 5283,
+              "repository_sha256": "3289610a411518ea4dfdb528f2caa3196c66324276f5c9a6fa5c22fdc2706e95",
+              "repository_git_blob_sha1": "ed1272355781f6d0aabd176d372f74c7b792800b",
+              "transformation": "execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256"
+            },
+            {
+              "path": "reports/20261114/g20_two_track_core/BW/v3/source/runtime_guard.py",
+              "execution_bytes": 11902,
+              "execution_sha256": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+              "repository_bytes": 11687,
+              "repository_sha256": "673e808ed570074f4c106c48795c951463ffa9e607a91082447ea3b7ca19cf01",
+              "repository_git_blob_sha1": "33ead8691e90edb4a4f7c69dbf21f6445a458f84",
+              "transformation": "execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256"
+            }
+          ],
+          "resolution": "Original execution manifests remain unchanged; distinguish their execution hashes from these repository representation hashes. No model rerun."
+        },
+        "preserved_frozen_archives": [
+          "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/",
+          "reports/20261114/g20_two_track_core/BW/v3/"
+        ],
+        "remaining_work": [
+          "B_CHIP_STATS: reuse exact U then fill missing DEV P64 inputs (max 11 existing D4 conditions); fill only missing Chip cells",
+          "BWS: fixed CAL3/DEV3 mixed-fit four-cell comparison, max 6 O40; Chip missing inputs do not block Q1/ICC"
+        ],
+        "not_added": [
+          "new sources or CAL_B",
+          "rank/activation/ridge/sample grids",
+          "standalone floor or new smoke campaign",
+          "A/BW Q1ICC rerun",
+          "all80/video/deployment work",
+          "new approval layer or research-goal reauthorization"
+        ]
+      }
     }
   },
   "research_status": "TWO_TRACKS_ACTIVE",
-  "execution_status": "A_BW_COMPLETE_BWS_BCHIP_PREEXEC_REQUIRED",
+  "execution_status": "A_COMPLETE_BW_Q1ICC_COMPLETE_BCHIP_BWS_PREEXEC_REQUIRED",
   "original_research_goals": {
     "source": "research/20261111/G20_TWO_TRACK_OPERATOR_AND_DISTILLATION_ATTRIBUTION_20261111.md",
     "A": "A useful low-cost FFN increment operator; test whether state information improves the residual of the strong Q1 baseline.",
@@ -414,5 +711,8 @@
   "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json",
   "handoff_decision": "Implement fixed recipes and report bounded conclusions. Source exposure/DEV seen/six-site scope/no matching noise gap are claim limits, not reasons to cancel both goals.",
   "handoff_review": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/design_review",
-  "design_review_scope": "Existing review records revision4 restoration; revision5 review is in the execution spec."
+  "design_review_scope": "Existing review records revision4 restoration; revision5 review is in the execution spec.",
+  "results_index": "reports/20261114/g20_two_track_core/README.md",
+  "execution_count_scope": "new_experiments_run=2 counts successful formal result jobs after 2f38b91; four formal attempts plus additional smoke evidence. This reconciliation dispatches zero jobs.",
+  "formal_dispatch_attempts": 4
 }
