@@ -1,14 +1,15 @@
-# G20 V4 — Representation / Row-Density Comparison — PROGRESS REPORT
+# G20 V4 — Representation / Row-Density Comparison — FORMAL RESULTS (EXIT 0)
 
-**Status: PROGRESS REPORT (formal job in progress).** Author: `qoder_root_g20_20261111`.
+**Status: FORMAL job 163279 EXIT 0.** Author: `qoder_root_g20_20261111`.
 Date: 2026-11-14. Route: `Qesire/FFNDS` main `4107f75f15ca9982aab2f3d80401260dd213ec5d`,
 `research/20261113/G20_VBENCH_RESTART_V4_20261113.md` §4.3 + §6; queue V4.
 
-> This file records the **current situation**: the V4 governance chain is complete and the
-> formal dispatched job is running. The numerical results below are from the **independent
-> reviewer's full V4 run on the byte-identical rev2 code** (hash-bound, independently
-> re-verified). The formal dispatched job **163279** is in progress to confirm them; the
-> authoritative formal publication (with `EXIT.json`) will follow at EXIT 0.
+> The formal dispatched job **163279** completed **EXIT 0** (status `V4_REPR_DENSITY_COMPLETE`,
+> elapsed 1122.25s, anode19, A100-80GB, peak RSS 1.51 GiB). Its `VB_SOURCE_DENSITY.json` is
+> **byte-identical** (SHA256 `a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4`)
+> to the independent reviewer's full V4 run on the same rev2 code (job 163050) — the formal run
+> exactly reproduces the independently verified results. This publication includes the formal
+> `EXIT.json`, `VB_LOCAL_FITS.json`, `VB_SOURCE_DENSITY.json`, and `SUMMARY.json`.
 
 ## 1. Scope identity
 
@@ -20,6 +21,7 @@ Date: 2026-11-14. Route: `Qesire/FFNDS` main `4107f75f15ca9982aab2f3d80401260dd2
 | ROOT_SELF_AUDIT.txt SHA256 | `2a842a0efb381e216673e172870c0fb0455a79930ca6e401651bf5d4377500fe` |
 | INDEPENDENT_REVIEW.json SHA256 | `a949cc7b979dfb163daa4c2eaf7dfad0dcd37af05b5039f9609dd166b403b3e8` |
 | ACTIVE_RESEARCH.json SHA256 | `b8a770ef7ddee47e5ca9394460a9f307ba604be1cd2fb5505a3a4355d16ff9be` |
+| formal job | **163279 EXIT 0** (anode19, elapsed 1122.25s, peak RSS 1.51 GiB) |
 | consumes | `VB_DENSE22` (V2 rev2 job 161964 EXIT 0; bank verification PASS 31/31; manifest `f6f8e100`) |
 | produces | `VB_LOCAL_FITS`, `VB_SOURCE_DENSITY` |
 | new D4 full executions | **0** (pure local fitting + FFN-weight read + scoring) |
@@ -67,13 +69,12 @@ separate later table.
 4. **Genuinely independent review** — reviewer `qoder_independent_reviewer_g20_v4_rev2final_20261114`
    (non-author), **disposition APPROVE / recheck_disposition APPROVE**, bound to scope `4a150871`
    + audit `2a842a0e`. The reviewer ran a **full V4 run on a compute node** (job 163050, anode19,
-   elapsed 1146.6s, JOB_RC=0, status `V4_REPR_DENSITY_COMPLETE`), re-hashed the bundle local+remote,
-   proved the executed copy is byte-identical to rev2, and did its **own third Node re-aggregation
-   from raw DEV scores matching all published tables to max err 0.0**.
+   elapsed 1146.6s, JOB_RC=0), re-hashed the bundle local+remote, proved the executed copy is
+   byte-identical to rev2, and did its **own third Node re-aggregation from raw DEV scores matching
+   all published tables to max err 0.0**.
 5. **Author responses** (`AUTHOR_REVIEW_RESPONSES.json`), **mechanical ACTIVE freeze**
    (`ACTIVE_RESEARCH.json`, `AUTHORIZED_FOR_ONE_JOB`, session_max_gpus 2).
-6. **Dispatch** via `dispatch_once_v4.py` (all guards passed: scope/review/ACTIVE binding, bundle
-   hashes, 2-job/2-GPU cap) → **formal job 163279 RUNNING (anode19)**.
+6. **Dispatch** via `dispatch_once_v4.py` (all guards passed) → **formal job 163279 EXIT 0**.
 
 ### Reviewer adjudication of three flagged driver checks (all reviewer-test artifacts, not code bugs)
 - `build_24cal_12dev`: runner does 12 CAL + 12 DEV builds = 24 total (`build_calls=24`); the test
@@ -84,7 +85,7 @@ separate later table.
 - `readout_ratios_sensible`: test applied a ratio threshold `(1,2)` to the **relative risk** `r`
   (~0.039–0.055); the ratio is `1+r`≈1.039–1.055 ⊂ (1,2). Readouts are sensible.
 
-## 4. Preliminary verified results (independent reviewer full run on rev2 code; formal job 163279 pending)
+## 4. Formal results (job 163279 EXIT 0; byte-identical to the independent reviewer full run)
 
 **Primary estimand — `source_equal_relative`** `r=(M_m−M_Q1)/M_Q1` (expert-equal then source-equal;
 0 = equal to Q1, positive = worse than Q1):
@@ -101,13 +102,13 @@ separate later table.
 **Secondary — `ratio_of_mean_risks`** (256 / 512): L32 0.06980/0.07519; DELTA_N32 0.06712/0.07307;
 ENDPOINT_N32 0.06404/0.06877; L64_Q32 0.05354/0.05678; STABLE_FREE_LINEAR 1.56798/2.12469.
 
-**Numerical health (all 12 configs):** Q1 CONVERGED (true relative residual <1e-5); free-ridge
-certificates pass (max `cross_check_f64_eigh_rel_l2` 1.88e-11, `D_out_of_rowspace_rel_fro` 4.43e-12;
-D numerical rank 2816@256 / 5052–5112@512 = CAL rowspace); readout normal relative residuals ~1e-16;
-Q1 self-relative = 0 in both tables; independent aggregation max err 0.0; floors finite positive
-(high04_256 floor 0.00948068833486425, identical to rev1). F1 probe on real data: `C_code/C_correct=1.0`
-(dev 2e-12), grad_rel 2.1e-14, DEV ratio vs Q1 L32 1.1790 / DELTA 1.1678 / ENDPOINT 1.1565 / L64 1.1294,
-all `rel_diff_vs_rev1_correct=0.0`.
+**Numerical health (all 12 configs, formal `VB_LOCAL_FITS.json`):** Q1 CONVERGED (true relative
+residual <1e-5); free-ridge certificates pass (max `cross_check_f64_eigh_rel_l2` 1.88e-11,
+`D_out_of_rowspace_rel_fro` 4.43e-12; D numerical rank 2816@256 / 5052–5112@512 = CAL rowspace);
+readout normal relative residuals ~1e-16; Q1 self-relative = 0 in both tables; independent
+aggregation max err 0.0; floors finite positive (high04_256 floor 0.00948068833486425). F1 probe on
+real data: `C_code/C_correct=1.0` (dev 2e-12), grad_rel 2.1e-14, DEV ratio vs Q1 L32 1.1790 / DELTA
+1.1678 / ENDPOINT 1.1565 / L64 1.1294, all `rel_diff_vs_rev1_correct=0.0`.
 
 ### Scientific signal (bounded; DEV11 supports only the next finite decision)
 - The constrained representations are **~4–5.5% worse than full Q1** on DEV (aggregated). Among them
@@ -129,21 +130,20 @@ all `rel_diff_vs_rev1_correct=0.0`.
   (`A_Q1`/`D`) and BF16 cache/gate replay acceptance are **V4D**, not this scope.
 
 ## 6. Next steps
-1. Formal job **163279** → EXIT 0 → authoritative formal publication (with `EXIT.json`,
-   `VB_LOCAL_FITS.json`, `VB_SOURCE_DENSITY.json`); confirm it reproduces the reviewer full run.
-2. **V4D** — full-80 export + close/reload/consumer + BF16 replay acceptance (separate scope).
-3. **V3** — conditional CAL22 expansion only if source breadth changes the judgment.
-4. B-lane weight/state attribution (B-W / B-WS) independent of this A-lane operator result.
+1. **V4D** — full-80 export + close/reload/consumer + BF16 replay acceptance (separate scope).
+2. **V3** — conditional CAL22 expansion only if source breadth changes the judgment.
+3. B-lane weight/state attribution (B-W / B-WS) independent of this A-lane operator result.
 
-## 7. Evidence inventory (`evidence/`)
-- `scope.json`, `ROOT_SELF_AUDIT.txt`, `INDEPENDENT_REVIEW.json`, `ACTIVE_RESEARCH.json`,
-  `AUTHOR_REVIEW_RESPONSES.json` — governance chain (final).
-- `DISPATCH_INTENT.json`, `SUBMITTED.json`, `RUN.json` — formal dispatch receipts (job 163279).
-- `evidence/reviewer/` — independent reviewer full-run evidence on rev2 code:
-  `REV2_FULL_RUN.json` (checks + results), `REV2_PROBE.json` (F1 real-data probe),
-  `REV2_TINY_CORRECTED.json` (corrected tiny synthetic check, PASS), `SUMMARY.json`,
-  `VB_SOURCE_DENSITY.json` (preliminary verified tables). The 9.5MB `VB_LOCAL_FITS.json` raw fits
-  are retained on the cluster and will be included in the formal EXIT 0 publication.
+## 7. Evidence inventory
+- `evidence/` — governance chain (final): `scope.json`, `ROOT_SELF_AUDIT.txt`,
+  `INDEPENDENT_REVIEW.json`, `ACTIVE_RESEARCH.json`, `AUTHOR_REVIEW_RESPONSES.json`;
+  formal dispatch/run receipts `DISPATCH_INTENT.json`, `SUBMITTED.json`, `RUN.json`, **`EXIT.json`**
+  (exit_code 0), `slurm-163279.out`/`.err`.
+- `evidence/reviewer/` — independent reviewer full-run evidence on rev2 code: `REV2_FULL_RUN.json`,
+  `REV2_PROBE.json` (F1 real-data probe), `REV2_TINY_CORRECTED.json` (PASS), `SUMMARY.json`,
+  `VB_SOURCE_DENSITY.json`.
+- `output/` — **formal job 163279 outputs**: `SUMMARY.json`, `VB_SOURCE_DENSITY.json`
+  (SHA `a6409eec…`, byte-identical to reviewer), `VB_LOCAL_FITS.json` (9.5MB raw fits + certificates).
 
 **Cluster paths:** formal stage
 `/public/home/scc/pb23061276/projects/wan-quant/work/g20_v4_repr_20261114/stage`;
