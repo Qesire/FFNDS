@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "method_id": "MD-20261024-QCELL-TILE-01A16D3D",
+  "version": 1,
+  "title": "HiF4量化胞腔驱动的组级共享：同一步内共享不变64组，保留token差异",
+  "proposer": {
+    "agent_id": "codex-ffnds-method-01a16d3d",
+    "session_ref": "Codex thread 01a16d3d-579f-74d2-ae9d-e5ece9fb627a; 2026-10-24"
+  },
+  "origin": {
+    "kind": "AGENT_INDEPENDENT",
+    "source_revision": "00617012688e70c53e645618ffdae7f4a27f91be",
+    "note": "由本会话独立构造。已阅读现有门控商空间、GELU parity提案以及商空间的其他agent评议；没有把这些评议当成本方法的支持。已知memoization、分组计算和区间界是已有原理，不宣称新发明。本条提出不同的可检验FFN动作；新颖性审查仍是初步的。AutoResearcher固定版本5bd7ec537ae63f2b6a6dd579f0e886aff58a177c。"
+  },
+  "related_method_ids": [
+    "MD-20261024-GATED-QUOTIENT-01",
+    "MD-20261024-GELU-PARITY-QDQ-G6A"
+  ],
+  "lenses": [
+    "Q3",
+    "Q1",
+    "Q2"
+  ],
+  "mechanism": {
+    "native_boundary": "Wan四步D-Q/HiF4，d=5120,m=13824,G=216,B=64。先完整计算各token的v=Q1(BF16(q/s1))，再W1、tanh-GELU、BF16(h/s2)、原生Q2、W2、b2、当前token的gate与残差。真实backend是float QDQ + BF16 GEMM，不能把HiF4命名计作硬件int4加速。Q2不是独立逐通道量化：64通道共有E6M2舍入尺度，内部8/4通道层级尺度；原组边界和原通道顺序保留。参考分派源码和本目录DERIVATION.md。",
+    "action": "在同一层、同一去噪步、同一expert/权重/数值配置内，选一个小token tile及其中一个anchor。anchor的完整W1/GELU/Q2作为已付费信息；对其余token只在Q1之后读取输入差异。选择一个所有tile成员都能被证明确认Q2输出不变的完整组集合S；S的W1/GELU/Q2/W2贡献只在anchor计算一次并广播；其余组在每个token独立计算。b2只加一次，gate及残差使用各自当前token。S为空时直接用原路径。不跨层/去噪步复用。少量预打包支持集合是可选物理设计，不得假定无限bank免费。",
+    "mathematical_representation": "定义a_g(v)=Psi_g(W1_g v+b1_g)，Psi包含GELU、s2、BF16和完整原生64组Q2；实数W2组合F(v)=b2+Σ_g W2_g a_g(v)。若对tile中每个t及g∈S，a_g(v_t)=a_g(v_anchor)，则F(v_t)=b2+Σ_{g∈S}W2_g a_g(v_anchor)+Σ_{g∉S}W2_g a_g(v_t)，等式是条件代数定理，token输出仍可不同。前置判别：令C_ag={z:Psi_g(z)=a_g(v_anchor)}，mu_ag是以anchor实际z为中心、包含于C_ag的保守L∞球半径，kappa_g=max_j ||W1_j||_1。若kappa_g||v_t-v_anchor||∞+epsilon_gt<mu_ag，则该组可共享。epsilon必须包含anchor/target W1浮点路径差异；理想实数W1时为0。mu、epsilon的便宜且可靠原生实现尚未给出。完整proof和不可偷用target W1的边界见DERIVATION.md。",
+    "distinguishing_feature": "共享依据是原生量化输出的等价类及可前置的充分条件；不是activation幅度、token余弦或下一层损失换名。与R13整行共享不同：只共享S贡献，其他贡献逐token保留，故整行共同输出下界不直接约束本家族。与商空间不同：目标是所共享局部量化组完全相等，不依赖下游LayerNorm消除误差；与parity不同：不需W1/W2成对反向结构。共享/缓存本身属于已有方法；具体差异仍需与QuantCache、ToMe、fuzzy memoization逐算子核对。",
+    "expected_compute_saving": "设tile含T个token、共享b=64|S|个hidden坐标。理想两次投影总MAC由2Tdm降至2d[b+T(m-b)]，比例1-(b/m)(1-1/T)。此式已包括anchor的完整W1：共享b算一次，非共享m-b算T次。若必须先计算所有target W1才知道Q2相等，则仅能减少W2，理想比例变为1-0.5(b/m)(1-1/T)，不能再记两侧节省。完整成本另含全token Q1、anchor证书构建、距离/筛选、权重bank或搬运、分裂GEMM、QDQ、广播与gate/residual。只保存每tile选定S的d维合计贡献，避免默认缓存G个d维向量；多个S/bucket的额外缓存分别计费。公式不是速度测量。",
+    "evidence_scope": "条件组重用等式和范数充分条件已作书面推导；64/8/4与量化尺度语义由匹配历史manifest的源码确认。真实checkpoint中相等组的频率、证书紧度、原生舍入上界、打包延迟与视频质量均未测。相同Q2操作数不等于重排W2后与原整宽GEMM逐bit相同。"
+  },
+  "competing_explanations": [
+    "完整64组状态交集太稀少：逐通道稳定并不意味着整组稳定；共同尺度/子组阈值使mu极小。",
+    "真实组重复存在，但L∞输入界太松，证书覆盖率接近零；它否定该证书，不自动否定组重复机制。",
+    "组相等可检测，但检测需要target W1/Q2，或者足够紧的检测成本已等于省下的投影。",
+    "不同token能复用的组不同，tile共同交集太小；分桶或增加bank的成本超过收益。",
+    "即使代数精确，W2分裂归约和BF16写回导致偏差，GPU小GEMM/同步使总耗时上升。",
+    "较简单的同成本固定组稀疏/原生dense或既有缓存方案达到相同或更优质量速度。"
+  ],
+  "falsifiable_predictions": [
+    "在同一原生量化cell内，连续preactivation的变化可非零而a_g严格不变；跨越共同尺度/子组阈值时，即使变化很小也不能据此复用。",
+    "若只有一个组不变、其他组因token而异，完整FFN输出可以显著不同但该组共享代数精确；这与整行复制的预言不同。",
+    "仅比较4-bit尾数相同会出现误判；同时绑定E6M2共同尺度、层级尺度和反量化值应排除此类误判。",
+    "若未来已获授权的同状态记录中oracle组相等率高而前置证书率低，下一问题是证书松弛/成本；若两者都低，则本tile-cell动作缺少可用重复，不能靠调相似度阈值继续宣称精确。",
+    "对相同tile与支持集合，使用target完整Q2做事后判别的oracle只能提供信息上界，必须计入其W1/GELU/Q2成本。",
+    "本地代数精确不能预测原生bit identity；需要将完整组操作数一致性与W2归约顺序影响分开判别。"
+  ],
+  "best_counterexample": "一个64组中63个坐标的量化状态稳定，但第64个是最大值且刚好跨越E6M2尺度边界，足以改变全组反量化结果。或者每组至少一个坐标紧靠rounding边界，任意看似很小的输入差异都无法获得正证书。更直接的成本反例：穷举target W1后再证明与anchor相同，已经花掉声称要省的W1工作。",
+  "evidence_links": [
+    "tools/packed_ffn_reference.py",
+    "upstream_audit/SOURCE_MANIFEST.json",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/adapters/wan_i2v.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+    "upstream_audit/source_deltas/Wan2.2-I2V-A14B-W4A4/files/quant/hif4_backend.py",
+    "https://github.com/alvinshao0313/HiF4_Sp/blob/9aa2d3be6de265910731aa7c0d053e9c773cf556/HiFloat4/hif4_gpu/quant_cy/base/QTensor.py",
+    "research/20261022/R13_spatial_sharing_limits.json",
+    "research/20261023/C0_coupling_offline_results.json",
+    "https://arxiv.org/html/2503.06545v1",
+    "https://arxiv.org/abs/2303.17604",
+    "https://arxiv.org/abs/2312.00858",
+    "https://upcommons.upc.edu/server/api/core/bitstreams/b0a14faa-0e9f-4151-bbff-66616382c287/content"
+  ],
+  "discussion_questions": [
+    "能否从实际HiF4的共同/子组尺度阈值，推出无需target W1、且比整组全通道区间传播更便宜的mu_ag下界？请把所有BF16和CUDA舍入边界计入。",
+    "上述两侧MAC核算在anchor先行依赖及少量预打包S下是否完整？哪一种固定same-cost算子是最强对照？",
+    "R13整行共同输出下界有没有额外假设可迁移到本组共享家族？若没有，现有已保存operand是否足以辨别组重复，而无需新计算标签？",
+    "近邻文献是否已有同一步、同expert、原生量化cell证明驱动的完整组共享？若有，将其列为基线并缩小贡献。"
+  ],
+  "claim_level": "SOURCE_GROUNDED_CONDITIONAL_ALGEBRA_PLUS_UNMEASURED_OPERATOR_AND_CERTIFICATE_CONJECTURE",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
