@@ -1,0 +1,173 @@
+G20 V4 REPRESENTATION / DENSITY — ROOT AUTHOR SELF-AUDIT
+scope_id: G20_V4_REPR_DENSITY_20261114
+phase: G20_V4_REPR_DENSITY
+author: qoder_root_g20_20261111
+date: 2026-11-14
+route: Qesire/FFNDS main 4107f75f15ca9982aab2f3d80401260dd213ec5d,
+       research/20261113/G20_VBENCH_RESTART_V4_20261113.md sections 4.3 + 6; queue V4.
+scope_sha256: 4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7
+
+REVISION 2 (2026-11-14) — fixes for two MATERIAL bugs found by the independent reviewer's
+quantitative checks (review of rev1 scope 10c2b225):
+  F1 readout scaling: fit_readout put the source weight w_c on BOTH Kronecker factors
+     (GPhi_c and GQ_c), so the normal matrix carried w_c^2 and C was inflated by 1/w_c=S*n
+     (=2816). Reviewer measured C_code/C_correct=2816 exactly, DEV MSE ~19308 vs ~0.012,
+     grad_rel_at_C_code=73 vs 1.6e-14 at the true optimum. FIX: w_c appears ONCE (on GPhi_c
+     only); GQ_c=Q^T diag(g^2) Q unweighted. v4_repr.py 409287ae -> 8ead06e5.
+  F2 floor dtype: cal_numerical_floor called bf16_replay with fp32 u0 x bf16 a -> dtype
+     RuntimeError (the rev1 smoke never exercised run()'s floor path). FIX: cast u0/u1/y0/y1
+     to bf16 and gate to fp32 for the deployed BF16 replay. v4_runner.py f95237ee -> 9c6d8940.
+  Smoke strengthened: now calls cal_numerical_floor (floor path) AND checks each readout's
+     DEV MSE ratio vs Q1 < 100 (catches the S*n scaling class; correct ratio ~1.1-1.2).
+  Everything else (Q0 prior, Q1 R2 PCG, stable_ridge_fit verbatim, P/Q SVD, odd symmetry,
+     anti-leakage, estimand, guards, 0-new-D4) UNCHANGED from rev1.
+  Audit body prose aligned to the rev2 code: section 2 STABLE_FREE_LINEAR now describes the
+     verbatim direct SVD solve (not the abandoned per-source CG); section 3d GQ_c is
+     unweighted (F1). No code/scope change beyond the F1/F2 fixes above.
+
+====================================================================
+0. PURPOSE AND POSITION IN THE ROUTE
+====================================================================
+V4 is the main-chain representation/row-density FIRST ROUND after the V2 bank lands.
+It consumes VB_DENSE22 (V2 rev2 job 161964 EXIT 0; bank verification PASS 31/31,
+manifest sha f6f8e100). It answers J_REPRESENTATION (does constrained linear structure
+suffice? does endpoint state improve over delta-only at matched capacity?) and
+J_SOURCE_DENSITY (256 vs 512 rows at fixed CAL_A11). It produces VB_LOCAL_FITS +
+VB_SOURCE_DENSITY. **0 new D4 full executions, 0 new videos** — pure local fitting +
+FFN-weight read + scoring on the already-captured bank. V4D (full-80 export +
+close/reload/consumer) and V5 (free video) are LATER scopes, not this one.
+
+====================================================================
+1. ESTIMAND AND SCORING (route section 6, fixed before viewing results)
+====================================================================
+Primary: for source c, expert e, M(c,e,m) = equal-mean over predetermined layers
+{4,19,34} of gatedSSE/(actual_rows*5120); r(c,e,m)=(M_m-M_CURRENT_Q1)/M_CURRENT_Q1;
+expert-equal within source, then source-equal across the 11 DEV sources.
+Scoring = F64 gated PRE-GATE INCREMENT math lift: SSE = sum(((pred - Y) odot g)^2),
+Y = y_hit - y_anchor (true dense pre-gate increment), g = hit-step per-channel gate
+(c_gate_msa, shape (5120,)). This is the math lift, NOT the BF16 cache/gate replay;
+the BF16 replay path is a SEPARATE V4D acceptance check (route 4.3 "实际BF16/缓存路径
+另外验收"). Six primary sites (high/low x 4/19/34) is the primary table; all-80 is a
+pre-registered SEPARATE later table. Secondary saved: absolute MSE, ratio_of_mean_risks,
+per-source effects, leave-one-source-out, source_density_delta = r(512)-r(256).
+Floor: CAL neutral numerical-error floor = mean BF16 cache/gate replay rounding MSE of
+Q1 on CAL; a source's relative quantities are flagged when its Q1 denominator
+M(c,e,Q1) < floor (small-denominator unmeasurable, route section 6). No post-hoc
+main-summary switch.
+
+====================================================================
+2. THE SIX MODELS (route 4.3)
+====================================================================
+Common base B(u) = u A0 + (uP) C_L Q^T + tanh(uP) C_N Q^T, P32/Q32 first round,
+convex readout, bias b=0, no center offset (odd symmetry preserved).
+- CURRENT_Q1: full 5120x5120 matrix A(alpha)=W1^T diag(alpha) W2^T, alpha in R^13824,
+  R2 Problem PCG (q1_fit_core.py VERBATIM) fit on CAL, ridge lambda=1e-3 toward A0
+  (matrix distance), init alpha_Q0, maxiter 240 tol 1e-5 restart@20. Fresh fit -> NO
+  R2 old/new per-layer selection (there is no old new-bank solution).
+- STABLE_FREE_LINEAR: free DxD correction D on Q1 residual R=Y-X@A_Q1, ridge toward 0
+  rho=lambda/||A_Q1||^2 (lambda=1e-3); A_free=A_Q1+D. VERBATIM R1b stable_ridge_fit:
+  F64 weighted thin-SVD sample-space DIRECT solve + F64 eigh cross-check (common gate,
+  see 3c); certificates cross_check_f64_eigh_rel_l2<=1e-7, D_out_of_rowspace_rel_fro<=1e-10.
+- L32: Phi=X@P32 (linear only, k=32, readout C_L 32x32).
+- DELTA_N32: Phi=[X@P32, tanh(X@P32)] (k=64), X=u_t-u_s.
+- ENDPOINT_N32: Phi=[u_t@P32-u_s@P32, tanh(u_t@P32)-tanh(u_s@P32)] (k=64). The
+  per-endpoint tanh carries STATE info absent from delta-only.
+- L64_Q32: Phi=X@P64 (linear only, k=64, readout C_L 64x32=2048). Capacity control:
+  readout 2048 matches the N methods' C_L+C_N=32x32+32x32=2048, so "N beats L32" is
+  tested against matched linear readout capacity before attributing gain to nonlinearity.
+Odd symmetry: zero displacement (X=0 / u_t=u_s) -> Phi=0 -> pred=0; endpoint swap ->
+Phi->-Phi -> pred->-pred. Holds by construction (no center offset, b=0).
+
+====================================================================
+3. FROZEN DESIGN DECISIONS (reviewer scrutiny invited)
+====================================================================
+(a) A0 prior — USER ADJUDICATED 2026-11-14: fresh per-config Q0. A0=A(alpha_Q0),
+    alpha_Q0_j = E[dZ_j dH_j]/E[dZ_j^2] on the CAL training subset, dZ=X@W1^T,
+    dH=tanhGELU(z1)-tanhGELU(z0). Common base shared by every representation within a
+    config; anti-leakage clean (no old-CAL4 Dq reuse). This DEVIATES from G19's deployed
+    Dq hash binding (old round) per route section 3 "each config refits its own
+    init/normalization/ridge". The user chose this over deployed-Dq reuse and zero prior.
+(b) P/Q selection rule — route names "CD-SVD or data-selected threshold" but gives no
+    algorithm. AUTHOR FROZE: P = top-64 right singular vectors of weighted stacked CAL X;
+    Q = top-32 right singular vectors of weighted stacked CAL gated residual (Y-XA0)odot g
+    (F64 SVD, source-equal weights). Nested P32=P[:,:32]. CAL-only, deterministic. This is
+    a defensible data-driven choice; reviewer should confirm it is fit-consistent and that
+    Q spans the residual output directions.
+(c) STABLE_FREE_LINEAR — VERBATIM reuse of R1b stable_ridge_fit (ridge_fit_core.py b22ac372):
+    F64 weighted thin-SVD sample-space DIRECT solve + F64 eigh cross-check, ridge toward 0
+    rho=lambda/||A_Q1||^2, A_free=A_Q1+D. The bank gate c_gate_msa is TIMESTEP MODULATION:
+    per-channel and SHARED across sources at a site. VERIFIED empirically on the V2 bank
+    (high04/low04/high19: gate identical across all 11 CAL sources, maxdiff=0.0), mirroring
+    the R1b runner_recheck.py assertion. common_gate() asserts this invariant and fails if
+    any source differs. Certificates enforced: cross_check_f64_eigh_rel_l2<=1e-7 and
+    D_out_of_rowspace_rel_fro<=1e-10. (Author note: an initial per-source-gate CG variant was
+    tried under a wrong assumption that the gate varied per source; it converged poorly and
+    was REPLACED by the verbatim direct solver once gate-sharing was verified. No CG remains.)
+(d) Readout solve — convex gated least squares. Normal matrix K = sum_c kron(GPhi_c, GQ_c),
+    GPhi_c=w_c Phi_c^T Phi_c, GQ_c=Q^T diag(g_c^2) Q (UNWEIGHTED). The source weight w_c
+    appears ONCE, on GPhi_c only (F1 fix: weighting BOTH Kronecker factors scales K by w_c^2
+    and inflates C by 1/w_c=S*n=2816). Because the gate is COMMON across sources (3c),
+    GQ_c=GQ_common and K reduces to kron(sum_c GPhi_c, GQ_common); the sum form is kept
+    (general and correct). F64, relative Tikhonov floor eps=1e-6 on the normal diagonal for
+    invertibility. C = reshape(solve(K, vec(T))), T=sum_c w_c Phi_c^T((R_c odot g_c^2) Q).
+    Indexing verified by hand: K[(a,b),(a',b')]=GPhi[a,a']GQ[b,b'], row a*r_out+b.
+    Smoke readout normal relative residuals ~1e-16; gradient at solved C rel ~1e-14.
+(e) lambda_main=1e-3 (G19/R1b reference), readout eps=1e-6, Q1 maxiter 240 tol 1e-5 (R2
+    fit_config.json). STABLE_FREE_LINEAR uses the direct SVD solve (no iteration count).
+    All frozen in scope.fit_contract.
+
+====================================================================
+4. ANTI-LEAKAGE (route section 3)
+====================================================================
+- 11x256 and 11x512 are SEPARATE fits: A0/alpha_Q0/P/Q/alpha_Q1/readout all rebuilt from
+  that prefix's CAL rows; no statistic shared across prefixes.
+- DEV11 NEVER enters any fit (only scored). CAL_A11 pooled source-equal 1/(S*n_c).
+- A0 prior is fresh per config (no old-CAL4 information). Old CAL4 Q1 is NOT the comparator.
+- 256 = draw-order prefix of the shared 512 panel; DEV scored on full 512.
+- Aggregate within source first; token/layer/seed do not increase independent source n.
+
+====================================================================
+5. VERBATIM REUSE TABLE
+====================================================================
+q1_fit_core.py   = work/g19_strengthen_20261107/fit_high_r2/fit_core.py
+                   sha b76a0efafae4b1b9b08a6c5cef6ade11108abed574136e082468c58c3f3a6028 (R2 Problem PCG)
+ridge_fit_core.py= work/g20_r1b_recheck_20261112/fit_core_v2.py
+                   sha b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe
+                   (stable_ridge_fit / _f64_sse / native_ffn / bf16_replay reused VERBATIM, see 3c)
+runtime_guard.py = sha ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1 (VERBATIM)
+Weight extraction logic mirrors work/g19_quality_execution_20261106/fit_high_r1/runner_fit.py
+                   (sha be4de200): safe_open get_tensor blocks.{L}.ffn.{0,2}.{weight,bias},
+                   shapes [(13824,5120),(13824,),(5120,13824),(5120,)], bf16, NO transpose.
+NEW author code: v4_repr.py (8ead06e5), v4_runner.py (9c6d8940), guarded_runner_v4.py
+                   (fb28f0c0), dispatch_once_v4.py (58218e0b), job.sh (e3118839).
+
+====================================================================
+6. INPUT / WEIGHT BINDING
+====================================================================
+bank_root = .../g20_v2_capture_20261113_rev2/stage/output/bank; manifest sha f6f8e100
+(hash-gated in run()); V2_BANK_VERIFICATION.json frozen as provenance receipt (PASS 31/31).
+Checkpoints (hash-gated per layer load): high 39d3af74..., low a3b8680a... (identical to V2
+scope.checkpoints). high=steps 0,1; low=steps 2,3. Site file {source}__seed42__s{step:02}__b{layer:02}.pt.
+
+====================================================================
+7. GUARDS AND BUDGET
+====================================================================
+guarded_runner_v4 mirrors reviewed V2: live require_compute_allocation, review APPROVE+recheck
+APPROVE by non-author, ACTIVE AUTHORIZED_FOR_ONE_JOB session_max_gpus 2, bundle hash gate,
+1 A100-80GB, torch 2.10.0+cu128, node membership anode16-23, mem<=160GiB, wall<=10800s,
+disk>=60GiB. dispatch_once_v4: lock, 2-job/2-GPU cap, already-attempted guard, prelaunch SHA
+recheck. Budget: 0 new D4, output_bytes 2GiB. Fitting is FP64-heavy but bounded (12 configs;
+free-ridge ~1.4e15 F64 flops total ~ minutes on A100). TF32 off.
+
+====================================================================
+8. BOUNDARIES / LIMITATIONS
+====================================================================
+- quality_metrics NOT_MEASURED; performance_comparison NOT_BENCHMARKED. V4 fitting wall time
+  is NOT production timing. No deployment/noninferiority claim. DEV11 supports only the next
+  finite decision. Six-site primary; all-80 separate (V4D). Full-matrix export (A_Q1/D) is V4D;
+  this scope saves alpha + readout C + P/Q SHA + diagnostics + scores (reconstructible).
+- The P/Q SVD rule (3b) and free-ridge per-source generalization (3c) are author choices the
+  route leaves open; they are frozen here and invited for reviewer scrutiny.
+- L32 interpreted as the linear-only subset of B(u) (drop tanh term); route gives B(u)
+  explicitly but L32 only as "constrained linear P32/Q32".
+- Node pin is reproducibility-only (bank + weights hash-bound; fitting deterministic).

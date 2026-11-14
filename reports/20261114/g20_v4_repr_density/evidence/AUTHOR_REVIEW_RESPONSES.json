@@ -1,0 +1,56 @@
+{
+  "scope_id": "G20_V4_REPR_DENSITY_20261114",
+  "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
+  "root_self_audit_sha256": "2a842a0efb381e216673e172870c0fb0455a79930ca6e401651bf5d4377500fe",
+  "author_agent_id": "qoder_root_g20_20261111",
+  "revision": 2,
+  "responds_to": "Independent review of rev1 (scope 10c2b225) which found two MATERIAL bugs via quantitative checks; rev2 fixes both. The rev2 focused recheck binds to scope 4a150871 + audit 2a842a0e.",
+  "responses": [
+    {
+      "finding_id": "F1",
+      "severity": "MATERIAL",
+      "title": "Readout source-weight scaling (C inflated by S*n=2816)",
+      "reviewer_evidence": "fit_readout put w_c=1/(S*n_c) on BOTH Kronecker factors (GPhi_c AND GQ_c). Normal matrix K=kron(GPhi_c,GQ_c) carried w_c^2, so the solved C was inflated by 1/w_c=S*n=2816. Reviewer measured C_code/C_correct=2816 exactly, DEV MSE ~19308 vs ~0.012, grad_rel_at_C_code=73 vs 1.6e-14 at the true optimum.",
+      "disposition": "FIXED",
+      "fix": "v4_repr.py fit_readout: source weight appears ONCE, on GPhi_c only (gphi = w*(phi.T@phi)); GQ_c = q.T@(g2[:,None]*q) is UNWEIGHTED. The Kronecker normal matrix now carries w_c exactly once. v4_repr.py 409287ae -> 8ead06e5caac5beea46800d0b3dff2ea3c4c17a2996371591cee8570ecb55257.",
+      "verification": "Strengthened smoke 162978 PASS 14/14: readout DEV MSE/Q1 ratios now EXACTLY match the reviewer's independently computed correct values (L32 1.1790, DELTA_N32 1.1678, ENDPOINT_N32 1.1565, L64_Q32 1.1294 at high04/256; floor_mse 0.00948). Added smoke check readout_mse_sane_vs_Q1 (each repr DEV MSE/Q1 < 100) which catches the S*n scaling class. Gradient at the solved C is ~1e-14 (true optimum), not ~73.",
+      "files_changed": ["v4_repr.py"]
+    },
+    {
+      "finding_id": "F2",
+      "severity": "MATERIAL",
+      "title": "cal_numerical_floor BF16 dtype crash",
+      "reviewer_evidence": "cal_numerical_floor called bf16_replay with fp32 u0 x bf16 a -> RuntimeError (dtype mismatch in u0@a). The rev1 smoke never exercised run()'s floor path, so the crash slipped past smoke and only appeared in the reviewer's full run.",
+      "disposition": "FIXED",
+      "fix": "v4_runner.py cal_numerical_floor: cast u0/u1/y0/y1 to .bfloat16() and gate to .float() before bf16_replay, reproducing the deployed BF16 cache/gate rounding (u0@a requires matching bf16 dtype; gate fp32 for base.float()*g promotion). v4_runner.py f95237ee -> 9c6d8940524aa7feb11a1f047ee94824e24e7698a64de8cf98da856298739e35.",
+      "verification": "Added smoke check cal_floor_finite which calls V.cal_numerical_floor directly (exercises the floor path); smoke 162978 PASS 14/14 with finite floor. The full V4 run calls cal_numerical_floor for every config and completes (definitive test in the rev2 recheck).",
+      "files_changed": ["v4_runner.py"]
+    },
+    {
+      "finding_id": "PROSE",
+      "severity": "NON_BLOCKING",
+      "title": "Audit body prose aligned to rev2 code",
+      "reviewer_evidence": "Author self-caught while preparing the rev2 recheck: ROOT_SELF_AUDIT section 2 still described STABLE_FREE_LINEAR as a per-source-gated CG (the abandoned variant), and section 3d still carried GQ_c=w_c Q^T diag(g_c^2) Q (the F1-buggy weighting). Both contradicted the rev2 code and the REVISION 2 note.",
+      "disposition": "FIXED",
+      "fix": "Section 2 now describes the verbatim R1b stable_ridge_fit direct-SVD solve + eigh cross-check (no CG). Section 3d now states GQ_c is UNWEIGHTED and w_c appears once on GPhi (F1). REVISION 2 note records the prose alignment. Audit e14e6705 (stale prose) -> 2a842a0efb381e216673e172870c0fb0455a79930ca6e401651bf5d4377500fe. No code/scope change beyond F1/F2.",
+      "verification": "Audit body now consistent with v4_repr.py 8ead06e5 / v4_runner.py 9c6d8940 and the REVISION 2 note. REVIEW_BRIEF.md stale spots (scope SHA, smoke job, GQ formula) also corrected.",
+      "files_changed": ["ROOT_SELF_AUDIT.txt", "REVIEW_BRIEF.md"]
+    }
+  ],
+  "unchanged_from_rev1": [
+    "A0 prior: fresh per-config Q0 (user adjudicated 2026-11-14); alpha_Q0=E[dZ dH]/E[dZ^2] on CAL subset; common base shared across representations within a config; no old-CAL4 Dq reuse, no zero prior.",
+    "CURRENT_Q1: R2 Problem PCG verbatim (q1_fit_core.py b76a0efa), init alpha_Q0, ridge 1e-3 toward A0 matrix-distance, maxiter 240 tol 1e-5 restart@20; fresh fit -> no R2 old/new selection.",
+    "STABLE_FREE_LINEAR: R1b stable_ridge_fit VERBATIM (ridge_fit_core.py b22ac372); common_gate() asserts gate shared across sources; A_free=A_Q1+D; certificates cross_check<=1e-7, D_out_of_rowspace<=1e-10.",
+    "P/Q: CAL data SVD (P top-64 right sing vecs of weighted stacked X; Q top-32 of weighted stacked gated residual).",
+    "Odd symmetry, anti-leakage (256/512 separate fits, DEV never in fit), estimand (F64 gated pre-gate increment math lift; expert-equal then source-equal; six-site primary, all-80 separate V4D).",
+    "Guards (guarded_runner_v4 + dispatch_once_v4 mirror reviewed V2), budget (1 job/1 GPU/160G/10800s/2GiB), 0 new D4 full executions, 0 new videos."
+  ],
+  "smoke": {
+    "job_id": 162978,
+    "status": "PASS",
+    "passed": 14,
+    "failed": 0,
+    "note": "Strengthened to call the formal runner functions (load_layer_weights/build_pack/fit_config/score_pack/predict/cal_numerical_floor), not a re-implementation. Adds cal_floor_finite (F2 path) and readout_mse_sane_vs_Q1 (F1 scaling class)."
+  },
+  "author_statement": "Both material findings are fixed in source and validated by the strengthened formal-path smoke whose readout ratios match the reviewer's independent correct values exactly. The rev2 focused independent recheck (reviewer qoder_independent_reviewer_g20_v4_rev2_20261114) re-hashes the bundle, confirms F1/F2, runs a FULL V4 run as the definitive completion test, and writes INDEPENDENT_REVIEW.json bound to scope 4a150871 + audit 2a842a0e. The author does not dispatch beyond dispatch_once_v4 prelaunch recheck and does not synthesize approval."
+}
