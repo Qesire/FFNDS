@@ -1,7 +1,7 @@
 {
   "schema": "G20_VBENCH_DECISION_LEDGER_V1",
-  "date": "2026-11-13",
-  "based_on_commit": "84630899eb041ddd6d84a759a76b04710e974ed7",
+  "date": "2026-11-14",
+  "based_on_commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
   "design_only": true,
   "new_experiments_run": 0,
   "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
@@ -14,7 +14,7 @@
     },
     "r1b_job": 157314,
     "r1_job": 156476,
-    "scope": "Old CAL4/DEV5 seed42 high/low layers4,19,34; not new VBench empirical results",
+    "scope": "The R1/R1b entries below retain old CAL4/DEV5 identity; the v4 entry separately identifies new VBench evidence.",
     "recomputed_from_existing_table": [
       {
         "site": "high/4",
@@ -115,7 +115,15 @@
       "definition": "ridge_mse < q1_mse - epsilon_num",
       "units": "absolute gatedMSE difference; not an ICC significance threshold"
     },
-    "original_FP32_robust_coverage": "R1b source runner_recheck.py scores orig_main,stable_main,stable_rob; originalrobust has solve/rank/subspace diagnostics only, noCAL/DEV risk table."
+    "original_FP32_robust_coverage": "R1b source runner_recheck.py scores orig_main,stable_main,stable_rob; originalrobust has solve/rank/subspace diagnostics only, noCAL/DEV risk table.",
+    "v4": {
+      "report": "reports/20261114/g20_v4_repr_density/README.md",
+      "scores": "reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json",
+      "formal_job": 163279,
+      "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
+      "scores_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
+      "scope": "VBench CAL11/DEV11, seed42, high/low4/19/34, CAL rowprefix256/512, common DEV512; local gated risk, not video or timing"
+    }
   },
   "judgments": [
     {
@@ -124,207 +132,157 @@
       "evidence": [
         "User-reported G0-A; full bundle not present in checked main"
       ],
-      "current_judgment": "C1_NOT_BINDABLE is preserved under its old frozen unused-source rule; current VBench use admits historically exposed sources.",
+      "current_judgment": "Old C1_NOT_BINDABLE remains valid under its frozen unused-source rule. The current cycle permits historical VBench reuse; V0 binding is reported complete and does not schedule a repeat.",
       "unresolved": [
-        "Actual selected input bytes and original/near-duplicate cluster crosswalk remain to bind."
+        "Original V0 binding credentials are not fully public in the inspected materials."
       ],
-      "next_experiment": [
-        "V0"
-      ],
-      "outcome_branches": {
-        "pass": "Bind sources from existing archive and preserve historical exposure separately from cycle_role.",
-        "missing_inventory": "Bind the selected33 directly; do not rerun all833 solely to change roles.",
-        "source_conflict": "Input-only within-category deterministic replacement with versioned reason before outputs."
-      }
+      "next_experiment": [],
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     },
     {
       "id": "J_SOLVER",
-      "status": "BOUNDED_NUMERICAL_ISSUE_CLOSED",
+      "status": "BOUNDED_NUMERICAL_ISSUE_CLOSED_NO_REPEAT",
       "evidence": [
-        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json"
+        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
+        "reports/20261114/g20_v4_repr_density/README.md"
       ],
-      "current_judgment": "Stable F64 recomputation leaves the tested free-ridge DEV failure; FP32 rank artifact and BF16 rounding do not explain away the major negative result in this scope.",
+      "current_judgment": "R1b stable F64 and V4 actual convergence certificates leave the tested free-linear DEV failure. Repeating numerical certification cannot select a better candidate here.",
       "unresolved": [
-        "Direction versus amplitude, source breadth, row density, estimator structure and state information remain distinct explanations."
+        "The causal shares of coverage, structure and amplitude are not identified; they are not mandatory follow-up tasks."
       ],
-      "next_experiment": [
-        "V1",
-        "V4",
-        "V3"
-      ],
-      "outcome_branches": {
-        "stop": "Do not repeat R1b solely to reconfirm the same solved numerical question.",
-        "scope": "Do not interpret remaining net degradation as a causal percentage assigned to overfitting/coverage."
-      }
+      "next_experiment": [],
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     },
     {
       "id": "J_DIRECTION",
-      "status": "UNIDENTIFIED",
+      "status": "OLD_V1_REPORTED_CURRENT_V4_NOT_IDENTIFIED_NO_TASK",
       "evidence": [
         "R1b saved BF16 A predictions; stable mathematical F64 D not archived",
-        "ALG: exact ridge D lies in CAL rowspace"
+        "ALG: exact ridge D lies in CAL rowspace",
+        "reports/20261114/g20_v4_repr_density/README.md",
+        "https://github.com/Qesire/FFNDS/blob/79df9e3c12c083a79e1ce7854a220608fe260cf4/research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json"
       ],
-      "current_judgment": "High omega measures directions not altered by the exact CAL-rowspace correction; it does not identify why the changed prediction worsens DEV.",
+      "current_judgment": "Old V1 job161235 is reported to find a>0 and eta*~0.25; raw per-source evidence has not been read back here. This does not establish the best eta or recoverable gain for new V4. Read existing raw results only if a concrete future decision needs them; do not rerun V1 to fill an archive gap.",
       "unresolved": [
-        "a=<e,c> and b=||c||² on actual archived predictions are not yet reported."
+        "Old V1 per-source raw diagnosis and current-V4 amplitude transfer remain unverified."
       ],
-      "next_experiment": [
-        "V1"
-      ],
-      "outcome_branches": {
-        "a_nonpositive": "Stop positive shrinkage along that particular observed direction; retain other linear families.",
-        "positive_overshoot": "Consider a finite CAL-selected shrinkage/regularization variant and actual BF16 deployment check.",
-        "heterogeneous": "Prefer structure/source/state discrimination; do not use per-DEV a/b as deployment policy."
-      },
-      "measurement_contract": "Primary e=zDense-zQ1,c=zStable-zQ1 at actual consumer post-gateFFN contribution including gate/cast rounding; G times pre-gate difference is a distinct mathematical diagnostic. Affine output-mix identity does not imply re-quantized parameter behavior. Accumulate inner products and squared norms in F64 and report reconstruction residual."
+      "next_experiment": [],
+      "measurement_contract": "Primary e=zDense-zQ1,c=zStable-zQ1 at actual consumer post-gateFFN contribution including gate/cast rounding; G times pre-gate difference is a distinct mathematical diagnostic. Affine output-mix identity does not imply re-quantized parameter behavior. Accumulate inner products and squared norms in F64 and report reconstruction residual.",
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false,
+      "reported_source": {
+        "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+        "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+        "json_pointer": "/execution_status_20261114/stages/V1",
+        "evidence_level": "PROGRESS_RECORD_NOT_RAW_RECEIPTS"
+      }
     },
     {
       "id": "J_REPRESENTATION",
-      "status": "OPEN_NO_NEW_VBENCH_RESULT",
+      "status": "CLOSED_CURRENT_FAMILY_NO_CANDIDATE",
       "evidence": [
         "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
-        "Design only: common-base linear/endpoint/delta comparisons"
+        "reports/20261114/g20_v4_repr_density/README.md",
+        "reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json"
       ],
-      "current_judgment": "Failure of tested free ridge and ICC does not prove linear impossibility or endpoint nonlinearity value.",
+      "current_judgment": "V4 is complete: Q1 wins the six-site DEV comparison at both row prefixes; all four constrained variants lose on every DEV source. Free correction fits CAL and loses on all DEV sources. L64 beats Endpoint on every DEV source while matching readout parameter count. No current variant is promoted; no rank/feature/tanh/gate rescue chain is scheduled.",
       "unresolved": [
-        "Does constrained linear structure suffice? Does endpoint state improve over delta-only at matched capacity?"
+        "This bounded result does not rule out all linear/nonlinear methods. Free/Q1-base versus constrained/Q0-base differences prevent unique mechanism attribution. Neither general impossibility nor new video quality is established."
       ],
-      "next_experiment": [
-        "V4",
-        "V4D"
-      ],
-      "outcome_branches": {
-        "restricted_linear_wins": "Prefer foldable linear structure for a concrete deployment test.",
-        "N_beats_L32_only": "Require same-bank L64/Q32 before capacity/endpoint claims.",
-        "N_beats_delta_and_linear_control": "Support endpoint information in the compared family; choose QUALITY_REPAIR/SPEED_TRADEOFF/MECHANISM_PROBE before V4D.",
-        "no_candidate": "Stop the tested variant or trigger only a named unresolved explanation; B line remains independent."
-      }
+      "next_experiment": [],
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     },
     {
       "id": "J_SOURCE_DENSITY",
-      "status": "UNIDENTIFIED",
+      "status": "LOCAL_DENSITY_MEASURED_BREADTH_NOT_SCHEDULED",
       "evidence": [
-        "Old CAL only4 sources; no controlled new learning curve"
+        "Old CAL only4 sources; no controlled new learning curve",
+        "reports/20261114/g20_v4_repr_density/README.md",
+        "reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json"
       ],
-      "current_judgment": "CAL11/DEV11 across11 official categories is a bounded starting design; source adequacy is not established by row count or rank.",
+      "current_judgment": "256->512 rows improve absolute DEV risk for Q1 (~0.884%) and constrained variants (~0.332%-0.579%), while free-linear worsens (~20.603%). Ranking is unchanged. Source breadth CAL11->22 is unmeasured and not necessary to close this search.",
       "unresolved": [
-        "Does increasing source breadth at fixed5632 rows improve the same method? Does within-source density matter?"
+        "Source breadth and per-category population effects remain unidentified; no CAL22 or new pairs requested."
       ],
-      "next_experiment": [
-        "V4",
-        "V3"
-      ],
-      "outcome_branches": {
-        "density_first": "Compare11x256 and11x512 before adding sources.",
-        "breadth_decision_relevant": "Add reserved CAL_B11 and compare22x256 versus11x512, plus22x512, in paired absolute MSE.",
-        "single_dev_source_dominates": "Treat as evaluation uncertainty/heterogeneity; more CAL is not an automatic remedy.",
-        "cal22_no_help": "Bound the negative result to this nested cohort and learning policy; no automatic CAL48/96."
-      }
+      "next_experiment": [],
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     },
     {
       "id": "J_ICC",
-      "status": "DIAGNOSTIC_PRIORITY_NOT_RECOVERABLE_SHARE",
+      "status": "HISTORICAL_EVIDENCE_RETAINED_OUT_OF_CURRENT_SCOPE",
       "evidence": [
         "reports/20261112/g20_r1b_recheck/output/SUMMARY.json"
       ],
-      "current_judgment": "Stage2 native-h component64.27%-82.47% suggests a diagnostic target. Native-h repair still fails versus Q1 at low19/34; this is not a universal lower bound on stage1 modification.",
+      "current_judgment": "Existing stage2 and native-h evidence is retained in its old scope. A component share is not recoverable gain. Missing ICC cells do not force a new comparison when no current method or paper claim depends on them.",
       "unresolved": [
-        "Missing surrogate-h/native-W2 cell and actual repair interaction; aggregation-specific high4 behavior."
+        "Full repair interaction remains unmeasured; no current claim requires it."
       ],
-      "next_experiment": [
-        "V1",
-        "BW",
-        "ICC"
-      ],
-      "outcome_branches": {
-        "four_cell_repair_helps": "Test one justified matched-budget structure change.",
-        "repair_no_value": "Stop capacity expansion of that configuration.",
-        "report": "Keep raw risks, stage decomposition cross, four-cell risk interaction and source aggregation distinct."
-      },
-      "native_h_repair_ratio_aggregation": "ratio of source-equal mean MSE, low19≈1.2775866 andlow34≈1.2691369; not mean of per-source ratios"
+      "next_experiment": [],
+      "native_h_repair_ratio_aggregation": "ratio of source-equal mean MSE, low19≈1.2775866 andlow34≈1.2691369; not mean of per-source ratios",
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     },
     {
       "id": "J_CHIPMUNK",
-      "status": "FAITHFUL_PROXY_COMPARISON_INCOMPLETE",
+      "status": "HISTORICAL_EVIDENCE_RETAINED_OUT_OF_CURRENT_SCOPE",
       "evidence": [
         "Legacy existing_assets CHIPMUNK_FULLM_MISSING and CHIPMUNK_GLOBAL_P64"
       ],
-      "current_judgment": "Old global-P64 evidence is real but distinct; missing faithful full-M proxy does not establish family failure.",
+      "current_judgment": "Old global-P64 results remain valid in their identity. Missing faithful full-M proxy is not evidence of family failure and is not a current asset-production request.",
       "unresolved": [
-        "Author code/selector identity, true full-M statistics and fair matched cost."
+        "A future faithful matched comparison would need its own concrete claim, code identity and cost."
       ],
-      "next_experiment": [
-        "CHIP"
-      ],
-      "outcome_branches": {
-        "claim_requires": "Bind author implementation and minimally capture required full-M stats for the compared sites.",
-        "not_claimed": "Defer without blocking A or Q1/ICC attribution; make no universal win claim."
-      }
+      "next_experiment": [],
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     },
     {
       "id": "J_WEIGHT_STATE",
-      "status": "UNIDENTIFIED_INDEPENDENT_RESEARCH_LINE",
+      "status": "UNIDENTIFIED_PARKED_NO_AUTOMATIC_B_LINE",
       "evidence": [
         "No matched new W×state experiment"
       ],
-      "current_judgment": "Wan FFN weight, state, interval, CFG and implementation differences are not identified by R1b. Attribution proceeds independently of a winning new candidate.",
+      "current_judgment": "Weight/state/interval attribution is a legitimate optional research question, not an automatic successor to failed A-line candidates. B-W/B-WS are removed from the current queue; no O40 or architecture-attribution chain is requested.",
       "unresolved": [
-        "Conditional FFN-weight dependence on μ_D; remaining state and interval interaction."
+        "Conditional FFN-weight dependence and state/interval interaction remain unidentified."
       ],
-      "next_experiment": [
-        "BW",
-        "BWS"
-      ],
-      "outcome_branches": {
-        "BW": "SameU/G_ref and sameCAL11 budget under W_O/W_D; common-unit Q1-subtracted method difference; zero new full trajectories but paid replay/fit.",
-        "BWS_trigger": "Remaining state ambiguity changes explanation and pre-frozen common support exists: CAL3/DEV3, mixed256+256 fit perW, max6 O40.",
-        "no_common_support": "UNIDENTIFIED; no retrospective nearest matching.",
-        "pilot_scope": "Three DEV cases and nativeCFG state distribution; no architecture or pure-step causal claim."
-      }
+      "next_experiment": [],
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     },
     {
       "id": "J_VIDEO",
-      "status": "UNMEASURED_FOR_CURRENT_COHORT",
+      "status": "NO_CURRENT_CANDIDATE_NO_NEW_VIDEO_REQUEST",
       "evidence": [
-        "Historical G19 local versus trajectory mismatch; no new VBench result"
+        "Historical G19 local versus trajectory mismatch; no new VBench result",
+        "reports/20261114/g20_v4_repr_density/README.md"
       ],
-      "current_judgment": "Local ΔFFN fit, complete site writeback and free-trajectory quality are distinct; full80 artifacts and one bounded video test connect them.",
+      "current_judgment": "Historical Q1/G19 video evidence is preserved in its original identity. Current CAL11 parameters and V4 rejected variants have no new video evidence; no full80/export/video task is needed merely to complete their asset chain.",
       "unresolved": [
-        "Does local improvement survive own-state and terminal propagation?"
+        "Video quality of a future actually selected candidate would require appropriate validation; this is not a current task."
       ],
-      "next_experiment": [
-        "V4D",
-        "V5",
-        "STATE",
-        "PROPAGATION"
-      ],
-      "outcome_branches": {
-        "own_state_fails": "Collect only needed candidate CAL state/native targets under a separate paid scope.",
-        "own_state_good_video_bad": "Use finite same-parent full-site intervention/suffix to test propagation/metric mismatch.",
-        "quality_good_time_bad": "Report quality-cost tradeoff; no acceleration success.",
-        "no_value": "Stop current variant; preserve failures."
-      }
+      "next_experiment": [],
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     },
     {
       "id": "J_SYSTEM",
-      "status": "CLAIM_DEPENDENT_NOT_AUTOMATIC_GRID",
+      "status": "NO_CURRENT_DEPLOYMENT_CLAIM_NO_NEW_BENCHMARK_REQUEST",
       "evidence": [
-        "Current torch_sdpa recipe; strong Attention implementation not yet bound"
+        "Current torch_sdpa recipe; strong Attention implementation not yet bound",
+        "reports/20261114/g20_v4_repr_density/README.md"
       ],
-      "current_judgment": "V5 first-pass production times inform development. Fixed evaluation and strong-background claims need concrete matched identity and prespecified criteria.",
+      "current_judgment": "V4 provides no native execution benefit for the constrained variants. Historical timing retains its measured identity. No new matched timing, strong-attention background or fixed evaluation is scheduled without a specific quality-cost claim.",
       "unresolved": [
-        "Which quality margin and speed benefit matter? Which strong Attention background is actually implemented?"
+        "A future deployable method must establish its own relevant quality-cost tradeoff."
       ],
-      "next_experiment": [
-        "TIMING",
-        "ATTENTION",
-        "V6"
-      ],
-      "outcome_branches": {
-        "timing_gap": "Reuse videos/quality; add only missing matched production times and justified technical repeats.",
-        "attention": "Separate fixed-FFN transfer from same-background CAL refit.",
-        "V6": "Freeze exactδ in original units, rationale, uncertainty/multiplicity and outcomes before reserve outputs. Missing margins allow descriptive results only."
-      }
+      "next_experiment": [],
+      "scheduled": false,
+      "unresolved_implies_new_experiment": false
     }
   ],
   "global_decision_policy": {
@@ -333,39 +291,37 @@
     "minimum_effect_thresholds_fabricated_here": false,
     "branches_require_all_positive": false,
     "conditional_scopes_automatically_authorized": false,
-    "source_expansion_is_default": false
+    "source_expansion_is_default": false,
+    "current_active_computational_queue_count": 0,
+    "stop_current_representation_search": true,
+    "zero_new_jobs_is_a_complete_outcome": true,
+    "unresolved_question_is_not_automatic_task": true,
+    "b_line_is_automatic_successor": false,
+    "eta_comparison_is_queued": false,
+    "no_rerun_to_fill_publication_gaps": true,
+    "no_standalone_floor_recompute": true
+  },
+  "revision": 3,
+  "status": "CONSOLIDATED_NO_ACTIVE_COMPUTE",
+  "design_review": "research/experiment_reviews/G20_CONSOLIDATION_20261114/REVIEW.json",
+  "counts_are_for_this_plan_change": true,
+  "historical_plan": {
+    "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+    "path": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
+    "current_actions_superseded": true
   },
   "execution_updates_20261114": {
-    "record_type": "ADDITIVE_EXECUTION_OVERLAY_DESIGN_JUDGMENTS_UNCHANGED",
-    "date": "2026-11-14",
+    "record_type": "EVIDENCE_INDEX_CURRENT_JUDGMENTS_UPDATED_DIRECTLY",
     "report": "reports/20261114/g20_v4_repr_density/README.md",
     "formal_job": 163279,
     "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
     "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
-    "judgment_updates": {
-      "J_REPRESENTATION": {
-        "status": "MEASURED_SIX_SITE_PRIMARY_BOUNDED",
-        "evidence": ["reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json", "reports/20261114/g20_v4_repr_density/output/VB_LOCAL_FITS.json"],
-        "current_judgment": "On DEV11 six-site primary, Q1 is best; the four constrained readouts are WORSE than Q1 by 3.88%-5.52% (r=+0.0388..+0.0552). Among constrained, L64_Q32 (matched-capacity linear) is closest to Q1 and beats ENDPOINT_N32 on 11/11 sources; ENDPOINT_N32 slightly better than DELTA_N32. STABLE_FREE_LINEAR overfits CAL (r=1.60@256->2.20@512; certificates prove correct solve).",
-        "bounded": "Free uses Q1 base vs constrained Q0 base (base confound); L64 matched-capacity linear beats nonlinear endpoint (capacity confound). NO causal claim that endpoint state adds information or that degrees-of-freedom alone cause overfitting. Constrained linear structure does NOT beat full Q1 here; no candidate promoted on this result.",
-        "next_experiment": ["V4D (purpose to clarify)", "B-W/B-WS attribution independent"],
-        "supersedes_design_status": "OPEN_NO_NEW_VBENCH_RESULT"
-      },
-      "J_SOURCE_DENSITY": {
-        "status": "MEASURED_WITHIN_SOURCE_DENSITY_SIX_SITE_BOUNDED",
-        "evidence": ["reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json"],
-        "current_judgment": "Within-source density 256->512 rows on common DEV512: Q1 and all four constrained models IMPROVE in absolute MSE (Q1 -0.884% most; L64 -0.579%, Endpoint -0.443%, L32 -0.385%, Delta -0.332%; improve counts 11/10/10/9/9 of 11). STABLE_FREE_LINEAR worsens +20.603% (0/11). source_density_delta (delta r) measures gap-to-Q1 change, not absolute effectiveness; same-method absolute risk added in report 4.2.",
-        "bounded": "Source BREADTH (CAL11->22) NOT measured; no CAL22 expansion warranted by current evidence. Within-source density helps Q1 and constrained readouts but does not close the gap to Q1.",
-        "next_experiment": ["V3 only if a source-breadth claim becomes decision-relevant"],
-        "supersedes_design_status": "UNIDENTIFIED"
-      }
-    },
-    "open_clarifications": {
-      "floor": "Published floor is total BF16-replay-vs-dense error (~Q1 CAL total risk), not pure BF16 rounding noise; 11/11 'unmeasurable' flag retracted as artifact; correct rounding floor recompute pending V4D.",
-      "v4d_purpose": "Clarify whether V4D completes the Q1 full-80 deployment chain or advances a new candidate; if new candidate, justify candidate and question before scope.",
-      "asset_export": "Full candidate parameter export (P/Q/C/D) + close/reload/consumer acceptance pending; fits JSON alone cannot reload candidates."
-    },
-    "new_runnable_scopes_added": 0,
-    "new_jobs_dispatched_by_this_overlay": 0
+    "current_next_experiment": [],
+    "floor": "Published floor is total BF16 replay-vs-dense error (model + rounding), not pure rounding noise. The 11/11 unmeasurable claim is retracted in the report. No standalone recomputation is scheduled; a future chosen predictor would include an actual BF16-vs-math check in its own deployment comparison.",
+    "candidate_export": "Fit-record limitation remains disclosed; complete exports are not currently requested.",
+    "prior_overlay_reference": {
+      "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+      "path": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/execution_updates_20261114"
+    }
   }
 }

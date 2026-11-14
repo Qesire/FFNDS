@@ -1,23 +1,20 @@
 {
   "schema": "G20_VBENCH_ASSETS_AND_QUEUE_V4",
-  "revision": 2,
+  "revision": 3,
   "id": "G20_VBENCH_RESTART_V4_20261113",
-  "date": "2026-11-13",
-  "base_commit": "84630899eb041ddd6d84a759a76b04710e974ed7",
-  "status": "DESIGN_ONLY_NOT_EXECUTION_AUTHORIZATION",
-  "design_status": "SPECIFIED_REVIEW_RECORDED_SEPARATELY",
-  "payload_status": "OFFICIAL_METADATA_SELECTED_NEW_INPUT_BINDING_AND_EXPERIMENT_PAYLOAD_PENDING",
+  "date": "2026-11-14",
+  "base_commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+  "status": "CONSOLIDATED_NO_ACTIVE_COMPUTE",
+  "design_status": "CONSOLIDATED_NO_ACTIVE_COMPUTE",
+  "payload_status": "V4_PUBLIC_RESULTS_AVAILABLE_NO_NEW_PAYLOAD_REQUESTED",
   "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
   "decision_ledger": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
   "cohort": "config/g20_vbench_restart_cohort_v1_20261113.json",
-  "design_review": "research/experiment_reviews/G20_VBENCH_ROUTE_DECISIONS_20261113/README.md",
-  "next_action_to_prepare": [
-    "V0",
-    "V1 optional parallel"
-  ],
+  "design_review": "research/experiment_reviews/G20_CONSOLIDATION_20261114/REVIEW.json",
+  "next_action_to_prepare": [],
   "execution_scope_id": null,
   "runnable": false,
-  "precedence": "This revision specifies current future route and stage estimands. Old registry existing assets are references; old quotas/planned assets do not schedule work.",
+  "precedence": "Revision 3 replaces current planning fields. Historical plan/estimands/dependency edges do not schedule work. No compute is required to finish this consolidation.",
   "old_g0": {
     "status": "USER_REPORTED_C1_NOT_BINDABLE_UNDER_FROZEN_RULES",
     "public_bundle_verified_here": false,
@@ -76,7 +73,9 @@
         "VB_BOUND_INPUTS",
         "VB_SPLIT33"
       ],
-      "next_action_to_prepare": "Verify exact reusable payload identity before consumption."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_ARCHIVE",
@@ -104,7 +103,9 @@
         "V0",
         "VB_BOUND_INPUTS"
       ],
-      "next_action_to_prepare": "Verify exact reusable payload identity before consumption."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_SPLIT33",
@@ -116,7 +117,7 @@
       "required_identity": [
         "same selected_records, image_name, prompt, rank and role as base84630899"
       ],
-      "payload_status": "METADATA_SELECTED_PAYLOAD_PENDING",
+      "payload_status": "METADATA_SELECTION_PRESERVED_BINDING_REPORTED_COMPLETE",
       "locator": "config/g20_vbench_restart_cohort_v1_20261113.json",
       "missing": [],
       "runnable": false,
@@ -125,7 +126,9 @@
         "VB_BOUND_INPUTS",
         "VB_RESERVED_POOL"
       ],
-      "next_action_to_prepare": "No new capture required; preserve selection."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "LEGACY_EVIDENCE",
@@ -176,7 +179,9 @@
         "VB_BOUND_INPUTS",
         "VB_REUSE_MATCH"
       ],
-      "next_action_to_prepare": "Verify exact reusable payload identity before consumption."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_BOUND_INPUTS",
@@ -193,12 +198,17 @@
         "historical exposure independent of cycle_role",
         "input-only deterministic replacement reason/version"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "REPORTED_PRODUCED_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "locator": {
+        "progress_record": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V0"
+        },
+        "raw_payload_locator": null
+      },
       "missing": [
-        "actual image verification",
-        "cluster crosswalk",
-        "new-role adapter and preflight interface"
+        "Public readback of original credentials/payload; preserve this evidence limit, no rerun requested."
       ],
       "runnable": false,
       "optional_inputs": [
@@ -219,7 +229,9 @@
         "VB_REUSE_MATCH",
         "VB_RUN_VIDEO_MANIFEST"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_RECIPE",
@@ -233,10 +245,17 @@
         "832x464x81@16fps BF16 tanhGELU HHLL anchor0/2 hit1/3 noCFG",
         "negative prompt, preprocessing, scheduler/noise, code/hardware/offload/torch_sdpa"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "REPORTED_PRODUCED_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "locator": {
+        "progress_record": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V0"
+        },
+        "raw_payload_locator": null
+      },
       "missing": [
-        "actual consumer/source/recipe hashes and paths"
+        "Public readback of original credentials/payload; preserve this evidence limit, no rerun requested."
       ],
       "runnable": false,
       "consumers": [
@@ -254,7 +273,9 @@
         "VB_REUSE_MATCH",
         "VB_RUN_VIDEO_MANIFEST"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_PANEL512",
@@ -270,11 +291,17 @@
         "saved order and inverse permutation",
         "allM uniform; not old21tau stratified2048"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "REPORTED_PRODUCED_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "locator": {
+        "progress_record": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V0"
+        },
+        "raw_payload_locator": null
+      },
       "missing": [
-        "new exact panel producer and hash",
-        "materialized panel IDs/geometry receipts"
+        "Public readback of original credentials/payload; preserve this evidence limit, no rerun requested."
       ],
       "runnable": false,
       "consumers": [
@@ -289,7 +316,9 @@
         "VB_NEUTRAL",
         "VB_REUSE_MATCH"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_CAPTURE_CODE",
@@ -305,11 +334,17 @@
         "row count/THW/G/shapes/dtypes/source/header identity",
         "observer and neutral comparison policy"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "REPORTED_PRODUCED_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "locator": {
+        "progress_record": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V0"
+        },
+        "raw_payload_locator": null
+      },
       "missing": [
-        "exact new producer code/SHA",
-        "consumer compatibility and bounded neutral criteria"
+        "Public readback of original credentials/payload; preserve this evidence limit, no rerun requested."
       ],
       "runnable": false,
       "consumers": [
@@ -318,7 +353,9 @@
         "VB_DENSE_CALB11",
         "VB_NEUTRAL"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_REUSE_MATCH",
@@ -335,10 +372,17 @@
         "bank requires fields and paired512 coordinates",
         "video availability does not imply bank or timing availability"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "REPORTED_PRODUCED_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "locator": {
+        "progress_record": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V0"
+        },
+        "raw_payload_locator": null
+      },
       "missing": [
-        "condition-level verified presence and missing-field verdicts"
+        "Public readback of original credentials/payload; preserve this evidence limit, no rerun requested."
       ],
       "runnable": false,
       "consumers": [
@@ -347,7 +391,9 @@
         "VB_DENSE_CALB11",
         "VB_NEUTRAL"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_NEUTRAL",
@@ -365,10 +411,17 @@
         "pre-frozen latent/output numerical criterion",
         "plain production timing eligible only if actual boundary/hardware/no-observer match"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "REPORTED_PRODUCED_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "locator": {
+        "progress_record": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V2"
+        },
+        "raw_payload_locator": null
+      },
       "missing": [
-        "actual neutral receipts; if missing or failed do not proceed with remaining captures"
+        "Public readback of original credentials/payload; preserve this evidence limit, no rerun requested."
       ],
       "runnable": false,
       "consumers": [
@@ -376,7 +429,9 @@
         "VB_DENSE_CALB11",
         "VB_RAW_TIMING"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_DENSE22",
@@ -395,10 +450,17 @@
         "all160 calls and paired prefix",
         "source-role and common dense trajectory"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "REPORTED_PRODUCED_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "locator": {
+        "progress_record": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V2"
+        },
+        "raw_payload_locator": null
+      },
       "missing": [
-        "identity-matched paired512 conditions only; none newly collected in this change"
+        "Public readback of original credentials/payload; preserve this evidence limit, no rerun requested."
       ],
       "runnable": false,
       "consumers": [
@@ -419,7 +481,9 @@
         "VB_RUN_VIDEO_MANIFEST",
         "VB_SOURCE_DENSITY"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_DENSE_CALB11",
@@ -437,7 +501,7 @@
         "same contract as DENSE22",
         "triggered source-breadth question, not automatic quota"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "conditional extra11 captures; no automatic dispatch"
@@ -449,7 +513,9 @@
         "VB_Q1_ALL80",
         "VB_SOURCE_DENSITY"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "LEGACY_LOCAL_DIAG",
@@ -465,15 +531,23 @@
         "primary L0 uses actual consumer post-gateFFN contribution z including gate/cast rounding; does not claim missing fullsite residual",
         "G times pre-gate difference is separate math diagnostic; output-mixture eta identity does not prove re-quantized parameter behavior"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "REPORTED_PRODUCED_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "locator": {
+        "progress_record": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V1"
+        },
+        "raw_payload_locator": null
+      },
       "missing": [
-        "direction/amplitude output",
-        "surrogate-h/native-W2 cell if compatible operands available"
+        "Public readback of original credentials/payload; preserve this evidence limit, no rerun requested."
       ],
       "runnable": false,
       "consumers": [],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_LOCAL_FITS",
@@ -489,10 +563,10 @@
         "actual parameters/dtypes/predictions",
         "candidate purpose and selection reason"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
+      "payload_status": "PUBLIC_FIT_RECORD_ONLY_NOT_COMPLETE_PREDICTOR",
+      "locator": "reports/20261114/g20_v4_repr_density/output/VB_LOCAL_FITS.json",
       "missing": [
-        "current-cycle fit artifacts and paired risk tables"
+        "P/Q matrices and C/D tensors are not fully exported; no rejected candidate export is requested."
       ],
       "runnable": false,
       "optional_inputs": [
@@ -507,10 +581,13 @@
         "VB_Q1_ALL80",
         "VB_SOURCE_DENSITY"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied.",
+      "next_action_to_prepare": [],
       "additional_producers": [
         "V3"
-      ]
+      ],
+      "production_requested": false,
+      "payload_note": "Full alpha_Q0/alpha_Q1 arrays; P/Q hashes; C/D norms and diagnostics. Not a complete reloadable predictor.",
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_SOURCE_DENSITY",
@@ -526,11 +603,9 @@
         "equal-source loss normalization",
         "not relative-to-changing-Q1 primary"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
-      "locator": null,
-      "missing": [
-        "new source/density evidence"
-      ],
+      "payload_status": "PUBLIC_SIX_SITE_RESULT_VERIFIED",
+      "locator": "reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json",
+      "missing": [],
       "runnable": false,
       "optional_inputs": [
         "VB_DENSE_CALB11"
@@ -538,10 +613,13 @@
       "consumers": [
         "V3"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied.",
+      "next_action_to_prepare": [],
       "additional_producers": [
         "V3"
-      ]
+      ],
+      "production_requested": false,
+      "sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_Q1_ALL80",
@@ -557,7 +635,7 @@
         "80of80 coverage",
         "never substitute oldCAL4 Q1"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "new Q1 all80 exported files"
@@ -569,7 +647,9 @@
       "consumers": [
         "VB_DEPLOYMENT_CHECK"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_CANDIDATE_ALL80",
@@ -586,7 +666,7 @@
         "80of80 coverage",
         "cache/projection/gather implementation"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "selected candidate and all80 files"
@@ -598,7 +678,9 @@
       "consumers": [
         "VB_DEPLOYMENT_CHECK"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_DEPLOYMENT_CHECK",
@@ -618,7 +700,7 @@
         "legal anchor/cache and actual writeback",
         "zero delta/endpoint sign tests where applicable"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "file-to-consumer receipts and all80 verification; memory-only fit is insufficient"
@@ -632,7 +714,9 @@
         "VB_RAW_TIMING",
         "VB_RUN_VIDEO_MANIFEST"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_RUN_VIDEO_MANIFEST",
@@ -652,7 +736,7 @@
         "exact-identity Dense capture video allowed for quality after matching neutral receipt",
         "each record declares observation_mode and neutral receipt; instrumented timing never inherited as production timing"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "new currentQ1 and candidate videos; no new videos produced here"
@@ -664,7 +748,7 @@
         "VB_RAW_TIMING",
         "VB_VISUAL_REVIEW"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied.",
+      "next_action_to_prepare": [],
       "per_record_observation_contract": {
         "fields": [
           "arm",
@@ -677,7 +761,9 @@
         "Dense_capture_quality": "Allowed only if identity matches and neutral verification passes; production_timing_eligible=false.",
         "currentQ1_candidate": "No observer for the V5 free-trajectory/production comparison.",
         "plain_Dense": "Timing eligible only if actual production conditions match; no eligibility inferred from arm name alone."
-      }
+      },
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_RAW_METRICS",
@@ -692,7 +778,7 @@
         "not-applicable versus not-measured",
         "RAFT/window coverage"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "raw measurements; metric gap does not require video regeneration"
@@ -701,7 +787,9 @@
       "consumers": [
         "VB_DEV_DECISION"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_VISUAL_REVIEW",
@@ -715,7 +803,7 @@
         "source-level failure records",
         "review rubric and ordering"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "actual visual observations"
@@ -724,7 +812,9 @@
       "consumers": [
         "VB_DEV_DECISION"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_RAW_TIMING",
@@ -741,7 +831,7 @@
         "each extra inference counted",
         "profile separate identity"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "actual production times; fullDEV Dense and justified repeats conditional"
@@ -756,10 +846,12 @@
         "VB_DEV_DECISION",
         "VB_EVAL_CONTRACT"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied.",
+      "next_action_to_prepare": [],
       "additional_producers": [
         "TIMING"
-      ]
+      ],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_DEV_DECISION",
@@ -774,7 +866,7 @@
         "DEV is development not confirmation",
         "missing timing limits speed claim but does not erase quality evidence"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "new empirical decision"
@@ -790,7 +882,9 @@
         "V6",
         "VB_EVAL_CONTRACT"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_RESERVED_POOL",
@@ -814,7 +908,9 @@
         "V6",
         "VB_EVAL_CONTRACT"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_EVAL_CONTRACT",
@@ -832,7 +928,7 @@
         "uncertainty/multiplicity/outcome rules",
         "fit ancestors disjoint"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "selected N and exact margins not invented in this plan"
@@ -844,7 +940,9 @@
       "consumers": [
         "VB_EVAL_OUTPUTS"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "VB_EVAL_OUTPUTS",
@@ -857,14 +955,16 @@
         "frozen contract and actual RUN/EXIT",
         "historically exposed benchmark holdout, not historical blind test"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "all future fixed evaluation outputs"
       ],
       "runnable": false,
       "consumers": [],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "OD_WEIGHTS",
@@ -878,7 +978,7 @@
         "actual original scheduler/CFG for later state comparison",
         "not cross-architecture"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "original checkpoint mapping and consumer identity to recover/bind"
@@ -893,7 +993,9 @@
         "BWS_SUPPORT",
         "BW_REPLAY_FITS"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "BW_REPLAY_FITS",
@@ -910,7 +1012,7 @@
         "0 new full trajectories !=0 compute",
         "Each W has its own native targets/anchors Y_s^W=F_W(U_s),Y_t^W=F_W(U_t); never use W_D bankY as W_O target"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "paid replay/fit artifacts and actual operations"
@@ -922,7 +1024,9 @@
       "consumers": [
         "BW_READOUT"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "BW_READOUT",
@@ -936,14 +1040,16 @@
         "source-paired/expert-specific",
         "no total-distillation or architecture claim"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "conditional weight evidence"
       ],
       "runnable": false,
       "consumers": [],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "BWS_SUPPORT",
@@ -961,7 +1067,7 @@
         "fixedD4 reference gate",
         "no retrospective nearest matching"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "actual common endpoint support; absent support means UNIDENTIFIED and no automaticO40"
@@ -973,7 +1079,9 @@
         "BWS_O40",
         "BWS_READOUT"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "BWS_O40",
@@ -992,7 +1100,7 @@
         "all40 windows captured once, optional predefined intervals reused",
         "O40 cost separate from D4"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "max6 conditional native O40 captures; trigger only material remaining state ambiguity"
@@ -1001,7 +1109,9 @@
       "consumers": [
         "BWS_MIXED_FITS"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "BWS_MIXED_FITS",
@@ -1021,7 +1131,7 @@
         "no splice of BW CAL11 fits",
         "Native target and legal anchor replayed for each W and state cell; sharedG_ref does not imply shared target acrossW"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "mixed-state pilot parameters and per-task ancestry"
@@ -1030,7 +1140,9 @@
       "consumers": [
         "BWS_READOUT"
       ],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     },
     {
       "id": "BWS_READOUT",
@@ -1046,540 +1158,20 @@
         "three-source mechanism pilot",
         "nativeCFG/scheduler included inμO; no pure-step causal claim"
       ],
-      "payload_status": "PLANNED_NOT_PRODUCED",
+      "payload_status": "NOT_PRODUCED_NOT_REQUESTED",
       "locator": null,
       "missing": [
         "four-cell evidence or explicit UNIDENTIFIED"
       ],
       "runnable": false,
       "consumers": [],
-      "next_action_to_prepare": "Prepare producer only when its declared decision trigger and input identities are satisfied."
+      "next_action_to_prepare": [],
+      "production_requested": false,
+      "gaps_are_current_tasks": false
     }
   ],
-  "execution_queue": [
-    {
-      "id": "V0",
-      "purpose": "Prepare actual input binding, current-role adapter, panel512 and exact reuse table",
-      "requires": [],
-      "consumes": [
-        "VB_METADATA",
-        "VB_ARCHIVE",
-        "VB_SPLIT33",
-        "LEGACY_EVIDENCE"
-      ],
-      "produces": [
-        "VB_BOUND_INPUTS",
-        "VB_RECIPE",
-        "VB_PANEL512",
-        "VB_CAPTURE_CODE",
-        "VB_REUSE_MATCH"
-      ],
-      "design_status": "NEXT_ACTION_TO_PREPARE",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 0,
-      "next_action": "Prepare finite source-binding and producer scope; this plan is not dispatch-ready.",
-      "nonblocking": [
-        "historical exposure",
-        "old C1_NOT_BINDABLE",
-        "missing all-pool G0 inventory"
-      ]
-    },
-    {
-      "id": "V1",
-      "purpose": "Historical direction/amplitude and ICC actual-repair diagnostics",
-      "requires": [],
-      "consumes": [
-        "LEGACY_EVIDENCE"
-      ],
-      "produces": [
-        "LEGACY_LOCAL_DIAG"
-      ],
-      "design_status": "PARALLEL_PREPARATION_OPTIONAL",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 0,
-      "stop": "Finish bounded historical diagnosis; no positive repair required."
-    },
-    {
-      "id": "V2",
-      "purpose": "Shared CAL_A11/DEV11 paired512 Dense bank",
-      "requires": [
-        "V0"
-      ],
-      "consumes": [
-        "VB_BOUND_INPUTS",
-        "VB_RECIPE",
-        "VB_PANEL512",
-        "VB_CAPTURE_CODE",
-        "VB_REUSE_MATCH"
-      ],
-      "produces": [
-        "VB_NEUTRAL",
-        "VB_DENSE22"
-      ],
-      "design_status": "PLANNED_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 24,
-      "capture_conditions": 22,
-      "plain_neutral_max": 2,
-      "plain_neutral_ids": [
-        "vbi_1013",
-        "vbi_0800"
-      ],
-      "gate": "First two paired capture/plain neutral checks meet frozen criteria; capture remaining missing conditions only.",
-      "phases": [
-        {
-          "id": "V2_FIRST_TWO",
-          "parent_stage": "V2",
-          "produces": [
-            "VB_NEUTRAL"
-          ],
-          "requires_phases": [],
-          "runnable": false,
-          "execution_scope_id": null,
-          "budget_in_parent": "Two Dense capture conditions are part of22; max2 additional plain controls are included in parent24."
-        },
-        {
-          "id": "V2_FILL_MISSING",
-          "parent_stage": "V2",
-          "produces": [
-            "VB_DENSE22"
-          ],
-          "requires_phases": [
-            "V2_FIRST_TWO"
-          ],
-          "runnable": false,
-          "execution_scope_id": null,
-          "gate": "Continue remaining missing captures only after neutral receipts pass."
-        }
-      ]
-    },
-    {
-      "id": "V4",
-      "purpose": "CAL11 representation and row-density comparison before any source expansion",
-      "requires": [
-        "V2"
-      ],
-      "consumes": [
-        "VB_DENSE22"
-      ],
-      "produces": [
-        "VB_LOCAL_FITS",
-        "VB_SOURCE_DENSITY"
-      ],
-      "design_status": "PLANNED_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 0,
-      "models": [
-        "CURRENT_Q1",
-        "STABLE_FREE_LINEAR",
-        "L32",
-        "DELTA_N32",
-        "ENDPOINT_N32"
-      ],
-      "row_prefixes": [
-        256,
-        512
-      ],
-      "sites": [
-        "high04",
-        "high19",
-        "high34",
-        "low04",
-        "low19",
-        "low34"
-      ],
-      "required_capacity_control": "L64/Q32 before promoting N on the basis of N>L32, even if N also beats DELTA_N.",
-      "decision": "Choose one purpose-specific candidate, stop current variant, or trigger a named remaining source/structure/state ambiguity."
-    },
-    {
-      "id": "V3",
-      "purpose": "Conditional source breadth at fixed rows and density extension",
-      "requires": [
-        "V4"
-      ],
-      "consumes": [
-        "VB_DENSE22",
-        "VB_LOCAL_FITS",
-        "VB_SOURCE_DENSITY"
-      ],
-      "produces": [
-        "VB_DENSE_CALB11",
-        "VB_LOCAL_FITS",
-        "VB_SOURCE_DENSITY"
-      ],
-      "design_status": "CONDITIONAL_ON_DECISION_RELEVANT_BREADTH",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 11,
-      "trigger": [
-        "a claim about source breadth requires measurement",
-        "CAL fits/DEV failure with breadth versus capacity unresolved",
-        "learning curve changes next concrete method/resource choice"
-      ],
-      "primary": "paired absolute MSE per fixed method on sameDEV512; 22x256 versus11x512 holds total5632 rows",
-      "not_trigger": [
-        "solver/target/cache errors",
-        "single DEV-source dominance alone",
-        "automatic quota fulfillment"
-      ]
-    },
-    {
-      "id": "V4D",
-      "purpose": "Export and reload both current Q1 and one selected candidate all80",
-      "requires": [
-        "V4"
-      ],
-      "consumes": [
-        "VB_DENSE22",
-        "VB_LOCAL_FITS"
-      ],
-      "produces": [
-        "VB_Q1_ALL80",
-        "VB_CANDIDATE_ALL80",
-        "VB_DEPLOYMENT_CHECK"
-      ],
-      "design_status": "CONDITIONAL_ON_CONCRETE_CANDIDATE_PURPOSE",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 0,
-      "optional_requires": [
-        "V3"
-      ],
-      "candidate_purposes": [
-        "QUALITY_REPAIR",
-        "SPEED_TRADEOFF",
-        "MECHANISM_PROBE"
-      ],
-      "gate": "Actual files closed and reloaded by real consumer; all80/SHA/dtype/prediction/cache checks pass; no silent legacyQ1 substitution."
-    },
-    {
-      "id": "V5",
-      "purpose": "One candidate free trajectories, separately reusable quality and production time",
-      "requires": [
-        "V4D"
-      ],
-      "consumes": [
-        "VB_DEPLOYMENT_CHECK",
-        "VB_DENSE22"
-      ],
-      "produces": [
-        "VB_RUN_VIDEO_MANIFEST",
-        "VB_RAW_METRICS",
-        "VB_VISUAL_REVIEW",
-        "VB_RAW_TIMING",
-        "VB_DEV_DECISION"
-      ],
-      "design_status": "CONDITIONAL_ON_CONCRETE_VIDEO_QUESTION",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 22,
-      "decision": "Quality/motion and timing limit separate claims; no improvement => bounded failure; state/propagation branches only as needed.",
-      "phases": [
-        {
-          "id": "V5_RUNS",
-          "parent_stage": "V5",
-          "produces": [
-            "VB_RUN_VIDEO_MANIFEST",
-            "VB_RAW_TIMING"
-          ],
-          "requires_phases": [],
-          "runnable": false,
-          "execution_scope_id": null
-        },
-        {
-          "id": "V5_METRICS",
-          "parent_stage": "V5",
-          "produces": [
-            "VB_RAW_METRICS"
-          ],
-          "requires_phases": [
-            "V5_RUNS"
-          ],
-          "runnable": false,
-          "execution_scope_id": null,
-          "new_generation_requirement": "None if matching videos exist; metrics may be recomputed independently."
-        },
-        {
-          "id": "V5_VISUAL",
-          "parent_stage": "V5",
-          "produces": [
-            "VB_VISUAL_REVIEW"
-          ],
-          "requires_phases": [
-            "V5_RUNS"
-          ],
-          "runnable": false,
-          "execution_scope_id": null
-        },
-        {
-          "id": "V5_DECIDE",
-          "parent_stage": "V5",
-          "produces": [
-            "VB_DEV_DECISION"
-          ],
-          "requires_phases": [
-            "V5_METRICS",
-            "V5_VISUAL"
-          ],
-          "runnable": false,
-          "execution_scope_id": null
-        }
-      ]
-    },
-    {
-      "id": "BW_PREPARE",
-      "purpose": "Bind original/distilled FFN modules and actual original recipe before replay",
-      "requires": [
-        "V0"
-      ],
-      "consumes": [
-        "LEGACY_EVIDENCE",
-        "VB_BOUND_INPUTS",
-        "VB_RECIPE"
-      ],
-      "produces": [
-        "OD_WEIGHTS"
-      ],
-      "design_status": "PREPARATION_ONLY_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 0,
-      "max_new_O40_full_executions": 0,
-      "next_action": "Recover exact checkpoints/module/bias/dtype/SHA; no implicit old-weight substitution."
-    },
-    {
-      "id": "BW",
-      "purpose": "Conditional FFN weight effect at fixed D4 states",
-      "requires": [
-        "V2",
-        "BW_PREPARE"
-      ],
-      "consumes": [
-        "VB_DENSE22",
-        "OD_WEIGHTS"
-      ],
-      "produces": [
-        "BW_REPLAY_FITS",
-        "BW_READOUT"
-      ],
-      "design_status": "PARALLEL_ATTRIBUTION_INDEPENDENT_OF_V4_SUCCESS",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 0,
-      "does_not_require": [
-        "winning candidate",
-        "V4D",
-        "V5"
-      ],
-      "fit": "eachW sameCAL11x512; matching W_D fit reuse allowed",
-      "cost": "0 new complete trajectories; native FFN replay/fit compute separately budgeted"
-    },
-    {
-      "id": "BWS_PREPARE",
-      "purpose": "Resolve native noise/expert/endpoint support before any O40 scope",
-      "requires": [
-        "BW"
-      ],
-      "consumes": [
-        "OD_WEIGHTS",
-        "VB_BOUND_INPUTS",
-        "VB_RECIPE",
-        "VB_PANEL512"
-      ],
-      "produces": [
-        "BWS_SUPPORT"
-      ],
-      "design_status": "PREPARATION_ONLY_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 0,
-      "max_new_O40_full_executions": 0,
-      "gate": "Remaining state ambiguity matters; no common legal support means UNIDENTIFIED and no O40."
-    },
-    {
-      "id": "BWS",
-      "purpose": "Common-support weight×state mechanism pilot only if ambiguity remains",
-      "requires": [
-        "BWS_PREPARE"
-      ],
-      "consumes": [
-        "BWS_SUPPORT",
-        "VB_DENSE22",
-        "OD_WEIGHTS"
-      ],
-      "produces": [
-        "BWS_O40",
-        "BWS_MIXED_FITS",
-        "BWS_READOUT"
-      ],
-      "design_status": "CONDITIONAL_ON_COMMON_SUPPORT_AND_MATERIAL_STATE_QUESTION",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": 0,
-      "max_new_O40_full_executions": 6,
-      "cal_ids": [
-        "vbi_1005",
-        "vbi_0895",
-        "vbi_0648"
-      ],
-      "dev_ids": [
-        "vbi_1013",
-        "vbi_0886",
-        "vbi_0800"
-      ],
-      "fit": "EachW once per matched task on CAL3;D256+O256/source; all four DEV cells samefit; DEV512.",
-      "stop": "No common endpoint/noise/expert support =>UNIDENTIFIED, no nearest-match substitution."
-    },
-    {
-      "id": "V6",
-      "purpose": "Fixed within-VBench evaluation after methods and criteria frozen",
-      "requires": [
-        "V5"
-      ],
-      "consumes": [
-        "VB_RESERVED_POOL",
-        "VB_DEV_DECISION",
-        "VB_DEPLOYMENT_CHECK"
-      ],
-      "produces": [
-        "VB_EVAL_CONTRACT",
-        "VB_EVAL_OUTPUTS"
-      ],
-      "design_status": "SCOPE_AND_MARGINS_TO_FREEZE_BEFORE_RESERVE_OUTPUTS",
-      "execution_scope_id": null,
-      "runnable": false,
-      "max_new_D4_full_executions": null,
-      "gate": "Claim-specific concrete contract including required baseline identities and numeric justified margins; otherwise descriptive only.",
-      "phases": [
-        {
-          "id": "V6_PREPARE",
-          "parent_stage": "V6",
-          "produces": [
-            "VB_EVAL_CONTRACT"
-          ],
-          "requires_phases": [],
-          "runnable": false,
-          "execution_scope_id": null
-        },
-        {
-          "id": "V6_EXECUTE",
-          "parent_stage": "V6",
-          "produces": [
-            "VB_EVAL_OUTPUTS"
-          ],
-          "requires_phases": [
-            "V6_PREPARE"
-          ],
-          "runnable": false,
-          "execution_scope_id": null,
-          "gate": "Contract frozen before any reserve method output; concrete execution separately approved."
-        }
-      ]
-    }
-  ],
-  "conditional_branches": [
-    {
-      "id": "ICC",
-      "inputs": [
-        "LEGACY_EVIDENCE",
-        "VB_DENSE22"
-      ],
-      "trigger": "Four-cell repair matters to current explanation or claimed comparison",
-      "action": "Bound actual operands and four-cell risk; one justified structure change; no default rank grid",
-      "blocks_other_lines": false,
-      "design_status": "CONDITIONAL_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false
-    },
-    {
-      "id": "CHIP",
-      "inputs": [
-        "LEGACY_EVIDENCE",
-        "VB_DENSE22"
-      ],
-      "trigger": "Claim requires faithful Chipmunk comparator",
-      "action": "Bind author implementation and exact fullM group stats/masks; sparse-row mean is not equivalent",
-      "missing_assets": [
-        "faithful selector identity",
-        "fullM statistics/masks"
-      ],
-      "blocks_other_lines": false,
-      "design_status": "CONDITIONAL_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false
-    },
-    {
-      "id": "STATE",
-      "inputs": [
-        "VB_DEV_DECISION"
-      ],
-      "trigger": "Candidate own-state local failure plausibly explains trajectory loss",
-      "action": "Only current CAL candidate-state capture plus paid native targets; refit and newly version candidate",
-      "missing_assets": [
-        "candidate CAL bank",
-        "paid native shadow targets"
-      ],
-      "included_in_D4_base_budget": false,
-      "design_status": "CONDITIONAL_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false
-    },
-    {
-      "id": "PROPAGATION",
-      "inputs": [
-        "VB_DEV_DECISION"
-      ],
-      "trigger": "Own-state local quality good but terminal quality bad",
-      "action": "Finite same-parent full-site intervention/suffix; preserve legal candidate anchor/cache",
-      "missing_assets": [
-        "full-site typed writeback",
-        "suffix restore state"
-      ],
-      "included_in_D4_base_budget": false,
-      "design_status": "CONDITIONAL_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false
-    },
-    {
-      "id": "ATTENTION",
-      "inputs": [
-        "VB_DEPLOYMENT_CHECK"
-      ],
-      "trigger": "Claim requires strong matched system background",
-      "action": "Bind actual implementation, Dense/Q1/candidate; distinguish fixed-FFN transfer from same-background CAL refit",
-      "missing_assets": [
-        "strong background code/parameters/recipe",
-        "matched videos and production timings"
-      ],
-      "included_in_D4_base_budget": false,
-      "design_status": "CONDITIONAL_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false
-    },
-    {
-      "id": "TIMING",
-      "inputs": [
-        "VB_RAW_TIMING",
-        "VB_RUN_VIDEO_MANIFEST"
-      ],
-      "trigger": "Dense speed comparison or precision is needed",
-      "action": "Supplement only missing uninstrumented timing and justified technical repetitions; preserve usable video/metrics",
-      "extra_Dense_for_fullDEV": {
-        "two_eligible_neutrals": 9,
-        "one_eligible_neutral": 10,
-        "zero_eligible_neutrals": 11
-      },
-      "profiling_separate": true,
-      "included_in_D4_base_budget": false,
-      "design_status": "CONDITIONAL_NOT_AUTHORIZED",
-      "execution_scope_id": null,
-      "runnable": false
-    }
-  ],
+  "execution_queue": [],
+  "conditional_branches": [],
   "stage_estimands": {
     "V3": {
       "primary": "Per-source paired absolute gated MSE difference for same method family on sameDEV512; source/expert equal aggregation",
@@ -1649,61 +1241,23 @@
     }
   },
   "budget": {
+    "scope": "Remaining computation under revision 3; not historical incurred cost",
+    "new_jobs": 0,
+    "new_D4_full_executions": 0,
+    "new_O40_full_executions": 0,
+    "new_video_generations": 0,
     "new_source_pair_quota": 0,
-    "selected_official_conditions": 33,
-    "CAL_A": 11,
-    "CAL_B_reserved": 11,
-    "DEV": 11,
-    "D4": {
-      "initial_capture_conditions": 22,
-      "extra_neutral_max": 2,
-      "extension_capture_if_triggered": 11,
-      "newQ1_plus_one_candidate_DEV": 22,
-      "base_without_CAL_extension": 46,
-      "base_with_CAL_extension": 57,
-      "fullDEV_Dense_timing_extra": {
-        "2eligible": 9,
-        "1eligible": 10,
-        "0eligible": 11
-      },
-      "with_extension_and_fullDEV_three_arm_firstpass_timing": {
-        "2eligible": 66,
-        "1eligible": 67,
-        "0eligible": 68
-      },
-      "each_complete_inference_counts_even_without_new_mp4": true,
-      "repeats_profiles_other_candidates": "separately frozen, not automatic"
+    "selection_preserved_not_a_run_quota": {
+      "official_conditions": 33,
+      "CAL_A": 11,
+      "CAL_B_reserved": 11,
+      "DEV": 11
     },
-    "storage_GiB_pure_UY": {
-      "D4_per_trajectory": 1.5625,
-      "D4_initial22": 34.375,
-      "D4_extended33": 51.5625,
-      "O40_conditional3layers_perstep": 1.171875,
-      "O40_max6": 7.03125
+    "old_budget_reference": {
+      "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+      "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json#/budget"
     },
-    "BW": {
-      "new_full_trajectories": 0,
-      "compute_cost": "nativeFFN replay and fitting still paid"
-    },
-    "BWS": {
-      "max_O40_trajectories": 6,
-      "max_scheduler_steps": 240,
-      "conditional_on_two_equivalent_CFG_forwards_branch_steps": 480,
-      "rough_D4_step_equivalent": 120,
-      "not_walltime_estimate": true,
-      "not_in_D4_57": true,
-      "actual_CFG_batching_replay_fit_time_required": true
-    },
-    "excluded_from_base": [
-      "V6",
-      "O40",
-      "ownCALstate/native shadows",
-      "suffix interventions",
-      "Attentionbackground changes",
-      "extra candidate",
-      "technical repeats/profiling",
-      "offline fits and metrics as generation counts"
-    ]
+    "old_budgets_inherited": false
   },
   "reuse_policy": {
     "judge_separately": [
@@ -1715,13 +1269,18 @@
     "old_independent2048_not_new512_panel": true,
     "old_fixed2048_stratified_tau_not_uniform512": true,
     "metric_gap_does_not_require_new_video": true,
-    "timing_gap_does_not_invalidate_quality": true
+    "timing_gap_does_not_invalidate_quality": true,
+    "no_rerun_to_fill_publication_gaps": true,
+    "new_vbench_q1_video_baseline_automatically_required": false,
+    "historical_q1_video_evidence_keeps_original_identity": true
   },
   "governance": {
     "new_active_runnable_scopes_added": 0,
     "new_jobs_dispatched": 0,
     "independent_design_review_is_execution_approval": false,
-    "concrete_scopes_require_repo_preexecution_workflow": true
+    "concrete_scopes_require_repo_preexecution_workflow": true,
+    "counts_are_for_this_plan_change": true,
+    "current_active_computational_queue_count": 0
   },
   "preservation": {
     "frozen_reports_modified": false,
@@ -1730,45 +1289,411 @@
     "selected33_records_and_roles_changed": false,
     "existing_actual_ACTIVE_scopes_changed": false
   },
+  "historical_plan": {
+    "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+    "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+    "revision": 2,
+    "includes": [
+      "prior execution_queue",
+      "prior conditional_branches",
+      "prior budgets"
+    ]
+  },
+  "stage_records": [
+    {
+      "id": "V0",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REPORTED_COMPLETE_EXIT_0_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "produces": [
+        "VB_BOUND_INPUTS",
+        "VB_RECIPE",
+        "VB_PANEL512",
+        "VB_CAPTURE_CODE",
+        "VB_REUSE_MATCH"
+      ],
+      "note": "Input binding + uniform PANEL512; landscape crop/16-9 rebind per user 2026-11-13. Binding/verification credentials publication still pending.",
+      "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
+      "evidence_basis": {
+        "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+        "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+        "json_pointer": "/execution_status_20261114/stages/V0",
+        "evidence_level": "PROGRESS_RECORD_NOT_RAW_RECEIPTS"
+      }
+    },
+    {
+      "id": "V1",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REPORTED_COMPLETE_EXIT_0_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "job": 161235,
+      "produces": [
+        "LEGACY_LOCAL_DIAG"
+      ],
+      "note": "Progress summary reports old-bank a>0 and eta*~0.25. Raw per-source diagnosis not publicly read back here; this is not a new-V4 amplitude result.",
+      "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
+      "evidence_basis": {
+        "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+        "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+        "json_pointer": "/execution_status_20261114/stages/V1",
+        "evidence_level": "PROGRESS_RECORD_NOT_RAW_RECEIPTS"
+      }
+    },
+    {
+      "id": "V2",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REPORTED_COMPLETE_EXIT_0_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+      "job": 161964,
+      "produces": [
+        "VB_NEUTRAL",
+        "VB_DENSE22"
+      ],
+      "bank_verify": "PASS 31/31",
+      "bank_manifest_sha256": "f6f8e100da6f75b2db612edd8c8c4d21729ed9bf99bfb5092941f2381a4d0bee",
+      "note": "VB_DENSE22 bank landed; binding/verification credentials publication still pending.",
+      "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
+      "evidence_basis": {
+        "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+        "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+        "json_pointer": "/execution_status_20261114/stages/V2",
+        "evidence_level": "PROGRESS_RECORD_NOT_RAW_RECEIPTS"
+      }
+    },
+    {
+      "id": "V4",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "COMPLETE_PUBLIC_EVIDENCE",
+      "job": 163279,
+      "elapsed_seconds": 1122.250821,
+      "produces": [
+        "VB_LOCAL_FITS",
+        "VB_SOURCE_DENSITY"
+      ],
+      "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
+      "independent_review": "APPROVE/APPROVE (reviewer qoder_independent_reviewer_g20_v4_rev2final_20261114)",
+      "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
+      "new_D4_full_executions": 0,
+      "note": "Formal VB_SOURCE_DENSITY byte-identical to reviewer full run (job 163050).",
+      "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
+      "evidence_basis": "reports/20261114/g20_v4_repr_density/README.md"
+    },
+    {
+      "id": "V3",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "No decision requires CAL22 or another source-density grid."
+    },
+    {
+      "id": "V4D",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "No promoted candidate consumes full80/export/reload; Q1 historical evidence remains valid in its own identity."
+    },
+    {
+      "id": "V5",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "No promoted candidate justifies new video cost."
+    },
+    {
+      "id": "BW_PREPARE",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "No current thesis decision requests a weight-attribution study."
+    },
+    {
+      "id": "BW",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "A-line failure does not automatically start B-W."
+    },
+    {
+      "id": "BWS_PREPARE",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "No automatic B-W to state/interval extension."
+    },
+    {
+      "id": "BWS",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "No current state/interval claim requires O40."
+    },
+    {
+      "id": "V6",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "No new frozen deployable candidate or evaluation claim."
+    },
+    {
+      "id": "ICC",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "A missing explanation for a rejected candidate is not by itself a decision-relevant experiment."
+    },
+    {
+      "id": "CHIP",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "A missing explanation for a rejected candidate is not by itself a decision-relevant experiment."
+    },
+    {
+      "id": "STATE",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "A missing explanation for a rejected candidate is not by itself a decision-relevant experiment."
+    },
+    {
+      "id": "PROPAGATION",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "A missing explanation for a rejected candidate is not by itself a decision-relevant experiment."
+    },
+    {
+      "id": "ATTENTION",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "A missing explanation for a rejected candidate is not by itself a decision-relevant experiment."
+    },
+    {
+      "id": "TIMING",
+      "scheduled": false,
+      "runnable": false,
+      "execution_scope_id": null,
+      "next_action_to_prepare": [],
+      "status": "REMOVED_FROM_CURRENT_PLAN",
+      "disposition": "NOT_SCHEDULED_NO_AUTOMATIC_SUCCESSOR",
+      "reason": "A missing explanation for a rejected candidate is not by itself a decision-relevant experiment."
+    }
+  ],
+  "asset_graph_semantics": "inputs/producer/consumers encode provenance and possible reuse contracts, not execution requests. Only execution_queue schedules preparation; it is empty. Missing payloads without a consumer are not obligations.",
+  "unproduced_not_requested_asset_ids": [
+    "VB_DENSE_CALB11",
+    "VB_Q1_ALL80",
+    "VB_CANDIDATE_ALL80",
+    "VB_DEPLOYMENT_CHECK",
+    "VB_RUN_VIDEO_MANIFEST",
+    "VB_RAW_METRICS",
+    "VB_VISUAL_REVIEW",
+    "VB_RAW_TIMING",
+    "VB_DEV_DECISION",
+    "VB_EVAL_CONTRACT",
+    "VB_EVAL_OUTPUTS",
+    "OD_WEIGHTS",
+    "BW_REPLAY_FITS",
+    "BW_READOUT",
+    "BWS_SUPPORT",
+    "BWS_O40",
+    "BWS_MIXED_FITS",
+    "BWS_READOUT"
+  ],
+  "stage_estimands_status": "REFERENCE_CONTRACTS_ONLY_NOT_CURRENT_TASKS; the executed V4 frozen scope remains authoritative for its actual estimand.",
+  "reopening_policy": {
+    "automatic_triggers": [],
+    "requires": "A concrete method choice or scientific claim whose disposition differs under competing outcomes; use existing evidence first; one bounded proposal with a stop rule.",
+    "reference": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md#4-如何重新开启一项研究",
+    "no_implicit_eta_or_bw_backlog": true
+  },
   "execution_status_20261114": {
-    "record_type": "ADDITIVE_EXECUTION_OVERLAY_DESIGN_FIELDS_UNCHANGED",
+    "record_type": "EXECUTED_EVIDENCE_RECORD_NOT_A_CURRENT_QUEUE",
     "date": "2026-11-14",
     "report": "reports/20261114/g20_v4_repr_density/README.md",
-    "note": "Actual executed state synced per user 2026-11-14. The design fields above (payload_status/design_status) remain the frozen rev2 design intent; this overlay records what was actually produced. No new runnable scope or dispatch is added by this overlay.",
+    "note": "Retained numerical result/errata from prior progress record; current stage_records and assets now reflect evidence availability. Historical plan fields were replaced in revision 3.",
     "stages": {
-      "V0": {"status": "COMPLETE_EXIT_0", "produces": ["VB_BOUND_INPUTS", "VB_RECIPE", "VB_PANEL512", "VB_CAPTURE_CODE", "VB_REUSE_MATCH"], "note": "Input binding + uniform PANEL512; landscape crop/16-9 rebind per user 2026-11-13. Binding/verification credentials publication still pending."},
-      "V1": {"status": "COMPLETE_EXIT_0", "job": 161235, "produces": ["LEGACY_LOCAL_DIAG"], "note": "H_overshoot confirmed (a>0, eta*~0.25); over-amplitude not direction."},
-      "V2": {"status": "COMPLETE_EXIT_0", "job": 161964, "produces": ["VB_NEUTRAL", "VB_DENSE22"], "bank_verify": "PASS 31/31", "bank_manifest_sha256": "f6f8e100da6f75b2db612edd8c8c4d21729ed9bf99bfb5092941f2381a4d0bee", "note": "VB_DENSE22 bank landed; binding/verification credentials publication still pending."},
-      "V4": {"status": "COMPLETE_EXIT_0", "job": 163279, "elapsed_seconds": 1122.250821, "produces": ["VB_LOCAL_FITS", "VB_SOURCE_DENSITY"], "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7", "independent_review": "APPROVE/APPROVE (reviewer qoder_independent_reviewer_g20_v4_rev2final_20261114)", "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4", "new_D4_full_executions": 0, "note": "Formal VB_SOURCE_DENSITY byte-identical to reviewer full run (job 163050)."}
+      "V0": {
+        "id": "V0",
+        "scheduled": false,
+        "runnable": false,
+        "execution_scope_id": null,
+        "next_action_to_prepare": [],
+        "status": "REPORTED_COMPLETE_EXIT_0_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+        "produces": [
+          "VB_BOUND_INPUTS",
+          "VB_RECIPE",
+          "VB_PANEL512",
+          "VB_CAPTURE_CODE",
+          "VB_REUSE_MATCH"
+        ],
+        "note": "Input binding + uniform PANEL512; landscape crop/16-9 rebind per user 2026-11-13. Binding/verification credentials publication still pending.",
+        "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
+        "evidence_basis": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V0",
+          "evidence_level": "PROGRESS_RECORD_NOT_RAW_RECEIPTS"
+        }
+      },
+      "V1": {
+        "id": "V1",
+        "scheduled": false,
+        "runnable": false,
+        "execution_scope_id": null,
+        "next_action_to_prepare": [],
+        "status": "REPORTED_COMPLETE_EXIT_0_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+        "job": 161235,
+        "produces": [
+          "LEGACY_LOCAL_DIAG"
+        ],
+        "note": "Progress summary reports old-bank a>0 and eta*~0.25. Raw per-source diagnosis not publicly read back here; this is not a new-V4 amplitude result.",
+        "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
+        "evidence_basis": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V1",
+          "evidence_level": "PROGRESS_RECORD_NOT_RAW_RECEIPTS"
+        }
+      },
+      "V2": {
+        "id": "V2",
+        "scheduled": false,
+        "runnable": false,
+        "execution_scope_id": null,
+        "next_action_to_prepare": [],
+        "status": "REPORTED_COMPLETE_EXIT_0_RAW_CREDENTIALS_NOT_FULLY_PUBLIC",
+        "job": 161964,
+        "produces": [
+          "VB_NEUTRAL",
+          "VB_DENSE22"
+        ],
+        "bank_verify": "PASS 31/31",
+        "bank_manifest_sha256": "f6f8e100da6f75b2db612edd8c8c4d21729ed9bf99bfb5092941f2381a4d0bee",
+        "note": "VB_DENSE22 bank landed; binding/verification credentials publication still pending.",
+        "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
+        "evidence_basis": {
+          "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+          "path": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+          "json_pointer": "/execution_status_20261114/stages/V2",
+          "evidence_level": "PROGRESS_RECORD_NOT_RAW_RECEIPTS"
+        }
+      },
+      "V4": {
+        "id": "V4",
+        "scheduled": false,
+        "runnable": false,
+        "execution_scope_id": null,
+        "next_action_to_prepare": [],
+        "status": "COMPLETE_PUBLIC_EVIDENCE",
+        "job": 163279,
+        "elapsed_seconds": 1122.250821,
+        "produces": [
+          "VB_LOCAL_FITS",
+          "VB_SOURCE_DENSITY"
+        ],
+        "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
+        "independent_review": "APPROVE/APPROVE (reviewer qoder_independent_reviewer_g20_v4_rev2final_20261114)",
+        "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
+        "new_D4_full_executions": 0,
+        "note": "Formal VB_SOURCE_DENSITY byte-identical to reviewer full run (job 163050).",
+        "disposition": "COMPLETED_PRESERVE_DO_NOT_REPEAT",
+        "evidence_basis": "reports/20261114/g20_v4_repr_density/README.md"
+      }
     },
     "assets_produced": {
       "VB_DENSE22": "PRODUCED (V2 job 161964; bank verify PASS 31/31)",
-      "VB_LOCAL_FITS": "PRODUCED_FITS_ONLY: full alpha_Q0/alpha_Q1 arrays (13824 finite each); P/Q SHA256 only; readout C norms/dims/diagnostics only; free D norms/rank/certificates only. Full candidate-predictor export (P/Q/C/D matrices) + close/reload/consumer acceptance PENDING (V4D).",
-      "VB_SOURCE_DENSITY": "PRODUCED (six-site primary table; all-80 is separate pre-registered V4D table)"
+      "VB_LOCAL_FITS": "PUBLIC_FIT_RECORD_ONLY: full alpha_Q0/alpha_Q1; P/Q hashes, C/D norms/diagnostics. Complete candidate predictor not exported and not requested.",
+      "VB_SOURCE_DENSITY": "PUBLIC_SIX_SITE_RESULT; no all80 table requested."
     },
     "v4_result_bounded": {
-      "primary_relative_r_vs_Q1_256": {"CURRENT_Q1": 0.0, "STABLE_FREE_LINEAR": 1.59851, "L32": 0.04991, "DELTA_N32": 0.04872, "ENDPOINT_N32": 0.04607, "L64_Q32": 0.03883},
+      "primary_relative_r_vs_Q1_256": {
+        "CURRENT_Q1": 0.0,
+        "STABLE_FREE_LINEAR": 1.59851,
+        "L32": 0.04991,
+        "DELTA_N32": 0.04872,
+        "ENDPOINT_N32": 0.04607,
+        "L64_Q32": 0.03883
+      },
       "ranking": "Q1 best; constrained readouts WORSE than Q1 by 3.88%-5.52%; among constrained L64_Q32 closest to Q1, then ENDPOINT_N32 < DELTA_N32 < L32.",
-      "same_method_absolute_density_256_to_512_pct": {"CURRENT_Q1": -0.884, "STABLE_FREE_LINEAR": 20.603, "L32": -0.385, "DELTA_N32": -0.332, "ENDPOINT_N32": -0.443, "L64_Q32": -0.579},
-      "absolute_density_improve_sources": {"CURRENT_Q1": "11/11", "STABLE_FREE_LINEAR": "0/11", "L32": "9/11", "DELTA_N32": "9/11", "ENDPOINT_N32": "10/11", "L64_Q32": "10/11"},
+      "same_method_absolute_density_256_to_512_pct": {
+        "CURRENT_Q1": -0.884,
+        "STABLE_FREE_LINEAR": 20.603,
+        "L32": -0.385,
+        "DELTA_N32": -0.332,
+        "ENDPOINT_N32": -0.443,
+        "L64_Q32": -0.579
+      },
+      "absolute_density_improve_sources": {
+        "CURRENT_Q1": "11/11",
+        "STABLE_FREE_LINEAR": "0/11",
+        "L32": "9/11",
+        "DELTA_N32": "9/11",
+        "ENDPOINT_N32": "10/11",
+        "L64_Q32": "10/11"
+      },
       "interpretation": "Q1 and all four constrained models improve in absolute DEV MSE with more CAL rows; Q1 improves most; free-linear worsens (overfit). source_density_delta (delta r) measures gap-to-Q1 change, not absolute effectiveness.",
-      "mechanism_bounds": "Free uses Q1 base, constrained use Q0 base (base confound); L64 matched-capacity linear beats ENDPOINT_N32 on 11/11 sources (capacity confound). No causal endpoint-information or degrees-of-freedom-overfit claim supported.",
-      "quality_metrics": "NOT_MEASURED", "performance_comparison": "NOT_BENCHMARKED"
+      "mechanism_bounds": "Free uses Q1 base, constrained use Q0 base; cross-family attribution is confounded. L64 matches readout parameter count, not total feature/cost capacity, and beats Endpoint on 11/11 DEV sources. No unique endpoint-information or degrees-of-freedom causal claim follows.",
+      "quality_metrics": "NOT_MEASURED",
+      "performance_comparison": "NOT_BENCHMARKED"
     },
     "doc_rev2_corrections": {
-      "floor": "Published floor = mean_CAL ||BF16_replay_prediction - gated_dense_target||^2/(n*D) = total replay-vs-dense error (model + rounding), NOT pure BF16 rounding noise. floor/R_Q1,CAL in [0.99936,1.00043]. The 11/11 q1_denominator_below_floor flag is an artifact of this inflated floor; 'unmeasurable' claim RETRACTED as stated. Correct rounding floor = ||BF16_replay - FP32_math_prediction||^2; recompute pending V4D/correction scope.",
+      "floor": "Published floor is total BF16 replay-vs-dense error (model + rounding), not pure rounding noise. The 11/11 unmeasurable claim is retracted in the report. No standalone recomputation is scheduled; a future chosen predictor would include an actual BF16-vs-math check in its own deployment comparison.",
       "q1_certificate_field": "certificate=CERTIFICATE_UNRESOLVED is a hardcoded placeholder in verbatim R2 q1_fit_core.py:65, not a solve failure. Operative certificate: status=CONVERGED + true_relative_residual<1e-5 (max 9.82e-6).",
       "review_direction_erratum": "INDEPENDENT_REVIEW.json OBS-1 'IMPROVE 3.88%-5.52%' should read 'WORSE than Q1 by 3.88%-5.52%'; OBS-3 'relative gain shrinks' should read 'relative loss grows'. Review APPROVE on code/math/binding unaffected; review JSON preserved unchanged, erratum in report README 5.3."
     },
-    "open_items": [
-      "V4D purpose clarification: Q1 full-80 deployment chain vs advancing a new candidate (if new, justify candidate + question).",
-      "Full candidate parameter export (P/Q/C/D) + close/reload/consumer acceptance.",
-      "Correct pure-BF16 rounding floor recompute.",
-      "V0/V2 binding and verification credentials publication.",
-      "All-80 site table (separate V4D)."
-    ],
     "no_cal22_expansion_or_new_pairs_warranted_by_current_evidence": true,
     "new_runnable_scopes_added": 0,
-    "new_jobs_dispatched_by_this_overlay": 0
+    "new_jobs_dispatched_by_this_overlay": 0,
+    "current_open_tasks": []
   }
 }

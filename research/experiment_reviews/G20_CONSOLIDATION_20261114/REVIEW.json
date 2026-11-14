@@ -1,0 +1,107 @@
+{
+  "schema": "FFNDS_DESIGN_CONSOLIDATION_REVIEW_V1",
+  "date": "2026-11-14",
+  "base_commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
+  "user_request": "请进行收束：有些实验完全没有意义。",
+  "scope": "Document and planning consolidation only; no model, fit, replay, capture, video or cluster experiment.",
+  "author": "/root",
+  "author_self_review": {
+    "disposition": "APPROVE",
+    "decision": "Close current representation search; zero new computation is a completed outcome.",
+    "checks": [
+      "Current queue, conditional branches, next-experiment and acquisition order empty.",
+      "Unresolved science is preserved as bounded uncertainty without scheduling new tasks.",
+      "Asset availability distinguishes published V4, reported V0/V1/V2 and unproduced-not-requested payloads.",
+      "ACTIVE and ACQUISITION edits confined to g20_vbench_restart_v4_20261113; all other raw text unchanged.",
+      "No frozen reports, code, source inputs, cohort selection or actual execution scopes changed."
+    ]
+  },
+  "independent_reviews": [
+    {
+      "reviewer": "/root/prune_science",
+      "coverage": [
+        "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+        "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
+        "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json"
+      ],
+      "disposition": "APPROVE",
+      "recheck": "APPROVE",
+      "blocking_findings": [],
+      "findings_resolved": [
+        "Linear branches can fold; stop rationale does not presume added online linear readout cost.",
+        "CAL empirical error description does not imply adequate sample size or capacity.",
+        "Q1 solve certificate includes CONVERGED and true relative residual <1e-5.",
+        "V0/V1/V2 reported evidence points to exact prior commit/path/JSON pointer, not raw receipts."
+      ],
+      "conclusion": "No implicit eta/B-W successor; bounded negative evidence supports closing the tested family."
+    },
+    {
+      "reviewer": "/root/prune_navigation",
+      "coverage": [
+        "AGENTS.md",
+        "README.md",
+        "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
+        "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
+        "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
+        "research/20261113/README.md",
+        "research/ACTIVE_RESEARCH.json",
+        "research/RESEARCH_NAVIGATION.md",
+        "research/agent_protocol/ACQUISITION_QUEUE_20261029.json",
+        "research/agent_protocol/CURRENT_CONTEXT_PACKET.md"
+      ],
+      "disposition": "APPROVE",
+      "recheck": "APPROVE",
+      "blocking_findings": [],
+      "checks": [
+        "All current queues and next fields empty; preparation and production booleans false.",
+        "Four current entry blocks agree; historical Next/Run/P0 do not override current empty queue.",
+        "33 asset identities and provenance edges preserved; dependency graph is not a schedule.",
+        "Only the two designated global planning values changed; other text byte-identical.",
+        "Final revised source pointers resolve in the exact base snapshot; other seven file hashes unchanged."
+      ]
+    },
+    {
+      "reviewer": "/root/prune_goal_check",
+      "coverage": [
+        "research/20261113/G20_VBENCH_RESTART_V4_20261113.md"
+      ],
+      "disposition": "APPROVE",
+      "recheck": "APPROVE",
+      "blocking_findings": [],
+      "findings_resolved": [
+        "Accurate linear folding/cost statement.",
+        "Q1 certificate includes actual residual.",
+        "CAL wording states measured error."
+      ],
+      "conclusion": "Zero new jobs meets consolidation goal; useful completed controls and original-identity Q1 assets are retained; future examples are not a backlog."
+    }
+  ],
+  "author_response": "All four nonblocking scientific wording/provenance suggestions were incorporated; final affected files were reread by separate reviewers with APPROVE rechecks.",
+  "reviewed_files_sha256": {
+    "AGENTS.md": "2aedacb02cbf0505d8af0197a956463b0f14414ff078b81d17c9493ee5d912da",
+    "README.md": "8b395707f3dc944a510c34e486d03fa30c45287a27b601569ba5c285375b4211",
+    "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json": "82b0b9c673ff3216a42863c3ca6490239d4f789be18f8ca4b8ed4f73fe3169b6",
+    "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json": "9d6a78cbef10f0678b98a2202a4e85a56489ed619425d41bb3367a73a6301e5a",
+    "research/20261113/G20_VBENCH_RESTART_V4_20261113.md": "f944b756ccfe80174b524480bce200b1ccb605863d6c3beb83c91a3c88e5323a",
+    "research/20261113/README.md": "69b1ef7c1ac1b794fc8d1c4480a869fa946719535dc4c64758e68b12f831c7ab",
+    "research/ACTIVE_RESEARCH.json": "94d7a17de70abb1344282920178f853a11fcbf58c1f5eea8da67ff86adc9a7bb",
+    "research/RESEARCH_NAVIGATION.md": "3b19d18aeaba62dfbe709310842f8e9d835846cd70781187bb4c1ad03170d1d4",
+    "research/agent_protocol/ACQUISITION_QUEUE_20261029.json": "737bb5aa54c09e794df6192496efc8cf6b078e51be079fcae780a5d142298913",
+    "research/agent_protocol/CURRENT_CONTEXT_PACKET.md": "0203920d447f6f7699b320fa2b436a5ea151635af5721fed63db897d3055c1ae"
+  },
+  "static_validation": {
+    "json_parse": "PASS",
+    "new_current_markdown_link_targets": "30/30 present in base tree or this change",
+    "asset_reference_resolution": "PASS",
+    "active_queue_count": 0,
+    "actual_scope_raw_text_unchanged": "PASS"
+  },
+  "experiment_execution_approval": false,
+  "new_runnable_scopes": 0,
+  "new_jobs_dispatched": 0,
+  "review_does_not_assert": [
+    "Current cluster job inventory",
+    "Independent verification of unpublished V0/V1/V2 raw receipts",
+    "New video quality or runtime advantage"
+  ]
+}
