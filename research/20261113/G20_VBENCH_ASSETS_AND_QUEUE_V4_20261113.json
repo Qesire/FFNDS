@@ -1729,5 +1729,46 @@
     "exposure_events_reset": false,
     "selected33_records_and_roles_changed": false,
     "existing_actual_ACTIVE_scopes_changed": false
+  },
+  "execution_status_20261114": {
+    "record_type": "ADDITIVE_EXECUTION_OVERLAY_DESIGN_FIELDS_UNCHANGED",
+    "date": "2026-11-14",
+    "report": "reports/20261114/g20_v4_repr_density/README.md",
+    "note": "Actual executed state synced per user 2026-11-14. The design fields above (payload_status/design_status) remain the frozen rev2 design intent; this overlay records what was actually produced. No new runnable scope or dispatch is added by this overlay.",
+    "stages": {
+      "V0": {"status": "COMPLETE_EXIT_0", "produces": ["VB_BOUND_INPUTS", "VB_RECIPE", "VB_PANEL512", "VB_CAPTURE_CODE", "VB_REUSE_MATCH"], "note": "Input binding + uniform PANEL512; landscape crop/16-9 rebind per user 2026-11-13. Binding/verification credentials publication still pending."},
+      "V1": {"status": "COMPLETE_EXIT_0", "job": 161235, "produces": ["LEGACY_LOCAL_DIAG"], "note": "H_overshoot confirmed (a>0, eta*~0.25); over-amplitude not direction."},
+      "V2": {"status": "COMPLETE_EXIT_0", "job": 161964, "produces": ["VB_NEUTRAL", "VB_DENSE22"], "bank_verify": "PASS 31/31", "bank_manifest_sha256": "f6f8e100da6f75b2db612edd8c8c4d21729ed9bf99bfb5092941f2381a4d0bee", "note": "VB_DENSE22 bank landed; binding/verification credentials publication still pending."},
+      "V4": {"status": "COMPLETE_EXIT_0", "job": 163279, "elapsed_seconds": 1122.250821, "produces": ["VB_LOCAL_FITS", "VB_SOURCE_DENSITY"], "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7", "independent_review": "APPROVE/APPROVE (reviewer qoder_independent_reviewer_g20_v4_rev2final_20261114)", "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4", "new_D4_full_executions": 0, "note": "Formal VB_SOURCE_DENSITY byte-identical to reviewer full run (job 163050)."}
+    },
+    "assets_produced": {
+      "VB_DENSE22": "PRODUCED (V2 job 161964; bank verify PASS 31/31)",
+      "VB_LOCAL_FITS": "PRODUCED_FITS_ONLY: full alpha_Q0/alpha_Q1 arrays (13824 finite each); P/Q SHA256 only; readout C norms/dims/diagnostics only; free D norms/rank/certificates only. Full candidate-predictor export (P/Q/C/D matrices) + close/reload/consumer acceptance PENDING (V4D).",
+      "VB_SOURCE_DENSITY": "PRODUCED (six-site primary table; all-80 is separate pre-registered V4D table)"
+    },
+    "v4_result_bounded": {
+      "primary_relative_r_vs_Q1_256": {"CURRENT_Q1": 0.0, "STABLE_FREE_LINEAR": 1.59851, "L32": 0.04991, "DELTA_N32": 0.04872, "ENDPOINT_N32": 0.04607, "L64_Q32": 0.03883},
+      "ranking": "Q1 best; constrained readouts WORSE than Q1 by 3.88%-5.52%; among constrained L64_Q32 closest to Q1, then ENDPOINT_N32 < DELTA_N32 < L32.",
+      "same_method_absolute_density_256_to_512_pct": {"CURRENT_Q1": -0.884, "STABLE_FREE_LINEAR": 20.603, "L32": -0.385, "DELTA_N32": -0.332, "ENDPOINT_N32": -0.443, "L64_Q32": -0.579},
+      "absolute_density_improve_sources": {"CURRENT_Q1": "11/11", "STABLE_FREE_LINEAR": "0/11", "L32": "9/11", "DELTA_N32": "9/11", "ENDPOINT_N32": "10/11", "L64_Q32": "10/11"},
+      "interpretation": "Q1 and all four constrained models improve in absolute DEV MSE with more CAL rows; Q1 improves most; free-linear worsens (overfit). source_density_delta (delta r) measures gap-to-Q1 change, not absolute effectiveness.",
+      "mechanism_bounds": "Free uses Q1 base, constrained use Q0 base (base confound); L64 matched-capacity linear beats ENDPOINT_N32 on 11/11 sources (capacity confound). No causal endpoint-information or degrees-of-freedom-overfit claim supported.",
+      "quality_metrics": "NOT_MEASURED", "performance_comparison": "NOT_BENCHMARKED"
+    },
+    "doc_rev2_corrections": {
+      "floor": "Published floor = mean_CAL ||BF16_replay_prediction - gated_dense_target||^2/(n*D) = total replay-vs-dense error (model + rounding), NOT pure BF16 rounding noise. floor/R_Q1,CAL in [0.99936,1.00043]. The 11/11 q1_denominator_below_floor flag is an artifact of this inflated floor; 'unmeasurable' claim RETRACTED as stated. Correct rounding floor = ||BF16_replay - FP32_math_prediction||^2; recompute pending V4D/correction scope.",
+      "q1_certificate_field": "certificate=CERTIFICATE_UNRESOLVED is a hardcoded placeholder in verbatim R2 q1_fit_core.py:65, not a solve failure. Operative certificate: status=CONVERGED + true_relative_residual<1e-5 (max 9.82e-6).",
+      "review_direction_erratum": "INDEPENDENT_REVIEW.json OBS-1 'IMPROVE 3.88%-5.52%' should read 'WORSE than Q1 by 3.88%-5.52%'; OBS-3 'relative gain shrinks' should read 'relative loss grows'. Review APPROVE on code/math/binding unaffected; review JSON preserved unchanged, erratum in report README 5.3."
+    },
+    "open_items": [
+      "V4D purpose clarification: Q1 full-80 deployment chain vs advancing a new candidate (if new, justify candidate + question).",
+      "Full candidate parameter export (P/Q/C/D) + close/reload/consumer acceptance.",
+      "Correct pure-BF16 rounding floor recompute.",
+      "V0/V2 binding and verification credentials publication.",
+      "All-80 site table (separate V4D)."
+    ],
+    "no_cal22_expansion_or_new_pairs_warranted_by_current_evidence": true,
+    "new_runnable_scopes_added": 0,
+    "new_jobs_dispatched_by_this_overlay": 0
   }
 }

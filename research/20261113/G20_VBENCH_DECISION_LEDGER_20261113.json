@@ -334,5 +334,38 @@
     "branches_require_all_positive": false,
     "conditional_scopes_automatically_authorized": false,
     "source_expansion_is_default": false
+  },
+  "execution_updates_20261114": {
+    "record_type": "ADDITIVE_EXECUTION_OVERLAY_DESIGN_JUDGMENTS_UNCHANGED",
+    "date": "2026-11-14",
+    "report": "reports/20261114/g20_v4_repr_density/README.md",
+    "formal_job": 163279,
+    "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
+    "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
+    "judgment_updates": {
+      "J_REPRESENTATION": {
+        "status": "MEASURED_SIX_SITE_PRIMARY_BOUNDED",
+        "evidence": ["reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json", "reports/20261114/g20_v4_repr_density/output/VB_LOCAL_FITS.json"],
+        "current_judgment": "On DEV11 six-site primary, Q1 is best; the four constrained readouts are WORSE than Q1 by 3.88%-5.52% (r=+0.0388..+0.0552). Among constrained, L64_Q32 (matched-capacity linear) is closest to Q1 and beats ENDPOINT_N32 on 11/11 sources; ENDPOINT_N32 slightly better than DELTA_N32. STABLE_FREE_LINEAR overfits CAL (r=1.60@256->2.20@512; certificates prove correct solve).",
+        "bounded": "Free uses Q1 base vs constrained Q0 base (base confound); L64 matched-capacity linear beats nonlinear endpoint (capacity confound). NO causal claim that endpoint state adds information or that degrees-of-freedom alone cause overfitting. Constrained linear structure does NOT beat full Q1 here; no candidate promoted on this result.",
+        "next_experiment": ["V4D (purpose to clarify)", "B-W/B-WS attribution independent"],
+        "supersedes_design_status": "OPEN_NO_NEW_VBENCH_RESULT"
+      },
+      "J_SOURCE_DENSITY": {
+        "status": "MEASURED_WITHIN_SOURCE_DENSITY_SIX_SITE_BOUNDED",
+        "evidence": ["reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json"],
+        "current_judgment": "Within-source density 256->512 rows on common DEV512: Q1 and all four constrained models IMPROVE in absolute MSE (Q1 -0.884% most; L64 -0.579%, Endpoint -0.443%, L32 -0.385%, Delta -0.332%; improve counts 11/10/10/9/9 of 11). STABLE_FREE_LINEAR worsens +20.603% (0/11). source_density_delta (delta r) measures gap-to-Q1 change, not absolute effectiveness; same-method absolute risk added in report 4.2.",
+        "bounded": "Source BREADTH (CAL11->22) NOT measured; no CAL22 expansion warranted by current evidence. Within-source density helps Q1 and constrained readouts but does not close the gap to Q1.",
+        "next_experiment": ["V3 only if a source-breadth claim becomes decision-relevant"],
+        "supersedes_design_status": "UNIDENTIFIED"
+      }
+    },
+    "open_clarifications": {
+      "floor": "Published floor is total BF16-replay-vs-dense error (~Q1 CAL total risk), not pure BF16 rounding noise; 11/11 'unmeasurable' flag retracted as artifact; correct rounding floor recompute pending V4D.",
+      "v4d_purpose": "Clarify whether V4D completes the Q1 full-80 deployment chain or advances a new candidate; if new candidate, justify candidate and question before scope.",
+      "asset_export": "Full candidate parameter export (P/Q/C/D) + close/reload/consumer acceptance pending; fits JSON alone cannot reload candidates."
+    },
+    "new_runnable_scopes_added": 0,
+    "new_jobs_dispatched_by_this_overlay": 0
   }
 }

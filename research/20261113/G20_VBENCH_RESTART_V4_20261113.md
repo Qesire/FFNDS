@@ -2,6 +2,8 @@
 
 **2026-11-13 · v4 第 2 次设计修订 · DESIGN_ONLY · 本次没有新增计算作业。**
 
+> **2026-11-14 · 执行进度同步（不改本设计正文）：** V0/V1/V2/V4 已实际 EXIT 0；V4 六站点表示/密度正式作业 163279 完成（1122.25s，0 new D4），拟合记录与逐源风险已发布。正式结果与独立复审全量 run 逐字节一致。详见 [V4 正式结果（doc rev2）](../../reports/20261114/g20_v4_repr_density/README.md)，以及 [资产队列 execution_status_20261114](G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) 与 [判断台账 execution_updates_20261114](G20_VBENCH_DECISION_LEDGER_20261113.json) 两个加性执行覆盖层。**有界结论**：Q1 最优，约束表示比 Q1 差 3.88%–5.52%（L64_Q32 最接近），自由线性过拟合；同方法绝对密度 256→512 行 Q1 与约束模型均改善（Q1 最多），自由线性恶化。**doc rev2 更正**：floor 为 replay 对 dense 总误差（非纯舍入噪声），"11/11 unmeasurable" 撤回；Q1 certificate 占位字段澄清；机制因果收紧；复审 IMPROVE 方向勘误。**待办**：V4D 目的澄清＋完整候选参数导出/重加载＋正确舍入 floor 重算＋V0/V2 凭据发布；当前证据不支持扩 CAL22。本设计正文保持 rev2 冻结身份。
+
 当前决定是：**保留 33 个已选官方图文条件，先用 CAL11＋DEV11 完成同输入表示与采样密度比较；只有来源广度仍会改变判断时才扩到 CAL22。** 新算子与方法差异归因作为两条可独立交付的研究线。历史曝光不再构成本轮 VBench 使用障碍，实际拟合祖先、开发用途和固定评估仍按原图／近重复簇隔离。
 
 入口：[官方图文与角色](../../config/g20_vbench_restart_cohort_v1_20261113.json) · [资产树与执行队列](G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断台账](G20_VBENCH_DECISION_LEDGER_20261113.json) · [本次实际设计审阅](../experiment_reviews/G20_VBENCH_ROUTE_DECISIONS_20261113/README.md)。这次修订依据 main@84630899；前次设计审阅只覆盖该提交，新的审阅记录单列。旧 v3 配额、G0 冻结规则和 reports 下的证据原件不改。

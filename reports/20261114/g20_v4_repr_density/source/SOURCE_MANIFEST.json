@@ -1,0 +1,55 @@
+{
+  "source_manifest_id": "G20_V4_REPR_DENSITY_SOURCE_20261114",
+  "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
+  "note": "Execution source published and verified byte-identical to scope.code_sha256. cal_numerical_floor semantics clarified in README §5.1 (floor is total replay-vs-dense error, not pure BF16 rounding); q1_fit_core certificate field is a verbatim R2 placeholder (README §5.2).",
+  "files": [
+    {
+      "path": "source/q1_fit_core.py",
+      "sha256": "b76a0efafae4b1b9b08a6c5cef6ade11108abed574136e082468c58c3f3a6028",
+      "bytes": 5369,
+      "provenance": "VERBATIM R2 Problem PCG: work/g19_strengthen_20261107/fit_high_r2/fit_core.py"
+    },
+    {
+      "path": "source/ridge_fit_core.py",
+      "sha256": "b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe",
+      "bytes": 14198,
+      "provenance": "VERBATIM R1b: work/g20_r1b_recheck_20261112/fit_core_v2.py (stable_ridge_fit/_f64_sse/native_ffn/bf16_replay)"
+    },
+    {
+      "path": "source/v4_repr.py",
+      "sha256": "8ead06e5caac5beea46800d0b3dff2ea3c4c17a2996371591cee8570ecb55257",
+      "bytes": 8630,
+      "provenance": "NEW author code: representation math (Q0 prior, P/Q SVD, fit_q1, fit_stable_free_linear, fit_readout, predict_repr, gated_mse)"
+    },
+    {
+      "path": "source/v4_runner.py",
+      "sha256": "9c6d8940524aa7feb11a1f047ee94824e24e7698a64de8cf98da856298739e35",
+      "bytes": 11773,
+      "provenance": "NEW author code: orchestration (load_site/build_pack/load_layer_weights/fit_config/score_pack/cal_numerical_floor/aggregate/run)"
+    },
+    {
+      "path": "source/runtime_guard.py",
+      "sha256": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+      "bytes": 11902,
+      "provenance": "VERBATIM reviewed guard"
+    },
+    {
+      "path": "source/guarded_runner_v4.py",
+      "sha256": "fb28f0c063933dda8d9931adfa269ebd947cb095e1c18f5ee55d4093d5c5b03e",
+      "bytes": 5225,
+      "provenance": "NEW author code: guarded one-job runner (mirrors reviewed V2)"
+    },
+    {
+      "path": "source/dispatch_once_v4.py",
+      "sha256": "58218e0b07cfa5c5e598f882c07af5bb86304554dde8399b90e7819b02d02138",
+      "bytes": 3617,
+      "provenance": "NEW author code: once-only dispatch (lock, 2-job/2-GPU cap, prelaunch SHA recheck)"
+    },
+    {
+      "path": "source/job.sh",
+      "sha256": "e3118839d99eecd60bbb497714a2bbed30d3ec5ccedc46108d520849341fd83a",
+      "bytes": 541,
+      "provenance": "NEW author code: Slurm batch script"
+    }
+  ]
+}
