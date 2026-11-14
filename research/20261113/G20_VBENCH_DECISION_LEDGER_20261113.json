@@ -1,7 +1,7 @@
 {
   "schema": "G20_VBENCH_DECISION_LEDGER_V1",
   "date": "2026-11-14",
-  "based_on_commit": "6d9dd0561535c4f2ad68386b2dff324e9542dee4",
+  "based_on_commit": "6dc075ac4e962803636d522c5620f7b556b93423",
   "design_only": true,
   "new_experiments_run": 0,
   "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
@@ -199,7 +199,8 @@
       "scheduled": false,
       "unresolved_implies_new_experiment": false,
       "planned_in_current_route": true,
-      "execution_authorized": false
+      "execution_authorized": false,
+      "execution_decision": "One fully fixed four-arm Q1 residual comparison; no minimum effect threshold as start/completion gate. Negative or small effects complete the phase; no automatic retuning/deployment."
     },
     {
       "id": "J_SOURCE_DENSITY",
@@ -236,18 +237,19 @@
       "scheduled": false,
       "unresolved_implies_new_experiment": false,
       "planned_in_current_route": true,
-      "execution_authorized": false
+      "execution_authorized": false,
+      "execution_decision": "Recompute both W native BF16 targets at sampled512 shape; use fixed ICC ordinary SVD r512, each-W anchor and two residuals. Do not mix stored full-M D targets with sampled O targets."
     },
     {
       "id": "J_CHIPMUNK",
-      "status": "CURRENT_B_COMPARATOR_FULLM_STATISTICS_GAP",
+      "status": "ACTUAL_GLOBAL_P64_COMPARATOR_FIXED64_INPUT_GAPS_ONLY",
       "evidence": [
         "Legacy existing_assets CHIPMUNK_FULLM_MISSING and CHIPMUNK_GLOBAL_P64"
       ],
-      "current_judgment": "Historical global-P64 and author full-M selector are distinct implementations. B must explicitly bind the intended configuration. A full-M selector cannot be scored from random512 block means; necessary DEV-only statistics are a named B consumer, not a reason to drop this method.",
+      "current_judgment": "B explains the actually implemented GLOBAL_P64, using fixed64 true token IDs, K5120 stable RMS selector and existing packed action. Author block selector is a different method and is excluded. Current both-W local512/P64anchor64 numeric adapter is explicit; no historical video bitwise claim.",
       "unresolved": [
-        "Which exact selector/cache version is compared?",
-        "Are genuine each-W full-M anchor statistics and hit block means reusable?"
+        "Exact current panel/stored-state coverage of the fixed64 endpoint U rows",
+        "Own-W local function risk changes under weights and states"
       ],
       "next_experiment": [
         "BW_PREPARE",
@@ -257,7 +259,8 @@
       "scheduled": false,
       "unresolved_implies_new_experiment": false,
       "planned_in_current_route": true,
-      "execution_authorized": false
+      "execution_authorized": false,
+      "correction": "Earlier full-M block-stat prerequisite applied to another selector, not actual P64. Retire it from current tasks; only missing64 U inputs can trigger bounded DEV capture."
     },
     {
       "id": "J_WEIGHT_STATE",
@@ -279,7 +282,8 @@
       "scheduled": false,
       "unresolved_implies_new_experiment": false,
       "planned_in_current_route": true,
-      "execution_authorized": false
+      "execution_authorized": false,
+      "execution_decision": "BWS is a fixed follow-up after BW Q1/ICC, unless a byte/recipe-matched four-cell result already exists. Neither sign nor significance of BW cancels it. Same current-bank spatial/token recipe; O40 native scheduler/CFG; first adjacent conditional pair per expert."
     },
     {
       "id": "J_VIDEO",
@@ -333,16 +337,21 @@
     "eta_comparison_is_queued": false,
     "no_rerun_to_fill_publication_gaps": true,
     "no_standalone_floor_recompute": true,
-    "planned_core_experiment_count": 2,
     "runnable_queue_count": 0,
     "original_two_goals_active": true,
     "stop_only_tested_V4_constructs": true,
     "B_requires_A_success": false,
     "B_needs_user_reauthorization_of_goal": false,
-    "zero_jobs_this_design_turn_does_not_mean_zero_research_tasks": true
+    "zero_jobs_this_design_turn_does_not_mean_zero_research_tasks": true,
+    "research_direction_count": 2,
+    "scientific_comparison_count": 3,
+    "BWS_fixed_followup": true,
+    "BWS_requires_positive_BW": false,
+    "minimum_effect_is_A_start_or_completion_gate": false,
+    "nonblocking_findings_spawn_jobs": false
   },
-  "revision": 4,
-  "status": "TWO_TRACKS_ACTIVE_PREEXEC_REQUIRED",
+  "revision": 5,
+  "status": "TWO_TRACKS_FIXED_EXECUTION_HANDOFF_PREEXEC_REQUIRED",
   "design_review": "research/experiment_reviews/G20_TWO_TRACK_RESTORATION_20261114/REVIEW.json",
   "counts_are_for_this_plan_change": true,
   "historical_plan": {
@@ -360,7 +369,8 @@
     "current_next_experiment": [
       "A_Q1_RESIDUAL",
       "BW_PREPARE",
-      "BW"
+      "BW",
+      "BWS"
     ],
     "floor": "Published floor is total BF16 replay-vs-dense error (model + rounding), not pure rounding noise. The 11/11 unmeasurable claim is retracted in the report. No standalone recomputation is scheduled; a future chosen predictor would include an actual BF16-vs-math check in its own deployment comparison.",
     "candidate_export": "V4 rejected-candidate exports remain unrequested. Complete six-site parameters belong to A_Q1_RESIDUAL; full80 export is conditional on selecting one useful candidate.",
@@ -378,5 +388,10 @@
     "B_requires_A_success": false,
     "user_must_rejustify_B": false,
     "V4_closes_entire_A_goal": false
-  }
+  },
+  "execution_handoff": "research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md",
+  "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json",
+  "handoff_decision": "Implement fixed recipes and report bounded conclusions. Source exposure/DEV seen/six-site scope/no matching noise gap are claim limits, not reasons to cancel both goals.",
+  "handoff_review": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/design_review",
+  "design_review_scope": "Existing review records revision4 restoration; revision5 review is in the execution spec."
 }

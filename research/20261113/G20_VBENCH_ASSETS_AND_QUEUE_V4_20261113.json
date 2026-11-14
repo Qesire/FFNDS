@@ -1,11 +1,11 @@
 {
   "schema": "G20_VBENCH_ASSETS_AND_QUEUE_V4",
-  "revision": 4,
+  "revision": 5,
   "id": "G20_VBENCH_RESTART_V4_20261113",
   "date": "2026-11-14",
-  "base_commit": "6d9dd0561535c4f2ad68386b2dff324e9542dee4",
-  "status": "TWO_TRACKS_ACTIVE_PREEXEC_REQUIRED",
-  "design_status": "TWO_TRACKS_ACTIVE_PREEXEC_REQUIRED",
+  "base_commit": "6dc075ac4e962803636d522c5620f7b556b93423",
+  "status": "TWO_TRACKS_FIXED_EXECUTION_HANDOFF_PREEXEC_REQUIRED",
+  "design_status": "FIXED_RECIPES_READY_FOR_IMPLEMENTATION",
   "payload_status": "V4_AVAILABLE_TWO_CORE_QUESTIONS_REMAIN",
   "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
   "decision_ledger": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
@@ -17,7 +17,7 @@
   ],
   "execution_scope_id": null,
   "runnable": false,
-  "precedence": "User reaffirms the already established two P0 tracks. Revision 4 corrects the revision-3 cancellation of the questions while retaining bounded V4 negative results and limits on repetitive work. Planned tasks are not runnable scopes.",
+  "precedence": "User requests detailed execution with no defensive expansion. Revision 5 fixes A, BW and BWS recipes and local blocking rules; follow the execution handoff for implementation. Goals already authorized; each actual computation still requires the existing finite preexecution protocol.",
   "old_g0": {
     "status": "USER_REPORTED_C1_NOT_BINDABLE_UNDER_FROZEN_RULES",
     "public_bundle_verified_here": false,
@@ -233,7 +233,7 @@
         "VB_RESERVED_POOL",
         "VB_REUSE_MATCH",
         "VB_RUN_VIDEO_MANIFEST",
-        "B_CHIP_FULLM_STATS",
+        "B_CHIP_P64_INPUTS",
         "B_CHIP_STATS"
       ],
       "next_action_to_prepare": [],
@@ -281,7 +281,7 @@
         "VB_RUN_VIDEO_MANIFEST",
         "A_Q1_RESIDUAL_PARAMS",
         "BW_METHOD_IDENTITY",
-        "B_CHIP_FULLM_STATS",
+        "B_CHIP_P64_INPUTS",
         "A_Q1_RESIDUAL",
         "B_CHIP_STATS"
       ],
@@ -328,7 +328,7 @@
         "VB_NEUTRAL",
         "VB_REUSE_MATCH",
         "A_Q1_RESIDUAL_PARAMS",
-        "B_CHIP_FULLM_STATS",
+        "B_CHIP_P64_INPUTS",
         "A_Q1_RESIDUAL",
         "BW_PREPARE",
         "B_CHIP_STATS"
@@ -1021,7 +1021,7 @@
       "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
       "locator": null,
       "missing": [
-        "original checkpoint mapping and consumer identity to recover/bind"
+        "Verify existing known original shard/tensor identities at current execution path; handoff supplies mapping."
       ],
       "runnable": false,
       "consumers": [
@@ -1032,7 +1032,7 @@
         "BWS_SUPPORT",
         "BW_REPLAY_FITS",
         "BW_METHOD_IDENTITY",
-        "B_CHIP_FULLM_STATS",
+        "B_CHIP_P64_INPUTS",
         "B_CHIP_STATS"
       ],
       "next_action_to_prepare": [
@@ -1066,7 +1066,7 @@
       "runnable": false,
       "optional_inputs": [
         "VB_LOCAL_FITS",
-        "B_CHIP_FULLM_STATS"
+        "B_CHIP_P64_INPUTS"
       ],
       "consumers": [
         "BW_READOUT"
@@ -1106,7 +1106,7 @@
       "gaps_are_current_tasks": true,
       "production_request_is_execution_authorization": false,
       "optional_inputs": [
-        "B_CHIP_FULLM_STATS"
+        "B_CHIP_P64_INPUTS"
       ],
       "completion_note": "Q1/ICC partial completion does not complete the Chipmunk cell."
     },
@@ -1126,7 +1126,7 @@
         "fixedD4 reference gate",
         "no retrospective nearest matching"
       ],
-      "payload_status": "CONDITIONAL_NOT_PRODUCED_NOT_AUTHORIZED",
+      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
       "locator": null,
       "missing": [
         "Compatible FFN interface/expert map, legal within-expert native endpoint pairs, frozen source/parameter/gate/aggregation identity; component overlap recorded separately"
@@ -1138,11 +1138,12 @@
         "BWS_O40",
         "BWS_READOUT"
       ],
-      "next_action_to_prepare": [],
-      "production_requested": false,
-      "gaps_are_current_tasks": false,
+      "next_action_to_prepare": [
+        "BW_PREPARE"
+      ],
+      "production_requested": true,
+      "gaps_are_current_tasks": true,
       "production_request_is_execution_authorization": false,
-      "conditional_producer": "BW_PREPARE",
       "execution_validity": [
         "compatible_ffn_interface",
         "legal_within_expert_endpoint_pairs",
@@ -1169,26 +1170,27 @@
       "producer": "BWS",
       "units": "At most six native O40 trajectories; sampled U/Y plus required selector summaries; O40 cost separate from D4",
       "required_identity": [
-        "native CFG retained in state trajectory",
-        "conditional tensors only",
-        "actual noise levels/expert/fields/SHA",
-        "all40 windows captured once, optional predefined intervals reused",
-        "O40 cost separate from D4"
+        "same current V2 image preprocess and latent/token layout; design832x464x81, N31668",
+        "native O40 scheduler/CFG; conditional tensors",
+        "first adjacent within-expert pair; actual timestep/noise/gap recorded",
+        "same source and fixed PANEL512 ordering",
+        "required actual P64 DEV64 inputs captured in same rollout; no seventh trajectory"
       ],
-      "payload_status": "CONDITIONAL_NOT_PRODUCED_NOT_AUTHORIZED",
+      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
       "locator": null,
       "missing": [
-        "max6 conditional native O40 captures; trigger only material remaining state ambiguity"
+        "Only exact-matching O40 payload gaps for fixed CAL3/DEV3; max6 trajectories including failed consumption."
       ],
       "runnable": false,
       "consumers": [
         "BWS_MIXED_FITS"
       ],
-      "next_action_to_prepare": [],
-      "production_requested": false,
-      "gaps_are_current_tasks": false,
-      "production_request_is_execution_authorization": false,
-      "conditional_producer": "BWS"
+      "next_action_to_prepare": [
+        "BWS"
+      ],
+      "production_requested": true,
+      "gaps_are_current_tasks": true,
+      "production_request_is_execution_authorization": false
     },
     {
       "id": "BWS_MIXED_FITS",
@@ -1208,20 +1210,21 @@
         "no splice of BW CAL11 fits",
         "Native target and legal anchor replayed for each W and state cell; sharedG_ref does not imply shared target acrossW"
       ],
-      "payload_status": "CONDITIONAL_NOT_PRODUCED_NOT_AUTHORIZED",
+      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
       "locator": null,
       "missing": [
-        "mixed-state pilot parameters and per-task ancestry"
+        "Fixed per-W mixed-CAL3 parameters and full fit ancestry; not an extra pilot."
       ],
       "runnable": false,
       "consumers": [
         "BWS_READOUT"
       ],
-      "next_action_to_prepare": [],
-      "production_requested": false,
-      "gaps_are_current_tasks": false,
-      "production_request_is_execution_authorization": false,
-      "conditional_producer": "BWS"
+      "next_action_to_prepare": [
+        "BWS"
+      ],
+      "production_requested": true,
+      "gaps_are_current_tasks": true,
+      "production_request_is_execution_authorization": false
     },
     {
       "id": "BWS_READOUT",
@@ -1238,18 +1241,19 @@
         "nativeCFG/scheduler included inμO; no pure-step causal claim",
         "No exact noise/gap overlap required for composite interaction; unsupported pure component attribution remains UNIDENTIFIED"
       ],
-      "payload_status": "CONDITIONAL_NOT_PRODUCED_NOT_AUTHORIZED",
+      "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
       "locator": null,
       "missing": [
-        "four-cell evidence or explicit UNIDENTIFIED"
+        "Required four-cell risks and interaction, or exact partial/invalid cells; UNIDENTIFIED applies to unsupported component claims, not a substitute for the planned matrix."
       ],
       "runnable": false,
       "consumers": [],
-      "next_action_to_prepare": [],
-      "production_requested": false,
-      "gaps_are_current_tasks": false,
-      "production_request_is_execution_authorization": false,
-      "conditional_producer": "BWS"
+      "next_action_to_prepare": [
+        "BWS"
+      ],
+      "production_requested": true,
+      "gaps_are_current_tasks": true,
+      "production_request_is_execution_authorization": false
     },
     {
       "id": "A_Q1_RESIDUAL_PARAMS",
@@ -1325,10 +1329,11 @@
       "producer": "BW_PREPARE",
       "units": "Exact fixed implementation, cache, selector/rank, precision and cost contract per method",
       "required_identity": [
-        "Q1r2 rule vs current CAL11 parameters",
+        "Q1r2 own-W sampled512 targets and CAL11 rule",
         "ICC_SVD_R512_TWO_RESIDUAL",
-        "Chipmunk legacy and author-selector identities separated",
-        "No hidden DEV tuning"
+        "CHIPMUNK_GLOBAL_P64 + OWNW_LOCAL512_P64ANCHOR64_V1",
+        "Fixed64 IDs, K5120, stable RMS selection and packed_pregate",
+        "Within-method same W policy; no DEV tuning"
       ],
       "payload_status": "PLANNED_NOT_PRODUCED_PREEXEC_REQUIRED",
       "locator": null,
@@ -1339,7 +1344,7 @@
       "consumers": [
         "BW_REPLAY_FITS",
         "BW_READOUT",
-        "B_CHIP_FULLM_STATS",
+        "B_CHIP_P64_INPUTS",
         "BW",
         "B_CHIP_STATS",
         "BWS"
@@ -1352,7 +1357,7 @@
       "gaps_are_current_tasks": true
     },
     {
-      "id": "B_CHIP_FULLM_STATS",
+      "id": "B_CHIP_P64_INPUTS",
       "inputs": [
         "VB_BOUND_INPUTS",
         "VB_RECIPE",
@@ -1361,24 +1366,24 @@
         "BW_METHOD_IDENTITY"
       ],
       "producer": "B_CHIP_STATS",
-      "units": "DEV11 six-site full-M selector inputs per weight, paired anchor/hit, correct groups and tail counts",
+      "units": "DEV11 six-site actual GLOBAL_P64 ordered64 endpoint pre-W1 inputs, shared by own-W local proxy computation",
       "required_identity": [
-        "Actual full-M aggregation",
-        "Each-W anchor proxy",
-        "Correct BF16 operation order",
-        "Panel-to-block mapping",
-        "Fixed mask/refresh/cache rule"
+        "Fixed CPU seed42 randperm31668 first64 actual token IDs",
+        "Correct source/site/endpoint, same-state input identity",
+        "BF16 U0_64/U1_64; no full-M block means required"
       ],
       "payload_status": "CONDITIONAL_NOT_PRODUCED_NOT_AUTHORIZED",
       "locator": null,
       "missing": [
-        "Concrete reviewed producer scope and output payload"
+        "One ID-based overlap/reuse lookup, then only actual missing row inputs in a concrete producer scope"
       ],
       "runnable": false,
       "consumers": [
-        "BW_REPLAY_FITS",
+        "BW",
+        "BWS",
+        "BWS_READOUT",
         "BW_READOUT",
-        "BW"
+        "BW_REPLAY_FITS"
       ],
       "next_action_to_prepare": [],
       "production_requested": false,
@@ -1430,15 +1435,17 @@
       ],
       "max_new_D4_full_executions": 0,
       "max_new_source_pairs": 0,
-      "fit": "Fixed Q1. CAL-only shared projections/normalization and fixed regularization rule; convex residual readout. All residual arms include C=0 as the exact same Q1.",
+      "fit": "Reuse published 512 alpha_Q1; reconstruct A in original FP32 order, then lift F64. P=CAL weighted X top64; Q=CAL ungated Q1 residual top32; fixed CAL endpoint mean/std and per-arm RMS features; F64 readout rho=1e-6*trace(K)/2048.",
       "controls": "Common Q1 base; 64x32=2048 residual readout coefficients per arm, with costs/effective capacity reported separately. Do not claim all capacities or costs match.",
       "code_checks": "C=0 prediction identity, CAL aggregate penalized objective no worse than zero in the mathematical fit, gate/basis semantics, actual BF16 replay in the same experiment.",
-      "stop": "No useful source-wise DEV benefit => stop this residual version; no automatic rank/activation/lambda/data expansion.",
-      "promotion": "Only a useful candidate proceeds to purpose-bound full80/export/video validation. Tiny positive local error change is not automatic promotion."
+      "stop": "Complete after the fixed four-arm matrix and integrated checks. Negative, mixed or tiny DEV changes are valid completion; no extra fit, sample, rank, floor or pilot.",
+      "promotion": "No automatic full80/video. Report the one fixed comparison; a later explicit candidate deployment decision gets its own bounded scope.",
+      "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/tasks/A_Q1_RESIDUAL",
+      "minimum_useful_effect_required_to_run": false
     },
     {
       "id": "BW_PREPARE",
-      "purpose": "Bind original/distilled FFN weights, exact method implementations and available full-M statistics; inspect prior O40 state support.",
+      "purpose": "Once bind known bank and weights, Q1/ICC/actual GLOBAL_P64 code, exact PANEL token IDs and missing P64 64-row inputs.",
       "consumes": [
         "LEGACY_EVIDENCE",
         "VB_BOUND_INPUTS",
@@ -1463,7 +1470,8 @@
         "V4D",
         "V5"
       ],
-      "next_action": "Locate and verify identities and actual payload availability; no regeneration merely to recover missing published receipts."
+      "next_action": "Use paths and defaults in the handoff. Missing Chip selector/stats block Chip only. Do not restart source inventory, full literature review or old model reproduction.",
+      "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/tasks/BW_PREPARE"
     },
     {
       "id": "BW",
@@ -1487,7 +1495,7 @@
         "BW_PREPARE"
       ],
       "optional_consumes": [
-        "B_CHIP_FULLM_STATS"
+        "B_CHIP_P64_INPUTS"
       ],
       "does_not_require": [
         "A_Q1_RESIDUAL success",
@@ -1500,55 +1508,21 @@
       "dev": 11,
       "rows": 512,
       "six_sites": true,
-      "target": "For each W separately recompute F_W(U_anchor), F_W(U_hit) and all weight-dependent method caches; never use W_D targets for W_O.",
+      "target": "For BOTH weights recompute native BF16 addmm-GELU(tanh)-addmm anchor/target on identical 512-row shape. Default refit Q1 for both on these own-W targets. Stored full-M Y_D and sampled Y_O are never mixed.",
       "methods": {
-        "Q1": "Same fixed Q1r2 learning rule with each-W CAL11 parameters; reuse W_D only on exact matching identity.",
+        "Q1": "Fixed Q1r2 CAL11 rule for each W on newly computed 512-row targets; reuse alpha only if all input/target/numeric ancestry bytes match.",
         "ICC": "ICC_SVD_R512_TWO_RESIDUAL; ordinary SVD r512, intermediate GELU and two-residual numerical/cache semantics. Not CD-SVD.",
-        "Chipmunk": "Bind fixed selector/mask/budget/cache version first. Historical global-P64 and author full-M selector are distinct identities; full-M comparison requires actual B_CHIP_FULLM_STATS."
+        "Chipmunk": "CHIPMUNK_GLOBAL_P64, fixed64 true token IDs, K5120, stable RMS selection and existing packed_pregate; numeric adapter OWNW_LOCAL512_P64ANCHOR64_V1. No author block selector."
       },
       "fit": "Equal CAL source/row budget across weights. Refit each method only where its rule is data-dependent; ordinary weight-only SVD does not require artificial CAL fitting.",
       "cost_contract": [
         "IDENTICAL_WITHIN_METHOD_ACROSS_WEIGHTS",
         "CROSS_METHOD_COST_REPORTED_NOT_MATCHED"
       ],
-      "partial_completion": "Q1/ICC can finish while the Chipmunk cell is BLOCKED_MISSING_FULLM_STATS. Never label two-method results a completed three-method comparison.",
-      "claim": "Weight-conditioned method gaps for the exact tested implementations; not equal-latency superiority, pure distillation causality or Wan-unique architecture causality."
-    }
-  ],
-  "conditional_branches": [
-    {
-      "id": "B_CHIP_STATS",
-      "purpose": "Produce only missing full-M selector statistics required by the already established Chipmunk comparison.",
-      "consumes": [
-        "VB_BOUND_INPUTS",
-        "VB_RECIPE",
-        "VB_PANEL512",
-        "OD_WEIGHTS",
-        "BW_METHOD_IDENTITY",
-        "LEGACY_EVIDENCE"
-      ],
-      "produces": [
-        "B_CHIP_FULLM_STATS"
-      ],
-      "design_status": "PLANNED_PREEXEC_REQUIRED",
-      "execution_scope_id": null,
-      "runnable": false,
-      "track": "B",
-      "trigger": "A fixed author-style full-M selector is selected and exact reusable statistics/states are absent.",
-      "source_roles": "Existing DEV11 only; fixed selector/budget without CAL tuning.",
-      "max_new_D4_full_executions": 11,
-      "max_new_source_pairs": 0,
-      "new_video_decodes": 0,
-      "first_choice": "Reuse full-M payload or exact recoverable step states; capture only missing matched conditions.",
-      "required_fields": [
-        "Each-W block_mean(BF16 fc1_W(U_anchor)) in actual operation order",
-        "Full-M hit block_mean(U_hit) for each legal group",
-        "MBM/BM, group order, tail-valid counts, panel-to-block mapping",
-        "Mask refresh rule and cache update order"
-      ],
-      "forbidden_substitute": "Random512 means, switching mean and BF16 GEMM order, or reusing W_D anchor proxy for W_O.",
-      "no_automatic_CAL_capture": true,
-      "gate": "This is a conditional design ceiling, not permission to regenerate all 11 sources; concrete scope binds missing fields and matched identity."
+      "partial_completion": "Q1/ICC can finish with affected Chip cells BLOCKED_MISSING_P64_INPUTS. Two-method output is not three-method completion.",
+      "claim": "Weight-conditioned method gaps for the exact tested implementations; not equal-latency superiority, pure distillation causality or Wan-unique architecture causality.",
+      "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/tasks/BW",
+      "primary_numeric_path": "Each-method BF16 pre-gate prediction vs own-W BF16 target; F64 common G_ref weighted SSE/(512*5120). Gate-rounded auxiliary table separate."
     },
     {
       "id": "BWS",
@@ -1572,7 +1546,7 @@
         "BW",
         "BW_PREPARE"
       ],
-      "trigger": "The established weight-versus-state/interval question remains unresolved after B-W; independent of A success and of the sign of the B-W contrast.",
+      "trigger": "Fixed follow-up after BW identities and Q1/ICC table, unless an exact matching four-cell result already exists. No A/BW outcome or new value gate.",
       "cal_ids": [
         "vbi_1005",
         "vbi_0895",
@@ -1587,13 +1561,60 @@
       "max_new_source_pairs": 0,
       "max_scheduler_steps": 240,
       "cost": "O40 is separately budgeted; CFG branches and replay/fit costs are not hidden in a D4 count.",
-      "preparation": "BWS_PREPARE is the support/recipe check phase of this conditional task, not an automatic separate model experiment.",
+      "preparation": "Internal binding step; not a separate pilot. Use same current VBench preprocessing/token layout, original O40 scheduler/CFG, conditional branch and first adjacent pair within each expert.",
       "fit": "For each W fit once on the same CAL3 mixture (D256+O256 per source); score all four DEV cells with fixed theta(W) and G_ref. Distinct identity from CAL11 B-W.",
-      "support": "Bind legal pre-W1 dimensions, source roles, token correspondence, within-expert native endpoint pairs and native O scheduler/CFG. Actual noise/gap overlap governs matched component attribution.",
+      "support": "Same actual current-bank THW/panel, legal within-expert endpoints, exact source roles, each-W target and fixed theta(W)/D4-hit G_ref. Noise/gap overlap only bounds finer component claims.",
       "state_claim": "mu_O/mu_D are composite native state/interval/CFG distributions. Four-cell interaction is not pure step-count causality or each model own-best native deployment quality.",
       "no_overlap": "No fabricated nearest-time matching. Without noise/gap overlap, report only the composite-distribution contrast; the pure interval/component effect remains UNIDENTIFIED.",
       "invalid_interface": "If legal same-interface/within-expert pairing or source binding fails, do not execute affected cells.",
-      "chipmunk": "A full-M selector cell in this stage needs its own O-state statistics; do not recycle D-state masks. Capture them in the same already-needed O rollout when required."
+      "chipmunk": "Same GLOBAL_P64 local numeric adapter; DEV3 O40 captures required fixed64 U in the same trajectory, CAL3 does not need P64 inputs. No seventh O40.",
+      "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/tasks/BWS",
+      "fixed_followup": true,
+      "requires_positive_BW": false,
+      "requires_A_success": false,
+      "new_video_decodes": 0,
+      "optional_consumes": [
+        "B_CHIP_P64_INPUTS"
+      ],
+      "partial_completion": "Missing D-state or O-state fixed64 inputs block only the corresponding Chip cells. BWS Q1/ICC continues; no global Chip-input gate."
+    }
+  ],
+  "conditional_branches": [
+    {
+      "id": "B_CHIP_STATS",
+      "purpose": "Produce only missing actual GLOBAL_P64 fixed64 endpoint U inputs; no full-M block statistics.",
+      "consumes": [
+        "VB_BOUND_INPUTS",
+        "VB_RECIPE",
+        "VB_PANEL512",
+        "OD_WEIGHTS",
+        "BW_METHOD_IDENTITY",
+        "LEGACY_EVIDENCE"
+      ],
+      "produces": [
+        "B_CHIP_P64_INPUTS"
+      ],
+      "design_status": "PLANNED_PREEXEC_REQUIRED",
+      "execution_scope_id": null,
+      "runnable": false,
+      "track": "B",
+      "trigger": "Exact fixed64 row inputs absent after one ID-based lookup in panel, stored U and restorable same-identity states.",
+      "source_roles": "Existing DEV11 only; fixed P64 with no CAL tuning.",
+      "max_new_D4_full_executions": 11,
+      "max_new_source_pairs": 0,
+      "new_video_decodes": 0,
+      "first_choice": "Reuse exact fixed64 rows already in PANEL512 by true IDs, then other same-identity U/restorable states; capture only missing DEV source conditions.",
+      "required_fields": [
+        "Exact source/site/endpoint and fixed64 ordered spatial token IDs",
+        "U0_64/U1_64 BF16 at same state as existing bank",
+        "Input recipe/parent/payload hashes and same-state check"
+      ],
+      "forbidden_substitute": "PANEL first64, invented rows, different-state U, author block means, target-hidden oracle.",
+      "no_automatic_CAL_capture": true,
+      "gate": "Capture missing DEV source conditions only in a reviewed scope; no CAL capture, author extension or full-M F1 for bitwise historical masks.",
+      "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/tasks/B_CHIP_STATS",
+      "max_rows_per_endpoint_site": 64,
+      "full_M_block_statistics_required": false
     },
     {
       "id": "V4D",
@@ -1613,7 +1634,8 @@
       "runnable": false,
       "track": "A",
       "trigger": "One candidate has useful source-wise benefit and a defensible quality-cost purpose.",
-      "max_new_D4_full_executions": 0
+      "max_new_D4_full_executions": 0,
+      "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/out_of_scope"
     },
     {
       "id": "V5",
@@ -1635,7 +1657,8 @@
       "runnable": false,
       "track": "A",
       "trigger": "V4D passes for the chosen candidate; exact video scope/cost bound in its own preexecution review.",
-      "budget": "Not allocated by this correction; reuse original-identity reference videos/metrics/timing when matched."
+      "budget": "Not allocated by this correction; reuse original-identity reference videos/metrics/timing when matched.",
+      "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/out_of_scope"
     }
   ],
   "stage_estimands": {
@@ -1664,10 +1687,11 @@
       "interaction": "[d(WD,muD)-d(WO,muD)]-[d(WD,muO)-d(WO,muO)]",
       "relative_ratios": "secondary; not replace common-unit contrasts",
       "BW_vs_BWS": "separateCAL11 and mixedCAL3 fits/tables",
-      "methods": "Specified Q1r2 rule, ICC_SVD_R512_TWO_RESIDUAL, identity-bound Chipmunk selector; no family-wide or equal-cost optimality claim.",
+      "methods": "Q1r2 own-W target fit; ICC_SVD_R512_TWO_RESIDUAL; CHIPMUNK_GLOBAL_P64 with declared local512/P64anchor64 numeric adapter. Cost reported, not matched.",
       "cost": "IDENTICAL_WITHIN_METHOD_ACROSS_WEIGHTS; CROSS_METHOD_COST_REPORTED_NOT_MATCHED",
       "state_support": "Composite mu_O/mu_D interaction is distinct from a noise/gap-matched component effect; unmatched component attribution remains unidentified.",
-      "BWS_fit": "One fixed theta(W) per W from common mixed CAL3; diagonal cells are not each-model native-best calibrated quality."
+      "BWS_fit": "One fixed theta(W) per W from common mixed CAL3; diagonal cells are not each-model native-best calibrated quality.",
+      "primary_numeric_path": "Common F64 gated MSE of BF16 pre-gate predictions vs own-W sampled BF16 native target; post-gate BF16 auxiliary results separate."
     },
     "V5_TIMING": {
       "primary": "Per-source log(Tcandidate/TcurrentQ1), equal-source mean",
@@ -1700,7 +1724,7 @@
         "leave-one-source-out sensitivity",
         "separateexperts"
       ],
-      "relative_floor": "fixed solely fromCALneutral error; retain source/absolute value and mark affected relative conclusion uncertain"
+      "relative_floor": "Absolute differences are primary; exact-zero secondary ratio denominators are undefined. No old total-error floor flag or standalone floor task."
     },
     "V1": {
       "primary_boundary": "Same-input actual consumer post-gateFFN contribution z, including gate/cast rounding; not unavailable whole-site residual writeback",
@@ -1717,16 +1741,16 @@
       "fit_check": "C=0 is Q1; converged convex fixed-feature ridge with lambda>=0 cannot exceed zero-correction CAL aggregate penalized objective in mathematical precision. Not a per-source or BF16 guarantee.",
       "dev_identity": "Already observed DEV; development inference, not blind confirmation.",
       "preexec_bindings": [
-        "Exact P/Q and gate metric",
-        "CAL-only scale/normalization and regularization",
-        "Numerical tolerance",
-        "Resource-worthwhile screening margin and stop rule"
-      ]
+        "Implement fixed P/Q/scale/rho/FP32-baseline recipe in execution spec",
+        "Bind exact stage/source/inputs and existing review/ACTIVE",
+        "Apply fixed integrated numerical tolerances"
+      ],
+      "minimum_useful_effect_gate": false,
+      "completion": "All fixed cells and checks complete regardless of sign or magnitude; no invented effect threshold or automatic deployment."
     }
   },
   "budget": {
-    "scope": "Design bounds, not execution authorization; two core experiments and conditional named consumers.",
-    "planned_core_experiment_count": 2,
+    "scope": "Two research directions; three fixed scientific comparisons plus missing-input production. These are design caps, not already frozen jobs.",
     "current_authorized_new_jobs": 0,
     "current_authorized_new_D4": 0,
     "current_authorized_new_O40": 0,
@@ -1737,17 +1761,11 @@
     "offline_compute": "FFN target replay and fitting are paid compute; concrete CPU/GPU/memory/time bound in each reviewed scope.",
     "conditional_Chipmunk": {
       "max_new_D4": 11,
-      "source_role": "Existing DEV11 only",
+      "source_role": "Existing DEV11, only missing actual GLOBAL_P64 fixed64 endpoint U rows",
       "new_video_decodes": 0,
       "reuse_first": true,
-      "fixed_selector_no_CAL_tuning": true
-    },
-    "conditional_BWS": {
-      "max_new_O40": 6,
-      "CAL": 3,
-      "DEV": 3,
-      "max_scheduler_steps": 240,
-      "separately_budgeted": true
+      "fixed_selector_no_CAL_tuning": true,
+      "full_M_block_statistics_required": false
     },
     "candidate_video_budget": "Not allocated; requires an actually selected candidate and concrete reviewed scope.",
     "selection_preserved_not_a_run_quota": {
@@ -1756,7 +1774,17 @@
       "CAL_B_reserved": 11,
       "DEV": 11
     },
-    "old_budgets_inherited": false
+    "old_budgets_inherited": false,
+    "research_direction_count": 2,
+    "scientific_comparison_count": 3,
+    "BWS": {
+      "max_new_O40": 6,
+      "CAL": 3,
+      "DEV": 3,
+      "max_scheduler_steps": 240,
+      "separately_budgeted": true,
+      "fixed_followup_if_no_matching_result": true
+    }
   },
   "reuse_policy": {
     "judge_separately": [
@@ -1779,9 +1807,12 @@
     "independent_design_review_is_execution_approval": false,
     "concrete_scopes_require_repo_preexecution_workflow": true,
     "counts_are_for_this_plan_change": true,
-    "planned_core_experiment_count": 2,
     "runnable_queue_count": 0,
-    "user_research_authorization_is_not_new_execution_scope": true
+    "user_research_authorization_is_not_new_execution_scope": true,
+    "normal_review_cycle": "One author self-audit, one real independent review, one consolidated response and targeted recheck; reopen only evidenced blockers or changed frozen identity.",
+    "execution_handoff_is_frozen_run_scope": false,
+    "research_direction_count": 2,
+    "scientific_comparison_count": 3
   },
   "preservation": {
     "frozen_reports_modified": false,
@@ -1885,7 +1916,7 @@
       "evidence_basis": "reports/20261114/g20_v4_repr_density/README.md"
     }
   ],
-  "asset_graph_semantics": "Provenance/reuse edges do not authorize computation. execution_queue contains two core experiments plus shared B preparation; conditional_branches are explicit bounded dependencies, not an automatic full suite.",
+  "asset_graph_semantics": "Two research directions, three fixed scientific comparisons A/BW/BWS. BW_PREPARE is one-time binding; B_CHIP_STATS produces only missing named inputs. Provenance edges are not automatic dispatch authority. Candidate deployment remains separate.",
   "unproduced_not_requested_asset_ids": [
     "VB_DENSE_CALB11",
     "VB_EVAL_CONTRACT",
@@ -2100,6 +2131,21 @@
     "CAL22_or_rank_grid_automatic": false,
     "eta_experiment_default": false,
     "goal_source": "research/20261111/G20_TWO_TRACK_OPERATOR_AND_DISTILLATION_ATTRIBUTION_20261111.md",
-    "concrete_experiments_require_existing_preexec_workflow": true
-  }
+    "concrete_experiments_require_existing_preexec_workflow": true,
+    "BWS_requires_positive_BW": false,
+    "BWS_requires_new_value_judgment": false,
+    "scientific_negative_is_engineering_failure": false,
+    "minimum_useful_effect_is_start_gate": false,
+    "nonblocking_review_creates_new_pilot": false,
+    "missing_Chip_blocks_A_or_ICC": false,
+    "automatic_full80_or_video_after_A": false,
+    "author_Chipmunk_reproduction_required": false,
+    "P64_full_M_block_stats_required": false
+  },
+  "execution_handoff": "research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md",
+  "execution_spec": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json",
+  "research_direction_count": 2,
+  "scientific_comparison_count": 3,
+  "handoff_review": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/design_review",
+  "design_review_scope": "Existing review records revision4 goal restoration; revision5 execution detail review is in the spec."
 }
