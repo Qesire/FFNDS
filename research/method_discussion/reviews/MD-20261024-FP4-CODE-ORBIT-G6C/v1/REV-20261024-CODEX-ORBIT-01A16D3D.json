@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "review_id": "REV-20261024-CODEX-ORBIT-01A16D3D",
+  "method_id": "MD-20261024-FP4-CODE-ORBIT-G6C",
+  "version": 1,
+  "proposal_git_blob_sha": "ce9241a4a2ff8f0e745e866e633ea883b56e9c88",
+  "reviewer": {
+    "agent_id": "codex-ffnds-method-01a16d3d",
+    "session_ref": "Codex thread 01a16d3d-579f-74d2-ae9d-e5ece9fb627a; user request 评议新几个的方案; 2026-10-24"
+  },
+  "verdict": "SUPPORT",
+  "independent_reconstruction": "从OCP MX规范§5.3.3与§6.1/6.2重建有限E2M1数值集合C={0,±1/2,±1,±3/2,±2,±3,±4,±6}。固定同一个输入位置子块J、输出权重tile与已实现的量化状态，令n=2c，g=gcd非零坐标绝对值，sigma为第一个非零坐标符号，p=sigma*n/g，得到x_J=s_x*(sigma*g/2)*p。只要J不跨激活或相关权重的尺度边界，dot(x_J,w_oJ)=s_x*(sigma*g/2)*s_wo*dot(p,c_woJ)。同p的不同token因此可共享未缩放部分和。Q1已发生而目标W1尚未发生，信息时机合法。若权重尺度在J内变化，先取激活与权重尺度分区的共同细化，或把固定反量化权重纳入表，不能强行提出单一s_w。HiF4需用其实际层级解码，不移植E2M1字母表。选择路线：原生接口重建→射影等价类推导→确定性计数→硬件反例。",
+  "decisive_argument": "支持其明确限定的实数反量化部分和等式与研究方向，不支持未经测量的加速或bit identity。进一步可把提案的原始15^k容量界收紧为精确轨道数：K_k=1+(15^k-11^k-7^k+5^k)/2。理由是整数幅度集合{1,2,3,4,6,8,12}的公约数只含素因子2、3；对全坐标可被2或3整除的元组容斥，得到primitive非零元组数，再除整体正负号，最后加全零类。归一化后的每个p仍在原整数字母表内，因此没有漏计轨道。K_2=41,K_3=914,K_4=17105。对于同一个固定J的任意T个token，至少max(0,T-K_k)次不是首见类；T=128,k=2时至少87次，即使没有任何自然场景相关性。完整推导见共同分析记录。",
+  "counterexample_or_discriminator": "T=128,k=3时128<914，可以全部不同，故不能推出正的统一重复下界；短k=2虽保证重复，仍可能因每次仅节省两个乘法、却增加索引/缩放/归约而慢于dense MMA。应比较原始code重复、只归一符号、符号+gcd轨道三个字典，并固定本地token窗口和输出tile；全场景碰撞不是局部缓存命中证明。令n=(3,6)则g=3：数学上可以把3提到scale，但MX E8M0只能表示2的幂，不能免费把原scale乘3后直接交给同一个MX scaled-MMA接口。",
+  "constructive_revision": "建议保留v1支持，追加精确K_k界，并把实现性问题缩成k=2与k=3的表大小/缩放成本比较。令c*=p/2，则c*仍是E2M1合法值，x=s_x*sigma*g*c*；这样避免直接把可能为12的p误当FP4操作数。g=3,6,12等因子需额外处理；NVFP4的E4M3尺度乘积也可能重新舍入，不能默认精确吸收。签名至少绑定J、权重版本/expert、输出tile、scale布局和数值协议，跨输入位置共享同p不代表同一个权重部分和。2-byte表项精度需依保存对象论证；不要把重新缩放后的浮点部分和存为低精度仍称实数精确。CodeGEMM提供了table/gather先行机制，需作为成本对照；当前支持不是新颖性认证。",
+  "evidence_links": [
+    "research/method_discussion/proposals/MD-20261024-FP4-CODE-ORBIT-G6C/v1.json",
+    "research/method_discussion/reviews/ANALYSIS-20261024-CODEX-NEW3-01A16D3D.md",
+    "https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf",
+    "https://docs.nvidia.com/deeplearning/transformer-engine/features/low_precision_training/nvfp4/nvfp4.html",
+    "https://triton-lang.org/main/getting-started/tutorials/gluon/tcgen05-mma-scaled.html",
+    "https://arxiv.org/html/2512.17970v1",
+    "https://arxiv.org/abs/2408.06003",
+    "research/20261022/R12_HiF4_group_separability.json"
+  ],
+  "prior_reviews_seen": false,
+  "review_independence_note": "本版本评议形成前未读取本提案的其他评议。本人另有QCell tile proposal（PR9），本记录只评议另一位agent的不同Q1→W1机制，不为本人提案投票。",
+  "claim_scope": "SUPPORT_FIXED_STATE_REAL_DOT_IDENTITY_AND_FINITE_ORBIT_BOUND_ONLY; NATIVE_REUSE_LATENCY_QUALITY_AND_NOVELTY_UNMEASURED",
+  "source_revision": "b4b666b942ac7511c97ff69e4dcbd24ef1505d1a",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
