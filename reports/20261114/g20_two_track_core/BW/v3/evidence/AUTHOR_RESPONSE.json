@@ -1,0 +1,80 @@
+{
+  "scope_id": "G20_BW_20261114_V1",
+  "author": "main",
+  "responded_utc": "2026-11-14T10:08:00Z",
+  "responds_to_disposition": "REQUEST_CHANGES",
+  "old_scope_sha256": "739e573e96c511c73910d4f249a88512dd2b2d73376df445ca7ec1b99ee94ade",
+  "new_scope_sha256": "4b0c3b3522f6bdf1e2b75f23e4965e61b8800ef71d2d29547d2b17d9fca92e87",
+  "changed_bound_files": {
+    "b_weight_state_runner.py": {
+      "old_sha256": "74e58d6e1b54eaec1f958cc71253b2eb071d9dbbc5c46525f5d6f815fa6ce643",
+      "new_sha256": "9cb3876fab967713ed87f98dbe2f6419c2d9e1d4b07468b813877b7094f35bf3"
+    }
+  },
+  "unchanged_bound_files_note": "All other 12 code files and B_BINDINGS.json frozen input unchanged; smoke_bw.py is a test harness, not a bound code file.",
+  "responses": [
+    {
+      "id": "F1",
+      "severity": "MATERIAL",
+      "action": "FIXED",
+      "detail": "Added persist_and_reload(out, sk, weight_id, tensors, device): torch.save real fitted tensors per site|weight to output/params/{sk}__{weight_id}.pt, then torch.load(weights_only=True) and verify byte-identical round-trip (torch.equal per tensor + key set). Q1 persists alpha_Q1 (FP32) and A_q1_f32 (FP32 operator); ICC persists icc_fc1_left/right and icc_fc2_left/right (BF16 factors) for BOTH weights (W_D reused landed factors, W_O fresh ordinary-SVD). Per handoff A6 the RELOADED tensors are used for final DEV scoring (not transient tensors). PARAMS_MANIFEST.json[sk|weight].params_file records path/bytes/sha256/weights_only_reloadable/tensor shapes+dtypes; Q1.alpha_Q1_sha256 (per-cell fit_sha) is now computed from the reloaded alpha_Q1, so fit_sha is verifiable against the persisted artifact. SUMMARY.json adds params_total_bytes and params_reload_verified. No norm/hash-only parameter path remains."
+    },
+    {
+      "id": "F2",
+      "severity": "NONBLOCKING",
+      "action": "FIXED",
+      "detail": "cell_row now takes row_indices_sha; run() loads the frozen B_BINDINGS.json (hash-verified against scope.frozen_inputs_sha256), asserts panel.count==512, and populates row_indices_sha from bindings.panel.per_source[src].token_id_sha256_le_int64 for every Q1/ICC DEV cell. Full B6 row identity now explicit in BW_CELL.csv."
+    },
+    {
+      "id": "F3",
+      "severity": "NONBLOCKING",
+      "action": "FIXED",
+      "detail": "BW_COST.csv now reports all five spec tasks.BW.cost_fields: parameter_bytes_per_site (Q1 alpha+A_q1_f32), factor_bytes_per_site (ICC BF16 factors), cache_bytes_per_token (units label corrected from per_site), analytic_mac_per_token, selector_packing_cost (Chip rms_score+selection(K=5120)+packed_pregate, BLOCKED this scope; Q1/ICC none), and actual_compute_consumption (shared_run_elapsed_seconds; explicitly not native full-M latency). cost_contract unchanged: IDENTICAL_WITHIN_METHOD_ACROSS_WEIGHTS;CROSS_METHOD_COST_REPORTED_NOT_MATCHED."
+    },
+    {
+      "id": "F4",
+      "severity": "NIT",
+      "action": "ACKNOWLEDGED",
+      "detail": "Soft termination is implemented via job.sh --signal=B:TERM@60 (SIGTERM at 10740s -> TimeoutError -> EXIT.json receipt), strictly below wall_seconds=10800. Safety holds; declared soft_seconds=10500 is a conservative budget label. No code change required."
+    },
+    {
+      "id": "F5",
+      "severity": "NIT",
+      "action": "FIXED",
+      "detail": "smoke_bw.py comment corrected: W_D recomputed y1 need NOT bit-match bank Y_pre_gate (full-M 31668-row capture sliced to 512 vs 512-row GEMM, BF16 accumulation differs by M, spec B3). False is EXPECTED."
+    },
+    {
+      "id": "F6",
+      "severity": "NIT",
+      "action": "FIXED",
+      "detail": "Runner comment corrected to 'score Q1 + ICC on DEV (primary main table, B6 DEV-only 264 cells)'; no CAL diagnostic claimed."
+    },
+    {
+      "id": "F7",
+      "severity": "NIT",
+      "action": "FIXED",
+      "detail": "Added explicit ICC factor shape assert ((13824,512),(512,5120),(5120,512),(512,13824)) for both W_D (plus BF16 dtype assert) and W_O fresh factors, hardening the cross-weight ordinary-SVD r512 identity gate."
+    }
+  ],
+  "smoke_rerun": "BW smoke re-run on a GPU compute node exercising the FORMAL runner.persist_and_reload real path (persist->reload->score) for both W_D and W_O; result recorded in ROOT_SELF_AUDIT.txt section 9.",
+  "scientific_table_unchanged": "The 264 Q1/ICC DEV cell numerics, own-W recompute, Q1 convergence gate, ICC ordinary-SVD identity, shared G_ref, F64 primary vs BF16 auxiliary, d/theta/LOO aggregation, and 132 blocked Chip cells are unchanged from the APPROVE-passed correctness review; only required-artifact persistence and field completeness were added.",
+  "rev3_v2_fix": {
+    "trigger": "v1 formal job 164189 FAILED exit 1: sha_tensor .numpy() on BFloat16 (cell_row BF16 payload hashes) raised TypeError. Latent because v1 smoke did not exercise cell_row.",
+    "new_scope_id": "G20_BW_20261114_V2",
+    "new_scope_sha256": "5706f60c61c0a157c7a8e74504161ffffceb109f1eadda1b12d781f26afebdaf",
+    "new_runner_sha256": "22394dda5b5a0f50a2339e47ae8865240e3282ae0b6dfb5dc4d5cf77fc60c427",
+    "fix": "sha_tensor hashes raw contiguous buffer as uint8 (reshape(-1).view(torch.uint8).numpy().tobytes()); dtype-agnostic, byte-identical to old method for FP32/FP64 (alpha_Q1 fit_sha unchanged); risk numerics untouched.",
+    "smoke_hardened": "smoke_bw.py now calls formal R.cell_row on each DEV source for both weights, asserting VALID status, finite risks, 64-hex BF16 payload hashes, and gated_mse_f64==primary_risk.",
+    "v1_preserved": "BW/v1/stage failed artifacts kept read-only; v2 fresh stage BW/v2/stage; no auto-retry; failed consumption accounted.",
+    "action": "FIXED"
+  },
+  "rev4_v3_fix": {
+    "trigger": "v2 formal job 164225 FAILED exit 1 after scoring 264 cells: aggregate_bw KeyError ('vbi_0056','W_O','Q1','high',4). cell_row stores full method_id but aggregate_bw indexed with short 'Q1'/'ICC'. Latent because piecewise smoke never called aggregate_bw.",
+    "new_scope_id": "G20_BW_20261114_V3",
+    "fix": "Added METHOD_SHORT map; normalize row['method_id'] to short name when building the risk dict. Downstream per_source/d/theta/LOO keys and BW_SOURCE.csv lookups already use short names -> now consistent. Risk numerics unchanged.",
+    "smoke_hardened": "smoke_bw.py now builds a complete 2-source x 6-site x 2-weight x 2-method grid via formal R.cell_row, calls formal R.aggregate_bw, asserts all per-source risk/d/theta lookups finite + LOO count + json.dumps(agg/q1_info, allow_nan=False). Covers the aggregation+serialization integration path previously missed.",
+    "v2_preserved": "BW/v2/stage failed artifacts kept read-only; v3 fresh stage BW/v3/stage; no auto-retry; failed consumption accounted.",
+    "action": "FIXED"
+  },
+  "code_changed": true
+}

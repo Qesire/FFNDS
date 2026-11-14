@@ -1,0 +1,108 @@
+G20 A_Q1_RESIDUAL — ROOT SELF-AUDIT (author: main)
+rev5 handoff A2-A7; scope G20_A_Q1_RESIDUAL_20261114_V1; DESIGN->REVIEW_CANDIDATE.
+This is the author self-audit required by FFNDS_PREEXEC_REVIEW_V1. It is NOT an
+independent approval and NOT execution authorization.
+
+1. QUESTION AND ESTIMAND
+One four-arm comparison of nested residuals around the exact published strong Q1:
+  CURRENT_Q1, Q1_PLUS_LINEAR64_Q32, Q1_PLUS_DELTA_N32, Q1_PLUS_ENDPOINT_N32.
+No STABLE_FREE_LINEAR, no L32, no 256 rows, no rank/activation/lambda/eta branch.
+Primary readout = absolute gated MSE per source/site/arm; layer-equal within expert,
+expert-equal within source, then source-equal. Math (F64 gated pre-gate increment
+lift on the V4 X/Y identity) and BF16 (local cache/operator/gate replay) are SEPARATE
+tables. Differences reported: R_Q1-R_m (three residual arms), R_L-R_E, R_D-R_E, with
+11 per-source values, source-equal mean, and leave-one-source-out means/signs;
+high/low separate. Relative-to-Q1 is auxiliary; undefined only when the true
+denominator is 0. Effect sign/magnitude is NOT a start or completion gate.
+
+2. Q1 ANCESTRY (A2.1) — rebuild, NOT refit
+alpha_Q1 read from published V4 VB_LOCAL_FITS.json fits['512|'+site].alpha_Q1
+(13824 FP32 coefficients; file SHA 55888f22...). A_q1_f32=(W1.float().T*alpha)@W2.float().T
+then A_q1=A_q1_f32.double(). This is exactly q1_fit_core.Problem.matrix order (FP32
+formation then F64 lift); TF32 off. No Problem instantiation, no q0_prior/fit_q1/
+stable_free_linear call in A. The published q1_fit.true_relative_residual=8.33e-6<1e-5
+(CONVERGED); the hardcoded CERTIFICATE_UNRESOLVED string is a placeholder, not a failure.
+
+3. BASES, CENTER/SCALE, FEATURES (A2.2-A2.3)
+P64 = top-64 right singular vectors of weighted stacked X (F64 thin SVD), w_s=1/(11*512).
+P32=P64[:,:32]. Q32 = top-32 right singular vectors of weighted stacked PRE-GATE residual
+(Y - X@A_q1) — NOT the gated residual. This is the rev5 fixed coordinate choice; the true
+gate weights remain in the fit_readout normal equations. No DEV in any basis.
+b = sum_s w_s*(h0.sum(0)+h1.sum(0))/2 with h0=U0@P32,h1=U1@P32; sigma = pooled endpoint
+std around b, clamp_min(1e-6). Fixed tanh (no GELU/SiLU, no temperature search).
+Raw features (each 64 cols): L=X@P64; D=[X@P32, tanh((X@P32)/sigma)] (no b offset, odd);
+E=[X@P32, tanh((U1@P32-b)/sigma)-tanh((U0@P32-b)/sigma)]. D and E first-32 columns are the
+identical X.double()@P32. Per-arm gamma_j=sqrt(sum_s w_s sum_rows Phi_raw^2).clamp_min(1e-6);
+Phi=Phi_raw/gamma; no feature-mean subtraction (preserves zero-increment/antisymmetry).
+
+4. READOUT SOLVER (A3) — V4 fit_readout body verbatim, base A_q1
+K += kron(w_s*Phi^T Phi, Q32^T diag(g^2) Q32); T += w_s*Phi^T ((R*g^2) Q32), R=Y-X@A_q1.
+Source weight appears ONCE (on the Phi Kronecker factor). rho=READOUT_EPS*trace(K)/2048,
+READOUT_EPS=1e-6 (unchanged relative Tikhonov; not 1e-3, not DEV-tuned). vec(C)=solve(K+rho I,vec(T)).
+C is 64x32 F64 (2048). trace(K)=0 & RHS=0 -> C=0 NO_FEATURE_SIGNAL (valid). Normal-equation
+relative residual required <=1e-8 (SOLVED branch). No second full SVD/eigh solver.
+Objective J(C)=sum_s w_s||g*(X A_q1+Phi C Q32^T-Y)||_F^2+rho||C||_F^2.
+
+5. BF16 LOCAL REPLAY (A4) — separate table, no floor task
+Qb(x)=x.float().bfloat16(). Q1: original ridge_fit_core.bf16_replay with Qb(A_q1_f32).
+L64: fold (P64/gamma_L)@C_L@Q32^T into A_q1 (F64), one Qb, original residual replay.
+Endpoint: fold first-32 linear (P32/gamma_E[:32])@C_E[:32]@Q32^T -> A_E_linear_BF16;
+C_E_N_BF16=Qb(C_E[32:]/gamma_E[32:,None]); B(u)=Qb((u@A_E_linear_BF16).float()+
+((Qb(tanh(((u@P32_BF16).float()-b_FP32)/sigma_FP32))@C_E_N_BF16)@Q32_BF16^T).float());
+cache=Qb(y0-B(u0)); base=Qb(B(u1)+cache); gated=Qb(base*g); target=Qb(y1*g). No extra resident h0.
+Delta: fold first-32 linear; base=bf16_replay(...,A_D_linear_BF16)[0]; retain h0=u0@P32_BF16;
+v=Qb(tanh(((u1@P32_BF16).float()-h0.float())/sigma_FP32)) (NO b); base=Qb(base+((v@C_D_N_BF16)@Q32_BF16^T));
+gated/target as above. P32_BF16=Qb(P32),Q32_BF16=Qb(Q32),b/sigma FP32; sigma not absorbed into P.
+This is local 512-row cache/operator/gate replay; NO final residual-stream writeback, NO video/timing claim.
+cal_numerical_floor / source_density_delta / "11/11 unmeasurable" paths are REMOVED.
+
+6. THREE CHECK GROUPS (A5)
+(1) Ancestry: rebuilt Q1 CAL/DEV math risk vs published V4 512 per-source values, rtol=1e-5,
+atol=1e-12 (identity check, not refit). Zero correction: first sorted CAL source per site, each
+C=0 -> math AND BF16 gated prediction torch.equal to CURRENT_Q1 via the actual consumer functions;
+same source/token panel, target/gate/baseline unchanged. Failure = ENGINEERING_FAILURE.
+(2) CAL objective: Jfit<=J0+1e-8*max(|J0|,1e-30), aggregate only; per-CAL-source improvement and
+DEV improvement NOT required. Normal residual reported.
+(3) BF16 finite: all four arms finite gated risk on all CAL/DEV six sites, same target=Qb(y1*g).
+BF16 losing the math benefit is a scientific result, not engineering failure. implementation_gap
+(BF16 vs unquantized math) may be saved; total BF16-vs-Dense error is NOT named a pure rounding floor.
+
+7. OUTPUT AND RELOAD (A6)
+params/{site}.pt: weights_only=True reloadable dict with A_q1/A_q1_f32/alpha_Q1/P64/Q32/b/sigma/
+gamma_L/D/E/C_L/D/E + actual A_Q1_BF16/A_L_BF16/A_D_linear_BF16/A_E_linear_BF16/P32_BF16/Q32_BF16/
+C_D_N_BF16/C_E_N_BF16/b_FP32/sigma_FP32. Ancestry/numeric path in JSON metadata (no custom Python class).
+Fit -> save -> reload -> score final math+BF16 from reloaded tensors. Exported BF16 A matrices verified
+torch.equal to the replay recomputation from reloaded F64 (bf16_export_consistency). Output cap 2GiB
+(actual file bytes counted). Fixed outputs: A_Q1_RESIDUAL_PARAMS.json, A_Q1_RESIDUAL_READOUT.json,
+CHECKS.json, SUMMARY.json, RUN.json/EXIT.json via the original guard.
+
+8. REUSE VERBATIM (hash-bound)
+ridge_fit_core.py b22ac372 (bf16_replay/_f64_sse/native_ffn); q1_fit_core.py b76a0efa (Problem.matrix
+ancestry reference); runtime_guard.py ba75a4c1 (require_compute_allocation/sha256_file/peak_rss).
+fit_readout Kronecker solver body from v4_repr.py 8ead06e5 with base/feature substitution only.
+guarded_runner_a/dispatch_once_a/job.sh mirror the reviewed V4 guards (phase/import/lock renamed);
+single dispatch, review+recheck APPROVE, ACTIVE AUTHORIZED_FOR_ONE_JOB, session_max_gpus=2,
+prelaunch code/input hash recheck, RUN/EXIT preserved.
+
+9. SMOKE (real path, real data, CPU, 2 CAL + 2 DEV at high/4)
+SMOKE_A_PASS. Ancestry rebuilt vs published match to ~1e-9 relative (within rtol). P64[5120,64],
+Q32[5120,32]. All three readouts SOLVED, normal residual ~1e-15..1e-16, Jfit<J0. Zero correction
+math_equal=True bf16_equal=True for all three arms. All math/BF16 risks finite. The 2-source subset
+shows CAL-fit improvement with mixed DEV (consistent with the published V4 negative); the formal
+11-source run produces the registered estimand. Smoke calls the formal runner/repr functions, not a
+re-implementation.
+
+10. ANTI-LEAKAGE / BOUNDARIES / RESOURCES
+All learned priors (bases, b/sigma, gamma, C) within CAL_A11 x ordered prefix512; DEV never enters any
+fit; ancestry uses published V4 alpha (CAL-derived). 0 new D4, 0 new O40, 0 new video, 0 reference
+generation/benchmarks. Six sites only; historical exposure allowed this cycle; DEV already-observed
+development. Local replay is not full-M video/free-trajectory/system speed. Resources: 1 A100 80GB,
+4 CPU, 160GiB host, 78GiB GPU fraction, 3h wall, single formal job; session cap 2 GPUs.
+
+11. REVIEWER ATTENTION POINTS
+- Confirm Q32 is pre-gate (Y-X@A_q1) not gated; gate stays only in the normal equations.
+- Confirm A_q1 rebuild FP32-then-F64 order matches Problem.matrix and ancestry tolerance.
+- Confirm source weight appears once in the Kronecker product; rho=1e-6*trace(K)/2048.
+- Confirm BF16 endpoint/delta rounding order and C=0 torch.equal identity via real functions.
+- Confirm no floor/unmeasurable path remains; math vs BF16 tables separate; negative completes.
+- Confirm reload-from-file scoring and exported BF16 consistency; output byte cap.

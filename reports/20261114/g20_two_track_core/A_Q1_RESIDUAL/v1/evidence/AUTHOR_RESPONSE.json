@@ -1,0 +1,29 @@
+{
+  "scope_id": "G20_A_Q1_RESIDUAL_20261114_V1",
+  "scope_sha256": "ec7558a110831daaece640b8c45ed24a22ead513906e598bb2120e954cd364dd",
+  "review_sha256": "8148bea423901b2cc914cbde6bf4556412ffcc8a4b32a6598ed7a97132d60f16",
+  "author": "main",
+  "responded_utc": "2026-11-14T10:03:41.941Z",
+  "disposition_acknowledged": "APPROVE/APPROVE",
+  "responses": [
+    {
+      "id": "F1",
+      "severity": "NONBLOCKING",
+      "ack": "bf16_export_consistency covers A_Q1/A_L exported tensors; final math+BF16 scoring recomputes from the F64 fit and reloaded params, so tables are unaffected. No code change required for correctness.",
+      "action": "ACKNOWLEDGED"
+    },
+    {
+      "id": "F2",
+      "severity": "NIT",
+      "ack": "soft_seconds enforced via Slurm --signal=B:TERM@60 (SIGTERM->TimeoutError->EXIT.json), strictly below wall_seconds with preserved receipt.",
+      "action": "ACKNOWLEDGED"
+    },
+    {
+      "id": "F3",
+      "severity": "NIT",
+      "ack": "Per-file ~0.5GiB, ~3GiB total params; min_free_disk_gib=10 guard protects. 2GiB A6 cap is an estimate; actual file bytes recorded in manifest.",
+      "action": "ACKNOWLEDGED"
+    }
+  ],
+  "code_changed": false
+}

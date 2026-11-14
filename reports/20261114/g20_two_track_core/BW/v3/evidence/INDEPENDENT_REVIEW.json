@@ -1,0 +1,61 @@
+{
+  "scope_id": "G20_BW_20261114_V3",
+  "scope_sha256": "7cd433166db2cae5eaa26eef3af012df09ee4296537003cb82f02f15f9da779b",
+  "root_self_audit_sha256": "3afc4d4a26bc7791db05c0f7c91b472e50cd6fd25c417d0d2bc8da79e3cc67dd",
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_bw_v3recheck_20261114",
+  "disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "reviewed_utc": "2026-11-14T12:05:14.660Z",
+  "recheck_of": "v2 job 164225 aggregate_bw method-key KeyError; v3 METHOD_SHORT fix + integration smoke hardening",
+  "hash_binding": {
+    "verified": true,
+    "bad": [],
+    "code_count": 13,
+    "frozen_count": 1,
+    "changed_file": "b_weight_state_runner.py",
+    "scope_id": "G20_BW_20261114_V3",
+    "remote_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW/v3/stage",
+    "note": "Independently recomputed via Node require('crypto').createHash('sha256') (ELECTRON_RUN_AS_NODE=1). scope.json=7cd43316... and ROOT_SELF_AUDIT.txt=3afc4d4a... match the orchestrator-provided v3 digests. All 13 code_sha256 match scope.json (BAD=0): b_weight_state_runner.py=1389d03033a7e8136f8c973b9cf78e681ee0ba5696650a2ca8a7a70b3a7a1a59 (v3; v2 was 22394dda...), b_common_replay.py=6ccdcad0... UNCHANGED, ridge_fit_core b22ac372, q1_fit_core b76a0efa, runtime_guard ba75a4c1, icc_ffn 127328fd, icc_decompose 6f2d2d93, chipmunk_fullm_proxy_math f46ba6fe, chipmunk_wan_packed_pregate 9a3e789e, panel512 0e420e95, guarded_runner_b b86f56ca, dispatch_once_b fad386cd, job.sh 8a048d28. frozen_inputs B_BINDINGS.json=58cec641... matches (1 frozen). Guards guarded_runner_b/dispatch_once_b unchanged from APPROVE'd v1/v2. scope_id=G20_BW_20261114_V3, remote_stage ends /BW/v3/stage, status REVIEW_CANDIDATE, phase G20_BW."
+  },
+  "prior_correctness_checks_reused": "prior full review + rechecks APPROVE'd all correctness claims (own-W recompute, Q1 convergence, ICC ordinary-SVD identity, shared G_ref, F64 primary vs BF16 auxiliary, d/theta/LOO, 264 cells, 132 blocked Chip, reloadable params, BF16 payload hash); numerics unchanged in v3. b_common_replay.py hash 6ccdcad0 byte-identical to APPROVE'd v1/v2 (Node-verified); the v3 runner delta is confined to METHOD_SHORT (line 30) + the aggregate_bw risk-dict key normalization (line 125); stored risk VALUE and all d/theta/LOO arithmetic unchanged. Prior non-blocking F4 (soft_seconds 10500 vs Slurm TERM@60=10740 < wall 10800) remains acknowledged/unchanged; budget identical in v3.",
+  "recheck_checks": {
+    "V3-1": "PASS - METHOD_SHORT (runner:30) keys 'Q1R2_CAL11_P512_OWNW'/'ICC_SVD_R512_TWO_RESIDUAL' EXACTLY match the only two cell_row method_id literals emitted in run() (:252 Q1, :255 ICC). aggregate_bw builds the risk key with m=METHOD_SHORT[row['method_id']] (:125-127, SHORT) and the sole lookup risk[(src,w,m,e,L)] (:135) uses m from methods=('Q1','ICC') (:119), w from WEIGHTS=('W_O','W_D') (:27), e from ('high','low') (:117), L from (4,19,34) (:118) - every tuple dimension matches cell_row inputs (source_id=c['source'], weight_id from WEIGHTS loop :197, expert/layer from B.SITES :195). No KeyError possible for VALID Q1/ICC cells.",
+    "V3-2": "PASS - per_source risk keys f'{w}|{m}' (:145 -> W_O|Q1/W_O|ICC/W_D|Q1/W_D|ICC), risk_by_expert f'{w}|{m}|{e}' (:146), d f'{m}|{w}' (:147 -> ICC|W_O/ICC|W_D), theta {m:...} (:148 -> ICC), source_equal_mean_risk/d/theta + LOO (:149-155) all SHORT. Internal r[(w,m)]/r[(w,m,e)]/d[(m,w)] tuples use short names throughout (:137-144, incl r[(w,'Q1')]). BW_SOURCE.csv writer (:298-299) ps['risk']['W_O|Q1'/'W_O|ICC'/'W_D|Q1'/'W_D|ICC'], ps['d']['ICC|W_O'/'ICC|W_D'], ps['theta']['ICC'] match the built keys exactly. No full/short mixing anywhere.",
+    "V3-3": "PASS - b_common_replay.py 6ccdcad0 UNCHANGED (Node-verified): primary_risk:181-187 (F64 gated SSE/(n*D)), auxiliary_risk:190-194 (BF16 gate MSE), q1_predict:197-201, icc_predict:127-143, own_w_targets:113-122, q0_prior:51-73, fit_q1:76-83 byte-identical to APPROVE'd v2. Only the risk-dict KEY normalization changed (m=METHOD_SHORT[...] vs full method_id); the stored VALUE row['gated_mse_f64'] (:127) and all sum/len, by_e, d=r[(w,m)]-r[(w,'Q1')], theta, mean, LOO arithmetic are unchanged. Smoke risks BIT-IDENTICAL to v2 (W_D vbi_0056 Q1 prim=0.0103724 ICC prim=0.00900954; W_O vbi_0056 Q1 prim=0.0103845 ICC prim=0.00899501) + AGGREGATE_OK mean_theta_ICC=2.84204e-05 corroborate.",
+    "V3-4": "PASS - smoke_bw.py imports FORMAL R (:12 import b_weight_state_runner as R), calls R.cell_row (:97 Q1, :99 ICC) for both weights, builds full_grid = 8 base cells x B.SITES(6) = 48 (:114-121) covering 2src x 6site x 2weight x 2method, calls FORMAL R.aggregate_bw(full_grid, dev_src) (:122), asserts every per-source risk(4 keys)/d(2)/theta finite (:125-129), LOO count==len(dev_src) (:130), json.dumps(agg, allow_nan=False) + json.dumps({'q1_fit':last_info,...}, allow_nan=False) (:132-133). Under v2 (risk dict keyed by FULL method_id, lookup SHORT) the call at :122 would raise KeyError on risk[(src,w,'Q1',e,L)] -> the hardened smoke catches the exact v2 failure. Real path, NOT a re-implementation.",
+    "V3-5": "PASS - exclusive_json uses allow_nan=False (:34-36) for PARAMS_MANIFEST/CHECKS/BW_AGGREGATE/SUMMARY (:335-338). agg values derive from finite gated_mse_f64 (run finite gate :275-278 raises on nonfinite; smoke finite asserts :126-129); divisors len(layers)=3, len(experts)=2, len(dev_sources)=11, LOO len-1=10 all nonzero -> no NaN/inf/zero-division. q1_info (Problem.fit return) JSON-safety corroborated by smoke json.dumps(last_info, allow_nan=False) serialize=OK + prior APPROVE (all .item() floats/ints/strings + history list). PARAMS_MANIFEST A_q1_fro2=float(...) finite; CHECKS/SUMMARY all str/int/float/bool/list/dict. No NaN/non-serializable path.",
+    "V3-6": "PASS - Node-verified scope_id G20_BW_20261114_V3, remote_stage .../BW/v3/stage, status REVIEW_CANDIDATE, phase G20_BW; new_videos=0, max_new_D4_full_executions=0, max_new_O40_full_executions=0, reference_generation=0, reference_benchmarks=0; budget gpus1/jobs1/cpus4/host160/gpu78/wall10800/soft10500/disk10 UNCHANGED; node ['anode16','anode20']. Guards guarded_runner_b.py b86f56ca / dispatch_once_b.py fad386cd unchanged (match bound + APPROVE'd v1/v2). Reloadable params persist_and_reload (:48-66: torch.save cpu-contiguous, torch.load weights_only=True, key-set + per-tensor torch.equal round-trip, manifest path/bytes/sha256/shapes+dtypes) + reload-before-scoring (:243-247 reassign a_q1_f32/factors from reloaded, fit_sha=sha_tensor(reloaded alpha_Q1)) + BF16 sha_tensor uint8 (:39-45) intact from prior APPROVE'd fixes."
+  },
+  "adversarial": [
+    {
+      "counterexample": "METHOD_SHORT misses a method_id actually emitted by run(), so aggregate_bw still raises KeyError on the missing full->short mapping.",
+      "defended": true,
+      "evidence": "The ONLY two method_id literals passed to cell_row in run() are 'Q1R2_CAL11_P512_OWNW' (:252) and 'ICC_SVD_R512_TWO_RESIDUAL' (:255); both are EXACT keys of METHOD_SHORT (:30). 'CHIPMUNK_GLOBAL_P64' is never passed to cell_row (only checks['chip_missing_cells'] :261 and BW_COST cost_rows :308), so it never reaches the risk dict. Grep confirms no third cell_row method_id. No KeyError for the emitted VALID cells."
+    },
+    {
+      "counterexample": "aggregate_bw still mixes FULL and SHORT keys somewhere (build short but look up full, or a downstream per_source/d/theta/CSV key uses the full method_id).",
+      "defended": true,
+      "evidence": "risk dict is built with m=METHOD_SHORT[row['method_id']] (SHORT, :125-127); the sole risk[...] lookup (:135) uses m from methods=('Q1','ICC') (SHORT). All downstream keys are short: r[(w,m)]/d[(m,w)] tuples (:137-144), per_source f'{w}|{m}'/f'{m}|{w}'/theta{m} (:145-148), mean/LOO (:149-155), and BW_SOURCE.csv ps['risk']['W_O|Q1']/ps['d']['ICC|W_O']/ps['theta']['ICC'] (:298-299). Grep shows risk[ only at :127 (build) and :135 (lookup); no full-method_id key survives into aggregation."
+    },
+    {
+      "counterexample": "A blocked Chip cell (cell_status != VALID, method_id 'CHIPMUNK_GLOBAL_P64') leaks into the risk dict and triggers KeyError (no METHOD_SHORT entry) or pollutes the Q1/ICC means.",
+      "defended": true,
+      "evidence": "Two defenses: (1) Chip DEV cells are NEVER appended to `cells` - run() only records them in checks['chip_missing_cells'] with cell_status='BLOCKED_INPUT_GAP' (:258-262); cells.append occurs only for Q1 (:252) and ICC (:255). (2) Even if a non-VALID row reached aggregate_bw, the loop skips it at :123 (if row['cell_status']!='VALID': continue) BEFORE the METHOD_SHORT lookup at :125, so 'CHIPMUNK_GLOBAL_P64' is never indexed and never enters risk/means. cell_row hardcodes cell_status='VALID' (:111) for the Q1/ICC rows that do enter cells."
+    },
+    {
+      "counterexample": "The smoke grid omits a site/weight/method (or re-implements aggregate_bw), so the v2 method-key KeyError stays hidden and the integration path is not truly exercised.",
+      "defended": true,
+      "evidence": "smoke calls the FORMAL R.aggregate_bw (:122), not a re-implementation. full_grid = 8 real high/4 cells (2src x 2weight x 2method via R.cell_row) relabeled across all B.SITES(6) = 48 cells (:114-121), exactly covering every lookup key (src,w,m,e,L) aggregate_bw requires (2src x 2w x 2m x 2expert x 3layer). The v2 bug is key-FORMAT (full vs short), independent of grid completeness: with v2 code the short-name lookup at :135 KeyErrors regardless, so :122 fails. AGGREGATE_OK grid_cells=48 loo=2 serialize=OK confirms the complete real grid now passes."
+    }
+  ],
+  "findings": [
+    {
+      "id": "V3-F1",
+      "severity": "NIT",
+      "summary": "The integration smoke builds full_grid by RELABELING the real high/4 risk values across all six site labels (smoke_bw.py:114-121), so it validates aggregation key-consistency/LOO/finite/allow_nan serialization (the v1/v2 failure path) but NOT per-site numeric correctness. NONBLOCKING and fit-for-purpose: per-site numerics are covered by the prior APPROVE'd science and computed for real in the formal run() loop (:195-256); the smoke's stated goal is the aggregation+serialization integration path, which it exercises on the FORMAL aggregate_bw with a complete 48-cell grid. No code change required.",
+      "location": "smoke_bw.py:114-122; b_weight_state_runner.py:195-256"
+    }
+  ],
+  "smoke_evidence_acknowledged": "v3 SMOKE_BW_PASS (reused as provided; NO GPU smoke or cluster job re-run by this recheck). CELL_ROW_OK W_D and W_O (bf16_payload_hash+finite+primary_match); PARAMS_RELOAD W_D/W_O bytes=143713221 tensors=6 roundtrip=OK fit_sha=b306524a22a4 / 6592da120a08 (unchanged); AGGREGATE_OK sources=2 grid_cells=48 mean_theta_ICC=2.84204e-05 loo=2 serialize=OK; Q1 W_D CONVERGED 9.37e-6 iter149, W_O CONVERGED 9.68e-6 iter144; ICC W_D checkpoint_match=True, W_O fresh SVD shapes correct; risks bit-identical to v2 (W_D vbi_0056 Q1 prim=0.0103724 ICC prim=0.00900954; W_O vbi_0056 Q1 prim=0.0103845 ICC prim=0.00899501). Formal aggregate_bw real-path confirmed: smoke_bw.py:122 calls FORMAL R.aggregate_bw on a complete 2x6x2x2 grid built via FORMAL R.cell_row, exercising the aggregation+serialization path that failed in v1/v2.",
+  "boundary": "BW Q1/ICC 264 DEV cells complete with reloadable params + BF16 payload hashes + consistent aggregation; Chip 132 cells BLOCKED_INPUT_GAP pending B_CHIP_STATS; 0 new D4/O40/videos/reference; F64 primary vs BF16 auxiliary separate; no quality/production claim; theta sign does not gate BWS"
+}

@@ -1,0 +1,82 @@
+{
+  "scope_id": "G20_A_Q1_RESIDUAL_20261114_V1",
+  "scope_sha256": "ec7558a110831daaece640b8c45ed24a22ead513906e598bb2120e954cd364dd",
+  "root_self_audit_sha256": "16412c3afc6210f2e9b64aa312eba5dd0f63590e094086dc405ef2182e99181b",
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_a_q1_residual_20261114",
+  "disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "reviewed_utc": "2026-11-14T09:55:54Z",
+  "hash_binding": {
+    "verified": true,
+    "bad": [],
+    "code_count": 8,
+    "frozen_count": 3,
+    "note": "Independently recomputed via Node require('crypto').createHash('sha256') (ELECTRON_RUN_AS_NODE). scope.json=ec7558a1... and ROOT_SELF_AUDIT.txt=16412c3a... match expected. All 8 code_sha256 and all 3 frozen_inputs_sha256 full digests read from scope.json match the on-disk files AND the brief prefixes. BAD=0."
+  },
+  "checks": {
+    "1": "PASS - rebuild_a_q1 (a_q1_residual_repr.py:47-52) = (w1.float().T*alpha)@w2.float().T returned .double()+f32, identical order to q1_fit_core.Problem.matrix (q1_fit_core.py:16-17); runner ancestry (a_q1_residual_runner.py:227-235) compares rebuilt math risk vs ref[role+'_gated_mse']['CURRENT_Q1'][sk]['512|'+src] with rtol1e-5/atol1e-12 and raises on mismatch; TF32 off (runner:202-203); grep confirms no Problem()/fit_q1/q0_prior/stable_free_linear call (no PCG refit).",
+    "2": "PASS - select_bases (a_q1_residual_repr.py:55-67): rw=(Y.double()-X.double()@A_q1)*sqrt(w_s) with NO gate factor; Q32=svd(rw).Vh[:32].T (pre-gate residual); P64=svd(xw).Vh[:64].T from weighted stacked X; P32=P64[:,:32]; CAL only, no DEV. Gate g^2 stays in fit_readout normal equations.",
+    "3": "PASS - ARMS exactly (CURRENT_Q1, Q1_PLUS_LINEAR64_Q32, Q1_PLUS_DELTA_N32, Q1_PLUS_ENDPOINT_N32) (repr.py:32); RESIDUAL_ARMS=3; R_IN=64,R_OUT=32,PREFIX=512. Stage-wide grep: no STABLE_FREE_LINEAR/L32/256-row arm (every '256' hit is sha256); floor/unmeasurable strings appear only in runner docstring asserting removal.",
+    "4": "PASS - center_scale (repr.py:70-89) pooled b=sum w_s(h0.sum0+h1.sum0)/2, sigma=sqrt(pooled var).clamp_min(1e-6); feature_raw (92-105) L=X@P64, D=[h,tanh(h/sigma)] (no b), E=[h,tanh((h1-b)/sigma)-tanh((h0-b)/sigma)] with identical first-32 X@P32; feature_gamma (108-119) per-arm CAL RMS sqrt(sum w_s Phi_raw^2).clamp_min(1e-6), no mean subtraction; fixed tanh.",
+    "5": "PASS - fit_readout (repr.py:122-156): source weight ONCE (gphi=w*(phi.T@phi); gq=q32.T@(g2[:,None]*q32) has no w; kern+=kron(gphi,gq); tmat+=w*(phi.T@((res*g2)@q32))); dim=k*r_out=64*32=2048 equals readout feature dim; rho=eps*trace_k/dim with READOUT_EPS=1e-6; trace0&RHS0 -> C=0 NO_FEATURE_SIGNAL; cal_objective (171-189) returns (j0, jfit_data+reg, jfit_data), reg=rho*||C||^2.",
+    "6": "PASS - score_all_arms (runner.py:106-131) keeps out[arm]['math'] (F64 predict) and out[arm]['bf16'] (bf16_predict replay; Qb(x)=x.float().bfloat16(), repr.py:43-44) in separate dicts; aggregate/summary/READOUT report math and bf16 separately; save->torch.load(weights_only=True)->score from reloaded tensors (runner:280-300); bf16_export_consistency torch.equal A_Q1/A_L vs recomputation from reloaded F64 (285-291).",
+    "7": "PASS - zero-correction (runner.py:260-277): first sorted CAL source, each residual arm C=0, torch.equal(pm,q1_math) AND torch.equal(gated_z,q1_gated) via real consumer functions, raises ENGINEERING_FAILURE on mismatch; finite gate (301-304) vals=list(cal_sc)+list(dev_sc) per arm/path then torch.isfinite(torch.tensor(vals)).all(); _f64_sse also raises on nonfinite SSE (ridge_fit_core.py:36-37).",
+    "8": "PASS - aggregate (runner.py:134-176): layer-equal (mean over layers 4/19/34) -> expert-equal (mean over high/low) -> source-equal (mean over 11 sources); diffs R_Q1-R_m (3 arms), R_L-R_E, R_D-R_E; source-equal mean diff + leave-one-source-out means; high/low reported separately; DEV primary, CAL diagnostic.",
+    "9": "PASS - guarded_runner_a.py:35-95 + dispatch_once_a.py:17-53 enforce phase G20_A_Q1_RESIDUAL, status REVIEW_CANDIDATE, remote_stage==stage, new_videos/max_new_D4/max_new_O40/reference_generation/reference_benchmarks all 0; review disposition+recheck APPROVE, reviewer_agent_id truthy and not in authors['main'], root_self_audit_sha256 matches; ACTIVE AUTHORIZED_FOR_ONE_JOB + session_max_gpus==2 + review_sha256 matches; all 8 code + 3 frozen hashes re-checked with path-escape guard; require_compute_allocation live Slurm (RUNNING/owner/uid/nodelist/1 GPU/<=4 CPU/<=10800s); one A100-SXM4-80GB; torch 2.10.0+cu128; budget ceilings; dispatch refuses if SUBMITTED/DISPATCH_INTENT/RUN/output exist (38-39), flock, --no-requeue, single submit, no retry.",
+    "10": "PASS - job.sh nodes1/ntasks1/cpus-per-task4/mem160G/time03:00:00(=10800s)/signal TERM@60; scope budget gpus1/cpus4/host160GiB/gpu78GiB/wall10800/soft10500/min_free_disk10GiB; node[anode16,anode20]; guarded_runner enforces device_count==1, A100-SXM4-80GB, gpu memory fraction 78GiB, host memory<=160GiB, TimeLimit<=10800, free disk>=10GiB, python_executable match. soft_seconds enforced via Slurm SIGTERM@60 (10740s) not a Python check (see F2)."
+  },
+  "adversarial": [
+    {
+      "counterexample": "Q32 basis accidentally built from the GATED residual g*(Y-X@A_q1) instead of the pre-gate residual (the rev4 coordinate ambiguity).",
+      "defended": true,
+      "evidence": "select_bases (a_q1_residual_repr.py:60-66) forms rw=(Y.double()-X.double()@a_q1)*sqrt(source_weight) with NO g factor; gate appears only as g2 in fit_readout gq=Q32^T diag(g^2) Q32 and T=(res*g2)@Q32. Spec tasks.A_Q1_RESIDUAL.features.Q32 explicitly binds 'ungated/pre-gate F64 residual'. Basis is pre-gate by construction."
+    },
+    {
+      "counterexample": "Source weight w_s applied twice in the Kronecker solve (on both factors), silently changing the estimand to sum w_s^2(...).",
+      "defended": true,
+      "evidence": "fit_readout (repr.py:139-142): gphi=w*(phi.T@phi) carries w; gq=q32.T@(g2[:,None]*q32) carries NO w; kern+=kron(gphi,gq) => w exactly once; tmat+=w*(phi.T@((res*g2)@q32)) => w once. Matches spec K/T and 'source weight appears once'."
+    },
+    {
+      "counterexample": "A C=0 residual arm produces a nonzero increment (math or BF16), breaking the nested-residual identity with CURRENT_Q1.",
+      "defended": true,
+      "evidence": "predict_math CURRENT_Q1 returns X@A_q1 with no increment; phi@0@q32.T=0. BF16 fold A=Qb(A_q1+...@0@...)=Qb(A_q1)=Qb(A_q1_f32) (A_q1.float()==A_q1_f32 exactly) and C_N=Qb(0)=0 so nonlinear branch n=0; base reduces bit-exactly to bf16_replay(A_Q1_BF16). Runner enforces torch.equal for math AND bf16 and raises on failure (runner.py:269-276). Smoke reports math_equal=bf16_equal=True for all three arms."
+    },
+    {
+      "counterexample": "A nonfinite (NaN/Inf) math or BF16 risk slips into the reported tables.",
+      "defended": true,
+      "evidence": "Two layers: _f64_sse raises ValueError on nonfinite gated SSE at computation time (ridge_fit_core.py:36-37); runner additionally builds vals=list(cal_sc[arm][path].values())+list(dev_sc[arm][path].values()) for every arm and both paths and raises unless torch.isfinite(torch.tensor(vals)).all() (runner.py:301-304). Smoke asserts all risks finite."
+    },
+    {
+      "counterexample": "BF16 and math tables conflated into one ranking (e.g. F64 math Q1 compared against BF16 replay arms).",
+      "defended": true,
+      "evidence": "score_all_arms stores separate 'math' (F64 gated increment) and 'bf16' (Qb cache/operator/gate replay) dicts (runner.py:119-131); aggregate iterates path in ('math','bf16') independently (141); SUMMARY/READOUT expose dev_source_equal_mean_risk['math'] and ['bf16'] separately (330-331). Same estimand (y0+X@A+increment-y1)*g but distinct precision paths, never merged."
+    },
+    {
+      "counterexample": "Negative or zero trace(K) / singular Kronecker system yields a garbage readout.",
+      "defended": true,
+      "evidence": "K=sum kron(w*Phi^T Phi, Q^T diag(g^2) Q) is a sum of Kronecker products of PSD matrices; its diagonal is a sum of nonnegative products so trace_k>=0 by construction. trace0&RHS0 -> C=0 NO_FEATURE_SIGNAL valid branch (repr.py:145-148); SOLVED branch normal-equation relative residual required <=1e-8 (runner.py:256-257) catches solve anomalies. Smoke residual ~1e-15."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "NONBLOCKING",
+      "summary": "bf16_export_consistency re-verifies only A_Q1_BF16 and A_L_BF16 against recomputation from reloaded F64; the other exported BF16 tensors (A_D_linear_BF16, A_E_linear_BF16, P32_BF16, Q32_BF16, C_D_N_BF16, C_E_N_BF16) are saved/reloaded but not individually torch.equal re-verified. NOT MATERIAL: score_all_arms/bf16_predict recompute the replay from the reloaded F64 tensors and do not consume the exported BF16 tensors, so the reported math/BF16 tables are unaffected. Self-audit phrase 'exported BF16 A matrices verified' slightly overstates coverage.",
+      "location": "a_q1_residual_runner.py:285-291"
+    },
+    {
+      "id": "F2",
+      "severity": "NIT",
+      "summary": "scope budget soft_seconds=10500 is declared but not enforced as a Python-level deadline in guarded_runner_a (runtime_guard.RunReceipt.check_deadline is unused here). Effective soft termination is Slurm --signal=B:TERM@60 => 10800-60=10740s, handled by the runner SIGTERM->TimeoutError. Hard wall ceiling 10800s IS enforced (TimeLimit check + require_compute_allocation). Pure local fitting completes far inside budget, so no safety impact.",
+      "location": "job.sh:7 / guarded_runner_a.py:75-78"
+    },
+    {
+      "id": "F3",
+      "severity": "NONBLOCKING",
+      "summary": "The 2GiB output cap (self-audit sec7 / spec A6) is counted and reported (total_param_bytes, per-file bytes) but not enforced with a hard raise. Per-site param file ~0.5GiB is within 2GiB; the 6-site total is ~3GiB, which would exceed a total-cap interpretation. The tensor list (F64 A_q1 + FP32 A_q1_f32 + four BF16 A matrices + bases) is exactly what spec A6 requires, and min_free_disk 10GiB is enforced before run, so ~3GiB output cannot exhaust disk. No correctness/safety defect; author should acknowledge per-file vs total cap semantics.",
+      "location": "a_q1_residual_runner.py:305-338"
+    }
+  ],
+  "smoke_evidence_acknowledged": "SMOKE_A_PASS reused (not re-run); real-path confirmed. smoke_a.py imports a_q1_residual_repr as R and a_q1_residual_runner as Run and calls the FORMAL functions R.rebuild_a_q1/select_bases/center_scale/feature_gamma/fit_readout/cal_objective/bf16_q1/bf16_predict and Run.load_layer_weights/build_pack/build_param_tensors/score_all_arms with a real torch.save/torch.load(weights_only=True) round-trip on 2 CAL + 2 DEV at high/4 (CPU). It is not a parallel re-implementation. Reported: ancestry rebuilt vs published V4 match ~1e-9 (within rtol1e-5), readout Kronecker normal residual ~1e-15, C=0 torch.equal(math,bf16)=True for all three residual arms, all math/BF16 risks finite.",
+  "boundary": "Pure local fitting on the already-landed VB_DENSE22 bank: 0 new D4 full executions, 0 new O40, 0 new videos, 0 reference generation/benchmarks. Rebuilds the published V4 Q1 alpha (NO PCG refit), fits three fixed residual readouts on CAL_A11 x ordered prefix512, scores DEV11 + CAL per source/site/arm; DEV never enters any basis/center/scale/gamma/C fit. Math primary = F64 gated pre-gate increment lift; BF16 = a SEPARATE local 512-row cache/operator/gate replay table (Qb rounding). NO final residual-stream writeback, NO full-M video / free-trajectory / native-kernel / system-speed claim, NO quality/production/deployment claim (quality_metrics=NOT_MEASURED, performance_comparison=NOT_BENCHMARKED). Effect sign/magnitude is NOT a start or completion gate; a scientific negative completes normally. Six sites only (high/low x layer 4/19/34); historical exposure allowed this cycle; DEV is already-observed development data. This review verifies correctness/safety to dispatch the single frozen local-fitting job; it does not assert any measured outcome."
+}

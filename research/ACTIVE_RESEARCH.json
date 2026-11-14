@@ -1,7 +1,7 @@
 {
   "g20_vbench_restart_v4_20261113": {
     "date": "2026-11-14",
-    "status": "TWO_TRACKS_ACTIVE_PREEXEC_REQUIRED",
+    "status": "TWO_TRACKS_A_BW_EXECUTED_BWS_BCHIP_PREEXEC_REQUIRED",
     "user_decision": "Complete the already authorized two research directions with the fixed revision 5 execution handoff. A runs the four declared arms without a minimum-gain start/completion gate. After BW, reuse exact matched BWS four-cell evidence or complete the missing specified BWS work, regardless of A outcomes or the sign of BW. Do not ask the user to reauthorize these research goals.",
     "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
     "cohort": "config/g20_vbench_restart_cohort_v1_20261113.json",
@@ -10,16 +10,16 @@
     "dev": 11,
     "supersedes_future_plan": "Revision 5 execution details replace executor discretion over whether the fixed comparisons are worthwhile. Preserve V4 evidence, source roles and limits on unrelated grids/pilots; actual scopes still require the existing preexecution workflow.",
     "frozen_g0_unchanged": true,
-    "new_runnable_scopes": 0,
-    "actual_jobs_dispatched": 0,
+    "new_runnable_scopes": 2,
+    "actual_jobs_dispatched": 2,
     "revision": 5,
     "decision_ledger": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
     "design_review": "research/experiment_reviews/G20_TWO_TRACK_RESTORATION_20261114/REVIEW.json",
     "design_status": "TWO_TRACKS_ACTIVE_PREEXEC_REQUIRED",
     "payload_status": "V4_AVAILABLE_SHARED_BANK_REUSE_AND_CORE_COMPARISON_PREPARATION_REQUESTED",
     "next_action_to_prepare": [
-      "A_Q1_RESIDUAL",
-      "BW_PREPARE"
+      "B_CHIP_STATS",
+      "BWS"
     ],
     "execution_scope_id": null,
     "runnable": false,
@@ -48,10 +48,13 @@
     "stage_estimands_status": "Revision 5 execution specification is the operational entry; preserved historical contracts retain their own identity.",
     "completed_evidence": {
       "V4": "reports/20261114/g20_v4_repr_density/README.md",
-      "V0_V1_V2": "Reported complete; raw credentials not fully public in inspected materials"
+      "V0_V1_V2": "Reported complete; raw credentials not fully public in inspected materials",
+      "A_Q1_RESIDUAL": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/README.md",
+      "BW": "reports/20261114/g20_two_track_core/BW/v3/README.md",
+      "BW_PREPARE": "g20_bind/B_BINDINGS.json (cluster BW_PREPARE/v1)"
     },
     "research_status": "TWO_TRACKS_ACTIVE",
-    "execution_status": "NO_NEW_SCOPE_AUTHORIZED",
+    "execution_status": "A_BW_COMPLETE_BWS_BCHIP_PREEXEC_REQUIRED",
     "runnable_queue_count": 0,
     "current_budget_scope": "Current execution authorization only; the planned capture ceilings below do not authorize running jobs.",
     "planned_budget": {
@@ -119,6 +122,34 @@
       "checks": "Perform the required frozen-identity check before launch; merge per-cell identity, numerical and reload checks into the formal job. No added approval layer or unplanned pilot.",
       "research_goal_reauthorization_required": false,
       "concrete_preexecution_and_ACTIVE_required": true
+    },
+    "formal_jobs_20261114": {
+      "A_Q1_RESIDUAL": {
+        "job": 164072,
+        "state": "EXIT_0",
+        "scope_id": "G20_A_Q1_RESIDUAL_20261114_V1",
+        "elapsed_seconds": 332.718774
+      },
+      "BW": {
+        "job": 164312,
+        "state": "EXIT_0",
+        "scope_id": "G20_BW_20261114_V3",
+        "elapsed_seconds": 460.86445,
+        "failed_attempts": [
+          {
+            "job": 164189,
+            "scope": "V1",
+            "cause": "reloadable params not persisted"
+          },
+          {
+            "job": 164225,
+            "scope": "V2",
+            "cause": "BF16 sha_tensor + aggregate_bw method-key"
+          }
+        ],
+        "note": "fix-before-rerun; failed consumption accounted; v1/v2 preserved read-only"
+      },
+      "session_max_gpus": 2
     }
   },
   "g20_roadmap_v3_20261112": {
@@ -41239,8 +41270,8 @@
         ],
         "C_and_D_selected_and_gated_difference": "NUMERICAL_NORM_AND_MAX_ZERO; NO_BYTE_COMPARISON",
         "C_D_vs_saved_h_relative_L2_range": [
-          9.400071713014774e-05,
-          9.727120036039834e-05
+          0.00009400071713014774,
+          0.00009727120036039834
         ],
         "arithmetic_construct_plus_action_event_ms_ranges": {
           "readonly_h_A": [
@@ -41572,8 +41603,7 @@
     "assigned_GPU_slots_at_wrapup": 0,
     "new_scope_after_publication": false,
     "CPU_resource_advice": "TWO_AUXILIARY_EXIT1_MUTABLE_PROGRESS_READ_PREDEBIT_PRESERVED_NO_RETRY"
-  }
-,
+  },
   "g20_r1_same_input_screen_20261112": {
     "source": "User 2026-11-11: implement/execute G20 next-round first batch on compute nodes; User 2026-11-12: upload results to repo",
     "status": "R0_R1_COMPLETED_EXIT_0__PUBLISHED_NO_NEW_AUTHORIZATION",
@@ -41600,8 +41630,7 @@
     "large_artifacts_not_uploaded": "6 ridgeD BF16 npy (52428928 bytes each) retained on cluster; SHAs in reports/20261112/g20_r1_screen/evidence/NPY_SHA256.txt and receipt_index.json",
     "new_scope_after_publication": false,
     "automatic_retry": false
-  }
-,
+  },
   "g20_r1b_numerical_recheck_20261112": {
     "source": "User 2026-11-12: independent review of the R1 publication (8 findings, all statically confirmed), then twice: fix the source code first, then execute the missing/erroneous experiments",
     "status": "R1B_COMPLETED_EXIT_0__PUBLISHED_NO_NEW_AUTHORIZATION",
@@ -41627,4 +41656,3 @@
     "automatic_retry": false
   }
 }
-

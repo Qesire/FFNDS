@@ -1,0 +1,199 @@
+G20 BW — ROOT SELF-AUDIT (author: main)
+rev5 handoff B2-B6; scope G20_BW_20261114_V1; DESIGN->REVIEW_CANDIDATE.
+Author self-audit required by FFNDS_PREEXEC_REVIEW_V1. NOT independent approval,
+NOT execution authorization.
+
+1. QUESTION AND ESTIMAND
+Conditional weight effect on fixed method gaps at shared D4 states (mu_D). Two weights
+W_O (original) and W_D (distilled); methods Q1, ICC, GLOBAL_P64. Same D4 PANEL512 U and
+same G_ref (same-source/site D4 hit gate) for both weights. CAL11x512 own-W targets,
+DEV11x512. This scope completes Q1/ICC DEV cells = 11x6x2x2 = 264; Chip DEV cells (132)
+are BLOCKED by the fixed64 input gap and recorded precisely (B_CHIP_STATS separate scope).
+Contrast d_m(W)=R_m(W)-R_Q1(W) (positive = comparator worse than Q1); theta_m=d_m(W_D)-d_m(W_O).
+Aggregation: layer-equal within expert, expert-equal within source, then source-equal;
+11 paired source values, source-equal mean/range, leave-one-source-out means/signs; high/low
+separate. No bootstrap/CI/p-value gate. theta sign does NOT gate BWS.
+
+2. OWN-W NUMERIC TARGET (B3) — both weights recompute
+For EACH W, on the identical 512-row U, recompute own anchor/hit via native_ffn:
+z=addmm(b1,U,W1.T) BF16; h=GELU(z,tanh) BF16; y=addmm(b2,h,W2.T) BF16. No mixing of old
+full-M D target with sampled O target. 22 source x 6 site x 2 W x 2 endpoint own-W endpoints.
+W_D weights BF16 from the distilled safetensors; W_O weights F32 storage converted once
+F32_TO_BF16_RNE (.bfloat16()), actual BF16 payload used. Same device/backend/layout/order.
+Primary risk = sum(((pred_BF16.double()-own_y1_BF16.double())*G_ref.double())^2)/(512*5120) F64,
+pred the real BF16 PRE-GATE prediction (Q1 bf16_replay base; ICC two-residual pred; Chip packed
+pre-gate). Auxiliary = F64 MSE of BF16(pred*G_ref) vs BF16(own_y1*G_ref). Q1 math lift may be saved
+as diagnostic but is NOT mixed with BF16 ICC/Chip into one primary ranking. Sampled local FFN
+function replay; NOT full-M video/free-trajectory/system speed.
+
+3. Q1 (B4) — Q1R2_CAL11_P512_OWNW, refit each W/site (12 fits)
+Per W/site build CAL X=U1-U0, Y=y1-y0 (own-W BF16 endpoints), G_ref; q0_prior (U/W1/b1 FP32,
+FP32 addmm+GELU(tanh), dz/dh F64 weighted moments, den clamp1e-30, alpha FP32, A0 from F64 W1/W2
+and ratio — NOT cached BF16 z/h); fit_q1 Problem PCG ridge=1e-3, maxiter=240, tol=1e-5, restart 20,
+init alpha_Q0 (verbatim V4 q0_prior/fit_q1). Require status CONVERGED AND true_relative_residual<=1e-5
+(the historical CERTIFICATE_UNRESOLVED string is a placeholder, not the certificate). Default refit
+W_D too (old bank target was full-M; old alpha not blindly reused). Prediction = bf16_replay(...)[0]
+pre-gate base with Qb(A_q1_f32). No old/new alpha selection, no DEV optimization, no hyperparam sweep.
+
+4. ICC (B4) — ICC_SVD_R512_TWO_RESIDUAL, ordinary SVD r512
+Ordinary SVD, W1/W2 each rank512, NO CD-SVD, no 4th arm, no rank scan. W_D factors reused from
+icc_svd_manifest.json (SHA 6d0a5764...) only if checkpoint_sha256 matches the current W_D checkpoint
+and method=svd/rank=512 (verified per site; factor file hash gated). W_O factors produced fresh by
+the SAME fixed scheme: factorize(weight,512,driver='gesvd') with left_scale=right_scale=None
+(ordinary SVD; confirmed producer runner_all80.py line 141 uses None for method='svd'), FP32 gesvd
+on CUDA, split left=U[:,:512]*S[:512], right=Vh[:512,:], cast BF16. The cd_scales field in W_D factors
+is provenance for the separate cdsvd variant and is NOT applied to svd factors. Cross-weight method
+identity holds (both ordinary SVD r512 gesvd BF16). Prediction wrapper copies icc_two_residual_decomposed
+arithmetic unchanged, accepting already-computed own-W z0/h0/y0: q1=z0-first(U0); q2=y0-second(h0);
+pred=second(GELU(first(U1)+q1,tanh))+q2; first/second = F.linear(F.linear(x,right),left). Does NOT
+re-call the duplicate native target replay or the attribution suite. Missing W_O factor produced for
+that site only.
+
+5. CHIP (B5) — CHIPMUNK_GLOBAL_P64, OWNW_LOCAL512_P64ANCHOR64_V1 (BLOCKED this scope)
+Fixed64 = CPU torch.Generator seed42 randperm(31668)[:64] (verified equals the spec literal list;
+NOT PANEL512 first64). Binding shows all 11 DEV sources miss 62-64 of these rows in PANEL512
+(696 missing rows total). Selector: own-W anchor h0_sel=GELU(F.linear(U0_64,W1,b1),tanh); hit
+z1_proxy=F.linear(U1_64,W1,b1); scores=rms_score(z1_proxy,h0_sel) (rms_score does GELU once);
+indices=selection(scores,5120) (stable descending argsort, ties lower column, then ascending).
+Action: packed_pregate(U1_eval512,W1,b1,W2,h0_eval512,y0_eval512,indices) — BF16 packed W1/GELU,
+BF16 hidden delta, W2 torch.mm out_dtype=FP32, add y0.float() then BF16; b2 already in y0. eval512
+anchor cache uses own-W h0/y0 (not selector64). This numeric adaptation is declared (historical full-M
+anchor may differ in bits); NO full-M F1 to reproduce old video mask bits. CAL_fit=false. Because the
+fixed64 U rows are absent for DEV, Chip DEV cells are BLOCKED_INPUT_GAP here; only Chip cells blocked,
+Q1/ICC continue. B_CHIP_STATS (max 11 D4, existing DEV11, separate concrete scope+ACTIVE) fills them.
+
+6. COST CONTRACT (B4)
+IDENTICAL_WITHIN_METHOD_ACROSS_WEIGHTS; CROSS_METHOD_COST_REPORTED_NOT_MATCHED. CAL data, rank/selector
+params and method numeric path identical across O/D. BW_COST.csv reports analytic MAC/token (Q1 5120^2;
+ICC 2*512*(5120+13824); Chip 2*5120*5120 per updated token + per-site 64-row proxy/sort), cache bytes,
+selector/packing cost, actual compute consumption. NOT native full-M latency; no equal-cost ranking;
+no full-M performance grid.
+
+7. CHECKS / OUTPUT (B6)
+Q1 convergence (12 fits) required CONVERGED+residual<=1e-5; ICC W_D factor checkpoint/method/rank identity
++ file hash + explicit shape/dtype assert; W_O fresh ordinary SVD + shape assert; all primary/auxiliary
+risks finite; own-W recompute (W_D recomputed y1 does NOT bit-match bank Y_pre_gate — EXPECTED, see §9).
+Reloadable Q1/ICC parameters (§5/A6): persist_and_reload saves real tensors per site|weight to
+output/params/{sk}__{weight}.pt (Q1 alpha_Q1 FP32 + A_q1_f32 FP32; ICC fc1/fc2 left/right BF16 for both W),
+torch.load(weights_only=True) round-trip verified (torch.equal), and the RELOADED tensors are used for final
+DEV scoring. PARAMS_MANIFEST.json[sk|weight].params_file records path/bytes/sha256/tensor shapes+dtypes;
+per-cell fit_sha = sha of the reloaded alpha_Q1 (verifiable against the persisted artifact). BW_CELL.csv
+(264 Q1/ICC rows; fields source/role/expert/layer/state_mu/endpoint_steps/weight_id/method_id/config_sha/
+fit_sha/U0_sha/U1_sha/row_indices_sha/G_ref_sha/own_anchor_sha/own_target_sha/n_rows/output_dim/pred_sha/
+gated_sse_f64/gated_mse_f64/bf16_gate_mse/chip_* null/cell_status). row_indices_sha = frozen B_BINDINGS
+panel.per_source[src].token_id_sha256_le_int64 (panel.count==512 asserted, binding hash gated). BW_SOURCE.csv
+(per-source risk/d/theta). BW_COST.csv (all five cost_fields: parameter_bytes_per_site, factor_bytes_per_site,
+cache_bytes_per_token, analytic_mac_per_token, selector_packing_cost, actual_compute_consumption).
+PARAMS_MANIFEST.json, CHECKS.json (incl. chip_missing_cells, params_reload_verified), BW_AGGREGATE.json,
+SUMMARY.json (params_total_bytes). RUN/EXIT via original guard. complete_partial=BW_Q1ICC_COMPLETE + blocked
+Chip cells; B remains PARTIAL until Chip filled. No silent source drop/renormalization.
+
+8. REUSE VERBATIM (hash-bound)
+ridge_fit_core.py b22ac372 (native_ffn/bf16_replay/_f64_sse); q1_fit_core.py b76a0efa (Problem);
+runtime_guard.py ba75a4c1; q0_prior/fit_q1 copied verbatim from v4_repr.py 8ead06e5; icc_ffn.py Factors +
+icc_decompose.py factorize (producer ffn_baselines_20261107); chipmunk_fullm_proxy_math.py
+(fixed_prefix_permutation/rms_score/selection, git blob 5c357708) + chipmunk_wan_packed_pregate.py
+(packed_pregate, git blob 8805f1b8). guarded_runner_b/dispatch_once_b/job.sh mirror reviewed V4/A guards.
+
+9. SMOKE (real path, real data, GPU, 2 CAL + 2 DEV at high/4, both W) — SMOKE_BW_PASS (job 163922; rev2 re-smoke job 164074)
+Q1 W_D CONVERGED rel_resid=9.37e-6 iter149; Q1 W_O CONVERGED rel_resid=9.68e-6 iter144 (both <=1e-5).
+ICC W_D reused factor checkpoint_match=True; ICC W_O fresh ordinary SVD shapes
+(13824,512)/(512,5120)/(5120,512)/(512,13824). Primary/auxiliary risks finite (e.g. W_D vbi_0056
+Q1 prim=0.0103724 ICC prim=0.00900954; W_O vbi_0056 Q1 prim=0.0103845 ICC prim=0.00899501).
+REV2 F1 real-path evidence (job 164074): the smoke calls the FORMAL runner.persist_and_reload for both
+weights — PARAMS_RELOAD W_D bytes=143713221 tensors=6 roundtrip=OK fit_sha=b306524a22a4; PARAMS_RELOAD
+W_O bytes=143713221 tensors=6 roundtrip=OK fit_sha=6592da120a08. Scoring uses the RELOADED tensors and
+the resulting risks are BIT-IDENTICAL to the pre-fix smoke (W_D vbi_0056 Q1 prim=0.0103724 ICC
+prim=0.00900954; W_O vbi_0056 Q1 prim=0.0103845 ICC prim=0.00899501), proving persist->reload->score
+preserves numerics. Each params file ~137MiB (6 tensors: alpha_Q1, A_q1_f32, 4 ICC factors); 12 files
+~1.6GiB total, within the 10GiB free-disk guard. fit_sha differs across weights (different alpha).
+NOTE: W_D recomputed y1 does NOT bit-match bank Y_pre_gate (y1_bit_match_bank=False). This is EXPECTED
+and correct: the bank Y is a full-M (31668-row) native capture sliced to 512, whereas BW recomputes on
+512-row GEMM; BF16 accumulation differs by GEMM M (spec B3 explicitly anticipates this and mandates
+own-W recompute to avoid mixing full-M D target with sampled targets). BW uses recomputed own-W targets
+consistently for ALL methods and both weights; bank Y_pre_gate is not consumed by the BW runner.
+Smoke calls formal b_common_replay AND b_weight_state_runner.persist_and_reload functions, not a re-implementation.
+
+10. ANTI-LEAKAGE / BOUNDARIES / RESOURCES
+Q1 fit CAL only; DEV never in fit; ICC weight-only (ordinary_SVD_uses_CAL_fit=false); Chip no CAL fit,
+no DEV threshold. 0 new D4, 0 new O40, 0 new video for BW Q1/ICC. Six sites; historical exposure allowed;
+DEV already-observed development. Local replay not video/sys. Resources: 1 A100 80GB, 4 CPU, 160GiB host,
+78GiB GPU fraction, 3h wall, single job; session cap 2 GPUs. BWS is a fixed follow-up after BW_Q1ICC_COMPLETE
+(independent of A outcome / BW sign), separate concrete scope+ACTIVE, max 6 O40.
+
+11. REVIEWER ATTENTION POINTS
+- Confirm own-W target recompute for BOTH weights (no old full-M D / sampled O mixing); W_O F32->BF16 RNE.
+- Confirm Q1 refit convergence certificate (not placeholder); q0_prior FP32 prior (not cached BF16 z/h).
+- Confirm ICC ordinary SVD (no CD scales) identical across W; W_D factor checkpoint identity; pred wrapper
+  accepts own-W z0/h0/y0 without duplicate replay.
+- Confirm primary risk uses real BF16 pre-gate pred vs own y1 with shared G_ref; auxiliary separate.
+- Confirm Chip fixed64 are full-M randperm (not panel first64); blocked cells precise; Q1/ICC not blocked.
+- Confirm d/theta/LOO aggregation; cost reported not matched; negative completes; no silent renormalization.
+- Confirm reloadable Q1/ICC parameters: real tensors saved (weights_only=True), reloaded before scoring,
+  round-trip verified, manifest path/bytes/sha256/shapes; fit_sha from reloaded alpha_Q1 (not norm/hash only).
+
+12. REV2 FIX (response to independent review F1 MATERIAL + non-blocking items)
+The first independent review (REQUEST_CHANGES) found F1: reloadable Q1/ICC parameter tensors were not
+persisted (PARAMS_MANIFEST was hash/norm only), violating handoff §5 BW artifact row and A6. FIX: added
+persist_and_reload (real torch.save -> weights_only=True reload -> torch.equal round-trip -> score with
+reloaded tensors); Q1 saves alpha_Q1 FP32 + A_q1_f32 FP32, ICC saves four BF16 factors for both W; manifest
+records path/bytes/sha256/tensor shapes+dtypes; per-cell fit_sha computed from reloaded alpha_Q1; SUMMARY
+adds params_total_bytes + params_reload_verified. Also fixed F2 (row_indices_sha from frozen B_BINDINGS
+panel token-id hash), F3 (BW_COST all five cost_fields + cache units label corrected to per-token), F5/F6
+(smoke/runner comments), F7 (explicit ICC factor shape/dtype asserts both W). F4 (soft_seconds vs Slurm
+TERM@60) acknowledged safe, no change. Only b_weight_state_runner.py changed among bound files
+(old 74e58d6e -> new 9cb3876f); scope SHA 739e573e -> 4b0c3b35. The 264-cell scientific numerics, own-W
+recompute, Q1 convergence gate, ICC ordinary-SVD identity, shared G_ref, F64 primary vs BF16 auxiliary,
+d/theta/LOO, and 132 blocked Chip cells are UNCHANGED. Re-smoke exercises the formal persist_and_reload
+real path for both weights (see §9).
+
+13. REV3 FIX (v2, scope G20_BW_20261114_V2) — BF16 payload hash TypeError
+The v1 formal job (164189) FAILED exit 1: cell_row -> sha_tensor called .numpy() on BFloat16 tensors
+(U0/U1/G_ref/own_anchor/own_target/pred), raising "TypeError: Got unsupported ScalarType BFloat16".
+Root cause: numpy() has no BFloat16 dtype. This was latent because the v1 smoke exercised
+persist_and_reload (FP32 alpha hash) but NOT cell_row (the BF16 payload hashes). The A runner uses the
+same sha_tensor text but only ever hashes FP32 tensors, so A completed unaffected.
+FIX: sha_tensor now hashes the raw contiguous buffer reinterpreted as uint8
+(t.detach().cpu().contiguous().reshape(-1).view(torch.uint8).numpy().tobytes()). This is dtype-agnostic
+(BF16/FP32/FP64) and byte-identical to the old .numpy().tobytes() for FP32/FP64, so previously recorded
+FP32 hashes (e.g. alpha_Q1 fit_sha) are unchanged; only BF16 payload hashes become computable. The risk
+NUMERICS are untouched (sha_tensor only affects payload identity hashes, not gated_mse/bf16_gate_mse).
+SMOKE HARDENED: smoke_bw.py now calls the FORMAL R.cell_row on each DEV source for both weights,
+asserting cell_status VALID, finite gated_mse/bf16_gate_mse, 64-hex BF16 payload hashes, and
+gated_mse_f64 == primary_risk (real-path coverage of the previously untested code).
+v1 failed job artifacts (RUN/EXIT/SUBMITTED/DISPATCH_INTENT/output) are preserved read-only at BW/v1/stage;
+v2 is a fresh stage BW/v2/stage (no auto-retry; failed consumption accounted). Only b_weight_state_runner.py
+changed among bound files (rev2 9cb3876f -> v2 22394dda); scope SHA 4b0c3b35 -> 5706f60c.
+V2 SMOKE (job 164207, GPU, real path) — SMOKE_BW_PASS: CELL_ROW_OK W_D and W_O
+(bf16_payload_hash+finite+primary_match) — the formal R.cell_row now hashes BF16 U0/U1/G_ref/own_anchor/
+own_target/pred successfully and gated_mse_f64==primary_risk. PARAMS_RELOAD W_D/W_O bytes=143713221
+tensors=6 roundtrip=OK fit_sha=b306524a22a4 / 6592da120a08 (UNCHANGED from rev2, confirming FP32 hash
+backward-compatibility). Q1 W_D CONVERGED 9.37e-6 iter149; W_O CONVERGED 9.68e-6 iter144. Risks
+bit-identical to rev2 (W_D vbi_0056 Q1 prim=0.0103724 ICC prim=0.00900954; W_O vbi_0056 Q1 prim=0.0103845
+ICC prim=0.00899501) — sha_tensor fix affects payload hashes only, not risk numerics.
+
+14. REV4 FIX (v3, scope G20_BW_20261114_V3) — aggregate_bw method-key mismatch
+The v2 formal job (164225) FAILED exit 1 AFTER scoring 264 cells: aggregate_bw raised
+KeyError ('vbi_0056','W_O','Q1','high',4). Root cause: cell_row stores the FULL method_id
+('Q1R2_CAL11_P512_OWNW' / 'ICC_SVD_R512_TWO_RESIDUAL') but aggregate_bw indexed the risk dict
+with the SHORT name ('Q1'/'ICC'). The piecewise smoke never called aggregate_bw, so this was latent.
+FIX: added METHOD_SHORT mapping and normalize row['method_id'] -> short name when building the risk
+dict; all downstream per_source/d/theta/LOO keys and BW_SOURCE.csv lookups already use short names,
+so they are now consistent. Risk numerics unchanged (only the dict key normalization).
+SMOKE HARDENED (integration coverage): smoke_bw.py now builds a COMPLETE 2-source x 6-site x 2-weight
+x 2-method grid via the FORMAL R.cell_row (real high/4 cells relabeled across the six sites), calls
+the FORMAL R.aggregate_bw, asserts every per-source risk/d/theta lookup is finite, LOO has one entry
+per source, and json.dumps(agg, allow_nan=False) + json.dumps(q1_fit info, allow_nan=False) succeed
+(the exclusive_json serialization path). This exercises the aggregation + serialization code that the
+earlier piecewise smokes missed. q1_info confirmed all .item() floats/ints/strings (JSON-safe).
+v2 failed artifacts preserved read-only at BW/v2/stage; v3 fresh stage BW/v3/stage (no auto-retry;
+failed consumption accounted). Only b_weight_state_runner.py changed among bound files
+(v2 22394dda -> v3 1389d030); scope SHA 5706f60c -> 7cd43316. The 264-cell science is unchanged.
+V3 SMOKE (GPU, real path, full integration) — SMOKE_BW_PASS: CELL_ROW_OK W_D/W_O; PARAMS_RELOAD
+W_D/W_O bytes=143713221 tensors=6 roundtrip=OK fit_sha=b306524a22a4 / 6592da120a08 (unchanged);
+AGGREGATE_OK sources=2 grid_cells=48 mean_theta_ICC=2.84204e-05 loo=2 serialize=OK — the FORMAL
+aggregate_bw runs on a complete 2x6x2x2 grid via formal cell_row, all per-source risk/d/theta lookups
+finite, LOO has one entry per source, and json.dumps(agg + q1_fit, allow_nan=False) succeeds. Q1 W_D
+CONVERGED 9.37e-6 iter149; W_O CONVERGED 9.68e-6 iter144; risks bit-identical to v2 (W_D vbi_0056 Q1
+prim=0.0103724 ICC prim=0.00900954). The aggregation+serialization integration path that failed in
+v1/v2 is now exercised and passing.

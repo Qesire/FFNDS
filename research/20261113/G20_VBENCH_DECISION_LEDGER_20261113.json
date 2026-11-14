@@ -2,8 +2,8 @@
   "schema": "G20_VBENCH_DECISION_LEDGER_V1",
   "date": "2026-11-14",
   "based_on_commit": "6dc075ac4e962803636d522c5620f7b556b93423",
-  "design_only": true,
-  "new_experiments_run": 0,
+  "design_only": false,
+  "new_experiments_run": 2,
   "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
   "assets_and_queue": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
   "evidence_identity": {
@@ -68,7 +68,7 @@
     "r1b_detail_readback": {
       "scope": "six sites x explicit oldDEV5 chip10_01/03/05/06/08 =30; CAL4=02/04/07/09",
       "omega_comparison": {
-        "max_absolute_difference": 3.4488828404288796e-08,
+        "max_absolute_difference": 3.4488828404288796e-8,
         "exact_equal_count": 0,
         "count": 30,
         "max_at": [
@@ -78,7 +78,7 @@
       },
       "icc_identity_relative_residual_max": {
         "n": 30,
-        "min": 0.0,
+        "min": 0,
         "max": 3.082303275473884e-16,
         "min_at": [
           "high/4",
@@ -93,7 +93,7 @@
         "definition": "abs(icc_gated_sse-total_f64_gated_sse)/total_f64_gated_sse",
         "DEV30": {
           "n": 30,
-          "min": 1.7090858331851085e-06,
+          "min": 0.0000017090858331851085,
           "max": 0.0006259122802036202,
           "min_at": [
             "high/34",
@@ -181,26 +181,22 @@
     },
     {
       "id": "J_REPRESENTATION",
-      "status": "V4_Q0_CONSTRUCTS_NEGATIVE_Q1_RESIDUAL_QUESTION_OPEN",
+      "status": "A_Q1_RESIDUAL_COMPLETE_POSITIVE",
       "evidence": [
-        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
-        "reports/20261114/g20_v4_repr_density/README.md",
-        "reports/20261114/g20_v4_repr_density/output/VB_SOURCE_DENSITY.json",
-        "research/20261111/G20_NEXT_EXPERIMENT_ROUTE_AND_DECISION_TESTS_20261111.md"
+        "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/README.md",
+        "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/SUMMARY.json",
+        "reports/20261114/g20_v4_repr_density/README.md"
       ],
-      "current_judgment": "V4 rejects the tested Q0-base constrained variants and records free-Q1 overfitting. It did not test residual readouts nested around a common strong Q1. Restore one fixed four-arm comparison; do not resume unconstrained rank/feature search.",
+      "current_judgment": "A_Q1_RESIDUAL (job 164072 EXIT 0) answers the residual-readout question: all three fixed arms around the published Q1 improve DEV source-equal gated MSE — LINEAR64_Q32 (L) best (+6.07e-4, ~4.1%), ENDPOINT_N32 (E) +5.47e-4, DELTA_N32 (D) +5.21e-4; BF16 replay agrees in sign/magnitude. Endpoint access adds value over delta-only (R_D-R_E=+2.5e-5); L beats E (R_L-R_E=-6.0e-5). Q1 rebuilt from published V4 alpha (ancestry 132/132), Q32 pre-gate residual basis. No unconstrained search resumed.",
       "unresolved": [
-        "Does a CAL-only fixed residual model around Q1 improve DEV?",
-        "Does endpoint access add value beyond linear and delta-only controls at the declared readout budget?"
+        "Whether the ~4% sampled-replay lift transfers to full-M native video / free-trajectory / system speed (not measured; deployment value is a separate research-lead judgment)."
       ],
-      "next_experiment": [
-        "A_Q1_RESIDUAL"
-      ],
+      "next_experiment": [],
       "scheduled": false,
       "unresolved_implies_new_experiment": false,
       "planned_in_current_route": true,
       "execution_authorized": false,
-      "execution_decision": "One fully fixed four-arm Q1 residual comparison; no minimum effect threshold as start/completion gate. Negative or small effects complete the phase; no automatic retuning/deployment."
+      "execution_decision": "A complete; positive bounded result. No automatic full80/video/deployment. A later explicit candidate deployment decision gets its own bounded scope."
     },
     {
       "id": "J_SOURCE_DENSITY",
@@ -220,18 +216,17 @@
     },
     {
       "id": "J_ICC",
-      "status": "CURRENT_B_COMPARATOR_EXACT_IMPLEMENTATION",
+      "status": "BW_MEASURED_ICC_WORSE_THAN_Q1_WEIGHT_INDEPENDENT",
       "evidence": [
-        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
-        "reports/20261112/g20_r1_screen/evidence/scope.json"
+        "reports/20261114/g20_two_track_core/BW/v3/README.md",
+        "reports/20261112/g20_r1b_recheck/output/SUMMARY.json"
       ],
-      "current_judgment": "ICC_SVD_R512_TWO_RESIDUAL is the actual frozen ordinary-SVD r512, intermediate-GELU, two-residual implementation. Its conditional weight dependence is part of the already requested B goal. It is not relabelled CD-SVD or an equal-cost optimal ICC family.",
+      "current_judgment": "BW measured the fixed ICC_SVD_R512_TWO_RESIDUAL gap to Q1 at common own-W 512-row inputs: ICC worse than Q1 by ~+0.0065 for both W_O and W_D; the gap is essentially weight-independent (theta_ICC~1.3e-5). Ordinary SVD r512 identity confirmed across weights (no CD scales).",
       "unresolved": [
-        "Does this fixed configuration gap to Q1 change under W_O versus W_D at common inputs?"
+        "Chip comparator still blocked (B_CHIP_STATS)."
       ],
       "next_experiment": [
-        "BW_PREPARE",
-        "BW"
+        "B_CHIP_STATS"
       ],
       "native_h_repair_ratio_aggregation": "ratio of source-equal mean MSE, low19≈1.2775866 andlow34≈1.2691369; not mean of per-source ratios",
       "scheduled": false,
@@ -242,19 +237,17 @@
     },
     {
       "id": "J_CHIPMUNK",
-      "status": "ACTUAL_GLOBAL_P64_COMPARATOR_FIXED64_INPUT_GAPS_ONLY",
+      "status": "ACTUAL_GLOBAL_P64_FIXED64_INPUT_GAP_QUANTIFIED",
       "evidence": [
-        "Legacy existing_assets CHIPMUNK_FULLM_MISSING and CHIPMUNK_GLOBAL_P64"
+        "reports/20261114/g20_two_track_core/BW/v3/README.md",
+        "g20_bind/B_BINDINGS.json"
       ],
-      "current_judgment": "B explains the actually implemented GLOBAL_P64, using fixed64 true token IDs, K5120 stable RMS selector and existing packed action. Author block selector is a different method and is excluded. Current both-W local512/P64anchor64 numeric adapter is explicit; no historical video bitwise claim.",
+      "current_judgment": "BW_PREPARE quantified the fixed64 input gap: all 11 DEV sources miss 62-64 of the CPU seed42 randperm(31668)[:64] rows in PANEL512 (696 total). Chip 132 DEV cells BLOCKED_INPUT_GAP in BW; Q1/ICC unaffected. B_CHIP_STATS (max 11 D4, fill-only, separate scope) is the only unblock.",
       "unresolved": [
-        "Exact current panel/stored-state coverage of the fixed64 endpoint U rows",
-        "Own-W local function risk changes under weights and states"
+        "Own-W local function risk changes under weights and states for Chip (pending B_CHIP_STATS)."
       ],
       "next_experiment": [
-        "BW_PREPARE",
-        "B_CHIP_STATS",
-        "BW"
+        "B_CHIP_STATS"
       ],
       "scheduled": false,
       "unresolved_implies_new_experiment": false,
@@ -264,19 +257,19 @@
     },
     {
       "id": "J_WEIGHT_STATE",
-      "status": "CURRENT_INDEPENDENT_CORE_QUESTION",
+      "status": "BW_Q1ICC_COMPLETE_CHIP_PENDING_BWS_NEXT",
       "evidence": [
-        "No matched new W×state experiment"
+        "reports/20261114/g20_two_track_core/BW/v3/README.md",
+        "reports/20261114/g20_two_track_core/BW/v3/output/SUMMARY.json"
       ],
-      "current_judgment": "The user already requested Wan/distillation-related method-difference attribution. B-W is independent of A success. Fixed mu_D weight effects and composite state-distribution interactions are different estimands; either sign of B-W can leave the B-WS question unresolved.",
+      "current_judgment": "BW (job 164312 EXIT 0, scope V3) completes 264 Q1/ICC DEV cells on shared mu_D states with own-W recomputed BF16 targets. ICC is worse than Q1 for BOTH weights (d_ICC W_O +6.525e-3, W_D +6.539e-3; ~44% higher risk). theta_ICC=+1.329e-5 (~0): the distilled-vs-original weight change has negligible effect on the ICC-vs-Q1 method gap; all 11 per-source and 11 LOO theta positive (no sign flip). Chip GLOBAL_P64 132 DEV cells BLOCKED_INPUT_GAP (696 missing fixed64 rows). B remains PARTIAL; BWS composite-state interaction still unresolved.",
       "unresolved": [
-        "Conditional weight dependence of each fixed method gap.",
-        "Weight-by-native-state-distribution interaction; pure interval effects need matched support.",
-        "Wan-unique architecture causality requires additional evidence and is not assumed."
+        "Chip GLOBAL_P64 own-W risk under weights/states (blocked pending B_CHIP_STATS).",
+        "Weight-by-native-state-distribution interaction (BWS, fixed follow-up).",
+        "Wan-unique architecture causality not assumed."
       ],
       "next_experiment": [
-        "BW_PREPARE",
-        "BW",
+        "B_CHIP_STATS",
         "BWS"
       ],
       "scheduled": false,
@@ -367,9 +360,7 @@
     "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
     "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
     "current_next_experiment": [
-      "A_Q1_RESIDUAL",
-      "BW_PREPARE",
-      "BW",
+      "B_CHIP_STATS",
       "BWS"
     ],
     "floor": "Published floor is total BF16 replay-vs-dense error (model + rounding), not pure rounding noise. The 11/11 unmeasurable claim is retracted in the report. No standalone recomputation is scheduled; a future chosen predictor would include an actual BF16-vs-math check in its own deployment comparison.",
@@ -377,10 +368,40 @@
     "prior_overlay_reference": {
       "commit": "79df9e3c12c083a79e1ce7854a220608fe260cf4",
       "path": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/execution_updates_20261114"
+    },
+    "two_core_20261114": {
+      "record_type": "EXECUTED_EVIDENCE",
+      "A": {
+        "job": 164072,
+        "status": "A_Q1_RESIDUAL_COMPLETE",
+        "scope_sha256": "ec7558a110831daaece640b8c45ed24a22ead513906e598bb2120e954cd364dd",
+        "archive": "reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/README.md",
+        "result": "L/E/D beat Q1; L best ~4.1%"
+      },
+      "BW": {
+        "job": 164312,
+        "status": "BW_Q1ICC_COMPLETE",
+        "scope_sha256": "7cd433166db2cae5eaa26eef3af012df09ee4296537003cb82f02f15f9da779b",
+        "archive": "reports/20261114/g20_two_track_core/BW/v3/README.md",
+        "result": "ICC>Q1 risk both W; theta_ICC~0; Chip 132 blocked",
+        "failed_attempts": [
+          164189,
+          164225
+        ]
+      },
+      "BW_PREPARE": {
+        "status": "COMPLETE_BINDING",
+        "bindings_sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48"
+      },
+      "current_next_experiment": [
+        "B_CHIP_STATS",
+        "BWS"
+      ],
+      "archive_root": "reports/20261114/g20_two_track_core/"
     }
   },
   "research_status": "TWO_TRACKS_ACTIVE",
-  "execution_status": "NO_NEW_SCOPE_AUTHORIZED",
+  "execution_status": "A_BW_COMPLETE_BWS_BCHIP_PREEXEC_REQUIRED",
   "original_research_goals": {
     "source": "research/20261111/G20_TWO_TRACK_OPERATOR_AND_DISTILLATION_ATTRIBUTION_20261111.md",
     "A": "A useful low-cost FFN increment operator; test whether state information improves the residual of the strong Q1 baseline.",
