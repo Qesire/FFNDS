@@ -1,6 +1,8 @@
 # G20 两个核心方向：结果索引与勘误
 
-**当前判断：三个固定比较全部完成并发布——A 的固定残差比较已完成，保留可折叠线性修正 L；BW 的三方法比较已完整，Chip 局部误差最低，但主路径计算量是 Q1 的 2 倍；BWS 已完成并发布（job 166225 EXIT 0，216 个 DEV 单元），方向 B 的四格解释已完成：权重切换影响很小，复合原生状态大幅改变误差尺度与 ICC 的相对差距。** 本次复核基于提交 `20b3ffd48eb638d01daa19a0053097756212fdbd`，从已发布的 BWS 216 行原始表独立重算四格、状态差和交互；A/BW 沿用已核验结果。更新已有索引、[资产与队列](../../../research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)和[判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)，新增计算作业为 0。各实验冻结目录内的源码、输出、审查与收据保持原身份；当前状态与资源勘误由本索引及现有资产/判断台账维护。
+**2026-11-15 集中科学分析：[方法差异与函数结构](../../../research/20261115/G20_METHOD_DIFFERENCES_AND_FUNCTION_STRUCTURE_20261115.md)。** 合并旧完整视频、两种 Chipmunk 主实现及分组消融、ICC 两阶段误差与 A/BW/BWS，重新取回七源十臂原始讨论包的逐源质量汇总。完整周期成本勘误：Global-P64 与 Q1 的主 MAC 比为 0.685690/0.685185，近似相同；原先 2× 仅指命中步。新增模型运行为 0。
+
+**当前判断：三个固定比较全部完成并发布——A 的固定残差比较已完成，保留可折叠线性修正 L；BW 的三方法比较已完整，Chip 局部误差最低；其命中步主 MAC 是 Q1 的 2 倍，完整锚点—命中周期主 MAC 与 Q1 接近；BWS 已完成并发布（job 166225 EXIT 0，216 个 DEV 单元），方向 B 的四格解释已完成：权重切换影响很小，复合原生状态大幅改变误差尺度与 ICC 的相对差距。** 本次复核基于提交 `20b3ffd48eb638d01daa19a0053097756212fdbd`，从已发布的 BWS 216 行原始表独立重算四格、状态差和交互；A/BW 沿用已核验结果。更新已有索引、[资产与队列](../../../research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)和[判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)，新增计算作业为 0。各实验冻结目录内的源码、输出、审查与收据保持原身份；当前状态与资源勘误由本索引及现有资产/判断台账维护。
 
 | 阶段 | 当前证据与剩余工作 |
 | --- | --- |
@@ -10,7 +12,7 @@
 
 A/BW 均使用现有 VBench 数据。先对三个层等权，再对 high/low 等权，最后对 11 个 DEV source 等权；独立统计单位为 source，n=11。DEV 未参与本次拟合，但此前已被观察，属于开发集。结论限于六个站点、固定 512 行局部回放；视频质量与实际方法时延未测。BWS 为单独的 CAL3/DEV3 设计，不能与 BW 的 CAL11 表拼接。
 
-## BW 已完成：Chip 的误差优势与计算成本同时成立
+## BW 已完成：Global-P64 局部风险更低，完整周期主 MAC 与 Q1 接近
 
 新评分 job **166479**（V2）已 EXIT 0，补齐 **132 个 Chip 单元**。评分使用用户实际 `CHIPMUNK_GLOBAL_P64`，按 own-W 的固定 64 行 hidden-change RMS 稳定排序，选择 K=5120，执行选定 W1/W2 的残差路径。新旧 264 对配对单元的 U0/U1、行号、G_ref、own anchor/target 等 16 项公共身份字段全部一致；264 个 Q1/ICC 风险值逐项原样复用，没有重新拟合、分解或重放。该次评分 **0 新 D4/O40 轨迹、0 新图文、0 视频解码**。[运行摘要](BW_CHIP_SCORE/v2/output/SUMMARY.json) · [RUN](BW_CHIP_SCORE/v2/evidence/RUN.json) · [EXIT](BW_CHIP_SCORE/v2/evidence/EXIT.json) · [实际运行器](BW_CHIP_SCORE/v2/source/bw_chip_score_runner.py)。
 
@@ -42,15 +44,23 @@ ICC 的逐源 θ 为 11/11 正，11 个留一源均值为 `+1.23801e−5～+1.40
 
 ### 成本决定如何理解“更好”
 
-| 方法 | 主路径 analytic MAC/token | 相对 Q1 | cache bytes/token |
+| 方法 | 命中步 analytic MAC/token | 相对 Q1 命中步 | cache bytes/token |
 | --- | ---: | ---: | ---: |
 | ICC r512 | 19,398,656 | 0.74× | 37,888 |
 | Q1 | 26,214,400 | 1× | 10,240 |
 | Chip K5120 | **52,428,800** | **2×** | 37,888 |
 
-按 [BW_COST](BW/v3/output/BW_COST.csv) 的公式与实际 [Chip packed-pregate 实现](BW_CHIP_SCORE/v2/source/chipmunk_wan_packed_pregate.py)，Chip 两个选定分支各为 5120×5120，主体 MAC 合计为 Q1 的 2 倍、ICC 的约 2.70 倍。这里还没有计入 64 行 proxy、排序、权重 packing 与 cache clone；整次评分的约 345.8 秒不是任何单一方法的原生时延。旧 BW_COST 中 Chip 的 blocked 标记只描述当时评分状态，成本公式沿用。
+按 [BW_COST](BW/v3/output/BW_COST.csv) 的公式与实际 [Chip packed-pregate 实现](BW_CHIP_SCORE/v2/source/chipmunk_wan_packed_pregate.py)，Chip 两个选定分支各为 5120×5120，命中步主体 MAC 合计为 Q1 的 2 倍、ICC 的约 2.70 倍。这一行不包括锚点成本，也还没有计入 64 行 proxy、排序、权重 packing 与 cache clone；整次评分的约 345.8 秒不是任何单一方法的原生时延。旧 BW_COST 中 Chip 的 blocked 标记只描述当时评分状态，成本公式沿用。
 
-当前三个配置展示了不同的误差与计算量取舍；并未建立等计算成本、真实速度或视频质量的优胜。A 的 L 可折叠进 Q1、没有新增在线 GEMM，仍有研究价值。**A 的约 4.07% 与这里 Chip 的约 22.8% 使用不同 Q1 基线及目标生成口径，不能直接排成同一候选胜负表。**
+**完整周期需要补上 Q1 的锚点投影。** Q1 在锚点计算 `C0=F(u0)-u0@A`，因此一个 anchor+hit 的主成本为 `2dm+2d²`；Global-P64 的锚点直接缓存 native h0/y0，K=d=5120 时同一对主成本也是 `2dm+2d²`，另加当前64行代理。对 N=31668 的 HHLL，每专家一个 anchor+hit：
+
+| 实际路径 | 锚点主 MAC/token | 命中主 MAC/token | 完整周期 / Dense |
+| --- | ---: | ---: | ---: |
+| Q1 单残差 | 141,557,760 + 26,214,400 | 26,214,400 | **0.685185** |
+| Global-P64 K5120 | 141,557,760 | 52,428,800 + proxy | **0.685690** |
+| ICC r512 两残差 | 141,557,760 + 19,398,656 | 19,398,656 | **0.637037** |
+
+这纠正了此前用命中成本解释整体预算的写法。Global-P64 的局部误差优势是在近似相同的完整主 MAC 预算下取得的；缓存、代理、packing、GEMM 形状和真实时延仍不同，当前局部回放也未建立视频质量优胜。上述完整成本与[实际 G19 缓存路径](../../../research/20261107/G19_METHOD_DERIVATION_AND_RESULTS_20261107.md)及[历史完整视频账本](../../20261115/g20_concentrated_analysis/LEGACY_VIDEO_EXTERNAL_SUMMARY.json)一致。A 的 L 可折叠进 Q1、没有新增在线 GEMM，仍有研究价值。**A 的约 4.07% 与这里 Chip 的约 22.8% 使用不同 Q1 基线及目标生成口径，不能直接排成同一候选胜负表。**
 
 ### 实现与归档核验
 
