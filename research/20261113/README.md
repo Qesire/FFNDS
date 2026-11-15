@@ -1,8 +1,8 @@
 # 2026-11-13 · G20 VBench 路线与判断
 
-**当前结果（2026-11-14）：A 已完成，BW Q1/ICC 已完成，Chip 与 BWS 待补齐。** [结果与勘误](../../reports/20261114/g20_two_track_core/README.md)汇总已核对的原始分数、实现身份及记录修正。A 的可折叠线性残差改善约 4.07%，端点非线性没有胜过线性对照；BW 的平均方法差在当前共同 D4 状态下对权重切换变化很小，不能泛称权重无关。
+**当前进度（2026-11-15）：A、BW Q1/ICC 与 P64 输入已完成；BW 的 132 个 Chip 风险分数与 BWS 待完成。** [结果索引](../../reports/20261114/g20_two_track_core/README.md)保留已有数值结论，并记录新输入的同状态证据、额外 D4 smoke 和 VAE 解码的实际消耗。
 
-[当前路线](G20_VBENCH_RESTART_V4_20261113.md)、[资产与队列](G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)和[判断台账](G20_VBENCH_DECISION_LEDGER_20261113.json)已区分完成项与缺项。继续遵循 rev5 [手册](../20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)和[规格](../20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)：只补实际 P64 输入（最多既有 DEV11 的 11 条 D4）并完成 BWS（最多 6 条 O40）。缺 Chip 不挡 Q1/ICC；不重跑已完成 A/BW，不增加图文、CAL_B、网格或额外审批。本次核对新增作业为 0。
+[路线](G20_VBENCH_RESTART_V4_20261113.md)、[资产](G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)与[判断](G20_VBENCH_DECISION_LEDGER_20261113.json)区分输入产出和风险评分。下一步按 rev5 [手册](../20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[规格](../20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)，只消费现成输入补 BW Chip 分数（0 新轨迹），并完成 BWS（最多 6 条 O40，包括验证轨迹）。不再采 D4或重做 A/Q1/ICC，不增加图文、CAL_B、网格或独立 smoke。本次核查新增作业为 0。
 
 ## rev4 目标恢复记录（历史）
 

@@ -2,17 +2,17 @@
   "schema": "G20_VBENCH_ASSETS_AND_QUEUE_V4",
   "revision": 5,
   "id": "G20_VBENCH_RESTART_V4_20261113",
-  "date": "2026-11-14",
+  "date": "2026-11-15",
   "base_commit": "6dc075ac4e962803636d522c5620f7b556b93423",
-  "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_COMPLETE_BCHIP_COMPLETE_BWS_PREEXEC_REQUIRED",
+  "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_COMPLETE_CHIP_INPUTS_COMPLETE_BW_CHIP_BWS_PREEXEC_REQUIRED",
   "design_status": "FIXED_RECIPES_READY_FOR_IMPLEMENTATION",
-  "payload_status": "A_RESULTS_AND_BW_Q1ICC_AVAILABLE_CHIP_INPUTS_COMPLETE_BWS_PENDING",
+  "payload_status": "A_BW_Q1ICC_AND_CHIP_INPUTS_AVAILABLE_BW_CHIP_RISKS_AND_BWS_PENDING",
   "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
   "decision_ledger": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
   "cohort": "config/g20_vbench_restart_cohort_v1_20261113.json",
   "design_review": "research/experiment_reviews/G20_TWO_TRACK_RESTORATION_20261114/REVIEW.json",
   "next_action_to_prepare": [
-    "B_CHIP_STATS",
+    "BW",
     "BWS"
   ],
   "execution_scope_id": null,
@@ -1063,13 +1063,13 @@
         "0 new full trajectories !=0 compute",
         "Each W has its own native targets/anchors Y_s^W=F_W(U_s),Y_t^W=F_W(U_t); never use W_D bankY as W_O target"
       ],
-      "payload_status": "Q1_ICC_COMPLETE_CHIP_PENDING",
+      "payload_status": "Q1_ICC_COMPLETE_CHIP_INPUTS_READY_SCORING_PENDING",
       "locator": {
         "params": "reports/20261114/g20_two_track_core/BW/v3/output/PARAMS_MANIFEST.json",
         "checks": "reports/20261114/g20_two_track_core/BW/v3/output/CHECKS.json"
       },
       "missing": [
-        "Only 132 Chip DEV cells after actual P64 inputs are available; reuse completed Q1/ICC results and fits"
+        "Only the 132 Chip risk cells remain; their fixed64 U inputs are now produced. Consume the produced B_CHIP_P64_INPUTS in the existing BW task and score only 11 DEV x 6 sites x 2 weights = 132 Chip cells; reuse the completed 264 Q1/ICC results and fits. Zero new trajectories and no Q1/ICC refit/replay."
       ],
       "runnable": false,
       "optional_inputs": [
@@ -1080,7 +1080,7 @@
         "BW_READOUT"
       ],
       "next_action_to_prepare": [
-        "B_CHIP_STATS"
+        "BW"
       ],
       "production_requested": true,
       "gaps_are_current_tasks": true,
@@ -1092,7 +1092,8 @@
       ],
       "pending_methods": [
         "CHIPMUNK_GLOBAL_P64"
-      ]
+      ],
+      "current_remaining_work": "Consume the produced B_CHIP_P64_INPUTS in the existing BW task and score only 11 DEV x 6 sites x 2 weights = 132 Chip cells; reuse the completed 264 Q1/ICC results and fits. Zero new trajectories and no Q1/ICC refit/replay."
     },
     {
       "id": "BW_READOUT",
@@ -1107,7 +1108,7 @@
         "source-paired/expert-specific",
         "no total-distillation or architecture claim"
       ],
-      "payload_status": "Q1_ICC_COMPLETE_CHIP_PENDING",
+      "payload_status": "Q1_ICC_COMPLETE_CHIP_INPUTS_READY_SCORING_PENDING",
       "locator": {
         "cells": "reports/20261114/g20_two_track_core/BW/v3/output/BW_CELL.csv",
         "source": "reports/20261114/g20_two_track_core/BW/v3/output/BW_SOURCE.csv",
@@ -1115,12 +1116,12 @@
         "current_interpretation": "reports/20261114/g20_two_track_core/README.md"
       },
       "missing": [
-        "Only 132 Chip DEV cells after actual P64 inputs are available; reuse completed Q1/ICC results and fits"
+        "Only the 132 Chip risk cells remain; their fixed64 U inputs are now produced. Consume the produced B_CHIP_P64_INPUTS in the existing BW task and score only 11 DEV x 6 sites x 2 weights = 132 Chip cells; reuse the completed 264 Q1/ICC results and fits. Zero new trajectories and no Q1/ICC refit/replay."
       ],
       "runnable": false,
       "consumers": [],
       "next_action_to_prepare": [
-        "B_CHIP_STATS"
+        "BW"
       ],
       "production_requested": true,
       "gaps_are_current_tasks": true,
@@ -1135,7 +1136,8 @@
       ],
       "pending_methods": [
         "CHIPMUNK_GLOBAL_P64"
-      ]
+      ],
+      "current_remaining_work": "Consume the produced B_CHIP_P64_INPUTS in the existing BW task and score only 11 DEV x 6 sites x 2 weights = 132 Chip cells; reuse the completed 264 Q1/ICC results and fits. Zero new trajectories and no Q1/ICC refit/replay."
     },
     {
       "id": "BWS_SUPPORT",
@@ -1424,20 +1426,23 @@
         "Correct source/site/endpoint, same-state input identity",
         "BF16 U0_64/U1_64; no full-M block means required"
       ],
-      "payload_status": "CONFIRMED_INPUT_GAP_PREEXEC_REQUIRED",
+      "payload_status": "PRODUCED_CLUSTER_TENSORS_PUBLIC_MANIFEST",
       "locator": {
-        "gap_evidence": "reports/20261114/g20_two_track_core/BW/v3/output/CHECKS.json",
-        "panel_identity": "reports/20261114/g20_two_track_core/BW/v3/output/BW_CELL.csv",
-        "cluster_binding_manifest": {
+        "inputs_manifest": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/output/B_CHIP_P64_INPUTS.json",
+        "inputs_manifest_sha256": "7eeb32ab400a1090b85d54bf13395012175d5c27683a1d754444328c4c87999a",
+        "summary": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/output/SUMMARY.json",
+        "postrun_verification": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/evidence/verify_post_chip.log",
+        "formal_run": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/evidence/RUN.json",
+        "formal_exit": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/evidence/EXIT.json",
+        "cluster_payload_paths": "132 exact paths/bytes/file_sha256 entries in inputs_manifest; tensors remain on cluster",
+        "parent_binding": {
           "path": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW/v3/stage/B_BINDINGS.json",
           "sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48",
           "repository_copy_available": false,
           "evidence": "reports/20261114/g20_two_track_core/BW/v3/evidence/scope.json"
         }
       },
-      "missing": [
-        "696 source-token identities out of 704; 8 overlaps reusable. Each needed ID requires actual U at six sites and two endpoints. No new CAL or source conditions."
-      ],
+      "missing": [],
       "runnable": false,
       "consumers": [
         "BW",
@@ -1446,15 +1451,21 @@
         "BW_READOUT",
         "BW_REPLAY_FITS"
       ],
-      "next_action_to_prepare": [
-        "B_CHIP_STATS"
-      ],
-      "production_requested": true,
+      "next_action_to_prepare": [],
+      "production_requested": false,
       "production_request_is_execution_authorization": false,
-      "gaps_are_current_tasks": true,
+      "gaps_are_current_tasks": false,
       "conditional_producer": "B_CHIP_STATS",
-      "missing_source_token_ids": 696,
-      "existing_panel_source_token_overlaps": 8
+      "missing_source_token_ids": 0,
+      "historical_missing_source_token_ids": 696,
+      "historical_existing_panel_source_token_overlaps": 8,
+      "produced_payload_count": 132,
+      "produced_payload_bytes": 781265364,
+      "produced_fixed64_U_rows": 8448,
+      "same_state_checks_passed": 264,
+      "same_state_pass_sources": 11,
+      "completion_note": "Input production is complete; 132 BW Chip risk cells are still unscored. Reuse these payloads, do not repeat B_CHIP_STATS.",
+      "execution_deviation_record": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/progress_check_20261115"
     }
   ],
   "execution_queue": [
@@ -1560,8 +1571,8 @@
         "BW_REPLAY_FITS",
         "BW_READOUT"
       ],
-      "design_status": "BW_Q1ICC_COMPLETE_PUBLIC_EVIDENCE",
-      "execution_scope_id": "G20_BW_20261114_V3",
+      "design_status": "BW_Q1ICC_COMPLETE_CHIP_INPUTS_READY_SCORING_PREEXEC_REQUIRED",
+      "execution_scope_id": null,
       "runnable": false,
       "track": "B",
       "priority": "P0",
@@ -1605,7 +1616,13 @@
         "dev_cells_valid": 264,
         "chip_cells_blocked": 132,
         "archive": "reports/20261114/g20_two_track_core/BW/v3/"
-      }
+      },
+      "current_remaining_work": "Consume the produced B_CHIP_P64_INPUTS in the existing BW task and score only 11 DEV x 6 sites x 2 weights = 132 Chip cells; reuse the completed 264 Q1/ICC results and fits. Zero new trajectories and no Q1/ICC refit/replay.",
+      "next_action_to_prepare": [
+        "BW"
+      ],
+      "current_chip_input_status": "PRODUCED; the execution_result.chip_cells_blocked field describes the original BW/v3 run only",
+      "completed_execution_scope_id": "G20_BW_20261114_V3"
     },
     {
       "id": "BWS",
@@ -1659,7 +1676,8 @@
       "optional_consumes": [
         "B_CHIP_P64_INPUTS"
       ],
-      "partial_completion": "Missing D-state or O-state fixed64 inputs block only the corresponding Chip cells. BWS Q1/ICC continues; no global Chip-input gate."
+      "partial_completion": "Missing D-state or O-state fixed64 inputs block only the corresponding Chip cells. BWS Q1/ICC continues; no global Chip-input gate.",
+      "current_P64_D_state_inputs": "Produced by B_CHIP_STATS for all DEV11; reuse the frozen DEV3 subset. Required O-state fixed64 U is captured within the same planned O40 passes."
     }
   ],
   "conditional_branches": [
@@ -1703,8 +1721,11 @@
       "status": "COMPLETE_PUBLIC_EVIDENCE",
       "archive": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/README.md",
       "result": "B_CHIP_P64_INPUTS produced; 66 source-site cells unblocked (132 BW Chip cells). See execution_status_20261114.stages.B_CHIP_STATS.",
-      "gap_source_token_count": 696,
-      "existing_panel_overlap_count": 8
+      "next_action_to_prepare": [],
+      "historical_gap_source_token_count": 696,
+      "historical_existing_panel_overlap_count": 8,
+      "current_remaining_work": "None: producer complete. Downstream BW Chip scoring and BWS consume the produced inputs.",
+      "execution_deviation_record": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/progress_check_20261115"
     },
     {
       "id": "V4D",
@@ -1855,7 +1876,9 @@
       "new_video_decodes": 0,
       "reuse_first": true,
       "fixed_selector_no_CAL_tuning": true,
-      "full_M_block_statistics_required": false
+      "full_M_block_statistics_required": false,
+      "status": "INPUT_PRODUCTION_COMPLETE",
+      "remaining_new_D4": 0
     },
     "candidate_video_budget": "Not allocated; requires an actually selected candidate and concrete reviewed scope.",
     "selection_preserved_not_a_run_quota": {
@@ -1873,7 +1896,8 @@
       "DEV": 3,
       "max_scheduler_steps": 240,
       "separately_budgeted": true,
-      "fixed_followup_if_no_matching_result": true
+      "fixed_followup_if_no_matching_result": true,
+      "capture_budget_includes_any_full_trajectory_smoke": true
     }
   },
   "reuse_policy": {
@@ -2362,12 +2386,13 @@
     "new_jobs_dispatched_by_this_overlay": 0,
     "followup_schedule": "See current execution_queue. This section records completed V4 evidence, not current research priorities.",
     "two_core_completion": {
-      "date": "2026-11-14",
+      "date": "2026-11-15",
       "A": "COMPLETE; L is best local fixed candidate, no automatic deployment",
-      "BW": "Q1/ICC COMPLETE (264 cells); conditional weight effect small, Chip 132 pending",
+      "BW": "Q1/ICC COMPLETE (264 cells); P64 inputs COMPLETE; 132 Chip scores pending",
       "BW_PREPARE": "COMPLETE_BINDING",
       "remaining": [
-        "BWS (composite native-state four-cell, max 6 O40, separate scope)"
+        "Consume the produced B_CHIP_P64_INPUTS in the existing BW task and score only 11 DEV x 6 sites x 2 weights = 132 Chip cells; reuse the completed 264 Q1/ICC results and fits. Zero new trajectories and no Q1/ICC refit/replay.",
+        "BWS: fixed CAL3/DEV3 composite native-state four-cell comparison; max 6 O40, reuse produced D-state P64 inputs"
       ],
       "archive_root": "reports/20261114/g20_two_track_core/",
       "B_CHIP_STATS": "COMPLETE_PUBLIC_EVIDENCE job 164928 (11 DEV D4; 8448 fixed64 U rows; 66 cells unblocked -> 132 BW Chip cells; same-state all-match)",
@@ -2412,10 +2437,15 @@
         "new_experiment_jobs_submitted": 0,
         "is_execution_authorization": false
       }
-    }
+    },
+    "current_next_action_to_prepare": [
+      "BW",
+      "BWS"
+    ],
+    "progress_check_20261115": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/progress_check_20261115"
   },
   "research_status": "TWO_TRACKS_ACTIVE",
-  "execution_status": "A_COMPLETE_BW_Q1ICC_COMPLETE_BCHIP_COMPLETE_BWS_PREEXEC_REQUIRED",
+  "execution_status": "A_COMPLETE_BW_Q1ICC_COMPLETE_CHIP_INPUTS_COMPLETE_BW_CHIP_BWS_PREEXEC_REQUIRED",
   "research_goals": {
     "source": "research/20261111/G20_TWO_TRACK_OPERATOR_AND_DISTILLATION_ATTRIBUTION_20261111.md",
     "A": "A useful low-cost FFN increment operator; test whether state information improves the residual of the strong Q1 baseline.",
@@ -2499,6 +2529,6 @@
   "scientific_comparison_count": 3,
   "handoff_review": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/design_review",
   "design_review_scope": "Existing review records revision4 goal restoration; revision5 execution detail review is in the spec.",
-  "progress_checked_at_commit": "ba03576c99de95ebb3533945560e575de12f8fa2",
+  "progress_checked_at_commit": "0d4d860a847202e9e0b3c4265da7fd64e87eff21",
   "results_index": "reports/20261114/g20_two_track_core/README.md"
 }

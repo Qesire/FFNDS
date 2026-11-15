@@ -1,9 +1,9 @@
 {
   "schema": "G20_VBENCH_DECISION_LEDGER_V1",
-  "date": "2026-11-14",
+  "date": "2026-11-15",
   "based_on_commit": "6dc075ac4e962803636d522c5620f7b556b93423",
   "design_only": false,
-  "new_experiments_run": 2,
+  "new_experiments_run": 3,
   "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
   "assets_and_queue": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json",
   "evidence_identity": {
@@ -224,11 +224,12 @@
         "reports/20261112/g20_r1b_recheck/output/SUMMARY.json",
         "reports/20261114/g20_two_track_core/BW/v3/output/BW_CELL.csv",
         "reports/20261114/g20_two_track_core/BW/v3/output/BW_COST.csv",
-        "reports/20261114/g20_two_track_core/README.md"
+        "reports/20261114/g20_two_track_core/README.md",
+        "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/output/SUMMARY.json"
       ],
-      "current_judgment": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. Chip 132 cells remain blocked; BWS has not run.",
+      "current_judgment": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. The original BW/v3 archive retains its historical input-blocked Chip status. P64 inputs are now produced; 132 Chip scores and BWS remain pending.",
       "unresolved": [
-        "Chip comparator still blocked (B_CHIP_STATS)."
+        "Native-state dependence of the ICC-vs-Q1 gap remains to be measured by the fixed BWS comparison."
       ],
       "next_experiment": [
         "BWS"
@@ -242,39 +243,45 @@
     },
     {
       "id": "J_CHIPMUNK",
-      "status": "ACTUAL_GLOBAL_P64_FIXED64_INPUT_GAP_QUANTIFIED",
+      "status": "P64_INPUTS_COMPLETE_BW_CHIP_RISKS_PENDING",
       "evidence": [
         "reports/20261114/g20_two_track_core/BW/v3/README.md",
-        "g20_bind/B_BINDINGS.json"
+        "g20_bind/B_BINDINGS.json",
+        "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/output/B_CHIP_P64_INPUTS.json",
+        "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/evidence/verify_post_chip.log"
       ],
-      "current_judgment": "The 11 DEV sources miss 62-64 of their required fixed64 source-token identities: 696 missing, 8 overlaps out of 704. Each missing ID needs the six-site anchor/hit U values. Fill only these real inputs using the already specified B_CHIP_STATS, then add only the 132 pending BW Chip cells. Existing Q1/ICC results remain complete; optional Chip inputs do not block BWS Q1/ICC.",
+      "current_judgment": "B_CHIP_STATS job 164928 produced the actual fixed64 U for all DEV11, six sites and both endpoints, with 264 PANEL512 U/gate same-state checks passing. The prior 696 source-token input gaps are closed. This is input availability evidence; 132 BW Chip risk cells have not yet been scored and there is no new Chip method-effect result.",
       "unresolved": [
-        "Own-W local function risk changes under weights and states for Chip (pending B_CHIP_STATS)."
+        "Chip own-W risks and weight contrasts in BW (132 cells, inputs ready).",
+        "Chip native-state contrasts in BWS (O40 states still pending)."
       ],
       "next_experiment": [
-        "B_CHIP_STATS"
+        "BW",
+        "BWS"
       ],
       "scheduled": false,
       "unresolved_implies_new_experiment": false,
       "planned_in_current_route": true,
       "execution_authorized": false,
-      "correction": "Earlier full-M block-stat prerequisite applied to another selector, not actual P64. Retire it from current tasks; only missing64 U inputs can trigger bounded DEV capture."
+      "correction": "Earlier full-M block-stat prerequisite applied to another selector, not actual P64. Retire it from current tasks; only missing64 U inputs can trigger bounded DEV capture.",
+      "execution_decision": "Consume the produced B_CHIP_P64_INPUTS in the existing BW task and score only 11 DEV x 6 sites x 2 weights = 132 Chip cells; reuse the completed 264 Q1/ICC results and fits. Zero new trajectories and no Q1/ICC refit/replay."
     },
     {
       "id": "J_WEIGHT_STATE",
       "status": "BW_Q1ICC_COMPLETE_CHIP_PENDING_BWS_NEXT",
       "evidence": [
         "reports/20261114/g20_two_track_core/BW/v3/README.md",
-        "reports/20261114/g20_two_track_core/BW/v3/output/SUMMARY.json"
+        "reports/20261114/g20_two_track_core/BW/v3/output/SUMMARY.json",
+        "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/output/SUMMARY.json"
       ],
-      "current_judgment": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. Chip 132 cells remain blocked; BWS has not run.",
+      "current_judgment": "At common mu_D states, fixed G_ref and each-weight CAL11 Q1 calibration, ICC-minus-Q1 mean risk is 0.006525426652051739 (W_O) and 0.006538715596583128 (W_D). theta=+1.3288944531388267e-5 is 0.204% of the original method gap. This tested weight switch barely changes the average gap in this setting; it does not establish general weight independence. Expert theta: high +2.7958613e-5, low -1.3807240e-6. All 11 source-aggregated theta and all 11 LOO means are positive; this is not a site/expert-wide no-sign-flip claim. ICC has greater risk in 124/132 source-site-weight pairs and uses 74% of Q1 analytic MACs; no equal-cost or measured-latency dominance claim. The original BW/v3 archive retains its historical input-blocked Chip status. P64 inputs are now produced; 132 Chip scores and BWS remain pending.",
       "unresolved": [
-        "Chip GLOBAL_P64 own-W risk under weights/states (blocked pending B_CHIP_STATS).",
+        "Chip GLOBAL_P64 own-W risk under weights (132 BW scores pending; fixed64 inputs now available).",
         "Weight-by-native-state-distribution interaction (BWS, fixed follow-up).",
         "Wan-unique architecture causality not assumed."
       ],
       "next_experiment": [
-        "B_CHIP_STATS",
+        "BW",
         "BWS"
       ],
       "scheduled": false,
@@ -351,7 +358,7 @@
     "nonblocking_findings_spawn_jobs": false
   },
   "revision": 5,
-  "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_COMPLETE_BCHIP_COMPLETE_BWS_PREEXEC_REQUIRED",
+  "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_COMPLETE_CHIP_INPUTS_COMPLETE_BW_CHIP_BWS_PREEXEC_REQUIRED",
   "design_review": "research/experiment_reviews/G20_TWO_TRACK_RESTORATION_20261114/REVIEW.json",
   "counts_are_for_this_plan_change": false,
   "historical_plan": {
@@ -367,6 +374,7 @@
     "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
     "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
     "current_next_experiment": [
+      "BW",
       "BWS"
     ],
     "floor": "Published floor is total BF16 replay-vs-dense error (model + rounding), not pure rounding noise. The 11/11 unmeasurable claim is retracted in the report. No standalone recomputation is scheduled; a future chosen predictor would include an actual BF16-vs-math check in its own deployment comparison.",
@@ -405,13 +413,15 @@
             "scope": "V2",
             "cause": "aggregate_bw queried short method keys after 264 cells were scored using full method IDs; KeyError"
           }
-        ]
+        ],
+        "current_chip_status": "Inputs produced by 164928; 132 Chip scores still pending. Original BW/v3 blocked fields remain historical."
       },
       "BW_PREPARE": {
         "status": "COMPLETE_BINDING",
         "bindings_sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48"
       },
       "current_next_experiment": [
+        "BW",
         "BWS"
       ],
       "archive_root": "reports/20261114/g20_two_track_core/",
@@ -720,7 +730,7 @@
     }
   },
   "research_status": "TWO_TRACKS_ACTIVE",
-  "execution_status": "A_COMPLETE_BW_Q1ICC_COMPLETE_BCHIP_COMPLETE_BWS_PREEXEC_REQUIRED",
+  "execution_status": "A_COMPLETE_BW_Q1ICC_COMPLETE_CHIP_INPUTS_COMPLETE_BW_CHIP_BWS_PREEXEC_REQUIRED",
   "original_research_goals": {
     "source": "research/20261111/G20_TWO_TRACK_OPERATOR_AND_DISTILLATION_ATTRIBUTION_20261111.md",
     "A": "A useful low-cost FFN increment operator; test whether state information improves the residual of the strong Q1 baseline.",
@@ -735,6 +745,63 @@
   "handoff_review": "research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json#/design_review",
   "design_review_scope": "Existing review records revision4 restoration; revision5 review is in the execution spec.",
   "results_index": "reports/20261114/g20_two_track_core/README.md",
-  "execution_count_scope": "new_experiments_run=2 counts successful formal result jobs after 2f38b91; four formal attempts plus additional smoke evidence. This reconciliation dispatches zero jobs.",
-  "formal_dispatch_attempts": 4
+  "execution_count_scope": "Three successful formal jobs after 2f38b91: A 164072, BW 164312, B_CHIP_STATS 164928; five formal attempts including BW failures 164189/164225. Smoke/verification jobs are separate. This progress reconciliation dispatches zero jobs.",
+  "formal_dispatch_attempts": 5,
+  "progress_check_20261115": {
+    "checked_commit": "0d4d860a847202e9e0b3c4265da7fd64e87eff21",
+    "kind": "Existing evidence/source/manifest inspection only; no new experiment or dispatch",
+    "B_CHIP_STATS": {
+      "formal_job": 164928,
+      "status": "EXIT_0_INPUT_PRODUCTION_COMPLETE",
+      "scope_id": "G20_B_CHIP_STATS_20261114_V1",
+      "scope_sha256": "13df65288ca31df682ebb041070ee53603212730d714c9bdc9f187d4b10fa2e9",
+      "archive": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/README.md",
+      "payload_count": 132,
+      "payload_bytes": 781265364,
+      "fixed64_U_rows": 8448,
+      "source_count": 11,
+      "same_state_checks_passed": 264,
+      "same_state_pass_sources": 11,
+      "BW_Chip_scores_produced": 0,
+      "BW_Chip_scores_remaining": 132
+    },
+    "current_next_tasks": {
+      "BW": "Consume the produced B_CHIP_P64_INPUTS in the existing BW task and score only 11 DEV x 6 sites x 2 weights = 132 Chip cells; reuse the completed 264 Q1/ICC results and fits. Zero new trajectories and no Q1/ICC refit/replay.",
+      "BWS": "Fixed CAL3/DEV3, at most 6 O40; existing D-state P64 inputs are ready. Preserve distinct BWS mixed-CAL fits and do not splice BW CAL11 fits into BWS. All full-trajectory validation captures count within the six O40 total and are persisted for reuse; no additional smoke trajectory."
+    },
+    "formal_job_accounting": {
+      "formal_dispatch_attempts": 5,
+      "successful_formal_jobs": 3,
+      "failed_formal_jobs": 2,
+      "added_successful_formal_job": 164928,
+      "added_smoke_job": 164771,
+      "scope": "Formal counts exclude smoke and verification jobs; the older ba03576 postpublication_check remains a historical four-attempt snapshot."
+    },
+    "capture_and_decode_accounting": {
+      "formal_D4_full_executions": 11,
+      "smoke_D4_full_executions": 1,
+      "total_D4_full_executions": 12,
+      "original_total_D4_design_cap": 11,
+      "formal_VAE_generation_decodes": 11,
+      "smoke_VAE_generation_decodes": 1,
+      "total_VAE_generation_decodes": 12,
+      "post_generation_mp4_reads_decodes": 0,
+      "video_scoring": 0,
+      "finding": "The 11 formal D4 passes plus one smoke D4 exceed the original <=11 total design cap. The declared zero decoding does not match actual latent-to-frame VAE decoding and video export; only zero subsequent MP4 frame reading/scoring is supported. Preserve the frozen scope and reported counters with this erratum; no recapture/replay is required."
+    },
+    "source_publication_identity": {
+      "manifest_entries_checked": 38,
+      "repository_bytes_exact_matches": 37,
+      "CRLF_to_LF_only": 1,
+      "path": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/source/runtime_guard.py",
+      "execution_bytes": 11902,
+      "execution_sha256": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+      "repository_bytes": 11687,
+      "repository_sha256": "673e808ed570074f4c106c48795c951463ffa9e607a91082447ea3b7ca19cf01",
+      "repository_git_blob_sha1": "33ead8691e90edb4a4f7c69dbf21f6445a458f84",
+      "transformation": "Execution CRLF -> repository LF; reversing line endings exactly restores execution SHA256. Frozen execution manifests unchanged."
+    },
+    "frozen_evidence_policy": "Retain original scope, receipts, reported counters, BW/v3 historical blocked cells, and the prior postpublication_check; this record corrects current interpretation and accounting.",
+    "new_jobs_from_this_check": 0
+  }
 }
