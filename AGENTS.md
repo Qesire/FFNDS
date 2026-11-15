@@ -1,3 +1,5 @@
+> **2026-11-16 最新用户要求：[先完整正确复现，再重做Wan比较](research/20261107/ffn_baseline_reproduction/STRICT_REPRODUCTION_AND_REDO_20261116.md)。** ICC四状态及SVD/CA/CD原配方、Chipmunk作者模块/selector/Triton/状态机先完成；只做必要宿主适配，有选择余地的适配单项消融。双残差和Global-P64保持变体身份，原方法失败结论待严格参考与公平预算比较后再定。此要求优先于下文旧“作者复现不需要”“CA可选”“仅补记录不重做”等规划；旧A/BW/BWS与历史RUN完成状态不变。当前是审计和重做设计，模型/GPU新运行0；真实执行仍沿已有有限scope流程，不新增审批层级。
+
 > **G20 当前入口：[结果与剩余工作](reports/20261114/g20_two_track_core/README.md) · [资产与队列](research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断台账](research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。** 两条主线固定为 A：设计有用的新算子；B：解释 Q1r2 与实际 ICC/Chipmunk 的差异。当前完成项、结论、资源记账和剩余动作在这些现有入口维护；下文旧日期的计划与进度按历史身份阅读。
 
 > **实现合同：[rev5 手册](research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[固定规格](research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)。** 先依据当前资产状态复用已产生的输入、参数和结果；旧手册中的计划动作不自动成为新待办。实际执行范围以 [ACTIVE](research/ACTIVE_RESEARCH.json) 为准，结果归档与解释不派生新的采集、重放或审批层级。

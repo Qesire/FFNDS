@@ -1,30 +1,20 @@
-# G19 / Wan2.2 四步 FFN-only 前沿基线复现
+# Wan FFN基线：完整复现与受控重做
 
-**2026-11-07 · DESIGN_ONLY / REVIEW_REQUIRED / NO_NEW_RUN**
+**2026-11-16 当前优先级：先建立作者完整FFN参考与最小Wan端口，再重做ICC/Chipmunk/Q1r2比较。** 本轮完成原文/代码审计、无模型的计数接口检查和实验设计；GPU/模型运行0，正式执行尚待真实环境与输入绑定。当前规格：[完整复现与重做](STRICT_REPRODUCTION_AND_REDO_20261116.md)。
 
-本目录面向已有 G19 的公平论文基线，不直接追逐原论文跨硬件、跨模型或 50 步推理的最佳加速倍数。固定研究对象为 Wan2.2-I2V-A14B-LightX2V-Distill-4step、HHLL、无CFG、BF16、A100 80GB、832×464×81帧。Attention 和其他非FFN路径一律保持原生，方法差异限于 FFN。
+过去的ICC双残差、Global-P64、author-style历史视频与A/BW/BWS都保留其实际身份；它们的完成状态不等于原作者参考已完整复现。只补记录不足以替代缺失的四状态、校准配方或作者状态机执行。
 
-## 顺序与责任
+| 入口 | 用途 |
+| --- | --- |
+| [当前复现与重做规格](STRICT_REPRODUCTION_AND_REDO_20261116.md) | 统一对象、必要适配、消融、强基线、复用边界与完成标准 |
+| [作者Wan执行链审计](strict_reproduction_20261116/CHIPMUNK_UPSTREAM_AUDIT.md) | Wan2.1 T2V/attention与Wan2.2 I2V/FFN区别；官方Ampere/Triton；计数与几何缺口 |
+| [ICC严格参考](strict_reproduction_20261116/ICC_STRICT_REFERENCE.md) | 四状态、SVD/CA/CD、全四边界统计、精度、内存与rank预算 |
+| [统一实验设计与预算](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md) | 作者reference→Wan端口→部署变体；CAL/DEV/EVAL和单一执行总账 |
+| [独立设计审阅](strict_reproduction_20261116/INDEPENDENT_REVIEW.md) | 实际审阅意见及修订回核；不代表任何GPU结果或已冻结RUN |
+| [当前研究结果](../../../reports/20261114/g20_two_track_core/README.md) | 已完成A/BW/BWS、历史完整视频和本次新增任务的界线 |
 
-1. [G19 最新基线、旧研究资产与证据对齐](G19_BASELINE_AND_ASSETS.md)：说明**Chipmunk 的 Wan FFN-only 已有全160实际结果**，避免重复占用GPU。
-2. [此前指南的仓库版](REPRODUCTION_GUIDE.md)：ICC、Chipmunk、TARDIS 的论文/源码/公式/缓存/依赖/原版命令。
-3. [ICC 完整移植规格](ICC_FFN_PORT_SPEC.md)：当前第一项真正缺失的匹配四步基线。
-4. [Chipmunk 资产复用与同源对照](CHIPMUNK_REUSE_AND_COMPARISON.md)：先复核历史，补新的匹配数据时单独立项。
-5. [TARDIS 与候选方法分层](TARDIS_AND_ALTERNATIVES.md)：静态折叠与完整动态回退、已有 TEAL/SharQ/RT-Lynx 证据。
-6. [统一科学协议与质量—成本验收](EXPERIMENT_CONTRACT.md)：前置独立评议→冻结scope→S0–S5→退出。
-7. [机器可读计划](PLAN.json)：方法和历史状态、参数扫描、指标、文件身份、下一步审查，不含运行授权。
+源代码版本：Chipmunk `sandyresearch/chipmunk@b5e8d1c3da6bddc7ca9007c48e91b82087c11490`；ICC `ccccczzy/icc@dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4`，均重新核实为当时默认master HEAD。代码是否可用须实际执行证明；本轮未安装或启动GPU模块。
 
-## 当前关键裁决
+## 历史资料
 
-| 方法 | 在FFNDS的状态 | 推荐动作 |
-|---|---|---|
-| ICC FFN | 官方DiT源码已查，尚无同G19四步配置实测 | **第一项新增移植**，优先建立 rank/缓存/速度 Pareto |
-| Chipmunk MLP | 2026-10-30已有 packed P64 真M、全160视频、八轴及RAFT、ABBA等正式证据 | **先资产复用**，再看是否需要新的7源匹配 |
-| TARDIS | 原论文/数学先例已查，作者完整源码未确认 | **先忠实算法实现审核**，分开静态fold与oracle/真实predictor |
-| TEAL、SharQ、RT-Lynx | 本仓已有多项原生/有限负面实验 | 作为历史强对照，不再重跑已闭合scope |
-
-## 证据与合规
-
-本文档提交不修改 `ACTIVE_RESEARCH.json`，不创建GPU/CPU模型任务，不声称独立评审已经通过。任何新实验须遵守 [前置独立复审协议](../../agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)，并在真实可用资源/当前会话额度下建立新scope、身份SHA、RUN/EXIT/独立核验。作者代码仅以Git链接定位，不复制许可证未知源码或原始权重、视频和敏感路径。
-
-[当前G19方法与质量](../G19_METHOD_DERIVATION_AND_RESULTS_20261107.md) · [2026-11-07证据目录](../../../reports/20261107/g19/README.md) · [项目科研规程](../../../AGENTS.md)
+[旧资产与G19](G19_BASELINE_AND_ASSETS.md)、[旧指南](REPRODUCTION_GUIDE.md)、[20261107 ICC规格](ICC_FFN_PORT_SPEC.md)、[20261107 Chip复用](CHIPMUNK_REUSE_AND_COMPARISON.md)、[旧实验合同](EXPERIMENT_CONTRACT.md)、[候选方法](TARDIS_AND_ALTERNATIVES.md)保留溯源价值。其“仅复用”“CA可选”“r64–512”“改period2”等旧规划不再覆盖本轮完整复现要求。新CPU/GPU科学执行沿现有项目协议登记有限范围；不重新启动已经完成的旧scope。

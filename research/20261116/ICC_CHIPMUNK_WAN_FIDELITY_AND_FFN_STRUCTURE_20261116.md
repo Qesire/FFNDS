@@ -1,5 +1,7 @@
 # 从原论文与作者代码重新审视 ICC、Chipmunk、Q1r2 与 Wan FFN
 
+> **后续用户要求与结论边界修正：** [严格复现与重做规格](../20261107/ffn_baseline_reproduction/STRICT_REPRODUCTION_AND_REDO_20261116.md)优先于本报告的实施建议。本文的“核心忠实”仅指已核公式/代码对应，不能充当完整作者参考已经运行的证据；旧2R/CD配方与author-style绑定缺口需要实际补齐或重做，而不仅补文字。方法失效/成本归因需在该基础上重新比较。原始数值与完成的A/BW/BWS保持原身份。
+
 日期：2026-11-16（UTC+8）。仓库证据基线：`Qesire/FFNDS@e7a1e6b7a6babb5cf742072cc07a9961af854416`。
 
 本文先核对原方法、固定作者代码及实际 Wan 适配，再解释现有结果。文献依据包括 ICC 正文和补充、Chipmunk 正文和算法附录、TEAL、DMD2，以及 Wan、LightX2V、Llama 的官方代码。实验依据复用 G19 历史视频、R1b、A、BW、BWS。新增模型运行、拟合、回放、视频生成和指标评分均为 0。

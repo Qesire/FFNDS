@@ -1,5 +1,7 @@
 # G20 两个核心方向：结果索引与勘误
 
+**2026-11-16 最新任务：[完整复现与受控重做](../../../research/20261107/ffn_baseline_reproduction/STRICT_REPRODUCTION_AND_REDO_20261116.md)。** 已完成的A/BW/BWS仍按原范围闭合；本次用户新增要求是先补齐作者参考与最小Wan端口，不能以核心公式相符或旧变体视频代替完整复现。ICC四状态/SVD-CA-CD、Chip官方模块/selector/Triton与全部状态分支是新参考；双残差与Global-P64单独消融。已核官方Wan2.1只接attention、A100有官方Triton，发现具体计数与几何接口问题；新增模型运行0。当前任务是参考实现及运行准备，以下“当前待办为空”只指此前三个固定比较。
+
 **2026-11-16 原文与作者代码核对：[ICC/Chipmunk的Wan适配、FFN结构与蒸馏](../../../research/20261116/ICC_CHIPMUNK_WAN_FIDELITY_AND_FFN_STRUCTURE_20261116.md)。** ICC四状态核心忠实，实际双残差是实数等价、BF16及成本不同的缓存适配；Global-P64为明确变体，作者式Block128的历史producer与编译selector尚未独立完整绑定。Chipmunk论文视频主表只启用attention，不能用其整系统速度代表Wan FFN基线。新报告同时区分必要适配、固定预算选择、局部风险、历史视频质量和逻辑缓存，并确认官方DMD2推理标签及checkpoint SHA。新增模型运行0；现有A/BW/BWS完成状态不变。
 
 **2026-11-15 集中科学分析：[方法差异与函数结构](../../../research/20261115/G20_METHOD_DIFFERENCES_AND_FUNCTION_STRUCTURE_20261115.md)。** 合并旧完整视频、两种 Chipmunk 主实现及分组消融、ICC 两阶段误差与 A/BW/BWS，重新取回七源十臂原始讨论包的逐源质量汇总。完整周期成本勘误：Global-P64 与 Q1 的主 MAC 比为 0.685690/0.685185，近似相同；原先 2× 仅指命中步。新增模型运行为 0。
@@ -193,7 +195,7 @@ O40 消耗 **6 条正式 + 2 条 smoke = 8 次执行**，覆盖 6 个不同来�
 
 本阶段已登记的正式 job 至少 **8 次：成功 5、失败 3**。**5 个成功作业均有公开 EXIT**（A 164072、BW 164312、P64 164928、Chip 166479、BWS 166225）；三次失败登记为 BW 164189/164225 与 Chip 166419。该计数是已登记下界，排除 smoke/verification，不断言没有其他未公开的尝试。详细证据层级保存在现有 ledger 的 `progress_check_chip_score_20261115` 与 BWS 发布记录。
 
-**三个固定比较（A_Q1_RESIDUAL、BW、BWS）及[交接手册](../../../research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md) §7 的两方向总结均已完成，当前待办为空。** 不再派生输入复审、独立 smoke 或参数网格，也不重新提交要求批准两个方向的泛化计划。A、BW、P64 采集、BW Chip 评分与 BWS 直接复用；BWS 不由 theta 的符号决定是否执行。此前的预算与具体 scope 保持原身份；本次维护新增作业为 0，不新增执行授权或审批层级，也不增加图文、CAL_B、all80 或视频评分。
+**历史已闭合范围：三个固定比较（A_Q1_RESIDUAL、BW、BWS）及[交接手册](../../../research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md) §7 的两方向总结均已完成，该批范围无剩余待办。** 不再派生输入复审、独立 smoke 或参数网格，也不重新提交要求批准两个方向的泛化计划。A、BW、P64 采集、BW Chip 评分与 BWS 直接复用；BWS 不由 theta 的符号决定是否执行。此前的预算与具体 scope 保持原身份；本次维护新增作业为 0，不新增执行授权或审批层级，也不增加图文、CAL_B、all80 或视频评分。
 
 ## 历史：P64 输入采集及资源勘误
 

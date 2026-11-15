@@ -1,3 +1,5 @@
+> **2026-11-16 当前要求：** 本轮按作者参考、最小端口、部署变体分层验收；统一EVAL22×2seed最多9臂/396条，仅为评估阶段提案上限；CAL/DEV/neutral/计时另计。旧七源方案与两残差可行性顺序不覆盖当前四状态必做要求。 当前实施与预算以[完整复现与重做](STRICT_REPRODUCTION_AND_REDO_20261116.md)为准。**下文保留2026-11-07历史方案；不是当前执行队列。**
+
 # FFN-only 统一实验、实施与验收合同（G19 vs ICC/Chipmunk/TARDIS）
 
 **2026-11-07 / DESIGN_ONLY / NOT_APPROVED / NO_RUN**。本合同细化 [实验前独立审查](../../agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)，不替代原始治理。所有具体新 CPU/GPU、校准、回放、视频和性能实验均需在当前 `ACTIVE_RESEARCH.json` 登记、不同Agent正式复审后执行。

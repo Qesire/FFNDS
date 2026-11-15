@@ -1,3 +1,5 @@
+> **2026-11-16 当前要求：** 历史Wan端口已执行不等于作者完整参考已验收。优先直接复用官方SparseDiffMlp、compiled selector与Ampere/Triton，保留首2层Dense、period10和原mask/cache规则；Global-P64为变体。下文改period2/全40层的草案只作为历史选择。 当前实施与预算以[完整复现与重做](STRICT_REPRODUCTION_AND_REDO_20261116.md)为准。**下文保留2026-11-07历史方案；不是当前执行队列。**
+
 # Chipmunk-MLP：历史复现复用与新版 G19 匹配协议
 
 **状态**：HISTORICAL_WAN_REPRO_COMPLETED / CURRENT_G19_MATCHING_NOT_RUN。最重要的新任务不是再从零重跑 Chipmunk，而是审定其已存结果能否与 `2026-11-07` G19 四步结果构成同条件比较。

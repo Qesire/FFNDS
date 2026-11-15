@@ -1,3 +1,5 @@
+> **2026-11-16 当前要求：** 四状态SVD/CA/CD三家族是正式参考；双残差单独消融。CAL256全有效token作为本轮统计参考，11/22/64为消融；r512/768/1024及CD-r1408为有限候选。下文CA可选及低rank初轮范围仅属旧方案。 当前实施与预算以[完整复现与重做](STRICT_REPRODUCTION_AND_REDO_20261116.md)为准。**下文保留2026-11-07历史方案；不是当前执行队列。**
+
 # ICC-FFN：Wan2.2 四步移植实施合同（首项新增基线）
 
 **身份**：DESIGN_ONLY / NO_RUN / PREEXEC_REVIEW_REQUIRED。目标是忠实移植 CVPR 2025 ICC 的 FFN 增量机制，**不包含作者的 Attention 增量分支**。参见 [总协议](EXPERIMENT_CONTRACT.md) 与 [G19资产](G19_BASELINE_AND_ASSETS.md)。
