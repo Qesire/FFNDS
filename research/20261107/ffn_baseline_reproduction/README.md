@@ -1,6 +1,6 @@
 # Wan FFN基线：完整复现与受控重做
 
-**2026-11-16 当前优先级：先建立作者完整FFN参考与最小Wan端口，再重做ICC/Chipmunk/Q1r2比较。** 本轮完成原文/代码审计、无模型的计数接口检查和实验设计；GPU/模型运行0，正式执行尚待真实环境与输入绑定。当前规格：[完整复现与重做](STRICT_REPRODUCTION_AND_REDO_20261116.md)。
+**2026-11-16 当前优先级：先建立作者完整FFN参考与最小Wan端口，再重做ICC/Chipmunk/Q1r2比较。** 本轮完成原文/代码审计、无模型的计数接口检查和实验设计；GPU/模型运行0，正式执行尚待真实环境与输入绑定。当前规格：[完整复现与重做](STRICT_REPRODUCTION_AND_REDO_20261116.md)。本次已补固定代码引述；主视频55槽位，全部D4尝试上限99，撤回旧897提案。
 
 过去的ICC双残差、Global-P64、author-style历史视频与A/BW/BWS都保留其实际身份；它们的完成状态不等于原作者参考已完整复现。只补记录不足以替代缺失的四状态、校准配方或作者状态机执行。
 
@@ -9,7 +9,8 @@
 | [当前复现与重做规格](STRICT_REPRODUCTION_AND_REDO_20261116.md) | 统一对象、必要适配、消融、强基线、复用边界与完成标准 |
 | [作者Wan执行链审计](strict_reproduction_20261116/CHIPMUNK_UPSTREAM_AUDIT.md) | Wan2.1 T2V/attention与Wan2.2 I2V/FFN区别；官方Ampere/Triton；计数与几何缺口 |
 | [ICC严格参考](strict_reproduction_20261116/ICC_STRICT_REFERENCE.md) | 四状态、SVD/CA/CD、全四边界统计、精度、内存与rank预算 |
-| [统一实验设计与预算](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md) | 作者reference→Wan端口→部署变体；CAL/DEV/EVAL和单一执行总账 |
+| [统一实验设计与预算](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md) | 模块完整性、必要接口与五臂DEV开发对照；单一99次尝试上限 |
+| [固定代码引述](strict_reproduction_20261116/ICC_CODE_CITATIONS.md) · [Chipmunk](strict_reproduction_20261116/CHIP_CODE_CITATIONS.md) | 函数、固定commit行号、短摘录、必要适配与最小验收 |
 | [独立设计审阅](strict_reproduction_20261116/INDEPENDENT_REVIEW.md) | 实际审阅意见及修订回核；不代表任何GPU结果或已冻结RUN |
 | [当前研究结果](../../../reports/20261114/g20_two_track_core/README.md) | 已完成A/BW/BWS、历史完整视频和本次新增任务的界线 |
 

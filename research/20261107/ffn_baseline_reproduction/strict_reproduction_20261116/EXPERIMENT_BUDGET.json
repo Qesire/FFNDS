@@ -1,0 +1,105 @@
+{
+  "schema": "ffnds.lean-reproduction-budget.v1",
+  "base_commit": "9defbbaa9112eee954c24ae92c91831fd2dd69c4",
+  "status": "DESIGN_ONLY_NOT_EXECUTION_SCOPE",
+  "main_calibration": "CAL11",
+  "main_sources": "DEV11",
+  "main_seed": 42,
+  "main_is_confirmatory": false,
+  "main_arms": [
+    "NativeDense",
+    "Q1r2_CAL11",
+    "ICC_4S_r1408_LOCAL_SELECTED_CAL11",
+    "Chipmunk_AUTHOR_MINIMAL_WAN",
+    "Chipmunk_GLOBAL_P64_K5120"
+  ],
+  "icc_local_selection": {
+    "families": [
+      "SVD",
+      "CA_SVD",
+      "CD_SVD"
+    ],
+    "rank": 1408,
+    "experts": [
+      "high",
+      "low"
+    ],
+    "layers": [
+      4,
+      19,
+      34
+    ],
+    "rows": 512,
+    "unit": "source",
+    "objective": "F64 gated absolute MSE; mean layers, experts, sources",
+    "exact_tie_order": [
+      "SVD",
+      "CA_SVD",
+      "CD_SVD"
+    ]
+  },
+  "stages": [
+    {
+      "id": "E1_CAL_CAPTURE",
+      "d4_attempt_cap": 22,
+      "purpose": "Missing sufficient statistics only; native I2V conditioning encoder retained, output VAE decode/video encoding omitted"
+    },
+    {
+      "id": "E3_MAIN_VIDEO",
+      "d4_attempt_cap": 55,
+      "purpose": "5 arms x DEV11 x seed42; compatible artifacts deducted"
+    },
+    {
+      "id": "E2_NEUTRAL_EXTRA",
+      "d4_attempt_cap": 10,
+      "purpose": "2 sources; plain/ICC/Chip plus conditional Q1/GlobalP64 paths"
+    },
+    {
+      "id": "E4_ICC_2R",
+      "d4_attempt_cap": 3,
+      "purpose": "Same selected CAL11 factors; reuse 4S parent outputs"
+    },
+    {
+      "id": "E5_CAL22_CONDITIONAL",
+      "d4_attempt_cap": 3,
+      "purpose": "Fixed selected family/rank/4S; preset local trigger only",
+      "eligibility": "selected main family in {CA_SVD, CD_SVD} and preset local trigger; if SVD, cap is zero"
+    },
+    {
+      "id": "E6_ADAPTATION_CONDITIONAL",
+      "d4_attempt_cap": 3,
+      "purpose": "At most one identified single-factor adaptation on DEV3",
+      "selection": "Before any main-video outputs: eligible legal nonequivalent changes only, fixed tail then precision priority; no eligible change means zero. Oracle mismatch must be fixed, not tested as an adaptation."
+    },
+    {
+      "id": "R_TECHNICAL_RETRY",
+      "d4_attempt_cap": 3,
+      "purpose": "Global attempts; no new method/source/seed search"
+    }
+  ],
+  "base_d4_attempt_cap": 90,
+  "conditional_d4_attempt_cap": 6,
+  "technical_retry_cap": 3,
+  "total_d4_attempt_cap": 99,
+  "new_o40_attempt_cap": 0,
+  "extra_full_model_timing_attempt_cap": 0,
+  "original_full_system_generation_cap": 0,
+  "reuse": "Deduct actual (source, seed, path, execution_id) only. Reusing all 11 Dense main slots requires valid reuse of the 2 mandatory hook paths too. Plain output cannot replace a missing hook execution; cancelled slots cannot be reallocated.",
+  "retired_design": {
+    "commit": "9defbbaa9112eee954c24ae92c91831fd2dd69c4",
+    "d4_cap": 897,
+    "status": "SUPERSEDED_NOT_ACTIVE"
+  },
+  "new_model_runs": 0,
+  "runnable": false,
+  "execution_scope_id": null,
+  "offline_cost_caps": {
+    "wan_large_matrix_svd_base": 208,
+    "wan_large_matrix_svd_conditional_additional": 148,
+    "wan_large_matrix_svd_total": 356,
+    "author_shape_matrix_svd": 6,
+    "q1_pcg_fits_if_no_compatible_parameters": 80,
+    "rank_prefixes_share_decomposition": true,
+    "additional_precision_endpoint_sampling_factor_grids": false
+  }
+}
