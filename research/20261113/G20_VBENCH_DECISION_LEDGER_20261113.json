@@ -358,7 +358,7 @@
     "nonblocking_findings_spawn_jobs": false
   },
   "revision": 5,
-  "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_COMPLETE_CHIP_INPUTS_COMPLETE_BW_CHIP_BWS_PREEXEC_REQUIRED",
+  "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_CHIP_COMPLETE_BWS_FORMAL_EXIT0_CLOSURE_PENDING",
   "design_review": "research/experiment_reviews/G20_TWO_TRACK_RESTORATION_20261114/REVIEW.json",
   "counts_are_for_this_plan_change": false,
   "historical_plan": {
@@ -374,8 +374,7 @@
     "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
     "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
     "current_next_experiment": [
-      "BW",
-      "BWS"
+      "BWS_closure"
     ],
     "floor": "Published floor is total BF16 replay-vs-dense error (model + rounding), not pure rounding noise. The 11/11 unmeasurable claim is retracted in the report. No standalone recomputation is scheduled; a future chosen predictor would include an actual BF16-vs-math check in its own deployment comparison.",
     "candidate_export": "V4 rejected-candidate exports remain unrequested. Complete six-site parameters belong to A_Q1_RESIDUAL; full80 export is conditional on selecting one useful candidate.",
@@ -414,15 +413,14 @@
             "cause": "aggregate_bw queried short method keys after 264 cells were scored using full method IDs; KeyError"
           }
         ],
-        "current_chip_status": "Inputs produced by 164928; 132 Chip scores still pending. Original BW/v3 blocked fields remain historical."
+        "current_chip_status": "SCORED COMPLETE by BW_CHIP_SCORE job 166479 (V2, EXIT 0): 132 Chip cells filled via actual CHIPMUNK_GLOBAL_P64, reusing 264 Q1/ICC (no refit). Original BW/v3 blocked fields remain historical."
       },
       "BW_PREPARE": {
         "status": "COMPLETE_BINDING",
         "bindings_sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48"
       },
       "current_next_experiment": [
-        "BW",
-        "BWS"
+        "BWS_closure"
       ],
       "archive_root": "reports/20261114/g20_two_track_core/",
       "publication_push": {
@@ -448,6 +446,24 @@
         "scope_sha256": "13df65288ca31df682ebb041070ee53603212730d714c9bdc9f187d4b10fa2e9",
         "archive": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/README.md",
         "result": "11 DEV D4 fixed64 inputs; 8448 U rows; 66 cells unblocked (132 BW Chip cells); same-state all-match; reuses Q1/ICC fits"
+      },
+      "BW_CHIP_SCORE": {
+        "job": 166479,
+        "status": "BW_CHIP_SCORE_COMPLETE",
+        "scope_sha256": "202bbbe3c09da160490db5994f648893948f5ff2f3daef61e1d07843e47e6899",
+        "archive": "reports/20261114/g20_two_track_core/BW_CHIP_SCORE/v2/README.md",
+        "result": "Fill-only: 132 Chip cells (11 DEV x 6 sites x 2 weights) scored via actual CHIPMUNK_GLOBAL_P64, reusing 264 Q1/ICC risks (no refit/replay), 0 new trajectories. Chip BEATS Q1 for both weights: source-equal mean d_Chip W_O -0.0033868051, W_D -0.0034023310 (Chip risk ~0.0115 vs Q1 ~0.0149); all 11 per-source d_Chip negative. theta_Chip -1.5525868901e-5 (negligible vs ~3.4e-3 gap); per-source 9/11 negative, all 11 LOO negative (-1.954e-5..-1.160e-5). Reused d_ICC reproduces BW (+0.0065254/+0.0065387). Method ranking on mu_D replay: Chip < Q1 < ICC; both method gaps essentially weight-independent. quality NOT_MEASURED, performance NOT_BENCHMARKED.",
+        "failed_attempts": [166419],
+        "failed_attempt_details": [
+          {"job": 166419, "scope": "V1", "cause": "Author re-implemented sha_tensor with .numpy() on BFloat16 (TypeError) at cell_row; the exact bug BW v3 had fixed. Verify only dry-ran aggregate_chip on synthetic floats, never the real cell_row BF16 path. 0 trajectories consumed.", "fix": "V2 sha_tensor = proven verbatim BW v3 uint8-view body; added CELL_ROW_BF16_OK real-path regression; re-reviewed APPROVE/APPROVE."}
+        ]
+      },
+      "BWS": {
+        "job": 166225,
+        "status": "BWS_FORMAL_EXIT0_CLOSURE_PENDING",
+        "scope_sha256": "180382a7e78c5c542ac7bcbeb7505b34311f21c80f17c0018bb1bcd7abbebf13",
+        "result": "BWS_THREE_METHODS_COMPLETE EXIT 0: 6 formal O40, 216 DEV cells (144 Q1/ICC + 72 Chip), CAL3/DEV3, two weights x two states (mu_D/mu_O), methods Q1/ICC/Chip. source_equal_mean_I ICC +9.680e-6, Chip -2.674e-5. elapsed 5246.7s, peak RSS ~98 GiB. Publication and direction-B closure deferred per user.",
+        "o40_accounting_note": "Formal job captured 6 O40 fresh; the earlier smoke re-captured vbi_1005/vbi_1013 (2 of the same sources) separately, so total session O40 executions = 8 (6 formal + 2 smoke) vs the 6-total budget. The 2 smoke captures were not reused by the formal job. To be accounted honestly and the reuse-first fix applied at BWS publication; 6 distinct sources, 2 redundant executions."
       },
       "postpublication_check": {
         "checked_commit": "ba03576c99de95ebb3533945560e575de12f8fa2",
@@ -730,7 +746,7 @@
     }
   },
   "research_status": "TWO_TRACKS_ACTIVE",
-  "execution_status": "A_COMPLETE_BW_Q1ICC_COMPLETE_CHIP_INPUTS_COMPLETE_BW_CHIP_BWS_PREEXEC_REQUIRED",
+  "execution_status": "A_COMPLETE_BW_Q1ICC_CHIP_COMPLETE_BWS_FORMAL_EXIT0_CLOSURE_PENDING",
   "original_research_goals": {
     "source": "research/20261111/G20_TWO_TRACK_OPERATOR_AND_DISTILLATION_ATTRIBUTION_20261111.md",
     "A": "A useful low-cost FFN increment operator; test whether state information improves the residual of the strong Q1 baseline.",

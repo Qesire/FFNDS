@@ -1,0 +1,58 @@
+{
+  "scope_id": "G20_BW_CHIP_SCORE_20261115_V2",
+  "phase": "G20_BW_CHIP_SCORE",
+  "scope_sha256": "202bbbe3c09da160490db5994f648893948f5ff2f3daef61e1d07843e47e6899",
+  "root_self_audit_sha256": "c85d02670db374fa8085904b8817b1e5d99107df305b3b57af1d5282e8a37ab3",
+  "review_sha256": "acebc39f7e2a565d1fb27fdb76e6420399fca6e5c293b379cc510624c260bb63",
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_bw_chip_20261115",
+  "review_disposition": "APPROVE",
+  "review_recheck_disposition": "APPROVE",
+  "author": "main",
+  "utc": "2026-11-15T07:20:00Z",
+  "summary": "Accept the independent V2 APPROVE/APPROVE recheck. V1 job 166419 burned EXIT 1 on a re-implemented sha_tensor that called .numpy() on BFloat16 (the exact bug BW v3 had fixed). V2 replaces sha_tensor with the proven verbatim BW v3 uint8-view body and adds the CELL_ROW_BF16_OK real-path regression (formal cell_row with BF16 tensors + JSON/CSV serialization), which the compute-node verify confirms (VERIFY_BW_CHIP_PASS). Only bw_chip_score_runner.py changed (72b15745 -> 7d2b0fb8); the 9 shared-core files + guards + B_BINDINGS are byte-identical. Scope re-frozen 3cb0b3c6 -> 202bbbe3 (V2, fresh remote v2/stage). Remaining findings are LOW and accepted; governance re-frozen to V2 in this response + ACTIVE.",
+  "responses": [
+    {
+      "finding_severity": "BLOCKING_RESOLVED",
+      "finding": "V2 trigger: V1 job 166419 EXIT 1 — sha_tensor .numpy() on BFloat16 at cell_row (bw_chip_score_runner.py:37).",
+      "author_response": "RESOLVED. sha_tensor now uses the proven verbatim BW v3 body: b = t.detach().cpu().contiguous().reshape(-1).view(torch.uint8); hashlib.sha256(b.numpy().tobytes()). Identical bytes to .numpy() for FP32/FP64/int64; correct raw bytes for BF16. Independent recheck confirmed byte-for-byte match to BW_stage/b_weight_state_runner.py:39-45 and no remaining BF16-unsafe .numpy() in the runner. verify_bw_chip.py section 2c CELL_ROW_BF16_OK calls the FORMAL cell_row with real BF16 u0/u1/y0/y1/pred + int64 indices and exercises allow_nan=False JSON + CSV serialization; compute-node srun verify shows CELL_ROW_BF16_OK + VERIFY_BW_CHIP_PASS. The failed V1 job consumed ZERO trajectories (pure scoring; out/ created empty before the crash).",
+      "action": "NONE_FURTHER",
+      "frozen_identity_changed": false,
+      "re_review_required": false
+    },
+    {
+      "finding_severity": "BLOCKING_RESOLVED",
+      "finding": "Prior rev1 BLOCKING (carried): fixed64 torch Tensor compared to binding list.",
+      "author_response": "Already resolved before V2 (fixed64.tolist() != binding list); FIXED64_BINDING_OK regression covers it. Re-confirmed PASS in the V2 recheck.",
+      "action": "NONE_FURTHER",
+      "frozen_identity_changed": false,
+      "re_review_required": false
+    },
+    {
+      "finding_severity": "LOW",
+      "finding": "soft_seconds (3300s) not independently enforced in the chip path (check_resources checks GPU reserved memory + host peak RSS; guarded runner checks Slurm wall TimeLimit 3600s, not elapsed soft deadline).",
+      "author_response": "ACCEPTED, non-blocking, no change. Faithfully mirrors the reviewed BW guard. Runtime bounded by Slurm wall 3600s + --signal=B:TERM@60 + SIGTERM->TimeoutError handler + host peak-RSS / GPU memory-fraction ceilings. Cheap scoring-only job (132 cells, 0 trajectories) completes well within wall. Optional parity improvement deferred to a future revision; affects no gate or correctness for this job.",
+      "action": "ACCEPT_NO_CHANGE",
+      "frozen_identity_changed": false,
+      "re_review_required": false
+    },
+    {
+      "finding_severity": "LOW_RESOLVED",
+      "finding": "V1 LOW: ROOT_SELF_AUDIT.txt header cited a stale scope sha.",
+      "author_response": "RESOLVED in V2: audit header now cites scope_id G20_BW_CHIP_SCORE_20261115_V2 and scope sha 202bbbe3 (matches the re-frozen scope). Audit re-frozen to c85d0267; review binds it by file hash.",
+      "action": "NONE_FURTHER",
+      "frozen_identity_changed": false,
+      "re_review_required": false
+    },
+    {
+      "finding_severity": "LOW",
+      "finding": "Governance state: ACTIVE_RESEARCH.json and AUTHOR_RESPONSE.json still referenced V1 at recheck time.",
+      "author_response": "RESOLVED by this V2 re-freeze: AUTHOR_RESPONSE.json (this file) and ACTIVE_RESEARCH.json now bind scope 202bbbe3, review acebc39f, audit c85d0267, remote v2/stage, scope_id V2. The guards correctly refused dispatch until this re-freeze; no V1 governance is reused for the V2 job.",
+      "action": "REFREEZE_GOVERNANCE_TO_V2",
+      "frozen_identity_changed": false,
+      "re_review_required": false
+    }
+  ],
+  "frozen_identity_changed": false,
+  "re_review_required": false,
+  "ready_for_active": true
+}

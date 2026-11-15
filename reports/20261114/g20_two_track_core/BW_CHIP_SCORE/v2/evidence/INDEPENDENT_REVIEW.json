@@ -1,0 +1,131 @@
+{
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_bw_chip_20261115",
+  "reviewer_is_author": false,
+  "scope_sha256": "202bbbe3c09da160490db5994f648893948f5ff2f3daef61e1d07843e47e6899",
+  "root_self_audit_sha256": "c85d02670db374fa8085904b8817b1e5d99107df305b3b57af1d5282e8a37ab3",
+  "disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "checks_performed": [
+    {
+      "id": "hash_binding",
+      "verdict": "PASS",
+      "evidence": "Independent Node crypto (ELECTRON_RUN_AS_NODE) re-hash: scope.json=202bbbe3c09da160490db5994f648893948f5ff2f3daef61e1d07843e47e6899 (==expected); ROOT_SELF_AUDIT.txt=c85d02670db374fa8085904b8817b1e5d99107df305b3b57af1d5282e8a37ab3 (==expected). ALL 14 bound files (13 code_sha256 + B_BINDINGS.json frozen_inputs_sha256) re-hashed == their scope values (ALL_BOUND_OK true). bw_chip_score_runner.py=7d2b0fb8c8b68d12625d14c8b9b33ddbefd25c1820b52865b7fe1c49e24880b6 (==expected V2). scope.remote_stage=/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW_CHIP_SCORE/v2/stage; scope.scope_id=G20_BW_CHIP_SCORE_20261115_V2; scope.phase=G20_BW_CHIP_SCORE - all match. B_BINDINGS.json=58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48 byte-identical to proven ../BW_stage copy. Cluster-resident input hashes (chip_p64_inputs 7eeb32ab, bw_cell_csv 49003caa/264 rows, bank_manifest f6f8e100) reused from compute-node CLUSTER_INPUT_HASHES_OK; not re-hashed locally (no cluster access)."
+    },
+    {
+      "id": "bf16_fix_verbatim",
+      "verdict": "PASS",
+      "evidence": "bw_chip_score_runner.py sha_tensor (lines 35-41) body is VERBATIM identical to proven BW v3 ../BW_stage/b_weight_state_runner.py:39-45: 'b = t.detach().cpu().contiguous().reshape(-1).view(torch.uint8); return hashlib.sha256(b.numpy().tobytes()).hexdigest()' (comment block also identical). grep '.numpy(' across bw_chip_score_runner.py returns ONLY line 41 (operating on the uint8 view b, safe for any dtype) and line 38 (comment) - NO .numpy() directly on a possibly-BF16 tensor remains. The V1 body t.detach().cpu().contiguous().numpy().tobytes() (which raised 'Got unsupported ScalarType BFloat16') is gone. The uint8 view yields identical raw bytes to .numpy() for FP32/FP64/int64 (backward-compatible with recorded hashes) and correct raw bytes for BF16."
+    },
+    {
+      "id": "real_path_regression",
+      "verdict": "PASS",
+      "evidence": "verify_bw_chip.py section 2c (lines 40-59, CELL_ROW_BF16_OK) imports the FORMAL bw_chip_score_runner as R0 and calls R0.cell_row('vbi_0000','high',4,'W_O',c,pred,indices,'scopesha','rowsha',0.008,0.009) with REAL BF16 tensors: c.u0_bf16/u1_bf16/y0/y1=torch.randn(2,5120).bfloat16(), g=float32 ones, pred=torch.randn(2,5120).bfloat16(), indices=torch.arange(64,dtype=torch.int64) (lines 46-51). Asserts cell_status=='VALID'; gated_sse_f64/gated_mse_f64/bf16_gate_mse/d_chip_minus_q1_f64/d_icc_minus_q1_f64 are isinstance(float) AND math.isfinite (lines 53-54); U0_sha/U1_sha/G_ref_sha/own_anchor_sha/own_target_sha/pred_sha/chip_indices_sha are 64-char str (lines 55-56); then json.dumps(row,allow_nan=False) (line 57) + csv.DictWriter writeheader/writerow (line 58). This drives the EXACT cell_row->sha_tensor(BF16) path that crashed V1 job 166419. Evidence review_evidence/verify_bw_chip_v2.log line 19 'CELL_ROW_BF16_OK' and line 21 'VERIFY_BW_CHIP_PASS' (also PY_COMPILE_OK 13, BOUND_HASHES_OK 14, CLUSTER_INPUT_HASHES_OK, FIXED64_BINDING_OK, AGGREGATE_CHIP_DRYRUN_OK). Reused, not re-run."
+    },
+    {
+      "id": "latent_bug_scan",
+      "verdict": "PASS",
+      "evidence": "Read FULL bw_chip_score_runner.py (282 lines). (a) primary_risk/auxiliary_risk return PYTHON FLOATS: b_common_replay.py:187 'return float(v)/(c[n]*D)' and :194 'return float(_f64_sse(...))/(c[n]*D)', so cell_row prim/aux, gated_sse=prim*n*D and d_chip_minus_q1=prim-r_q1 are floats; cell_row emits only str/int/float/None - no torch tensor leaks into JSON/CSV. (b) Only .numpy() is line 41 on the uint8 view. (c) No tensor-vs-list comparisons: line 178 fixed64.tolist()!=binding list (V1 fix intact); line 54 [tuple(shape)]!=shapes (list-of-tuples); line 220 tuple(uf.shape)!=(64,D); lines 157/159 JSON list/int comparisons. (d) Key indexing CONSISTENT: aggregate_chip risk dict 4-tuple (source_id,weight_id,expert,layer) built line 92 == read line 99; q1icc 5-tuple (src,w,method,expert,layer) built run() line 173 == read aggregate_chip line 110 and run() lines 225-226; cell_row output keys consumed by aggregate_chip (cell_status/source_id/weight_id/expert/layer/gated_mse_f64) all present. (e) finite guard line 233 torch.tensor([floats]) is safe; nonfinite raises before serialization. (f) c[n]=u0b.shape[0] is a Python int. No NEW dtype/shape/serialization hazard found; corroborated empirically by CELL_ROW_BF16_OK + AGGREGATE_CHIP_DRYRUN_OK."
+    },
+    {
+      "id": "shared_core_unchanged",
+      "verdict": "PASS",
+      "evidence": "Node re-hash: all 9 shared-core files in stage are BYTE-IDENTICAL to ../BW_stage copies - b_common_replay 6ccdcad0, ridge_fit_core b22ac372, q1_fit_core b76a0efa, icc_decompose 6f2d2d93, icc_ffn 127328fd, chipmunk_fullm_proxy_math f46ba6fe, chipmunk_wan_packed_pregate 9a3e789e, panel512 0e420e95, runtime_guard ba75a4c1 (each printed CORE ... BYTE_IDENTICAL). Guards UNCHANGED from V1: guarded_runner_bw_chip.py=d6b93fd75cafaba9c1020fc580bb9d5e55711073887dc00966473b2189ec895f (V1 review cited d6b93fd7), dispatch_once_bw_chip.py=6a1898196a2626c18216064c4a6b6534e1128b3ad28eb0ca89635a56c31466e3 (V1 cited 6a189819), job.sh=c661fd41646401599c31b7201559fb3b655181f55d19d6a4b6f5b60bb5420894 (matches disk; audit section 7c + V1 review attest ONLY bw_chip_score_runner.py was re-bound 72b15745->7d2b0fb8). B_BINDINGS.json frozen hash 58cec641 unchanged (byte-identical to proven BW copy). Only the runner changed V1->V2; the other 12 code_sha256 + frozen hash are unchanged."
+    },
+    {
+      "id": "zero_consumption_guards",
+      "verdict": "PASS",
+      "evidence": "scope zeros all 0 (Node-printed '0 0 0 0 0 0'): new_videos/max_new_D4_full_executions/max_new_O40_full_executions/new_video_decode/reference_generation/reference_benchmarks. run() does NO capture/fit/decode: grep 'fit_q1|q0_prior|icc_predict|factorize|make_w_o_factors|decode|capture|q1_predict' in runner returns only docstring/comment/summary-string matches (lines 6,155,256), no calls; run() only load_weights + build_pack + own_w_targets (native_ffn forward = the scoring itself) + chip_predict + cell_row + aggregate_chip, and READS the 264 Q1/ICC gated_mse_f64 from frozen hash-gated BW_CELL.csv (no refit/replay). guarded_runner_bw_chip.py review gate (lines 47-51) is the negated-or form: raises on ANY of scope_sha256!=a.scope_sha, disposition!=APPROVE, recheck_disposition!=APPROVE, missing reviewer_agent_id, reviewer in authors(['main']), root_self_audit_sha256 mismatch. ACTIVE gate (lines 52-54) checks scope_sha256, review_sha256==sha(INDEPENDENT_REVIEW.json), state==AUTHORIZED_FOR_ONE_JOB, session_max_gpus==2. All 14 bound files re-hashed with is_relative_to containment BEFORE torch import (lines 55-58). dispatch_once mirrors the gates + flock LOCK_EX + already-attempted refusal + squeue 2-job/2-GPU caps + --no-requeue. NOTE: ACTIVE_RESEARCH.json/AUTHOR_RESPONSE.json are still V1; guards fail-closed and will REFUSE V2 dispatch until the author re-freezes them (see findings)."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "BLOCKING_RESOLVED",
+      "description": "V2 TRIGGER - V1 job 166419 (scope 3cb0b3c6) burned EXIT 1: bw_chip_score_runner.py sha_tensor used t.detach().cpu().contiguous().numpy().tobytes(); numpy() rejects BFloat16 ('Got unsupported ScalarType BFloat16') when cell_row hashed c['u0_bf16']/u1_bf16/y0/y1/pred (BF16). This re-introduced the exact bug BW v3 had already fixed. The V1 verify only dry-ran aggregate_chip on synthetic float dicts and never exercised cell_row->sha_tensor with BF16 tensors.",
+      "resolution": "RESOLVED in V2 (independently confirmed): sha_tensor (lines 35-41) now uses the proven verbatim BW v3 uint8-view body 'b = t.detach().cpu().contiguous().reshape(-1).view(torch.uint8); return hashlib.sha256(b.numpy().tobytes()).hexdigest()' - byte-identical to ../BW_stage/b_weight_state_runner.py:39-45. grep confirms no .numpy() on a possibly-BF16 tensor remains. verify_bw_chip.py adds CELL_ROW_BF16_OK (section 2c) calling the FORMAL cell_row with real BF16 tensors + int64 indices + allow_nan=False JSON/CSV serialization; verify_bw_chip_v2.log shows CELL_ROW_BF16_OK + VERIFY_BW_CHIP_PASS. Runner re-bound 72b15745->7d2b0fb8; scope re-frozen 3cb0b3c6->202bbbe3; audit re-frozen bc17a6bf->c85d0267 (section 7c documents the fix). 9 shared-core + guards + B_BINDINGS unchanged. Reviewer modified no author code/scope/audit/hashes; no GPU job re-run."
+    },
+    {
+      "severity": "BLOCKING_RESOLVED",
+      "description": "Prior rev1 BLOCKING (carried forward): run() compared the fixed64 torch TENSOR to the binding LIST, yielding a 64-element bool tensor whose 'if' raises 'Boolean value of Tensor with more than one element is ambiguous' unconditionally.",
+      "resolution": "Still RESOLVED in V2: line 178 reads 'if fixed64.tolist() != bindings[p64][fixed64_token_ids]:' (list-vs-list, proven BWS pattern). FIXED64_BINDING_OK regression present in verify_bw_chip.py:32-38 and PASS in the v2 log. No tensor-vs-list comparisons remain in run()."
+    },
+    {
+      "severity": "LOW",
+      "description": "soft_seconds (3300s) is not enforced in the chip execution path: run().check_resources (lines 191-196) checks only GPU reserved memory + host peak RSS; guarded_runner checks the Slurm wall TimeLimit (3600s) but not an elapsed soft deadline. runtime_guard.py:192-197 has a generic check_deadline that DOES enforce soft_seconds (TimeoutError PARTIAL_SOFT_DEADLINE), but the chip runner/guarded_runner do not instantiate that watchdog (guarded_runner imports only require_compute_allocation/sha256_file/process_peak_rss_bytes).",
+      "resolution": "Non-blocking, unchanged from V1 (author ACCEPT_NO_CHANGE). Runtime is bounded by wall 3600s + job.sh --signal=B:TERM@60 + guarded_runner SIGTERM->TimeoutError handler + GPU memory-fraction/host-RSS ceilings; this is a cheap 132-cell scoring job (0 trajectories). Optional parity improvement: wire an elapsed>soft_seconds check. Not required for approval."
+    },
+    {
+      "severity": "LOW_RESOLVED",
+      "description": "V1 LOW: ROOT_SELF_AUDIT.txt header cited a stale scope sha (d2cb6051 / 3cb0b3c6) instead of the re-frozen scope.",
+      "resolution": "CORRECTED in V2: ROOT_SELF_AUDIT.txt line 4 now cites scope.json sha256 202bbbe3c09da160490db5994f648893948f5ff2f3daef61e1d07843e47e6899 (== actual V2 scope, independently re-hashed). Audit file hash c85d0267 is bound by both guards. No header staleness remains."
+    },
+    {
+      "severity": "LOW",
+      "description": "Governance state (not a defect in the reviewed V2 scope/code/verify): ACTIVE_RESEARCH.json and AUTHOR_RESPONSE.json still reference V1 (scope_id G20_BW_CHIP_SCORE_20261115_V1, scope_sha256 3cb0b3c6, review_sha256 518edb20, remote_stage .../BW_CHIP_SCORE/v1/stage). They have not yet been re-frozen for V2. This is the expected post-review authoring step.",
+      "resolution": "Before dispatch the author MUST re-freeze ACTIVE_RESEARCH.json (scope_sha256=202bbbe3, review_sha256=sha256 of THIS new INDEPENDENT_REVIEW.json, root_self_audit_sha256=c85d0267, remote_stage=.../v2/stage, state=AUTHORIZED_FOR_ONE_JOB, session_max_gpus=2) and update AUTHOR_RESPONSE.json for V2. The guarded_runner/dispatch ACTIVE gates (scope_sha256/review_sha256 mismatch) will correctly REFUSE to dispatch V2 until then - a safe fail-closed property. Does not block APPROVE of the V2 artifacts. Reviewer did not modify these files."
+    }
+  ],
+  "adversarial_counterexamples": [
+    {
+      "attack": "Wrong B_CHIP_P64_INPUTS sha256 or capture_scope identity",
+      "blocked": true,
+      "mechanism": "run() line 152 sha(chip_path)!=chip_p64_inputs_sha256 -> RuntimeError('B_CHIP_P64_INPUTS provenance'); lines 155-156 capture_scope_sha256!=chip_stats_scope_sha256 -> 'chip inputs scope identity'; lines 157-160 cohort!=DEV11 / selected_k!=5120 / grid!=[21,29,52] / flattened_tokens!=31668. All before scoring."
+    },
+    {
+      "attack": "Wrong BW_CELL.csv hash or !=264 VALID mu_D Q1/ICC cells",
+      "blocked": true,
+      "mechanism": "run() lines 163-164 sha!=bw_cell_csv_sha256 -> 'BW_CELL provenance'; lines 166-167 len(bw_rows)!=264; lines 171-172 row not VALID or state_mu!=mu_D; lines 174-175 distinct keys!=264 -> RuntimeError. No silent reuse/refit."
+    },
+    {
+      "attack": "fixed64 payload path/bytes/file_sha256 or (64,5120) BF16 finite mismatch",
+      "blocked": true,
+      "mechanism": "run() lines 216-217 per-payload not is_file / st_size!=bytes / sha!=file_sha256 -> 'fixed64 payload provenance'; lines 220-221 shape!=(64,D) / dtype!=bfloat16 / not isfinite -> 'fixed64 payload shape/dtype/finite'; lines 236-237 payloads_verified!=264 -> RuntimeError."
+    },
+    {
+      "attack": "Non-A100 / wrong torch / over GPU or host memory budget",
+      "blocked": true,
+      "mechanism": "guarded_runner lines 83-87 device_count!=1 or get_device_name()!='NVIDIA A100-SXM4-80GB' or torch.__version__!=2.10.0+cu128 -> RuntimeError; lines 88-89 set_per_process_memory_fraction(78GiB/total); run() lines 185-188 same A100/torch gate; check_resources lines 191-196 MemoryError('GPU_MEMORY_BUDGET_EXCEEDED')/host RSS; guarded lines 96-97 peak_rss>160GiB -> RuntimeError."
+    },
+    {
+      "attack": "Any code/frozen/scope/audit/review/ACTIVE hash mismatch at dispatch",
+      "blocked": true,
+      "mechanism": "dispatch_once lines 17-18 scope sha; lines 26-30 review negated-or gate; lines 31-33 ACTIVE; lines 34-37 re-hash 14 bound files with is_relative_to containment -> RuntimeError('input '+n) before sbatch. guarded_runner re-checks all 14 + review + ACTIVE before torch import. A stale V1 ACTIVE (scope 3cb0b3c6) fails the V2 scope_sha256 gate, blocking dispatch until re-frozen."
+    },
+    {
+      "attack": "Second dispatch / concurrent dispatch race",
+      "blocked": true,
+      "mechanism": "dispatch_once lines 15-16 fcntl.flock(LOCK_EX) on .g20_bw_chip_dispatch.lock; lines 38-39 already-attempted refusal if any of SUBMITTED.json/DISPATCH_INTENT.json/RUN.json/output exists; lines 62/69 exclusive-create open('x'); lines 43-44 squeue>=2 jobs -> 'session two-job cap'; lines 52-53 reserved+1>2 -> 'session two-GPU cap'; sbatch --no-requeue."
+    },
+    {
+      "attack": "Regenerated fixed64 != B_BINDINGS.p64.fixed64_token_ids",
+      "blocked": true,
+      "mechanism": "run() line 178 'if fixed64.tolist() != bindings[p64][fixed64_token_ids]:' -> RuntimeError('regenerated fixed64 differs from binding'). list!=list yields a scalar bool; genuine mismatch raises, legitimate match passes (FIXED64_BINDING_OK demonstrates seed42 randperm[:64].tolist() == 64-id binding). The rev1 tensor-vs-list over-trigger remains resolved."
+    },
+    {
+      "attack": "cell_row hashes BF16 tensors (u0_bf16/u1_bf16/y0/y1/pred) - the V1 job 166419 EXIT-1 crash path",
+      "blocked": false,
+      "mechanism": "NO LONGER FAILS (fix verified): sha_tensor reinterprets the contiguous buffer as uint8 (t.detach().cpu().contiguous().reshape(-1).view(torch.uint8)) before .numpy().tobytes(), so BF16 hashing succeeds with correct raw bytes instead of raising 'Got unsupported ScalarType BFloat16'. CELL_ROW_BF16_OK drives the FORMAL cell_row with real BF16 tensors + int64 indices and asserts 64-char sha strings + finite float risks + allow_nan=False JSON/CSV serialization; VERIFY_BW_CHIP_PASS in verify_bw_chip_v2.log. blocked=false denotes the crash is eliminated, not a guard failure."
+    }
+  ],
+  "recheck_notes": {
+    "utc": "2026-11-15T07:10:48.192Z",
+    "type": "BOUNDED targeted V2 recheck (no GPU job, no author code/hash modification)",
+    "trigger": "V1 job 166419 EXIT 1 BF16 sha_tensor",
+    "steps": [
+      "Read bw_chip_score_runner.py sha_tensor (lines 35-41) and ../BW_stage/b_weight_state_runner.py:39-45: confirmed the V2 body is the proven verbatim uint8-view (reshape(-1).view(torch.uint8) then sha256(b.numpy().tobytes())).",
+      "grep '.numpy(' in bw_chip_score_runner.py: only line 41 (uint8 view) + line 38 (comment); no .numpy() on a possibly-BF16 tensor remains.",
+      "Read verify_bw_chip.py section 2c (lines 40-59): CELL_ROW_BF16_OK calls the FORMAL R0.cell_row with real BF16 u0/u1/y0/y1/pred + int64 indices, asserts finite float risks + 64-char sha strings, json.dumps(allow_nan=False) + csv.DictWriter. Read review_evidence/verify_bw_chip_v2.log: CELL_ROW_BF16_OK + VERIFY_BW_CHIP_PASS present (reused, not re-run).",
+      "Read FULL bw_chip_score_runner.py + b_common_replay.py: primary_risk/auxiliary_risk return Python floats (lines 187/194); no tensor leaks into JSON/CSV; aggregate_chip risk 4-tuple and q1icc 5-tuple key indexing consistent between cell_row/run()/aggregate_chip; no other tensor-vs-list or dtype/shape hazard.",
+      "Independent Node crypto re-hash: scope.json==202bbbe3, ROOT_SELF_AUDIT.txt==c85d0267, all 14 bound files MATCH (runner==7d2b0fb8); 9 shared-core BYTE-IDENTICAL to ../BW_stage; B_BINDINGS.json byte-identical to proven BW copy; remote_stage/scope_id/phase confirmed; scope zeros all 0.",
+      "Confirmed guards unchanged from V1 (guarded_runner d6b93fd7, dispatch 6a189819 per V1 review; job.sh c661fd41 matches disk; audit section 7c attests only the runner re-bound 72b15745->7d2b0fb8).",
+      "Read guarded_runner_bw_chip.py + dispatch_once_bw_chip.py: review gate negated-or (raises on ANY mismatch); ACTIVE gate checks scope_sha256/review_sha256/state==AUTHORIZED_FOR_ONE_JOB/session_max_gpus==2; 14 bound files re-hashed with containment before torch import; flock + already-attempted + squeue caps + --no-requeue.",
+      "Confirmed run() does no capture/fit/decode (grep returns only docstring/comment/summary matches); ROOT_SELF_AUDIT.txt header line 4 now corrected to 202bbbe3 (prior LOW resolved); soft_seconds remains unenforced in the chip path (LOW, non-blocking).",
+      "Noted ACTIVE_RESEARCH.json/AUTHOR_RESPONSE.json are still V1 - author must re-freeze to V2 before dispatch; guards fail-closed until then (LOW governance note, not a code defect)."
+    ],
+    "outcome": "V2 BF16 sha_tensor BLOCKING trigger RESOLVED (verbatim proven uint8-view body + CELL_ROW_BF16_OK real-path regression). All 6 bounded checks PASS; 14 bound hashes + 9 shared-core byte-identity + unchanged guards confirmed by independent Node re-hash. disposition APPROVE, recheck_disposition APPROVE. Author must re-freeze ACTIVE/AUTHOR_RESPONSE to V2 (scope 202bbbe3 + new review_sha256 + remote v2/stage) before dispatch; guards refuse until then."
+  },
+  "evidence_reused": {
+    "verify_bw_chip": "VERIFY_BW_CHIP_PASS (V2: PY_COMPILE_OK 13, BOUND_HASHES_OK 14, CLUSTER_INPUT_HASHES_OK, FIXED64_BINDING_OK, CELL_ROW_BF16_OK, AGGREGATE_CHIP_DRYRUN_OK)",
+    "full_rerun_performed": false
+  },
+  "review_utc": "2026-11-15T07:10:48.192Z"
+}

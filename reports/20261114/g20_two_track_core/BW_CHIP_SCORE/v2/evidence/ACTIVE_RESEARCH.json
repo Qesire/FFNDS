@@ -1,0 +1,40 @@
+{
+  "scope_id": "G20_BW_CHIP_SCORE_20261115_V2",
+  "phase": "G20_BW_CHIP_SCORE",
+  "scope_sha256": "202bbbe3c09da160490db5994f648893948f5ff2f3daef61e1d07843e47e6899",
+  "review_sha256": "acebc39f7e2a565d1fb27fdb76e6420399fca6e5c293b379cc510624c260bb63",
+  "root_self_audit_sha256": "c85d02670db374fa8085904b8817b1e5d99107df305b3b57af1d5282e8a37ab3",
+  "author_response_sha256": "8454f837b107630a7e25a53c833533e6406aaf3f92241b56bd2a303b289d3965",
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_bw_chip_20261115",
+  "review_disposition": "APPROVE",
+  "review_recheck_disposition": "APPROVE",
+  "state": "AUTHORIZED_FOR_ONE_JOB",
+  "session_max_gpus": 2,
+  "session_max_jobs": 2,
+  "remote_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW_CHIP_SCORE/v2/stage",
+  "node": [
+    "anode16",
+    "anode20"
+  ],
+  "gpus_per_job": 1,
+  "max_new_D4_full_executions": 0,
+  "max_new_O40_full_executions": 0,
+  "new_videos": 0,
+  "new_video_decode": 0,
+  "reference_generation": 0,
+  "reference_benchmarks": 0,
+  "purpose": "Scoring-only fill of the 132 BW Chip risk cells (11 DEV sources x 6 sites x 2 weights), reusing the produced B_CHIP_P64_INPUTS fixed64 payloads, the actual CHIPMUNK_GLOBAL_P64 selector/packed-pregate path, and the 264 completed Q1/ICC gated_mse_f64 risks read from frozen BW_CELL.csv. Computes d_Chip = R_Chip - R_Q1 and theta = d(W_D) - d(W_O) with layer/expert/source-equal aggregation + range + LOO. Zero new trajectories, no Q1 refit, no D4/O40 capture, no decode.",
+  "authorization_basis": "Independent V2 recheck APPROVE + APPROVE. V1 job 166419 burned EXIT 1 on a re-implemented BF16 sha_tensor (.numpy() on BFloat16); V2 fixes sha_tensor to the proven verbatim BW v3 uint8-view body and adds CELL_ROW_BF16_OK real-path regression (compute-node VERIFY_BW_CHIP_PASS). Only bw_chip_score_runner.py re-bound (72b15745 -> 7d2b0fb8); 9 shared-core files + guards + B_BINDINGS byte-identical. Scope re-frozen 3cb0b3c6 -> 202bbbe3; audit c85d0267; review acebc39f. soft_seconds LOW accepted (non-blocking); audit-header LOW resolved; governance re-frozen to V2.",
+  "prior_attempt": {
+    "version": "V1",
+    "job_id": "166419",
+    "scope_sha256": "3cb0b3c6fe1ccfcc9df6acf7486393be7f11ad6dcc63423a0709ba038a907cb3",
+    "exit_code": 1,
+    "failure": "sha_tensor .numpy() on BFloat16 (TypeError: Got unsupported ScalarType BFloat16) at cell_row",
+    "trajectories_consumed": 0,
+    "record_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/BW_CHIP_SCORE/v1/stage"
+  },
+  "dispatch_requires_user_confirmation": true,
+  "no_auto_retry": true,
+  "utc": "2026-11-15T07:20:00Z"
+}

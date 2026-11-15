@@ -1,0 +1,144 @@
+G20 BW_CHIP_SCORE — ROOT SELF-AUDIT (author: main)
+====================================================
+scope_id: G20_BW_CHIP_SCORE_20261115_V2
+scope.json sha256: 202bbbe3c09da160490db5994f648893948f5ff2f3daef61e1d07843e47e6899
+based_on_commit: deee735 (user reconciliation: P64 inputs produced; pending BW Chip scoring + BWS)
+date: 2026-11-15
+
+1. PURPOSE AND BOUNDARY
+-----------------------
+Consume the produced B_CHIP_P64_INPUTS and score ONLY the 132 blocked BW Chip cells
+(11 DEV x 6 sites x 2 weights) via the actual CHIPMUNK_GLOBAL_P64 path. Reuse the
+completed 264 BW Q1/ICC results and fits VERBATIM (no Q1/ICC refit or replay); diff
+Chip against the existing Q1 table (d_Chip(W)=R_Chip(W)-R_Q1(W); theta_Chip=d(W_D)-d(W_O)).
+This closes the user-identified gap: B_CHIP_STATS produced inputs but never computed the
+Chip selector/prediction/risk; the old BW runner wrote Chip as blocked. Re-running the old
+BW runner would neither score Chip nor avoid repeating Q1/ICC; this stage does neither.
+ZERO new D4, ZERO new O40, ZERO new source/image/prompt, ZERO video decode/scoring,
+ZERO reference generation/benchmarks, ZERO full-M block stats / full-M F1. Pure sampled
+local FFN function replay on the existing PANEL512 mu_D bank with produced fixed64 rows.
+No quality claim, no production timing, no deployment claim. n=11 mechanism development.
+
+2. HASH BINDING
+---------------
+code_sha256 (13 files, all in stage, re-hashed by both guards before torch import):
+  bw_chip_score_runner.py, b_common_replay.py, ridge_fit_core.py, q1_fit_core.py,
+  icc_decompose.py, icc_ffn.py, chipmunk_fullm_proxy_math.py,
+  chipmunk_wan_packed_pregate.py, panel512.py, runtime_guard.py,
+  guarded_runner_bw_chip.py, dispatch_once_bw_chip.py, job.sh
+frozen_inputs_sha256 (1): B_BINDINGS.json sha 58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48
+Cluster-resident inputs hash-gated INSIDE run() (not stage copies):
+  bank_manifest_sha256 f6f8e100da6f75b2db612edd8c8c4d21729ed9bf99bfb5092941f2381a4d0bee
+  chip_p64_inputs B_CHIP_P64_INPUTS.json sha 7eeb32ab400a1090b85d54bf13395012175d5c27683a1d754444328c4c87999a
+    capture_scope_sha256 == chip_stats_scope_sha256 == 13df65288ca31df682ebb041070ee53603212730d714c9bdc9f187d4b10fa2e9
+  bw_cell_csv BW_CELL.csv sha 49003caa220aa65dbb24e870233c6e3343bd869150815122f2eeb56c2912ddf5 (264 Q1/ICC cells)
+  checkpoints_W_O (per site, F32) / checkpoints_W_D (high/low, BF16): path+sha256 from BW scope, re-hashed in load_weights.
+The 9 shared-core files are BYTE-IDENTICAL to the proven BW_stage copies (verified by sha):
+  b_common_replay 6ccdcad0, ridge_fit_core b22ac372, q1_fit_core b76a0efa, icc_decompose 6f2d2d93,
+  icc_ffn 127328fd, chipmunk_fullm_proxy_math f46ba6fe, chipmunk_wan_packed_pregate 9a3e789e,
+  panel512 0e420e95, runtime_guard ba75a4c1.
+
+3. REUSE PROVENANCE (no refit / no replay / no new capture)
+-----------------------------------------------------------
+chip_predict / primary_risk / auxiliary_risk / build_pack / own_w_targets / chip_fixed64
+are imported VERBATIM from b_common_replay.py (the exact functions the successful BW job
+164312 used). The FFN weights are loaded from the SAME hash-gated W_O/W_D checkpoints.
+G_ref is the same-source/site D4 hit gate from build_pack (identical to BW). The 264 Q1/ICC
+risks are READ from the frozen hash-gated BW_CELL.csv (gated_mse_f64), NOT recomputed; the
+Q1/ICC fitted parameters are not reloaded or refit (Chip scoring does not use them). The
+fixed64 U0/U1 rows are READ from B_CHIP_P64_INPUTS (each payload's path/bytes/file_sha256
+and (64,5120) BF16 finite shape verified before use). fixed64 token IDs regenerated via
+CPU seed42 randperm(31668)[:64] and asserted equal to B_BINDINGS.p64.fixed64_token_ids.
+
+4. MATH
+-------
+Per cell: pred,indices = chip_predict(c,w1,b1,w2,u0_64,u1_64,fixed64) (own-W eval512 anchor
+cache; fixed64 own-W proxy selector rms_score->selection K5120; packed_pregate on eval512).
+primary_risk = F64 sum(((pred_BF16 - own_y1_BF16)*G_ref)^2)/(512*5120); auxiliary BF16 gate
+MSE separate. d_Chip(W)=R_Chip(W)-R_Q1(W) with R_Q1 reused from BW_CELL. Aggregation:
+layer-equal mean over (4,19,34) -> expert-equal mean over (high,low) -> source-equal mean
+over 11 DEV; theta_Chip=d(W_D)-d(W_O); range + leave-one-source-out reported. All risks
+asserted finite and non-negative before serialization (allow_nan=False).
+
+5. ZERO-CONSUMPTION GUARANTEES
+------------------------------
+run() performs NO capture, NO fit, NO video decode/write, NO new trajectory. It only loads
+existing bank tensors + produced fixed64 rows + existing BW risks and scores. scope gates:
+new_videos=0, max_new_D4=0, max_new_O40=0, new_video_decode=0, reference_generation=0,
+reference_benchmarks=0. Output is CSV/JSON only (<=1GiB budget). The 132 cells x 2 endpoints
+= 264 fixed64 payload reads are verified (checks.fixed64_payloads_verified==264).
+
+6. GUARDS
+---------
+guarded_runner_bw_chip.py + dispatch_once_bw_chip.py mirror the reviewed BW/BWS guards:
+phase G20_BW_CHIP_SCORE, status REVIEW_CANDIDATE, remote_stage identity, zero-consumption
+constraints; review disposition+recheck APPROVE, reviewer_agent_id not in authors(['main']),
+root_self_audit_sha256 match; ACTIVE AUTHORIZED_FOR_ONE_JOB + session_max_gpus=2 +
+review_sha256 match; re-hash all 14 bound files with path containment; live Slurm allocation
+(runtime_guard.require_compute_allocation), node membership [anode16,anode20], one A100-80GB,
+torch 2.10.0+cu128, budget ceilings (160GiB host, 78GiB GPU, 3600s wall, 3300s soft);
+single dispatch (--no-requeue, exclusive flock, refuses if SUBMITTED/DISPATCH_INTENT/RUN/
+output exist), squeue 2-job/2-GPU session cap. DISPATCH_INTENT written before sbatch.
+
+7. VERIFICATION APPROACH (calibrated; real-path CPU regression, no redundant GPU smoke)
+--------------------------------------------------------------------------------------
+This is a cheap scoring-only job; a separate full-path GPU smoke would duplicate the formal
+path and prevent no irreversible consumption (user directive 2026-11-15: "有必要做那么多smoke吗？").
+BUT "reusing proven core" covers ONLY the byte-identical b_common_replay functions; the
+author-written cell_row/sha_tensor/aggregate_chip are NEW code and are NOT proven by the BW
+job. rev1 burned job 166419 (EXIT 1) precisely because the verify dry-ran aggregate_chip on
+synthetic float dicts but never exercised the real cell_row -> sha_tensor path with BF16
+tensors. Corrected verification: (a) compute-node py_compile of all .py; (b) re-hash 14 bound
+files + cluster inputs; (c) FIXED64_BINDING_OK (real run() L174 comparison); (d) CELL_ROW_BF16_OK
+— call the FORMAL cell_row with real BF16 u0/u1/y0/y1/pred + int64 indices, exercising
+sha_tensor(BF16) + primary_risk/auxiliary_risk + allow_nan=False JSON/CSV serialization;
+(e) AGGREGATE_CHIP_DRYRUN_OK on a synthetic full 132-cell grid. No GPU scoring smoke; the
+formal job remains the GPU integration test, but every NEW author function is now exercised
+on the real path before dispatch. No piecewise re-implementation of the formal functions.
+
+7b. REVIEW-CAUGHT FIX (rev2)
+----------------------------
+Independent review (REQUEST_CHANGES) found bw_chip_score_runner.py compared the fixed64
+torch TENSOR directly to the binding LIST (`fixed64 != bindings[...]`), which yields a
+64-element bool tensor and raises "Boolean value of Tensor ... ambiguous" unconditionally.
+Fixed to `fixed64.tolist() != bindings['p64']['fixed64_token_ids']` (mirrors the proven BWS
+regenerate_fixed64().tolist() pattern). verify_bw_chip.py now exercises this exact path
+(FIXED64_BINDING_OK) so the regression is covered. Runner sha re-bound; scope re-frozen.
+
+7c. FORMAL-JOB-CAUGHT FIX (V2): BF16 sha_tensor
+-----------------------------------------------
+Formal job 166419 (V1, scope 3cb0b3c6) failed EXIT 1 at bw_chip_score_runner.py:37: sha_tensor
+used t.detach().cpu().contiguous().numpy().tobytes(); numpy() rejects BFloat16 ("Got unsupported
+ScalarType BFloat16") when cell_row hashed c['u0_bf16']. This re-introduced the EXACT bug BW v2
+had already fixed in BW v3 (b_weight_state_runner.py:39-45). Root cause: the author re-implemented
+sha_tensor instead of reusing the proven uint8-view implementation, and the verify never drove
+the real cell_row BF16 path (see corrected §7). Fix: sha_tensor now uses the proven verbatim BW v3
+body — b = t.detach().cpu().contiguous().reshape(-1).view(torch.uint8); sha256(b.numpy().tobytes())
+— identical bytes to .numpy() for FP32/FP64/int64, correct raw bytes for BF16. b_common_replay and
+the other 8 shared-core files remain BYTE-IDENTICAL. Runner sha re-bound 72b15745 -> 7d2b0fb8;
+scope re-frozen 3cb0b3c6 -> 202bbbe3 (V2, fresh remote v2/stage because v1/stage holds the burned
+RUN/EXIT/output). verify_bw_chip.py adds CELL_ROW_BF16_OK exercising the exact failed path. The
+failed job consumed ZERO trajectories (pure scoring; out/ created empty before the crash).
+Re-review required (frozen identity changed).
+
+8. ADVERSARIAL COUNTEREXAMPLES (expected blocked)
+-------------------------------------------------
+- Wrong/mismatched B_CHIP_P64_INPUTS hash or capture_scope identity -> run() raises before scoring.
+- BW_CELL.csv hash mismatch or !=264 VALID mu_D cells -> run() raises (no silent reuse).
+- fixed64 payload path/bytes/sha/shape/dtype/finite mismatch -> run() raises per payload.
+- Regenerated fixed64 != binding -> run() raises.
+- Non-A100 / wrong torch / over-budget GPU or RSS -> guarded runner raises.
+- Any code/frozen/scope/audit/review/ACTIVE hash mismatch -> guards raise before torch import.
+- Second dispatch / concurrent race -> flock + exclusive-create artifacts + already-attempted refusal.
+- Nonfinite risk cell -> run() raises before serialization.
+
+9. ACCOUNTING CORRECTIONS ACKNOWLEDGED (user 2026-11-15)
+--------------------------------------------------------
+- B_CHIP_STATS produced inputs only; Chip scoring was NOT connected (this stage connects it).
+- B_CHIP_STATS actual consumption was 12 D4 (1 smoke 164771 + 11 formal 164928), not 11; smoke counts.
+- "Zero decode" was inaccurate: 12 generation-stage VAE decodes + MP4 writes occurred (11 formal
+  + 1 smoke); no post-hoc frame decode/quality scoring. Future pure-state capture should omit
+  terminal VAE/video write, merged into the original capture program (no separate verification trajectory).
+- BWS formal job 166225 did not reuse smoke captures (re-captured vbi_1005/vbi_1013); total O40
+  exceeds the 6-total budget. Deferred per user; to be accounted honestly and reuse fixed for future.
+This BW_CHIP_SCORE stage adds ZERO trajectories and is the correct fill-only Chip scoring step.

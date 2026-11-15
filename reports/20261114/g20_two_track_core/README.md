@@ -1,6 +1,6 @@
 # G20 两个核心方向：结果索引与勘误
 
-本索引保留 11 月 14 日 A/BW 的数值复核，并更新到 `0d4d860a847202e9e0b3c4265da7fd64e87eff21` 的输入采集结果。**当前：A 已完成；BW Q1/ICC 已完成；P64 输入已齐；132 个 BW Chip 风险单元仍待计算；BWS 尚无已发布运行结果。** 各实验冻结目录内的源码、输出、审查与收据保持原身份；当前状态与资源勘误由本索引及现有资产/判断台账维护。
+本索引保留 11 月 14 日 A/BW 的数值复核，并更新到 `0d4d860a847202e9e0b3c4265da7fd64e87eff21` 的输入采集结果。**当前：A 已完成；BW Q1/ICC 已完成；P64 输入已齐；132 个 BW Chip 风险单元已计算完成（BW_CHIP_SCORE job 166479，V2 EXIT 0）；BWS 正式作业 166225 已 EXIT 0，发布与方向 B 收尾待定（用户缓议）。** 各实验冻结目录内的源码、输出、审查与收据保持原身份；当前状态与资源勘误由本索引及现有资产/判断台账维护。
 
 A 与 BW 的已完成比较均使用现有 VBench 数据，统计单位为 source；先对三个层等权，再对 high/low 等权，最后对 11 个 DEV source 等权。DEV 未参与本次参数拟合，但此前已被观察，属于开发集。结果限于六个站点及固定 512 行局部回放，视频质量与实际系统时延均未测。
 
@@ -17,7 +17,20 @@ A 与 BW 的已完成比较均使用现有 VBench 数据，统计单位为 sourc
 
 输入已满足消费需求，以上偏差只更正记录，不触发重新捕获。当前正式作业累计 **5 次，3 成功、2 失败**；smoke 和验证作业另记。新发布清单 38 项有 37 项字节匹配，`runtime_guard.py` 仍发生已知 CRLF→LF 转换；执行/仓库摘要映射及本次进度核查见[现有判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)的 `progress_check_20261115`。
 
-剩余工作只有 **BW 的 Chip 评分**与既定 **BWS**。BW Chip 消费现有输入，新增完整轨迹为 0；BWS 保持 CAL3/DEV3、最多 6 条 O40，首次用于验证的完整轨迹也计入这六条并保存复用。BWS Q1/ICC 不等待 Chip 评分。完成后统一解释三个实际方法的权重与状态差异，不再派生输入复审、独立 smoke 或参数网格。
+剩余工作只有既定 **BWS 的发布与收尾**。BW Chip 评分已完成（见下节，新增完整轨迹为 0）。BWS 正式作业 166225 已 EXIT 0（CAL3/DEV3、6 条正式 O40、216 个 DEV 单元）；其发布与统一解释待用户缓议后推进。BWS 的 O40 记账需如实说明：正式 6 条 + 早先 smoke 重采 2 条（vbi_1005/vbi_1013）= 8 次执行，超出 6 条总预算 2 次（6 个不同来源，2 次冗余）；smoke 产物未被正式作业复用，reuse-first 修正留待 BWS 发布时落实。完成后统一解释三个实际方法的权重与状态差异，不再派生输入复审、独立 smoke 或参数网格。
+
+## 2026-11-15：BW Chip 评分完成（BW_CHIP_SCORE job 166479，V2 EXIT 0）
+
+复用现成固定64输入与已完成的 264 个 Q1/ICC 风险，经**实际 CHIPMUNK_GLOBAL_P64** 路径补齐 **132 个 Chip 风险单元**（11 DEV × 6 站点 × 2 权重），新增完整轨迹为 0、不重拟合 Q1/ICC、不解码。依据 [BW_CHIP_CELL](BW_CHIP_SCORE/v2/output/BW_CHIP_CELL.csv)、[BW_CHIP_SOURCE](BW_CHIP_SCORE/v2/output/BW_CHIP_SOURCE.csv)、[BW_CHIP_AGGREGATE](BW_CHIP_SCORE/v2/output/BW_CHIP_AGGREGATE.json)：
+
+| 权重 | Chip 主风险 | Q1 主风险（复用） | d_Chip = R_Chip − R_Q1 |
+|---|---:|---:|---:|
+| W_O | 0.011515711132 | 0.014902516232 | **−0.003386805100** |
+| W_D | 0.011497516244 | 0.014899847213 | **−0.003402330969** |
+
+`theta_Chip = d_Chip(W_D) − d_Chip(W_O) = −1.55258689e-5`，相对 ~3.4e-3 的方法 gap 可忽略。**Chip 在两套权重下均优于 Q1**（风险约低 23%），与 ICC 劣于 Q1（d_ICC ≈ +0.0065）方向相反；共同 μ_D 回放上方法排序为 **Chip < Q1 < ICC**。11/11 source 的 d_Chip 对两权重均为负；theta_Chip 逐源 9/11 为负（2 个小正值），11 个留一源均值全为负（`−1.954e-5～−1.160e-5`）。复用的 d_ICC（+0.0065254/+0.0065387）与 BW 发布值逐位一致，确认 Q1/ICC 表被原样消费。结论限于六站点固定 512 行局部回放，视频质量与实际时延未测，n=11 机制开发，无部署主张。
+
+**版本与如实记账：** V1 job 166419 因作者重写的 `sha_tensor` 对 BFloat16 调用 `.numpy()` 而 EXIT 1（正是 BW v3 已修复的缺陷）；V1 验证只 dry-run 了 `aggregate_chip` 合成浮点表，未走真实 `cell_row→sha_tensor` BF16 路径，独立审查亦漏检。**0 轨迹消耗**。V2 将 `sha_tensor` 改为 BW v3 证明的 uint8-view 逐字实现，仅重绑 `bw_chip_score_runner.py`（9 个共享核 + 守卫 + B_BINDINGS 逐字节不变），新增 `CELL_ROW_BF16_OK` 真实路径回归，独立复审 APPROVE/APPROVE。教训：**“复用证明核”只豁免逐字节相同的导入函数，绝不豁免输出路径上的新作者代码**；廉价评分作业仍须用真实 dtype 调用每个新正式函数做紧凑 CPU 回归。[README](BW_CHIP_SCORE/v2/README.md) · [SUMMARY](BW_CHIP_SCORE/v2/output/SUMMARY.json) · [EXIT](BW_CHIP_SCORE/v2/evidence/EXIT.json) · [独立审查](BW_CHIP_SCORE/v2/evidence/INDEPENDENT_REVIEW.json) · [发布清单](BW_CHIP_SCORE/v2/PUBLICATION_MANIFEST.json)。
 
 ## A：Q1 残差修正有用，当前最佳为可折叠线性修正
 
@@ -64,10 +77,10 @@ BW 对原始权重 W_O 和蒸馏权重 W_D 使用相同 D4 状态 **μ_D**、相
 | A_Q1_RESIDUAL | `COMPLETE`；[SUMMARY](A_Q1_RESIDUAL/v1/output/SUMMARY.json)、[参数清单](A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_PARAMS.json)、[源码清单](A_Q1_RESIDUAL/v1/source/SOURCE_MANIFEST.json) |
 | BW_Q1ICC | `COMPLETE`；264/264 个有效 DEV 单元；[SUMMARY](BW/v3/output/SUMMARY.json)、[参数清单](BW/v3/output/PARAMS_MANIFEST.json)、[源码清单](BW/v3/source/SOURCE_MANIFEST.json) |
 | B_CHIP_P64_INPUTS | 已完成；[固定64输入清单](B_CHIP_STATS/v1/output/B_CHIP_P64_INPUTS.json)，132 份 payload、11/11 同状态通过 |
-| BW Chip GLOBAL_P64 | 输入已齐，132 个风险单元待计算；复用 Q1/ICC 结果，只补 Chip 评分 |
-| BWS | 尚未执行；共同 μ_D 的 BW 不能回答原生状态变化问题 |
+| BW Chip GLOBAL_P64 | `COMPLETE`（job 166479 V2 EXIT 0）；132 个风险单元已算，Chip < Q1 < ICC；[SUMMARY](BW_CHIP_SCORE/v2/output/SUMMARY.json)、[源码清单](BW_CHIP_SCORE/v2/source/SOURCE_MANIFEST.json) |
+| BWS | 正式作业 166225 EXIT 0（`BWS_THREE_METHODS_COMPLETE`，216 DEV 单元）；发布与收尾待定（用户缓议） |
 
-下一步按[既定执行规格](../../../research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)与[交接手册](../../../research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)消费已完成输入：只补 132 个 BW Chip 分数，并推进固定 BWS（最多 6 条 O40，包含任何验证用完整轨迹）。已完成 A、BW Q1/ICC 与 P64 采集直接复用；BWS 不由 theta 的符号决定是否执行。本次维护不授权或调度新作业，也不增加图文、CAL_B、all80 或视频评分。
+下一步按[既定执行规格](../../../research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)与[交接手册](../../../research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)推进 **BWS 的发布与方向 B 收尾**：132 个 BW Chip 分数已补齐，BWS 正式作业已 EXIT 0。已完成 A、BW Q1/ICC、P64 采集与 BW Chip 评分直接复用；BWS 不由 theta 的符号决定是否执行。本次维护不授权或调度新作业，也不增加图文、CAL_B、all80 或视频评分。
 
 ## 对 11 月 14 日 A/BW 冻结摘要的勘误
 
