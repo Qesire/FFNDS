@@ -1,0 +1,154 @@
+G20 B_CHIP_STATS — ROOT AUTHOR SELF-AUDIT (rev1)
+=================================================
+scope_id      : G20_B_CHIP_STATS_20261114_V1
+phase         : G20_B_CHIP_STATS
+scope_sha256  : 13df65288ca31df682ebb041070ee53603212730d714c9bdc9f187d4b10fa2e9
+remote_stage  : /public/home/scc/pb23061276/projects/wan-quant/work/g20_two_track_core_20261114/B_CHIP_STATS/v1/stage
+based_on_commit: ba03576
+author        : main (qoder_root_g20_20261111)
+date          : 2026-11-14
+kind          : CONDITIONAL INPUT PRODUCTION — not another method comparison.
+
+1. TASK AND ESTIMAND
+--------------------
+Fill the real CHIPMUNK_GLOBAL_P64 fixed64 U-input gap so the 132 BW Chip DEV cells
+(11 sources x 6 sites x 2 weights) can be completed. The landed V2 bank stores ONLY
+the PANEL512 slice of U (capture_producer.NativeTap512 saves z.index_select(0, panel_ix);
+verified at capture_producer.py:239, V2 sha a9748f38). The fixed64 spatial token IDs
+(CPU seed42 randperm(31668)[:64]) are NOT the panel first64; 696 (DEV source x token-ID)
+pairs are absent from the bank. This scope re-runs the SAME W_D D4 native trajectory
+per DEV source and captures U at the fixed64 coordinates.
+
+GAP SEMANTICS (user-confirmed 2026-11-14, verified vs B_BINDINGS.json#/p64):
+  696 = 11*64 - 8 = (DEV source x fixed64 token-ID) gaps; 8 overlaps already in PANEL512.
+  Per-DEV present sum = 2+0+0+2+0+1+1+0+1+1+0 = 8; missing sum = 62+64+64+62+64+63+63+64+63+63+64 = 696.
+  Each required ID needs real U0/U1 at SIX sites x TWO endpoints (high 0->1, low 2->3).
+  696 is NOT a total tensor-row count across sites; per source/endpoint/site <= 64x5120 BF16.
+  missing_row_ids are full-M spatial token IDs (domain 31668, rows_are_panel_first64=false).
+
+This scope produces B_CHIP_P64_INPUTS only. The completed BW Q1/ICC fits and results
+are REUSED downstream (no Q1/ICC rerun). The Chip own-W anchor/hit and eval512 target
+are recomputed in BW from these fixed64 inputs + the landed bank PANEL512; G_ref stays
+the bank D4 hit gate. No new method, no quality/performance claim.
+
+2. REUSE PROVENANCE (minimal diff, no new framework)
+----------------------------------------------------
+- Pipeline binding VERBATIM from V2 rev2 scope (sha 69078c0f, byte-identical local==cluster
+  verified this session): base_model_dir, base_assets_sha256 (9), checkpoints W_D high/low,
+  python_source_roots (4), python_import_paths (2), required_runtime_config, runtime_versions,
+  ffmpeg_sha256, external_sources_sha256 (961 hash-gated LightX2V/HiFloat4 files), recipe_binding.
+- panel512.py (0e420e95) and runtime_guard.py (ba75a4c1) copied VERBATIM from V2 rev2.
+- b_capture_inputs.NativeTapFixed64 adapted from capture_producer.NativeTap512 (a9748f38):
+  preserves the infer_block/infer_ffn hook, grid capture, smooth_norm/quant-fuse forbidden,
+  HHLL dispatch guard, dense MMWeight + prefetched-weight-ownership validation, D2H-before-W1
+  neutrality (no detach alias across apply). `self._use_mxfp8_quant_fuse()` is a method on the
+  owner WanTransformerInfer (hash-gated LightX2V tree), preserved verbatim.
+- b_chip_stats_runner.verify_pipeline_binding / validate_effective_config / build_checked_pipeline
+  copied VERBATIM from V2 runner_v2.py (cfab1f8e). build_checked_pipeline is shared by run() AND
+  the smoke (the rev2 lesson: the smoke must exercise the formal checked_builder path).
+
+DIFFERENCES from NativeTap512 (the new estimand, all declared):
+  (a) index set = fixed64 IDs (U_fixed64) PLUS panel IDs (U_panel_check cross-check), not panel only;
+  (b) capture ONLY at the 12 target endpoint sites (6 sites x 2 endpoints); non-target FFN calls
+      pass through untouched (model still runs the full 4x40 trajectory);
+  (c) U-only: W2 is NOT wrapped (no Y at fixed64 needed; Chip recomputes own-W anchor/hit locally);
+  (d) finish_source requires seen == the 12 target sites (not 160).
+
+3. SAME-STATE IDENTITY (the critical correctness gate)
+------------------------------------------------------
+Each target capture saves U_panel_check = z[panel_ids] (512,5120) and gate. same_state_check
+bit-compares (torch.equal) U_panel_check against the landed bank U at the exact matched
+(source,step,layer), and gate against bank gate. Because the trajectory is the same deterministic
+W_D D4 (same seed42/recipe/geometry/checkpoint, reset_scheduler_generator), the panel cross-check
+MUST bit-match the bank; this confirms the captured fixed64 rows come from the SAME native state.
+A mismatch records u_absmax_diff and blocks ONLY that source's Chip cells (chip_cell_unblocked=false);
+it is never silently spliced into the BW main table, and never triggers a full CAL11/DEV11 rerun.
+The bank manifest SHA (f6f8e100) is hash-gated before any comparison.
+
+4. NUMERICAL / IDENTITY GUARDS
+------------------------------
+- One A100-SXM4-80GB; torch 2.10.0+cu128, numpy 2.4.6 checked at runtime.
+- TF32 off (matmul + cudnn); allow_bf16_reduced_precision_reduction=True (matches V2 native recipe).
+- fixed64 regenerated at runtime (torch CPU randperm seed42) and asserted == frozen binding list.
+- grid asserted (21,29,52), full_M 31668; z.shape[0]==31668; cross-site panel identity guard.
+- HHLL expert dispatch verified per step (high 0,1; low 2,3); dispatch_rows == expected.
+- Dense MMWeight (no LoRA/quant/folded-smooth-norm); prefetched weight ownership verified.
+- All captured U/gate finite (torch.isfinite) before sink; sink enforces typed shapes + token SHAs.
+- Byproduct D4 mp4 required by pipe.generate is NEVER decoded/scored (new_video_decode=0).
+
+5. BUDGET / RESOURCES (frozen; not a quota to fill)
+---------------------------------------------------
+max_new_D4_full_executions = 11 (one per existing DEV11 source; all six sites in that pass).
+max_new_O40 = 0; new_source_pairs = 0; new_CAL_capture = 0; new_video_decode/scoring = 0;
+full_M_block_stats = 0; full_M_F1 = 0. If inputs were already available the trigger would be 0 D4
+(B_BINDINGS chip_stats_trigger_required=true here, so 11).
+Per job: 1 GPU, 4 CPU, 192 GiB host, 76 GiB GPU, 7200s wall (6900 soft), 4 GiB output cap,
+256 MiB capture/source cap (actual ~71 MiB/source: 12 sites x (64+512) x 5120 x 2 bytes).
+Expected runtime ~ 11 x ~64s tap + pipeline build/weight load << 7200s. Session cap 2 GPUs/2 jobs.
+Node list anode16-23 (sbatch picks a free node; guarded runner verifies hostname membership).
+
+6. GOVERNANCE GATES (guarded_runner_chip + dispatch_once_chip)
+--------------------------------------------------------------
+phase G20_B_CHIP_STATS; status REVIEW_CANDIDATE; remote_stage==stage; new_videos==0;
+max_new_D4==11; max_new_O40==0; new_video_decode==0; reference_generation/benchmarks==0.
+Independent review disposition+recheck APPROVE; reviewer_agent_id truthy and not in authors;
+root_self_audit_sha256 match. ACTIVE state AUTHORIZED_FOR_ONE_JOB, session_max_gpus==2,
+review_sha256==sha(INDEPENDENT_REVIEW.json). All code+frozen input hashes verified. Live Slurm
+allocation; node membership; memory/time/disk ceilings; one A100; torch version. Single dispatch
+(--no-requeue; refuses if SUBMITTED/DISPATCH_INTENT/RUN/output exist); squeue 2-job/2-GPU cap.
+RUN.json/EXIT.json written by the guarded runner; SHELL_EXIT.json by job.sh trap.
+
+7. SMOKE COVERAGE (full integration path — the BW lesson)
+---------------------------------------------------------
+smoke_chip.py calls the EXACT formal functions on ONE real DEV source (vbi_0056, 62 missing):
+build_checked_pipeline -> capture_source -> same_state_check -> build_source_record ->
+aggregate_inputs -> write_summary. Asserts: 12 target captures; U_fixed64 (64,5120) bf16 finite;
+token order == frozen fixed64; same-state PANEL512 U + gate bit-match vs bank (all 12 endpoints);
+6 Chip cells unblocked; B_CHIP_P64_INPUTS.json + SUMMARY.json serialize with allow_nan=False.
+This covers aggregation/serialization end-to-end (not piecewise), per [[feedback-smoke-real-path]].
+The smoke uses 1 D4 and a temp output dir; it is an author test, not the formal 11-source job,
+and is not part of the hash-gated formal bundle.
+
+8. LIMITATIONS / NON-CLAIMS
+---------------------------
+- Sampled local fixed64 U inputs; OWNW_LOCAL512_P64ANCHOR64_V1 is a declared sampled-function
+  numeric adaptation. Historical full-M P64 mask bits are NOT reproduced bitwise; no full-M F1
+  is added to chase old video mask bits.
+- quality_metrics NOT_MEASURED; performance_comparison NOT_BENCHMARKED; instrumented tap timing
+  is NEVER production timing.
+- Input production only; the BW Chip method comparison and the unified B explanation happen
+  downstream (BW Chip fill + BWS), not in this scope.
+
+9. REVIEWER FOCUS (adversarial points to scrutinize)
+----------------------------------------------------
+- Confirm the bank really stores only PANEL512 U (so the 696 gap is real and 11 D4 are justified).
+- Confirm the fixed64 index set + order matches the frozen CHIPMUNK_GLOBAL_P64 spec exactly.
+- Confirm the same-state bit-match is the right identity gate and that a mismatch blocks only the
+  affected source Chip cells (no silent splice, no global stop).
+- Confirm non-target sites pass through untouched and the trajectory is unchanged (neutrality).
+- Confirm U-only capture is sufficient for the downstream Chip own-W recompute (no Y needed).
+- Confirm budget ceilings, single-dispatch, and the 2-GPU session cap; no auto-retry/budget reset.
+- Confirm the verbatim V2 pipeline binding reproduces the same native state (height-480 nominal
+  config + official landscape crop/16-9 -> actual 832x464 / grid [21,29,52] / 31668 tokens).
+
+10. HASH BINDING
+----------------
+code_sha256:
+  b_capture_inputs.py      4dd8ab956fd438d035f3e087188c4b0721c64740ddaa13e17ddaffc74d61b626
+  b_chip_stats_runner.py   730eb0fd243f9f56bbbd54c812aa392b2391aef027f3d6f7fc41e2efa90c72a5
+  panel512.py              0e420e95aa1467a7feaa74388388e4785d3c0b897a172d00d63b8a645dcf7f0b
+  runtime_guard.py         ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1
+  guarded_runner_chip.py   d033045ae5c07985506b64d010c9785d39213a5df352bca106a4ce98d76d8ae3
+  dispatch_once_chip.py    8e7612b1ebb1050e907cffde6bb7e8efbfb264153d27185f33831f734c44d7ae
+  job.sh                   b8a5c3fca38031ef00873f3bb688506148e85f59b246014c9c3970842904866a
+frozen_inputs_sha256:
+  chip_conditions.json     c3ddf38c3aae0e7516bf61ed2fcb3165a5f945d1dfcea8ace1bcbeb70212ae82
+  B_BINDINGS.json          58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48
+  VB_RECIPE.json           ee780352c8cf1c1e4efc8aea7c354b3be225c525141942cbd9c15d24cabae5b6
+fixed64_token_id_sha256_le_int64: d53fcf1b0930d6b1ea78b3f20b11dccb7b1c9d27abcad922866b2f26c78bf895
+bank_manifest_sha256: f6f8e100da6f75b2db612edd8c8c4d21729ed9bf99bfb5092941f2381a4d0bee
+V2 rev2 pipeline binding scope sha: 69078c0f758267c657d325103376f5f36e5643616ed3dc542f731bab3ff430d9
+
+STATUS: REVIEW_CANDIDATE. Author self-audit complete; awaiting genuine independent review,
+consolidated response, targeted recheck, finite ACTIVE, prelaunch identity check, single dispatch.
+This document is not an execution approval and does not fabricate review/ACTIVE state.

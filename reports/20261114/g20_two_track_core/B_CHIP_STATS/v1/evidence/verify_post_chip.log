@@ -1,0 +1,28 @@
+# Post-run integrity verification — B_CHIP_STATS v1 (job 164928)
+# Executed on a compute node via CPU-only srun (read-only; no GPU).
+# Command: srun --partition=P107-A100 --account=competition --qos=qos_p107-a100 \
+#   --nodes=1 --ntasks=1 --cpus-per-task=2 --mem=8G --time=00:10:00 bash verify_post_chip.sh
+# Script: evidence/verify_post_chip.sh (re-hashes executed copy vs scope, hashes all
+#   132 captured .pt tensors against the manifest, torch spot-checks one payload).
+SCOPE_SHA 13df65288ca31df682ebb041070ee53603212730d714c9bdc9f187d4b10fa2e9
+BIND b_capture_inputs.py OK
+BIND b_chip_stats_runner.py OK
+BIND panel512.py OK
+BIND runtime_guard.py OK
+BIND guarded_runner_chip.py OK
+BIND dispatch_once_chip.py OK
+BIND job.sh OK
+BIND chip_conditions.json OK
+BIND B_BINDINGS.json OK
+BIND VB_RECIPE.json OK
+AUDIT_SHA 30069cd2472782bb5c036edd2280ab1c7dc845c0f23dbd22965c4ef8ca192d72
+INPUTS_MANIFEST_SHA 7eeb32ab400a1090b85d54bf13395012175d5c27683a1d754444328c4c87999a
+N_PT_FILES 132 EXPECTED 132
+TOTAL_FIXED64_U_ROWS 8448 EXPECTED 8448
+PT_TOTAL_BYTES 781265364
+N_CAPTURE_SIDECARS 11
+BANK_MANIFEST_SHA f6f8e100da6f75b2db612edd8c8c4d21729ed9bf99bfb5092941f2381a4d0bee
+PT_KEYS ['U_fixed64', 'U_panel_check', 'gate', 'metadata', 'token_indices_fixed64', 'token_indices_panel', 'token_thw_fixed64']
+U_FIXED64_SPOTCHECK_OK (64, 5120) torch.bfloat16
+U_PANEL_CHECK_SPOTCHECK_OK (512, 5120)
+VERIFY_POST_CHIP_PASS

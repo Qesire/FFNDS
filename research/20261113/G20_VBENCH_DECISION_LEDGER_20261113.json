@@ -360,7 +360,6 @@
     "scope_sha256": "4a1508712e66e356c26fd29189a0e182c13557d2d1ea9ff4794a52f361e571f7",
     "vb_source_density_sha256": "a6409eec607a0c193cc213e4900722da9a28cffc85345f4f3b2afff19aff86f4",
     "current_next_experiment": [
-      "B_CHIP_STATS",
       "BWS"
     ],
     "floor": "Published floor is total BF16 replay-vs-dense error (model + rounding), not pure rounding noise. The 11/11 unmeasurable claim is retracted in the report. No standalone recomputation is scheduled; a future chosen predictor would include an actual BF16-vs-math check in its own deployment comparison.",
@@ -394,10 +393,33 @@
         "bindings_sha256": "58cec6415e1eb6142b989ed7dad2bdb5dbbc2bdf38270a7e48e156d9081ccc48"
       },
       "current_next_experiment": [
-        "B_CHIP_STATS",
         "BWS"
       ],
-      "archive_root": "reports/20261114/g20_two_track_core/"
+      "archive_root": "reports/20261114/g20_two_track_core/",
+      "publication_push": {
+        "commit": "ba03576",
+        "remote": "https://github.com/Qesire/FFNDS.git",
+        "branch": "main",
+        "state": "PUSHED_VERIFIED",
+        "remote_head_matches_local": true
+      },
+      "route_confirmation_20261114": {
+        "record_type": "USER_ROUTE_CONFIRMATION_DESIGN_ONLY_NO_NEW_JOBS",
+        "A": "COMPLETE this round; retain L (best residual arm ~4.1%). No further A action.",
+        "B_CHIP_STATS": "Reuse same-identity inputs first -> if still missing, at most 11 D4 (one per existing DEV11 source, all six sites in that pass) -> fill only BW's 132 blocked Chip cells. Reuse completed Q1/ICC fits and results directly; no Q1/ICC rerun. Gap = 696 = 11*64-8 (DEV source x fixed64 token-ID) pairs, 8 reusable overlaps; each required ID needs real U0/U1 at SIX sites x TWO endpoints, NOT 696 total tensor rows across sites.",
+        "BWS": "Fixed CAL3/DEV3, at most 6 O40; each weight fit once on mixed CAL then params fixed; compare two weights x two states (mu_D/mu_O). P64 gap blocks only corresponding Chip cells, NOT BWS Q1/ICC.",
+        "direction_B_closure": "After B_CHIP_STATS + BWS, give a unified explanation of weight and state results.",
+        "conditions_unchanged": "Existing VBench conditions; no new image/prompt pairs, no CAL_B, no parameter grid, no full-layer video task.",
+        "review_boundary_this_cycle": "Covered public raw tables, source code, parameter manifests and run receipts; large cluster parameter files NOT re-downloaded; 0 new experiment jobs submitted; not an execution authorization.",
+        "detail": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json#/execution_status_20261114/route_confirmation_20261114"
+      },
+      "B_CHIP_STATS": {
+        "job": 164928,
+        "status": "B_CHIP_STATS_COMPLETE",
+        "scope_sha256": "13df65288ca31df682ebb041070ee53603212730d714c9bdc9f187d4b10fa2e9",
+        "archive": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/README.md",
+        "result": "11 DEV D4 fixed64 inputs; 8448 U rows; 66 cells unblocked (132 BW Chip cells); same-state all-match; reuses Q1/ICC fits"
+      }
     }
   },
   "research_status": "TWO_TRACKS_ACTIVE",

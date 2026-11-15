@@ -1,0 +1,104 @@
+{
+  "schema": "FFNDS_INDEPENDENT_REVIEW_V1",
+  "scope_id": "G20_B_CHIP_STATS_20261114_V1",
+  "scope_sha256": "13df65288ca31df682ebb041070ee53603212730d714c9bdc9f187d4b10fa2e9",
+  "root_self_audit_sha256": "30069cd2472782bb5c036edd2280ab1c7dc845c0f23dbd22965c4ef8ca192d72",
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_b_chip_stats_20261114",
+  "reviewer_is_author": false,
+  "date": "2026-11-14",
+  "disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "evidence_reused": {
+    "smoke_job": 164771,
+    "smoke_result": "SMOKE_CHIP_PASS",
+    "same_state": "all 12 endpoints PANEL512 U + gate bit-match landed bank",
+    "cluster_executed_copy_hashes_match_scope": true,
+    "full_rerun_performed": false
+  },
+  "checks_performed": [
+    {
+      "item": "1_HASH_BINDING",
+      "result": "PASS",
+      "evidence": "Node crypto re-hash: scope.json sha=13df6528...fa2e9 and ROOT_SELF_AUDIT.txt sha=30069cd2...92d72 both match expected. All 10 bundle files (7 code_sha256 + 3 frozen_inputs_sha256) local==scope==cluster executed-copy hashes in review_evidence/cluster_evidence.txt (ALL_CLUSTER_EQ_SCOPE_AND_LOCAL=true). scope.json and ROOT_SELF_AUDIT.txt cluster copies also match local."
+    },
+    {
+      "item": "2_REUSE_PROVENANCE",
+      "result": "PASS",
+      "evidence": "V2 rev2 ref scope sha=69078c0f...430d9 verified. All 9 pipeline-binding fields (base_model_dir, base_assets_sha256, checkpoints, python_source_roots, python_import_paths, required_runtime_config, runtime_versions, ffmpeg_sha256, external_sources_sha256, recipe_binding) raw-byte-identical AND deep-equal to V2 rev2. panel512.py=0e420e95 and runtime_guard.py=ba75a4c1 match V2 capture stage verbatim. verify_pipeline_binding/validate_effective_config/build_checked_pipeline extracted and compared verbatim==true against runner_v2.py (cfab1f8e). capture_producer.py=a9748f38 confirmed."
+    },
+    {
+      "item": "3_CAPTURE_CORRECTNESS",
+      "result": "PASS",
+      "evidence": "b_capture_inputs.py adversarial read: fixed64 64 distinct IDs in [0,31668), order frozen (sha d53fcf1b). Non-target (step,layer) returns oldffn untouched BEFORE any apply wrap (no D2H/capture). D2H-before-W1: payload z.index_select(...).detach().to('cpu').clone() completes before oldapply(z); no detach alias held across apply. Geometry guards grid==(21,29,52), prod(grid)==z.shape[0]==FULL_M(31668), bf16/ndim2/DIM5120; HHLL dispatch guard (tap.dispatch set by runner dispatched wrapper, must equal 0 if step<2 else 1); dense MMWeight type+bias+no-LoRA+no weight_diff+prefetched weight_cuda_buffer data_ptr ownership; smooth_norm/quant-fuse forbidden. finish_source requires seen==TARGET_SITES (exactly 12). Fixed64Sink enforces U_fixed64(64,5120)/U_panel_check(512,5120)/token shapes + fixed64/panel token SHA + write-once xb + byte budget. U-only: W2 NOT wrapped (declared diff c); sufficient because Chip recomputes own-W anchor/hit locally in BW."
+    },
+    {
+      "item": "4_SAME_STATE_GATE",
+      "result": "PASS",
+      "evidence": "same_state_check torch.equal(cap['U_panel_check'],bank['U']) and torch.equal(cap['gate'],bank['gate']) at exact matched (source,step,layer) filename. Mismatch sets panel_u_bit_match/gate_bit_match=false, records u_absmax_diff; build_source_record chip_cell_unblocked=all(same_state) per site; run() continues to next source (no raise/global stop), manifest records flags (no silent splice). Bank manifest SHA f6f8e100 hash-gated before comparison. Preserved smoke 164771 stdout: SAME_STATE_OK all 12 endpoints PANEL512 U + gate bit-match landed bank."
+    },
+    {
+      "item": "5_GAP_SEMANTICS",
+      "result": "PASS",
+      "evidence": "B_BINDINGS.json#/p64: per_dev_source present sum=8, missing sum=696=11*64-8; each source present+missing=64. fixed64_token_ids array identical across B_BINDINGS.p64, scope.capture_binding, and spec methods.Chipmunk (chip_fixed64_eq_binding=true). rows_are_panel_first64=false, selected_k=5120. fixed64 LE-int64 sha=d53fcf1b matches scope.capture_binding and audit. 696 is (DEV source x token-ID) gaps NOT total tensor rows (per source/endpoint/site <=64x5120 BF16). Bank stores ONLY PANEL512 U confirmed at capture_producer.py:239 (U=z.index_select(0,panel_ix)). chip_stats_trigger_required=true, regenerated_matches_spec=true."
+    },
+    {
+      "item": "6_GOVERNANCE_GATES",
+      "result": "PASS",
+      "evidence": "guarded_runner_chip.py + dispatch_once_chip.py enforce phase G20_B_CHIP_STATS, status REVIEW_CANDIDATE, remote_stage==stage, new_videos==0, max_new_D4==11, max_new_O40==0, new_video_decode==0, reference_generation/benchmarks==0; review disposition+recheck APPROVE, reviewer_agent_id truthy and not in authors(['main']), root_self_audit_sha256 match; ACTIVE AUTHORIZED_FOR_ONE_JOB + session_max_gpus==2 + review_sha256==sha(INDEPENDENT_REVIEW.json); all code+frozen bundle hashes; require_compute_allocation (live Slurm RUNNING, host membership, user/uid, login-node reject); memory/time/disk ceilings; one A100-SXM4-80GB; torch 2.10.0+cu128; single dispatch --no-requeue refusing if SUBMITTED/DISPATCH_INTENT/RUN/output exist; squeue 2-job/2-GPU cap. dispatch builds --nodelist via ','.join(s['node']); scope.node confirmed array of 8 (anode16-23)."
+    },
+    {
+      "item": "7_SMOKE_COVERAGE",
+      "result": "PASS",
+      "evidence": "smoke_chip.py calls EXACT formal functions on one real DEV source vbi_0056 (62 missing): R.build_checked_pipeline -> R.capture_source -> R.same_state_check -> R.build_source_record -> R.aggregate_inputs -> R.write_summary; asserts 12 captures, U_fixed64(64,5120) bf16 finite, token order==frozen fixed64, same-state all_match, 6 cells unblocked, and json.dumps(manifest/summary, allow_nan=False) round-trip. Full integration path (not piecewise). Preserved SMOKE_CHIP_PASS (job 164771) reused; NOT re-run. smoke_chip.py intentionally outside hash-gated bundle (declared author test)."
+    },
+    {
+      "item": "8_BUDGET_SCOPE",
+      "result": "PASS",
+      "evidence": "scope.budget: gpus_per_job=1, max_jobs=1, cpus=4, host_memory_gib=192, gpu_memory_gib=76, wall_seconds=7200 (soft 6900), output_bytes=4GiB, capture_bytes_per_source=256MiB, min_free_disk_gib=10. max_new_D4=11, max_new_O40=0, new_source_pairs=0, new_CAL_capture=0, new_video_decode/scoring=0, full_M_block_stats=0, full_M_F1=0. run() iterates exactly 11 verified DEV conds; byproduct mp4 existence/size-checked only, NEVER decoded/scored. job.sh --mem=192G --time=02:00:00 --cpus-per-task=4, one A100 via --gres=gpu:A100:1."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "non-blocking",
+      "code": "b_capture_inputs.py Fixed64Sink.__call__",
+      "note": "Sink does not explicitly assert gate shape (1,1,DIM); gate_shape is recorded in the event and shape identity is effectively enforced downstream by same_state_check torch.equal against the bank gate (a shape mismatch yields gate_bit_match=false and blocks that source). No corruption path. Adjudicated safe."
+    },
+    {
+      "severity": "non-blocking",
+      "code": "b_chip_stats_runner.py run()",
+      "note": "run() asserts regenerate_fixed64(torch)==binding fixed64_ids and the sink enforces per-payload token SHAs, but does not redundantly compare the computed fixed64_sha to scope.capture_binding.fixed64_token_id_sha256_le_int64. Identity is already triple-bound (hash-gated B_BINDINGS, regeneration assertion, sink token sha); reviewer independently confirmed scope.capture_binding sha == binding sha == spec == d53fcf1b. Adjudicated safe."
+    },
+    {
+      "severity": "non-blocking",
+      "code": "smoke_chip.py",
+      "note": "Author smoke is intentionally not part of the hash-gated formal bundle (declared in self-audit section 7). Its formal-path coverage is evidenced by preserved cluster job 164771 SMOKE_CHIP_PASS. Adjudicated acceptable; no re-run performed."
+    }
+  ],
+  "adversarial_counterexamples": [
+    {
+      "attack": "Reorder fixed64 IDs or substitute the PANEL512 first64 for the true fixed64 set",
+      "result": "BLOCKED. run()/smoke assert regenerate_fixed64(torch CPU seed42 randperm(31668)[:64])==frozen binding list; Fixed64Sink rejects fixed64 token-id sha mismatch; manifest forces rows_are_panel_first64=false. Reviewer verified the LE-int64 sha d53fcf1b is identical across B_BINDINGS.p64, scope.capture_binding, spec.methods.Chipmunk and the audit, and the 64 IDs are distinct and in-domain."
+    },
+    {
+      "attack": "Flip one endpoint's U_panel_check so it differs from the landed bank (test silent splice / global stop)",
+      "result": "BLOCKED source-locally. same_state_check sets panel_u_bit_match=false and records u_absmax_diff; build_source_record sets chip_cell_unblocked=false for that site; run() continues to the next source without raising; the manifest/summary record the failed flags and blocked_sources. No silent splice into BW, no global stop, no full rerun. Smoke confirms the all-match happy path (12/12)."
+    },
+    {
+      "attack": "Capture or mutate at a non-target FFN site / alter the 4x40 trajectory",
+      "result": "BLOCKED. ffn hook returns oldffn(...) untouched for (step,layer) not in TARGET_SITES before any apply wrap (no D2H, no weight/gate/scheduler/latent modification). apply wrapper restored in finally; dispatch_rows must equal exactly 4 HHLL rows; finish_source requires seen==the 12 target sites. Observer is trajectory-neutral."
+    },
+    {
+      "attack": "Leak W2/Y at fixed64 or hold a detach alias across apply (break D2H-before-W1 neutrality)",
+      "result": "BLOCKED. W2 is NOT wrapped (U-only, declared diff c); payload tensors are .detach().to('cpu').clone() completed before oldapply(z); no GPU alias is retained across apply. Chip own-W anchor/hit are recomputed locally in BW, so no Y is needed."
+    },
+    {
+      "attack": "Expand budget/scope: >11 D4, decode byproduct video, or re-dispatch the job",
+      "result": "BLOCKED. verify_chip_conditions requires exactly the frozen DEV11; byproduct mp4 is only existence/size-checked, never decoded; dispatch_once_chip refuses if SUBMITTED/DISPATCH_INTENT/RUN/output exist, uses --no-requeue, and enforces squeue 2-job/2-GPU caps; guarded runner re-checks all hashes/ACTIVE/review before run."
+    },
+    {
+      "attack": "Pass scope.node as a string so ','.join corrupts --nodelist",
+      "result": "BLOCKED. scope.node confirmed to be an array of 8 hostnames (anode16-23); dispatch_once_chip ','.join(s['node']) yields a correct comma-separated nodelist; guarded runner verifies hostname membership in s['node']."
+    }
+  ],
+  "summary": "Independent bounded pre-execution review of G20 B_CHIP_STATS rev1 (conditional fixed64 U-input production, not a method comparison). All 8 checklist items PASS: every bundle file re-hashed local==scope==cluster executed copy (scope 13df6528, audit 30069cd2); the 9 pipeline-binding fields are byte-identical to V2 rev2 (69078c0f), panel512/runtime_guard and the three runner helpers are verbatim V2 reuse; the fixed64 capture tap preserves all geometry/HHLL/dense-MMWeight/D2H-before-W1 guards, captures only the 12 target sites with non-target pass-through, and the PANEL512 same-state gate blocks only the affected source on mismatch. Gap math (present 8 / missing 696 = 11*64-8), fixed64 identity (d53fcf1b across binding/scope/spec), governance gates, budget ceilings and the full-integration smoke (preserved job 164771 SMOKE_CHIP_PASS, all 12 endpoints bit-matched) all verify. No hard blocker found; three non-blocking notes adjudicated safe. APPROVE as both initial review and targeted recheck, reusing preserved evidence without a full 11-source rerun."
+}
