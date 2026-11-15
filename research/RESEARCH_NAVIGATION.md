@@ -1,6 +1,6 @@
-> **2026-11-15 · P64 输入已齐；BW 还差 132 个 Chip 风险分数，BWS 待执行。** [进度与勘误](../reports/20261114/g20_two_track_core/README.md) · [资产](20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断](20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。job 164928 产出 132 份固定64输入，11/11 来源通过同状态检查。A 与 BW Q1/ICC 沿用已完成结果；输入采集完成不代表 Chip 比较完成。
+> **G20 当前入口：[结果与剩余工作](../reports/20261114/g20_two_track_core/README.md) · [资产与队列](20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断台账](20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。** 两条主线固定为 A：设计有用的新算子；B：解释 Q1r2 与实际 ICC/Chipmunk 的差异。当前完成项、结论、资源记账和剩余动作在这些现有入口维护；下文旧日期的计划与进度按历史身份阅读。
 
-> **当前动作按 rev5 [手册](20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[规格](20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)。** 消费现有输入只补 132 个 BW Chip 分数（0 新轨迹），并推进 BWS（最多 6 条 O40，验证用完整轨迹也计入并保存复用）。不再采 D4、不重跑 A/Q1/ICC、不增加图文、CAL_B、网格或独立 smoke。P64 实际消耗为 11 条正式 D4 加 1 条 smoke，并执行了对应 VAE 解码/视频写出；零计数仅适用于事后视频读取与评分。当前累计正式作业 5 次、成功 3、失败 2，smoke 另记。剩余作业沿用具体 scope/ACTIVE 流程；本次核查 0 新授权、0 dispatch。
+> **实现合同：[rev5 手册](20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[固定规格](20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)。** 先依据当前资产状态复用已产生的输入、参数和结果；旧手册中的计划动作不自动成为新待办。实际执行范围以 [ACTIVE](ACTIVE_RESEARCH.json) 为准，结果归档与解释不派生新的采集、重放或审批层级。
 
 > **2026-11-12 · G20 R1b 数值复核已实际执行（NATIVE/OBS，EXIT 0）：** [结果与裁决](20261112/G20_R1B_NUMERICAL_RECHECK_RESULTS_20261112.md) · [证据/收据/冻结源码](../reports/20261112/g20_r1b_recheck/README.md) · [独立审查](experiment_reviews/G20_R1B_NUMERICAL_RECHECK_20261112/v1.json)。job 157314 单 A100：稳定 F64 精确解仍使 DEV5 退化 +15%–28%（6/6 站点），CAL拟合/DEV恶化现象保留；R1秩违反确认为FP32伪影，稳定重解最多改变约0.83pp，数值修复未消除主要DEV退化；ICC 误差主要来自 stage-2 原生 h 残差。R1 结果文档已版本化更正（seed 42 等），冻结快照不改。后续区分修正方向/幅度、来源广度/行密度与表示，按路线v3推进；本次发布不启动新作业。
 
@@ -139,5 +139,3 @@
 [ARCHIVE总索引](../ARCHIVE.md) · [早期机制重置](20261025/E0_FFN_INTRINSIC_RESEARCH_RESET_20261025.md) · [旧first-task时间点](20261025/E0_FFN_FIRST_TASK_20261025.md) · [旧Affine54失配](20261026/E0_POST_NATIVE_VIDEO_DIRECTION_REVIEW_20261026.md) · [原A/B/C独立评议](20261027/COMPACT_FFN_ABC_INDEPENDENT_METHOD_REVIEW_20261027.md) · [最初提案Git版本](https://github.com/Qesire/FFNDS/blob/dd21c539ca6695fb4b470fb21ba459234ff7a588/research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)。
 
 历史报告的“现在运行”“下一步”“暂停/恢复”只对当时冻结scope成立；目前方法进度依P0及[ACTIVE](ACTIVE_RESEARCH.json)核验。历史RUN、HASH、模型/来源、独立同行评议和失败边界不通过此索引重写。只在实际新的SRC/ALG/NATIVE/VIDEO或论文结论改变研究理解时，升级P0–P2；否则将新材料归入对应专题/历史证据而非新增并列权威方案。
-
-

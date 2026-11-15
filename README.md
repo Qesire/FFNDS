@@ -1,6 +1,6 @@
-> **2026-11-15 · P64 输入已齐；BW 还差 132 个 Chip 风险分数，BWS 待执行。** [进度与勘误](reports/20261114/g20_two_track_core/README.md) · [资产](research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断](research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。job 164928 产出 132 份固定64输入，11/11 来源通过同状态检查。A 与 BW Q1/ICC 沿用已完成结果；输入采集完成不代表 Chip 比较完成。
+> **G20 当前入口：[结果与剩余工作](reports/20261114/g20_two_track_core/README.md) · [资产与队列](research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断台账](research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。** 两条主线固定为 A：设计有用的新算子；B：解释 Q1r2 与实际 ICC/Chipmunk 的差异。当前完成项、结论、资源记账和剩余动作在这些现有入口维护；下文旧日期的计划与进度按历史身份阅读。
 
-> **当前动作按 rev5 [手册](research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[规格](research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)。** 消费现有输入只补 132 个 BW Chip 分数（0 新轨迹），并推进 BWS（最多 6 条 O40，验证用完整轨迹也计入并保存复用）。不再采 D4、不重跑 A/Q1/ICC、不增加图文、CAL_B、网格或独立 smoke。P64 实际消耗为 11 条正式 D4 加 1 条 smoke，并执行了对应 VAE 解码/视频写出；零计数仅适用于事后视频读取与评分。当前累计正式作业 5 次、成功 3、失败 2，smoke 另记。剩余作业沿用具体 scope/ACTIVE 流程；本次核查 0 新授权、0 dispatch。
+> **实现合同：[rev5 手册](research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[固定规格](research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)。** 先依据当前资产状态复用已产生的输入、参数和结果；旧手册中的计划动作不自动成为新待办。实际执行范围以 [ACTIVE](research/ACTIVE_RESEARCH.json) 为准，结果归档与解释不派生新的采集、重放或审批层级。
 
 # FFNDS · 视频生成 FFN 的信息、函数与实际计算研究
 
@@ -75,5 +75,3 @@ python tools/check_autoresearcher_binding.py
 原始实验收据、hash、历史错误与候选失配的证据保留在[ARCHIVE](ARCHIVE.md)及[原始报告](reports/)；新研究资料优先更新对应现行方法正文、证据谱系和P0–P4索引，不创建第二份并列“当前状态总览”。
 
 M-B已有[CAL24来源配对和固定候选池结果](research/20261028/B_CAL24_SOURCE_PAIRED_DISCRIMINATION_RESULTS_20261028.md)及[Direct65 H128真实学生pilot](research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)；同head A0公平对照已完成，当前继续B-F、部署与完整视频验证，按唯一任务台账继续。F线专题见[G13](research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)，运行权限定于[ACTIVE](research/ACTIVE_RESEARCH.json)。
-
-

@@ -1,7 +1,7 @@
 {
   "g20_vbench_restart_v4_20261113": {
     "date": "2026-11-15",
-    "status": "TWO_TRACKS_A_COMPLETE_BW_Q1ICC_CHIP_COMPLETE_BWS_FORMAL_EXIT0_CLOSURE_PENDING",
+    "status": "TWO_TRACKS_A_COMPLETE_BW_THREE_METHODS_COMPLETE_BWS_REPORTED_EXIT0_PUBLICATION_PENDING",
     "user_decision": "Complete the already authorized two research directions with the fixed revision 5 execution handoff. A runs the four declared arms without a minimum-gain start/completion gate. After BW, reuse exact matched BWS four-cell evidence or complete the missing specified BWS work, regardless of A outcomes or the sign of BW. Do not ask the user to reauthorize these research goals.",
     "roadmap": "research/20261113/G20_VBENCH_RESTART_V4_20261113.md",
     "cohort": "config/g20_vbench_restart_cohort_v1_20261113.json",
@@ -11,12 +11,12 @@
     "supersedes_future_plan": "Revision 5 execution details replace executor discretion over whether the fixed comparisons are worthwhile. Preserve V4 evidence, source roles and limits on unrelated grids/pilots; actual scopes still require the existing preexecution workflow.",
     "frozen_g0_unchanged": true,
     "new_runnable_scopes": 0,
-    "actual_jobs_dispatched": 5,
+    "actual_jobs_dispatched": 8,
     "revision": 5,
     "decision_ledger": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json",
     "design_review": "research/experiment_reviews/G20_TWO_TRACK_RESTORATION_20261114/REVIEW.json",
-    "design_status": "TWO_TRACKS_ACTIVE_PREEXEC_REQUIRED",
-    "payload_status": "A_BW_Q1ICC_CHIP_RISKS_COMPLETE_BWS_FORMAL_COMPLETE_CLOSURE_PENDING",
+    "design_status": "FIXED_DESIGN_NO_NEW_EXPERIMENT_REQUESTED",
+    "payload_status": "A_BW_COMPLETE_BWS_REPORTED_PRODUCED_ARCHIVAL_EVIDENCE_PENDING",
     "next_action_to_prepare": [
       "BWS_closure"
     ],
@@ -26,8 +26,9 @@
       "BWS_closure"
     ],
     "parallel_attribution": [
-      "DONE (BW_CHIP_SCORE job 166479 EXIT 0): consumed the produced B_CHIP_P64_INPUTS and scored 11 DEV x 6 sites x 2 weights = 132 Chip cells via the actual CHIPMUNK_GLOBAL_P64 path; reused the completed 264 Q1/ICC results (no refit/replay), zero new trajectories. Chip beats Q1 for both weights (d_Chip ~ -0.0034); theta_Chip ~ -1.55e-5 (negligible). Method ranking on mu_D replay: Chip < Q1 < ICC.",
-      "BWS formal job 166225 completed EXIT 0 (BWS_THREE_METHODS_COMPLETE, 6 formal O40, 216 DEV cells); publication and direction-B closure pending (user deferred). BWS Q1/ICC did not wait for Chip scoring."
+      "BW is complete across 396 comparable DEV cells: 264 published Q1/ICC cells plus 132 GLOBAL_P64 cells from job 166479. On common mu_D, fixed G_ref, the fixed local512/P64anchor64 adapter and each-weight CAL11 Q1 calibration, source-equal Chip risk is 0.011515711132288248 (W_O) and 0.011497516244445822 (W_D), 22.7264% and 22.8347% below Q1. Chip improves all 11 source means under each weight and 116/132 source-site-weight pairs. theta_Chip=-1.5525868901335646e-5, 0.4584% of the original absolute method gap; high=-3.24111379e-5 and low=+1.35940007e-6. This small tested mean weight contrast is conditional on these states/calibrations/configuration; it does not prove general weight independence. Analytic main-path MACs are Chip 52428800, Q1 26214400, ICC 19398656 per token; cache bytes per token are Chip/ICC 37888 and Q1 10240. The mean-risk order Chip < Q1 < ICC is not an equal-cost, latency or video-quality superiority claim. Chip is a fixed selector and has no separate CAL parameter fit.",
+      "BWS job 166225 is recorded as EXIT 0 with 216 DEV cells (144 Q1/ICC + 72 Chip), but its scope/RUN/EXIT and per-cell/four-cell tables are not published in the inspected materials. The recorded mean interactions are ICC +9.680e-6 and Chip -2.674e-5; these are reported values, not independently recomputed results. Interaction alone does not establish a small state main effect. Interpret existing BWS absolute four-cell risks and d_m(W,mu) under its own mixed-CAL3 parameters; never splice BW CAL11 theta with BWS CAL3 interaction to infer missing state cells.",
+      "Publish and interpret already produced BWS artifacts under the existing route when the recorded publication hold is lifted; no new capture, refit, replay, smoke or research-goal reauthorization. Preserve the record that publication and direction-B closure were deferred per user."
     ],
     "stage_estimands": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json#/stage_estimands",
     "preserve_selected33_and_all_actual_runs": true,
@@ -54,8 +55,8 @@
       "BW_CHIP_SCORE": "reports/20261114/g20_two_track_core/BW_CHIP_SCORE/v2/README.md",
       "current_synthesis_and_errata": "reports/20261114/g20_two_track_core/README.md"
     },
-    "research_status": "TWO_TRACKS_ACTIVE",
-    "execution_status": "A_COMPLETE_BW_Q1ICC_CHIP_COMPLETE_BWS_FORMAL_EXIT0_CLOSURE_PENDING",
+    "research_status": "TWO_TRACKS_RESULTS_CLOSURE_PENDING",
+    "execution_status": "A_BW_COMPLETE_BWS_REPORTED_EXIT0_PUBLICATION_PENDING",
     "runnable_queue_count": 0,
     "current_budget_scope": "Current execution authorization only; the planned capture ceilings below do not authorize running jobs.",
     "planned_budget": {
@@ -87,7 +88,11 @@
         "condition": "Legal same-dimension FFN interfaces, same-expert native endpoint pairs, bound CAL/DEV, fixed theta(W), G_ref and aggregation, and a separately reviewed concrete scope. Exact noise/gap overlap is not required for native composite risks or interaction; unsupported pure-component claims remain UNIDENTIFIED.",
         "completion_policy": "Required follow-through after BW when exact matching four-cell evidence is absent; reuse matching evidence first. Not conditional on A success, BW sign or executor value judgment.",
         "capture_budget_includes_any_full_trajectory_smoke": true,
-        "reuse_first_capture": "Any first-condition validation trajectory counts toward the six O40 maximum and is persisted for the formal comparison, not repeated as a separate smoke."
+        "reuse_first_capture": "Any first-condition validation trajectory counts toward the six O40 maximum and is persisted for the formal comparison, not repeated as a separate smoke.",
+        "status": "REPORTED_EXIT0_PUBLICATION_PENDING",
+        "remaining_new_O40_full_executions": 0,
+        "reported_actual_O40": 8,
+        "accounting_evidence": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/execution_updates_20261114/two_core_20261114/BWS"
       },
       "offline_replay_and_fitting": "Paid computation, to be bounded in concrete scopes; zero new trajectories does not mean zero compute."
     },
@@ -162,8 +167,33 @@
         "scope_id": "G20_B_CHIP_STATS_20261114_V1",
         "elapsed_seconds": 1298.197469625622,
         "archive": "reports/20261114/g20_two_track_core/B_CHIP_STATS/v1/README.md",
-        "result_identity": "P64 input production only; BW Chip risks not yet scored",
+        "result_identity": "P64 input production only; corresponding BW Chip risks now completed in BW_CHIP_SCORE/v2.",
         "execution_accounting_erratum": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/progress_check_20261115"
+      },
+      "BW_CHIP_SCORE": {
+        "job": 166479,
+        "state": "EXIT_0",
+        "scope_id": "G20_BW_CHIP_SCORE_20261115_V2",
+        "elapsed_seconds": 345.81118,
+        "archive": "reports/20261114/g20_two_track_core/BW_CHIP_SCORE/v2/README.md",
+        "evidence_level": "PUBLIC_SCOPE_RUN_EXIT_AND_PER_CELL_RESULTS",
+        "failed_attempts": [
+          {
+            "job": 166419,
+            "scope": "V1",
+            "cause": "Author re-implemented sha_tensor with .numpy() on BFloat16 (TypeError) at cell_row; the exact bug BW v3 had fixed. Verify only dry-ran aggregate_chip on synthetic floats, never the real cell_row BF16 path. 0 trajectories consumed.",
+            "evidence_level": "PUBLISHED_FAILURE_HISTORY_ORIGINAL_FAILED_RECEIPTS_NOT_PUBLIC"
+          }
+        ]
+      },
+      "BWS": {
+        "job": 166225,
+        "state": "REPORTED_EXIT0_PUBLICATION_PENDING",
+        "scope_sha256": "180382a7e78c5c542ac7bcbeb7505b34311f21c80f17c0018bb1bcd7abbebf13",
+        "reported_elapsed_seconds": 5246.7,
+        "progress_record": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/execution_updates_20261114/two_core_20261114/BWS",
+        "evidence_level": "PROGRESS_RECORD_ONLY_BWS_RAW_RECEIPTS_NOT_PUBLIC",
+        "publication_hold": "Publication and direction-B closure deferred per user in the progress record."
       }
     },
     "publication_push_20261114": {
@@ -184,20 +214,20 @@
       "review_boundary_this_cycle": "Covered public raw tables, source code, parameter manifests and run receipts; large cluster parameter files NOT re-downloaded; 0 new experiment jobs submitted; not an execution authorization.",
       "detail": "research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json#/execution_status_20261114/route_confirmation_20261114"
     },
-    "successful_formal_jobs": 3,
-    "failed_formal_jobs": 2,
+    "successful_formal_jobs": 5,
+    "failed_formal_jobs": 3,
     "results_index": "reports/20261114/g20_two_track_core/README.md",
     "dispatch_count_scope": {
-      "formal_dispatch_attempts": 5,
-      "successful_formal_jobs": 3,
-      "failed_formal_jobs": 2,
-      "scope": "A formal job 164072, BW formal jobs 164189/164225/164312, and B_CHIP_STATS formal job 164928; excludes smoke/verification jobs",
+      "formal_dispatch_attempts": 8,
+      "successful_formal_jobs": 5,
+      "failed_formal_jobs": 3,
+      "scope": "Known recorded formal jobs after 2f38b91: at least 8 attempts, 5 reported successes and 3 reported failures. Four successes have public EXIT receipts; BWS 166225 is reported-only. Excludes smoke/verification jobs and does not claim there were no other unpublished BWS attempts. This review dispatches zero jobs.",
       "known_BW_GPU_smoke_job_ids": [
         163922,
         164074,
         164207
       ],
-      "smoke_note": "Counts cover five formal attempts only. Prior BW smoke jobs, a v3 smoke without a public job id, A CPU smoke, and B_CHIP_STATS smoke 164771 are separate; total compute is not represented by formal counts. No extra job is requested to repair accounting.",
+      "smoke_note": "Smoke and verification jobs are excluded. B_CHIP_STATS used 11 formal + 1 smoke D4; BWS records 6 formal + 2 smoke O40. BWS smoke job IDs and raw receipts are not published. No new job is requested to repair accounting.",
       "known_B_CHIP_STATS_GPU_smoke_job_ids": [
         164771
       ],
@@ -210,11 +240,51 @@
         "post_generation_mp4_decodes": 0,
         "video_scoring": 0,
         "erratum": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/progress_check_20261115"
+      },
+      "known_formal_job_ids": [
+        164072,
+        164189,
+        164225,
+        164312,
+        164928,
+        166225,
+        166419,
+        166479
+      ],
+      "count_is_known_recorded_lower_bound": true,
+      "public_EXIT0_job_ids": [
+        164072,
+        164312,
+        164928,
+        166479
+      ],
+      "reported_only_EXIT0_job_ids": [
+        166225
+      ],
+      "reported_failed_job_ids": [
+        164189,
+        164225,
+        166419
+      ],
+      "public_successful_EXIT_receipts": 4,
+      "reported_only_successes": 1,
+      "BWS_reported_capture_accounting": {
+        "formal_O40": 6,
+        "smoke_O40": 2,
+        "total_O40": 8,
+        "design_total_cap": 6,
+        "distinct_sources": 6,
+        "evidence_level": "PROGRESS_RECORD_ONLY",
+        "record": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/execution_updates_20261114/two_core_20261114/BWS"
       }
     },
-    "progress_check_commit": "0d4d860a847202e9e0b3c4265da7fd64e87eff21",
+    "progress_check_commit": "1d5075286e54a2e141893bfac55f3c7238989f65",
     "jobs_dispatched_by_this_progress_check": 0,
-    "progress_check_20261115": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/progress_check_20261115"
+    "progress_check_20261115": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/progress_check_20261115",
+    "reported_evidence_pending_publication": {
+      "BWS": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/execution_updates_20261114/two_core_20261114/BWS"
+    },
+    "progress_check_chip_score_20261115": "research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json#/progress_check_chip_score_20261115"
   },
   "g20_roadmap_v3_20261112": {
     "date": "2026-11-12",

@@ -1,36 +1,64 @@
 # G20 两个核心方向：结果索引与勘误
 
-本索引保留 11 月 14 日 A/BW 的数值复核，并更新到 `0d4d860a847202e9e0b3c4265da7fd64e87eff21` 的输入采集结果。**当前：A 已完成；BW Q1/ICC 已完成；P64 输入已齐；132 个 BW Chip 风险单元已计算完成（BW_CHIP_SCORE job 166479，V2 EXIT 0）；BWS 正式作业 166225 已 EXIT 0，发布与方向 B 收尾待定（用户缓议）。** 各实验冻结目录内的源码、输出、审查与收据保持原身份；当前状态与资源勘误由本索引及现有资产/判断台账维护。
+**当前判断：A 的固定残差比较已完成，保留可折叠线性修正 L；BW 的三方法比较已完整，Chip 局部误差最低，但主路径计算量是 Q1 的 2 倍；BWS 已登记运行成功，原始四格结果尚未发布，方向 B 的状态解释仍待完成。** 本次核查基于提交 `1d5075286e54a2e141893bfac55f3c7238989f65`。更新已有索引、[资产与队列](../../../research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)和[判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)，新增计算作业为 0。
 
-A 与 BW 的已完成比较均使用现有 VBench 数据，统计单位为 source；先对三个层等权，再对 high/low 等权，最后对 11 个 DEV source 等权。DEV 未参与本次参数拟合，但此前已被观察，属于开发集。结果限于六个站点及固定 512 行局部回放，视频质量与实际系统时延均未测。
+| 阶段 | 当前证据与剩余工作 |
+| --- | --- |
+| A_Q1_RESIDUAL | 已公开完整结果；L 的 DEV 风险较其 Q1 基线改善约 4.07%，当前无需追加候选或扩层 |
+| BW | 已公开全部 396 个 DEV 单元：Q1/ICC 264 个原值复用，加 132 个实际 GLOBAL_P64 Chip 单元；评分已完成 |
+| BWS | `REPORTED_EXIT0_PUBLICATION_PENDING`：记录称 job 166225 EXIT 0、216 个 DEV 单元；当前缺的是原始产物归档和解释 |
 
-## 2026-11-15：输入已齐，接下来直接计算 Chip 分数
+A/BW 均使用现有 VBench 数据。先对三个层等权，再对 high/low 等权，最后对 11 个 DEV source 等权；独立统计单位为 source，n=11。DEV 未参与本次拟合，但此前已被观察，属于开发集。结论限于六个站点、固定 512 行局部回放；视频质量与实际方法时延未测。BWS 为单独的 CAL3/DEV3 设计，不能与 BW 的 CAL11 表拼接。
 
-正式采集 job **164928** 已 EXIT 0。遍历[输入 manifest](B_CHIP_STATS/v1/output/B_CHIP_P64_INPUTS.json)得到 **11 来源 × 6 站点 × 2 端点 = 132 份 payload**；每份含 64×5120 BF16 的真实 pre-W1 输入，合计 **8448 行、781,265,364 bytes**。按冻结判据比较新旧 PANEL512 输入与 gate 的 **264 项检查全部通过**，11/11 来源通过；输入可与既有 BW 状态配对。[SUMMARY](B_CHIP_STATS/v1/output/SUMMARY.json) · [EXIT](B_CHIP_STATS/v1/evidence/EXIT.json) · [集群产物验证记录](B_CHIP_STATS/v1/evidence/verify_post_chip.log)。大 tensor 保留在集群，本次公开证据核查没有重新下载其实体。
+## BW 已完成：Chip 的误差优势与计算成本同时成立
 
-**这次新增的是可用输入，还没有新增 Chip 风险结果。** `66 unblocked` 是 66 个来源×站点输入对，可供两权重形成 132 个风险单元。新的采集 runner 没有计算 selector/packed-pregate 风险；旧 BW runner 仍只运行 Q1/ICC。接手时复用现有 `chip_predict` 和 `primary_risk`，补接现成固定64输入，只计算缺少的 132 个 Chip 单元，再与既有 Q1/ICC 表计算 d/θ。不要直接重跑旧 BW runner，也不重新拟合 Q1、分解 ICC 或采 D4。[旧 BW 消费函数](BW/v3/source/b_common_replay.py) · [旧 BW runner](BW/v3/source/b_weight_state_runner.py)。这是原 BW 比较的剩余部分，不增加研究方向。
+新评分 job **166479**（V2）已 EXIT 0，补齐 **132 个 Chip 单元**。评分使用用户实际 `CHIPMUNK_GLOBAL_P64`，按 own-W 的固定 64 行 hidden-change RMS 稳定排序，选择 K=5120，执行选定 W1/W2 的残差路径。新旧 264 对配对单元的 U0/U1、行号、G_ref、own anchor/target 等 16 项公共身份字段全部一致；264 个 Q1/ICC 风险值逐项原样复用，没有重新拟合、分解或重放。该次评分 **0 新 D4/O40 轨迹、0 新图文、0 视频解码**。[运行摘要](BW_CHIP_SCORE/v2/output/SUMMARY.json) · [RUN](BW_CHIP_SCORE/v2/evidence/RUN.json) · [EXIT](BW_CHIP_SCORE/v2/evidence/EXIT.json) · [实际运行器](BW_CHIP_SCORE/v2/source/bw_chip_score_runner.py)。
 
-本次采集有两项应如实记账的偏差：
+### 三方法在共同 D4 状态上的风险
 
-- **实际可见消耗为 12 条 D4：正式 11 条，加 smoke 164771 的 1 条。** 自审明确说明 smoke 使用一条完整 D4；正式 job 又捕获全部 DEV11，包含相同的 vbi_0056，未复用 smoke 临时产物。这比原输入补齐总上限 11 多一条。正式 scope 的 11 条计数不能代表全部消耗。[自审 §7](B_CHIP_STATS/v1/evidence/ROOT_SELF_AUDIT.txt) · [smoke 日志](B_CHIP_STATS/v1/evidence/cluster_evidence.txt) · [正式逐源日志](B_CHIP_STATS/v1/evidence/slurm-164928.out)。
-- **正式执行了 11 次 VAE 解码和 11 个 MP4 写出，smoke 另有 1 次。** 正式日志的 VAE 解码合计 38.622604 秒。`new_video_decode=0` 不能用于 latent→frames 生成解码；可保留的零计数是未事后读取 MP4 做帧解码/质量评分。解码在输入捕获后发生，不推翻已采 U。后续既定纯状态捕获应省去末端 VAE/视频写出；该修正并入原消费者，不另开验证轨迹。[正式日志](B_CHIP_STATS/v1/evidence/slurm-164928.err) · [生成调用](B_CHIP_STATS/v1/source/b_chip_stats_runner.py)。
+BW 对原始权重 W_O 和蒸馏权重 W_D 使用相同 D4 状态 μ_D、PANEL512 和 G_ref；每种权重重算自己的 BF16 anchor/target，并按 CAL11 规则各自拟合 Q1。主风险以 BF16 门前 prediction 与 own-W target 的误差升至 F64，再乘共同 gate 求 MSE；BF16 gate 舍入结果另表。
 
-输入已满足消费需求，以上偏差只更正记录，不触发重新捕获。当前正式作业累计 **5 次，3 成功、2 失败**；smoke 和验证作业另记。新发布清单 38 项有 37 项字节匹配，`runtime_guard.py` 仍发生已知 CRLF→LF 转换；执行/仓库摘要映射及本次进度核查见[现有判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)的 `progress_check_20261115`。
+| 权重 | Chip 主风险 | Q1 主风险 | ICC 主风险 | Chip 相对 Q1 风险下降 |
+| --- | ---: | ---: | ---: | ---: |
+| W_O | **0.011515711132** | 0.014902516232 | 0.021427942884 | **22.7264%** |
+| W_D | **0.011497516244** | 0.014899847213 | 0.021438562810 | **22.8347%** |
 
-剩余工作只有既定 **BWS 的发布与收尾**。BW Chip 评分已完成（见下节，新增完整轨迹为 0）。BWS 正式作业 166225 已 EXIT 0（CAL3/DEV3、6 条正式 O40、216 个 DEV 单元）；其发布与统一解释待用户缓议后推进。BWS 的 O40 记账需如实说明：正式 6 条 + 早先 smoke 重采 2 条（vbi_1005/vbi_1013）= 8 次执行，超出 6 条总预算 2 次（6 个不同来源，2 次冗余）；smoke 产物未被正式作业复用，reuse-first 修正留待 BWS 发布时落实。完成后统一解释三个实际方法的权重与状态差异，不再派生输入复审、独立 smoke 或参数网格。
+数据：[Chip 逐单元](BW_CHIP_SCORE/v2/output/BW_CHIP_CELL.csv)、[Chip 逐源](BW_CHIP_SCORE/v2/output/BW_CHIP_SOURCE.csv)、[Chip 聚合](BW_CHIP_SCORE/v2/output/BW_CHIP_AGGREGATE.json)，以及原 [Q1/ICC 逐单元](BW/v3/output/BW_CELL.csv)和[聚合](BW/v3/output/BW_AGGREGATE.json)。百分比由上述来源等权平均风险之比计算。
 
-## 2026-11-15：BW Chip 评分完成（BW_CHIP_SCORE job 166479，V2 EXIT 0）
+**两个权重下均有 11/11 source 的平均排序为 Chip < Q1 < ICC。** Chip 在 116/132 个 source×site×weight 单元胜过 Q1；16 个局部例外集中于 low/19 和 low/34。Chip 在全部 132 个单元胜过 ICC；完整三者排序在 108/132 个单元成立。因此，当前局部结果不能继续把 ICC 与 Chip 合写为“均劣于 Q1”。
 
-复用现成固定64输入与已完成的 264 个 Q1/ICC 风险，经**实际 CHIPMUNK_GLOBAL_P64** 路径补齐 **132 个 Chip 风险单元**（11 DEV × 6 站点 × 2 权重），新增完整轨迹为 0、不重拟合 Q1/ICC、不解码。依据 [BW_CHIP_CELL](BW_CHIP_SCORE/v2/output/BW_CHIP_CELL.csv)、[BW_CHIP_SOURCE](BW_CHIP_SCORE/v2/output/BW_CHIP_SOURCE.csv)、[BW_CHIP_AGGREGATE](BW_CHIP_SCORE/v2/output/BW_CHIP_AGGREGATE.json)：
+### 权重切换对平均方法差的影响很小，但有 expert 异质性
 
-| 权重 | Chip 主风险 | Q1 主风险（复用） | d_Chip = R_Chip − R_Q1 |
-|---|---:|---:|---:|
-| W_O | 0.011515711132 | 0.014902516232 | **−0.003386805100** |
-| W_D | 0.011497516244 | 0.014899847213 | **−0.003402330969** |
+定义 d_m(W)=R_m(W,μ_D)−R_Q1(W,μ_D)，θ_m=d_m(W_D)−d_m(W_O)。
 
-`theta_Chip = d_Chip(W_D) − d_Chip(W_O) = −1.55258689e-5`，相对 ~3.4e-3 的方法 gap 可忽略。**Chip 在两套权重下均优于 Q1**（风险约低 23%），与 ICC 劣于 Q1（d_ICC ≈ +0.0065）方向相反；共同 μ_D 回放上方法排序为 **Chip < Q1 < ICC**。11/11 source 的 d_Chip 对两权重均为负；theta_Chip 逐源 9/11 为负（2 个小正值），11 个留一源均值全为负（`−1.954e-5～−1.160e-5`）。复用的 d_ICC（+0.0065254/+0.0065387）与 BW 发布值逐位一致，确认 Q1/ICC 表被原样消费。结论限于六站点固定 512 行局部回放，视频质量与实际时延未测，n=11 机制开发，无部署主张。
+| 方法 | d(W_O) | d(W_D) | θ | θ 绝对值 / 原 gap 绝对值 |
+| --- | ---: | ---: | ---: | ---: |
+| ICC | +0.006525426652 | +0.006538715597 | +1.32889445e−5 | 0.2036% |
+| Chip | −0.003386805100 | −0.003402330969 | −1.55258689e−5 | 0.4584% |
 
-**版本与如实记账：** V1 job 166419 因作者重写的 `sha_tensor` 对 BFloat16 调用 `.numpy()` 而 EXIT 1（正是 BW v3 已修复的缺陷）；V1 验证只 dry-run 了 `aggregate_chip` 合成浮点表，未走真实 `cell_row→sha_tensor` BF16 路径，独立审查亦漏检。**0 轨迹消耗**。V2 将 `sha_tensor` 改为 BW v3 证明的 uint8-view 逐字实现，仅重绑 `bw_chip_score_runner.py`（9 个共享核 + 守卫 + B_BINDINGS 逐字节不变），新增 `CELL_ROW_BF16_OK` 真实路径回归，独立复审 APPROVE/APPROVE。教训：**“复用证明核”只豁免逐字节相同的导入函数，绝不豁免输出路径上的新作者代码**；廉价评分作业仍须用真实 dtype 调用每个新正式函数做紧凑 CPU 回归。[README](BW_CHIP_SCORE/v2/README.md) · [SUMMARY](BW_CHIP_SCORE/v2/output/SUMMARY.json) · [EXIT](BW_CHIP_SCORE/v2/evidence/EXIT.json) · [独立审查](BW_CHIP_SCORE/v2/evidence/INDEPENDENT_REVIEW.json) · [发布清单](BW_CHIP_SCORE/v2/PUBLICATION_MANIFEST.json)。
+ICC 的逐源 θ 为 11/11 正，11 个留一源均值为 `+1.23801e−5～+1.40511e−5`。Chip 的逐源 θ 为 9 负、2 正，11 个留一源均值为 `−1.95447e−5～−1.16032e−5`。留一源不是新增独立样本。Expert 分解：ICC high/low 的 θ 分别为 `+2.7958613e−5 / −1.3807240e−6`，Chip 为 `−3.24111379e−5 / +1.35940007e−6`。[BW_SOURCE](BW/v3/output/BW_SOURCE.csv) · [BW_CHIP_SOURCE](BW_CHIP_SCORE/v2/output/BW_CHIP_SOURCE.csv)。
+
+这支持**共同 μ_D、固定方法配置和各权重 CAL11 拟合下，权重切换对相对 Q1 的平均误差差距影响很小**。它不建立一般的权重独立性，也不说明 mask 相同：Chip 的 66/66 个 source×site 在两权重下选择索引 SHA 均不同。不同 SHA 只说明索引不完全相同，不量化差异大小。
+
+### 成本决定如何理解“更好”
+
+| 方法 | 主路径 analytic MAC/token | 相对 Q1 | cache bytes/token |
+| --- | ---: | ---: | ---: |
+| ICC r512 | 19,398,656 | 0.74× | 37,888 |
+| Q1 | 26,214,400 | 1× | 10,240 |
+| Chip K5120 | **52,428,800** | **2×** | 37,888 |
+
+按 [BW_COST](BW/v3/output/BW_COST.csv) 的公式与实际 [Chip packed-pregate 实现](BW_CHIP_SCORE/v2/source/chipmunk_wan_packed_pregate.py)，Chip 两个选定分支各为 5120×5120，主体 MAC 合计为 Q1 的 2 倍、ICC 的约 2.70 倍。这里还没有计入 64 行 proxy、排序、权重 packing 与 cache clone；整次评分的约 345.8 秒不是任何单一方法的原生时延。旧 BW_COST 中 Chip 的 blocked 标记只描述当时评分状态，成本公式沿用。
+
+当前三个配置展示了不同的误差与计算量取舍；并未建立等计算成本、真实速度或视频质量的优胜。A 的 L 可折叠进 Q1、没有新增在线 GEMM，仍有研究价值。**A 的约 4.07% 与这里 Chip 的约 22.8% 使用不同 Q1 基线及目标生成口径，不能直接排成同一候选胜负表。**
+
+### 实现与归档核验
+
+当前评分采用已声明的 `OWNW_LOCAL512_P64ANCHOR64_V1`，不改称与历史 full-M GEMM 逐位等价。P64 manifest 包含 **132 个独立 anchor/hit payload**，同一批文件在两权重下共加载、校验 **264 次**；不能写成 264 个独立 payload 或样本。
+
+本次新档案的 PUBLICATION manifest **35/35**、SOURCE manifest **14/14**、scope 代码 **13/13**及 B_BINDINGS hash 均与仓库实际字节匹配；RUN/EXIT 与输出身份相符。旧批次 CRLF→LF 的归档勘误仍保留其历史身份。[发布清单](BW_CHIP_SCORE/v2/PUBLICATION_MANIFEST.json) · [源码清单](BW_CHIP_SCORE/v2/source/SOURCE_MANIFEST.json) · [冻结 scope](BW_CHIP_SCORE/v2/evidence/scope.json)。
+
+仓库记录 V1 job **166419** 又因 BF16 tensor 直接 `.numpy()` 散列而失败，原失败日志未在本批公开；V2 恢复了 BW/v3 已验证的 uint8-view 实现，未改变预测、目标或风险定义。此问题的修复应直接复用已验证函数，并在新输出路径做一次真实 dtype 的紧凑检查；不增加 pilot、复审层级或科学重跑。[记录](BW_CHIP_SCORE/v2/README.md) · [自审](BW_CHIP_SCORE/v2/evidence/ROOT_SELF_AUDIT.txt)。
 
 ## A：Q1 残差修正有用，当前最佳为可折叠线性修正
 
@@ -53,34 +81,52 @@ L 的修正为 `(P64/gamma_L) C_L Q32ᵀ`：输入基 64 维、输出基 32 维�
 
 新 A 相比旧 Q0 构造同时改变了基底、Q 残差坐标、RMS 缩放及端点中心/尺度。它说明新构造在当前局部 DEV 上有效，不能把转正单独归因于其中一个改动；旧构造的负结果仍按其原范围保留。两张精度表保留相同收益方向和量级，也不能据此宣称逐输出数值等价。
 
-## BW：共同 μ_D 上，权重切换造成的 gap 变化很小
+## BWS：已登记计算完成，剩下已有四格结果的归档和解释
 
-BW 对原始权重 W_O 和蒸馏权重 W_D 使用相同 D4 状态 **μ_D**、相同 PANEL512 和 G_ref；每个权重重算自己的 anchor/target，并各自拟合 Q1。主风险是实际 BF16 pre-gate prediction 与 own-W target 的误差，升 F64 后乘共同 gate 计算 MSE。BF16 gate 舍入辅表另列，不与主表混合。
+当前证据来自[既有判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)的 `execution_updates_20261114.two_core_20261114.BWS`。该记录报告 job **166225 EXIT 0**、CAL3/DEV3、两权重×两状态×三方法，共 **216 个 DEV 单元**（144 Q1/ICC + 72 Chip），报告平均交互为 ICC `+9.680e−6`、Chip `−2.674e−5`。但本次提交没有发布 BWS 的 scope、RUN、EXIT、参数 manifest 与逐单元/逐源四格表，因此这些数字目前属于报告值，尚未像 BW 一样独立复算。状态使用 `REPORTED_EXIT0_PUBLICATION_PENDING`。
 
-依据 [BW_CELL](BW/v3/output/BW_CELL.csv)、[BW_SOURCE](BW/v3/output/BW_SOURCE.csv) 与 [BW_AGGREGATE](BW/v3/output/BW_AGGREGATE.json)：
+仓库还记载 “Publication and direction-B closure deferred per user”。这是现有发布暂缓记录，继续保留；它不意味着再申请研究目标许可，也不将已完成的实验重新加入执行队列。
 
-| 权重 | Q1 主风险 | ICC 主风险 | d(W) = R_ICC − R_Q1 |
-|---|---:|---:|---:|
-| W_O | 0.014902516232 | 0.021427942884 | +0.006525426652 |
-| W_D | 0.014899847213 | 0.021438562810 | +0.006538715597 |
+**不能只凭小交互值把方向 B 宣布为“权重和状态都无影响”。** 令 d_m(W,μ)=R_m(W,μ)−R_Q1(W,μ)，现有交互定义为：
 
-`theta = d(W_D) − d(W_O) = +1.32889445e-5`，约为 W_O 方法 gap 的 **0.204%**。11/11 source 的 theta 为正，11 个留一源均值也为正，范围为 `1.23801e-5～1.40511e-5`。但 expert 分解的方向不同：**high 为 +2.7958613e-5，low 为 −1.3807240e-6**。
+$$
+I_m=[d_m(W_D,\mu_D)-d_m(W_O,\mu_D)]-[d_m(W_D,\mu_O)-d_m(W_O,\mu_O)].
+$$
 
-能够支持的结论是：**在共同 μ_D、这两套权重及固定方法配置下，两个权重条件的 Q1 平均局部风险均低于 ICC，权重切换对方法 gap 的平均改变量很小，且 high/low 存在方向差异。** ICC 在 124/132 个 source×site×weight 配对单元中风险较高，仍有 8 个局部例外。这不建立“权重独立”或“权重没有影响”的结论，更不代替尚未完成的 BWS 状态比较。A 的固定历史 Q1 与 BW 按权重重新拟合的 Q1 属于不同实验，两张表分别解释。
+即使 I_m 很小，两个权重下仍可共同存在较大的状态主效应 `d_m(W,μ_O)−d_m(W,μ_D)`。归档后应从**同一 BWS 混合 CAL3 拟合**读取四格绝对风险、每格方法差、各权重的状态主效应、交互及逐源/expert 差异。不得用 BW 的 CAL11 θ 与 BWS 的 CAL3 交互拼接反推缺失格，也不把原生 O40/D4 的复合差异单独归因于步数、CFG 或某一个状态因素。
 
-方法成本尚未匹配。按 [BW_COST](BW/v3/output/BW_COST.csv)，Q1 的 analytic MAC/token 为 **26,214,400**，ICC 为 **19,398,656**；对应 cache bytes/token 为 10,240 与 37,888。ICC 的算术量更低、cache 更大，Q1 的风险更低；这些是当前配置的风险与成本比较，不能写成 Q1 在相同预算下全面胜出。表中整次运行耗时不代表方法本身的原生时延。
+剩余动作都消费现有产物：整理已存在的 scope/RUN/EXIT、参数和输入 manifest、216-cell 表及逐源/聚合表，按既定发布安排归档后完成上述解释。无需再 capture、refit、replay、独立 smoke、扩图文、CAL_B、参数网格或全层视频；记录缺失先定位原产物，不把“未公开”当作“未运行”。
 
-## 已完成产物与既定余项
+记录中的 O40 消耗为 **6 条正式 + 2 条 smoke = 8 次执行**，覆盖 6 个不同来源；两个 smoke 来源 `vbi_1005/vbi_1013` 被重采，未复用，超过原 6 次总上限。此处依据进度记录，原始日志尚待归档核验。纠正方式是保留真实消耗和结果，在今后 producer 中落实复用；不通过再跑 BWS 修复已发生的偏差。
 
-| 项目 | 当前状态与消费入口 |
-|---|---|
-| A_Q1_RESIDUAL | `COMPLETE`；[SUMMARY](A_Q1_RESIDUAL/v1/output/SUMMARY.json)、[参数清单](A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_PARAMS.json)、[源码清单](A_Q1_RESIDUAL/v1/source/SOURCE_MANIFEST.json) |
-| BW_Q1ICC | `COMPLETE`；264/264 个有效 DEV 单元；[SUMMARY](BW/v3/output/SUMMARY.json)、[参数清单](BW/v3/output/PARAMS_MANIFEST.json)、[源码清单](BW/v3/source/SOURCE_MANIFEST.json) |
-| B_CHIP_P64_INPUTS | 已完成；[固定64输入清单](B_CHIP_STATS/v1/output/B_CHIP_P64_INPUTS.json)，132 份 payload、11/11 同状态通过 |
-| BW Chip GLOBAL_P64 | `COMPLETE`（job 166479 V2 EXIT 0）；132 个风险单元已算，Chip < Q1 < ICC；[SUMMARY](BW_CHIP_SCORE/v2/output/SUMMARY.json)、[源码清单](BW_CHIP_SCORE/v2/source/SOURCE_MANIFEST.json) |
-| BWS | 正式作业 166225 EXIT 0（`BWS_THREE_METHODS_COMPLETE`，216 DEV 单元）；发布与收尾待定（用户缓议） |
+## 已完成资产、正式作业与当前顺序
 
-下一步按[既定执行规格](../../../research/20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)与[交接手册](../../../research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)推进 **BWS 的发布与方向 B 收尾**：132 个 BW Chip 分数已补齐，BWS 正式作业已 EXIT 0。已完成 A、BW Q1/ICC、P64 采集与 BW Chip 评分直接复用；BWS 不由 theta 的符号决定是否执行。本次维护不授权或调度新作业，也不增加图文、CAL_B、all80 或视频评分。
+| 资产 | 当前消费入口 |
+| --- | --- |
+| A 参数与结果 | [参数清单](A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_PARAMS.json)、[READOUT](A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_READOUT.json)、[EXIT](A_Q1_RESIDUAL/v1/evidence/EXIT.json)；完整复用 |
+| BW Q1 参数、ICC 因子与 264 个分数 | [参数清单](BW/v3/output/PARAMS_MANIFEST.json)、[BW_CELL](BW/v3/output/BW_CELL.csv)、[EXIT](BW/v3/evidence/EXIT.json)；完整复用 |
+| P64 固定输入 | [132 份 payload 清单](B_CHIP_STATS/v1/output/B_CHIP_P64_INPUTS.json)、[EXIT](B_CHIP_STATS/v1/evidence/EXIT.json)；已被 Chip 评分消费 |
+| BW Chip 132 个分数 | [BW_CHIP_CELL](BW_CHIP_SCORE/v2/output/BW_CHIP_CELL.csv)、[SUMMARY](BW_CHIP_SCORE/v2/output/SUMMARY.json)、[EXIT](BW_CHIP_SCORE/v2/evidence/EXIT.json)；固定 selector，无新增 CAL fit 资产 |
+| BWS 状态、参数与 216 个分数 | 既有 ledger 报告已产生；待已有原始文件归档，不请求重新生产 |
+
+本阶段已登记的正式 job 至少 **8 次：报告成功 5、失败 3**。其中 **4 个成功作业有公开 EXIT**（A 164072、BW 164312、P64 164928、Chip 166479），另一个成功是尚未公开收据的 BWS 166225；三次失败登记为 BW 164189/164225 与 Chip 166419。该计数是已登记下界，排除 smoke/verification，不断言没有其他未公开的 BWS 尝试。详细证据层级保存在现有 ledger 的 `progress_check_chip_score_20261115`。
+
+**当前顺序只有 BWS 已有产物归档 → 四格解释 → 两方向总结。** A、BW 与输入生产均不再排队。此前的预算与具体 scope 保持原身份；本次检查新增作业为 0，不新增执行授权或审批层级。
+
+## 历史：P64 输入采集及资源勘误
+
+以下保存 `0d4d860` 输入采集发布时的证据和计数；后续 Chip 已完成，当前状态以上文为准。
+
+正式采集 job **164928** 已 EXIT 0。遍历[输入 manifest](B_CHIP_STATS/v1/output/B_CHIP_P64_INPUTS.json)得到 **11 来源 × 6 站点 × 2 端点 = 132 份 payload**；每份含 64×5120 BF16 的真实 pre-W1 输入，合计 **8448 行、781,265,364 bytes**。按冻结判据比较新旧 PANEL512 输入与 gate 的 **264 项检查全部通过**，11/11 来源通过；输入可与既有 BW 状态配对。[SUMMARY](B_CHIP_STATS/v1/output/SUMMARY.json) · [EXIT](B_CHIP_STATS/v1/evidence/EXIT.json) · [集群产物验证记录](B_CHIP_STATS/v1/evidence/verify_post_chip.log)。大 tensor 保留在集群，本次公开证据核查没有重新下载其实体。
+
+**在该次输入采集发布时，Chip 风险尚未计算；此缺项已由后来的 BW_CHIP_SCORE/v2 补齐。** `66 unblocked` 是 66 个来源×站点输入对，可供两权重形成 132 个风险单元。新的采集 runner 没有计算 selector/packed-pregate 风险；旧 BW runner 仍只运行 Q1/ICC。后续评分已复用这些输入，完成状态以上文当前索引为准。
+
+本次采集有两项应如实记账的偏差：
+
+- **实际可见消耗为 12 条 D4：正式 11 条，加 smoke 164771 的 1 条。** 自审明确说明 smoke 使用一条完整 D4；正式 job 又捕获全部 DEV11，包含相同的 vbi_0056，未复用 smoke 临时产物。这比原输入补齐总上限 11 多一条。正式 scope 的 11 条计数不能代表全部消耗。[自审 §7](B_CHIP_STATS/v1/evidence/ROOT_SELF_AUDIT.txt) · [smoke 日志](B_CHIP_STATS/v1/evidence/cluster_evidence.txt) · [正式逐源日志](B_CHIP_STATS/v1/evidence/slurm-164928.out)。
+- **正式执行了 11 次 VAE 解码和 11 个 MP4 写出，smoke 另有 1 次。** 正式日志的 VAE 解码合计 38.622604 秒。`new_video_decode=0` 不能用于 latent→frames 生成解码；可保留的零计数是未事后读取 MP4 做帧解码/质量评分。解码在输入捕获后发生，不推翻已采 U。后续既定纯状态捕获应省去末端 VAE/视频写出；该修正并入原消费者，不另开验证轨迹。[正式日志](B_CHIP_STATS/v1/evidence/slurm-164928.err) · [生成调用](B_CHIP_STATS/v1/source/b_chip_stats_runner.py)。
+
+输入已满足消费需求，以上偏差只更正记录，不触发重新捕获。截至该次输入采集发布，正式作业累计为 **5 次，3 成功、2 失败**（历史快照）；smoke 和验证作业另记。新发布清单 38 项有 37 项字节匹配，`runtime_guard.py` 仍发生已知 CRLF→LF 转换；执行/仓库摘要映射及本次进度核查见[现有判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)的 `progress_check_20261115`。
 
 ## 对 11 月 14 日 A/BW 冻结摘要的勘误
 

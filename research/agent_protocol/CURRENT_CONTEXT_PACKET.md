@@ -1,6 +1,6 @@
-> **2026-11-15 · P64 输入已齐；BW 还差 132 个 Chip 风险分数，BWS 待执行。** [进度与勘误](../../reports/20261114/g20_two_track_core/README.md) · [资产](../20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断](../20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。job 164928 产出 132 份固定64输入，11/11 来源通过同状态检查。A 与 BW Q1/ICC 沿用已完成结果；输入采集完成不代表 Chip 比较完成。
+> **G20 当前入口：[结果与剩余工作](../../reports/20261114/g20_two_track_core/README.md) · [资产与队列](../20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断台账](../20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。** 两条主线固定为 A：设计有用的新算子；B：解释 Q1r2 与实际 ICC/Chipmunk 的差异。当前完成项、结论、资源记账和剩余动作在这些现有入口维护；下文旧日期的计划与进度按历史身份阅读。
 
-> **当前动作按 rev5 [手册](../20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[规格](../20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)。** 消费现有输入只补 132 个 BW Chip 分数（0 新轨迹），并推进 BWS（最多 6 条 O40，验证用完整轨迹也计入并保存复用）。不再采 D4、不重跑 A/Q1/ICC、不增加图文、CAL_B、网格或独立 smoke。P64 实际消耗为 11 条正式 D4 加 1 条 smoke，并执行了对应 VAE 解码/视频写出；零计数仅适用于事后视频读取与评分。当前累计正式作业 5 次、成功 3、失败 2，smoke 另记。剩余作业沿用具体 scope/ACTIVE 流程；本次核查 0 新授权、0 dispatch。
+> **实现合同：[rev5 手册](../20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[固定规格](../20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)。** 先依据当前资产状态复用已产生的输入、参数和结果；旧手册中的计划动作不自动成为新待办。实际执行范围以 [ACTIVE](../ACTIVE_RESEARCH.json) 为准，结果归档与解释不派生新的采集、重放或审批层级。
 
 # FFNDS · 当前Agent最小上下文（2026-11-05）
 
@@ -86,5 +86,3 @@
 5. 使用[独立方法讨论队列](../method_discussion/QUEUE.md)登记**真实**不同Agent提出及评议的方法；历史B-H/B-F/A0与Affine54记录不改原身份。新论文/计算边按[图谱协作](GRAPH_AGENT_COLLABORATION.md)同步。
 
 **下一Agent交付**：按[资产先行统一队列](ASSET_FIRST_AGENT_HANDOFF_20261029.md)完成其中一个已注册的真实机制判别；输出正常计算图、至少两种竞争解释、source-held结果或确切缺失资产、在线合法动作与代价、能覆盖160位置的视频及系统桥梁。新结论以原生证据更新现行文件，不另造重复的“权威进度”。
-
-
