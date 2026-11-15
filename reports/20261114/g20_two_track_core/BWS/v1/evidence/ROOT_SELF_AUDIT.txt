@@ -1,0 +1,99 @@
+ROOT SELF-AUDIT — G20_BWS_20261115_V1 (composite native-state four-cell)
+Author: main (qoder_root_g20_20261111). Scope SHA ffa3c74a9f23072cdc2f9d4a08c9957eac7a0d8c531aa769ba7d6581c0162478.
+Date 2026-11-15. Phase G20_BWS. Based on commit ba03576. REVIEW_CANDIDATE (not ACTIVE).
+
+1. TASK / ESTIMAND
+Fixed follow-up after BW_Q1ICC_COMPLETE (job 164312), independent of A outcome and BW
+theta sign. CAL3 vbi_1005/0895/0648 + DEV3 vbi_1013/0886/0800; two weights W_O/W_D;
+two composite native states mu_D (landed D4 bank) / mu_O (this scope's original40
+capture); three methods Q1/ICC/GLOBAL_P64. Per W/site fit ONE Q1 on mixed CAL3 (each
+source D_first256 + O_first256; six source-state halves equal at 256 rows), then FIX
+params and score all four DEV cells with the same theta(W) and same-source D4 hit
+gate G_ref. Estimand I_m = [d_m(W_D,mu_D)-d_m(W_O,mu_D)] - [d_m(W_D,mu_O)-d_m(W_O,mu_O)],
+d_m(W,mu)=R_m(W,mu)-R_Q1(W,mu). Primary F64 gated pre-gate SSE/(512*5120); auxiliary
+BF16 gate MSE separate. Aggregation layer-equal->expert-equal->source-equal; 3 paired
+source values + equal-source mean/range. n=3 mechanism development; NO bootstrap/p-value.
+DEV cells: 3x6x2Wx2mu x3methods = 216 (Q1/ICC 144). Composite interaction reported;
+pure interval/CFG/state components UNIDENTIFIED without matching controls.
+
+2. REUSE PROVENANCE (no rerun of completed work)
+- mu_D: landed V2 D4 bank, BANK_MANIFEST f6f8e100 (verified). PANEL512 U + D4 hit gate.
+- Q1/ICC/Chip math: b_common_replay.py + ridge_fit_core/q1_fit_core/icc_decompose/
+  icc_ffn/chipmunk_fullm_proxy_math/chipmunk_wan_packed_pregate/panel512/runtime_guard
+  copied VERBATIM from the proven BW v3 stage (hash-identical, checked).
+- mu_D Chip fixed64: B_CHIP_P64_INPUTS.json from B_CHIP_STATS job 164928 (scope
+  13df6528, inputs manifest 7eeb32ab), DEV3 D4 fixed64 U0/U1. Hash-bound + scope identity.
+- ICC W_D factors reused on checkpoint/method/rank/hash match; W_O fresh ordinary SVD.
+- O40 pipeline binding VERBATIM from proven original40 producer (chip10_00_r8):
+  base_model_dir Wan2.2-I2V-A14B-bf16, 11 base assets, 12 weight shards, 911 LightX2V
+  source files, required_runtime_config, runtime_versions, ffmpeg. VERIFIED on a
+  compute node: O40_BINDING_PASS (N_BASE 11, N_SHARD 12, N_EXT 911, N_EXT_BAD 0).
+
+3. O40 CAPTURE / GEOMETRY (the new mu_O state)
+- One dense original40 pass per condition (<=6), 40-step scheduler/CFG (boundary 0.9,
+  guide_scale [3.5,3.5], enable_cfg, torch_sdpa, double_precision_rope). Conditional
+  branch only scored; unconditional CFG call runs and is counted in cost.
+- Endpoint policy: per expert the FIRST adjacent same-expert scheduler-step pair
+  (anchor=first step, hit=second). NativeTapO40 selects online (first two consecutive
+  steps of each expert); finish_source asserts both experts have an adjacent pair and
+  a single high->low switch. Actual timestep/noise/gap recorded.
+- GEOMETRY: required_runtime_config.target_height=480 is a max-area hint; aspect_ratio
+  16:9 + width 832 forces actual height 464 (proven producer decoded_video_geometry
+  464x832x81). The hook ASSERTS runtime grid (21,29,52), M=31668 — identical to the V2
+  D4 bank; a 480->30 grid is rejected. This is the matching-state requirement.
+- Per target site saves U_panel (512,5120) BF16 for all six sources; DEV3 also saves
+  U_fixed64 (64,5120) for Chip mu_O. CAL3 needs no P64 stats. G_ref is NOT from O40:
+  scoring uses the same-source D4 hit gate; O40 gate stored for identity only.
+- Observer trajectory-neutral: D2H before W1, no detach alias across apply, no
+  weight/gate/scheduler/latent modification. Byproduct mp4 required by pipe.generate
+  but NEVER decoded/scored. Instrumented tap timing is NEVER production timing.
+
+4. MIXED-CAL FIT IDENTITY
+- own-W targets computed on the full 512 rows (common native_ffn BF16 recipe) BEFORE
+  prefix selection; fit uses first 256 of each mu half. Six halves (3 sources x 2 mu)
+  equal weight 1/(6*256) per row via q0_prior/fit_q1 source_weight(6,256).
+- Q1 fresh per W/site on mixed CAL3 (ridge 1e-3, maxiter 240, tol 1e-5); requires
+  CONVERGED + true_relative_residual<=1e-5. Params persisted + reloaded (weights_only)
+  before scoring; scoring consumes the reloaded artifact. Same theta(W) across mu cells.
+- This fit identity (CAL3 mixed) is DISTINCT from BW CAL11 D-only; tables not pooled.
+
+5. GUARDS / BUDGET / GOVERNANCE
+- guarded_runner_bws: phase G20_BWS, new_videos 0, max_new_D4 0, max_new_O40 6,
+  new_video_decode 0, reference 0; review APPROVE/APPROVE + reviewer not author +
+  audit SHA; ACTIVE AUTHORIZED_FOR_ONE_JOB session_max_gpus 2; all code+frozen hashes;
+  live Slurm allocation; node membership; one A100-80GB; torch version; budget ceilings;
+  single dispatch (--no-requeue, refuses if SUBMITTED/DISPATCH_INTENT/RUN/output exist);
+  squeue 2-job/2-GPU cap.
+- Budget: 1 GPU, 4 CPU, 192GiB host, 76GiB GPU, 10800s wall (10500 soft), 4GiB output,
+  256MiB capture/source, 10GiB free disk. Node pin [anode20, anode16] (soonest GPU free).
+- Reuse lookup: NO matching O40 reuse (old chip10/anchor10 height480 cannot be a current
+  464 matching state); 6 new O40 required = budget max. reuse_lookup.json records this.
+
+6. SMOKE COVERAGE (full integration path; author test, outside hash bundle)
+smoke_bws.py calls the EXACT formal functions on one real DEV source: build_checked_pipeline
+-> capture_source_o40 (real O40 trajectory, 12 sites, grid assert) -> load_mu_d/o_pack ->
+own_w_targets -> mixed-CAL fit_q1 (CONVERGED) -> persist_and_reload -> four-cell Q1/ICC/Chip
+predict + primary/auxiliary risk -> aggregate_bws (I_m) -> serialize (allow_nan=False).
+Asserts 12 captures, U_panel (512,5120) bf16 finite, DEV fixed64 (64,5120), grid 21x29x52,
+Q1 converged, params reload byte-identical, finite risks, json.dumps allow_nan=False.
+
+7. LIMITATIONS / BOUNDED CLAIMS
+Sampled local FFN function replay on shared PANEL512; NOT full-M native video, free-
+trajectory performance, or system speed. quality NOT_MEASURED, performance NOT_BENCHMARKED.
+mu_O/mu_D are composite native state/interval/CFG distributions; the four-cell interaction
+does NOT identify pure interval/CFG/state components without matching controls (UNIDENTIFIED).
+n=3 is mechanism development; report per-source values + mean/range, no significance gate.
+No deployment claim; no native-best-calibration claim. theta sign does not gate completion.
+
+8. REVIEWER FOCUS
+(a) O40 geometry: confirm aspect_ratio forces 464/grid 21x29x52 and the hook rejects 480;
+(b) endpoint selection = first adjacent same-expert pair, conditional only, gap recorded;
+(c) mixed-CAL fit weight = six halves equal at 256, own-W on 512 before prefix, G_ref=D4
+hit gate for BOTH mu; (d) I_m sign/aggregation; (e) Chip mu_D from B_CHIP_P64_INPUTS vs
+mu_O from O40 capture, same numeric adapter; (f) params reload before scoring; (g) guards
++ single dispatch + budget; (h) reuse-lookup verdict (6 new O40, no seventh).
+
+9. HASH BINDING
+scope.code_sha256 (15 files) + frozen_inputs_sha256 (bws_conditions.json, B_BINDINGS.json)
++ O40 pipeline binding (911 external sources verified) + bank/ICC/chip manifest SHAs.
+All frozen at scope SHA ffa3c74a. Any code/input change requires a new reviewed scope.

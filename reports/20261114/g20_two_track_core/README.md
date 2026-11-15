@@ -1,12 +1,12 @@
 # G20 两个核心方向：结果索引与勘误
 
-**当前判断：A 的固定残差比较已完成，保留可折叠线性修正 L；BW 的三方法比较已完整，Chip 局部误差最低，但主路径计算量是 Q1 的 2 倍；BWS 已登记运行成功，原始四格结果尚未发布，方向 B 的状态解释仍待完成。** 本次核查基于提交 `1d5075286e54a2e141893bfac55f3c7238989f65`。更新已有索引、[资产与队列](../../../research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)和[判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)，新增计算作业为 0。
+**当前判断：三个固定比较全部完成并发布——A 的固定残差比较已完成，保留可折叠线性修正 L；BW 的三方法比较已完整，Chip 局部误差最低，但主路径计算量是 Q1 的 2 倍；BWS 已完成并发布（job 166225 EXIT 0，216 个 DEV 单元），方向 B 的权重＋状态统一解释见下节。** 本次核查基于提交 `1d5075286e54a2e141893bfac55f3c7238989f65` 的 BW 评分复核，并新增 BWS 原始产物发布。更新已有索引、[资产与队列](../../../research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json)和[判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)，新增计算作业为 0。各实验冻结目录内的源码、输出、审查与收据保持原身份；当前状态与资源勘误由本索引及现有资产/判断台账维护。
 
 | 阶段 | 当前证据与剩余工作 |
 | --- | --- |
 | A_Q1_RESIDUAL | 已公开完整结果；L 的 DEV 风险较其 Q1 基线改善约 4.07%，当前无需追加候选或扩层 |
 | BW | 已公开全部 396 个 DEV 单元：Q1/ICC 264 个原值复用，加 132 个实际 GLOBAL_P64 Chip 单元；评分已完成 |
-| BWS | `REPORTED_EXIT0_PUBLICATION_PENDING`：记录称 job 166225 EXIT 0、216 个 DEV 单元；当前缺的是原始产物归档和解释 |
+| BWS | `COMPLETE`：job 166225 EXIT 0、216 个 DEV 单元（144 Q1/ICC + 72 Chip）；原始产物已发布并独立复算，权重＋状态统一解释见下节 |
 
 A/BW 均使用现有 VBench 数据。先对三个层等权，再对 high/low 等权，最后对 11 个 DEV source 等权；独立统计单位为 source，n=11。DEV 未参与本次拟合，但此前已被观察，属于开发集。结论限于六个站点、固定 512 行局部回放；视频质量与实际方法时延未测。BWS 为单独的 CAL3/DEV3 设计，不能与 BW 的 CAL11 表拼接。
 
@@ -60,6 +60,31 @@ ICC 的逐源 θ 为 11/11 正，11 个留一源均值为 `+1.23801e−5～+1.40
 
 仓库记录 V1 job **166419** 又因 BF16 tensor 直接 `.numpy()` 散列而失败，原失败日志未在本批公开；V2 恢复了 BW/v3 已验证的 uint8-view 实现，未改变预测、目标或风险定义。此问题的修复应直接复用已验证函数，并在新输出路径做一次真实 dtype 的紧凑检查；不增加 pilot、复审层级或科学重跑。[记录](BW_CHIP_SCORE/v2/README.md) · [自审](BW_CHIP_SCORE/v2/evidence/ROOT_SELF_AUDIT.txt)。
 
+## 2026-11-15：BWS 完成（job 166225 EXIT 0）——复合原生状态下的权重×状态交互
+
+BWS 在 **CAL3/DEV3**（vbi_1005/0895/0648 拟合，vbi_1013/0886/0800 读出）上比较 **2 权重 × 2 原生状态（mu_D/mu_O）× 3 方法（Q1/ICC/Chip）**，共 **216 个 DEV 单元**（144 Q1/ICC + 72 Chip）。每个权重在 CAL3 **混合 D256+O256**（六半等权）上**只拟合一次**，参数在两状态单元间**固定**（非逐状态重拟合；这是 CAL3 混合拟合，区别于 BW 的 CAL11）。主风险为 F64 gated pre-gate SSE/(512·5120)，共同 G_ref 为同源 D4 hit gate。交互对比 **`I_m = theta_m(mu_D) − theta_m(mu_O)`**，其中 `theta_m(mu)=d_m(W_D,mu)−d_m(W_O,mu)`、`d_m=R_m−R_Q1`。依据 [BWS_CELL](BWS/v1/output/BWS_CELL.csv)、[BWS_SOURCE](BWS/v1/output/BWS_SOURCE.csv)、[BWS_AGGREGATE](BWS/v1/output/BWS_AGGREGATE.json)：
+
+| 方法 | I_m（source 等权均值） | 逐源范围 | 符号 |
+|---|---:|---|---|
+| ICC | **+9.680e-6** | +3.937e-6 … +1.331e-5 | 3/3 正 |
+| Chip | **−2.674e-5** | −5.166e-5 … −1.631e-6 | 3/3 负 |
+
+- **权重×状态交互对两方法均可忽略**：|I_ICC|~1e-5、|I_Chip|~2.7e-5，远小于方法 gap 本身（d_ICC~+0.002…+0.007，d_Chip~−0.002…−0.005）。蒸馏-vs-原始权重对方法 gap 的影响**在 mu_D 与 mu_O 之间几乎不变**。3 个 DEV 源符号一致，但量级太小，不足以支持强状态调制结论——这是**有界的近零交互**。
+- **状态主效应（背景，非对比）**：mu_O 的绝对风险约为 mu_D 的一半（如 W_O|Q1：mu_D 0.01542 vs mu_O 0.00728）。原生状态强烈移动绝对风险，但**权重对方法 gap 的影响**（I 对比）几乎不随状态变。
+- **方法排序在两状态均成立**：Chip < Q1 < ICC（mu_O W_O：Chip 0.00509 < Q1 0.00728 < ICC 0.00834），与 BW mu_D 一致。
+- **检查**：12/12 Q1 CONVERGED（残差≤1e-5）；ICC W_O 新鲜 ordinary SVD rank512、W_D 因子按 checkpoint 复用；params_reload_verified；可重载参数 12 份 ≈1.606 GiB（[PARAMS_MANIFEST](BWS/v1/output/PARAMS_MANIFEST.json)）；72 个 O40 payload + 6 个副产物视频（未解码）由 [CLUSTER_ASSETS_MANIFEST](BWS/v1/output/CLUSTER_ASSETS_MANIFEST.json) 哈希绑定（162 文件 ≈1.99 GiB，保留集群）。[README](BWS/v1/README.md) · [SUMMARY](BWS/v1/output/SUMMARY.json) · [EXIT](BWS/v1/evidence/EXIT.json) · [独立审查](BWS/v1/evidence/INDEPENDENT_REVIEW.json) · [发布清单](BWS/v1/PUBLICATION_MANIFEST.json) · [集群产物验证](BWS/v1/evidence/verify_post_bws.log)。
+- **O40 记账偏差**：正式 6 条 + smoke 重采 2 条 = 8 次执行 vs 6 条总预算（2 次冗余，6 个不同来源）；smoke 产物未被正式复用。如实记录，不推翻正式 216 单元比较；reuse-first 列为后续改进。**纯 interval/CFG/state 分量在无匹配对照时 UNIDENTIFIED**，仅报告复合交互。
+
+## 方向 B 统一解释：权重与状态（有界结论）
+
+综合 BW（mu_D，CAL11，11 DEV）与 BWS（mu_D/mu_O，CAL3，3 DEV）：
+
+1. **方法排序稳健**：在六站点固定 512 行局部回放上，**Chip（GLOBAL_P64）< Q1 < ICC** 对两套权重（W_O/W_D）与两个原生状态（mu_D/mu_O）均成立。Chip 比 Q1 低约 23%（mu_D），ICC 比 Q1 高约 44%（mu_D）。
+2. **权重切换对方法 gap 的影响可忽略**：theta_ICC≈+1.33e-5、theta_Chip≈−1.55e-5（BW mu_D），均远小于方法 gap（~1e-3 量级）。蒸馏权重相对原始权重**几乎不改变** ICC-vs-Q1 与 Chip-vs-Q1 的相对优劣。
+3. **该权重效应本身几乎不随状态变**：BWS 交互 I_ICC≈+9.68e-6、I_Chip≈−2.67e-5，同样可忽略。即“权重对方法 gap 的影响”在 mu_D 与 mu_O 间近乎不变。
+4. **状态强烈移动绝对风险，但不移动相对排序或权重效应**：mu_O 绝对风险约为 mu_D 一半；方法排序与权重效应（theta/I）保持。
+5. **边界**：以上限于采样局部回放、固定方法配置、n=11（BW）/n=3（BWS）DEV 机制开发；**纯 interval/CFG/state 分量 UNIDENTIFIED**（无匹配对照）；视频质量与实际系统时延**未测**；BW（CAL11）与 BWS（CAL3 混合）拟合不同，两表 mu_D 数值不直接相等；**无部署主张**，不建立“权重独立”的普适结论。
+
 ## A：Q1 残差修正有用，当前最佳为可折叠线性修正
 
 A 保持已发布的 Q1 参数，用 CAL11 拟合三个固定残差修正，再在 DEV11 读出。下表从 [原始逐源、逐站点 READOUT](A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_READOUT.json) 重算；math 与 BF16 各有 528 个单元，分别排名。
@@ -81,11 +106,9 @@ L 的修正为 `(P64/gamma_L) C_L Q32ᵀ`：输入基 64 维、输出基 32 维�
 
 新 A 相比旧 Q0 构造同时改变了基底、Q 残差坐标、RMS 缩放及端点中心/尺度。它说明新构造在当前局部 DEV 上有效，不能把转正单独归因于其中一个改动；旧构造的负结果仍按其原范围保留。两张精度表保留相同收益方向和量级，也不能据此宣称逐输出数值等价。
 
-## BWS：已登记计算完成，剩下已有四格结果的归档和解释
+## BWS 交互的有界解释（发布前登记的历史说明）
 
-当前证据来自[既有判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)的 `execution_updates_20261114.two_core_20261114.BWS`。该记录报告 job **166225 EXIT 0**、CAL3/DEV3、两权重×两状态×三方法，共 **216 个 DEV 单元**（144 Q1/ICC + 72 Chip），报告平均交互为 ICC `+9.680e−6`、Chip `−2.674e−5`。但本次提交没有发布 BWS 的 scope、RUN、EXIT、参数 manifest 与逐单元/逐源四格表，因此这些数字目前属于报告值，尚未像 BW 一样独立复算。状态使用 `REPORTED_EXIT0_PUBLICATION_PENDING`。
-
-仓库还记载 “Publication and direction-B closure deferred per user”。这是现有发布暂缓记录，继续保留；它不意味着再申请研究目标许可，也不将已完成的实验重新加入执行队列。
+BWS 最初以 `REPORTED_EXIT0_PUBLICATION_PENDING` 登记于[既有判断台账](../../../research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)的 `execution_updates_20261114.two_core_20261114.BWS`（job **166225 EXIT 0**、CAL3/DEV3、两权重×两状态×三方法、216 个 DEV 单元）。本次提交已发布其 scope/RUN/EXIT、参数与输入 manifest、216-cell 及逐源/聚合表并独立复算（见上节“BWS 完成”与[发布清单](BWS/v1/PUBLICATION_MANIFEST.json)）；原“Publication and direction-B closure deferred per user”暂缓记录就此解除，不再将已完成实验重新加入执行队列，也不意味着再申请研究目标许可。
 
 **不能只凭小交互值把方向 B 宣布为“权重和状态都无影响”。** 令 d_m(W,μ)=R_m(W,μ)−R_Q1(W,μ)，现有交互定义为：
 
@@ -93,11 +116,9 @@ $$
 I_m=[d_m(W_D,\mu_D)-d_m(W_O,\mu_D)]-[d_m(W_D,\mu_O)-d_m(W_O,\mu_O)].
 $$
 
-即使 I_m 很小，两个权重下仍可共同存在较大的状态主效应 `d_m(W,μ_O)−d_m(W,μ_D)`。归档后应从**同一 BWS 混合 CAL3 拟合**读取四格绝对风险、每格方法差、各权重的状态主效应、交互及逐源/expert 差异。不得用 BW 的 CAL11 θ 与 BWS 的 CAL3 交互拼接反推缺失格，也不把原生 O40/D4 的复合差异单独归因于步数、CFG 或某一个状态因素。
+即使 I_m 很小，两个权重下仍可共同存在较大的状态主效应 `d_m(W,μ_O)−d_m(W,μ_D)`（BWS 实测 mu_O 绝对风险约为 mu_D 一半）。四格绝对风险、每格方法差、各权重状态主效应、交互及逐源/expert 差异均须从**同一 BWS 混合 CAL3 拟合**读取；不得用 BW 的 CAL11 θ 与 BWS 的 CAL3 交互拼接反推缺失格，也不把原生 O40/D4 的复合差异单独归因于步数、CFG 或某一个状态因素（纯分量 UNIDENTIFIED）。
 
-剩余动作都消费现有产物：整理已存在的 scope/RUN/EXIT、参数和输入 manifest、216-cell 表及逐源/聚合表，按既定发布安排归档后完成上述解释。无需再 capture、refit、replay、独立 smoke、扩图文、CAL_B、参数网格或全层视频；记录缺失先定位原产物，不把“未公开”当作“未运行”。
-
-记录中的 O40 消耗为 **6 条正式 + 2 条 smoke = 8 次执行**，覆盖 6 个不同来源；两个 smoke 来源 `vbi_1005/vbi_1013` 被重采，未复用，超过原 6 次总上限。此处依据进度记录，原始日志尚待归档核验。纠正方式是保留真实消耗和结果，在今后 producer 中落实复用；不通过再跑 BWS 修复已发生的偏差。
+O40 消耗 **6 条正式 + 2 条 smoke = 8 次执行**，覆盖 6 个不同来源；两个 smoke 来源 `vbi_1005/vbi_1013` 被重采、未复用，超过原 6 次总上限 2 次。该偏差已随本次发布归档核验（[slurm-166225.err](BWS/v1/evidence/slurm-166225.err)、[verify_post_bws.log](BWS/v1/evidence/verify_post_bws.log)）；纠正方式是保留真实消耗与结果、在今后 producer 中落实 reuse-first，不通过再跑 BWS 修复已发生的偏差。
 
 ## 已完成资产、正式作业与当前顺序
 
@@ -107,11 +128,11 @@ $$
 | BW Q1 参数、ICC 因子与 264 个分数 | [参数清单](BW/v3/output/PARAMS_MANIFEST.json)、[BW_CELL](BW/v3/output/BW_CELL.csv)、[EXIT](BW/v3/evidence/EXIT.json)；完整复用 |
 | P64 固定输入 | [132 份 payload 清单](B_CHIP_STATS/v1/output/B_CHIP_P64_INPUTS.json)、[EXIT](B_CHIP_STATS/v1/evidence/EXIT.json)；已被 Chip 评分消费 |
 | BW Chip 132 个分数 | [BW_CHIP_CELL](BW_CHIP_SCORE/v2/output/BW_CHIP_CELL.csv)、[SUMMARY](BW_CHIP_SCORE/v2/output/SUMMARY.json)、[EXIT](BW_CHIP_SCORE/v2/evidence/EXIT.json)；固定 selector，无新增 CAL fit 资产 |
-| BWS 状态、参数与 216 个分数 | 既有 ledger 报告已产生；待已有原始文件归档，不请求重新生产 |
+| BWS 状态、参数与 216 个分数 | `COMPLETE`（job 166225 EXIT 0）；[BWS_CELL](BWS/v1/output/BWS_CELL.csv)、[SUMMARY](BWS/v1/output/SUMMARY.json)、[参数清单](BWS/v1/output/PARAMS_MANIFEST.json)、[集群产物清单](BWS/v1/output/CLUSTER_ASSETS_MANIFEST.json)、[EXIT](BWS/v1/evidence/EXIT.json)、[源码清单](BWS/v1/source/SOURCE_MANIFEST.json)；已发布并独立复算 |
 
-本阶段已登记的正式 job 至少 **8 次：报告成功 5、失败 3**。其中 **4 个成功作业有公开 EXIT**（A 164072、BW 164312、P64 164928、Chip 166479），另一个成功是尚未公开收据的 BWS 166225；三次失败登记为 BW 164189/164225 与 Chip 166419。该计数是已登记下界，排除 smoke/verification，不断言没有其他未公开的 BWS 尝试。详细证据层级保存在现有 ledger 的 `progress_check_chip_score_20261115`。
+本阶段已登记的正式 job 至少 **8 次：成功 5、失败 3**。**5 个成功作业均有公开 EXIT**（A 164072、BW 164312、P64 164928、Chip 166479、BWS 166225）；三次失败登记为 BW 164189/164225 与 Chip 166419。该计数是已登记下界，排除 smoke/verification，不断言没有其他未公开的尝试。详细证据层级保存在现有 ledger 的 `progress_check_chip_score_20261115` 与 BWS 发布记录。
 
-**当前顺序只有 BWS 已有产物归档 → 四格解释 → 两方向总结。** A、BW 与输入生产均不再排队。此前的预算与具体 scope 保持原身份；本次检查新增作业为 0，不新增执行授权或审批层级。
+**三个固定比较（A_Q1_RESIDUAL、BW、BWS）均已完成并发布；当前顺序只剩方向 B 收尾报告。** 后续按[交接手册](../../../research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md) §7 做两方向总结，不再派生输入复审、独立 smoke 或参数网格，也不重新提交要求批准两个方向的泛化计划。A、BW、P64 采集、BW Chip 评分与 BWS 直接复用；BWS 不由 theta 的符号决定是否执行。此前的预算与具体 scope 保持原身份；本次维护新增作业为 0，不新增执行授权或审批层级，也不增加图文、CAL_B、all80 或视频评分。
 
 ## 历史：P64 输入采集及资源勘误
 

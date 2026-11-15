@@ -1,0 +1,113 @@
+{
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_bws_20261115",
+  "reviewer_is_author": false,
+  "scope_sha256": "180382a7e78c5c542ac7bcbeb7505b34311f21c80f17c0018bb1bcd7abbebf13",
+  "root_self_audit_sha256": "c688a585e6bea8f1e74917737a2c7534c638ca95f3c358f5eeb0a0d81d0fb6be",
+  "disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "checks_performed": [
+    {
+      "id": "hash_binding",
+      "verdict": "PASS",
+      "evidence": "Independent Node crypto re-hash: scope.json sha256=180382a7e78c5c542ac7bcbeb7505b34311f21c80f17c0018bb1bcd7abbebf13 (matches frozen scope SHA); ROOT_SELF_AUDIT.txt sha256=c688a585e6bea8f1e74917737a2c7534c638ca95f3c358f5eeb0a0d81d0fb6be (matches). All 15 scope.code_sha256 files + 2 scope.frozen_inputs_sha256 files (bws_conditions.json, B_BINDINGS.json) re-hashed OK: 17/17, BAD=0. bws_pipeline.py sha 335447b2... is byte-identical to ref/normal_pipeline.py and to the proven original40 producer normal_pipeline.py_sha256 in reuse_lookup.json. fixed64_token_ids: 64 distinct ints in [0,31668); runner enforces regenerate_fixed64(torch)==binding (bws_runner.py:511-512)."
+    },
+    {
+      "id": "a_o40_geometry",
+      "verdict": "PASS",
+      "evidence": "b_capture_o40.py:44 EXPECTED_GRID=(21,29,52), :49 FULL_M=31668. Block hook :175-181 reads runtime pre.grid_sizes and raises 'grid differs from reviewed geometry (need 21x29x52)' on any mismatch (a 480-height (21,30,52) grid, M=32760, is rejected); apply() :239-240 additionally requires prod(grid)==z.shape[0]==FULL_M. bws_runner.py:179 passes EXPECTED_GRID into NativeTapO40; build_checked_pipeline (bws_runner.py:118-129) reuses bws_pipeline.build_normal_pipeline with required overlay target_height=480 as max-area hint, aspect_ratio='16:9', width=832 (bws_pipeline.py:8-20), and re-checks every required_runtime_config key post-auto_calc. Geometry math: 464/16=29, 832/16=52, (81-1)/4+1=21 -> 21x29x52=31668. Smoke jobs 165678/165800 report SMOKE_PAYLOAD_OK grid=[21,29,52] M=31668 on real captures."
+    },
+    {
+      "id": "b_cfg_conditional_only",
+      "verdict": "PASS",
+      "evidence": "b_capture_o40.py:202-209: hook reads scheduler.infer_condition, requires type bool ('invalid CFG marker' otherwise); if not condition it returns oldffn(...) untouched (unconditional pass runs, is counted in cost, never captured). Only conditional calls proceed to endpoint selection and the W1 apply tap; capture payload is taken from the conditional z only."
+    },
+    {
+      "id": "c_endpoint_policy",
+      "verdict": "PASS",
+      "evidence": "b_capture_o40.py:118-132 record_step: duplicate scheduler step raises; expert must be 0/1; first two consecutive steps of each expert are marked anchor/hit at SITE_LAYERS (4,19,34). finish_source :134-148 asserts both experts have an adjacent first pair (st[1]==st[0]+1), exactly 12 seen endpoint sites, and a single high->low switch (switches==1, seq[0]==0, seq[-1]==1). Hook :215-217 rejects endpoint expert/site mismatch. bws_runner.py:221-232 enforces 12 .pt captures and records actual anchor/hit timesteps and gap. Smoke v4/v5: high anchor step0 t999 -> hit step1 t994 gap5; low anchor step15 t892 -> hit step16 t882 gap10, both sources."
+    },
+    {
+      "id": "d_mixed_cal_fit_identity",
+      "verdict": "PASS",
+      "evidence": "bws_runner.py:388-396: cal_d/cal_o loaded at full 512 (prefix=None), B.own_w_targets applied to FULL packs before slice_pack(cal_d,256)+slice_pack(cal_o,256); slice_pack :293-304 slices u0_bf16/u1_bf16/u0/u1/X/y0/y1/z0/h0/z1/h1 to 256 and sets n=256; Y recomputed from sliced y1-y0 (:393-394). Six halves (3 CAL sources x 2 mu) equal: b_common_replay.py:41-42 source_weight=1/(n_sources*n_rows)=1/(6*256) used in q0_prior :61, and q1_fit_core.py Problem.objective/normal :19,:28 divide by len(sources)*rows -> equal per-row weight. G_ref: bws_runner.py:384 g_ref_from_bank(bank_root, CAL_IDS+DEV_IDS) loads the same-source D4 hit gate (:283-290); load_mu_o_pack :275 uses g_ref_by_source[src], NOT the O40 gate (O40 gate stored for identity only, b_capture_o40.py:23-24,376). Same theta(W) fixed across all four DEV cells (:426-437)."
+    },
+    {
+      "id": "e_i_m_math",
+      "verdict": "PASS",
+      "evidence": "bws_runner.py aggregate_bws :342-374: risk=gated_mse_f64 per (source,W,mu,method,expert,layer); layer-equal mean over LAYERS (4,19,34) :360-361 then expert-equal mean :362; d[(m,w,mu)]=r[(w,mu,m)]-r[(w,mu,'Q1')] :363; I_m=(d(W_D,mu_D)-d(W_O,mu_D))-(d(W_D,mu_O)-d(W_O,mu_O)) :364-365 — sign and ordering match the estimand exactly; source-equal mean and min/max range over DEV3 :371-372. Primary risk F64 gated pre-gate SSE/(n*5120) with G_ref (b_common_replay.py:181-187); auxiliary BF16 gate MSE separate (:190-194). Smoke v5 aggregate I_ICC=-2.441e-5, I_Chip=-1.344e-4 finite, serialized allow_nan=False."
+    },
+    {
+      "id": "f_chip_provenance",
+      "verdict": "PASS",
+      "evidence": "bws_runner.py chip_fixed64_rows :447-467: mu_D rows loaded from chip_mu_d['sources'][src]['sites'][sk] anchor/hit paths (B_CHIP_P64_INPUTS), mu_O rows from this stage's O40 DEV3 capture sidecars (endpoint_role anchor/hit, U_fixed64). run() :484-488 hash-gates chip_p64_inputs sha==7eeb32ab400a1090b85d54bf13395012175d5c27683a1d754444328c4c87999a and capture_scope_sha256==chip_stats_scope_sha256==13df65288ca31df682ebb041070ee53603212730d714c9bdc9f187d4b10fa2e9. Both mu use the identical B.chip_predict adapter (b_common_replay.py:161-176, OWNW_LOCAL512_P64ANCHOR64_V1; B_BINDINGS.json p64.numeric_adapter confirms): own-W eval512 anchor cache, fixed64 own-W proxy selector, packed pre-gate on eval512."
+    },
+    {
+      "id": "g_params_reload",
+      "verdict": "PASS",
+      "evidence": "bws_runner.py persist_and_reload :307-322: torch.save of CPU contiguous tensors, torch.load(weights_only=True), key-set equality plus torch.equal per tensor (byte-identical), manifest with file sha256/bytes/shapes/dtypes. fit_and_score_site :421-424 replaces a_q1_f32 and all four ICC factors with the RELOADED artifact before any scoring; q1_fit_sha computed from reloaded alpha_Q1; all four-cell predictions (:431-437) consume reloaded params."
+    },
+    {
+      "id": "h_guards",
+      "verdict": "PASS",
+      "evidence": "guarded_runner_bws.py:42-46 phase G20_BWS, status REVIEW_CANDIDATE, remote_stage identity, new_videos=0, max_new_D4=0, max_new_O40=6, new_video_decode=0, reference_generation=0, reference_benchmarks=0; :47-51 review disposition APPROVE + recheck APPROVE + reviewer_agent_id not in authors(['main']) + root_self_audit_sha256==sha(ROOT_SELF_AUDIT.txt); :52-54 ACTIVE scope_sha + review_sha256==sha(INDEPENDENT_REVIEW.json) + state AUTHORIZED_FOR_ONE_JOB + session_max_gpus=2; :55-58 re-hash all 17 code+frozen files with path containment; :59 require_compute_allocation (runtime_guard.py:52-118: live scontrol JobState RUNNING, owner uid match, host inside allocation, exactly 1 GPU, 1 node <=4 CPUs, TimeLimit<=10800s, mem<=192GiB, login-node ban); :61-71 node membership [anode20,anode16], host memory, python executable identity, TimeLimit<=wall_seconds, free disk>=10GiB; :83-89 exactly one NVIDIA A100-SXM4-80GB, torch==2.10.0+cu128, GPU fraction 76GiB; :96-97 peak RSS<=192GiB. dispatch_once_bws.py:15-16 flock exclusive; :17 scope hash; :22-33 same phase/review/ACTIVE gates; :34-37 all hashes; :38-39 refuses if SUBMITTED.json/DISPATCH_INTENT.json/RUN.json/output exist; :40-53 squeue 2-job cap and 2-GPU session cap; :54-58 sbatch --no-requeue --gres=gpu:A100:1 --nodelist pinned; DISPATCH_INTENT written before submit, SUBMITTED after. job.sh:2-7 1 node/1 task/4 CPUs/192G/03:00:00/TERM@60. bws_runner.py:495-521 soft 10500s, RSS, output 4GiB, GPU reserved 76GiB checks; O40Sink byte budget 256MiB/source (b_capture_o40.py:337-363)."
+    },
+    {
+      "id": "reuse_lookup",
+      "verdict": "PASS",
+      "evidence": "reuse_lookup.json: verdict NO_MATCHING_REUSE, matching_vbi_o40_banks_found=0 (old g19 original40 banks are chip10/anchor10 at height480, wrong geometry/cohort), new_O40_required=6 == new_O40_budget_max=6, new_D4=0, no_seventh_O40=true, cal3_no_P64_stats=true. Enforced in code: verify_bws_conditions (bws_runner.py:75-90) requires exactly 6 conditions = CAL3+DEV3 with seed42/landscape/prompt+image hashes; run() :530-535 performs exactly one capture_source_o40 per condition (6 dense original40 passes); O40Sink root mkdir(exist_ok=False) (b_capture_o40.py:312) and per-site write-once 'xb' files prevent any seventh/duplicate trajectory. Summary reports new_O40_full_executions=len(conds)=6, new_D4=0, new_video_decode=0."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "NON_BLOCKING",
+      "description": "ROOT_SELF_AUDIT.txt lines 2 and 99 cite the pre-revision scope SHA ffa3c74a9f23072cdc2f9d4a08c9957eac7a0d8c531aa769ba7d6581c0162478, while the current re-frozen scope.json hashes to 180382a7... (scope was re-frozen after the post-smoke-v4 aggregate fix). The enforced bindings are unaffected: the audit FILE hash c688a585... matches the frozen value checked by guarded_runner_bws.py:50 and dispatch_once_bws.py:29, and the scope SHA is independently enforced at guarded_runner_bws.py:37 and dispatch_once_bws.py:17. Stale internal citation only; no execution-path impact.",
+      "resolution": "Accepted as documentation staleness for this run. Any future re-freeze must refresh the audit's cited scope SHA (new scope + review cycle); no code or hash change is required now."
+    },
+    {
+      "severity": "NON_BLOCKING",
+      "description": "bws_runner.py:329 cell_row labels 'endpoint_steps' with the D4 schedule B.EXPERT_STEP (high 0->1, low 2->3) for ALL cells, including mu_O rows whose actual O40 low endpoints are steps 15->16 (t892->t882). The DATA are correct: load_mu_o_pack (:264-271) selects anchor/hit strictly by sidecar endpoint_role from this stage's O40 capture, and true timesteps/gaps are recorded in O40_CAPTURE_*.json, SUMMARY o40_endpoints, and pack fields o40_anchor_timestep/o40_hit_timestep. The CSV label is a site-schedule convention, not the mu_O capture steps; estimand and risks are unaffected.",
+      "resolution": "Read 'endpoint_steps' as the D4 site-schedule label; authoritative mu_O endpoint provenance is the O40 capture sidecars/metadata. Optional future revision: emit per-mu endpoint labels in cell_row (would require a new reviewed scope)."
+    }
+  ],
+  "adversarial_counterexamples": [
+    {
+      "attack": "480-height runtime grid (21,30,52), M=32760, fed to the capture hook",
+      "blocked": true,
+      "mechanism": "b_capture_o40.py:179-181 block hook compares runtime grid to expected (21,29,52) and raises RuntimeError('grid differs from reviewed geometry') before any FFN capture; independently apply() :239-240 requires prod(grid)==z.shape[0]==FULL_M=31668, which 32760 fails."
+    },
+    {
+      "attack": "Capture the unconditional CFG pass (or a non-bool CFG marker)",
+      "blocked": true,
+      "mechanism": "b_capture_o40.py:205-209: scheduler.infer_condition must be exactly bool; if False the hook returns oldffn unchanged with no payload, no sink call, no seen entry — unconditional branch passes through untouched and is never scored."
+    },
+    {
+      "attack": "Duplicate conditional endpoint (same step/layer captured twice) or duplicate scheduler step",
+      "blocked": true,
+      "mechanism": "b_capture_o40.py:212-213 raises RuntimeError('duplicate conditional endpoint step/layer') if (step,layer) already in seen; record_step :121-122 raises on any duplicate scheduler step; finish_source :142-143 requires exactly 12 distinct endpoint sites."
+    },
+    {
+      "attack": "Non-converged Q1 (true_relative_residual > 1e-5 or status != CONVERGED) used for scoring",
+      "blocked": true,
+      "mechanism": "b_common_replay.py:38 Q1_TOL=1e-5; q1_fit_core.py:65 returns CONVERGED only when true_residual<=tol*max(r0,1e-30), else FINITE_ITERATE_NOT_OPTIMUM; bws_runner.py:397-402 requires both and raises RuntimeError('Q1 not converged') before any persist/score."
+    },
+    {
+      "attack": "Any code/frozen-input/scope/audit hash mismatch at dispatch or run time",
+      "blocked": true,
+      "mechanism": "dispatch_once_bws.py:17 scope SHA, :34-37 re-hash all 17 bound files with path containment; guarded_runner_bws.py:37 stage/scope identity, :50 audit SHA, :55-58 re-hash all 17 files again on the compute node before torch import; runtime verify_pipeline_binding (bws_runner.py:93-115) additionally hash-gates 11 base assets, 12 weight shards and 911 LightX2V sources, plus bank/ICC/chip manifest SHAs (:479-491)."
+    },
+    {
+      "attack": "Second dispatch attempt (retry/duplicate job) or concurrent dispatch race",
+      "blocked": true,
+      "mechanism": "dispatch_once_bws.py:15-16 exclusive flock serializes dispatchers; :38-39 raises 'already attempted' if SUBMITTED.json, DISPATCH_INTENT.json, RUN.json or output exist; DISPATCH_INTENT is written exclusively ('x') BEFORE sbatch (:62-63) so even a failed submit blocks retry; :43-53 squeue 2-job/2-GPU session caps; sbatch --no-requeue (:55); guarded RUN.json and run() output dir are exclusive-create (guarded_runner_bws.py:27,74; bws_runner.py:473)."
+    }
+  ],
+  "evidence_reused": {
+    "smoke_v4_job": 165678,
+    "smoke_v5_job": 165800,
+    "smoke_status": "BWS_SMOKE_PASS",
+    "o40_binding_verify": "O40_BINDING_PASS",
+    "copy_verify": "BWS_COPY_PASS",
+    "full_rerun_performed": false
+  },
+  "review_utc": "2026-11-15T00:58:26.531Z"
+}

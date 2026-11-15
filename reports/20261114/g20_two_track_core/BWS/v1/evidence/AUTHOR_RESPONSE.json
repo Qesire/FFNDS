@@ -1,0 +1,31 @@
+{
+  "schema": "FFNDS_AUTHOR_REVIEW_RESPONSE_V1",
+  "scope_id": "G20_BWS_20261115_V1",
+  "scope_sha256": "180382a7e78c5c542ac7bcbeb7505b34311f21c80f17c0018bb1bcd7abbebf13",
+  "author_agent_id": "qoder_root_g20_20261111",
+  "reviewer_agent_id": "qoder_independent_reviewer_g20_bws_20261115",
+  "review_disposition": "APPROVE",
+  "review_recheck_disposition": "APPROVE",
+  "date": "2026-11-15",
+  "response_summary": "Both reviewer findings are NON_BLOCKING and adjudicated safe. Author accepts them WITHOUT code change (no frozen-identity change, so the targeted recheck APPROVE stands and no re-review is triggered). The enforced bindings are FILE hashes, not internal prose citations or CSV label conventions; editing either would change a frozen hash and force a re-review for no safety gain. The six adversarial counterexamples were all blocked by existing guards; no repair required. Full integration path was exercised on real captures by smoke v4 (job 165678) and v5 (job 165800, BWS_SMOKE_PASS); no formal job dispatched yet.",
+  "responses": [
+    {
+      "finding_code": "ROOT_SELF_AUDIT.txt lines 2 and 99 (stale cited scope SHA)",
+      "severity": "non-blocking",
+      "reviewer_note": "Audit lines 2 and 99 cite the pre-revision scope SHA ffa3c74a9f23072cdc2f9d4a08c9957eac7a0d8c531aa769ba7d6581c0162478, while the current re-frozen scope.json hashes to 180382a7... (scope was re-frozen after the post-smoke-v4 aggregate fix). Enforced bindings unaffected: audit FILE hash c688a585... matches the frozen value checked by guarded_runner_bws.py:50 and dispatch_once_bws.py:29; scope SHA independently enforced at guarded_runner_bws.py:37 and dispatch_once_bws.py:17. Stale internal citation only; no execution-path impact.",
+      "author_response": "ACCEPT. The two guards bind the audit by FILE hash (root_self_audit_sha256 == sha(ROOT_SELF_AUDIT.txt) == c688a585e6bea8f1e74917737a2c7534c638ca95f3c358f5eeb0a0d81d0fb6be), and the scope by its own FILE hash (== 180382a7e78c5c542ac7bcbeb7505b34311f21c80f17c0018bb1bcd7abbebf13); neither reads the prose SHA citation inside the audit. The stale ffa3c74a string is the pre-revision scope from before the post-smoke-v4 aggregate_bws parameterization fix and is documentation-only. Correcting the prose would change the audit FILE hash c688a585, which is the frozen value bound in INDEPENDENT_REVIEW.json and re-checked by both guards on the compute node before torch import; that would force a new scope + review cycle for zero execution-path safety gain. Declined as unnecessary churn; documentation staleness accepted for this run per the reviewer resolution. Any future re-freeze must refresh the audit's cited scope SHA.",
+      "code_change": false
+    },
+    {
+      "finding_code": "bws_runner.py:329 cell_row endpoint_steps label",
+      "severity": "non-blocking",
+      "reviewer_note": "cell_row labels 'endpoint_steps' with the D4 schedule B.EXPERT_STEP (high 0->1, low 2->3) for ALL cells, including mu_O rows whose actual O40 low endpoints are steps 15->16 (t892->t882). The DATA are correct: load_mu_o_pack (:264-271) selects anchor/hit strictly by sidecar endpoint_role from this stage's O40 capture, and true timesteps/gaps are recorded in O40_CAPTURE_*.json, SUMMARY o40_endpoints, and pack fields o40_anchor_timestep/o40_hit_timestep. The CSV label is a site-schedule convention, not the mu_O capture steps; estimand and risks are unaffected.",
+      "author_response": "ACCEPT. 'endpoint_steps' is a D4 site-schedule LABEL, not the data selector. The mu_O rows consumed by every risk and by I_m are chosen strictly by the O40 capture sidecar endpoint_role (load_mu_o_pack bws_runner.py:264-271), and the authoritative mu_O endpoint provenance (high anchor step0 t999 -> hit step1 t994 gap5; low anchor step15 t892 -> hit step16 t882 gap10) is recorded in O40_CAPTURE_*.json, SUMMARY.o40_endpoints, and the pack fields o40_anchor_timestep/o40_hit_timestep. The estimand I_m = [d(W_D,mu_D)-d(W_O,mu_D)] - [d(W_D,mu_O)-d(W_O,mu_O)] and all gated risks are computed from the correctly-selected rows, never from the label. Emitting per-mu endpoint labels in cell_row would change the frozen bws_runner.py hash (bound in scope.code_sha256) and force a re-review for a cosmetic metadata field. Declined; read 'endpoint_steps' as the D4 site-schedule label per the reviewer resolution. Optional future revision under a new reviewed scope.",
+      "code_change": false
+    }
+  ],
+  "blocking_findings": [],
+  "frozen_identity_changed": false,
+  "re_review_required": false,
+  "next_step": "Freeze finite ACTIVE (AUTHORIZED_FOR_ONE_JOB, session_max_gpus=2), prelaunch identity check on the cluster executed copy, then single dispatch after explicit user dispatch confirmation."
+}
