@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "mode": "video",
+  "description": "Non-runnable schema example: all paths/identities and metric tolerances must be bound before a real run. check performs no model calls.",
+  "parameters": [
+    {"name": "high", "initial": 1.0, "lower": 0.0, "upper": 1.5, "finite_difference_step": 0.1, "trust_radius": 0.25},
+    {"name": "low", "initial": 1.0, "lower": 0.0, "upper": 1.5, "finite_difference_step": 0.1, "trust_radius": 0.25}
+  ],
+  "cohort": "cohort.template.json",
+  "matrices": {
+    "base_manifest_path": "../../../reports/20261107/g19/Q1_matrix_manifest.json",
+    "expected_width": 5120,
+    "expected_layers": 40,
+    "sites": [
+      {"site": "high/4", "parameter": "high", "kit_path": "/path/to/verified/g20/params/high04.pt"},
+      {"site": "high/19", "parameter": "high", "kit_path": "/path/to/verified/g20/params/high19.pt"},
+      {"site": "high/34", "parameter": "high", "kit_path": "/path/to/verified/g20/params/high34.pt"},
+      {"site": "low/4", "parameter": "low", "kit_path": "/path/to/verified/g20/params/low04.pt"},
+      {"site": "low/19", "parameter": "low", "kit_path": "/path/to/verified/g20/params/low19.pt"},
+      {"site": "low/34", "parameter": "low", "kit_path": "/path/to/verified/g20/params/low34.pt"}
+    ]
+  },
+  "metrics": {
+    "objectives": [
+      {"name": "i2v_subject", "direction": "max", "weight": 0.4, "scale": 0.01},
+      {"name": "i2v_background", "direction": "max", "weight": 0.3, "scale": 0.01},
+      {"name": "imaging_quality", "direction": "max", "weight": 0.3, "scale": 0.02}
+    ],
+    "guards": [
+      {"name": "i2v_subject", "direction": "max", "max_drop": 0.005, "level": "cluster"},
+      {"name": "i2v_background", "direction": "max", "max_drop": 0.005, "level": "cluster"},
+      {"name": "flow_l2", "direction": "min", "max_drop": 0.1, "level": "cluster"},
+      {"name": "temporal_delta_rmse", "direction": "min", "max_drop": 0.002, "level": "cluster"}
+    ]
+  },
+  "optimizer": {
+    "max_iterations": 1,
+    "max_evaluations": 6,
+    "damping": 1.0,
+    "min_improvement": 0.001,
+    "acceptance_ratio": 0.1,
+    "prior_strength": 0.05
+  },
+  "oracle": {
+    "command": ["python", "/path/to/registered/candidate_oracle.py", "--request", "{request}", "--result", "{result}", "--output", "{output_dir}"],
+    "timeout_seconds": 21600,
+    "require_initial_noise_identity": true,
+    "identity": {
+      "generator_revision": "REPLACE_WITH_VERIFIED_FFNDS_AND_LIGHTX2V_REVISIONS",
+      "checkpoints_and_lora_sha256": "REPLACE_WITH_VERIFIED_ASSET_DIGESTS",
+      "registered_scope_sha256": "REPLACE_WITH_CURRENT_FINITE_SCOPE_DIGEST",
+      "evaluator_revision": "fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490",
+      "evaluator_environment_and_assets": "REPLACE_WITH_VERIFIED_ENVIRONMENT_AND_WEIGHT_DIGESTS",
+      "local_diagnostics_revision": "REPLACE_WITH_VERIFIED_FFNDS_VIDEO_METRICS_DIGEST",
+      "recipe": {
+        "ffn_input_shape": [31668, 5120],
+        "num_layers": 40,
+        "infer_steps": 4,
+        "expert_schedule": ["high", "high", "low", "low"],
+        "execution": "baseline",
+        "video_width": 832,
+        "video_height": 464,
+        "video_frames": 81,
+        "video_fps": 16,
+        "required_runtime_config": {"enable_cfg": false}
+      }
+    }
+  }
+}
