@@ -1,15 +1,15 @@
 {
-  "schema": "ffnds.lean-reproduction-budget.v1",
-  "base_commit": "9defbbaa9112eee954c24ae92c91831fd2dd69c4",
+  "schema": "ffnds.lean-reproduction-budget.v2",
+  "base_commit": "0e29eb7affddc88138337294ffdb5ccc7893f86e",
   "status": "DESIGN_ONLY_NOT_EXECUTION_SCOPE",
-  "main_calibration": "CAL11",
+  "main_calibration": "ICC_CLEAN_CAL11_AUTHOR_RECIPE; Q1_RETAINED_VBENCH_CAL11",
   "main_sources": "DEV11",
   "main_seed": 42,
   "main_is_confirmatory": false,
   "main_arms": [
     "NativeDense",
     "Q1r2_CAL11",
-    "ICC_4S_r1408_LOCAL_SELECTED_CAL11",
+    "ICC_4S_r1408_LOCAL_SELECTED_CLEAN_CAL11_AUTHOR_RECIPE",
     "Chipmunk_AUTHOR_MINIMAL_WAN",
     "Chipmunk_GLOBAL_P64_K5120"
   ],
@@ -36,13 +36,18 @@
       "SVD",
       "CA_SVD",
       "CD_SVD"
-    ]
+    ],
+    "requires_all_three_families": true
   },
   "stages": [
     {
-      "id": "E1_CAL_CAPTURE",
-      "d4_attempt_cap": 22,
-      "purpose": "Missing sufficient statistics only; native I2V conditioning encoder retained, output VAE decode/video encoding omitted"
+      "id": "E1_ICC_AUTHOR_CALIBRATION",
+      "d4_attempt_cap": 0,
+      "main_clean_sources": 11,
+      "optional_extended_clean_sources": 22,
+      "main_model_forward_cap": 66,
+      "extended_model_forward_cap": 132,
+      "purpose": "Real clean video -> native encoding -> fresh forward noise -> CA1/CD2 per expert; no full CAL trajectory"
     },
     {
       "id": "E3_MAIN_VIDEO",
@@ -73,18 +78,21 @@
     },
     {
       "id": "R_TECHNICAL_RETRY",
-      "d4_attempt_cap": 3,
-      "purpose": "Global attempts; no new method/source/seed search"
+      "shared_attempt_cap": 3,
+      "video_attempt_model_forward_cap": 4,
+      "calibration_attempt_model_forward_cap": 2,
+      "calibration_unit": "CA single call or indivisible CD pair; same operands/RNG, transactional statistics rollback",
+      "purpose": "One shared retry pool; no new source/seed/candidate"
     }
   ],
-  "base_d4_attempt_cap": 90,
+  "base_d4_attempt_cap": 68,
   "conditional_d4_attempt_cap": 6,
   "technical_retry_cap": 3,
-  "total_d4_attempt_cap": 99,
+  "total_d4_attempt_cap": 77,
   "new_o40_attempt_cap": 0,
   "extra_full_model_timing_attempt_cap": 0,
   "original_full_system_generation_cap": 0,
-  "reuse": "Deduct actual (source, seed, path, execution_id) only. Reusing all 11 Dense main slots requires valid reuse of the 2 mandatory hook paths too. Plain output cannot replace a missing hook execution; cancelled slots cannot be reallocated.",
+  "reuse": "Deduct actual (source, seed, path, execution_id) only. Reusing all 11 Dense main slots requires valid reuse of the 2 mandatory hook paths too. Plain output cannot replace a missing hook execution; cancelled slots cannot be reallocated. Rollout-derived CA/CD statistics and factors do not qualify for author-style calibration reuse.",
   "retired_design": {
     "commit": "9defbbaa9112eee954c24ae92c91831fd2dd69c4",
     "d4_cap": 897,
@@ -100,6 +108,30 @@
     "author_shape_matrix_svd": 6,
     "q1_pcg_fits_if_no_compatible_parameters": 80,
     "rank_prefixes_share_decomposition": true,
-    "additional_precision_endpoint_sampling_factor_grids": false
-  }
+    "additional_precision_endpoint_sampling_factor_grids": false,
+    "wan_large_matrix_svd_cal11": 184,
+    "cal22_local_diagnostic_additional": 24
+  },
+  "icc_recipe": "ICC_CALIBRATION_RECIPE.json",
+  "d4_cap_before_retries": 74,
+  "total_d4_cap_note": "77 only if all 3 shared retries are video; ICC calibration is counted separately, not included as D4.",
+  "joint_model_forward_bound": {
+    "formula": "4*(74+r_video)+132+2*r_cal; r_video+r_cal<=3",
+    "max": 440,
+    "excludes": [
+      "module conformance",
+      "VAE/text encoding",
+      "SVD/PCG",
+      "cache transfer"
+    ],
+    "equal_latency_claim": false
+  },
+  "retired_0e29_design": {
+    "commit": "0e29eb7affddc88138337294ffdb5ccc7893f86e",
+    "d4_cap": 99,
+    "retired_component": "22 native-D4 CAL captures and rollout endpoint ICC calibration"
+  },
+  "clean_video_input_status": "MISSING_REAL_CLEAN_CLIP_OR_BOUND_X0",
+  "matched_icc_q1_calibration_source_established": false,
+  "icc_cal22_decision": "One optional source-budget diagnostic; decision frozen before main-video outputs. E5 video trigger is evaluated only after CAL22 local scores exist."
 }

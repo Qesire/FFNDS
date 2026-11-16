@@ -4,7 +4,7 @@
 
 依据用户最新优先级：完整、正确复现优先；原始四状态 ICC 必须作为主 reference，不能为省内存用两残差替代后仍称原法。旧 scope 中“只做 SVD512/2R、不做作者复现、不扩校准”的范围描述保留其历史效力，不限制本次新目标。新执行仍应绑定实际代码、数据、资源与项目要求的独立复审；设计工作可以继续，无须为旧范围再次询问用户是否要完成已明确要求的复现。
 
-**预算与执行唯一入口：** 本专项只定义ICC语义与验收，所有执行并入 [CONTROLLED_REPRODUCTION_PLAN.md](CONTROLLED_REPRODUCTION_PLAN.md)。旧CAL256、七个完整DEV点、九臂EVAL22×双seed均已撤销；主CAL11、三家族r1408局部选择一个、五臂主视频55条、全部D4尝试上限99。固定源码逐项引述见 [ICC_CODE_CITATIONS.md](ICC_CODE_CITATIONS.md)。
+**预算与执行唯一入口：** 本专项只定义ICC语义与验收，所有执行并入 [CONTROLLED_REPRODUCTION_PLAN.md](CONTROLLED_REPRODUCTION_PLAN.md)。旧CAL256、七个完整DEV点、九臂EVAL22×双seed均已撤销；ICC主11真实视频作者式校准，66次模型调用；可选22累计132。三家族r1408局部选择一个，主视频55条；原99条D4总账已按校准NFE/视频分开。固定源码逐项引述见 [ICC_CODE_CITATIONS.md](ICC_CODE_CITATIONS.md)。
 
 固定来源：ICC CVPR2025 / arXiv:2505.05829v1；`ccccczzy/icc@dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4`。既有 FFNDS 证据基线 `e7a1e6b7a6babb5cf742072cc07a9961af854416`。具体已核公式、源文件行号、旧结果边界见 [此前论文与实现审计](../../../20261116/ICC_CHIPMUNK_WAN_FIDELITY_AND_FFN_STRUCTURE_20261116.md)。
 
@@ -73,11 +73,13 @@ ICC与Q1的D4调用呈A/H；Chip保留其period10并在专家首次调用建立c
 
 依据：作者 `models_stat_svd.py` 14–45、85–95；`func_decomp.py` 78–101、136–173；`utils_decomp.py` 44–84；`gen_decomp.py` 158–177。现有FFNDS `weights(max_ratio=None)` 默认不足以证明作者配置，因此新producer必须显式传1000并记录。
 
-### 目标域采样属于必要迁移，预算属于单独选择
+### 采样方法遵循作者，数量沿现有量级
 
-作者用256个图像，随机采原图像扩散时间，再以真实相邻去噪调用构造CD。Wan主校准使用当前真实D4、同专家0→1与2→3，不能对不同expert权重的输出做“时间增量”。CA在每source/expert两个合法端点中按固定输入哈希选一个，另以双端点等权作统计敏感性；CD在每expert合法端点对累积，均来自native Dense轨迹。端点规则见统一方案。
+主校准必须使用真实clean视频编码后前向加噪。CA在合法时间均匀抽样后单次Dense调用；CD从加噪起点第一次Dense调用，执行真实native step，再作同专家第二次Dense调用。旧native-D4轨迹端点不再作为主采集。完整配方及代码对应见[ICC_AUTHOR_CALIBRATION.md](ICC_AUTHOR_CALIBRATION.md)。
 
-这些是明确的采集分布适配。原作者从真实图像VAE latent经q_sample取随机t，CA每批一次、CD每批两次相邻模型调用；默认256数据项/batch16/epoch1对应16或32次批调用。**256不是完整生成轨迹数，也不是校准充分性的证明。** 当前CAL11→22只能检验Wan目标轨迹内的预算敏感性，不能证明原校准分布等价。
+Wan使用原生归一化mu latent、flow加噪/一步、目标D4 grid。CA在H{0,1}/L{2,3}随机取时刻；CD仅H0→1/L2→3，每pair条件不变。保留作者10%条件dropout并映射为空文本T5编码，I2V图像/mask保留，不做CFG双前向。真实clip、首帧条件和完整目标latent必须分开；首帧零填充是条件，不是clean视频。
+
+主ICC_CLEAN_CAL11为11source，最多66 NFE；可选22source累计132。batch1/epoch1，不丢尾批，前缀不重抽。当前仅有VBench图文/FFN面板，真实clip/x0尚需绑定；见[资产审计](ICC_CALIBRATION_ASSET_AUDIT.md)。不能用生成末端latent、静止复制或旧rollout替代主真实视频数据。
 
 ## 4. 精度必须拆成推理、统计、分解三个轴
 
@@ -119,9 +121,9 @@ N=31668,d=5120,m=13824、BF16、一个专家40层的缓存同时驻留：
 
 ### 校准统计不必永久保存四状态全张量
 
-一次native校准轨迹同时流式生成CA/CD四边界统计，无VAE解码、无视频编码。可以临时host保存anchor四态，hit算完统计立即释放。
+按作者式CA单次/CD相邻两次调用生成四边界统计，保留输入真实clip解码、VAE编码和I2V编码，无输出VAE解码或生成视频编码。可以临时host保存anchor四态，hit算完统计立即释放。
 
-另一种更省主存的统计producer只保存anchor u，并在相同完整N形状、原生dtype/backend下重算anchor z/h/y；先对一个已计入校准预算的来源验证重算与原始四边界一致。它增加校准计算但不改变在线reference；必须计成本。不得用512行重算代替完整N再宣称full-token统计等价。
+另一种更省主存的统计producer只保存anchor u，并在相同完整N形状、原生dtype/backend下重算anchor z/h/y；先对一个已计入校准调用预算的来源验证重算与原始四边界一致。它增加校准计算但不改变在线reference；必须计成本。不得用512行重算代替完整N再宣称full-token统计等价。
 
 ## 6. 固定rank与周期预算
 
@@ -138,19 +140,19 @@ r1408约比Q1多0.473%主MAC，是对齐后的近邻预算，不是作者原建�
 
 ## 7. 校准与选点：主CAL11、预算消融CAL22
 
-主参数在看完整视频之前固定CAL11。CA/CD保留四边界、有效全token、样本内归一化后来源等权、sqrt与max_ratio1000；两者不能以P512或只含u的旧bank替代。当前CA时间端点适配及统计精度均在因子清单记录。
+主参数在看完整视频之前固定ICC_CLEAN_CAL11。CA/CD保留四边界、有效全token、样本内归一化后来源等权、sqrt与max_ratio1000；两者不能以P512或只含u的旧bank替代。原生VAE、flow、D4时间grid、条件dropout映射及统计精度均在因子清单记录。
 
-已有充分统计优先复用，缺项最多补22条D4、不做输出VAE解码/视频编码；同一次前向产出四边界统计、P512、row IDs及当前gate。不能把已有512行面板称为原全token统计。数据项与图像簇身份、fit祖先、源码与随机性均须绑定。
+只有同一作者式配方与真实输入身份均匹配的统计才可复用。主11源最多66、可选22累计132个单模型调用；不采完整CAL轨迹，旧rollout/P512不补造缺失的作者式统计。不能把已有512行面板称为原全token统计。数据项与图像簇身份、fit祖先、源码与随机性均须绑定。
 
 三个家族固定r1408，在既有六站点×DEV11×同P512上评分；按来源等权门后绝对MSE选一家，严格同分按SVD→CA→CD。r512仅从同次分解取前缀作历史诊断；不新增r768/1024视频网格。选定家族全80站点导出，其余家族不重复构造全模型参数，不因此省掉算法实现或冒称它们的视频已测。
 
-CAL22只做相同配方的预算干预；SVD复用同一因子作无校准负对照。若局部出现预登记的排序/风险差改变，才给**原选定家族**、同rank/4S增加DEV3的CAL22闭环；不换Q1主参数、不改主表。若仍不稳定，本轮记未解决，不自动扩64/256。
+可选ICC_CLEAN_CAL22只做相同作者式配方的预算干预；SVD复用同一因子作无校准负对照。若局部出现预登记的排序/风险差改变，才给**原选定家族**、同rank/4S增加DEV3的CAL22闭环；不换Q1主参数、不改主表。若仍不稳定，本轮记未解决，不自动扩64/256。
 
 ## 8. 两残差、有限视频与成本
 
 主ICC始终四状态，r1408完整周期主MAC比0.688426，Q1为0.685185；不是等时延结论。两残差同因子在r512/r1408均做局部检查，选定主因子仅补DEV3闭环三条，4S父结果复用主视频。两残差增加anchor投影，不能用其hit成本代表整个周期。
 
-五臂主视频最多55槽位；全部D4尝试含校准/neutral/必要消融/重试最多99。唯一计数为统一方案及 [EXPERIMENT_BUDGET.json](EXPERIMENT_BUDGET.json)，没有第二ICC队列。当前没有GPU环境或新模型运行证据。
+五臂主视频55槽位保持；校准66/132 NFE单列。完整视频基本68、条件全开74，与校准共享3次技术重试（全用于视频时77）。唯一计数为统一方案及 [EXPERIMENT_BUDGET.json](EXPERIMENT_BUDGET.json)，没有第二ICC队列。当前没有GPU环境或新模型运行证据。
 
 四状态约89.4GiB的单专家BF16缓存需真实验证host offload/staging容量和生命周期；硬件、RSS、pinned、GPU allocated/reserved、传输及工作区以实际测量记。资源不够报告未完成，不能以2R替代四态主身份。参数分解、统计和模块回放也单独记录耗时，不能因D4次数少而把离线成本隐去。
 
@@ -158,6 +160,6 @@ CAL22只做相同配方的预算干预；SVD复用同一因子作无校准负对
 
 每个因子清单记录：固定代码与producer、家族/rank、四边界scale来源、min-max/sqrt/ratio/epsilon、SVD driver/full_matrices/TF32、因子拆分与cast边界、checkpoint/expert/layer、CAL数据角色和哈希。每次运行绑定真实输入/初噪、调度、缓存状态、gate、退出码及产物。代码里存在函数、规范写了1000，都不等于运行用过。
 
-原A/BW/BWS保持完成：普通SVD512双残差与Global-P64结果继续按实际身份引用。旧CA/CD或author-style视频缺producer时标未核，不覆盖原FFN模块与Wan严格端口的待办。相同身份的Dense、Q1、统计和neutral逐条复用；更改CAL来源后不能借用旧参数视频充当新arm。
+原A/BW/BWS保持完成：普通SVD512双残差与Global-P64结果继续按实际身份引用。旧CA/CD或author-style视频缺producer时标未核，不覆盖原FFN模块与Wan严格端口的待办。相同身份的Dense、Q1、统计和neutral逐条复用；更改CAL来源后不能借用旧参数视频充当新arm。ICC若绑定新真实视频而Q1保留旧图文CAL11，须披露各自校准协议/数据，不能称逐源配平或将差异独立归因算法。
 
 本轮局部家族选择与主视频同源，结论是开发对照。完整方法、校准分布、精度、全模型质量与实际时延分别按已完成证据下判断；未选家族、未跑适配和原论文整系统保持相应未测状态。

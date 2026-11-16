@@ -1,0 +1,169 @@
+{
+  "schema": "ffnds.icc-author-calibration.v1",
+  "base_commit": "0e29eb7affddc88138337294ffdb5ccc7893f86e",
+  "status": "METHOD_SPECIFIED_REAL_CLEAN_VIDEO_BINDING_PENDING_NO_MODEL_RUN",
+  "author_reference": {
+    "repository": "ccccczzy/icc",
+    "commit": "dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4",
+    "entry": "DiT/func/func_decomp.py",
+    "public_variant": "DiT mag/delta_mag; no public PixArt calibration branch located in this pin"
+  },
+  "dataset": {
+    "main_name": "ICC_CLEAN_CAL11",
+    "main_clean_source_count": 11,
+    "extension_name": "ICC_CLEAN_CAL_EXT11",
+    "optional_added_sources": 11,
+    "maximum_clean_sources": 22,
+    "bound_main_samples": [],
+    "bound_extension_samples": [],
+    "required_source_kind": "real_clean_video_or_latent_encoded_from_bound_real_video",
+    "current_vbench_image_ids_are_clean_video_bindings": false,
+    "pseudo_clean_generated_data_default": false,
+    "static_repeat_default": false,
+    "dev_and_near_duplicate_exclusion_required": true,
+    "optional_extension_decision": "One optional source-budget diagnostic; decision frozen before main-video outputs. E5 video trigger is evaluated only after CAL22 local scores exist."
+  },
+  "preprocessing": {
+    "frames": 81,
+    "height": 464,
+    "width": 832,
+    "range": [
+      -1,
+      1
+    ],
+    "random_horizontal_flip_p": 0.5,
+    "video_firstframe_text_transform": "coherent; directional text must describe the transformed clip",
+    "latent_mode": "wan_native_normalized_mean",
+    "latent_shape_without_batch": [
+      16,
+      21,
+      58,
+      104
+    ],
+    "dit_0_18215_scale": false,
+    "native_i2v_condition_kept": true,
+    "noise_target": "16-channel clean target latent only; not I2V y or mask"
+  },
+  "sampling": {
+    "calibration_seed": 42,
+    "batch_size": 1,
+    "epochs": 1,
+    "drop_last": false,
+    "rng": "frozen per source/expert/family; preserve all CAL11 draws on extension",
+    "grid": "actual target D4 scheduler values",
+    "nominal_denoising_step_list": [
+      1000,
+      750,
+      500,
+      250
+    ],
+    "sample_shift": 5.0,
+    "actual_timestep_math": [
+      1000,
+      937.5,
+      833.3333333333334,
+      625
+    ],
+    "sigma_math": [
+      1,
+      0.9375,
+      0.8333333333333334,
+      0.625
+    ],
+    "persist_runtime_float_arrays": true,
+    "experts": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "ca_indices": {
+      "high": [
+        0,
+        1
+      ],
+      "low": [
+        2,
+        3
+      ]
+    },
+    "ca_time_distribution": "uniform within each expert; fresh forward-noised real clean latent",
+    "cd_pairs": {
+      "high": [
+        [
+          0,
+          1
+        ]
+      ],
+      "low": [
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    "cd_second_input": "actual output of first native scheduler.step_post; no reset or second add_noise",
+    "calibration_model": "same frozen target BF16 checkpoint, dense FFN, eval mode",
+    "external_teacher_default": false
+  },
+  "conditioning": {
+    "text_dropout_probability": 0.1,
+    "null_condition": "actual native tokenizer/T5 encoding of empty string",
+    "default_negative_prompt_substitution_allowed": false,
+    "zero_embedding_allowed": false,
+    "dropout_same_within_cd_pair": true,
+    "i2v_image_and_mask_dropped": false,
+    "enable_cfg": false,
+    "forwards_per_condition_evaluation": 1
+  },
+  "statistics": {
+    "boundaries": [
+      "u_pre_w1",
+      "z_pre_gelu",
+      "h_post_gelu",
+      "y_pre_gate"
+    ],
+    "all_valid_tokens": 31668,
+    "token_subsampling_for_main_statistics": false,
+    "ca_signal": "abs(activation)",
+    "cd_signal": "abs(second_activation-first_activation) at matching token coordinates",
+    "order": [
+      "token_mean",
+      "per_sample_channel_minmax_with_eps_1e-6",
+      "equal_source_mean",
+      "sqrt",
+      "left_and_right_max_ratio_1000",
+      "scale_eps_1e-6_once",
+      "weighted_svd_and_inverse_scaling"
+    ],
+    "main_accumulation_dtype": "float32 from native BF16 values; compare author functions on the same values",
+    "online_reference_cache": "four_state"
+  },
+  "reuse": {
+    "native_rollout_stats_as_author_calibration": false,
+    "ca_cd_first_forward": "only identical actual operands, time, noise, condition/dropout, dtype and model; never change CA sampling for reuse",
+    "ca_at_later_time_can_use_cd_second_forward": false,
+    "existing_q1_protocol_changed": false,
+    "matched_icc_q1_calibration_source_established": false,
+    "rollout_derived_ca_cd_factors": false,
+    "ordinary_svd": "Reusable only with identical weight/numeric identity and sufficient stored rank; calibration-independent."
+  },
+  "cost": {
+    "ca_calls_per_source_per_expert": 1,
+    "cd_calls_per_source_per_expert": 2,
+    "experts_per_source": 2,
+    "main_calibration_forward_cap": 66,
+    "extended_calibration_forward_cap": 132,
+    "complete_calibration_generation_cap": 0,
+    "nfe_excludes": [
+      "vae_encoding",
+      "text_encoding",
+      "module_conformance",
+      "svd",
+      "cache_transfers"
+    ]
+  },
+  "runtime_binding_status": "UNVERIFIED; pinned source references are not proof of installed execution code",
+  "new_model_runs": 0,
+  "main_icc_selection_requires_all_three_families": true
+}

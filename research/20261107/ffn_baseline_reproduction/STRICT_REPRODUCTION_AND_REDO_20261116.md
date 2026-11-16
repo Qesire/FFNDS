@@ -1,25 +1,16 @@
 # ICC / Chipmunk：先完整复现，再重做 Wan 比较
 
-2026-11-16（北京时间）。依据 FFNDS `9defbbaa9112eee954c24ae92c91831fd2dd69c4`、本轮用户最新要求及再次核对的作者默认分支。当前为**源码审计、接口检查与重做规格**；本轮模型/GPU运行数为0。详细上游审计、设计复审与输入提案在 [本轮材料](strict_reproduction_20261116/) 中。
+2026-11-16（北京时间）。依据 FFNDS `0e29eb7affddc88138337294ffdb5ccc7893f86e`、本轮用户最新要求及再次核对的作者默认分支。当前为**源码审计、接口检查与重做规格**；本轮模型/GPU运行数为0。详细上游审计、设计复审与输入提案在 [本轮材料](strict_reproduction_20261116/) 中。
 
-## 0. 本次细化：建立代码引述，并缩减生成
+## 0. 当前修正：ICC遵循作者校准方法，数量沿11/22量级
 
-当前执行设计以 [精简实验总账](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md) 为唯一入口。**撤回上一版897次D4提案；本轮五臂×DEV11×一个seed，主视频最多55条。校准、neutral、适配消融和重试合计最多99次D4尝试，匹配资产逐条抵扣。** 这是开发对照；不再另开EVAL22、第二个seed、新O40、原论文整系统生成或60次计时复跑。
+上一版用native-D4生成轨迹端点作为ICC主校准，改变了作者的校准状态构造，现已撤回。**主配方恢复真实clean样本编码→随机时间前向加噪→CA一次Dense调用/CD真实相邻两次Dense调用。** 作者定义、必要Wan接口和可核代码见[ICC作者校准合同](strict_reproduction_20261116/ICC_AUTHOR_CALIBRATION.md)；机器参数见[配方](strict_reproduction_20261116/ICC_CALIBRATION_RECIPE.json)。
 
-完整性由作者模块与实际端口的验收建立：ICC四状态、SVD/CA/CD及作者Chipmunk的proxy、selector、kernel、所有状态分支均保留。三种ICC分解按固定局部准则选择一个r1408四状态点进入视频表；未进入的家族只有模块/局部证据，不声称其终端视频质量已测。
+样本量沿现有规模：主11个真实视频source，可选扩至22。每源两专家×(CA1+CD2)，最多66/132次校准模型调用；不生成完整CAL轨迹。五臂主视频55槽位保持；完整视频合计基本68、条件全开74，视频与校准共用3次技术重试（视频最高77），原99次D4总账失效。两类成本在[唯一实验设计](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)和[预算](strict_reproduction_20261116/EXPERIMENT_BUDGET.json)分别登记。
 
-**纠正256的含义：** 作者`num_samples=256`数的是图像数据项。CA每批一次随机时间点模型调用，CD每批两次相邻时间点调用；默认batch16、epoch1分别为16/32次批模型调用，不是256条50步轨迹。原真实图像加噪分布与Wan原生D4轨迹仍有迁移差别，CAL11→22只能检查后者的预算敏感性。主CAL11固定，取消强制CAL256，不能用大视频token数替代来源广度论证。
+数据核查发现现有CAL11/CAL_EXT11仅为图片＋prompt，VB_DENSE22为11 CAL＋11 DEV的FFN面板；尚无11条真实clean视频/x0绑定。数量沿用不等于这些图片已成为视频。详见[资产审计](strict_reproduction_20261116/ICC_CALIBRATION_ASSET_AUDIT.md)。旧rollout统计保持历史身份，不能替代作者式CA/CD采集。
 
-代码证据按“主张→固定commit/函数/行号→短引述→最小验收”整理：
-
-| 对象 | 可核验入口 |
-| --- | --- |
-| ICC四状态、三家族、统计生产器、256语义、历史2R路径 | [ICC_CODE_CITATIONS.md](strict_reproduction_20261116/ICC_CODE_CITATIONS.md) |
-| 官方Wan入口、作者MLP全机制、必要接口、Global-P64实际调用 | [CHIP_CODE_CITATIONS.md](strict_reproduction_20261116/CHIP_CODE_CITATIONS.md) |
-| 机器可读来源及短摘录 | [CODE_CITATIONS.json](strict_reproduction_20261116/CODE_CITATIONS.json) |
-| 原始字节、行号、摘录与链接核验 | [verify_code_citations.py](strict_reproduction_20261116/verify_code_citations.py) · [CITATION_VERIFICATION.json](strict_reproduction_20261116/CITATION_VERIFICATION.json) |
-
-引述核验只证明代码来源与摘录准确，不把静态代码存在写成实际数值验收通过。本轮新增模型运行仍为0。
+固定代码引述扩展至45项主张、91处短摘录、42个文件，覆盖ICC原方法、Chipmunk及Wan校准接口：[ICC引述](strict_reproduction_20261116/ICC_CODE_CITATIONS.md) · [Chip引述](strict_reproduction_20261116/CHIP_CODE_CITATIONS.md) · [机器索引](strict_reproduction_20261116/CODE_CITATIONS.json) · [核验](strict_reproduction_20261116/CITATION_VERIFICATION.json)。本轮模型/GPU新增运行0。
 
 ## 1. 本轮更改的判断
 
@@ -127,11 +118,13 @@ ICC直接使用原SpMlp、统计与分解函数建立oracle；核四状态、bia
 
 必要适配分别检查：真实pre-W1/pre-gate接线、当前gate一次、request/expert/local-layer隔离、voxel往返、尾52、转置权重/CPU缓存生命周期。可证明等价的搬运用同输入数值对照；支持集或舍入改变的变体先局部评价。主Chip保留作者舍入与dense-tail，不为了省核验替换为本仓packed路径。
 
-### 6.2 同一批捕获供校准与局部诊断复用
+### 6.2 校准保留作者生成状态的过程
 
-主参数统一CAL11。CAL_EXT11只用于CAL11→22统计/局部预算消融。仅在旧资产缺少充分统计时补采，最多22条native D4、不做输出VAE解码/视频编码；每次同时收集CA/CD四边界全有效token统计、来源权重及Q1所需P512、row IDs、当前gate。P512不能补造缺失的全token统计。
+主ICC_CLEAN_CAL11要求真实clean clip或其正确Wan编码latent。CA在每expert的两个部署时间中均匀抽一次，从clean latent独立前向加噪；CD分别构造H 0→1、L 2→3，第二输入必须来自第一次Dense预测执行原生scheduler.step_post。低专家可以直接从clean加噪到其起点，无须先跑高专家轨迹。两次独立加噪不构成CD。
 
-CA主定义在每source/expert的两个合法端点中按固定输入哈希取一个；同次捕获可计算双端点等权版本作敏感性检查。CD取high0→1、low2→3，绝不跨专家相减。两者都保存统计归约、min-max、sqrt、max_ratio=1000及分解数值合同。它们是明确的Wan目标分布适配，不声称与原图像q_sample校准分布等价。
+主Wan必要适配为native VAE normalized-mean、flow加噪/原生一步、实际D4时间grid及专家隔离。保留p=.1条件dropout，映射为真正空文本T5编码，保留I2V首帧/mask；CD内条件一致。全token u/z/h/y的统计、min-max、sqrt、ratio1000和分解顺序不变。
+
+每源最多6次模型调用；主11源66，可选22源累计132，VAE/文本编码及分解另计。batch1/epoch1，扩展不重采前11；旧rollout统计不混入。Q1保留原CAL11参数和协议，当前ICC真实视频来源未配平，主表按各方法pipeline开发比较解释。
 
 ### 6.3 固定一个合理预算的ICC进入完整视频
 
@@ -148,22 +141,23 @@ CA主定义在每source/expert的两个合法端点中按固定输入哈希取�
 
 SVD/CA/CD在既有DEV11、high/low×layer{4,19,34}、相同P512及当前gate上比较F64门后绝对MSE：层→专家→来源等权；严格同分按SVD→CA→CD固定顺序。选中的家族再构造全80站点因子并冻结，随后才开始主视频。此规则只有六站点开发证据，不保证选出全质量最优ICC。其他家族的分数完整保存。
 
-### 6.4 主视频55条，全部D4尝试上限99
+### 6.4 主视频55条，校准单列NFE
 
-| 项目 | 新D4尝试上限 | 唯一目的 |
-| --- | ---: | --- |
-| CAL11/22缺项补采 | 22 | 得到四边界完整统计；不做输出VAE解码/视频编码、同捕获多用 |
-| Dense、Q1、选定ICC4S-r1408、作者Chip、Global-P64 | 55 | 5臂×DEV11×seed42的自由生成开发对照 |
-| 两源neutral额外路径 | 10 | plain、hook-bypass及各adapter的Dense语义；主表两条hook-Dense已计入55 |
-| ICC同因子4S→2R | 3 | DEV3完整闭环；四状态父输出复用主表 |
-| 条件CAL22闭环 | 3 | 仅当局部预算变化足以改变判断；固定原家族/rank/4S |
-| 条件适配闭环 | 3 | 仅一个已定位的非等价适配；未评价分支保持未定 |
-| 技术重试 | 3 | 已定位可修复失败；不能用于换seed/候选 |
-| **合计** | **99** | **基本90，两个条件分支6，重试3；不是必须跑满** |
+| 项目 | 当前上限 |
+|---|---:|
+| ICC作者式主校准：11真实source×两expert×(CA1+CD2) | 66次去噪器调用 |
+| 可选扩至22来源的累计校准 | 132次去噪器调用 |
+| 五臂DEV11×seed42主视频 | 55条D4 |
+| 额外neutral | 10条D4 |
+| 同因子4S→2R | 3条D4 |
+| 条件CAL22与单项适配 | 各最多3条D4 |
+| 技术重试 | 视频/校准合计最多3次 |
 
-方法/参数/输入完整匹配的旧视频、统计和neutral逐条抵扣；主Dense11及两个必需hook路径全部可复用才减11，Q1/Global-P64的neutral各完全符合才能各减2。缺少绑定前不报预计实跑数量。所有失败尝试计入总账，取消额度不改派新候选。
+完整视频基本68，条件全开74；若重试全用于视频则77。校准重试单位为CA单前向或CD两前向pair，不能与视频各分配3次。全部条件全开时模型调用保守总上界440（不含模块/编码/SVD/搬运），不能称等GPU时间。原22条完整CAL D4需求已删除。
 
-没有EVAL22或第二个seed；DEV既用于局部选择又用于完整视频，因此本轮结论限定为开发结果。独立单位是source cluster，不是token、帧或层。保留逐源配对质量、连续运动和来源删除敏感性。原始多步模型与蒸馏因果问题继续使用BW/BWS的现有证据，本轮不新增O40；未充分的状态/数据问题如实留待下一轮。
+离线分解主CAL11最多184个Wan大矩阵；可选CAL22局部诊断增加24至208，条件闭环补齐全模型最多再加148至356。rank前缀共用分解，统计诊断不自动增加因子网格。
+
+方法、输入与路径完全匹配的旧产物逐条抵扣。DEV既用于局部家族选择又用于完整视频，因此是开发证据。未匹配ICC/Q1校准来源时，不把pipeline差异独立归因于算法。现有BW/BWS继续按原身份解释；不新增O40、EVAL22、额外seed或整模型计时扫描。
 
 ## 7. 速度与资源必须按实际可执行路径比较
 

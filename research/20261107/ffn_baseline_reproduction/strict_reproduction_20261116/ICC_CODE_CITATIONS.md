@@ -195,24 +195,12 @@
 
 **准确的复现标准是：原法四状态算子、CA/CD估计公式、四边界、配对、因子与执行路径不被偷换；样本预算及目标数据分布必须显式披露并检验敏感性。** 若要复现原ImageNet实验表，256及其原输入构造应照原设定；若要把同一方法应用到Wan，不能把256张图机械升级为256个完整视频前向来定义“忠实”。
 
-## 5. Wan校准改变的还包括输入分布
+## 5. 当前校准修正：遵循作者状态构造
 
-原作者的校准状态来自“真实干净图像 → VAE latent → 随机时刻前向加噪”；CD再执行一个真实相邻去噪续步。它没有先从纯噪声生成完整轨迹。
+主校准改为真实clean视频→原生Wan编码→随机时刻前向加噪。CA单次Dense调用；CD第二输入来自第一次Dense预测执行的真实native step。旧D4 rollout两端退出主参考，保留历史身份。数量沿11/22来源，分别至多66/132模型调用，不生成完整CAL轨迹。
 
-Wan I2V-D4现有资产则来自“输入图像/文本条件 → 原生四步Dense生成轨迹 → high的0/1与low的2/3端点”。两者在干净数据来源、状态分布、时间支持、配对间隔、条件机制和模型上都不同。当前I2V的一张条件首帧并不能充当一个真实干净视频latent，不能为了形式像原文而对它做不合法的视频前向加噪。
+原生Wan VAE normalized mean、flow加噪/更新、D4合法时间与专家域、class-null到真实空文本T5的p=.1 dropout均有明确映射，见[作者式校准合同](ICC_AUTHOR_CALIBRATION.md)和[参数](ICC_CALIBRATION_RECIPE.json)。新Wan接口引述合入[CODE_CITATIONS.json](CODE_CITATIONS.json)的ICC-CAL前缀；旧作者引述仍有效。
 
-因此，使用Wan实际Dense轨迹校准是可解释的目标推理分布适配，应命名为 `native-D4-trajectory calibration` 并记录真实timestep/expert。它不是仅仅把256改成22；也不能宣称与作者图像q_sample分布等价。原作者类别dropout的条件路径亦不能直接照搬成Wan的文本/CFG设置。
+当前CAL11/CAL_EXT11只是图文名单，VB_DENSE22为11 CAL+11 DEV的U/Y/gate，不是22个clean校准视频。主11条真实clip/x0尚未绑定，见[资产审计](ICC_CALIBRATION_ASSET_AUDIT.md)。不能由旧统计形状一致推断采样分布一致，也不通过只保留SVD跳过CA/CD。
 
-## 6. 与唯一精简方案的对应
-
-当前主校准固定 **CAL11**；CAL_EXT11构成CAL22预算诊断，不能在看过视频后替换主参数。作者三家族都完整实现，主候选固定r1408；r512只作历史同输入参照。执行和上限只服从 [CONTROLLED_REPRODUCTION_PLAN.md](CONTROLLED_REPRODUCTION_PLAN.md)，本引述页不另建队列。
-
-最多22条native D4只在充分统计缺失时补采；保留原生I2V条件编码，省去输出VAE解码和视频编码。一次捕获同时保存CA两个端点与CD合法配对的四边界统计；完整统计按来源保存，归一化后、sqrt前向量足以重加权。512行旧面板不能冒充全有效token统计。
-
-CA主端点按每source/expert固定输入哈希选择一个；同一捕获的双端点等权、P512减采样及统计精度差异先比较向量。CD每expert只有一个合法对；跨expert同时换权重，反向pair又会被绝对值消去，均不能伪造新的时间消融。
-
-CAL11→22的CA/CD六站点因子及局部风险属于统一分解预算；统计精度/端点/P512不再各自展开三家族分解网格。局部选择后只给选中家族构造全80处；未选家族的完整视频仍未测。
-
-同因子4S→2R在DEV3做闭环；CAL22及一个非等价适配只按预登记条件触发，各至多DEV3三条。Q1主参数固定CAL11，不同时更换。若22来源仍使结论不稳定，就记录校准预算未解决；没有自动CAL64/256扩容。
-
-小校准不使正确算子变成错误实现，但限制经验结论范围：不能称原图像校准分布已等价、11/22来源已充分、未选择家族的终端质量已测，也不能追溯认证旧CD producer。机器可读引述见 [CODE_CITATIONS.json](CODE_CITATIONS.json)（ICC前缀）；[核验记录](CITATION_VERIFICATION.json)只核来源、摘录和链接。
+主55视频与原四状态/三家族模块要求保持，执行数量只依[统一方案](CONTROLLED_REPRODUCTION_PLAN.md)。Q1现有参数保持其旧CAL11身份；ICC新视频来源未配平时，结果为各pipeline在同DEV上的比较，不独立识别算法因果。

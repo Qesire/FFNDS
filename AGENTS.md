@@ -1,4 +1,4 @@
-> **2026-11-16 当前用户要求：[代码引述与精简复现](research/20261107/ffn_baseline_reproduction/STRICT_REPRODUCTION_AND_REDO_20261116.md)。** ICC四状态/SVD-CA-CD与作者Chip完整机制必须核验；以固定commit/函数/行号/短摘录绑定到实际执行。主CAL11，CAL22仅诊断；三家族固定r1408按六站点DEV局部规则选一家。五臂×DEV11×seed42最多55主视频，含校准/neutral/消融/重试全部D4尝试上限99；撤回旧897提案，不自动新增EVAL22、CAL64/256、O40、双seed或整系统前置。旧A/BW/BWS完成状态不变；当前模型/GPU新增运行0，真实执行沿现有有限scope流程，不增加审批层级。
+> **2026-11-16 当前ICC修正：[遵循作者校准方法](research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/ICC_AUTHOR_CALIBRATION.md)。** 主11真实视频source（可选22），clean编码→随机时间前向加噪→CA一次/CD真实相邻两次，分专家统计；至多66/132次模型调用，无完整CAL轨迹。撤回native-D4端点校准与旧99条D4总账。四状态及SVD/CA/CD、Chip完整机制仍须核验；主55视频保持，完整视频合计基本68/条件74，视频与校准共享3次技术重试。当前CAL图文尚无clean视频/x0绑定；不能用旧rollout、生成末端或静止复制替代，也不能删除CA/CD。既有Q1和A/BW/BWS身份保留；新模型/GPU运行0，实际执行沿已有有限scope流程。
 
 > **G20 当前入口：[结果与剩余工作](reports/20261114/g20_two_track_core/README.md) · [资产与队列](research/20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断台账](research/20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。** 两条主线固定为 A：设计有用的新算子；B：解释 Q1r2 与实际 ICC/Chipmunk 的差异。当前完成项、结论、资源记账和剩余动作在这些现有入口维护；下文旧日期的计划与进度按历史身份阅读。
 

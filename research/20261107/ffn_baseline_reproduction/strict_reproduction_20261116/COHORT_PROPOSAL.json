@@ -1,5 +1,5 @@
 {
-  "status": "DESIGN_ONLY_V3_CAL11_MAIN_CAL22_DIAGNOSTIC_DEV11_NOT_CONFIRMATORY",
+  "status": "DESIGN_ONLY_V4_ICC_AUTHOR_CALIBRATION_REAL_VIDEO_BINDING_PENDING",
   "based_on_cohort": "G20_VBENCH_RESTART_V4_20261113",
   "historically_unexposed": false,
   "in_cycle_fit_selection_heldout": false,
@@ -308,8 +308,8 @@
   ],
   "boundary": "Metadata proposal only. All same-image or verified near-duplicate cluster prompts/crops/seeds share one role; also exclude all fit ancestors. Cluster dedup and actual input bytes are pending. Any input-only replacement uses the frozen hash order and is versioned before outputs; no output-based replacement.",
   "history_exposure_status": "DEV11_PREVIOUSLY_OBSERVED_DEVELOPMENT; exact fit ancestry and input clusters still require binding",
-  "budget_note": "Main 5 x DEV11 x seed42 =55 slots; all D4 attempts <=99. CAL22 only diagnostic. No EVAL22 or new second seed.",
-  "main_calibration": "CAL11",
+  "budget_note": "ICC 11 real clean sources <=66 model forwards, optional22 <=132; no CAL full trajectories. Main5xDEV11=55 video slots; video basic68/conditional74, shared retries3.",
+  "main_calibration": "ICC_CLEAN_CAL11_AUTHOR_RECIPE; existing CAL11 rows retain Q1/image role",
   "main_seed": 42,
   "DEV3_record_ids": [
     "vbi_1013",
@@ -320,10 +320,18 @@
     "vbi_1013",
     "vbi_0800"
   ],
-  "ca_endpoint_rule": "lowest bit of SHA256(\"FFNDS_ICC_CA_ENDPOINT_V1|\"+source_id+\"|\"+expert), 0=anchor/1=hit",
   "retired_metadata": {
     "commit": "9defbbaa9112eee954c24ae92c91831fd2dd69c4",
     "path": "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/COHORT_PROPOSAL.json",
     "status": "Historical CAL64/CAL256 and EVAL22 lists retained only in this immutable commit; no active execution allocation."
+  },
+  "ICC_AUTHOR_CALIBRATION": {
+    "recipe": "ICC_CALIBRATION_RECIPE.json",
+    "main_source_count": 11,
+    "optional_extension_count": 11,
+    "bound_real_video_records": [],
+    "status": "MISSING_REAL_CLEAN_CLIP_OR_BOUND_X0",
+    "old_CAL11_CAL_EXT11_are": "VBench condition images, not verified clean clips",
+    "selection": "Trace matching real clips if available; otherwise bind separate real-video CAL sources at the same size, exclude DEV/near-duplicates, disclose Q1 source mismatch."
   }
 }
