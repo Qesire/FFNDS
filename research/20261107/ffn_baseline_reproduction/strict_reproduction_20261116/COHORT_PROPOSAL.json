@@ -308,7 +308,7 @@
   ],
   "boundary": "Metadata proposal only. All same-image or verified near-duplicate cluster prompts/crops/seeds share one role; also exclude all fit ancestors. Cluster dedup and actual input bytes are pending. Any input-only replacement uses the frozen hash order and is versioned before outputs; no output-based replacement.",
   "history_exposure_status": "DEV11_PREVIOUSLY_OBSERVED_DEVELOPMENT; exact fit ancestry and input clusters still require binding",
-  "budget_note": "ICC 11 real clean sources <=66 model forwards, optional22 <=132; no CAL full trajectories. Main5xDEV11=55 video slots; video basic68/conditional74, shared retries3.",
+  "budget_note": "ICC author main11 <=66 forwards + mandatory CAL3 diagnostics<=30; optional22 author132 + same diagnostics30. Main5xDEV11=55 videos; basic68/conditional74, shared retry3, joint video/calibration bound470.",
   "main_calibration": "ICC_CLEAN_CAL11_AUTHOR_RECIPE; existing CAL11 rows retain Q1/image role",
   "main_seed": 42,
   "DEV3_record_ids": [
@@ -332,6 +332,38 @@
     "bound_real_video_records": [],
     "status": "MISSING_REAL_CLEAN_CLIP_OR_BOUND_X0",
     "old_CAL11_CAL_EXT11_are": "VBench condition images, not verified clean clips",
-    "selection": "Trace matching real clips if available; otherwise bind separate real-video CAL sources at the same size, exclude DEV/near-duplicates, disclose Q1 source mismatch."
+    "selection": "Trace matching real clips if available; otherwise bind separate real-video CAL sources at the same size, exclude DEV/near-duplicates, disclose Q1 source mismatch.",
+    "diagnostic_source_count": 3,
+    "diagnostic_source_selection": "First 3 distinct bound main source clusters in ascending sha256(\"icc-clean-diag-v1|\"+source_cluster_id), frozen before results.",
+    "bound_diagnostic_source_ids": [],
+    "optional_extension_default_enabled": false
+  },
+  "base_commit": "5a5b84a04f71aa1fa6c426febf614a1a4c1d2492",
+  "local_evaluation_binding": {
+    "sites": {
+      "experts": [
+        "high",
+        "low"
+      ],
+      "layers": [
+        4,
+        19,
+        34
+      ]
+    },
+    "evaluation_rows": 512,
+    "canonical_capture_sources": [
+      "vbi_1013",
+      "vbi_0800"
+    ],
+    "rule": "For 2 neutral sources use P512 input rows and current gate from new full-U capture; other 9 use compatible old bank. Rebuild canonical P512 anchor/targets with own-W native_ffn; keep captured full-M target separately. Freeze one input manifest before scoring; reuse old 2-source cells only after actual identity equality.",
+    "mechanism_comparison_sources": [
+      "vbi_1013",
+      "vbi_0800"
+    ],
+    "icc_selection_sources": "DEV11",
+    "avoid_mixed_source_mean_ranking": true,
+    "canonical_anchor_target": "own-W BF16 native_ffn on exactly P512 rows; 132 shared endpoint builds, not captured full-M Y",
+    "full_m_panel_targets": "retain separately; shared 2-source numeric floor and supplementary reductions only"
   }
 }

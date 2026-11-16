@@ -1,3 +1,5 @@
+> **2026-11-16 接手入口：[完整下一步实验方案](../20261107/ffn_baseline_reproduction/strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)。** 实验顺序、数据角色、作者式ICC CAL11与CAL3必要适配、两种Chip、局部格/视频/分解预算已统一。先读该方案阶段0–5及相邻机器预算；旧A/BW/BWS保留已完成身份，旧Next不自动派发。当前新模型/GPU运行0，真实输入与执行绑定仍需落实。
+
 > **G20 当前入口：[结果与剩余工作](../../reports/20261114/g20_two_track_core/README.md) · [资产与队列](../20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断台账](../20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。** 两条主线固定为 A：设计有用的新算子；B：解释 Q1r2 与实际 ICC/Chipmunk 的差异。当前完成项、结论、资源记账和剩余动作在这些现有入口维护；下文旧日期的计划与进度按历史身份阅读。
 
 > **实现合同：[rev5 手册](../20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)与[固定规格](../20261114/G20_TWO_CORE_EXECUTION_SPEC_20261114.json)。** 先依据当前资产状态复用已产生的输入、参数和结果；旧手册中的计划动作不自动成为新待办。实际执行范围以 [ACTIVE](../ACTIVE_RESEARCH.json) 为准，结果归档与解释不派生新的采集、重放或审批层级。

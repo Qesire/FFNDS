@@ -1,6 +1,6 @@
 {
   "schema": "G20_VBENCH_ASSETS_AND_QUEUE_V4",
-  "revision": 8,
+  "revision": 9,
   "id": "G20_VBENCH_RESTART_V4_20261113",
   "date": "2026-11-15",
   "base_commit": "6dc075ac4e962803636d522c5620f7b556b93423",
@@ -2692,19 +2692,18 @@
   "strict_reproduction_20261116": {
     "spec": "research/20261107/ffn_baseline_reproduction/STRICT_REPRODUCTION_AND_REDO_20261116.md",
     "design": "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md",
-    "status": "ICC_AUTHOR_CALIBRATION_CORRECTED_DESIGN_NO_NEW_MODEL_RUN",
+    "status": "INTEGRATED_NEXT_EXPERIMENT_DESIGN_NO_NEW_MODEL_RUN",
     "new_model_runs": 0,
     "execution_scope_id": null,
     "runnable": false,
     "blockers": [
-      "Original GPU execution environment is not connected in this session",
-      "11 real clean videos or latents encoded from bound real videos are not yet verified; image lists and FFN panels are insufficient",
-      "Author-style collector, complete three-family reference and Wan numerical conformance remain unexecuted",
-      "Actual input/cluster, checkpoint, scheduler, resource and executable-byte bindings remain required"
+      "11 real clean clips/x0 and CAL3 raw posterior access are not yet bound",
+      "Complete author modules, collector and Wan adapters lack new numeric execution evidence",
+      "Actual producer/config/checkpoint/inputs/resources must be bound before the existing execution workflow"
     ],
     "historical_completed_scopes_reopened": false,
-    "based_on_commit": "0e29eb7affddc88138337294ffdb5ccc7893f86e",
-    "revision": 3,
+    "based_on_commit": "5a5b84a04f71aa1fa6c426febf614a1a4c1d2492",
+    "revision": 4,
     "code_citations": "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/CODE_CITATIONS.json",
     "citation_verification": "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/CITATION_VERIFICATION.json",
     "budget": "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/EXPERIMENT_BUDGET.json",
@@ -2718,14 +2717,28 @@
     "icc_calibration_asset_audit": "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/ICC_CALIBRATION_ASSET_AUDIT.md",
     "base_d4_attempt_cap": 68,
     "conditional_d4_cap_before_retries": 74,
-    "total_d4_cap_note": "77 only when all 3 shared retries go to videos; calibration NFE is separate.",
+    "total_d4_cap_note": "77 only if all 3 shared retries are video; calibration/diagnostics counted separately",
     "main_icc_calibration_model_forward_cap": 66,
     "extended_icc_calibration_model_forward_cap": 132,
     "shared_technical_retry_cap": 3,
     "calibration_retry_model_forward_cap": 2,
-    "joint_model_forward_bound": 440,
+    "joint_model_forward_bound": 470,
     "clean_video_input_status": "MISSING_REAL_CLEAN_CLIP_OR_BOUND_X0",
     "matched_icc_q1_calibration_source_established": false,
-    "superseded_0e29_d4_cap": 99
+    "superseded_0e29_d4_cap": 99,
+    "mandatory_cal3_adaptation_forward_cap": 30,
+    "main_calibration_plus_diagnostic_forward_cap": 96,
+    "extended_calibration_plus_diagnostic_forward_cap": 162,
+    "icc_local_prediction_pair_cap": 924,
+    "two_source_true_m_capture_additional_video_cap": 0,
+    "next_preparation": [
+      "bind real CAL11 and diagnostic CAL3",
+      "implement complete author reference and Wan collector/adapter",
+      "bind 2 main Dense slots to neutral and full-U capture",
+      "collect author calibration and paired diagnostics",
+      "complete bounded local selection and all80 factors",
+      "complete fixed main videos and ablations"
+    ],
+    "cal3_posterior_input_status": "RAW_MU_LOGVAR_OR_REAL_CLIP_NOT_BOUND"
   }
 }

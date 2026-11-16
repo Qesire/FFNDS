@@ -1,151 +1,108 @@
-# ICC 作者式校准修订：独立审查
+# 下一步整合实验方案：独立最终审阅
 
-日期：2026-11-16。审阅者：`/root/strict_repro_review`。
+日期：2026-11-16。审阅基线为 main `5a5b84a04f71aa1fa6c426febf614a1a4c1d2492`。当前对象是该基线之后的完整下一步方案，不沿用早期 99/897 条方案的活动额度。
 
-状态：**ACCEPTABLE_AS_DESIGN_DOCUMENT / NOT_EXECUTION_ACCEPTANCE / NO_MODEL_RUN**。本文件审阅本轮真实 clean clip 校准修订，不把此前 0e29 提交中的 99 条 D4 方案当成本轮新提案。最终回核于2026-11-16 05:35 UTC完成：本轮已发现的配方、数据身份、触发顺序与预算问题均已在正式规格中处理，可以作为设计修订发布；不能据此宣称校准已经完成或运行范围已验收。
+## 1. 结论与审阅范围
 
-## 1. 源码层面的判断
+**结论：当前版本可作为有限、可辨识且预算明确的下一步实验设计发布。** 主链条已经统一为作者模块与 Wan 接口验收、真实数据作者式 ICC 校准、固定输入局部比较、冻结主方法、五臂自由视频以及有限消融。它能够回答在给定 Wan 部署条件下，不同完整 FFN 路径表现在哪里不同，并用局部误差和适配诊断约束解释。
 
-**新配方恢复了作者 CA/CD 的关键采集结构，可以作为明确记录 Wan 适配的主参考。** 它必须从真实干净内容编码，再随机选择合法时间并前向加噪。CA 在加噪点执行一次 Dense 模型调用；CD 从加噪起点调用模型，使用其真实预测执行一次原生调度器更新，再在所得下一状态调用同一专家。旧 D4 rollout 的两个端点不能替代该过程。
+该结论是设计及静态一致性审阅，不是模型数值验收、已完成复现、资源可用性证明或执行 scope 批准。本轮新增模型/GPU运行 **0**；真实输入、实现产物及资源仍待绑定。所有“通过”均指下述静态检查，不能转写为作者模块、Triton 核、Wan neutral 或完整视频已经通过。
 
-这一结论不表示输入视频已经存在、采集器已经实现或模型已经运行。当前资产审计只能证明旧 CAL11/CAL_EXT11 有图文条件，尚未证明所需真实视频或可追溯 clean latent 可用。
+主要依据为 [统一方案](CONTROLLED_REPRODUCTION_PLAN.md)、[机器预算](EXPERIMENT_BUDGET.json)、[作者校准配方](ICC_CALIBRATION_RECIPE.json)、[数据角色](COHORT_PROPOSAL.json)、[ICC 参考](ICC_STRICT_REFERENCE.md)及[作者校准说明](ICC_AUTHOR_CALIBRATION.md)。下方最终身份覆盖九个文件；文件路径相对 `research/20261107/ffn_baseline_reproduction`。
 
-### 独立核对的作者依据
+## 2. 已修补的科学与实施缺口
 
-固定 ICC 提交为 `dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4`。
+### 冻结顺序不再自相矛盾
 
-| 主张 | 独立核到的源码 | 审查结论 |
-|---|---|---|
-| CA 从真实输入编码后随机加噪，执行一次模型评价 | `DiT/func/func_decomp.py` 的 `DiT_wtv_src_stat_loop_mag` | 成立；不能改成生成轨迹采样后仍称原采集程序 |
-| CD 第二输入来自第一次实际 DDIM 预测与更新 | 同文件 `DiT_wtv_src_stat_loop_delta_mag` | 成立；两个独立 q-noise 端点即使用同一噪声也不是该 CD |
-| 条件 dropout 为 p=0.1，CD 两次条件相同 | 上述两个函数 | 成立；CFG off 不构成删除 dropout 的依据 |
-| 默认256是数据项数量，不是256条完整50步轨迹 | `DiT/gen_decomp.py` 与上述调用循环 | 成立；默认batch16、epoch1时CA/CD为16/32次批调用，即256/512次样本级评价 |
-| 统计覆盖四边界，先绝对值再 token mean、逐样本通道 min–max、再累加 | `DiT/models/models_stat_svd.py` 的 `stat_upd`、`Mlp.forward_stat` | 成立；不能把两端通道均值之差当平均绝对差，也不能先按tile归一化 |
-| 统计平均后sqrt，cap1000，缩放SVD及逆尺度恢复 | `DiT/func/func_decomp.py`、`DiT/utils/utils_decomp.py` | 应继续保留，不因改变采集入口而修改 |
-| 公开仓库只能支持 DiT 配方的具体实现主张 | 固定完整tree与已取回源码 | 未发现公开PixArt校准分支；不能把本项目空文本映射说成已核实的作者PixArt实现 |
+两个 Dense/hook 捕获是主 55 个槽中的两项，可以先于 ICC 家族和 E6 冻结执行，为 neutral、真实 full-M Chip 及局部共同输入提供数据。家族、参数、CAL22 开关及 E5/E6 选择最迟在任何新近似臂自由视频输出可见之前冻结，且仅依预登记局部规则。这样既不要求先有未选择的 ICC 才能构建输入，也不允许看近似视频后反向选择。
 
-本次重新计算了7份 ICC 源码及4份 Wan/LightX2V 新源码的字节数、SHA256、Git blob SHA1；**11/11匹配既定来源身份**。具体结果见 `INDEPENDENT_SOURCE_CHECK.json`。这是源码身份检查，不是对这些模块进行 torch/GPU 执行。
+P1 的依赖已明确为代码、权重、DEV 输入、接口实现和宿主资源；真实 clean CAL11 及 CAL3 原始 μ/logvar 是 P2 的额外依赖。缺少真实视频不能被解释成所有静态模块工作都必须停止，也不能用普通 SVD 填补 CA/CD 后宣称完成三家族选择。
 
-## 2. Wan 调用合同及必须保留的细节
+### 作者式校准与必要适配有独立身份
 
-固定 LightX2V 提交 `9cb6929d83814ff28c4e1386532298fe93a96af1` 的 DMD2 四步配置与 `WanStepDistillScheduler` 支持以下设计。实际执行时仍需绑定安装树和解析后的配置，不能用公开示例配置替代运行配置身份。
+主 CA/CD 从真实 clean 视频编码或可追溯 x0 起步，经 native flow 前向加噪。CA 在每专家两个合法 D4 时点均匀选一个；CD 使用该专家唯一合法相邻 pair，第一次 Dense 调用后执行原生 Euler 续步，再作同权重、同条件第二次调用。第二点不重新 q-noise、不 reset、不引用旧自由 rollout。作者条件 dropout 映射为真实空文本 embedding，I2V 条件保留，CFG off 仍是单次模型前向。
 
-### 时间、噪声与专家
+目标 normalized mean、class-null→empty-text 及 D4 支持均显式作为 Wan 适配。预先选定 CAL3 上的 posterior 与文本互换分别相对固定主配方变化一项，不把诊断结果用于改选主配方。posterior 的 raw μ/logvar、FP32 η、clamp 和整段规范化顺序已明确；H-CD 在 σ=1 且完整输入一致时可复用整 pair。诊断仅支持编码、统计及流场预测敏感性，不能证明重新拟合后的因子或终端视频等价。
 
-名义列表 `[1000,750,500,250]` 经 shift=5 得到实际 sigma 近似 `[1,0.9375,5/6,0.625]`；模型时间为其乘1000。模型应使用调度器实际数组，不从显示小数重新构造。DMD2 的专家选择依据 `boundary_step_index=2`：index0/1为H，index2/3为L。
+旧 rollout 统计及其 CA/CD 因子不能抵扣新采集和分解；原图文 CAL11/EXT11 不是自动获得了真实视频身份的 clean 数据集。作者 256 个校准样本也不解释为 256 条完整采样轨迹；本轮数量明确沿 11/22 源量级。
 
-对真实 clean latent \(z_0\) 与一次新高斯噪声 \(\epsilon\)，
+### 局部选择、共同机制表和目标张量分开
 
-\[
-x_{\sigma_i}=(1-\sigma_i)z_0+\sigma_i\epsilon.
-\]
+三家族的完整模块与统计 oracle 保留。主选择仅使用 DEV11 × 六位点 × 三家族、固定 r1408/四状态的 198 格，属于 792 格总局部网格的子集；r512 和两残差只作诊断。选定族补齐全部 80 个 expert/layer 参数，未选族仅有规定六位点的局部证据，不能写成全部三家族都完成了视频级评估。
 
-| 分支 | 合法采样 | 必须实际执行的输入路径 |
-|---|---|---|
-| CA-H | 均匀选index0或1 | 从clean latent直接前向加噪到所选sigma，H单次Dense调用 |
-| CA-L | 均匀选index2或3 | 从clean latent直接加噪，不先经过H rollout，L单次Dense调用 |
-| CD-H | 唯一合法pair 0→1 | fresh加噪到0 → H调用 → 原生step0 → H调用1 |
-| CD-L | 唯一合法pair 2→3 | fresh加噪到2 → L调用 → 原生step2 → L调用3 |
+两个 neutral 来源的新 full-U 捕获提供对应 P512/64 输入及当前 gate，其余九源用身份兼容的既有 bank；评分前冻结一个统一输入 manifest，每格只算一次。canonical anchor/target 均由 own-W BF16、P512 形状 native_ffn 构建；捕获的 full-M Y 单独保存为 Y_fullM_panel，不能混作 Y_local512。共同两源表同时报告已有两种 Dense 目标之间的数值差，避免把形状及运算路径的差额直接归因低秩或 selector。
 
-不允许跨专家1→2，也不把terminal当不存在的第五个模型评价点。作者的 `t1=t2-1` 对应原采样器索引的相邻点，不能在 Wan 中解释为数值 timestep 减1。H-CD在sigma=1处的生成latent等于噪声，clean内容在该起点只通过I2V/文本条件进入模型；这是部署网格的真实性质。
+作者 Chip 的 true-M 局部证据只覆盖两个共同来源。它与 ICC/Q1 的比较取共同两源子集，不能把两源作者 Chip 均值与十一源 ICC 均值直接排序。最终五臂视频统一 DEV11，但仍是开发比较。
 
-### CD 实际更新与缓存
+### 数值分解不再超过其证据能力
 
-原生 `step_post` 将flow预测及输入转换为FP32，**先**计算 \(x-\sigma v\)，**再**加 \(\sigma_{next}v\)，最后转回输入latent的dtype。数学上的 \(x+(\sigma_{next}-\sigma)v\) 不授权更换有限精度执行次序。应直接调用绑定的原生函数，记录第一预测、实际step输出及第二次调用输入的身份。
+局部风险分母为 P×d，其中 P=512、d=5120；完整 token 数 N=31668 用于主校准及真实 M 路径，不能混入 panel 评分分母。
 
-`prepare/reset` 会重新初始化噪声latent；fresh-noised输入注入后，CD两次调用之间不得再次调用会覆盖它的初始化路径。统计缓存、方法缓存与scheduler状态应明确初始化，合法下一索引通过原生接口设置。CD第二次输入不得再次q-noise、读取旧rollout、混入其他专家状态或开启FFN近似。第二次之后无需为了统计再生成后续完整轨迹。
+主 ICC 66 格的实际误差拆分使用保存的 BF16 原值先升 F64 再作差，保存的真实 ĥ 不重新预测。A=B2_F64(h_b−h_a)、B=B2_F64(ĥ_b−h_a)，据此定义 E_read、E_first 和剩余 E_num。每格两次 B2 action，总 132 次 action，即 264 次因子 GEMM。E_read 包含 native Dense 数值路径，不能称为纯几何投影误差；残差定义使闭合不是独立机制验证，只在 F64 舍入尺度检查能量及带符号交叉项。
 
-### 条件与 VAE 适配
+额外精度对照封口为选定族 r1408、四个固定 pair、两种缓存、两个 FP32/TF32 设置，共 16 个模块格。固定 native BF16 anchor/输入/因子数值，仅指定缓存与增量算术升精度；不新增纯 FP32 模型、因子重拟合或自由视频网格。BF16 对应格复用 792 的子集。
 
-1. 作者DiT的 class-null 映射为原生T5对**真正空字符串**的编码，保留p=0.1 Bernoulli抽签；CD pair重用同一个抽签结果、embedding、首帧条件及mask。CFG=false只执行一次所选条件forward。
-2. 官方 Wan `image2video.py` 会把空的 `n_prompt` 替换成默认负面提示。采集器不能通过该替换后的入口取得所谓empty context；也不能用全零embedding替代空文本编码。默认LightX2V CFGoff不建立 `context_null`，故须明确替换实际使用的主context。
-3. 原生 Wan VAE `encode` 返回通道归一化后的mean；主模式应登记 `wan_native_normalized_mean`。它与作者 `.latent_dist.sample() * 0.18215` 不同，是架构编码适配。禁止重复归一化、搬用0.18215或把已归一化mean和未经同样变换的logvar拼成posterior。
-4. 全clean clip latent与首帧加零帧构造的I2V条件是两个对象。只对前者加噪；后者和mask保持原生合同。两者的帧来源、空间变换及文本须一致。只存在零填充条件不能证明真实clean clip存在。
-5. D4网格、分专家合法pair、batch1/source等权、CAL11/22、空文本映射与VAE mean均应明示为目标域配置或必要适配，不能宣称与原DiT/ImageNet/256配置逐项相同。没有理由自动增加50时点、CAL64/256或新完整视频臂。
+## 3. 预算独立核算
 
-CA/CD允许共用source。若CA恰好抽到CD起点，且噪声、dropout、条件和完整输入身份均相同，可同一首forward同时记录mag/cache；这保持各自边缘分布，只改变估计间相关性。它是合法的可选复用，不应成为强制省调用目标。CA抽到后一时点时必须单独fresh加噪，不能拿CD第二状态代替。预算继续使用不共享的66/132上界。
+下表均为当前设计上界；实际复用只能凭完整输入、因子和执行身份抵扣。
 
-## 3. 数据和公平性边界
-
-`ICC_CALIBRATION_ASSET_AUDIT.md` 固定的旧资产表明：
-
-- 旧CAL11及CAL_EXT11是JPG/prompt记录，缺少真实视频、帧内容和clean latent来源绑定。
-- `VB_DENSE22` 是CAL11+DEV11的轨迹捕获，**不是CAL22**，也不是作者式clean数据采样。
-- BWS生成视频或终态latent若存在，仍是生成数据；单图重复、首帧加零帧、生成终态均不能默认替代本轮真实clean输入。
-
-主参考需要绑定11个真实clip或可追溯到它们的合法x0；扩展时追加11个独立来源并保持前11的RNG记录、统计及身份不变。数量沿用11/22不意味着沿用旧image record IDs。应在source/近重复组层级与DEV隔离，而非只检查文件名不同。
-
-旧rollout的CA/CD统计和因子不能只因同模型、同shape、同seed或同CAL11名义而抵扣新采集。普通SVD同权重因子可按原规则复用，Q1旧CAL11参数可保留其原始身份。**若ICC换用真实clip而Q1继续旧图文CAL，五臂仍可进行同DEV、同seed和同部署条件的开发比较，但校准来源未配平；不能把结果差异单独归因于算法机制，或声称逐源校准已公平匹配。** 本次不要求因此扩充实验队列，只要求报告各自产物的真实校准协议与适用结论。
-
-真实clip未绑定时可继续普通SVD、原模块与采集器静态工作；CA/CD采集及三家族局部选择仍未完成。不得因为缺少CA/CD就直接把SVD写成“三家族按预定规则选出的主ICC”。
-
-## 4. 独立预算复算
-
-每source、每expert使用CA1次+CD2次；两expert为6次样本级全去噪器前向。batch1时样本级NFE就是实际模型调用数。
-
-| 项目 | 上界 | 含义 |
-|---|---:|---|
-| CAL11 | 11×2×3=66 NFE | 主统计，不生成完整视频 |
-| CAL_EXT11增量 | 66 NFE | 新增11source，不重采前11 |
-| CAL22累计 | 132 NFE | 不是另加132，亦不是132条视频 |
-| 主五臂 | 5×11=55条D4 | seed42，DEV开发比较 |
-| Neutral额外路径 | ≤10条D4 | hook-bypass父输出已计在主55；逐path/execution_id抵扣 |
-| 同factor 4S→2R | 3条D4 | 父4S来自主表 |
-| 条件CAL22闭环E5 | ≤3条D4 | 仅冻结主CA/CD满足既定局部触发；SVD时为0 |
-| 唯一条件适配E6 | ≤3条D4 | 按既定优先序，oracle错误先修，不自增支线 |
-| 全分支触发、重试前 | ≤74条D4 | 删除旧22条CAL完整D4后成立 |
-
-基础视频为55+10+3=68；两个条件分支各3后为74。全局技术重试仍只有3次，视频与校准共用。正式方案已将校准重试明确为CA单调用或CD不可分的两调用pair，失败时回滚该事务统计并重用相同样本/RNG；不是整source六调用重跑。令 \(J_v+J_c\le3\)，则
-
-\[
-V\le74+J_v,\quad C\le132+2J_c,\quad
-NFE_{total}\le4(74+J_v)+132+2J_c\le440.
-\]
-
-所有重试用于视频时才达到77条视频，此时总上界440 NFE；全部用于校准时上界为74条视频及138次校准调用，总计434 NFE。不能把77条视频和138次校准NFE各自极值相加；也不能给校准再开独立3次重试。失败已消耗的调用应进入实际账，不能因任务未产出有效样本而消失。
-
-与旧99条D4账比较，完整视频上限下降，但旧最大396次去噪器调用变为新最大440次，增加44次、约11.1%。原因是忠实CA/CD每source最多6次前向，旧D4轨迹只有4次。两者工作内容不同；不能把视频条数减少说成总去噪计算已减少，更不能据此推断墙钟时间。
-
-NFE不包括真实视频读取、VAE/T5编码、四边界缓存搬运、局部核验与矩阵分解。主CAL11为184次；可选CAL22局部诊断增加24至208，E5最多再增148；这些矩阵分解另账记录。更换校准分布不授权隐性新增网格。全tokenCD每expert的四边界首调用缓存约89.395 GiB（BF16，40层），逐source/expert卸载可减少同时常驻量，不能据此宣称实机内存已验证或把主统计降为P512。
-
-## 5. 正式文档回核与执行证据
-
-### 回核结果
-
-正式方案、ICC专项、机器配方、预算及cohort元数据已统一；本轮没有需要继续修改才能发布设计的未决实质问题。以下问题已实际查到修订后的文本或字段：
-
-- 主采集改为真实clean视频编码与fresh forward noise；CD第二状态明确来自原生step，不能再次加噪、reset覆盖或抄旧轨迹。
-- 原生Euler的FP32先减后加顺序保留；实际sigma与按index选择专家均有明确合同。
-- p=0.1 dropout仍保留；明确真正空文本T5与高层默认负面提示替换的区别，I2V条件保持。
-- VAE mean、flow、D4 grid、分专家、统计精度等适配明示；没有把Wan接口变化写成作者DiT逐字等价。
-- 真实视频绑定缺失如实保留，旧图文名单不充当clean输入；Q1保留旧身份，校准来源未配平的归因限制已写明。
-- 旧rollout CA/CD统计及因子不得抵扣新配方；缺少CA/CD候选不能借SVD完成“三家族选择”。
-- CAL22采集是主视频结果可见前冻结的一次可选统计诊断；E5只决定取得该诊断后是否增加视频，消除了前置条件循环。未选择CAL22时E5没有可用R22，不能凭空触发。
-- 68明确包含55主视频；原22条完整CAL D4删除。共享retry仅3次，校准按CA单调用/CD双调用事务重试，联合上界440，离线成本另账。
-- Neutral依真实path与execution_id抵扣，hook-bypass两条属于主55，额外路径最多10；不能把plain产物抵扣不存在的hook执行。
-- 三家族、r1408、六位点局部选择规则不因这次采集修订扩大；不自动新增CAL64/256、EVAL22、多seed、O40、原系统完整生成或60次计时。
-
-独立执行统一引述核验器得到 **exit 0，42/42源文件、91/91摘录通过，45项主张的引用结构完整**，结果为 `INDEPENDENT_CITATION_VERIFICATION.json`。该检查只证明字节、摘录和固定链接对应，关键主张的语义由本报告前述源码阅读支持；不把引用结构检查等同于全部主张的科学证明。
-
-独立预算检查亦 **exit 0**：66/132校准NFE、68基础视频、6条件视频、3共享retry及所有允许分配的440上界通过；184/208/356分解计数相符，结果为 `INDEPENDENT_BUDGET_CHECK.json`。
-
-### 本次审阅的正式版本身份
-
-以下路径均相对于 `research/20261107/ffn_baseline_reproduction/`；带星号的简名位于其 `strict_reproduction_20261116/` 子目录。完整11文件身份记录另存 `FINAL_REVIEW_FILE_IDENTITIES.json`。
-
-| 文件 | SHA256 |
+| 项目 | 独立核算与解释 |
 |---|---|
-| STRICT_REPRODUCTION_AND_REDO_20261116.md | `1edbfd908b7523f259c316ba0633565cbdfb5a891e968865ee7b4e111c32416c` |
-| CONTROLLED_REPRODUCTION_PLAN.md * | `d383b778adad394ae2f0b7340443db8494d92eb94f770d90f71aa07097c3c73b` |
-| EXPERIMENT_BUDGET.json * | `8038ade8cd88a2f014c37cbc507098f4e4eb76f5059dde4a65ef480f6155e3fd` |
-| ICC_AUTHOR_CALIBRATION.md * | `24d15202a5af52f986055a2b6c94bbadddd852f9569fafe9ccc323b69743f1ca` |
-| ICC_CALIBRATION_RECIPE.json * | `aeb24a6ae3c8e07aeab4b2223318b1e5d3bb65f1ed3cd45e335f99a6aac88189` |
-| ICC_STRICT_REFERENCE.md * | `3dacc21294fbca8cfc764d6b0cdf10291b23c6cf8a0ae65cf229553ffdd48381` |
-| COHORT_PROPOSAL.json * | `dedd848b90916cfab903de16abc3c636493dd9fb05c5cdf7efdf23392e70fe4b` |
-| CODE_CITATIONS.json * | `3777e3ecfa0bbc8f02a2fc947360d2f07c2f3b448b60efe04d57963736701bdb` |
+| 主作者式 CAL11 | 11×2 专家×(CA1+CD2)=66 次模型前向 |
+| 可选 CAL22 | 22×2×3=132 次累计前向，前 11 源不重抽 |
+| 必要 CAL3 诊断 | posterior≤3×4=12；文本互换≤3×6=18；合计≤30 |
+| 主/扩展校准含同一诊断 | **96 / 162 NFE**，均为重试前上界 |
+| 主五臂 | 5×DEV11×seed42=55 个 D4 槽，含两个提前 Dense 捕获 |
+| 基本视频 | 55+neutral 额外≤10+同因子 2R 三条=**68** |
+| 条件分支 | E5≤3，E6≤3；全开合计≤**74** 条，非必跑 74 条 |
+| 技术重试 | 全局共用≤3；视频一次≤4 NFE，CA/CD 原子统计事务一次≤2 NFE |
+| 视频最大数 | **77** 仅在三个重试全部分配给视频时成立 |
+| 联合前向上界 | 4(74+r_video)+162+2r_cal≤**470**，r_video+r_cal≤3 |
+| 主 ICC 局部格 | 3族×2秩×2缓存×6位点×11源=**792**，含 198 主选择格 |
+| 可选 CAL22 局部格 | CA/CD×r1408×4S×6×11=132；ICC 总≤924，不重复普通 SVD |
+| 其它局部计算 | Q1/GP64 P512 各66；作者 Chip/GP64 true-M 各12；共享 native P512 端点132；B2 action132；精度附加16 |
+| Wan 大矩阵 SVD | 主 CAL11 **184**；可选 CAL22 局部诊断增加24至**208**；E5 最多再增148至**356** |
+| 其它离线拟合 | 原作者 shape 分解6；缺兼容 Q1 参数时至多80个固定规则 PCG 拟合，不新增搜索 |
+| full-U 捕获 | 24个 BF16 U 张量，payload **7,782,727,680 B**；归档≤9 GiB；额外 staging≤1 GiB；不加 D4 槽 |
+| 候选中间量 | payload **6,458,179,584 B**，约6.015 GiB；临时上限**7 GiB**，不与 full-U 归档混算 |
 
-### 尚未取得的执行证据
+共享重试枚举已核对：三个视频重试时联合 470 NFE；三个校准重试时为 74 条视频加 168 校准/诊断 NFE，即 464。不得同时把 77 条视频和额外三个校准重试相加。CA 单调用、CD 两调用作为不可分统计事务，失败回滚后用相同随机记录重试；不是按整源六次前向重复另计。
 
-本轮实际torch/模型/GPU运行：**0**。尚缺真实clean视频/x0与DEV近重复排除的实体绑定、最终producer及安装代码/权重/配置绑定、可用资源证据，以及作者模块/采集器/四状态端口的实际数值验收。当前不能说CA/CD已复现、三家族主ICC已选定、五臂重做完成或质量/速度已经比较。
+470 是去噪器前向调用数上限，不是总算力或时长上限。VAE/T5 编码、模块 oracle、真实 M selector/核、离线 SVD/PCG、F64 factor action、搬运和质量评分另账。不能以旧“99→77 条视频”推导总计算下降。大矩阵 SVD、四状态缓存及实际 GPU/CPU/offload 代价仍需真实资源绑定；当前不能称成本已经换算为可执行时长。
 
-这些缺口已被设计本身如实表达，不妨碍发布源码审计与精确有限方案；实际补齐后按已有实施合同推进，不额外制造用户审批步骤。本审阅只支持设计修订的科学逻辑和账目一致性，**不构成可执行scope或运行成功的证明**。
+## 4. 结论必须保留的限制
+
+1. **局部选择与视频都来自已暴露 DEV11。** 预登记选择规则避免看新近似视频调参，但不把这十一源变成独立留出。本轮能报告选中实现的开发表现，不能声称确认性优越、全域最佳 ICC 或事后定义非劣界。
+2. **ICC 与 Q1 的校准来源目前没有逐源匹配。** ICC 用真实 clean 视频，Q1保留旧 CAL11 图文/轨迹拟合身份。共同局部输入能够控制评估状态，不能消除拟合分布差异；五臂主结果首先是完整 pipeline 比较。Q1 全80参数/producer未绑定前，也不能用 BWS 混合 CAL3 参数冒充原身份。
+3. **多个历史到当前的变化同时存在。** 旧 ICC512/2R 到当前 r1408/4S/新校准的差异是组合变化；E4只隔离缓存形式，rank前缀只提供局部对照。作者 Chip 与 Global-P64 同时改变代理、支持集、选择器、算术和层覆盖，五臂差异不能压缩成单因素原因。
+4. **必要适配证据按层级解释。** CAL3和16格精度诊断不等于完整视频影响为零；E6仅按冻结的 tail→precision 优先顺序覆盖一个合法、非等价运行时变化，其余终端影响保持未决。oracle错误先修复，不作为质量实验候选。
+5. **旧 Wan/蒸馏证据按原身份使用。** A/BW/BWS不重开，不改其数据、参数、运行与结论。BWS的CAL3及D4/O40复合差异不能与BW的CAL11绝对风险混池，也不能解释为纯步数/CFG效应；本轮不新增O40、原系统整视频或LLM训练。Wan与LLM的联系限于计算图、复用机制和硬件条件，不能借旧证据声称跨域质量或蒸馏因果结论。
+6. **来源是统计单位。** 实际来源簇、近重复和已暴露身份必须保留；token、帧、六位点和多方法配对不能扩大独立样本数。若实际簇少于11，应报告有效簇数，不能静默更换不利结果。
+
+最终措辞也已统一：ICC_AUTHOR_CALIBRATION §5 明确 CAL22 只比较既定 r1408/四状态得分，主家族和秩维持 CAL11 冻结；r512 仅属 CAL11 诊断，没有额外秩搜索。
+
+## 5. 实际完成的核查与待落实项
+
+本轮纯 Python 静态核查 **19/19 通过，实际退出码0**。核查覆盖66/132/30/96/162/470、共享重试各分配、55/68/74/77视频数、局部格和分解数、存储payload、主采样/条件/统计元数据、冻结时序，以及队列/ledger的历史已完成字段。与main基线快照比较，A/BW/BWS既有关键完成记录和判断字段保持不变。详见[独立预算回执](INDEPENDENT_BUDGET_CHECK.json)。
+
+本轮没有重跑未改变的代码引述 verifier，没有重跑历史 counter，也没有把文件存在或静态公式通过当作模型运行。固定代码引述身份随最终清单记录；其既有核验记录继续按原提交和原执行身份使用。
+
+下一步执行仍需落实：11条真实clip或可追溯x0及来源簇；CAL3同编码器raw μ/logvar或可重新编码的真实clip；文本、首帧I2V、噪声与时间/条件记录；实际checkpoint、native solver/encoder/collector/adapter字节；Q1原CAL11全80参数及producer身份；真实硬件、dtype/kernel和offload能力。随后按统一阶段产生模块oracle、160次FFN trace、neutral、统计与分解、选择表、完整视频及成本回执。以上是方案内既有工作，不另建审批层级，不在资源未证实时宣称可派发运行。
+
+## 6. 最终覆盖文件及身份
+
+以下路径相对 `research/20261107/ffn_baseline_reproduction`。内容审阅覆盖方案、预算、配方、cohort、ICC专项和两个入口；代码引述文件仅记录固定身份，不重复既有核验。机器可读版本见[最终文件身份](FINAL_REVIEW_FILE_IDENTITIES.json)。
+
+| 相对路径 | 字节数 | SHA-256 |
+|---|---:|---|
+| `strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md` | 33709 | `913f032c6c1c73e6f015004dde3620a638774c5ef814abf969a02fa53f0383e4` |
+| `strict_reproduction_20261116/EXPERIMENT_BUDGET.json` | 11901 | `73ef13b3066e9988954f0feceab7ebcfdaee851e258745800a9f76904a0e29ba` |
+| `strict_reproduction_20261116/ICC_CALIBRATION_RECIPE.json` | 8016 | `d2a1b278c9b62b491586e7d53c8e9aec995942c004faf12a946cd20d6ab39f32` |
+| `strict_reproduction_20261116/COHORT_PROPOSAL.json` | 16356 | `805026d67fd58db232d6d9d77e70e99e017f3ec79de003c2d5d7e8465f20458d` |
+| `strict_reproduction_20261116/ICC_AUTHOR_CALIBRATION.md` | 20726 | `17bd99bd1ab93093e68b08d20b7560653dcfd86e6138840e6f2e73a78fd1c614` |
+| `strict_reproduction_20261116/ICC_STRICT_REFERENCE.md` | 18741 | `b2e03519183886fc0465db77dd052a241d488fec6e75b3bb3dd122c31af22f8f` |
+| `strict_reproduction_20261116/CODE_CITATIONS.json` | 104433 | `3777e3ecfa0bbc8f02a2fc947360d2f07c2f3b448b60efe04d57963736701bdb` |
+| `strict_reproduction_20261116/README.md` | 4112 | `0e60389f22ceeb198568dfaf2736dcbadafed5052618c4a854f0951d2037db5c` |
+| `STRICT_REPRODUCTION_AND_REDO_20261116.md` | 3224 | `80a88fdb5df1cbd8a7b70c85ac1071fc5ba09a48e71873ded582884a9aa73cb8` |
+
+审阅回执绑定预算 SHA-256 `73ef13b3066e9988954f0feceab7ebcfdaee851e258745800a9f76904a0e29ba`，配方 SHA-256 `d2a1b278c9b62b491586e7d53c8e9aec995942c004faf12a946cd20d6ab39f32`；联合前向上限 `joint_nfe_cap=470`，`new_model_runs=0`。若上述核心字节变化，当前身份清单不自动覆盖变化后的版本。

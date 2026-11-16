@@ -1,7 +1,7 @@
 {
-  "schema": "ffnds.lean-reproduction-budget.v2",
-  "base_commit": "0e29eb7affddc88138337294ffdb5ccc7893f86e",
-  "status": "DESIGN_ONLY_NOT_EXECUTION_SCOPE",
+  "schema": "ffnds.integrated-next-experiment-budget.v3",
+  "base_commit": "5a5b84a04f71aa1fa6c426febf614a1a4c1d2492",
+  "status": "INTEGRATED_DESIGN_NO_NEW_MODEL_RUN_NOT_EXECUTION_SCOPE",
   "main_calibration": "ICC_CLEAN_CAL11_AUTHOR_RECIPE; Q1_RETAINED_VBENCH_CAL11",
   "main_sources": "DEV11",
   "main_seed": 42,
@@ -41,6 +41,11 @@
   },
   "stages": [
     {
+      "id": "E0_MODULE_REFERENCE",
+      "d4_attempt_cap": 0,
+      "purpose": "Finite author module oracle, selector/state/numeric/interface cases; no full-system generation"
+    },
+    {
       "id": "E1_ICC_AUTHOR_CALIBRATION",
       "d4_attempt_cap": 0,
       "main_clean_sources": 11,
@@ -48,6 +53,16 @@
       "main_model_forward_cap": 66,
       "extended_model_forward_cap": 132,
       "purpose": "Real clean video -> native encoding -> fresh forward noise -> CA1/CD2 per expert; no full CAL trajectory"
+    },
+    {
+      "id": "E1A_CAL3_ADAPTATION_DIAGNOSTICS",
+      "d4_attempt_cap": 0,
+      "clean_sources": 3,
+      "new_sources": 0,
+      "model_forward_cap": 30,
+      "posterior_forward_cap": 12,
+      "text_toggle_forward_cap": 18,
+      "purpose": "Mandatory paired input/statistic sensitivity; no new factorization, factor-action grid or videos"
     },
     {
       "id": "E3_MAIN_VIDEO",
@@ -74,7 +89,12 @@
       "id": "E6_ADAPTATION_CONDITIONAL",
       "d4_attempt_cap": 3,
       "purpose": "At most one identified single-factor adaptation on DEV3",
-      "selection": "Before any main-video outputs: eligible legal nonequivalent changes only, fixed tail then precision priority; no eligible change means zero. Oracle mismatch must be fixed, not tested as an adaptation."
+      "selection": "Before any new approximate-arm free-video outputs; native Dense/neutral may precede. Eligible legal nonequivalent changes only, fixed tail then precision priority; no eligible change means zero. Oracle mismatch must be fixed, not tested as an adaptation."
+    },
+    {
+      "id": "L_LOCAL_REPLAY",
+      "d4_attempt_cap": 0,
+      "purpose": "Finite FFN-only cases in local_replay_caps; not full-network NFE"
     },
     {
       "id": "R_TECHNICAL_RETRY",
@@ -102,7 +122,7 @@
   "runnable": false,
   "execution_scope_id": null,
   "offline_cost_caps": {
-    "wan_large_matrix_svd_base": 208,
+    "wan_large_matrix_svd_base": 184,
     "wan_large_matrix_svd_conditional_additional": 148,
     "wan_large_matrix_svd_total": 356,
     "author_shape_matrix_svd": 6,
@@ -110,19 +130,22 @@
     "rank_prefixes_share_decomposition": true,
     "additional_precision_endpoint_sampling_factor_grids": false,
     "wan_large_matrix_svd_cal11": 184,
-    "cal22_local_diagnostic_additional": 24
+    "cal22_local_diagnostic_additional": 24,
+    "wan_large_matrix_svd_with_optional_local": 208
   },
   "icc_recipe": "ICC_CALIBRATION_RECIPE.json",
   "d4_cap_before_retries": 74,
   "total_d4_cap_note": "77 only if all 3 shared retries are video; ICC calibration is counted separately, not included as D4.",
   "joint_model_forward_bound": {
-    "formula": "4*(74+r_video)+132+2*r_cal; r_video+r_cal<=3",
-    "max": 440,
+    "formula": "4*(74+r_video)+132+30+2*r_cal; r_video+r_cal<=3",
+    "max": 470,
     "excludes": [
       "module conformance",
+      "local FFN replay and factor-action diagnostics",
       "VAE/text encoding",
       "SVD/PCG",
-      "cache transfer"
+      "cache transfer",
+      "quality evaluation"
     ],
     "equal_latency_claim": false
   },
@@ -133,5 +156,149 @@
   },
   "clean_video_input_status": "MISSING_REAL_CLEAN_CLIP_OR_BOUND_X0",
   "matched_icc_q1_calibration_source_established": false,
-  "icc_cal22_decision": "One optional source-budget diagnostic; decision frozen before main-video outputs. E5 video trigger is evaluated only after CAL22 local scores exist."
+  "icc_cal22_decision": "Optional CAL22 source-budget diagnostic; explicitly freeze enable/disable before any new approximate-arm free-video outputs. E5 uses CAL22 local scores only after the diagnostic exists.",
+  "execution_design": "CONTROLLED_REPRODUCTION_PLAN.md",
+  "phase_order": [
+    {
+      "id": "P0_BIND_IMPLEMENT",
+      "requires": [],
+      "outputs": [
+        "bound inputs/config/weights/resources",
+        "reference/collector/adapter implementations"
+      ]
+    },
+    {
+      "id": "P1_MODULE_NEUTRAL",
+      "requires": [
+        "P0_BIND_IMPLEMENT"
+      ],
+      "outputs": [
+        "module conformance",
+        "neutral receipts",
+        "2 main Dense slots with full-U capture"
+      ],
+      "requires_artifacts": [
+        "bound code/config/weights/DEV inputs and host resources",
+        "reference and adapter implementations"
+      ],
+      "dependency_note": "P0 dependency is artifact-level: missing clean calibration input does not block module/neutral preparation or execution under the existing execution protocol."
+    },
+    {
+      "id": "P2_AUTHOR_CALIBRATION",
+      "requires": [
+        "P0_BIND_IMPLEMENT",
+        "P1_MODULE_NEUTRAL"
+      ],
+      "outputs": [
+        "CAL11 four-boundary CA/CD statistics",
+        "CAL3 adaptation diagnostics"
+      ],
+      "requires_artifacts": [
+        "bound real clean CAL11 or traceable x0",
+        "CAL3 raw mu/logvar from same encoder or reloadable real clips",
+        "verified native sampler, conditioning and four-boundary collector"
+      ]
+    },
+    {
+      "id": "P3_LOCAL_SELECT_FREEZE",
+      "requires": [
+        "P1_MODULE_NEUTRAL",
+        "P2_AUTHOR_CALIBRATION"
+      ],
+      "outputs": [
+        "complete three-family local table",
+        "selected ICC all80 factors",
+        "frozen main arms and E5/E6 choices"
+      ]
+    },
+    {
+      "id": "P4_MAIN_VIDEO",
+      "requires": [
+        "P3_LOCAL_SELECT_FREEZE"
+      ],
+      "outputs": [
+        "55 unique main slots including earlier Dense captures",
+        "source-level quality/cost"
+      ]
+    },
+    {
+      "id": "P5_ABLATIONS_INTERPRET",
+      "requires": [
+        "P4_MAIN_VIDEO"
+      ],
+      "outputs": [
+        "E4 and triggered E5/E6",
+        "bounded mechanism and quality/cost conclusions"
+      ]
+    }
+  ],
+  "local_replay_caps": {
+    "icc_cal11_prediction_pairs": 792,
+    "icc_main_selection_subset_pairs": 198,
+    "main_selection_is_subset": true,
+    "icc_optional_cal22_prediction_pairs": 132,
+    "icc_total_prediction_pairs": 924,
+    "q1_panel_prediction_pairs_if_missing": 66,
+    "global_p64_panel_prediction_pairs_if_missing": 66,
+    "chip_author_full_m_prediction_pairs": 12,
+    "global_p64_full_m_prediction_pairs": 12,
+    "full_m_pair_total": 24,
+    "native_panel_ffn_endpoint_builds_if_missing": 132,
+    "selected_icc_error_decomposition_cases": 66,
+    "selected_icc_b2_factor_actions": 132,
+    "additional_adaptation_factor_actions": 0,
+    "case_unit": "one anchor-hit prediction on a bound source/site/input/factor/cache tuple; not NFE or independent source",
+    "canonical_two_source_capture_before_any_scoring": true,
+    "common_method_table_source_count": 2,
+    "icc_selection_source_count": 11,
+    "fixed_numeric_module_prediction_pairs": 16,
+    "fixed_numeric_module_definition": "selected family r1408, 2 neutral sources x 2 experts x layer19 x 2 cache modes x 2 FP32/TF32 settings; losslessly raise fixed native BF16 anchors/operand/factor values to FP32; execute delta-u/delta-h/GELU/cache-add and 2R anchor projections/subtractions in FP32, final cast BF16, same F64 risk; no FP32 model/anchor regeneration or factor refit",
+    "local_target": "own-W native BF16 P512 anchor/hit reconstruction; full-M panel target separately named and quantified",
+    "candidate_intermediate_cache": {
+      "main_subset_candidate_pairs": 198,
+      "native_hidden_endpoint_tensors": 132,
+      "dtype": "bfloat16",
+      "payload_bytes": 6458179584,
+      "cache_cap_bytes": 7516192768,
+      "purpose": "Preserve actual main BF16 hhat/Yhat before selection; avoid later prediction recomputation",
+      "retention": "Drop nonselected large candidate tensors after selection/decomposition; retain all scores/identity and needed main intermediates",
+      "native_y_endpoint_tensors": 132,
+      "native_z_anchor_tensors_for_numeric_diagnostic": 4
+    },
+    "error_decomposition_arithmetic": "Losslessly raise actual BF16 values to F64 before subtraction; two B2 factor actions per case (132 actions, 264 factor GEMMs); E_num defined as residual, closure checked at F64 rounding scale and not independent mechanism validation."
+  },
+  "dense_capture": {
+    "source_ids": [
+      "vbi_1013",
+      "vbi_0800"
+    ],
+    "main_video_slots_consumed": 2,
+    "additional_d4_slots": 0,
+    "sites_per_source": 6,
+    "endpoints_per_site": 2,
+    "full_u_tensor_count": 24,
+    "shape": [
+      31668,
+      5120
+    ],
+    "dtype": "bfloat16",
+    "full_u_payload_bytes": 7782727680,
+    "archive_cap_bytes": 9663676416,
+    "extra_capture_staging_cap_bytes": 1073741824,
+    "persistent_auxiliary": "P512 native targets/current gates, fixed64 row identities, raster/grid/voxel identities, bounded selector traces",
+    "not_saved": "all-layer full z/h/y",
+    "old_partial_hook_cannot_deduct_missing_full_u_capture": true
+  },
+  "adaptation_diagnostic_forward_cap": 30,
+  "main_calibration_plus_diagnostic_forward_cap": 96,
+  "extended_calibration_plus_diagnostic_forward_cap": 162,
+  "icc_cal22_default_enabled": false,
+  "superseded_5a5_bound": {
+    "commit": "5a5b84a04f71aa1fa6c426febf614a1a4c1d2492",
+    "joint_model_forward_cap": 440,
+    "new_explicit_component": "mandatory CAL3 VAE/text adaptation diagnostics <=30 model calls"
+  },
+  "freeze_rule": "Native Dense/neutral captures may precede freeze; main family/parameters/CAL22 and E5/E6 choices use preset local criteria and freeze before any new approximate-arm free-video outputs.",
+  "statistics_unit": "source/near-duplicate cluster; report actual cluster count, not token/layer/frame count",
+  "cal3_posterior_input_status": "RAW_MU_LOGVAR_OR_REAL_CLIP_NOT_BOUND"
 }

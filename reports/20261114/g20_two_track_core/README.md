@@ -1,6 +1,6 @@
 # G20 两个核心方向：结果索引与勘误
 
-**2026-11-16 最新任务：[完整复现与受控重做](../../../research/20261107/ffn_baseline_reproduction/STRICT_REPRODUCTION_AND_REDO_20261116.md)。** 已完成的A/BW/BWS仍按原范围闭合；本次用户新增要求是先补齐作者参考与最小Wan端口，不能以核心公式相符或旧变体视频代替完整复现。ICC四状态/SVD-CA-CD、Chip官方模块/selector/Triton与全部状态分支是新参考；双残差与Global-P64单独消融。已核官方Wan2.1只接attention、A100有官方Triton，发现具体计数与几何接口问题；新增模型运行0。当前已进一步补固定代码引述并收缩预算：主ICC改为11真实视频作者式加噪校准（可选22），66/132次模型调用；五臂DEV11×seed42仍55视频槽位。旧rollout主校准及99条D4总账撤回；视频/校准分别计账，真实clean视频/x0尚需绑定。当前任务是参考实现及运行准备，以下“当前待办为空”只指此前三个固定比较。
+**2026-11-16 当前下一阶段：[完整实验方案](../../../research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)。** 先完整验收ICC/作者Chip FFN与Wan适配，再做五臂DEV11比较。ICC作者式CAL11为66次模型调用，CAL3必要适配诊断至多30，主计96；可选CAL22累计含诊断162。主55视频、两条Dense兼作full-U捕获、有限局部任务及小消融均已统一计账。A/BW/BWS保持已完成；下文旧“待办为空”仅指这些固定scope。新模型/GPU运行0。
 
 **2026-11-16 原文与作者代码核对：[ICC/Chipmunk的Wan适配、FFN结构与蒸馏](../../../research/20261116/ICC_CHIPMUNK_WAN_FIDELITY_AND_FFN_STRUCTURE_20261116.md)。** ICC四状态核心忠实，实际双残差是实数等价、BF16及成本不同的缓存适配；Global-P64为明确变体，作者式Block128的历史producer与编译selector尚未独立完整绑定。Chipmunk论文视频主表只启用attention，不能用其整系统速度代表Wan FFN基线。新报告同时区分必要适配、固定预算选择、局部风险、历史视频质量和逻辑缓存，并确认官方DMD2推理标签及checkpoint SHA。新增模型运行0；现有A/BW/BWS完成状态不变。
 

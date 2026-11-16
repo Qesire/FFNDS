@@ -1,6 +1,6 @@
 {
-  "schema": "ffnds.icc-author-calibration.v1",
-  "base_commit": "0e29eb7affddc88138337294ffdb5ccc7893f86e",
+  "schema": "ffnds.icc-author-calibration.v2",
+  "base_commit": "5a5b84a04f71aa1fa6c426febf614a1a4c1d2492",
   "status": "METHOD_SPECIFIED_REAL_CLEAN_VIDEO_BINDING_PENDING_NO_MODEL_RUN",
   "author_reference": {
     "repository": "ccccczzy/icc",
@@ -21,7 +21,11 @@
     "pseudo_clean_generated_data_default": false,
     "static_repeat_default": false,
     "dev_and_near_duplicate_exclusion_required": true,
-    "optional_extension_decision": "One optional source-budget diagnostic; decision frozen before main-video outputs. E5 video trigger is evaluated only after CAL22 local scores exist."
+    "optional_extension_decision": "Optional CAL22 source-budget diagnostic; explicitly freeze enable/disable before any new approximate-arm free-video outputs. E5 uses CAL22 local scores only after the diagnostic exists.",
+    "optional_extension_default_enabled": false,
+    "diagnostic_source_count": 3,
+    "diagnostic_source_selection": "First 3 distinct bound main source clusters in ascending sha256(\"icc-clean-diag-v1|\"+source_cluster_id), frozen before results.",
+    "bound_diagnostic_samples": []
   },
   "preprocessing": {
     "frames": 81,
@@ -161,9 +165,74 @@
       "module_conformance",
       "svd",
       "cache_transfers"
-    ]
+    ],
+    "mandatory_diagnostic_forward_cap": 30,
+    "main_calibration_plus_diagnostic_forward_cap": 96,
+    "extended_calibration_plus_diagnostic_forward_cap": 162
   },
   "runtime_binding_status": "UNVERIFIED; pinned source references are not proof of installed execution code",
   "new_model_runs": 0,
-  "main_icc_selection_requires_all_three_families": true
+  "main_icc_selection_requires_all_three_families": true,
+  "execution_design": "CONTROLLED_REPRODUCTION_PLAN.md",
+  "adaptation_diagnostics": {
+    "mandatory": true,
+    "sources": "ICC_CLEAN_CAL3 subset of main 11",
+    "main_recipe_is_not_selected_by_diagnostic_results": true,
+    "cross_factorial_grid": false,
+    "additional_complete_video_cap": 0,
+    "additional_factorization_cap": 0,
+    "additional_factor_action_cap": 0,
+    "variants": [
+      {
+        "id": "VAE_POSTERIOR",
+        "forward_cap": 12,
+        "change": "Target z0 only; native I2V mean-encoded condition is fixed",
+        "formula": "raw_mu + exp(0.5*clamp(raw_logvar,-30,20))*eta, then native Wan channel normalization",
+        "raw_parameter_source": "same native encoder output before normalization, not inverse-normalized rounded mean",
+        "sampling_dtype": "float32",
+        "logvar_clamp": [
+          -30.0,
+          20.0
+        ],
+        "eta_rng": "independent frozen per-source diagnostic namespace; seed 42",
+        "held_fixed": [
+          "clip transform",
+          "visual condition/mask",
+          "CA/CD t and epsilon",
+          "text/dropout",
+          "checkpoint",
+          "scheduler"
+        ],
+        "reuse": "H-CD pair at sigma0=1 only after actual complete input identity matches; H-CA index0 also reusable",
+        "cap_derivation": "3 sources * (H_CA<=1 + L_CA1 + L_CD2) <=12; H_CD reused"
+      },
+      {
+        "id": "TEXT_EMPTY_TOGGLE",
+        "forward_cap": 18,
+        "change": "Flip actual main context prompt<->genuine empty-string T5, same choice within CD pair",
+        "held_fixed": [
+          "main z0",
+          "clip transform",
+          "visual condition/mask",
+          "CA/CD t and epsilon",
+          "checkpoint",
+          "scheduler"
+        ],
+        "cap_derivation": "3 sources * 2 experts * (CA1+CD2)=18"
+      }
+    ],
+    "forward_cap_total": 30,
+    "outputs": [
+      "paired encoding/noising checks",
+      "per-source four-boundary statistics",
+      "paired flow-prediction differences",
+      "actual call and reuse ledger"
+    ],
+    "not_evaluated": [
+      "refitted alternative factors",
+      "alternative full-video performance",
+      "DiT 50-grid to D4 causal equivalence"
+    ],
+    "diagnostic_statistics_enter_main_calibration": false
+  }
 }

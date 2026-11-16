@@ -1,4 +1,4 @@
-> **2026-11-16 当前修正：** ICC主校准遵循真实clean编码→随机时间前向加噪→CA单次/CD真实相邻两次，主11源66 NFE，可选22累计132；不采完整CAL轨迹。旧native-D4端点校准退出主参考；四状态和三家族完整性保留。当前[作者校准合同](strict_reproduction_20261116/ICC_AUTHOR_CALIBRATION.md)、[总方案](STRICT_REPRODUCTION_AND_REDO_20261116.md)优先。**下文为历史方案。**
+> **2026-11-16 当前唯一执行设计：[完整下一步方案](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)。** ICC作者式CAL11保留，66次主校准加CAL3适配诊断至多30；五臂55槽、neutral/局部回放/消融统一计账。本文下文保留历史规格；当前动作与上限以整合方案和机器预算为准。
 
 # ICC-FFN：Wan2.2 四步移植实施合同（首项新增基线）
 

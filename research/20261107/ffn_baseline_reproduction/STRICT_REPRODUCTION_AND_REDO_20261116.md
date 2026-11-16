@@ -1,181 +1,27 @@
-# ICC / Chipmunk：先完整复现，再重做 Wan 比较
+# ICC / Chipmunk：完整复现与下一步实验
 
-2026-11-16（北京时间）。依据 FFNDS `0e29eb7affddc88138337294ffdb5ccc7893f86e`、本轮用户最新要求及再次核对的作者默认分支。当前为**源码审计、接口检查与重做规格**；本轮模型/GPU运行数为0。详细上游审计、设计复审与输入提案在 [本轮材料](strict_reproduction_20261116/) 中。
+2026-11-16。当前下一阶段方案已统一到 [CONTROLLED_REPRODUCTION_PLAN.md](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)，执行者从该文按阶段0–5推进。本文保留入口与证据定位，不再维护第二份实验顺序或预算。
 
-## 0. 当前修正：ICC遵循作者校准方法，数量沿11/22量级
+## 本轮要完成什么
 
-上一版用native-D4生成轨迹端点作为ICC主校准，改变了作者的校准状态构造，现已撤回。**主配方恢复真实clean样本编码→随机时间前向加噪→CA一次Dense调用/CD真实相邻两次Dense调用。** 作者定义、必要Wan接口和可核代码见[ICC作者校准合同](strict_reproduction_20261116/ICC_AUTHOR_CALIBRATION.md)；机器参数见[配方](strict_reproduction_20261116/ICC_CALIBRATION_RECIPE.json)。
+先完整验收作者FFN算法与Wan接口，再比较Native Dense、Q1r2、作者四状态ICC、作者式Chipmunk及Global-P64。ICC保留SVD/CA/CD三家族；主规模11个真实视频来源，按作者clean编码→随机时间前向加噪→CA单次/CD真实相邻两次取得统计。主配方与旧native rollout端点区分。
 
-样本量沿现有规模：主11个真实视频source，可选扩至22。每源两专家×(CA1+CD2)，最多66/132次校准模型调用；不生成完整CAL轨迹。五臂主视频55槽位保持；完整视频合计基本68、条件全开74，视频与校准共用3次技术重试（视频最高77），原99次D4总账失效。两类成本在[唯一实验设计](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)和[预算](strict_reproduction_20261116/EXPERIMENT_BUDGET.json)分别登记。
+必要的VAE编码和空文本映射在CAL11内预选3源做配对诊断，最多30次模型调用。主作者式校准66次，加诊断最多96次；可选CAL22连同同一诊断累计最多162次。主五臂55视频槽保持；完整视频基本68、条件全开74，与校准/诊断共享3次技术重试。精确预算、局部回放与离线分解只以[EXPERIMENT_BUDGET.json](strict_reproduction_20261116/EXPERIMENT_BUDGET.json)为准。
 
-数据核查发现现有CAL11/CAL_EXT11仅为图片＋prompt，VB_DENSE22为11 CAL＋11 DEV的FFN面板；尚无11条真实clean视频/x0绑定。数量沿用不等于这些图片已成为视频。详见[资产审计](strict_reproduction_20261116/ICC_CALIBRATION_ASSET_AUDIT.md)。旧rollout统计保持历史身份，不能替代作者式CA/CD采集。
+## 阅读与实施入口
 
-固定代码引述扩展至45项主张、91处短摘录、42个文件，覆盖ICC原方法、Chipmunk及Wan校准接口：[ICC引述](strict_reproduction_20261116/ICC_CODE_CITATIONS.md) · [Chip引述](strict_reproduction_20261116/CHIP_CODE_CITATIONS.md) · [机器索引](strict_reproduction_20261116/CODE_CITATIONS.json) · [核验](strict_reproduction_20261116/CITATION_VERIFICATION.json)。本轮模型/GPU新增运行0。
+| 文件 | 用途 |
+|---|---|
+| [完整下一步方案](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md) | 目的、数据、阶段、对照、验收、解释与停止/推进条件 |
+| [机器预算](strict_reproduction_20261116/EXPERIMENT_BUDGET.json) · [数据角色](strict_reproduction_20261116/COHORT_PROPOSAL.json) | 唯一计数与来源角色；Dense捕获属于主55，不重复计账 |
+| [ICC作者校准](strict_reproduction_20261116/ICC_AUTHOR_CALIBRATION.md) · [机器配方](strict_reproduction_20261116/ICC_CALIBRATION_RECIPE.json) | CA/CD输入、时间、条件、统计与CAL3配对适配 |
+| [ICC完整参考](strict_reproduction_20261116/ICC_STRICT_REFERENCE.md) · [Chip作者审计](strict_reproduction_20261116/CHIPMUNK_UPSTREAM_AUDIT.md) | 四状态、原selector/核/状态机、必要宿主接口 |
+| [代码引述](strict_reproduction_20261116/CODE_CITATIONS.json) · [引述核验](strict_reproduction_20261116/CITATION_VERIFICATION.json) | 45项主张、91处摘录、42份固定源码，保持原来源身份 |
+| [真实clean输入资产核查](strict_reproduction_20261116/ICC_CALIBRATION_ASSET_AUDIT.md) | 现有图文/FFN面板与尚缺真实clip/x0的区别 |
+| [独立审阅](strict_reproduction_20261116/INDEPENDENT_REVIEW.md) | 当前整合方案回核及其证据范围 |
 
-## 1. 本轮更改的判断
+## 当前状态
 
-**需要重新建立并执行作者参考基线。** 过去“核心公式一致”“已有同mask数值比较”不足以保证整个复现完整：它们没有同时证明作者配置、所有状态分支、校准生产器、数值执行顺序和完整自由生成均与所引用的方法相符。
+本次完成设计整合和仓库更新，新模型/GPU运行0。真实clean输入、CAL3 raw μ/logvar访问、actual producer/权重/配置/资源和数值执行仍待绑定。缺CA/CD时不能以普通SVD冒充完整三家族选择。ICC/Q1校准来源未配平，局部选择和主视频使用已暴露DEV；本轮结论保留这些限定。
 
-旧视频、A/BW/BWS与各自RUN/EXIT继续保留；已完成范围不重新标成未完成。旧ICC结果明确属于所运行的SVD/CD、rank512、双残差和当时校准配方；Global-P64属于FFNDS变体；历史author-style Block128在producer/编译扩展/数值链未闭合前不能升格为作者完整复现。关于末级低秩、代理相消和复合状态差异的代数/局部发现仍有效，但不能据此认定原作者方法已被公平证伪。
-
-本轮先把下面三层分别做完整，再讨论哪一层出现质量损失或高成本。
-
-| 层次 | 实际对象 | 完成条件 |
-| --- | --- | --- |
-| 作者参考 | 固定论文与代码版本，调用作者原FFN模块、分解器、selector、kernel和状态机 | 原形状/精度的可执行正对照；覆盖dense、hit、refresh、多hit、cache和bias；记录论文与代码不一致之处 |
-| 最小Wan端口 | 只补Wan宿主接线、真实调度/专家隔离、必要shape与设备生命周期 | 与参考同输入/同状态对照；原生neutral；全部站点trace；有选择余地的适配单项消融 |
-| 实验/部署变体 | ICC双残差、Chip Global-P64、exact-K、数值重排、性能优化 | 从已验收端口一次改一项；分别报告质量、实际成本与改动原因 |
-
-这里“完整FFN复现”包括被比较FFN算法的全部组成。ICC整篇方法也处理attention，Chipmunk论文的视频系统只稀疏attention；FFN-only移植不能称为完整论文系统复现。作者原模块的正对照必须做；完整FLUX/DiT论文性能表和LLM基准不作为本次FFN移植的额外前置。官方Wan2.1系统的小配对可以核接线，不能替代MLP验证。
-
-## 2. Chipmunk到底在Wan上做过什么
-
-本轮重新读取仓库默认分支：Chipmunk默认是`master`，HEAD仍为`b5e8d1c3da6bddc7ca9007c48e91b82087c11490`；较旧的`main`不能替代它。ICC默认也是`master`，HEAD仍为`dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4`。
-
-| 问题 | 依据原文/当前代码的答案 |
-| --- | --- |
-| 作者是否做过Wan？ | 做过Wan2.1 T2V、50步。论文的约2.67倍是Chipmunk与STA/step-cache等组成的系统结果，不能当作FFN-only倍速。 |
-| 论文在Wan上验证了稀疏MLP吗？ | 附录D.1明确Wan/Hunyuan最终视频配置只使用稀疏attention；MLP稀疏在FLUX中使用。 |
-| 原Wan示例是否已接MLP？ | `WanModel`只注册`SparseDiffAttn`，`is_mlp_sparse=False`，FFN仍为普通Linear→GELU→Linear。只改YAML不能接通MLP。 |
-| 默认脚本实际运行哪个配置？ | `examples/wan/run.sh`使用`configs/cuda-test/chipmunk-config.yml`，其中attention top_keys=.1；根目录YAML的.15不是同一个运行配置。两者均关闭MLP。 |
-| 原码直接支持I2V吗？ | 作者issue回复说尚无I2V性能数据，建议补初始化和`inference_step`。当前默认分支的I2V入口仍缺这两项；文件存在不等于接线完整。 |
-| A100是否迫使我们改写MLP算法？ | 不会。官方已有Ampere/Triton路径；保留作者`SparseDiffMlp`、Triton两级MLP和compiled selector/copy工具。实际环境是否编译通过另以运行证明。 |
-
-原始依据：[论文D.1](https://arxiv.org/html/2506.03275v1)、[官方仓库](https://github.com/sandyresearch/chipmunk/tree/b5e8d1c3da6bddc7ca9007c48e91b82087c11490)、[作者I2V回复](https://github.com/sandyresearch/chipmunk/issues/2#issuecomment-2977261223)、[官方MLP](https://github.com/sandyresearch/chipmunk/blob/b5e8d1c3da6bddc7ca9007c48e91b82087c11490/src/chipmunk/modules/mlp.py)。逐层调用链见[上游审计](strict_reproduction_20261116/CHIPMUNK_UPSTREAM_AUDIT.md)。原T2V的硬编码静态mask几何也存在乘积不符：32760被映射到21×45×80=75600，21840被映射到21×30×52=32760；接线时应从真实patch grid导出并验证，不能照搬这张表。此为源码发现，未声称本轮实际启动过原系统。
-
-## 3. ICC正式参考必须恢复四状态与完整分解配方
-
-以列向量记号简写单token，原生FFN为
-
-\[
-z_s=W_1u_s+b_1,\quad h_s=\operatorname{GELU}(z_s),\quad y_s=W_2h_s+b_2.
-\]
-
-作者命中路径保存并使用四状态：
-
-\[
-\hat z_t=z_s+B_1(u_t-u_s),\qquad
-\hat y_t=y_s+B_2\left[\operatorname{GELU}(\hat z_t)-h_s\right].
-\]
-
-`B1/B2`各自用两次低秩linear执行，保留两次减法、加回缓存、中间GELU、因子顺序及原有anchor不随hit更新的规则。bias在完整锚点中进入；增量路径不重复加bias；Wan当前gate仍在模块外执行。原DiT的无效dropout/identity norm可按真实配置映射，不能删掉任何有实际作用的运算。
-
-**SVD、CA-SVD、CD-SVD均建立参考，不能只用普通SVD代替论文主张。** CA/CD四个边界是`u,z,h,y`；CD按作者顺序做配对差绝对值、token归约、样本内通道min-max、batch/来源聚合、平方根、左右`max_ratio=1000`约束、加权SVD与反缩放。先读并执行作者函数，再接入Wan真实边界。历史`weights(max_ratio=None)`的默认值不能当作已采用作者截断；真实生成参数必须写入因子清单。
-
-分解精度不只写“FP32”：还要绑定作者实际`torch.linalg.svd`调用、driver、full_matrices、TF32开关和因子拆分。先以直接原函数为oracle；若换成仓库的`gesvd`/reduced工程路径，单列对照。SVD向量可有符号或退化子空间的不唯一性，因此比较重建与对真实输入的factor action，不要求不同合法分解的因子SHA相同。scale的epsilon仅在一次分解定义中加入；多个rank从同次分解截取，不能对共享scale反复原地加epsilon。
-
-两残差
-
-\[
-q_1=z_s-B_1u_s,\quad q_2=y_s-B_2h_s
-\]
-
-只在实数代数下等价。它改变BF16运算顺序，并增加anchor低秩投影。因此四状态是正式参考，双残差是使用**同一组因子**的单项消融；二者均需自由生成比较，不能以局部CAL误差接近替代。
-
-四状态40层、当前单专家、BF16缓存约89.39GiB，仅是逻辑payload。优先用无损host offload/逐层预取或经核实的设备分配保留原计算；显存不足不能成为省掉参考基线的理由。记录GPU allocated/reserved、CPU pinned/RSS、PCIe传输、工作区与权重。当前会话没有可用GPU或已连接的集群执行入口，尚未验证任何这类资源方案。
-
-原始依据：[ICC原论文](https://openaccess.thecvf.com/content/CVPR2025/html/Chen_Accelerating_Diffusion_Transformer_via_Increment-Calibrated_Caching_with_Channel-Aware_Singular_Value_CVPR_2025_paper.html)、[作者SpMlp](https://github.com/ccccczzy/icc/blob/dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4/DiT/models/models_sp_step_decomp.py)、[分解脚本](https://github.com/ccccczzy/icc/blob/dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4/DiT/func/func_decomp.py)。完整实施规格见[ICC专项](strict_reproduction_20261116/ICC_STRICT_REFERENCE.md)。
-
-## 4. Chipmunk正式参考不能遗漏的机制
-
-| 机制 | 作者开源reference应保留 |
-| --- | --- |
-| 代理 | 每128个真实token分组；当前input均值经W1+b1，与缓存preactivation均值作绝对差 |
-| 选择器 | 作者compiled selector：前1024列估计阈值，全列阈值选择、random补选，实际count对齐256；不换为全列quantile或exact-K |
-| 默认强度 | top_keys=.3、random_keys=.05；记录实际各块count而非把.3当精确保留率 |
-| 层策略 | 每个expert局部前两层保持Dense；reference不改成全40层稀疏 |
-| dense刷新 | MLP默认period10；前两步dense是attention的规则，不能抄进MLP |
-| mask复用 | block_mask_cache=2，step<10仍每次重算；同时覆盖10前后的refresh/reuse边界 |
-| 状态更新 | 每次hit更新选中post-GELU值及输出缓存；仅重算indices时更新相应proxy缓存；多hit按逐列历史状态运行 |
-| 数值 | 官方Triton的FP32累积→GELU→BF16以及第二投影的delta写回/缓存相加顺序；本仓packed BF16路径另作消融 |
-| 布局 | 直接复用作者voxel/reverse函数，保持token身份；在FFN-only宿主上用局部置换/逆置换保护原生attention，须做等价及成本对照 |
-| 物理执行 | 原Triton稀疏GEMM、selector、cache写回和必要搬运均计入；不用dense gather原型速度代表作者kernel速度 |
-
-特别注意：作者dense refresh没有清空旧indices，step10刷新后step11可能复用此前mask。先忠实记录其行为；如修改，另列变体并消融。不能只测试D4的一次anchor→hit，就声称已覆盖作者整个状态机。
-
-## 5. 最小适配清单及其验收
-
-| 改动 | 为什么需要 | 验收/消融 |
-| --- | --- | --- |
-| Wan pre-W1/pre-gate接线 | 当前norm/modulation、bias、gate和权重所有权属于宿主 | no-op与Dense回退须与原生同路径；逐站点核输入、输出、gate只使用一次 |
-| expert/request/CFG缓存key | 两专家权重不同，跨请求/CFG串缓存不合法 | 首次进入expert建立dense状态；cache键与真实scheduler trace逐项相符；不把非法串缓存当质量消融 |
-| 显式step/local-layer计数 | 原singleton不能直接表示双专家；已发现末次调用前reset边界 | 保留原类reference；显式scheduler context与160真实调用比对；原/修复小轨迹对照，修复不静默归入原码 |
-| MLP尾52行 | N=31668=247×128+52，原block_mean不能reshape全部N | 第一版247整块调用原核，最后52行Dense并计成本；与valid-only尾组方案单项对照；不将补零行混入均值 |
-| 视频空间排列 | 作者已支持不整除的3D几何 | 直接用voxel_chunk_no_padding及逆函数；无丢失/重复行，先验证排列往返；无需另造排列算法 |
-| 模型offload/转置权重 | SparseDiffMlp的W2转置在普通list中，不自动跟随宿主设备迁移 | 在权重已落设备时构造/重绑；逐层核权重SHA、设备、转置内容；比较常驻与无损offload的输出及成本 |
-| 原精度→Wan BF16 | 原ICC图像路径与Wan数值recipe不同 | 保留原精度正对照、同输入BF16与更高精度诊断；原因子顺序不随手改为fused addmm |
-| CAL数量/秩/保留率 | 这些是统计与预算选择，有多种合法值 | 有限CAL/DEV选择与下述预算曲线；不能标成无需验证的必要接口改动 |
-
-**本轮已执行一项无模型的纯Python接口检查。** 原`LayerCounter`类原样提取，40层×4步×1调用的最后一次实际call159应是(step3,layer39)，类给出(step0,layer0)；50步×2CFG调用的最后一次也出现相同边界。若把80层注册到一次只运行40层的时钟中，160次有120次坐标错配。[原始trace](strict_reproduction_20261116/UPSTREAM_COUNTER_TRACE.json)。这证明需要明确计数适配，不证明论文作者实际发表运行因此失败；GPU模块尚未执行。
-
-保留前两层Dense时，D4应记录**8固定Dense + 76 anchor + 76 sparse hit = 160站点**。ICC/Q1按其自身原层策略可以是80 anchor+80 hit。正式Pareto报告各方法真实策略和总成本；共同38层范围是另一个机制控制，不静默写成ICC原reference。
-
-## 6. 精简后的实施顺序
-
-### 6.1 完整机制由模块和同输入验收覆盖
-
-ICC直接使用原SpMlp、统计与分解函数建立oracle；核四状态、bias、GELU、两级低秩、anchor固定、CA/CD四边界和左右缩放。三家族都实现，r512和r1408从同一次分解取前缀。Chip直接使用作者SparseDiffMlp、compiled selector与官方Triton；原shape/dtype正对照、固定真实indices算术对照、连续多hit和step9→10→11→12必须覆盖。已有计数器CPU trace复用；错误状态不需要另生成一批视频来重证。
-
-必要适配分别检查：真实pre-W1/pre-gate接线、当前gate一次、request/expert/local-layer隔离、voxel往返、尾52、转置权重/CPU缓存生命周期。可证明等价的搬运用同输入数值对照；支持集或舍入改变的变体先局部评价。主Chip保留作者舍入与dense-tail，不为了省核验替换为本仓packed路径。
-
-### 6.2 校准保留作者生成状态的过程
-
-主ICC_CLEAN_CAL11要求真实clean clip或其正确Wan编码latent。CA在每expert的两个部署时间中均匀抽一次，从clean latent独立前向加噪；CD分别构造H 0→1、L 2→3，第二输入必须来自第一次Dense预测执行原生scheduler.step_post。低专家可以直接从clean加噪到其起点，无须先跑高专家轨迹。两次独立加噪不构成CD。
-
-主Wan必要适配为native VAE normalized-mean、flow加噪/原生一步、实际D4时间grid及专家隔离。保留p=.1条件dropout，映射为真正空文本T5编码，保留I2V首帧/mask；CD内条件一致。全token u/z/h/y的统计、min-max、sqrt、ratio1000和分解顺序不变。
-
-每源最多6次模型调用；主11源66，可选22源累计132，VAE/文本编码及分解另计。batch1/epoch1，扩展不重采前11；旧rollout统计不混入。Q1保留原CAL11参数和协议，当前ICC真实视频来源未配平，主表按各方法pipeline开发比较解释。
-
-### 6.3 固定一个合理预算的ICC进入完整视频
-
-令F=2dm、L=2r(d+m)、a=d²，一个anchor+hit周期的主MAC比为
-
-
-\[
-\rho_{\rm ICC4S}=\frac{F+L}{2F},\qquad
-\rho_{\rm ICC2R}=\frac{F+2L}{2F},\qquad
-\rho_{\rm Q1}=\frac{F+2a}{2F}.
-\]
-
-当前d5120/m13824下，四状态r512为0.568519，旧双残差r512为0.637037，Q1为0.685185；**四状态r1408为0.688426**，其周期主MAC约比Q1高0.473%。所以新主ICC固定r1408，r512只做历史同输入诊断，不再扫多rank完整视频。这是主算术预算接近，不能当实测时延相同。
-
-SVD/CA/CD在既有DEV11、high/low×layer{4,19,34}、相同P512及当前gate上比较F64门后绝对MSE：层→专家→来源等权；严格同分按SVD→CA→CD固定顺序。选中的家族再构造全80站点因子并冻结，随后才开始主视频。此规则只有六站点开发证据，不保证选出全质量最优ICC。其他家族的分数完整保存。
-
-### 6.4 主视频55条，校准单列NFE
-
-| 项目 | 当前上限 |
-|---|---:|
-| ICC作者式主校准：11真实source×两expert×(CA1+CD2) | 66次去噪器调用 |
-| 可选扩至22来源的累计校准 | 132次去噪器调用 |
-| 五臂DEV11×seed42主视频 | 55条D4 |
-| 额外neutral | 10条D4 |
-| 同因子4S→2R | 3条D4 |
-| 条件CAL22与单项适配 | 各最多3条D4 |
-| 技术重试 | 视频/校准合计最多3次 |
-
-完整视频基本68，条件全开74；若重试全用于视频则77。校准重试单位为CA单前向或CD两前向pair，不能与视频各分配3次。全部条件全开时模型调用保守总上界440（不含模块/编码/SVD/搬运），不能称等GPU时间。原22条完整CAL D4需求已删除。
-
-离线分解主CAL11最多184个Wan大矩阵；可选CAL22局部诊断增加24至208，条件闭环补齐全模型最多再加148至356。rank前缀共用分解，统计诊断不自动增加因子网格。
-
-方法、输入与路径完全匹配的旧产物逐条抵扣。DEV既用于局部家族选择又用于完整视频，因此是开发证据。未匹配ICC/Q1校准来源时，不把pipeline差异独立归因于算法。现有BW/BWS继续按原身份解释；不新增O40、EVAL22、额外seed或整模型计时扫描。
-
-## 7. 速度与资源必须按实际可执行路径比较
-
-所有方法在同一已核实硬件/软件上测完整anchor+hit/整段生成，含proxy、selector、packing、权重搬运、cache读写/预取、首次参数准备和工作区。冷启动、预热后FFN、denoise与完整生成分别报；本轮不额外安排完整模型计时复跑；正式产生且关闭重型observer的运行记录实际时间，缺匹配时间的旧视频只复用质量。计时样本不足时不宣布微小速度差已分辨。
-
-ICC四状态的host offload若是唯一可执行参考，就如实计传输开销；不能把单层算术时间当完整方法速度。随后允许双残差或更好的合法offload作为独立优化臂。Chip同理必须直接给官方Triton合理实现机会，不使用dense indexing原型的慢结果惩罚作者方法。
-
-在GPU/host容量、真实输入实体、编译环境和producer补齐前，本文件不是可直接派发的ACTIVE scope。既有独立评议规则继续适用：提交具体版本、真实不同Agent审查修订、冻结有限范围后执行；这一轮的设计审阅不预填RUN/EXIT，不增加审批层级。
-
-## 8. 哪些成果复用，哪些必须重新做
-
-| 资产 | 本轮处置 |
-| --- | --- |
-| A/BW/BWS已完成分数、参数与收据 | 原身份保留；用于开发诊断，不重跑相同问题 |
-| 旧Dense/初噪/图像/参数/视频 | 所有关键身份与本轮完全匹配才复用；不因日期旧而重做，也不只凭同source/seed就拼表 |
-| 旧ICC四边界统计/因子producer | 若找回且参数/字节/实际执行全部闭合可复用；缺边界或未知max_ratio则按新配方重建 |
-| 历史author-style Chip | 源码、selector二进制、调度、neutral、输入身份闭合才可认作对应运行；只有汇总时重新建立reference |
-| Global-P64 | 继续保留已验证变体身份；新共同评估条件改变时再生成匹配结果 |
-| 新参考完整视频 | 完成模块/端口验收和参数冻结后重做；不以补文档代替缺失的运行 |
-
-执行后的解释顺序固定为：先确认实现正确完整，再确认必要适配的影响，再比较合理预算下的质量/时延/内存，最后才讨论低秩约束、空间分组、少步动力学、视频与LLM的差别及蒸馏关系。若作者reference修正后追平或超过Q1，应据实改写结论。
+A/BW/BWS已完成结果按原身份继续使用。原参考核读和此前修订保留在[固定历史提交5a5b84a](https://github.com/Qesire/FFNDS/tree/5a5b84a04f71aa1fa6c426febf614a1a4c1d2492/research/20261107/ffn_baseline_reproduction)，不构成额外活动队列。当前工作按已有执行前复核与ACTIVE流程落实，无需重新询问已授权的研究方向。

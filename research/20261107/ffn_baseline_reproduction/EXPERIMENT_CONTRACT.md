@@ -1,4 +1,4 @@
-> **2026-11-16 当前修正：** ICC按作者clean样本加噪和相邻一步校准，11/22来源至多66/132模型调用，校准不计完整D4。主55视频保持；视频基本68/条件74，与校准共用3次技术重试。旧99条D4及rollout主校准已撤回，详见[当前方案](STRICT_REPRODUCTION_AND_REDO_20261116.md)。**下文为历史方案。**
+> **2026-11-16 当前唯一执行设计：[完整下一步方案](strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)。** ICC作者式CAL11保留，66次主校准加CAL3适配诊断至多30；五臂55槽、neutral/局部回放/消融统一计账。本文下文保留历史规格；当前动作与上限以整合方案和机器预算为准。
 
 # FFN-only 统一实验、实施与验收合同（G19 vs ICC/Chipmunk/TARDIS）
 
