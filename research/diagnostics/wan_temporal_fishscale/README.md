@@ -4,6 +4,8 @@
 
 此目录是 FFNDS 的独立视频质量诊断，不修改 FFN 稀疏方法、原有权重或历史实验。
 
+> **2026-11-17 路径纠正**：S2 的 `root=hf` 是旧执行环境的逻辑存储根。其 GPU runner 的 `--hf-root` 默认 `/home/xiang/.cache/huggingface`，原模型 view 在 `/var/tmp/ffnds-xiang/huggingface`；没有证据证明这些文件存在于学校 `/public/home/scc/pb23061276/`。旧 worker 通过 SSH `ffnds-worker` 运行，跨 worker 主机共享 home 不等于跨学校集群共享。A0/A1 等依赖旧二进制的阶段必须先在实际执行节点核真实路径与 SHA，否则标为资产不可访问并转为新集群最小基线。详见 [实验第 0 节](EXPERIMENT_PLAN.md#0-执行环境与资产位置2026-11-17-补充纠正强制先行)。
+
 - [完整分层实验和资产树](EXPERIMENT_PLAN.md)：A0 人眼确认历史视频 → A1 RGB/编码 → A2 BF16/FP32 → A3 干净 VAE 重建 → 必要时 B0/B1/B2/B3 → 跨来源确认。
 - [14 条 Dense 真实资产身份](ASSET_REGISTRY.json)：历史 S2 原始 MP4、末步 latent、全部四步状态与 SHA；这是只读索引，worker 尚未重新核验文件。
 - [机器矩阵与预算](EXPERIMENT_MATRIX.json)：A 层最多 0 DiT、2 次 VAE encode、6 次 VAE decode；每轮后用户审片决定是否继续。
