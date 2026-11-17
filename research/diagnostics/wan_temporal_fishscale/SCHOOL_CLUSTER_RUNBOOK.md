@@ -83,3 +83,65 @@ python3 "$FFNDS_REPO/tools/fishscale_school_preflight.py" \
 原始模型/蒸馏模型配对 B3 同样只在学校完成，先检索学校端已有完整视频；旧 worker 中的 G19 原版40步视频只在文献/结果比较里保留，不成为新实验的文件依赖。
 
 **本手册尚未在学校计算节点实测。** 实际 preflight receipt、真实二进制文件、视频观看和新模型结果必须由学校执行产出，不能凭本次 GitHub 写入声称已存在。
+
+
+## 6. 实用学校端补充：来源发现、注册与原生捕获
+
+**有界发现**：只检查学校项目内明确给定的子目录（深度≤4、最多返回300项，stat-only 而非 hash PASS），可在 `inventory` 中追加参数：
+
+~~~bash
+--candidate-dir experiments --candidate-dir outputs
+~~~
+
+**登记真正存在的学校视频**：在学校端输出目录下建立私有来源登记，不再引用远端 S2 的 ord898/ord96。以下路径必须按现场已存在的真实文件替换：
+
+~~~bash
+python3 "$FFNDS_REPO/tools/fishscale_school_register_pair.py" \
+  --config "$FFNDS_REPO/research/diagnostics/wan_temporal_fishscale/SCHOOL_CLUSTER_CONFIG.json" \
+  --out "$SCHOOL_OUT/preflight/SCHOOL_PAIR_REGISTRY.json" \
+  --pair-id school_dense_01 --seed 42 \
+  --video "$SCHOOL_OUT/school_sources/school_dense_01/original_dense.mp4" \
+  --latent "$SCHOOL_OUT/school_sources/school_dense_01/final_latent_bf16.safetensors" \
+  --generation-run "$SCHOOL_OUT/school_sources/school_dense_01/CAPTURE_RUN.json" \
+  --image "$WAN_ROOT/path/to/real_school_input.png" \
+  --prompt-file "$SCHOOL_OUT/school_sources/school_dense_01/prompt.txt"
+~~~
+
+这只登记学校文件和 SHA；**还需在 Slurm 计算节点运行上文 `--phase decode` 严格预检**。若学校只有一条旧 MP4、还没有原生 latent 和同一次运行的 RUN，可以先只带 `--video` 登记用于 A0 人眼观看，生成登记状态 `REGISTERED_FOR_REVIEW_ONLY`；A1 不得据此启动。
+
+**学校源输入 manifest**：如需在学校新捕获一个 D-BF16 Dense，保存私有 `$SCHOOL_OUT/preflight/NEW_SOURCE.json`，填写真实的 `image_path`、`image_sha256`、`prompt`、`seed`；占位样例不能直接运行。随后在学校 Slurm 节点执行：
+
+~~~bash
+python3 "$FFNDS_REPO/tools/fishscale_school_preflight.py" \
+  --phase generate \
+  --config "$FFNDS_REPO/research/diagnostics/wan_temporal_fishscale/SCHOOL_CLUSTER_CONFIG.json" \
+  --registry "$SCHOOL_OUT/preflight/SCHOOL_PAIR_REGISTRY.json" \
+  --source-manifest "$SCHOOL_OUT/preflight/NEW_SOURCE.json" \
+  --out "$SCHOOL_OUT/preflight/GENERATE_FULL_SHA_PREFLIGHT.json"
+~~~
+
+它会完整 SHA 校验学校 D high/low、T5、VAE 和输入图。`SCHOOL_CLUSTER_CONFIG.json` 中 T5/VAE 是待验证的学校位置候选，找不到就 BLOCK，不能用旧 worker 目录作为 fallback。
+
+**原生 BF16 捕获组件**：[school capture hook](../../../tools/fishscale_school_native_capture.py) 仅供经批准、真实可运行的学校 LightX2V Dense pipeline 接入；不是完整生成 CLI。在学校 pipeline 初始化后使用：
+
+~~~python
+from fishscale_school_native_capture import NativeBF16PostStepObserver
+with NativeBF16PostStepObserver(pipe.runner.scheduler, output_dir/"native_latents") as obs:
+    pipe.generate(seed=seed, image_path=str(image), prompt=prompt,
+                  negative_prompt="", save_result_path=str(output_video))
+obs.complete(video=output_video, source_id=source_id, image=image,
+             prompt=prompt, seed=seed, high_sha256=high_sha, low_sha256=low_sha,
+             vae_sha256=vae_sha, source_commit=source_commit,
+             receipt_path=output_dir/"CAPTURE_RUN.json")
+~~~
+
+`pipe/output_dir/source_id` 等由学校生产 runner 提供；原始 pipeline 接口不一致时必须单独适配并测试，不得生造生成成功记录。钩子读取原生 BF16 scheduler post latent、保存四步状态，并在完成后将视频 SHA 与 final latent SHA 绑定到同一 CAPTURE_RUN；这也**不表示已经执行了中性 bitwise 验证**。没有 step3 pre/flow 的输入就不能执行 B1 插值实验。
+
+**静态测试**（尚未在本次实际运行）：
+
+~~~bash
+cd "$FFNDS_REPO"
+python3 -m unittest discover -s tests -p 'test_fishscale_school_preflight.py'
+~~~
+
+任何真实模型/ GPU/视频实验仍必须先完成独立评议和 ACTIVE 注册。`
