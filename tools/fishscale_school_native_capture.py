@@ -73,8 +73,10 @@ class NativeBF16PostStepObserver:
             raise FileExistsError("Never overwrite a native capture receipt")
         if not source_id or not prompt.strip() or seed < 0:
             raise ValueError("Source/seed/prompt identity is required")
-        if any(len(s) != 64 for s in (high_sha256, low_sha256, vae_sha256, source_commit)):
-            raise ValueError("Require pinned model and source SHA")
+        if any(len(s) != 64 for s in (high_sha256, low_sha256, vae_sha256)):
+            raise ValueError("Require three complete 64-character weight SHA256 digests")
+        if len(source_commit) not in (40, 64):
+            raise ValueError("Require full 40/64-character Git source commit ID")
         receipt = {
             "schema": "FFNDS_SCHOOL_FISHSCALE_NATIVE_CAPTURE_V1",
             "status": "CAPTURED_NEEDS_NEUTRAL_REVIEW",
