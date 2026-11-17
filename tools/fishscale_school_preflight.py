@@ -242,7 +242,8 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
                                 if expect.get("tensor_name") and expect["tensor_name"] != actual["tensor_name"]:
                                     row["ok"] = False
                                     row["error"] = "LATENT_KEY_MISMATCH"
-                        except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as exc:
+                        except (OSError, ValueError, RuntimeError, KeyError, ZeroDivisionError,
+                                subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
                             row["ok"] = False
                             row["error"] = f"CONTENT_CHECK_FAILED: {exc}"
                     rows.append(row)
@@ -277,7 +278,8 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
                "status": status, "school_environment": env, "checks": rows,
                "gpu_model_calls": 0, "vae_calls": 0, "school_candidate_discovery": candidates,
                "note": "Strict PASS verifies current files in a Slurm process but is not ACTIVE permission or an actual generation result."}
-    return receipt, 0 if (status.startswith("VERIFIED_") or args.phase == "inventory") else 2
+    return receipt, 0 if (status.startswith("VERIFIED_") or
+                          (args.phase == "inventory" and not env["errors"])) else 2
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -294,6 +296,8 @@ def main() -> int:
     receipt, code = run(args)
     # Only create a small report in the declared school project; never write to assets.
     project = Path(json.loads(args.config.read_text(encoding="utf-8"))["school_project_root"])
+    if not project.is_dir():
+        raise SystemExit("School project root is not present; refusing to create it during preflight")
     path = args.out.expanduser().resolve()
     if not under(project.resolve(), path):
         raise SystemExit("Report must be written within school project root")
