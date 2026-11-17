@@ -1,3 +1,5 @@
+> **2026-11-17 · Wan2.2 四步 Dense 全局鱼鳞纹诊断（DESIGN_ONLY / 人眼优先）：** [分层实验和视频资产树](diagnostics/wan_temporal_fishscale/EXPERIMENT_PLAN.md) · [14 条历史 Dense 视频及全部状态 SHA](diagnostics/wan_temporal_fishscale/ASSET_REGISTRY.json) · [人眼完整视频评审](diagnostics/wan_temporal_fishscale/HUMAN_REVIEW_PROTOCOL.md) · [分支预算与执行状态](diagnostics/wan_temporal_fishscale/EXPERIMENT_MATRIX.json)。A 层最多新加 0 DiT / 2 VAE encode / 6 VAE decode；按用户观看完整无损与 MP4 视频的结果分支推进。原版40步和四步已有同源历史视频优先复用。未执行新增模型或人工评审，未修改 ACTIVE。
+
 > **2026-11-16 当前下一步实验：[完整方案](20261107/ffn_baseline_reproduction/strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)。** 从数据/实现绑定、完整模块与neutral、ICC作者式校准及CAL3适配诊断，推进到有限局部选择、五臂视频与小消融。主校准加诊断最多96次模型调用；主55视频含两条用于full-U捕获的Dense。本文下方旧日期进度保留历史身份；A/BW/BWS已完成范围不重开。本轮仅整合设计，模型/GPU新运行0。
 
 > **G20 当前入口：[结果与剩余工作](../reports/20261114/g20_two_track_core/README.md) · [资产与队列](20261113/G20_VBENCH_ASSETS_AND_QUEUE_V4_20261113.json) · [判断台账](20261113/G20_VBENCH_DECISION_LEDGER_20261113.json)。** 两条主线固定为 A：设计有用的新算子；B：解释 Q1r2 与实际 ICC/Chipmunk 的差异。当前完成项、结论、资源记账和剩余动作在这些现有入口维护；下文旧日期的计划与进度按历史身份阅读。
