@@ -38,3 +38,11 @@
 ```
 
 实际记录在学校输出的 `human_review/REVIEWS.jsonl` 追加，不覆盖旧审阅；没有 user A0 阳性则不得擅自声称 A1 必要，没有 A/B 用户判断就保持 `AWAITING_HUMAN_REVIEW`。任何视觉改善需同时检查是否靠模糊、细节或真实动作损失达成；根因声明还要有单变量可定位的数值/视频边界证据。
+
+## 两类表型不可混用（2026-11-17）
+
+- `SEVERE_FISHSCALE`：大范围、持续、明显的鳞状纹理不稳定；新阶段的主要诊断对象，需要用户确认的真实完整阳性视频。
+- `MILD_HF_FLICKER`：通常的细微高频抖动噪点；作为对照，不可自动记为严重阳性，也不能用指标宣称二者同根因。
+- 记录 `phenotype_class`、`severity`、原始视频 SHA、图像、prompt、seed、配置；无法回收时记 `SOURCE_UNKNOWN`。用户新报告属于 `USER_REPORTED`，尚无新视频可核验。
+- 没有严重阳性完整视频时，保持 `SEVERE_CASE_NOT_REPRODUCED`，不强制进行 A1/A2。
+
