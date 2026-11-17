@@ -1,16 +1,20 @@
-# Wan2.2 I2V 四步 Dense 鱼鳞纹排查
+# Wan2.2 四步 Dense 鱼鳞纹 · USTC 学校集群
 
-**2026-11-17 · DESIGN_ONLY / REVIEW_REQUIRED / NOT_RUN。** 尚未新增 CPU/GPU/VAE 运行、完整诊断视频、人工评审或根因结论。
+**2026-11-17 · SCHOOL_ONLY / DESIGN_ONLY / NOT_RUN。** 旧 \`ffnds-worker\` 和 \`/home/xiang\` 只属于历史研究；**没有任何远端 S2 视频/latent 是本诊断的运行依赖**。本轮只用学校 Slurm 下经严格验证的学校资产，或在学校新捕获最少一条 Dense。没有通过实际计算节点文件可读性检查，也没有生成新视频。
 
-此目录是 FFNDS 的独立视频质量诊断，不修改 FFN 稀疏方法、原有权重或历史实验。
+| 文件 | 内容 |
+|---|---|
+| [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md) | 完整学校 P0→P1/P2→A0/A1/A2/A3→按需B/C 路线、物理边界、人工关口、资产树 |
+| [SCHOOL_CLUSTER_CONFIG.json](SCHOOL_CLUSTER_CONFIG.json) | 学校根目录、模型路径候选、预期 checkpoint SHA、四步执行配方（所有实物待计算节点核验） |
+| [ASSET_REGISTRY.json](ASSET_REGISTRY.json) | **学校专用**登记：\`school_source_pairs=[]\`，没有假定 S2 14 条文件存在 |
+| [EXPERIMENT_MATRIX.json](EXPERIMENT_MATRIX.json) | 学校资产复用和缺失时单条 Dense 新捕获的条件预算 |
+| [SCHOOL_CLUSTER_RUNBOOK.md](SCHOOL_CLUSTER_RUNBOOK.md) | 学校 compute-node 严格 preflight 与完整视频交付命令 |
+| [HUMAN_REVIEW_PROTOCOL.md](HUMAN_REVIEW_PROTOCOL.md) | 完整视频由用户人眼主导评审，机器指标只辅助 |
 
-> **2026-11-17 路径纠正**：S2 的 `root=hf` 是旧执行环境的逻辑存储根。其 GPU runner 的 `--hf-root` 默认 `/home/xiang/.cache/huggingface`，原模型 view 在 `/var/tmp/ffnds-xiang/huggingface`；没有证据证明这些文件存在于学校 `/public/home/scc/pb23061276/`。旧 worker 通过 SSH `ffnds-worker` 运行，跨 worker 主机共享 home 不等于跨学校集群共享。A0/A1 等依赖旧二进制的阶段必须先在实际执行节点核真实路径与 SHA，否则标为资产不可访问并转为新集群最小基线。详见 [实验第 0 节](EXPERIMENT_PLAN.md#0-执行环境与资产位置2026-11-17-补充纠正强制先行)。
+**学校统一执行根**：\`/public/home/scc/pb23061276/projects/wan-quant\`；较早学校文档 \`/home/scc/pb23061276\` 只有在当前计算节点确认同一真实目录时才可作为别名。所有新输出写学校 \`experiments/ffnds_fishscale_20261117/\`。并不意味着目录目前已建立或输出已有视频。
 
-- [完整分层实验和资产树](EXPERIMENT_PLAN.md)：A0 人眼确认历史视频 → A1 RGB/编码 → A2 BF16/FP32 → A3 干净 VAE 重建 → 必要时 B0/B1/B2/B3 → 跨来源确认。
-- [14 条 Dense 真实资产身份](ASSET_REGISTRY.json)：历史 S2 原始 MP4、末步 latent、全部四步状态与 SHA；这是只读索引，worker 尚未重新核验文件。
-- [机器矩阵与预算](EXPERIMENT_MATRIX.json)：A 层最多 0 DiT、2 次 VAE encode、6 次 VAE decode；每轮后用户审片决定是否继续。
-- [人工审阅规范](HUMAN_REVIEW_PROTOCOL.md)：完整无损 FFV1 + MP4 双份视频必须保留，用户观察优先于所有自动指标。
+- [原学校模型配置](../../../docs/01_模型与服务器配置.md) 给出 D-BF16、原版 O 的学校路径；本诊断需当次验证实际 high/low/VAE 字节、原生 LightX2V 代码及项目目录。
+- [历史 S2 记录](../../20261029/S2_NEW12_DENSE_BASELINE_RESULTS_20261029.md) 可供回顾研究，但其 MP4/latents 保存于旧独立 worker 的 HF 逻辑根，**不能被当成学校可读输入**。
+- **注意**：既有 \`tools/run_distill.py\` 在保存 latent 时会调用 \`.float()\`。新 capture 必须保留真正 native BF16 latent，不能只把该 FP32 观察文件更名。
 
-另有 [G19 原版40步 Dense](../../20261105/G19_METHOD_AND_RESULTS_20261105.md) 和 [四步 G19 Dense](../../../reports/20261105/g19_evidence/browse/outputs/G19_v7_真实生成与质量证据_20261104.md) 同为 chip10_00/seed43，可先恢复并核对真实视频，作为 B3 的零新增生成描述性对照（注意 CFG/权重/步数差异）。
-
-新模型运行必须经过 FFNDS 现行独立预执行复审和 ACTIVE 注册；此文档不是任何作业许可。
+此文档和脚本不是模型执行许可。新的学校 CPU/GPU 模型范围必须先完成 FFNDS 预执行独立复审与 ACTIVE 注册；只有真实学校 RUN/EXIT、可观看完整视频和用户反馈才能产生实验结论。
