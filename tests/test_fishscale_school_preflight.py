@@ -32,7 +32,10 @@ class SchoolPreflightTests(unittest.TestCase):
         latent.write_bytes(struct.pack("<Q", len(h)) + h + b"\0\0")
         receipt = project / "native_run.json"
         receipt.write_text(json.dumps({"video": {"sha256": sha256(video)},
-                                       "final_latent": {"sha256": sha256(latent)}}))
+                                       "final_latent": {"sha256": sha256(latent)},
+                                       "image": {"sha256": sha256(image)},
+                                       "prompt_sha256": hashlib.sha256(b"test").hexdigest(),
+                                       "seed": 42}))
         cfg = {
             "execution_domain": "USTC_SLURM_ONLY",
             "school_home": str(home),
