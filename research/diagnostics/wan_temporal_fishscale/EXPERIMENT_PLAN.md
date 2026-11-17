@@ -6,6 +6,24 @@
 
 相关入口：[机器资产表](ASSET_REGISTRY.json)、[阶段预算](EXPERIMENT_MATRIX.json)、[人工观看流程](HUMAN_REVIEW_PROTOCOL.md)、[S2 原始 Dense 结果](../../20261029/S2_NEW12_DENSE_BASELINE_RESULTS_20261029.json)、[原生 VAE-only 源审查](../../method_discussion/discoveries/E0/independent-saved-final-latent-vae-bridge-audit-20261026_v8.md)。
 
+## 0. 执行环境与资产位置：2026-11-17 补充纠正（强制先行）
+
+**先停止依赖 S2 历史二进制文件的 A0/A1/A2/B1/B3，直到发现并验证真实文件。** 之前把 `root=hf` 的相对路径直接当作当前学校集群可读，属于错误的环境假设：
+
+- **当前学校账户目录**：`/public/home/scc/pb23061276/`。截至本次 GitHub 文档核对，没有任何证据证明旧 S2 的完整 MP4 和 latent 已被复制到此目录。
+- **历史 S2 代码**：[e0_s2_new12_dense_baseline_v2.py](../../../tools/e0_s2_new12_dense_baseline_v2.py) 与 [e0_s2_new12_dense_baseline.py](../../../tools/e0_s2_new12_dense_baseline.py) 的 `--hf-root` **默认**为 `/home/xiang/.cache/huggingface`；S2 冻结配置把模型视图写为 `/var/tmp/ffnds-xiang/huggingface/hub/.ffnds-model-views/...`。真正运行时是否通过 CLI 覆盖默认 HF root，必须读取原始 GPU RUN/执行命令才能最终确定。
+- [worker.env](../../../config/worker.env) 中实际是 `HF_HOME=${HF_HOME:-$HOME/.cache/huggingface}`，**不是写死 `/home/xiang`**；[run_on_worker.py](../../../tools/run_on_worker.py) 通过 SSH 别名 `ffnds-worker` 访问另行配置的 worker；[worker_exec.sh](../../../scripts/worker_exec.sh) 的 “home directory shared between hosts” 只描述该 worker 组内部共享 home，不能推导学校集群也挂载此路径。
+- [R12_D0_worker_migration.json](../../20261022/R12_D0_worker_migration.json) 记录了用户指示由一台 worker 迁移到第二台 worker 的历史事实，但不证明 S2 在当前学校 Slurm 集群运行。S2 原结果中只有 HF 相对路径与历史文件 SHA，没有公开的学校绝对路径、物理主机身份或完整二进制。仓库本身不保存 S2 的 `.mp4` / `.safetensors` 文件。
+
+**真正的 preflight 结果必须在实际执行节点获取，不能从 GitHub 的记录推断**：
+
+1. 在当前学校计算节点以执行任务的同一用户检查 `/home/xiang/.cache/huggingface` 是否存在、可遍历、可读取指定的 `part0/.../new12_dense_ord898_seed42/output.mp4` 和 `latent_step3.safetensors`，以及 `part1/.../new12_dense_ord96_seed42` 两个文件；以文件内容 SHA 验证实际字节。若不可读，状态为 `ASSET_UNAVAILABLE_ON_CURRENT_EXECUTOR`，**不是 S2 GPU 生成失败或模型质量失败**。
+2. 若仍持有旧 `ffnds-worker` 的访问权限，在旧 worker 通过实际 RUN/EXIT、当时的 `--hf-root`、路径挂载信息逐项定位，确认两个完整 MP4 和两个末步 latent 以及后续按需的其余状态；如果旧 worker 有文件，先做只读打包/传输和新目录 checksum 复验，再允许新集群重解码。
+3. 原 worker 无法访问或资产不存在时，**不要重新生成历史 S2 全部 14 条**。先枚举当前学校集群已有的可读 Dense 完整视频与末步 latent；找到匹配者先用它，登记新来源和 parent。若没有同源成对资产，只申请**一个最小 Dense 视频及 final latent 的新捕获**，保留现有正确推理 recipe 和全部完整视频，再进入 A1。与旧 S2 的跨机器运行保持 `NEW_CLUSTER_BASELINE`，不可写为旧 SHA 的原位恢复。
+4. 只要 A0 的可播放完整视频尚不可获取，就不能宣称已由人眼确认该具体历史来源的鱼鳞纹；A1、A2、B1 也不应读取猜测的 latent 路径。B3 历史原版 40 步视频同样要经过这一位置检查。
+
+**本次补充仅更正资产归属与执行前条件，未访问学校或原 worker 文件系统，也未执行新实验。**
+
 ## 1. 对象、已有资产、需要证伪的解释
 
 **现象**：FFNDS 当前 Wan2.2-I2V-A14B LightX2V 四步蒸馏配置输出的完整 Dense 视频也出现全画面或大范围细密鱼鳞状纹理、跨帧持续抖动。由此可知 FFN 稀疏替换并非必要条件；但 **Dense 的字节可重复性不等于输出无误**，也不意味着蒸馏权重本身没有质量问题。
