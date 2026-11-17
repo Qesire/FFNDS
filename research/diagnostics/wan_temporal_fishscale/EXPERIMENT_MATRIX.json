@@ -1,131 +1,134 @@
 {
-  "schema": "FFNDS_WAN_FISHSCALE_EXPERIMENT_MATRIX_V1",
+  "schema": "FFNDS_FISHSCALE_SCHOOL_MATRIX_V2",
+  "status": "DESIGN_ONLY_SCHOOL_CLUSTER_ONLY_NOT_RUN",
   "date": "2026-11-17",
-  "status": "DESIGN_ONLY__REVIEW_REQUIRED__NOT_RUN",
-  "branch": "diagnostic_separate_from_ffn_algorithms",
-  "human_visual_review": "PRIMARY_GATING_OUTCOME",
-  "automatic_metrics": "AUXILIARY_NO_AUTOMATIC_NEXT_BRANCH",
-  "independent_review": "NOT_REQUESTED",
-  "active_scope": "NOT_REGISTERED",
-  "authorized_gpu_runs": false,
-  "user_human_results": "NOT_RUN",
-  "official_vbench": "NOT_RUN",
-  "first_priority_sources": [
-    898,
-    96
-  ],
-  "source_count_for_A1_and_A2_max": 2,
-  "all_sources_are_exposed_development": true,
-  "video_contract": {
-    "frames": 81,
-    "width": 832,
-    "height": 464,
-    "fps": 16,
-    "keep_original_mp4_unchanged": true,
-    "per_new_vae_arm": [
-      "full_rgb8_lossless_ffv1_mkv",
-      "full_review_h264_mp4",
-      "RUN_EXIT_receipts",
-      "per_frame_decoded_rgb8_sha",
-      "parent_latent_and_video_sha"
-    ],
-    "retain_full_videos_until_human_closeout": true,
-    "do_not_substitute_stills_or_auto_score": true
-  },
+  "authority": "Research design only; independent review and new ACTIVE registration required for CPU/GPU model tasks",
+  "backend": "School Slurm; no ffnds-worker SSH",
+  "input_policy": "Only school-bound verified source pairs; legacy S2 remote sources excluded",
   "phases": [
     {
+      "id": "P0",
+      "name": "School path/weight/source provenance inventory",
+      "new_dit_steps": 0,
+      "vae_encode": 0,
+      "vae_decode": 0,
+      "requires": "actual Slurm compute node",
+      "human_gate": false
+    },
+    {
+      "id": "P1",
+      "name": "Reuse school Dense MP4 + BF16 final latent if present",
+      "new_dit_steps": 0,
+      "vae_encode": 0,
+      "vae_decode": 0,
+      "condition": "P0 found verified school pair"
+    },
+    {
+      "id": "P2",
+      "name": "Capture exactly one new native Dense 4-step video plus BF16 final latent",
+      "new_dit_steps": 4,
+      "vae_encode": "from actual I2V generator",
+      "vae_decode": "from actual I2V generator",
+      "condition": "No usable school pair; exact school weights and input ready; approved model scope",
+      "outputs": [
+        "original.mp4",
+        "final_latent_bf16.safetensors",
+        "RUN.json",
+        "EXIT.json"
+      ]
+    },
+    {
       "id": "A0",
-      "status": "NOT_RUN",
-      "operation": "view historical complete Dense videos, choose visible phenotype",
-      "new_dit_nfe_max": 0,
-      "vae_encodes_max": 0,
-      "vae_decodes_max": 0,
-      "gate": "human_positive_source_selection"
+      "name": "Human eyes verify actual school Dense MP4 fishscale",
+      "new_dit_steps": 0,
+      "vae_encode": 0,
+      "vae_decode": 0,
+      "requires": "P1 or P2 complete",
+      "human_gate": true
     },
     {
       "id": "A1",
-      "status": "NOT_RUN",
-      "operation": "native BF16 neutral decode, RGB float/RGB8/lossless/H264 differentiation",
-      "new_dit_nfe_max": 0,
-      "vae_encodes_max": 0,
-      "vae_decodes_max": 2,
-      "gate": "human_lossless_vs_old_mp4",
-      "stop_if": "neutral_mismatch"
+      "name": "BF16 VAE neutral re-decode to lossless RGB8 and MP4",
+      "new_dit_steps": 0,
+      "vae_encode": 0,
+      "vae_decode_max": 1,
+      "human_gate": true
     },
     {
       "id": "A2",
-      "status": "NOT_RUN",
-      "operation": "same latent true-FP32 VAE decoder",
-      "new_dit_nfe_max": 0,
-      "vae_encodes_max": 0,
-      "vae_decodes_max": 2,
-      "gate": "human_bf16_vs_fp32",
-      "stop_if": "invalid_numeric_control"
+      "name": "Same school latent, actual FP32 VAE decode",
+      "new_dit_steps": 0,
+      "vae_encode": 0,
+      "vae_decode_max": 1,
+      "human_gate": true
     },
     {
       "id": "A3",
-      "status": "NOT_RUN",
-      "operation": "static and subpixel translation clean-video native VAE encode/decode",
-      "new_dit_nfe_max": 0,
-      "vae_encodes_max": 2,
-      "vae_decodes_max": 2,
-      "gate": "human_clean_vs_recon"
+      "name": "Static and known-translation clean video VAE reconstruction",
+      "new_dit_steps": 0,
+      "vae_encode_max": 2,
+      "vae_decode_max": 2,
+      "human_gate": true
     },
     {
       "id": "B0",
-      "status": "NOT_RUN",
-      "operation": "read-only checkpoint high/low and scheduler/backend binding audit",
-      "new_dit_nfe_max": 0,
-      "vae_encodes_max": 0,
-      "vae_decodes_max": 0,
-      "condition": "A chain failed to explain artifact"
+      "name": "School checkpoint/scheduler/backend identity",
+      "new_dit_steps": 0,
+      "vae_encode": 0,
+      "vae_decode": 0,
+      "condition": "A stage insufficient"
     },
     {
       "id": "B1",
-      "status": "NOT_RUN",
-      "operation": "same verified step3 pre/post beta=0.95 and 1.05; beta=1.0 historical",
-      "new_dit_nfe_max": 0,
-      "vae_encodes_max": 0,
-      "vae_decodes_max": 2,
-      "second_source_optional_extra_decodes": 2,
-      "gate": "human_beta_comparison",
-      "condition": "B0 and pre/post provenance validated"
+      "name": "School same-generation pre/post-step3 beta sensitivity",
+      "new_dit_steps": 0,
+      "vae_decode_max": 2,
+      "condition": "School capture has exact pre/post provenance; A insufficient",
+      "human_gate": true
     },
     {
       "id": "B2",
-      "status": "NOT_RUN",
-      "operation": "optional DiT numeric/backend controlled replay",
-      "new_dit_nfe_if_new_full_4step": "at least four denoising steps per completed new video, actual model forwards from RUN",
-      "gate": "human_backend_pair",
-      "condition": "runtime divergence supported"
+      "name": "New controlled school backend pair",
+      "new_dit_steps": "4 for each added four-step video; count actual model forwards",
+      "condition": "Independent review, ACTIVE, hypothesis supported",
+      "human_gate": true
     },
     {
       "id": "B3",
-      "status": "NOT_RUN",
-      "operation": "reuse historic original40 and distill4 Dense at chip10_00 seed43, optional new official pair",
-      "new_dit_nfe_historical_review": 0,
-      "new_dit_nfe_new_original40": "at least forty denoising steps, actual forwards depend on CFG",
-      "gate": "human_40step_vs_4step",
-      "condition": "A/B0 inconclusive"
+      "name": "New school original40 vs distilled4 pair",
+      "new_dit_steps": "40+4 nominal denoising steps for new pair, actual CFG forward count separately",
+      "condition": "No matched school pair and strong decision value",
+      "human_gate": true
     },
     {
       "id": "C",
-      "status": "NOT_RUN",
-      "operation": "confirm mechanism-supported repair with full human-reviewed videos",
-      "min_independent_dev_image_clusters": 4,
-      "gate": "human_fix_confirmation",
-      "condition": "specific first bad boundary localized"
+      "name": "Full-video user-confirmed mechanism/fix comparison",
+      "condition": "Mechanism located",
+      "human_gate": true
     }
   ],
-  "phase_A_aggregate_cap": {
-    "new_dit_nfe_max": 0,
-    "vae_encodes_max": 2,
-    "vae_decodes_max": 6
+  "initial_one_source_diagnostic_budget": {
+    "if_school_pair_exists": {
+      "new_dit_steps": 0,
+      "vae_decode_max": 4,
+      "vae_encode_max": 2
+    },
+    "if_new_school_pair_needed": {
+      "new_dit_steps": 4,
+      "new_full_dense_videos": 1,
+      "vae_decode_max_after_capture": 4,
+      "vae_encode_max_after_capture": 2
+    },
+    "note": "Original full Dense generation also includes its own VAE/I2V encoding and decoding; do not count that as zero VAE cost. A2/A3 conditional on human observation. Additional source requires a separately bounded scope."
   },
-  "resource_estimation": {
-    "bytes_uncompressed_one_video_rgb8": 93809664,
-    "suggested_extra_persistent_video_storage_bytes": 2147483648,
-    "notes": "Storage suggestion is not approved allocation; lossless compression depends on material. Must preserve complete videos; do not inherit old 0.1GiB VAE-bridge cap."
-  },
-  "pending": "CPU/GPU preexecution independent review, active scope, worker preflight, real videos, user watching and feedback"
+  "fixed_output_policy": [
+    "Full 81-frame lossless RGB8 MKV and full review MP4",
+    "No thinning frames, resizing or automatic deletion",
+    "Separate original generated MP4 and VAE-only replay",
+    "True school file SHA and user review"
+  ],
+  "storage_capacity": "Request actual school storage budget; suggested >=2GiB for one-source A-layer videos but not allocated",
+  "first_run_blocker": "A0 video cannot be reviewed until verified school MP4 exists; no claim of pre-existing S2 files.",
+  "review_status": "NOT_RUN",
+  "actual_run_status": "NOT_RUN"
 }
