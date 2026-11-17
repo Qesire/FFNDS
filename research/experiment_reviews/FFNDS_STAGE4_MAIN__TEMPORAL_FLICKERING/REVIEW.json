@@ -1,0 +1,64 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STAGE4_MAIN__TEMPORAL_FLICKERING",
+  "purpose": "wan_transfer",
+  "author_agent_id": "/root",
+  "reviewer_agent_id": "/root/preexec_review",
+  "scope_sha256": "08631ae0fdb55db8f18c19a9b0c76d1a5595b6abf8673ddc3abd027ed3c1c5c8",
+  "approval_scope_fingerprint": "08631ae0fdb55db8f18c19a9b0c76d1a5595b6abf8673ddc3abd027ed3c1c5c8",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STAGE4_MAIN__TEMPORAL_FLICKERING/REVIEW.json",
+  "research_question": "How do the frozen five seed42 Wan arms compare on temporal_flickering across the same 11 DEV source clusters?",
+  "hypotheses_with_opposing_predictions": [
+    "The paired metric detects shape, continuity, amount of motion or image quality differences under the matched input.",
+    "Per-source variation or metric insensitivity may give mixed or small shifts, despite local FFN differences."
+  ],
+  "adversarial_counterexample": "A separately evaluated method or a switched seed/noise can create spurious effects. One seed and exposed DEV do not establish general noninferiority.",
+  "responses_to_review": [
+    "Independent reviewer APPROVE for this exact scope bound to dependency map e364d0f3: all 31 shared files and nine runtime/protocol trees, 8 current generation producers and 2 audit-backed Dense slots, matched 55 same videos.",
+    "One axis uses one card and one paired batch. Nine applicable axes only, dynamic uses 40 pairs/20 iterations/5 windows for each video. Camera instructions absent.",
+    "Require verified E6 background 171894 terminal before wave; sole E4 171899 if active, with that exact generation kept in lane0 as predecessor. Other lane starts independently; no other dispatcher or E6 axes. Fresh shared checksum and 20GiB floor before the wave."
+  ],
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "quality_guard.py": "123cbaf4a1bc7c8a8dfd20a5c9c33263cea79566c30a50c021b4ccb76195633f",
+    "quality_vbench_batch.py": "1f2e9d2bb01ebbf9aeda73e38b38b755b21f84d684b0d5bd0e3ba01bd0d1e216",
+    "quality_pair_report.py": "f259782613d5cf65d7f3de0024f492490bd0396258374dc9aad25b2fd774f20b",
+    "quality_wan_proof.py": "682e4d9580ec6018cadabdc86010f4d6bbf8a9ec7ad2aa474f630ab667331e5e",
+    "quality_dense_proof.py": "cae6478fb3a0105d8547b14cf1b04577603f99f544b8260c832ee4f7037a0033",
+    "quality_stage4_job.sh": "2d59ff872b6a40106b22afa3569e910055d06efc03ef05bffcf9cba53f9205e2",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1"
+  },
+  "input_cohort_manifest_sha256": "e10f74049d10f73b9094bdc356a4d16eb894e2243786576dce81e5f78c28037f",
+  "shared_dependency_map_sha256": "e364d0f3f1230d9741e3e35550d206c0cf8908b48ebfd1c8a98ea44baa73d909",
+  "control_arms": [
+    "Dense",
+    "Q1r2",
+    "ICC CD r1408/4S",
+    "Chipmunk Author Safe",
+    "Global-P64"
+  ],
+  "checkpoint_numeric_recipe": "Exact frozen Wan BF16 seed42 and pinned offline VBench reader seed20261103.",
+  "unit_of_independence": "one DEV11 source cluster, paired across arms, exposed development sources",
+  "full_depth_or_claim_scope": "55 videos independently verified across one metric batch; no new generation or pilot",
+  "predeclared_metrics": [
+    "temporal_flickering"
+  ],
+  "applicable_session_gpu_cap": 2,
+  "existing_generation_predecessor": 171899,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 160,
+    "gpu_memory_gib": 78,
+    "wall_seconds": 7200,
+    "soft_seconds": 6900,
+    "min_free_disk_gib": 20,
+    "output_bytes": 2147483648,
+    "partition": "P107-A100",
+    "account": "competition",
+    "qos": "qos_p107-a100"
+  }
+}

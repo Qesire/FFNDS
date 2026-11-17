@@ -1,0 +1,63 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_ICC_SVD_SIX_V1",
+  "scope_sha256": "9d472dea3acddedebc5bc706b60f3d496c65adce43612a0e51dd53387bb56071",
+  "purpose": "wan_transfer",
+  "research_question": "Can ordinary SVD produce the six-site reference using the exact current Wan operands?",
+  "hypotheses_with_opposing_predictions": [
+    "Exact SVD on real current site matrices yields reloadable rank1408 pairs and an identity-preserving shared prefix.",
+    "Source binding, orientation, resource or numerical failure prevents an eligible ordinary SVD family."
+  ],
+  "author_agent_id": "/root",
+  "implementation_agent_id": "/root/implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_ICC_SVD_SIX_V1/REVIEW.json",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "adversarial_counterexample": "Swapped experts, layers, or W1/W2 orientations can retain plausible dimensions but change the action of the factors.",
+  "responses_to_review": [
+    "Verify transpose logical weight rows and bias hashes against actual 168666 before any pair decomposes.",
+    "Pin CUDA FP32 reduced exact gesvd for W1 and W2; split U*S and Vh, retain BF16 exact reload.",
+    "Rank512 is a prefix, no extra SVD. Ordinary SVD alone is ineligible for family selection.",
+    "Retain completed pair receipt and failure log; max 12 decompositions within two hours, no retries."
+  ],
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "icc_stage3_assets.py": "7d07eb4f076a2d9f61b9cdf1f4fca7d3f8cf7fd9eb6d0e7cb25f435b187becec",
+    "icc_local_replay.py": "33691fcdcb168322396b4ea1f8e0b2b1350b7be131f7bf99460af8957559876d",
+    "icc_stage3_grid.py": "117436bbed24ca9a5a5cdf9386f99c9d6a7e6a1f97b534ae9848bdedb0d7970b",
+    "icc_stage3_cli.py": "506544e775e7becd482752999839c1f8e647fe6063f089ff581c051b344fb1b6",
+    "icc_stage3_factor_build.py": "13e8377af7d24b4c9cd6af69bd2f102a097329e281eba0305c1f8e416dd10c03",
+    "icc_stage3_job.sh": "06966f708f23525c03f56855875bfc850863c02861b743b7709c8cb7c86ac74f",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "bws/icc_ffn.py": "127328fd17931cac9e5841868ea2bad43950442f888fb37117dc6f60f112c219",
+    "bws/icc_decompose.py": "6f2d2d93c26735a8cffdb6fe400d71abee6e8c380d6b24fb2d460a66eec1e8a3",
+    "bws/ridge_fit_core.py": "b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe"
+  },
+  "checkpoint_numeric_recipe": "Exact frozen H/L checkpoint, matching live 168666 bytes, TF32 off, FP32 reduced gesvd, BF16 export",
+  "input_cohort_manifest_sha256": "e1cbe542a0020b15a440e0f69361dda7b77378c03938b7642a92f1be7740fefb",
+  "control_arms": [
+    "ordinary SVD supplies the control for later CA/CD grid"
+  ],
+  "unit_of_independence": "six prespecified expert-layer pairs",
+  "full_depth_or_claim_scope": "six pairs or 12 exact SVDs; no local scoring, NFE or video",
+  "predeclared_metrics": [
+    "exact weight/bias hash, output rank and dtype, exact readback, resource evidence"
+  ],
+  "applicable_session_gpu_cap": 1,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 160,
+    "gpu_memory_gib": 78,
+    "wall_seconds": 7200,
+    "soft_seconds": 6900,
+    "output_bytes": 2147483648,
+    "min_free_disk_gib": 10,
+    "partition": "P107-A100",
+    "qos": "qos_p107-a100",
+    "account": "competition"
+  },
+  "approval_scope_fingerprint": "9d472dea3acddedebc5bc706b60f3d496c65adce43612a0e51dd53387bb56071"
+}

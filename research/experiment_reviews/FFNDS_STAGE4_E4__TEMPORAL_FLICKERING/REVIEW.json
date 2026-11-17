@@ -1,0 +1,60 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STAGE4_E4__TEMPORAL_FLICKERING",
+  "purpose": "wan_transfer",
+  "author_agent_id": "/root",
+  "reviewer_agent_id": "/root/preexec_review",
+  "scope_sha256": "96ec4d57b3a088dad529887f26e4f13fecdae36a983533fb2ad56578a97de8d5",
+  "approval_scope_fingerprint": "96ec4d57b3a088dad529887f26e4f13fecdae36a983533fb2ad56578a97de8d5",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STAGE4_E4__TEMPORAL_FLICKERING/REVIEW.json",
+  "research_question": "How does temporal_flickering change when the same frozen CD r1408 factors use a two-residual rather than four-state cache on fixed DEV3?",
+  "hypotheses_with_opposing_predictions": [
+    "Two-residual coordinates can change the observable BF16 free-run output.",
+    "Local numeric differences can be small or heterogeneous in the six paired scores."
+  ],
+  "adversarial_counterexample": "A changed rank, weights, checkpoint, initial noise or metric protocol could mimic a cache-state effect.",
+  "responses_to_review": [
+    "Independent exact APPROVE under map 3fe3fa0e, bound 21 shared files, real ICC 4S producers 171339/171341 and actual E4 171899, six source-matched videos, exact seed and metric.",
+    "Dynamic uses 40 pairs per video, 20 iterations, and five windows. Descriptive DEV3 bounds.",
+    "Use just the reviewed original dual lanes without predecessor after main scoring is terminal and the user queue is empty, no E6 overlap, fresh exact dependency bytes and 20GiB staging floor."
+  ],
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "quality_guard.py": "123cbaf4a1bc7c8a8dfd20a5c9c33263cea79566c30a50c021b4ccb76195633f",
+    "quality_vbench_batch.py": "1f2e9d2bb01ebbf9aeda73e38b38b755b21f84d684b0d5bd0e3ba01bd0d1e216",
+    "quality_pair_report.py": "f259782613d5cf65d7f3de0024f492490bd0396258374dc9aad25b2fd774f20b",
+    "quality_wan_proof.py": "682e4d9580ec6018cadabdc86010f4d6bbf8a9ec7ad2aa474f630ab667331e5e",
+    "quality_dense_proof.py": "cae6478fb3a0105d8547b14cf1b04577603f99f544b8260c832ee4f7037a0033",
+    "quality_stage4_job.sh": "2d59ff872b6a40106b22afa3569e910055d06efc03ef05bffcf9cba53f9205e2",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1"
+  },
+  "input_cohort_manifest_sha256": "91e4eaa36ab2710e2326d666061e50f2c7cb5822ef45ca3661291007e31226ff",
+  "shared_dependency_map_sha256": "3fe3fa0eb8389d6194b2ece76da070311c3a984dd4dee23d2592b14f346cba25",
+  "control_arms": [
+    "main ICC CD r1408/4S",
+    "E4 ICC CD r1408/2R"
+  ],
+  "checkpoint_numeric_recipe": "Same actual CD r1408 factor bytes and BF16 Wan seed42; VBench offline seed20261103.",
+  "unit_of_independence": "one matched DEV3 source cluster",
+  "full_depth_or_claim_scope": "six videos, no generation, one axis, paired separately by source",
+  "predeclared_metrics": [
+    "temporal_flickering"
+  ],
+  "applicable_session_gpu_cap": 2,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 160,
+    "gpu_memory_gib": 78,
+    "wall_seconds": 7200,
+    "soft_seconds": 6900,
+    "min_free_disk_gib": 20,
+    "output_bytes": 2147483648,
+    "partition": "P107-A100",
+    "account": "competition",
+    "qos": "qos_p107-a100"
+  }
+}

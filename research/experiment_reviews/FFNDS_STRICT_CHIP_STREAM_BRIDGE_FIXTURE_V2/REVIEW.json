@@ -1,0 +1,69 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_CHIP_STREAM_BRIDGE_FIXTURE_V2",
+  "scope_sha256": "bb242048745a02b75366a23f77dd7bc4959ca4b273b211168c8aa4810b357030",
+  "purpose": "wan_transfer",
+  "research_question": "Can the exact CUDA bridge preserve supported input and output when original indexed operations are scheduled on their default stream?",
+  "author_agent_id": "/root/implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "approval_scope_fingerprint": "bb242048745a02b75366a23f77dd7bc4959ca4b273b211168c8aa4810b357030",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_CHIP_STREAM_BRIDGE_FIXTURE_V2/REVIEW.json",
+  "hypotheses_with_opposing_predictions": [
+    "Analytic full/aligned supports, actual count, owning-mask copy and caller consumer data match the fixed transport contract.",
+    "Analytic support, qualified production entries, or copy differ beyond the bound and are reported before rejection."
+  ],
+  "adversarial_counterexample": "Concurrent atomics can reorder columns and choose different padding; a deterministic branch returning K0 in all runs can pass unconditional parity.",
+  "responses_to_review": [
+    "Three caller streams include two default controls. Exact q0 covers all 13824 and aligned no-random case covers exactly 4096; every production run keeps each threshold-qualified column.",
+    "Report raw order, actual supports and completeness separately, preserve signed source state by same-mask own-copy exact checks.",
+    "18+18 original compiled ops only. Allowed padding symmetric differences <=510 are consistent with the kernel bound and do not establish full Wan numerical parity.",
+    "Anode22 is free after original GP64 termination; only the existing anode16 partner chain may overlap within cap2."
+  ],
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "chip_stream_bridge_job.py": "c1c43af601ee76fd2cf461ded58889f217a38ddebaeaf56f051ee91d16a7b26c",
+    "chip_stream_bridge_job.sh": "15a3c984590ad074e9cccb23960b79387ba81d0af171eb8531014fdbadfd3a0c",
+    "chip_stream_bridge_fixture.py": "fa1b7638bdf1297eec6aca8d6db4563e17240a6ef26802647ee24588447c3021",
+    "chip_provider.py": "1de8104d1b6c8066dfc041141e6acce33e20c8c0a0a787eaedb4d0ca00d0cba3",
+    "chip_wan_voxel_tail_v1.py": "c565328376c0ff32891dd357343f08e2c7ccfc40ef86823e3b77a2fc3fb1a3af",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1"
+  },
+  "input_cohort_manifest_sha256": "d99fa5d2c997419e77a1cb1523229c2f5da9482ded9f3195f47a388db2257165",
+  "control_arms": [
+    "default A",
+    "default B",
+    "nondefault caller"
+  ],
+  "checkpoint_numeric_recipe": "No model; 247/1 rows of width13824, fixed analytic and original quantile settings",
+  "unit_of_independence": "fixed geometry and case",
+  "full_depth_or_claim_scope": "18+18 compiled operators, zero Wan NFE/videos",
+  "predeclared_metrics": [
+    "analytic support",
+    "actual own-mask copy and clone",
+    "count and legal inclusion",
+    "descriptive observed variability",
+    "terminal PASS_STREAM_TRANSPORT"
+  ],
+  "applicable_session_gpu_cap": 2,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 64,
+    "gpu_memory_gib": 60,
+    "wall_seconds": 1200,
+    "soft_seconds": 1080,
+    "partition": "P107-A100",
+    "account": "competition",
+    "qos": "qos_p107-a100",
+    "min_free_disk_gib": 8
+  },
+  "run_node": "anode22",
+  "other_lane_only": [
+    171339,
+    171341,
+    171343
+  ]
+}

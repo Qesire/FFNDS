@@ -1,0 +1,73 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_STAGE1_DENSE_FULL_U_V2",
+  "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+  "purpose": "wan_transfer",
+  "research_question": "Does the native full-U/P512 observer preserve existing Dense trajectories and capture correct point-of-use W1/W2 operands?",
+  "hypotheses_with_opposing_predictions": [
+    "An observer-only hook preserves each raw flow, next latent and decoded frame and captures actual live raster U.",
+    "Pre-scheduler changes may perturb flow even when latent hashes agree; stale or mislabeled U can retain neutral output and still fail the independent readback and provenance controls."
+  ],
+  "author_agent_id": "/root",
+  "implementation_agent_id": "/root/implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_STAGE1_DENSE_FULL_U_V2/REVIEW.json",
+  "reviewer_disposition": "REVISE",
+  "adversarial_counterexample": "Identical post-update latent can hide a small pre-update flow delta due to FP32 rounding. Incorrect FFN input can be saved without changing the output.",
+  "responses_to_review": [
+    "Run both plain before tap; compare raw flow, latents, runtime scheduler times/sigmas, HHLL and decoded neutral identity for both exact matched sources.",
+    "Save native W1 pre-apply U and independent native P512 pre-gate W2 Y; cross-check saved full-U indexed rows against live P512 and archive both identities and voxel map.",
+    "Bind active weights/biases, use chunked staging, bound output, verify live Slurm allocation before checkpoints and freeze exact files.",
+    "The failed V1 preflight consumed no Wan NFE. Accept only same interpreter inode and exact frozen executable SHA across mount aliases, and bind the ACTIVE key to the V2 scope ID."
+  ],
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "stage1_dense_runner.py": "b9789b14db8718fe85c9bbf32e784750e2a0d9ed56ee54b594df5d6bbca074ad",
+    "full_u_capture.py": "c9c322cb81eb1e753b7e0e45654d113f431b9f20d001361cc04a31ae9ef8c313",
+    "stage1_dense_guard.py": "a7b39af9bc1be6947d6224fb7b174847cb650a101c41872f0b7fe9e5f008c660",
+    "stage1_dense_job.sh": "477f2d9ab8acc670ecde286a0ddf512349c40e3a824cbd3798215c03a238ac09",
+    "voxel.py": "9a72dc5007e2eab4772d108a7973f9058028a2d17b88db38aa15e54a5f82408c"
+  },
+  "additional_reference_sha256": {
+    "runner_v2.py": "cfab1f8ef768679a98e785806f33549075ec81f6d1d8fd57f5c159020bcfc1db",
+    "capture_producer.py": "a9748f3813ce266e45e1f2493ee88b832efc5e6965447904a76d685c439a14df",
+    "panel512.py": "0e420e95aa1467a7feaa74388388e4785d3c0b897a172d00d63b8a645dcf7f0b",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "scope.json": "69078c0f758267c657d325103376f5f36e5643616ed3dc542f731bab3ff430d9",
+    "v2_conditions.json": "9b42532e5cd4c698f429f58df57c49a397047e030f79a5507173af86b122c1d9"
+  },
+  "checkpoint_numeric_recipe": "Same V2 4-step Wan2.2 I2V A14B dense BF16, actual HHLL, CFG off, geometry 832x464x81 at 16fps.",
+  "input_cohort_manifest_sha256": "9b42532e5cd4c698f429f58df57c49a397047e030f79a5507173af86b122c1d9",
+  "control_arms": [
+    "Native plain plus scheduler observer",
+    "Native full-U hook-bypass plus same scheduler observer"
+  ],
+  "unit_of_independence": "Two frozen DEV source clusters",
+  "full_depth_or_claim_scope": "All 160 FFN calls checked per capture, 12 retained U and 12 panels per source.",
+  "predeclared_metrics": [
+    "Exact flow, latent, initial noise, decoder RGB hashes",
+    "24 full-U and 24 P512 files",
+    "Live active W1/W2 and bias digests",
+    "Voxel roundtrip and P512 live/disk equality"
+  ],
+  "applicable_session_gpu_cap": 1,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "host_memory_gib": 160,
+    "gpu_memory_gib": 78,
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "cpu_cores": 4,
+    "soft_seconds": 3900,
+    "wall_seconds": 4200,
+    "min_free_disk_gib": 14,
+    "output_bytes": 12884901888,
+    "partition": "P107-A100",
+    "qos": "qos_p107-a100",
+    "account": "competition",
+    "max_concurrent_new_gpus": 1
+  },
+  "approval_scope_fingerprint": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+  "previous_failed_prelaunch_job": 168649
+}

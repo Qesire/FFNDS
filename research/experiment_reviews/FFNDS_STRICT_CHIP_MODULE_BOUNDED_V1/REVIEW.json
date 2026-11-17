@@ -1,0 +1,120 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_CHIP_MODULE_BOUNDED_V1",
+  "scope_sha256": "713184719e40f932abeff4ff0493b4dab077032cd2c7a0d6b343f090112e909e",
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "purpose": "faithful_reproduction",
+  "research_question": "Does the resident original Chipmunk MLP execute correct state/cache/clock and numerical behavior for bounded aligned BF16 operands?",
+  "hypotheses_with_opposing_predictions": [
+    "Original clock, compiled support, cache and Triton yield expected exact metadata and within predeclared numeric envelope.",
+    "An early reset, recomputed mask at 11, or alternate BF16 rounding leads to witness, trace, or same-mask discrepancy."
+  ],
+  "author_agent_id": "/root",
+  "implementation_agent_id": "/root/chip_implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_CHIP_MODULE_BOUNDED_V1/REVIEW.json",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "adversarial_counterexample": "At step11 the original module reuses the step9 mask even after a step10 h/y/proxy refresh. The output alone can miss the wrong mask, cached proxy or hidden writeback.",
+  "responses_to_review": [
+    "Bind original aligned resident module to exact source from b5e8d1c and original job168501 selector library. Select before guarded copy/Triton and reject count==full-width for original unused lookahead.",
+    "Check clock and mask state, exact proxy/copy, packed numeric precision witnesses and separately stated same-mask h/y tolerances. Skip unused export bootstrap only."
+  ],
+  "critical_source_hashes": {
+    "chip_module_bounded_oracle_v1.py": "28dfd7f055056168253174d77cca419c9c691263a17bc037c3fa57ca16fb030e",
+    "chip_module_bounded_job.sh": "2f027a2933184d340cc68c29ccfa524b7ed454897f478e47ce6a3cb8ec1f0158",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "author/src/chipmunk/modules/mlp.py": "0e1e63fb40b273782e7face0f94ba72cd81906d36af24f24934ea3e3209177fc",
+    "author/src/chipmunk/util/layer_counter.py": "cb9ffab57832ce69141ecd914fbb3f2c873c26bdca31eee1f7e2b41c01764288",
+    "author/src/chipmunk/util/config.py": "1ba524ec3a265f99d4788de7d0bb2988690c84415a7f459b4ab4836201e6a315",
+    "author/src/chipmunk/util/storage/layer_storage.py": "ee56637830f41b4732b4f287caca6b27f1055a8566b09e1bc92ac14ccd89912a",
+    "author/src/chipmunk/util/storage/offloaded_tensor.py": "4e2de98dd363f58a9947b2e59d527d2a94b15240ec187960ab34e3e1808befe1",
+    "author/src/chipmunk/ops/mlp.py": "ad4e035ebddb84effda7eac9df7035378a06a5a4bcd36a5996498f80cd2746ce",
+    "author/src/chipmunk/ops/indexed_io.py": "48eed56ec068b04942adc0cce370458fa24524b633752c71a5f4fae4b078bc48",
+    "author/src/chipmunk/triton/mlp_csp_mm1_bf16.py": "429fa45b341fc0bfc0c0665f701571b54263df7cbaa62828a1889f84c83a6397",
+    "author/src/chipmunk/triton/mlp_csp_mm2_bf16.py": "a656a87864f554c9198f1dd2ca78a79674302e79660ed0aa9bf7c1734bf2513f"
+  },
+  "checkpoint_numeric_recipe": "No checkpoint, BF16 synthetic aligned block128, 256x256x1024, frozen Torch/Triton",
+  "unit_of_independence": "Deterministic module fixture",
+  "control_arms": [
+    "Pinned original author source projection",
+    "Independent same-mask arithmetic and precision witnesses"
+  ],
+  "full_depth_or_claim_scope": "Aligned original resident MLP module only, no Wan width, full-count, offload, performance or video.",
+  "predeclared_metrics": [
+    "Clock, selector support, cache writeback, witness equality, same-mask H <= .015625 and Y <= .03125 abs"
+  ],
+  "applicable_session_gpu_cap": 1,
+  "budget_and_failure_plan": {
+    "scope_id": "FFNDS_STRICT_CHIP_MODULE_BOUNDED_V1",
+    "git_base": "336b7e11849875e02d25205497a594d229211758",
+    "remote_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_module_bounded_v1",
+    "author": "sandyresearch/chipmunk@b5e8d1c3da6bddc7ca9007c48e91b82087c11490",
+    "bundle_sha256": {
+      "chip_module_bounded_oracle_v1.py": "28dfd7f055056168253174d77cca419c9c691263a17bc037c3fa57ca16fb030e",
+      "chip_module_bounded_job.sh": "2f027a2933184d340cc68c29ccfa524b7ed454897f478e47ce6a3cb8ec1f0158",
+      "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+      "author/src/chipmunk/modules/mlp.py": "0e1e63fb40b273782e7face0f94ba72cd81906d36af24f24934ea3e3209177fc",
+      "author/src/chipmunk/util/layer_counter.py": "cb9ffab57832ce69141ecd914fbb3f2c873c26bdca31eee1f7e2b41c01764288",
+      "author/src/chipmunk/util/config.py": "1ba524ec3a265f99d4788de7d0bb2988690c84415a7f459b4ab4836201e6a315",
+      "author/src/chipmunk/util/storage/layer_storage.py": "ee56637830f41b4732b4f287caca6b27f1055a8566b09e1bc92ac14ccd89912a",
+      "author/src/chipmunk/util/storage/offloaded_tensor.py": "4e2de98dd363f58a9947b2e59d527d2a94b15240ec187960ab34e3e1808befe1",
+      "author/src/chipmunk/ops/mlp.py": "ad4e035ebddb84effda7eac9df7035378a06a5a4bcd36a5996498f80cd2746ce",
+      "author/src/chipmunk/ops/indexed_io.py": "48eed56ec068b04942adc0cce370458fa24524b633752c71a5f4fae4b078bc48",
+      "author/src/chipmunk/triton/mlp_csp_mm1_bf16.py": "429fa45b341fc0bfc0c0665f701571b54263df7cbaa62828a1889f84c83a6397",
+      "author/src/chipmunk/triton/mlp_csp_mm2_bf16.py": "a656a87864f554c9198f1dd2ca78a79674302e79660ed0aa9bf7c1734bf2513f"
+    },
+    "library": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_selector_v1/build/ffnds_author_selector_b5e8d1c.so",
+    "library_sha256": "6a5425916842c256299de020ad299753841d1569d5eebd886ca187cf1c8ba062",
+    "author_projection": "Original module/storage/clock and function/Kernel bodies. Local import shim skips unused unconditional MM2 CUDA export bootstrap to avoid unsupported full-count lookahead.",
+    "device": "A100/sm80",
+    "torch": "2.10.0+cu128",
+    "triton": "3.6.0",
+    "shape": [
+      1,
+      256,
+      256,
+      1024
+    ],
+    "max_module_calls": 42,
+    "max_safe_selector_calls": 10,
+    "max_torch_copy_calls": 10,
+    "max_sparse_kernel_pairs": 12,
+    "rows": 256,
+    "steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "selector_steps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      12
+    ],
+    "max_gpus": 1,
+    "memory_gib": 24,
+    "wall_seconds": 1500,
+    "wan_nfe": 0,
+    "videos": 0,
+    "retry_cap": 0
+  },
+  "approval_scope_fingerprint": "713184719e40f932abeff4ff0493b4dab077032cd2c7a0d6b343f090112e909e"
+}

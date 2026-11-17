@@ -1,0 +1,89 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_CHIP_SELECTOR_A100_V1",
+  "purpose": "faithful_reproduction",
+  "research_question": "Does the unchanged author selector always provide a legal aligned support prefix, and does copy update exactly the consumed entries?",
+  "hypotheses_with_opposing_predictions": [
+    "Aligned padding fills a legal prefix in both shapes.",
+    "Thread-local last-invalid stores leave holes when many invalids share a thread; healthy rows can still pass."
+  ],
+  "author_agent_id": "/root",
+  "reviewer_agent_id": "/root/preexec_review",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_CHIP_SELECTOR_A100_V1/REVIEW.json",
+  "reviewer_disposition": "REVISE",
+  "adversarial_counterexample": "BF16 width 13824, threshold 1, thirteen excluded entries handled by one CUDA thread can produce 12 unwritten prefix entries and an apparent count of 13824.",
+  "responses_to_review": [
+    "Run A100 fresh process and compile exact author CUDA units in a thin torch registration; pin toolchain and source identities.",
+    "Two healthy BF16 width 1024 cases with 0 and .05 random, respective threshold support and exact same-mask cache copy.",
+    "Adversary invokes selector once without copy/MLP and records expected FAIL_UNSAFE_COUNT as a successful diagnostic."
+  ],
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "chip_selector_job.sh": "53f8b81e65fe1ecd40356360c341ef8f78d3cba72626cf24b8018153192ffed1",
+    "chip_selector_probe.py": "06daf4298214396de032d9ecb967e8b65ed8f2298d8347e9cf39d4bc325a1ac7",
+    "chip_selector_binding.cpp": "68e3cae31ecee6e45fc4d34499b854438846950a30c6c448dfa7f3a2cd4f9281",
+    "author/csrc/indexed_io/topk_indices.cu": "05407a642dcb5f201b605547d53b91effb15bb9b38fce3344207c8f4204ae251",
+    "author/csrc/indexed_io/copy_indices.cu": "7b3725a28082dfff98f18ad70e29537ad68bf6f93265f518328798386542128f"
+  },
+  "checkpoint_numeric_recipe": "No checkpoint; fixed BF16 synthetic inputs.",
+  "input_cohort_manifest_sha256": null,
+  "control_arms": [
+    "Width 1024 healthy",
+    "Width 13824 adversary"
+  ],
+  "full_depth_or_claim_scope": "Standalone pinned author CUDA selector and copy translation units only. Local ABI binding. No Triton/MLP/Wan.",
+  "unit_of_independence": "Deterministic synthetic selector fixture",
+  "predeclared_metrics": [
+    "Reported counts, uniqueness and threshold support",
+    "Exact copy on consumed safe prefix",
+    "Sentinel count and restricted failure disposition"
+  ],
+  "expected_physical_savings": null,
+  "applicable_session_gpu_cap": 1,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "concurrent_new_gpus": 1,
+    "cpu_cores": 2,
+    "host_mem_gib": 24,
+    "wall_seconds": 1200,
+    "jobs": 1,
+    "retries": 0,
+    "selector_calls": 3,
+    "copy_calls": 2,
+    "wan_nfe": 0,
+    "videos": 0
+  },
+  "approval_scope_fingerprint": "ccce7c922342bb322fd72164446c7892760850571a050091b624c142cc63fe5c",
+  "frozen_inputs": {
+    "scope_id": "FFNDS_STRICT_CHIP_SELECTOR_A100_V1",
+    "git_base": "336b7e11849875e02d25205497a594d229211758",
+    "author_commit": "b5e8d1c3da6bddc7ca9007c48e91b82087c11490",
+    "hashes": {
+      "chip_selector_job.sh": "53f8b81e65fe1ecd40356360c341ef8f78d3cba72626cf24b8018153192ffed1",
+      "chip_selector_probe.py": "06daf4298214396de032d9ecb967e8b65ed8f2298d8347e9cf39d4bc325a1ac7",
+      "chip_selector_binding.cpp": "68e3cae31ecee6e45fc4d34499b854438846950a30c6c448dfa7f3a2cd4f9281",
+      "author/csrc/indexed_io/topk_indices.cu": "05407a642dcb5f201b605547d53b91effb15bb9b38fce3344207c8f4204ae251",
+      "author/csrc/indexed_io/copy_indices.cu": "7b3725a28082dfff98f18ad70e29537ad68bf6f93265f518328798386542128f"
+    },
+    "device": "A100/sm80",
+    "cluster_partition": "P107-A100",
+    "account": "competition",
+    "qos": "qos_p107-a100",
+    "runtime": "hif4 Python 3.11, Torch 2.10.0+cu128, CUDA_HOME/bin/nvcc 12.8",
+    "budget": {
+      "gpus": 1,
+      "concurrent_new_gpus": 1,
+      "cpu_cores": 2,
+      "host_mem_gib": 24,
+      "wall_seconds": 1200,
+      "jobs": 1,
+      "retries": 0,
+      "selector_calls": 3,
+      "copy_calls": 2,
+      "wan_nfe": 0,
+      "videos": 0
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_Q1_V4_FIXED_REMAINING_V1",
+  "scope_sha256": "f73fbe1a6deaf93e1d28bcf2b98013854f45bc7a58f0a2c8a0672e663a7c699a",
+  "purpose": "faithful_reproduction",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "approval_scope_fingerprint": "f73fbe1a6deaf93e1d28bcf2b98013854f45bc7a58f0a2c8a0672e663a7c699a",
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "author_agent_id": "/root",
+  "implementation_agent_id": "/root/implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_Q1_V4_FIXED_REMAINING_V1/REVIEW.json",
+  "research_question": "Can the fixed original V4 PCG procedure supply the remaining 74 Q1 matrices with exact status and residual evidence?",
+  "hypotheses_with_opposing_predictions": [
+    "The fixed V4 solver returns valid original-status matrices for all fixed remaining positions, including possibly finite capped iterates.",
+    "Source incompatibility, nonfinite/early breakdown, or resource forecast prevents complete full-depth export."
+  ],
+  "adversarial_counterexample": "A finite above-tolerance early return can be misrepresented as a valid capped solve or labeled converged.",
+  "responses_to_review": [
+    "Require exact solver \u03bb .001, tolerance 1e-5, restart20, cap 240 and original V4 loss, target, and export.",
+    "Admit finite above-tolerance status only exactly at 240; keep status, residual, telemetry and certificate, no optimum claim.",
+    "Zero-PCG six predecessor must pass authenticated artifact eligibility. Exactly the predeclared remaining 74, plus original failed high0 gives at most 75 of 80.",
+    "Do not rewrite the earlier strict-gate failure. Actual 168816 EXIT plus FIT_START journal checked before remaining compute."
+  ],
+  "critical_source_hashes": {
+    "icc_stage3_assets.py": "7d07eb4f076a2d9f61b9cdf1f4fca7d3f8cf7fd9eb6d0e7cb25f435b187becec",
+    "icc_local_replay.py": "33691fcdcb168322396b4ea1f8e0b2b1350b7be131f7bf99460af8957559876d",
+    "icc_stage3_grid.py": "117436bbed24ca9a5a5cdf9386f99c9d6a7e6a1f97b534ae9848bdedb0d7970b",
+    "icc_stage3_cli.py": "07c576021042271587ab6cec17941928617651875733c928a0c5260ca5799fc7",
+    "q1_cal11_reproduction.py": "7c61819a9fda2dc87fd9a0519a0f014c56d5990a9e438e2d8128b6208167dd12",
+    "q1_v4_reconstruct_six.py": "19afe686b6b53b58511dc7bc6b2a6da6e27f7b543d71598ce0f3590bf69750fd",
+    "q1_v4_fixed_iterate_candidate.py": "9f5055a02ac8c207ba2b774448b403d6516f8692832af058971b5c411457f410",
+    "q1_v4_fit_remaining_candidate.py": "9baac51e84c7a1aa2615fb1a2522d1b21ed141d9951ee227697adad2cff50e66",
+    "icc_stage3_job.sh": "06966f708f23525c03f56855875bfc850863c02861b743b7709c8cb7c86ac74f",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "bws/icc_ffn.py": "127328fd17931cac9e5841868ea2bad43950442f888fb37117dc6f60f112c219",
+    "bws/icc_decompose.py": "6f2d2d93c26735a8cffdb6fe400d71abee6e8c380d6b24fb2d460a66eec1e8a3",
+    "bws/ridge_fit_core.py": "b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe",
+    "bws/b_common_replay.py": "6ccdcad0f4db91a93b4958d4660f4a2091bcdc0e936c12ac9bb9d835206fe623",
+    "bws/q1_fit_core.py": "b76a0efafae4b1b9b08a6c5cef6ade11108abed574136e082468c58c3f3a6028",
+    "bws/chipmunk_fullm_proxy_math.py": "f46ba6feee6905b3e875a3d4e3118ae97259a978ce6ba55413ed6d2a0a5544be",
+    "bws/chipmunk_wan_packed_pregate.py": "9a3e789e15564a0b2979418f9b69e26737abc057a0afcb8132f934dadde2160b"
+  },
+  "input_cohort_manifest_sha256": "0d2cf0d2d9fc21bc1913e96758ff5c3790c4dc536f615ca427d19d70decd9af4",
+  "checkpoint_numeric_recipe": "Exact original V4 CAL11 P512/full-M targets, same H/L and V4 FP32 fixed PCG; exact F32 export/reload.",
+  "control_arms": [
+    "original V4 solver status-preserved under fixed remaining fit calibration"
+  ],
+  "unit_of_independence": "predefined 74 expert-layer fit sites with common 11 source clusters",
+  "full_depth_or_claim_scope": "74 new fitting attempts, six pre-verified zero-fit exports, zero NFE/videos",
+  "predeclared_metrics": [
+    "initial and true normal residual, per-site solver status/iterations, reloaded F32 bytes, time ledger"
+  ],
+  "applicable_session_gpu_cap": 1,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 160,
+    "gpu_memory_gib": 78,
+    "min_free_disk_gib": 20,
+    "wall_seconds": 10800,
+    "soft_seconds": 10500,
+    "output_bytes": 17179869184,
+    "partition": "P107-A100",
+    "qos": "qos_p107-a100",
+    "account": "competition"
+  }
+}

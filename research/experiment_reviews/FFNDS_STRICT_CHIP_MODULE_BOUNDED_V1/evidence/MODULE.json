@@ -1,0 +1,182 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "step": 0,
+      "finite": true,
+      "mode": "anchor"
+    },
+    {
+      "step": 1,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.001953125,
+      "y_max_abs": 0.001953125,
+      "direct_max_abs": 0.0078125
+    },
+    {
+      "step": 2,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.001953125,
+      "y_max_abs": 0.001953125,
+      "direct_max_abs": 0.01171875
+    },
+    {
+      "step": 3,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.0009765625,
+      "y_max_abs": 0.001953125,
+      "direct_max_abs": 0.015625
+    },
+    {
+      "step": 4,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.00390625,
+      "y_max_abs": 0.001953125,
+      "direct_max_abs": 0.015625
+    },
+    {
+      "step": 5,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.0078125,
+      "y_max_abs": 0.001953125,
+      "direct_max_abs": 0.015625
+    },
+    {
+      "step": 6,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        768,
+        512
+      ],
+      "h_max_abs": 0.0078125,
+      "y_max_abs": 0.001953125,
+      "direct_max_abs": 0.015625
+    },
+    {
+      "step": 7,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.0078125,
+      "y_max_abs": 0.001953125,
+      "direct_max_abs": 0.01953125
+    },
+    {
+      "step": 8,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.0001220703125,
+      "y_max_abs": 0.0009765625,
+      "direct_max_abs": 0.01953125
+    },
+    {
+      "step": 9,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.00390625,
+      "y_max_abs": 0.001953125,
+      "direct_max_abs": 0.0234375
+    },
+    {
+      "step": 10,
+      "finite": true,
+      "mode": "anchor"
+    },
+    {
+      "step": 11,
+      "finite": true,
+      "mode": "reuse",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.001953125,
+      "y_max_abs": 0.00390625,
+      "direct_max_abs": 0.0078125
+    },
+    {
+      "step": 12,
+      "finite": true,
+      "mode": "recompute",
+      "counts": [
+        512,
+        512
+      ],
+      "h_max_abs": 0.001953125,
+      "y_max_abs": 0.00390625,
+      "direct_max_abs": 0.01171875
+    }
+  ],
+  "new_request_seeded": true,
+  "selector_steps": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    12
+  ],
+  "source_sha256": {
+    "modules/mlp.py": "0e1e63fb40b273782e7face0f94ba72cd81906d36af24f24934ea3e3209177fc",
+    "util/layer_counter.py": "cb9ffab57832ce69141ecd914fbb3f2c873c26bdca31eee1f7e2b41c01764288",
+    "util/config.py": "1ba524ec3a265f99d4788de7d0bb2988690c84415a7f459b4ab4836201e6a315",
+    "util/storage/layer_storage.py": "ee56637830f41b4732b4f287caca6b27f1055a8566b09e1bc92ac14ccd89912a",
+    "util/storage/offloaded_tensor.py": "4e2de98dd363f58a9947b2e59d527d2a94b15240ec187960ab34e3e1808befe1",
+    "ops/mlp.py": "ad4e035ebddb84effda7eac9df7035378a06a5a4bcd36a5996498f80cd2746ce",
+    "ops/indexed_io.py": "48eed56ec068b04942adc0cce370458fa24524b633752c71a5f4fae4b078bc48",
+    "triton/mlp_csp_mm1_bf16.py": "429fa45b341fc0bfc0c0665f701571b54263df7cbaa62828a1889f84c83a6397",
+    "triton/mlp_csp_mm2_bf16.py": "a656a87864f554c9198f1dd2ca78a79674302e79660ed0aa9bf7c1734bf2513f"
+  },
+  "library_sha256": "6a5425916842c256299de020ad299753841d1569d5eebd886ca187cf1c8ba062",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "witnesses": {
+    "mm1_actual": 0.84375,
+    "mm1_expected": 0.84375,
+    "mm1_round_first": 0.83984375,
+    "mm2_actual": 1.0,
+    "mm2_expected": 1.0,
+    "mm2_add_first": 1.0078125
+  },
+  "limits": "aligned author MLP width1024; exclude unsafe full-count lookahead; skip unused CUDA-provider import demo"
+}

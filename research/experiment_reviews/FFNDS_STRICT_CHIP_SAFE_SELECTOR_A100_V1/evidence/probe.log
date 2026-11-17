@@ -1,0 +1,33 @@
+[1/4] c++ -MMD -MF chip_selector_binding.o.d -DTORCH_EXTENSION_NAME=ffnds_safe_selector_b5e8d1c_v1 -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include/python3.11 -fPIC -std=c++17 -O3 -c /public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_safe_selector_v1/chip_selector_binding.cpp -o chip_selector_binding.o 
+[2/4] /home/scc/pb23061276/miniconda3/envs/hif4/bin/nvcc --generate-dependencies-with-compile --dependency-output chip_safe_topk.cuda.o.d -DTORCH_EXTENSION_NAME=ffnds_safe_selector_b5e8d1c_v1 -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_safe_selector_v1/build/chip_safe_topk.cu -o chip_safe_topk.cuda.o 
+[3/4] /home/scc/pb23061276/miniconda3/envs/hif4/bin/nvcc --generate-dependencies-with-compile --dependency-output copy_indices.cuda.o.d -DTORCH_EXTENSION_NAME=ffnds_safe_selector_b5e8d1c_v1 -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_safe_selector_v1/author/csrc/indexed_io/copy_indices.cu -o copy_indices.cuda.o 
+[4/4] c++ chip_selector_binding.o chip_safe_topk.cuda.o copy_indices.cuda.o -shared -L/home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/home/scc/pb23061276/miniconda3/envs/hif4/lib -lcudart -o ffnds_safe_selector_b5e8d1c_v1.so
+{
+  "variant": "CHIPMUNK_AUTHOR_MLP_SAFE_SELECTOR_V1",
+  "compiled_source_sha256": "4fd57e1d312087de7d1cbe0a205fe6f672ff66256276942dfd41b350c58466b5",
+  "loaded_extension_sha256": "67ef9e6bb58cb3f91976ee22e6c6bacb065a231ef1d4db9463dab744dfeef202",
+  "torch": "2.10.0+cu128",
+  "device": "NVIDIA A100-SXM4-80GB",
+  "healthy": {
+    "random_keys": 0.0,
+    "counts": [
+      512,
+      1024
+    ],
+    "copy_exact": true
+  },
+  "random_term": {
+    "without_random": 512,
+    "with_random": 768
+  },
+  "adversarial_wan_width": {
+    "count": 13824,
+    "unique": 13824,
+    "unwritten_slots": 0,
+    "copy_exact": true
+  },
+  "selector_calls": 4,
+  "copy_calls": 2,
+  "wan_nfe": 0,
+  "videos": 0
+}

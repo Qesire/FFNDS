@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=160G
+#SBATCH --time=01:10:00
+#SBATCH --signal=B:TERM@60
+
+set -euo pipefail
+stage=$1
+scope_sha=$2
+cd "$stage"
+sha256sum -c SHA256SUMS
+export OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 PYTHONDONTWRITEBYTECODE=1
+export TRITON_CACHE_DIR="$PWD/triton_cache"
+mkdir receipt
+trap 'rc=$?; printf "{\"exit_code\":%s,\"slurm_job_id\":\"%s\",\"end_utc\":\"%s\"}\n" "$rc" "$SLURM_JOB_ID" "$(date -u +%FT%TZ)" > receipt/EXIT.json; sha256sum receipt/*.json receipt/*.log > receipt/SHA256SUMS' EXIT
+"$HOME/miniconda3/envs/hif4/bin/python3.11" -B wan_comparison_job.py "$scope_sha" > receipt/runner.log 2>&1

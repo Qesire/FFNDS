@@ -1,0 +1,67 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_ICC_COLLECTOR_CPU_V1",
+  "purpose": "faithful_reproduction",
+  "research_question": "Does the chunked FP32 collector agree with exact authored stat_upd for the same CA/CD data on all four boundary channels?",
+  "hypotheses_with_opposing_predictions": [
+    "Same promoted BF16 values, correct token dimension and absolute-before-average produce author agreement.",
+    "Wrong reduction axis or delta operation deviates on signed varying channels even if constants agree."
+  ],
+  "author_agent_id": "/root",
+  "implementation_agent_id": "/root/implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_ICC_COLLECTOR_CPU_V1/REVIEW.json",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "adversarial_counterexample": "A constant or zero-delta statistic alone can hide reduction-order and axis defects.",
+  "responses_to_review": [
+    "Use tiny17 and ragged native31668 token fixtures with two signed/constant cases, one CA and one CD per case and four distinct boundary names. Compare direct raw magnitudes and pinned author normalization."
+  ],
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "icc_collector_author_oracle_candidate.py": "228dcad8ffa7682e73054eef94b6235aabcef680ccfde7f73decb3edcc8e2619",
+    "icc_four_boundary_collector.py": "526e160fe18094d2b439c519c91286f6c21476a0ea201236bb546c1d2c9faa55",
+    "models_stat_svd.py": "f3bb53ba6f2c03d2ef4297d88038262411ada3351fe831a97655513e2e0d52e4"
+  },
+  "checkpoint_numeric_recipe": "No checkpoint, supplied BF16 values and FP32 reduction",
+  "control_arms": [
+    "Author stat_upd",
+    "New chunked collector"
+  ],
+  "unit_of_independence": "Synthetic fixture",
+  "full_depth_or_claim_scope": "Small channel widths only; no real model.",
+  "predeclared_metrics": [
+    "rtol/atol=2e-6 on non-negative magnitude and author normalized output"
+  ],
+  "applicable_session_gpu_cap": 0,
+  "budget_and_failure_plan": {
+    "gpu": 0,
+    "cpu_threads": 1,
+    "timeout_seconds": 120,
+    "invocations": 1,
+    "retries": 0,
+    "wan_nfe": 0,
+    "videos": 0
+  },
+  "approval_scope_fingerprint": "41aff5010c66ba8f36c5f216407eb43bd3b2b09ceef7c00e8a4e346f75eb174e",
+  "frozen_inputs": {
+    "scope_id": "FFNDS_STRICT_ICC_COLLECTOR_CPU_V1",
+    "git_base": "336b7e11849875e02d25205497a594d229211758",
+    "raw_code_sha256": {
+      "icc_collector_author_oracle_candidate.py": "228dcad8ffa7682e73054eef94b6235aabcef680ccfde7f73decb3edcc8e2619",
+      "icc_four_boundary_collector.py": "526e160fe18094d2b439c519c91286f6c21476a0ea201236bb546c1d2c9faa55",
+      "models_stat_svd.py": "f3bb53ba6f2c03d2ef4297d88038262411ada3351fe831a97655513e2e0d52e4"
+    },
+    "author_git_blob": "09083cec7c13afbf785f41ce38b8d7a647b3fb78",
+    "budget": {
+      "gpu": 0,
+      "cpu_threads": 1,
+      "timeout_seconds": 120,
+      "invocations": 1,
+      "retries": 0,
+      "wan_nfe": 0,
+      "videos": 0
+    }
+  }
+}

@@ -22,6 +22,6 @@
 
 ## 当前状态
 
-本次完成设计整合和仓库更新，新模型/GPU运行0。真实clean输入、CAL3 raw μ/logvar访问、actual producer/权重/配置/资源和数值执行仍待绑定。缺CA/CD时不能以普通SVD冒充完整三家族选择。ICC/Q1校准来源未配平，局部选择和主视频使用已暴露DEV；本轮结论保留这些限定。
+2026-11-17 已执行并验收五臂主比较、作者式校准、局部风险、E4 和 E6。ICC 与 Q1 使用各自冻结的校准来源，局部选择和主视频基于已暴露的 DEV11。[执行记录和结果](../../../reports/20261117/ffnds_strict_reproduction/README.md)
 
 A/BW/BWS已完成结果按原身份继续使用。原参考核读和此前修订保留在[固定历史提交5a5b84a](https://github.com/Qesire/FFNDS/tree/5a5b84a04f71aa1fa6c426febf614a1a4c1d2492/research/20261107/ffn_baseline_reproduction)，不构成额外活动队列。当前工作按已有执行前复核与ACTIVE流程落实，无需重新询问已授权的研究方向。

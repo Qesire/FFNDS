@@ -1,0 +1,64 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_ICC_SVD_RECOVERY_V2",
+  "scope_sha256": "e308a3ab77997c01389397d74b296e4a4b81ec701ec50042c210c6a25189936e",
+  "purpose": "wan_transfer",
+  "research_question": "Can exact high04 BF16 SVD factors be restored and complete the six-site uncalibrated factor bank?",
+  "hypotheses_with_opposing_predictions": [
+    "Frozen inputs and complete receipts reproduce the planned outputs.",
+    "A frozen input, earlier provenance, numerical status, or terminal receipt differs."
+  ],
+  "author_agent_id": "/root/chip_implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "approval_scope_fingerprint": "e308a3ab77997c01389397d74b296e4a4b81ec701ec50042c210c6a25189936e",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_ICC_SVD_RECOVERY_V2/REVIEW.json",
+  "adversarial_counterexample": "A hash-consistent but different factor archive, unsafe pickle globals, or an incomplete run with shell EXIT0 would invalidate reuse.",
+  "responses_to_review": [
+    "The separate reviewer ran the exact recovery code on the actual older file in memory. Plain weights_only rejection is corrected with only the TorchVersion global in its temporary allowlist; the prior digest and all four raw BF16 hashes are pinned and the corrupt hash witness was rejected.",
+    "Verify five remaining sites against the unchanged live W1/W2 fingerprints; preserve exactly two original high04 decompositions and compute only ten new decompositions.",
+    "Require complete factor manifest, final successful runner result and normal terminal evidence independently of shell EXIT0. Admit no factors before the grid prerequisites."
+  ],
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "icc_stage3_assets.py": "7d07eb4f076a2d9f61b9cdf1f4fca7d3f8cf7fd9eb6d0e7cb25f435b187becec",
+    "icc_local_replay.py": "380ec3636c21dd6cbad85186d89781f3148279aa79702630c8f7afeb4fcbf3f7",
+    "icc_stage3_grid.py": "6d95ceac725dd4d6d7cc4137c158f91ea2dd821757d4290fba0a420d84c20098",
+    "icc_stage3_cli.py": "07c576021042271587ab6cec17941928617651875733c928a0c5260ca5799fc7",
+    "icc_stage3_factor_build.py": "5008d8a1c27e27b6d3badc7e95f2895dfbfa64674afaeb1b34d75840b8cc83d7",
+    "icc_svd_high04_recovery.py": "d5b25e75385b248cd967d00655c8d44f8445cb6ecca3819006f707d16a0beca4",
+    "icc_stage3_job.sh": "06966f708f23525c03f56855875bfc850863c02861b743b7709c8cb7c86ac74f",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "bws/icc_ffn.py": "127328fd17931cac9e5841868ea2bad43950442f888fb37117dc6f60f112c219",
+    "bws/icc_decompose.py": "6f2d2d93c26735a8cffdb6fe400d71abee6e8c380d6b24fb2d460a66eec1e8a3",
+    "bws/ridge_fit_core.py": "b22ac3725eb2b25d55e98ce649d38bed289ec5aa56dcd478e3233a5576628abe"
+  },
+  "checkpoint_numeric_recipe": "Original checkpoint, original numerical recipe and byte-bound historical admissions.",
+  "control_arms": [
+    "validated original artifacts and still-unexecuted planned sites"
+  ],
+  "unit_of_independence": "checkpoint expert/layer site",
+  "full_depth_or_claim_scope": "six high/low sites, 12 matrices, no Wan inference or videos",
+  "predeclared_metrics": [
+    "exact raw factor equivalence",
+    "six exact sites",
+    "two reused and ten new decompositions"
+  ],
+  "applicable_session_gpu_cap": 1,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 160,
+    "gpu_memory_gib": 78,
+    "wall_seconds": 7200,
+    "soft_seconds": 6900,
+    "output_bytes": 2147483648,
+    "min_free_disk_gib": 10,
+    "partition": "P107-A100",
+    "qos": "qos_p107-a100",
+    "account": "competition"
+  },
+  "scheduling_predecessor": "171133"
+}

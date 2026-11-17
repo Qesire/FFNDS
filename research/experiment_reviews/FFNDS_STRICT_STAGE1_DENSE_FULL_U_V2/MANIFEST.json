@@ -1,0 +1,1989 @@
+{
+  "schema": "FFNDS_FULL_U_STAGE1_V1",
+  "sources": [
+    "vbi_1013",
+    "vbi_0800"
+  ],
+  "seed": 42,
+  "grid_thw": [
+    21,
+    29,
+    52
+  ],
+  "raster_mapping": "index = (t * 29 + h) * 52 + w",
+  "fixed64_token_ids": [
+    29814,
+    13390,
+    19510,
+    21217,
+    3134,
+    5134,
+    10930,
+    19066,
+    11058,
+    5825,
+    13134,
+    25134,
+    17942,
+    4262,
+    30241,
+    19747,
+    10647,
+    22026,
+    26685,
+    20204,
+    16905,
+    28112,
+    9885,
+    4294,
+    16583,
+    19825,
+    3843,
+    22491,
+    25475,
+    27699,
+    25116,
+    21,
+    17163,
+    28327,
+    15803,
+    13552,
+    4607,
+    15752,
+    11320,
+    7509,
+    12590,
+    12136,
+    30301,
+    19937,
+    6303,
+    11549,
+    1469,
+    15805,
+    9981,
+    16693,
+    24094,
+    24909,
+    8422,
+    9622,
+    2872,
+    16788,
+    14615,
+    25043,
+    12326,
+    30753,
+    18494,
+    21183,
+    21370,
+    21523
+  ],
+  "archive_bytes": 7910502773,
+  "target_semantics": "Y_fullM_panel samples the native W2 pre-gate return; local512 own-W target is separate",
+  "weight_digest_semantics": "six first-observed subject site active CUDA weights and biases; hashed in logical row order",
+  "capture_staging_observed_delta_rss_bytes": 650117120,
+  "capture_staging_measurement": "RSS snapshot with U and memory-mapped readback resident; transient peaks not resolved",
+  "files": [
+    {
+      "kind": "author_voxel_mapping",
+      "voxel_shape": [
+        4,
+        6,
+        8
+      ],
+      "source_sha256": "9a72dc5007e2eab4772d108a7973f9058028a2d17b88db38aa15e54a5f82408c",
+      "path": "voxel_mapping.pt",
+      "bytes": 508517,
+      "sha256": "e885a89f3b3156669102a5d522f327ae3766a779ddcb444dc8cd6125a737293d"
+    },
+    {
+      "kind": "live_w1_w2_identity",
+      "expert": "high",
+      "layer": 4,
+      "matrices": [
+        {
+          "name": "W1",
+          "shape": [
+            5120,
+            13824
+          ],
+          "stride": [
+            1,
+            5120
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.0.ffn.0.weight",
+          "runtime_bias_name": "blocks.0.ffn.0.bias",
+          "sha256": "fff5650abd3b958c1b7e259cf5a8425a048fb2434ee88d512c54dfc6df40c4af",
+          "bias_shape": [
+            13824
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "8aec9dd6e5839e7fe1ebc779c690fa19ffad9f293810217663e3d2cd416c0dbf"
+        },
+        {
+          "name": "W2",
+          "shape": [
+            13824,
+            5120
+          ],
+          "stride": [
+            1,
+            13824
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.0.ffn.2.weight",
+          "runtime_bias_name": "blocks.0.ffn.2.bias",
+          "sha256": "86031ea588a1356a6ca7a4302da8e73d80f29a682f0117da4e7072f35a661945",
+          "bias_shape": [
+            5120
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "1a8612450ec95b75551a15dee336bdb87ac768366b83fb707d65352a02767455"
+        }
+      ]
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s00__b04__U.pt",
+      "bytes": 324281897,
+      "sha256": "2e7ef33cccf88367283836b48331e2f49b6d604e07a38e839cf4a62378937ec0",
+      "source": "vbi_1013",
+      "step": 0,
+      "layer": 4,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 0,
+        "layer": 4,
+        "expert": "high",
+        "timestep": 1000.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_1013__s00__b04__panel.pt",
+      "bytes": 5301197,
+      "sha256": "88832f92d263d01356c2fdc506603aeaf5e8dbbfa6933ced562ba197a0108737"
+    },
+    {
+      "kind": "live_w1_w2_identity",
+      "expert": "high",
+      "layer": 19,
+      "matrices": [
+        {
+          "name": "W1",
+          "shape": [
+            5120,
+            13824
+          ],
+          "stride": [
+            1,
+            5120
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.1.ffn.0.weight",
+          "runtime_bias_name": "blocks.1.ffn.0.bias",
+          "sha256": "a92b8eacdc671554e85913aae12a5429b2a76c1e50c9cca478debbff7b57d706",
+          "bias_shape": [
+            13824
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "7e428c9380e58b51809c5a80937c07d68e676cc56064a050aebfd76e515b9243"
+        },
+        {
+          "name": "W2",
+          "shape": [
+            13824,
+            5120
+          ],
+          "stride": [
+            1,
+            13824
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.1.ffn.2.weight",
+          "runtime_bias_name": "blocks.1.ffn.2.bias",
+          "sha256": "e337063680491624863118f2825e96e1b2f62683728c3faabed4a03f2d3fe535",
+          "bias_shape": [
+            5120
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "a65ff0df530f5c94079acf042435c42bb93947e9b43ffedbd6ecb89a83cf120c"
+        }
+      ]
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s00__b19__U.pt",
+      "bytes": 324281897,
+      "sha256": "57528eac2b21da9e82f55b800b83d63c1ae95a4de035d3c0ac01d1652a59e421",
+      "source": "vbi_1013",
+      "step": 0,
+      "layer": 19,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 0,
+        "layer": 19,
+        "expert": "high",
+        "timestep": 1000.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_1013__s00__b19__panel.pt",
+      "bytes": 5301197,
+      "sha256": "7a13fdce0fb0f61aa266f8c8c994d8e8341333295feca0ea4bfd4e33cecafbd0"
+    },
+    {
+      "kind": "live_w1_w2_identity",
+      "expert": "high",
+      "layer": 34,
+      "matrices": [
+        {
+          "name": "W1",
+          "shape": [
+            5120,
+            13824
+          ],
+          "stride": [
+            1,
+            5120
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.0.ffn.0.weight",
+          "runtime_bias_name": "blocks.0.ffn.0.bias",
+          "sha256": "bf8bc70ee669ac47bfed061fd3e3414c2d68496b363e73cd9f7fc69e44f63aa6",
+          "bias_shape": [
+            13824
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "b811c43ed83972bf85f5e04501523ea13cc05caa2cb35b273b0c01323a29f6b0"
+        },
+        {
+          "name": "W2",
+          "shape": [
+            13824,
+            5120
+          ],
+          "stride": [
+            1,
+            13824
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.0.ffn.2.weight",
+          "runtime_bias_name": "blocks.0.ffn.2.bias",
+          "sha256": "f8f1aca5d1e0e14ec8e7cd6eaef6894ee92d9de150ae990ef1c97f61d6b98d7b",
+          "bias_shape": [
+            5120
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "e24caae83263107376057fee6f1be4a8bbf7b8fca0f79f80ac778d204fb9af19"
+        }
+      ]
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s00__b34__U.pt",
+      "bytes": 324281897,
+      "sha256": "9ec4932790d60680f6f11a8dd6e73d4133e0631f3b9ab6f25264d54e730d8a9f",
+      "source": "vbi_1013",
+      "step": 0,
+      "layer": 34,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 0,
+        "layer": 34,
+        "expert": "high",
+        "timestep": 1000.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_1013__s00__b34__panel.pt",
+      "bytes": 5301197,
+      "sha256": "756639d8c118661bd55f944d6303c787add9d4dd74eacb7d1195ab9b8fd6a533"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s01__b04__U.pt",
+      "bytes": 324281897,
+      "sha256": "edbca9994a7a115e62c481ddcdbf2e63c28e9b3a1f87ab906b0d3f61368fd7f6",
+      "source": "vbi_1013",
+      "step": 1,
+      "layer": 4,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 1,
+        "layer": 4,
+        "expert": "high",
+        "timestep": 937.5,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_1013__s01__b04__panel.pt",
+      "bytes": 5301197,
+      "sha256": "54210e11da3d8fb3c6b5b2313c4cf60b85c943aead2f57450c59b64d1d56fc69"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s01__b19__U.pt",
+      "bytes": 324281897,
+      "sha256": "d304b96756666c233b45761dda269bd35d6120b6a5a017f47a112b25510c75d2",
+      "source": "vbi_1013",
+      "step": 1,
+      "layer": 19,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 1,
+        "layer": 19,
+        "expert": "high",
+        "timestep": 937.5,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_1013__s01__b19__panel.pt",
+      "bytes": 5301197,
+      "sha256": "169dbba8d51b090f0a4dfbdd97c1010651d34e1675f3f7a7b8883a705f3e5c58"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s01__b34__U.pt",
+      "bytes": 324281897,
+      "sha256": "5af1374ac60c85ec6ff46679f872ab294473d28162887c100253585f1940726c",
+      "source": "vbi_1013",
+      "step": 1,
+      "layer": 34,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 1,
+        "layer": 34,
+        "expert": "high",
+        "timestep": 937.5,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_1013__s01__b34__panel.pt",
+      "bytes": 5301197,
+      "sha256": "69f363f079e4d7abd0110dada48e3bf417291c4420f0b9649055f185e279cf6f"
+    },
+    {
+      "kind": "live_w1_w2_identity",
+      "expert": "low",
+      "layer": 4,
+      "matrices": [
+        {
+          "name": "W1",
+          "shape": [
+            5120,
+            13824
+          ],
+          "stride": [
+            1,
+            5120
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.0.ffn.0.weight",
+          "runtime_bias_name": "blocks.0.ffn.0.bias",
+          "sha256": "632011067ba190e0dffd9527dfbfad9fd37be10f91745463c89bdfa03c98cc62",
+          "bias_shape": [
+            13824
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "58c309925c62ed0f6e8f17d79d2f0b97dec5389b3cd674832eb71cc25c517aa6"
+        },
+        {
+          "name": "W2",
+          "shape": [
+            13824,
+            5120
+          ],
+          "stride": [
+            1,
+            13824
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.0.ffn.2.weight",
+          "runtime_bias_name": "blocks.0.ffn.2.bias",
+          "sha256": "f9d0afa9957558d4a56c4695f202a4810a956b62117e93dacd94767f6a7fb485",
+          "bias_shape": [
+            5120
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "bc2a007932cb5628b20d3495b0c154e6f9e5d44e13c5a21ab11c1ff852d62618"
+        }
+      ]
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s02__b04__U.pt",
+      "bytes": 324281897,
+      "sha256": "dcc2d4bea7b8f7609ca1551b9276511c0f246fe7a1ba2ac7752915667a722bd6",
+      "source": "vbi_1013",
+      "step": 2,
+      "layer": 4,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 2,
+        "layer": 4,
+        "expert": "low",
+        "timestep": 833.3333129882812,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_1013__s02__b04__panel.pt",
+      "bytes": 5301197,
+      "sha256": "fe56ad3a1ae310b0077c76fd2f2a60efa56bbb83d71bda9074f579d833a66cba"
+    },
+    {
+      "kind": "live_w1_w2_identity",
+      "expert": "low",
+      "layer": 19,
+      "matrices": [
+        {
+          "name": "W1",
+          "shape": [
+            5120,
+            13824
+          ],
+          "stride": [
+            1,
+            5120
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.1.ffn.0.weight",
+          "runtime_bias_name": "blocks.1.ffn.0.bias",
+          "sha256": "c444ec73d5edbeab59f47fb0bbb5eee41c9e3daf757440f9c12774b7fa4a3eaa",
+          "bias_shape": [
+            13824
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "8e8a660778e0987d841760deeee8e5f97d26296c858781c59812c121774947ad"
+        },
+        {
+          "name": "W2",
+          "shape": [
+            13824,
+            5120
+          ],
+          "stride": [
+            1,
+            13824
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.1.ffn.2.weight",
+          "runtime_bias_name": "blocks.1.ffn.2.bias",
+          "sha256": "51585e153abfb03c112e54f5858e62b16b25078cec62e709427da051959fbb54",
+          "bias_shape": [
+            5120
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "e471be0c57d8f0c2501cda8118f4d6196f0b5791fe4cee580b006b2fc52cc390"
+        }
+      ]
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s02__b19__U.pt",
+      "bytes": 324281897,
+      "sha256": "4c2e5334f76b82a3df17e3c5ae719d730e6b7ab5bf078a7e4425e348bd5623cf",
+      "source": "vbi_1013",
+      "step": 2,
+      "layer": 19,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 2,
+        "layer": 19,
+        "expert": "low",
+        "timestep": 833.3333129882812,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_1013__s02__b19__panel.pt",
+      "bytes": 5301197,
+      "sha256": "15ad14c2f2b36ca98db486f7760a0767cd5052362a08fe072c061cd6672a4c37"
+    },
+    {
+      "kind": "live_w1_w2_identity",
+      "expert": "low",
+      "layer": 34,
+      "matrices": [
+        {
+          "name": "W1",
+          "shape": [
+            5120,
+            13824
+          ],
+          "stride": [
+            1,
+            5120
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.0.ffn.0.weight",
+          "runtime_bias_name": "blocks.0.ffn.0.bias",
+          "sha256": "158d5cb342163cc5ae29a5cc9a7fcc852d135864dbdc6be3c1c1ac99b3a624fb",
+          "bias_shape": [
+            13824
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "1510388bc387c7b3e9f47bdd5e28c7f8a9558df54a9481cde3c16ccbf146faf7"
+        },
+        {
+          "name": "W2",
+          "shape": [
+            13824,
+            5120
+          ],
+          "stride": [
+            1,
+            13824
+          ],
+          "dtype": "torch.bfloat16",
+          "runtime_weight_name": "blocks.0.ffn.2.weight",
+          "runtime_bias_name": "blocks.0.ffn.2.bias",
+          "sha256": "6c31e91bfb2affa64bb73e32487932485ea3160c2371e809cb76f67208c4ce79",
+          "bias_shape": [
+            5120
+          ],
+          "bias_dtype": "torch.bfloat16",
+          "bias_sha256": "4c22e190d4d4492a9514a59868c52177cce479d72ec5c69d490863e50f048465"
+        }
+      ]
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s02__b34__U.pt",
+      "bytes": 324281897,
+      "sha256": "9b43dd489e3d767ac626370bb7f83fa6a08e8a01f09b228130cf1f65a607e093",
+      "source": "vbi_1013",
+      "step": 2,
+      "layer": 34,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 2,
+        "layer": 34,
+        "expert": "low",
+        "timestep": 833.3333129882812,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_1013__s02__b34__panel.pt",
+      "bytes": 5301197,
+      "sha256": "734c46dfec6e27b17154dc6ca4d8d96061deb664974bebf8fca42b947e034336"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s03__b04__U.pt",
+      "bytes": 324281897,
+      "sha256": "854caa54d74c1c50718b5c651eedf3dd926cdc826a9da029a04450aa61f90047",
+      "source": "vbi_1013",
+      "step": 3,
+      "layer": 4,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 3,
+        "layer": 4,
+        "expert": "low",
+        "timestep": 625.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_1013__s03__b04__panel.pt",
+      "bytes": 5301197,
+      "sha256": "dbe7dc206ea3e105cea7776c54d62d659740df8c37414841912ed76098485e0e"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s03__b19__U.pt",
+      "bytes": 324281897,
+      "sha256": "a6b7684a3e6587e1680942e38bbd7f3bd589392557dfa997ed010414e24524bc",
+      "source": "vbi_1013",
+      "step": 3,
+      "layer": 19,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 3,
+        "layer": 19,
+        "expert": "low",
+        "timestep": 625.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_1013__s03__b19__panel.pt",
+      "bytes": 5301197,
+      "sha256": "48d80be390035a84a225bc37cd9e1e171128e2bf46e109a148d7a646c8ff4ab0"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_1013__s03__b34__U.pt",
+      "bytes": 324281897,
+      "sha256": "ab5a7c60a0ff869a5399878b14925fe4a96b209f7006e60891c3224c20d533db",
+      "source": "vbi_1013",
+      "step": 3,
+      "layer": 34,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_1013",
+        "seed": 42,
+        "step": 3,
+        "layer": 34,
+        "expert": "low",
+        "timestep": 625.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "b24e3e48384b281bb2570419d6be0ea9cc51d70c51370049fc4d00463e1851c7",
+        "sorted_token_id_sha256_le_int64": "ba169a646b3f664070bdc0a5791c0784d52b67845fed5293a55f9a26ee82b05c",
+        "prefix_256_sha256_le_int64": "7ce3ce46656ce3060ede3be20c5a6fb150f7befcec984f3eb7f122e08d8b63be",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "d9cae0208064b116fed77afff926fc5015ee2d44d623ac5dbd1ee8eb697cfe52",
+        "prompt_sha256": "12ba27d231879a20922655516273358e8d0be2d2b46c6b85caa9203439d62398",
+        "source_cluster_id": "C00153",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_1013__s03__b34__panel.pt",
+      "bytes": 5301197,
+      "sha256": "5a0021150998a0f5f864dfce8a2a6cbc108177e414be8ab5f841c4be6066c7c9"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s00__b04__U.pt",
+      "bytes": 324281897,
+      "sha256": "ad52d3a8774bf316dd92c8438215a28f2ca90ba230949e13fda6ec46856ab2c1",
+      "source": "vbi_0800",
+      "step": 0,
+      "layer": 4,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 0,
+        "layer": 4,
+        "expert": "high",
+        "timestep": 1000.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_0800__s00__b04__panel.pt",
+      "bytes": 5301197,
+      "sha256": "19add15b2ec38dca737c6ad0c0c07e937d30fb005b765ab6f4a87586529ea8a6"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s00__b19__U.pt",
+      "bytes": 324281897,
+      "sha256": "63ad0a17993cff387e4c8b083c9105a96d03f21c26b385668f63a594239a8ae9",
+      "source": "vbi_0800",
+      "step": 0,
+      "layer": 19,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 0,
+        "layer": 19,
+        "expert": "high",
+        "timestep": 1000.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_0800__s00__b19__panel.pt",
+      "bytes": 5301197,
+      "sha256": "4dbc3fb170919482e81bfc8857635801d1bfdc0d3d6a9df1965c9934a85f0f89"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s00__b34__U.pt",
+      "bytes": 324281897,
+      "sha256": "dde28feb95bb15d45f6a668b684ae209f4077aec2f0f4bdef08013fcdd2e0fc1",
+      "source": "vbi_0800",
+      "step": 0,
+      "layer": 34,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 0,
+        "layer": 34,
+        "expert": "high",
+        "timestep": 1000.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_0800__s00__b34__panel.pt",
+      "bytes": 5301197,
+      "sha256": "cb39197325d591cbf3863837ea3fcc580701cd8fa679c5d27289da68e5490fca"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s01__b04__U.pt",
+      "bytes": 324281897,
+      "sha256": "09374e0071cf25fd8b35b858b1c844490332ff6a15bfc674961c2a3258a75333",
+      "source": "vbi_0800",
+      "step": 1,
+      "layer": 4,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 1,
+        "layer": 4,
+        "expert": "high",
+        "timestep": 937.5,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_0800__s01__b04__panel.pt",
+      "bytes": 5301197,
+      "sha256": "8720acc5ccbe4940e4d736c038f2b256d2f64e7cf8c37bcb4def8c20359e2694"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s01__b19__U.pt",
+      "bytes": 324281897,
+      "sha256": "c92f9643827795a8c1713dcaaf1aa787754dc111cff1e42bc30198605c1ac724",
+      "source": "vbi_0800",
+      "step": 1,
+      "layer": 19,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 1,
+        "layer": 19,
+        "expert": "high",
+        "timestep": 937.5,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_0800__s01__b19__panel.pt",
+      "bytes": 5301197,
+      "sha256": "3743db042c92138013cc724b6a6a8afb22ec6460eab5f8c3c511ec94ffefa8d8"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s01__b34__U.pt",
+      "bytes": 324281897,
+      "sha256": "7e2af1bd87c575e0d6c63dba7d5333258a86f8ca0b8f33c562a4ed459d9b3b76",
+      "source": "vbi_0800",
+      "step": 1,
+      "layer": 34,
+      "expert": "high",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 1,
+        "layer": 34,
+        "expert": "high",
+        "timestep": 937.5,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa"
+      },
+      "path": "vbi_0800__s01__b34__panel.pt",
+      "bytes": 5301197,
+      "sha256": "8e7c677d8461e2567eeb958f050ad943d48cbb2a92df486c7d8ed647c3cbd16b"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s02__b04__U.pt",
+      "bytes": 324281897,
+      "sha256": "79b6d30b8494df7c2edd235dd0ecf469e82c076739935d549b435d2fd54480e7",
+      "source": "vbi_0800",
+      "step": 2,
+      "layer": 4,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 2,
+        "layer": 4,
+        "expert": "low",
+        "timestep": 833.3333129882812,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_0800__s02__b04__panel.pt",
+      "bytes": 5301197,
+      "sha256": "d111864a63cd59cb7e6712d2a719d2adf6ec96f30cac42e52791f1a380f73ae7"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s02__b19__U.pt",
+      "bytes": 324281897,
+      "sha256": "f6f5bae55f35d15ae93645175856fb9f28ec5694d4d8f08b1ee5f791654111f1",
+      "source": "vbi_0800",
+      "step": 2,
+      "layer": 19,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 2,
+        "layer": 19,
+        "expert": "low",
+        "timestep": 833.3333129882812,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_0800__s02__b19__panel.pt",
+      "bytes": 5301197,
+      "sha256": "db9a4cfb4d27931f73220c527367d23b3e22e2dcacd37118435f345b641e2888"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s02__b34__U.pt",
+      "bytes": 324281897,
+      "sha256": "93e41a2350239c83358209f857e67405801eb18a570b01c261b8fc7362a8912d",
+      "source": "vbi_0800",
+      "step": 2,
+      "layer": 34,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 2,
+        "layer": 34,
+        "expert": "low",
+        "timestep": 833.3333129882812,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_0800__s02__b34__panel.pt",
+      "bytes": 5301197,
+      "sha256": "0915e5329ae97a9438b57fab9ff87c2315fe964b25513c018effbd69fdd156aa"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s03__b04__U.pt",
+      "bytes": 324281897,
+      "sha256": "70546329576a66c14dd380702ca45318606c9129ad9f116fdcdd0e161f95872c",
+      "source": "vbi_0800",
+      "step": 3,
+      "layer": 4,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 3,
+        "layer": 4,
+        "expert": "low",
+        "timestep": 625.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_0800__s03__b04__panel.pt",
+      "bytes": 5301197,
+      "sha256": "66e3264f7d6995fb3423ec1768957e4579caa26830df1e8df2830ca3f597c227"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s03__b19__U.pt",
+      "bytes": 324281897,
+      "sha256": "2535dbd5da9f129c568981cba81af0c866090d4de0d141d39520d1bcf72b8140",
+      "source": "vbi_0800",
+      "step": 3,
+      "layer": 19,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 3,
+        "layer": 19,
+        "expert": "low",
+        "timestep": 625.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_0800__s03__b19__panel.pt",
+      "bytes": 5301197,
+      "sha256": "059ed9a7c33c16277fec0d62435b754a1fb6bce775ea4ce6c2e6c9a424ced060"
+    },
+    {
+      "kind": "full_u",
+      "path": "vbi_0800__s03__b34__U.pt",
+      "bytes": 324281897,
+      "sha256": "ee01c61cee0ed175504a921cb0852549086618f20d1754e96282cbbc9f84f7a7",
+      "source": "vbi_0800",
+      "step": 3,
+      "layer": 34,
+      "expert": "low",
+      "shape": [
+        31668,
+        5120
+      ],
+      "dtype": "bfloat16"
+    },
+    {
+      "kind": "panel",
+      "u_panel_readback_equal": true,
+      "event": {
+        "source": "vbi_0800",
+        "seed": 42,
+        "step": 3,
+        "layer": 34,
+        "expert": "low",
+        "timestep": 625.0,
+        "grid": [
+          21,
+          29,
+          52
+        ],
+        "flattened_tokens": 31668,
+        "row_count": 512,
+        "panel_version": "G20_VBENCH_RESTART_V4_20261113_ROWS_V1",
+        "token_id_sha256_le_int64": "2ef60b2ea4e54ca79cc0c26036c3186929f6af9441719b696d5962273374c1e2",
+        "sorted_token_id_sha256_le_int64": "5b224465805d3c69d29bb1018999b73f9264193310fca4952d793f34be4a7da3",
+        "prefix_256_sha256_le_int64": "c47f2f6a703711c5cf47756f4f274196e0a4c9bc1a26d30fcd9f013e2f180ac2",
+        "coordinate_status": "THW_FROM_CURRENT_PREINFER_SOURCE_PANEL512_SHARED_CROSS_SITE",
+        "sampling_panels": "uniform random-order 512 THW panel; NO tubelet; NO stratified mask",
+        "U_shape": [
+          512,
+          5120
+        ],
+        "U_dtype": "bfloat16",
+        "gate_shape": [
+          1,
+          1,
+          5120
+        ],
+        "gate_dtype": "torch.bfloat16",
+        "preserve_sort_inverse": true,
+        "Y_shape": [
+          512,
+          5120
+        ],
+        "Y_dtype": "bfloat16",
+        "Y_semantics": "native dense W2 apply output includes b2; gate not yet applied; NOT Q1/proxy/candidate",
+        "same_coordinate_endpoints": "anchor steps 0/2 and hit steps 1/3 share the identical 512 panel coordinates",
+        "image_sha256": "059e5cbdbc3231a8e26cc800def328ddb69083d3d1a57a5b02c8af715c87dde4",
+        "prompt_sha256": "0c96b6848c88e805f5f1724fa45341f7ad3a71d0aa8af55efb981df6589a6704",
+        "source_cluster_id": "C00285",
+        "scope_sha256": "0f53a87a9e27a7eaf90ec9bc847525c75be570eb5d8d15d74daf51cca8c24381",
+        "checkpoint_sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2"
+      },
+      "path": "vbi_0800__s03__b34__panel.pt",
+      "bytes": 5301197,
+      "sha256": "e287ba7fce9a4a14c2993da7dd8127fe93721dd2ab15626c4d3deac0c960105e"
+    }
+  ]
+}

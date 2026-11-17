@@ -1,6 +1,6 @@
 # G20 两个核心方向：结果索引与勘误
 
-**2026-11-16 当前下一阶段：[完整实验方案](../../../research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)。** 先完整验收ICC/作者Chip FFN与Wan适配，再做五臂DEV11比较。ICC作者式CAL11为66次模型调用，CAL3必要适配诊断至多30，主计96；可选CAL22累计含诊断162。主55视频、两条Dense兼作full-U捕获、有限局部任务及小消融均已统一计账。A/BW/BWS保持已完成；下文旧“待办为空”仅指这些固定scope。新模型/GPU运行0。
+**2026-11-17 后续五臂实验已完成。** 当前 ICC 使用作者式 CAL11 选定的 CD r1408/4S，沿 55 条 DEV11 视频和 E4、E6 分别评分。下文仍保留 A/BW/BWS 的历史估计对象。[新实验执行记录和结果](../../20261117/ffnds_strict_reproduction/README.md) · [冻结实验方案](../../../research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/CONTROLLED_REPRODUCTION_PLAN.md)
 
 **2026-11-16 原文与作者代码核对：[ICC/Chipmunk的Wan适配、FFN结构与蒸馏](../../../research/20261116/ICC_CHIPMUNK_WAN_FIDELITY_AND_FFN_STRUCTURE_20261116.md)。** ICC四状态核心忠实，实际双残差是实数等价、BF16及成本不同的缓存适配；Global-P64为明确变体，作者式Block128的历史producer与编译selector尚未独立完整绑定。Chipmunk论文视频主表只启用attention，不能用其整系统速度代表Wan FFN基线。新报告同时区分必要适配、固定预算选择、局部风险、历史视频质量和逻辑缓存，并确认官方DMD2推理标签及checkpoint SHA。新增模型运行0；现有A/BW/BWS完成状态不变。
 

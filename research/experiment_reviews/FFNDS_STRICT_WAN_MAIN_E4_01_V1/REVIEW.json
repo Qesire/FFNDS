@@ -1,0 +1,68 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_WAN_MAIN_E4_01_V1",
+  "scope_sha256": "b34d6e347571235150ca64f8c2acbdf313ec6b2d4fbb8f22bbf9ecc600da2dcf",
+  "purpose": "wan_transfer",
+  "author_agent_id": "/root",
+  "reviewer_agent_id": "/root/preexec_review",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "approval_scope_fingerprint": "b34d6e347571235150ca64f8c2acbdf313ec6b2d4fbb8f22bbf9ecc600da2dcf",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_WAN_MAIN_E4_01_V1/REVIEW.json",
+  "research_question": "What changes with 2R rather than 4S at the exact same selected CD rank-1408 factor in native Wan D4 on DEV3?",
+  "hypotheses_with_opposing_predictions": [
+    "Finite-precision residual formation and readback change the free-run trajectory and observed cache cost.",
+    "Effects on the video may remain small despite the cache-storage difference."
+  ],
+  "adversarial_counterexample": "A changed factor, initial noise, or expert transition could mimic a cache effect. Nominal algebraic parity does not imply BF16 parity.",
+  "responses_to_review": [
+    "Exact independent APPROVE: 10 bundle hashes and live exact check_parents read-only passed for 171339 and 171341 (44 native NFE). Same 80 CD r1408 BF16 factors, parent and child same base recipe.",
+    "Anchor exact Dense plus 2R residual formation, then the same four-step HHLL schedule, all 40 layers and native gate. 3 D4/12 NFE, no retry. Forecast 7681.68s fits 10500s/10800s.",
+    "Only already submitted E6 axis 171894 may overlap at initial dispatch; no additional E6 axes concurrently. Main metric lane needs its own exact cap2 review and E4 dependency. Shared A100 nodes can affect observed timing."
+  ],
+  "critical_source_hashes": {
+    "icc_native_job.py": "f233fe6994b1d27def5a3f2f976797f73e0573d290699468a67cc860099c1a4a",
+    "wan_ffn_port.py": "38e196015e59eaf4900067927ec38498b2ea3bbeacc1f3218d2a37c34e4b78ed",
+    "wan_ffn_comparator_ports.py": "36c37453635e8684147918cb4a4c3257298fe94e5ff28d3de838debd1d650c79",
+    "wan_chip_author_port.py": "c09efa05c309f0266dab6fe002a031022c2f6e5c8182fabe99b66147aafaf1ca",
+    "wan_comparison_job.py": "0b66c7d7daaf4a87112eb295a537a2fd37ed4b610d41c1ce333893314bf6b4a3",
+    "wan_comparison_job.sh": "5729dbca50fc9e43da1db71319a74844d3001e66f22c2b131c3b592a6d7c057f",
+    "bws/icc_ffn.py": "127328fd17931cac9e5841868ea2bad43950442f888fb37117dc6f60f112c219",
+    "DENSE_INITIAL_NOISE.json": "ecf445d71318ab7dbed947c9f277b7054ef1e801faaaa70b9c0c6a6452dfc8a6",
+    "wan_ablation_parent_proof.py": "ff3cd39637d84cd903de11a2e46d44f8d331fda01bb083e4cbd578cade13e868",
+    "ABLATION_PARENTS.json": "57db146522a1fc4d0a2afdeafd0593265d900fec352d03cd1331f0e0b2eac9d1"
+  },
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "input_cohort_manifest_sha256": "57db146522a1fc4d0a2afdeafd0593265d900fec352d03cd1331f0e0b2eac9d1",
+  "checkpoint_numeric_recipe": "same actual CD r1408 factor and Wan D4 native checkpoints, BF16 2R anchor formation and hit read",
+  "unit_of_independence": "three fixed DEV source clusters",
+  "control_arms": [
+    "main ICC 4S",
+    "same factor E4 2R"
+  ],
+  "full_depth_or_claim_scope": "3 DEV3 D4, 12 NFE, 0 retries",
+  "predeclared_metrics": [
+    "4 HHLL NFE and 160 FFNs per video",
+    "same nine applicable quality scores and RAFT magnitude",
+    "measured cache/device/RSS/wall"
+  ],
+  "applicable_session_gpu_cap": 2,
+  "run_node": "anode16",
+  "existing_job_only": [
+    171894
+  ],
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 160,
+    "gpu_memory_gib": 78,
+    "wall_seconds": 10800,
+    "min_free_disk_gib": 82,
+    "partition": "P107-A100",
+    "qos": "qos_p107-a100",
+    "account": "competition",
+    "soft_seconds": 10500,
+    "in_flight_disk_floor_gib": 12
+  }
+}

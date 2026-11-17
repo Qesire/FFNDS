@@ -1,0 +1,59 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_DENSE_EXPORT_NINE_V1",
+  "scope_sha256": "0ecca12ca184e13cb9d7a2cfd77bf2a1df7286e27d458f5c126519752c69762e",
+  "purpose": "wan_transfer",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "approval_scope_fingerprint": "0ecca12ca184e13cb9d7a2cfd77bf2a1df7286e27d458f5c126519752c69762e",
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "author_agent_id": "/root",
+  "reviewer_agent_id": "/root/preexec_review",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_DENSE_EXPORT_NINE_V1/REVIEW.json",
+  "research_question": "Do nine reserved DEV11 Dense slots reproduce native historical D4 trajectories and close the missing final-latent outputs?",
+  "hypotheses_with_opposing_predictions": [
+    "True native identical input execution reproduces all four historical raw latent hashes and the exact decoded RGB.",
+    "A different path can decode identically while changing the raw final latent or other step."
+  ],
+  "adversarial_counterexample": "RGB equality alone can hide different final latent arrays since decoding and quantization are many-to-one.",
+  "responses_to_review": [
+    "Bind nine known old CAPTURE identities and admitted sources with 160 sites, seed42 and exact schedule.",
+    "Compare actual initial and each post-step raw latent SHA and decoded RGB; serialize and reload actual final tensor.",
+    "Only nine missing main Dense outputs run. Existing two complete neutral-source outputs remain eligible without additional execution."
+  ],
+  "critical_source_hashes": {
+    "icc_native_job.py": "f8092bc9a0e74e021ffa036eae02c2093bf2c0ebc2ddc231d7c73ad4cda9e5e1",
+    "wan_ffn_port.py": "38e196015e59eaf4900067927ec38498b2ea3bbeacc1f3218d2a37c34e4b78ed",
+    "wan_ffn_comparator_ports.py": "36c37453635e8684147918cb4a4c3257298fe94e5ff28d3de838debd1d650c79",
+    "wan_chip_author_port.py": "bf13a9b82b873485be7ef4107dd1a5da7e81aa6a7fe0ada1a4384f4c4aaeb4e5",
+    "wan_comparison_job.py": "d28510114556a81a85c1eb4119453d8df03b08f25f22b360428286e918e7c774",
+    "wan_comparison_job.sh": "7a7476374dd4a51898e16d789664efb87bf2114e088ab5c705b4a5cd3ac0ed20",
+    "DENSE_ADMISSION.json": "2d0b6e99b56877b22fa2f3c013097f77641357322f90b833cd8ff076a3440400",
+    "DENSE_INITIAL_NOISE.json": "ecf445d71318ab7dbed947c9f277b7054ef1e801faaaa70b9c0c6a6452dfc8a6"
+  },
+  "input_cohort_manifest_sha256": "2d0b6e99b56877b22fa2f3c013097f77641357322f90b833cd8ff076a3440400",
+  "checkpoint_numeric_recipe": "Native BF16 shared pre-W1 and W1/GELU/W2, frozen V2 D4/CFG-off/seed42",
+  "control_arms": [
+    "today native Dense execution and exact historical tap trajectory per source"
+  ],
+  "unit_of_independence": "nine fixed DEV source clusters",
+  "full_depth_or_claim_scope": "nine 40-layer HHLL D4 trajectories, 36 NFE, no approximation or extra slots",
+  "predeclared_metrics": [
+    "raw initial/4 post latents, actual execution and resources, 160 ordered sites, decoded RGB"
+  ],
+  "applicable_session_gpu_cap": 1,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 160,
+    "gpu_memory_gib": 78,
+    "wall_seconds": 3000,
+    "min_free_disk_gib": 10,
+    "partition": "P107-A100",
+    "qos": "qos_p107-a100",
+    "account": "competition",
+    "soft_seconds": 2700,
+    "in_flight_disk_floor_gib": 8
+  }
+}

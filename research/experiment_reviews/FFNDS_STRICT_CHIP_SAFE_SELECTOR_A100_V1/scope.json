@@ -1,0 +1,41 @@
+{
+  "scope_id": "FFNDS_STRICT_CHIP_SAFE_SELECTOR_A100_V1",
+  "git_base": "336b7e11849875e02d25205497a594d229211758",
+  "remote_stage": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_safe_selector_v1",
+  "original_job": 168501,
+  "pinned_author": "sandyresearch/chipmunk@b5e8d1c3da6bddc7ca9007c48e91b82087c11490",
+  "bundle_sha256": {
+    "chip_selector_binding.cpp": "68e3cae31ecee6e45fc4d34499b854438846950a30c6c448dfa7f3a2cd4f9281",
+    "chip_selector_probe.py": "06daf4298214396de032d9ecb967e8b65ed8f2298d8347e9cf39d4bc325a1ac7",
+    "build_chip_safe_selector.py": "d7a1f5e65a58087e682273472edd6152a2d0fcb03e4252486f636de60127cfb8",
+    "chip_safe_selector_probe.py": "2c7ce8f16eca1e8c0a896fa3ba14a0fa310d1c788d17d3aea8300bb6b8786bb2",
+    "chip_safe_selector_job.sh": "89e8a884aba7dfde7251b59b67450be598e8e91510397326414b161c118d24d5",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "author/csrc/indexed_io/topk_indices.cu": "05407a642dcb5f201b605547d53b91effb15bb9b38fce3344207c8f4204ae251",
+    "author/csrc/indexed_io/copy_indices.cu": "7b3725a28082dfff98f18ad70e29537ad68bf6f93265f518328798386542128f"
+  },
+  "safe_cuda_sha256": "4fd57e1d312087de7d1cbe0a205fe6f672ff66256276942dfd41b350c58466b5",
+  "scope": "CHIPMUNK_AUTHOR_MLP_SAFE_SELECTOR_V1 restricted default-stream single-device aligned width; compiled probe only",
+  "hypotheses": [
+    "Safe repair fills every slot to 256-aligned count on the archived adversarial row.",
+    "A repair that only masks invalid indices or disables random inclusion fails the exact prefix or 512->768 discriminator."
+  ],
+  "budget": {
+    "gpus": 1,
+    "cpu_cores": 2,
+    "host_mem_gib": 24,
+    "wall_seconds": 1200,
+    "job_cap": 1,
+    "retry_cap": 0,
+    "selector_calls": 4,
+    "copy_calls": 2,
+    "wan_nfe": 0,
+    "videos": 0
+  },
+  "partition": "P107-A100",
+  "qos": "qos_p107-a100",
+  "account": "competition",
+  "dependency": "afterany:live tracked Stage1 Dense V2 if active, otherwise quiet queue",
+  "torch": "2.10.0+cu128",
+  "cuda_arch": "8.0"
+}

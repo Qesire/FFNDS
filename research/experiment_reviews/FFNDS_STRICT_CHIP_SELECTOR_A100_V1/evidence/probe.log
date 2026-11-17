@@ -1,0 +1,44 @@
+[1/4] c++ -MMD -MF chip_selector_binding.o.d -DTORCH_EXTENSION_NAME=ffnds_author_selector_b5e8d1c -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include/python3.11 -fPIC -std=c++17 -O3 -c /public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_selector_v1/chip_selector_binding.cpp -o chip_selector_binding.o 
+[2/4] /home/scc/pb23061276/miniconda3/envs/hif4/bin/nvcc --generate-dependencies-with-compile --dependency-output topk_indices.cuda.o.d -DTORCH_EXTENSION_NAME=ffnds_author_selector_b5e8d1c -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_selector_v1/author/csrc/indexed_io/topk_indices.cu -o topk_indices.cuda.o 
+[3/4] /home/scc/pb23061276/miniconda3/envs/hif4/bin/nvcc --generate-dependencies-with-compile --dependency-output copy_indices.cuda.o.d -DTORCH_EXTENSION_NAME=ffnds_author_selector_b5e8d1c -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include -isystem /home/scc/pb23061276/miniconda3/envs/hif4/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' -O3 --use_fast_math -std=c++17 -c /public/home/scc/pb23061276/projects/wan-quant/work/ffnds_strict_reproduction_20261116_336b7e1/chip_selector_v1/author/csrc/indexed_io/copy_indices.cu -o copy_indices.cuda.o 
+[4/4] c++ chip_selector_binding.o topk_indices.cuda.o copy_indices.cuda.o -shared -L/home/scc/pb23061276/miniconda3/envs/hif4/lib/python3.11/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/home/scc/pb23061276/miniconda3/envs/hif4/lib -lcudart -o ffnds_author_selector_b5e8d1c.so
+{
+  "scope": "author CUDA selector and copy translation units; local Torch registration",
+  "slurm_job_id": "168501",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.10.0+cu128",
+  "cuda": "12.8",
+  "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0",
+  "host_compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "driver": "580.173.02",
+  "extension_sha256": "6a5425916842c256299de020ad299753841d1569d5eebd886ca187cf1c8ba062",
+  "source_sha256": {
+    "chip_selector_binding.cpp": "68e3cae31ecee6e45fc4d34499b854438846950a30c6c448dfa7f3a2cd4f9281",
+    "topk_indices.cu": "05407a642dcb5f201b605547d53b91effb15bb9b38fce3344207c8f4204ae251",
+    "copy_indices.cu": "7b3725a28082dfff98f18ad70e29537ad68bf6f93265f518328798386542128f"
+  },
+  "healthy": [
+    {
+      "random_keys": 0.0,
+      "counts": [
+        512,
+        1024
+      ],
+      "copy_exact": true
+    },
+    {
+      "random_keys": 0.05,
+      "counts": [
+        512,
+        1024
+      ],
+      "copy_exact": true
+    }
+  ],
+  "adversary": {
+    "reported_count": 13824,
+    "unwritten_slots": 12,
+    "index_of_only_padding_writer": 13312,
+    "author_selector_disposition": "FAIL_UNSAFE_COUNT"
+  }
+}

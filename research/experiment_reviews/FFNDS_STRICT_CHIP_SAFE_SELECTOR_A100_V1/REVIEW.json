@@ -1,0 +1,55 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_CHIP_SAFE_SELECTOR_A100_V1",
+  "scope_sha256": "b6f00e147eb3094125942bec400ce4971ebaef17602110ad0301c4072026e756",
+  "purpose": "wan_transfer",
+  "research_question": "Does the separately named selector repair complete legal 256-aligned prefixes without disabling original threshold and random acceptance behavior?",
+  "hypotheses_with_opposing_predictions": [
+    "Safe repair fills every slot to 256-aligned count on the archived adversarial row.",
+    "A repair that only masks invalid indices or disables random inclusion fails the exact prefix or 512->768 discriminator."
+  ],
+  "author_agent_id": "/root",
+  "reviewer_agent_id": "/root/preexec_review",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_CHIP_SAFE_SELECTOR_A100_V1/REVIEW.json",
+  "reviewer_disposition": "REVISE",
+  "adversarial_counterexample": "The original job 168501 left 12 unwritten positions when 13 rejected indices belonged to one thread. A wrapper that reports fewer positions or removes random acceptance may mask the defect.",
+  "responses_to_review": [
+    "Preserve each original candidate decision and fill from earlier rejected lanes only if the first padding stage is insufficient.",
+    "Boundary checks require active device, default stream, aligned geometry and exact kernel source input.",
+    "Require the true full prefix and exact copy at 13824, and the 512->768 effective random toggle on a healthy row."
+  ],
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "chip_selector_binding.cpp": "68e3cae31ecee6e45fc4d34499b854438846950a30c6c448dfa7f3a2cd4f9281",
+    "chip_selector_probe.py": "06daf4298214396de032d9ecb967e8b65ed8f2298d8347e9cf39d4bc325a1ac7",
+    "build_chip_safe_selector.py": "d7a1f5e65a58087e682273472edd6152a2d0fcb03e4252486f636de60127cfb8",
+    "chip_safe_selector_probe.py": "2c7ce8f16eca1e8c0a896fa3ba14a0fa310d1c788d17d3aea8300bb6b8786bb2",
+    "chip_safe_selector_job.sh": "89e8a884aba7dfde7251b59b67450be598e8e91510397326414b161c118d24d5",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1",
+    "author/csrc/indexed_io/topk_indices.cu": "05407a642dcb5f201b605547d53b91effb15bb9b38fce3344207c8f4204ae251",
+    "author/csrc/indexed_io/copy_indices.cu": "7b3725a28082dfff98f18ad70e29537ad68bf6f93265f518328798386542128f"
+  },
+  "safe_cuda_sha256": "4fd57e1d312087de7d1cbe0a205fe6f672ff66256276942dfd41b350c58466b5",
+  "checkpoint_numeric_recipe": "Static BF16 fixtures, compiled author + distinct safe selector variant, torch 2.10.0+cu128",
+  "unit_of_independence": "Synthetic selector fixture",
+  "full_depth_or_claim_scope": "Compiled selector/copy on A100 only.",
+  "predeclared_metrics": [
+    "Valid prefixes, exact masked copy, 13824 unique entries, positive random-key discriminator"
+  ],
+  "applicable_session_gpu_cap": 1,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 2,
+    "host_mem_gib": 24,
+    "wall_seconds": 1200,
+    "job_cap": 1,
+    "retry_cap": 0,
+    "selector_calls": 4,
+    "copy_calls": 2,
+    "wan_nfe": 0,
+    "videos": 0
+  },
+  "approval_scope_fingerprint": "b6f00e147eb3094125942bec400ce4971ebaef17602110ad0301c4072026e756"
+}

@@ -1,0 +1,95 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_ICC_AUTHOR_CPU_V2_20261116",
+  "purpose": "faithful_reproduction",
+  "research_question": "Does the projected ICC library match pinned author CPU module behavior on bounded synthetic operands?",
+  "hypotheses_with_opposing_predictions": [
+    "Equivalent primitives agree at the author statistics, factor-action, schedule and cache comparisons.",
+    "Wrong sqrt/cap/order, factors or cache lifetime lead to disagreement in one of the corresponding fixtures."
+  ],
+  "author_agent_id": "/root",
+  "implementation_agent_id": "/root/implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "author_review_path": "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/ICC_CPU_ORACLE_SCOPE_CANDIDATE.md",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_ICC_AUTHOR_CPU_V2_20261116/v2.json",
+  "reviewer_disposition": "REVISE",
+  "adversarial_counterexample": "Mixing constant/zero-delta sources with other scales masks the lower cap. Comparing a clamp to a clamp of the candidate sqrt masks an incorrect exponent. Calling reset without testing a stale hit masks anchor retention.",
+  "responses_to_review": [
+    "Use separate constant CA and zero-delta CD, signed nonzero-min fixtures, and active ratio 1000 with independently computed author root.",
+    "Check stale-key failure post-reset and same anchor across zero and distinct nonzero hits. Author p2 clock is a separate check.",
+    "Bind raw source bytes, compare candidate and author factor action and reload, and defer boundary-to-scale wiring and all native scopes."
+  ],
+  "recheck_disposition": "APPROVE",
+  "reviewer_recheck": "Independent reviewer recomputed candidate SHA c4af3bed85aaf55928459114adb39a7f4b7bfaa7fa0f2c6828c08fdc98e5de3d and approved one CPU invocation with fixed source identities, 120 seconds, one thread, zero retry, GPU, checkpoint, native forward, Wan NFE or video.",
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/icc_author_oracle_candidate.py": "c4af3bed85aaf55928459114adb39a7f4b7bfaa7fa0f2c6828c08fdc98e5de3d",
+    "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/icc_stage0.py": "f412cfe1997dba4805a458da64cbf553243ca6fdd7d8517c6d095ac1392fabf3",
+    "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/ICC_CPU_ORACLE_SCOPE_CANDIDATE.md": "b8ffcbf5627a3691de9a801d107dd34ed837ae6178cb5d39fae9e3b907412194",
+    "reports/20261114/g20_two_track_core/BWS/v1/source/icc_decompose.py": "6f2d2d93c26735a8cffdb6fe400d71abee6e8c380d6b24fb2d460a66eec1e8a3",
+    "reports/20261114/g20_two_track_core/BWS/v1/source/icc_ffn.py": "127328fd17931cac9e5841868ea2bad43950442f888fb37117dc6f60f112c219",
+    "DiT/adapters/sched_sp_step.py": "880ba5c10d7b3f417137af8350c71f33fd2c2ac99170c2f263acab1afa7b6a82",
+    "DiT/models/models_sp_step_decomp.py": "e71fe95c78ff190c2498f9c16ce0ea92720cd66fe0fb9d41f8ca09e37ac38a74",
+    "DiT/models/models_stat_svd.py": "f3bb53ba6f2c03d2ef4297d88038262411ada3351fe831a97655513e2e0d52e4",
+    "DiT/utils/utils_decomp.py": "f1bf94d28a65b3efe3df9157cbf8f9439e546182e05140699afb1b154d34d316"
+  },
+  "checkpoint_numeric_recipe": "No checkpoint. Seeded FP32 tiny CPU author method projection in Python 3.11/Torch 2.10.0.",
+  "input_cohort_manifest_sha256": null,
+  "control_arms": [
+    "Pinned author CPU method bodies",
+    "Candidate and repository factor implementation"
+  ],
+  "unit_of_independence": "Deterministic synthetic module fixture",
+  "full_depth_or_claim_scope": "Tiny CPU module only. No full DiT or Wan.",
+  "predeclared_metrics": [
+    "FP32 author statistics, independent sqrt and cap",
+    "Factor action, tolerances and round-trip",
+    "p2 decisions",
+    "Four cache tensors, zero/two nonzero hits, stale-key rejection"
+  ],
+  "expected_physical_savings": null,
+  "applicable_session_gpu_cap": 0,
+  "budget_and_failure_plan": {
+    "cpu_threads": 1,
+    "timeout_seconds": 120,
+    "invocation_cap": 1,
+    "retry_cap": 0,
+    "gpus": 0,
+    "wan_nfe": 0,
+    "videos": 0,
+    "device": "cpu",
+    "python": "3.11",
+    "torch": "2.10.0"
+  },
+  "frozen_inputs": {
+    "scope_id": "FFNDS_STRICT_ICC_AUTHOR_CPU_V2_20261116",
+    "git_base": "336b7e11849875e02d25205497a594d229211758",
+    "author_commit": "dafee02efc89cdfbe81395a5a8a8fbeb17cf9be4",
+    "source_sha256": {
+      "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/icc_author_oracle_candidate.py": "c4af3bed85aaf55928459114adb39a7f4b7bfaa7fa0f2c6828c08fdc98e5de3d",
+      "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/icc_stage0.py": "f412cfe1997dba4805a458da64cbf553243ca6fdd7d8517c6d095ac1392fabf3",
+      "research/20261107/ffn_baseline_reproduction/strict_reproduction_20261116/ICC_CPU_ORACLE_SCOPE_CANDIDATE.md": "b8ffcbf5627a3691de9a801d107dd34ed837ae6178cb5d39fae9e3b907412194",
+      "reports/20261114/g20_two_track_core/BWS/v1/source/icc_decompose.py": "6f2d2d93c26735a8cffdb6fe400d71abee6e8c380d6b24fb2d460a66eec1e8a3",
+      "reports/20261114/g20_two_track_core/BWS/v1/source/icc_ffn.py": "127328fd17931cac9e5841868ea2bad43950442f888fb37117dc6f60f112c219",
+      "DiT/adapters/sched_sp_step.py": "880ba5c10d7b3f417137af8350c71f33fd2c2ac99170c2f263acab1afa7b6a82",
+      "DiT/models/models_sp_step_decomp.py": "e71fe95c78ff190c2498f9c16ce0ea92720cd66fe0fb9d41f8ca09e37ac38a74",
+      "DiT/models/models_stat_svd.py": "f3bb53ba6f2c03d2ef4297d88038262411ada3351fe831a97655513e2e0d52e4",
+      "DiT/utils/utils_decomp.py": "f1bf94d28a65b3efe3df9157cbf8f9439e546182e05140699afb1b154d34d316"
+    },
+    "fixture_seed": 20261116,
+    "budget": {
+      "cpu_threads": 1,
+      "timeout_seconds": 120,
+      "invocation_cap": 1,
+      "retry_cap": 0,
+      "gpus": 0,
+      "wan_nfe": 0,
+      "videos": 0,
+      "device": "cpu",
+      "python": "3.11",
+      "torch": "2.10.0"
+    }
+  },
+  "approval_scope_fingerprint": "4041e10d9434f1b0d2b4dd9bb53c676f911dae3d6e3346368f227ecc945ec07c",
+  "state": "REVIEWER_RECHECK_APPROVED"
+}

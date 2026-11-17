@@ -1,0 +1,65 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_STRICT_CHIP_STREAM_BRIDGE_FIXTURE_V1",
+  "scope_sha256": "dd09ea3727f496121411ca7bcb12a80897c5d887d5bb1d96e172376cc8abf017",
+  "purpose": "wan_transfer",
+  "research_question": "Does exact indexed-op transport preserve caller output when the compiled operations still use the CUDA default stream?",
+  "author_agent_id": "/root/implementation",
+  "reviewer_agent_id": "/root/preexec_review",
+  "reviewer_disposition": "APPROVE",
+  "recheck_disposition": "APPROVE",
+  "state": "REVIEWER_RECHECK_APPROVED",
+  "approval_scope_fingerprint": "dd09ea3727f496121411ca7bcb12a80897c5d887d5bb1d96e172376cc8abf017",
+  "independent_review_path": "research/experiment_reviews/FFNDS_STRICT_CHIP_STREAM_BRIDGE_FIXTURE_V1/REVIEW.json",
+  "hypotheses_with_opposing_predictions": [
+    "Both real streams yield exactly the same indices, counts, copied cache and consumer snapshots.",
+    "A missing happens-before or storage lifetime boundary can lead to different results."
+  ],
+  "adversarial_counterexample": "A bare stream context without bidirectional event ordering can consume caller data before initialization or read compiled results too early.",
+  "responses_to_review": [
+    "Original compiled topk/copy and safe checks stay byte-identical. Two explicit event edges and record_stream surround the operations, including exception safety.",
+    "4 synthetic selections and 4 copies only; compare 247 and one block with true nondefault-stream producer and consumer.",
+    "A matching geometry is not a Wan or tail numerical test. Require positive terminal and complete exact PASS before considering a separate repair scope."
+  ],
+  "code_commit": "336b7e11849875e02d25205497a594d229211758",
+  "critical_source_hashes": {
+    "chip_stream_bridge_job.py": "c1c43af601ee76fd2cf461ded58889f217a38ddebaeaf56f051ee91d16a7b26c",
+    "chip_stream_bridge_job.sh": "15a3c984590ad074e9cccb23960b79387ba81d0af171eb8531014fdbadfd3a0c",
+    "chip_stream_bridge_fixture.py": "9c9433874667d482e9ba080d897bd5563223a71897229df418cee725ff38687c",
+    "chip_provider.py": "1de8104d1b6c8066dfc041141e6acce33e20c8c0a0a787eaedb4d0ca00d0cba3",
+    "chip_wan_voxel_tail_v1.py": "c565328376c0ff32891dd357343f08e2c7ccfc40ef86823e3b77a2fc3fb1a3af",
+    "runtime_guard.py": "ba75a4c128dd258f841701f92d15630516a49162878a60db8135407802ae7bc1"
+  },
+  "input_cohort_manifest_sha256": "53c446cd6983c34010adbb230cd985c011d1da2e0f12ec7faa1916236a01e25a",
+  "control_arms": [
+    "default stream",
+    "nondefault caller with default-compiled selector/copy"
+  ],
+  "checkpoint_numeric_recipe": "No model; use deterministic BF16 13824-wide operands",
+  "unit_of_independence": "two fixed selector layouts",
+  "full_depth_or_claim_scope": "4+4 real compiled operators; zero NFE or videos",
+  "predeclared_metrics": [
+    "bitwise indices/count/copy/consumer parity",
+    "terminal PASS"
+  ],
+  "applicable_session_gpu_cap": 2,
+  "budget_and_failure_plan": {
+    "gpus": 1,
+    "cpu_cores": 4,
+    "host_memory_gib": 64,
+    "gpu_memory_gib": 60,
+    "wall_seconds": 1200,
+    "soft_seconds": 1080,
+    "partition": "P107-A100",
+    "account": "competition",
+    "qos": "qos_p107-a100",
+    "min_free_disk_gib": 8
+  },
+  "scheduling_predecessor": "171344",
+  "run_node": "anode22",
+  "other_lane_only": [
+    171339,
+    171341,
+    171343
+  ]
+}
