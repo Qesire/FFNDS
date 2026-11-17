@@ -1,0 +1,131 @@
+{
+  "schema": "FFNDS_WAN_FISHSCALE_EXPERIMENT_MATRIX_V1",
+  "date": "2026-11-17",
+  "status": "DESIGN_ONLY__REVIEW_REQUIRED__NOT_RUN",
+  "branch": "diagnostic_separate_from_ffn_algorithms",
+  "human_visual_review": "PRIMARY_GATING_OUTCOME",
+  "automatic_metrics": "AUXILIARY_NO_AUTOMATIC_NEXT_BRANCH",
+  "independent_review": "NOT_REQUESTED",
+  "active_scope": "NOT_REGISTERED",
+  "authorized_gpu_runs": false,
+  "user_human_results": "NOT_RUN",
+  "official_vbench": "NOT_RUN",
+  "first_priority_sources": [
+    898,
+    96
+  ],
+  "source_count_for_A1_and_A2_max": 2,
+  "all_sources_are_exposed_development": true,
+  "video_contract": {
+    "frames": 81,
+    "width": 832,
+    "height": 464,
+    "fps": 16,
+    "keep_original_mp4_unchanged": true,
+    "per_new_vae_arm": [
+      "full_rgb8_lossless_ffv1_mkv",
+      "full_review_h264_mp4",
+      "RUN_EXIT_receipts",
+      "per_frame_decoded_rgb8_sha",
+      "parent_latent_and_video_sha"
+    ],
+    "retain_full_videos_until_human_closeout": true,
+    "do_not_substitute_stills_or_auto_score": true
+  },
+  "phases": [
+    {
+      "id": "A0",
+      "status": "NOT_RUN",
+      "operation": "view historical complete Dense videos, choose visible phenotype",
+      "new_dit_nfe_max": 0,
+      "vae_encodes_max": 0,
+      "vae_decodes_max": 0,
+      "gate": "human_positive_source_selection"
+    },
+    {
+      "id": "A1",
+      "status": "NOT_RUN",
+      "operation": "native BF16 neutral decode, RGB float/RGB8/lossless/H264 differentiation",
+      "new_dit_nfe_max": 0,
+      "vae_encodes_max": 0,
+      "vae_decodes_max": 2,
+      "gate": "human_lossless_vs_old_mp4",
+      "stop_if": "neutral_mismatch"
+    },
+    {
+      "id": "A2",
+      "status": "NOT_RUN",
+      "operation": "same latent true-FP32 VAE decoder",
+      "new_dit_nfe_max": 0,
+      "vae_encodes_max": 0,
+      "vae_decodes_max": 2,
+      "gate": "human_bf16_vs_fp32",
+      "stop_if": "invalid_numeric_control"
+    },
+    {
+      "id": "A3",
+      "status": "NOT_RUN",
+      "operation": "static and subpixel translation clean-video native VAE encode/decode",
+      "new_dit_nfe_max": 0,
+      "vae_encodes_max": 2,
+      "vae_decodes_max": 2,
+      "gate": "human_clean_vs_recon"
+    },
+    {
+      "id": "B0",
+      "status": "NOT_RUN",
+      "operation": "read-only checkpoint high/low and scheduler/backend binding audit",
+      "new_dit_nfe_max": 0,
+      "vae_encodes_max": 0,
+      "vae_decodes_max": 0,
+      "condition": "A chain failed to explain artifact"
+    },
+    {
+      "id": "B1",
+      "status": "NOT_RUN",
+      "operation": "same verified step3 pre/post beta=0.95 and 1.05; beta=1.0 historical",
+      "new_dit_nfe_max": 0,
+      "vae_encodes_max": 0,
+      "vae_decodes_max": 2,
+      "second_source_optional_extra_decodes": 2,
+      "gate": "human_beta_comparison",
+      "condition": "B0 and pre/post provenance validated"
+    },
+    {
+      "id": "B2",
+      "status": "NOT_RUN",
+      "operation": "optional DiT numeric/backend controlled replay",
+      "new_dit_nfe_if_new_full_4step": "at least four denoising steps per completed new video, actual model forwards from RUN",
+      "gate": "human_backend_pair",
+      "condition": "runtime divergence supported"
+    },
+    {
+      "id": "B3",
+      "status": "NOT_RUN",
+      "operation": "reuse historic original40 and distill4 Dense at chip10_00 seed43, optional new official pair",
+      "new_dit_nfe_historical_review": 0,
+      "new_dit_nfe_new_original40": "at least forty denoising steps, actual forwards depend on CFG",
+      "gate": "human_40step_vs_4step",
+      "condition": "A/B0 inconclusive"
+    },
+    {
+      "id": "C",
+      "status": "NOT_RUN",
+      "operation": "confirm mechanism-supported repair with full human-reviewed videos",
+      "min_independent_dev_image_clusters": 4,
+      "gate": "human_fix_confirmation",
+      "condition": "specific first bad boundary localized"
+    }
+  ],
+  "phase_A_aggregate_cap": {
+    "new_dit_nfe_max": 0,
+    "vae_encodes_max": 2,
+    "vae_decodes_max": 6
+  },
+  "resource_estimation": {
+    "bytes_uncompressed_one_video_rgb8": 93809664,
+    "suggested_extra_persistent_video_storage_bytes": 2147483648,
+    "notes": "Storage suggestion is not approved allocation; lossless compression depends on material. Must preserve complete videos; do not inherit old 0.1GiB VAE-bridge cap."
+  },
+  "pending": "CPU/GPU preexecution independent review, active scope, worker preflight, real videos, user watching and feedback"
+}
