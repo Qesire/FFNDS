@@ -1,6 +1,6 @@
 {
   "schema": "FFNDS_WAN_FISHSCALE_ASSET_REGISTRY_V1",
-  "status": "HISTORICAL_INDEX_ONLY__CURRENT_WORKER_AVAILABILITY_UNVERIFIED",
+  "status": "HISTORICAL_EXTERNAL_WORKER_ASSETS__SCHOOL_CLUSTER_ACCESS_NOT_VERIFIED",
   "design_date": "2026-11-17",
   "source_document": "research/20261029/S2_NEW12_DENSE_BASELINE_RESULTS_20261029.json",
   "source_document_blob_sha": "6543d63877be937c7625bee828717b7d0ae1e55d",
@@ -21,7 +21,7 @@
     96
   ],
   "experimental_source_status": "AWAITING_USER_PHENOTYPE_CONFIRMATION",
-  "storage": "hf root (logical relative paths; not public URLs and not fresh file checks)",
+  "storage": "Historical producer uses logical HF-relative paths. S2 CLI defaults to /home/xiang/.cache/huggingface, not /public/home/scc/pb23061276. Actual effective root in historical RUN still unverified.",
   "validation_required": "Confirm historical SHA of each existing file, tensor raw SHA/dtype/shape, parent RUN, model high/low weight SHA and Wan VAE SHA on worker; do not infer presence from JSON",
   "sources": [
     {
@@ -2376,5 +2376,29 @@
       },
       "first_review_priority": false
     }
-  ]
+  ],
+  "location_provenance": {
+    "current_school_home": "/public/home/scc/pb23061276/",
+    "historical_s2_cli_default_hf_root": "/home/xiang/.cache/huggingface",
+    "historical_model_view_root": "/var/tmp/ffnds-xiang/huggingface/hub/.ffnds-model-views/",
+    "worker_env_hf_home_expression": "${HF_HOME:-$HOME/.cache/huggingface}",
+    "original_runtime_execution": "SSH worker using private ffnds-worker hostname; real node identity redacted, source reports do not prove school mount",
+    "prior_worker_migration_document": "research/20261022/R12_D0_worker_migration.json",
+    "school_access_status": "UNVERIFIED",
+    "original_worker_access_status": "UNVERIFIED",
+    "authoritative_physical_asset_inventory": "REQUIRES_ACTUAL_GPU_RUN_ORIGINAL_SOURCE_AND_FILESYSTEM_CHECK",
+    "old_data_git_binary_backup": false
+  },
+  "preflight_blocking_gate": {
+    "state": "BLOCKED_UNTIL_ACTUAL_FILE_LOCATION_READABLE",
+    "required": [
+      "resolve producer effective HF root from original actual RUN",
+      "verify exact source MP4 and latent paths on the current executor",
+      "compare size/full-file SHA and tensor raw SHA/dtype/shape",
+      "retain and view full video",
+      "do not create GPU scope before independent review and ACTIVE"
+    ],
+    "if_no_assets": "use current cluster accessible Dense pair or create one NEW_CLUSTER_BASELINE with new identity; do not reconstruct old S2 14 without specific need",
+    "no_fake_status": true
+  }
 }
