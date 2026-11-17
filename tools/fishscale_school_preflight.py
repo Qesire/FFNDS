@@ -254,6 +254,10 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
                         if (pair["video"]["sha256"] not in native_text
                                 or pair["final_latent"]["sha256"] not in native_text):
                             env["errors"].append("PARENT_RUN_DOES_NOT_BIND_BOTH_VIDEO_AND_LATENT")
+                        if (pair["image"]["sha256"] not in native_text
+                                or pair["prompt_sha256"] not in native_text
+                                or native_record.get("seed") != pair["seed"]):
+                            env["errors"].append("PARENT_RUN_INPUT_SEED_NOT_BOUND")
                     except (OSError, ValueError, KeyError) as exc:
                         env["errors"].append("PARENT_RUN_INVALID: " + str(exc))
         if args.phase == "generate":
