@@ -145,3 +145,29 @@ python3 -m unittest discover -s tests -p 'test_fishscale_school_preflight.py'
 ~~~
 
 任何真实模型/ GPU/视频实验仍必须先完成独立评议和 ACTIVE 注册。`
+
+
+## 7. Slurm 命令形状（学校现场填实际分区与 QOS）
+
+下列命令**仅作为命令形状示例**，不是作业已提交，也不预设当前分区/账户权限。先在学校登录节点确认可用分区、QOS 和账号，再在已获分配的计算节点执行：
+
+~~~bash
+export SCHOOL_HOME=/public/home/scc/pb23061276
+export WAN_ROOT="$SCHOOL_HOME/projects/wan-quant"
+export FFNDS_REPO=/school/path/to/actual/FFNDS/checkout
+export PARTITION=Students             # 现场核实，不存在就换实际值
+export QOS=qos_stu_medium_2gpu        # 现场核实，不存在就换实际值
+export SCHOOL_OUT="$WAN_ROOT/experiments/ffnds_fishscale_20261117"
+
+# 一个 CPU 只读校验，不申请 GPU；仅对已经在学校端登记过的 pair 执行
+srun --partition="$PARTITION" --qos="$QOS" --nodes=1 --ntasks=1 \
+  --cpus-per-task=4 --mem=8G --time=00:30:00 \
+  python3 "$FFNDS_REPO/tools/fishscale_school_preflight.py" \
+    --phase decode \
+    --config "$FFNDS_REPO/research/diagnostics/wan_temporal_fishscale/SCHOOL_CLUSTER_CONFIG.json" \
+    --registry "$SCHOOL_OUT/preflight/SCHOOL_PAIR_REGISTRY.json" \
+    --pair-id school_dense_01 \
+    --out "$SCHOOL_OUT/preflight/DECODE_FULL_SHA_PREFLIGHT.json"
+~~~
+
+如果学校 CPU 分区/QOS 不接受上述资源组合，按现场规则设置；**不能**凭修改 Slurm 选项跳过核对原文件。模型执行另申请对应 GPU 资源并遵守 FFNDS 独立实验审核。初始 `ASSET_REGISTRY.json` 不包含任何 `school_dense_01` 实际样本；它只能由真实学校文件登记生成。
