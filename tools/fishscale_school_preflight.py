@@ -143,15 +143,53 @@ def school_environment(cfg: dict[str, Any], strict: bool) -> tuple[dict[str, Any
     out["project_realpath"] = str(project.resolve())
     return out, project if not out["errors"] else None
 
+def find_school_candidates(project: Path, dirs: list[str], max_files: int = 300) -> list[dict[str, Any]]:
+    """Bounded path discovery for explicitly named school subdirectories only."""
+    found: list[dict[str, Any]] = []
+    for directory in dirs:
+        try:
+            root = checked_file(project, directory)
+            if not root.is_dir():
+                found.append({"search_directory": str(root), "status": "DIRECTORY_MISSING"})
+                continue
+            queue = [(root, 0)]
+            while queue and len(found) < max_files:
+                current, depth = queue.pop(0)
+                if depth > 4:
+                    continue
+                for child in sorted(current.iterdir(), key=lambda p: p.name):
+                    if len(found) >= max_files:
+                        break
+                    if child.is_symlink():
+                        continue
+                    if child.is_dir() and depth < 4:
+                        queue.append((child, depth + 1))
+                    elif child.is_file() and (
+                        child.name.endswith(".mp4") or child.name == "latent_step3.safetensors"
+                        or child.name == "final_latent_bf16.safetensors"
+                    ):
+                        found.append({"path": str(child.resolve()), "bytes": child.stat().st_size,
+                                      "status": "DISCOVERED_NOT_SHA_VERIFIED"})
+        except (OSError, ValueError) as exc:
+            found.append({"search_directory": directory, "error": str(exc)})
+    return found
+
+
 def run(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
     cfg = json.loads(args.config.read_text(encoding="utf-8"))
     registry = json.loads(args.registry.read_text(encoding="utf-8"))
     if cfg["execution_domain"] != "USTC_SLURM_ONLY":
         raise ValueError("Not a school-only config")
+    if args.source_manifest is not None:
+        # Private school manifest; never copy raw input/prompt paths to public GitHub.
+        candidate_project = Path(cfg["school_project_root"]).resolve()
+        manifest_path = checked_file(candidate_project, str(args.source_manifest))
+        cfg["new_source_capture_spec"] = json.loads(manifest_path.read_text(encoding="utf-8"))
     strict = args.phase != "inventory"
     env, project = school_environment(cfg, strict)
     rows: list[dict[str, Any]] = []
     status = "INVENTORY_ONLY_NOT_AN_EXECUTION_PASS" if not strict else "BLOCKED"
+    candidates = find_school_candidates(project, args.candidate_dir) if project is not None and args.phase == "inventory" else []
     if project is not None:
         requirements = {"inventory": [], "review": [],
                         "decode": ["vae"], "generate": ["high", "low", "t5", "vae"]}
@@ -174,8 +212,15 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
                 env["errors"].append("EXACTLY_ONE_REGISTERED_SCHOOL_PAIR_REQUIRED")
             else:
                 pair = selected[0]
-                fields = ["video"] if args.phase == "review" else ["video", "final_latent"]
+                fields = ["video"] if args.phase == "review" else ["video", "final_latent", "parent_run", "image"]
+                if args.phase == "decode" and (
+                    not pair.get("prompt_sha256") or pair.get("seed") is None
+                ):
+                    env["errors"].append("SOURCE_PROMPT_OR_SEED_NOT_BOUND")
                 for field in fields:
+                    if field not in pair:
+                        rows.append({"id": "pair_" + field, "ok": False, "error": "MISSING_SOURCE_BINDING"})
+                        continue
                     row = file_evidence(project, pair[field], strict)
                     row["id"] = "pair_" + field
                     if row.get("ok"):
@@ -201,6 +246,16 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
                             row["ok"] = False
                             row["error"] = f"CONTENT_CHECK_FAILED: {exc}"
                     rows.append(row)
+                if args.phase == "decode" and all(r.get("ok") for r in rows):
+                    try:
+                        run_path = checked_file(project, pair["parent_run"]["path"])
+                        native_record = json.loads(run_path.read_text(encoding="utf-8"))
+                        native_text = json.dumps(native_record, ensure_ascii=False)
+                        if (pair["video"]["sha256"] not in native_text
+                                or pair["final_latent"]["sha256"] not in native_text):
+                            env["errors"].append("PARENT_RUN_DOES_NOT_BIND_BOTH_VIDEO_AND_LATENT")
+                    except (OSError, ValueError, KeyError) as exc:
+                        env["errors"].append("PARENT_RUN_INVALID: " + str(exc))
         if args.phase == "generate":
             inp = cfg.get("new_source_capture_spec", {})
             if not inp.get("image_path") or not inp.get("prompt") or not inp.get("image_sha256"):
@@ -216,7 +271,7 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
         status = "VERIFIED_SCHOOL_INPUTS_READY_FOR_" + args.phase.upper()
     receipt = {"schema": "FFNDS_FISHSCALE_SCHOOL_PREFLIGHT_V1", "phase": args.phase,
                "status": status, "school_environment": env, "checks": rows,
-               "gpu_model_calls": 0, "vae_calls": 0,
+               "gpu_model_calls": 0, "vae_calls": 0, "school_candidate_discovery": candidates,
                "note": "Strict PASS verifies current files in a Slurm process but is not ACTIVE permission or an actual generation result."}
     return receipt, 0 if (status.startswith("VERIFIED_") or args.phase == "inventory") else 2
 
@@ -227,6 +282,10 @@ def main() -> int:
     parser.add_argument("--phase", required=True, choices=("inventory", "review", "decode", "generate"))
     parser.add_argument("--pair-id", help="Required if registry has more than one pair")
     parser.add_argument("--out", required=True, type=Path)
+    parser.add_argument("--candidate-dir", action="append", default=[],
+                        help="School project relative directory, inventory only; bound to four levels")
+    parser.add_argument("--source-manifest", type=Path,
+                        help="School-local JSON specifying image_path/image_sha256/prompt")
     args = parser.parse_args()
     receipt, code = run(args)
     # Only create a small report in the declared school project; never write to assets.
