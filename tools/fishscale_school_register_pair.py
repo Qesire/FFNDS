@@ -71,8 +71,12 @@ def main() -> int:
     required = ["final_latent", "image", "parent_run"]
     if all(k in source for k in required) and source["prompt_sha256"] and args.seed is not None:
         raw = Path(source["parent_run"]["path"]).read_text(encoding="utf-8")
-        if source["video"]["sha256"] not in raw or source["final_latent"]["sha256"] not in raw:
-            raise ValueError("Native RUN must bind both exact video SHA and final latent SHA")
+        if (source["video"]["sha256"] not in raw
+                or source["final_latent"]["sha256"] not in raw
+                or source["image"]["sha256"] not in raw
+                or source["prompt_sha256"] not in raw
+                or json.loads(raw).get("seed") != args.seed):
+            raise ValueError("Native RUN must bind the exact video, BF16 latent, source image, prompt and seed")
         source["status"] = "REGISTERED_FOR_STRICT_DECODE_PREFLIGHT"
         source["source_role"] = "SCHOOL_CURRENT_OR_NEW_CLUSTER_BASELINE"
 
