@@ -1,12 +1,12 @@
 # 视频 FFN 的状态条件增量算子：最小辨识实验
 
-日期：2026-11-18。状态：**DESIGN_ONLY / NOT_RUN / NO_ACTIVE_GPU_AUTHORIZATION_IN_THIS_DOCUMENT**。本文件给出可交付执行的实验设计，不声称新构造已接入真实 Wan、通过原生验证或产生视频收益。新执行以仓库现行 \`research/ACTIVE_RESEARCH.json\` 和既有执行前复审规则为准；不因本文件增加审批层级。
+日期：2026-11-18。状态：**DESIGN_ONLY / NOT_RUN / NO_ACTIVE_GPU_AUTHORIZATION_IN_THIS_DOCUMENT**。本文件给出可交付执行的实验设计，不声称新构造已接入真实 Wan、通过原生验证或产生视频收益。新执行以仓库现行 `research/ACTIVE_RESEARCH.json` 和既有执行前复审规则为准；不因本文件增加审批层级。
 
 ## 0. 研究命题与必须区分的机制
 
 **研究命题**：在完整共享线性 FFN 增量算子与真实非线性锚点的基础上，状态相关的有效 Jacobian 是否可由很少的读取、写入方向表达；这些方向是否保留对最终视频可观测的功能，并在真实执行中具有净价值？
 
-已有结果：A 的 L64 在固定六站点 P512、DEV11 上局部风险比 Q1 低约 4.07%；旧 D/E 与 L 是不嵌套表示，不能否决“完整 L64＋追加非线性”。2026-11-17 五臂中 ICC CD-r1408/4S 的六站点局部风险 0.00874921，Q1 为 0.01489985，但 ICC 在自由生成视频中退化更大；这证明局部风险排序不足以替代终端行为。Q1 在 \`vbi_0392\` 的六站点相对误差低，而视频主体时序退化最大，作为开发期的判别样本，不作为删除或独立确认依据。
+已有结果：A 的 L64 在固定六站点 P512、DEV11 上局部风险比 Q1 低约 4.07%；旧 D/E 与 L 是不嵌套表示，不能否决“完整 L64＋追加非线性”。2026-11-17 五臂中 ICC CD-r1408/4S 的六站点局部风险 0.00874921，Q1 为 0.01489985，但 ICC 在自由生成视频中退化更大；这证明局部风险排序不足以替代终端行为。Q1 在 `vbi_0392` 的六站点相对误差低，而视频主体时序退化最大，作为开发期的判别样本，不作为删除或独立确认依据。
 
 竞争解释：
 
@@ -20,14 +20,14 @@
 
 ## 1. 固定实际对象与张量合同
 
-Wan2.2 I2V A14B，蒸馏四步 HHLL、CFG off、BF16、A100；每 expert 40 层。\(d=5120,m_{\rm ffn}=13824,N=31668\)，81 帧，832×464，16fps。仅对 \`high/04,19,34; low/04,19,34\` 六站点增加候选构造；其他 74 站点始终使用严格复现的固定 Q1 矩阵。
+Wan2.2 I2V A14B，蒸馏四步 HHLL、CFG off、BF16、A100；每 expert 40 层。\(d=5120,m_{\rm ffn}=13824,N=31668\)，81 帧，832×464，16fps。仅对 `high/04,19,34; low/04,19,34` 六站点增加候选构造；其他 74 站点始终使用严格复现的固定 Q1 矩阵。
 
 行向量：
 \[
 F(u)=\phi(uW_1^\top+b_1^\top)W_2^\top+b_2^\top,\quad
 u\in\mathbb R^{1\times d}.
 \]
-输入是当前 norm2/AdaLN 后、W1 前的 \`u\`；替换返回 **pre-gate** 输出，宿主当前 gate 只乘一次。视频帧时间轴与扩散 step 轴分开。
+输入是当前 norm2/AdaLN 后、W1 前的 `u`；替换返回 **pre-gate** 输出，宿主当前 gate 只乘一次。视频帧时间轴与扩散 step 轴分开。
 
 真实端点为 \(a,u\)，\(v=u-a\)，中点 \(m=(a+u)/2\)。按旧 A 校准定义 \(P_{32},b,\sigma\)，令 \(\tilde P=P_{32}\mathrm{diag}(\sigma^{-1})\) 与 \(\tilde b=b\odot\sigma^{-1}\)，\(s(u)=u\tilde P-\tilde b\)。\(Q=Q_{32}\in\mathbb R^{d\times32}\)。所有中心、尺度、P/Q、隐藏坐标选择只能使用 CAL，不能因 DEV 视频结果重选。
 
@@ -39,14 +39,14 @@ u\in\mathbb R^{1\times d}.
 
 ## 2. 先解决参数身份与资产复用（P0，0 新四步视频）
 
-严格复现 Q1 全80清单：\`reports/20261117/ffnds_strict_reproduction/output/FROZEN_COMPARISON.json\`（Q1 manifest SHA256 \`dc2d2b2289ff119d432c5a347facc446601e5ef2526eb10c09f86f06df88e247\`）。
-旧 L64 六站点参数：\`reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_PARAMS.json\`，每站点有 A_Q1_BF16、A_L_BF16、P64、Q32、b、sigma、gamma_L、C_L。数据源：旧 A 的 CAL11/DEV11 P512 原生 U0/U1/Y0/Y1/gate；新严格复现有 DEV11 11源 seed42 的 Dense/Q1/Global-P64 视频与评分，以及两源 \`vbi_1013/vbi_0800\` 完整 pre-W1 U。
+严格复现 Q1 全80清单：`reports/20261117/ffnds_strict_reproduction/output/FROZEN_COMPARISON.json`（Q1 manifest SHA256 `dc2d2b2289ff119d432c5a347facc446601e5ef2526eb10c09f86f06df88e247`）。
+旧 L64 六站点参数：`reports/20261114/g20_two_track_core/A_Q1_RESIDUAL/v1/output/A_Q1_RESIDUAL_PARAMS.json`，每站点有 A_Q1_BF16、A_L_BF16、P64、Q32、b、sigma、gamma_L、C_L。数据源：旧 A 的 CAL11/DEV11 P512 原生 U0/U1/Y0/Y1/gate；新严格复现有 DEV11 11源 seed42 的 Dense/Q1/Global-P64 视频与评分，以及两源 `vbi_1013/vbi_0800` 完整 pre-W1 U。
 
 **关键身份门槛**：六站点旧 kit 的 BF16 A_Q1 与严格复现 Q1 对应站点逐张比较值/位模式，核对 W1/W2、预处理、step、panel 行/坐标、gate、校准来源和默认后端。若不相同，不直接将旧 kit 的 L64 数值认作严格复现 Q1 的已验收改进：在统一新 Q1 基线和现存相同 CAL 配对上，重新拟合六个 L64（无需生成新轨迹），把旧 kit 的结果保留为独立历史估计。仅在真实资产身份相容时复用旧 CAL/DEV 输出，严禁将不兼容矩阵和评分拼表。
 
 旧 A 只保存 64 个输入 PC，额外线性对照需要从相同 CAL 的 X 再提取第65–128个 PC（只离线拟合，不产生新 DiT 轨迹）。重新构造时只保存紧凑参数、manifest、相对误差与逐来源报告，不重复保存可重建的全量 F64 方阵。
 
-**实现缺口**：本轮二次端点/原生 GELU/终端校正原型已有代数与小矩阵验证，但本文件不能把它们称作正式 Wan runtime；现行 \`tools/video_metric_feedback/\` 是 **L64 线性两系数反馈器**，不能直接代表新增非线性算子。下一阶段要先做下面的 native binding 与 BF16 acceptance oracle。
+**实现缺口**：本轮二次端点/原生 GELU/终端校正原型已有代数与小矩阵验证，但本文件不能把它们称作正式 Wan runtime；现行 `tools/video_metric_feedback/` 是 **L64 线性两系数反馈器**，不能直接代表新增非线性算子。下一阶段要先做下面的 native binding 与 BF16 acceptance oracle。
 
 ## 3. P1-A：无需新轨迹的数学诊断
 
@@ -100,23 +100,23 @@ E_L=\underbrace{J_F(m)[v]-vA_L}_{E_{\rm state}}
 
 ## 5. P2：最小自由视频判别（12 条新 D4）
 
-开发来源固定 \`vbi_0392, vbi_1013, vbi_0800\`（包含已观察的 Q1 离群、室内人物、海岸场景）；全部 seed42，原 Wan HHLL、图像、prompt、初噪和裁剪。已有 Dense/Q1/Global-P64 同来源视频、final latent 和评分可复用，**不重生五臂**。新增 **L0、L+、Q32、N32 各3条，共12条完整四步学生自由轨迹**。
+开发来源固定 `vbi_0392, vbi_1013, vbi_0800`（包含已观察的 Q1 离群、室内人物、海岸场景）；全部 seed42，原 Wan HHLL、图像、prompt、初噪和裁剪。已有 Dense/Q1/Global-P64 同来源视频、final latent 和评分可复用，**不重生五臂**。新增 **L0、L+、Q32、N32 各3条，共12条完整四步学生自由轨迹**。
 
 所有候选在 6 站点用新 B，74 站点保持严格复现 Q1；每组视频重算该候选的 anchor cache，不能从其他臂或 Dense 拿旧 cache。保存 native final latent、81帧 MP4、逐步 flow/latent hash、每步 FFN 作用次数、真实输入噪声 hash、权重及参数 manifest。DEV3 人审完整播放并保留同步视频；不依据缩略接触表作最后判断。
 
 质量报告保留：I2V subject/background、MUSIQ 原始尺度、subject/background temporal、运动平滑度、连续 RAFT 幅值及相对 Dense 同网格的方向/幅度误差、来源级极端退化。VBench dynamic_degree 在本批既有55视频均为0，不参与候选优化；运动平滑不能独立作为奖励。鱼鳞纹严重表型属另一独立诊断，不作为本轮默认评分目标。
 
-**先看三个机制结论**：若 L+ 与 Q32/N32 视频均值及离群修复相近，新增非线性价值弱；若 Q32 与 N32 局部差小但视频差大，转查传播；若某新构造能改善 \`0392\` 而不牺牲另外两源，才值得在新独立来源上验证。不要为这三个已暴露来源给出总体统计非劣证明。
+**先看三个机制结论**：若 L+ 与 Q32/N32 视频均值及离群修复相近，新增非线性价值弱；若 Q32 与 N32 局部差小但视频差大，转查传播；若某新构造能改善 `0392` 而不牺牲另外两源，才值得在新独立来源上验证。不要为这三个已暴露来源给出总体统计非劣证明。
 
 ## 6. P3：仅出现局部/视频错序时启动的终端功能校正
 
-触发：P1 的 DEV 增量误差改善与 P2 实际视频质量明显反向，或 \`0392\` 局部相对风险不高、视频仍严重退化。只选择 **P2 已经冻结的一个候选结构**，不同时重选 P、Q、隐藏 S 和全部系数。
+触发：P1 的 DEV 增量误差改善与 P2 实际视频质量明显反向，或 `0392` 局部相对风险不高、视频仍严重退化。只选择 **P2 已经冻结的一个候选结构**，不同时重选 P、Q、隐藏 S 和全部系数。
 
-使用现存 \`vbi_1013/vbi_0800\` 完整 U 与完整学生前缀，先固定 low/34 到 head 的短后缀，选择固定的4个参数方向与2个来源，至多 **2×4×2=16 次短后缀正负扰动**，比较实际 final-latent 投影差与一阶线性化；扰动幅度须产生不同 BF16 执行值。计算每方向终端作用、跨方向抵消及是否保持同输入局部目标。初步只修改原有小读出系数，保持主矩阵与在线分支形状。
+使用现存 `vbi_1013/vbi_0800` 完整 U 与完整学生前缀，先固定 low/34 到 head 的短后缀，选择固定的4个参数方向与2个来源，至多 **2×4×2=16 次短后缀正负扰动**，比较实际 final-latent 投影差与一阶线性化；扰动幅度须产生不同 BF16 执行值。计算每方向终端作用、跨方向抵消及是否保持同输入局部目标。初步只修改原有小读出系数，保持主矩阵与在线分支形状。
 
 注意参数导数必须是 \(\partial_\theta B(u)-\partial_\theta B(a)\)，且真实自由学生还改变 \(u\) 和 \(a\)。不能用“只在 hit 修改读出、沿用旧 cache”的有限差分冒充实际部署函数。
 
-若短后缀一阶预测相符，使用固定局部正规矩阵/先验约束进行一次小读出更新；在相同三个 DEV3 来源生成最多 **3 条新 D4**确认。若预测明显失配，登记 \`TERMINAL_LINEARIZATION_FAILED\`，不继续拟合多层巨型 Jacobian。若 P1 显示 Q32 的门后输出漏出是主要限制，记录为另一个输出基底研究问题，不和本次一阶终端更新混合。
+若短后缀一阶预测相符，使用固定局部正规矩阵/先验约束进行一次小读出更新；在相同三个 DEV3 来源生成最多 **3 条新 D4**确认。若预测明显失配，登记 `TERMINAL_LINEARIZATION_FAILED`，不继续拟合多层巨型 Jacobian。若 P1 显示 Q32 的门后输出漏出是主要限制，记录为另一个输出基底研究问题，不和本次一阶终端更新混合。
 
 ## 7. P4：独立来源验证及真实系统比较
 
@@ -130,9 +130,9 @@ E_L=\underbrace{J_F(m)[v]-vA_L}_{E_{\rm state}}
 
 | 阶段 | 新完整 D4 | 使用已有数据 | 必须生成的产物 |
 |---|---:|---|---|
-| P0 | 0 | 旧6站点kit、严格 Q1 full80、原始 CAL/DEV manifest | \`BINDINGS.json\`、各站点兼容/不兼容表 |
-| P1 | 0 | CAL11/DEV11 P512、原生 W1/W2、gate | \`STRUCTURE.csv\`、\`READOUT.csv\`、\`FIT_MANIFEST.json\`、BF16差值 |
-| P2 | 12 | 既有 DEV3 Dense/Q1/P64 视频 | 12 MP4+latent、\`QUALITY_PAIRED.csv\`、逐来源人审 |
+| P0 | 0 | 旧6站点kit、严格 Q1 full80、原始 CAL/DEV manifest | `BINDINGS.json`、各站点兼容/不兼容表 |
+| P1 | 0 | CAL11/DEV11 P512、原生 W1/W2、gate | `STRUCTURE.csv`、`READOUT.csv`、`FIT_MANIFEST.json`、BF16差值 |
+| P2 | 12 | 既有 DEV3 Dense/Q1/P64 视频 | 12 MP4+latent、`QUALITY_PAIRED.csv`、逐来源人审 |
 | P3（条件） | ≤3 | 已有 full-U/后缀状态；另≤16短后缀扰动 | 终端方向表、预测/实测比、3 MP4 |
 | P4（条件） | ≤24 | 全部冻结参数，未暴露新来源 | 独立来源质量、动作、人审、最终结论 |
 | SYS（条件） | ≤8 | P4获选结构 | 常驻同机ABBA wall/VRAM/FFN计时 |
@@ -143,14 +143,14 @@ E_L=\underbrace{J_F(m)[v]-vA_L}_{E_{\rm state}}
 
 ## 9. 工程落地最小接口
 
-旧 \`a_q1_residual_repr.py\` 的 \`select_bases / center_scale / feature_raw / feature_gamma / fit_readout / bf16_l64\` 是首要复用入口。新增最少模块（**建议路径，当前不是已验证文件**）：
+旧 `a_q1_residual_repr.py` 的 `select_bases / center_scale / feature_raw / feature_gamma / fit_readout / bf16_l64` 是首要复用入口。新增最少模块（**建议路径，当前不是已验证文件**）：
 
-- \`tools/ffnds_state_operator/features.py\`：四臂 CAL 特征、中心/RMS、隐藏 GELU/S 选择；
-- \`tools/ffnds_state_operator/fit.py\`：相同来源等权/当前 gate 的2048维正规方程、Schur 条件增益；
-- \`tools/ffnds_state_operator/bf16_replay.py\`：单残差端点映射、norm/gate 边界数值验收；
-- \`tools/ffnds_state_operator/native.py\`：接现有 NativeBinding，六站点新算子/其余74 Q1，按每次视频清空缓存；
-- \`tools/ffnds_state_operator/analysis.py\`：中点方向作用、弦内余项、Q输出漏出、逐源表；
-- \`tools/ffnds_state_operator/tests/\`：小矩阵恒等式、BF16 dtype/stride、zero-delta、expert切换、origin hash、与旧L端点算子一致性。
+- `tools/ffnds_state_operator/features.py`：四臂 CAL 特征、中心/RMS、隐藏 GELU/S 选择；
+- `tools/ffnds_state_operator/fit.py`：相同来源等权/当前 gate 的2048维正规方程、Schur 条件增益；
+- `tools/ffnds_state_operator/bf16_replay.py`：单残差端点映射、norm/gate 边界数值验收；
+- `tools/ffnds_state_operator/native.py`：接现有 NativeBinding，六站点新算子/其余74 Q1，按每次视频清空缓存；
+- `tools/ffnds_state_operator/analysis.py`：中点方向作用、弦内余项、Q输出漏出、逐源表；
+- `tools/ffnds_state_operator/tests/`：小矩阵恒等式、BF16 dtype/stride、zero-delta、expert切换、origin hash、与旧L端点算子一致性。
 
 A100 运行时必须产生原生数值见证：相同 (a,u) 下 FP64 端点公式与J中点合同；全部6站点 BF16 local512 比较；至少一条真实张量6位点 anchor/hit 的当前 gate 写入位置核验；校准输出的参数文件和真实 producer 的 SHA 成套绑定。此预检一旦通过，直接进入上述冻结 DEV3 生产，不新造独立的全视频 pilot 队列。
 
