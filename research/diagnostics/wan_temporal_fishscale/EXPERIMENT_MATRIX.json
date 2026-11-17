@@ -134,5 +134,29 @@
   "human_visual_review": "PRIMARY_GATING_OUTCOME",
   "automatic_metrics": "AUXILIARY_NON_VOTING",
   "human_review_required_before_next_model_scope": true,
-  "school_cluster_file_access": "NOT_VERIFIED"
+  "school_cluster_file_access": "NOT_VERIFIED",
+  "latest_human_observation": {
+    "date": "2026-11-17",
+    "provenance": "USER_REPORTED_VISUAL_OBSERVATION_NOT_BOUND_TO_RUN",
+    "prior_severe_one_image": "STRONG_GLOBAL_PERSISTENT_FISHSCALE_REPORTED; FILE_SOURCE_UNIDENTIFIED",
+    "newly_generated_several": "ONLY_MILD_ORDINARY_HIGH_FREQUENCY_FLICKER_REPORTED; NUMERICAL_N_AND_IDS_NOT_CONFIRMED",
+    "configured_same_across_samples": "UNKNOWN",
+    "severe_school_video_available": "UNVERIFIED",
+    "implication": "Stop treating severe fishscale as universal and preserve mild flicker as a separate control phenotype"
+  },
+  "primary_severe_case_gate": {
+    "status": "WAITING_FOR_ORIGINAL_SEVERE_SOURCE_OR_SCHOOL_REPRODUCTION",
+    "must_not_run": "A1/A2/A3, B1, full 40-step or parameter sweep until human severe positive is identified unless a separate, explicitly authorized research scope is established",
+    "first_action": "Recover exact original image, prompt, seed, full inference recipe and output; run one school full Dense reproduction only after model/callback preflight and independent approval",
+    "next_if_no_severe": "SEVERE_CASE_NOT_REPRODUCED; STOP ROOT-CAUSE BRANCH",
+    "next_if_severe": "Select existing school mild control and minimum crossed source/seed comparisons; then targeted A1/A2 videos",
+    "human_evaluation": "Primary decision"
+  },
+  "phase_order_override": [
+    "R0_recover_original",
+    "R1_single_school_severe_reproduction",
+    "R2_minimal_source_seed_factorial_if_severe",
+    "R3_targeted_A1_A2_if_severe",
+    "R4_optional_extended_VAE_DiT"
+  ]
 }
