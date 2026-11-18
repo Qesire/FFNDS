@@ -1,10 +1,10 @@
 # 观测条件 FFN 全 80 位点与六位点实验
 
-## 当前分析重点：完整成本与空间关系保持
+## 当前分析重点：完整成本、残差延拓与空间关系保持
 
 用户进一步说明总体运动幅度相近，主要缺陷是原本应保持一体的区域在共同运动中抖动、解离；0392 的交叠运动尤其明显，P64 与全 80 读出损坏较小但仍清楚可见。当前先完成[成本、割线结构与修正分析](../../../research/20261118/READOUT_COST_COHERENCE_REASSESSMENT.md)，不启动新的对比实验。[补充原话](analysis/HUMAN_REVIEW_ADDENDUM.json)
 
-静态计数显示，全 80 在线读出相对 Q1 的主要 MAC 增量约 0.3164%、anchor 状态增量约 1.25%；研究 I/O 与完整 observer 权重访问另计。新的结构推导指出单 token 的割线矩阵修正秩至多 16，建议保留锚点和完整输出读出，让观测与 CAL 特征选择同时保留真实关系差分。修正目前为数学设计，未替换原生产实现。[成本账本](analysis/READOUT_COST_AUDIT.json) · [固定 probe 几何重建](analysis/PROBE_GEOMETRY_RECONSTRUCTION.json)
+静态计数显示，全 80 在线读出相对 Q1 的主要 MAC 增量约 0.3164%、anchor 状态增量约 1.25%；完整输出物化、研究 I/O 与 observer 权重访问另计。新的推导将其写成64行真实创新的全域延拓，并给出全域RMS稳定界、表示/延拓误差分解及单token的rank16输入方向边界。当前优先保留锚点和完整输出，优化全输出数据流，区分特征表达、观测延拓和下游功能目标。局部空间差分是有条件代理，旧geometry64也未显示局部误差收益；两者均不直接升为默认修复。[成本账本](analysis/READOUT_COST_AUDIT.json) · [固定probe几何](analysis/PROBE_GEOMETRY_RECONSTRUCTION.json) · [延拓与执行复核](analysis/READOUT_EXTENSION_REASSESSMENT.json)
 
 ## 后续算子分析与人审补充
 

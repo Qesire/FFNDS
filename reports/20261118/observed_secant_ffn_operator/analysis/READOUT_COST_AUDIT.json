@@ -69,6 +69,22 @@
     "Current query capture, full tensor finite checks, weight witnesses, parameter reads and host synchronizations are research instrumentation.",
     "A full-FFN 64-row observer needs both original W1 and W2, whose BF16 weight payload is 270 MiB per site. Device-resident vs offloaded weights changes cost. A Q1 hit mathematically needs only A and C0; the actual host may still preload original weights.",
     "When all current feature directions are retained, the tall SVD can be removed algebraically by solving the full r-dimensional regularized SPD normal equation. Dropping small nonzero directions changes this statement; replacing SVD by a Gram eigensolve squares conditioning.",
-    "Changing to an explicit U0/Y0/Phi0 cache removes anchor U0A but roughly doubles state payload; this changes BF16 delta/cache rounding and is not an exact native-program rewrite."
-  ]
+    "Changing to an explicit U0/Y0/Phi0 cache removes anchor U0A but roughly doubles state payload; this changes BF16 delta/cache rounding and is not an exact native-program rewrite.",
+    "The online path alone executes observer/support/SVD/adapter; the static arm does not. Both arms execute the full Nxd readout projection and output combination.",
+    "Current eager _deployed adds full Nxd BF16 materialization, FP32 casts and sum. The separate-operation output-related logical access is 32*N*d bytes per hit; it is not measured HBM traffic. A fused epilogue must preserve the intermediate BF16 projection rounding to retain the old numerical semantics.",
+    "Dense anchor already computes full z/h, but replacing the current narrow Phi0 with selected full-GEMM columns may change BF16 projection rounding relative to the narrow hit endpoint. The N*d*k saving is a conditional small optimization, not automatically an equivalent rewrite."
+  ],
+  "additional_execution_counts": {
+    "BF16_full_output_bytes": 324280320,
+    "BF16_full_output_MiB": 309.2578125,
+    "FP32_full_output_bytes": 648560640,
+    "FP32_full_output_MiB": 618.515625,
+    "eager_deployed_output_logical_bytes_per_hit": 5188485120,
+    "eager_deployed_output_logical_GiB_per_hit": 4.8321533203125,
+    "eager_deployed_output_logical_GiB_80_hits": 386.572265625,
+    "three_FP32_output_temporaries_GiB": 1.8120574951171875,
+    "ideal_fused_base_read_and_output_write_GiB": 0.6040191650390625,
+    "geometry_main_allrow_projection_MAC": 64856064,
+    "geometry_whitening_MAC": 32428032
+  }
 }

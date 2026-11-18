@@ -1,7 +1,7 @@
 {
   "schema": "ffnds.literature.primary.v1",
-  "updated": "2026-11-11",
-  "status": "G20_ICML_PRIMARY_LITERATURE_109_RESEARCH_ITEMS",
+  "updated": "2026-11-18",
+  "status": "PRIMARY_LITERATURE_110_RESEARCH_ITEMS",
   "original_paper_sections_and_code_audited": "PARTIAL_ONLY",
   "field_names": [
     "id",
@@ -2096,6 +2096,28 @@
       "wan_specific_discriminator": "Spectral stats and cache rules are prior; true motion/semantic preservation requires separate causal and video evidence",
       "reading_depth": "OFFICIAL_CVPR_ABSTRACT_20261111",
       "method_review": "research/literature/20261111/G20_FEW_STEP_AND_INCREMENTAL_ACCELERATION_PRIMARY_REVIEW_20261111.md"
+    },
+    {
+      "id": "L110",
+      "group": "sensitivity_model_reduction",
+      "title": "A New Selection Operator for the Discrete Empirical Interpolation Method — Improved a Priori Error Bound and Extensions",
+      "year": 2016,
+      "venue": "SIAM Journal on Scientific Computing 38(2), A631–A648",
+      "url": "https://arxiv.org/abs/1505.00370v2",
+      "model": "Nonlinear reduced-order models; no Wan model evaluated",
+      "observed_mechanism": "Pivoted QR selects nonlinear interpolation coordinates; selected-basis conditioning controls residual amplification.",
+      "decision_time": "After forming a nonlinear basis, before selected nonlinear evaluations.",
+      "physical_action": "Evaluate selected coordinates and reconstruct through the basis.",
+      "training": "Snapshot-based basis construction; no Wan training or inference performed.",
+      "wan_specific_discriminator": "Current FFN readout uses state-dependent paired features, 64 oversampled rows, a static prior, ridge regularization and BF16 execution. The relation to Q-DEIM concerns representation versus sampling amplification; it establishes neither algorithmic equivalence nor video coherence.",
+      "reading_depth": "PRIMARY_ARXIV_V2_SECTIONS_1_3_1_4_THEOREM_2_1_AND_2_1_1_READ_20261118",
+      "authors": [
+        "Zlatko Drmač",
+        "Serkan Gugercin"
+      ],
+      "doi": "10.1137/15M1019271",
+      "method_review": "research/literature/20261118/QDEIM_RESIDUAL_EXTENSION_SOURCE_NOTE.md",
+      "source_reading_scope": "Read the abstract and metadata, sections 1.3–1.4, Theorem 2.1 with its selection argument, and implementation paragraphs in 2.1.1. Numerical experiments, section 3 extensions and external author code were not reviewed in this registration."
     }
   ],
   "deep_method_audit": "research/literature/20261026/FIVE_PAPER_METHOD_AUDIT.md",
@@ -2294,5 +2316,12 @@
     ],
     "evidence_status": "PRIMARY_ABSTRACT_AND_SELECTED_AUTHOR_README_ONLY_NO_NEW_MODEL_RUN",
     "graph_focus_mapping": "research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json"
+  },
+  "qdeim_residual_extension_20261118": {
+    "ids": [
+      "L110"
+    ],
+    "review": "research/literature/20261118/QDEIM_RESIDUAL_EXTENSION_SOURCE_NOTE.md",
+    "evidence_status": "PRIMARY_SELECTED_SECTIONS_AND_ALGEBRAIC_CONNECTION_NO_MODEL_RUN"
   }
 }

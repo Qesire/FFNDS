@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-18",
+  "source_commit": "fa66269c6749d1843c02efa13e0429403c810650",
+  "operator_source_commit": "3e4f7ba806644f5aaaafce1c3c78df8eebc3f035",
+  "source_path": "reports/20261118/observed_secant_ffn_operator/output/LOCAL6_QUERY.csv",
+  "source_sha256": "1a7840a27b700094957959b78e7dc0514a2500352d6737a817e5e223151cf393",
+  "aggregation": "DEV rows; mean over each source site/fold, then equal mean over 11 sources. Condition medians describe nested rows, not independent video cases.",
+  "summary": {
+    "readout_static": {
+      "rows": 132,
+      "source_count": 11,
+      "source_equal_mean_gated_mse": 0.01399897510207674,
+      "condition_median_over_nested_rows": null,
+      "source_means": {
+        "vbi_0056": 0.01695889869977987,
+        "vbi_0176": 0.013544474010306862,
+        "vbi_0392": 0.015588598578129111,
+        "vbi_0800": 0.01478066591271337,
+        "vbi_0886": 0.012339880420033048,
+        "vbi_0947": 0.01475959560916383,
+        "vbi_0950": 0.011158157303959006,
+        "vbi_1013": 0.012168671515938556,
+        "vbi_1040": 0.012027992913241465,
+        "vbi_1084": 0.014278512554281312,
+        "vbi_1109": 0.016383278605297712
+      }
+    },
+    "readout_fixed64": {
+      "rows": 132,
+      "source_count": 11,
+      "source_equal_mean_gated_mse": 0.014832603186678025,
+      "condition_median_over_nested_rows": 56.74345243303877,
+      "source_means": {
+        "vbi_0056": 0.017762115754281327,
+        "vbi_0176": 0.014204483254580803,
+        "vbi_0392": 0.016463929371563123,
+        "vbi_0800": 0.015682141690211333,
+        "vbi_0886": 0.01314993858866426,
+        "vbi_0947": 0.015661918573729092,
+        "vbi_0950": 0.011594066119161637,
+        "vbi_1013": 0.013092832298761375,
+        "vbi_1040": 0.012621141171963812,
+        "vbi_1084": 0.01522815166878191,
+        "vbi_1109": 0.0176979165617596
+      }
+    },
+    "readout_geometry64": {
+      "rows": 132,
+      "source_count": 11,
+      "source_equal_mean_gated_mse": 0.015146664956105177,
+      "condition_median_over_nested_rows": 48.806795223907464,
+      "source_means": {
+        "vbi_0056": 0.01809811714113916,
+        "vbi_0176": 0.014584157698096728,
+        "vbi_0392": 0.016724468902007177,
+        "vbi_0800": 0.015793613464930092,
+        "vbi_0886": 0.01338616673308865,
+        "vbi_0947": 0.016035654462772927,
+        "vbi_0950": 0.011963274768440118,
+        "vbi_1013": 0.01346250252155711,
+        "vbi_1040": 0.01313233078346549,
+        "vbi_1084": 0.015392727966347731,
+        "vbi_1109": 0.018040300075311766
+      }
+    }
+  },
+  "paired_description": {
+    "count": 132,
+    "geometry_lower_mse_rows": 7,
+    "geometry_lower_condition_rows": 94,
+    "geometry_lower_source_mean_count": 0
+  },
+  "execution_static_counts": {
+    "BF16_full_output_bytes": 324280320,
+    "BF16_full_output_MiB": 309.2578125,
+    "FP32_full_output_bytes": 648560640,
+    "FP32_full_output_MiB": 618.515625,
+    "eager_deployed_output_logical_bytes_per_hit": 5188485120,
+    "eager_deployed_output_logical_GiB_per_hit": 4.8321533203125,
+    "eager_deployed_output_logical_GiB_80_hits": 386.572265625,
+    "three_FP32_output_temporaries_GiB": 1.8120574951171875,
+    "ideal_fused_base_read_and_output_write_GiB": 0.6040191650390625,
+    "geometry_main_allrow_projection_MAC": 64856064,
+    "geometry_whitening_MAC": 32428032
+  },
+  "execution_count_assumption": "Current eager _deployed operations separately materialize tensors, starting from existing BF16 base. Counts are logical output-related byte accesses, not measured HBM traffic or wall-clock speed; X/V input reads are additional. Fused count is a design lower payload, not a measured kernel.",
+  "math_assumptions": [
+    "Continuous arithmetic; fixed probe IDs and feature support for linear extension and gain bounds.",
+    "H = X.T X/N + tau^2 Gamma_CAL is positive definite; lambda and tau positive.",
+    "Raw online mapping includes both dX V and X dV; one V is shared over every latent frame in the panel.",
+    "Geometry selection and local relation loss are not established video repairs."
+  ],
+  "new_model_runs": 0,
+  "new_cal_fits": 0,
+  "new_videos": 0,
+  "runtime_code_modified": false,
+  "independent_reviews": [
+    "/root/adaptive_readout_analysis",
+    "/root/cost_independent_audit",
+    "/root/coherence_objective_review"
+  ]
+}
