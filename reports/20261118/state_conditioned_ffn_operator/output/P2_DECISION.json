@@ -1,0 +1,62 @@
+{
+  "schema": "FFNDS_P2_HUMAN_GATE_DECISION_V1",
+  "date": "2026-11-18",
+  "status": "CLOSED_AT_P2",
+  "conclusion": "NO_TRANSFER_GAIN",
+  "claim": "当前六站点构造在冻结 DEV3 和本轮预算下未建立可用的视频收益。",
+  "rule": "根据方案第 8 节和 P2 作者自审，四个候选均未达到可用视频改善的条件，结束本轮实验。",
+  "plan": {
+    "commit": "3011ca907fac612a9d64f7f0177d7794ebc3621b",
+    "path": "research/20261118/STATE_CONDITIONED_FFN_OPERATOR_EXPERIMENT_PLAN.md",
+    "sections": [
+      5,
+      8,
+      10
+    ]
+  },
+  "evidence": {
+    "human_review": {
+      "file": "HUMAN_REVIEW_DEV3.json",
+      "sha256": "2ca0f4f2fa9023e9cd6825a835a0379d604bb1863fde0bb41a39cb8501a6f937"
+    },
+    "paired_quality": {
+      "file": "QUALITY_PAIRED.csv",
+      "sha256": "a096f0ec640b5a62d67d7c7e77b863e6e3ad4130d1b3bbe091114bb66654ef39"
+    },
+    "p1_summary_sha256": "0ac67b54aea3a714102791e17c08a8d82a372ec499d4b485923060257caa9ae6",
+    "vbi_0392_subject_consistency": {
+      "Dense": 0.9604115683585406,
+      "Q1r2": 0.8713344682008028,
+      "Global-P64": 0.9587697219103575,
+      "L0": 0.8805779751390219,
+      "L+": 0.8758745513856411,
+      "Q32": 0.8686996717005968,
+      "N32": 0.8843150060623884
+    },
+    "local_bf16_relative_risk": {
+      "L0": {
+        "vbi_0392": 0.3410994228060628,
+        "DEV11_median": 0.3410994228060628
+      },
+      "L+": {
+        "vbi_0392": 0.3398470006403967,
+        "DEV11_median": 0.3398470006403967
+      },
+      "Q32": {
+        "vbi_0392": 0.3380715046470035,
+        "DEV11_median": 0.3380715046470035
+      },
+      "N32": {
+        "vbi_0392": 0.3301005702744468,
+        "DEV11_median": 0.3301005702744468
+      }
+    }
+  },
+  "interpretation": "在 vbi_0392，Q32 和 N32 的局部相对风险均处于各自的 DEV11 中位数，完整视频仍出现严重画面破碎。这个个例显示固定输入的局部风险不足以筛出能保留该视频效果的候选。",
+  "conditional": {
+    "P3": "STOPPED_BY_P2_VIDEO_GATE",
+    "P4": "STOPPED_BY_P2_VIDEO_GATE",
+    "SYS": "NOT_TRIGGERED_NO_SELECTED_CANDIDATE"
+  },
+  "additional_generation_jobs": 0
+}
