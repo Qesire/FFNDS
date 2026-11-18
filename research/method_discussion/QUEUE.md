@@ -1,5 +1,7 @@
 # FFNDS · 独立方法提案与同行讨论队列
 
+> **2026-11-18 状态与变化张量构造（ALG/SPEC）**：[完整推导](../20261118/STATE_COUPLED_SECANT_CONSTRUCTION.md)将全 80 读出扩展为极化双线性割线，并推导宽原生非线性压缩、Dense 锚点上下文与真实相对响应拟合。实际提出者分别为 /root/positive_secant_tensor_design、/root/positive_research_synthesis、/root/positive_joint_structure，/root 整理并补充原生张量 Gram 初始化。后两位 Agent 交叉审核了非本人提出的构造；实际审阅范围与修订记录见[推导账本](../../reports/20261118/observed_secant_ffn_operator/analysis/STATE_COUPLED_SECANT_DERIVATION.json)。本条记录数学构造和真实审阅，不登记视频效果或新实验范围。旧 geometry64 局部 MSE 的视频优先级推断已撤回，原始数值继续保留。
+
 > **2026-10-29方法研究状态**：S1共享函数、S4行动收益动态秩、S2视频时空函数单元、S3量化提前合法动作以及既有BF16低秩视频基线，是[统一交接](../agent_protocol/ASSET_FIRST_AGENT_HANDOFF_20261029.md)中的科研任务；它们**不是独立Agent已提案且已通过同行评议的正式队列项目**。本队列只保存真实提出者的提案及其他Agent独立评议，继续执行原有实名/证据程序。
 
 

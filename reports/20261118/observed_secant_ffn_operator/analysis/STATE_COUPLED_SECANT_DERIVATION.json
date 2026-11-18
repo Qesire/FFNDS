@@ -1,0 +1,115 @@
+{
+  "date": "2026-11-18",
+  "identity": "ALG_SPEC_STATIC_COUNTS",
+  "document": "research/20261118/STATE_COUPLED_SECANT_CONSTRUCTION.md",
+  "analysis_base_commit": "c9e231e5fbce231ddfb3be08ed9b5cacd2634e75",
+  "operator_source_commit": "3e4f7ba806644f5aaaafce1c3c78df8eebc3f035",
+  "dimensions": {
+    "tokens": 31668,
+    "input_output": 5120,
+    "hidden": 13824,
+    "old_native_width": 16,
+    "old_readout_width": 32,
+    "observer_rows": 64,
+    "bilinear_width": 16,
+    "wide_native_width": 256,
+    "context_width": 4,
+    "context_interaction_width": 16,
+    "active_cache_sites": 40,
+    "total_operator_sites": 80
+  },
+  "cost_unit": "One MAC is one multiply-accumulate. Unit is one anchor-hit pair. Counts are arithmetic, not measured latency.",
+  "main_MAC": {
+    "two_dense": 8965702287360,
+    "q1": 6143166382080,
+    "p64": 6147696230400,
+    "full80_current": 6162603048960,
+    "bilinear_16": 6175574261760,
+    "wide_256_to_32": 6241468022784,
+    "context_4_to_16": 6165845852160
+  },
+  "percent_of_two_dense": {
+    "two_dense": 100.0,
+    "q1": 68.51851851851852,
+    "p64": 68.56904270697375,
+    "full80_current": 68.73530763616971,
+    "bilinear_16": 68.87998356209563,
+    "wide_256_to_32": 69.61493726579934,
+    "context_4_to_16": 68.77147661765119
+  },
+  "bilinear_additional_MAC": 12971212800,
+  "bilinear_percent_increase_over_current": 0.21048269208559556,
+  "bilinear_percent_increase_over_q1": 0.5275435771125426,
+  "wide_percent_increase_over_q1": 1.6001787122476778,
+  "small_contractions": {
+    "existing_pair_CAL_transform_max_rank32_MAC": 64856064,
+    "wide_pair_CAL_transform_included_above_MAC": 1037697024,
+    "context_tensor_contraction_MAC": 64856064,
+    "Gram_increment_32_to_48_MAC": 40535040
+  },
+  "cache_bytes": {
+    "q1": 12971212800,
+    "full80_current": 13133352960,
+    "bilinear_16": 13214423040,
+    "wide_256_to_32": 13133352960,
+    "context_4_to_16": 13153620480,
+    "p64": 47993487360
+  },
+  "bilinear_parameters_all80_BF16_bytes": 39321600,
+  "accounting_notes": [
+    "Existing, bilinear and context main counts follow the prior main-GEMM convention excluding their common narrow CAL feature transform.",
+    "The wide candidate explicitly includes both 512-to-32 feature contractions.",
+    "Context small tensor contraction and Gram increment are separately listed.",
+    "Nonlinear and elementwise work, small-system solves, weights traffic, intermediate materialization and research I/O are not measured latency.",
+    "Budget examples specify a concrete operator, not a video-quality optimum."
+  ],
+  "quality_judgment": {
+    "local_MSE_used_for_video_selection": false,
+    "condition_number_used_for_video_selection": false,
+    "criterion": "Actual video preservation of coherent regional motion, relative structure and intended Dense overlap/ghosting."
+  },
+  "new_model_runs": 0,
+  "new_cal_fits": 0,
+  "new_videos": 0,
+  "runtime_code_modified": false,
+  "contributors": {
+    "polarized_bilinear": "/root/positive_secant_tensor_design",
+    "wide_native_compression": "/root/positive_research_synthesis",
+    "anchor_context_and_relations": "/root/positive_joint_structure",
+    "synthesis_and_tensor_Gram_initialization": "/root"
+  },
+  "spec_sha256": "6b3ce865f7c8ec1b190883daca36144883d84ce40488ab9547dd8e8d82c835e9",
+  "independent_reviews": [
+    {
+      "reviewer": "/root/positive_research_synthesis",
+      "scope": [
+        "polarization and four-endpoint identities",
+        "complement-curvature initialization",
+        "tensor atom Gram and matrix-free columns",
+        "old function-family embedding",
+        "cost and cache counts",
+        "relation normal equations"
+      ],
+      "conclusion": "Core algebra supported; unit-edge versus weighted-edge distinction identified and corrected. Final specifications clarified the current-hit difference design and gamma >= 0."
+    },
+    {
+      "reviewer": "/root/positive_joint_structure",
+      "scope": [
+        "bilinear construction and cache",
+        "wide native finite secant and Hessian",
+        "low-rank ridge initialization",
+        "positive-definite CAL regularizer",
+        "relation normal equations",
+        "main MAC and cache"
+      ],
+      "rechecked_spec_sha256": "6b3ce865f7c8ec1b190883daca36144883d84ce40488ab9547dd8e8d82c835e9",
+      "conclusion": "Final positive-definite regularizer, combined-matrix ridge objective, current-hit difference design and weighted relation loss are algebraically complete.",
+      "specific_fixes": [
+        "Unit-edge example distinguished from general edge weight w.",
+        "D_P, R_P, V and H defined per current-hit design.",
+        "Gamma_aug=blockdiag(Gamma_old,I_b), positive lambda and tau, widths bounded by 48.",
+        "Rank-r ridge acts on B=CV; source weights use square-root stacking."
+      ]
+    }
+  ]
+}

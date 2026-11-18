@@ -1,10 +1,10 @@
 # 观测条件 FFN 全 80 位点与六位点实验
 
-## 当前分析重点：完整成本、残差延拓与空间关系保持
+## 当前分析重点：状态与变化的张量构造
 
 用户进一步说明总体运动幅度相近，主要缺陷是原本应保持一体的区域在共同运动中抖动、解离；0392 的交叠运动尤其明显，P64 与全 80 读出损坏较小但仍清楚可见。当前先完成[成本、割线结构与修正分析](../../../research/20261118/READOUT_COST_COHERENCE_REASSESSMENT.md)，不启动新的对比实验。[补充原话](analysis/HUMAN_REVIEW_ADDENDUM.json)
 
-静态计数显示，全 80 在线读出相对 Q1 的主要 MAC 增量约 0.3164%、anchor 状态增量约 1.25%；完整输出物化、研究 I/O 与 observer 权重访问另计。新的推导将其写成64行真实创新的全域延拓，并给出全域RMS稳定界、表示/延拓误差分解及单token的rank16输入方向边界。当前优先保留锚点和完整输出，优化全输出数据流，区分特征表达、观测延拓和下游功能目标。局部空间差分是有条件代理，旧geometry64也未显示局部误差收益；两者均不直接升为默认修复。[成本账本](analysis/READOUT_COST_AUDIT.json) · [固定probe几何](analysis/PROBE_GEOMETRY_RECONSTRUCTION.json) · [延拓与执行复核](analysis/READOUT_EXTENSION_REASSESSMENT.json)
+静态计数显示，全 80 在线读出相对 Q1 的主要 MAC 增量约 0.3164%、anchor 状态增量约 1.25%；完整输出物化、研究 I/O 与 observer 权重访问另计。新的推导将其写成64行真实创新的全域延拓，并给出全域RMS稳定界、表示/延拓误差分解及单token的rank16输入方向边界。后续[状态与变化张量构造](../../../research/20261118/STATE_COUPLED_SECANT_CONSTRUCTION.md)提出极化双线性割线、宽原生非线性联合压缩、Dense 锚点上下文及真实相对响应拟合。撤回依据旧 geometry64 局部 MSE 降低其视频研究优先级的判断；数值记录保留，视频质量依照真实视频。[成本账本](analysis/READOUT_COST_AUDIT.json) · [固定probe几何](analysis/PROBE_GEOMETRY_RECONSTRUCTION.json) · [延拓与执行复核](analysis/READOUT_EXTENSION_REASSESSMENT.json)
 
 ## 后续算子分析与人审补充
 
