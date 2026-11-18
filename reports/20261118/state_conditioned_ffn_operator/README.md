@@ -41,3 +41,8 @@ P0 作业 `173009` 和 P1 作业 `173055` 正常退出。早期 P0 作业 `17298
 
 [执行清单](output/EXECUTION_MANIFEST.json) · [算子实现](../../../tools/ffnds_state_operator) · [P2 生产范围准备](../../../tools/ffnds_state_operator/P2_STAGE_NOTES.md) · [评分入口](../../../tools/ffnds_state_operator/QUALITY_RUN_NOTES.md)
 
+
+## 后续算子设计
+
+当前结果保持上述结案状态。根据 Global-P64 的响应机制，下一项研究已定义为当前真实观测驱动的割线算子：[完整设计](../../../research/20261118/OBSERVED_SECANT_OPERATOR_DESIGN.md) · [有限实验方案](../../../research/20261118/OBSERVED_SECANT_EXPERIMENT_PLAN.md) · [FP64 参考核心](../../../tools/ffnds_observed_operator/README.md)。新范围为既有资产局部判别、9 条主开发视频及最多6条条件视频；本次只完成设计与代数参考实现，尚未运行新的模型实验。
+

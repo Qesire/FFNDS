@@ -1,0 +1,308 @@
+{
+  "schema": "FFNDS_OBSERVED_SECANT_EXPERIMENT_SPEC",
+  "date": "2026-11-18",
+  "evidence_base_commit": "f89e4fae868ac8d21b3b8f0da47616f43b0c954a",
+  "status": {
+    "design": "INDEPENDENTLY_REVIEWED",
+    "fp64_reference": "IMPLEMENTED_AND_ALGEBRA_TESTED",
+    "cal_fit": "NOT_RUN",
+    "native_bf16_port": "NOT_IMPLEMENTED",
+    "model_experiments": "NOT_RUN",
+    "gpu_jobs_launched": 0
+  },
+  "documents": {
+    "design": "research/20261118/OBSERVED_SECANT_OPERATOR_DESIGN.md",
+    "plan": "research/20261118/OBSERVED_SECANT_EXPERIMENT_PLAN.md",
+    "review": "research/20261118/OBSERVED_SECANT_INDEPENDENT_REVIEW.md"
+  },
+  "model": {
+    "family": "Wan2.2 I2V A14B",
+    "recipe": "strict HHLL distilled BF16 CFG-off",
+    "N": 31668,
+    "token_grid": [
+      21,
+      29,
+      52
+    ],
+    "d": 5120,
+    "m": 13824,
+    "experts": [
+      "high",
+      "low"
+    ],
+    "layers_per_expert": 40,
+    "steps": 4,
+    "frames": 81,
+    "width": 832,
+    "height": 464,
+    "fps": 16,
+    "seed": 42,
+    "anchor_steps": [
+      0,
+      2
+    ],
+    "hit_steps": [
+      1,
+      3
+    ],
+    "boundary": "after norm2/AdaLN, before W1; return pre-gate; one current gate write"
+  },
+  "base_matrix": {
+    "six_sites": "bound L64",
+    "other_74_sites": "strict Q1",
+    "must_match_static_and_online": true
+  },
+  "sites_six": [
+    "high04",
+    "high19",
+    "high34",
+    "low04",
+    "low19",
+    "low34"
+  ],
+  "cohorts": {
+    "CAL": [
+      "vbi_0032",
+      "vbi_0304",
+      "vbi_0456",
+      "vbi_0648",
+      "vbi_0895",
+      "vbi_0937",
+      "vbi_0966",
+      "vbi_1005",
+      "vbi_1039",
+      "vbi_1082",
+      "vbi_1094"
+    ],
+    "DEV": [
+      "vbi_0056",
+      "vbi_0176",
+      "vbi_0392",
+      "vbi_0800",
+      "vbi_0886",
+      "vbi_0947",
+      "vbi_0950",
+      "vbi_1013",
+      "vbi_1040",
+      "vbi_1084",
+      "vbi_1109"
+    ],
+    "DEV3": [
+      "vbi_0392",
+      "vbi_1013",
+      "vbi_0800"
+    ],
+    "exposure": "All listed CAL/DEV sources are development-exposed; no fresh confirmation claim"
+  },
+  "assets": {
+    "school_work_root": "/public/home/scc/pb23061276/projects/wan-quant/work",
+    "bank_manifest_relative": "g20_v2_capture_20261113_rev2/stage/output/BANK_MANIFEST.json",
+    "bank_relative": "g20_v2_capture_20261113_rev2/stage/output/bank",
+    "strict_relative": "ffnds_strict_reproduction_20261116_336b7e1",
+    "l64_relative": "g20_two_track_core_20261114/A_Q1_RESIDUAL/v1/stage/output/params",
+    "previous_bindings_sha256": "8f7320c61dbafd44df0b1662235405de8961dd5c5d52d846c979fdb4179b1ab6",
+    "six_site_pairs": 132,
+    "registered_full80_cal_pairs": 880,
+    "full80_beyond_six_requires_locator_verification": true,
+    "new_dense_capture_in_budget": false
+  },
+  "local_split": {
+    "rows": 512,
+    "folds": 2,
+    "pool_rows": 256,
+    "query_rows": 256,
+    "hash_utf8": "observed-secant-20261118|{full_source_id}|{decimal_global_token_id}",
+    "hash": "SHA256 ascending, then token ID",
+    "fixed_probe_policy": "NumPy default_rng(seed=42).permutation of sorted candidate global IDs; first 64",
+    "current_gram_inputs": "all 512 unlabeled feature rows",
+    "geometry_allowed_for_local_only": true,
+    "independent_unit": "source; aggregate folds then six sites within source"
+  },
+  "families": {
+    "observed_readout": {
+      "priority": 1,
+      "native_channels": 16,
+      "raw_features": 32,
+      "candidate_pool": 64,
+      "feature_form": "[z_K, GELU_tanh(z_K)-beta*z_K] / CAL_scale; then frozen effective basis T_CAL",
+      "cal_eigen_rtol": 1e-10,
+      "current_support_singular_rtol": 1e-10,
+      "current_support_rms_atol": 1e-12,
+      "probe_count": 64,
+      "video_probe_policy": "fixed",
+      "prior": "CAL fitted complete-output V_static",
+      "static_control": "same C0/Phi0 and BF16 arithmetic; no observer",
+      "cache": {
+        "C0": "BF16 [N,d]",
+        "Phi0": "FP32 [N,r_eff]"
+      },
+      "ridge_grid": [
+        0.01,
+        0.1,
+        1
+      ],
+      "ridge_selection": "CAL leave-one-source-out prior refit and paired query; features already CAL-exposed",
+      "ridge_tie": "larger",
+      "regularizer": "Gamma_current + tau^2 * Gamma_CAL",
+      "tau_rule": "max(0.01,sqrt(CAL equal-source per-feature whitened BF16-vs-FP64 difference energy))",
+      "selector_ridge": 0.1,
+      "selector_tau": 0.01,
+      "selector_rounds": 16,
+      "prior_ridge": 0.000001,
+      "probe_truth_splice": false,
+      "zero_feature_scale_policy": "sigma=1 with inactive mask; drop zero directions through frozen T_CAL; exclude only wholly zero channel pairs"
+    },
+    "native_modes": {
+      "priority": 2,
+      "q": 4,
+      "mode_form": "W1.T diag(a_j) W2.T",
+      "mode_storage": "FP32 [q,m], not [q,d,d]",
+      "mode_fit": "11 sourcewise hidden response PCG solutions; action-metric POD top4",
+      "coefficient_ridge": 0.001,
+      "pcg_max_iterations": 80,
+      "pcg_relative_residual": 0.00001,
+      "preconditioner_floor_relative": 1e-12,
+      "mode_gram_eigen_rtol": 1e-10,
+      "probe_count": 64,
+      "prior": "CAL pooled theta_static for the same modes",
+      "prior_ridge": 0.000001,
+      "ridge_grid": [
+        0.01,
+        0.1,
+        1
+      ],
+      "ridge_selection": "CAL leave-one-source-out theta_static refit, actual deployed query",
+      "static_control": "same U0/Y0 and compile order with theta_static; no observer",
+      "cache": {
+        "U0": "BF16 [N,d]",
+        "Y0": "BF16 [N,d]"
+      },
+      "templates": "FP32, TF32 disabled",
+      "dynamic_matrix_compile": "FP32, TF32 disabled; final current matrix BF16",
+      "runtime_variant": "coefficient_modes_compile"
+    }
+  },
+  "local_admission": {
+    "minimum_online_over_static_relative_mse_gain": 0.02,
+    "minimum_source_wins": 8,
+    "total_sources": 11,
+    "maximum_single_source_relative_mse_regression": 0.1,
+    "online_mean_not_worse_than_base": true,
+    "use_actual_deployed_output": true,
+    "criterion_role": "development budget allocation, not significance or universal mechanism proof"
+  },
+  "primary_rule": "observed_readout if admissible, else native_modes if admissible, else stop before videos; no DEV MSE tie-breaking",
+  "video_stages": [
+    {
+      "id": "scope_0392",
+      "sources": [
+        "vbi_0392"
+      ],
+      "arms": [
+        "primary_static_6",
+        "primary_online_6",
+        "global_p64_6"
+      ],
+      "d4": 3,
+      "nfe": 12,
+      "quality_does_not_gate_next_stage": true
+    },
+    {
+      "id": "primary_full80",
+      "sources": [
+        "vbi_0392",
+        "vbi_1013",
+        "vbi_0800"
+      ],
+      "arms": [
+        "primary_static_80",
+        "primary_online_80"
+      ],
+      "d4": 6,
+      "nfe": 24
+    },
+    {
+      "id": "secondary_full80",
+      "conditional": true,
+      "trigger": "primary full80 completed AND human review completed AND utility NOT_MET AND other family locally admissible AND its full80 parameters/numerics bound",
+      "sources": [
+        "vbi_0392",
+        "vbi_1013",
+        "vbi_0800"
+      ],
+      "arms": [
+        "secondary_static_80",
+        "secondary_online_80"
+      ],
+      "d4": 6,
+      "nfe": 24
+    }
+  ],
+  "video_utility": {
+    "scope": "DEV3 exploratory matched-static comparison",
+    "all_required": true,
+    "source0392_min_human_fragmentation_grade_improvement": 1,
+    "source0392_preserve_dense_intended_effect": true,
+    "source0392_min_subject_consistency_gain": 0.01,
+    "max_mean_i2v_subject_drop": 0.003,
+    "max_mean_i2v_background_drop": 0.003,
+    "max_per_source_i2v_drop": 0.01,
+    "max_mean_musiq_drop": 0.5,
+    "no_new_severe_human_regression_on_other_sources": true,
+    "pending_human_status": "HUMAN_REVIEW_PENDING",
+    "not_statistical_noninferiority": true
+  },
+  "budget": {
+    "main_d4": 9,
+    "max_d4": 15,
+    "main_nfe": 36,
+    "max_nfe": 60,
+    "main_chain_ffn_calls_main": 1440,
+    "main_chain_ffn_calls_max": 2400,
+    "online_complete_probe_calls_main": 246,
+    "online_complete_probe_calls_max": 486,
+    "probe_tokens_per_call": 64,
+    "online_complete_probe_token_ffn_main": 15744,
+    "online_complete_probe_token_ffn_max": 31104,
+    "global_p64_w1_gelu_probe_calls": 6,
+    "offline_student_query_token_ffn_main_max": 31872,
+    "offline_student_query_token_ffn_all_max": 62592,
+    "max_concurrent_gpus": 2,
+    "dedicated_system_timing_d4": 0,
+    "independent_confirmation_d4": 0,
+    "unbudgeted_new_dense_capture": false
+  },
+  "stop_rules": [
+    "invalid asset/numerical path is an execution issue, not method falsification",
+    "neither family passes local admission: stop new videos",
+    "six-site quality never cancels valid primary full80",
+    "primary useful: close current scope",
+    "primary not useful and other family admissible: six conditional full80 videos only",
+    "otherwise close this construction scope; do not reopen previous P3 or new rank/probe/bank grids"
+  ],
+  "later_confirmation": {
+    "included_in_current_budget": false,
+    "clusters": 20,
+    "arms": [
+      "Dense",
+      "Q1",
+      "Global-P64",
+      "one_frozen_candidate"
+    ],
+    "one_seed_d4": 80,
+    "five_independent_samples_d4": 400,
+    "independent_unit": "image/source cluster"
+  },
+  "local_oracle": {
+    "fit_rows": "the current fold query256",
+    "label_access": "oracle only; explicitly uses query labels",
+    "continuous_lower_bound": "same Xb or Db/template, same query target and gate; continuous linear class only",
+    "quantized_oracle": "report after actual frozen quantization/compile, not a proven discrete optimum"
+  },
+  "student_query": {
+    "count": 64,
+    "ids": "same IDs across matched arms for each source; exclude union of method fixed64 and canonical Global-P64 64",
+    "teacher": "post-generation 64-row Dense, own producer and batch identity; not full-M shadow"
+  },
+  "review_scope": "Mathematical/numerical design, FP64 reference, local discrimination, 9+6 video budget. Not approval of unimplemented native producer or evidence of model results."
+}
