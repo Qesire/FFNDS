@@ -1,0 +1,512 @@
+{
+  "schema": "FFNDS_OBSERVED_FULL80_STUDENT_QUERY_V1",
+  "status": "COMPLETE",
+  "scope_sha256": "13dc211eeaddd39dc7a68593a6c89b66890934a99f0cec22f9ca7a289cf74ec5",
+  "nfe": 0,
+  "d4": 0,
+  "placements": 960,
+  "teacher_calls": 960,
+  "teacher_token_ffn": 61440,
+  "teacher_batch_shape": [
+    64,
+    5120
+  ],
+  "teacher": "Independent BF16 MMWeight.apply W1, tanh GELU and MMWeight.apply W2 on saved pre-W1 student inputs",
+  "metric": "Current-gate weighted pre-gate error on each arm's own student trajectory. Relative risk uses own Dense anchor increment.",
+  "runtime": {
+    "job_id": "173900",
+    "scontrol": "JobId=173900 JobName=ffnds-osec-student_query_v1 UserId=pb23061276(67188) GroupId=pb23061276(67188) MCS_label=N/A Priority=1 Nice=0 Account=competition QOS=qos_p107-a100 JobState=RUNNING Reason=None Dependency=(null) Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0 RunTime=00:00:30 TimeLimit=01:00:00 TimeMin=N/A SubmitTime=2026-11-18T18:48:55 EligibleTime=2026-11-18T18:48:55 AccrueTime=2026-11-18T18:48:55 StartTime=2026-11-18T18:48:56 EndTime=2026-11-18T19:48:56 Deadline=N/A SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-18T18:48:56 Scheduler=Main Partition=P107-A100 AllocNode:Sid=tradmin-02:1924445 ReqNodeList=(null) ExcNodeList=(null) NodeList=anode19 BatchHost=anode19 NumNodes=1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:* ReqTRES=cpu=4,mem=64G,node=1,billing=4,gres/gpu=1 AllocTRES=cpu=4,node=1,billing=4,gres/gpu=1 Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=* MinCPUsNode=4 MinMemoryNode=64G MinTmpDiskNode=0 Features=(null) DelayBoot=00:00:00 OverSubscribe=OK Contiguous=0 Licenses=(null) LicensesAlloc=(null) Network=(null) Command=/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1/job.sh SubmitLine=sbatch --parsable --no-requeue --partition=P107-A100 --account=competition --qos=qos_p107-a100 --gres=gpu:A100:1 --nodes=1 --ntasks=1 --cpus-per-task=4 --mem=64G --time=01:00:00 --signal=B:TERM@60 --job-name=ffnds-osec-student_query_v1 --output=/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1/slurm-%j.out --error=/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1/slurm-%j.err /public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1/job.sh /public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1 13dc211eeaddd39dc7a68593a6c89b66890934a99f0cec22f9ca7a289cf74ec5 WorkDir=/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1 StdErr=/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1/slurm-173900.err StdIn=/dev/null StdOut=/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1/slurm-173900.out TresPerNode=gres/gpu:A100:1 TresPerTask=cpu=4",
+    "device": "NVIDIA A100-SXM4-80GB",
+    "device_memory_bytes": 85093777408,
+    "torch": "2.10.0+cu128",
+    "cuda": "12.8",
+    "numpy": "2.4.6",
+    "tf32": false,
+    "bf16_reduced_precision_reduction": true,
+    "autocast": false,
+    "output_free_bytes_at_entry": 845570157002752
+  },
+  "native_sources": {
+    "mm_weight": {
+      "path": "/public/home/scc/pb23061276/projects/wan-quant/code/LightX2V/lightx2v/common/ops/mm/mm_weight.py",
+      "sha256": "5987645f1883e92c08a7e416fbe25be3c0fadec2355ae4732fa1182d9094b64c"
+    },
+    "transformer_infer": {
+      "path": "/public/home/scc/pb23061276/projects/wan-quant/code/LightX2V/lightx2v/models/networks/wan/infer/transformer_infer.py",
+      "sha256": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225"
+    },
+    "mm_layout_utils": {
+      "path": "/public/home/scc/pb23061276/projects/wan-quant/code/LightX2V/lightx2v/common/ops/utils.py",
+      "sha256": "ca6148845674399252a8c849d0b3b96b11db32dbe38d69ccf395a4700f67a2ba"
+    },
+    "transformer_weights": {
+      "path": "/public/home/scc/pb23061276/projects/wan-quant/code/LightX2V/lightx2v/models/networks/wan/weights/transformer_weights.py",
+      "sha256": "c14e7eeaf085762cf4148a6745d9208098693dca5dbc5971737bbc4c344452a7"
+    },
+    "envs": {
+      "path": "/public/home/scc/pb23061276/projects/wan-quant/code/LightX2V/lightx2v/utils/envs.py",
+      "sha256": "68c2f49686cb58559e8f1beaa0641b1141b5639083fe4ec3e8df771395c3189c"
+    }
+  },
+  "checkpoints": {
+    "high": {
+      "path": "/public/home/scc/pb23061276/projects/wan-quant/weights/Wan2.2-I2V-A14B-LightX2V-Distill-4step/high_noise_model/wan2.2_i2v_A14b_high_noise_lightx2v_4step.safetensors",
+      "sha256": "39d3af74e46e59e989db5cc36f401e666f3ae77c7648eb55d3aff9fee47716fa",
+      "bytes": 28577915880
+    },
+    "low": {
+      "path": "/public/home/scc/pb23061276/projects/wan-quant/weights/Wan2.2-I2V-A14B-LightX2V-Distill-4step/low_noise_model/wan2.2_i2v_A14b_low_noise_lightx2v_4step.safetensors",
+      "sha256": "a3b8680affe2ab2e2121210a83ffa7d351f77da18191e57bb359d7839beba8a2",
+      "bytes": 28577915880
+    }
+  },
+  "videos": [
+    {
+      "source": "vbi_0392",
+      "arm": "readout-static-80",
+      "video_sha256": "d75b8a3df9559564a9d08224ac98913d70272a032b2829139a94d39f5304d963",
+      "generation_job_id": "173809",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_readout_static_v1/EXIT.json",
+        "sha256": "4a5a0ec3b4ba44b1d65f9b5dba975b523b2b1177fe2181b823e8b0aaa34ce7ab",
+        "bytes": 27204
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS.json",
+        "sha256": "305f16f22228a268fa732afe5491007135167552c90149d6ac2898e6e1ba8928"
+      }
+    },
+    {
+      "source": "vbi_1013",
+      "arm": "readout-static-80",
+      "video_sha256": "858c89d879087800c671e275bd1dcb782b278d615fcf9068d2983c5047ef295e",
+      "generation_job_id": "173809",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_readout_static_v1/EXIT.json",
+        "sha256": "4a5a0ec3b4ba44b1d65f9b5dba975b523b2b1177fe2181b823e8b0aaa34ce7ab",
+        "bytes": 27204
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS.json",
+        "sha256": "305f16f22228a268fa732afe5491007135167552c90149d6ac2898e6e1ba8928"
+      }
+    },
+    {
+      "source": "vbi_0800",
+      "arm": "readout-static-80",
+      "video_sha256": "2dcf1032363df34a95e960e542c825524bbf6d669e1f0ebf9da1587554574199",
+      "generation_job_id": "173809",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_readout_static_v1/EXIT.json",
+        "sha256": "4a5a0ec3b4ba44b1d65f9b5dba975b523b2b1177fe2181b823e8b0aaa34ce7ab",
+        "bytes": 27204
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS.json",
+        "sha256": "305f16f22228a268fa732afe5491007135167552c90149d6ac2898e6e1ba8928"
+      }
+    },
+    {
+      "source": "vbi_0392",
+      "arm": "readout-online-80",
+      "video_sha256": "c599f6c3dc4d1720f3378041169c976e17b7a389b07e1da1e881c655903ca503",
+      "generation_job_id": "173810",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_readout_online_v1/EXIT.json",
+        "sha256": "f3d5006a4fead5d363d8d50fed8fd7b9bf603a5e5ef8a56360c2236f71245b60",
+        "bytes": 27204
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS.json",
+        "sha256": "305f16f22228a268fa732afe5491007135167552c90149d6ac2898e6e1ba8928"
+      }
+    },
+    {
+      "source": "vbi_1013",
+      "arm": "readout-online-80",
+      "video_sha256": "30e7e911a85031d1fb4c8fbb20eb74d3a531289d443c4ffea37c0171f0923d64",
+      "generation_job_id": "173810",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_readout_online_v1/EXIT.json",
+        "sha256": "f3d5006a4fead5d363d8d50fed8fd7b9bf603a5e5ef8a56360c2236f71245b60",
+        "bytes": 27204
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS.json",
+        "sha256": "305f16f22228a268fa732afe5491007135167552c90149d6ac2898e6e1ba8928"
+      }
+    },
+    {
+      "source": "vbi_0800",
+      "arm": "readout-online-80",
+      "video_sha256": "f5bd01b6ec6c155c1f96008f55acaa73d978cd4320470d78c6648945d6d8d145",
+      "generation_job_id": "173810",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_readout_online_v1/EXIT.json",
+        "sha256": "f3d5006a4fead5d363d8d50fed8fd7b9bf603a5e5ef8a56360c2236f71245b60",
+        "bytes": 27204
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS.json",
+        "sha256": "305f16f22228a268fa732afe5491007135167552c90149d6ac2898e6e1ba8928"
+      }
+    },
+    {
+      "source": "vbi_0392",
+      "arm": "modes-static-80",
+      "video_sha256": "952495189560ea2ab37522a202a495b9277e83b80a9b92d6eb7672575ace1d97",
+      "generation_job_id": "173822",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_modes_static_v1/EXIT.json",
+        "sha256": "4039c993c48c6c9a854383d8e72762b0a0885aa68945864caee9742d33e1585c",
+        "bytes": 27202
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS_RECOVERED.json",
+        "sha256": "bf7b4fbfb02dc1851b6a423ca3279b22e1bd79e2bbb3faa02971932d3b9bda72"
+      }
+    },
+    {
+      "source": "vbi_1013",
+      "arm": "modes-static-80",
+      "video_sha256": "83db20ee46460d301861ff5e3b70ece729928efd8f273929d72045f8a5891c2a",
+      "generation_job_id": "173822",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_modes_static_v1/EXIT.json",
+        "sha256": "4039c993c48c6c9a854383d8e72762b0a0885aa68945864caee9742d33e1585c",
+        "bytes": 27202
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS_RECOVERED.json",
+        "sha256": "bf7b4fbfb02dc1851b6a423ca3279b22e1bd79e2bbb3faa02971932d3b9bda72"
+      }
+    },
+    {
+      "source": "vbi_0800",
+      "arm": "modes-static-80",
+      "video_sha256": "f00f3745cccc2fb3d606a8c9d6ae22088cca23addf9bda6f4957fbf7b6b30a04",
+      "generation_job_id": "173822",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_modes_static_v1/EXIT.json",
+        "sha256": "4039c993c48c6c9a854383d8e72762b0a0885aa68945864caee9742d33e1585c",
+        "bytes": 27202
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS_RECOVERED.json",
+        "sha256": "bf7b4fbfb02dc1851b6a423ca3279b22e1bd79e2bbb3faa02971932d3b9bda72"
+      }
+    },
+    {
+      "source": "vbi_0392",
+      "arm": "modes-online-80",
+      "video_sha256": "0a8662c161ceadec06d8b19292ee128f28ba21d28ceb56638b8e8e48dbbec6c9",
+      "generation_job_id": "173847",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_modes_online_v1/EXIT.json",
+        "sha256": "607326bb1b1fdd17e348a27b20ae11d82370fb0afe26867ed3849924340b345e",
+        "bytes": 27202
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS_RECOVERED.json",
+        "sha256": "bf7b4fbfb02dc1851b6a423ca3279b22e1bd79e2bbb3faa02971932d3b9bda72"
+      }
+    },
+    {
+      "source": "vbi_1013",
+      "arm": "modes-online-80",
+      "video_sha256": "935875693cf8b564f9f116f1cb95a5ad3327ed2ecb42018090b349e5d4d43f36",
+      "generation_job_id": "173847",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_modes_online_v1/EXIT.json",
+        "sha256": "607326bb1b1fdd17e348a27b20ae11d82370fb0afe26867ed3849924340b345e",
+        "bytes": 27202
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS_RECOVERED.json",
+        "sha256": "bf7b4fbfb02dc1851b6a423ca3279b22e1bd79e2bbb3faa02971932d3b9bda72"
+      }
+    },
+    {
+      "source": "vbi_0800",
+      "arm": "modes-online-80",
+      "video_sha256": "e995e9160047489ee66a68409054d5cd339f5f9974aafe753c30df30cb891111",
+      "generation_job_id": "173847",
+      "generation_exit": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/gen_modes_online_v1/EXIT.json",
+        "sha256": "607326bb1b1fdd17e348a27b20ae11d82370fb0afe26867ed3849924340b345e",
+        "bytes": 27202
+      },
+      "cal_release": {
+        "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/FULL80_PARAMETERS_RECOVERED.json",
+        "sha256": "bf7b4fbfb02dc1851b6a423ca3279b22e1bd79e2bbb3faa02971932d3b9bda72"
+      }
+    }
+  ],
+  "query_ids": [
+    5766,
+    24992,
+    31090,
+    14104,
+    6364,
+    25366,
+    13702,
+    29626,
+    4231,
+    26466,
+    15311,
+    11732,
+    29411,
+    11622,
+    16224,
+    30594,
+    5745,
+    19814,
+    20354,
+    17633,
+    26319,
+    23947,
+    25482,
+    30048,
+    23243,
+    10864,
+    26218,
+    12953,
+    25444,
+    5617,
+    7212,
+    13690,
+    4464,
+    11053,
+    8619,
+    22147,
+    10582,
+    27432,
+    17631,
+    11173,
+    280,
+    22038,
+    20708,
+    27368,
+    13497,
+    20843,
+    16914,
+    13369,
+    15569,
+    3131,
+    13570,
+    10616,
+    5904,
+    20718,
+    2294,
+    4289,
+    21091,
+    23830,
+    8310,
+    12806,
+    11216,
+    15842,
+    27157,
+    13092
+  ],
+  "probe_ids": [
+    27628,
+    2326,
+    12316,
+    17781,
+    1501,
+    7876,
+    22253,
+    31023,
+    19837,
+    12955,
+    9959,
+    7278,
+    13426,
+    14921,
+    17634,
+    14142,
+    18136,
+    28359,
+    17901,
+    12084,
+    28419,
+    14020,
+    20580,
+    5122,
+    30410,
+    31432,
+    1045,
+    2888,
+    26947,
+    16659,
+    16527,
+    7006,
+    10302,
+    21148,
+    5124,
+    6416,
+    4170,
+    16967,
+    25262,
+    1759,
+    21648,
+    21805,
+    13936,
+    28903,
+    15450,
+    68,
+    16382,
+    18977,
+    28583,
+    19537,
+    4784,
+    18896,
+    16867,
+    15981,
+    19059,
+    16447,
+    1179,
+    22031,
+    8467,
+    2262,
+    2158,
+    30219,
+    10137,
+    19915
+  ],
+  "per_site_csv": {
+    "path": "/public/home/scc/pb23061276/projects/wan-quant/work/ffnds_observed_secant_20261118_58f68ab/student_query_v1/output/STUDENT_QUERY.csv",
+    "sha256": "ccf63c040a95ab246b9df5fbbbfcd8949b715d52f828f5fb6b2b3e66df429943",
+    "bytes": 769558
+  },
+  "source_arm_results": [
+    {
+      "source": "vbi_0392",
+      "arm": "readout-static-80",
+      "placements": 80,
+      "gated_mse": 0.016086546294850804,
+      "gated_anchor_mse": 0.067828772847645,
+      "relative_risk_to_own_anchor": 0.23716404734291643
+    },
+    {
+      "source": "vbi_0392",
+      "arm": "readout-online-80",
+      "placements": 80,
+      "gated_mse": 0.010900935060164683,
+      "gated_anchor_mse": 0.051287147609443265,
+      "relative_risk_to_own_anchor": 0.2125471110847573
+    },
+    {
+      "source": "vbi_0392",
+      "arm": "modes-static-80",
+      "placements": 80,
+      "gated_mse": 0.027238180002236448,
+      "gated_anchor_mse": 0.07308858507522129,
+      "relative_risk_to_own_anchor": 0.37267351631179435
+    },
+    {
+      "source": "vbi_0392",
+      "arm": "modes-online-80",
+      "placements": 80,
+      "gated_mse": 0.025306333951576675,
+      "gated_anchor_mse": 0.0753506254934425,
+      "relative_risk_to_own_anchor": 0.3358476958333809
+    },
+    {
+      "source": "vbi_1013",
+      "arm": "readout-static-80",
+      "placements": 80,
+      "gated_mse": 0.007000183498097133,
+      "gated_anchor_mse": 0.04741710030048929,
+      "relative_risk_to_own_anchor": 0.14762993632541674
+    },
+    {
+      "source": "vbi_1013",
+      "arm": "readout-online-80",
+      "placements": 80,
+      "gated_mse": 0.007697289679339552,
+      "gated_anchor_mse": 0.06462475636551679,
+      "relative_risk_to_own_anchor": 0.11910744600418731
+    },
+    {
+      "source": "vbi_1013",
+      "arm": "modes-static-80",
+      "placements": 80,
+      "gated_mse": 0.010325102586501309,
+      "gated_anchor_mse": 0.02699441428135499,
+      "relative_risk_to_own_anchor": 0.38249033592230397
+    },
+    {
+      "source": "vbi_1013",
+      "arm": "modes-online-80",
+      "placements": 80,
+      "gated_mse": 0.009095372603632126,
+      "gated_anchor_mse": 0.026475858397149287,
+      "relative_risk_to_own_anchor": 0.3435345690099115
+    },
+    {
+      "source": "vbi_0800",
+      "arm": "readout-static-80",
+      "placements": 80,
+      "gated_mse": 0.007715210711566447,
+      "gated_anchor_mse": 0.03638454727093866,
+      "relative_risk_to_own_anchor": 0.21204635732072993
+    },
+    {
+      "source": "vbi_0800",
+      "arm": "readout-online-80",
+      "placements": 80,
+      "gated_mse": 0.008831072671032603,
+      "gated_anchor_mse": 0.038031960492743114,
+      "relative_risk_to_own_anchor": 0.23220135266804517
+    },
+    {
+      "source": "vbi_0800",
+      "arm": "modes-static-80",
+      "placements": 80,
+      "gated_mse": 0.008040203144653403,
+      "gated_anchor_mse": 0.025393229418786776,
+      "relative_risk_to_own_anchor": 0.316627830673045
+    },
+    {
+      "source": "vbi_0800",
+      "arm": "modes-online-80",
+      "placements": 80,
+      "gated_mse": 0.007784599517041838,
+      "gated_anchor_mse": 0.024903765246829312,
+      "relative_risk_to_own_anchor": 0.31258725095928835
+    }
+  ],
+  "paired_source_deltas": [
+    {
+      "source": "vbi_0392",
+      "family": "readout",
+      "online_minus_static_gated_mse_on_own_states": -0.005185611234686121
+    },
+    {
+      "source": "vbi_0392",
+      "family": "modes",
+      "online_minus_static_gated_mse_on_own_states": -0.0019318460506597725
+    },
+    {
+      "source": "vbi_1013",
+      "family": "readout",
+      "online_minus_static_gated_mse_on_own_states": 0.0006971061812424189
+    },
+    {
+      "source": "vbi_1013",
+      "family": "modes",
+      "online_minus_static_gated_mse_on_own_states": -0.0012297299828691825
+    },
+    {
+      "source": "vbi_0800",
+      "family": "readout",
+      "online_minus_static_gated_mse_on_own_states": 0.001115861959466156
+    },
+    {
+      "source": "vbi_0800",
+      "family": "modes",
+      "online_minus_static_gated_mse_on_own_states": -0.00025560362761156523
+    }
+  ]
+}

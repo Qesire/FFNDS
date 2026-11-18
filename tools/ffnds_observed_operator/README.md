@@ -1,12 +1,11 @@
-# 观测条件 FFN 算子的 FP64 参考核心
+# 观测条件 FFN 算子
 
-本目录实现两种有限割线构造，供数学核验和后续原生移植使用。[完整设计](../../research/20261118/OBSERVED_SECANT_OPERATOR_DESIGN.md) · [实验方案](../../research/20261118/OBSERVED_SECANT_EXPERIMENT_PLAN.md) · [独立审查](../../research/20261118/OBSERVED_SECANT_INDEPENDENT_REVIEW.md)。
+`core.py` 实现两种有限割线构造的 FP64 参考计算。原生 BF16 生成入口为 `wan_full80_job.py` 和 `wan_scope6_job.py`，逐位置教师入口为 `student_query.py` 和 `student_query_scope6.py`。相应的独立复审、冻结范围和执行身份收录于本轮结果。[实测、源码身份与回执](../../reports/20261118/observed_secant_ffn_operator/README.md) · [完整设计](../../research/20261118/OBSERVED_SECANT_OPERATOR_DESIGN.md) · [实验方案](../../research/20261118/OBSERVED_SECANT_EXPERIMENT_PLAN.md) · [独立审查](../../research/20261118/OBSERVED_SECANT_INDEPENDENT_REVIEW.md)
 
 1. 固定廉价端点特征、当前完整 FFN probe 残差、在线全输出读出；
 2. 少量隐藏系数模式、当前 probe 辨识共享系数、编译当前满秩矩阵。
 
-依赖只有 NumPy。这里没有 Wan 原生绑定、BF16 仿真、CAL 拟合任务或视频生成入口。
-测试使用小型合成矩阵，执行身份为 **FP64 代数单元核验**；测试通过不代表模型、视频或性能实验完成。
+参考核心只依赖 NumPy，其单元测试使用小型合成矩阵验证 FP64 代数。校准、原生绑定和视频作业使用各自审定的模型与运行环境。
 
 ## 运行
 

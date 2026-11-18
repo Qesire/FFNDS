@@ -1,3 +1,5 @@
+> **2026-11-18 · 观测条件 FFN 全 80 与六位点诊断。** 在 `vbi_0392`，全 80 在线读出较好保留 Dense 的晕眩重影与动作，历史 Global-P64 略好。三个固定六位点臂均出现严重破坏。[连续对照、逐源数据与作业回执](../reports/20261118/observed_secant_ffn_operator/README.md)
+
 > **2026-11-18 · 六站点状态条件 FFN 在 P2 结案。** N32 在 DEV11 将 BF16 局部相对风险降低 4.18%。三源完整视频的人审在 `vbi_0392` 发现四个新候选均有严重画面破碎。按停止规则登记 `NO_TRANSFER_GAIN`。[P0–P2 结果与执行证据](../reports/20261118/state_conditioned_ffn_operator/README.md)
 
 > **2026-11-17 · Wan2.2 四步 Dense 鱼鳞纹 · 学校集群唯一执行场地（DESIGN_ONLY / NOT_RUN）：** [学校实验方案](diagnostics/wan_temporal_fishscale/EXPERIMENT_PLAN.md) · [学校 Slurm 手册](diagnostics/wan_temporal_fishscale/SCHOOL_CLUSTER_RUNBOOK.md) · [学校模型与路径配置](diagnostics/wan_temporal_fishscale/SCHOOL_CLUSTER_CONFIG.json) · [学校资产清单（当前0条已验证）](diagnostics/wan_temporal_fishscale/ASSET_REGISTRY.json) · [人眼完整视频评审](diagnostics/wan_temporal_fishscale/HUMAN_REVIEW_PROTOCOL.md) · [按需预算](diagnostics/wan_temporal_fishscale/EXPERIMENT_MATRIX.json)。排除远端 SSH worker/S2 旧 HF 文件运行依赖；学校有真实配对资产则复用，没有则在学校最小捕获 1 条四步 Dense。完整视频保留给用户本人观看，自动指标不裁决。仅设计和代码提交，未登录学校计算节点或执行。

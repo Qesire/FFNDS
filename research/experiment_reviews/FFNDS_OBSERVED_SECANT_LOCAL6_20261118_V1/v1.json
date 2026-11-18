@@ -1,0 +1,87 @@
+{
+  "review_schema": "FFNDS_PREEXEC_REVIEW_V1",
+  "scope_id": "FFNDS_OBSERVED_SECANT_LOCAL6_20261118_V1",
+  "scope_sha256": "1f589428f2c67155cf3f84a034f97dfcd1cd83591e637870016e7cce13fd3509",
+  "purpose": "new_method",
+  "research_question": "Does a fixed current 64-row observation identify transferable local FFN corrections on disjoint query rows beyond the strong static controls?",
+  "hypotheses_with_opposing_predictions": [
+    {
+      "id": "identifiable",
+      "prediction": "Online native BF16 reduces held-out gated risk against matched static.",
+      "discriminator": "Actual BF16 fixed64 versus matching static on common query folds."
+    },
+    {
+      "id": "identification_gap",
+      "prediction": "Query oracle can recover correction that the fixed 64-row observations do not identify.",
+      "discriminator": "Continuous and executable query oracle versus fixed64 and geometry64."
+    },
+    {
+      "id": "representation_limit",
+      "prediction": "Neither fitting all query labels continuously nor compiling those weights yields material additional gain.",
+      "discriminator": "Continuous oracle and actual BF16 output examined separately."
+    }
+  ],
+  "author_agent_id": "/root",
+  "reviewer_agent_id": "/root/secant_execution_review",
+  "author_review_path": "author.md",
+  "author_review_sha256": "bd1554873a3b79919a7bde0e051efbbcf45d2d8162a25594ead5461a9a293d34",
+  "independent_review_path": "recheck.md",
+  "independent_review_sha256": "046afaf0e2dffe8b2285ab269ca34d5e0adce23ac9e03ea42bed5d5704defe92",
+  "reviewer_disposition": "REVISE",
+  "adversarial_counterexample": "An unobserved probe direction with material query response or an online-oracle match that still exceeds the common-A risk.",
+  "responses_to_review": [
+    "ACCEPT: preserve source/site/step/coordinate/hash and actual observer identity with source-held fitting.",
+    "REVISE: separate resource admission constraints from mechanism verdicts.",
+    "REVISE: defer fallback on unverified preferred-family evidence.",
+    "TEST: record allocation time, disk, precision, gate and packed-bundle hashes."
+  ],
+  "recheck_disposition": "APPROVE",
+  "code_commit": "a2a3f7e2d802f26dee04652c2f328dc6cd8a2b6c",
+  "critical_source_hashes": {
+    "ffnds_observed_operator/__init__.py": "c52040e1ddecb83d0b61485040e4b89ec08d64f039890bdb4a4c0a072e998f78",
+    "ffnds_observed_operator/core.py": "bda29534fe02449d4886070b60f241fa067dfaa9e4387f83b9318bc44385156d",
+    "ffnds_observed_operator/local_data.py": "41a632017750e737118aa8133031f1d77da27b08ab15db482e4884e5706a3e51",
+    "ffnds_observed_operator/local_metrics.py": "476523aeec3d6d15aa29b56c2f279c71bfd5f6aa2a26d384348864709a9c9b61",
+    "ffnds_observed_operator/local_worker.py": "fcb3bad5e04b40a1af7cea94593280a011283fa618e3c7534a6f53b8699358d3",
+    "ffnds_observed_operator/mode_local.py": "1c68e2a2fbc349d8bf258ca039f3526236663389159f9adda9a7c5e7e4378809",
+    "ffnds_observed_operator/observed_local.py": "af16b1ee3d7f4f900a2372e9e8543afc94a18e941427e25402c86d8a72ceb9f9",
+    "local_job.sh": "86addba21e7a4a1bcdf3b55c75f0323742423604b3c632c1c284ea2274195e37",
+    "scope_job.py": "6bdbcbbac614c44cce7184ab31dc514ddb15b9bd2059bc75d0d4fa466a0a3569",
+    "experiment_spec.json": "f15958c3e57b02b1f4da39966258d4040a647b4bcd0e2c6e8ca39c363b4cb26b",
+    "OBSERVED_SECANT_EXPERIMENT_PLAN.md": "1b5381cec54b1e94dc7ea58d0e85234021b91911c062ab3e2df7e6131ebb4192",
+    "OBSERVED_SECANT_OPERATOR_DESIGN.md": "fc0a102048f7a4225ebae7c5677ca8ddc17358fd0a58b1f763ba7c388e2b60ee"
+  },
+  "checkpoint_numeric_recipe": "Original strict HHLL Wan BF16 checkpoint plus local mathematical FP64 separate from native BF16.",
+  "input_cohort_manifest_sha256": "8f7320c61dbafd44df0b1662235405de8961dd5c5d52d846c979fdb4179b1ab6",
+  "control_arms": [
+    "common A",
+    "same X Q32",
+    "matched static readout",
+    "matched static modes",
+    "fixed64",
+    "geometry64",
+    "continuous oracle",
+    "compiled oracle",
+    "local FP64 panel-P64"
+  ],
+  "unit_of_independence": "source image-cluster",
+  "full_depth_or_claim_scope": "Six archived P512 positions only",
+  "predeclared_metrics": [
+    "gated MSE",
+    "relative risk",
+    "source wins",
+    "worst source",
+    "increment cosine/norm",
+    "same-target Q32 directional gain",
+    "BF16 acceptance"
+  ],
+  "expected_physical_savings": {
+    "W1": "Unmeasured; bounded local replay",
+    "W2": "Unmeasured; bounded local replay",
+    "observer_and_cache": "Full FFN receives exactly 64 rows per actual probe call"
+  },
+  "applicable_session_gpu_cap": 2,
+  "budget_and_failure_plan": "One A100, 4 CPUs, 64 GiB, 4 h, zero D4/NFE, no retry or requeue.",
+  "approval_scope_fingerprint": "1f589428f2c67155cf3f84a034f97dfcd1cd83591e637870016e7cce13fd3509",
+  "state": "REVIEWER_RECHECK_APPROVED"
+}
