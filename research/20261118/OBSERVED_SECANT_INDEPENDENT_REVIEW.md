@@ -2,7 +2,9 @@
 
 日期：2026-11-18。基点：f89e4fae868ac8d21b3b8f0da47616f43b0c954a。
 
-## 结论与范围
+> 版本说明：以下原审查记录和文件哈希属于a2a3f7e发布时的9+6方案，保留其历史身份。用户随后质疑局部MSE筛选，本次据此撤回旧门槛；当前12+3修正的独立复核另列于文末。旧审查通过不证明MSE门槛能够预测视频质量，也不自动覆盖改写后的文件。
+
+## 原9+6方案：历史结论与范围
 
 **DESIGN_REVIEW_PASS。** 两种构造的数学/数值定义、合成FP64参考核心、局部可辨识性、作用范围和9+6视频预算已由真实独立agent复核。该结论不覆盖尚未实现的CAL producer或BF16/Wan端口，不表示模型、视频、性能实验已完成。
 
@@ -89,4 +91,36 @@ P64-6另有6次64-token W1/GELU观测。静态控制不支付无用probe。没�
 3. 将确切producer/参数/来源/预算按仓库既有ACTIVE流程登记后执行冻结实验树。
 
 本次没有修改ACTIVE，也没有申请或启动GPU任务。上一轮已关闭结果及其原始实验身份保持不变。
+
+## 同日修正：MSE角色与12+3实验设计
+
+用户质疑继续用MSE筛选后，主协调者重新使用operator-tensor-analysis与evidence-analysis，提交以下自审结论：旧2%/8of11/10%门槛没有验证视频预测力；两类不同表示都应获得一次完整功能比较；CAL欧氏选择器保持受检身份，不临时扩展loss搜索；局部query与oracle不能代替下游或完整视频。
+
+实际独立分工：
+
+- mse_evidence_reassessment：只读核对P1/P2、strict RESULTS与旧P64误差分解，发现并限定同源指标反转及ICC/P64跨构造错排证据。
+- mse_operator_reassessment：独立推导目标拉回度量、跨位置项、公共输出权重消去；随后读取实际修订文件、复核原始结果、静态JSON/预算，并提出封稿反例。
+- mse_plan_amendment：按明确修正要求编辑实验方案与JSON，独立核对12/15预算。
+- 主协调者：交叉核对原始数值、编写MSE重评、修订设计限定与当前结果导航，逐项修复复核意见。
+
+独立评议要求并已修正：
+
+1. 明确latent时间token轴21、解码帧轴81、去噪步轴4；误差张量采用latent时间坐标，差分例子不混同这些轴。
+2. 幅度/夹角恒等式声明非零前提，并给零向量处理。
+3. 12/15是成功完整配置数，不能解释成含任意失败重启的总调用上限；自动额外完整重启额度为0，必要重试另冻结有限范围并记录全部消耗。
+
+独立agent实际recheck后给出 **AMENDMENT_DESIGN_REVIEW_PASS**，并在状态元数据更新后再次确认。覆盖范围为MSE角色、数学说明、历史证据解释、两类全80固定12视频、最多3条范围诊断及成本记账。它不覆盖尚未实现的CAL producer/BF16-Wan port，不证明任何新构造的真实效果。
+
+封稿身份：
+
+| 文件 | SHA256 |
+|---|---|
+| research/20261118/MSE_SELECTION_REASSESSMENT.md |6467c97029a682749bbe74bbf1fa0254bbd84bb62ee393063a029a157c1fe111|
+| research/20261118/OBSERVED_SECANT_EXPERIMENT_PLAN.md |f5ed0a5c38a8d7d561aa846e6125f64e386b15e6c949d8c0bfc6a72b6388c1db|
+| research/20261118/observed_secant_experiment_spec.json |ad6e1faefbd75d40cf56bba47870d9cceaaab9a8323a02ecb363384cb05cdf06|
+| research/20261118/OBSERVED_SECANT_OPERATOR_DESIGN.md |7af404ad68cde2761e0a7e8daa56de2bc96c428a44c9a5478bbd978922216925|
+
+本次静态预算为12/15 D4、48/60 NFE、1920/2400主链FFN位置、480/486完整64token probe、30,720/31,104在线probe token-FFN、61,440/62,592离线query token-FFN；P64 W1/GELU probe为0/6。独立评议和主协调者均核验闭合。
+
+四份参考核心/测试文件SHA与原表完全一致，本次没有改变算法代码，也没有重跑或新增算法测试。模型、校准、回放、GPU、视频运行仍为0。已完成历史结果保持原始身份；本次仅修正下一轮设计。
 

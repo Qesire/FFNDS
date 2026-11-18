@@ -3,17 +3,21 @@
   "date": "2026-11-18",
   "evidence_base_commit": "f89e4fae868ac8d21b3b8f0da47616f43b0c954a",
   "status": {
-    "design": "INDEPENDENTLY_REVIEWED",
+    "design": "AMENDMENT_INDEPENDENTLY_REVIEWED",
     "fp64_reference": "IMPLEMENTED_AND_ALGEBRA_TESTED",
     "cal_fit": "NOT_RUN",
     "native_bf16_port": "NOT_IMPLEMENTED",
     "model_experiments": "NOT_RUN",
-    "gpu_jobs_launched": 0
+    "gpu_jobs_launched": 0,
+    "previous_design_review_scope": "The previous pass applies only to its recorded file SHAs and 9+6 schedule; no automatic inheritance by this 12+3 amendment.",
+    "amendment_review_result": "AMENDMENT_DESIGN_REVIEW_PASS",
+    "amendment_review_agent": "mse_operator_reassessment"
   },
   "documents": {
     "design": "research/20261118/OBSERVED_SECANT_OPERATOR_DESIGN.md",
     "plan": "research/20261118/OBSERVED_SECANT_EXPERIMENT_PLAN.md",
-    "review": "research/20261118/OBSERVED_SECANT_INDEPENDENT_REVIEW.md"
+    "review": "research/20261118/OBSERVED_SECANT_INDEPENDENT_REVIEW.md",
+    "mse_reassessment": "research/20261118/MSE_SELECTION_REASSESSMENT.md"
   },
   "model": {
     "family": "Wan2.2 I2V A14B",
@@ -45,7 +49,13 @@
       1,
       3
     ],
-    "boundary": "after norm2/AdaLN, before W1; return pre-gate; one current gate write"
+    "boundary": "after norm2/AdaLN, before W1; return pre-gate; one current gate write",
+    "token_grid_axes": [
+      "latent_time",
+      "latent_row",
+      "latent_column"
+    ],
+    "axis_semantics": "latent time=21; decoded video frames=81; denoising steps=4; distinct axes"
   },
   "base_matrix": {
     "six_sites": "bound L64",
@@ -148,7 +158,7 @@
       "selector_ridge": 0.1,
       "selector_tau": 0.01,
       "selector_rounds": 16,
-      "prior_ridge": 0.000001,
+      "prior_ridge": 1e-06,
       "probe_truth_splice": false,
       "zero_feature_scale_policy": "sigma=1 with inactive mask; drop zero directions through frozen T_CAL; exclude only wholly zero channel pairs"
     },
@@ -160,12 +170,12 @@
       "mode_fit": "11 sourcewise hidden response PCG solutions; action-metric POD top4",
       "coefficient_ridge": 0.001,
       "pcg_max_iterations": 80,
-      "pcg_relative_residual": 0.00001,
+      "pcg_relative_residual": 1e-05,
       "preconditioner_floor_relative": 1e-12,
       "mode_gram_eigen_rtol": 1e-10,
       "probe_count": 64,
       "prior": "CAL pooled theta_static for the same modes",
-      "prior_ridge": 0.000001,
+      "prior_ridge": 1e-06,
       "ridge_grid": [
         0.01,
         0.1,
@@ -182,103 +192,109 @@
       "runtime_variant": "coefficient_modes_compile"
     }
   },
-  "local_admission": {
-    "minimum_online_over_static_relative_mse_gain": 0.02,
-    "minimum_source_wins": 8,
-    "total_sources": 11,
-    "maximum_single_source_relative_mse_regression": 0.1,
-    "online_mean_not_worse_than_base": true,
-    "use_actual_deployed_output": true,
-    "criterion_role": "development budget allocation, not significance or universal mechanism proof"
-  },
-  "primary_rule": "observed_readout if admissible, else native_modes if admissible, else stop before videos; no DEV MSE tie-breaking",
   "video_stages": [
     {
+      "id": "readout_full80",
+      "conditional": false,
+      "sources": [
+        "vbi_0392",
+        "vbi_1013",
+        "vbi_0800"
+      ],
+      "arms": [
+        "readout_static_80",
+        "readout_online_80"
+      ],
+      "d4": 6,
+      "nfe": 24,
+      "local_quality_does_not_gate": true
+    },
+    {
+      "id": "modes_full80",
+      "conditional": false,
+      "sources": [
+        "vbi_0392",
+        "vbi_1013",
+        "vbi_0800"
+      ],
+      "arms": [
+        "modes_static_80",
+        "modes_online_80"
+      ],
+      "d4": 6,
+      "nfe": 24,
+      "first_family_quality_does_not_gate": true,
+      "local_quality_does_not_gate": true
+    },
+    {
       "id": "scope_0392",
+      "conditional": true,
+      "trigger": "Both full80 families completed AND continuous human review completed AND (a functional candidate retained OR an explicit unresolved six-site/full80 coverage question recorded before this branch) AND native bindings and budget valid; bad MSE alone never triggers",
       "sources": [
         "vbi_0392"
       ],
       "arms": [
-        "primary_static_6",
-        "primary_online_6",
+        "readout_static_6",
+        "readout_online_6",
         "global_p64_6"
       ],
       "d4": 3,
       "nfe": 12,
-      "quality_does_not_gate_next_stage": true
-    },
-    {
-      "id": "primary_full80",
-      "sources": [
-        "vbi_0392",
-        "vbi_1013",
-        "vbi_0800"
-      ],
-      "arms": [
-        "primary_static_80",
-        "primary_online_80"
-      ],
-      "d4": 6,
-      "nfe": 24
-    },
-    {
-      "id": "secondary_full80",
-      "conditional": true,
-      "trigger": "primary full80 completed AND human review completed AND utility NOT_MET AND other family locally admissible AND its full80 parameters/numerics bound",
-      "sources": [
-        "vbi_0392",
-        "vbi_1013",
-        "vbi_0800"
-      ],
-      "arms": [
-        "secondary_static_80",
-        "secondary_online_80"
-      ],
-      "d4": 6,
-      "nfe": 24
+      "quality_never_gates_full80": true,
+      "family_fixed": "observed_readout"
     }
   ],
   "video_utility": {
-    "scope": "DEV3 exploratory matched-static comparison",
-    "all_required": true,
-    "source0392_min_human_fragmentation_grade_improvement": 1,
+    "scope": "DEV3 exploratory matched-static comparison; all sources development-exposed",
+    "primary_evidence": "Blinded continuous complete-video functional review with concrete intervals and defect descriptions",
     "source0392_preserve_dense_intended_effect": true,
-    "source0392_min_subject_consistency_gain": 0.01,
-    "max_mean_i2v_subject_drop": 0.003,
-    "max_mean_i2v_background_drop": 0.003,
-    "max_per_source_i2v_drop": 0.01,
-    "max_mean_musiq_drop": 0.5,
+    "source0392_functional_improvement": "Reduce additional fragmentation while preserving intended dizziness/ghosting and action",
     "no_new_severe_human_regression_on_other_sources": true,
+    "scalar_metric_hard_gate": false,
+    "report_all_paired_metric_dimensions": true,
+    "metric_human_conflict_status": "METRIC_HUMAN_DISAGREEMENT; preserve evidence, no automatic scalar verdict",
     "pending_human_status": "HUMAN_REVIEW_PENDING",
-    "not_statistical_noninferiority": true
+    "pending_is_failure": false,
+    "not_statistical_noninferiority": true,
+    "superseded_numeric_thresholds_history_only": {
+      "source0392_subject_consistency_gain": 0.01,
+      "max_mean_i2v_drop": 0.003,
+      "max_per_source_i2v_drop": 0.01,
+      "max_mean_musiq_drop": 0.5,
+      "active": false
+    }
   },
   "budget": {
-    "main_d4": 9,
+    "main_d4": 12,
     "max_d4": 15,
-    "main_nfe": 36,
+    "main_nfe": 48,
     "max_nfe": 60,
-    "main_chain_ffn_calls_main": 1440,
+    "main_chain_ffn_calls_main": 1920,
     "main_chain_ffn_calls_max": 2400,
-    "online_complete_probe_calls_main": 246,
+    "online_complete_probe_calls_main": 480,
     "online_complete_probe_calls_max": 486,
     "probe_tokens_per_call": 64,
-    "online_complete_probe_token_ffn_main": 15744,
+    "online_complete_probe_token_ffn_main": 30720,
     "online_complete_probe_token_ffn_max": 31104,
-    "global_p64_w1_gelu_probe_calls": 6,
-    "offline_student_query_token_ffn_main_max": 31872,
+    "offline_student_query_token_ffn_main_max": 61440,
     "offline_student_query_token_ffn_all_max": 62592,
     "max_concurrent_gpus": 2,
     "dedicated_system_timing_d4": 0,
     "independent_confirmation_d4": 0,
-    "unbudgeted_new_dense_capture": false
+    "unbudgeted_new_dense_capture": false,
+    "global_p64_w1_gelu_probe_calls_main": 0,
+    "global_p64_w1_gelu_probe_calls_max": 6,
+    "count_semantics": "Successful complete configurations and their NFE; failed partial attempts are separately recorded and not bounded by successful-count arithmetic.",
+    "automatic_extra_full_restart_d4": 0,
+    "retry_policy": "No automatic additional complete restarts; any necessary full retry requires a separate finite registered scope and additional budget before execution. Record all failed and successful consumption."
   },
   "stop_rules": [
     "invalid asset/numerical path is an execution issue, not method falsification",
-    "neither family passes local admission: stop new videos",
-    "six-site quality never cancels valid primary full80",
-    "primary useful: close current scope",
-    "primary not useful and other family admissible: six conditional full80 videos only",
-    "otherwise close this construction scope; do not reopen previous P3 or new rank/probe/bank grids"
+    "finite local MSE regression or no local oracle gain never cancels a fixed family full80 comparison",
+    "complete both families full80 static/online DEV3; one family result never cancels the other",
+    "only after all full80 and continuous human review, run at most three fixed scope videos if the recorded coverage question warrants them",
+    "HUMAN_REVIEW_PENDING is not failure and never triggers the optional branch",
+    "close this construction scope after fixed comparisons and any warranted scope branch; no previous P3 or new loss/rank/probe/bank grids"
   ],
   "later_confirmation": {
     "included_in_current_budget": false,
@@ -297,12 +313,37 @@
     "fit_rows": "the current fold query256",
     "label_access": "oracle only; explicitly uses query labels",
     "continuous_lower_bound": "same Xb or Db/template, same query target and gate; continuous linear class only",
-    "quantized_oracle": "report after actual frozen quantization/compile, not a proven discrete optimum"
+    "quantized_oracle": "report after actual frozen quantization/compile, not a proven discrete optimum",
+    "role": "Local Euclidean response diagnostic only; never a video eligibility gate or functional lower bound"
   },
   "student_query": {
     "count": 64,
     "ids": "same IDs across matched arms for each source; exclude union of method fixed64 and canonical Global-P64 64",
     "teacher": "post-generation 64-row Dense, own producer and batch identity; not full-M shadow"
   },
-  "review_scope": "Mathematical/numerical design, FP64 reference, local discrimination, 9+6 video budget. Not approval of unimplemented native producer or evidence of model results."
+  "review_scope": "Independently reviewed amendment: local metric role, mathematical/evidence interpretation, fixed 12-video two-family full80 comparison, optional 3-video scope branch and functional assessment. Previous review remains limited to its recorded SHAs. Not approval of an unimplemented native producer or evidence of model results.",
+  "supersedes_plan_commit": "a2a3f7e2d802f26dee04652c2f328dc6cd8a2b6c",
+  "construction_objective": {
+    "role": "Frozen Euclidean response-fit controls, not video-functional optimality",
+    "cal_mse_channel_selection_unchanged": true,
+    "cal_action_metric_pod_unchanged": true,
+    "cal_ridge_selection_unchanged": true,
+    "additional_loss_rank_probe_search": false,
+    "failure_scope": "Only these concrete feature/mode classes and fitting rules; not all state-conditioned operators"
+  },
+  "execution_eligibility": {
+    "local_metric_video_gate": false,
+    "local_oracle_video_gate": false,
+    "use_actual_deployed_output": true,
+    "required": [
+      "80-site assets and parameters bound",
+      "correct BF16/FP32 path, cache and one current gate write",
+      "legal probe information and matched static arithmetic",
+      "finite outputs and numerical solves",
+      "available resources within registered finite scope"
+    ],
+    "finite_mse_regression_blocks_video": false,
+    "missing_or_invalid_implementation_status": "EXECUTION_NOT_READY; not method falsification"
+  },
+  "family_comparison_rule": "Both fixed families receive static/online full80 DEV3 comparisons; no local-score selection and no cancellation based on the first family video outcome."
 }

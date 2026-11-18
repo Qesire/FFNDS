@@ -44,5 +44,5 @@ P0 作业 `173009` 和 P1 作业 `173055` 正常退出。早期 P0 作业 `17298
 
 ## 后续算子设计
 
-当前结果保持上述结案状态。根据 Global-P64 的响应机制，下一项研究已定义为当前真实观测驱动的割线算子：[完整设计](../../../research/20261118/OBSERVED_SECANT_OPERATOR_DESIGN.md) · [有限实验方案](../../../research/20261118/OBSERVED_SECANT_EXPERIMENT_PLAN.md) · [FP64 参考核心](../../../tools/ffnds_observed_operator/README.md)。新范围为既有资产局部判别、9 条主开发视频及最多6条条件视频；本次只完成设计与代数参考实现，尚未运行新的模型实验。
+当前结果保持上述结案状态。根据 Global-P64 的响应机制，下一项研究已定义为当前真实观测驱动的割线算子：[完整设计](../../../research/20261118/OBSERVED_SECANT_OPERATOR_DESIGN.md) · [有限实验方案](../../../research/20261118/OBSERVED_SECANT_EXPERIMENT_PLAN.md) · [FP64 参考核心](../../../tools/ffnds_observed_operator/README.md)。经[MSE筛选复核](../../../research/20261118/MSE_SELECTION_REASSESSMENT.md)，局部误差只作诊断；两类构造各自接受全80位置static/online比较，共12条主开发视频，之后最多3条范围诊断，总上限仍为15。当前只完成设计与代数参考实现，尚未运行新的模型实验。
 
