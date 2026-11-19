@@ -1,3 +1,5 @@
+> **2026-11-19 · 全 80 位点状态调制割线 DEV3。** 18 条新视频已完成。0392 的定性观察选出了同宽线性 48 和三种画面可接受的双线性方案，运动削弱仍在。[同步对照、评分与执行证据](../reports/20261119/state_coupled_secant_ffn_operator/README.md)
+
 > **2026-11-18 · 观测条件 FFN 全 80 与六位点诊断。** 在 `vbi_0392`，全 80 在线读出较好保留 Dense 的晕眩重影与动作，历史 Global-P64 略好。三个固定六位点臂均出现严重破坏。[连续对照、逐源数据与作业回执](../reports/20261118/observed_secant_ffn_operator/README.md)
 
 > **2026-11-18 · 六站点状态条件 FFN 在 P2 结案。** N32 在 DEV11 将 BF16 局部相对风险降低 4.18%。三源完整视频的人审在 `vbi_0392` 发现四个新候选均有严重画面破碎。按停止规则登记 `NO_TRANSFER_GAIN`。[P0–P2 结果与执行证据](../reports/20261118/state_conditioned_ffn_operator/README.md)
