@@ -6,6 +6,10 @@ import json
 import hashlib
 import unittest
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+from check_autoresearcher_binding import archived_text
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -76,7 +80,7 @@ class CurrentTaskLedgerTests(unittest.TestCase):
         self.assertEqual(active["current_session_resource_constraint_20261028"]
                          ["max_simultaneously_assigned_idle_GPUs"], 2)
         self.assertIn("CURRENT_TASK_LEDGER_20261028.json",
-                      (ROOT / "research/RESEARCH_NAVIGATION.md").read_text(encoding="utf-8"))
+                      archived_text("research/RESEARCH_NAVIGATION.md"))
 
     def test_b0_completion_requires_bound_actual_evidence_and_b1_stays_partial(self):
         binding = self.tasks["P0-B0-NATIVE"]["native_result"]

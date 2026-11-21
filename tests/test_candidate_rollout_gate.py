@@ -2,6 +2,7 @@
 import copy
 import unittest
 from pathlib import Path
+from tools.check_autoresearcher_binding import archived_text
 from tools.check_candidate_rollout_gate import validate_record, ROOT
 
 class CandidateRolloutGateTests(unittest.TestCase):
@@ -93,7 +94,7 @@ class CandidateRolloutGateTests(unittest.TestCase):
         self.assertIn("75_",policy["source_document"])
         for p in ("AGENTS.md",".agents/skills/ffnds-paper-discovery/SKILL.md",
                   ".github/copilot-instructions.md"):
-            text=(ROOT/p).read_text(encoding="utf-8")
+            text=archived_text(p)
             self.assertIn("docs/75_",text,p)
 
 if __name__=="__main__":

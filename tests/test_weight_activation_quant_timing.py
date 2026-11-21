@@ -3,8 +3,12 @@
 Checks repo source and machine contracts only; no Torch, network, cluster, model, GPU.
 """
 from pathlib import Path
+import sys
 import json
 import unittest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+from check_autoresearcher_binding import archived_text
 
 ROOT=Path(__file__).resolve().parents[1]
 CONTRACT=ROOT/"research/agent_protocol/WEIGHT_ACTIVATION_QUANTIZATION_TIMING_CONTRACT_20261028.json"
@@ -78,7 +82,7 @@ class StaticWeightDynamicActivationTests(unittest.TestCase):
                      ".agents/skills/ffnds-paper-discovery/SKILL.md",
                      "research/RESEARCH_NAVIGATION.md",
                      "docs/98_端到端计算图与证据注解_20261025.md"]:
-            self.assertIn("WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md",read(path))
+            self.assertIn("WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md",archived_text(path))
         self.assertTrue((ROOT/self.c["report"]).is_file())
         for source in self.c["primary_sources"]:
             self.assertTrue(source["url"].startswith("https://"))
