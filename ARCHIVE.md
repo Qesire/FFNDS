@@ -1,22 +1,20 @@
-# FFNDS archive and evidence preservation
+# 研究归档
 
-**Current reading order is [P0–P4 navigation](research/RESEARCH_NAVIGATION.md), and the active M-A/M-B/M-C method is the [integrated v2 plan](research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md).** [ACTIVE_RESEARCH](research/ACTIVE_RESEARCH.json) governs actual model execution; [AGENTS](AGENTS.md) governs research agents. This file indexes older materials, which provide evidence/provenance rather than next actions.
+当前接手资料位于[项目首页](README.md)、[接手说明](research/agent_protocol/CURRENT_CONTEXT_PACKET.md)和[机器可读入口](research/CURRENT_HANDOFF.json)。下表按要追溯的对象给出历史资料的保存位置。
 
-- Full server handoff: [2026-10-20 release](https://github.com/Qesire/FFNDS/releases/tag/handoff-20261020). Original release SHA/protocols are not rewritten. The original A100 configuration has not been verified for H20.
-- [Upstream restoration](upstream_audit/README.md) corrects the first ZIP's omission of 15 W4A4 files. Apply the audited 92 changed files/5 patches to the pinned upstream revision rather than stacking the first ZIP patches.
-- Historical experiment decisions, registrations and their exact outcome boundaries: [research/CURRENT_DECISION.json](research/CURRENT_DECISION.json), [method triage](research/20261021/method_triage.json), [research/20261023](research/20261023), and [raw reports](reports/).
-- Scientific problem revision: [information-first three questions](docs/95_AutoResearcher_三个问题_信息存在决策价值与真实省算_20261024.md), [dense-completion goal drift](docs/93_FFNDS_目标复位_补算不是研究目标_20261024.md). The shallow algorithm-first A/B/C status document and machine seed (former `docs/94_...` and `research/20261024/operator_first_autoresearcher_reexploration.json`) were deleted from the working tree because they misdirected current work; their exact version remains retrievable in Git at commit [f6904e8](https://github.com/Qesire/FFNDS/tree/f6904e8190b34b7e38706bc829ed6a59e564e1e4).
-- [Historical handoffs archive](archive/20261024/historical_handoffs/README.md) holds 14 historical operational and research-governance documents (AR2, R15, R17 and C2 handoffs). [Content-addressed manifest](archive/20261024/historical_handoffs/MANIFEST.json) preserves original Git blob SHAs; original docs paths are now short forwarding pages.
-- Dated documents with `active`, `mandatory`, `retry`, `run`, `next` or `authorized` language refer to their **historical original context** and do not trigger live experiments. Preserve native results, immutable logs, source bindings, frozen protocols and matched evaluation receipts at their original paths.
+| 要追溯的对象 | 保存方式与入口 |
+|---|---|
+| 2026-11-21 交接更新前的首页、agent 指引、协议、研究导航和证据索引 | [交接入口原件](archive/20261121/handoff/README.md)逐一映射 13 个文件。字节数、Git blob 和 SHA-256 见[清单](archive/20261121/handoff/MANIFEST.json)。[原提交](https://github.com/Qesire/FFNDS/tree/22d60b645e070ed528b3b435ec0cbe4b26467108)保留了当时的目录和相对链接。 |
+| 2026-10-24 首次移出的历史交接材料 | [原归档目录](archive/20261024/historical_handoffs/README.md)及其[清单](archive/20261024/historical_handoffs/MANIFEST.json)。 |
+| 分期研究、运行与技术背景 | [按问题查历史研究](research/RESEARCH_NAVIGATION.md)、[技术文档](docs/README.md)、[日期报告目录](reports/)。原表、脚本、哈希与 dated scope 在原路径归档，便于旧读者和校验脚本复算。 |
+| 旧阶段机器状态与研究队列 | [ACTIVE_RESEARCH.json](research/ACTIVE_RESEARCH.json)、[CURRENT_DECISION.json](research/CURRENT_DECISION.json)、[OBJECTIVE_CONTRACT.json](research/OBJECTIVE_CONTRACT.json)及[方法登记队列](research/method_discussion/QUEUE.md)保留各自阶段的字段、资源条件和决定。整仓现行方法由[接手记录](research/CURRENT_HANDOFF.json)定位。 |
+| 更早的主页路径、设备与发布说明 | 从[上一版归档页](https://github.com/Qesire/FFNDS/blob/22d60b645e070ed528b3b435ec0cbe4b26467108/ARCHIVE.md)可继续沿原路径查找。 |
 
-The user-requested experiment pause is explicit and remains recorded in [EXPERIMENT_PAUSE.json](research/20261024/EXPERIMENT_PAUSE.json).
+旧首页曾将以下文件列为接续入口。它们在各自日期下保留完整上下文。
 
-## Content lifecycle
+- 10 月的[任务台账](research/agent_protocol/CURRENT_TASK_LEDGER_20261028.json)、[执行手册](research/agent_protocol/EXECUTABLE_EXPERIMENT_RUNBOOK_20261027.md)、[B 路线交接](research/agent_protocol/NEXT_AGENT_B_SENSITIVE_OUTPUT_FIRST_20261027.md)和[设备调度记录](research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)。
+- 11 月的 [G19 接续记录](research/20261107/G19_NEXT_CHAT_20261107.md)和 [G20 双路线交接](research/20261114/G20_TWO_CORE_EXECUTION_HANDOFF_20261114.md)。这两处保留当时的核查条件和未完成事项。
 
-| Tier | Meaning | Location and management |
-| --- | --- | --- |
-| **LIVE** | Default scientific behavior, Q1/Q2/Q3 research lenses, current evidence index | `AGENTS.md`, `research/ACTIVE_RESEARCH.json`, `research/agent_protocol/CURRENT_CONTEXT_PACKET.md`, `research/RESEARCH_NAVIGATION.md`, `research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md` |
-| **EVIDENCE** | Actual model/code/protocol measurements and method-specific claims | `research/2026102*/`, `reports/`, `tools/`, `upstream_audit/`; preserve source locators, bytes and frozen outcomes |
-| **ARCHIVED** | Dated operational handoffs, obsolete agent to-dos, duplicate interim summaries | `archive/20261024/historical_handoffs/`; redirect former Markdown URLs with small stubs and preserve original blob identities |
+日期目录、源数据和已绑定哈希的回执保留原位。某份文档被归档，表示它已退出当前交接入口；其中的测量、反例和复现实验条件仍可在原有范围内引用。
 
-An archived task is a **source about what was believed/done**, not an outstanding action. A negative experiment remains citable evidence at its exact scope, and earlier inspiring mathematical constructions can still seed new work. Before relocating more material, check for content-hash bindings, in-repository links and reproduction dependencies. Keep complete historical source available through Git even if a shorter active guide supersedes its advice.
+**历史校验的已知状态。** 在归档源提交和本次交接树上，旧图谱、任务台账、候选门槛和旧入口四组测试各有 2、1、1、18 个相同的失败断言。例如旧图谱测试写定 98 篇，已有索引为 110 篇。图谱工具输出的 `method_next_agent=M-B` 属于当时的研究阶段。现行交接有独立的[校验命令](AGENTS.md)；复查旧协议时请同时核对当时的源码和数据版本。

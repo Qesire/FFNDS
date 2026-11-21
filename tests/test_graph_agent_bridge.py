@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+from check_autoresearcher_binding import archived_text
 from graph_agent_bridge import load, validate, inspect, trace, load_crosswalk, validate_crosswalk, validate_paper_focus, inspect_paper, inspect_focus, validate_method_operation_crosswalk
 
 
@@ -263,14 +264,14 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertTrue((root / cross["current_method_plan"]).is_file())
 
 
-    def test_research_reading_priorities_have_one_current_method_authority(self):
+    def test_archived_method_reading_priorities_20261027(self):
         root = Path(__file__).resolve().parents[1]
-        nav = (root / "research/RESEARCH_NAVIGATION.md").read_text(encoding="utf-8")
-        readme = (root / "README.md").read_text(encoding="utf-8")
-        context = (root / "research/agent_protocol/CURRENT_CONTEXT_PACKET.md").read_text(encoding="utf-8")
-        skill = (root / ".agents/skills/ffnds-paper-discovery/SKILL.md").read_text(encoding="utf-8")
-        copilot = (root / ".github/copilot-instructions.md").read_text(encoding="utf-8")
-        agents = (root / "AGENTS.md").read_text(encoding="utf-8")
+        nav = archived_text("research/RESEARCH_NAVIGATION.md")
+        readme = archived_text("README.md")
+        context = archived_text("research/agent_protocol/CURRENT_CONTEXT_PACKET.md")
+        skill = archived_text(".agents/skills/ffnds-paper-discovery/SKILL.md")
+        copilot = archived_text(".github/copilot-instructions.md")
+        agents = archived_text("AGENTS.md")
         method = "COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md"
         for tier in ("P0", "P1", "P2", "P3", "P4"):
             self.assertIn("## " + tier + " ·", nav)

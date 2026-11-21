@@ -2,7 +2,11 @@
 import hashlib
 import json
 from pathlib import Path
+import sys
 import unittest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+from check_autoresearcher_binding import archived_text
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -139,8 +143,8 @@ class ObjectiveContractTests(unittest.TestCase):
         self.assertIn("R11", original.decode("utf-8"))
         self.assertIn(entry["archive"], (ROOT / original_path).read_text(encoding="utf-8"))
 
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        readme = archived_text("README.md")
+        agents = archived_text("AGENTS.md")
         handoff = (ROOT / "research/20261021/HANDOFF_R11T1.md").read_text(encoding="utf-8")
         self.assertIn("research/ACTIVE_RESEARCH.json", agents)
         self.assertIn("research/ACTIVE_RESEARCH.json", readme)

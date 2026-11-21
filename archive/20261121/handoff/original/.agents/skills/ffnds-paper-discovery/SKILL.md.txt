@@ -1,0 +1,107 @@
+---
+name: ffnds-paper-discovery
+description: Apply AutoResearcher science to independent information, function/dynamics and compute execution discovery with source-grounded Wan FFN research.
+---
+
+# FFNDS · AutoResearcher 机制方法 Skill
+
+
+**最高优先级用户纠偏（2026-10-29）：只复现Wan2.2-I2V-A14B FFN本体的免大训练稀疏/计算减少。** [FFN-only现行文档](../../../research/20261029/WAN_NATIVE_TRAINING_FREE_BASELINE_REPRIORITIZATION_20261029.md)及[ACTIVE最新字段](../../../research/ACTIVE_RESEARCH.json)凌驾下文旧排序。P0 SharQ L74（Wan2.2 T2V原报告的activation sparse FP4，当前需要I2V FFN native port/两GEMM总成本验证，[#59](https://github.com/Qesire/FFNDS/issues/59)），P0 TEAL原 BF16 Wan全160 V3视频与四来源真实质量后实施可物理省算的FFN大M sparse W2（[#58](https://github.com/Qesire/FFNDS/issues/58)）；P1 Chipmunk Wan FFN付费proxy单组（[#57](https://github.com/Qesire/FFNDS/issues/57)）。禁止默认先做LLM/FLUX原作者完整复现，暂不投入FIS/MagCache及帧/Block/Token/Attention/step/整模型缓存；历史成果保留但不决定当前资源顺序。FFN-only标准：完整160位点原生视频 + 主体/事件+运动/语义 + kernel内W1/W2真实成本+系统时延 + 静动态量化位置辨析；每个新scope先实质独立评议具体实验本身。
+
+
+
+**最新 P0（2026-10-29，覆盖本文下方旧优先描述）**：Chipmunk 与 TEAL 双方法免大型训练 FFN 复现同为首要任务，分别见 [#57](https://github.com/Qesire/FFNDS/issues/57)、[#58](https://github.com/Qesire/FFNDS/issues/58)，状态由 [ACTIVE](../../../research/ACTIVE_RESEARCH.json) `current_user_research_priority_20261029` 唯一裁定。先作者环境忠实复现，再全160 Wan2.2 四步 FFN-only / preW1 / postGELU 迁移；每个实验须主Agent自审→真正不同Agent反例审查→修订/recheck→ACTIVE冻结→实际运行前身份复核。作者Wan2.1 Chipmunk示例默认 **MLP OFF、Attention和step caching ON**，2.67x是系统组合不是 FFN-only；TEAL 原LLM FP16可用核不能默认兼容 Wan BF16。S2尚未启动的新因果实验排P1，历史已完成的成果保留。[TEAL作者FP16单token有限kernel](../../../research/20261029/TEAL_AUTHOR_FP16_KERNEL_PROBE_RESULTS_20261029.md)已复审后实际EXIT0并闭环；完整LLM、Chipmunk原系统和Wan迁移尚未复现。逐scope以ACTIVE及实际报告为准。
+
+
+
+**新用户要求：所有实际实验必须再审“实验设计本身”并接受真实独立 Agent 复审后才能执行。** 实施 [每新scope复审状态机](../../../research/agent_protocol/EXPERIMENT_PREEXECUTION_INDEPENDENT_REVIEW_20261029.md)：主 Agent 自审科学可辨识性/相反预测/原文及实现差异/统计独立单位/可执行物理动作/强baseline与总开销 → 不同上下文真实审稿Agent提出反例 → 修订和recheck → ACTIVE独立冻结有限scope → launch前检查SHA和适用GPU上限。未真实审结时标 REVIEW_REQUESTED，不将历史审核、作者自审或设计文档代替新scope许可。参考[训练自由FFN正向基线研究任务](../../../research/20261029/INDEPENDENT_METHOD_REVIEW_AND_FFN_BASELINE_20261029.md)：Chipmunk MLP-only 作者原Wan2.1/四步Wan2.2分开，TEAL preW1/postGELU分开，Prox/FIS作为近邻论文另核代码与模型；其他scope各自审查，不将有限作者kernel结果当作Wan2.2成功稀疏。
+
+
+
+**当前机制研究入口（2026-10-29，开放式证据获取）：** [资产先行的方法发现和四支路线](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md)与[原生资产交叉复算](../../../research/20261029/ASSET_FIRST_METHOD_DERIVATION_RECALC_20261029.json)。以真实计算结构/行为/执行异常为研究起点；构造至少两种不同机制及其相反预测，利用保存资产给出最小判别，只有随后才冻结在线动作和完整生成测试。S1跨步共享函数、S4条件rank的行动收益、S2时空函数单位、S3前置量化动作并行且互不互为准入条件。M-A/M-B/M-C、符号交叉、norm/gain、补算为可复用机制及强对照，而不是默认的研究方向。新方法的可用性由全160-site真实视频质量、来源级运动/语义/时间指标和实测系统成本决定。
+
+
+**开放式证据与新增采集**：[问题驱动新增资产协议](../../../research/agent_protocol/EVIDENCE_DRIVEN_ACQUISITION_20261029.md)和[机器采集队列](../../../research/agent_protocol/ACQUISITION_QUEUE_20261029.json)与现存原生资产有同等科研优先级。现有6/8/20来源、5个Block和随机256行只描述过去观测；新机制可能需要新数据集、独立来源/相机运动分层、40×4全深度时空tubelet、student-prefix状态、Q1/Q2在线code/scale及实际native kernel。只要旧资产无法区分主要竞争机制，Agent就应给出具体可采集量、原生producer、来源与坐标、预算和新注册RUN；在真正新观测产生后继续推理。采集可以先于选定算法，采集批次可逐轮扩张，不预设总体数据上限。
+
+**S2时间证据规范（2026-10-29）**：[全21τ统计结构T1–T6及新增空间/来源采集计划](../../../research/20261029/S2_TEMPORAL_STATISTICAL_STRUCTURE_AND_DATA_EXPANSION_20261029.md)。时间是计算图的统计坐标（固定step内latent τ=21），**不是第五条并行研究路线或运动补偿预设目标**。已有新10来源全160 Dense时间轨迹与同Dense h低秩r960 DC/AC复算实际exit0；还需lag自相关/结构函数、FFT频段与相位、时间Gram有效秩、突发和stationarity、连续运动邻域与student状态。新CPU代码只是PREPARED_NOT_EXECUTED，需要新ACTIVE注册与真实收据。按独立image-cluster（不是τ/token/site）等权，适用两卡会话与冻结RUN预算优先于通用GPU动态利用率。
+
+**当前用户要求的S2下一个真正实验与独立子Agent（2026-10-29）**：[两来源pilot→多来源扩充→同状态W2反事实→真实后缀因果定位](../../../research/20261029/S2_NEXT_NATIVE_TEACHER_STUDENT_SPATIOTEMPORAL_CAUSAL_EXPERIMENT_20261029.md)。主Agent执行时**必须分出一个真实独立上下文的理论子Agent**，独立推导计算图/L-P-I与gate/BF16误差分解、机制竞争、论文与源码差异、ROI/student来源和实验反例；角色合同见[专门分工](../../../research/agent_protocol/S2_THEORY_SUBAGENT_AND_EXECUTION_DISPATCH_20261029.md)。数据/实验仍属S2研究轴。执行者先核对最新ACTIVE的真实授权与GPU≤有效两卡并发记录，另冻原生capture协议并执行真正RUN/EXIT；本条只是任务要求，不代表任何子Agent或GPU已经在运行。
+
+## 开始研究前的阅读顺序与工作对象
+
+**最短阅读链**：[当前导航](../../../research/RESEARCH_NAVIGATION.md) → [资产先行四支方法及证据](../../../research/20261029/ASSET_FIRST_STRUCTURE_DISCOVERY_AND_METHOD_DERIVATION_20261029.md) → [现行任务和交接](../../../research/agent_protocol/CURRENT_CONTEXT_PACKET.md) → 根据具体科学问题选读[原三方案](../../../research/20261027/COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md)、[G14真实计算图](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)、[数据实验协议](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。本Skill约束**科学方法与证据表达**，进度数字、后续任务及历史实验以P0–P4入口和[ACTIVE](../../../research/ACTIVE_RESEARCH.json)为准，不在每次更新时重复抄写。
+
+研究北极星：解释视频FFN的信息、函数及真实计算组织规律，产生可证伪的科学机制或维持完整视频能力的低成本表示与执行。[I/F/C并行目标](../../../research/RESEARCH_GOALS_AND_PARALLEL_MECHANISMS_20261027.md)允许从有趣的数学恒等式、原生异常、真实行为、论文或kernel任一端开始。**O-A计算选择、O-B函数替代、O-C历史复用、O-D代数/原生执行、O-E学习/验证**是[可组合操作语法](../../../research/20261027/FIVE_OPERATION_METHOD_LENS_AND_IFC_ROUTE_CROSSWALK.md)，不是五个互斥方法。论文与新方法的typed关系收录在[机器交叉表](../../../research/agent_protocol/METHOD_OPERATION_CROSSWALK.json)。
+
+**部署候选的终端证据协议（2026-10-29）**：[全深度×多来源×视频优先方法合同](../../../research/20261029/FULL_DEPTH_MULTISOURCE_VIDEO_FIRST_METHOD_CORRECTION_20261029.md)。从已完成UB1的20个source真实质量与Affine54 320site状态数据出发，所有待排序的部署候选先说明40×4全160site的可执行动作，并给出≥20独立image-cluster的Dense配对完整视频、运动/动作/主体/背景/时序/成像/语义来源级向量和FFN/整机成本；正式确认须未暴露来源并按官方独立seed协议冻结。末层head/范数修正、局部SSE、MAC/token是创造和机制定位工具，不再作为新方法优胜的默认首步。源/step/block/token嵌套不能充作来源规模。只开展ALG/SRC时可提出全深度设计，但不要以局部改善宣称部署视频有效。
+
+**双数值原生实验轨（2026-10-28最新指令）**：[A100原始BF16与RTX PRO 6000 Blackwell NVFP4并行](../../../research/agent_protocol/BF16_NATIVE_NVFP4_EXPERIMENT_MIGRATION_20261028.md)。没有本地RTX5090，但RTX PRO 6000可作为SM120原生FP4目标；BF16功能/视频与原生NVFP4源码/准备任务同时READY，互不阻塞。PRO6000 R0先核验真实可访问权限/MIG/环境及匹配模型，保留历史E0在Pro6000跑过的证据；后续native作业先绑定ACTIVE。当前上游nvfp4_rtn_backend.py 是 Fake-QDQ后接BF16线性算子，不等于packed W4A4，必须区分。HiF4 Fake-QDQ仅保留为格式/数值机制诊断。
+
+**量化operand强类型规则**：**W1/W2权重是离线静态量化**，本次FFN的**Q1/A1、Q2/A2激活各自在线动态量化**；Q1在W1前，Q2在W1/GELU后。原生NVFP4/MXFP4的W4A4分别有W和A的packed code及block-scale，A scale动态求取（NVFP4的global激活scale可按recipe预校准），原生scale存在但是否可免费/及时读到取决于kernel布局。W4A16没有A FP4 scale。每个研究方案必须指明operand role、producer、scale来源与决策截止；固定weight信息不能被称为输入动态证据。[真实源和成熟后端审计](../../../research/20261028/WEIGHT_ACTIVATION_STATIC_DYNAMIC_NATIVE_FP4_TIMING_AUDIT_20261028.md)。
+
+**HiF4事实边界**：每个4-bit **S1P2码字自带1bit符号**，64元素共享32bit unsigned尺度元信息；不要把“scales不含符号”误说成“HiF4没存符号”。现行CUDA fake-QDQ将带符号量化重建为BF16而不持久导出packed码字，相关研究必须计入提取signed/position摘要的真实代价。参见[格式审计](../../../research/20261028/HIF4_SIGNED_STORAGE_AND_QDQ_SEMANTICS_AUDIT_20261028.md)和[机器合同](../../../research/agent_protocol/HIF4_SIGNED_FORMAT_CONTRACT_20261028.json)。
+
+原生基础：LightX2V Wan2.2 I2V A14B四步high/high/low/low，两套expert、每套40 blocks；`norm2/AdaLN→Q1→W1→GELU(tanh)→HiF4 Q2(64→8→4)→W2→e5 gated BF16 residual→downstream flow`。当前原生实现为fake-QDQ＋BF16 GEMM，新的packed NVFP4/MXFP4属于需要另验证的算子路径。
+
+**资源调度（2026-10-29执行记录复核）**：按[现行GPU政策](../../../research/agent_protocol/DYNAMIC_GPU_RESOURCE_POLICY_20261028.md)，优先遵循**当前适用会话与原生RUN的冻结GPU预算**。已记录VIDEO20等scope `session_max_GPUs=2`，这些实验会话最多同时两GPU，单job通常1GPU；在适用上限内使用真实可调度且有用的最大资源。无预设**通用默认**上限不等于可覆盖两卡有效记录。需改并发上限必须先获得更高优先级授权并登记新的有限scope/协议，保留旧收据。
+
+**M-B后缀与末层诊断专题**：复用B0/CAL24/B-H/A0/B-F和Affine54既有证据，研究自然函数承担、下游读出及分子/分母竞争机制。该专题可主动提出新的全深度函数结构；不会成为S1/S2/S3/S4的串行前置。任何自称部署可用的方法都必须提供真实4步×40层学生自由生成、多来源Dense配对视频及完整执行账本；仅数学、源码或teacher-state阶段则先提交与最强解释相反的可测预测。
+
+已完成机制证据复用：[B-H Direct65](../../../research/20261028/BH_DIRECT65_H128_PREDICTABILITY_RESULTS_20261028.md)、[同head A0](../../../research/20261028/BH_A0_MATCHED_TERMINAL_HEAD_RESULTS_20261028.md)、[B-F](../../../research/20261028/BF_FROZEN6016_TERMINAL_RESULTS_20261028.md)。这些已完成pilot保留原范围，由现行全深度多来源视频合同决定后续方法排序。
+
+## 实验采样与校准的可解释证据
+
+**跨方法同预算和同统计对象**：UB1/固定RR、Affine54、激活2:4与训练后表示均可利用[Calibration V2](../../../research/20261027/CALIBRATION_V2_METHOD_SNAPSHOT.md)的独立image-cluster配额、teacher/student同坐标、真实QDQ、完整自由视频和成本；每条路线自己冻结estimand、source exposure、训练预算、数值插入点，互不继承他人的“已验证质量”。
+
+涉及采样/校准/视频评测或声称泛化时加载[实验数据Skill](../ffnds-experiment-evidence/SKILL.md)和[统一协议](../../../research/agent_protocol/DATA_SAMPLING_CALIBRATION_EVALUATION.md)。先明确独立source与嵌套seed/step/block/row，接着复核旧cohort的拟合/择优暴露、原生QDQ/student状态、真正独立的video run及各维覆盖。历史VBench五文件名对应每source一个真实生成，和官方五次采样分开报告。把证据不足转为**有辨别力的新增数据设计**，将可靠源码和既有原生现象作为构造性实验起点。
+
+## 默认研究思路：三种入口、共同判别、分别验证
+
+**I · 信息与表示（DISCOVER）**：从已知权重、当前输入、数值编码、跨token/step状态或历史信息发现条件性结构；给出信息首次可用的时间、获取价与信息利用机制。允许直接探索编码域内积、有限码本、低秩统计、信息证书及无需语义标签的算术。
+
+**F · 函数与动力学（DISCOVER / MAP）**：从自然视频/latent/flow现象和无标签signed响应寻找有意义的函数，沿W1→GELU→HiF4 Q2(64→8→4)→W2→e5写回和下游attention/step定位正常计算承担者；这条专门路线使用[G13](../../../research/20261027/G13_FUNCTION_DISCOVERY_AND_COMPUTATIONAL_STRUCTURE_LOCALIZATION.md)与[O/D/Q/P](../../../research/20261027/G13_FUNCTION_LOCALIZATION_METHODOLOGY.md)。FUNCTIONAL-OBS / CAUSAL / IMPLEMENTABLE是这类功能主张的证据层级。
+
+**C · 计算与执行（DISCOVER / BUILD）**：从真实M/D/H shape、有效GEMM/QDQ、内核、访存与时延出发研究算子重写、低位dense、稀疏/共享计算、时空复用及轻量后训练后的新函数结构。**I/C线不需要先在原模型中找到语义功能子图**；性能异常本身也可倒逼新信息或动力学解释。
+
+**DERIVE / EXPAND**：调用research-expansion、problem-reformulation及mechanism-research，用新坐标、不同训练状态、替代动作空间或时空尺度构造竞争解释。仅针对当前关键命题重建完整的决策相关源码路径和数值语义，确认必要的输入、输出和依赖。
+
+**DISCRIMINATE / ADVANCE**：用可区分的数学证明/反例、原始论文与作者源码、已有证据及未来被授权的定点实验推进。功能因果论文使用正常路径忠实性；经济计算论文使用前置可得信息、强同条件基线、真实物理开销；宣称视频级改善必须加上完整free-rollout/正式质量与系统速度证据。无需为了探索种子先提供整段视频。
+
+## 科学写法：积极构造、明确对象与证据
+
+默认陈述顺序：**有趣的结构或现象 → 对应数学/真实机制 → 至少一个竞争性解释及不同预测 → 最便宜的辨别证据 → 对信息、功能或执行的启示**。
+
+- 将真实负例写成**作用于指定版本、输入、算子和指标的正面事实**。例：“旧token mask在M16/K64 tile上100%占用，说明现有布局仍执行所有tile；新的候选空间转向联合输出结构或另一合法执行单位。”
+- 将来源边界贴近相应结果：LIT=外部作者论文/代码；ALG=数学推导；SPEC=可用的表示定义；SRC=当前Wan实现；NATIVE-OBS/VIDEO/SYS=既有真实实验；OPEN=待判别机制。用证据分级促进新方向，**重复的自我免责声明与限制性前言通常只会遮蔽研究结论**。
+- 将单一强先例转为科学资源：Prox有付费INT4代理；CodeGEMM/LUT-GEMM的公开快路集中于单vector；SharQ在线稀疏FP4加稠密残差；G12重排区间对单W1行紧、对共同输入的多行联合函数仍有研究空间。这些事实**促进**新联合函数/新编码表示的构造。
+- 每次结论尽可能给出具体源码函数、公式、tensor形状或已经固定的原生RUN引用。源可信度与外部模型身份写清楚一次；保留当前实验未正式通过视频质量验收的事实，并指出具体已测场景。
+
+建议组合：
+[mechanism-research](../mechanism-research/SKILL.md)（源码/结构）、
+[research-expansion](../research-expansion/SKILL.md)（扩大机制空间）、
+[problem-reformulation](../problem-reformulation/SKILL.md)（新数学对象）、 
+[web-research-discovery](../web-research-discovery/SKILL.md)（原文、正反先例和源码链）。
+从项目[GOAL_ALIGNMENT](../../../core/GOAL_ALIGNMENT.md)、[EXPANSION_PROTOCOL](../../../core/EXPANSION_PROTOCOL.md)、[PROMPT_PLAYBOOK](../../../core/PROMPT_PLAYBOOK.md)按当前研究分歧取用提示操作，作为生成创造性解释的工具，而非合规问卷。
+
+## 历史现象如何转为新的科学问题（例证索引）
+
+- [A5+HWG背景闪烁和小物体模糊](../../../research/20261027/A5_HWG_SPATIOTEMPORAL_FUNCTIONS_FLICKER_AND_SMALL_OBJECTS_20261027.md)：区别空间细节、视频时间相干性、mask时点与HiF4 Q2连带。历史A5的定性现象是OPEN机制种子，不是当前原生视频验收。
+- [UB1外观—连续运动衰减及因果审计](../../../research/20261027/UB1_MOTION_ATTENUATION_APPEARANCE_DYNAMICS_CAUSAL_AUDIT_20261027.md)：用同来源真实视频区分动作幅度变化、RAFT因纹理退化变弱、固定组选择、来源偏置与下游传播，选择有相反预测的最小判别；旧两来源formal20与后续20来源consumer分开计数。
+
+**例证用途**是学习从异常→数学/代码→可证伪竞争机制的方法，而不是要求新研究重跑旧mask、发明运动loss或先定位语义神经元。完整数值和已排除范围读取原报告及[P2证据导航](../../../research/RESEARCH_NAVIGATION.md)。
+
+## 文献、计算图和协作回写
+
+实际发现的节点、类型和原生证据链接回写[Graph Agent绑定表](../../../research/agent_protocol/GRAPH_AGENT_BINDINGS.json)，由静态工具检查引用；真实运行另以ACTIVE及原始receipt核验。
+
+广泛搜索基础/前沿工作和相邻学科，以**原论文方程→训练/执行实际动作→作者代码分支→适用模型/系统形状→竞争性机制**记录一手阅读深度。对G7–G12已验证论文保留其source ledger：[G11核心深读](../../../research/literature/20261027/G11_FIVE_PRIMARY_PAPERS_EQUATIONS_CODE_AND_COUNTERFACTUALS.md)、[G12原理](../../../research/literature/20261027/G12_SIGNED_QUANT_CODE_INFORMATION_CERTIFICATES_AND_EXECUTION.md)、[G13因果与干预方法原文L80–L89](../../../research/literature/20261027/G13_FUNCTION_CAUSAL_LOCALIZATION_SOURCE_LEDGER.json)。先分析对应的实际机制、信息或功能角色，再补图节点与**有类型**对照边；原始作者结果在LIT层保留、现行原生证据在SRC/NATIVE层保留。
+
+独立研究Agent可以分别提出信息/表示、行为函数、计算执行和检验思路，写入[讨论队列](../../../research/method_discussion/QUEUE.md)；独立审阅以公式、源码、证据和真正不同的预测支持/质疑；串行整合者更新综合报告、图谱及研究登记。旧方法的明确失败边界作为研究资源，已关闭RUN和哈希保持原样。图节点可以由真实新问题生成，无须从已列候选中选一个。
+
+## 实际执行和证据身份
+
+对模型/原生CPU-GPU/视频运行，先检查[ACTIVE_RESEARCH.json](../../../research/ACTIVE_RESEARCH.json)当轮登记的模型、source、代码、GPU资源和预算；历史已完成scope及过去的暂停/恢复状态留在原始RUN。实时/流式模型实验仍须独立授权。视频质量与系统成本按[全深度指标协议](../../../research/agent_protocol/VIDEO_GENERATION_METRICS_AND_FULL_DEPTH_POLICY.md)验收；纯数学/源码/文献研究按自身ALG/SRC/LIT证据完成。
+
+## G14 全文献逐计算边聚焦（现行索引）
+
+提出和评议新的 FFN 方法时，先按[机器G14逐论文映射](../../../research/agent_protocol/PAPER_METHOD_FOCUS_GRAPH.json)查论文作用节点、需要的前置信息、真实选择/训练/缓存/计算行动、原文核验深度和与冻结Wan的异同。当前已收录98个主LID及20个补充研究，分组Mermaid见[全计算图G14](../../../docs/98_端到端计算图与证据注解_20261025.md)。`python tools/graph_agent_bridge.py paper L74`检索作者方法与原生锚点，`focus T06`检索针对相同Q2阶段的替代论文。先从作者明确实际做了什么总结方法贡献，形成同一算子多方法竞争假说；以原Wan输入state/shape、HiF4 QDQ及消费者数据判断可迁移性。G14的LIT类比不会成为真实本地跑通的NATIVE/VIDEO/SYS。索引增删更新原始来源、机器映射与可见图，并执行`graph_agent_bridge.py validate`。

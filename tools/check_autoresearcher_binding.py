@@ -9,8 +9,11 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+HANDOFF = "research/CURRENT_HANDOFF.json"
+HANDOFF_ARCHIVE = "archive/20261121/handoff/MANIFEST.json"
 
 
 def text(path):
@@ -29,6 +32,96 @@ def ensure(condition, message):
 def git_blob_sha1(data):
     # Identical to git hash-object on a regular blob.
     return hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+
+
+def archived_text(path):
+    """Read a superseded instruction from its snapshot, or its dated source in place."""
+    for item in record(HANDOFF_ARCHIVE)["entries"]:
+        if item["path"] == path:
+            return text(item["archive"])
+    return text(path)
+
+
+def check_handoff_archive(manifest):
+    archive = (ROOT / HANDOFF_ARCHIVE).parent
+    ensure(re.fullmatch(r"[0-9a-f]{40}", manifest["source_commit"]), "Invalid archive revision")
+    seen = set()
+    for item in manifest["entries"]:
+        path = item["path"]
+        target = (ROOT / item["archive"]).resolve()
+        expected = (archive / "original" / (path + ".txt")).resolve()
+        ensure(path not in seen and target == expected and
+               target.is_relative_to((archive / "original").resolve()) and target.is_file(),
+               "Invalid or duplicate archive entry: " + path)
+        seen.add(path)
+        data = target.read_bytes()
+        ensure((len(data), git_blob_sha1(data), hashlib.sha256(data).hexdigest()) ==
+               (item["bytes"], item["source_blob_sha1"], item["sha256"]),
+               "Archive content differs from its registered blob: " + path)
+    files = {p.resolve() for p in (archive / "original").rglob("*") if p.is_file()}
+    ensure(seen and files == {(ROOT / item["archive"]).resolve() for item in manifest["entries"]},
+           "Archive file list and manifest differ")
+    return seen
+
+
+def markdown_targets(path):
+    return [unquote(link.strip("<>")) for link in re.findall(r"\]\(([^)]+)\)", text(path))]
+
+
+def check_literature_source_lock():
+    source = record("research/agent_protocol/ACTIVE_SOURCE_MANIFEST.json")
+    ensure(source["source_commit"] == record("research/ACTIVE_RESEARCH.json")["autoResearcher"]["source_revision"],
+           "Inconsistent pinned AutoResearcher revision")
+    for path in ("core/WEB_RESEARCH_DISCOVERY.md", ".agents/skills/web-research-discovery/SKILL.md"):
+        expected = source["git_blob_sha1"][path]
+        data = (ROOT / path).read_bytes()
+        # A text checkout can apply core.autocrlf to the upstream Markdown sources.
+        ensure(expected in (git_blob_sha1(data), git_blob_sha1(data.replace(b"\r\n", b"\n"))),
+               "Pinned upstream source differs: " + path)
+
+
+def check_current_handoff():
+    check_literature_source_lock()
+    handoff = record(HANDOFF)
+    ensure(handoff["archive_manifest_path"] == HANDOFF_ARCHIVE, "Incorrect handoff archive")
+    entries = check_handoff_archive(record(HANDOFF_ARCHIVE))
+    routes = {handoff[k] for k in ("context_path", "navigation_path", "evidence_index_path", "findings_path")}
+    ensure(routes <= entries, "A current research route is missing its historical snapshot")
+    ensure(handoff["context_path"] == "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+           "The default context must use the canonical repository entry")
+    links = set()
+    for path in sorted(entries | {Path(HANDOFF_ARCHIVE).with_name("README.md").as_posix()}):
+        check_relative_markdown_links(path)
+        links.update(markdown_targets(path))
+        if path.endswith("/SKILL.md"):
+            name = Path(path).parent.name
+            ensure(re.match(r"\A---\nname:\s*" + re.escape(name) + r"\ndescription:[^\n]+\n---\n", text(path)),
+                   "Invalid domain skill frontmatter: " + path)
+    for path in ("README.md", "AGENTS.md"):
+        destinations = {(ROOT / path).parent.joinpath(link).resolve()
+                        for link in markdown_targets(path) if not urlsplit(link).scheme}
+        ensure({(ROOT / HANDOFF).resolve(), (ROOT / handoff["context_path"]).resolve()} <= destinations,
+               "Missing machine or reader entry from " + path)
+    evidence = handoff["evidence"]
+    ensure(re.fullmatch(r"[0-9a-f]{40}", evidence["commit"]), "Invalid evidence revision")
+    prefix = f"https://github.com/{evidence['repository']}/blob/{evidence['commit']}/"
+    for key in ("method_path", "implementation_path", "runner_path", "timing_path"):
+        ensure(prefix + evidence[key] in links, "Missing commit-pinned evidence link: " + key)
+    for path in handoff["legacy_scope_records"]:
+        ensure((ROOT / path).is_file(), "Missing historical machine interface: " + path)
+    baseline = handoff["baseline"]
+    schedule = baseline["expert_schedule"]
+    native = baseline["native_anchor_steps"]
+    approx = baseline["approximation_steps"]
+    ensure(sorted(native + approx) == list(range(len(schedule))) and
+           all(any(anchor < step and schedule[anchor] == schedule[step] for anchor in native)
+               for step in approx), "An approximation step has no earlier anchor from its expert")
+    verified = handoff["verified_video_comparison"]
+    ensure(0 < verified["faster_sources"] <= verified["sources"] and
+           0 < verified["bitwise_equivalent_sources"] <= verified["sources"] and
+           verified["formal_runs_per_arm_per_source"] >= 1,
+           "Invalid denominators for the paired video evidence")
+    return handoff
 
 
 def current_execution_authority_is_consistent(active):
@@ -135,7 +228,7 @@ def paired_graph_evidence_is_consistent(active, graph_data, result):
 
 
 def check_relative_markdown_links(path):
-    for link in re.findall(r"\]\(([^)]+)\)", text(path)):
+    for link in markdown_targets(path):
         if link.startswith(("https://", "http://", "#", "mailto:")):
             continue
         target = link.split("#", 1)[0].split("?", 1)[0]
@@ -146,7 +239,8 @@ def check_relative_markdown_links(path):
                "Broken local Markdown link " + path + ": " + link)
 
 
-def main():
+def check_historical_bindings():
+    text = archived_text
     active = record("research/ACTIVE_RESEARCH.json")
     contract = record("research/OBJECTIVE_CONTRACT.json")
     current = record("research/CURRENT_DECISION.json")
@@ -194,6 +288,7 @@ def main():
            "FFNDS science lost the pinned upstream literature discovery skill")
 
     stage = active.get("current_stage", {})
+    ensure(isinstance(stage, dict), "October E0 audit requires its historical structured stage ledger")
     ensure(stage.get("id") == "E0_OPEN_DISCOVERY" and
            stage.get("phase") == "PHENOMENON_AND_COMPETING_MECHANISM_EXPLORATION" and
            active.get("active_document") == stage.get("task_document") and
@@ -646,6 +741,18 @@ def main():
     print("PASS: exact AutoResearcher v2.4 WARD source, shared skills and parallel I/F/C discovery route,")
     print("      Markdown links, E0 issues, completed permission scope and historic pause.")
     print("Scope: static structure only. No numerical experiment or agent behavioral run.")
+
+
+def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--legacy", action="store_true", help="Run the October E0 source and scope audit.")
+    if parser.parse_args().legacy:
+        check_historical_bindings()
+    else:
+        handoff = check_current_handoff()
+        print(f"PASS: current {handoff['baseline']['method']} handoff, evidence links and archived originals.")
 
 
 if __name__ == "__main__":
