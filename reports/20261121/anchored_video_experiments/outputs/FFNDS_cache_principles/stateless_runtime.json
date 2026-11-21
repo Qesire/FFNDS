@@ -1,0 +1,143 @@
+{
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "torch": "2.8.0+cu126",
+  "scope": "Single real high19 weight set. Both methods use the same U0/U1 and 64 probe IDs; the 512 real rows of 0392 are repeated modulo 512 to N=31668. Synchronized GPU FFN component, no gate/post, attention, model prefetch, decoder or video. AnchorSlots has one full site, not 40. The resident arm writes its slot, stateless computes the same native anchor but omits all slot writes. Tile=8192, shared input/output shape. Both arms keep the same physical slot and prepared weights during timing. Extra peak is temporary allocated bytes above the per-call baseline including both inputs, the slot and static weights; it excludes cached allocator reserve.",
+  "source": "vbi_0392",
+  "expert": "high",
+  "layer": 19,
+  "n": 31668,
+  "tile_rows": 8192,
+  "checks": [
+    {
+      "fold": 0,
+      "reference_equal": true,
+      "probe_equal": true,
+      "different_output_values": 0,
+      "gated_angle_delta": 0.0,
+      "gated_signed_delta": 0.0,
+      "relative_J_delta": 0.0
+    },
+    {
+      "fold": 1,
+      "reference_equal": true,
+      "probe_equal": true,
+      "different_output_values": 0,
+      "gated_angle_delta": 0.0,
+      "gated_signed_delta": 0.0,
+      "relative_J_delta": 0.0
+    }
+  ],
+  "generic_anchor_slot_bytes_per_layer": 810700800,
+  "old_40_site_projected_bytes": 32428032000,
+  "stateless_cross_step_bytes": 0,
+  "static_mean_bytes": 15424,
+  "static_80_site_projected_bytes": 1233920,
+  "per_arm_warmups": 1,
+  "rounds": 6,
+  "raw": {
+    "resident": [
+      {
+        "pair_ms": 485.58074951171875,
+        "anchor_ms": 328.36907958984375,
+        "hit_ms": 157.21165466308594,
+        "sync_wall_ms": 485.7418999890797,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 470.0335998535156,
+        "anchor_ms": 317.6378173828125,
+        "hit_ms": 152.39578247070312,
+        "sync_wall_ms": 470.18999996362254,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 471.1842956542969,
+        "anchor_ms": 317.6241149902344,
+        "hit_ms": 153.56016540527344,
+        "sync_wall_ms": 471.3690000353381,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 471.4410705566406,
+        "anchor_ms": 318.93365478515625,
+        "hit_ms": 152.50738525390625,
+        "sync_wall_ms": 471.5544000500813,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 482.6387023925781,
+        "anchor_ms": 324.2238464355469,
+        "hit_ms": 158.4148406982422,
+        "sync_wall_ms": 482.7517000376247,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 486.4600524902344,
+        "anchor_ms": 330.29595947265625,
+        "hit_ms": 156.16409301757812,
+        "sync_wall_ms": 486.58399999840185,
+        "extra_peak_bytes": 1201664000
+      }
+    ],
+    "stateless": [
+      {
+        "pair_ms": 479.7762145996094,
+        "anchor_ms": 316.3714294433594,
+        "hit_ms": 163.40480041503906,
+        "sync_wall_ms": 479.9350000103004,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 468.6515197753906,
+        "anchor_ms": 307.95623779296875,
+        "hit_ms": 160.69529724121094,
+        "sync_wall_ms": 468.8229999737814,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 465.13232421875,
+        "anchor_ms": 306.27203369140625,
+        "hit_ms": 158.86029052734375,
+        "sync_wall_ms": 465.27609997428954,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 467.74249267578125,
+        "anchor_ms": 307.7353210449219,
+        "hit_ms": 160.00717163085938,
+        "sync_wall_ms": 467.85009995801374,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 474.468994140625,
+        "anchor_ms": 314.8826904296875,
+        "hit_ms": 159.5863037109375,
+        "sync_wall_ms": 474.5725999819115,
+        "extra_peak_bytes": 1201664000
+      },
+      {
+        "pair_ms": 471.9881591796875,
+        "anchor_ms": 308.5884704589844,
+        "hit_ms": 163.39967346191406,
+        "sync_wall_ms": 472.08039998076856,
+        "extra_peak_bytes": 1201664000
+      }
+    ]
+  },
+  "medians": {
+    "resident": {
+      "pair_ms": 477.0398864746094,
+      "anchor_ms": 321.57875061035156,
+      "hit_ms": 154.86212921142578,
+      "sync_wall_ms": 477.153050043853,
+      "extra_peak_bytes": 1201664000.0
+    },
+    "stateless": {
+      "pair_ms": 470.31983947753906,
+      "anchor_ms": 308.27235412597656,
+      "hit_ms": 160.35123443603516,
+      "sync_wall_ms": 470.451699977275,
+      "extra_peak_bytes": 1201664000.0
+    }
+  }
+}
