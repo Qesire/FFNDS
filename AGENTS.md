@@ -6,6 +6,8 @@
 
 当前成片比较使用 `fast512`、固定 64 个真实探针、四步高高低低和逐位置锚点。记录任何改动发生在哪个专家、层、步、位置和张量，说明哪些信息能在生成时取得。研究原始论文和实现时可用[论文与方法技能](.agents/skills/ffnds-paper-discovery/SKILL.md)，复算已有结果或安排配对时可用[实验与成片证据技能](.agents/skills/ffnds-experiment-evidence/SKILL.md)。登记方法版本时使用[讨论约定](research/method_discussion/AGENTS.md)。
 
+推导跨步增量、邻边误差或缓存折叠条件时，可调用 [`$operator-tensor-analysis`（算子与张量分析）](.agents/skills/operator-tensor-analysis/SKILL.md)。从失败案例重新选择观测量、状态表示或求解目标时，可调用 [`$active-abstraction`（主动抽象与问题重构）](.agents/skills/active-abstraction/SKILL.md)，写明新构造保留哪些动作与纹理信息，以及哪组配对能检验这个判断。
+
 ## 哪些证据支持哪些结论
 
 - 复算区分校准来源、反复使用的开发来源、评测来源、同一来源的提示词或种子变体。镜头指令属于生成条件，需记录完整提示和种子。同场景多次生成仍是一个来源。
