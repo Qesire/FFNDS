@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+from check_autoresearcher_binding import archived_text
 from graph_agent_bridge import load, validate, inspect, trace, load_crosswalk, validate_crosswalk, validate_paper_focus, inspect_paper, inspect_focus, validate_method_operation_crosswalk
 
 
@@ -12,13 +13,23 @@ class GraphAgentBridgeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.registry = load()
+        root = Path(__file__).resolve().parents[1]
+        cls.index_path = "research/literature/20261026/PRIMARY_LITERATURE_INDEX.json"
+        catalogue = json.loads((root / cls.index_path).read_text(encoding="utf-8"))
+        cls.primary_ids = [paper["id"] for paper in catalogue["records"]]
 
 
     def test_full_literature_index_is_linked_to_actual_native_focus_nodes(self):
         result=validate_paper_focus(self.registry)
         root = Path(__file__).resolve().parents[1]
-        overlay = json.loads((root / self.registry["paper_method_focus_v2"]["overlay"]).read_text())
-        self.assertEqual(result["paper_focus_primary"],98)
+        spec = self.registry["paper_method_focus_v2"]
+        overlay = json.loads((root / spec["overlay"]).read_text(encoding="utf-8"))
+        self.assertEqual(overlay["primary_index"], self.index_path)
+        self.assertEqual(len(self.primary_ids), len(set(self.primary_ids)))
+        self.assertTrue({f"L{i:02d}" for i in range(1, 111)} <= set(self.primary_ids))
+        self.assertCountEqual([paper["id"] for paper in overlay["paper_links"]], self.primary_ids)
+        self.assertEqual(spec["primary_papers"], len(self.primary_ids))
+        self.assertEqual(result["paper_focus_primary"], len(self.primary_ids))
         self.assertEqual(result["paper_focus_supplemental"],len(overlay["supplemental_papers"]))
         self.assertEqual(result["paper_focus_supplemental"],len(overlay["supplemental_links"]))
         self.assertEqual(result["paper_focus_stages"],16)
@@ -137,10 +148,19 @@ class GraphAgentBridgeTests(unittest.TestCase):
         result = validate_crosswalk(self.registry)
         self.assertIsNotNone(crosswalk)
         self.assertEqual(result["mechanism_families"], 14)
-        self.assertEqual(result["primary_papers"], 98)
+        self.assertEqual(crosswalk["paper_index"], self.index_path)
+        self.assertEqual(result["primary_papers"], len(self.primary_ids))
         self.assertEqual(result["crossgraph_comparison_edges"], 84)
-        self.assertEqual(len(self.registry["nodes"]), 225)
-        self.assertEqual(len(self.registry["edges"]), 468)
+        # The original 225 nodes and 468 edges predate the registered A5/HWG extension.
+        extension = set(self.registry["a5_hwg_core_wrapup_20261030"]["nodes"])
+        self.assertEqual(extension, {"U48", "U49"})
+        self.assertEqual(sum(n["id"] not in extension for n in self.registry["nodes"]), 225)
+        edges = self.registry["edges"]
+        original = [e for e in edges if e["from"] not in extension and e["to"] not in extension]
+        self.assertEqual(len(original), 468)
+        added = [(e["from"], e["to"]) for e in edges if e["from"] in extension or e["to"] in extension]
+        self.assertCountEqual(added, [("F03", "U48"), ("F08", "U48"), ("U48", "U49"), ("P06", "U49"),
+                                      ("U49", "P12"), ("U49", "F13")])
         nodes = {n["id"]: n for n in self.registry["nodes"]}
         self.assertEqual(nodes["I17"]["evidence_type"], "ALG")
         self.assertEqual(nodes["I18"]["evidence_type"], "ALG")
@@ -263,14 +283,14 @@ class GraphAgentBridgeTests(unittest.TestCase):
         self.assertTrue((root / cross["current_method_plan"]).is_file())
 
 
-    def test_research_reading_priorities_have_one_current_method_authority(self):
+    def test_archived_method_reading_priorities_20261027(self):
         root = Path(__file__).resolve().parents[1]
-        nav = (root / "research/RESEARCH_NAVIGATION.md").read_text(encoding="utf-8")
-        readme = (root / "README.md").read_text(encoding="utf-8")
-        context = (root / "research/agent_protocol/CURRENT_CONTEXT_PACKET.md").read_text(encoding="utf-8")
-        skill = (root / ".agents/skills/ffnds-paper-discovery/SKILL.md").read_text(encoding="utf-8")
-        copilot = (root / ".github/copilot-instructions.md").read_text(encoding="utf-8")
-        agents = (root / "AGENTS.md").read_text(encoding="utf-8")
+        nav = archived_text("research/RESEARCH_NAVIGATION.md")
+        readme = archived_text("README.md")
+        context = archived_text("research/agent_protocol/CURRENT_CONTEXT_PACKET.md")
+        skill = archived_text(".agents/skills/ffnds-paper-discovery/SKILL.md")
+        copilot = archived_text(".github/copilot-instructions.md")
+        agents = archived_text("AGENTS.md")
         method = "COMPACT_FFN_REPRESENTATION_THREE_METHOD_PROPOSAL_20261027.md"
         for tier in ("P0", "P1", "P2", "P3", "P4"):
             self.assertIn("## " + tier + " ·", nav)
