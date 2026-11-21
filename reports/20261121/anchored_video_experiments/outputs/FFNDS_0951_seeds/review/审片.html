@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>0951 左摇 · 跨种子审片</title><style>
+body{max-width:1420px;margin:0 auto;padding:clamp(16px,4vw,52px);font:17px/1.6 system-ui,sans-serif;background:#14181a;color:#edf0eb}
+h1{font-size:clamp(24px,3vw,40px);margin:0}p{max-width:55em;color:#c8cfca;margin:12px 0 24px}select{font:inherit;margin-left:.5em}
+video{width:100%;display:block;margin:14px 0;background:black}small{color:#c8cfca}</style>
+<h1>0951 左摇 · 跨种子审片</h1>
+<p>每次选择一个种子，比较同图、同提示、同初始噪声的两种生成。先看熊翻过栅栏时动作是否连贯，再看轮廓有无跳动、毛绒纹理能否延续。可分别记录 Variant 1、Variant 2、两者相近或无法判断。</p>
+<label>种子<select id="choice"><option value="https://github.com/Qesire/FFNDS/releases/download/ffnds-0951-pan-left-seeds-20261121/s43_blind.mp4">43</option><option value="https://github.com/Qesire/FFNDS/releases/download/ffnds-0951-pan-left-seeds-20261121/s44_blind.mp4">44</option><option value="https://github.com/Qesire/FFNDS/releases/download/ffnds-0951-pan-left-seeds-20261121/s45_blind.mp4">45</option><option value="https://github.com/Qesire/FFNDS/releases/download/ffnds-0951-pan-left-seeds-20261121/s46_blind.mp4">46</option><option value="https://github.com/Qesire/FFNDS/releases/download/ffnds-0951-pan-left-seeds-20261121/s42_blind.mp4">42 · 历史参照</option></select></label>
+<video id="player" controls playsinline loop preload="metadata"></video>
+<small>左侧为 Variant 1，右侧为 Variant 2；各个种子的顺序独立抽取。每栏原画幅 832 × 464，81 帧，16 fps。</small>
+<script>const sel=document.querySelector('#choice'),v=document.querySelector('#player');function choose(){v.src=sel.value;v.load()}sel.addEventListener('change',choose);choose();</script></html>
