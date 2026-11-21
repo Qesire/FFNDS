@@ -1,0 +1,462 @@
+{
+ "source": "vbi_1013",
+ "metric": "native VBench DynamicDegree 0.1.5 RAFT",
+ "runtime": {
+  "weight_sha256": "fcfa4125d6418f4de95d84aec20a3c5f4e205101715a79f193243c186ac9a7e1",
+  "code_sha256": {
+   "vbench/dynamic_degree.py": "2e93d3a7af38bfbe459c19c9d127894f687424a0bc534dbf7e6571d17b24dff7",
+   "vbench/third_party/RAFT/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "vbench/third_party/RAFT/core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "vbench/third_party/RAFT/core/corr.py": "f147a59672010c07671802c76e8d3d47e16cddb7573b750298b40639c2411053",
+   "vbench/third_party/RAFT/core/datasets.py": "f809bc29103b71744c8c03f13e95e5a0e9a898a0dad67d9ccd4acfba2e5f2805",
+   "vbench/third_party/RAFT/core/extractor.py": "f6b65d4f4df27001d9c11194f71b84a9799de3231f9d1672cbcf3a052fec79dc",
+   "vbench/third_party/RAFT/core/raft.py": "dfa382fe9d21b22f65db72401d1ee1016b7e9f5aa25610fd112bff78b7957563",
+   "vbench/third_party/RAFT/core/update.py": "7302f91ffc24c85cf739a25feb17d9d1e537f7344a2ddc331daf8ab9db6c3f74",
+   "vbench/third_party/RAFT/core/utils_core/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "vbench/third_party/RAFT/core/utils_core/augmentor.py": "0672da08db6c127ced5d8835381c294d6b7b5b90286916a8f72784bd0e0c8dca",
+   "vbench/third_party/RAFT/core/utils_core/flow_viz.py": "72595c16479265fea80add4f1691b4e35321b898f3da0a0f2ee19f6f8d831d26",
+   "vbench/third_party/RAFT/core/utils_core/frame_utils.py": "ef3b214054e581700451215a72bb4fed202588c8d66483c90249127b6305d9d0",
+   "vbench/third_party/RAFT/core/utils_core/utils.py": "125ca33c84f60c19359c875002e9301fe0404b3256c6efec718b26589d7fdd5a"
+  },
+  "script_sha256": "f953af3b29f37b8b6d19c764c152f28cac2fb7ce7ddc0ae208ca6fba62cd66bc",
+  "scope_sha256": "29bd7887b7d4de3f522d91a2d331e4056bf9a03c4bc09f653e49ac0979524b08",
+  "torch": "2.8.0+cu126",
+  "opencv": "4.12.0",
+  "numpy": "2.2.6",
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "cudnn": 91002,
+  "cudnn_allow_tf32": true,
+  "cuda": "12.6",
+  "matmul_tf32": false
+ },
+ "units": "original pixels per two video frames; angular error in degrees",
+ "note": "Window EPE minus magnitude MAE is the excess endpoint discrepancy after radial disparity. It weights direction by the two motion magnitudes. It is not itself an angle.",
+ "arms": {
+  "Dense": {
+   "video_sha256": "13365372fb66952626939c659186709da7bf05f99d498473398fd305b7a79b15",
+   "native_dynamic_degree": false,
+   "windows": [
+    {
+     "first_frame": 0,
+     "last_frame": 16,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.19517884956862575,
+     "dense_mean_grid_flow_px_per_2_frames": 0.19517884956862575,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0,
+     "derived_magnitude_surplus": 0.0,
+     "derived_magnitude_deficit": 0.0,
+     "derived_endpoint_excess_over_magnitude": 0.0
+    },
+    {
+     "first_frame": 16,
+     "last_frame": 32,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.3563076117814074,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3563076117814074,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0,
+     "derived_magnitude_surplus": 0.0,
+     "derived_magnitude_deficit": 0.0,
+     "derived_endpoint_excess_over_magnitude": 0.0
+    },
+    {
+     "first_frame": 32,
+     "last_frame": 48,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.4262954496274737,
+     "dense_mean_grid_flow_px_per_2_frames": 0.4262954496274737,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0,
+     "derived_magnitude_surplus": 0.0,
+     "derived_magnitude_deficit": 0.0,
+     "derived_endpoint_excess_over_magnitude": 0.0
+    },
+    {
+     "first_frame": 48,
+     "last_frame": 64,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.3554048508142542,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3554048508142542,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0,
+     "derived_magnitude_surplus": 0.0,
+     "derived_magnitude_deficit": 0.0,
+     "derived_endpoint_excess_over_magnitude": 0.0
+    },
+    {
+     "first_frame": 64,
+     "last_frame": 80,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.3671040871517519,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3671040871517519,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0,
+     "derived_magnitude_surplus": 0.0,
+     "derived_magnitude_deficit": 0.0,
+     "derived_endpoint_excess_over_magnitude": 0.0
+    }
+   ],
+   "summary": {
+    "raft_continuous_px_per_2_frames": 1.904867534339428,
+    "raft_endpoint_error_px": 0.0,
+    "raft_magnitude_mae_px": 0.0,
+    "raft_direction_error_deg": 2.411974928365e-07,
+    "raft_direction_valid_fraction": 0.9998729432609417
+   },
+   "dense_array_sha256": "d46a5a87de2fd08f829232bb0ca0f026511e090da92bbe7a48ce0fdb3bd6fa15",
+   "elapsed_seconds": 9.72389509997447,
+   "peak_gpu_allocated_bytes": 593215488
+  },
+  "Global-P64": {
+   "video_sha256": "c4b46cb3003e12c43ec4002534e4b19aedd1bc4597f3dab961976afdd2e01d1a",
+   "native_dynamic_degree": false,
+   "windows": [
+    {
+     "first_frame": 0,
+     "last_frame": 16,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.5676201571956525,
+     "dense_mean_grid_flow_px_per_2_frames": 0.19517884956862575,
+     "raft_endpoint_error_px": 0.54294851171106,
+     "raft_magnitude_mae_px": 0.4453367244315405,
+     "derived_magnitude_surplus": 0.4088890160292836,
+     "derived_magnitude_deficit": 0.03644770840225686,
+     "derived_endpoint_excess_over_magnitude": 0.09761178727951947
+    },
+    {
+     "first_frame": 16,
+     "last_frame": 32,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.5207352582455227,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3563076117814074,
+     "raft_endpoint_error_px": 0.5587115043274282,
+     "raft_magnitude_mae_px": 0.37878586521691154,
+     "derived_magnitude_surplus": 0.2716067558405134,
+     "derived_magnitude_deficit": 0.10717910937639813,
+     "derived_endpoint_excess_over_magnitude": 0.17992563911051668
+    },
+    {
+     "first_frame": 32,
+     "last_frame": 48,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.47309113221894505,
+     "dense_mean_grid_flow_px_per_2_frames": 0.4262954496274737,
+     "raft_endpoint_error_px": 0.5629052739650388,
+     "raft_magnitude_mae_px": 0.3960784752989895,
+     "derived_magnitude_surplus": 0.2214370789452304,
+     "derived_magnitude_deficit": 0.17464139635375905,
+     "derived_endpoint_excess_over_magnitude": 0.16682679866604927
+    },
+    {
+     "first_frame": 48,
+     "last_frame": 64,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.5804669789864491,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3554048508142542,
+     "raft_endpoint_error_px": 0.609091338678522,
+     "raft_magnitude_mae_px": 0.36630335381642937,
+     "derived_magnitude_surplus": 0.29568274099431213,
+     "derived_magnitude_deficit": 0.07062061282211726,
+     "derived_endpoint_excess_over_magnitude": 0.2427879848620927
+    },
+    {
+     "first_frame": 64,
+     "last_frame": 80,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.7374207037471328,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3671040871517519,
+     "raft_endpoint_error_px": 0.8014494416499625,
+     "raft_magnitude_mae_px": 0.5297848761789031,
+     "derived_magnitude_surplus": 0.45005074638714193,
+     "derived_magnitude_deficit": 0.07973412979176114,
+     "derived_endpoint_excess_over_magnitude": 0.2716645654710593
+    }
+   ],
+   "summary": {
+    "raft_continuous_px_per_2_frames": 1.8774590641260147,
+    "raft_endpoint_error_px": 0.6150212140664022,
+    "raft_magnitude_mae_px": 0.42325785898855467,
+    "raft_direction_error_deg": 74.58414457299769,
+    "raft_direction_valid_fraction": 0.9998656902768568
+   },
+   "elapsed_seconds": 13.43175719998544,
+   "peak_gpu_allocated_bytes": 593215488
+  },
+  "R32": {
+   "video_sha256": "30e7e911a85031d1fb4c8fbb20eb74d3a531289d443c4ffea37c0171f0923d64",
+   "native_dynamic_degree": false,
+   "windows": [
+    {
+     "first_frame": 0,
+     "last_frame": 16,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.11158096829627717,
+     "dense_mean_grid_flow_px_per_2_frames": 0.19517884956862575,
+     "raft_endpoint_error_px": 0.17936545383898123,
+     "raft_magnitude_mae_px": 0.13915467675502124,
+     "derived_magnitude_surplus": 0.027778397741336336,
+     "derived_magnitude_deficit": 0.11137627901368491,
+     "derived_endpoint_excess_over_magnitude": 0.04021077708395998
+    },
+    {
+     "first_frame": 16,
+     "last_frame": 32,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.1698510544861439,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3563076117814074,
+     "raft_endpoint_error_px": 0.33593090956531796,
+     "raft_magnitude_mae_px": 0.2595810198784189,
+     "derived_magnitude_surplus": 0.03656223129157771,
+     "derived_magnitude_deficit": 0.2230187885868412,
+     "derived_endpoint_excess_over_magnitude": 0.07634988968689904
+    },
+    {
+     "first_frame": 32,
+     "last_frame": 48,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.19342864409214394,
+     "dense_mean_grid_flow_px_per_2_frames": 0.4262954496274737,
+     "raft_endpoint_error_px": 0.3990596746225518,
+     "raft_magnitude_mae_px": 0.311563773763339,
+     "derived_magnitude_surplus": 0.039348484114004656,
+     "derived_magnitude_deficit": 0.2722152896493344,
+     "derived_endpoint_excess_over_magnitude": 0.08749590085921283
+    },
+    {
+     "first_frame": 48,
+     "last_frame": 64,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.19844106645159176,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3554048508142542,
+     "raft_endpoint_error_px": 0.3509160365707543,
+     "raft_magnitude_mae_px": 0.22350048492662075,
+     "derived_magnitude_surplus": 0.033268350281979164,
+     "derived_magnitude_deficit": 0.19023213464464162,
+     "derived_endpoint_excess_over_magnitude": 0.12741555164413357
+    },
+    {
+     "first_frame": 64,
+     "last_frame": 80,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.2292295520302684,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3671040871517519,
+     "raft_endpoint_error_px": 0.359735547567602,
+     "raft_magnitude_mae_px": 0.23778800742260103,
+     "derived_magnitude_surplus": 0.04995673615055876,
+     "derived_magnitude_deficit": 0.18783127127204227,
+     "derived_endpoint_excess_over_magnitude": 0.12194754014500098
+    }
+   ],
+   "summary": {
+    "raft_continuous_px_per_2_frames": 1.1950453616678716,
+    "raft_endpoint_error_px": 0.3250015244330414,
+    "raft_magnitude_mae_px": 0.23431759254920018,
+    "raft_direction_error_deg": 66.51991819648417,
+    "raft_direction_valid_fraction": 0.9997178459673408
+   },
+   "elapsed_seconds": 9.75419080001302,
+   "peak_gpu_allocated_bytes": 593215488
+  },
+  "Joint": {
+   "video_sha256": "4c5e2598afcd23a2f29541d703ce00d1f76b590d0a2cc6fc7ce6b919ecfd834f",
+   "native_dynamic_degree": false,
+   "windows": [
+    {
+     "first_frame": 0,
+     "last_frame": 16,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.11046636880373795,
+     "dense_mean_grid_flow_px_per_2_frames": 0.19517884956862575,
+     "raft_endpoint_error_px": 0.17367005825238058,
+     "raft_magnitude_mae_px": 0.1349432759972911,
+     "derived_magnitude_surplus": 0.025115397616201657,
+     "derived_magnitude_deficit": 0.10982787838108946,
+     "derived_endpoint_excess_over_magnitude": 0.038726782255089465
+    },
+    {
+     "first_frame": 16,
+     "last_frame": 32,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.16308569733295858,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3563076117814074,
+     "raft_endpoint_error_px": 0.3197417307508267,
+     "raft_magnitude_mae_px": 0.2508739918557847,
+     "derived_magnitude_surplus": 0.028826038703667928,
+     "derived_magnitude_deficit": 0.22204795315211676,
+     "derived_endpoint_excess_over_magnitude": 0.068867738895042
+    },
+    {
+     "first_frame": 32,
+     "last_frame": 48,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.15071224205407352,
+     "dense_mean_grid_flow_px_per_2_frames": 0.4262954496274737,
+     "raft_endpoint_error_px": 0.40079421325417275,
+     "raft_magnitude_mae_px": 0.33643966600857605,
+     "derived_magnitude_surplus": 0.03042822921758795,
+     "derived_magnitude_deficit": 0.3060114367909881,
+     "derived_endpoint_excess_over_magnitude": 0.0643545472455967
+    },
+    {
+     "first_frame": 48,
+     "last_frame": 64,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.1821820179454004,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3554048508142542,
+     "raft_endpoint_error_px": 0.29374295278544954,
+     "raft_magnitude_mae_px": 0.21655642018113627,
+     "derived_magnitude_surplus": 0.021666793656141214,
+     "derived_magnitude_deficit": 0.19488962652499503,
+     "derived_endpoint_excess_over_magnitude": 0.07718653260431327
+    },
+    {
+     "first_frame": 64,
+     "last_frame": 80,
+     "pairs": 8,
+     "mean_grid_flow_px_per_2_frames": 0.2371992472741598,
+     "dense_mean_grid_flow_px_per_2_frames": 0.3671040871517519,
+     "raft_endpoint_error_px": 0.3236904779070991,
+     "raft_magnitude_mae_px": 0.23551872858600137,
+     "derived_magnitude_surplus": 0.05280694435420463,
+     "derived_magnitude_deficit": 0.18271178423179674,
+     "derived_endpoint_excess_over_magnitude": 0.08817174932109773
+    }
+   ],
+   "summary": {
+    "raft_continuous_px_per_2_frames": 1.2912025719881057,
+    "raft_endpoint_error_px": 0.30232788658998566,
+    "raft_magnitude_mae_px": 0.23486641652575785,
+    "raft_direction_error_deg": 64.93240235028584,
+    "raft_direction_valid_fraction": 0.9994931329782825
+   },
+   "elapsed_seconds": 9.451045499998145,
+   "peak_gpu_allocated_bytes": 593215488
+  }
+ },
+ "old_control_difference": {
+  "Dense": {
+   "windows": [
+    {
+     "mean_grid_flow_px_per_2_frames": 2.914688614408245e-06,
+     "dense_mean_grid_flow_px_per_2_frames": 2.914688614408245e-06,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": 2.015613141581607e-05,
+     "dense_mean_grid_flow_px_per_2_frames": 2.015613141581607e-05,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": -7.145328641711135e-06,
+     "dense_mean_grid_flow_px_per_2_frames": -7.145328641711135e-06,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": -2.2884646634357964e-06,
+     "dense_mean_grid_flow_px_per_2_frames": -2.2884646634357964e-06,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": 2.5439249897507565e-05,
+     "dense_mean_grid_flow_px_per_2_frames": 2.5439249897507565e-05,
+     "raft_endpoint_error_px": 0.0,
+     "raft_magnitude_mae_px": 0.0
+    }
+   ],
+   "summary": {
+    "raft_continuous_px_per_2_frames": 3.0535459518477026e-05,
+    "raft_endpoint_error_px": 0.0,
+    "raft_magnitude_mae_px": 0.0,
+    "raft_direction_error_deg": -1.4152169802456393e-11,
+    "raft_direction_valid_fraction": -1.8780048076649791e-06
+   }
+  },
+  "Global-P64": {
+   "windows": [
+    {
+     "mean_grid_flow_px_per_2_frames": 6.792915084874451e-07,
+     "dense_mean_grid_flow_px_per_2_frames": 2.914688614408245e-06,
+     "raft_endpoint_error_px": -4.701258689676635e-06,
+     "raft_magnitude_mae_px": -2.6648211426394397e-06
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": 2.230217454990413e-05,
+     "dense_mean_grid_flow_px_per_2_frames": 2.015613141581607e-05,
+     "raft_endpoint_error_px": 7.192629929608785e-05,
+     "raft_magnitude_mae_px": 4.122948872342658e-05
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": -2.4673956727339075e-05,
+     "dense_mean_grid_flow_px_per_2_frames": -7.145328641711135e-06,
+     "raft_endpoint_error_px": -3.979089938654923e-07,
+     "raft_magnitude_mae_px": -8.192150376284957e-06
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": 4.49920698862849e-05,
+     "dense_mean_grid_flow_px_per_2_frames": -2.2884646634357964e-06,
+     "raft_endpoint_error_px": 4.3658111158695334e-05,
+     "raft_magnitude_mae_px": 2.5799102822743336e-05
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": -8.330336454642762e-06,
+     "dense_mean_grid_flow_px_per_2_frames": 2.5439249897507565e-05,
+     "raft_endpoint_error_px": 2.698861576000411e-05,
+     "raft_magnitude_mae_px": -2.518240830251539e-05
+    }
+   ],
+   "summary": {
+    "raft_continuous_px_per_2_frames": 3.6835670471191406e-05,
+    "raft_endpoint_error_px": 2.7494771706271237e-05,
+    "raft_magnitude_mae_px": 6.197842344846105e-06,
+    "raft_direction_error_deg": 0.011450122944324903,
+    "raft_direction_valid_fraction": -1.942763594109387e-06
+   }
+  },
+  "R32": {
+   "windows": [
+    {
+     "mean_grid_flow_px_per_2_frames": -2.3275373369893715e-05,
+     "dense_mean_grid_flow_px_per_2_frames": 2.914688614408245e-06,
+     "raft_endpoint_error_px": 9.367810831828471e-06,
+     "raft_magnitude_mae_px": 3.076352245059977e-05
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": -5.586008641839113e-06,
+     "dense_mean_grid_flow_px_per_2_frames": 2.015613141581607e-05,
+     "raft_endpoint_error_px": -1.8844023284336764e-05,
+     "raft_magnitude_mae_px": 5.339750556193623e-05
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": 2.9911810740801403e-06,
+     "dense_mean_grid_flow_px_per_2_frames": -7.145328641711135e-06,
+     "raft_endpoint_error_px": -2.877427580555425e-05,
+     "raft_magnitude_mae_px": 4.45238379853663e-06
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": -3.0706730963309115e-05,
+     "dense_mean_grid_flow_px_per_2_frames": -2.2884646634357964e-06,
+     "raft_endpoint_error_px": -2.3207992928153676e-05,
+     "raft_magnitude_mae_px": 7.88227665665664e-06
+    },
+    {
+     "mean_grid_flow_px_per_2_frames": -7.929035683251762e-06,
+     "dense_mean_grid_flow_px_per_2_frames": 2.5439249897507565e-05,
+     "raft_endpoint_error_px": 5.823027175888562e-06,
+     "raft_magnitude_mae_px": 1.0002356978372484e-05
+    }
+   ],
+   "summary": {
+    "raft_continuous_px_per_2_frames": 6.605684757410302e-06,
+    "raft_endpoint_error_px": -1.1127090802143247e-05,
+    "raft_magnitude_mae_px": 2.1299609089198146e-05,
+    "raft_direction_error_deg": -0.025687023584012536,
+    "raft_direction_valid_fraction": 3.0436629641084068e-06
+   }
+  }
+ }
+}
