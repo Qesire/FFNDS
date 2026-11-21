@@ -1,0 +1,12 @@
+diff --git a/work/anchored_scale/exact_port.py b/work/anchored_scale/exact_port.py
+--- a/work/anchored_scale/exact_port.py
++++ b/work/anchored_scale/exact_port.py
+@@ -105,6 +105,7 @@ def fast_hit(u, phase, cached, t, probes, inv_metric):
+         b, q, x = at(sl)
+         cross = (x @ xp.T) / k
+         design = torch.cat((q, cross), dim=1)
+-        out[sl].copy_(torch.addmm(b, design, readout))
++        b.addmm_(design, readout)
++        out[sl].copy_(b)
+     out.index_copy_(0, probes, observed)
+     return out, None
