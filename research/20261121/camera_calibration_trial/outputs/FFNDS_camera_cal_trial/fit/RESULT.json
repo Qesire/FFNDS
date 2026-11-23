@@ -1,0 +1,1951 @@
+{
+  "status": "PASS",
+  "trial": "FFNDS-camera-cal-v1",
+  "job": "182601",
+  "protocol_sha256": "d1582cc65e7f6481b7c4024731e02f7074bd593ae0f9e74c9ef08baf2c280569",
+  "capture_index_sha256": "e09a7d741c57a30980460830e3957ae517a1963434fd93e9b7cd12ec411aa39d",
+  "evaluator_sha256": "a4f102c9693cab450778eb55491239e6a02e2486151c7a8eb071681c805a8bcd",
+  "frozen_manifest_sha256": "de1dd6b00171a587a5b05bb05c47496ceea273aa08ba8cf12e14d538a605169b",
+  "fold_implementation_sha256": "159e5c4209310c4651d59698f05f8a00e41afc75ed1c35b44c8f27a8550f70ca",
+  "scope": "Same-input replay on Dense anchor/hit trajectories, true cached anchor hidden, actual hit gate, panel-sized 512-row tile for writeback, native captured 64-row observations. No closed-loop video quality or speed measurement.",
+  "joint": "Equal-weight mean of three normalized gated error energies (point, spatial first difference, temporal first difference). Report each component and signed projections.",
+  "training": "Frozen prior/features; unit-weight point plus same-frame nearest neighbor; two trajectories averaged within source; three source blocks for held-source shrinkage at fixed ridge.",
+  "layers": [
+    {
+      "site": "high00",
+      "input_coordinates_sha256": "5a8edc8f548b7a8697d35cc42c53d0c047204e4e9c5ac6c2a4f23fdebf01e5b5",
+      "fold": {
+        "A": {
+          "alpha": 1.0,
+          "unbounded": 1.1974253369199792,
+          "sha256": "c39062d0a3fe7de890531e40e95f95af1ebf64f7eebd58a46d33a8d53ad2267b",
+          "source_groups": {
+            "vbi_0032": [
+              "vbi_0032_base_s42",
+              "vbi_0032_base_s43"
+            ],
+            "vbi_0304": [
+              "vbi_0304_base_s42",
+              "vbi_0304_base_s43"
+            ],
+            "vbi_0456": [
+              "vbi_0456_base_s42",
+              "vbi_0456_base_s43"
+            ]
+          },
+          "bytes": 78645109
+        },
+        "B": {
+          "alpha": 1.0,
+          "unbounded": 1.1932960416048184,
+          "sha256": "1f1f71ac5e07a052cb5f16f6ce3e22ed4f149a545b639cf7c80d225fa1f523bf",
+          "source_groups": {
+            "vbi_0032": [
+              "vbi_0032_base_s42",
+              "vbi_0032_camera_s43"
+            ],
+            "vbi_0304": [
+              "vbi_0304_base_s42",
+              "vbi_0304_camera_s43"
+            ],
+            "vbi_0456": [
+              "vbi_0456_base_s42",
+              "vbi_0456_camera_s43"
+            ]
+          },
+          "bytes": 78645109
+        }
+      },
+      "validation": [
+        {
+          "trajectory_id": "vbi_0905_base_s44",
+          "source": "vbi_0905",
+          "condition": "base",
+          "seed": 44,
+          "layer": 0,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 14184.454757625328,
+                "error_energy": 193.2279559538956,
+                "error_target_dot": -466.5305118119486,
+                "relative_rms": 0.11671553273543296,
+                "projected_gain": 0.9671097324653138,
+                "orthogonal_rms": 0.1119854717506369,
+                "direction_cosine": 0.993362551986969
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3499.075635077546,
+                "error_energy": 104.5226860180128,
+                "error_target_dot": -279.0066459878966,
+                "relative_rms": 0.1728337749709844,
+                "projected_gain": 0.9202627564860532,
+                "orthogonal_rms": 0.15334107658262483,
+                "direction_cosine": 0.9864001891107961
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4448.945619509255,
+                "error_energy": 127.03877362298623,
+                "error_target_dot": -347.219810947586,
+                "relative_rms": 0.168981669940096,
+                "projected_gain": 0.9219545841547314,
+                "orthogonal_rms": 0.1498790106762206,
+                "direction_cosine": 0.98704232703923
+              },
+              "joint_relative_energy": 0.024016278042726782
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 14184.454757625328,
+                "error_energy": 127.01568519897036,
+                "error_target_dot": -224.340787556999,
+                "relative_rms": 0.09462858683971206,
+                "projected_gain": 0.9841840386965599,
+                "orthogonal_rms": 0.09329750701561652,
+                "direction_cosine": 0.9955368409274298
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3499.075635077546,
+                "error_energy": 65.9818601878431,
+                "error_target_dot": -173.75602746992172,
+                "relative_rms": 0.13732057475843767,
+                "projected_gain": 0.9503423059141529,
+                "orthogonal_rms": 0.12802755043374103,
+                "direction_cosine": 0.9910473019813429
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4448.945619509255,
+                "error_energy": 81.95049422872486,
+                "error_target_dot": -197.03533558955047,
+                "relative_rms": 0.13572105906198287,
+                "projected_gain": 0.9557119028999764,
+                "orthogonal_rms": 0.12829173912674627,
+                "direction_cosine": 0.9911102000235177
+              },
+              "joint_relative_energy": 0.015410571857391614
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 14184.454757625328,
+                "error_energy": 114.8766744236504,
+                "error_target_dot": -197.982736304228,
+                "relative_rms": 0.08999318120007152,
+                "projected_gain": 0.9860422737646792,
+                "orthogonal_rms": 0.08890418742021516,
+                "direction_cosine": 0.9959599633927132
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3499.075635077546,
+                "error_energy": 61.74399538747818,
+                "error_target_dot": -153.12771261145235,
+                "relative_rms": 0.13283750174851777,
+                "projected_gain": 0.9562376671494673,
+                "orthogonal_rms": 0.1254219282831621,
+                "direction_cosine": 0.9915076977232946
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4448.945619509255,
+                "error_energy": 75.33934058531474,
+                "error_target_dot": -174.91109565266783,
+                "relative_rms": 0.13013147688271962,
+                "projected_gain": 0.9606848204919256,
+                "orthogonal_rms": 0.12405046527895683,
+                "direction_cosine": 0.9917659215031515
+              },
+              "joint_relative_energy": 0.014226258602991385
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_0905_camera_s44",
+          "source": "vbi_0905",
+          "condition": "camera",
+          "seed": 44,
+          "layer": 0,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 14149.674644426537,
+                "error_energy": 201.21028599902706,
+                "error_target_dot": -475.2807010054301,
+                "relative_rms": 0.11924820822983191,
+                "projected_gain": 0.9664104855447938,
+                "orthogonal_rms": 0.11441975216145525,
+                "direction_cosine": 0.993063954382943
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3511.26109457708,
+                "error_energy": 109.21869452401586,
+                "error_target_dot": -291.45366056714363,
+                "relative_rms": 0.17636683785506027,
+                "projected_gain": 0.9169945917672498,
+                "orthogonal_rms": 0.1556128648252053,
+                "direction_cosine": 0.9859048717531793
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4468.665247916993,
+                "error_energy": 131.43138906968858,
+                "error_target_dot": -360.9176490260837,
+                "relative_rms": 0.17149862314543937,
+                "projected_gain": 0.9192336796330134,
+                "orthogonal_rms": 0.15128971952898423,
+                "direction_cosine": 0.986725390788002
+              },
+              "joint_relative_energy": 0.024912391467266634
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 14149.674644426537,
+                "error_energy": 133.44802661811963,
+                "error_target_dot": -242.57532766802746,
+                "relative_rms": 0.09711422552222305,
+                "projected_gain": 0.9828564731158976,
+                "orthogonal_rms": 0.0955890803635816,
+                "direction_cosine": 0.9953038851171008
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3511.26109457708,
+                "error_energy": 70.34841726460547,
+                "error_target_dot": -185.15327838119447,
+                "relative_rms": 0.1415453488852375,
+                "projected_gain": 0.9472687238590283,
+                "orthogonal_rms": 0.13135637901369007,
+                "direction_cosine": 0.9905219891352347
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4468.665247916993,
+                "error_energy": 85.44329523590051,
+                "error_target_dot": -211.89156448399947,
+                "relative_rms": 0.13827704287234446,
+                "projected_gain": 0.9525828065589004,
+                "orthogonal_rms": 0.1298928418031168,
+                "direction_cosine": 0.9908308383288432
+              },
+              "joint_relative_energy": 0.016195599725114997
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 14149.674644426537,
+                "error_energy": 120.49782184864279,
+                "error_target_dot": -213.6184501130363,
+                "relative_rms": 0.09228186678308511,
+                "projected_gain": 0.9849029426130883,
+                "orthogonal_rms": 0.09103857311726368,
+                "direction_cosine": 0.9957551545635811
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3511.26109457708,
+                "error_energy": 65.34446759080066,
+                "error_target_dot": -163.86475930231813,
+                "relative_rms": 0.13641836799855114,
+                "projected_gain": 0.9533316506837396,
+                "orthogonal_rms": 0.12818750445922417,
+                "direction_cosine": 0.9910806642266948
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4468.665247916993,
+                "error_energy": 78.3751831498781,
+                "error_target_dot": -187.0055708088812,
+                "relative_rms": 0.13243426730211086,
+                "projected_gain": 0.9581518058672998,
+                "orthogonal_rms": 0.12564857262889534,
+                "direction_cosine": 0.9915109555350033
+              },
+              "joint_relative_energy": 0.014888249740068714
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_1014_base_s44",
+          "source": "vbi_1014",
+          "condition": "base",
+          "seed": 44,
+          "layer": 0,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 16360.830877701252,
+                "error_energy": 293.74528719147486,
+                "error_target_dot": -388.34514673757275,
+                "relative_rms": 0.1339932052852645,
+                "projected_gain": 0.976263727090605,
+                "orthogonal_rms": 0.1318740626923648,
+                "direction_cosine": 0.9909996319069333
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3321.503490180413,
+                "error_energy": 145.24020026376286,
+                "error_target_dot": -384.8241839431946,
+                "relative_rms": 0.2091106071381804,
+                "projected_gain": 0.8841415686959606,
+                "orthogonal_rms": 0.17408064198372428,
+                "direction_cosine": 0.9811626746266392
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4226.7350710430355,
+                "error_energy": 163.2070552099551,
+                "error_target_dot": -449.0538110819099,
+                "relative_rms": 0.19650198900286675,
+                "projected_gain": 0.8937587041690085,
+                "orthogonal_rms": 0.16530522902266134,
+                "direction_cosine": 0.9833224895273411
+              },
+              "joint_relative_energy": 0.03343148558746674
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 16360.830877701252,
+                "error_energy": 195.382870742398,
+                "error_target_dot": -179.65223288185427,
+                "relative_rms": 0.10927996959539234,
+                "projected_gain": 0.9890193698458977,
+                "orthogonal_rms": 0.1087268941715374,
+                "direction_cosine": 0.994011479837133
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3321.503490180413,
+                "error_energy": 98.84054010696403,
+                "error_target_dot": -255.29211865266615,
+                "relative_rms": 0.17250440852628657,
+                "projected_gain": 0.9231395904272256,
+                "orthogonal_rms": 0.15443525634164415,
+                "direction_cosine": 0.986293484447365
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4226.7350710430355,
+                "error_energy": 111.23035492591134,
+                "error_target_dot": -283.49600743936105,
+                "relative_rms": 0.16222177453467324,
+                "projected_gain": 0.9329278976149782,
+                "orthogonal_rms": 0.14770659164313388,
+                "direction_cosine": 0.9876972820673935
+              },
+              "joint_relative_energy": 0.022671928949650737
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 16360.830877701252,
+                "error_energy": 178.81099826693028,
+                "error_target_dot": -154.95931559719116,
+                "relative_rms": 0.10454287425128081,
+                "projected_gain": 0.9905286402166537,
+                "orthogonal_rms": 0.10411294780464878,
+                "direction_cosine": 0.9945214577609464
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3321.503490180413,
+                "error_energy": 90.91861385917184,
+                "error_target_dot": -229.39210024814298,
+                "relative_rms": 0.16544705704197574,
+                "projected_gain": 0.9309372695448581,
+                "orthogonal_rms": 0.1503431672738445,
+                "direction_cosine": 0.9872090946585961
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4226.7350710430355,
+                "error_energy": 101.75109396541944,
+                "error_target_dot": -252.8433391874879,
+                "relative_rms": 0.1551554480909673,
+                "projected_gain": 0.9401799888240704,
+                "orthogonal_rms": 0.14315997811965642,
+                "direction_cosine": 0.9886048971212321
+              },
+              "joint_relative_energy": 0.020791718104292912
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_1014_camera_s44",
+          "source": "vbi_1014",
+          "condition": "camera",
+          "seed": 44,
+          "layer": 0,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 15549.991070199236,
+                "error_energy": 287.9018670545523,
+                "error_target_dot": -381.5609179833073,
+                "relative_rms": 0.1360683657337595,
+                "projected_gain": 0.9754623062958184,
+                "orthogonal_rms": 0.13383759464790118,
+                "direction_cosine": 0.9907183359190603
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3350.900296282195,
+                "error_energy": 142.43162254199632,
+                "error_target_dot": -371.76296059496445,
+                "relative_rms": 0.2061685696453421,
+                "projected_gain": 0.8890557976292421,
+                "orthogonal_rms": 0.17377244623335023,
+                "direction_cosine": 0.9814286773032622
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4253.541042086904,
+                "error_energy": 159.2334947768781,
+                "error_target_dot": -436.67459205490763,
+                "relative_rms": 0.1934825932566709,
+                "projected_gain": 0.8973385732653791,
+                "orthogonal_rms": 0.16400044315226228,
+                "direction_cosine": 0.9837058905034557
+              },
+              "joint_relative_energy": 0.03281853105212959
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 15549.991070199236,
+                "error_energy": 189.80976814167983,
+                "error_target_dot": -189.94853517188045,
+                "relative_rms": 0.11048268175316028,
+                "projected_gain": 0.9877846531027334,
+                "orthogonal_rms": 0.1098053198508594,
+                "direction_cosine": 0.9938780494171566
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3350.900296282195,
+                "error_energy": 96.83566820823623,
+                "error_target_dot": -245.82275087428678,
+                "relative_rms": 0.16999530378340114,
+                "projected_gain": 0.9266397895672915,
+                "orthogonal_rms": 0.15335150091759642,
+                "direction_cosine": 0.9865812047803451
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4253.541042086904,
+                "error_energy": 109.2079470205886,
+                "error_target_dot": -274.63103091904566,
+                "relative_rms": 0.16023294233984545,
+                "projected_gain": 0.9354347288055544,
+                "orthogonal_rms": 0.14664897397006205,
+                "direction_cosine": 0.9879334090474888
+              },
+              "joint_relative_energy": 0.022259807362221728
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 15549.991070199236,
+                "error_energy": 174.39119383505,
+                "error_target_dot": -165.07912792602997,
+                "relative_rms": 0.10590030316782899,
+                "projected_gain": 0.9893839728151101,
+                "orthogonal_rms": 0.10536685521475797,
+                "direction_cosine": 0.9943769345853768
+              },
+              "space": {
+                "rows": 224,
+                "energy": 3350.900296282195,
+                "error_energy": 89.22673049816612,
+                "error_target_dot": -221.1969904980731,
+                "relative_rms": 0.16317992787825408,
+                "projected_gain": 0.9339887878062233,
+                "orthogonal_rms": 0.1492320633344604,
+                "direction_cosine": 0.987474610249131
+              },
+              "time": {
+                "rows": 224,
+                "energy": 4253.541042086904,
+                "error_energy": 99.97879802116191,
+                "error_target_dot": -246.11802738579775,
+                "relative_rms": 0.15331287992896278,
+                "projected_gain": 0.9421380856677839,
+                "orthogonal_rms": 0.14197477952764653,
+                "direction_cosine": 0.9888354180271159
+              },
+              "joint_relative_energy": 0.02044913407516762
+            }
+          }
+        }
+      ]
+    },
+    {
+      "site": "high13",
+      "input_coordinates_sha256": "5a8edc8f548b7a8697d35cc42c53d0c047204e4e9c5ac6c2a4f23fdebf01e5b5",
+      "fold": {
+        "A": {
+          "alpha": 0.28455052781975826,
+          "unbounded": 0.28455052781975826,
+          "sha256": "99154408e49c1473f9e3d80c5cbeb6de9efc1755a186975891f98d55d11ab736",
+          "source_groups": {
+            "vbi_0032": [
+              "vbi_0032_base_s42",
+              "vbi_0032_base_s43"
+            ],
+            "vbi_0304": [
+              "vbi_0304_base_s42",
+              "vbi_0304_base_s43"
+            ],
+            "vbi_0456": [
+              "vbi_0456_base_s42",
+              "vbi_0456_base_s43"
+            ]
+          },
+          "bytes": 78645109
+        },
+        "B": {
+          "alpha": 0.29249961776029215,
+          "unbounded": 0.29249961776029215,
+          "sha256": "aac3ce5995ce9a4b16aa7ea86c1a56e6b3cac6a461591f7c39fe818340e4de9e",
+          "source_groups": {
+            "vbi_0032": [
+              "vbi_0032_base_s42",
+              "vbi_0032_camera_s43"
+            ],
+            "vbi_0304": [
+              "vbi_0304_base_s42",
+              "vbi_0304_camera_s43"
+            ],
+            "vbi_0456": [
+              "vbi_0456_base_s42",
+              "vbi_0456_camera_s43"
+            ]
+          },
+          "bytes": 78645109
+        }
+      },
+      "validation": [
+        {
+          "trajectory_id": "vbi_0905_base_s44",
+          "source": "vbi_0905",
+          "condition": "base",
+          "seed": 44,
+          "layer": 13,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 268765.36978264817,
+                "error_energy": 60993.331585750886,
+                "error_target_dot": -70538.89386327619,
+                "relative_rms": 0.476381100452523,
+                "projected_gain": 0.7375447070419774,
+                "orthogonal_rms": 0.39756279009318185,
+                "direction_cosine": 0.8802601067045801
+              },
+              "space": {
+                "rows": 224,
+                "energy": 192917.9943218496,
+                "error_energy": 56473.19023733927,
+                "error_target_dot": -61079.15933790481,
+                "relative_rms": 0.541046749292118,
+                "projected_gain": 0.6833931456077393,
+                "orthogonal_rms": 0.4387387430708689,
+                "direction_cosine": 0.84150622456726
+              },
+              "time": {
+                "rows": 224,
+                "energy": 190606.6438416715,
+                "error_energy": 55152.73438571428,
+                "error_target_dot": -59603.42880109098,
+                "relative_rms": 0.5379160556497657,
+                "projected_gain": 0.6872961634506249,
+                "orthogonal_rms": 0.43768709546101964,
+                "direction_cosine": 0.8434853364899219
+              },
+              "joint_relative_energy": 0.2696747402379089
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 268765.36978264817,
+                "error_energy": 60114.85400607229,
+                "error_target_dot": -68194.66519674998,
+                "relative_rms": 0.47293803612363605,
+                "projected_gain": 0.7462669195369205,
+                "orthogonal_rms": 0.39911140035233034,
+                "direction_cosine": 0.8818114858147627
+              },
+              "space": {
+                "rows": 224,
+                "energy": 192917.9943218496,
+                "error_energy": 55774.97628339841,
+                "error_target_dot": -59684.191053535265,
+                "relative_rms": 0.5376916944030611,
+                "projected_gain": 0.6906240329558748,
+                "orthogonal_rms": 0.4397713829315719,
+                "direction_cosine": 0.8435046939668366
+              },
+              "time": {
+                "rows": 224,
+                "energy": 190606.6438416715,
+                "error_energy": 54497.186253766966,
+                "error_target_dot": -58437.772093328844,
+                "relative_rms": 0.5347096508596096,
+                "projected_gain": 0.6934116727753178,
+                "orthogonal_rms": 0.4380844762508446,
+                "direction_cosine": 0.8454116865706326
+              },
+              "joint_relative_energy": 0.2662323849883074
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 268765.36978264817,
+                "error_energy": 60131.32820477472,
+                "error_target_dot": -68355.93148208242,
+                "relative_rms": 0.4730028349291244,
+                "projected_gain": 0.7456668932557711,
+                "orthogonal_rms": 0.398806159261385,
+                "direction_cosine": 0.8818037846416047
+              },
+              "space": {
+                "rows": 224,
+                "energy": 192917.9943218496,
+                "error_energy": 55732.14955506919,
+                "error_target_dot": -59600.73888571841,
+                "relative_rms": 0.5374852218971469,
+                "projected_gain": 0.6910566114103119,
+                "orthogonal_rms": 0.43982308534744535,
+                "direction_cosine": 0.843628427306234
+              },
+              "time": {
+                "rows": 224,
+                "energy": 190606.6438416715,
+                "error_energy": 54515.28777632286,
+                "error_target_dot": -58336.63407989545,
+                "relative_rms": 0.5347984467761264,
+                "projected_gain": 0.6939422839407785,
+                "orthogonal_rms": 0.43856362493345286,
+                "direction_cosine": 0.8453325139489078
+              },
+              "joint_relative_energy": 0.26621047476099036
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_0905_camera_s44",
+          "source": "vbi_0905",
+          "condition": "camera",
+          "seed": 44,
+          "layer": 13,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 274577.69208155345,
+                "error_energy": 63490.83127354144,
+                "error_target_dot": -72878.61605081873,
+                "relative_rms": 0.48086468287348083,
+                "projected_gain": 0.7345792533314296,
+                "orthogonal_rms": 0.400977144576735,
+                "direction_cosine": 0.8777460659532537
+              },
+              "space": {
+                "rows": 224,
+                "energy": 204521.63821911137,
+                "error_energy": 59094.0759499474,
+                "error_target_dot": -64121.8971117234,
+                "relative_rms": 0.5375295470170413,
+                "projected_gain": 0.6864786647023269,
+                "orthogonal_rms": 0.43662614011246476,
+                "direction_cosine": 0.8437861282708841
+              },
+              "time": {
+                "rows": 224,
+                "energy": 199497.07845113485,
+                "error_energy": 57655.345583270755,
+                "error_target_dot": -62604.336011923064,
+                "relative_rms": 0.5375904186744846,
+                "projected_gain": 0.6861892088948186,
+                "orthogonal_rms": 0.43649312209535207,
+                "direction_cosine": 0.8437576805554124
+              },
+              "joint_relative_energy": 0.26972410513398887
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 274577.69208155345,
+                "error_energy": 62562.535185972636,
+                "error_target_dot": -70342.58758111752,
+                "relative_rms": 0.47733639008589546,
+                "projected_gain": 0.7438153586044973,
+                "orthogonal_rms": 0.4027647685849544,
+                "direction_cosine": 0.8793589049379839
+              },
+              "space": {
+                "rows": 224,
+                "energy": 204521.63821911137,
+                "error_energy": 58353.70389783711,
+                "error_target_dot": -62379.7684432013,
+                "relative_rms": 0.5341516598485582,
+                "projected_gain": 0.6949967299969912,
+                "orthogonal_rms": 0.4385099782290496,
+                "direction_cosine": 0.8457279872591229
+              },
+              "time": {
+                "rows": 224,
+                "energy": 199497.07845113485,
+                "error_energy": 56934.31546385179,
+                "error_target_dot": -61142.6481993983,
+                "relative_rms": 0.5342183254626872,
+                "projected_gain": 0.6935160721445117,
+                "orthogonal_rms": 0.437557791870319,
+                "direction_cosine": 0.8457378721727281
+              },
+              "joint_relative_energy": 0.2661857480931205
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 274577.69208155345,
+                "error_energy": 62519.401355857175,
+                "error_target_dot": -70402.42702881334,
+                "relative_rms": 0.47717181158248856,
+                "projected_gain": 0.7435974259412785,
+                "orthogonal_rms": 0.4024309354224347,
+                "direction_cosine": 0.8794657644784695
+              },
+              "space": {
+                "rows": 224,
+                "energy": 204521.63821911137,
+                "error_energy": 58315.44099493922,
+                "error_target_dot": -62366.95294063354,
+                "relative_rms": 0.5339765077743025,
+                "projected_gain": 0.6950593908610414,
+                "orthogonal_rms": 0.43834020549431757,
+                "direction_cosine": 0.8458429187933877
+              },
+              "time": {
+                "rows": 224,
+                "energy": 199497.07845113485,
+                "error_energy": 56904.332765539075,
+                "error_target_dot": -61088.394071493465,
+                "relative_rms": 0.5340776421501248,
+                "projected_gain": 0.6937880266429237,
+                "orthogonal_rms": 0.4375764564249337,
+                "direction_cosine": 0.8458219941006572
+              },
+              "joint_relative_energy": 0.2660209254894635
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_1014_base_s44",
+          "source": "vbi_1014",
+          "condition": "base",
+          "seed": 44,
+          "layer": 13,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 290750.6454492025,
+                "error_energy": 65301.48477270267,
+                "error_target_dot": -81008.15806410922,
+                "relative_rms": 0.4739157959219531,
+                "projected_gain": 0.7213827059989717,
+                "orthogonal_rms": 0.38336481986207704,
+                "direction_cosine": 0.8830496481054155
+              },
+              "space": {
+                "rows": 224,
+                "energy": 223530.5435757772,
+                "error_energy": 60730.47638874102,
+                "error_target_dot": -72362.97129441713,
+                "relative_rms": 0.5212366043022039,
+                "projected_gain": 0.6762725570437045,
+                "orthogonal_rms": 0.4085194491593647,
+                "direction_cosine": 0.8559502095140205
+              },
+              "time": {
+                "rows": 224,
+                "energy": 213206.1245901769,
+                "error_energy": 59484.735196075686,
+                "error_target_dot": -69327.9882008622,
+                "relative_rms": 0.5282055111879319,
+                "projected_gain": 0.6748311600610728,
+                "orthogonal_rms": 0.4162526727626825,
+                "direction_cosine": 0.851110690193208
+              },
+              "joint_relative_energy": 0.258428280446045
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 290750.6454492025,
+                "error_energy": 64115.737142578,
+                "error_target_dot": -78737.69296604628,
+                "relative_rms": 0.4695933910447987,
+                "projected_gain": 0.7291916829818262,
+                "orthogonal_rms": 0.38364151019765513,
+                "direction_cosine": 0.8849900345678665
+              },
+              "space": {
+                "rows": 224,
+                "energy": 223530.5435757772,
+                "error_energy": 59749.98944459079,
+                "error_target_dot": -70554.78297384345,
+                "relative_rms": 0.5170118286012395,
+                "projected_gain": 0.684361779624424,
+                "orthogonal_rms": 0.4094798465757952,
+                "direction_cosine": 0.8581213855264902
+              },
+              "time": {
+                "rows": 224,
+                "energy": 213206.1245901769,
+                "error_energy": 58424.88027968333,
+                "error_target_dot": -67544.52471190025,
+                "relative_rms": 0.5234787750672424,
+                "projected_gain": 0.6831961331235967,
+                "orthogonal_rms": 0.41673173370654015,
+                "direction_cosine": 0.8537135579458371
+              },
+              "joint_relative_energy": 0.25394973725748377
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 290750.6454492025,
+                "error_energy": 64068.826841370224,
+                "error_target_dot": -78644.3116825237,
+                "relative_rms": 0.4694215705276016,
+                "projected_gain": 0.7295128560728723,
+                "orthogonal_rms": 0.38365781087675693,
+                "direction_cosine": 0.8850663482664504
+              },
+              "space": {
+                "rows": 224,
+                "energy": 223530.5435757772,
+                "error_energy": 59752.01104033264,
+                "error_target_dot": -70491.56070395405,
+                "relative_rms": 0.5170205748795256,
+                "projected_gain": 0.6846446146628848,
+                "orthogonal_rms": 0.4097087450709769,
+                "direction_cosine": 0.8580884342705635
+              },
+              "time": {
+                "rows": 224,
+                "energy": 213206.1245901769,
+                "error_energy": 58383.59023704364,
+                "error_target_dot": -67531.80432347162,
+                "relative_rms": 0.5232937658636801,
+                "projected_gain": 0.6832557955205053,
+                "orthogonal_rms": 0.4165446846623351,
+                "direction_cosine": 0.8538376678863046
+              },
+              "joint_relative_energy": 0.25383441703904913
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_1014_camera_s44",
+          "source": "vbi_1014",
+          "condition": "camera",
+          "seed": 44,
+          "layer": 13,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 300063.4901825058,
+                "error_energy": 68144.51571638996,
+                "error_target_dot": -86448.43535318557,
+                "relative_rms": 0.4765504418051267,
+                "projected_gain": 0.7118995206627585,
+                "orthogonal_rms": 0.3796029997119532,
+                "direction_cosine": 0.8823924360171627
+              },
+              "space": {
+                "rows": 224,
+                "energy": 228252.76927849447,
+                "error_energy": 63276.78594640389,
+                "error_target_dot": -75583.51697706315,
+                "relative_rms": 0.5265191580891075,
+                "projected_gain": 0.6688604601995316,
+                "orthogonal_rms": 0.40935196227158427,
+                "direction_cosine": 0.8529389960624935
+              },
+              "time": {
+                "rows": 224,
+                "energy": 218843.57267987455,
+                "error_energy": 61777.96460060043,
+                "error_target_dot": -72514.33039000497,
+                "relative_rms": 0.5313123362582579,
+                "projected_gain": 0.6686476577674991,
+                "orthogonal_rms": 0.4153292958090528,
+                "direction_cosine": 0.8494655849880474
+              },
+              "joint_relative_energy": 0.2622051820265774
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 300063.4901825058,
+                "error_energy": 66819.29556500036,
+                "error_target_dot": -84054.92355894948,
+                "relative_rms": 0.4718939051885514,
+                "projected_gain": 0.7198762051730276,
+                "orthogonal_rms": 0.37975586542651035,
+                "direction_cosine": 0.8844754190157212
+              },
+              "space": {
+                "rows": 224,
+                "energy": 228252.76927849447,
+                "error_energy": 62218.126602879835,
+                "error_target_dot": -73750.66962337671,
+                "relative_rms": 0.52209608605226,
+                "projected_gain": 0.6768903621344788,
+                "orthogonal_rms": 0.4101030175327908,
+                "direction_cosine": 0.8552726275443899
+              },
+              "time": {
+                "rows": 224,
+                "energy": 218843.57267987455,
+                "error_energy": 60659.47403099037,
+                "error_target_dot": -70811.07565011203,
+                "relative_rms": 0.5264806598176042,
+                "projected_gain": 0.6764306358967425,
+                "orthogonal_rms": 0.4153128360354317,
+                "direction_cosine": 0.8521933076365421
+              },
+              "joint_relative_energy": 0.25748335532905675
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 300063.4901825058,
+                "error_energy": 66747.64973397352,
+                "error_target_dot": -83899.94666296421,
+                "relative_rms": 0.4716408473075142,
+                "projected_gain": 0.7203926855215399,
+                "orthogonal_rms": 0.3798221143365582,
+                "direction_cosine": 0.8845798917076692
+              },
+              "space": {
+                "rows": 224,
+                "energy": 228252.76927849447,
+                "error_energy": 62214.03234187534,
+                "error_target_dot": -73619.77382446695,
+                "relative_rms": 0.5220789075149934,
+                "projected_gain": 0.6774638307470329,
+                "orthogonal_rms": 0.41053234366572183,
+                "direction_cosine": 0.8552268131392236
+              },
+              "time": {
+                "rows": 224,
+                "energy": 218843.57267987455,
+                "error_energy": 60684.66358003064,
+                "error_target_dot": -70675.34964454934,
+                "relative_rms": 0.5265899620668963,
+                "projected_gain": 0.6770508323407167,
+                "orthogonal_rms": 0.415933676513205,
+                "direction_cosine": 0.8520585737789544
+              },
+              "joint_relative_energy": 0.2574361542235381
+            }
+          }
+        }
+      ]
+    },
+    {
+      "site": "high26",
+      "input_coordinates_sha256": "5a8edc8f548b7a8697d35cc42c53d0c047204e4e9c5ac6c2a4f23fdebf01e5b5",
+      "fold": {
+        "A": {
+          "alpha": 0.279651842562445,
+          "unbounded": 0.279651842562445,
+          "sha256": "caf77b14143f3f3455524d485154b66ed6e9286aa01b77af9a1faf8f5b5e4b3d",
+          "source_groups": {
+            "vbi_0032": [
+              "vbi_0032_base_s42",
+              "vbi_0032_base_s43"
+            ],
+            "vbi_0304": [
+              "vbi_0304_base_s42",
+              "vbi_0304_base_s43"
+            ],
+            "vbi_0456": [
+              "vbi_0456_base_s42",
+              "vbi_0456_base_s43"
+            ]
+          },
+          "bytes": 78645109
+        },
+        "B": {
+          "alpha": 0.2820363949885289,
+          "unbounded": 0.2820363949885289,
+          "sha256": "b15a47079f067f5443f999fc43ada408323d10993a00a94753872dc24cc53bea",
+          "source_groups": {
+            "vbi_0032": [
+              "vbi_0032_base_s42",
+              "vbi_0032_camera_s43"
+            ],
+            "vbi_0304": [
+              "vbi_0304_base_s42",
+              "vbi_0304_camera_s43"
+            ],
+            "vbi_0456": [
+              "vbi_0456_base_s42",
+              "vbi_0456_camera_s43"
+            ]
+          },
+          "bytes": 78645109
+        }
+      },
+      "validation": [
+        {
+          "trajectory_id": "vbi_0905_base_s44",
+          "source": "vbi_0905",
+          "condition": "base",
+          "seed": 44,
+          "layer": 26,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 496906.8637862318,
+                "error_energy": 65174.00239919742,
+                "error_target_dot": -85476.62137638014,
+                "relative_rms": 0.3621593468792821,
+                "projected_gain": 0.8279826108154706,
+                "orthogonal_rms": 0.318699561264471,
+                "direction_cosine": 0.9332531601006464
+              },
+              "space": {
+                "rows": 224,
+                "energy": 237127.03639784182,
+                "error_energy": 59141.03959838736,
+                "error_target_dot": -64185.44807432524,
+                "relative_rms": 0.4994062123393424,
+                "projected_gain": 0.7293204138618863,
+                "orthogonal_rms": 0.4196893214882026,
+                "direction_cosine": 0.8667367392159162
+              },
+              "time": {
+                "rows": 224,
+                "energy": 234431.3393329073,
+                "error_energy": 58694.00013438455,
+                "error_target_dot": -64980.799845680725,
+                "relative_rms": 0.5003674152721338,
+                "projected_gain": 0.7228152173229541,
+                "orthogonal_rms": 0.4165766994424853,
+                "direction_cosine": 0.8664096803873195
+              },
+              "joint_relative_energy": 0.21031116924042417
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 496906.8637862318,
+                "error_energy": 63603.88127548015,
+                "error_target_dot": -81433.47975300848,
+                "relative_rms": 0.357770321526984,
+                "projected_gain": 0.8361192294014257,
+                "orthogonal_rms": 0.318029394857675,
+                "direction_cosine": 0.9346706591187952
+              },
+              "space": {
+                "rows": 224,
+                "energy": 237127.03639784182,
+                "error_energy": 58195.70378936446,
+                "error_target_dot": -62518.63914248005,
+                "relative_rms": 0.495398771837922,
+                "projected_gain": 0.7363495951697853,
+                "orthogonal_rms": 0.4194143621424824,
+                "direction_cosine": 0.8689320242159495
+              },
+              "time": {
+                "rows": 224,
+                "energy": 234431.3393329073,
+                "error_energy": 57672.081484430455,
+                "error_target_dot": -63034.34914004654,
+                "relative_rms": 0.4959923506275335,
+                "projected_gain": 0.7311180778158086,
+                "orthogonal_rms": 0.4167864246872258,
+                "direction_cosine": 0.8687521582250617
+              },
+              "joint_relative_energy": 0.20647598599502306
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 496906.8637862318,
+                "error_energy": 63487.04937141677,
+                "error_target_dot": -81492.99408284023,
+                "relative_rms": 0.3574415821521766,
+                "projected_gain": 0.8359994598144687,
+                "orthogonal_rms": 0.31759771326365865,
+                "direction_cosine": 0.9348140539984467
+              },
+              "space": {
+                "rows": 224,
+                "energy": 237127.03639784182,
+                "error_energy": 58085.06412903436,
+                "error_target_dot": -62350.5977767649,
+                "relative_rms": 0.4949276302918689,
+                "projected_gain": 0.7370582506156924,
+                "orthogonal_rms": 0.4193029878942492,
+                "direction_cosine": 0.8691930981130314
+              },
+              "time": {
+                "rows": 224,
+                "energy": 234431.3393329073,
+                "error_energy": 57442.80681819943,
+                "error_target_dot": -63044.11582624432,
+                "relative_rms": 0.4950054629988567,
+                "projected_gain": 0.7310764166359273,
+                "orthogonal_rms": 0.41558454580186105,
+                "direction_cosine": 0.8693542752739858
+              },
+              "joint_relative_energy": 0.20591608409216286
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_0905_camera_s44",
+          "source": "vbi_0905",
+          "condition": "camera",
+          "seed": 44,
+          "layer": 26,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 445769.0247130809,
+                "error_energy": 64887.06545517899,
+                "error_target_dot": -80540.21142039589,
+                "relative_rms": 0.381525985743958,
+                "projected_gain": 0.8193229969887756,
+                "orthogonal_rms": 0.3360325852961002,
+                "direction_cosine": 0.9252082376025814
+              },
+              "space": {
+                "rows": 224,
+                "energy": 248765.86112690053,
+                "error_energy": 58960.27165137857,
+                "error_target_dot": -65632.12068524523,
+                "relative_rms": 0.4868378632337943,
+                "projected_gain": 0.7361691013874088,
+                "orthogonal_rms": 0.40915078151620243,
+                "direction_cosine": 0.87407260837169
+              },
+              "time": {
+                "rows": 224,
+                "energy": 247330.9579081037,
+                "error_energy": 59608.33624900918,
+                "error_target_dot": -67310.4295029025,
+                "relative_rms": 0.49092399572162176,
+                "projected_gain": 0.727852792581219,
+                "orthogonal_rms": 0.4085856912196533,
+                "direction_cosine": 0.8720008762295748
+              },
+              "joint_relative_energy": 0.20785985081707611
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 445769.0247130809,
+                "error_energy": 63171.61009771711,
+                "error_target_dot": -77191.39400264689,
+                "relative_rms": 0.3764488974214753,
+                "projected_gain": 0.8268354467824877,
+                "orthogonal_rms": 0.3342571014635647,
+                "direction_cosine": 0.9271083225645406
+              },
+              "space": {
+                "rows": 224,
+                "energy": 248765.86112690053,
+                "error_energy": 57682.609638659385,
+                "error_target_dot": -63584.02384825577,
+                "relative_rms": 0.4815341139184712,
+                "projected_gain": 0.7444021315456133,
+                "orthogonal_rms": 0.40809904742454517,
+                "direction_cosine": 0.8768727300867164
+              },
+              "time": {
+                "rows": 224,
+                "energy": 247330.9579081037,
+                "error_energy": 58217.45097912494,
+                "error_target_dot": -65294.791924784804,
+                "relative_rms": 0.4851626430545475,
+                "projected_gain": 0.7360023489293839,
+                "orthogonal_rms": 0.40704794612535694,
+                "direction_cosine": 0.8750855517334031
+              },
+              "joint_relative_energy": 0.20299055515092193
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 445769.0247130809,
+                "error_energy": 63151.976699522726,
+                "error_target_dot": -77277.99283327493,
+                "relative_rms": 0.376390393724567,
+                "projected_gain": 0.8266411783927452,
+                "orthogonal_rms": 0.33409047795332125,
+                "direction_cosine": 0.9271426484462085
+              },
+              "space": {
+                "rows": 224,
+                "energy": 248765.86112690053,
+                "error_energy": 57711.18813249561,
+                "error_target_dot": -63652.05654265829,
+                "relative_rms": 0.48165338570332805,
+                "projected_gain": 0.7441286507147052,
+                "orthogonal_rms": 0.40806842143738786,
+                "direction_cosine": 0.8768134662807273
+              },
+              "time": {
+                "rows": 224,
+                "energy": 247330.9579081037,
+                "error_energy": 58131.10663236862,
+                "error_target_dot": -65263.721335926915,
+                "relative_rms": 0.48480272867464985,
+                "projected_gain": 0.7361279724628091,
+                "orthogonal_rms": 0.40670042883404756,
+                "direction_cosine": 0.8752954591820507
+              },
+              "joint_relative_energy": 0.20289779939266653
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_1014_base_s44",
+          "source": "vbi_1014",
+          "condition": "base",
+          "seed": 44,
+          "layer": 26,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 476924.14347586234,
+                "error_energy": 82960.70654198987,
+                "error_target_dot": -111044.44425257028,
+                "relative_rms": 0.4170725111404767,
+                "projected_gain": 0.7671653956470535,
+                "orthogonal_rms": 0.34603110635437095,
+                "direction_cosine": 0.9115624618774745
+              },
+              "space": {
+                "rows": 224,
+                "energy": 236700.0395433089,
+                "error_energy": 73084.5982658808,
+                "error_target_dot": -81803.99447024032,
+                "relative_rms": 0.5556659267240711,
+                "projected_gain": 0.654398053215058,
+                "orthogonal_rms": 0.4351136822723216,
+                "direction_cosine": 0.8327260738002769
+              },
+              "time": {
+                "rows": 224,
+                "energy": 244637.8109424091,
+                "error_energy": 73149.62013569282,
+                "error_target_dot": -82091.56215649788,
+                "relative_rms": 0.5468198187707087,
+                "projected_gain": 0.6644363279729343,
+                "orthogonal_rms": 0.43175101182990017,
+                "direction_cosine": 0.8385200741810999
+              },
+              "joint_relative_energy": 0.2605753386238582
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 476924.14347586234,
+                "error_energy": 81388.65872127505,
+                "error_target_dot": -107664.82826326006,
+                "relative_rms": 0.41310199420837035,
+                "projected_gain": 0.77425167139036,
+                "orthogonal_rms": 0.3459637983212788,
+                "direction_cosine": 0.9129992403263656
+              },
+              "space": {
+                "rows": 224,
+                "energy": 236700.0395433089,
+                "error_energy": 72133.65299966914,
+                "error_target_dot": -80151.89624394928,
+                "relative_rms": 0.5520390475777309,
+                "projected_gain": 0.6613777657215646,
+                "orthogonal_rms": 0.43598405074361224,
+                "direction_cosine": 0.8349141308083362
+              },
+              "time": {
+                "rows": 224,
+                "energy": 244637.8109424091,
+                "error_energy": 72177.77793012408,
+                "error_target_dot": -80226.54439789007,
+                "relative_rms": 0.5431752374435829,
+                "projected_gain": 0.6720599154773486,
+                "orthogonal_rms": 0.4330065121163523,
+                "direction_cosine": 0.840627282897569
+              },
+              "joint_relative_energy": 0.2568132354137844
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 476924.14347586234,
+                "error_energy": 81427.09976263941,
+                "error_target_dot": -107686.81208352825,
+                "relative_rms": 0.41319953971681345,
+                "projected_gain": 0.7742055763864293,
+                "orthogonal_rms": 0.34605019561792166,
+                "direction_cosine": 0.9129522403764186
+              },
+              "space": {
+                "rows": 224,
+                "energy": 236700.0395433089,
+                "error_energy": 72123.41051277102,
+                "error_target_dot": -80004.49165681333,
+                "relative_rms": 0.5519998532959531,
+                "projected_gain": 0.6620005141901342,
+                "orthogonal_rms": 0.43641744423317924,
+                "direction_cosine": 0.8349008741800428
+              },
+              "time": {
+                "rows": 224,
+                "energy": 244637.8109424091,
+                "error_energy": 72215.64881777651,
+                "error_target_dot": -80114.13412464253,
+                "relative_rms": 0.5433177177983934,
+                "projected_gain": 0.6725194122036089,
+                "orthogonal_rms": 0.4335327059060076,
+                "direction_cosine": 0.840496304327472
+              },
+              "joint_relative_energy": 0.256877280044865
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_1014_camera_s44",
+          "source": "vbi_1014",
+          "condition": "camera",
+          "seed": 44,
+          "layer": 26,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 480699.53607494594,
+                "error_energy": 84592.31393897536,
+                "error_target_dot": -110805.28018749112,
+                "relative_rms": 0.4194967503669813,
+                "projected_gain": 0.7694916015683122,
+                "orthogonal_rms": 0.350490230706814,
+                "direction_cosine": 0.910044838905101
+              },
+              "space": {
+                "rows": 224,
+                "energy": 248510.0409818848,
+                "error_energy": 74129.06633958116,
+                "error_target_dot": -82561.52143877151,
+                "relative_rms": 0.5461630241893951,
+                "projected_gain": 0.6677739011568155,
+                "orthogonal_rms": 0.4334972528622809,
+                "direction_cosine": 0.8387624617455886
+              },
+              "time": {
+                "rows": 224,
+                "energy": 244516.09922917926,
+                "error_energy": 75875.24329856192,
+                "error_target_dot": -84029.41085720371,
+                "relative_rms": 0.5570527453256539,
+                "projected_gain": 0.6563440561905705,
+                "orthogonal_rms": 0.4384157311950587,
+                "direction_cosine": 0.8315511560051249
+              },
+              "joint_relative_energy": 0.2615264445450037
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 480699.53607494594,
+                "error_energy": 82687.82453620574,
+                "error_target_dot": -106942.56442697809,
+                "relative_rms": 0.41474764769944483,
+                "projected_gain": 0.7775272152326258,
+                "orthogonal_rms": 0.35003067195614784,
+                "direction_cosine": 0.911858548978801
+              },
+              "space": {
+                "rows": 224,
+                "energy": 248510.0409818848,
+                "error_energy": 72861.54442202642,
+                "error_target_dot": -80764.24348866721,
+                "relative_rms": 0.5414735111366499,
+                "projected_gain": 0.6750061157707727,
+                "orthogonal_rms": 0.43309645401024854,
+                "direction_cosine": 0.8416523366585305
+              },
+              "time": {
+                "rows": 224,
+                "energy": 244516.09922917926,
+                "error_energy": 74655.46545009795,
+                "error_target_dot": -82030.45299360507,
+                "relative_rms": 0.5525569862845193,
+                "projected_gain": 0.6645192146766589,
+                "orthogonal_rms": 0.4390579298573991,
+                "direction_cosine": 0.8343349790375332
+              },
+              "joint_relative_energy": 0.2568427992089017
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 480699.53607494594,
+                "error_energy": 82826.00883660755,
+                "error_target_dot": -107123.56510099735,
+                "relative_rms": 0.41509405715983755,
+                "projected_gain": 0.77715067924614,
+                "orthogonal_rms": 0.35020173690168593,
+                "direction_cosine": 0.9117089303559814
+              },
+              "space": {
+                "rows": 224,
+                "energy": 248510.0409818848,
+                "error_energy": 72962.32141727326,
+                "error_target_dot": -80571.76257526784,
+                "relative_rms": 0.5418478458988502,
+                "projected_gain": 0.6757806555545128,
+                "orthogonal_rms": 0.4341438756824316,
+                "direction_cosine": 0.841340712229301
+              },
+              "time": {
+                "rows": 224,
+                "energy": 244516.09922917926,
+                "error_energy": 74693.74326057566,
+                "error_target_dot": -81974.8597966129,
+                "relative_rms": 0.5526986233437806,
+                "projected_gain": 0.6647465747448401,
+                "orthogonal_rms": 0.43940972804524153,
+                "direction_cosine": 0.8342186116415515
+              },
+              "joint_relative_energy": 0.2571259775469163
+            }
+          }
+        }
+      ]
+    },
+    {
+      "site": "high39",
+      "input_coordinates_sha256": "5a8edc8f548b7a8697d35cc42c53d0c047204e4e9c5ac6c2a4f23fdebf01e5b5",
+      "fold": {
+        "A": {
+          "alpha": 0.7001564027731607,
+          "unbounded": 0.7001564027731607,
+          "sha256": "0355fe42455c8afd7e52ff3b91dabc2e99442798ac1081ccbe98b816fe372f6b",
+          "source_groups": {
+            "vbi_0032": [
+              "vbi_0032_base_s42",
+              "vbi_0032_base_s43"
+            ],
+            "vbi_0304": [
+              "vbi_0304_base_s42",
+              "vbi_0304_base_s43"
+            ],
+            "vbi_0456": [
+              "vbi_0456_base_s42",
+              "vbi_0456_base_s43"
+            ]
+          },
+          "bytes": 78645109
+        },
+        "B": {
+          "alpha": 0.7256643627014451,
+          "unbounded": 0.7256643627014451,
+          "sha256": "eb54141dda3616ffe7c2bf46ab07460f6859fb4d0787ed8f9589fabc53a8f7eb",
+          "source_groups": {
+            "vbi_0032": [
+              "vbi_0032_base_s42",
+              "vbi_0032_camera_s43"
+            ],
+            "vbi_0304": [
+              "vbi_0304_base_s42",
+              "vbi_0304_camera_s43"
+            ],
+            "vbi_0456": [
+              "vbi_0456_base_s42",
+              "vbi_0456_camera_s43"
+            ]
+          },
+          "bytes": 78645109
+        }
+      },
+      "validation": [
+        {
+          "trajectory_id": "vbi_0905_base_s44",
+          "source": "vbi_0905",
+          "condition": "base",
+          "seed": 44,
+          "layer": 39,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 522170.54433295276,
+                "error_energy": 5154.331569324171,
+                "error_target_dot": -4864.311733258033,
+                "relative_rms": 0.0993527726364278,
+                "projected_gain": 0.9906844386646283,
+                "orthogonal_rms": 0.0989150835189085,
+                "direction_cosine": 0.995052429663023
+              },
+              "space": {
+                "rows": 224,
+                "energy": 25724.844928254108,
+                "error_energy": 2896.634795586492,
+                "error_target_dot": -2927.9105410444554,
+                "relative_rms": 0.33556023426066023,
+                "projected_gain": 0.8861835494359512,
+                "orthogonal_rms": 0.31566831706408327,
+                "direction_cosine": 0.9420196385619005
+              },
+              "time": {
+                "rows": 224,
+                "energy": 38675.9811409676,
+                "error_energy": 3045.696845752977,
+                "error_target_dot": -3008.3121543869697,
+                "relative_rms": 0.2806226147152875,
+                "projected_gain": 0.92221756072788,
+                "orthogonal_rms": 0.2696274170601418,
+                "direction_cosine": 0.9598187121505698
+              },
+              "joint_relative_energy": 0.06707356537908653
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 522170.54433295276,
+                "error_energy": 4516.016819370594,
+                "error_target_dot": -3286.9408394339735,
+                "relative_rms": 0.09299756782739618,
+                "projected_gain": 0.99370523505183,
+                "orthogonal_rms": 0.09278428507057886,
+                "direction_cosine": 0.9956691290743368
+              },
+              "space": {
+                "rows": 224,
+                "energy": 25724.844928254108,
+                "error_energy": 2625.5269749101126,
+                "error_target_dot": -2603.1440508124883,
+                "relative_rms": 0.3194713077802722,
+                "projected_gain": 0.8988081732631398,
+                "orthogonal_rms": 0.3030216670413102,
+                "direction_cosine": 0.9475963935028027
+              },
+              "time": {
+                "rows": 224,
+                "energy": 38675.9811409676,
+                "error_energy": 2765.5993109547317,
+                "error_target_dot": -2709.550231164844,
+                "relative_rms": 0.26740773119392985,
+                "projected_gain": 0.929942301365569,
+                "orthogonal_rms": 0.25806745932862646,
+                "direction_cosine": 0.9635846408958563
+              },
+              "joint_relative_energy": 0.06073911960631121
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 522170.54433295276,
+                "error_energy": 4385.3556318366245,
+                "error_target_dot": -2426.017615319001,
+                "relative_rms": 0.09164235148624199,
+                "projected_gain": 0.9953539745938406,
+                "orthogonal_rms": 0.09152450510029127,
+                "direction_cosine": 0.9957990619235966
+              },
+              "space": {
+                "rows": 224,
+                "energy": 25724.844928254108,
+                "error_energy": 2614.3649425083386,
+                "error_target_dot": -2525.876988508771,
+                "relative_rms": 0.3187914924089852,
+                "projected_gain": 0.9018117700785613,
+                "orthogonal_rms": 0.3032937307911965,
+                "direction_cosine": 0.9478317650863054
+              },
+              "time": {
+                "rows": 224,
+                "energy": 38675.9811409676,
+                "error_energy": 2742.98595800018,
+                "error_target_dot": -2528.971824614953,
+                "relative_rms": 0.26631223677267585,
+                "projected_gain": 0.9346113078451128,
+                "orthogonal_rms": 0.2581598853291099,
+                "direction_cosine": 0.9639037098038588
+              },
+              "joint_relative_energy": 0.06031618122438057
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_0905_camera_s44",
+          "source": "vbi_0905",
+          "condition": "camera",
+          "seed": 44,
+          "layer": 39,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 382314.33068308345,
+                "error_energy": 4782.369416839194,
+                "error_target_dot": -7003.112426517813,
+                "relative_rms": 0.11184363447556848,
+                "projected_gain": 0.9816823177566865,
+                "orthogonal_rms": 0.11033340876605584,
+                "direction_cosine": 0.9937432145186029
+              },
+              "space": {
+                "rows": 224,
+                "energy": 24108.208073717517,
+                "error_energy": 2905.533908805592,
+                "error_target_dot": -2994.8522803529054,
+                "relative_rms": 0.3471606625471848,
+                "projected_gain": 0.8757745797118013,
+                "orthogonal_rms": 0.3241736734752233,
+                "direction_cosine": 0.9378140616497729
+              },
+              "time": {
+                "rows": 224,
+                "energy": 39129.0562931882,
+                "error_energy": 3082.584638155416,
+                "error_target_dot": -3030.142344161938,
+                "relative_rms": 0.28067764114675714,
+                "projected_gain": 0.9225603009319332,
+                "orthogonal_rms": 0.26978330424241426,
+                "direction_cosine": 0.959803107909832
+              },
+              "joint_relative_energy": 0.07060315414420422
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 382314.33068308345,
+                "error_energy": 4190.20537904601,
+                "error_target_dot": -5628.313890108355,
+                "relative_rms": 0.10469052225130004,
+                "projected_gain": 0.9852783078257825,
+                "orthogonal_rms": 0.10365026400727367,
+                "direction_cosine": 0.9945120967289403
+              },
+              "space": {
+                "rows": 224,
+                "energy": 24108.208073717517,
+                "error_energy": 2633.9118811975727,
+                "error_target_dot": -2614.018230007725,
+                "relative_rms": 0.3305355341787244,
+                "projected_gain": 0.8915714423065106,
+                "orthogonal_rms": 0.3122450755917927,
+                "direction_cosine": 0.9437939519166715
+              },
+              "time": {
+                "rows": 224,
+                "energy": 39129.0562931882,
+                "error_energy": 2775.413006672958,
+                "error_target_dot": -2709.039255327134,
+                "relative_rms": 0.2663263411649037,
+                "projected_gain": 0.9307665578482469,
+                "orthogonal_rms": 0.2571700808533227,
+                "direction_cosine": 0.9638845188941846
+              },
+              "joint_relative_energy": 0.06371452160078311
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 382314.33068308345,
+                "error_energy": 4103.219034986927,
+                "error_target_dot": -5049.0198231072245,
+                "relative_rms": 0.10359816469131236,
+                "projected_gain": 0.9867935376262613,
+                "orthogonal_rms": 0.10275295168013085,
+                "direction_cosine": 0.9946223594218485
+              },
+              "space": {
+                "rows": 224,
+                "energy": 24108.208073717517,
+                "error_energy": 2631.0188834681576,
+                "error_target_dot": -2599.7317895543033,
+                "relative_rms": 0.3303539599059027,
+                "projected_gain": 0.8921640388366939,
+                "orthogonal_rms": 0.31225813729268403,
+                "direction_cosine": 0.943858117638423
+              },
+              "time": {
+                "rows": 224,
+                "energy": 39129.0562931882,
+                "error_energy": 2775.6293046100973,
+                "error_target_dot": -2635.775514453311,
+                "relative_rms": 0.26633671884846777,
+                "projected_gain": 0.9326389194080267,
+                "orthogonal_rms": 0.25767757494289145,
+                "direction_cosine": 0.9638871288899569
+              },
+              "joint_relative_energy": 0.06360052211996227
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_1014_base_s44",
+          "source": "vbi_1014",
+          "condition": "base",
+          "seed": 44,
+          "layer": 39,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 252068.77494856814,
+                "error_energy": 7074.091364897902,
+                "error_target_dot": -8431.177311624178,
+                "relative_rms": 0.16752352660723707,
+                "projected_gain": 0.9665520756652843,
+                "orthogonal_rms": 0.16415044418040664,
+                "direction_cosine": 0.9858833725506557
+              },
+              "space": {
+                "rows": 224,
+                "energy": 34018.916674288426,
+                "error_energy": 4610.279197087948,
+                "error_target_dot": -4381.164280458133,
+                "relative_rms": 0.3681318333865841,
+                "projected_gain": 0.871213880136006,
+                "orthogonal_rms": 0.3448698045392561,
+                "direction_cosine": 0.9298013864608979
+              },
+              "time": {
+                "rows": 224,
+                "energy": 54701.21461611168,
+                "error_energy": 5133.874138062952,
+                "error_target_dot": -5259.999867083333,
+                "relative_rms": 0.30635440108096945,
+                "projected_gain": 0.9038412601256197,
+                "orthogonal_rms": 0.29087199213305287,
+                "direction_cosine": 0.9519206258564783
+              },
+              "joint_relative_energy": 0.0858127325937243
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 252068.77494856814,
+                "error_energy": 6471.002561597374,
+                "error_target_dot": -6578.6403524277575,
+                "relative_rms": 0.1602235169945226,
+                "projected_gain": 0.9739014070514285,
+                "orthogonal_rms": 0.1580836450876524,
+                "direction_cosine": 0.9870808537878113
+              },
+              "space": {
+                "rows": 224,
+                "energy": 34018.916674288426,
+                "error_energy": 4333.5393789270765,
+                "error_target_dot": -3948.750874380881,
+                "relative_rms": 0.3569119868567515,
+                "projected_gain": 0.88392484945397,
+                "orthogonal_rms": 0.3375095936232782,
+                "direction_cosine": 0.9342145067740399
+              },
+              "time": {
+                "rows": 224,
+                "energy": 54701.21461611168,
+                "error_energy": 4799.135382602282,
+                "error_target_dot": -4706.538323313387,
+                "relative_rms": 0.29619860980810214,
+                "projected_gain": 0.9139591623998944,
+                "orthogonal_rms": 0.28342651731502577,
+                "direction_cosine": 0.9551280087047208
+              },
+              "joint_relative_energy": 0.08026378607079347
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 252068.77494856814,
+                "error_energy": 6467.7306916605085,
+                "error_target_dot": -6509.88017934279,
+                "relative_rms": 0.16018300574564034,
+                "projected_gain": 0.974174190434055,
+                "orthogonal_rms": 0.1580873900409877,
+                "direction_cosine": 0.9870873484029005
+              },
+              "space": {
+                "rows": 224,
+                "energy": 34018.916674288426,
+                "error_energy": 4355.8349636247785,
+                "error_target_dot": -3861.1476147690873,
+                "relative_rms": 0.3578289454658281,
+                "projected_gain": 0.8864999831788485,
+                "orthogonal_rms": 0.33935129349213466,
+                "direction_cosine": 0.9339128040989342
+              },
+              "time": {
+                "rows": 224,
+                "energy": 54701.21461611168,
+                "error_energy": 4811.669348388981,
+                "error_target_dot": -4623.7141055262455,
+                "relative_rms": 0.2965851505160876,
+                "projected_gain": 0.9154732826688573,
+                "orthogonal_rms": 0.28428504280716466,
+                "direction_cosine": 0.9550131395397319
+              },
+              "joint_relative_energy": 0.08055430034984824
+            }
+          }
+        },
+        {
+          "trajectory_id": "vbi_1014_camera_s44",
+          "source": "vbi_1014",
+          "condition": "camera",
+          "seed": 44,
+          "layer": 39,
+          "probe_labels": "captured-64",
+          "arms": {
+            "frozen": {
+              "point": {
+                "rows": 448,
+                "energy": 223084.74199423962,
+                "error_energy": 7274.781029630361,
+                "error_target_dot": -8706.914181224889,
+                "relative_rms": 0.18058223718088007,
+                "projected_gain": 0.9609703733953723,
+                "orthogonal_rms": 0.17631401711819444,
+                "direction_cosine": 0.9835818370573491
+              },
+              "space": {
+                "rows": 224,
+                "energy": 27762.982133098194,
+                "error_energy": 4337.329122293403,
+                "error_target_dot": -4165.28586503691,
+                "relative_rms": 0.39525569152884815,
+                "projected_gain": 0.8499697962896002,
+                "orthogonal_rms": 0.36567471837763676,
+                "direction_cosine": 0.9185955533421974
+              },
+              "time": {
+                "rows": 224,
+                "energy": 57134.68042896605,
+                "error_energy": 5481.248026622911,
+                "error_target_dot": -5989.2793375869915,
+                "relative_rms": 0.3097346737540381,
+                "projected_gain": 0.895172611579874,
+                "orthogonal_rms": 0.2914563205053829,
+                "direction_cosine": 0.9508699391351916
+              },
+              "joint_relative_energy": 0.09492419139890668
+            },
+            "A": {
+              "point": {
+                "rows": 448,
+                "energy": 223084.74199423962,
+                "error_energy": 6641.80496982994,
+                "error_target_dot": -6953.766264136477,
+                "relative_rms": 0.17254728322273158,
+                "projected_gain": 0.9688290368853821,
+                "orthogonal_rms": 0.16970838519664452,
+                "direction_cosine": 0.9850022621314214
+              },
+              "space": {
+                "rows": 224,
+                "energy": 27762.982133098194,
+                "error_energy": 4071.9985176653904,
+                "error_target_dot": -3758.5448677698137,
+                "relative_rms": 0.38297528569391126,
+                "projected_gain": 0.8646202756695582,
+                "orthogonal_rms": 0.3582490749360653,
+                "direction_cosine": 0.9238373564951117
+              },
+              "time": {
+                "rows": 224,
+                "energy": 57134.68042896605,
+                "error_energy": 5063.274288127499,
+                "error_target_dot": -5161.25533217667,
+                "relative_rms": 0.2976910829975188,
+                "projected_gain": 0.9096651054416325,
+                "orthogonal_rms": 0.28365399295861193,
+                "direction_cosine": 0.9546639503981961
+              },
+              "joint_relative_energy": 0.08835420509870472
+            },
+            "B": {
+              "point": {
+                "rows": 448,
+                "energy": 223084.74199423962,
+                "error_energy": 6629.089657944971,
+                "error_target_dot": -6823.7017705135295,
+                "relative_rms": 0.17238203871449362,
+                "projected_gain": 0.9694120641801234,
+                "orthogonal_rms": 0.1696465309213374,
+                "direction_cosine": 0.9850305672796911
+              },
+              "space": {
+                "rows": 224,
+                "energy": 27762.982133098194,
+                "error_energy": 4102.359041277461,
+                "error_target_dot": -3805.48232213976,
+                "relative_rms": 0.3844003522115737,
+                "projected_gain": 0.8629296267996016,
+                "orthogonal_rms": 0.3591313736936463,
+                "direction_cosine": 0.9232373779702314
+              },
+              "time": {
+                "rows": 224,
+                "energy": 57134.68042896605,
+                "error_energy": 5090.051083548235,
+                "error_target_dot": -5176.635836163482,
+                "relative_rms": 0.2984772049553647,
+                "projected_gain": 0.9093959081017449,
+                "orthogonal_rms": 0.284393284747125,
+                "direction_cosine": 0.9544180885428813
+              },
+              "joint_relative_energy": 0.08885594664323797
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
