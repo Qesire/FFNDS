@@ -13,20 +13,24 @@ class CurrentHandoffTests(unittest.TestCase):
     def test_current_method_has_a_reachable_reader_and_pinned_evidence(self):
         handoff = binding.check_current_handoff()
         self.assertEqual(handoff["context_path"], "research/agent_protocol/CURRENT_CONTEXT_PACKET.md")
-        self.assertEqual(handoff["evidence"]["commit"], "2c4aa753761194994ee25ea8caba76a29445912d")
-        self.assertEqual(handoff["evidence"]["method_path"],
+        self.assertEqual(handoff["historical_fast512_evidence"]["commit"], "2c4aa753761194994ee25ea8caba76a29445912d")
+        self.assertEqual(handoff["historical_fast512_evidence"]["method_path"],
                          "reports/20261121/anchored_video_experiments/outputs/FFNDS_anchor_next/当前方法.md")
 
     def test_registered_operator_and_scope_of_end_to_end_evidence(self):
         handoff = binding.record(binding.HANDOFF)
         baseline = handoff["baseline"]
         self.assertEqual((baseline["method"], baseline["probes"], baseline["probe_layout"]),
-                         ("fast512", 64, "fixed"))
+                         ("wide8192", 64, "fixed"))
+        self.assertEqual(baseline["execution_tile_rows"], 8192)
         self.assertTrue(baseline["per_position_anchors"])
         self.assertEqual(baseline["expert_schedule"], ["high", "high", "low", "low"])
         self.assertEqual(baseline["native_anchor_steps"], [0, 2])
         self.assertEqual(baseline["approximation_steps"], [1, 3])
-        verified = handoff["verified_video_comparison"]
+        current = handoff["verified_video_comparison"]
+        self.assertEqual((current["method"], current["sources"], current["formal_pairs"]), ("wide8192", 3, 6))
+        self.assertAlmostEqual(current["relative_wall_reduction_pct"], 5.04, places=2)
+        verified = handoff["historical_fast512_video_comparison"]
         self.assertEqual((verified["sources"], verified["seed"], verified["formal_runs_per_arm_per_source"]),
                          (24, 42, 1))
         self.assertEqual(verified["bitwise_equivalence_reference"], "previous anchored implementation")
@@ -34,9 +38,6 @@ class CurrentHandoffTests(unittest.TestCase):
         self.assertEqual(verified["faster_sources"], 21)
         self.assertEqual(handoff["offline_calibration_source_ids"], ["0032", "0304", "0456"])
         pending = {item["candidate"]: item["status"].lower() for item in handoff["open_work"]}
-        self.assertIn("single-site", pending["reuse_base"])
-        self.assertIn("full-video", pending["reuse_base"])
-        self.assertIn("pending", pending["reuse_base"])
         self.assertIn("development", pending["fixed128 or rotated layout"])
         self.assertEqual(handoff["known_case"]["source"], "0951")
         self.assertIn("user", handoff["quality_decision"].lower())
@@ -56,7 +57,7 @@ class CurrentHandoffTests(unittest.TestCase):
         def moved_evidence(path):
             data = original_record(path)
             if path == binding.HANDOFF:
-                data["evidence"]["commit"] = "0" * 40
+                data["historical_fast512_evidence"]["commit"] = "0" * 40
             return data
 
         with patch.object(binding, "record", moved_evidence):

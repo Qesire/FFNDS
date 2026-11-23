@@ -102,7 +102,7 @@ def check_current_handoff():
                         for link in markdown_targets(path) if not urlsplit(link).scheme}
         ensure({(ROOT / HANDOFF).resolve(), (ROOT / handoff["context_path"]).resolve()} <= destinations,
                "Missing machine or reader entry from " + path)
-    evidence = handoff["evidence"]
+    evidence = handoff["historical_fast512_evidence"]
     ensure(re.fullmatch(r"[0-9a-f]{40}", evidence["commit"]), "Invalid evidence revision")
     prefix = f"https://github.com/{evidence['repository']}/blob/{evidence['commit']}/"
     for key in ("method_path", "implementation_path", "runner_path", "timing_path"):
@@ -117,6 +117,19 @@ def check_current_handoff():
            all(any(anchor < step and schedule[anchor] == schedule[step] for anchor in native)
                for step in approx), "An approximation step has no earlier anchor from its expert")
     verified = handoff["verified_video_comparison"]
+    ensure(verified["method"] == baseline["method"] == handoff["evidence"]["method"] and
+           handoff["evidence"]["timing_path"] == verified["timing_path"] == baseline["timing_path"],
+           "Default method and timing must agree")
+    for key in ("runner_path", "implementation_path", "deployment_path", "timing_path"):
+        ensure((ROOT / baseline[key]).is_file(), "Missing current method asset: " + key)
+    timing = record(baseline["timing_path"])
+    ensure(timing["method"] == verified["method"] and
+           len(timing["pairs"]) == verified["formal_pairs"] ==
+           verified["sources"] * verified["formal_runs_per_arm_per_source"] and
+           sum(p["arms_s"]["dense"]["wall"] > p["arms_s"][verified["method"]]["wall"]
+               for p in timing["pairs"]) == verified["faster_pairs"],
+           "Invalid paired timing evidence for current method")
+    verified = handoff["historical_fast512_video_comparison"]
     ensure(0 < verified["faster_sources"] <= verified["sources"] and
            0 < verified["bitwise_equivalent_sources"] <= verified["sources"] and
            verified["formal_runs_per_arm_per_source"] >= 1,

@@ -4,7 +4,7 @@
 
 从[当前交接](research/agent_protocol/CURRENT_CONTEXT_PACKET.md)读取默认方法、最新证据和待验证事项。程序读取 [research/CURRENT_HANDOFF.json](research/CURRENT_HANDOFF.json)。[研究导航](research/RESEARCH_NAVIGATION.md)按问题链接到实际代码、结果表和复现实验所需的外部资产。研究分支与默认分支可能处在不同提交，引用实验请记录证据提交和路径。
 
-当前成片比较使用 `fast512`、固定 64 个真实探针、四步高高低低和逐位置锚点。记录任何改动发生在哪个专家、层、步、位置和张量，说明哪些信息能在生成时取得。研究原始论文和实现时可用[论文与方法技能](.agents/skills/ffnds-paper-discovery/SKILL.md)，复算已有结果或安排配对时可用[实验与成片证据技能](.agents/skills/ffnds-experiment-evidence/SKILL.md)。登记方法版本时使用[讨论约定](research/method_discussion/AGENTS.md)。
+四步成片默认使用 [`wide8192`](tools/ffnds_fourstep/README.md)、固定 64 个真实探针、四步高高低低和逐位置锚点。记录任何改动发生在哪个专家、层、步、位置和张量，说明哪些信息能在生成时取得。研究原始论文和实现时可用[论文与方法技能](.agents/skills/ffnds-paper-discovery/SKILL.md)，复算已有结果或安排配对时可用[实验与成片证据技能](.agents/skills/ffnds-experiment-evidence/SKILL.md)。登记方法版本时使用[讨论约定](research/method_discussion/AGENTS.md)。
 
 推导跨步增量、邻边误差或缓存折叠条件时，可调用 [`$operator-tensor-analysis`（算子与张量分析）](.agents/skills/operator-tensor-analysis/SKILL.md)。从失败案例重新选择观测量、状态表示或求解目标时，可调用 [`$active-abstraction`（主动抽象与问题重构）](.agents/skills/active-abstraction/SKILL.md)，写明新构造保留哪些动作与纹理信息，以及哪组配对能检验这个判断。
 

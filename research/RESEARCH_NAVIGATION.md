@@ -1,6 +1,6 @@
 # FFNDS 研究导航
 
-从[当前接手说明](agent_protocol/CURRENT_CONTEXT_PACKET.md)开始。默认方法是固定 64 个探针的 `fast512` 逐位置锚点联合读出。下表给出实际计算、独立评价和下一轮对照各自所依赖的材料。11 月 21 日的原始证据使用固定提交链接，切换分支后仍指向同一份实验。[当前方法原文](https://github.com/Qesire/FFNDS/blob/2c4aa753761194994ee25ea8caba76a29445912d/reports/20261121/anchored_video_experiments/outputs/FFNDS_anchor_next/当前方法.md)
+从[当前接手说明](agent_protocol/CURRENT_CONTEXT_PACKET.md)开始。四步默认方法是固定 64 个探针的 [`wide8192`](../tools/ffnds_fourstep/README.md) 逐位置锚点联合读出。下表给出实际计算、独立评价和下一轮对照各自所依赖的材料。11 月 21 日的原始证据使用固定提交链接，切换分支后仍指向同一份实验。[11 月 21 日方法原文](https://github.com/Qesire/FFNDS/blob/2c4aa753761194994ee25ea8caba76a29445912d/reports/20261121/anchored_video_experiments/outputs/FFNDS_anchor_next/当前方法.md)
 
 | 要回答的问题 | 先读什么 |
 |---|---|

@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-21",
+  "updated": "2026-11-24",
   "context_path": "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
   "navigation_path": "research/RESEARCH_NAVIGATION.md",
   "evidence_index_path": "research/EXPERIMENT_EVIDENCE_INDEX.md",
   "findings_path": "research/EXPERIMENT_FINDINGS_ATLAS.md",
   "archive_manifest_path": "archive/20261121/handoff/MANIFEST.json",
   "baseline": {
-    "method": "fast512",
+    "method": "wide8192",
+    "anchor_cache_dtype": "bfloat16",
     "probes": 64,
     "probe_layout": "fixed",
     "per_position_anchors": true,
@@ -28,29 +29,66 @@
     "layers_per_expert": 40,
     "selected_hidden_channels": 2560,
     "shared_modes": 16,
-    "execution_tile_rows": 512
+    "execution_tile_rows": 8192,
+    "checkpoint": "fourstep-wide8192-185220",
+    "implementation_path": "tools/ffnds_fourstep/fourstep_backend.py",
+    "runner_path": "tools/ffnds_fourstep/generate.py",
+    "deployment_path": "tools/ffnds_fourstep/README.md",
+    "timing_path": "reports/20261122/fourstep-wide8192-185220/timing.json"
   },
   "evidence": {
     "repository": "Qesire/FFNDS",
-    "pull_request": 61,
-    "commit": "2c4aa753761194994ee25ea8caba76a29445912d",
-    "method_path": "reports/20261121/anchored_video_experiments/outputs/FFNDS_anchor_next/当前方法.md",
-    "implementation_path": "reports/20261121/anchored_video_experiments/work/anchored_scale/exact_port.py",
-    "runner_path": "reports/20261121/anchored_video_experiments/work/anchored_scale/generate.py",
-    "timing_path": "reports/20261121/anchored_video_experiments/outputs/FFNDS_anchor_scale24/计时汇总.json"
+    "method": "wide8192",
+    "method_path": "tools/ffnds_fourstep/README.md",
+    "implementation_path": "tools/ffnds_fourstep/fourstep_backend.py",
+    "runner_path": "tools/ffnds_fourstep/generate.py",
+    "timing_path": "reports/20261122/fourstep-wide8192-185220/timing.json",
+    "checkpoint": "fourstep-wide8192-185220",
+    "run_manifest_sha256": "32d6f03c146fe01e6cdce1171fa5d3ccf74355054ff7b55b0bb0f156c0270ddc"
   },
   "verified_video_comparison": {
+    "method": "wide8192",
+    "reference": "native Dense",
     "device": "A100",
-    "sources": 24,
+    "sources": 3,
     "seed": 42,
-    "formal_runs_per_arm_per_source": 1,
-    "dense_mean_wall_s": 40.059,
-    "fast512_mean_wall_s": 39.47,
-    "faster_sources": 21,
-    "bitwise_equivalence_reference": "previous anchored implementation",
-    "bitwise_equivalent_sources": 24,
-    "anchor_slots_gib": 30.2,
-    "candidate_peak_gib": 47.57
+    "formal_runs_per_arm_per_source": 2,
+    "faster_pairs": 6,
+    "formal_pairs": 6,
+    "dense_mean_wall_s": 41.53177934574584,
+    "candidate_mean_wall_s": 39.440132655513786,
+    "relative_wall_reduction_pct": 5.036255906156605,
+    "median_paired_saving_s": 1.4373164838179946,
+    "timing_path": "reports/20261122/fourstep-wide8192-185220/timing.json"
+  },
+  "four_step_memory_variant": {
+    "method": "wide8192_all_int8_joined",
+    "reference": "wide8192",
+    "anchor_cache_dtype": "int8",
+    "group_size": 128,
+    "scale_dtype": "bfloat16",
+    "exact_probe_dtype": "bfloat16",
+    "w1_w2_dtype": "bfloat16",
+    "report_path": "reports/20261123/wide8192-cache/README.md",
+    "paired_timing": {
+      "job": "190253",
+      "device": "A100-SXM4-80GB",
+      "sources": 10,
+      "seed": 42,
+      "reference_mean_wall_s": 37.900087,
+      "candidate_mean_wall_s": 37.935494,
+      "candidate_faster_wall_pairs": 3,
+      "reference_mean_ffn_with_post_s": 4.831653,
+      "candidate_mean_ffn_with_post_s": 4.813986,
+      "candidate_faster_ffn_pairs": 10
+    },
+    "standalone_peak_allocated_gib": {
+      "reference": 47.57,
+      "reference_job": "188703",
+      "candidate": 32.77,
+      "candidate_job": "190195"
+    },
+    "identical_mp4_to_original_all_int8": 10
   },
   "offline_calibration_source_ids": [
     "0032",
@@ -58,10 +96,6 @@
     "0456"
   ],
   "open_work": [
-    {
-      "candidate": "reuse_base",
-      "status": "A100 single-site verified; full-video equivalence and timing pending"
-    },
     {
       "candidate": "additional probe pairs in a first-frame region",
       "status": "proposed; compare against equal additional global probe count"
@@ -81,5 +115,28 @@
     "research/ACTIVE_RESEARCH.json",
     "research/CURRENT_DECISION.json",
     "research/OBJECTIVE_CONTRACT.json"
-  ]
+  ],
+  "historical_fast512_evidence": {
+    "repository": "Qesire/FFNDS",
+    "pull_request": 61,
+    "commit": "2c4aa753761194994ee25ea8caba76a29445912d",
+    "method_path": "reports/20261121/anchored_video_experiments/outputs/FFNDS_anchor_next/当前方法.md",
+    "implementation_path": "reports/20261121/anchored_video_experiments/work/anchored_scale/exact_port.py",
+    "runner_path": "reports/20261121/anchored_video_experiments/work/anchored_scale/generate.py",
+    "timing_path": "reports/20261121/anchored_video_experiments/outputs/FFNDS_anchor_scale24/计时汇总.json",
+    "method": "fast512"
+  },
+  "historical_fast512_video_comparison": {
+    "device": "A100",
+    "sources": 24,
+    "seed": 42,
+    "formal_runs_per_arm_per_source": 1,
+    "dense_mean_wall_s": 40.059,
+    "fast512_mean_wall_s": 39.47,
+    "faster_sources": 21,
+    "bitwise_equivalence_reference": "previous anchored implementation",
+    "bitwise_equivalent_sources": 24,
+    "anchor_slots_gib": 30.2,
+    "candidate_peak_gib": 47.57
+  }
 }
