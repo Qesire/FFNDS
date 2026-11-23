@@ -1,0 +1,552 @@
+{
+  "schema_version": 1,
+  "protocol_id": "FFNDS-attention-discriminative-plan-wide8192-20261124-v2",
+  "status": "PLANNED_NO_NEW_MODEL_RESULTS",
+  "date": "2026-11-24",
+  "timezone": "Asia/Shanghai",
+  "repository_main_commit": "13ffb127e71a5d4d1519ecb0df9c7b4d03efe601",
+  "evidence_commit": "2c4aa753761194994ee25ea8caba76a29445912d",
+  "repository_method_binding": "wide8192_binding.json",
+  "source_manifest": "sources_locked.json",
+  "source_manifest_sha256": "61c142597d1b3d4455feaa7fc4079bbb7cc7621d3e015685fd4a690c5d7f53fa",
+  "model": {
+    "family": "Wan2.2 I2V A14B LightX2V 4-step",
+    "width": 832,
+    "height": 464,
+    "frames": 81,
+    "fps": 16,
+    "latent_grid_thw": [
+      21,
+      29,
+      52
+    ],
+    "Nq": 31668,
+    "heads": 40,
+    "dk": 128,
+    "dv": 128,
+    "dmodel": 5120,
+    "text_cross_Nk_for_budget": 512,
+    "seed": 42,
+    "schedule": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "anchor_steps": [
+      0,
+      2
+    ],
+    "hit_steps": [
+      1,
+      3
+    ],
+    "FFN_reference": "wide8192"
+  },
+  "cache_format_control": {
+    "primary": {
+      "variant": "wide8192",
+      "dtype": "bfloat16",
+      "ffn_hit_tile_rows": 8192,
+      "ffn_selected_channels": 2560,
+      "ffn_shared_readout_modes": 16,
+      "P": 64,
+      "anchor_steps": [
+        0,
+        2
+      ],
+      "hit_steps": [
+        1,
+        3
+      ]
+    },
+    "secondary": {
+      "variant": "wide8192_all_int8_joined",
+      "mode": "OPTIONAL_CONDITIONAL_AFTER_FROZEN_ATTENTION_RECIPE",
+      "dtype": "int8",
+      "group_channels": 128,
+      "scale_dtype": "bfloat16",
+      "exact_probe_dtype": "bfloat16",
+      "joined_y0_expected": 80,
+      "joined_fallback_expected": 0
+    },
+    "paired_contrast": "Both attention REF and NEW evaluated within the same frozen FFN cache variant; paired INT8 vs BF16 measures cache effect separately.",
+    "added_if_enabled": {
+      "new_DEV_videos": 9,
+      "additional_timed_HHLL_runs": 27,
+      "mechanism_light_site_pairs_added": 0
+    }
+  },
+  "capture": {
+    "sources": [
+      "vbi_0032",
+      "vbi_0304",
+      "vbi_0456",
+      "vbi_0392",
+      "vbi_0800",
+      "vbi_1013"
+    ],
+    "CAL": [
+      "vbi_0032",
+      "vbi_0304",
+      "vbi_0456"
+    ],
+    "DEV": [
+      "vbi_0392",
+      "vbi_0800",
+      "vbi_1013"
+    ],
+    "backgrounds": [
+      "Dense",
+      "wide8192"
+    ],
+    "layers": [
+      0,
+      13,
+      26,
+      39
+    ],
+    "modules": [
+      "self",
+      "text_cross"
+    ],
+    "expert_pairs": [
+      {
+        "expert": "high",
+        "anchor_step": 0,
+        "hit_step": 1
+      },
+      {
+        "expert": "low",
+        "anchor_step": 2,
+        "hit_step": 3
+      }
+    ],
+    "light_heads": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "query_manifest": "attention_panel_index.json",
+    "probe_count": 64,
+    "held_count": 448,
+    "rows": 512,
+    "independent_trajectories": 12,
+    "site_pairs_per_module": 96,
+    "total_site_pairs": 192,
+    "raw_self_witness": {
+      "sources": [
+        "vbi_0032",
+        "vbi_0392"
+      ],
+      "backgrounds": [
+        "Dense",
+        "wide8192"
+      ],
+      "layers": [
+        13
+      ],
+      "experts": [
+        "high",
+        "low"
+      ],
+      "heads": [
+        0,
+        13,
+        26,
+        39
+      ],
+      "site_pairs": 8,
+      "all_valid_keys": true
+    },
+    "fixed_cross_KV_dedup_requires": [
+      "matching_tensor_bytes",
+      "matching_mask",
+      "same_source_expert_layer_branch"
+    ],
+    "shadow_labels_available_to_fit": false,
+    "attention_in_shared_capture": "Dense",
+    "first_in_batch_interface_observation": {
+      "source": "vbi_0032",
+      "layer": 13,
+      "experts": [
+        "high",
+        "low"
+      ]
+    }
+  },
+  "support": {
+    "name": "own_anchor_pooled_topk",
+    "scope": "per_head_per_query_block",
+    "pair_fixed": true,
+    "score": "mean(Q_block) dot mean(K_block) / sqrt(dk)",
+    "tie_break": "ascending key block id",
+    "self": {
+      "query_block": 128,
+      "key_block": 128,
+      "key_blocks": 248,
+      "top_key_blocks": 31
+    },
+    "text_cross": {
+      "query_block": 128,
+      "key_block": 32,
+      "key_blocks_if_Nk512": 16,
+      "top_key_blocks": 2
+    },
+    "validity": "preserve actual masks and final block lengths",
+    "paper_reproduction": false
+  },
+  "features": {
+    "raw_width": 64,
+    "rank_with_intercept": 32,
+    "nonconstant_rank": 31,
+    "bases": "bases/manifest.json",
+    "blocks": [
+      {
+        "id": "selected_output",
+        "width": 32
+      },
+      {
+        "id": "selected_key_mean",
+        "width": 8
+      },
+      {
+        "id": "selected_projected_VK_cov_diag",
+        "width": 8
+      },
+      {
+        "id": "global_VK_action",
+        "width": 8
+      },
+      {
+        "id": "query_projection",
+        "width": 7
+      },
+      {
+        "id": "relative_selected_logmass",
+        "width": 1
+      }
+    ],
+    "CAL_scope": [
+      "module",
+      "expert"
+    ],
+    "CAL_transform_groups": 4,
+    "CAL_layer_head_sharing": true,
+    "CAL_source_weighting": "equal source; equal frozen sites within source",
+    "compression": "CAL RMS scaling then uncentered SVD to 31; input-only; intercept added afterwards",
+    "online_transform": "BF16(T f_s)-BF16(T f_a), promoted to FP32",
+    "OUT_raw_basis_width": 64,
+    "selected_probability_cache": false,
+    "exact_first_order_comparison": "raw witness only"
+  },
+  "fit": {
+    "rank": 32,
+    "per_call_head": true,
+    "probe_only_labels": true,
+    "lambda_grid": [
+      0.001,
+      0.01,
+      0.1
+    ],
+    "lambda_selection": "CAL leave-one-source-out: recompute transforms and target scales on other 2 sources, P64 fit H448 score on held source; then refit transforms on CAL3",
+    "lambda_paired_group": [
+      "FIN-C0",
+      "FIN-C1",
+      "FIN-CP"
+    ],
+    "lambda_group_selector": "FIN-C0",
+    "normalization": "R/(sR*sqrt(128)),m/sm,C*sm/(sR*sqrt(128)); CAL scales",
+    "loss": "per-query mean squared vector norm + mu per-query mean scalar square + lambda parameter norm",
+    "normal_equation_ridge": "number_of_fitting_rows * lambda",
+    "solver": "Schur complement 32x32; factorization; record full-objective residual",
+    "rho_clipping": false,
+    "C_permutation": "fixed one-position cyclic derangement of sorted panel IDs within each latent frame; shared by all heads; all current C are label-free inputs",
+    "C1_zero_mass_rhs_diagnostic": true
+  },
+  "arms": [
+    {
+      "id": "SP",
+      "fit": false,
+      "features": null,
+      "baseline": "oS_s",
+      "readout": "none",
+      "family_id": "selected_only"
+    },
+    {
+      "id": "ANCH",
+      "fit": false,
+      "features": null,
+      "baseline": "B_anchor",
+      "readout": "none",
+      "family_id": "anchor_only"
+    },
+    {
+      "id": "OUT-D",
+      "fit": true,
+      "features": "delta_projected_oS",
+      "baseline": "B_anchor",
+      "readout": "direct",
+      "target": "R_innovation",
+      "family_id": "output_delta_direct"
+    },
+    {
+      "id": "OUT-ABS",
+      "fit": true,
+      "features": "current_projected_oS",
+      "baseline": "oS_s",
+      "readout": "direct",
+      "target": "o_minus_oS",
+      "family_id": "output_absolute_direct"
+    },
+    {
+      "id": "FIN-D",
+      "fit": true,
+      "features": "delta_FIN64",
+      "baseline": "B_anchor",
+      "readout": "direct",
+      "target": "R_innovation",
+      "family_id": "finite_direct"
+    },
+    {
+      "id": "FIN-C0",
+      "fit": true,
+      "features": "delta_FIN64",
+      "baseline": "B_anchor",
+      "readout": "coupled",
+      "mu": 0,
+      "target": "R_innovation",
+      "family_id": "finite_coupled_correct_C"
+    },
+    {
+      "id": "FIN-C1",
+      "fit": true,
+      "features": "delta_FIN64",
+      "baseline": "B_anchor",
+      "readout": "coupled",
+      "mu": 1,
+      "target": "R_innovation_and_delta_rho",
+      "family_id": "finite_coupled_correct_C"
+    },
+    {
+      "id": "FIN-CP",
+      "fit": true,
+      "features": "delta_FIN64",
+      "baseline": "B_anchor",
+      "readout": "coupled_permuted_C",
+      "mu": 1,
+      "target": "R_innovation_and_delta_rho",
+      "family_id": "finite_coupled_permuted_C"
+    },
+    {
+      "id": "FIN-ABS",
+      "fit": true,
+      "features": "delta_FIN64",
+      "baseline": "oS_s",
+      "readout": "coupled",
+      "mu": 1,
+      "target": "o_minus_oS_and_rho_absolute",
+      "family_id": "finite_coupled_absolute_offset"
+    }
+  ],
+  "primary_contrasts": [
+    [
+      "FIN-D",
+      "OUT-D"
+    ],
+    [
+      "FIN-C1",
+      "FIN-C0"
+    ],
+    [
+      "FIN-C1",
+      "FIN-CP"
+    ]
+  ],
+  "error_levels": [
+    "head-output family floor (mu=lambda=0)",
+    "all-H estimator reference (same mean loss mu/lambda)",
+    "P64-to-H estimate"
+  ],
+  "downstream_floor_status": "W_O/gate score of head-space floor solution is not a joint downstream optimum",
+  "metrics": {
+    "primary": "H448 error after actual W_O and current self gate; per-site SP normalization",
+    "relationship": [
+      "224 spatial error-difference energies",
+      "224 temporal error-difference energies"
+    ],
+    "independent_unit": "source_cluster_id",
+    "secondary": [
+      "rho MSE",
+      "w MSE",
+      "signed mass/moment cross term",
+      "signed projection",
+      "orthogonal energy",
+      "probe singular values",
+      "condition/gain",
+      "cache precision gap"
+    ],
+    "primary_estimand": "self only; equal 16 sites per source (2 backgrounds x 4 layers x 2 experts), then equal source",
+    "source_aggregation": "paired site log energy ratios; separate-background and cross results are explanatory",
+    "confirm_intervals": [
+      "95% source bootstrap",
+      "98.33% simultaneous Bonferroni intervals for 3 primary contrasts"
+    ],
+    "zero_or_noise_floor_denominator": "report absolute energies and flag; do not silently epsilon-divide"
+  },
+  "online": {
+    "module": "self",
+    "layers": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "FFN_backgrounds": [
+      "Dense",
+      "wide8192"
+    ],
+    "video_arms": [
+      "Dense",
+      "wide8192",
+      "Attention-REF",
+      "Attention-NEW",
+      "wide8192+Attention-REF",
+      "wide8192+Attention-NEW"
+    ],
+    "REF_selection": "freeze stronger OUT-D/OUT-ABS on DEV",
+    "NEW_initial": "FIN-C1",
+    "DEV_sentinels": [
+      "vbi_0392",
+      "vbi_1013"
+    ],
+    "DEV_completion": [
+      "vbi_0800"
+    ],
+    "new_attention_DEV_videos": 12,
+    "all_background_capture_videos": 12,
+    "total_unique_initial_DEV_phase_videos": 24,
+    "probe_overwrite": true,
+    "native_anchor_output": true,
+    "own_trajectory_and_anchor": true,
+    "timing": {
+      "instrumentation": "capture/shadow disabled",
+      "warmup": true,
+      "balanced_repetition_blocks": 3,
+      "additional_measured_HHLL_runs": 54,
+      "warmup_HHLL_runs_budget": 6,
+      "conditional_initial_phase_total_HHLL_runs": 84,
+      "budget_activation": "after candidate passes local and video stage",
+      "metrics": [
+        "denoise_seconds",
+        "end_to_end_seconds",
+        "peak_device_bytes",
+        "per_component_seconds"
+      ],
+      "identical_conditions_required": true
+    }
+  },
+  "confirmation": {
+    "status": "NOT_YET_FROZEN",
+    "sources": 6,
+    "selection_recipe": "confirmation_selection_recipe.json",
+    "resolver": "freeze_confirmation.py",
+    "method_recipe_required": true,
+    "freeze_after": "candidate recipe fixed; before candidate results on CONFIRM",
+    "historical_exclusion_count_before_camera": 54,
+    "seed": 42,
+    "capture_site_pairs_for_all_six_if_executed": 192,
+    "unique_video_arms_times_sources": 36
+  },
+  "precision": {
+    "u_anchor": "BF16",
+    "rho_anchor": "FP32",
+    "projected_feature_anchor": "BF16",
+    "current_projected_feature_before_difference": "BF16",
+    "v_anchor_mean": "FP32",
+    "features_raw_saved": "FP32",
+    "fit": "FP32 with FP64 audit where needed",
+    "native_tensor_capture": "preserve actual bits and dtype; budget assumes BF16",
+    "math_witness": "FP64 recomputation on declared captured tensors",
+    "LSE": "natural-log canonical plus original backend field/convention"
+  },
+  "execution_status": {
+    "new_attention_capture": false,
+    "new_model_fit": false,
+    "new_videos": false,
+    "measured_new_latency": false
+  }
+}
