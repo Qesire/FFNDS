@@ -70,3 +70,7 @@ FIN-C1 对保留同一 Hessian、移除质量标签右端项的诊断臂，点�
 - [汇总结果](FIT_RESULT.json)、[采集验收](CAPTURE_AUDIT.json)、[作业与原始收据指纹](EVIDENCE.json)。
 - [复核数据包](replay_evidence.zip)内含所有站点、所有臂和拟合层级的点与边能量、完整 104 条有限变化见证、固定面板与原始投影基，以及四组实际 CAL 变换和留一收据。逐头完整观测谱、原生张量与成片归档于学校作业，公开记录保留可核对的作业编号及指纹。
 - [实际面板拟合代码](attention_panel_fit.py)和[全键见证代码](attention_witness.py)均与学校执行代码逐字节一致。
+
+## 执行后的推进判断
+
+[结果复核与下一阶段判断](REVIEW_AND_NEXT_STAGE.md)记录对原始结果的复算、同专家分工参考、质量/矩联合误差分析和后续推进顺序；新增对照均属探索分析。[机器可读复算](review_recomputed.json)与[独立复算脚本](recompute_review.py)随附。
