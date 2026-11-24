@@ -4,7 +4,7 @@
 
 [回到最初问题：FFNDS 怎样扩展到注意力与组合计算](RETURN_TO_ORIGINAL_QUESTION.md)根据两源真实收据完成独立 CPU 复算。新的判断区分完整字典、固定 P64 当前读出的可达空间、按头/模块教师约束，并给出低噪声下原独立路径在当前 D176 字典之外的作用下界。下一构造保留有限变化与模块结构，用完整块/flow 评价共同作用。
 
-[复算数据](joint39_round3_recomputed.json) · [复算程序](recompute_joint39_round3.py) · [实现语义](D176_IMPLEMENTATION_SEMANTICS.md) · [既有资产的 P 可达空间诊断](diagnose_joint39_observability.py)。统计复算与明确标记的[合成代数核验](observability_algebra_check.json)已执行；真实 D176 新谱和 P 可达空间下限待封存向量 CPU 重放。本次分析新增模型/GPU执行数为0。
+[复算数据](joint39_round3_recomputed.json) · [复算程序](recompute_joint39_round3.py) · [实现语义](D176_IMPLEMENTATION_SEMANTICS.md) · [既有资产的 P 可达空间诊断](diagnose_joint39_observability.py)。统计复算与明确标记的[合成代数核验](observability_algebra_check.json)已执行。[学校 CPU 实测](D176_OBSERVABILITY_REPORT.md)随后补齐了八站点的 P 可达空间下限、奇异谱和三项误差分解，新增模型/GPU 执行数为 0。
 
 最新实验是[两源完整报告](JOINT39_COMPLETE_REPORT.md)及[FFN 核与头间对比四组对照](D176_REPORT.md)。以下保留此前恢复和0392单来源阶段的原始记录。
 
