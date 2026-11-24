@@ -1,0 +1,19 @@
+{
+  "status": "complete",
+  "torch": "2.10.0+cu128",
+  "triton": "3.6.0",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "native_wrapper": "def apply(\n        self,\n        q,\n        k,\n        v,\n        drop_rate=0,\n        attn_mask=None,\n        causal=False,\n        cu_seqlens_q=None,\n        cu_seqlens_kv=None,\n        max_seqlen_q=None,\n        max_seqlen_kv=None,\n        **kwargs,\n    ):\n        if q.ndim == 3:\n            q, k, v = q.unsqueeze(0), k.unsqueeze(0), v.unsqueeze(0)\n        q = q.transpose(1, 2)\n        k = k.transpose(1, 2)\n        v = v.transpose(1, 2)\n        if attn_mask is not None and attn_mask.dtype != torch.bool:\n            attn_mask = attn_mask.to(q.dtype)\n        # Hunyuan3D upstream Attention uses SDPA flash kernel (see hy3dshape hunyuandit.py).\n        # Matching this context is required for bit-identical attention vs the reference.\n        sdpa_ctx = nullcontext()\n        if kwargs.get(\"model_cls\") == \"hunyuan3d\":\n            sdpa_ctx = torch.backends.cuda.sdp_kernel(\n                enable_flash=True,\n                enable_math=False,\n                enable_mem_efficient=True,\n            )\n        with sdpa_ctx:\n            x = F.scaled_dot_product_attention(q, k, v, attn_mask=attn_mask, dropout_p=drop_rate, is_causal=causal)\n        x = x.transpose(1, 2)\n        b, s, a, d = x.shape\n        out = x.reshape(b, s, -1)\n        return out.squeeze(0)",
+  "dense_matches_sdpa_bitwise": true,
+  "dense_lse_maximum_absolute_error": 0.00000286102294921875,
+  "selected": {
+    "128": {
+      "relative_l2": 0.0022585736587643623,
+      "maximum_lse_error": 9.5367431640625e-7
+    },
+    "144": {
+      "relative_l2": 0.0022691921330988407,
+      "maximum_lse_error": 9.5367431640625e-7
+    }
+  }
+}
