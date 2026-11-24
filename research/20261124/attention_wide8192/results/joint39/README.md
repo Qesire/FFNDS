@@ -1,5 +1,15 @@
 # 第 39 层联合分叉进度
 
+## D176 后的机制判断
+
+[回到最初问题：FFNDS 怎样扩展到注意力与组合计算](RETURN_TO_ORIGINAL_QUESTION.md)根据两源真实收据完成独立 CPU 复算。新的判断区分完整字典、固定 P64 当前读出的可达空间、按头/模块教师约束，并给出低噪声下原独立路径在当前 D176 字典之外的作用下界。下一构造保留有限变化与模块结构，用完整块/flow 评价共同作用。
+
+[复算数据](joint39_round3_recomputed.json) · [复算程序](recompute_joint39_round3.py) · [实现语义](D176_IMPLEMENTATION_SEMANTICS.md) · [既有资产的 P 可达空间诊断](diagnose_joint39_observability.py)。统计复算与明确标记的[合成代数核验](observability_algebra_check.json)已执行；真实 D176 新谱和 P 可达空间下限待封存向量 CPU 重放。本次分析新增模型/GPU执行数为0。
+
+最新实验是[两源完整报告](JOINT39_COMPLETE_REPORT.md)及[FFN 核与头间对比四组对照](D176_REPORT.md)。以下保留此前恢复和0392单来源阶段的原始记录。
+
+---
+
 > **恢复后已验收两源。** 0392 和 1013 的四条背景轨迹、八个末层站点均已核验。CPU 剩余误差和头间对比核对照已完成。[两源报告与收据](JOINT39_COMPLETE_REPORT.md)。下文保留恢复前的 0392 单来源记录。
 
 按[联合计算图的更新顺序](../JOINT_COMPUTATION_ANALYSIS.md)执行。学校 A100 已核验 DEV0392 的 Dense 和 BF16 wide8192 两个原生背景、两个专家，共四个末层站点。作业 193423 已启动，学校 SSH 会话故障期间未能取回 DEV1013 收据。下表为单来源结果。
