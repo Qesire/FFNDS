@@ -2,7 +2,7 @@
   "plan_commit": "29639e148244e19752c0acbe40ed0928291a8263",
   "capture_results_sha256": "a0356a2b8d675cdb79b9a4f54e77aa971d8480920bedcbc81d906c5f2740ca10",
   "prior_fit_sha256": "110453d2dbf1bef80c2c2af7aac3cdd4507b8d8e3be750997b44ab261372c3d7",
-  "scope": "teacher-forced last-block replay on one verified DEV source",
+  "scope": "teacher-forced last-block replay on two DEV sources; no candidate rollout",
   "first_attempt": {
     "job": "193412",
     "status": "FAILED_BEFORE_RENDER",
@@ -17,9 +17,8 @@
   "second_source": {
     "job": "193423",
     "source": "vbi_1013",
-    "status": "SUBMITTED_RECEIPT_UNAVAILABLE",
-    "last_observed_state": "RUNNING_MODEL_LOADING",
-    "reason": "School SSH session channel unavailable; outcome unverified."
+    "status": "VERIFIED_COMPLETE",
+    "previous_collection_delay": "Temporary school SSH session outage."
   },
   "probe": {
     "job": "193428",
@@ -38,5 +37,83 @@
     "audit_attention_joint39_assets.py": "dfbeea0944827cfc43f46ac5bac775525f6c40b1655425696323be13463ba7f8"
   },
   "candidate_rollout_executed": false,
-  "performance_timed": false
+  "performance_timed": false,
+  "continuation": {
+    "plan_commit": "2bf40f76d10230e2842673f6faeb953485a05d1a",
+    "verified_vectors": 8,
+    "native_trajectories_match_archive": 4,
+    "cpu_residual_replay": "VERIFIED_COMPLETE",
+    "cpu_head_contrast_replay": "VERIFIED_COMPLETE",
+    "full_joint_D176": "PENDING_FFN_ANCHOR_OR_FULL_KERNEL_FEATURES",
+    "published_result": "JOINT39_COMPLETE_REPORT.md",
+    "original_receipts_sha256": {
+      "attention_joint39_193422.json": "d4e755381ec9e5698bfa7669984b29f2187bdafd331a29c061fad557f72d3a6f",
+      "attention_joint39_193423.json": "98625b46570c7ee08e32b6d2885ca2b6cdb59ababd6405fa315ad9343a339533",
+      "attention_joint39_audit_193422-complete.json": "3e8c1b4733aad0362414ea0f745ef6c937d6eb25fd5a68065ad581e5dce63642",
+      "attention_joint39_residual_replay.json": "1ba3e837e9296af0742ffd893f591b481dd07d726fe1709eb111c2c806555e91",
+      "attention_joint39_head_contrast.json": "a011249e8fb15282c480e6fd2845c88b138d3806447fa7f255610f9f584845a5"
+    },
+    "effect_summary": {
+      "Dense/high": {
+        "residual_ratios": {
+          "point": 1.274376218030284,
+          "spatial": 1.233375288314301,
+          "temporal": 1.1986729149355262
+        },
+        "residual_oracle_point_ratio": 0.7302767460848318,
+        "head_augmented_error_vs_phi48": {
+          "point": 0.977012547062371,
+          "spatial": 0.9812317500297174,
+          "temporal": 0.9796749772539831
+        },
+        "head_augmented_oracle_vs_phi48": 0.6667463785572522,
+        "head_augmented_residual_vs_independent": 1.2450815546934793
+      },
+      "Dense/low": {
+        "residual_ratios": {
+          "point": 1.283384753092987,
+          "spatial": 1.1975143910230044,
+          "temporal": 1.1777615583537098
+        },
+        "residual_oracle_point_ratio": 0.7614447635388814,
+        "head_augmented_error_vs_phi48": {
+          "point": 0.9664520396225238,
+          "spatial": 0.9672622593376715,
+          "temporal": 0.9710381331889345
+        },
+        "head_augmented_oracle_vs_phi48": 0.7359753794049967,
+        "head_augmented_residual_vs_independent": 1.2403298122471662
+      },
+      "wide8192/high": {
+        "residual_ratios": {
+          "point": 1.2282379769831253,
+          "spatial": 1.212619897050856,
+          "temporal": 1.1243582867133406
+        },
+        "residual_oracle_point_ratio": 0.6904139279839973,
+        "head_augmented_error_vs_phi48": {
+          "point": 0.985585752197591,
+          "spatial": 0.9859074376631013,
+          "temporal": 0.9888087598722919
+        },
+        "head_augmented_oracle_vs_phi48": 0.6691136819822603,
+        "head_augmented_residual_vs_independent": 1.2105338504225611
+      },
+      "wide8192/low": {
+        "residual_ratios": {
+          "point": 1.2926303175873735,
+          "spatial": 1.1687198752043317,
+          "temporal": 1.1438723105646562
+        },
+        "residual_oracle_point_ratio": 0.7384906724498981,
+        "head_augmented_error_vs_phi48": {
+          "point": 0.9877924891422907,
+          "spatial": 0.9872283301881888,
+          "temporal": 0.9931774566454161
+        },
+        "head_augmented_oracle_vs_phi48": 0.7443595738358393,
+        "head_augmented_residual_vs_independent": 1.2768505189504216
+      }
+    }
+  }
 }
