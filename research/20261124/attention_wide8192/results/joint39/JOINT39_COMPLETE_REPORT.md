@@ -82,3 +82,5 @@ H448 两列直接使用留出标签拟合，仅用于诊断现有特征的表示
 - [0392 收据](RESULT_0392.json) · [1013 收据](RESULT_1013.json) · [两源向量校验](VECTOR_AUDIT_COMPLETE.json)。
 - [P64 全键核验](P64_AUDIT.json) · [CPU 残差回放](RESIDUAL_REPLAY.json) · [头间对比核回放](HEAD_CONTRAST.json)。
 - [实际 P64 残差脚本](replay_joint39_residual.py) · [逐头对比核实现](attention_joint39_head_contrast.py) · [运行指纹](STATUS.json)。
+
+后续学校作业已补齐上述 FFN 核特征，完成同底座、同 P64 的四组对照。[FFN 核与头间对比联合回放](D176_REPORT.md)
