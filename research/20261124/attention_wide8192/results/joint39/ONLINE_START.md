@@ -2,6 +2,8 @@
 
 实验依据为 FFNDS@d9cb9952d0da。A 是 BF16 wide8192 与原生 attention，B/C 在高噪声均用 OUT-ABS，低噪声分别用 FIN-C0 与 OUT-D。0392、1013 的 seed 42 原生 attention 和 Dense 对照视频已验明指纹。
 
+> 后续已完成四条候选。[完整质量与状态收据](ONLINE_QUALITY_REPORT.md)记录最新进展。
+
 ## 已验证
 
 - 学校 A100 作业 194054 执行实际全长后端。融合 Flash SDPA 的原生输出逐位一致，LSE 最大绝对误差为 2.86e−6。V128 与增广 V144 的相对 L2 误差约为 0.226% 与 0.227%。

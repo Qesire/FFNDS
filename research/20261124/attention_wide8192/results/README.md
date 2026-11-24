@@ -96,3 +96,5 @@ FIN-C1 对保留同一 Hessian、移除质量标签右端项的诊断臂，点�
 [两源 D176 后的机制分析](joint39/RETURN_TO_ORIGINAL_QUESTION.md)将方法扩展重新落到锚点、当前有限创新、稀疏完整观测与结构化恢复：原生中间教师和模块作用提供辨识约束，完整块/flow 约束下游效果。附真实收据复算、当前字典之外的结构作用下界，以及复用封存资产的 P 可达空间 CPU 诊断。学校 CPU 已完成八站点实测并复现旧读出评分。[可达空间、三项误差与完整奇异谱](joint39/D176_OBSERVABILITY_REPORT.md)。
 
 [学校全层在线比较的执行记录](joint39/ONLINE_START.md)登记后端、真实面板和 A/B/C 首批作业。
+
+[四条全层候选和匹配轨迹结果](joint39/ONLINE_QUALITY_REPORT.md)已验收，学校同卡计时已启动。

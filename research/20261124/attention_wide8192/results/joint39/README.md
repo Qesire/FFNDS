@@ -52,3 +52,5 @@
 [机器可读复算](joint39_recomputed.json)、[复算程序](recompute_joint39.py)、[实现语义审查](IMPLEMENTATION_REVIEW.md)与[算子推导](JOINT_REPRESENTATION_DERIVATION.md)随附。[CPU剩余缺陷重放脚本](replay_joint39_residual.py)已准备，需要学校封存向量；本地只检查了语法，未将该脚本的预期结果计为实测。
 
 [学校 40 层在线比较的启动与验证](ONLINE_START.md)。
+
+[四条完整候选、逐步状态与视频配对](ONLINE_QUALITY_REPORT.md)已验收。
