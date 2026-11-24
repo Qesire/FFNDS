@@ -81,3 +81,6 @@ FIN-C1 对保留同一 Hessian、移除质量标签右端项的诊断臂，点�
 
 [完整算子推导](JOINT_OPERATOR_DERIVATION.md)、[生产计算图审查](JOINT_GRAPH_AUDIT.md)、[真实数据复算](joint_evidence_recomputed.json)、[复算脚本](recompute_joint_evidence.py)及两份明确使用合成权重的数学核验一并保存。本轮新增真实模型/GPU执行数为0。
 
+## 第 39 层联合分叉执行
+
+已按新版方案核验 DEV0392 的四臂终端 flow 实验、完整 P64 子查询与向量审计。DEV1013 已启动，待学校恢复后核验收据。[执行进度与单来源结果](joint39/README.md)
