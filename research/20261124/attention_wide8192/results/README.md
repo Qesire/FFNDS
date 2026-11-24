@@ -97,4 +97,4 @@ FIN-C1 对保留同一 Hessian、移除质量标签右端项的诊断臂，点�
 
 [学校全层在线比较的执行记录](joint39/ONLINE_START.md)登记后端、真实面板和 A/B/C 首批作业。
 
-[四条全层候选和匹配轨迹结果](joint39/ONLINE_QUALITY_REPORT.md)已验收，学校同卡计时已启动。
+[四条全层候选和匹配轨迹结果](joint39/ONLINE_QUALITY_REPORT.md)已验收，[学校同卡计时](joint39/ONLINE_TIMING_REPORT.md)已核验。

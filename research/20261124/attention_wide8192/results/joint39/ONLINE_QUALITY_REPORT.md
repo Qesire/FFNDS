@@ -43,6 +43,6 @@ RGB PSNR 反映对照视频的逐像素偏差，动作、轮廓和纹理的评�
 | vbi_1013 | C/A | 5.915% | 6.615% | 7.701% |
 | vbi_1013 | B/C | 0.000% | 1.455% | 1.372% |
 
-同卡交错周期计时已提交到学校作业 `194228`。本页视频距离仅为待审看的两源 DEV 结果。
+学校作业 `194228` 已完成[同卡交错周期计时](ONLINE_TIMING_REPORT.md)。本页视频距离仅为待审看的两源 DEV 结果。
 
 [完整运行收据及缓存指纹（gzip）](ONLINE_QUALITY_194188.json.gz) · [逐步张量配对结果](ONLINE_TRAJECTORY_194188.json) · [机器可读摘要](ONLINE_QUALITY_SUMMARY.json)。

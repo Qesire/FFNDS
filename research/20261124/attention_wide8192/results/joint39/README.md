@@ -54,3 +54,5 @@
 [学校 40 层在线比较的启动与验证](ONLINE_START.md)。
 
 [四条完整候选、逐步状态与视频配对](ONLINE_QUALITY_REPORT.md)已验收。
+
+[同卡配对周期、显存与组件时延](ONLINE_TIMING_REPORT.md)已核验 18 次正式运行。
