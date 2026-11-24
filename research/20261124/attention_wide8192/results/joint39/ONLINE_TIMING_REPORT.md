@@ -1,5 +1,7 @@
 # 四步 wide8192 的 40 层结构化 attention 自身轨迹
 
+> 2026-11-24人审更新：用户反馈“三个方法的视频对比，肉眼几乎没有差别”。[原话与范围](HUMAN_REVIEW_20261124.json) · [结合完整周期的推进判断](ONLINE_REVIEW_AND_NEXT.md)。以下保留学校实际运行记录。
+
 执行依据为 FFNDS@d9cb9952d0da，质量作业为学校 A100 `194188`。0392 和 1013 使用原 prompt、seed 42 和封存 A/Dense 对照。A 为 BF16 wide8192 加原生 attention，B/C 均在 high 使用 OUT-ABS，low 分别使用 FIN-C0 和 OUT-D。结论属于已使用 DEV 的探索性比较。
 
 每条候选实际执行 80 次原生 attention anchor、80 次结构化命中和 5,120 个全键 P64 query。现有 wide8192 FFN 按候选的实际当前输入建锚与恢复。候选和 A 的初始噪声、step 0 flow 与 latent 精确匹配。B/C 在最后一个命中步前的三步状态和全部路由指纹完全匹配。每条候选保存全部 81 帧、五组轨迹张量和 80 个 attention anchor 的路由指纹。
@@ -79,3 +81,4 @@ C 的配对整片时间下降 12.01%，0392 和 1013 分别下降 9.18% 和 14.0
 本轮包括两个已使用 DEV 来源。RGB 指标和逐步张量距离用于解释配对差异，质感与运动仍以完整视频审看为准。新锚点时序、块出口目标和来源独立确认属于后续实验。
 
 [完整计时收据（gzip）](ONLINE_TIMING_194228.json.gz) · [计时和组件机器可读摘要](ONLINE_TIMING_SUMMARY.json) · [四条质量轨迹与视频配对](ONLINE_QUALITY_REPORT.md)。
+

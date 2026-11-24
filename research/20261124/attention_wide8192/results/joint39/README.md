@@ -1,5 +1,9 @@
 # 第 39 层联合分叉进度
 
+## 三臂成片人审与整体推进
+
+用户本轮反馈：“结果已同步，三个方法的视频对比，肉眼几乎没有差别”。结合正式配对计时，C（high OUT-ABS / low OUT-D＋wide8192）相对A整片时间下降12.01%，四步GPU下降15.42%，成为下一工作候选。[人审后的整体判断](ONLINE_REVIEW_AND_NEXT.md)记录机制归属、完整成本、原始收据复算及只改变high step0的后续比较；[人审原话](HUMAN_REVIEW_20261124.json)保留实际反馈范围。
+
 ## 最新整体判断：进入结构化 attention 的完整闭环
 
 [整体方法分析](GLOBAL_METHOD_SYNTHESIS.md)依据固定P64新实测，把推进对象放回现有high OUT-ABS/low FIN-C0＋wide8192的全层自身轨迹。已完成真实收据及奇异谱复算、在线统计的合成代数核验和完整周期静态算术。下一比较为原生attention＋wide、结构化候选及同专家输出坐标参考；另给出attention独立锚点时序的后续构造。
@@ -56,3 +60,4 @@
 [四条完整候选、逐步状态与视频配对](ONLINE_QUALITY_REPORT.md)已验收。
 
 [同卡配对周期、显存与组件时延](ONLINE_TIMING_REPORT.md)已核验 18 次正式运行。
+
