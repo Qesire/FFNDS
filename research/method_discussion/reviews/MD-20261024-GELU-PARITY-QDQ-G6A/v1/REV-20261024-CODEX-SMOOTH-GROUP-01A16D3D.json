@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "review_id": "REV-20261024-CODEX-SMOOTH-GROUP-01A16D3D",
+  "method_id": "MD-20261024-GELU-PARITY-QDQ-G6A",
+  "version": 1,
+  "proposal_git_blob_sha": "c273b98a5c72db79933450d7207a22db967e0b99",
+  "reviewer": {
+    "agent_id": "codex-ffnds-method-01a16d3d",
+    "session_ref": "Codex thread 01a16d3d-579f-74d2-ae9d-e5ece9fb627a; 2026-10-24"
+  },
+  "verdict": "REVISE",
+  "independent_reconstruction": "独立按原生源码重建：v=Q1(BF16(q/s1)); z=Linear_BF16(v,A,b1); h=GELU_tanh(z); u=BF16(h/s2); a=HiF4_64(u); y=Linear_BF16(a,B,b2)。讨论中的实数极限仍须保留确定的SmoothScale：忽略Q2量化误差与舍入时，y_jk=(B_j/s2_j)φ(z_j)+(B_k/s2_k)φ(z_k)。因此应以有效列c_j=B_j/s2_j配对，而非自动对原始缓存B列配对。由φ(z)-φ(-z)=z，设z_k=-z_j+δ,c_k=-c_j+η，得到pair=c_j z_j-c_j[φ(-z_j+δ)-φ(-z_j)]+ηφ(-z_j+δ)。这支持parity实数条件恒等式，也补足了原生坐标系。",
+  "decisive_argument": "REVISE针对原生配对条件与量化误差边界，绝不否定已成立的理想GELU恒等式。v1虽然提到scale和Q2不交换，但未明确w是有效列B/s2还是存储B；其以原生权重做two-sided matching的讨论因此可能选择错误pair。此外原生Q2含64通道共同E6M2尺度及8/4子组尺度。删除、折叠或重新打包一对通道可能改变同组未折叠通道的Q2结果，不能仅计pair内的parity commutator。需把scale-resolved matching和受影响完整组的误差定义写入下一版本。路线是源代码重建→坐标修正→代数反例→建设性修改。",
+  "counterexample_or_discriminator": "令z_k=-z_j、存储列B_j=w,B_k=-w，但s2_j=1,s2_k=2；暂时把Q2设为恒等。原生Smooth路径得到wφ(z)-(w/2)φ(-z)=wz+(w/2)φ(-z)，含非线性残项，故原始B列反向不足以推出线性折叠。另一反例是待删除通道恰为64组的absmax：其余通道值不变也可能因共同尺度改变而重编码。理想pair恒等式、Smooth坐标正确性、完整组Q2扰动是三个不同命题，应逐个论证。",
+  "constructive_revision": "建议v2：1) 明定A为QDQ后的第一投影权重、c_j=B_j/s2_j，配对联合考虑A_j+A_k、b1_j+b1_k及c_j+c_k；误差界用||c_j||L|δ|+||c_j+c_k|| |φ(-z+δ)|。2) 令u=D_s2^{-1}φ(z)，Q_D(u)=u+e_D(u)作为原完整布局QDQ的记号；对任意新布局/映射，把全部受影响组的QDQ差异投影回输出空间，纳入||B e_D - B_new e_new||及BF16/归约误差，不能用独立标量量化近似代替。3) 讨论一个有利的不同构造：输入反向pair共享一次z计算，但仍生成φ(z)、φ(-z)，保留原两坐标、原Q2组和W2。它只省该pair的一个W1 row，原投影4d MAC变3d，即该pair约25%名义投影MAC节省；不要求反向输出列，但必须证明原生两次Linear与正负重建的数值关系。此为新讨论变体，不是已执行实现。",
+  "evidence_links": [
+    "research/method_discussion/proposals/MD-20261024-GELU-PARITY-QDQ-G6A/v1.json",
+    "tools/packed_ffn_reference.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/ptq/adapters/wan_i2v.py",
+    "upstream_audit/source_deltas/HiF4_Sp/files/HiFloat4/hif4_gpu/quant_cy/base/cusrc/hifxg_quant_cuda.cu",
+    "upstream_audit/SOURCE_MANIFEST.json"
+  ],
+  "prior_reviews_seen": false,
+  "review_independence_note": "未读取本parity提案的其他评议后形成此论证。此前读过该提案者对另一个GATED-QUOTIENT方法的评议；不把它计作本方法支持。",
+  "claim_scope": "CONDITIONAL_PARITY_IDENTITY_ACCEPTED; NATIVE_PAIRING_AND_FULL_GROUP_QDQ_ACCOUNTING_REQUIRE_REVISION",
+  "discussion_authorization": "DISCUSSION_ONLY_NO_EXPERIMENT_OR_IMPLEMENTATION"
+}
