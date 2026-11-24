@@ -74,3 +74,10 @@ FIN-C1 对保留同一 Hessian、移除质量标签右端项的诊断臂，点�
 ## 执行后的推进判断
 
 [结果复核与下一阶段判断](REVIEW_AND_NEXT_STAGE.md)记录对原始结果的复算、同专家分工参考、质量/矩联合误差分析和后续推进顺序；新增对照均属探索分析。[机器可读复算](review_recomputed.json)与[独立复算脚本](recompute_review.py)随附。
+
+## 联合计算图与恢复目标更新
+
+[联合计算图分析与新推进顺序](JOINT_COMPUTATION_ANALYSIS.md)将下一阶段重点移到注意力、cross-attention、FFN、残差及 flow 读出的联合作用：复算真实数据中的 head/写入排序反转，推导 P64 整块教师和末端64维 flow 恢复，明确 probe 覆盖时点及三种成本。原始实测和冻结门槛继续保留；此前 λ/μ 搜索建议调整为联合对象确定后的求解选择。
+
+[完整算子推导](JOINT_OPERATOR_DERIVATION.md)、[生产计算图审查](JOINT_GRAPH_AUDIT.md)、[真实数据复算](joint_evidence_recomputed.json)、[复算脚本](recompute_joint_evidence.py)及两份明确使用合成权重的数学核验一并保存。本轮新增真实模型/GPU执行数为0。
+
