@@ -1,0 +1,29 @@
+{
+  "evidence_type": "SYNTHETIC_ALGEBRA_CHECK_ONLY",
+  "real_model_execution": false,
+  "latency_measured": false,
+  "dimensions": {
+    "all_keys": 31668,
+    "queries": 64,
+    "head_width": 128,
+    "selected_keys": 3968,
+    "augmented_value_width": 144
+  },
+  "dtype": "NumPy FP64",
+  "seed": 20261124,
+  "input_semantics": "Synthetic Q/K/V; archived P_v and P_k; no model activations.",
+  "basis_sha256": {
+    "P_v.npy": "cfc5a6febf99b37f04ba2989038546bda0d404d9e15db659793bbc88125ca3ff",
+    "P_k.npy": "58685f38695074a2f6e830b1023b816dd4e3ff9ea089c931a531122c095f4d9a"
+  },
+  "checks": {
+    "full_output_max_abs": 3.9898639947466563e-17,
+    "full_lse_max_abs": 1.7763568394002505e-15,
+    "selected_output_max_abs": 1.0408340855860843e-16,
+    "selected_lse_max_abs": 1.7763568394002505e-15,
+    "selected_key_mean_max_abs": 1.1102230246251565e-16,
+    "selected_covariance_max_abs": 2.498001805406602e-16
+  },
+  "conclusion": "The same online softmax reduction yields O and LSE; augmented values yield the requested projected key means and value/key covariance diagonal.",
+  "execution_boundary": "Does not validate BF16 rounding, an installed fused kernel interface, throughput, memory peak, or video quality."
+}

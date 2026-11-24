@@ -1,5 +1,11 @@
 # 第 39 层联合分叉进度
 
+## 最新整体判断：进入结构化 attention 的完整闭环
+
+[整体方法分析](GLOBAL_METHOD_SYNTHESIS.md)依据固定P64新实测，把推进对象放回现有high OUT-ABS/low FIN-C0＋wide8192的全层自身轨迹。已完成真实收据及奇异谱复算、在线统计的合成代数核验和完整周期静态算术。下一比较为原生attention＋wide、结构化候选及同专家输出坐标参考；另给出attention独立锚点时序的后续构造。
+
+[在线接口与P覆盖等价](ONLINE_STRUCTURED_ATTENTION.md) · [数值辨析](NUMERIC_GEOMETRY_ANALYSIS.md) · [复算数据](observability_recomputed.json) · [成本算术](extension_cost_arithmetic.json) · [统计归约核验](online_statistics_algebra.json)。本次分析新增真实模型/GPU执行数为0，未将局部回放或静态MAC计为候选成片、实际速度。
+
 ## D176 后的机制判断
 
 [回到最初问题：FFNDS 怎样扩展到注意力与组合计算](RETURN_TO_ORIGINAL_QUESTION.md)根据两源真实收据完成独立 CPU 复算。新的判断区分完整字典、固定 P64 当前读出的可达空间、按头/模块教师约束，并给出低噪声下原独立路径在当前 D176 字典之外的作用下界。下一构造保留有限变化与模块结构，用完整块/flow 评价共同作用。
