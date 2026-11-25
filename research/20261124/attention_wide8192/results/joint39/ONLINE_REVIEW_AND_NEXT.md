@@ -2,6 +2,8 @@
 
 日期：2026-11-24。最新执行证据固定于 [FFNDS@832e9eae827364d49900232f439b9d74daabb624][head]，学校 A100 质量作业194188、完整周期计时作业194228。采用 evidence-analysis、operator-tensor-analysis 和 active-abstraction；本轮执行真实收据复算与源码分析，新增模型/GPU执行数为0。
 
+> 第 6 节的 C0 时序已完成同源配对。实际成片、轨迹差异和完整周期结果见 [C0 配对报告](C_SCHEDULE_REPORT.md)。
+
 ## 1. 当前结论
 
 用户本轮原话：

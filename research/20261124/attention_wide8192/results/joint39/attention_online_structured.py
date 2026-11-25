@@ -197,9 +197,10 @@ class OnlineAttention:
         return predicted,truth,selected
 
     @contextmanager
-    def bind(self,arm, audit=None, profile=False, archive_routes=False):
+    def bind(self,arm, audit=None, profile=False, archive_routes=False, high_step0=False):
         from lightx2v.common.ops.attn.torch_sdpa import TorchSDPAWeight
 
+        assert not high_step0 or (arm=="OUT-D" and audit is None)
         owner=self.exp.owner
         orig=owner.infer_self_attn
         original_apply=TorchSDPAWeight.apply
@@ -246,7 +247,13 @@ class OnlineAttention:
                 route,selected=self.route(q,k)
                 if step==0:
                     slots[layer]=route
-                    returned=original_apply(op,*args,**kwargs)
+                    if high_step0:
+                        predicted,_,_=self.approximate(q,k,v,route,"OUT-ABS")
+                        returned=predicted.reshape(N,-1)
+                        counter["hits"]+=1
+                        counter["native_probe_queries"]+=len(self.probes)
+                    else:
+                        returned=original_apply(op,*args,**kwargs)
                 else:
                     dense,lse=native_flash(q,k,v)
                     slots[layer],recomputed=self.low_cache(q,k,v,route,dense[0],lse[0],arm)
@@ -260,7 +267,10 @@ class OnlineAttention:
                     tensors=() if step==0 else tuple(z for z in slots[layer][1:] if z is not None)
                     anchors.append(dict(step=step,layer=layer,support_sha256=support,
                          anchor_fields=[dict(shape=list(z.shape),dtype=str(z.dtype)) for z in tensors]))
-                counter["anchors"]+=1
+                if not high_step0 or step==2:
+                    counter["anchors"]+=1
+                if high_step0:
+                    counter["route_builds"]+=1
                 if audit is not None:
                     audit.anchor(step,layer,selected)
             else:
@@ -284,7 +294,11 @@ class OnlineAttention:
             yield counter,events,anchors
             assert not slots
             expected=len(AUDIT_LAYERS) if audit is not None else 40
-            assert (counter["attention_sites"],counter["anchors"],counter["hits"],counter["native_probe_queries"])==(4*expected,2*expected,2*expected,128*expected)
+            recoveries=3 if high_step0 else 2
+            assert (counter["attention_sites"],counter["anchors"],counter["hits"],counter["native_probe_queries"])==(
+                4*expected,(4-recoveries)*expected,recoveries*expected,64*recoveries*expected)
+            if high_step0:
+                assert counter["route_builds"]==80
         finally:
             slots.clear()
             owner.infer_self_attn=orig

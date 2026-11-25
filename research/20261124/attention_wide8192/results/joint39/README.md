@@ -61,3 +61,4 @@
 
 [同卡配对周期、显存与组件时延](ONLINE_TIMING_REPORT.md)已核验 18 次正式运行。
 
+C0 只改变原 C 的高噪声第 0 步 attention。学校 A100 已完成两源成片与十二次同卡计时。 [C0 配对结果与收据](C_SCHEDULE_REPORT.md)
