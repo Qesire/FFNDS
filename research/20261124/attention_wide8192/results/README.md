@@ -1,5 +1,12 @@
 # 四步 wide8192 注意力机制筛选
 
+## 最新：真实运输结果、联合读出与Dense直接对照（2026-11-26）
+
+[更新算子skill后的整体分析](joint39/analysis_20261126/UPDATED_OPERATOR_ANALYSIS.md)复算了job198062与199260/199277：冻结C完整请求较Dense省13.52%、四步GPU省18.52%；标准化运输在两专家第0层的同特征拟合能量下降42.10%/43.67%；low39出现attention能量略增而真实wide8192块出口能量下降的同站点排序变化。
+
+明确区分层等权几何平均、总能量和后继读出，并给出有限方向证书、目标可观测条件及一次hit复用的完整成本。附[运输复算](joint39/analysis_20261126/TRANSPORT_RESULT_AUDIT.md)、[Dense/C复算](joint39/analysis_20261126/DENSE_BENCHMARK_AUDIT.md)与[联合数学推导](joint39/analysis_20261126/JOINT_READOUT_DERIVATION.md)。本次分析无新增模型执行；两条新运输视频仍保留待人审状态。
+
+
 ## 最新：新方法原型与标准化缺陷运输（2026-11-25）
 
 已形成具有完整输入、状态、教师与恢复规则的方法原型，并执行CPU数学参考。新的状态保存标准化attention缺陷，使用当前V的通道尺度还原，P64恢复路由与标准化value形状的剩余变化。

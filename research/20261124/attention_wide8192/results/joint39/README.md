@@ -1,5 +1,12 @@
 # 第 39 层联合分叉进度
 
+## 最新：真实运输结果、联合读出与Dense直接对照（2026-11-26）
+
+[更新算子skill后的整体分析](analysis_20261126/UPDATED_OPERATOR_ANALYSIS.md)复算了job198062与199260/199277：冻结C完整请求较Dense省13.52%、四步GPU省18.52%；标准化运输在两专家第0层的同特征拟合能量下降42.10%/43.67%；low39出现attention能量略增而真实wide8192块出口能量下降的同站点排序变化。
+
+明确区分层等权几何平均、总能量和后继读出，并给出有限方向证书、目标可观测条件及一次hit复用的完整成本。附[运输复算](analysis_20261126/TRANSPORT_RESULT_AUDIT.md)、[Dense/C复算](analysis_20261126/DENSE_BENCHMARK_AUDIT.md)与[联合数学推导](analysis_20261126/JOINT_READOUT_DERIVATION.md)。本次分析无新增模型执行；两条新运输视频仍保留待人审状态。
+
+
 ## 最新：冻结 C 直对四步 Dense
 
 学校 A100 已完成六源两轮同卡配对。冻结 C 的完整请求时间减少 13.52%，四步 GPU 时间减少 18.52%。VBench-I2V 的七项六源均分差绝对值均小于 0.31 个百分点。[计时、评分与收据](c_dense_baseline/C_DENSE_BENCHMARK.md)
