@@ -104,3 +104,5 @@ FIN-C1 对保留同一 Hessian、移除质量标签右端项的诊断臂，点�
 [四条全层候选和匹配轨迹结果](joint39/ONLINE_QUALITY_REPORT.md)已验收，[学校同卡计时](joint39/ONLINE_TIMING_REPORT.md)已核验。
 
 C0 只改变原 C 的高噪声第 0 步 attention。学校 A100 已完成两源成片与十二次同卡计时。 [C0 配对结果](joint39/C_SCHEDULE_REPORT.md)
+
+[C0 人审](joint39/C_SCHEDULE_REPORT.md#逐来源人审与帧间复核)记录 0392 的运动质量失败和 1013 的较小视觉变化。
