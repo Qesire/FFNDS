@@ -15,6 +15,6 @@
 
 ## 学校作业
 
-学校 A100 作业 `198062` 已提交。作业在同一冻结 wide8192 release 中首先运行 0392 固定轨迹。固定轨迹需复现历史原生注意力控制臂的四步状态与解码 RGB，通过四层两步 P 教师和两次真实第 39 层尾部检查后，才生成 0392 与 1013 的两条 81 帧自身轨迹。
+学校 A100 作业 `198062` 已完成。0392 固定轨迹逐位复现归档，八个注意力站点和两处第 39 层真实 wide8192 尾部通过核验。0392 与 1013 的 81 帧完整视频已生成并校验。[实测报告](WAN_RUNTIME_RESULT_198062.md) · [原始收据](wan_runtime_receipt_198062.json) · [数值复算](wan_runtime_summary_198062.json)
 
 执行目录沿用冻结 wide8192 release 的 `generate.py` 和配置、旧 `attention_online_structured.py`、第 39 层辅助代码 `attention_joint39.py` 与原 CAL 资产。将 Torch 算子和 Wan 入口放入这个目录，使用原拟合目录在 `PYTHONPATH` 上执行 `python -B run_attention_defect_transport.py FIT_DIR ONLINE_INPUTS.json`。后者绑定方案提交、历史 `ONLINE_RESULT.json` 路径及其 SHA-256。`attention_P_k.npy` 使用原已封存的投影字节。

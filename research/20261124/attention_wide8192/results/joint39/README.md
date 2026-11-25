@@ -1,8 +1,8 @@
 # 第 39 层联合分叉进度
 
-## 最新：Wan 运行入口已实现
+## 最新：Wan 固定轨迹和两源成片已完成
 
-标准化缺陷运输已接入四步 HHLL，沿用 wide8192 FFN 和原 P64。Torch FP32/BF16 已在 CUDA 上对照 NumPy。学校作业 `198062` 已排队，包含 0392 原生轨迹回放与两源完整成片。[实现及验收](method_transport/WAN_RUNTIME_IMPLEMENTATION.md)
+学校 A100 作业 `198062` 核验了 0392 的原生固定轨迹、八个注意力站点、两处真实 wide8192 块尾部，并生成 0392 与 1013 的完整视频。人审和与冻结 C 的配对计时待完成。[实测与收据](method_transport/WAN_RUNTIME_RESULT_198062.md) · [实现及验收](method_transport/WAN_RUNTIME_IMPLEMENTATION.md)
 
 ## 最新：新方法原型与标准化缺陷运输（2026-11-25）
 
