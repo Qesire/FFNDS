@@ -1,0 +1,140 @@
+{
+  "evidence_commit": "873e1a879b91d544fdae11894d68bbc6acc854d1",
+  "algebra": {
+    "FFN_known_readout_fold_exact_in_reals": true,
+    "fixed_design_cache_error_residualization_identity": "0",
+    "low_attention_unrestricted_future_readout_observation_rank": 160,
+    "rank_scope": "Stored-state domain with arbitrary future B and W; not an empirical data intrinsic-dimension estimate"
+  },
+  "synthetic_numerical_witness": {
+    "scope": "Synthetic finite-precision identity witness; activations and FFN weights are not model data",
+    "shape": {
+      "rows": 128,
+      "width": 96,
+      "selected": 48,
+      "modes": 16,
+      "probes": 64
+    },
+    "protected_probe_gain_bitwise_identical": true,
+    "protected_probe_coeff_bitwise_identical": true,
+    "fixed_input_prefinal_cast_error_identity_max_abs": 8.638922910364499e-16,
+    "base_reordering_effect_max_abs": 0.014892578125,
+    "q_reordering_effect_max_abs": 7.152557373046875e-07,
+    "note": "Finite-precision differences are recorded to demonstrate non-equivalence, not estimate model error"
+  },
+  "budget": {
+    "scope": "Static GEMM arithmetic and cache payload only; excludes metadata/workspaces and is not a latency or peak-memory measurement",
+    "real_geometry": {
+      "tokens": 31668,
+      "heads": 40,
+      "head_dim": 128,
+      "width": 5120,
+      "hidden": 13824,
+      "selected": 2560,
+      "shared_modes": 16,
+      "resident_layers": 40,
+      "anchors_per_video": 80,
+      "hits_per_video": 80,
+      "probes": 64
+    },
+    "FFN_original_BF16_fields_GiB": 30.200958251953125,
+    "FFN_folded_C_BF16_Z_BF16_J_FP32_exact_UP_YP_BF16_GiB": 18.244905471801758,
+    "FFN_saved_GiB": 11.956052780151367,
+    "FFN_saved_fraction": 0.3958832259694328,
+    "FFN_folded_components_GiB": {
+      "C_BF16": 12.08038330078125,
+      "Z_BF16": 6.040191650390625,
+      "J_FP32": 0.07550239562988281,
+      "exact_U_P_and_Y_P": 0.048828125
+    },
+    "extra_anchor_A0_TFLOP_per_site": 1.6603152384,
+    "extra_anchor_J_TFLOP_per_site": 0.00518848512,
+    "extra_anchor_A0_TFLOP_per_video": 132.825219072,
+    "extra_anchor_J_TFLOP_per_video": 0.4150788096,
+    "hidden_omitted_linear_projection_extra_TFLOP_per_video": 292.2154819584,
+    "hidden_full_residual_W2_extra_TFLOP_per_video": 358.6280914944,
+    "hidden_omitted_projection_to_dense_A0_projection_ratio": 2.2,
+    "hidden_full_residual_projection_to_dense_A0_projection_ratio": 2.7,
+    "native_anchor_W1_W2_TFLOP_per_video": 717.2561829888,
+    "wide8192_anchor_hit_main_GEMM_TFLOP_per_video": 982.9066211328,
+    "extra_A0_relative_native_anchor_W1_W2": 0.18518518518518517,
+    "extra_A0_J_relative_wide8192_main_GEMM": 0.13555743243243243,
+    "current_main_GEMM_ratio_vs_all_native_FFN": 0.6851851851851852,
+    "folded_main_GEMM_ratio_vs_all_native_FFN": 0.7780671296296297,
+    "low_attention_original_fields_GiB": 15.194857120513916,
+    "low_attention_U_only_INT8_exact_P_fields_GiB": 9.273457527160645,
+    "low_attention_U_PHI_INT8_exact_P_fields_GiB": 7.910889387130737,
+    "low_attention_original_components_GiB": {
+      "u": 12.08038330078125,
+      "phi": 2.925717830657959,
+      "rho": 0.18875598907470703
+    }
+  },
+  "actual_low_CAL_geometry": {
+    "scope": "Actual frozen low CAL matrix and P_v; no activation/candidate quality computation",
+    "calibration_sha256": "04c15a63f6e4ffd34b61714a1be79d2651c195d104e4007aa5c8c22e2dd356e1",
+    "projection_sha256": "cfc5a6febf99b37f04ba2989038546bda0d404d9e15db659793bbc88125ca3ff",
+    "combined_shape": [
+      128,
+      31
+    ],
+    "rank": 31,
+    "singular_min": 3.591671989142409,
+    "singular_max": 3.828438560437719,
+    "condition_2": 1.0659209894475479
+  },
+  "actual_archived_endpoint_scores": {
+    "scope": "Recomputed historical layer19 panel scores for actual_endpoint/original, 11 sources, two experts, two complementary folds; neither candidate execution nor full-video evidence",
+    "analyzed_variant_definition": "actual_endpoint retains each position's complete endpoint state; compare its J/point/edge scores to original. The CAL-mean variant in the source receipt is not the numerator analyzed here.",
+    "source_receipt_cal_mean_definition": "CAL-only equal source/row means of the stored BF16 intercept C=Y0-B(U0), BF16 standardized endpoint f0=(GELU(z0)-beta*z0)/scale and FP32 endpoint q0=GELU(z0)Zmap-U0J. Static means are broadcast to all runtime token positions and cast back to their stored dtype. Like the full-state endpoint construction, BF16 round placement differs from the original deployed differences.",
+    "input_binding_sha256": "8f7320c61dbafd44df0b1662235405de8961dd5c5d52d846c979fdb4179b1ab6",
+    "file_sha256": {
+      "cal_mean_anchor.json": "c3430a04f2a44c038758cb2fefbf0c7a924e8ec9c4087b63103ca62d1e40c23c",
+      "extra_cal_mean.json": "44ad5a79a80c5517ac81e6d5591780653a6fb2a52055f3f7f1a8d493fd443e48"
+    },
+    "records": 44,
+    "aggregation": "Geometric mean over folds within each source, then equal-source geometric mean",
+    "actual_endpoint_over_original": {
+      "high": {
+        "J": {
+          "source_count": 11,
+          "geomean": 1.0000020947029677,
+          "min": 0.9999823737946004,
+          "max": 1.0000306415404228
+        },
+        "point": {
+          "source_count": 11,
+          "geomean": 1.000000572028058,
+          "min": 0.9999828639529994,
+          "max": 1.000013626819115
+        },
+        "edge": {
+          "source_count": 11,
+          "geomean": 1.0000028628059223,
+          "min": 0.9999785906998937,
+          "max": 1.000040017644498
+        }
+      },
+      "low": {
+        "J": {
+          "source_count": 11,
+          "geomean": 1.0000159443262358,
+          "min": 0.9999779354950634,
+          "max": 1.0000614856432744
+        },
+        "point": {
+          "source_count": 11,
+          "geomean": 1.0000125124749526,
+          "min": 0.9999939886064454,
+          "max": 1.0000438780227112
+        },
+        "edge": {
+          "source_count": 11,
+          "geomean": 1.0000176655651665,
+          "min": 0.9999684451868698,
+          "max": 1.0000704374745264
+        }
+      }
+    }
+  }
+}

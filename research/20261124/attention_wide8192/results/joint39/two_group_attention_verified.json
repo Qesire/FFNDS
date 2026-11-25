@@ -1,0 +1,76 @@
+{
+  "scope": "Exact algebra plus explicitly synthetic activations; archived FFNDS projection bytes and actual dimensions. No model/GPU run; no performance/quality prediction.",
+  "assets": {
+    "P_k_sha256": "58685f38695074a2f6e830b1023b816dd4e3ff9ea089c931a531122c095f4d9a",
+    "P_v_sha256": "cfc5a6febf99b37f04ba2989038546bda0d404d9e15db659793bbc88125ca3ff"
+  },
+  "collision_example": {
+    "q_dot_a_over_sqrt_d": [
+      -3.0,
+      -1.0,
+      0.0,
+      1.0,
+      3.0
+    ],
+    "exact_coefficient_along_value_direction": [
+      -0.13525301943486445,
+      -0.017930209905628953,
+      0.0,
+      0.017930209905628953,
+      0.13525301943486445
+    ],
+    "one_group_max_output_norm": 0.0,
+    "two_group_max_abs_error": 1.3877787807814457e-17,
+    "closed_form_max_abs_error": 3.469446951953614e-18
+  },
+  "checks": {
+    "lift_identity": true,
+    "lifted_error_identity": true,
+    "bounded_coordinate_error_identity": true,
+    "anchor_identity": true,
+    "finite_error_max_abs_residual": 6.106226635438361e-16,
+    "finite_bound_min_slack": 15.899669525804784,
+    "minimum_refinement_lse_increase": 0.01669944941842605,
+    "minimum_true_minus_coarse_lse": 0.2105618408504233,
+    "value_translation_max_abs_error": 1.3322676295501878e-15,
+    "value_linear_map_max_abs_error": 3.3306690738754696e-16,
+    "bounded_lift_reconstruction_max_abs_error": 1.1102230246251565e-16,
+    "bounded_residual_translation_max_abs_error": 3.885780586188048e-16,
+    "total_covariance_decomposition_max_abs_error": 3.3306690738754696e-16,
+    "frozen_partition_current_KV_finite_identity_max_abs_error": 8.881784197001252e-16,
+    "retained_value_convex_hull_coordinate_check": true
+  },
+  "budget": {
+    "actual_model_shape": {
+      "N": 31668,
+      "heads": 40,
+      "head_dim": 128,
+      "blocks": 248,
+      "selected_blocks": 31,
+      "last_valid_keys": 52,
+      "layers": 40
+    },
+    "two_group_omitted_pair_ratio_vs_full": 0.013704686118479222,
+    "two_group_all_blocks_then_mask_pair_ratio_vs_full": 0.015662498421119112,
+    "two_group_KV_means_FP32_MiB": 19.375,
+    "two_group_valid_counts_int32_MiB": 0.07568359375,
+    "all_coarse_score_materialization_FP32_GiB": 2.340574264526367,
+    "P64_lse_FP32_KiB": 10.0,
+    "P64_output_BF16_KiB": 640.0,
+    "one_full_position_residual_BF16_40layers_GiB": 12.08038330078125,
+    "current_low_rho_FP32_40layers_GiB": 0.18875598907470703,
+    "current_low_phi31_BF16_40layers_GiB": 2.925717830657959,
+    "residual_only_saving_before_partition_labels_GiB": 3.114473819732666,
+    "frozen_group_labels_uint8_40layers_MiB": 48.321533203125,
+    "frozen_group_labels_bitpacked_40layers_MiB": 6.040191650390625,
+    "residual_plus_uint8_labels_40layers_GiB": 12.127572298049927,
+    "net_state_saving_with_uint8_labels_GiB": 3.0672848224639893,
+    "one_split_projection_MACs_per_layer": 162140160,
+    "note": "Static arithmetic only. Summary reductions, mask/normalization, extra anchor evaluation and kernel cost require measurement."
+  },
+  "implementation_binding": {
+    "current_P_teacher": "F.scaled_dot_product_attention returns output only in actual code",
+    "existing_full_anchor_helper": "native_flash returns ATen Flash attention output and LSE",
+    "P64_output_plus_lse_backend_validation": "NOT_EXECUTED; no local torch package or GPU run"
+  }
+}
