@@ -1,5 +1,9 @@
 # 第 39 层联合分叉进度
 
+## 最新：冻结 C 直对四步 Dense
+
+学校 A100 已完成六源两轮同卡配对。冻结 C 的完整请求时间减少 13.52%，四步 GPU 时间减少 18.52%。VBench-I2V 的七项六源均分差绝对值均小于 0.31 个百分点。[计时、评分与收据](c_dense_baseline/C_DENSE_BENCHMARK.md)
+
 ## 最新：Wan 固定轨迹和两源成片已完成
 
 学校 A100 作业 `198062` 核验了 0392 的原生固定轨迹、八个注意力站点、两处真实 wide8192 块尾部，并生成 0392 与 1013 的完整视频。人审和与冻结 C 的配对计时待完成。[实测与收据](method_transport/WAN_RUNTIME_RESULT_198062.md) · [实现及验收](method_transport/WAN_RUNTIME_IMPLEMENTATION.md)
