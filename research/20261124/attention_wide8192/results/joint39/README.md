@@ -1,10 +1,16 @@
 # 第 39 层联合分叉进度
 
-## 三臂成片人审与整体推进
+## 最新：C0 首步替换后的联合状态分析（2026-11-25）
+
+C0 相对 C 的整片配对时间下降 9.246%，但本轮归档人审确认 0392 的 C0 运动失败，1013 视觉变化较小。**C 继续作为工作候选，优先进入独立来源的完整成片确认。** [本轮整体分析](C_SCHEDULE_REVIEW_AND_NEXT.md)解释首步 attention 如何共同构建 latent、FFN 锚点和路由，并给出固定预算、固定 λ 的一次阶段坐标检验。
+
+[原始回执独立复算](C_SCHEDULE_NUMERIC_REVIEW.md)通过 172 项检查；[复算程序](recompute_schedule_evidence.py)、[机器可读结果](schedule_evidence_recomputed.json)、[读出公式符号核验](outabs_scale_identity.json)及[阶段 CAL 资产审查](PHASE0_CAL_ASSET_AUDIT.md)随附。本次分析新增模型/GPU执行数为 0。以下按原阶段保留历史记录。
+
+## 上一轮：三臂成片人审与整体推进
 
 用户本轮反馈：“结果已同步，三个方法的视频对比，肉眼几乎没有差别”。结合正式配对计时，C（high OUT-ABS / low OUT-D＋wide8192）相对A整片时间下降12.01%，四步GPU下降15.42%，成为下一工作候选。[人审后的整体判断](ONLINE_REVIEW_AND_NEXT.md)记录机制归属、完整成本、原始收据复算及只改变high step0的后续比较；[人审原话](HUMAN_REVIEW_20261124.json)保留实际反馈范围。
 
-## 最新整体判断：进入结构化 attention 的完整闭环
+## 全层执行前的整体判断：进入结构化 attention 的完整闭环
 
 [整体方法分析](GLOBAL_METHOD_SYNTHESIS.md)依据固定P64新实测，把推进对象放回现有high OUT-ABS/low FIN-C0＋wide8192的全层自身轨迹。已完成真实收据及奇异谱复算、在线统计的合成代数核验和完整周期静态算术。下一比较为原生attention＋wide、结构化候选及同专家输出坐标参考；另给出attention独立锚点时序的后续构造。
 

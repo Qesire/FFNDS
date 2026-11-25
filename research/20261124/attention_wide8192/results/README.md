@@ -1,10 +1,16 @@
 # 四步 wide8192 注意力机制筛选
 
-## 三臂成片人审与整体推进
+## 最新：C0 首步替换后的联合状态分析（2026-11-25）
+
+C0 相对 C 的整片配对时间下降 9.246%，但本轮归档人审确认 0392 的 C0 运动失败，1013 视觉变化较小。**C 继续作为工作候选，优先进入独立来源的完整成片确认。** [本轮整体分析](joint39/C_SCHEDULE_REVIEW_AND_NEXT.md)解释首步 attention 如何共同构建 latent、FFN 锚点和路由，并给出固定预算、固定 λ 的一次阶段坐标检验。
+
+[原始回执独立复算](joint39/C_SCHEDULE_NUMERIC_REVIEW.md)通过 172 项检查；[复算程序](joint39/recompute_schedule_evidence.py)、[机器可读结果](joint39/schedule_evidence_recomputed.json)、[读出公式符号核验](joint39/outabs_scale_identity.json)及[阶段 CAL 资产审查](joint39/PHASE0_CAL_ASSET_AUDIT.md)随附。本次分析新增模型/GPU执行数为 0。以下按原阶段保留历史记录。
+
+## 上一轮：三臂成片人审与整体推进
 
 用户本轮反馈：“结果已同步，三个方法的视频对比，肉眼几乎没有差别”。结合正式配对计时，C（high OUT-ABS / low OUT-D＋wide8192）相对A整片时间下降12.01%，四步GPU下降15.42%，成为下一工作候选。[人审后的整体判断](joint39/ONLINE_REVIEW_AND_NEXT.md)记录机制归属、完整成本、原始收据复算及只改变high step0的后续比较；[人审原话](joint39/HUMAN_REVIEW_20261124.json)保留实际反馈范围。
 
-## 最新整体判断：进入结构化 attention 的自身轨迹
+## 全层执行前的整体判断：进入结构化 attention 的自身轨迹
 
 [整体方法分析与推进决定](joint39/GLOBAL_METHOD_SYNTHESIS.md)结合新 P64 可达空间实测、逐头教师和真实执行依赖，确定下一主对象为 high OUT-ABS/low FIN-C0＋wide8192 的全层四步闭环。现有 D176 诊断收束为结构与观测证据；附全行在线接口、原生 P 链共享、softmax 统计的实际代数核验、完整周期成本，以及 attention 与 FFN 分别采用锚点时序的后续构造。本次新增模型执行数为0，候选自身轨迹和计时尚待执行。
 
