@@ -1,0 +1,115 @@
+{
+  "method_name": "当前交互、标准化缺陷运输与探针恢复",
+  "method_id": "attention_standardized_defect_transport",
+  "specification_version": 1,
+  "date": "2026-11-25",
+  "timezone": "Asia/Shanghai",
+  "author": "ChatGPT, following the user research request",
+  "parent_method_evidence_commit": "7c8196fa5380dbe67dd9772f942553085fde55b3",
+  "stage": "EXECUTED_CPU_MATHEMATICAL_REFERENCE",
+  "scope": "Self-attention candidate composed with BF16 wide8192 FFN; conditional mathematical properties and synthetic witnesses",
+  "report": "METHOD.md",
+  "reference_implementation": "reference_attention.py",
+  "inputs": {
+    "q": "Effective post-norm/RoPE [H,I,Dk]",
+    "k": "Effective post-norm/RoPE [H,J,Dk]",
+    "v": "Current values [H,J,Dv]",
+    "selected_blocks": "Current anchor-selected support shared by query-block; frozen to the hit",
+    "probes": "Original 64 distinct production row IDs, shared with FFN",
+    "projection_assets": "Archived 128x128 P_k/P_v; use first 15 columns for current features and first P_k column for split",
+    "native_anchor": "Original full A_a supplied when available; reference can compute it"
+  },
+  "production_target": {
+    "queries": 31668,
+    "keys": 31668,
+    "heads": 40,
+    "head_channels": 128,
+    "key_block": 128,
+    "query_block": 128,
+    "selected_key_blocks": 31,
+    "layers_per_expert": 40,
+    "schedule": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "anchor_steps": [
+      0,
+      2
+    ],
+    "hit_steps": [
+      1,
+      3
+    ],
+    "ffn": "BF16 wide8192",
+    "ffn_tile_rows": 8192,
+    "probes": 64,
+    "feature_columns": 32,
+    "ridge_per_probe": 0.1,
+    "ridge_solve_alpha": 6.4
+  },
+  "state": {
+    "main_field": "C_a=(A_a-G_a) D_a^+, full [H,I,Dv]",
+    "group_labels": "uint8 [H,J], two groups per original block",
+    "support": "existing selected block indices, frozen",
+    "lifetime": "40 active layer slots, high/low reused; matched logical token order",
+    "anchor_value_scale_retained": false,
+    "reference_dtype": "float64",
+    "proposed_field_dtype": "bfloat16, unverified numeric binding"
+  },
+  "hit_algorithm": [
+    "Recompute current grouped G_s and selected B_s with frozen support/labels",
+    "Compute current per-channel V std D_s",
+    "Build [1,q P_k15/sqrt(d),((G-B) D_s^+) P_v15,Zs/Z0]",
+    "Compute only P64 native attention rows with all current K/V",
+    "Form standardized innovation before native overwrite",
+    "Solve fixed ridge for normalized innovation",
+    "Decode G_s+(C_a+Psi W)D_s",
+    "Override constant-current-V columns with G_s; final P overwrite with native teacher"
+  ],
+  "numerical_contract": {
+    "constant_anchor_column": "C_a column=0",
+    "constant_current_column": "G_s exact in real arithmetic; skip cache and recovery in that column",
+    "reference_scale_floor": 1e-12,
+    "equivariance_condition": "nonconstant scales above the floor; exact real-arithmetic theorem",
+    "precision_boundary": "No BF16 kernel or cache-rounding acceptance performed"
+  },
+  "proved_properties": [
+    "Finite standardized route/shape innovation identity",
+    "Exact base for fixed R and positive diagonal affine V evolution",
+    "Independent anchor/hit positive diagonal affine equivariance of full fitted algorithm",
+    "Post-probe-overwrite finite cache/error identity",
+    "Shared P protects downstream FFN fit conditional on same current input/cache and exact probe values",
+    "Same-current-features historical transport contribution M_H(I-KP)(C_a D_s-E_a)"
+  ],
+  "comparison_semantics": {
+    "raw": "Prior raw E_a plus scalar-RMS feature coordinates",
+    "main": "Channel-normalized C_a plus normalization before P_v projection",
+    "attribution": "Unfitted bases and a separate same-feature/same-teacher fitted control isolate state transport. Direct raw-mode vs normalized-mode fits still include feature-coordinate changes.",
+    "same_feature_control": "Use the normalized current interface and override transported_anchor_defect with raw E_a in current output units.",
+    "common_output_units": {
+      "raw_innovation": "E_s-E_a",
+      "transported_innovation": "(C_s-C_a)D_s=E_s-C_aD_s"
+    },
+    "generic_finite_synthetic_witness": "Fixed-feature holdout L2 is 7.336257458461854 without transport and 7.379030232339784 with transport; exact-family improvement is conditional, not a universal norm decrease."
+  },
+  "generalization": {
+    "full_value_T": "Separate derived candidate in DEFECT_TRANSPORT_DERIVATION.md; not enabled in default reference",
+    "target_identifiability": "ker(X) subset ker(E_a)",
+    "target_stability": "For fixed anchor X and E_a, norm(E_a X^+) governs sensitivity to current group observation Y_s perturbations."
+  },
+  "available_evidence": [
+    "reference_attention_verified.json",
+    "defect_transport_verified.json",
+    "probe_composition_verified.json",
+    "novelty_sources.json"
+  ],
+  "actual_model_activations_used": false,
+  "additional_model_or_gpu_executions": 0,
+  "additional_videos": 0,
+  "default_wide8192_changed": false,
+  "real_replay_input_gap": "Existing replay zip contains bases/CAL/summary but no matched full effective anchor/hit Q/K/V; prototype accepts these arrays or a separately justified sufficient-statistics bundle",
+  "novelty_position": "Current coarse base, residual caching, P64 ridge and statistical matching have direct antecedents; claim under study is value-equivariant defect state and observed innovation update",
+  "novelty_open_item": "OnlineCache corrector full mechanism not yet accessible"
+}

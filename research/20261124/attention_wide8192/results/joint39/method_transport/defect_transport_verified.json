@@ -1,0 +1,95 @@
+{
+  "date": "2026-11-25",
+  "evidence_commit": "7c8196fa5380dbe67dd9772f942553085fde55b3",
+  "scope": "Mathematical identities and explicitly synthetic Q/K/V. Archived P_k is only a direction. No Wan activations, GPU inference, video or latency result.",
+  "synthetic_shape": {
+    "query_rows": 96,
+    "key_rows": 768,
+    "head_channels": 128,
+    "block_size": 8,
+    "nonempty_groups": 192
+  },
+  "archived_direction": {
+    "path": "current_review_agent/replay/plan_assets/bases/P_k.npy",
+    "sha256": "58685f38695074a2f6e830b1023b816dd4e3ff9ea089c931a531122c095f4d9a",
+    "shape": [
+      128,
+      128
+    ],
+    "use": "Grouping direction only; all Q/K/V below are synthetic."
+  },
+  "source_audit": {
+    "local_path": "/workspace/scratch/7419172908c6/round9_method/publication/method_transport/source/attention_online_structured.py",
+    "sha256": "8781a7983461e5c0042e1e0f4d58e545c2cab5b7508d35dc450e2de87b07dcee",
+    "rho_semantics": "rho_a=1-Z_selected/Z_full; per-query omitted probability mass.",
+    "u0_semantics": "u0=A_a-(1-rho_a)*B_a; stored BF16.",
+    "scale_r_semantics": "Fixed CAL fit scale; not current/anchor V standard deviation transport.",
+    "hit_base": "(1-rho_a)*B_s+u0"
+  },
+  "checks": {
+    "signed_row_mass_max_abs": 3.165870343657673e-16,
+    "finite_route_value_split_max_abs": 5.325601071248798e-16,
+    "standardized_route_shape_split_max_abs": 2.96637714392034e-16,
+    "dual_QK_with_key_translation_probability_max_abs": 2.2898349882893854e-16,
+    "positive_diagonal_affine_normalized_prediction_max_abs": 6.217248937900877e-15,
+    "same_case_raw_defect_prediction_frobenius_error": 6.649582909778002,
+    "standardized_values_positive_diagonal_invariance_max_abs": 7.993605777301127e-15,
+    "independent_anchor_hit_positive_affine_cache_max_abs": 9.43689570931383e-16,
+    "independent_anchor_hit_positive_affine_features_max_abs": 1.5543122344752192e-15,
+    "independent_anchor_hit_positive_affine_coefficients_max_abs": 4.911435841359335e-16,
+    "independent_anchor_hit_positive_affine_final_output_max_abs": 3.9968028886505635e-15,
+    "full_T_group_mean_observation_rank": 128,
+    "full_T_group_mean_observation_sigma_min": 0.0990601990593562,
+    "full_T_group_mean_observation_sigma_max": 0.9102157572325585,
+    "full_T_group_mean_observation_condition": 9.188511287839866,
+    "full_T_parameter_max_abs": 1.3322676295501878e-15,
+    "full_T_prediction_max_abs": 5.773159728050814e-15,
+    "imperfect_affine_model_finite_identity_max_abs": 8.729995892853282e-16,
+    "target_action_estimation_identity_max_abs": 2.5500435096859064e-16,
+    "target_sensitivity_norm_E_L": 4.914678727293691,
+    "generic_bound_norm_E_over_sigma_min_X": 10.904341705525008,
+    "rank_deficient_observable_action_max_abs": 3.552713678800501e-15,
+    "rank_deficient_transport_parameter_difference": 12.206555615733702,
+    "unobserved_direction_two_summary_difference": 0.0,
+    "unobserved_direction_two_target_difference": 6.4031242374328485,
+    "zero_scale_columns_defect_max_abs": 0.0,
+    "zero_scale_decoding_identity_max_abs": 2.7755575615628914e-16,
+    "standardized_defect_max_abs": 0.18392232356989457,
+    "standardized_defect_bound_sqrt_2Nk": 39.191835884530846,
+    "symbolic_finite_transport_identity": true
+  },
+  "actual_shape_budget": {
+    "dimensions": {
+      "tokens": 31668,
+      "heads": 40,
+      "head_channels": 128,
+      "layers": 40,
+      "anchor_sites_per_fourstep": 80,
+      "hit_sites_per_fourstep": 80,
+      "group_slots_per_head": 496
+    },
+    "normalized_defect_cache_extra_bytes": 0,
+    "normalized_defect_optional_anchor_scales_fp32_bytes": 819200,
+    "normalized_hit_decode_scalar_multiplies_per_layer": 162140160,
+    "T_fit_MAC_per_layer": 325058560,
+    "Ea_T_MAC_per_layer": 20753940480,
+    "T_fit_and_apply_over_full_attention_pair_MAC": 0.0020526209390852477,
+    "T_fit_and_apply_TFLOP_per_fourstep": 3.3726398464,
+    "anchor_factorization_count_per_fourstep": 3200,
+    "anchor_factorization_shape": [
+      496,
+      128
+    ],
+    "full_rank_QR_explicit_Q_and_triangular_solve_major_TFLOP_per_fourstep": 0.12107557546666668,
+    "rank_deficient_factorization_note": "Rank-revealing SVD/QR and null-space completion have algorithm-dependent setup costs; count 3200 small decompositions, not free setup.",
+    "L_anchor_fp32_GiB_40layers": 0.37841796875,
+    "P_null_anchor_fp32_GiB_40layers": 0.09765625,
+    "E_and_group_labels_GiB_40layers": 12.127572298049927,
+    "E_labels_L_GiB_40layers": 12.505990266799927,
+    "E_labels_L_Pnull_GiB_40layers": 12.603646516799927,
+    "T_fp32_scratch_MiB_per_layer": 2.5,
+    "T_transport_read_E_BF16_GiB_per_fourstep": 24.1607666015625,
+    "T_transport_write_if_materialized_FP32_GiB_per_fourstep": 48.321533203125,
+    "scope": "Arithmetic and tensor payload only; includes no kernel/launch/QR timing, peak prediction, or GPU speed measurement."
+  }
+}

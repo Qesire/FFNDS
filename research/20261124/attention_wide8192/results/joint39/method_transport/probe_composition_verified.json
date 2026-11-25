@@ -1,0 +1,48 @@
+{
+  "scope": "Synthetic nonlinear composition with the deployed readout dependency; no Wan weights/activations or GPU execution",
+  "seed": 250911,
+  "shape": {
+    "tokens": 256,
+    "channels": 32,
+    "hidden": 80,
+    "selected": 24,
+    "shared_modes": 16,
+    "probes": 64
+  },
+  "assumptions": [
+    "Same current block input, time/text conditions and FFN cache",
+    "Same probe positions in attention and FFN",
+    "Attention probe values exactly match the chosen native probe chain",
+    "Intervening cross/LN/projections/gates are rowwise in the video-query axis",
+    "FFN global readout depends only on current probe inputs, probe caches and fixed assets"
+  ],
+  "protected_ffn_input_probe_max_error": 0.0,
+  "protected_readout_max_differences": {
+    "gain": 0.0,
+    "coeff": 0.0,
+    "xp": 0.0,
+    "qp": 0.0,
+    "observed": 0.0
+  },
+  "protected_block_probe_max_error": 0.0,
+  "protected_nonprobe_block_error_norm": 2.2909975000170766,
+  "unprotected_gain_difference_norm": 0.025422921036525097,
+  "unprotected_coeff_difference_norm": 0.41338059462733123,
+  "deployed_source_evidence_commit": "7c8196fa5380dbe67dd9772f942553085fde55b3",
+  "deployed_sources": {
+    "fourstep_backend.py": {
+      "sha256": "39319817733a41da227aacb5eea09e35db18c14581ca06252e465c60c0abb460",
+      "bytes": 3314
+    },
+    "fourstep_hit.py": {
+      "sha256": "eee084fca85d49331625c67d9bf899df58a5e987cc3886454f8e0c37b2c31a2d",
+      "bytes": 2781
+    },
+    "attention_online_structured.py": {
+      "sha256": "8781a7983461e5c0042e1e0f4d58e545c2cab5b7508d35dc450e2de87b07dcee",
+      "bytes": 23054
+    }
+  },
+  "source_binding": "tools/ffnds_fourstep/fourstep_backend.py maps wide8192 to fourstep_hit.make_hit(8192,reuse_base=True)",
+  "source_audit": "fourstep_hit computes gain/coeff/xp only from operands(probes), native FFN(u[probes]) and fixed parameters; nonprobe operands are computed afterwards"
+}

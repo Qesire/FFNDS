@@ -1,5 +1,7 @@
 # 六源成片确认之后：当前交互、充分状态与联合缺陷
 
+> 后续进展（2026-11-25）：本轮框架已进一步形成[标准化缺陷运输与探针恢复方法原型](method_transport/METHOD.md)，包含完整CPU参考、两时刻独立正仿射等变性和更直接的机制查新。以下保留上一轮原始推导，尤其原始缺陷E_a与本轮标准化缺陷C_a的语义区别。
+
 2026-11-25。证据基于 FFNDS `873e1a879b91d544fdae11894d68bbc6acc854d1`，新增用户反馈：“6源基本没有差别。现在就基于当前的信息，开始新的推导和论证。”[原话与范围](C_CONFIRM_HUMAN_REVIEW_20261125.json)保留为六来源 C/A 的整体人审，没有补造逐源分数。
 
 使用 operator-tensor-analysis、active-abstraction 与 research-reasoning。本轮执行了真实历史 Gram 的正交分解、实际 CAL 矩阵分析、SymPy 恒等式和明确标记的合成张量验证；没有新增模型/GPU或成片运行。

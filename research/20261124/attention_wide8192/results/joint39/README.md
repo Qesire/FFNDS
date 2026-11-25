@@ -1,6 +1,14 @@
 # 第 39 层联合分叉进度
 
-## 最新：六源成片确认后的新推导（2026-11-25）
+## 最新：新方法原型与标准化缺陷运输（2026-11-25）
+
+已形成具有完整输入、状态、教师与恢复规则的方法原型，并执行CPU数学参考。新的状态保存标准化attention缺陷，使用当前V的通道尺度还原，P64恢复路由与标准化value形状的剩余变化。
+
+[方法说明与判断](method_transport/METHOD.md) · [参考实现](method_transport/reference_attention.py) · [执行结果](method_transport/reference_attention_verified.json) · [机制查新](method_transport/MECHANISM_NOVELTY.md)。
+
+已证明并数值核验anchor/hit两时刻独立正仿射value等变性；源码推导共用P对后续wide8192拟合的保护。真实投影资产与合成激活分别记录。新Wan/GPU执行数为0；冻结C保留已有六来源成片反馈作为工作参照。
+
+## 上一阶段：六源成片确认后的新推导（2026-11-25）
 
 用户反馈：“6源基本没有差别。”[原话与比较范围](C_CONFIRM_HUMAN_REVIEW_20261125.json)已登记。冻结 C 现在具有六来源的视觉基本相当反馈与四步 GPU 时间减少13.48%的证据；完整请求统计仍保留保存长尾。
 

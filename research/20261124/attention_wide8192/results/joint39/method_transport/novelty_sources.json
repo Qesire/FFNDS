@@ -1,0 +1,150 @@
+{
+  "review_date_utc": "2026-11-25",
+  "review_scope": "Mechanism comparison for current grouped-KV coarse attention, full position-wise defect anchor, P64 innovation recovery, and value-standard-deviation transport.",
+  "base_research_commit": "7c8196fa5380dbe67dd9772f942553085fde55b3",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "ClusterAttention: A training-free speedup of bidirectional attention",
+      "arxiv": "2608.26965",
+      "paper_url": "https://arxiv.org/abs/2608.26965",
+      "authors": ["Kasper Nordenram", "Amelie Dittmann"],
+      "reading_coverage": "Original abstract plus author implementation: backend, active Sage centroid compensation, legacy compensation, and error diagnostic. Full paper PDF exists in author repository but was not fetched.",
+      "repository": "https://github.com/SpoketKasper/ClusterAttention",
+      "commit": "483ae96fbce96964a330e68cce73f6d6935db1bf",
+      "commit_date": "2026-10-10",
+      "code": [
+        {"path": "cluster_attention/backend.py", "blob_sha": "d92f32e244572b1eb5ae2e9daa7823ff22c19401", "role": "Production forward invokes sage_query_mean_compensation after sparse output and LSE."},
+        {"path": "cluster_attention/ops/block_sparse_attention/sage_attention.py", "blob_sha": "57c7fd913d4666c12c68db31e0a83062602aa32d", "role": "Active current K/V centroid compensation, selected-group masking, last-group count correction, Sage quantized path."},
+        {"path": "cluster_attention/ops/compensation.py", "blob_sha": "d91feb107322e14bd010feb9f99627030c5b33f7", "role": "Marked no longer used; read for ideal operator interpretation only."},
+        {"path": "cluster_attention/hooks/diagnose_comp_error_parts.py", "blob_sha": "cb8009011c7453507f180de1e6f29c2c857ad1d9", "role": "Jensen and covariance error diagnostic; no empirical prevalence inferred from comments."}
+      ],
+      "verified_relation": "Given the same partition and selected groups, the proposed G and centroid-compensated attention represent the same real-arithmetic operator. Current production quantization prevents a bitwise-equality claim.",
+      "web_refs": ["turn575226397academia12"],
+      "retrieval_method": "web abstract plus signed-in GitHub connector for primary source files"
+    },
+    {
+      "id": "S2",
+      "title": "MC-Sparse: Deconstructing and Closing the Dense–Sparse Attention Gap in Diffusion Transformers",
+      "arxiv": "2610.06801",
+      "paper_url": "https://arxiv.org/abs/2610.06801",
+      "reading_coverage": "Author README and active implementation; paper PDF/HTML unavailable through web retrieval.",
+      "repository": "https://github.com/dodododddo/mcsparse",
+      "branch": "master",
+      "commit": "880f4859faf3621e70ec736546d9839420b76ab4",
+      "commit_date": "2026-10-06",
+      "code": [
+        {"path": "README.md", "blob_sha": "df78369a3ee43481f6b3d669899666e6070f8510", "role": "Author description of anchor residual and fresh-QKV reuse."},
+        {"path": "mcsparse/kernels/flash_mcsa/token_sparse.py", "blob_sha": "8e9660d7e2f0df9157c58907788a1ab4197b3aeb", "role": "TokenSparseCache stores full residual; _full_cal subtracts sparse from dense; reuse adds cached residual to fresh sparse output. Query permutation generation guards alignment."},
+        {"path": "mcsparse/h3/token_sparse_dispatch.py", "blob_sha": "88312388681e7bdeff4e1bcb92cf40e5e473d475", "role": "H3 integration and calibration/reuse state flow."}
+      ],
+      "verified_relation": "With matching sparse base and selection, setting K=0 in G_s+E_a+KP(E_s-E_a) reproduces the cached-defect addition mechanism.",
+      "limitations": "Author implementation targets MiniMax H3 / Hopper. Repository comments about reuse length are not measurements in FFNDS wide8192.",
+      "retrieval_method": "signed-in GitHub connector"
+    },
+    {
+      "id": "S3",
+      "title": "Partition the Support, Reconstruct the Residual: Training-Free Sparse Attention for Video Generation and World Models",
+      "authors": ["Pardis Taghavi", "Reza Langari", "Gaurav Pandey"],
+      "arxiv": "2608.18484v2",
+      "version_date": "2026-09-27",
+      "paper_url": "https://arxiv.org/html/2608.18484v2",
+      "project_url": "https://pardistaghavi.github.io/SparsePR-website/",
+      "reading_coverage": "Full HTML; main sections 4.1 and 4.2, Appendix A.3 formulas and Appendix B.3 routing/output distinction inspected directly.",
+      "verified_algorithm_facts": [
+        "Per current call/head, 64 query rows receive full-key exact attention.",
+        "Coverage-weighted ridge predicts dense-minus-renormalized-sparse output from standardized sparse-output features.",
+        "Query response coordinates select groups/probes but are not residual-regression features.",
+        "Final exact overwrite of probe rows.",
+        "K/V centroids guide routing; they do not supply approximate omitted output contributions.",
+        "Core method fits current residual; it does not add a previously stored full residual field."
+      ],
+      "repository": "https://github.com/PardisTaghavi/SparsePR",
+      "commit": "e028c78e6b40a29cb9683a9f90f7d7fa422b2b0e",
+      "commit_date": "2026-11-08",
+      "code": [{"path": "README.md", "blob_sha": "d4c7b77a639c9542bf43392b56ce17636831ae69", "role": "Only live repository file; says code will be released soon."}],
+      "index_conflict": "Search-index snippets suggested more implementation contents. Live pinned repository tree and README take precedence; executable author code is not claimed verified.",
+      "verified_relation": "With E_a=0, matching hard-drop base, and matching features/weights, current residual fitting is the same form. Using current centroid contributions and transporting a full anchor are additional operations requiring distinct evaluation.",
+      "web_refs": ["turn759004032view3", "turn693678228view0", "turn575226397view1", "turn875058699view0"]
+    },
+    {
+      "id": "S4",
+      "title": "Less is Enough: Training-Free Video Diffusion Acceleration via Runtime-Adaptive Caching",
+      "method": "EasyCache",
+      "arxiv": "2507.02860v1",
+      "paper_url": "https://arxiv.org/html/2507.02860v1",
+      "reading_coverage": "Main method; Section III-C transformation-vector caching and refresh criterion read.",
+      "verified_relation": "Caches v_i-x_i and reuses x_t+(v_i-x_i), a current identity base plus historical transformation vector; no P64 full-key teacher innovation fit in the inspected process.",
+      "web_refs": ["turn856966539view3", "turn575226397view2", "turn693678228view2"]
+    },
+    {
+      "id": "S5a",
+      "title": "Nonlinear Model Reduction via Discrete Empirical Interpolation",
+      "authors": ["Saifon Chaturantabut", "Danny C. Sorensen"],
+      "year": 2010,
+      "paper_url": "https://epubs.siam.org/doi/10.1137/090766498",
+      "reading_coverage": "Original journal metadata/abstract; full text not retrieved. Formula independently inspected in S5b original research paper.",
+      "web_refs": ["turn731220374view0"]
+    },
+    {
+      "id": "S5b",
+      "title": "Stability of discrete empirical interpolation and gappy proper orthogonal decomposition with randomized and deterministic sampling points",
+      "authors": ["Benjamin Peherstorfer", "Zlatko Drmač", "Serkan Gugercin"],
+      "arxiv": "1808.10473v4",
+      "version_date": "2020-05-19",
+      "paper_url": "https://arxiv.org/pdf/1808.10473",
+      "alternate_primary_url": "https://par.nsf.gov/servlets/purl/10299357",
+      "reading_coverage": "Complete PDF retrieved; introduction and Section 2.1 formula (4) directly read, including the introduction's oversampled-regression interpretation and noisy-observation stability scope. Full proof sections were not reviewed.",
+      "verified_relation": "Psi(PPsi)^(-1)P is DEIM with row-selection convention; rectangular full-column-rank regression is gappy recovery. Ridge regularization and online input-conditioned dictionary are variations of this established reconstruction family.",
+      "web_refs": ["turn744434533view0"]
+    },
+    {
+      "id": "S6",
+      "title": "Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization",
+      "authors": ["Xun Huang", "Serge Belongie"],
+      "arxiv": "1703.06868v2",
+      "paper_url": "https://arxiv.org/html/1703.06868v2",
+      "reading_coverage": "Sections 3 through 6; Section 5 formula (8) directly read.",
+      "verified_relation": "Channelwise scaling by a ratio of standard deviations belongs to established statistic matching. Proposed FFNDS transport instead applies input-V-derived scaling to dense-minus-coarse defect, with translation annihilated by R1=0; it should not center E as AdaIN centers its content input.",
+      "web_refs": ["turn272244978view1", "turn589198651view3"]
+    },
+    {
+      "id": "S7",
+      "title": "OnlineCache: Learning Dynamic Caching Policies with Error Correction for Efficient Diffusion Inference",
+      "arxiv": "2607.29398",
+      "paper_url": "https://arxiv.org/abs/2607.29398",
+      "reading_coverage": "Original abstract obtained via web search. Original PDF and HTML retrieval failed. Full corrector formula and primary implementation not inspected.",
+      "verified_algorithm_facts": ["Jointly trains a cache policy and a learnable approximation-error corrector through bilevel optimization."],
+      "open_question": "Check whether its learned corrector contains channelwise input-statistic transport of cached residual. Secondary descriptions mention mean/std features but are not used as verified mechanism evidence.",
+      "web_refs": ["turn589198651academia6", "turn276688489academia7"],
+      "final_targeted_trace": "One bounded follow-up round on 2026-11-25 searched exact title with authors/GitHub, coauthor links, arXiv corrector, and official export PDF. No primary implementation or accessible full text was obtained. Same-name neu-spiral/OnlineCache is unrelated network caching and was excluded. Search stopped with the corrector mechanism explicitly open.",
+      "status": "open mechanism-level exclusion"
+    }
+  ],
+  "candidate_property_update": {
+    "property": "Independent positive diagonal affine equivariance at anchor and hit",
+    "transform": "V'_r = V_r Gamma_r + 1 b_r^T, r in {a,s}; Gamma_a and Gamma_s may differ and are positive diagonal.",
+    "assumptions": "Q/K, support, groups and P fixed under each coordinate change; Q/K may differ between anchor and hit. Use channel-normalized features ((G-B)D_s^+)Pv, inactive scale floor, and theoretical zero-variance branch.",
+    "consequence": "C_a, C_s-C_a, Psi, fitted ridge coefficients and K are invariant; full output transforms as Ahat'_s=Ahat_s Gamma_s+1b_s^T, including exact P overwrite. This allows nonzero routing innovation.",
+    "reference_result_file": "../reference/reference_attention_verified.json",
+    "reference_result_key": "independent_anchor_hit_affine_frames",
+    "reference_output_max_abs_error": 2.6645352591003757e-15,
+    "independent_result_file": "../transport/defect_transport_verified.json",
+    "independent_result_key": "independent_anchor_hit_positive_affine_final_output_max_abs",
+    "independent_output_max_abs_error": 3.9968028886505635e-15,
+    "evidence_scope": "Two independent float64 CPU mathematical-semantics verifications, not real-model quality or GPU speed evidence. The exact classes E_s=E_a and C_s=C_a differ; no universal superset claim."
+  },
+  "search_scope_and_limits": {
+    "query_families": [
+      "current sparse-attention residual reconstruction and exact probes",
+      "cluster centroid compensation and current key-value summaries",
+      "diffusion cached dense-sparse residual, innovation update, affine value transport",
+      "DEIM, gappy POD and interpolation stability",
+      "diffusion cached residual standard deviation, variance rescaling and AdaIN"
+    ],
+    "novelty_conclusion": "A concrete composite method and a sharper defect-transport mechanism are defined. The nearest verified predecessors already provide individual centroid compensation, full-defect reuse, P64 ridge repair and empirical interpolation. The scoped candidate distinction is input-V-equivariant transport plus observed innovation update. This review does not establish a global first-priority claim.",
+    "unverified_candidates": [
+      {"title": "Kernel-based Interpolatory Methods for Context Compression of Attention Mechanisms", "arxiv": "2610.40943", "status": "Original abstract only; RKHS GEIM/Q-DEIM context compression lead, not used for mechanism equivalence."}
+    ]
+  }
+}
