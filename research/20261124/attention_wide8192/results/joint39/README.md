@@ -1,6 +1,10 @@
 # 第 39 层联合分叉进度
 
-## 最新分析：与 SparsePR 的核心重合和历史信息区别
+## 最新分析：配对 value 通道运输与 SparsePR v2 比较信心
+
+[机制、证据与最小对照](analysis_20261127/paired_value_transport/FRONTIER_MECHANISM_AND_CONFIDENCE.md)从真实旧指标复算得到：wide8192 低噪历史 OUT-D 对受限 CAL32 当前恢复的 gated point 几何平方误差比为 0.3835，三个开发来源的十二站均改善；该对照尚非 SparsePR v2 完整通道恢复。提出用少量同位置 anchor/current value 行识别每头通道矩阵，再更新历史响应，P64 恢复剩余创新；给出精确类、三项误差分解和真实非线性后继判据。附 CPU 参考、旧数据复算、近邻原始来源核查及真实 Wan 尺寸成本。新增 GPU 执行为 0；当前默认运行方法保持。
+
+## 上一轮分析：与 SparsePR 的核心重合和历史信息区别
 
 [逐算子核查与等价性推导](analysis_20261127/sparsepr_overlap/SPARSEPR_CORE_OVERLAP.md)明确：当前high OUT-ABS在实数下属于SparsePR当前sparse输出仿射恢复族的受限输入特征变体；low则在全位置运输底座和跨步字典两处引入历史。推导了同一恢复器下的等价条件及实际attention的区分构造，并核对SparsePR v2自身也具有条件value仿射等变性。附v1/v2原文、五文件固定源码身份与CPU核验。新增GPU执行为0。
 
