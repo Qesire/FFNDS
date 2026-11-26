@@ -1,5 +1,7 @@
 # 与 Chipmunk 等方法比较：同一计算预算买到什么信息
 
+> 2026-11-27 后续核查：[与SparsePR的核心重合](../../analysis_20261127/sparsepr_overlap/SPARSEPR_CORE_OVERLAP.md)。当前high OUT-ABS是其共享仿射恢复族的受限特征变体；low的额外历史同时进入底座与跨步字典。本文对Chipmunk的尺度运输辨析保持原适用范围；SparsePR v2本身也具有条件仿射等变性。
+
 日期：2026-11-26。当前方法证据固定于 FFNDS 研究分支 154fe8620724bf1fbe6f0f9b6c5950e154468af4。当前对象是 Wan2.2-I2V-A14B 四步蒸馏、HHLL、wide8192/P64，并包含 low attention 的 mass-centered 状态。新的执行包括原始计时/质量记录的 CPU 复算、实际形状的成本计算、条件代数核验；本轮未新增 GPU 推理。
 
 ## 1. 研究判断
