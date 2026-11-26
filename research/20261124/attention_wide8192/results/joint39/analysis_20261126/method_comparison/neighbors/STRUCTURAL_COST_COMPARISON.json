@@ -1,0 +1,68 @@
+{
+  "status": "Static arithmetic at actual Wan dimensions; synthetic FP64 identity witness; no model/GPU experiment",
+  "shape": {
+    "N": 31668,
+    "D": 5120,
+    "M": 13824,
+    "selected_K": 2560
+  },
+  "excluded": "Nonlinearities, softmax, norms, elementwise/casts, solver, routing/grouping, layout/padding, cache traffic/offload, launches, preparation, and all quality effects",
+  "icc_ffn": [
+    {
+      "rank": 128,
+      "hit_macs": 153579159552,
+      "hit_ratio": 0.03425925925925926,
+      "anchor_hit_ratio": 0.5171296296296296,
+      "anchor_hit_arithmetic_speedup": 1.9337511190689347
+    },
+    {
+      "rank": 192,
+      "hit_macs": 230368739328,
+      "hit_ratio": 0.05138888888888889,
+      "anchor_hit_ratio": 0.5256944444444445,
+      "anchor_hit_arithmetic_speedup": 1.9022457067371201
+    },
+    {
+      "rank": 256,
+      "hit_macs": 307158319104,
+      "hit_ratio": 0.06851851851851852,
+      "anchor_hit_ratio": 0.5342592592592592,
+      "anchor_hit_arithmetic_speedup": 1.8717504332755635
+    },
+    {
+      "rank": 512,
+      "hit_macs": 614316638208,
+      "hit_ratio": 0.13703703703703704,
+      "anchor_hit_ratio": 0.5685185185185185,
+      "anchor_hit_arithmetic_speedup": 1.758957654723127
+    },
+    {
+      "rank": 1024,
+      "hit_macs": 1228633276416,
+      "hit_ratio": 0.2740740740740741,
+      "anchor_hit_ratio": 0.6370370370370371,
+      "anchor_hit_arithmetic_speedup": 1.569767441860465
+    },
+    {
+      "rank": 1408,
+      "hit_macs": 1689370755072,
+      "hit_ratio": 0.3768518518518518,
+      "anchor_hit_ratio": 0.6884259259259259,
+      "anchor_hit_arithmetic_speedup": 1.4525891055817082
+    }
+  ],
+  "ours_major_hit_ratio": 0.37037037037037035,
+  "ours_major_anchor_hit_ratio": 0.6851851851851852,
+  "icc_rank_equal_ours_major_hit": 1383.7837837837837,
+  "icc_ffn_four_field_scalars_per_layer": 1199837184,
+  "icc_ffn_four_field_BF16_GiB_per_layer": 2.2348709106445312,
+  "icc_ffn_four_field_BF16_GiB_40_layers": 89.39483642578125,
+  "cache_scope": "Direct four-field author-layout extrapolation; not necessary memory lower bound or measured peak",
+  "mc_core_cycle_model": "alpha + 1.5/(H+1): one full QK/AV and one extra full QK per anchor, plus selected core at every anchor and hit",
+  "selected_alpha": 0.1252999873689529,
+  "mc_one_hit_per_anchor_core_ratio": 0.8752999873689529,
+  "mc_fifteen_hits_per_anchor_core_ratio": 0.2190499873689529,
+  "ours_current_fourcall_core_ratio": 0.5949854742958192,
+  "mc_scope": "Same density and two-pass selection semantics; ignores grouping, solves, precision and fidelity; not a latency or matched-quality comparison",
+  "icc_error_identity_max_abs": 7.105427357601002e-15
+}

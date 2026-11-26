@@ -1,0 +1,42 @@
+{
+  "scope": "Synthetic float64 conditional algebra, not empirical quality or speed",
+  "seed": 20261126,
+  "shape": {
+    "tokens": 73,
+    "value_dim": 11,
+    "selected_per_group": 17,
+    "query_group": 8
+  },
+  "general_change": {
+    "exact_base_difference_max_abs": 3.3306690738754696e-16,
+    "chip_relative_l2": 2.217322336737325,
+    "centered_relative_l2": 0.8126693843953477,
+    "rho_change_max_abs": 0.06444011086225998
+  },
+  "pure_value_translation": {
+    "exact_base_difference_max_abs": 4.440892098500626e-16,
+    "chip_relative_l2": 2.610354315427164e-16,
+    "centered_relative_l2": 2.327974784738044e-16,
+    "rho_change_max_abs": 0.0
+  },
+  "positive_channel_scale_and_translation": {
+    "exact_base_difference_max_abs": 3.885780586188048e-16,
+    "chip_relative_l2": 0.13928380934601306,
+    "centered_relative_l2": 2.954601001487495e-16,
+    "rho_change_max_abs": 0.0
+  },
+  "wan_shape_bf16_static_ffn_cache": {
+    "N": 31668,
+    "D": 5120,
+    "M": 13824,
+    "K": 2560,
+    "layers_retained": 40,
+    "ours_three_main_slots_bytes": 32428032000,
+    "chipmunk_two_main_slots_bytes": 47993487360,
+    "chipmunk_blockmean_bytes": 274268160,
+    "ours_three_main_slots_gib": 30.200958251953125,
+    "chipmunk_two_main_slots_gib": 44.697418212890625,
+    "chipmunk_blockmean_gib": 0.25543212890625,
+    "scope": "All 40 layers' indicated BF16 logical slots resident, one active expert; excludes weights, packing, indices, workspaces, offloading. Chipmunk video main tables disable MLP, so this is only a shape-matched adaptation budget."
+  }
+}

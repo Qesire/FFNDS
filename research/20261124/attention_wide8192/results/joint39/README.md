@@ -1,6 +1,10 @@
 # 第 39 层联合分叉进度
 
-## 最新分析：理论上限、实测加速与方法核心
+## 最新分析：与 Chipmunk 等方法的机制和成本比较
+
+[方法得失与复算](analysis_20261126/method_comparison/METHOD_COMPARISON_AND_TRADEOFFS.md)核对 Chipmunk、ICC、SparsePR、MC-Sparse 的原文与固定源码，并重算11开发来源的495条历史指标。当前wide8192、历史ICC r1408和Chip Author Safe的完整FFN周期主算量均约为原生的69%，预算分别投向完整线性项与输出恢复、低秩增量、动态选列。centered与静态历史残差的精确差式和条件value尺度运输已在CPU核验。当前完整C对同四步Dense的1.156×请求加速、历史FFN质量表及作者多步系统倍率保留各自范围；完整当前版本与Chipmunk attention的同批质量/时延比较待执行。报告另列attention-only简化的约7.0个百分点主算量代价与30.2GiB FFN历史槽预算。本轮新增GPU推理为0。
+
+## 上一轮分析：理论上限、实测加速与方法核心
 
 [完整成本与合并指标](analysis_20261126/speed_and_core/SPEED_LIMITS_AND_CORE.md)按真实执行图复算：已列主要矩阵算量约省28%；固定两锚点与现有模块边界的乐观算量参照约省37.02%。完整C相对同四步蒸馏Dense已测1.227× GPU、1.156×预热后完整请求加速；centered另有小幅增量。两条centered开发视频已获用户“基本没问题”的反馈。方法收束为结构预测与P64创新恢复，attention可等价重排为先P拟合、后一次分块输出。蒸馏叠加可以报告总系统加速，并单列同蒸馏骨干上的增量；原模型分母由匹配三臂对照确定。
 
