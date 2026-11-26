@@ -1,12 +1,16 @@
 # 四步 wide8192 注意力机制筛选
 
+## 最新分析：当前候选的状态表示、联合恢复与完整成本
+
+[job 201500 的整体分析与独立复算](joint39/analysis_20261126/mass_centered_review/MASS_CENTERED_RESULT_ANALYSIS.md)核验 112 个真实 Gram 和 183 个非视频汇总数值。八处 attention、七处同输入 Dense 块出口改善；恢复及 BF16 写回后，H 上新旧底座更新保留 2.37%–19.49% 的能量。完整 low 周期四对均更快，来源等权比值 0.98549；整片墙钟 0.99397 保留运行顺序影响。实际峰值分配降低 1.2099 GiB，收益包含当前编译融合实现，历史槽容量相同。下一重点是当前固定候选的完整成片评价与独立来源配对确认。
+
 ## 最新：low OUT-D 的均值与尺度运输
 
-学校 A100 作业 `201500` 已完成两来源固定轨迹和四组同卡成片配对。八个受测站点的拟合后注意力误差均下降，同块 Dense 出口七处改善。low 复用周期均值减少 1.45%，整片均值减少 0.60%。[报告、分层结果与运行收据](joint39/analysis_20261126/joint_action_review/mass_centered_runtime/MASS_CENTERED_REPORT.md)
+学校 A100 作业 `201500` 已完成两来源固定轨迹和四组同卡成片配对。八个受测站点的拟合后注意力误差均下降，同块 Dense 出口七处改善。low 复用周期均值减少 1.45%，整片均值减少 0.60%（两开发来源的顺序平衡读数）。[报告、分层结果与运行收据](joint39/analysis_20261126/joint_action_review/mass_centered_runtime/MASS_CENTERED_REPORT.md)
 
-## 最新分析：运输方向、联合读出与低噪缓存构造
+## 上一轮分析：运输方向、联合读出与低噪缓存构造
 
-[两来源联合作用的算子分析](joint39/analysis_20261126/joint_action_review/JOINT_ACTION_OPERATOR_ANALYSIS.md)独立复算 job 201276 的 256 个 Gram，归档汇总 1,924 个数值字段一致。尺度项与剩余创新的交叉作用解释层间差异；完整块读出及 Dense 背景明确了实际恢复目标。进一步从冻结 C 的非零遗漏质量推导[均值与尺度运输的低噪缓存](joint39/analysis_20261126/joint_action_review/MASS_CENTERED_LOW_CACHE.md)，已有代数和合成核验，Wan 候选尚未执行。附真实数据复算、语义审计与任务方向可辨识判据。
+[两来源联合作用的算子分析](joint39/analysis_20261126/joint_action_review/JOINT_ACTION_OPERATOR_ANALYSIS.md)独立复算 job 201276 的 256 个 Gram，归档汇总 1,924 个数值字段一致。尺度项与剩余创新的交叉作用解释层间差异；完整块读出及 Dense 背景明确了实际恢复目标。进一步从冻结 C 的非零遗漏质量推导[均值与尺度运输的低噪缓存](joint39/analysis_20261126/joint_action_review/MASS_CENTERED_LOW_CACHE.md)，当时完成代数和合成核验；候选随后已完成上方 job 201500 的真实运行。附真实数据复算、语义审计与任务方向可辨识判据。
 
 ## 最新：两来源的逐阶段联合作用
 
