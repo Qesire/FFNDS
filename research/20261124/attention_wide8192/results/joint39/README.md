@@ -2,7 +2,9 @@
 
 ## 最新分析：当前候选的状态表示、联合恢复与完整成本
 
-[job 201500 的整体分析与独立复算](analysis_20261126/mass_centered_review/MASS_CENTERED_RESULT_ANALYSIS.md)核验 112 个真实 Gram 和 183 个非视频汇总数值。八处 attention、七处同输入 Dense 块出口改善；恢复及 BF16 写回后，H 上新旧底座更新保留 2.37%–19.49% 的能量。完整 low 周期四对均更快，来源等权比值 0.98549；整片墙钟 0.99397 保留运行顺序影响。实际峰值分配降低 1.2099 GiB，收益包含当前编译融合实现，历史槽容量相同。下一重点是当前固定候选的完整成片评价与独立来源配对确认。
+[job 201500 的整体分析与独立复算](analysis_20261126/mass_centered_review/MASS_CENTERED_RESULT_ANALYSIS.md)核验 112 个真实 Gram 和 183 个非视频汇总数值。八处 attention、七处同输入 Dense 块出口改善；恢复及 BF16 写回后，H 上新旧底座更新保留 2.37%–19.49% 的能量。完整 low 周期四对均更快，来源等权比值 0.98549；整片墙钟 0.99397 保留运行顺序影响。实际峰值分配降低 1.2099 GiB，收益包含当前编译融合实现，历史槽容量相同。用户对两条候选开发成片的总体反馈为「基本没问题」。[人审记录](analysis_20261126/joint_action_review/mass_centered_runtime/MASS_CENTERED_HUMAN_REVIEW_20261126.json)
+
+下一重点是当前固定候选的完整成片评价与独立来源配对确认。
 
 ## 最新：low OUT-D 的均值与尺度运输
 
