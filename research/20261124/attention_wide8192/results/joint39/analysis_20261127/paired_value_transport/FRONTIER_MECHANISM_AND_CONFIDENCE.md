@@ -188,7 +188,7 @@ C与B之间保持字典、lambda、probe、route和其它模块相同。运输�
 
 ## 8. 新颖性应主动对齐更近的工作
 
-SparsePR已经覆盖当前probe残差恢复。RECAP官方核心代码还显示：当前coarse tail统计与历史exact−coarse细节、log-mass漂移调节已有直接实现。Koopman Observers的官方摘要则已提出用当步浅层观测修正历史深层预测；本轮其全文获取失败，只作摘要范围的对比。
+SparsePR已经覆盖当前probe残差恢复。RECAP官方核心代码还显示：当前coarse tail统计与历史exact−coarse细节、log-mass漂移调节已有直接实现。Koopman Observers的§3–4则用离线轨迹识别浅/深层增量的联合演化与修正增益，再用当步浅层创新更新深层预测。初次全文抓取失败后，本轮通过缓存页面补读了这些方法部分。
 
 本候选的具体区别是：**在线同位置value配对识别、作用在通道轴上的M、利用attention左加权与右通道变换的交换关系来更新历史query场。** 这是与已检查机制不同的可执行构造，线性回归本身及泛称“预测＋校正”均采用已有数学工具。[近邻源码与范围](mechanism/MECHANISM_SCREEN.md)
 
