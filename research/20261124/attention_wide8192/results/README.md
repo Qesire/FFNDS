@@ -1,5 +1,9 @@
 # 四步 wide8192 注意力机制筛选
 
+## 最新分析：运输方向、联合读出与低噪缓存构造
+
+[两来源联合作用的算子分析](joint39/analysis_20261126/joint_action_review/JOINT_ACTION_OPERATOR_ANALYSIS.md)独立复算 job 201276 的 256 个 Gram，归档汇总 1,924 个数值字段一致。尺度项与剩余创新的交叉作用解释层间差异；完整块读出及 Dense 背景明确了实际恢复目标。进一步从冻结 C 的非零遗漏质量推导[均值与尺度运输的低噪缓存](joint39/analysis_20261126/joint_action_review/MASS_CENTERED_LOW_CACHE.md)，已有代数和合成核验，Wan 候选尚未执行。附真实数据复算、语义审计与任务方向可辨识判据。
+
 ## 最新：两来源的逐阶段联合作用
 
 学校 A100 作业 `201276` 已复现两条固定轨迹，记录 16 个站点的逐阶段 Gram、同块 Dense 背景和路由／形状／尺度分解。第 0 层的收益在两来源和两专家复现，0392 的低噪第 39 层排序翻转定位到 self gate。[分析与复算](joint39/analysis_20261126/joint_action/JOINT_ACTION_REPORT.md)
