@@ -1,0 +1,85 @@
+{
+  "status": "VERIFIED_CPU_ALGEBRA_ONLY",
+  "scope": "Synthetic real-arithmetic witnesses at P64, attention rank32, FFN16 modes and selected width2560; no GPU/model/video/timing execution",
+  "dimensions": {
+    "rows": 257,
+    "probes": 64,
+    "output_channels": 128,
+    "attention_features": 32,
+    "FFN_modes": 16,
+    "selected_FFN_channels": 2560
+  },
+  "identities": {
+    "probe_first_tiled_vs_fullfield_max_abs": 0.0,
+    "observation_and_residual_composition_max_abs": 5.329070518200751e-15,
+    "partition_of_identity_max_abs": 0.0,
+    "ridge_feature_shift_identity_max_abs": 2.398081733190338e-14,
+    "FFN_gain_kernel_lift_linearity_max_abs": 3.1086244689504383e-15
+  },
+  "speedup_composition": {
+    "scope": "Synthetic timing example, not a model benchmark",
+    "original": [
+      80.0,
+      160.0
+    ],
+    "distilled": [
+      40.0,
+      20.0
+    ],
+    "distilled_plus_method": [
+      10.0,
+      20.0
+    ],
+    "per_source_distillation_speedup": [
+      2.0,
+      8.0
+    ],
+    "per_source_method_speedup": [
+      4.0,
+      1.0
+    ],
+    "per_source_total_speedup": [
+      8.0,
+      8.0
+    ],
+    "geomean_distillation": 4.0,
+    "geomean_method": 2.0,
+    "geomean_total": 7.999999999999998,
+    "geomean_product": 8.0,
+    "arithmetic_mean_speedup_product": 12.5,
+    "arithmetic_mean_total_speedup": 8.0,
+    "ratio_of_time_means_product": 8.0,
+    "ratio_of_time_means_total": 8.0
+  },
+  "execution_shape_budget": {
+    "actual_N": 31668,
+    "actual_heads": 40,
+    "actual_head_dim": 128,
+    "one_full_FP32_response_bytes": 648560640,
+    "P64_FP32_response_bytes": 1310720,
+    "tile8192_FP32_response_bytes": 167772160,
+    "scope": "Static temporary sizes only; not a prediction of peak reduction or latency. Current compiler lifetime/aliasing may already remove some buffers."
+  },
+  "source_identity": [
+    {
+      "role": "attention_code",
+      "supplied_path": "round9_method/source/attention_online_structured.py",
+      "sha256": "8781a7983461e5c0042e1e0f4d58e545c2cab5b7508d35dc450e2de87b07dcee"
+    },
+    {
+      "role": "centered_code",
+      "supplied_path": "round12_mass/source/attention_mass_centered_low.py",
+      "sha256": "dcd51580107fa45723ede1f73c45022e8d4fa7296dd5336f8c2da9f73b1ccc5e"
+    },
+    {
+      "role": "ffn_hit",
+      "supplied_path": "round9_method/publication/method_transport/source/fourstep_hit.py",
+      "sha256": "eee084fca85d49331625c67d9bf899df58a5e987cc3886454f8e0c37b2c31a2d"
+    },
+    {
+      "role": "panel_fit",
+      "supplied_path": "round13_speed/source/attention_panel_fit_current.py",
+      "sha256": "cd2eba42c29b9b8ff0d702a9a77621c72346d599e24c648e70927feaf4e09ab6"
+    }
+  ]
+}
