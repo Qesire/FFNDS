@@ -1,5 +1,9 @@
 # 第 39 层联合分叉进度
 
+## 学校实测：SparsePR v2 恢复对照与 value 配对消融
+
+[完整结果](analysis_20261127/paired_value_transport/experiments/PAIRED_VALUE_REPORT.md) · [学校收据与复算](analysis_20261127/paired_value_transport/experiments/REPRODUCE_EXPERIMENTS.md)。三个开发来源的 12 个 low 站上，固定 P64 的全通道 PFRR 相对历史 OUT-D 的 head 和 gated point 误差能量比为 4.8837 和 3.9859。同位置配对在固定轨迹上优于打乱配对，C 相对对角 B 的恢复后 attention 和同输入 Dense 块出口误差能量比分别为 1.2154 和 1.0841。全矩阵配对未通过独立来源自由轨迹的验收条件。
+
 ## 最新分析：配对 value 通道运输与 SparsePR v2 比较信心
 
 [机制、证据与最小对照](analysis_20261127/paired_value_transport/FRONTIER_MECHANISM_AND_CONFIDENCE.md)从真实旧指标复算得到：wide8192 低噪历史 OUT-D 对受限 CAL32 当前恢复的 gated point 几何平方误差比为 0.3835，三个开发来源的十二站均改善；该对照尚非 SparsePR v2 完整通道恢复。提出用少量同位置 anchor/current value 行识别每头通道矩阵，再更新历史响应，P64 恢复剩余创新；给出精确类、三项误差分解和真实非线性后继判据。附 CPU 参考、旧数据复算、近邻原始来源核查及真实 Wan 尺寸成本。新增 GPU 执行为 0；当前默认运行方法保持。
