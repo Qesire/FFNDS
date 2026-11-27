@@ -19,7 +19,7 @@ COMPARISONS = (("centered", "dense"), ("wide8192", "dense"), ("centered", "wide8
 DIMS = ("subject_consistency", "background_consistency", "aesthetic_quality",
         "motion_smoothness", "imaging_quality", "i2v_subject", "i2v_background")
 SEED, REPLICATES, MARGIN = 20261127, 10000, -0.005
-EXPECTED_STRATA = {"structured": 33, "natural": 33, "subject": 34}
+EXPECTED_STRATA = {"structured": 17, "natural": 16, "subject": 17}
 RANGE_EPSILON, DECISION_EPSILON = 1e-6, 1e-12
 
 
@@ -223,19 +223,19 @@ def main():
     if file_hash(run["cohort"]) != run["cohort_sha256"] or binding["cohort_sha256"] != run["cohort_sha256"]:
         raise ValueError("Source cohort fingerprint mismatch")
     ids = [s["source_id"] for s in cohort["sources"]]
-    if (len(ids) != 100 or len(set(ids)) != 100 or len(run["quality"]) != 100
+    if (len(ids) != 50 or len(set(ids)) != 50 or len(run["quality"]) != 50
             or {r["source_id"] for r in run["quality"]} != set(ids)):
-        raise ValueError("Expected all 100 quality source clusters")
+        raise ValueError("Expected all 50 quality source clusters")
     clusters = [s["source_cluster_id"] for s in cohort["sources"]]
-    if any(not isinstance(c, str) or not c for c in clusters) or len(set(clusters)) != 100:
-        raise ValueError("Quality requires 100 independent source_cluster_id values")
+    if any(not isinstance(c, str) or not c for c in clusters) or len(set(clusters)) != 50:
+        raise ValueError("Quality requires 50 independent source_cluster_id values")
     if Counter(s["stratum"] for s in cohort["sources"]) != EXPECTED_STRATA:
-        raise ValueError("Quality stratum counts must be structured33/natural33/subject34")
+        raise ValueError("Quality stratum counts must be structured17/natural16/subject17")
     rng = np.random.default_rng(SEED)
     indices = paired_indices([s["stratum"] for s in cohort["sources"]], rng)
     summary = dict(schema="FFNDS_CENTERED_MEDIUM_SUMMARY_V1", generation_run_sha256=file_hash(args.run),
                    binding_sha256=file_hash(args.binding), scorer_sha256=file_hash(__file__),
-                   mode="CUSTOM_PAIRED", source_count=100, seed=42,
+                   mode="CUSTOM_PAIRED", source_count=50, seed=42,
                    bootstrap=dict(replicates=REPLICATES, seed=SEED, unit="paired_cluster_within_fixed_strata",
                                   interval="two_sided_95_percentile_pointwise"),
                    study_noninferiority_margin=MARGIN,
@@ -247,7 +247,7 @@ def main():
         path = args.metric_dir / (dim + ".json")
         if not path.exists():
             summary["dimensions"][dim] = dict(
-                status="NOT_RUN", reason="Missing official dimension output", planned_n=100,
+                status="NOT_RUN", reason="Missing official dimension output", planned_n=50,
                 actual_n_by_arm={arm: 0 for arm in ARMS},
                 missing_source_ids_by_arm={arm: ids for arm in ARMS})
             dimension_status.append("INCONCLUSIVE")
@@ -260,7 +260,7 @@ def main():
         lookup, audit, missing, invalid = inspect_metric_rows(data, ids)
         if any(invalid.values()) or any(missing.values()):
             summary["dimensions"][dim] = dict(
-                status="ERROR" if any(invalid.values()) else "INCOMPLETE", planned_n=100,
+                status="ERROR" if any(invalid.values()) else "INCOMPLETE", planned_n=50,
                 actual_n_by_arm={a: audit[a]["n_rows"] for a in ARMS},
                 valid_n_by_arm={a: audit[a]["n_valid"] for a in ARMS},
                 score_audit=audit, missing_source_ids_by_arm=missing,

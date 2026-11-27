@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "protocol_id": "FFNDS-centered-medium-20261127",
-  "status": "DESIGN_ONLY_NOT_EXECUTED",
+  "status": "FROZEN_FOR_SCHOOL_EXECUTION",
   "research_commit": "4ca6b1b14b90965269a7b480f4fd5bfc75f64f37",
   "candidate_id": "wide8192_high_OUT-ABS_low_mass-centered_OUT-D_P64_HHLL",
   "method_binding": "FROZEN_METHOD_BINDING.json",
@@ -34,13 +34,13 @@
     ]
   ],
   "quality": {
-    "sources": 100,
+    "sources": 50,
     "videos_per_source_per_arm": 1,
-    "requests": 300,
+    "requests": 150,
     "strata": {
-      "structured": 33,
-      "natural": 33,
-      "subject": 34
+      "structured": 17,
+      "natural": 16,
+      "subject": 17
     },
     "stratum_categories": {
       "structured": [
@@ -81,8 +81,8 @@
       "i2v_subject",
       "i2v_background"
     ],
-    "primary_eligibility": "all_100_custom_inputs_for_all_seven_dimensions",
-    "planned_n_per_arm_per_dimension": 100,
+    "primary_eligibility": "all_50_custom_inputs_for_all_seven_dimensions",
+    "planned_n_per_arm_per_dimension": 50,
     "original_dimension_tags": "preserve_and_report_tagged_subset_appendix_with_actual_n",
     "higher_is_better": true,
     "normalized_range": [
@@ -93,7 +93,7 @@
     "noninferiority_delta_provenance": "study_chosen_practical_tolerance_not_community_standard",
     "bootstrap_replicates": 10000,
     "bootstrap_seed": 20261127,
-    "bootstrap_unit": "paired_source_cluster_stratified_resample_33_33_34_within_fixed_strata",
+    "bootstrap_unit": "paired_source_cluster_stratified_resample_17_16_17_within_fixed_strata",
     "ci": "two_sided_95_percentile_pointwise",
     "PASS": "all_seven_complete_and_all_lower_CI_bounds_gt_minus_0.005",
     "FAIL": "one_or_more_dimension_upper_CI_bounds_lt_minus_0.005_report_specific_dimensions",
@@ -161,7 +161,8 @@
     ],
     "save_trajectory": false,
     "engineering_target_point_speedup": 1.1,
-    "engineering_target_lower_95_CI_speedup": 1.0
+    "engineering_target_lower_95_CI_speedup": 1.0,
+    "execution_order": "after DEV identity and warmup, before quality-only tensor capture"
   },
   "motion_guard": {
     "backend": "existing_Farneback",
@@ -180,18 +181,21 @@
     "all_original_videos_retained": true
   },
   "budget": {
-    "core_inference_requests": 408,
+    "core_inference_requests": 258,
     "planning_seconds_per_request": [
       35,
       45
     ],
     "planning_inference_gpu_hours_before_setup": [
-      3.9667,
-      5.1
+      2.5083,
+      3.225
     ],
     "not_a_new_measured_benchmark": true,
     "scoring_is_separate": true,
-    "default_extra_seeds": []
+    "default_extra_seeds": [],
+    "preparation_requests": 4,
+    "total_generation_requests": 262
   },
-  "stop_rule": "complete_fixed_100_sources_once_report_PASS_FAIL_or_INCONCLUSIVE_no_expand_until_pass"
+  "stop_rule": "complete_fixed_50_sources_once_report_PASS_FAIL_or_INCONCLUSIVE_no_expand_until_pass",
+  "revises_protocol_commit": "140d9b29550f3643412067eb0fff857a050fed18"
 }

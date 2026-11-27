@@ -2,7 +2,7 @@
 
 2026-11-27。依据研究分支提交 `4ca6b1b14b90965269a7b480f4fd5bfc75f64f37` 的已执行结果。
 
-**当前方法已经形成贯通四步、40 层、注意力和后续 FFN 的完整候选，适合冻结版本并进入中等规模评测。** 本目录将已验证的 centered 数值路径绑定成统一入口，准备固定 100 源的三臂实验。当前完成的是代码、协议和数据契约的准备及 CPU 检查；学校端新批次尚未执行。
+**当前方法已经形成贯通四步、40 层、注意力和后续 FFN 的完整候选。** 学校端已冻结 50 个独立图像簇并启动三臂评测。[学校作业与核验记录](SCHOOL_EXECUTION_50.json) · [公开来源清单](COHORT_50_PUBLIC.json)。
 
 ## 1. 冻结什么，为什么现在冻结
 
@@ -40,7 +40,7 @@ low 历史状态保存扣除遗漏质量对应均值、并按 value 通道尺度
 | 旧完整 raw C / 同四步 Dense | 6 源 × 2 轮，job 199260 | 1.227× 加速 | 1.156× 加速 |
 | 当前 centered / 旧 raw C | 2 DEV × 2 轮，job 201500 | 时间比 0.99271 | 时间比 0.99397 |
 
-旧 raw C 的七项六源平均分差绝对值均小于 0.31 个百分点。centered 的固定轨迹改善及两条开发视频反馈支持其成为当前候选。100 源实验将首次在同一批输入上直接测量完整 centered / Dense / FFN-only，避免把不同批次的比率相乘后称为新实测。
+旧 raw C 的七项六源平均分差绝对值均小于 0.31 个百分点。centered 的固定轨迹改善及两条开发视频反馈支持其成为当前候选。50 源实验将首次在同一批输入上直接测量完整 centered / Dense / FFN-only，避免把不同批次的比率相乘后称为新实测。
 
 固定两锚点和现有模块边界下，已有主要矩阵算量估算约节省 28%，对应的乐观算量参照约节省 37.02%；这些数值界定结构空间，不替代实际墙钟结果。蒸馏与本方法的合并系统加速应在匹配的原教师分母上另测，本轮主分母明确为同一个四步蒸馏模型。
 
@@ -48,30 +48,30 @@ low 历史状态保存扣除遗漏质量对应均值、并按 value 通道尺度
 
 | 内容 | 固定配置 | 请求数 |
 |---|---|---:|
-| 质量主集 | 100 独立图像簇 × seed42 × D/W/M | 300 |
+| 质量主集 | 50 独立图像簇 × seed42 × D/W/M | 150 |
 | 正式计时 | 预选 12 源 × 3 轮 × D/W/M | 108 |
 | 集成身份与预热 | 两个 DEV 的 centered 身份核对；D/W 各一次预热 | 4 |
-| 本次驱动合计 | 包含准备请求；评分另行执行 | 412 |
+| 本次驱动合计 | 包含准备请求；评分另行执行 | 262 |
 
 D 为同四步 Dense；W 为原生 attention + wide8192 FFN；M 为完整 centered + wide8192。主比较 M/D 回答整体收益，W/D 与 M/W 回答组件贡献。
 
-100 源按场景、自然、主体三组 33/33/34 预选，候选类别范围包括官方 11 类；报告实际各类别数量。按图像簇抽样，合并重复图像别名，硬排除 CAL 与当前 DEV，登记历史曝光并优先选择登记中未曝光的来源。所有分支、prompt、种子与方法参数在看新结果前冻结。主运行仅保留最终 latent 和原片；完整内部轨迹不默认落盘。
+50 源按场景、自然、主体三组 17/16/17 预选，候选类别范围包括官方 11 类；报告实际各类别数量。按图像簇抽样，合并重复图像别名，硬排除 CAL 与当前 DEV，登记历史曝光并优先选择登记中未曝光的来源。所有分支、prompt、种子与方法参数在看新结果前冻结。主运行仅保留最终 latent 和原片；完整内部轨迹不默认落盘。
 
-七项既有官方函数在全部 100 个 custom image/video 配对上评分：subject consistency、background consistency、aesthetic quality、motion smoothness、imaging quality、I2V subject、I2V background。主表报告各臂每维 100 个真实样本，原 benchmark 标签子集作附表。研究协议是 **CUSTOM_PAIRED**，每源每臂一个真实视频；官方完整五视频协议与榜单总分保留其原定义。
+七项既有官方函数在全部 50 个 custom image/video 配对上评分：subject consistency、background consistency、aesthetic quality、motion smoothness、imaging quality、I2V subject、I2V background。主表报告各臂每维 50 个真实样本，原 benchmark 标签子集作附表。研究协议是 **CUSTOM_PAIRED**，每源每臂一个真实视频；官方完整五视频协议与榜单总分保留其原定义。
 
 质量统计以独立图像簇为单位，在三个固定分层内做 10,000 次配对 bootstrap。三臂和七维共享抽样索引。研究预选非劣容差为 −0.005（−0.5 个百分点）：全部七维 95% CI 下界超过该界支持指标非劣；具体维度 CI 上界低于该界表明该维存在超过容差的下降；其余按 INCONCLUSIVE 报告。此容差是本研究选择，尚无本批结果。
 
 完整请求时间以每源每臂三轮秒数的算术均值形成比率，再跨来源取几何均值。预登记工程推进目标为点估计至少 1.10×，95% CI 下界高于 1.00×。同时报告四步 GPU、原始秒数、来源分布、冷启动和峰值；同进程常驻 wide 端口的峰值单独注明，不能据此推断 Dense 的独立部署内存。
 
-既有 Farnebäck 诊断复用全部 81 帧及时间窗口；预选 24 源盲审动作完成、运动幅度和连续性、细节及遮挡。所有 100 源原片和逐源分数保留。运动量与 Dense 轨迹距离用于解释偏差，画质判断结合官方函数和用户原片判读。
+既有 Farnebäck 诊断复用全部 81 帧及时间窗口；预选 24 源盲审动作完成、运动幅度和连续性、细节及遮挡。所有 50 源原片和逐源分数保留。运动量与 Dense 轨迹距离用于解释偏差，画质判断结合官方函数和用户原片判读。
 
-核心 408 请求按既有约 35–45 秒/片的量级规划约 4.0–5.1 GPU 小时；模型加载、首次编译、准备请求及评分单独核算。这是预算估算。完成固定批次后报告结果，不将 CI 跨界自动变成反复扩样或调参。
+核心 258 请求按既有约 35–45 秒/片的量级规划约 2.5–3.23 GPU 小时；模型加载、首次编译、准备请求及评分单独核算。这是预算估算。完成固定批次后报告结果，不将 CI 跨界自动变成反复扩样或调参。
 
 ## 4. 统一入口已整理，学校端复用现有资产
 
 `centered_runtime.py` 显式绑定 `MassCenteredLow.mode="centered"`，这是完整候选的关键身份。原生成 CLI 的 `--variant wide8192` 对应 W；旧 `attention_c_dense.py` 对应 raw C。封装复用 job 201500 已跑通的完整运行目录、原权重和 CAL，不重写 kernel。
 
-`run_medium_eval.py` 将两个 DEV 的 centered 收据与 job 201500 做一次身份复核，然后执行固定三臂批次。质量生成只保存 step 3 最终 latent；正式计时禁用该额外捕获。原生成器已有的对称 GPU trace witnesses 保留，各臂计时定义一致。
+`run_medium_eval.py` 将两个 DEV 的 centered 收据与 job 201500 做一次身份复核，然后执行固定三臂批次。身份核对并预热后先执行正式计时。正式计时禁用诊断和潜变量捕获，保留原生成器各臂对称的 GPU trace witnesses。完成 36 个计时配对后写出 `TIMING_SUMMARY.json`，随后生成质量视频并保存 step 3 的最终 latent。
 
 | 文件 | 用途 |
 |---|---|
@@ -79,15 +79,16 @@ D 为同四步 Dense；W 为原生 attention + wide8192 FFN；M 为完整 center
 | [METHOD_READINESS.md](METHOD_READINESS.md) | 完整方法、运行入口和证据范围 |
 | [MEDIUM_EVALUATION_SPEC.json](MEDIUM_EVALUATION_SPEC.json) / [设计](MEDIUM_EVALUATION_DESIGN.md) | 样本、统计单位、预算、判据与停止条件 |
 | [EXPOSURE_REGISTRY.json](EXPOSURE_REGISTRY.json) | 当前可核验的 CAL/DEV/历史曝光登记及来源 |
-| [prepare_cohort.py](prepare_cohort.py) | 学校候选表 → 100 源私有/公开清单、12 源计时和 24 源盲审子集 |
+| [prepare_cohort.py](prepare_cohort.py) | 学校候选表 → 50 源私有/公开清单、12 源计时和 24 源盲审子集 |
+| [materialize_school_catalog.py](materialize_school_catalog.py) | 将固定 VBench 元数据与学校实际 16:9 图像资产绑定为候选表 |
 | [centered_runtime.py](centered_runtime.py) / [run_medium_eval.py](run_medium_eval.py) | 既有在线方法的绑定与三臂平衡运行 |
 | [build_metric_binding.py](build_metric_binding.py) | 原片、收据、最终 latent 与七维官方评分的绑定 |
 | [run_motion_diagnostics.py](run_motion_diagnostics.py) | 复用已有连续运动计算，生成逐源/逐帧诊断 |
 | [summarize_medium_eval.py](summarize_medium_eval.py) | 配对分数、分层 CI、真实速度和最终 latent 距离 |
 | [METRIC_AND_DATA_BINDING.md](METRIC_AND_DATA_BINDING.md) | 已有离线评分资产、七维调用和视频索引 |
-| [LOCAL_VALIDATION.json](LOCAL_VALIDATION.json) | 本轮实际 CPU 验证与尚未执行的范围 |
+| [LOCAL_VALIDATION.json](LOCAL_VALIDATION.json) | 原 100 源版本的历史 CPU 验证 |
 
-学校已有 candidate catalog 需按 `prepare_cohort.py` 顶部字段契约提供图像路径、原 prompt、原图簇和 SHA。该脚本实读入选图像后才输出冻结清单；本工作区尚未生成真实 100 源清单。曝光登记是基于可核验归档的已知集合，学校若有之后的新曝光，只追加相应 ID 即可。
+学校候选表来自封存的 VBench 元数据和现有 16:9 图像。`prepare_cohort.py` 已实读入选图像并输出 50 源清单，评分器对应的 50 张图像也已通过相同 SHA-256 核验。入选来源均未命中已有曝光登记。
 
 主要执行顺序：
 

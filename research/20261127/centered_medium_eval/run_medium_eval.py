@@ -1,4 +1,4 @@
-"""Run the frozen 100-source, three-arm evaluation in the existing school runtime.
+"""Run the frozen 50-source, three-arm evaluation in the existing school runtime.
 
 The generation backend is reused, not reimplemented. Quality runs save only the
 final latent; the separate timing runs do not add tensor capture or replay panels.
@@ -12,7 +12,10 @@ import json
 from pathlib import Path
 import re
 
+import numpy as np
+
 from centered_runtime import FrozenCenteredRuntime, file_hash
+from summarize_medium_eval import SEED, summarize_timing
 
 
 ARMS = ("dense", "wide8192", "centered")
@@ -68,13 +71,13 @@ def main():
     cohort = json.loads(args.cohort.read_text())
     people = cohort["sources"]
     ids = [p["source_id"] for p in people]
-    if len(people) != 100 or len(set(ids)) != 100:
-        raise ValueError("Expected 100 distinct sources")
+    if len(people) != 50 or len(set(ids)) != 50:
+        raise ValueError("Expected 50 distinct sources")
     if any(not re.fullmatch(r"[A-Za-z0-9_-]+", sid) for sid in ids):
         raise ValueError("Source ids must be safe file-name components")
-    if len({p["source_cluster_id"] for p in people}) != 100:
+    if len({p["source_cluster_id"] for p in people}) != 50:
         raise ValueError("Each source must be an independent image cluster")
-    if len({p["image_sha256"] for p in people}) != 100:
+    if len({p["image_sha256"] for p in people}) != 50:
         raise ValueError("Duplicate image bytes in the cohort")
     timed = cohort["timing_source_ids"]
     if len(timed) != 12 or len(set(timed)) != 12 or not set(timed) <= set(ids):
@@ -88,7 +91,7 @@ def main():
     runtime.register_manifest(args.cohort)
     exp = runtime.experiment
     prefix = f"medium_{exp.job}_{file_hash(args.cohort)[:12]}"
-    state = dict(schema="FFNDS_CENTERED_MEDIUM_RUN_V1", status="running",
+    state = dict(phase="identity", schema="FFNDS_CENTERED_MEDIUM_RUN_V1", status="running",
                  arms=list(ARMS), seed=42, cohort=str(args.cohort),
                  cohort_sha256=file_hash(args.cohort), driver_sha256=file_hash(__file__),
                  method_binding_sha256=runtime.binding_sha256,
@@ -100,7 +103,7 @@ def main():
                  identity_checks=[], warmup=[], quality=[], timing=[])
     save(args.out, state)
     # Reuse the first centered identity run as its warmup. These four requests
-    # are preparation, outside the 300 quality + 108 timing count.
+    # are preparation, outside the 150 quality + 108 timing count.
     for sid in ("vbi_0392", "vbi_1013"):
         row = runtime.render(sid, prefix + "_identity_centered", "centered")
         matches = runtime.generate.equal_trace(row["record"], identity[sid])
@@ -111,6 +114,25 @@ def main():
     for arm in ("dense", "wide8192"):
         state["warmup"].append(runtime.render("vbi_0392", prefix + "_warm_" + arm, arm))
         save(args.out, state)
+    lookup = {p["source_id"]: p for p in people}
+    # Method warmup is complete; quality-only latent capture starts after timing.
+    state["phase"] = "formal_timing"
+    save(args.out, state)
+    for repeat in range(3):
+        for index, sid in enumerate(timed):
+            order = timing_order(index, repeat)
+            outputs = {arm: runtime.render(sid, f"{prefix}_timing_{repeat}_{arm}", arm)
+                       for arm in order}
+            check_pair(outputs)
+            if any(o.get("quality_capture_in_timing_window") is not False for o in outputs.values()):
+                raise RuntimeError("Formal timing cannot include quality capture")
+            state["timing"].append(dict(source_id=sid, source_cluster_id=lookup[sid]["source_cluster_id"],
+                                        repeat=repeat, order=list(order), arms=outputs))
+            save(args.out, state)
+    timing_summary = summarize_timing(state, cohort, np.random.default_rng(SEED))
+    save(args.out.with_name("TIMING_SUMMARY.json"), dict(job=exp.job, cohort_sha256=state["cohort_sha256"], timing=timing_summary))
+    state["phase"] = "quality"
+    save(args.out, state)
     orders = tuple(itertools.permutations(ARMS))
     for index, person in enumerate(people):
         sid = person["source_id"]
@@ -121,19 +143,9 @@ def main():
         state["quality"].append(dict(source_id=sid, source_cluster_id=person["source_cluster_id"],
                                      order=list(order), arms=outputs))
         save(args.out, state)
-    lookup = {p["source_id"]: p for p in people}
-    # Model compilation and quality tensor writes have completed before timing.
-    for repeat in range(3):
-        for index, sid in enumerate(timed):
-            order = timing_order(index, repeat)
-            outputs = {arm: runtime.render(sid, f"{prefix}_timing_{repeat}_{arm}", arm)
-                       for arm in order}
-            check_pair(outputs)
-            state["timing"].append(dict(source_id=sid, source_cluster_id=lookup[sid]["source_cluster_id"],
-                                        repeat=repeat, order=list(order), arms=outputs))
-            save(args.out, state)
+    state["phase"] = "complete"
     state["status"] = "complete"
-    state["generation_requests"] = dict(quality=300, formal_timing=108, preparation=4, total=412)
+    state["generation_requests"] = dict(quality=150, formal_timing=108, preparation=4, total=262)
     save(args.out, state)
 
 

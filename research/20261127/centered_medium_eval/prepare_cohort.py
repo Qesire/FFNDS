@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Freeze the 100-source CUSTOM_PAIRED cohort using metadata, never model outputs.
+"""Freeze the 50-source CUSTOM_PAIRED cohort using metadata, never model outputs.
 
 Candidates: a JSON list or {"sources": [...]} with source_id,
 source_cluster_id, image_path, image_sha256, prompt, prompt_sha256, category,
@@ -28,9 +28,9 @@ from pathlib import Path
 
 PROTOCOL = "FFNDS-centered-medium-20261127"
 STRATA = {
-    "structured": {"categories": {"indoor", "architecture", "abstract"}, "count": 33},
-    "natural": {"categories": {"scenery", "plant"}, "count": 33},
-    "subject": {"categories": {"single-human", "multiple-human", "animal", "transportation", "food", "other"}, "count": 34},
+    "structured": {"categories": {"indoor", "architecture", "abstract"}, "count": 17},
+    "natural": {"categories": {"scenery", "plant"}, "count": 16},
+    "subject": {"categories": {"single-human", "multiple-human", "animal", "transportation", "food", "other"}, "count": 17},
 }
 DIMS = [
     "subject_consistency", "background_consistency", "aesthetic_quality",
@@ -249,7 +249,7 @@ def prepare(candidates_path, registry_path, method_path, output_dir):
             raise FileExistsError(f"Refusing to overwrite frozen cohort: {target}")
     for name, value in (("cohort.json", manifest), ("cohort_public.json", public)):
         (output_dir / name).write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
-    return {"sources": 100, "timing_sources": len(timing_ids),
+    return {"sources": len(chosen), "timing_sources": len(timing_ids),
             "blind_review_sources": len(review_ids), "strata": pool_summary,
             "status": manifest["status"]}
 
