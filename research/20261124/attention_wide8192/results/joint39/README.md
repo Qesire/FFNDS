@@ -1,5 +1,9 @@
 # 第 39 层联合分叉进度
 
+## 最新复核：完整S128对照、四臂消融与四步终点
+
+[独立复算与研究判断](analysis_20261127/paired_value_transport/result_review/NEW_RESULTS_REVIEW.md)核对学校204479/204487/204740：现有centered在固定路由、固定P64、等权PFRR对照中取得低噪恢复优势；新增完整value矩阵在固定配方下未形成稳定增量。已独立复算216个Gram、780个归档数值及四来源完整轨迹指标；对角与配对的前三步一致，最终latent/Dense为1/4来源改善、RGB为0/4。保留centered工作参照，原片可访问链接与完整SparsePR系统比较仍待补齐。本次复核新增GPU运行为0。
+
 ## 学校实测：配对 value 的端到端复核
 
 学校 A100 作业 204740 生成三条开发来源及一条留出来源的完整候选配对，核对最后一步 flow、最终 latent 与 81 帧解码视频。局部消融与端到端结果一起解释，视频及指标指纹见[端到端比较](analysis_20261127/paired_value_transport/experiments/E2E_REPORT.md)。
