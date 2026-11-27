@@ -1,8 +1,12 @@
 # 第 39 层联合分叉进度
 
+## 学校实测：配对 value 的端到端复核
+
+学校 A100 作业 204740 生成三条开发来源及一条留出来源的完整候选配对，核对最后一步 flow、最终 latent 与 81 帧解码视频。局部消融与端到端结果一起解释，视频及指标指纹见[端到端比较](analysis_20261127/paired_value_transport/experiments/E2E_REPORT.md)。
+
 ## 学校实测：SparsePR v2 恢复对照与 value 配对消融
 
-[完整结果](analysis_20261127/paired_value_transport/experiments/PAIRED_VALUE_REPORT.md) · [学校收据与复算](analysis_20261127/paired_value_transport/experiments/REPRODUCE_EXPERIMENTS.md)。三个开发来源的 12 个 low 站上，固定 P64 的全通道 PFRR 相对历史 OUT-D 的 head 和 gated point 误差能量比为 4.8837 和 3.9859。同位置配对在固定轨迹上优于打乱配对，C 相对对角 B 的恢复后 attention 和同输入 Dense 块出口误差能量比分别为 1.2154 和 1.0841。全矩阵配对未通过独立来源自由轨迹的验收条件。
+[完整结果](analysis_20261127/paired_value_transport/experiments/PAIRED_VALUE_REPORT.md) · [学校收据与复算](analysis_20261127/paired_value_transport/experiments/REPRODUCE_EXPERIMENTS.md)。三个开发来源的 12 个 low 站上，固定 P64 的全通道 PFRR 相对历史 OUT-D 的 head 和 gated point 误差能量比为 4.8837 和 3.9859。同位置配对在固定轨迹上优于打乱配对，C 相对对角 B 的恢复后 attention 和同输入 Dense 块出口误差能量比分别为 1.2154 和 1.0841。局部结果作为机制诊断，候选终点与实际成片另见完整轨迹复核。
 
 ## 最新分析：配对 value 通道运输与 SparsePR v2 比较信心
 
