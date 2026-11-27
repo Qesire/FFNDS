@@ -1,0 +1,491 @@
+{
+  "schema": "FFNDS_MEDIUM_METRIC_DATA_AUDIT_V1",
+  "status": "PREPARED_NO_REAL_SCORING",
+  "repository": "Qesire/FFNDS",
+  "research_head": "4ca6b1b14b90965269a7b480f4fd5bfc75f64f37",
+  "implemented_adapter": {
+    "path": "build_metric_binding.py",
+    "sha256": "32d30c4fc87ee037653aa0cbde5787860da93de3daa6c81dec929638bf54cffc",
+    "run_schema": "FFNDS_CENTERED_MEDIUM_RUN_V1",
+    "runtime_sidecar_schema_fields": [
+      "arm",
+      "source_id",
+      "record",
+      "attention",
+      "binding_sha256",
+      "runner_sha256",
+      "source_manifest_sha256",
+      "runtime_generate_sha256",
+      "final_latent"
+    ],
+    "binding_schema": "FFNDS_CENTERED_MEDIUM_METRIC_BINDING_V1",
+    "generation_run_sha256_required": true
+  },
+  "scoring_contract": {
+    "mode": "CUSTOM_PAIRED",
+    "main_population": "all_frozen_sources",
+    "official_tag_subset": "supplementary, original_dimension_tags retained",
+    "real_samples_per_source_per_arm": 1,
+    "seed": 42,
+    "geometry": [
+      832,
+      464,
+      81,
+      16
+    ],
+    "dimensions": [
+      "subject_consistency",
+      "background_consistency",
+      "aesthetic_quality",
+      "motion_smoothness",
+      "imaging_quality",
+      "i2v_subject",
+      "i2v_background"
+    ],
+    "main_quality_lenses": [
+      "i2v_subject",
+      "i2v_background",
+      "imaging_quality",
+      "motion_smoothness"
+    ],
+    "official_full_five_sample_suite": false,
+    "scorer_path": "research/20261124/attention_wide8192/results/joint39/c_dense_baseline/eval_anchor10.py",
+    "scorer_sha256": "70de41c15205f3fd58ed150396252b081b556915fc6ec163e0b0335a9b80e4db",
+    "normalization": {
+      "imaging_quality": "official per-video raw score / 100",
+      "background_consistency": "sum(video_sim)/sum(cnt_per_video)",
+      "other_dimensions": "mean(native video_results)"
+    },
+    "independent_unit": "source_cluster_id",
+    "missing_status": "NOT_RUN, not numerical zero"
+  },
+  "historical_scope": {
+    "job": "199277",
+    "scope_sha256": "bf008598e5183cf6b0c88a08f8b525b6341acc65e890b4bb620562883654de1d",
+    "scope_file_observed_this_review": false,
+    "candidate": "historical raw low OUT-D, not centered",
+    "source_ids": [
+      "vbi_0128",
+      "vbi_0512",
+      "vbi_0816",
+      "vbi_0592",
+      "vbi_0877",
+      "vbi_0987"
+    ],
+    "per_dimension_delta_percentage_points": {
+      "imaging_quality": -0.3018749456837324,
+      "aesthetic_quality": 0.12653966744740802,
+      "motion_smoothness": -0.056121863383490345,
+      "subject_consistency": -0.1341778567681695,
+      "background_consistency": 0.07914225260416408,
+      "i2v_subject": -0.10766215746601156,
+      "i2v_background": -0.08738605305551964
+    }
+  },
+  "historical_offline_inventory": {
+    "source": "research/20261023/R17_metric_asset_preparation.json",
+    "source_file_sha256": "e8d418bdd8deb2f58e11ebe18551905fbcbefaafaf0254a4eff6761360eac959",
+    "versions": {
+      "vbench": "0.1.5",
+      "dreamsim": "0.2.1",
+      "torch": "2.7.1+cu118",
+      "torchvision": "0.22.1+cu118",
+      "pyiqa": "0.1.10",
+      "timm": "1.0.12"
+    },
+    "root": "derived/ffnds/R17_metric_assets",
+    "assets": [
+      {
+        "name": "CLIP_ViT_L14",
+        "HF_relative": "derived/ffnds/R17_metric_assets/clip_model/ViT-L-14.pt",
+        "sha256": "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836",
+        "bytes": 932768134,
+        "origin": "previous_pinned_official_VBench3_asset"
+      },
+      {
+        "name": "LAION_aesthetic_linear",
+        "HF_relative": "derived/ffnds/R17_metric_assets/aesthetic_model/emb_reader/sa_0_4_vit_l_14_linear.pth",
+        "sha256": "2cd4e60f4f24ae3bcd57b847b13c1f3ba27edc28cc1a7f9ce74ee9f421243cba",
+        "bytes": 4071,
+        "origin": "previous_pinned_official_VBench3_asset"
+      },
+      {
+        "name": "MUSIQ_SPAQ",
+        "HF_relative": "derived/ffnds/R17_metric_assets/pyiqa_model/musiq_spaq_ckpt-358bb6af.pth",
+        "sha256": "358bb6af275e28ea56821d44fb55c6cb83645db11f394d3ad65b2d149965ab50",
+        "bytes": 108610983,
+        "origin": "previous_pinned_official_VBench3_asset"
+      },
+      {
+        "name": "AMT_S",
+        "HF_relative": "derived/ffnds/R17_metric_assets/amt_model/amt-s.pth",
+        "sha256": "07e7e03405c213fe4405678db9b42d05671e48c56faf6a441b99bb0047d3cf77",
+        "bytes": 12038359,
+        "origin": "previous_pinned_official_VBench3_asset"
+      },
+      {
+        "name": "DINO_base",
+        "HF_relative": "derived/ffnds/R17_metric_assets/dino_model/dino_vitbase16_pretrain.pth",
+        "url": "https://dl.fbaipublicfiles.com/dino/dino_vitbase16_pretrain/dino_vitbase16_pretrain.pth",
+        "sha256": "bf34ad0f424b9029b593e8dc3ed553bf26e88bcba0d32bf3e62a6209cb64c85e",
+        "bytes": 343242485
+      },
+      {
+        "name": "CLIP_B32",
+        "HF_relative": "derived/ffnds/R17_metric_assets/clip_model/ViT-B-32.pt",
+        "url": "https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt",
+        "sha256": "40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af",
+        "bytes": 353976522
+      },
+      {
+        "name": "DreamSim_ensemble_archive",
+        "HF_relative": "derived/ffnds/R17_metric_assets/downloads/dreamsim_ensemble_checkpoint.zip",
+        "url": "https://github.com/ssundaram21/dreamsim/releases/download/v0.2.0-checkpoints/dreamsim_ensemble_checkpoint.zip",
+        "sha256": "7455248e4e125ef76c316cd5c24f3d84329475876a0feed4fdc00fcd498747e4",
+        "bytes": 1261181618
+      },
+      {
+        "name": "RAFT_official_archive",
+        "HF_relative": "derived/ffnds/R17_metric_assets/downloads/raft-models.zip",
+        "url": "https://dl.dropboxusercontent.com/s/4j4z58wuv8o0mfz/models.zip",
+        "sha256": "4be6101b271f58ec49866da5cf609fd17e86e9cae2483f70630ef4a295dc66bd",
+        "bytes": 81977417
+      },
+      {
+        "name": "CoTracker2",
+        "HF_relative": "derived/ffnds/R17_metric_assets/torch/checkpoints/cotracker2.pth",
+        "url": "https://huggingface.co/facebook/cotracker/resolve/60495999ebd33af25fc51d89f83d1d6de3bc18a5/cotracker2.pth",
+        "sha256": "362f5274376d610dc987b6daf2c2fefe63e06e1835f4ec1a10d0a15c5a4eef4f",
+        "bytes": 204396415
+      },
+      {
+        "name": "dreamsim:clip_vitb16_pretrain.pth.tar",
+        "HF_relative": "derived/ffnds/R17_metric_assets/dreamsim/clip_vitb16_pretrain.pth.tar",
+        "sha256": "21bb58dddc9747d635638eaef19a50404fa71ef62b837c4181c92568a5d78779",
+        "bytes": 344825295,
+        "archive_sha256": "7455248e4e125ef76c316cd5c24f3d84329475876a0feed4fdc00fcd498747e4"
+      },
+      {
+        "name": "dreamsim:dino_vitb16_pretrain.pth",
+        "HF_relative": "derived/ffnds/R17_metric_assets/dreamsim/dino_vitb16_pretrain.pth",
+        "sha256": "491ec6200b350dd7d532cea1b040846cbc1b4ae038299331168fdd3e0361e262",
+        "bytes": 871077689,
+        "archive_sha256": "7455248e4e125ef76c316cd5c24f3d84329475876a0feed4fdc00fcd498747e4"
+      },
+      {
+        "name": "dreamsim:ensemble_lora/adapter_config.json",
+        "HF_relative": "derived/ffnds/R17_metric_assets/dreamsim/ensemble_lora/adapter_config.json",
+        "sha256": "188f2c0640295f91a4375efd0a1594e5985bb38c90a9040cec8c5f4b9f8f0e20",
+        "bytes": 687,
+        "archive_sha256": "7455248e4e125ef76c316cd5c24f3d84329475876a0feed4fdc00fcd498747e4"
+      },
+      {
+        "name": "dreamsim:ensemble_lora/adapter_model.safetensors",
+        "HF_relative": "derived/ffnds/R17_metric_assets/dreamsim/ensemble_lora/adapter_model.safetensors",
+        "sha256": "a33ba2cbfc52a96f1fa220d7d036fd17e00d5fc9b467be2f97a5482e8a2b09c1",
+        "bytes": 7088032,
+        "archive_sha256": "7455248e4e125ef76c316cd5c24f3d84329475876a0feed4fdc00fcd498747e4"
+      },
+      {
+        "name": "dreamsim:open_clip_vitb16_pretrain.pth.tar",
+        "HF_relative": "derived/ffnds/R17_metric_assets/dreamsim/open_clip_vitb16_pretrain.pth.tar",
+        "sha256": "963c665c8ba6edd6ef7a7549f3f72fe20586494223300030f5b2efbe36f04319",
+        "bytes": 344829345,
+        "archive_sha256": "7455248e4e125ef76c316cd5c24f3d84329475876a0feed4fdc00fcd498747e4"
+      },
+      {
+        "name": "raft_model:models/raft-kitti.pth",
+        "HF_relative": "derived/ffnds/R17_metric_assets/raft_model/models/raft-kitti.pth",
+        "sha256": "b9d170362415e1a27bd8402ee966a3ddf0d60df9b2df2c0b4949f5ced490a9e6",
+        "bytes": 21108000,
+        "archive_sha256": "4be6101b271f58ec49866da5cf609fd17e86e9cae2483f70630ef4a295dc66bd"
+      },
+      {
+        "name": "raft_model:models/raft-sintel.pth",
+        "HF_relative": "derived/ffnds/R17_metric_assets/raft_model/models/raft-sintel.pth",
+        "sha256": "90630d2e7d488a0d3ccb5e8194524850c4c05c732ea4ff99799822c7fa5c5cbf",
+        "bytes": 21108000,
+        "archive_sha256": "4be6101b271f58ec49866da5cf609fd17e86e9cae2483f70630ef4a295dc66bd"
+      },
+      {
+        "name": "raft_model:models/raft-chairs.pth",
+        "HF_relative": "derived/ffnds/R17_metric_assets/raft_model/models/raft-chairs.pth",
+        "sha256": "c6c75465cf995d137f89ca2e2d08594ed390befbb8859f7f65c48bcc8feb0fd7",
+        "bytes": 21108000,
+        "archive_sha256": "4be6101b271f58ec49866da5cf609fd17e86e9cae2483f70630ef4a295dc66bd"
+      },
+      {
+        "name": "raft_model:models/raft-things.pth",
+        "HF_relative": "derived/ffnds/R17_metric_assets/raft_model/models/raft-things.pth",
+        "sha256": "fcfa4125d6418f4de95d84aec20a3c5f4e205101715a79f193243c186ac9a7e1",
+        "bytes": 21108000,
+        "archive_sha256": "4be6101b271f58ec49866da5cf609fd17e86e9cae2483f70630ef4a295dc66bd"
+      },
+      {
+        "name": "raft_model:models/raft-small.pth",
+        "HF_relative": "derived/ffnds/R17_metric_assets/raft_model/models/raft-small.pth",
+        "sha256": "c7d41b9cc88442bb8aa911dbb33086dac55a226394b142937ff22d5578717332",
+        "bytes": 3984814,
+        "archive_sha256": "4be6101b271f58ec49866da5cf609fd17e86e9cae2483f70630ef4a295dc66bd"
+      }
+    ],
+    "models_by_dimension": {
+      "subject_consistency": [
+        "DINO_base"
+      ],
+      "background_consistency": [
+        "CLIP_B32"
+      ],
+      "aesthetic_quality": [
+        "CLIP_ViT_L14",
+        "LAION_aesthetic_linear"
+      ],
+      "motion_smoothness": [
+        "AMT_S"
+      ],
+      "imaging_quality": [
+        "MUSIQ_SPAQ"
+      ],
+      "i2v_subject": [
+        "DINO_base"
+      ],
+      "i2v_background": [
+        "dreamsim:clip_vitb16_pretrain.pth.tar",
+        "dreamsim:dino_vitb16_pretrain.pth",
+        "dreamsim:ensemble_lora/adapter_config.json",
+        "dreamsim:ensemble_lora/adapter_model.safetensors",
+        "dreamsim:open_clip_vitb16_pretrain.pth.tar"
+      ]
+    },
+    "equivalent_to_current_metric_scope": "NOT_ASSERTED; verify actual current scope and file hashes"
+  },
+  "upstream_formula_inspection": {
+    "repository": "Vchitect/VBench",
+    "revision": "fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490",
+    "i2v_score": "0.4 max input-frame nonnegative cosine + 0.3 mean adjacent-frame nonnegative cosine + 0.3 min adjacent-frame nonnegative cosine",
+    "i2v_subject_features": "DINO",
+    "i2v_background_features": "DreamSim",
+    "requires_prompt_category_or_segmentation": false,
+    "custom_all_seven_supported": true
+  },
+  "data_snapshot": {
+    "source": "research/20261124/attention_wide8192/results/joint39/C_CONFIRM_SOURCES.archive.json",
+    "candidate_metadata_sha256": "45badf27bbad0a79dd9aaff9062967433dd55b7db47069a87e9724ff08034256",
+    "candidate_source_count": 1118,
+    "candidate_cluster_count": 355,
+    "excluded_cluster_count": 56,
+    "historical_fresh_cluster_count": 299,
+    "historical_excluded_cluster_ids": [
+      "C00004",
+      "C00014",
+      "C00015",
+      "C00023",
+      "C00027",
+      "C00032",
+      "C00035",
+      "C00037",
+      "C00055",
+      "C00065",
+      "C00068",
+      "C00074",
+      "C00077",
+      "C00082",
+      "C00093",
+      "C00108",
+      "C00117",
+      "C00129",
+      "C00130",
+      "C00137",
+      "C00146",
+      "C00153",
+      "C00163",
+      "C00173",
+      "C00175",
+      "C00176",
+      "C00180",
+      "C00182",
+      "C00186",
+      "C00188",
+      "C00196",
+      "C00200",
+      "C00214",
+      "C00217",
+      "C00218",
+      "C00234",
+      "C00241",
+      "C00246",
+      "C00248",
+      "C00254",
+      "C00263",
+      "C00264",
+      "C00285",
+      "C00291",
+      "C00297",
+      "C00302",
+      "C00307",
+      "C00309",
+      "C00314",
+      "C00317",
+      "C00320",
+      "C00321",
+      "C00328",
+      "C00329",
+      "C00333",
+      "C00348"
+    ],
+    "already_observed_six_confirmation_sources": [
+      {
+        "category": "architecture",
+        "cluster_selection_sha256": "0777d107fa9a8069bb7185532f38efc36a77dffce295535656833c216f30cb61",
+        "image_sha256": "691368001abf884c25af23844c48961a3fef58c7ba40793a3aa9dd15825b4ca8",
+        "prompt_sha256": "a31a5a598c4ec8e58c65a36cec9a75134b282b30fa1f87d18fa0eb5f44eb26f3",
+        "source_cluster_id": "C00322",
+        "source_id": "vbi_0128",
+        "split": "CONFIRM",
+        "stratum": "structured"
+      },
+      {
+        "category": "indoor",
+        "cluster_selection_sha256": "087b0b492af4eccbcea57584c4f4f47dc2e054b4f30bf64399de060e55e22de5",
+        "image_sha256": "f54539a93bf5473e4f0c67685a3fe676d6436f263759e874657a7670a5db5495",
+        "prompt_sha256": "00133aa790feaf456ca3546c53d632d9bd8254fe8908db8c2d63832f8fffeeb5",
+        "source_cluster_id": "C00160",
+        "source_id": "vbi_0512",
+        "split": "CONFIRM",
+        "stratum": "structured"
+      },
+      {
+        "category": "scenery",
+        "cluster_selection_sha256": "07a1e3e6c631ac2d33040ed295a6d197d2d008d150140de299df806438cf8557",
+        "image_sha256": "f37cdfecc3ca02b82705a699b18fad26db1a95883e269e3670c984e7255f1e31",
+        "prompt_sha256": "16c85ea2fac34c9e28d3badb56bd73f54beb1cfa5a214b2444e1661e68a12b16",
+        "source_cluster_id": "C00079",
+        "source_id": "vbi_0816",
+        "split": "CONFIRM",
+        "stratum": "natural"
+      },
+      {
+        "category": "scenery",
+        "cluster_selection_sha256": "0a06d1d15352e04b9ee5946277d4f20f0f74ab89cf9df618607dfd9e7ac61d28",
+        "image_sha256": "a5bcf8a47ba0d844e6197f2ef796ca6fc6030939dc25957c145c87d1b1c4b4e1",
+        "prompt_sha256": "d2a55993d1891ca8bf5a25c58f830d5e54c2a2780c2a8be5186fb1646c3df67c",
+        "source_cluster_id": "C00290",
+        "source_id": "vbi_0592",
+        "split": "CONFIRM",
+        "stratum": "natural"
+      },
+      {
+        "category": "animal",
+        "cluster_selection_sha256": "002f904d817337874dac1f8a362412fd14675777b604b52d4ab184984ca3fc94",
+        "image_sha256": "2a4441fa15d42a03d7fd5debd24fc2f9f96c4add9c4dbbb32d4be811b180b26c",
+        "prompt_sha256": "555c04882df5b03c614dd4b85873f601b5cd0022d547140444b6ec378eb4826f",
+        "source_cluster_id": "C00073",
+        "source_id": "vbi_0877",
+        "split": "CONFIRM",
+        "stratum": "subject"
+      },
+      {
+        "category": "single-human",
+        "cluster_selection_sha256": "02be515596a5beece7dc1ea8a6b8a4ba942c49de5595f35d7fb16c91c1790da7",
+        "image_sha256": "8bd9a3ef879b67f4a6f76c2308bc8c69be93da089f5de59e88a855537ec6ef41",
+        "prompt_sha256": "71cda86ae6832439fc3bc6f8b37eaf2b3528935106af438d16b971f6c94ecea4",
+        "source_cluster_id": "C00283",
+        "source_id": "vbi_0987",
+        "split": "CONFIRM",
+        "stratum": "subject"
+      }
+    ],
+    "upper_bound_after_six_confirmations_before_later_exposure_updates": 293,
+    "three_stratum_upper_bounds": {
+      "structured": 50,
+      "natural": 51,
+      "subject": 96
+    },
+    "current_available_count": null,
+    "current_selection_required": "merge later exposure registry, verify image bytes/locators, metadata-only stratified selection before outputs",
+    "redacted_archive_fields": [
+      "inputs.*.path",
+      "sources.*.image_path",
+      "sources.*.prompt"
+    ],
+    "old_six_free_clusters_limit_applied": false
+  },
+  "data_contract": {
+    "sources_required_fields": [
+      "source_id",
+      "source_cluster_id",
+      "image_path",
+      "image_name",
+      "image_sha256",
+      "prompt",
+      "prompt_sha256",
+      "category",
+      "original_dimension_tags",
+      "exposure_history"
+    ],
+    "video_required_bindings": [
+      "source_manifest_sha256",
+      "method_binding_sha256",
+      "runner_sha256",
+      "runtime_generate_sha256",
+      "generation_run_sha256",
+      "mp4_sha256",
+      "decoded_rgb24_sha256",
+      "receipt_sha256"
+    ],
+    "human_review_index_fields": [
+      "source_id",
+      "source_cluster_id",
+      "arm",
+      "video_path",
+      "video_sha256",
+      "decoded_rgb24_sha256",
+      "review_url",
+      "review_link_status"
+    ]
+  },
+  "reuse_rules": {
+    "offline_assets": "reverify bytes and versions",
+    "prior_candidate_scores": "only for their exact old output; not transferred to centered",
+    "dense_score": "reusable only for exact same video and input, scorer/model/preprocessing context",
+    "timing_repeats": "equal-byte videos may share computation, never add independent sample count",
+    "cross_binding_partial_metric_cache": "old evaluator requires whole binding SHA equality; no cross-cohort source_id-only cache reuse"
+  },
+  "supporting_diagnostics": {
+    "paired_pixels": [
+      "rgb_mae",
+      "temporal_delta_mae",
+      "mse",
+      "psnr_db"
+    ],
+    "motion_implementation": "tools/ffnds_video_metrics.py",
+    "motion_measurement": "max-side320 Farneback displacement; retain all 80 transitions plus 16-frame windows",
+    "motion_output_fields": [
+      "downsampled_Farneback_mean_flow_px",
+      "downsampled_Farneback_flow_L2_px",
+      "candidate_to_reference_flow_magnitude_ratio"
+    ],
+    "human_review_fields": [
+      "motion_amplitude",
+      "motion_continuity",
+      "layout_detail",
+      "occlusion",
+      "prompt_action_success",
+      "prefer_left_tie_prefer_right",
+      "failure_reason"
+    ],
+    "interpretation": "paired distance is reference deviation; official feature scores are quality proxies; human prompt/action review is task evidence",
+    "motion_adapter": "run_motion_diagnostics.py",
+    "motion_adapter_sha256": "9cb1f9f4bc9e2ecdfb7f91774e06adbb37c01deffcaaae3a29933eef9c81d8d4",
+    "motion_implementation_sha256": "0c6ab066674adb2a04097978ced52abcd7cbf1125918b74d59cf976a56ffec66",
+    "motion_schema": "FFNDS_MEDIUM_MOTION_INDEX_V1"
+  },
+  "execution": {
+    "gpu_jobs_this_review": 0,
+    "new_model_forwards": 0,
+    "new_real_video_scores": 0,
+    "cpu_binding_validation": "CPU_BINDING_CHECK.json",
+    "current_scope_sha256": null,
+    "current_scope_status": "retrieve and verify school scope before score execution"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "status": "reviewed_freeze_candidate_pending_school_runtime_identity_check",
+  "candidate_id": "wide8192_high_OUT-ABS_low_mass-centered_OUT-D_P64_HHLL",
+  "repository": "Qesire/FFNDS",
+  "research_commit": "4ca6b1b14b90965269a7b480f4fd5bfc75f64f37",
+  "implementation_receipt_job": "201500",
+  "ffn_variant": "wide8192",
+  "ffn_cache_dtype": "BF16",
+  "ffn_tile_rows": 8192,
+  "layers": 40,
+  "steps": 4,
+  "seed": 42,
+  "geometry": {
+    "width": 832,
+    "height": 464,
+    "frames": 81,
+    "fps": 16
+  },
+  "attention_schedule": [
+    "native",
+    "OUT-ABS",
+    "native",
+    "mass-centered OUT-D"
+  ],
+  "ffn_schedule": [
+    "native anchor",
+    "wide8192 hit",
+    "native anchor",
+    "wide8192 hit"
+  ],
+  "attention_adapter": "MassCenteredLow",
+  "attention_mode": "centered",
+  "attention_bind_arm": "OUT-D",
+  "native_anchor_steps": [
+    0,
+    2
+  ],
+  "attention_shape": {
+    "tokens": 31668,
+    "heads": 40,
+    "head_dim": 128
+  },
+  "selected_support": {
+    "query_block": 128,
+    "top_blocks": 31,
+    "route_refresh_steps": [
+      0,
+      2
+    ]
+  },
+  "probes": {
+    "count": 64,
+    "ids": "original frozen observer_ids",
+    "readout": "current full-key native attention",
+    "overwrite_final_probe_rows": true
+  },
+  "low_transport": {
+    "center": "current value channel mean",
+    "scale": "current value channel population standard deviation",
+    "inactive_scale_threshold": 1e-12,
+    "cache_dtype": "BF16",
+    "anchor_mass": "frozen signed rho with original fallback",
+    "clamp_rho": false
+  },
+  "runtime_flags": {
+    "audit": null,
+    "profile": false,
+    "archive_routes": false,
+    "high_step0": false,
+    "save_trajectory": false,
+    "allow_tf32": false
+  },
+  "compiled_pointwise": [
+    "moments",
+    "encode",
+    "decode"
+  ],
+  "expected_attention_counts": {
+    "attention_sites": 160,
+    "anchors": 80,
+    "hits": 80,
+    "native_probe_queries": 5120
+  },
+  "expected_ffn_counts": {
+    "anchors": 80,
+    "hits": 80
+  },
+  "required_runtime_sources_sha256": {
+    "attention_online_structured.py": "8781a7983461e5c0042e1e0f4d58e545c2cab5b7508d35dc450e2de87b07dcee",
+    "attention_mass_centered_low.py": "dcd51580107fa45723ede1f73c45022e8d4fa7296dd5336f8c2da9f73b1ccc5e",
+    "attention_panel_fit.py": "781fd007d8921521c5b828d38a29c23e739fc71c39ec5fea49a34e39d5bb522f"
+  },
+  "fit_manifest_sha256": "725e431a31b5bb339148ad8d09ca1d94f44053ea09d7baa3e77a84a0242a6cb1",
+  "calibration": {
+    "high": {
+      "lambda": {
+        "FIN-ABS": 0.1,
+        "FIN-C0": 0.1,
+        "FIN-C1": 0.1,
+        "FIN-CP": 0.1,
+        "FIN-D": 0.1,
+        "OUT-ABS": 0.1,
+        "OUT-D": 0.1
+      },
+      "recipe_sha256": "bd7b49f76dd2f6b64d64e1f209d6757ee29b212716bc8f63abb8c87aa085eb88",
+      "transform_sha256": "8d6f7651ce40d2f6f389ba7f981c573a84b2b3d3d9c8aa1fbeae95d9914ef864"
+    },
+    "low": {
+      "lambda": {
+        "FIN-ABS": 0.1,
+        "FIN-C0": 0.1,
+        "FIN-C1": 0.1,
+        "FIN-CP": 0.1,
+        "FIN-D": 0.1,
+        "OUT-ABS": 0.1,
+        "OUT-D": 0.1
+      },
+      "recipe_sha256": "d0aa9bbc00dfcbcfca37e9118b6900f16465be481365e208f62a65d964aa7ef5",
+      "transform_sha256": "04c15a63f6e4ffd34b61714a1be79d2651c195d104e4007aa5c8c22e2dd356e1"
+    }
+  },
+  "local_validation": "syntax and source-binding inspection only; no GPU inference run",
+  "original_release_manifest_sha256": "38dc8f4f3e23fba979dd94543aa1a4482c76e5624c48d1f160c6756914a2759b"
+}

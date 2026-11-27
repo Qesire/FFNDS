@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "protocol_id": "FFNDS-centered-medium-20261127",
+  "status": "DESIGN_ONLY_NOT_EXECUTED",
+  "research_commit": "4ca6b1b14b90965269a7b480f4fd5bfc75f64f37",
+  "candidate_id": "wide8192_high_OUT-ABS_low_mass-centered_OUT-D_P64_HHLL",
+  "method_binding": "FROZEN_METHOD_BINDING.json",
+  "mode": "CUSTOM_PAIRED",
+  "independent_unit": "source_cluster_after_image_sha256_alias_merge",
+  "seed": 42,
+  "geometry": {
+    "width": 832,
+    "height": 464,
+    "frames": 81,
+    "fps": 16
+  },
+  "arms": [
+    "D",
+    "W",
+    "M"
+  ],
+  "primary_comparison": [
+    "M",
+    "D"
+  ],
+  "secondary_comparisons": [
+    [
+      "W",
+      "D"
+    ],
+    [
+      "M",
+      "W"
+    ]
+  ],
+  "quality": {
+    "sources": 100,
+    "videos_per_source_per_arm": 1,
+    "requests": 300,
+    "strata": {
+      "structured": 33,
+      "natural": 33,
+      "subject": 34
+    },
+    "stratum_categories": {
+      "structured": [
+        "indoor",
+        "architecture",
+        "abstract"
+      ],
+      "natural": [
+        "scenery",
+        "plant"
+      ],
+      "subject": [
+        "single-human",
+        "multiple-human",
+        "animal",
+        "transportation",
+        "food",
+        "other"
+      ]
+    },
+    "selection_salt": "FFNDS-centered-medium-20261127-cohort-v1",
+    "hard_exclusions": [
+      "CAL3",
+      "current_DEV"
+    ],
+    "old_exposure_policy": "register_and_prefer_unexposed",
+    "arm_order": "cycle_all_six_permutations",
+    "per_category_minimum_quota": null,
+    "category_reporting": "report_actual_n_for_all_11_official_categories"
+  },
+  "metrics": {
+    "dimensions": [
+      "subject_consistency",
+      "background_consistency",
+      "aesthetic_quality",
+      "motion_smoothness",
+      "imaging_quality",
+      "i2v_subject",
+      "i2v_background"
+    ],
+    "primary_eligibility": "all_100_custom_inputs_for_all_seven_dimensions",
+    "planned_n_per_arm_per_dimension": 100,
+    "original_dimension_tags": "preserve_and_report_tagged_subset_appendix_with_actual_n",
+    "higher_is_better": true,
+    "normalized_range": [
+      0,
+      1
+    ],
+    "noninferiority_delta": -0.005,
+    "noninferiority_delta_provenance": "study_chosen_practical_tolerance_not_community_standard",
+    "bootstrap_replicates": 10000,
+    "bootstrap_seed": 20261127,
+    "bootstrap_unit": "paired_source_cluster_stratified_resample_33_33_34_within_fixed_strata",
+    "ci": "two_sided_95_percentile_pointwise",
+    "PASS": "all_seven_complete_and_all_lower_CI_bounds_gt_minus_0.005",
+    "FAIL": "one_or_more_dimension_upper_CI_bounds_lt_minus_0.005_report_specific_dimensions",
+    "INCONCLUSIVE": "otherwise_or_required_scores_missing",
+    "missing_scores": "NOT_RUN_or_ERROR_never_zero",
+    "adaptive_sample_extension": false,
+    "same_resampled_indices_for_all_arms_and_dimensions": true,
+    "score_range_numerical_tolerance": 1e-06,
+    "score_range_clamp": false,
+    "decision_numerical_tolerance": 1e-12,
+    "partial_dimension": "INCOMPLETE_keep_actual_n_missing_ids_available_paired_means_no_PASS",
+    "invalid_dimension": "ERROR_keep_range_audit_and_actual_n_no_PASS"
+  },
+  "timing": {
+    "sources": 12,
+    "sources_per_stratum": 4,
+    "rounds": 3,
+    "arms": 3,
+    "requests": 108,
+    "selection_salt": "FFNDS-centered-medium-20261127-timing-v1",
+    "even_index_orders": [
+      [
+        "D",
+        "W",
+        "M"
+      ],
+      [
+        "W",
+        "M",
+        "D"
+      ],
+      [
+        "M",
+        "D",
+        "W"
+      ]
+    ],
+    "odd_index_orders": [
+      [
+        "D",
+        "M",
+        "W"
+      ],
+      [
+        "M",
+        "W",
+        "D"
+      ],
+      [
+        "W",
+        "D",
+        "M"
+      ]
+    ],
+    "start_rotation": "(source_index//2)%3",
+    "statistic": "geometric_mean_over_sources(mean_3_rounds(T_D)/mean_3_rounds(T_M))",
+    "bootstrap_unit": "source_cluster_stratified_resample_4_per_stratum_keep_all_3_rounds_together",
+    "primary_time": "warm_complete_request_including_native_anchors_cache_build_decode_save",
+    "separate_costs": [
+      "weight_loading",
+      "compilation",
+      "warmup",
+      "offline_fit",
+      "metric_scoring"
+    ],
+    "save_trajectory": false,
+    "engineering_target_point_speedup": 1.1,
+    "engineering_target_lower_95_CI_speedup": 1.0
+  },
+  "motion_guard": {
+    "backend": "existing_Farneback",
+    "frames": 81,
+    "max_side": 320,
+    "record": [
+      "existing_full_and_windowed_flow",
+      "paired_motion_ratio",
+      "luma_frame_difference",
+      "paired_temporal_difference"
+    ],
+    "quality_direction": "prompt_dependent_not_monotone",
+    "blind_review_sources": 24,
+    "blind_review_sources_per_stratum": 8,
+    "selection_salt": "FFNDS-centered-medium-20261127-review-v1",
+    "all_original_videos_retained": true
+  },
+  "budget": {
+    "core_inference_requests": 408,
+    "planning_seconds_per_request": [
+      35,
+      45
+    ],
+    "planning_inference_gpu_hours_before_setup": [
+      3.9667,
+      5.1
+    ],
+    "not_a_new_measured_benchmark": true,
+    "scoring_is_separate": true,
+    "default_extra_seeds": []
+  },
+  "stop_rule": "complete_fixed_100_sources_once_report_PASS_FAIL_or_INCONCLUSIVE_no_expand_until_pass"
+}
