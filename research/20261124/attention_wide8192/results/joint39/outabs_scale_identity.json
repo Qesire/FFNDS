@@ -1,0 +1,16 @@
+{
+  "check": "OUT-ABS output scale cancels through linear ridge solve",
+  "verified": true,
+  "symbolic_difference": "0",
+  "operator_form": "B + X (X_P^T X_P + 64 lambda I)^(-1) X_P^T R_P",
+  "real_online_dimensions": {
+    "heads": 40,
+    "queries": 31668,
+    "head_channels": 128,
+    "probe_rows": 64,
+    "design_columns_including_constant": 32
+  },
+  "scope": "Algebraic identity of the actual OUT-ABS branch before exact P-row overwrite, which is also scale independent. Not a GPU/model rerun. Independent floating-point rounding can remain.",
+  "implementation_source": "attention_online_structured.py",
+  "script": "verify_outabs_scale.py"
+}

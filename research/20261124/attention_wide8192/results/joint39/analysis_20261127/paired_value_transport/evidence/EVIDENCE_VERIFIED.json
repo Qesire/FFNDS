@@ -1,0 +1,1768 @@
+{
+  "status": "Recomputed from real archived scores/Gram matrices; no full-SparsePR comparison",
+  "input_provenance": {
+    "head_checked": "89fd1ec46a65e0a53bd0be85edca28b8625a42f0",
+    "panel_source": {
+      "repo_path": "research/20261124/attention_wide8192/results/replay_evidence.zip",
+      "git_blob": "9cdc01b79c483ef8abb39cdf3a2780dd890e617a",
+      "zip_member": "site_metrics.csv",
+      "member_sha256": "5ab4e8d518cd8a0ef7b35b01f63b538f6f24bc0d3bc1a4ef9559391d5b5973c9",
+      "full_rows": 4608,
+      "selected_rows": 192,
+      "capture_scope": "11/24 fixed panels; native attention with Dense or wide8192 FFN trajectory background; CAL32 estimators; not full SparsePR v2"
+    },
+    "mass_source": {
+      "repo_path": "research/20261124/attention_wide8192/results/joint39/analysis_20261126/joint_action_review/mass_centered_runtime/MASS_CENTERED_201500.json.gz",
+      "git_blob": "79c2a06b1f7e54720c16f774d065c9ef8abee8cf",
+      "uncompressed_sha256": "979e68efc18c1f999e0370c7698e435880190598aa79add6d23567d7eea4ff20",
+      "job": 201500,
+      "scope": "C fixed trajectory; raw vs centered; two DEV sources; no SparsePR arm"
+    }
+  },
+  "aggregation": "Per-site squared error energy ratios; mean log ratio within four layers for each source, then equal weight across three source means. Not total pooled energy or mean relative L2.",
+  "metric_semantics": {
+    "head": "H448 pre-W_O attention output squared Frobenius error",
+    "point": "H448 error after current W_O and self gate; before outer residual/FFN",
+    "spatial": "224 held spatial-edge error differences, after W_O and self gate",
+    "temporal": "224 held temporal-edge error differences, after W_O and self gate"
+  },
+  "panel_contrasts": [
+    {
+      "background": "Dense",
+      "expert": "high",
+      "level": "P64_estimate",
+      "sources": 3,
+      "sites": 12,
+      "metrics": {
+        "head": {
+          "source_equal_geometric_squared_energy_ratio": 1.6180479110195587,
+          "corresponding_geometric_L2_ratio": 1.2720251220080359,
+          "improved_sites": 3,
+          "source_ratios": {
+            "vbi_0392": 1.554255794831028,
+            "vbi_0800": 1.787232793962385,
+            "vbi_1013": 1.525002344325074
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.7549679780849249
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 3.0086851906548953
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.949863137614129
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.3175908561097096
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.7657895916429942
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 2.589309884948794
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 2.2834886718728806
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 2.2533681361231084
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.8545883144484092
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 3.0515150705399723
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 2.058049132201299
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 1.007752391626519
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.6180479110195587,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "point": {
+          "source_equal_geometric_squared_energy_ratio": 2.186397111975736,
+          "corresponding_geometric_L2_ratio": 1.4786470545656716,
+          "improved_sites": 0,
+          "source_ratios": {
+            "vbi_0392": 2.1684802760066715,
+            "vbi_0800": 2.3107196057255215,
+            "vbi_1013": 2.085856415931421
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 1.7808910594167993
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 3.7277952960546603
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 2.388064655052361
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.3947180280859257
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 1.7575618125969321
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 2.7166963820448773
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 2.5819231723495575
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 2.3125651111548695
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 1.928797429260767
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 3.4829203769056667
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 2.5203379040439478
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 1.1180177606642006
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -1.1863971119757362,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "spatial": {
+          "source_equal_geometric_squared_energy_ratio": 2.3009146397886977,
+          "corresponding_geometric_L2_ratio": 1.516876606645609,
+          "improved_sites": 0,
+          "source_ratios": {
+            "vbi_0392": 2.2720263091599784,
+            "vbi_0800": 2.4271379281611196,
+            "vbi_1013": 2.2089897928084454
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 1.5105642866611801
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 4.317011933000778
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 2.710743480709792
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.5074486954460893
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 1.5215532633252067
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 3.0782635890259646
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 2.909231661701763
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 2.546868705021587
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 1.7109859621442054
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 4.006114927362687
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 2.673249885203503
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 1.2994675206225592
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -1.3009146397886977,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "temporal": {
+          "source_equal_geometric_squared_energy_ratio": 2.391484761371558,
+          "corresponding_geometric_L2_ratio": 1.5464426149623394,
+          "improved_sites": 0,
+          "source_ratios": {
+            "vbi_0392": 2.45671365550379,
+            "vbi_0800": 2.465867693291565,
+            "vbi_1013": 2.2577639954937934
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 2.1983166844961084
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 4.356733926906212
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 2.8383454004911237
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.3399901984652614
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 2.144988130784164
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 2.965379398359694
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 2.8325144499329604
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 2.052115446568417
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 2.400820017504629
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 4.034090023554995
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 2.662562376319079
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 1.0076488008272273
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -1.391484761371558,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        }
+      }
+    },
+    {
+      "background": "Dense",
+      "expert": "high",
+      "level": "family_floor_head",
+      "sources": 3,
+      "sites": 12,
+      "metrics": {
+        "head": {
+          "source_equal_geometric_squared_energy_ratio": 1.6515291173477906,
+          "corresponding_geometric_L2_ratio": 1.2851183281502878,
+          "improved_sites": 1,
+          "source_ratios": {
+            "vbi_0392": 1.592775208730254,
+            "vbi_0800": 1.8263450639067678,
+            "vbi_1013": 1.5485362713244042
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 1.0761468506845728
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 2.634553179509053
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.8373312454659987
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.2355262597059544
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 1.013396589954362
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 2.393843792759983
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 2.1345751634366583
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 2.14854593215796
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 1.1960036075581
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 2.6650598326161647
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.8393930928994753
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.980779826735691
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.6515291173477906,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        }
+      }
+    },
+    {
+      "background": "Dense",
+      "expert": "low",
+      "level": "P64_estimate",
+      "sources": 3,
+      "sites": 12,
+      "metrics": {
+        "head": {
+          "source_equal_geometric_squared_energy_ratio": 0.769108493912761,
+          "corresponding_geometric_L2_ratio": 0.8769883088803185,
+          "improved_sites": 6,
+          "source_ratios": {
+            "vbi_0392": 0.8253881633811857,
+            "vbi_0800": 0.8109858080191406,
+            "vbi_1013": 0.679659406939482
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.2049931206885449
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 2.8054707646651167
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.6796069495166697
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.4804854587620238
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.21279808822219085
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 1.9994247635622198
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 1.4795586273478247
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.6871444605155324
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.24159337595356825
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 2.0048183510908033
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.3875200870127598
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.3175162803093408
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": 0.23089150608723896,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "point": {
+          "source_equal_geometric_squared_energy_ratio": 0.9428465861137,
+          "corresponding_geometric_L2_ratio": 0.9710028764703532,
+          "improved_sites": 6,
+          "source_ratios": {
+            "vbi_0392": 0.9761808519156981,
+            "vbi_0800": 1.1262013012631602,
+            "vbi_1013": 0.762389294533894
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.284641953542134
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 2.8535366313361648
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 2.7367087403645387
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.40851705809504474
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.29917816219325966
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 3.0175014505386812
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 2.2652931572826063
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.7866151535737854
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.2882273899259799
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 2.148738066400768
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.5296517851002895
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.35661191755722815
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": 0.05715341388630002,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "spatial": {
+          "source_equal_geometric_squared_energy_ratio": 1.2420058647385328,
+          "corresponding_geometric_L2_ratio": 1.114453168481535,
+          "improved_sites": 5,
+          "source_ratios": {
+            "vbi_0392": 1.3137894648357118,
+            "vbi_0800": 1.550613504108693,
+            "vbi_1013": 0.9404627592510186
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.34139068093369135
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 3.456044727907432
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 3.260063565099384
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.7745438599941913
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.42297403266293615
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 4.445346237835614
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 2.7079037327074857
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 1.135433563546309
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.43905838377880485
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 2.649943834256737
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.738041384449723
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.3868542343675251
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.2420058647385328,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "temporal": {
+          "source_equal_geometric_squared_energy_ratio": 1.056342158792632,
+          "corresponding_geometric_L2_ratio": 1.027785074221567,
+          "improved_sites": 6,
+          "source_ratios": {
+            "vbi_0392": 1.1602012707346152,
+            "vbi_0800": 1.3062351370210437,
+            "vbi_1013": 0.7777842419807839
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.30107455847680803
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 3.4753236637423432
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 3.3267293310111543
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.5205309585731986
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.33534540309393374
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 4.4395285262431
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 2.873972171458389
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.6804146887980617
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.34438326843758105
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 2.6494763915065533
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.773491484488705
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.22615456320907795
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.05634215879263205,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        }
+      }
+    },
+    {
+      "background": "Dense",
+      "expert": "low",
+      "level": "family_floor_head",
+      "sources": 3,
+      "sites": 12,
+      "metrics": {
+        "head": {
+          "source_equal_geometric_squared_energy_ratio": 0.7343399267405901,
+          "corresponding_geometric_L2_ratio": 0.8569363609630473,
+          "improved_sites": 6,
+          "source_ratios": {
+            "vbi_0392": 0.7522939373698286,
+            "vbi_0800": 0.792235974093017,
+            "vbi_1013": 0.6644301090155831
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.2505016850460197
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 2.1489125710053925
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.2450135167437129
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.4779107319570894
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.27289543907396807
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 1.7788340397343285
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 1.209968722935443
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.6706754098948046
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.3715085790141163
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 1.5093944170208837
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.03953196505857
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.3343395730187983
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": 0.2656600732594099,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        }
+      }
+    },
+    {
+      "background": "wide8192",
+      "expert": "high",
+      "level": "P64_estimate",
+      "sources": 3,
+      "sites": 12,
+      "metrics": {
+        "head": {
+          "source_equal_geometric_squared_energy_ratio": 1.1245157087874553,
+          "corresponding_geometric_L2_ratio": 1.0604318501381667,
+          "improved_sites": 4,
+          "source_ratios": {
+            "vbi_0392": 1.2179481406831674,
+            "vbi_0800": 1.1454677860607394,
+            "vbi_1013": 1.0192598171276055
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.7549679780849249
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 1.3810392732576526
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.5283219357842583
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.3809112892207134
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.7657895916429942
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 1.3233366011094723
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 1.4028081047683336
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 1.2110260078805735
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.8545883144484092
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 1.4401748546302302
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.306285637826667
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.6713195372726553
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.12451570878745533,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "point": {
+          "source_equal_geometric_squared_energy_ratio": 1.4957918655914426,
+          "corresponding_geometric_L2_ratio": 1.223025701116474,
+          "improved_sites": 1,
+          "source_ratios": {
+            "vbi_0392": 1.6874784936782534,
+            "vbi_0800": 1.4431242090595375,
+            "vbi_1013": 1.3742683433057226
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 1.7808910594167993
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 1.6381621500924217
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.7698278227120554
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.5704630665944663
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 1.7575618125969321
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 1.3254694829950815
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 1.4788306873636206
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 1.2589719490928737
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 1.928797429260767
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 1.7130360290957913
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.3819289187814252
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.7811732246380172
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.4957918655914426,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "spatial": {
+          "source_equal_geometric_squared_energy_ratio": 1.5648213140915246,
+          "corresponding_geometric_L2_ratio": 1.250928181028601,
+          "improved_sites": 1,
+          "source_ratios": {
+            "vbi_0392": 1.7428251713851604,
+            "vbi_0800": 1.4894816816178555,
+            "vbi_1013": 1.4760642728796667
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 1.5105642866611801
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 1.9226059692005453
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.9457503963115608
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.6326709611094405
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 1.5215532633252067
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 1.414221791910238
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 1.587877119719813
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 1.4405193285913174
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 1.7109859621442054
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 1.9505983390431858
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.537778695162015
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.9249386724718368
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.5648213140915246,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "temporal": {
+          "source_equal_geometric_squared_energy_ratio": 1.6127054781313184,
+          "corresponding_geometric_L2_ratio": 1.2699234142779314,
+          "improved_sites": 1,
+          "source_ratios": {
+            "vbi_0392": 1.891879894426705,
+            "vbi_0800": 1.5123712065472998,
+            "vbi_1013": 1.4659299615742365
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 2.1983166844961084
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 1.9528314072847694
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.9764440103881666
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.5098532014501955
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 2.144988130784164
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 1.3882959750627883
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 1.5531777031651146
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 1.1311117043370194
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 2.400820017504629
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 1.9254758838999522
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.5993040581574665
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.6246318986013577
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.6127054781313184,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        }
+      }
+    },
+    {
+      "background": "wide8192",
+      "expert": "high",
+      "level": "family_floor_head",
+      "sources": 3,
+      "sites": 12,
+      "metrics": {
+        "head": {
+          "source_equal_geometric_squared_energy_ratio": 1.1548503146891134,
+          "corresponding_geometric_L2_ratio": 1.0746396208446407,
+          "improved_sites": 1,
+          "source_ratios": {
+            "vbi_0392": 1.2406602038542005,
+            "vbi_0800": 1.1860791433097606,
+            "vbi_1013": 1.0466719130190365
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 1.0761468506845728
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 1.2734568704712197
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 1.385365521786521
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 1.2479329510812953
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 1.013396589954362
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 1.221923645924526
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 1.2394228714322937
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 1.2894712472933678
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 1.1960036075581
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 1.239949863575921
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 1.1621880708942385
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.6963526821768474
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": -0.15485031468911337,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        }
+      }
+    },
+    {
+      "background": "wide8192",
+      "expert": "low",
+      "level": "P64_estimate",
+      "sources": 3,
+      "sites": 12,
+      "metrics": {
+        "head": {
+          "source_equal_geometric_squared_energy_ratio": 0.34641364492434507,
+          "corresponding_geometric_L2_ratio": 0.5885691505034435,
+          "improved_sites": 12,
+          "source_ratios": {
+            "vbi_0392": 0.31631801591068504,
+            "vbi_0800": 0.38417716963747867,
+            "vbi_1013": 0.34208142286360316
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.19761861266847502
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 0.6385437147349303
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 0.41495791666555587
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.19119352329984546
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.2126996409243419
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 0.47281057448316216
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 0.6065633080415157
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.3571051694682039
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.23982602189375238
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 0.5084631494404616
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 0.41286318713735376
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.27199192588775634
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": 0.6535863550756549,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "point": {
+          "source_equal_geometric_squared_energy_ratio": 0.38349305352349666,
+          "corresponding_geometric_L2_ratio": 0.6192681596235161,
+          "improved_sites": 12,
+          "source_ratios": {
+            "vbi_0392": 0.35562265058206666,
+            "vbi_0800": 0.4250143392322885,
+            "vbi_1013": 0.373146616333255
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.28218779058826565
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 0.637389945330877
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 0.36713568035106064
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.24220752789385705
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.30013433570794923
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 0.4786514054934044
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 0.6086598473806966
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.373168225339211
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.288023778744992
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 0.5036860335034271
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 0.4388413099364901
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.3045245261162309
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": 0.6165069464765034,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "spatial": {
+          "source_equal_geometric_squared_energy_ratio": 0.4536547008345501,
+          "corresponding_geometric_L2_ratio": 0.6735389378755694,
+          "improved_sites": 12,
+          "source_ratios": {
+            "vbi_0392": 0.3885792150423602,
+            "vbi_0800": 0.5376412569114923,
+            "vbi_1013": 0.44689355562251964
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.31946110480156226
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 0.7451110530934646
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 0.3912161515812538
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.24482879488377152
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.4011640422458582
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 0.5966101654954952
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 0.6950309668773159
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.5022888624216476
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.44984807774726576
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 0.6034078215625246
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 0.48610629173292086
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.3022792398694065
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": 0.5463452991654498,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        },
+        "temporal": {
+          "source_equal_geometric_squared_energy_ratio": 0.3928652524951548,
+          "corresponding_geometric_L2_ratio": 0.6267896397477823,
+          "improved_sites": 12,
+          "source_ratios": {
+            "vbi_0392": 0.3578301833463079,
+            "vbi_0800": 0.4723721068212785,
+            "vbi_1013": 0.3587316047328569
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.28332553946818695
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 0.7608270072551213
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 0.4233283653851788
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.17966309191921565
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.3358037266315674
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 0.5732213083259599
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 0.7260532841224062
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.35625473738540364
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.34369206195228846
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 0.6270514527245253
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 0.506195052749875
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.15180566718600982
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": 0.6071347475048452,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        }
+      }
+    },
+    {
+      "background": "wide8192",
+      "expert": "low",
+      "level": "family_floor_head",
+      "sources": 3,
+      "sites": 12,
+      "metrics": {
+        "head": {
+          "source_equal_geometric_squared_energy_ratio": 0.3449208595879806,
+          "corresponding_geometric_L2_ratio": 0.587299633567041,
+          "improved_sites": 12,
+          "source_ratios": {
+            "vbi_0392": 0.3214167150941683,
+            "vbi_0800": 0.37381010960137817,
+            "vbi_1013": 0.34153788005696817
+          },
+          "per_site": [
+            {
+              "source": "vbi_0392",
+              "layer": "0",
+              "squared_energy_ratio": 0.2623752403877077
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "13",
+              "squared_energy_ratio": 0.5163937866052256
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "26",
+              "squared_energy_ratio": 0.3557635770096307
+            },
+            {
+              "source": "vbi_0392",
+              "layer": "39",
+              "squared_energy_ratio": 0.22141574083045643
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "0",
+              "squared_energy_ratio": 0.2676564503821293
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "13",
+              "squared_energy_ratio": 0.38175285693177097
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "26",
+              "squared_energy_ratio": 0.5098777413899894
+            },
+            {
+              "source": "vbi_0800",
+              "layer": "39",
+              "squared_energy_ratio": 0.374781467165244
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "0",
+              "squared_energy_ratio": 0.3893373818981787
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "13",
+              "squared_energy_ratio": 0.3738277984421484
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "26",
+              "squared_energy_ratio": 0.3259850815461905
+            },
+            {
+              "source": "vbi_1013",
+              "layer": "39",
+              "squared_energy_ratio": 0.2867874160672086
+            }
+          ],
+          "full_S_estimator_required_squared_error_reduction_vs_current_CAL32_to_tie": 0.6550791404120194,
+          "threshold_scope": "Conditional threshold at exactly these old panels, route, probes and metric; actual full-S baseline not measured."
+        }
+      }
+    }
+  ],
+  "centered_direction_diagnostics": [
+    {
+      "source": "vbi_0392",
+      "layer": 0,
+      "target": "attention",
+      "centered_to_raw_squared_energy_ratio": 0.6111321817949386,
+      "oracle_line_gain": 0.8476704408887143,
+      "oracle_line_ratio": 0.598155232441878,
+      "direction_antialignment_cosine": 0.6339122711843667,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.012976949353060596,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_0392",
+      "layer": 0,
+      "target": "dense_block",
+      "centered_to_raw_squared_energy_ratio": 0.7337208086139543,
+      "oracle_line_gain": 0.787756932350017,
+      "oracle_line_ratio": 0.7128783730773697,
+      "direction_antialignment_cosine": 0.5358373138580687,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.020842435536584603,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_0392",
+      "layer": 13,
+      "target": "attention",
+      "centered_to_raw_squared_energy_ratio": 0.9551560301859567,
+      "oracle_line_gain": 1.2795318632640904,
+      "oracle_line_ratio": 0.9529085140260733,
+      "direction_antialignment_cosine": 0.21700572797492407,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.0022475161598833893,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_0392",
+      "layer": 13,
+      "target": "dense_block",
+      "centered_to_raw_squared_energy_ratio": 0.9861883665164612,
+      "oracle_line_gain": 1.212538966045934,
+      "oracle_line_ratio": 0.9857505586535167,
+      "direction_antialignment_cosine": 0.11937102389811048,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.0004378078629445614,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_0392",
+      "layer": 26,
+      "target": "attention",
+      "centered_to_raw_squared_energy_ratio": 0.9610164051886193,
+      "oracle_line_gain": 0.7976848406864077,
+      "oracle_line_ratio": 0.9583362988848688,
+      "direction_antialignment_cosine": 0.2041168810146071,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.0026801063037504846,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_0392",
+      "layer": 26,
+      "target": "dense_block",
+      "centered_to_raw_squared_energy_ratio": 0.9932015178639078,
+      "oracle_line_gain": 0.6685316765427805,
+      "oracle_line_ratio": 0.9909854426962703,
+      "direction_antialignment_cosine": 0.09494502253267294,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.0022160751676374435,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_0392",
+      "layer": 39,
+      "target": "attention",
+      "centered_to_raw_squared_energy_ratio": 0.9529990772294504,
+      "oracle_line_gain": 0.7857299118945872,
+      "oracle_line_ratio": 0.9492229746987525,
+      "direction_antialignment_cosine": 0.22533758075662275,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.0037761025306979334,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_0392",
+      "layer": 39,
+      "target": "dense_block",
+      "centered_to_raw_squared_energy_ratio": 0.9553963781004409,
+      "oracle_line_gain": 0.6646250287843093,
+      "oracle_line_ratio": 0.9401591642455773,
+      "direction_antialignment_cosine": 0.24462386587253232,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.01523721385486354,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_1013",
+      "layer": 0,
+      "target": "attention",
+      "centered_to_raw_squared_energy_ratio": 0.6196852680905295,
+      "oracle_line_gain": 0.8935625070258619,
+      "oracle_line_ratio": 0.6142114708308697,
+      "direction_antialignment_cosine": 0.6211187721918654,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.005473797259659796,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_1013",
+      "layer": 0,
+      "target": "dense_block",
+      "centered_to_raw_squared_energy_ratio": 0.7982334261759745,
+      "oracle_line_gain": 0.7413256657394472,
+      "oracle_line_ratio": 0.7702614988764103,
+      "direction_antialignment_cosine": 0.4793104433700455,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.027971927299564214,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_1013",
+      "layer": 13,
+      "target": "attention",
+      "centered_to_raw_squared_energy_ratio": 0.9660354468975533,
+      "oracle_line_gain": 1.07484780310878,
+      "oracle_line_ratio": 0.965869945697049,
+      "direction_antialignment_cosine": 0.18474321179126185,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.00016550120050429218,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_1013",
+      "layer": 13,
+      "target": "dense_block",
+      "centered_to_raw_squared_energy_ratio": 0.9902052355984373,
+      "oracle_line_gain": 0.9588110196321257,
+      "oracle_line_ratio": 0.9901871266913438,
+      "direction_antialignment_cosine": 0.09905994805498437,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 1.810890709352808e-05,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_1013",
+      "layer": 26,
+      "target": "attention",
+      "centered_to_raw_squared_energy_ratio": 0.9672120936882016,
+      "oracle_line_gain": 0.8751841850255928,
+      "oracle_line_ratio": 0.9665313581875206,
+      "direction_antialignment_cosine": 0.18294436808078976,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.00068073550068104,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_1013",
+      "layer": 26,
+      "target": "dense_block",
+      "centered_to_raw_squared_energy_ratio": 1.0200338882962285,
+      "oracle_line_gain": 0.11000498510663158,
+      "oracle_line_ratio": 0.9996891857443565,
+      "direction_antialignment_cosine": 0.017629925003909783,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.02034470255187204,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_1013",
+      "layer": 39,
+      "target": "attention",
+      "centered_to_raw_squared_energy_ratio": 0.9794261507509963,
+      "oracle_line_gain": 0.6828346875586644,
+      "oracle_line_ratio": 0.9737663866415079,
+      "direction_antialignment_cosine": 0.16196793929198489,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.005659764109488319,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    },
+    {
+      "source": "vbi_1013",
+      "layer": 39,
+      "target": "dense_block",
+      "centered_to_raw_squared_energy_ratio": 0.9583335194735296,
+      "oracle_line_gain": 0.6851860711820817,
+      "oracle_line_ratio": 0.9471839940265901,
+      "direction_antialignment_cosine": 0.22981733175156716,
+      "extra_raw_energy_fraction_saved_by_oracle_scaling": 0.011149525446939479,
+      "scope": "Post-hoc interpolation of two observed response fields, not a new model run or realizable propagated trajectory."
+    }
+  ],
+  "limitations": [
+    "OUT-ABS uses CAL32, not SparsePR v2 full-S features, current standardization or coverage weighting.",
+    "Old OUT-D is raw anchored response plus temporal CAL32 features, not the newer centered implementation.",
+    "11/24 panels and 201500 fixed C use different trajectories; their ratios must not be multiplied.",
+    "Current archived Gram matrices and CAL projections do not recover the missing full S/A panel arrays.",
+    "The original school light-panel producer stores native/selected outputs in full 128 channels, allowing estimator replay after the external files are located."
+  ]
+}

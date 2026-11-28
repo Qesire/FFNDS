@@ -1,0 +1,182 @@
+{
+  "status": "CPU_math_and_static_costs_only",
+  "new_GPU_jobs": 0,
+  "new_model_forwards": 0,
+  "numerical": {
+    "operand_scope": "synthetic CPU arrays; actual P64/rank16 GLS formula and actual model static dimensions separately used",
+    "dimensions": {
+      "n": 160,
+      "d": 96,
+      "k": 48,
+      "rank": 16,
+      "probes": 64,
+      "factor_rank": 24
+    },
+    "max_abs": {
+      "old_intercept_real_identity": 8.881784197001252e-16,
+      "compiled_J_selected_factor_identity": 6.106226635438361e-16,
+      "factor_cache_base_identity": 7.771561172376096e-16,
+      "factor_cache_q_identity": 5.551115123125783e-16,
+      "GLS_lift_linearity": 5.204170427930421e-17,
+      "GLS_compensated_factorization_error_identity": 1.3322676295501878e-15,
+      "GLS_mode_subspace_exact_reproduction": 2.2551405187698492e-17,
+      "paired_mode_gauge_base_identity": 1.304512053934559e-15,
+      "paired_mode_gauge_gain_shift": 5.551115123125783e-16,
+      "paired_mode_gauge_kernel_coeff_identity": 1.0651202142497596e-15,
+      "paired_mode_gauge_full_output_identity": 1.3322676295501878e-15,
+      "gauge_plus_factorization_quotient_error_identity": 1.2212453270876722e-15,
+      "gauge_BF16_matrix_storage_defect_identity": 1.2800497424178547e-15,
+      "BF16_secant_endpoint_defect_identity": 2.636779683484747e-16,
+      "BF16_J_selected_factor_defect_identity": 4.745281858425932e-16,
+      "query_subspace_error_identity": 4.440892098500626e-16
+    },
+    "nonzero_distinctions": {
+      "gauge_BF16_matrix_storage_changes_output_max_abs": 0.002458922366851468,
+      "mixing_beta_cal_and_beta_kernel_changes_q_max_abs": 0.09676537733863516,
+      "extra_BF16_difference_rounding_changes_x_max_abs": 0.004515423029922414,
+      "compressed_endpoint_counterexample_code_distance": 1.8327468460053278e-16,
+      "compressed_endpoint_counterexample_future_answer_distance": 1.0
+    }
+  },
+  "budgets": {
+    "actual_model_shapes": {
+      "N": 31668,
+      "d": 5120,
+      "m": 13824,
+      "K": 2560,
+      "L": 40,
+      "P": 64,
+      "J_rank": 16,
+      "anchors": 80,
+      "hits": 80
+    },
+    "old_BF16_cache_GiB": 30.200958251953125,
+    "old_intercept_with_FP32_J_and_exact_P_GiB": 18.244905471801758,
+    "old_intercept_anchor_added_TFLOP": 133.2402978816,
+    "only_Ua_recompute_anchor_endpoint": {
+      "GiB": 12.08038330078125,
+      "extra_TFLOP_per_video": 717.2561829888
+    },
+    "delete_Za_recompute_selected_W1_endpoint": {
+      "GiB": 24.1607666015625,
+      "extra_TFLOP_per_video": 66.412609536
+    },
+    "low_rank_coupled_compute_break_even_r_ignoring_J": 1706.6666666666667,
+    "low_rank_coupled_compute_break_even_r_including_J": 1701.3333333333333,
+    "coupled_factorization_candidates": [
+      {
+        "rank": 256,
+        "both_experts_BF16_A0_static_GiB": 3.90625,
+        "both_experts_BF16_factors_static_GiB": 0.390625,
+        "both_experts_BF16_static_saved_GiB": 3.515625,
+        "all_BF16_state_GiB": 18.76234531402588,
+        "BF16_projection_FP32_J_state_GiB": 18.80009651184082,
+        "FP32_projection_and_J_state_GiB": 19.404115676879883,
+        "extra_exact_Ua_P64_if_preserving_original_qP_GiB": 0.0244140625,
+        "BF16_projection_FP32_J_saved_GiB": 11.400861740112305,
+        "anchor_projection_TFLOP_per_site": 0.08301576192,
+        "hit_linear_path_TFLOP_per_site": 0.16603152384,
+        "whole_cycle_A0_ratio_without_J": 0.15,
+        "whole_video_net_TFLOP_saved_including_J_anchor": 112.4863574016,
+        "FFN_major_GEMM_cycle_fraction_vs_dense_including_extra_J": 0.6067708333333334
+      },
+      {
+        "rank": 512,
+        "both_experts_BF16_A0_static_GiB": 3.90625,
+        "both_experts_BF16_factors_static_GiB": 0.78125,
+        "both_experts_BF16_static_saved_GiB": 3.125,
+        "all_BF16_state_GiB": 19.36636447906494,
+        "BF16_projection_FP32_J_state_GiB": 19.404115676879883,
+        "FP32_projection_and_J_state_GiB": 20.612154006958008,
+        "extra_exact_Ua_P64_if_preserving_original_qP_GiB": 0.0244140625,
+        "BF16_projection_FP32_J_saved_GiB": 10.796842575073242,
+        "anchor_projection_TFLOP_per_site": 0.16603152384,
+        "hit_linear_path_TFLOP_per_site": 0.33206304768,
+        "whole_cycle_A0_ratio_without_J": 0.3,
+        "whole_video_net_TFLOP_saved_including_J_anchor": 92.5625745408,
+        "FFN_major_GEMM_cycle_fraction_vs_dense_including_extra_J": 0.6206597222222222
+      },
+      {
+        "rank": 1024,
+        "both_experts_BF16_A0_static_GiB": 3.90625,
+        "both_experts_BF16_factors_static_GiB": 1.5625,
+        "both_experts_BF16_static_saved_GiB": 2.34375,
+        "all_BF16_state_GiB": 20.574402809143066,
+        "BF16_projection_FP32_J_state_GiB": 20.612154006958008,
+        "FP32_projection_and_J_state_GiB": 23.028230667114258,
+        "extra_exact_Ua_P64_if_preserving_original_qP_GiB": 0.0244140625,
+        "BF16_projection_FP32_J_saved_GiB": 9.588804244995117,
+        "anchor_projection_TFLOP_per_site": 0.33206304768,
+        "hit_linear_path_TFLOP_per_site": 0.66412609536,
+        "whole_cycle_A0_ratio_without_J": 0.6,
+        "whole_video_net_TFLOP_saved_including_J_anchor": 52.7150088192,
+        "FFN_major_GEMM_cycle_fraction_vs_dense_including_extra_J": 0.6484375
+      },
+      {
+        "rank": 1536,
+        "both_experts_BF16_A0_static_GiB": 3.90625,
+        "both_experts_BF16_factors_static_GiB": 2.34375,
+        "both_experts_BF16_static_saved_GiB": 1.5625,
+        "all_BF16_state_GiB": 21.78244113922119,
+        "BF16_projection_FP32_J_state_GiB": 21.820192337036133,
+        "FP32_projection_and_J_state_GiB": 25.444307327270508,
+        "extra_exact_Ua_P64_if_preserving_original_qP_GiB": 0.0244140625,
+        "BF16_projection_FP32_J_saved_GiB": 8.380765914916992,
+        "anchor_projection_TFLOP_per_site": 0.49809457152,
+        "hit_linear_path_TFLOP_per_site": 0.99618914304,
+        "whole_cycle_A0_ratio_without_J": 0.9,
+        "whole_video_net_TFLOP_saved_including_J_anchor": 12.8674430976,
+        "FFN_major_GEMM_cycle_fraction_vs_dense_including_extra_J": 0.6762152777777778
+      },
+      {
+        "rank": 2048,
+        "both_experts_BF16_A0_static_GiB": 3.90625,
+        "both_experts_BF16_factors_static_GiB": 3.125,
+        "both_experts_BF16_static_saved_GiB": 0.78125,
+        "all_BF16_state_GiB": 22.990479469299316,
+        "BF16_projection_FP32_J_state_GiB": 23.028230667114258,
+        "FP32_projection_and_J_state_GiB": 27.860383987426758,
+        "extra_exact_Ua_P64_if_preserving_original_qP_GiB": 0.0244140625,
+        "BF16_projection_FP32_J_saved_GiB": 7.172727584838867,
+        "anchor_projection_TFLOP_per_site": 0.66412609536,
+        "hit_linear_path_TFLOP_per_site": 1.32825219072,
+        "whole_cycle_A0_ratio_without_J": 1.2,
+        "whole_video_net_TFLOP_saved_including_J_anchor": -26.980122624,
+        "FFN_major_GEMM_cycle_fraction_vs_dense_including_extra_J": 0.7039930555555556
+      },
+      {
+        "rank": 2560,
+        "both_experts_BF16_A0_static_GiB": 3.90625,
+        "both_experts_BF16_factors_static_GiB": 3.90625,
+        "both_experts_BF16_static_saved_GiB": 0.0,
+        "all_BF16_state_GiB": 24.19851779937744,
+        "BF16_projection_FP32_J_state_GiB": 24.236268997192383,
+        "FP32_projection_and_J_state_GiB": 30.276460647583008,
+        "extra_exact_Ua_P64_if_preserving_original_qP_GiB": 0.0244140625,
+        "BF16_projection_FP32_J_saved_GiB": 5.964689254760742,
+        "anchor_projection_TFLOP_per_site": 0.8301576192,
+        "hit_linear_path_TFLOP_per_site": 1.6603152384,
+        "whole_cycle_A0_ratio_without_J": 1.5,
+        "whole_video_net_TFLOP_saved_including_J_anchor": -66.8276883456,
+        "FFN_major_GEMM_cycle_fraction_vs_dense_including_extra_J": 0.7317708333333334
+      }
+    ],
+    "deployed_low_rank_output": {
+      "rank_bound": 80,
+      "dual_kernel_GEMM_FLOP_per_site": 31130910720,
+      "primal_kernel_GEMM_FLOP_per_site": 831835340800,
+      "primal_to_dual_kernel_FLOP_ratio": 26.72055913435224,
+      "note": "The current N×64 kernel factorization is already far cheaper than expanding it to K×d weights. This bound concerns readout, not all history states."
+    }
+  },
+  "source_sha256": {
+    "round15_sparsepr/ours/source/tools/ffnds_fourstep/fourstep_hit.py": "eee084fca85d49331625c67d9bf899df58a5e987cc3886454f8e0c37b2c31a2d",
+    "round15_sparsepr/ours/source/tools/ffnds_fourstep/fourstep_backend.py": "39319817733a41da227aacb5eea09e35db18c14581ca06252e465c60c0abb460",
+    "joint_graph/exact_port.py": "40a488bb9b351f5462b9cebbf37158b4f88c0ee1f6b7dc2dbc1a02a776e01e2d",
+    "evidence/native_joint.py": "046a4e860d4b1f2c411c145997dd7467bbaee940e999a2e91daba9053d2e1967",
+    "evidence/compile_sites.py": "8a7e7edd442e2e50d69bdbac7d06d8d120e5b94a74782bce3e12fc94b66508c6",
+    "round10_review/dense_audit/source/resident_historical.py": "bce0d31d3f3c1c6981e55fbfed7846e993dd74e22176cac43378521efc7b218f",
+    "round8_derivation/publication/SUFFICIENT_STATE_DERIVATION.md": "b000a21637672006048b406cae416c9180b7642fe63ed6899f0b9d76604c127c",
+    "round19_results/source/research/20261127/centered_medium_eval/FROZEN_METHOD_BINDING.json": "14bfc12b6bbfe6681cfc86f5e1013b9b10a0dc5708ceca5c5ad773d1a604b9a2"
+  }
+}

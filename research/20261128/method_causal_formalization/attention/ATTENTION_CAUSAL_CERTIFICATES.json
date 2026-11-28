@@ -1,0 +1,163 @@
+{
+  "scope": "Exact frozen CAL bytes plus explicitly synthetic algebra operands; no model experiment",
+  "source_evidence_head": "72280c1a264bf018343e746a2df2993dafe89149",
+  "model_forwards": 0,
+  "gpu_runs": 0,
+  "sources": {
+    "frozen_online": {
+      "sha256": "8781a7983461e5c0042e1e0f4d58e545c2cab5b7508d35dc450e2de87b07dcee",
+      "repo_path": "research/20261124/attention_wide8192/results/joint39/attention_online_structured.py"
+    },
+    "frozen_centered": {
+      "sha256": "dcd51580107fa45723ede1f73c45022e8d4fa7296dd5336f8c2da9f73b1ccc5e",
+      "repo_path": "research/20261124/attention_wide8192/results/joint39/analysis_20261126/joint_action_review/mass_centered_runtime/attention_mass_centered_low.py"
+    },
+    "readout": {
+      "sha256": "70ecbd2f528d4c3dc4ebf85313372ab888ad99996e34e3b7b57cb757b55df702",
+      "repo_path": "tools/ffnds_optim/attention.py"
+    },
+    "runtime": {
+      "sha256": "37c8a34b2f69738c79a5b8bd902505de065decf10ac3c0ef3c7f50723658b0c1",
+      "repo_path": "tools/ffnds_optim/attention_runtime.py"
+    },
+    "compiler": {
+      "sha256": "05f411c768f9a3b1911f98147ed3cee11f06426ccb204769fcc44061611420eb",
+      "repo_path": "tools/ffnds_optim/compile_attention.py"
+    },
+    "pilot_capture": {
+      "sha256": "75e8f28f6020fe9f355d7ac8ee9d006f25390bf302fdedcb36176b1dd73dc746",
+      "repo_path": "research/20261128/graph_state_implementation/five_source_pilot/build_pilot_attention_assets.py"
+    }
+  },
+  "source_bytes_rechecked": false,
+  "input_manifest_sha256": "778dea980f772d4b3f20e3e4800d7dc522ed14f4d843968f878394bca025c749",
+  "calibration": {
+    "high": {
+      "transform_sha256": "8d6f7651ce40d2f6f389ba7f981c573a84b2b3d3d9c8aa1fbeae95d9914ef864",
+      "pv_sha256": "cfc5a6febf99b37f04ba2989038546bda0d404d9e15db659793bbc88125ca3ff",
+      "shape": [
+        128,
+        31
+      ],
+      "effective_rank": 31,
+      "sigma_max": 1.5059271892527906,
+      "sigma_min": 1.4102268299667535,
+      "condition_number": 1.0678616781729313,
+      "scale_r": 3.019878470500529,
+      "lambda_value": 0.1,
+      "alpha": 6.4,
+      "recipe_sha256": "bd7b49f76dd2f6b64d64e1f209d6757ee29b212716bc8f63abb8c87aa085eb88",
+      "regularization_source": "Validated recipe values copied to input manifest; portable bundle contains transform bytes",
+      "standardized_feature_variance_retained_31_of_64": 0.598859348158584,
+      "variance_scope": "CAL normalized feature Gram energy; not output residual, low history or video quality energy"
+    },
+    "low": {
+      "transform_sha256": "04c15a63f6e4ffd34b61714a1be79d2651c195d104e4007aa5c8c22e2dd356e1",
+      "pv_sha256": "cfc5a6febf99b37f04ba2989038546bda0d404d9e15db659793bbc88125ca3ff",
+      "shape": [
+        128,
+        31
+      ],
+      "effective_rank": 31,
+      "sigma_max": 3.828438569599239,
+      "sigma_min": 3.591672008034441,
+      "condition_number": 1.0659209863916193,
+      "scale_r": 1.172930113193804,
+      "lambda_value": 0.1,
+      "alpha": 6.4,
+      "recipe_sha256": "d0aa9bbc00dfcbcfca37e9118b6900f16465be481365e208f62a65d964aa7ef5",
+      "regularization_source": "Validated recipe values copied to input manifest; portable bundle contains transform bytes",
+      "standardized_feature_variance_retained_31_of_64": 0.5801111585873792,
+      "variance_scope": "CAL normalized feature Gram energy; not output residual, low history or video quality energy"
+    }
+  },
+  "synthetic_ridge_certificate": {
+    "actual_CAL_reader": "high",
+    "design_shape": [
+      193,
+      32
+    ],
+    "probe_design_rank": 32,
+    "alpha": 6.4,
+    "intercept_regularized": true,
+    "in_feature_space_bias_identity_max_abs": 2.708944180085382e-14,
+    "in_feature_space_post_nonprobe_relative_error": 0.14200080850625127,
+    "pre_overwrite_error_operator_rank": 193,
+    "post_overwrite_error_operator_rank": 129,
+    "expected_post_rank": 129,
+    "invisible_residual_probe_norm": 0.0,
+    "invisible_residual_unrecovered_norm": 1.0,
+    "interpretation": "Witnesses ridge bias and unobserved innovation; these errors are not Wan measurements"
+  },
+  "synthetic_low_transport_certificate": {
+    "support_chosen_at_anchor": true,
+    "current_route_recomputed": false,
+    "stored_mass_and_quantized_history_defect_identity_max_abs": 7.216449660063518e-16,
+    "centered_drift_probability_plus_value_identity_max_abs": 4.718447854656915e-16,
+    "positive_diagonal_affine_value_transport_max_abs": 3.552713678800501e-15,
+    "note": "Synthetic softmax operands verify identities only; stored rho perturbation is not an observed runtime deviation"
+  },
+  "synthetic_causal_state_certificate": {
+    "state_width": 159,
+    "output_width": 128,
+    "fixed_encoder_rank": 64,
+    "single_future_reader_rank": 128,
+    "two_future_union_rank": 159,
+    "graph_subspace_formula_rhs": 159,
+    "invisible_state_encoding_max_abs": 1.4051260155412137e-16,
+    "invisible_state_output_norm": 13.82898729396011,
+    "same_normalized_reader_union_rank": 128,
+    "interpretation": "Existence/rank certificate, not the measured rank of current Wan CAL trajectories"
+  },
+  "production_static_counts": {
+    "N": 31668,
+    "H": 40,
+    "D": 128,
+    "model_width": 5120,
+    "probe_rows": 64,
+    "feature_width": 31,
+    "design_width": 32,
+    "query_block_size": 128,
+    "key_blocks": 248,
+    "selected_key_blocks": 31,
+    "last_key_block_rows": 52,
+    "selected_valid_keys_range": [
+      3892,
+      3968
+    ],
+    "selected_key_fraction_range": [
+      0.1229000884173298,
+      0.1252999873689529
+    ],
+    "P_fraction": 0.0020209675382089174,
+    "denoising_steps": 4,
+    "layers_per_step": 40,
+    "anchor_sites": 80,
+    "hit_sites": 80,
+    "probe_query_rows": 5120,
+    "raw_low_history_payload_bytes_per_layer": 407883840,
+    "raw_low_history_payload_GiB_40_layers": 15.194857120513916,
+    "joint64_payload_bytes_per_layer_including_probe_ids": 168508032,
+    "joint64_payload_GiB_40_layers": 6.277413368225098,
+    "payload_scope": "rho + C/A or code + basis + exact probe C/A; excludes routes, QKV, model weights, temporaries and allocator",
+    "baseline_attention_core_work_fraction_range": [
+      0.5931855500821018,
+      0.5949854742958192
+    ],
+    "ideal_partition_attention_core_work_fraction_range": [
+      0.5624605279777695,
+      0.5636604774535809
+    ],
+    "work_scope": "QK/AV multiply-add proxy only. Frozen graph: 80 full anchors + 120 selected calls + 80 P64 full-key teachers vs 160 full attention; shared partition removes 40 duplicated selected-anchor scans. Not end-to-end or latency prediction.",
+    "wide8192_semantics": "FFN token tile size, not attention width or support size"
+  },
+  "algebra_checks": {
+    "ridge_identity": true,
+    "ridge_post_rank": true,
+    "low_defect_identity": true,
+    "low_drift_identity": true,
+    "affine_transport_identity": true,
+    "joint_rank_identity": true,
+    "fixed_encoder_invisible_direction": true
+  }
+}

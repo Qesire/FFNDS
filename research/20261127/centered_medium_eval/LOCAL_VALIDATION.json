@@ -1,0 +1,105 @@
+{
+  "schema": "FFNDS_CENTERED_MEDIUM_LOCAL_VALIDATION_V1",
+  "date": "2026-11-27",
+  "status": "PREPARED_CPU_CHECKS_PASSED_GPU_NOT_RUN",
+  "scope": "Real source and historical receipt identity checks; synthetic metadata/interface/statistical inputs only for the new evaluation scripts",
+  "model_forwards": 0,
+  "gpu_jobs": 0,
+  "new_real_videos": 0,
+  "new_real_metric_scores": 0,
+  "scripts": [
+    {
+      "script": "build_metric_binding.py",
+      "ast": "PASS",
+      "help_exit": 0,
+      "sha256": "32d30c4fc87ee037653aa0cbde5787860da93de3daa6c81dec929638bf54cffc"
+    },
+    {
+      "script": "centered_runtime.py",
+      "ast": "PASS",
+      "help_exit": 0,
+      "sha256": "7b83dd263e62ea0c4f1a12777975c67978a27c70769c79fcfc9e6ceab8640a97"
+    },
+    {
+      "script": "prepare_cohort.py",
+      "ast": "PASS",
+      "help_exit": 0,
+      "sha256": "0ae434b8e538830ae88238e2c2320a53ada22a17b8f00f9f281088124e9f441f"
+    },
+    {
+      "script": "run_medium_eval.py",
+      "ast": "PASS",
+      "help_exit": 0,
+      "sha256": "ddeac77af15c5cc1551abe553bf32f8eb484fad1f65cd93acbf97906cf8075e4"
+    },
+    {
+      "script": "run_motion_diagnostics.py",
+      "ast": "PASS",
+      "help_exit": 0,
+      "sha256": "9cb1f9f4bc9e2ecdfb7f91774e06adbb37c01deffcaaae3a29933eef9c81d8d4"
+    },
+    {
+      "script": "summarize_medium_eval.py",
+      "ast": "PASS",
+      "help_exit": 0,
+      "sha256": "a9732bd6b463f45e3b398a3abfe008d9baf0877d50a306a8733ee1046c66e0fa"
+    }
+  ],
+  "method_checks": [
+    "three frozen runtime-source SHA256 values match downloaded GitHub source",
+    "frozen CAL JSON matches prior method recipe",
+    "201500 original decompressed receipt SHA256 matches",
+    "quality final-latent hook copies step3 only and restores on normal and exceptional exit"
+  ],
+  "source_selection_checks": [
+    "11-category candidate coverage",
+    "100 independent image clusters",
+    "12 timing sources, 4 per stratum",
+    "24 blind-review sources, 8 per stratum",
+    "deterministic ordering",
+    "cluster/image alias merging",
+    "CAL/current DEV exclusion",
+    "public manifest omits prompt and file locators",
+    "image byte corruption rejected"
+  ],
+  "driver_check": "DRIVER_REVIEW_RESULT.json",
+  "metric_interface_check": "CPU_BINDING_CHECK.json",
+  "statistics_check": {
+    "script_sha256": "a9732bd6b463f45e3b398a3abfe008d9baf0877d50a306a8733ee1046c66e0fa",
+    "source": "independent agent executed actual script main on temporary synthetic JSON fixtures",
+    "cases": [
+      "positive paired delta PASS",
+      "negative paired delta FAIL",
+      "interval crosses margin INCONCLUSIVE",
+      "exact margin within numeric tolerance INCONCLUSIVE",
+      "missing dimension NOT_RUN",
+      "missing row or arm INCOMPLETE with actual n",
+      "out of range score ERROR",
+      "epsilon-size roundoff preserved",
+      "NaN score ERROR",
+      "duplicate clusters rejected",
+      "main stratum quota mismatch rejected",
+      "timing stratum mismatch rejected",
+      "duplicate score rows rejected",
+      "mean within source then geometric mean across sources gives expected1.2 not mean individual run ratios"
+    ],
+    "bootstrap_replicates": 10000,
+    "paired_source_unit": true,
+    "stratum_sizes_preserved": true
+  },
+  "not_executed": [
+    "school private image catalog materialization",
+    "real CUDA wrapper identity runs",
+    "100-source generation and timing",
+    "real official-metric scoring",
+    "actual video decode and optical-flow diagnostics in this workspace",
+    "actual final-latent tensor-file loading/distance branch; torch/safetensors unavailable here"
+  ],
+  "next_execution": "Use existing job201500 school runtime and frozen FIT; materialize actual cohort, run two centered DEV identity replays in driver, then the fixed three-arm experiment.",
+  "links_checked": 15,
+  "frozen_source_hashes_verified_by_root": [
+    "attention_online_structured.py",
+    "attention_mass_centered_low.py",
+    "attention_panel_fit.py"
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "status": "STATIC_USEFUL_MAC_ARITHMETIC_ON_BOUND_RUNTIME_GRAPH",
+  "code_reference_commit": "13ffb127e71a5d4d1519ecb0df9c7b4d03efe601",
+  "attention_evidence_commit": "ec8a39b8a6c8c6a6cb25badfe11e8b6a38b09f63",
+  "new_model_executions": 0,
+  "new_GPU_jobs": 0,
+  "latency_measured": false,
+  "model": {
+    "N": 31668,
+    "D": 5120,
+    "FFN_hidden": 13824,
+    "FFN_selected": 2560,
+    "FFN_modes": 16,
+    "P": 64,
+    "attention_heads": 40,
+    "head_dim": 128,
+    "layers_per_expert": 40,
+    "text_keys_for_accounting": 512,
+    "attention_query_block": 128,
+    "top_key_blocks": 31,
+    "attention_fit_columns": 32,
+    "FFN_hit_tile_rows": 8192,
+    "denoiser_calls": 4,
+    "expert_schedule": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "CFG_enabled": false,
+    "native_anchor_steps": [
+      0,
+      2
+    ],
+    "hit_steps": [
+      1,
+      3
+    ]
+  },
+  "cost_convention": "2 FLOPs per GEMM MAC. Count useful non-padded products, not actual issued GPU instructions.",
+  "dense_MACs_per_layer_step": {
+    "self_QK_AV": 10269309173760,
+    "self_QKV_O_projections": 3320630476800,
+    "FFN_two_projections": 4482851143680,
+    "cross_Q_O_projections": 1660315238400,
+    "cross_K_V_projections": 26843545600,
+    "cross_QK_AV": 166031523840
+  },
+  "dense_TFLOPs_per_layer_step": {
+    "self_QK_AV": 20.53861834752,
+    "self_QKV_O_projections": 6.6412609536,
+    "FFN_two_projections": 8.96570228736,
+    "cross_Q_O_projections": 3.3206304768,
+    "cross_K_V_projections": 0.0536870912,
+    "cross_QK_AV": 0.33206304768
+  },
+  "dense_TFLOPs_per_layer_step_total": 39.85196220416,
+  "dense_whole_video_PFLOPs_block_GEMMs": 6.3763139526656,
+  "dense_shares": {
+    "self_QK_AV": 0.5153728251146451,
+    "FFN": 0.22497517792045138,
+    "retained_other": 0.2596519969649035
+  },
+  "FFN_hit_MACs": {
+    "full_N_deltaU_A0": 830157619200,
+    "full_N_selected_W1_W2": 830157619200,
+    "full_N_J_and_Z_maps": 3891363840,
+    "full_N_kernel_to_P": 5188485120,
+    "full_N_joint_readout": 12971212800,
+    "P_base_and_feature_operands": 3363307520,
+    "P_native_FFN_teacher": 9059696640,
+    "P_covariance_X_XT": 10485760,
+    "P_gain_Gram_QT_IQ": 16384,
+    "P_target_VT_and_Q_gain_V": 10485760
+  },
+  "FFN_major_hit_TFLOPs": 3.3206304768,
+  "FFN_listed_hit_TFLOPs": 3.389620584448,
+  "FFN_major_hit_ratio": {
+    "fraction": "10/27",
+    "value": 0.37037037037037035,
+    "fraction_saved": 0.6296296296296297,
+    "arithmetic_speedup": 2.7
+  },
+  "FFN_major_anchor_hit_ratio": {
+    "fraction": "37/54",
+    "value": 0.6851851851851852,
+    "fraction_saved": 0.3148148148148148,
+    "arithmetic_speedup": 1.4594594594594594
+  },
+  "FFN_listed_anchor_hit_ratio": {
+    "fraction": "53864933/78174720",
+    "value": 0.6890326310091037,
+    "fraction_saved": 0.3109673689908963,
+    "arithmetic_speedup": 1.4513100758892619
+  },
+  "attention_extra_listed_MACs_four_steps_per_layer": {
+    "two_anchor_pooled_QK_routes": 629800960,
+    "three_selected_feature_projections": 38670428160,
+    "two_full_N_ridge_readouts": 10376970240,
+    "two_P_normal_Grams": 5242880,
+    "two_P_ridge_RHS_products": 20971520
+  },
+  "selected_support_cases": [
+    {
+      "selected_keys_per_query": 3892,
+      "selected_density": 0.1229000884173298,
+      "attention_core_four_step_ratio": {
+        "fraction": "1445/2436",
+        "value": 0.5931855500821018,
+        "fraction_saved": 0.40681444991789817,
+        "arithmetic_speedup": 1.6858131487889274
+      },
+      "self_attention_including_QKV_O_ratio": {
+        "fraction": "29025/41908",
+        "value": 0.6925885272501671,
+        "fraction_saved": 0.307411472749833,
+        "arithmetic_speedup": 1.4438587424633935
+      },
+      "whole_block_major_GEMM_ratio": {
+        "fraction": "350024653/486474148",
+        "value": 0.7195133686733955,
+        "fraction_saved": 0.28048663132660445,
+        "arithmetic_speedup": 1.3898282416124559
+      },
+      "whole_block_listed_GEMM_ratio": {
+        "fraction": "28059928061/38917931840",
+        "value": 0.7210025490655672,
+        "fraction_saved": 0.2789974509344328,
+        "arithmetic_speedup": 1.38695764847991
+      },
+      "whole_video_major_GFLOPs": 4587843.1318016,
+      "whole_video_listed_GFLOPs": 4597338.61351424,
+      "whole_video_listed_MACs_before_rho_fallback": 2298669306757120
+    },
+    {
+      "selected_keys_per_query": 3968,
+      "selected_density": 0.1252999873689529,
+      "attention_core_four_step_ratio": {
+        "fraction": "9421/15834",
+        "value": 0.5949854742958192,
+        "fraction_saved": 0.4050145257041809,
+        "arithmetic_speedup": 1.6807133000743022
+      },
+      "self_attention_including_QKV_O_ratio": {
+        "fraction": "14541/20954",
+        "value": 0.6939486494225446,
+        "fraction_saved": 0.30605135057745536,
+        "arithmetic_speedup": 1.4410288150746167
+      },
+      "whole_block_major_GEMM_ratio": {
+        "fraction": "175237961/243237074",
+        "value": 0.7204410007004113,
+        "fraction_saved": 0.27955899929958866,
+        "arithmetic_speedup": 1.3880387138263952
+      },
+      "whole_block_listed_GEMM_ratio": {
+        "fraction": "28096029581/38917931840",
+        "value": 0.721930181092583,
+        "fraction_saved": 0.27806981890741705,
+        "arithmetic_speedup": 1.3851755006094646
+      },
+      "whole_video_major_GFLOPs": 4593758.0048384,
+      "whole_video_listed_GFLOPs": 4603253.48655104,
+      "whole_video_listed_MACs_before_rho_fallback": 2301626743275520
+    }
+  ],
+  "observed_omitted_mass_fallback_QK": {
+    "vbi_0392": {
+      "observed_query_head_rows": 8776,
+      "extra_QK_MACs": 35573551104,
+      "fraction_of_dense_block_GEMMs": 1.1158029974081994e-05,
+      "listed_whole_block_ratios_including_fallback": [
+        {
+          "fraction": "561207246169/778358636800",
+          "value": 0.7210137070955412,
+          "fraction_saved": 0.2789862929044587,
+          "arithmetic_speedup": 1.386936184650773
+        },
+        {
+          "fraction": "561929276569/778358636800",
+          "value": 0.721941339122557,
+          "fraction_saved": 0.27805866087744296,
+          "arithmetic_speedup": 1.3851540919036354
+        }
+      ]
+    },
+    "vbi_1013": {
+      "observed_query_head_rows": 16485,
+      "extra_QK_MACs": 66822013440,
+      "fraction_of_dense_block_GEMMs": 2.0959448965672477e-05,
+      "listed_whole_block_ratios_including_fallback": [
+        {
+          "fraction": "897943800301/1245373818880",
+          "value": 0.7210235085145329,
+          "fraction_saved": 0.2789764914854671,
+          "arithmetic_speedup": 1.3869173309761011
+        },
+        {
+          "fraction": "899099048941/1245373818880",
+          "value": 0.7219511405415486,
+          "fraction_saved": 0.27804885945845137,
+          "arithmetic_speedup": 1.385135286648182
+        }
+      ]
+    }
+  },
+  "zero_cost_hit_FFN_and_attention_core_bound": {
+    "fraction": "153197033/243237074",
+    "value": 0.6298259984824517,
+    "fraction_saved": 0.37017400151754826,
+    "arithmetic_speedup": 1.5877401098231452
+  },
+  "zero_cost_entire_hit_block_bound_wider_scope": {
+    "fraction": "1/2",
+    "value": 0.5,
+    "fraction_saved": 0.5,
+    "arithmetic_speedup": 2.0
+  },
+  "distance_from_listed_current_budget_to_structural_bound": [
+    {
+      "selected_keys": 3892,
+      "remaining_dense_fraction_above_zero_cost_bound": 0.09117655058311547,
+      "fraction_of_current_listed_GEMMs_above_bound": 0.1264580141932674,
+      "fraction_of_structural_savable_GEMMs_already_removed": 0.7536927223161749
+    },
+    {
+      "selected_keys": 3968,
+      "remaining_dense_fraction_above_zero_cost_bound": 0.09210418261013131,
+      "fraction_of_current_listed_GEMMs_above_bound": 0.12758045725521416,
+      "fraction_of_structural_savable_GEMMs_already_removed": 0.7511867872067051
+    }
+  ],
+  "conditional_amortization_not_executed": {
+    "FFN_formula": "(F + K*H + cache_extra) / ((K+1)*F)",
+    "two_expert_attention_formula": "[1 + (K+1/2)*alpha + K*beta] / (K+1), excluding feature/routing/pointwise overhead",
+    "conditions": "One anchor per expert; K hits from that anchor without refresh; native/selected/probe costs stay unchanged and quality remains acceptable. K=1 is current four-step HHLL; other K values change the denoiser-call count and are untested.",
+    "major_GEMM_examples": [
+      {
+        "hits_per_expert_anchor": 1,
+        "denoiser_calls": 4,
+        "selected_keys": 3892,
+        "attention_core_ratio": 0.5931855500821018,
+        "FFN_major_ratio": 0.6851851851851852,
+        "whole_block_major_ratio": 0.7195133686733955,
+        "arithmetic_speedup": 1.3898282416124559
+      },
+      {
+        "hits_per_expert_anchor": 1,
+        "denoiser_calls": 4,
+        "selected_keys": 3968,
+        "attention_core_ratio": 0.5949854742958192,
+        "FFN_major_ratio": 0.6851851851851852,
+        "whole_block_major_ratio": 0.7204410007004113,
+        "arithmetic_speedup": 1.3880387138263952
+      },
+      {
+        "hits_per_expert_anchor": 2,
+        "denoiser_calls": 6,
+        "selected_keys": 3892,
+        "attention_core_ratio": 0.43709738537324744,
+        "FFN_major_ratio": 0.5802469135802469,
+        "whole_block_major_ratio": 0.6154612639354476,
+        "arithmetic_speedup": 1.6247976251270373
+      },
+      {
+        "hits_per_expert_anchor": 2,
+        "denoiser_calls": 6,
+        "selected_keys": 3968,
+        "attention_core_ratio": 0.43909730116626666,
+        "FFN_major_ratio": 0.5802469135802469,
+        "whole_block_major_ratio": 0.6164919661876873,
+        "arithmetic_speedup": 1.6220811540884799
+      },
+      {
+        "hits_per_expert_anchor": 4,
+        "denoiser_calls": 10,
+        "selected_keys": 3892,
+        "attention_core_ratio": 0.3122268536061639,
+        "FFN_major_ratio": 0.4962962962962963,
+        "whole_block_major_ratio": 0.5322195801450892,
+        "arithmetic_speedup": 1.878923732432746
+      },
+      {
+        "hits_per_expert_anchor": 4,
+        "denoiser_calls": 10,
+        "selected_keys": 3968,
+        "attention_core_ratio": 0.3143867626626247,
+        "FFN_major_ratio": 0.4962962962962963,
+        "whole_block_major_ratio": 0.5333327385775082,
+        "arithmetic_speedup": 1.8750020909407796
+      },
+      {
+        "hits_per_expert_anchor": 9,
+        "denoiser_calls": 20,
+        "selected_keys": 3892,
+        "attention_core_ratio": 0.21857395478085134,
+        "FFN_major_ratio": 0.43333333333333335,
+        "whole_block_major_ratio": 0.46978831730232046,
+        "arithmetic_speedup": 2.128618280127377
+      },
+      {
+        "hits_per_expert_anchor": 9,
+        "denoiser_calls": 20,
+        "selected_keys": 3968,
+        "attention_core_ratio": 0.22085385878489328,
+        "FFN_major_ratio": 0.43333333333333335,
+        "whole_block_major_ratio": 0.4709633178698737,
+        "arithmetic_speedup": 2.1233076166587947
+      },
+      {
+        "hits_per_expert_anchor": 19,
+        "denoiser_calls": 40,
+        "selected_keys": 3892,
+        "attention_core_ratio": 0.17174750536819502,
+        "FFN_major_ratio": 0.40185185185185185,
+        "whole_block_major_ratio": 0.43857268588093606,
+        "arithmetic_speedup": 2.2801237564335697
+      },
+      {
+        "hits_per_expert_anchor": 19,
+        "denoiser_calls": 40,
+        "selected_keys": 3968,
+        "attention_core_ratio": 0.17408740684602753,
+        "FFN_major_ratio": 0.40185185185185185,
+        "whole_block_major_ratio": 0.4397786075160565,
+        "arithmetic_speedup": 2.2738714046328172
+      }
+    ]
+  },
+  "unchanged_overhead_examples_not_latency_predictions": [
+    {
+      "unchanged_fraction": 0,
+      "remaining_fraction_if_uniform_arithmetic_time": 0.6298259984824517,
+      "speedup_if_uniform_arithmetic_time": 1.5877401098231454
+    },
+    {
+      "unchanged_fraction": 0.1,
+      "remaining_fraction_if_uniform_arithmetic_time": 0.6668433986342065,
+      "speedup_if_uniform_arithmetic_time": 1.499602458460483
+    },
+    {
+      "unchanged_fraction": 0.2,
+      "remaining_fraction_if_uniform_arithmetic_time": 0.7038607987859613,
+      "speedup_if_uniform_arithmetic_time": 1.4207354660535547
+    },
+    {
+      "unchanged_fraction": 0.3,
+      "remaining_fraction_if_uniform_arithmetic_time": 0.7408781989377161,
+      "speedup_if_uniform_arithmetic_time": 1.3497495289155723
+    }
+  ],
+  "memory": {
+    "FFN_persistent_anchor_bytes": 32428032000,
+    "FFN_persistent_anchor_GiB": 30.200958251953125,
+    "attention_low_full_BF16_history_bytes": 12971212800,
+    "attention_low_full_BF16_history_GiB": 12.08038330078125,
+    "attention_low_feature_BF16_and_rho_FP32_bytes": 3344140800,
+    "one_full_ND_BF16_field_GiB": 0.30200958251953125
+  },
+  "scope": [
+    "The leading savings include both FFN and self-attention replacement, relative to the same four-step distilled model with native FFN/attention.",
+    "Current centered transport preserves all leading GEMM call counts; it adds O(ND) moments/encoding/decoding and changes execution fusion.",
+    "Listed-GEMM account is not all FLOPs: excludes Cholesky/triangular solves, GELU/softmax, means/variance, norms/RoPE, pointwise work, gather, copies, padding, kernel launch, offload and VAE/text/image encoding/save.",
+    "Attention routing fractions are valid-key bounds; exact per-query supports were not archived here.",
+    "The structural 1.58774x bound applies only to this schedule and retained matrix operations with uniform per-MAC cost; it is not a universal wall-time bound.",
+    "Amdahl latency claims require measured time fractions and an explicit unchanged portion, not FLOP fractions.",
+    "The four-step distilled runtime has CFG disabled; comparing to a teacher must count actual guided/unguided denoiser evaluations, not just nominal step count."
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "status": "OFFLINE_SM80_COMPILED_NO_GPU_EXECUTION",
+  "torch_version": "2.15.0+cpu",
+  "triton_version": "3.9.0",
+  "new_gpu_executions": 0,
+  "kernel_source_sha256": "9fd926a15e0fc78d6d9705562b548d40332ed7da6429399aa705a88380dd54f8",
+  "kernels": [
+    {
+      "kernel": "_partition_kernel",
+      "target": "sm80",
+      "ptx_sha256": "2a9c2c121e44effa9414a1dcd048400415c74a4c1610121ab57cbf444215d65b",
+      "ptx_bytes": 161377,
+      "cubin_bytes": 169328,
+      "static_shared_memory_bytes": 40960,
+      "signature": {
+        "Q": "*bf16",
+        "K": "*bf16",
+        "V": "*bf16",
+        "ROUTE": "*i32",
+        "MEAN": "*fp32",
+        "INVERSE": "*fp32",
+        "FULL": "*bf16",
+        "SELECTED": "*bf16",
+        "RHO": "*fp32",
+        "FULL_LSE": "*fp32",
+        "SELECTED_LSE": "*fp32",
+        "CENTERED": "*bf16"
+      },
+      "constants": {
+        "N": 31668,
+        "H": 40,
+        "D": 128,
+        "QSN": 5120,
+        "QSH": 128,
+        "KSN": 5120,
+        "KSH": 128,
+        "VSN": 5120,
+        "VSH": 128,
+        "RSH": 7688,
+        "RSQ": 31,
+        "TOP": 31,
+        "BLOCK_SIZE": 128,
+        "BLOCK_M": 32,
+        "BLOCK_K": 64,
+        "SCALE": 0.08838834764831845,
+        "ROUTE_PAD": 32,
+        "WRITE_CENTERED": true
+      },
+      "options": {
+        "num_warps": 4,
+        "num_stages": 2,
+        "enable_fp_fusion": true
+      }
+    },
+    {
+      "kernel": "_selected_kernel",
+      "target": "sm80",
+      "ptx_sha256": "22f42ca7ff01fe1dae9e59fe32c57b82b99a22c77fae6ce93ca1131809cf1850",
+      "ptx_bytes": 137617,
+      "cubin_bytes": 136304,
+      "static_shared_memory_bytes": 40960,
+      "signature": {
+        "Q": "*bf16",
+        "K": "*bf16",
+        "V": "*bf16",
+        "ROUTE": "*i32",
+        "ROW_MAP": "*i32",
+        "ACTIVE_TILES": "*i32",
+        "OUT": "*bf16",
+        "LSE": "*fp32"
+      },
+      "constants": {
+        "N": 31668,
+        "H": 40,
+        "D": 128,
+        "QSN": 5120,
+        "QSH": 128,
+        "KSN": 5120,
+        "KSH": 128,
+        "VSN": 5120,
+        "VSH": 128,
+        "RSH": 7688,
+        "RSQ": 31,
+        "TOP": 31,
+        "BLOCK_SIZE": 128,
+        "BLOCK_M": 32,
+        "BLOCK_K": 64,
+        "SCALE": 0.08838834764831845,
+        "NQ": 64
+      },
+      "options": {
+        "num_warps": 4,
+        "num_stages": 2,
+        "enable_fp_fusion": true
+      }
+    }
+  ]
+}

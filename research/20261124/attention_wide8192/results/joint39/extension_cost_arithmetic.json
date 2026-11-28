@@ -1,0 +1,114 @@
+{
+  "evidence_type": "STATIC_EXACT_RATIONAL_MAC_ARITHMETIC",
+  "model_executions": 0,
+  "latency_measured": false,
+  "model": {
+    "tokens": 31668,
+    "probe_rows": 64,
+    "layers": 40,
+    "heads": 40,
+    "head_width": 128,
+    "residual_width": 5120
+  },
+  "denominator": {
+    "definition": "Four full QK128 + PV128 attention cores, one layer.",
+    "MACs": 41077236695040,
+    "excludes": "QKV/WO, unweighted global moments, projections, fitting, routing, layout, cache I/O, all non-self-attention work."
+  },
+  "formulas": {
+    "original": "1/2 + alpha + beta/2",
+    "B": "1/2 + 25*alpha/32 + beta/2",
+    "C": "1/2 + 3*alpha/4 + beta/2",
+    "new_schedule": "1/4 + 33*alpha/32 + 3*beta/4",
+    "extra_low_anchor_full_QK_LSE": "1/8",
+    "full_cycle_time": "T_new/T_wide = 1 - f_self_core*(1-r_core) + epsilon_added"
+  },
+  "beta": 0.0020209675382089174,
+  "selected_keys_bounds": [
+    3892,
+    3968
+  ],
+  "at_bounds": [
+    {
+      "alpha": 0.1229000884173298,
+      "original_all_step_selected": 0.6239105721864343,
+      "B_dependency_pruned_C0": 0.5970261778451433,
+      "C_dependency_pruned_OUT_D": 0.5931855500821018,
+      "new_module_specific_schedule": 0.37825644183402807,
+      "B_minus_C": 0.0038406277630415563,
+      "B_if_separate_low_anchor_full_QK_LSE": 0.7220261778451433,
+      "C_if_separate_low_anchor_full_QK_LSE": 0.7181855500821018,
+      "new_schedule_if_separate_low_anchor_full_QK_LSE": 0.5032564418340281
+    },
+    {
+      "alpha": 0.1252999873689529,
+      "original_all_step_selected": 0.6263104711380574,
+      "B_dependency_pruned_C0": 0.5989010989010989,
+      "C_dependency_pruned_OUT_D": 0.5949854742958192,
+      "new_module_specific_schedule": 0.38073133762788935,
+      "B_minus_C": 0.003915624605279778,
+      "B_if_separate_low_anchor_full_QK_LSE": 0.7239010989010989,
+      "C_if_separate_low_anchor_full_QK_LSE": 0.7199854742958192,
+      "new_schedule_if_separate_low_anchor_full_QK_LSE": 0.5057313376278894
+    }
+  ],
+  "at_alpha_one_eighth": {
+    "alpha": 0.125,
+    "original_all_step_selected": 0.6260104837691045,
+    "B_dependency_pruned_C0": 0.5986667337691045,
+    "C_dependency_pruned_OUT_D": 0.5947604837691045,
+    "new_module_specific_schedule": 0.3804219756536567,
+    "B_minus_C": 0.00390625,
+    "B_if_separate_low_anchor_full_QK_LSE": 0.7236667337691045,
+    "C_if_separate_low_anchor_full_QK_LSE": 0.7197604837691045,
+    "new_schedule_if_separate_low_anchor_full_QK_LSE": 0.5054219756536567
+  },
+  "selected_FIN_value_width": 144,
+  "selected_FIN_MAC_multiplier": 1.0625,
+  "layer_call_counts": {
+    "original_or_B_or_C": {
+      "native_attention": 80,
+      "P_attention": 80,
+      "head_readouts": 3200
+    },
+    "original_selected": 160,
+    "B_or_C_selected_after_pruning": 120,
+    "new_module_specific_schedule": {
+      "native_attention": 40,
+      "P_attention": 120,
+      "head_readouts": 4800,
+      "selected": 160
+    }
+  },
+  "static_capacity_arithmetic_GiB": {
+    "original_FIN_attention_state_plan": 15.241,
+    "earlier_standalone_wide_peak": 47.57,
+    "sum_not_measured_joint_peak": 62.811
+  },
+  "scheduler": {
+    "sigmas": [
+      "1",
+      "15/16",
+      "5/6",
+      "5/8",
+      "0"
+    ],
+    "signed_update_rule": "x_next = x + (sigma_next-sigma)*v",
+    "high_hit_abs_step": 0.10416666666666667,
+    "low_hit_abs_step": 0.625,
+    "low_to_high_direct_amplitude_ratio": 6,
+    "low_to_high_direct_squared_ratio": 36
+  },
+  "assumptions": [
+    "The original-all-step-selected row is the historical V128 interaction estimate; it omits added FIN moment channels.",
+    "B/C keep two native attention anchors and two approximated hits.",
+    "High OUT-ABS does not read high-anchor selected statistics; routing still follows the original Q/K block means and tie rules.",
+    "Low C0 uses QK128 + PV144 at anchor and hit to return weighted moments.",
+    "Low OUT-D also uses ANCH and requires low-anchor u/rho/full LSE.",
+    "The new schedule replaces high step0 attention only; FFN retains native anchors0/2 on its own current inputs.",
+    "A common selected density is a counting approximation; bounds account for the archived route block lengths.",
+    "Native low-anchor full LSE is exposed by the original softmax, or an extra full QK pass is charged separately.",
+    "Actual backend tiling or padding, BF16 arithmetic, memory traffic and throughput are not inferred from MAC counts."
+  ],
+  "new_schedule_evidence": "Derived candidate only; original CAL has hit-step inputs and the new step0 trajectory is unmeasured."
+}

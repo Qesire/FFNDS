@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "REPO_VERIFIED_EXECUTION_HOST_PRECHECK_REQUIRED",
+  "as_of": "2026-11-24",
+  "repository": "Qesire/FFNDS",
+  "repository_main_commit": "13ffb127e71a5d4d1519ecb0df9c7b4d03efe601",
+  "source_of_truth": [
+    "research/CURRENT_HANDOFF.json",
+    "research/agent_protocol/CURRENT_CONTEXT_PACKET.md",
+    "tools/ffnds_fourstep/README.md",
+    "tools/ffnds_fourstep/fourstep_backend.py",
+    "tools/ffnds_fourstep/generate.py",
+    "reports/20261123/wide8192-cache/README.md"
+  ],
+  "historical_audit": "repository_binding_audit.json",
+  "model": "Wan2.2-I2V-A14B LightX2V distilled 4-step HHLL",
+  "default_variant": {
+    "id": "wide8192",
+    "checkpoint": "fourstep-wide8192-185220",
+    "ffn_selected_channels": 2560,
+    "ffn_hidden_width": 13824,
+    "shared_readout_modes": 16,
+    "probe_count": 64,
+    "ffn_hit_tile_rows": 8192,
+    "anchor_steps": [
+      0,
+      2
+    ],
+    "hit_steps": [
+      1,
+      3
+    ],
+    "anchor_fields": [
+      "u0",
+      "y0",
+      "z0k"
+    ],
+    "anchor_cache_dtype": "bfloat16",
+    "anchor_cache_gib": 30.2,
+    "standalone_peak_allocated_gib": 47.57,
+    "path": "tools/ffnds_fourstep/fourstep_backend.py",
+    "runner": "tools/ffnds_fourstep/generate.py",
+    "timing_receipt": "reports/20261122/fourstep-wide8192-185220/timing.json",
+    "measured_3_source_dense_wall_s": 41.53177934574584,
+    "measured_3_source_wide_wall_s": 39.440132655513786
+  },
+  "memory_variant": {
+    "id": "wide8192_all_int8_joined",
+    "checkpoint_basis": "same wide8192 operator and model weights",
+    "ffn_hit_tile_rows": 8192,
+    "anchor_fields": [
+      "u0",
+      "y0",
+      "z0k"
+    ],
+    "anchor_cache_dtype": "int8",
+    "quant_group_channels": 128,
+    "per_row_group_scales_dtype": "bfloat16",
+    "exact_probe_rows": 64,
+    "exact_probe_dtype": "bfloat16",
+    "w1_w2_dtype": "bfloat16",
+    "combined_cache_y0_gate_write": true,
+    "anchor_cache_gib": 15.4,
+    "standalone_peak_allocated_gib": 32.77,
+    "comparison_report": "reports/20261123/wide8192-cache/README.md",
+    "comparison_10_source_wide_bf16_wall_s": 37.900087,
+    "comparison_10_source_int8_wall_s": 37.935494,
+    "comparison_10_source_int8_ffn_after_s": 4.813986,
+    "comparison_10_source_bf16_ffn_after_s": 4.831653,
+    "video_identity_note": "same model/source/seed, but BF16 and INT8 videos are not bitwise equal"
+  },
+  "method_budget_policy": {
+    "primary": "wide8192 BF16 in Dense vs FFN background comparisons",
+    "secondary": "wide8192_all_int8_joined as a matched cache precision and memory-factor control",
+    "comparison": "Freeze one cache format for all compared attention arms in each paired comparison",
+    "reuse": "Never use fast512 receipts as wide8192 performance evidence; old FFN source/geometry may be reused when hashes match"
+  },
+  "target_host_preflight": [
+    "verify current checked-out FFNDS commit",
+    "check wide8192 checkpoint runtime files and MANIFEST.sha256",
+    "check 80 sites CAL and both expert model checkpoint hashes",
+    "verify 64 P IDs and 8192 tile_size in receipts",
+    "verify BF16 vs INT8 variant and joined_y0/fallback counters as relevant",
+    "capture actual memory and kernel versions rather than infer from old timing jobs"
+  ]
+}

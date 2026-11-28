@@ -1,0 +1,43 @@
+{
+  "scope": "CPU arithmetic; actual Wan shape, hypothetical competitors with matched lifecycle; no new GPU/model runs",
+  "shape": {
+    "N": 31668,
+    "D": 5120,
+    "FFN_width": 13824,
+    "FFN_selected": 2560,
+    "probes": 64
+  },
+  "probe_query_fraction": 0.0020209675382089174,
+  "dense_principal_FLOPs_per_layer_step": 39851962204160,
+  "FFN_major_cycle_ratio": 0.6851851851851851,
+  "FFN_listed_cycle_ratio_from_round13": 0.6890326310091037,
+  "cases": [
+    {
+      "selected_alpha": 0.1229000884173298,
+      "ours_current_fourcall_attention_core_ratio": 0.5931855500821018,
+      "chip_mechanism_two_anchor_two_hit_core_ratio": 0.6229000884173298,
+      "mc_two_pass_two_anchor_two_hit_core_ratio": 0.8729000884173298,
+      "ours_listed_whole_block_ratio": 0.7210025490655672,
+      "conditional_attention_only_whole_block_ratio": 0.7909624882317488,
+      "ffn_marginal_dense_whole_block_fraction": 0.0699599391661816
+    },
+    {
+      "selected_alpha": 0.1252999873689529,
+      "ours_current_fourcall_attention_core_ratio": 0.5949854742958192,
+      "chip_mechanism_two_anchor_two_hit_core_ratio": 0.6252999873689529,
+      "mc_two_pass_two_anchor_two_hit_core_ratio": 0.8752999873689529,
+      "ours_listed_whole_block_ratio": 0.721930181092583,
+      "conditional_attention_only_whole_block_ratio": 0.7918901202587645,
+      "ffn_marginal_dense_whole_block_fraction": 0.06995993916618148
+    }
+  ],
+  "conditions": [
+    "Chip entry assumes both anchors can immediately construct support and each computes a selected response; default upstream two-dense initialization is not silently removed. Extra work or router adaptation must be charged.",
+    "MC entry includes one dense QK/AV, one extra full QK selection scan, and selected attention at each anchor; at each hit only selected attention. It excludes grouping and top-k overhead.",
+    "Same selected density is not a matched quality condition; methods can use different grouping/selection.",
+    "Ours high uses current absolute P64 reconstruction; low uses centered history plus P64. This asymmetry explains one fewer selected anchor computation.",
+    "Attention-only arithmetic is a proposed scope simplification, not an executed model or an assumption that FFN errors are independent.",
+    "Useful GEMMs only: not softmax, GELU, solves, padding, launch, precision casts, memory, or wall time.",
+    "Whole-block listed ledger matches round13 before the tiny observed rho fallback QK costs."
+  ]
+}

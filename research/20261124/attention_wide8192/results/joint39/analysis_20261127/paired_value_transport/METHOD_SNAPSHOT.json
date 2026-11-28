@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-27",
+  "status": "analytical_candidate_with_cpu_reference",
+  "source_commit": "89fd1ec46a65e0a53bd0be85edca28b8625a42f0",
+  "candidate": "paired_value_channel_transport",
+  "module_scope": "low expert self-attention, same layer/head and anchor/hit token identities",
+  "value_pair_fit_rows": 256,
+  "value_pair_optional_hold_rows": 64,
+  "native_attention_probes": 64,
+  "value_fit_ridge_mean_objective": 0.001,
+  "value_map": "full 128x128 per head",
+  "prior": "current diagonal value standard deviation",
+  "fixed_components": [
+    "route",
+    "P64 indices",
+    "low temporal dictionary",
+    "attention ridge",
+    "wide8192 FFN"
+  ],
+  "exactness_conditions": [
+    "unchanged attention weights and support",
+    "per-head affine value evolution",
+    "sampled source spans relevant channel directions",
+    "zero ridge/no truncation/exact state for exact theorem"
+  ],
+  "primary_comparators": [
+    "SparsePR v2 PFRR on supplied matched base/probes",
+    "current centered diagonal transport",
+    "shuffled value-pair control"
+  ],
+  "new_gpu_model_runs": 0,
+  "actual_sparsepr_fullS_replay_executed": false,
+  "available_reference": "value_transport/value_pair_transport.py",
+  "execution_note": "Reference NumPy CPU implementation; no production Wan integration or timing",
+  "scope_warning": "Current-S matched recovery ablation is distinct from full SparsePR grouping/probe selection/system runtime."
+}

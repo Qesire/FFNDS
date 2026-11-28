@@ -1,0 +1,28 @@
+{
+  "scope": "Synthetic CPU FP64 identities; no real-model effect or win inferred",
+  "history_as_omitted_value_statistic_max_abs": 5.499073418846478e-16,
+  "attention_error_factorization_max_abs": 1.341374927799066e-15,
+  "probe_corrected_transport_difference_max_abs": 4.0245584642661925e-16,
+  "nonlinear_downstream_gain_identity_max_abs": 1.3877787807814457e-17,
+  "constructed_downstream_gain": 0.04224436815422292,
+  "loo_response_identity_max_abs": 1.1379786002407855e-15,
+  "loo_history_identity_max_abs": 1.5543122344752192e-15,
+  "constructed_loo_eta": 0.24998819805335837,
+  "conditional_bayes_risk_identity_max_abs": 0.0,
+  "cost_at_Wan_shape": {
+    "N": 31668,
+    "heads": 40,
+    "value_dim": 128,
+    "layers_retained": 40,
+    "sample_rows": 256,
+    "paired_anchor_value_BF16_GiB": 0.09765625,
+    "rank8_additional_transport_FLOPs_per_layer_hit": 5188485120,
+    "full128_additional_transport_FLOPs_per_layer_hit": 41507880960,
+    "scope": "Specified GEMMs/state only, excluding fit/factorization, gathers, casts, traffic, padding and kernel launch. No measured latency."
+  },
+  "remarks": [
+    "LOO keeps feature normalization, weights and penalty fixed while removing one target row; it is not a full refit of the author's normalization or coverage policy.",
+    "An eta chosen on LOO predictions minimizes that empirical score; independent source/trajectory evidence is needed for actual advantage.",
+    "The exact nonlinear-tail identity holds on a common upstream background; free-running trajectories require separate measurements."
+  ]
+}

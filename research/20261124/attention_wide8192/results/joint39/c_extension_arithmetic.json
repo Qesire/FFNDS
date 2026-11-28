@@ -1,0 +1,40 @@
+{
+  "evidence_type": "STATIC_EXACT_RATIONAL_MAC_AND_EXPLICIT_CACHE_ARITHMETIC",
+  "model_executions": 0,
+  "latency_measured": false,
+  "alpha": 0.125,
+  "beta": 0.0020209675382089174,
+  "current_C_core_fraction": 0.5947604837691045,
+  "proposed_C_core_fraction": 0.3765157256536567,
+  "proposed_fraction_of_current_C_core": 0.6330543738676259,
+  "saved_fraction_of_four_dense_cores": 0.21824475811544777,
+  "formula_current": "1/2 + 3*alpha/4 + beta/2",
+  "formula_proposed": "1/4 + alpha + 3*beta/4",
+  "formula_saved": "(1-alpha-beta)/4",
+  "calls_current": {
+    "native_attention": 80,
+    "recovery": 80,
+    "P_full_key_queries": 5120
+  },
+  "calls_proposed": {
+    "native_attention": 40,
+    "recovery": 120,
+    "P_full_key_queries": 7680
+  },
+  "explicit_low_cache_GiB": {
+    "u0_BF16": 12.08038330078125,
+    "rho_FP32": 0.18875598907470703,
+    "anchor_project31_BF16": 2.925717830657959
+  },
+  "explicit_low_cache_total_GiB": 15.194857120513916,
+  "cache_scope": "Only u0, rho and projected anchor data. Excludes BlockMask and workspaces. Not a simultaneous peak measurement.",
+  "assumptions": [
+    "Proposed attention uses OUT-ABS at steps0/1, native at step2 and OUT-D at step3.",
+    "FFN retains native anchors at steps0/2 on the proposed trajectory current inputs.",
+    "Common selected density alpha is an interaction-count approximation.",
+    "The actual native backend already returns full O/LSE; rare omitted-mass reconciliation remains additional work.",
+    "Core MAC denominator excludes projections, fitting, routing, state, layouts, FFN and decoding.",
+    "No full-cycle latency or step0 quality prediction is made from this arithmetic.",
+    "Low-anchor data remain required after changing the high schedule."
+  ]
+}

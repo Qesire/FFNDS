@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-26",
+  "timezone": "Asia/Shanghai",
+  "evidence_commit": "973135c7f213b8fe4d063029cb17f60fad573659",
+  "status": "STATIC_COST_AND_MATCHED_SPEED_VERIFIED_CORE_AND_COMPOSITION_DERIVED",
+  "main_report": "SPEED_LIMITS_AND_CORE.md",
+  "theory_report": "THEORETICAL_SPEED_BUDGET.md",
+  "measured_report": "MEASURED_SPEED_AND_DENOMINATORS.md",
+  "core_report": "CORE_AND_COMBINED_SPEED_CLAIM.md",
+  "human_review": {
+    "status": "USER_REPORTED_DEV_VISUAL_NO_MAJOR_ISSUES",
+    "job": "201500",
+    "sources": [
+      "vbi_0392",
+      "vbi_1013"
+    ],
+    "record": "../joint_action_review/mass_centered_runtime/MASS_CENTERED_HUMAN_REVIEW_20261126.json"
+  },
+  "listed_GEMM_remaining_ratio_range": [
+    0.7210025490655672,
+    0.721930181092583
+  ],
+  "listed_GEMM_scope": "Useful GEMM MACs excluding solves, nonlinearities, pointwise, layouts, communication and pipeline overhead; tiny observed rho fallback cost reported separately",
+  "fixed_scope_structural_optimistic_remaining_ratio": 0.6298259984824517,
+  "fixed_scope_structural_optimistic_arithmetic_speedup": 1.5877401098231452,
+  "frozen_C_vs_distilled_Dense": {
+    "sources": 6,
+    "repeats": 2,
+    "GPU_time_ratio": 0.8148484741229921,
+    "warm_full_request_time_ratio": 0.8647788577367816
+  },
+  "centered_vs_frozen_C": {
+    "DEV_sources": 2,
+    "repeats": 2,
+    "GPU_time_ratio": 0.9927054700237485,
+    "warm_full_request_time_ratio": 0.993972368122908
+  },
+  "direct_Dense_vs_centered_same_batch": "NOT_IN_CURRENT_REVIEWED_RECEIPTS",
+  "combined_distillation_metric": {
+    "allowed_claim": "Overall system speedup plus the separately measured incremental speedup on the same distilled checkpoint",
+    "identity": "T_original/T_distilled_plus_method=(T_original/T_distilled)*(T_distilled/T_distilled_plus_method)",
+    "independence_assumption_required": false,
+    "matched_original_model_denominator": "MISSING_IN_CURRENT_REVIEWED_TIMING_RECEIPTS",
+    "minimal_arms": 3
+  },
+  "equivalent_execution_candidate": "Current selected/value statistics, decode P64, fit existing coefficients, then one tiled prediction-plus-correction readout",
+  "equivalent_execution_stage": "CPU_REAL_ARITHMETIC_VERIFIED; GPU_IMPLEMENTATION_NOT_EXECUTED",
+  "new_model_executions": 0,
+  "new_GPU_jobs_submitted": 0,
+  "new_video_decodes": 0,
+  "default_wide8192_changed": false
+}

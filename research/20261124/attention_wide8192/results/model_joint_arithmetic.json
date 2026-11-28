@@ -1,0 +1,44 @@
+{
+  "status": "STATIC_ARITHMETIC_ON_VERIFIED_MODEL_DIMENSIONS",
+  "model_execution": false,
+  "dimensions": {
+    "tokens": 31668,
+    "width": 5120,
+    "ffn_width": 13824,
+    "probe_rows": 64,
+    "context_keys": 512,
+    "flow_patch_width": 64
+  },
+  "sigmas": [
+    "1",
+    "15/16",
+    "5/6",
+    "5/8"
+  ],
+  "update_sizes": [
+    "1/16",
+    "5/48",
+    "5/24",
+    "5/8"
+  ],
+  "hit_direct_amplitude_ratio": "6",
+  "hit_direct_squared_ratio": "36",
+  "probe_fraction": 0.0020209675382089174,
+  "terminal_readout_width_ratio": 80,
+  "probe_payload_bf16_bytes": {
+    "hidden": 655360,
+    "flow": 8192
+  },
+  "dense_probe_macs": {
+    "self_attention_core": 20753940480,
+    "self_output_projection": 1677721600,
+    "cross_query_output_projections": 3355443200,
+    "cross_attention_core": 335544320,
+    "ffn_two_linears": 9059696640
+  },
+  "cost_scope": "MAC arithmetic only. Current all-token K/V and fixed context K/V are shared when available. Native dtype, kernels, solver, layout, branch buffers, anchor construction and memory traffic require actual measurement.",
+  "source_hashes": {
+    "native_transformer_infer.py": "5fa53d102aed4e2793b4d639da65a71e1e63061d9b2c35574db1b4ac2256c225",
+    "native_step_scheduler.py": "2d560449e0559aea44d80afb539f9e97bd544e5e26abcc06236e61918d01e1db"
+  }
+}

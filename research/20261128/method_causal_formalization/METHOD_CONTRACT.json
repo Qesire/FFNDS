@@ -1,0 +1,79 @@
+{
+  "schema": "ffnds_method_causal_contract_v1",
+  "date": "2026-11-28",
+  "timezone": "Asia/Shanghai",
+  "repository": "Qesire/FFNDS",
+  "source_head": "72280c1a264bf018343e746a2df2993dafe89149",
+  "latest_experiment_evidence_commit": "5f83e1c590b6cb93b81dbe88a21101ca1b9260a6",
+  "scope": "source-bound mathematics, actual CAL/P64 calculations, CPU certificates and causal execution graph",
+  "method": "BF16 wide8192 + high OUT-ABS + low mass-centered OUT-D",
+  "default_changed": false,
+  "production_code_changed": false,
+  "new_model_forwards": 0,
+  "new_GPU_jobs": 0,
+  "new_video_generations": 0,
+  "new_scoring_runs": 0,
+  "axes": {
+    "diffusion_step_s": 4,
+    "expert_sequence": ["high", "high", "low", "low"],
+    "layers_per_step": 40,
+    "latent_token_grid_f_y_x": [21, 29, 52],
+    "N": 31668,
+    "model_width_d": 5120,
+    "FFN_hidden_m": 13824,
+    "FFN_selected_k": 2560,
+    "FFN_modes_r": 16,
+    "attention_heads_H": 40,
+    "attention_head_dimension": 128,
+    "attention_feature_columns": 31,
+    "attention_design_columns_including_intercept": 32,
+    "P_native_token_rows": 64,
+    "FFN_point_edge_rows": 106,
+    "FFN_point_edge_rank": 64,
+    "FFN_design_columns": 80,
+    "FFN_execution_tile_rows": 8192,
+    "tau": "source operator submission order, not GPU timestamps",
+    "sigma_s": "OPEN_BINDING numeric table in latest pilot; scheduler semantics source-bound",
+    "frame_f": "latent video time coordinate; not diffusion step and not autoregressive attention order"
+  },
+  "schedule": [
+    {"s": 0, "expert": "high", "attention": "native all-query + route write", "FFN": "native full + U/Y/ZK write"},
+    {"s": 1, "expert": "high", "attention": "current selected + current P64 full-key ridge", "FFN": "current base + P64 GLS/kernel", "anchor_step": 0},
+    {"s": 2, "expert": "low", "attention": "native all-query + selected + moments + rho/C/A write", "FFN": "native full + U/Y/ZK write"},
+    {"s": 3, "expert": "low", "attention": "current selected + current moments + transported base + P64 ridge", "FFN": "current base + P64 GLS/kernel", "anchor_step": 2}
+  ],
+  "invariants": [
+    "All teachers use the candidate current inputs and native subquery/subbatch calls.",
+    "P64 overwrite preserves those call results; it does not reset to the Dense trajectory.",
+    "Current full K/V contributions precede completion of the native full-key P64 teacher.",
+    "Current P64 teacher and features precede online fit and non-P recovery.",
+    "P64 FFN input follows actual self-attention, Wo, gate/residual, cross, norm2/modulation.",
+    "A new low anchor inherits the preceding approximate latent state.",
+    "40 physical FFN slots are reused across experts only after last consumption.",
+    "Anchor encoder precedes deletion of its raw state; current future decoder may only become known at hit.",
+    "Actual BF16 casts and backend boundaries are separate from real-arithmetic equalities."
+  ],
+  "sufficient_coverage": [
+    {"component": "FFN shared modes", "condition": "Residual is Q diag(g*) V and probe tensor-atom Gram is nonsingular", "conclusion": "Exact real-arithmetic full-field recovery; C=0"},
+    {"component": "Low centered transport", "condition": "Attention probabilities unchanged, positive diagonal affine value change, active scales, exact arithmetic", "conclusion": "Base transports full output exactly"},
+    {"component": "Same-input block P rows", "condition": "Same input, native operator semantics, P overwritten in self-attention and FFN, rowwise intervening tail", "conclusion": "P block output equals native block at that same input; numerical subcall differences tracked separately"}
+  ],
+  "gaps": [
+    {"id": "G1", "object": "Current unselected FFN nonlinear action", "status": "Only P64 labels directly observe the residual; global extension depends on features and Gram conditioning"},
+    {"id": "G2", "object": "Current omitted attention mass and standardized weighted value contribution", "status": "Frozen historical fields plus ridge infer their change at non-P rows"},
+    {"id": "G3", "object": "Future reader family versus anchor encoder", "status": "Linear full-state exactness needs joint reader span; empirical reachable task rank remains unknown"},
+    {"id": "G4", "object": "Tail and across-module quality objective", "status": "Latest paired cache loss omits Wo/gates/cross/FFN/scheduler and online code quantization"},
+    {"id": "G5", "object": "Numeric sigma receipt", "status": "OPEN_BINDING; latest pilot does not expose table"},
+    {"id": "G6", "object": "Microkernel cost and asynchronous lifetime", "status": "Source DAG and step-level events available; per-kernel timestamps and resource attribution unavailable"}
+  ],
+  "implementations": {
+    "frozen_centered_wide8192": "current reference",
+    "staged_ffn_01": "observed behavior-preserving interface, no demonstrated additional speed",
+    "combined_graph_09": "implemented and measured; whole-request latency +22.55 percent",
+    "FFN_rank512_07": "implemented measured capacity/quality tradeoff",
+    "attention_joint64_08": "implemented measured capacity/quality tradeoff",
+    "combined_state_10": "implemented measured capacity/time/quality tradeoff; not promoted",
+    "cross_layer_KV_pipeline": "conditional graph construction only; not implemented or timed",
+    "cross_step_text_KV_cache": "conditional reuse only; current graph recomputes text KV 160 times"
+  }
+}

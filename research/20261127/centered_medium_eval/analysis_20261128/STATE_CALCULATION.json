@@ -1,0 +1,36 @@
+{
+  "assumptions": {
+    "N": 31668,
+    "d": 5120,
+    "m": 13824,
+    "L": 40,
+    "H": 40,
+    "k": 2560,
+    "BF16_bytes": 2,
+    "rho_bytes": 4,
+    "expert_scope": "one active expert",
+    "residency": "all L layers resident"
+  },
+  "FFN_main_fields_GiB": {
+    "FFNDS": 30.200958251953125,
+    "Chipmunk": 44.697418212890625,
+    "ICC": 89.39483642578125
+  },
+  "FFNDS_FFN_reduction_fraction_vs": {
+    "Chipmunk": 0.32432432432432434,
+    "ICC": 0.6621621621621622
+  },
+  "attention_main_fields_GiB": {
+    "Chipmunk_output_only": 12.08038330078125,
+    "FFNDS_history_feature_rho": 15.194857120513916
+  },
+  "FFNDS_combined_main_fields_GiB": 45.39581537246704,
+  "limitations": [
+    "not a theoretical storage lower bound",
+    "not peak GPU memory",
+    "same-shape source-layout comparison, not author Wan benchmark values",
+    "Chipmunk video benchmark disables MLP",
+    "attention masks/indices/counts/LSE/padding and other metadata are excluded from these MAIN-field sums and must be counted for total state",
+    "offload moves host state and changes HBM footprint; compare transfer cost too"
+  ]
+}

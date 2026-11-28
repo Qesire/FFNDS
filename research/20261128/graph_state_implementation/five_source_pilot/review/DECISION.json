@@ -1,0 +1,36 @@
+{
+  "schema": "ffnds_five_source_reassessment_v1",
+  "date": "2026-11-28",
+  "evidence_commit": "5f83e1c590b6cb93b81dbe88a21101ca1b9260a6",
+  "user_observation": "跑完了，并没有像你说的那么有愿景",
+  "judgment": "Current graph rewrites did not deliver additional speed; compressed state delivered capacity reduction with measured time and quality costs.",
+  "reference": "frozen centered attention + BF16 wide8192",
+  "candidate_decisions": {
+    "01_staged_ffn": "retain behavior-preserving interface; performance neutral",
+    "02_partition_anchor": "stop advancing current implementation as a speed upgrade",
+    "03_attention_stream": "stop advancing current implementation as a speed upgrade",
+    "04_block_stream": "stop advancing current implementation as a speed upgrade",
+    "05_high_output_fold": "retain code; current complete candidate does not improve the reference",
+    "06_projection_precompose": "retain identity/tool; current full adapter candidate does not improve the reference",
+    "07_ffn_factor": "record capacity/quality tradeoff; do not promote current r512 initializer",
+    "08_attention_joint": "record capacity/quality/time tradeoff; do not promote current r64 basis",
+    "09_combined_graph": "stop advancing current implementation as a speed upgrade",
+    "10_combined_state": "do not promote; capacity -36.80%, latency +25.95%, measured quality losses",
+    "11_ffn_gauge": "retain paired-coordinate tool; no demonstrated deployment benefit"
+  },
+  "corrected_prior_claims": [
+    "Native anchor direct writes already exist in frozen runtime and all five actual receipts.",
+    "Single partition removes selected work around one eighth of full attention, not a second full attention.",
+    "High output folding retains a 5120 by 5120 main projection; main arithmetic reduction is small.",
+    "Independent switches do not guarantee one-operation causal isolation: profile06 also uses a new readout adapter.",
+    "Exact P64 sidecars preserve current fit but do not observe nonprobe history compression defects."
+  ],
+  "statistical_scope": "five deliberately selected stress/median sources; one formal timed request per candidate/source and same-GPU reference; no population confidence interval",
+  "nonadditivity_scope": "descriptive G+F+A score residual; incomplete factorial design and nonlinear metrics do not identify pure F by A causal interaction",
+  "production_code_changed": false,
+  "new_model_forwards": 0,
+  "new_gpu_jobs": 0,
+  "new_video_generations": 0,
+  "new_scoring_runs": 0,
+  "report": "REASSESSMENT.md"
+}

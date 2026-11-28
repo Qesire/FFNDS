@@ -1,0 +1,24 @@
+{
+  "evidence_commit": "873e1a879b91d544fdae11894d68bbc6acc854d1",
+  "scope": "Exact symbolic matrix identities; no model activations, inference, speed or quality measurement",
+  "shape": {
+    "queries": 31668,
+    "head_channels": 128,
+    "probes": 64
+  },
+  "assumptions": [
+    "P selects 64 distinct query rows, so P.T P is the probe mask",
+    "K is fixed for the current inputs/features and does not depend on additive cache error",
+    "Teacher is the full current response on P",
+    "Form labels before overwriting predictions at P",
+    "Identities use exact real arithmetic; quantization of features and operations needs its own terms"
+  ],
+  "post_probe_overwrite_finite_innovation_error_identity": true,
+  "post_probe_overwrite_additive_cache_error_identity": true,
+  "full_block_channel_mean_quotient": {
+    "channels": 5120,
+    "null_directions_per_position": 1,
+    "fraction_of_channels": 0.0001953125,
+    "condition": "All subsequent residual branches depend on their input only through channel LayerNorm, time-only gates, and a final channel LayerNorm head; exact real arithmetic"
+  }
+}

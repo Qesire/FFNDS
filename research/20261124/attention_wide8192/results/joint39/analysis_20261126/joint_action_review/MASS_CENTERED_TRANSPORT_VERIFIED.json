@@ -1,0 +1,50 @@
+{
+  "status": "ALGEBRA_AND_SYNTHETIC_REFERENCE_VERIFIED",
+  "scope": "Actual frozen-C source and dimensions; explicitly synthetic float64 Q/K/V plus SymPy; no real-candidate Wan execution",
+  "frozen_c_git_blob": "7e7c611ec2aa7e8c8754bd19963cbce6ed49ded4",
+  "frozen_c_sha256": "8781a7983461e5c0042e1e0f4d58e545c2cab5b7508d35dc450e2de87b07dcee",
+  "synthetic_shape": {
+    "heads": 2,
+    "queries": 96,
+    "keys": 768,
+    "value_channels": 128,
+    "probes": 64,
+    "features": 32
+  },
+  "tests": {
+    "anchor_identity_max_abs": 2.220446049250313e-15,
+    "positive_diagonal_affine_exact_max_abs": 1.4210854715202004e-14,
+    "raw_base_error_l2": 158.794712929304,
+    "uncentered_scale_only_error_l2": 143.37871174714843,
+    "known_update_identity_max_abs": 2.220446049250313e-15,
+    "anchor_frame_invariant_cache_max_abs": 5.715566908648384e-14,
+    "independent_frame_base_equivariance_max_abs": 1.7719159473017498e-13,
+    "fixed_recovery_update_max_abs": 4.440892098500626e-15,
+    "corrected_probe_difference_max_abs": 0.0,
+    "constant_current_columns_exact_max_abs": 0.0,
+    "constant_anchor_to_variable_current_finite": true,
+    "symbolic_anchor_identity": true,
+    "symbolic_affine_reconstruction": true
+  },
+  "model_shape_static_cost": {
+    "positions": 31668,
+    "heads": 40,
+    "head_dim": 128,
+    "low_layers": 40,
+    "persistent_full_field_replacement_elements_per_layer": 162140160,
+    "persistent_field_net_new_elements": 0,
+    "current_mean_std_fp32_bytes": 40960,
+    "optional_retained_mean_std_all_low_layers_MiB": 1.5625,
+    "minimum_extra_BF16_V_read_GiB_both_low_anchor_and_hit_if_one_unfused_pass": 24.1607666015625,
+    "low_hits_channel_decode_multiply_count": 6485606400,
+    "full_graph_query_count_change": 0,
+    "scope": "Static count only; actual reductions, fusion, temporary allocation and end-to-end time unmeasured"
+  },
+  "important_limits": [
+    "Positive affine exactness assumes fixed full and selected routing; general route change remains in probe-recovered innovation.",
+    "Independent affine equivariance proven for the base only; the retained OUT-D features and ridge are not proved covariant.",
+    "Existing rho and u0 finite precision introduce anchor reconstruction/encoding residuals that need actual BF16 validation.",
+    "Current job201276 uses a different selected-plus-groups base; its measured effect sizes do not estimate this candidate.",
+    "This construction applies to existing low OUT-D historical slots; high OUT-ABS has no corresponding history field."
+  ]
+}
