@@ -1,0 +1,125 @@
+{
+  "scope": "CPU algebra with actual frozen CAL bases and synthetic Q/K/V and downstream matrices; zero model/GPU runs",
+  "frozen_basis": {
+    "high": {
+      "shape": [
+        128,
+        31
+      ],
+      "rank": 31,
+      "sigma_max": 1.5059271857891823,
+      "sigma_min": 1.4102268291630793,
+      "condition": 1.0678616763254305,
+      "transform_sha256": "8d6f7651ce40d2f6f389ba7f981c573a84b2b3d3d9c8aa1fbeae95d9914ef864"
+    },
+    "low": {
+      "shape": [
+        128,
+        31
+      ],
+      "rank": 31,
+      "sigma_max": 3.828438560437719,
+      "sigma_min": 3.591671989142409,
+      "condition": 1.0659209894475479,
+      "transform_sha256": "04c15a63f6e4ffd34b61714a1be79d2651c195d104e4007aa5c8c22e2dd356e1"
+    }
+  },
+  "partition": {
+    "full_max_abs": 9.43689570931383e-16,
+    "rho_max_abs": 6.661338147750939e-16,
+    "centered_max_abs": 9.298117831235686e-16,
+    "single_key_scan_max_abs": 8.326672684688674e-16
+  },
+  "probe_first_streaming": {
+    "output_max_abs": 0.0,
+    "output_bf16_equal": true
+  },
+  "folded_high": {
+    "real_max_abs": 1.4210854715202004e-14,
+    "feature_rounding_defect_identity_max_abs": 1.608392238838796e-14
+  },
+  "ridge_geometry": {
+    "pre_overwrite_rank": 257,
+    "n": 257,
+    "min_real_eigenvalue": 0.0837265132288283,
+    "post_overwrite_rank": 193,
+    "expected_post_rank": 193,
+    "intercept_regularized": true,
+    "alpha": 6.4
+  },
+  "joint_state_compression": {
+    "readout_identity_max_abs": 8.881784197001252e-16,
+    "probes_exact": true,
+    "note": "Synthetic operands; error formula only, not a useful rank or Wan quality."
+  },
+  "production_costs": {
+    "shapes": {
+      "N": 31668,
+      "H": 40,
+      "d": 128,
+      "model_width": 5120,
+      "layers": 40,
+      "rank": 31,
+      "P": 64
+    },
+    "high_feature_current_gflop": 25.78028544,
+    "high_feature_composed_basis_gflop": 10.05268992,
+    "high_readout_current_gflop": 10.37697024,
+    "high_dynamic_Wo_preparation_gflop": 3.3030144,
+    "high_Wo_dense_gflop": 1660.3152384,
+    "high_probe_native_Wo_gflop": 3.3554432,
+    "high_probe_cost_scope": "P64 uses original Wo on teacher rows; if main GEMM skips P, it replaces rather than adds these rows. If full N GEMM is kept, count this as added work.",
+    "high_Wo_eff_bf16_MiB": 50.0,
+    "high_saved_vs_current_recovery_gflop_per_layer": 32.85424128,
+    "selected_probe_extra_work_fraction": 0.0020209675382089174,
+    "low_anchor_repeated_selected_Tflop_per_layer": 2.57348861952,
+    "low_anchor_repeated_selected_Tflop_40layers": 102.9395447808,
+    "note": "Selected support cost assumes 3968 valid keys; actual last partial block makes this an upper envelope, route-dependent."
+  },
+  "joint_compression_capacity": [
+    {
+      "rank": 64,
+      "principal_state_GiB": 6.247067451477051,
+      "per_layer_head_basis_GiB": 0.03032684326171875,
+      "total_with_bases_GiB": 6.2773942947387695,
+      "anchor_encoding_Tflop": 1.0291273728,
+      "hit_late_readout_Tflop": 0.8284798976,
+      "decoder_preparation_Tflop": 0.0041680896,
+      "original_hit_historical_terms_Tflop": 0.4077674496,
+      "added_anchor_hit_arithmetic_Tflop": 1.4540079104
+    },
+    {
+      "rank": 96,
+      "principal_state_GiB": 9.261059761047363,
+      "per_layer_head_basis_GiB": 0.045490264892578125,
+      "total_with_bases_GiB": 9.306550025939941,
+      "anchor_encoding_Tflop": 1.5436910592,
+      "hit_late_readout_Tflop": 1.2427198464,
+      "decoder_preparation_Tflop": 0.0062521344,
+      "original_hit_historical_terms_Tflop": 0.4077674496,
+      "added_anchor_hit_arithmetic_Tflop": 2.3848955904
+    },
+    {
+      "rank": 128,
+      "principal_state_GiB": 12.275052070617676,
+      "per_layer_head_basis_GiB": 0.0606536865234375,
+      "total_with_bases_GiB": 12.335705757141113,
+      "anchor_encoding_Tflop": 2.0582547456,
+      "hit_late_readout_Tflop": 1.6569597952,
+      "decoder_preparation_Tflop": 0.0083361792,
+      "original_hit_historical_terms_Tflop": 0.4077674496,
+      "added_anchor_hit_arithmetic_Tflop": 3.3157832704
+    },
+    {
+      "rank": 159,
+      "principal_state_GiB": 15.194857120513916,
+      "per_layer_head_basis_GiB": 0.07534325122833252,
+      "total_with_bases_GiB": 15.270200371742249,
+      "anchor_encoding_Tflop": 2.5567383168,
+      "hit_late_readout_Tflop": 2.0582547456,
+      "decoder_preparation_Tflop": 0.0103550976,
+      "original_hit_historical_terms_Tflop": 0.4077674496,
+      "added_anchor_hit_arithmetic_Tflop": 4.2175807104
+    }
+  ]
+}

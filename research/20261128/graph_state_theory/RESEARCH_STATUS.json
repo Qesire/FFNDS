@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-28",
+  "timezone": "Asia/Shanghai",
+  "stage": "THEORETICAL_GRAPH_AND_STATE_REFORMULATION",
+  "user_direction": "先不要立刻进入接下来的消融实验：先推导我们是否已经榨干了当前的方法的理论极限，并进一步探索是否有更优/更简洁表示和缓存方案，从计算图寻找旁路等。",
+  "repository": "Qesire/FFNDS",
+  "branch": "research/attention-wide8192-plan-20261124",
+  "pull_request": 65,
+  "reviewed_branch_head": "9bf7eceba0b5af483625886e8965351110b9d125",
+  "latest_run_evidence_commit": "a1eb64d63910b4d90b94ea4c641ef461c83d0d92",
+  "latest_run_job": "206224",
+  "frozen_candidate": "wide8192_high_OUT-ABS_low_mass-centered_OUT-D_P64_HHLL",
+  "frozen_binding_path": "research/20261127/centered_medium_eval/FROZEN_METHOD_BINDING.json",
+  "frozen_binding_sha256": "14bfc12b6bbfe6681cfc86f5e1013b9b10a0dc5708ceca5c5ad773d1a604b9a2",
+  "skills": [
+    "operator-tensor-analysis",
+    "active-abstraction"
+  ],
+  "tools_applied": [
+    "typed_tensor_algebra",
+    "future_readout_kernel_certificate",
+    "whole_anchor_hit_cycle_resource_accounting",
+    "stable_online_softmax_merge",
+    "GLS_linearity_and_gauge",
+    "query_axis_dependency_scheduling",
+    "NumPy_float64_identity_witnesses",
+    "actual_frozen_CAL_SVD"
+  ],
+  "new_GPU_jobs": 0,
+  "new_model_forwards": 0,
+  "new_video_generations": 0,
+  "new_quality_evaluations": 0,
+  "new_latency_measurements": 0,
+  "production_implementation_changed": false,
+  "default_method_changed": false,
+  "new_ablation_configs_created": false,
+  "candidate_claims": [
+    {
+      "candidate": "low_anchor_complementary_partition",
+      "status": "real_arithmetic_identity_and_static_cost",
+      "remaining": "GPU kernel, finite precision and latency not executed"
+    },
+    {
+      "candidate": "P64_first_complete_hit_block_streaming",
+      "status": "source_dependency_derivation_and_CPU_witness",
+      "conditions": [
+        "same P64 native overwrites",
+        "hit steps 1 and 3 use frozen route",
+        "preserve global RoPE/token/modulation indices",
+        "full current self KV and shared text KV fixed before row consumers"
+      ],
+      "remaining": "GPU scheduling and peak memory not measured"
+    },
+    {
+      "candidate": "FFN_16_mode_gauge",
+      "status": "real_arithmetic_identity_with_invertible_GLS_gain_gram",
+      "remaining": "BF16 matrix/cast defects quantified algebraically; no production rewrite"
+    },
+    {
+      "candidate": "FFN_A0_factor_and_projected_input_history",
+      "status": "conditional_approximation_with_recovery_aware_error_and_full_cycle_break_even",
+      "rank_break_even": 1701.3333333333333,
+      "remaining": "no archived full A0/DeltaU recovery spectrum locally; example ranks not quality approved"
+    },
+    {
+      "candidate": "attention_joint_CA_history_and_dynamic_readout",
+      "status": "exact_local_error_identity_for_fixed_current_QKV_and_exact_P_history",
+      "remaining": "joint historical state/current-reader distribution unavailable; example widths not quality approved"
+    }
+  ],
+  "historical_reuse": [
+    "intercept folding and P64-first decode existed previously",
+    "current N-by-64 FFN kernel factorization retained",
+    "high affine output relation existed previously; this review supplies downstream folding costs"
+  ],
+  "core_unresolved_mathematical_objects": [
+    "FFN A0 action spectrum after the existing current-probe recovery operator",
+    "paired attention Z_a/G_t action spectrum including output projection and head cross terms"
+  ],
+  "next_step_scope": "Continue theoretical interpretation or implementation only according to a new user direction; this review does not launch the prior proposed ablations."
+}

@@ -1,0 +1,269 @@
+{
+  "status": "CPU_EXACT_ARITHMETIC_AND_SYNTHETIC_LINEAR_CERTIFICATES",
+  "date": "2026-11-28",
+  "new_GPU_jobs": 0,
+  "model_forward_passes": 0,
+  "latency_benchmark_runs": 0,
+  "real_shape": {
+    "N": 31668,
+    "d": 5120,
+    "m": 13824,
+    "K": 2560,
+    "H": 40,
+    "dh": 128,
+    "L": 40,
+    "P": 64,
+    "attention_features": 32,
+    "text_keys_assumed_in_ledger": 512,
+    "steps": 4,
+    "native_anchors": 2,
+    "hits": 2
+  },
+  "dense_FLOPs_per_layer_step": {
+    "self_QK_AV": 20538618347520,
+    "self_QKV_O": 6641260953600,
+    "FFN": 8965702287360,
+    "cross_Q_O": 3320630476800,
+    "cross_K_V": 53687091200,
+    "cross_QK_AV": 332063047680
+  },
+  "dense_total_FLOPs": 6376313952665600,
+  "structural_fixed_scope": {
+    "floor_fraction": 0.6298259984824517,
+    "max_saved_percent": 37.01740015175483,
+    "arithmetic_speedup": 1.5877401098231452,
+    "scope": "Retain both complete native anchors and all QKV/O/cross GEMMs; zero out all hit FFN/core and auxiliary cache construction."
+  },
+  "arithmetic_cases": [
+    {
+      "valid_selected_keys": 3892,
+      "major_fraction": 0.7195133686733955,
+      "listed_fraction": 0.7210025490655672,
+      "listed_saved_percent": 27.89974509344328,
+      "listed_arithmetic_speedup": 1.38695764847991,
+      "remaining_above_floor_dense_pp": 9.117655058311547,
+      "remaining_above_floor_current_percent": 12.645801419326737,
+      "fraction_of_scope_savable_work_removed": 0.7536927223161749,
+      "remaining_budget_by_operation_dense_pp": {
+        "three_selected_attention_calls": 4.75045243308592,
+        "two_FFN_A0_actions": 2.0831034992634385,
+        "two_FFN_selected_W1_W2": 2.0831034992634385,
+        "two_attention_P64_teachers": 0.052077587481585974,
+        "listed_feature_fit_and_readout_GEMMs": 0.14891803921716307
+      },
+      "shared_anchor_partition_reduction": {
+        "removed_selected_FLOPs_per_layer": 2524198010880,
+        "removed_selected_FLOPs_per_video": 100967920435200,
+        "saved_dense_pp": 1.5834841443619734,
+        "new_listed_saved_percent_excluding_new_vector_reductions": 29.483229237805254,
+        "new_listed_arithmetic_speedup": 1.4181023736499818,
+        "scope": "Real-arithmetic single QK/AV scan yields selected and complement states; additional scalar/vector reductions and changed floating-point rounding not included."
+      }
+    },
+    {
+      "valid_selected_keys": 3968,
+      "major_fraction": 0.7204410007004113,
+      "listed_fraction": 0.721930181092583,
+      "listed_saved_percent": 27.806981890741707,
+      "listed_arithmetic_speedup": 1.3851755006094646,
+      "remaining_above_floor_dense_pp": 9.210418261013121,
+      "remaining_above_floor_current_percent": 12.758045725521406,
+      "fraction_of_scope_savable_work_removed": 0.7511867872067051,
+      "remaining_budget_by_operation_dense_pp": {
+        "three_selected_attention_calls": 4.8432156357874945,
+        "two_FFN_A0_actions": 2.0831034992634385,
+        "two_FFN_selected_W1_W2": 2.0831034992634385,
+        "two_attention_P64_teachers": 0.052077587481585974,
+        "listed_feature_fit_and_readout_GEMMs": 0.14891803921716307
+      },
+      "shared_anchor_partition_reduction": {
+        "removed_selected_FLOPs_per_layer": 2573488619520,
+        "removed_selected_FLOPs_per_video": 102939544780800,
+        "saved_dense_pp": 1.6144052119291652,
+        "new_listed_saved_percent_excluding_new_vector_reductions": 29.42138710267087,
+        "new_listed_arithmetic_speedup": 1.4168598091530962,
+        "scope": "Real-arithmetic single QK/AV scan yields selected and complement states; additional scalar/vector reductions and changed floating-point rounding not included."
+      }
+    }
+  ],
+  "expanded_scope_opportunities_dense_pp": {
+    "all_hit_self_QKV_O": 8.332413997053754,
+    "all_hit_cross_Q_O": 4.166206998526877,
+    "all_hit_cross_K_V": 0.06735815281185302,
+    "all_hit_cross_core": 0.4166206998526878
+  },
+  "timing": {
+    "source": "round19_results/speed_memory/SPEED_MEMORY_RECOMPUTED.json",
+    "source_sha256": "253b8acbe4de612224202ce0d7b6d3e61e44b5b6f112897aca52a6852d84abed",
+    "source_evidence_commit": "a1eb64d63910b4d90b94ea4c641ef461c83d0d92",
+    "D": {
+      "wall_s": 40.785228893936925,
+      "gpu_s": 31.574772691514756,
+      "step_s": [
+        7.8735964084201395,
+        7.913306491427952,
+        7.894507961697048,
+        7.893361829969617
+      ],
+      "anchors_s": 15.76810437011719,
+      "hits_s": 15.806668321397568,
+      "outside_step_events_s": 9.210456202422163,
+      "wall_p50_s": 39.97853693179786,
+      "wall_p95_s": 43.863794663921,
+      "allocated_peak_gib": [
+        47.566590785980225,
+        47.56783056259155
+      ],
+      "reserved_peak_gib": [
+        66.244140625,
+        67.013671875
+      ]
+    },
+    "M": {
+      "wall_s": 34.9576935539436,
+      "gpu_s": 25.685898152669267,
+      "step_s": [
+        7.960977593315974,
+        4.348202907986111,
+        8.960013834635419,
+        4.416703816731771
+      ],
+      "anchors_s": 16.920991427951392,
+      "hits_s": 8.764906724717882,
+      "outside_step_events_s": 9.271795401274332,
+      "wall_p50_s": 34.37195048853755,
+      "wall_p95_s": 37.94576875958592,
+      "allocated_peak_gib": [
+        64.1987886428833,
+        64.1987886428833
+      ],
+      "reserved_peak_gib": [
+        75.97265625,
+        76.66796875
+      ]
+    },
+    "M_request_fractions": {
+      "outside_step": 0.2652290371207392,
+      "anchors": 0.48404198640394924,
+      "hits": 0.2507289764753117
+    },
+    "conditional_uniform_effective_cost_per_FLOP": {
+      "assumption": "All listed GEMMs attain the original whole-denoiser effective FLOP/s, with Dense outside-step time fixed; not a physical latency upper bound or prediction.",
+      "examples": [
+        {
+          "case": "listed_low",
+          "arithmetic_ratio": 0.7210025490655672,
+          "gpu_s": 22.765491596748,
+          "wall_s": 31.975947799170164,
+          "speedup_ratio_of_means": 1.2754971064531002
+        },
+        {
+          "case": "listed_high",
+          "arithmetic_ratio": 0.721930181092583,
+          "gpu_s": 22.79478136714239,
+          "wall_s": 32.00523756956456,
+          "speedup_ratio_of_means": 1.274329828212921
+        },
+        {
+          "case": "structural_zero_cost",
+          "arithmetic_ratio": 0.6298259984824517,
+          "gpu_s": 19.88661273728973,
+          "wall_s": 29.097068939711896,
+          "speedup_ratio_of_means": 1.4016954415045202
+        },
+        {
+          "case": "all_hit_blocks_free",
+          "arithmetic_ratio": 0.5,
+          "gpu_s": 15.787386345757378,
+          "wall_s": 24.99784254817954,
+          "speedup_ratio_of_means": 1.6315499553743327
+        }
+      ]
+    },
+    "conditional_hit_sensitivity": {
+      "assumption": "Current anchor and outside-step time fixed; a hypothetical specified fraction of all hit time is removed. Ratios of arithmetic mean seconds, not registered geometric mean speedups.",
+      "examples": [
+        {
+          "fraction_of_current_hit_time_removed": 0.1,
+          "wall_s": 34.08120288147182,
+          "improvement_over_current": 1.0257177152907442,
+          "speedup_vs_D_ratio_of_means": 1.1967074353502276,
+          "current_request_time_saved_percent": 2.507289764753099
+        },
+        {
+          "fraction_of_current_hit_time_removed": 0.25,
+          "wall_s": 32.766466872764134,
+          "improvement_over_current": 1.0668740602912192,
+          "speedup_vs_D_ratio_of_means": 1.2447246464597645,
+          "current_request_time_saved_percent": 6.268224411882779
+        },
+        {
+          "fraction_of_current_hit_time_removed": 0.5,
+          "wall_s": 30.575240191584665,
+          "improvement_over_current": 1.1433334075185821,
+          "speedup_vs_D_ratio_of_means": 1.3339299589594849,
+          "current_request_time_saved_percent": 12.536448823765566
+        },
+        {
+          "fraction_of_current_hit_time_removed": 1.0,
+          "wall_s": 26.192786829225724,
+          "improvement_over_current": 1.3346305523678776,
+          "speedup_vs_D_ratio_of_means": 1.5571168184528215,
+          "current_request_time_saved_percent": 25.072897647531157
+        }
+      ]
+    }
+  },
+  "capacity_and_recomputation": {
+    "FFN_BF16_main_GiB": 30.200958251953125,
+    "attention_main_GiB": 15.194857120513916,
+    "combined_main_GiB": 45.39581537246704,
+    "literal_graph_compulsory_main_history_traffic_GiB": 151.19354724884033,
+    "traffic_formula": "4*C_FFN + 2*C_attention: two experts, one write/read each; excludes metadata, P64 rereads, intermediate state and physical transaction overhead.",
+    "FFN_z0_recompute": {
+      "main_GiB": 24.1607666015625,
+      "saved_GiB": 6.040191650390625,
+      "extra_dense_FLOP_pp": 1.0415517496317193
+    },
+    "FFN_fold_c0_and_j0": {
+      "main_GiB": 18.196077346801758,
+      "saved_GiB": 12.004880905151367,
+      "extra_anchor_A0_FLOPs": 132825219072000,
+      "extra_anchor_A0_dense_FLOP_pp": 2.0831034992634385,
+      "tiny_j0_dtype": "FP32",
+      "scope": "Real-arithmetic c0=y0-u0 A0 and j0=u0 J; exact bounded-precision defect handled in the FFN derivation."
+    },
+    "FFN_keep_u0_only": {
+      "main_GiB": 12.08038330078125,
+      "saved_GiB": 18.120574951171875,
+      "extra_dense_FLOP_pp": 11.248758896022569,
+      "construction": "Recompute native FFN at anchor u0 on each hit to recover y0 and selected z0. Same weights, original kernel and arithmetic needed for bitwise replay."
+    },
+    "layer_interleaved_anchor_replay": {
+      "principal_history_single_layer_GiB": 1.134895384311676,
+      "two_BF16_hidden_streams_GiB": 0.6040191650390625,
+      "extra_dense_FLOP_percent": 50,
+      "scope": "First native anchor determines next step input; subsequently replay anchor layer and execute hit layer in lockstep, consuming each local cache immediately. Includes one extra complete native-anchor replay per expert; 4 scheduler steps remain, denoiser computations increase. No standalone peak or speed claim."
+    }
+  },
+  "linear_state_certificate": {
+    "theorem": "For fixed linear state s->Es and future linear task maps G_j, exact recovery for all s iff ker(E) is contained in intersection_j ker(G_j); minimal linear state dimension is rank(stack G_j). This is a linear dimension result, not a bit-complexity lower bound.",
+    "synthetic_dimensions": {
+      "N": 257,
+      "P": 64,
+      "features": 32
+    },
+    "individual_history_map_ranks": [
+      193,
+      193,
+      193
+    ],
+    "joint_ranks_1_2_3_queries": [
+      193,
+      255,
+      257
+    ],
+    "fixed_map_rank_optimal_factorization_max_abs": 1.4432899320127035e-15,
+    "scope": "Future features held fixed for each map. These random witnesses are not measured Wan state ranks or evidence that real model history is uncompressible."
+  }
+}

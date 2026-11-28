@@ -1,0 +1,64 @@
+{
+  "status": "CPU_ALGEBRA_VERIFIED",
+  "actual_CAL": {
+    "high": {
+      "sha256": "8d6f7651ce40d2f6f389ba7f981c573a84b2b3d3d9c8aa1fbeae95d9914ef864",
+      "reader_shape": [
+        128,
+        31
+      ],
+      "rank": 31,
+      "condition": 1.0678616763254305,
+      "normalized_feature_spectrum_top31_fraction": 0.5417090783228325
+    },
+    "low": {
+      "sha256": "04c15a63f6e4ffd34b61714a1be79d2651c195d104e4007aa5c8c22e2dd356e1",
+      "reader_shape": [
+        128,
+        31
+      ],
+      "rank": 31,
+      "condition": 1.0659209894475479,
+      "normalized_feature_spectrum_top31_fraction": 0.5317381937925006
+    }
+  },
+  "pv_sha256": "cfc5a6febf99b37f04ba2989038546bda0d404d9e15db659793bbc88125ca3ff",
+  "synthetic_graph": {
+    "rows": 257,
+    "heads": 2,
+    "head_dim": 128,
+    "probes": 64,
+    "FFN_width": 640,
+    "FFN_selected": 128,
+    "FFN_modes": 16,
+    "nonprobe_tiles": 3
+  },
+  "maximum_absolute_errors": {
+    "attention_coefficients": 0.0,
+    "FFN_probe_input": 0.0,
+    "FFN_gain": 0.0,
+    "FFN_coefficients": 0.0,
+    "whole_block_output": 0.0,
+    "LayerNorm_then_linear_deferred_identity": 5.773159728050814e-15
+  },
+  "production_shape_accounting": {
+    "N": 31668,
+    "D": 5120,
+    "H": 40,
+    "L": 40,
+    "one_full_BF16_ND_GiB": 0.30200958251953125,
+    "one_full_FP32_ND_GiB": 0.6040191650390625,
+    "tile8192_FP32_ND_GiB": 0.15625,
+    "one_full_FP32_attention_design_GiB": 0.15100479125976562,
+    "persistent_main_fields_GiB": 45.39581537246704
+  },
+  "evidence_scope": [
+    "real CAL matrices match frozen high and low hashes",
+    "all other weights/hidden states are synthetic float64",
+    "no production BF16 bitwise, quality, GPU or timing claim",
+    "streaming changes materialization, not persistent historical payload",
+    "row tiling may change GEMM kernel/reduction choices; speed must not be inferred from bytes alone"
+  ],
+  "new_gpu_jobs": 0,
+  "model_generations": 0
+}

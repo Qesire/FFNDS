@@ -1,8 +1,10 @@
 # Centered + wide8192：方法冻结与中等规模评测
 
+**11 月 28 日当前方向：先推导计算图与状态表示的极限。** 根据用户最新要求，现阶段先分析可合并的锚点计算、P64 前置的整块流式调度、FFN 因子化缓存及 attention 联合历史读出；本轮完成真实源码/CAL 核查与 CPU 数学见证。[完整推导及复算资产](../../20261128/graph_state_theory/THEORY_AND_GRAPH_REFORMULATION.md)。本轮未启动下面先前提出的 INT8 组合或 attention-only 消融，既有评分、计时和冻结方法保持其原证据身份。
+
 **11 月 28 日评分复核与竞争力分析已完成。** 50 源、150 条三臂视频的七维分数及 108 次正式请求已独立复算。完整方法相对同四步 Dense 的 warm 完整请求加速 **1.1672×（95% CI 1.1352–1.1995）**，GPU 加速 **1.2293×**。相对 FFN-only，完整请求再加速 **1.1364×**，七项质量全部通过预设非劣界，主体一致性和 I2V 背景保持提高。[新评分、加速与缓存竞争力分析](analysis_20261128/COMPETITIVENESS_REVIEW.md)。
 
-相对 Dense，五项质量通过非劣，美学和 MUSIQ 保留区间跨界的判定；本轮用户对实际表现给出正面总体反馈。当前完整 BF16 版本的同进程峰值为 **64.20 GiB**，FFN 主要缓存为 **30.20 GiB**，low attention 主要字段为 **15.19 GiB**。下一步依据资源分布验证已有 FFN INT8 组合，并用 attention-only 臂测清联合收益。[独立质量复算](analysis_20261128/QUALITY_ANALYSIS.md) · [计时和缓存复算](analysis_20261128/SPEED_AND_MEMORY_ANALYSIS.md) · [外部方法来源核对](analysis_20261128/EXTERNAL_COMPETITIVENESS.md)。
+相对 Dense，五项质量通过非劣，美学和 MUSIQ 保留区间跨界的判定；本轮用户对实际表现给出正面总体反馈。当前完整 BF16 版本的同进程峰值为 **64.20 GiB**，FFN 主要缓存为 **30.20 GiB**，low attention 主要字段为 **15.19 GiB**。此前依据资源分布提出 FFN INT8 组合与 attention-only 对照；当前先推进本页顶部所述理论分析。[独立质量复算](analysis_20261128/QUALITY_ANALYSIS.md) · [计时和缓存复算](analysis_20261128/SPEED_AND_MEMORY_ANALYSIS.md) · [外部方法来源核对](analysis_20261128/EXTERNAL_COMPETITIVENESS.md)。
 
 以下保留 11 月 27 日结果摘要、冻结设计及运行入口；实际最新判断以本页顶部与 11 月 28 日分析为准。
 
