@@ -1,0 +1,579 @@
+{
+  "schema": "ffnds_graph_state_implementation_v1",
+  "implementation_id": "ffnds_graph_state_optim_v1",
+  "date": "2026-11-28",
+  "timezone": "Etc/GMT-8",
+  "author": "ChatGPT / GPT-6 Astra Pro with independent attention, FFN and block implementation review",
+  "user_request": "明确区分并分别实现尽可能的优化",
+  "repository": "Qesire/FFNDS",
+  "branch": "research/attention-wide8192-plan-20261124",
+  "implementation_parent_commit": "91732be3af6b7645f8e3f19f4286b613fb1235b9",
+  "latest_model_evidence_commit": "a1eb64d63910b4d90b94ea4c641ef461c83d0d92",
+  "latest_model_evidence_job": 206224,
+  "status": "IMPLEMENTED_CPU_TESTED_SM80_COMPILED",
+  "default_model_method": "frozen_centered_attention_plus_BF16_wide8192",
+  "default_model_method_promoted": false,
+  "generation_geometry": {
+    "rows": 31668,
+    "heads": 40,
+    "head_width": 128,
+    "hidden_width": 5120,
+    "selected_ffn_channels": 2560,
+    "layers": 40,
+    "steps": 4,
+    "expert_order": [
+      "high",
+      "high",
+      "low",
+      "low"
+    ],
+    "probe_rows": 64,
+    "query_route_block": 128,
+    "top_key_blocks": 31,
+    "tile_rows": 8192
+  },
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.15.0+cpu",
+    "triton": "3.9.0",
+    "cuda_available": false
+  },
+  "validation": [
+    {
+      "file": "evidence/CPU_TEST_RESULTS.xml",
+      "tests": 51,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 50
+    },
+    {
+      "file": "evidence/TRITON_INTERPRETER_RESULTS.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1
+    }
+  ],
+  "kernel_compile": {
+    "file": "evidence/ATTENTION_KERNEL_COMPILE.json",
+    "count": 2,
+    "target": "sm80",
+    "input_dtype": "bfloat16",
+    "hardware_executed": false
+  },
+  "cuda_status": {
+    "file": "evidence/ATTENTION_CUDA_STATUS.json",
+    "status": "PENDING_CUDA",
+    "exit_code": 2
+  },
+  "new_model_forwards": 0,
+  "new_video_generations": 0,
+  "new_scoring_runs": 0,
+  "new_gpu_timing_runs": 0,
+  "new_gpu_jobs": 0,
+  "production_assets_compiled": false,
+  "production_quality_status": "UNMEASURED_FOR_NEW_CONFIGURATIONS",
+  "production_speed_status": "UNMEASURED_FOR_NEW_CONFIGURATIONS",
+  "production_peak_status": "UNMEASURED_FOR_NEW_CONFIGURATIONS",
+  "profiles": [
+    {
+      "path": "tools/ffnds_optim/profiles/00_frozen.json",
+      "configuration": {
+        "name": "frozen",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "native",
+        "attention_streaming": false,
+        "block_streaming": false,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "e67672e9a040687a53f14fe059354dbd21e7d224fd9acefb494c7193b2e33812",
+      "numerical_semantics": [
+        {
+          "option": "frozen",
+          "kind": "frozen_reference",
+          "scope": "existing centered plus wide8192"
+        }
+      ],
+      "needs_external_assets": false
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/01_staged_ffn.json",
+      "configuration": {
+        "name": "staged_ffn",
+        "tile_rows": 8192,
+        "ffn_staged": true,
+        "anchor_partition": "native",
+        "attention_streaming": false,
+        "block_streaming": false,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "58712d12702843f64253c86399534a2be74f7062540fbee8ddcb7ba125062331",
+      "numerical_semantics": [
+        {
+          "option": "ffn_staged",
+          "kind": "preserved_operation_order",
+          "scope": "original tile, difference/LUT/base/readout casts"
+        },
+        {
+          "option": "anchor_direct",
+          "kind": "preserved_operation_order",
+          "scope": "typed native addmm writes y0 directly; native fallback counted"
+        }
+      ],
+      "needs_external_assets": false
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/02_partition_anchor.json",
+      "configuration": {
+        "name": "partition_anchor",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "triton",
+        "attention_streaming": false,
+        "block_streaming": false,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "5e7bc8f9a90603e5083e44e75fff349fca965d14463f1e062107834a5e8410bf",
+      "numerical_semantics": [
+        {
+          "option": "anchor_partition",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        }
+      ],
+      "needs_external_assets": false
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/03_attention_stream.json",
+      "configuration": {
+        "name": "attention_stream",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "native",
+        "attention_streaming": true,
+        "block_streaming": false,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "5b7af6bae47b55b66fa3282608b43421530005ba9e985e57f3dd77be053a7c8d",
+      "numerical_semantics": [
+        {
+          "option": "attention_streaming",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        }
+      ],
+      "needs_external_assets": false
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/04_block_stream.json",
+      "configuration": {
+        "name": "block_stream",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "native",
+        "attention_streaming": false,
+        "block_streaming": true,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "130b9f25e7e2c58cee21f5f24d62deee3556b9ac778d4d457f6a01b2eb8c9032",
+      "numerical_semantics": [
+        {
+          "option": "anchor_direct",
+          "kind": "preserved_operation_order",
+          "scope": "typed native addmm writes y0 directly; native fallback counted"
+        },
+        {
+          "option": "block_streaming",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        }
+      ],
+      "needs_external_assets": false
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/05_high_output_fold.json",
+      "configuration": {
+        "name": "high_output_fold",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "native",
+        "attention_streaming": false,
+        "block_streaming": true,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": true,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "6a7fd59c6fb2a45bd684015051e739c71ecf9f830ddd52767329f11b4f85533a",
+      "numerical_semantics": [
+        {
+          "option": "anchor_direct",
+          "kind": "preserved_operation_order",
+          "scope": "typed native addmm writes y0 directly; native fallback counted"
+        },
+        {
+          "option": "block_streaming",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        },
+        {
+          "option": "high_output_fold",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        }
+      ],
+      "needs_external_assets": false
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/06_projection_precompose.json",
+      "configuration": {
+        "name": "projection_precompose",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "native",
+        "attention_streaming": false,
+        "block_streaming": false,
+        "selected_backend": "triton",
+        "projection_precompose": true,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "4b5a78dfe11c6246b08220ca7d5ba7bd973be682d9a86811a6bae6f96677c799",
+      "numerical_semantics": [
+        {
+          "option": "projection_precompose",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        }
+      ],
+      "needs_external_assets": false
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/07_ffn_factor.template.json",
+      "configuration": {
+        "name": "explicit_ffn_factor",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "native",
+        "attention_streaming": false,
+        "block_streaming": false,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": "/REPLACE_WITH_COMPILED_FFN_FACTORS",
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "cd10a113162fa640b1cb1d907c486390555a229bb4494e05e3cbd157d062309c",
+      "numerical_semantics": [
+        {
+          "option": "anchor_direct",
+          "kind": "preserved_operation_order",
+          "scope": "typed native addmm writes y0 directly; native fallback counted"
+        },
+        {
+          "option": "ffn_factor",
+          "kind": "controlled_approximation",
+          "scope": "explicit external factors/bases and unchanged native P64 teacher"
+        }
+      ],
+      "needs_external_assets": true
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/08_attention_joint.template.json",
+      "configuration": {
+        "name": "explicit_attention_joint",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "native",
+        "attention_streaming": false,
+        "block_streaming": false,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": "/REPLACE_WITH_COMPILED_ATTENTION_BASES",
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "ad347cff9e5c1be91bfad9c0e4b32ae4d2f9b219f31835b04ee78425c1559a7a",
+      "numerical_semantics": [
+        {
+          "option": "attention_joint_history",
+          "kind": "controlled_approximation",
+          "scope": "explicit external factors/bases and unchanged native P64 teacher"
+        }
+      ],
+      "needs_external_assets": true
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/09_combined_graph.json",
+      "configuration": {
+        "name": "combined_graph",
+        "tile_rows": 8192,
+        "ffn_staged": true,
+        "anchor_partition": "triton",
+        "attention_streaming": false,
+        "block_streaming": true,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "00a788c2026bed84554dbc52a91c047c5dbe71bcd4319009120d63e196e2d8ca",
+      "numerical_semantics": [
+        {
+          "option": "ffn_staged",
+          "kind": "preserved_operation_order",
+          "scope": "original tile, difference/LUT/base/readout casts"
+        },
+        {
+          "option": "anchor_direct",
+          "kind": "preserved_operation_order",
+          "scope": "typed native addmm writes y0 directly; native fallback counted"
+        },
+        {
+          "option": "anchor_partition",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        },
+        {
+          "option": "block_streaming",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        }
+      ],
+      "needs_external_assets": false
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/10_combined_state.template.json",
+      "configuration": {
+        "name": "combined_graph_and_explicit_state",
+        "tile_rows": 8192,
+        "ffn_staged": true,
+        "anchor_partition": "triton",
+        "attention_streaming": false,
+        "block_streaming": true,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": "/REPLACE_WITH_COMPILED_ATTENTION_BASES",
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": "/REPLACE_WITH_COMPILED_FFN_FACTORS",
+        "ffn_gauge_dir": null,
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "4848564342dfd66a3b533054468f3392d42d2bb26a4a2beec4ed6f7cc459a505",
+      "numerical_semantics": [
+        {
+          "option": "ffn_staged",
+          "kind": "preserved_operation_order",
+          "scope": "original tile, difference/LUT/base/readout casts"
+        },
+        {
+          "option": "anchor_direct",
+          "kind": "preserved_operation_order",
+          "scope": "typed native addmm writes y0 directly; native fallback counted"
+        },
+        {
+          "option": "anchor_partition",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        },
+        {
+          "option": "block_streaming",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        },
+        {
+          "option": "ffn_factor",
+          "kind": "controlled_approximation",
+          "scope": "explicit external factors/bases and unchanged native P64 teacher"
+        },
+        {
+          "option": "attention_joint_history",
+          "kind": "controlled_approximation",
+          "scope": "explicit external factors/bases and unchanged native P64 teacher"
+        }
+      ],
+      "needs_external_assets": true
+    },
+    {
+      "path": "tools/ffnds_optim/profiles/11_ffn_gauge.template.json",
+      "configuration": {
+        "name": "explicit_ffn_gauge",
+        "tile_rows": 8192,
+        "ffn_staged": false,
+        "anchor_partition": "native",
+        "attention_streaming": false,
+        "block_streaming": false,
+        "selected_backend": "triton",
+        "projection_precompose": false,
+        "high_output_fold": false,
+        "attention_basis_dir": null,
+        "attention_code_dtype": "bfloat16",
+        "joint_readout": "direct",
+        "ffn_factor_dir": null,
+        "ffn_gauge_dir": "/REPLACE_WITH_FIXED_GAUGE_ASSETS",
+        "ffn_projection_dtype": "bfloat16",
+        "ffn_backend": "native",
+        "preserve_ffn_probe_u": true,
+        "anchor_direct": true
+      },
+      "configuration_sha256": "20af458d7f68699380a7f32d023d6c5d58ae7b620ba69e86636a149a58955087",
+      "numerical_semantics": [
+        {
+          "option": "anchor_direct",
+          "kind": "preserved_operation_order",
+          "scope": "typed native addmm writes y0 directly; native fallback counted"
+        },
+        {
+          "option": "ffn_gauge",
+          "kind": "real_arithmetic_equivalent",
+          "scope": "floating-point operation shapes/order may change"
+        }
+      ],
+      "needs_external_assets": true
+    }
+  ],
+  "component_only": [
+    {
+      "component": "DeferredLayerNormLinear",
+      "status": "IMPLEMENTED_CPU_TESTED",
+      "whole_wan_graph_wired": false
+    },
+    {
+      "component": "recovery_aware_factor_loss",
+      "status": "IMPLEMENTED_DIFFERENTIABLE_CPU_TESTED",
+      "production_recovery_aware_fit_performed": false
+    }
+  ],
+  "factor_initializer": {
+    "method": "weight_frobenius_svd_initializer",
+    "production_rank_selected": false,
+    "online_svd": false
+  },
+  "attention_basis_compiler": {
+    "method": "paired_action_Stiefel_QR_descent",
+    "uses_paired_states_and_readers": true,
+    "output_projection_cross_head_terms_supported": true,
+    "production_basis_fit_performed": false,
+    "online_code_quantization_in_objective": false
+  },
+  "state_allocation_changes": [
+    "FFN factor mode does not allocate full u0 and does not prepare a full GPU A0; default preserves exact u0P",
+    "Attention joint mode releases full C/A and original cache tuple; retains code, basis, rho, exact probe fields",
+    "Block streaming reduces intermediate lifetime while retaining full self K/V and block input/output"
+  ],
+  "numerical_limits": [
+    "CPU equality of staged FFN does not establish bitwise CUDA whole-model equality",
+    "Real-arithmetic graph identities can change reduction order, GEMM shape and BF16 intermediate quantization",
+    "FP32 Triton interpreter validates actual kernel logic; BF16 interpreter create_dot issue is recorded separately",
+    "Two BF16 kernels compiled to sm80 PTX/cubin; no hardware execution or performance measurement",
+    "Previous 50-source quality and 108-request timing remain attributed to the frozen method"
+  ],
+  "source_identity_file": "evidence/SOURCE_IDENTITIES.json",
+  "skills_applied": [
+    "operator-tensor-analysis",
+    "scientific-research-skillkit:research-implementation"
+  ],
+  "report": "IMPLEMENTATION_RECORD.md",
+  "package_readme": "../../../tools/ffnds_optim/README.md"
+}

@@ -1,0 +1,63 @@
+{
+  "status": "CPU_TORCH_IMPLEMENTATION_TESTED",
+  "torch_version": "2.15.0+cpu",
+  "new_GPU_jobs": 0,
+  "production_cuda_executed": false,
+  "new_model_forwards": 0,
+  "tests": 12,
+  "command": "PYTHONPATH=/tmp/ffnds_r21_python:round21_impl/repo/tools OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m pytest -q round21_impl/repo/tools/ffnds_optim/tests/test_ffn.py",
+  "exit_code": 0,
+  "duration_s": 2.36,
+  "factor_examples_with_exact_probe_sidecar": {
+    "512": {
+      "anchor_hit_old_flops": 1660315238400,
+      "anchor_hit_factor_flops": 503283056640,
+      "whole_video_net_saved_flops": 92562574540800,
+      "resident_history_bytes": 20861224960,
+      "compute_break_even_rank": 1701.3333333333333,
+      "scope": "major matrix arithmetic; includes anchor projections; excludes pointwise"
+    },
+    "1024": {
+      "anchor_hit_old_flops": 1660315238400,
+      "anchor_hit_factor_flops": 1001377628160,
+      "whole_video_net_saved_flops": 52715008819200,
+      "resident_history_bytes": 22158346240,
+      "compute_break_even_rank": 1701.3333333333333,
+      "scope": "major matrix arithmetic; includes anchor projections; excludes pointwise"
+    },
+    "1536": {
+      "anchor_hit_old_flops": 1660315238400,
+      "anchor_hit_factor_flops": 1499472199680,
+      "whole_video_net_saved_flops": 12867443097600,
+      "resident_history_bytes": 23455467520,
+      "compute_break_even_rank": 1701.3333333333333,
+      "scope": "major matrix arithmetic; includes anchor projections; excludes pointwise"
+    },
+    "2048": {
+      "anchor_hit_old_flops": 1660315238400,
+      "anchor_hit_factor_flops": 1997566771200,
+      "whole_video_net_saved_flops": -26980122624000,
+      "resident_history_bytes": 24752588800,
+      "compute_break_even_rank": 1701.3333333333333,
+      "scope": "major matrix arithmetic; includes anchor projections; excludes pointwise"
+    }
+  },
+  "implemented": [
+    "staged_original_readout",
+    "explicit_paired_gauge",
+    "offline_A0_factor_compiler",
+    "projected_anchor_state",
+    "native_Wan_port_with_no_old_ResidentJoint_allocation",
+    "guarded_native_anchor_output_direct_write",
+    "shared_HHLL_state_lifecycle",
+    "offline_single_pack_or_CAL_manifest_factor_CLI",
+    "differentiable_recovery_aware_factor_objective"
+  ],
+  "preserved": "native difference/LUT/base CUDA kernel calls and original pointwise cast order in full-cache mode",
+  "unmeasured": [
+    "native CUDA bitwise whole trajectory",
+    "GPU latency",
+    "GPU peak",
+    "Wan quality for factor/gauge"
+  ]
+}
