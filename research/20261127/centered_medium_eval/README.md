@@ -1,5 +1,7 @@
 # Centered + wide8192：方法冻结与中等规模评测
 
+**11 月 28 日五源实机后的判断：新增图优化未取得加速，压缩产生明确质量代价。** 组合图完整请求速度比0.816×；组合状态0.794×，峰值64.19→40.56 GiB，成像／美学均分下降6.435／3.334个百分点。原冻结centered + wide8192继续作为已验证参照。[完整重新判断与逐步账本](../../20261128/graph_state_implementation/five_source_pilot/review/REASSESSMENT.md)。
+
 **11 月 28 日：计算图与缓存优化已分别实现。** 依据用户新要求，执行优化、实数等价图重写及显式压缩已拆为独立路径，提供 12 个配置和实际四步生成器适配入口。本地 50 项 CPU 测试、1 项独立 Triton FP32 解释器测试通过，两个 BF16 内核完成 A100 sm80 编译；本轮未运行新的模型生成、评分或 GPU 计时。[实现与证据](../../20261128/graph_state_implementation/IMPLEMENTATION_RECORD.md) · [代码、配置及运行说明](../../../tools/ffnds_optim/README.md)。原冻结方法仍是下述评分与加速结果的对象。
 
 **11 月 28 日上一轮：计算图与状态表示推导。** 根据用户最新要求，现阶段先分析可合并的锚点计算、P64 前置的整块流式调度、FFN 因子化缓存及 attention 联合历史读出；本轮完成真实源码/CAL 核查与 CPU 数学见证。[完整推导及复算资产](../../20261128/graph_state_theory/THEORY_AND_GRAPH_REFORMULATION.md)。本轮未启动下面先前提出的 INT8 组合或 attention-only 消融，既有评分、计时和冻结方法保持其原证据身份。

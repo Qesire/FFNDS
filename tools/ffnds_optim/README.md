@@ -1,8 +1,10 @@
 # wide8192：分别启用的计算图与缓存优化
 
+**A100 实机更新（2026-11-28）：** 五源筛查中，组合图耗时增加22.55%；组合状态峰值降低36.80%，同时耗时增加25.95%并有明确质量分数损失。01分阶段FFN保持5/5轨迹一致、速度持平。各配置保留为研究实现，当前不晋升主方法。[实测后的重新判断](../../research/20261128/graph_state_implementation/five_source_pilot/review/REASSESSMENT.md)。
+
 2026-11-28。该包将[计算图与状态推导](../../research/20261128/graph_state_theory/THEORY_AND_GRAPH_REFORMULATION.md)落实为独立组件、Triton 内核、资产编译器和现有四步生成器的适配入口。默认参照是已冻结的 **centered attention + BF16 wide8192 FFN**；优化由 JSON 配置显式选择。
 
-**当前执行证据：50 项 CPU 测试通过；单独运行的 Triton FP32 解释器测试通过；两个 BF16 内核完成 A100 sm80 离线编译。** 当前环境没有 CUDA 设备，本轮没有模型前向、视频生成、评分或 GPU 计时。完整记录与核验文件见[实现记录](../../research/20261128/graph_state_implementation/IMPLEMENTATION_RECORD.md)。
+**初次实现阶段执行证据：50 项 CPU 测试通过；单独运行的 Triton FP32 解释器测试通过；两个 BF16 内核完成 A100 sm80 离线编译。** 初次实现环境没有 CUDA 设备；后续学校实机结果见本页顶部。完整记录与核验文件见[实现记录](../../research/20261128/graph_state_implementation/IMPLEMENTATION_RECORD.md)。
 
 ## 1. 三种数值身份
 
