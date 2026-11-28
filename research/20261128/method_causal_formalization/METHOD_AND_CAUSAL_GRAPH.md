@@ -206,25 +206,25 @@ self-attention之前还有LN₁、时间调制、Q/K/V投影、QK norm与原位�
 
 ```mermaid
 flowchart TD
-    X[当前层输入与调制] --> KV[全位置 K/V]
-    X --> QP[P64 的 Q]
-    KV --> AP[P64 原生全键 attention]
+    X["当前层输入与调制"] --> KV["全位置 K/V"]
+    X --> QP["P64 的 Q"]
+    KV --> AP["P64 原生全键 attention"]
     QP --> AP
-    AP --> TP[P64 输出投影、残差、cross、归一化]
-    TP --> FP[P64 原生 FFN 与 FFN 拟合]
-    AP --> AF[attention 拟合]
-    X --> S[P64 selected 与特征]
+    AP --> TP["P64 输出投影、残差、cross、归一化"]
+    TP --> FP["P64 原生 FFN 与 FFN 拟合"]
+    AP --> AF["attention 拟合"]
+    X --> S["P64 selected 与特征"]
     QP --> S
     KV --> S
     S --> AF
-    KV --> M[Low 当前全 V 矩]
+    KV --> M["Low 当前全 V 矩"]
     M --> AF
-    M --> NP[非 P 的 Q、selected、恢复与块尾]
+    M --> NP["非 P 的 Q、selected、恢复与块尾"]
     X --> NP
     KV --> NP
     AF --> NP
     FP --> NP
-    NP --> Y[全部行组成下一层输入]
+    NP --> Y["全部行组成下一层输入"]
     FP --> Y
 ```
 
@@ -255,18 +255,18 @@ P\widehat{\mathcal B}(X)=P\mathcal B(X).
 
 ```mermaid
 flowchart TD
-    Z0[初始 latent] --> S0[步0 / High：40层原生并建锚]
-    S0 --> Z1[调度更新后的 latent 1]
-    S0 --> MH[High：FFN状态与attention路由]
-    Z1 --> S1[步1 / High：40层命中]
+    Z0["初始 latent"] --> S0["步0 / High：40层原生并建锚"]
+    S0 --> Z1["调度更新后的 latent 1"]
+    S0 --> MH["High：FFN状态与attention路由"]
+    Z1 --> S1["步1 / High：40层命中"]
     MH --> S1
-    S1 --> Z2[调度更新后的 latent 2]
-    Z2 --> S2[步2 / Low：40层原生并建锚]
-    S2 --> Z3[调度更新后的 latent 3]
-    S2 --> ML[Low：FFN状态及rho、C、A、路由]
-    Z3 --> S3[步3 / Low：40层命中]
+    S1 --> Z2["调度更新后的 latent 2"]
+    Z2 --> S2["步2 / Low：40层原生并建锚"]
+    S2 --> Z3["调度更新后的 latent 3"]
+    S2 --> ML["Low：FFN状态及rho、C、A、路由"]
+    Z3 --> S3["步3 / Low：40层命中"]
     ML --> S3
-    S3 --> Z4[末次调度更新与视频解码]
+    S3 --> Z4["末次调度更新与视频解码"]
 ```
 
 本绑定的Wan22StepDistillScheduler没有UniPC多步历史。实际代码先转FP32，依次算 z_s−σ_s v_s，再于非末步加σ_{s+1}v_s，最后cast回latent原dtype；约定σ₄=0时，实数参考可统一写 z_{s+1}=z_s−h_s v_s，其中h_s=σ_s−σ_{s+1}。程序末步实际没有第二次加法，合并实数公式不意味着可以改变浮点执行顺序。高低专家切换不额外重加噪。
