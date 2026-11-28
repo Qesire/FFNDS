@@ -15,6 +15,7 @@ import eval_anchor10 as evaluator
 ARMS=("00_frozen","01_staged_ffn","02_partition_anchor","03_attention_stream","04_block_stream","05_high_output_fold",
       "06_projection_precompose","07_ffn_factor","08_attention_joint","09_combined_graph","10_combined_state","11_ffn_gauge")
 ASSET_ARMS={"07_ffn_factor","08_attention_joint","10_combined_state","11_ffn_gauge"}
+REPAIRED_ARMS={"04_block_stream","05_high_output_fold","09_combined_graph"}
 
 
 def digest(p):
@@ -80,7 +81,13 @@ def run(args):
     geometry=(832,464,81,16)
     base_clips={}
     for arm in ARMS:
-        directory=(args.asset if arm in ASSET_ARMS else args.core)/"jobs"/arm
+        if arm in ASSET_ARMS:
+            stage=args.asset
+        elif args.repaired is not None and arm in REPAIRED_ARMS:
+            stage=args.repaired
+        else:
+            stage=args.core
+        directory=stage/"jobs"/arm
         candidate=checked(directory,"candidate")
         if candidate is None:
             missing.append(arm)
@@ -138,6 +145,7 @@ if __name__=="__main__":
     p=argparse.ArgumentParser(description=__doc__)
     for k in ("core","asset","previous-binding","out"):
         p.add_argument("--"+k,required=True,type=Path)
+    p.add_argument("--repaired",type=Path)
     p.add_argument("--no-scores",action="store_true")
     args=p.parse_args()
     args.out.mkdir(parents=True,exist_ok=True)

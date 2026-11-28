@@ -118,11 +118,16 @@ def make_fixture(low=False):
     fields[2] += .2
     fields[5] += .2
     angles = torch.arange(n, dtype=dtype)[:, None] * torch.arange(1, dim//2+1, dtype=dtype)[None] * .07
+
+    def native_modulate(z, scale, shift):
+        assert scale.shape == shift.shape == (1, len(z), width)
+        return z.unsqueeze(0)*(1+scale)+shift
+
     model = SimpleNamespace(config={"seq_parallel": False, "use_image_encoder": False},
         scheduler=SimpleNamespace(step_index=3 if low else 1), has_post_adapter=False,
         num_heads=heads, head_dim=dim, infer_dtype=dtype, sensitive_layer_dtype=dtype,
         pre_process=lambda modulation, embed: fields,
-        modulate_func=lambda z, scale, shift: z*(1+scale.squeeze())+shift.squeeze(),
+        modulate_func=native_modulate,
         cos_sin=torch.cat((angles.cos(), angles.sin()), -1), apply_rope_func=rotate_inplace,
         cross_attn_cu_seqlens_q=torch.tensor([0,n], dtype=torch.int32),
         cross_attn_cu_seqlens_kv=torch.tensor([0,23], dtype=torch.int32))

@@ -129,6 +129,10 @@ class WanBlockOperators:
             bias = shift * getattr(phase, "smooth_" + norm_name + "_bias").tensor
             value.mul_(weight).add_(bias)
         else:
+            # The native fused op expects [B,1,C] or [B,L,C] modulation.
+            # Gates and smooth-norm weights still use the trailing-width layout.
+            scale = scale.reshape(1, -1, self.width)
+            shift = shift.reshape(1, -1, self.width)
             value = model.modulate_func(value, scale=scale, shift=shift).reshape(len(ids), self.width)
         if model.sensitive_layer_dtype != model.infer_dtype:
             value = value.to(model.infer_dtype)
